@@ -1,0 +1,32 @@
+{
+  "name": "zeph-typesetting-tool",
+  "version": "1.0.0",
+  "description": "Drop-a-docx, get-a-typeset-PDF engine + the zeph proofreading-workflow tool used to typeset ZEPH's books.",
+  "type": "commonjs",
+  "scripts": {
+    "typeset:docx": "node src/typeset/typeset-docx.js",
+    "zeph": "node --experimental-sqlite tools/zeph.js",
+    "report": "node --experimental-sqlite tools/gen-corrections-log.js"
+  },
+  "keywords": [
+    "typesetting",
+    "typst",
+    "docx",
+    "textbook",
+    "education",
+    "zambia"
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@myriaddreamin/typst-ts-node-compiler": "^0.7.0",
+    "@myriaddreamin/typst-ts-node-compiler-win32-x64-msvc": "^0.7.0",
+    "canvas": "^3.2.3",
+    "docx": "^9.7.1",
+    "jszip": "^3.10.1",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "pdfjs-dist": "^4.0.379"
+  }
+}

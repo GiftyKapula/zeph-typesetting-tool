@@ -1,0 +1,48 @@
+# --- secrets ---
+.env
+*.key
+
+# --- dependencies ---
+node_modules/
+
+# --- zeph workflow db (local; commit books.json via `npm run zeph -- export`) ---
+zeph.db
+zeph.db-wal
+zeph.db-shm
+
+# --- generated output (rebuild with `npm run typeset:docx`) ---
+output/*
+!output/.gitkeep
+*.docx
+*.doc
+*.pdf
+
+# --- reference inputs (syllabus + sample books): not committed (size/copyright) ---
+reference/*
+!reference/README.md
+
+# --- local proofread returns + regenerable corrections logs (not tracked) ---
+proofread-books/*
+!proofread-books/README.md
+
+# --- docx drop folders for `npm run typeset:docx`: keep only the README ---
+input/*
+!input/README.md
+books-to-typeset/*
+!books-to-typeset/README.md
+# editorial overrides are version-controlled config (not the manuscript itself);
+# allow them at any depth (descend into sub-folders, but keep .docx ignored)
+!books-to-typeset/*/
+!books-to-typeset/*.overrides.json
+!books-to-typeset/**/*.overrides.json
+
+# --- typeset scratch ---
+src/typeset/_last.typ
+src/typeset/_last-docx.typ
+
+# --- OS / editor cruft ---
+.~lock.*#
+~$*
+Thumbs.db
+.DS_Store
+*.tmp
