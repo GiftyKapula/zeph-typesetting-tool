@@ -16,6 +16,9 @@ output/*
 *.docx
 *.doc
 *.pdf
+# output-examples/ is the deliberate exception: two finished books, committed
+# as a reference (see its README) — not something to rebuild and re-ignore.
+!output-examples/*.pdf
 
 # --- reference inputs (syllabus + sample books): not committed (size/copyright) ---
 reference/*
