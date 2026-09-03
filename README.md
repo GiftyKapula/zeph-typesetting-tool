@@ -9,6 +9,9 @@ print-ready PDF (running heads, decorated footers, a real table of contents,
 themed colour palettes, boxed activities/exercises/assessments) — using
 **Typst**, a real typesetting engine, not a PDF export of the Word file.
 
+Want to see a finished result before you typeset your own first book? See
+**`output-examples/`** — two real books built with this exact engine.
+
 ---
 
 ## Quick start
@@ -93,6 +96,7 @@ before guessing why something renders oddly, fix engine bugs in the engine
 ├── input/                       # drop a single .docx here (git-ignored, see its README)
 ├── proofread-books/             # drop annotated returns here (git-ignored, see its README)
 ├── output/                      # generated typeset PDFs (git-ignored)
+├── output-examples/             # two finished books, committed as a reference (see its README)
 ├── zeph.db                      # local workflow database (git-ignored)
 └── reference/                   # your own syllabus/reference PDFs (git-ignored)
 ```
