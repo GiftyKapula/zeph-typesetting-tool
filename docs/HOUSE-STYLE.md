@@ -80,6 +80,9 @@ off, so a change only touches the books that opt in. Keys:
 | `authors` | override the author list (e.g. split "A and B" into two so the cover reads "AUTHORS") |
 | `images` | swap a source image by media filename (`{ "image12.png": { src, w } }`) |
 | `setCaption` | set an image's caption, matched by `near` (existing caption) or `file` (media name) |
+| `theme` | force a theme by name, bypassing `autoTheme()`'s file-name guess (a TG whose title doesn't match its sibling LB's pattern, say) |
+| `synthesiseCover` | force the engine to build a fresh cover from title/subject/booktype/author even when a cover-ish page was detected (its line shapes didn't match what the theme expects) |
+| `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey |
 
 **Text (whole-block)**
 
@@ -90,7 +93,14 @@ off, so a change only touches the books that opt in. Keys:
 | `replaceExact` | like `replace` but the block's **whole trimmed text** must equal `find` |
 | `remove` | delete any block containing a substring (trim a section to fit) |
 | `removeRange` | delete blocks from `from` up to (not incl.) `to` — for anchors sharing text |
+| `removeWhereNext` | delete a block matching `find` only when the block right after it matches `next` (disambiguates a repeated heading) |
 | `moveBefore` | lift the block containing `find` and re-insert it before the block containing `before` |
+| `moveSectionBefore` | like `moveBefore` but moves a whole section (heading through to the next heading), not just one block |
+| `replaceBlocks` | replace a run of blocks between two anchors with freshly built ones — blockspecs: `para`/`head`/`h1`/`listitem`/`label`/`vspace`/`raw`/`numbond`; `raw` inserts a pre-built block object verbatim (e.g. grafting a table or list from elsewhere in the same book) |
+| `insertText` | insert a new paragraph/heading before an anchor (lighter-weight than `replaceBlocks` when you're only adding, not replacing) |
+| `mergePara` | glue a paragraph to the one before/after it (`glue: true`) — a sentence Word split across two paragraphs |
+| `splitBefore` | force a paragraph break right before a matched substring (the inverse of `mergePara`) |
+| `boldFind` | bold every run whose exact text matches `find` (e.g. math symbols like `∈`, `≠` that the importer left plain) |
 
 **Text (in-place, preserves run formatting)**
 
@@ -116,6 +126,13 @@ off, so a change only touches the books that opt in. Keys:
 | `activityHeadsBlack` | render every Activity/Exercise heading bold black instead of the accent colour |
 | `pageBreakBefore` | insert a page break before the first block containing the text |
 | `replaceSection` | swap a whole section body (heading → next section) for supplied `items` (markdown-ish: `**bold**`, `*italic*`, `$math$`, `## sub-head`); optional `rename`/`until` |
+| `recase` | change a block's case (`{ startsWith, to: "sentence" }`) — e.g. an ALL-CAPS label the house style wants in sentence case |
+| `setHeading` | force a block to render as a specific heading kind (`as: "label"`, etc.) — for a heading the importer classified wrong |
+| `centrePara` | centre a paragraph (and, inside an exercise, its "lead" part) rather than justify/left-align it — matches a manuscript's own centred diagram or ASCII layout |
+| `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |
+| `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |
+| `tocDepth` | how many heading levels the table of contents lists (default 2: top-level + one sub-level) |
+| `tocUnitsOnly` | `false` also lists front/back matter (Authors, Foreword, References, …) in the TOC, not just units/topics |
 
 **Lists / questions / tables**
 
@@ -129,6 +146,14 @@ off, so a change only touches the books that opt in. Keys:
 **Images:** generate with **gpt-image-2, `quality: "low"`** (cost). Prompt for
 Zambian context, gender balance, disability inclusion, and youth where relevant;
 keep the replacement's own file extension and a like-for-like aspect ratio.
+
+> This table covers the overrides you'll reach for most often. The engine
+> recognises many more (each is a niche, one-off fix added for a specific
+> manuscript problem) — the definitive, always-current list is every
+> `ov.<key>` read in `applyOverrides()` in `src/typeset/typeset-docx.js`
+> (`grep -oE "ov\.[a-zA-Z]+" src/typeset/typeset-docx.js | sort -u`). If a
+> problem you're hitting sounds oddly specific, search there before adding a
+> new primitive — there's a decent chance it already exists.
 
 ## 6. Workflow for scaling (many books)
 

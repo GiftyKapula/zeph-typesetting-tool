@@ -35,6 +35,19 @@ Each book is typeset into its own folder under `output/`. See
 `books-to-typeset/README.md` and `input/README.md` for the drop-folder details,
 and `docs/WORKFLOW.md` for the full `zeph` lifecycle.
 
+**New to this tool?** `docs/GETTING-STARTED.md` is the full walkthrough —
+install, first typeset, fixing issues with overrides, tracking with `zeph`,
+sending proofread rounds, the corrections-log report, and troubleshooting —
+done step by step instead of as a command reference.
+
+**Using Claude Code (or another AI agent) to drive this tool?** `CLAUDE.md` at
+the repo root is loaded automatically and covers the habits that matter when
+an agent is the one running the commands: always look at the actual rendered
+PDF rather than trusting a clean exit code, verify a manuscript's raw XML
+before guessing why something renders oddly, fix engine bugs in the engine
+(not around them in one book's overrides), and don't fabricate provenance data
+(dates, "who reviewed what") that isn't actually recoverable from the repo.
+
 ### Requirements
 - **Node.js** (v18+).
 - **LibreOffice** — used headless to convert `.docx` to PDF and to compute
@@ -50,8 +63,10 @@ and `docs/WORKFLOW.md` for the full `zeph` lifecycle.
 ```
 .
 ├── README.md
+├── CLAUDE.md                  # loaded automatically by Claude Code
 ├── package.json
 ├── docs/                      # read these, in this order:
+│   ├── GETTING-STARTED.md     #   full step-by-step walkthrough (clone -> delivered book)
 │   ├── HOW-IT-WORKS.md        #   plain-English tour of the toolchain
 │   ├── ARCHITECTURE.md        #   how a .docx becomes a typeset PDF
 │   ├── HOUSE-STYLE.md         #   THE authoritative typesetting rules (gospel)
