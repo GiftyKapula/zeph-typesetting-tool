@@ -132,13 +132,26 @@
           // the Form tag on the right, capped by a map-border double rule
           // (a thick green line over a thin ochre line) — unique to this book.
           set text(font: T.font, size: 8pt)
+          // Pin the internal spacing so the header→rule gap is identical on every
+          // page: without this the header inherits the ambient block spacing, which
+          // is airier in the front matter than the body and floats the map-tab
+          // higher (widening the gap between the two rules) on the roman pages
+          // than on the arabic ones. (Same fix as the GRADE 2/3 header above.)
+          set block(spacing: 0pt)
+          set par(spacing: 0pt)
           grid(columns: (auto, 1fr, auto), align: (left + horizon, center, right + horizon),
             box(fill: T.primary, inset: (x: 7pt, y: 2.5pt), radius: 2pt)[
               #text(fill: white, weight: "bold", size: 7.5pt, tracking: 0.5pt)[#upper(T.subject)]],
             [],
             text(style: "italic", weight: "bold", fill: T.primary, size: 8.5pt)[#T.hdrtab])
-          v(-1pt); line(length: 100%, stroke: 1.5pt + T.primary)
-          v(-3.2pt); line(length: 100%, stroke: 0.7pt + T.accent)
+          v(4pt)
+          // A single grid with fixed row heights (like the GRADE 2/3 rule above),
+          // not two v()-trimmed line() blocks: a trim only works by shaving down an
+          // ambient block-spacing gap, which no longer exists now that it's pinned
+          // to 0 above — trimming a zero gap goes negative and inverts the rules.
+          grid(columns: (100%,), rows: (3.2pt, 3.2pt), align: left + horizon,
+            line(length: 100%, stroke: 1.5pt + T.primary),
+            line(length: 100%, stroke: 0.7pt + T.accent))
         } else if serieslike {
           // serif italic masthead (subject) + a short teal rule + amber Form pill
           set text(font: T.font, size: 8.5pt)
