@@ -589,6 +589,34 @@ function clearStrayRed(blocks) {
   walk(blocks);
 }
 
+// blackWhite: true (see the override handling below) greys every colour the THEME
+// itself draws — banners, boxes, rules, headings — but has no visibility into colour an
+// author set directly on a run in the manuscript (a heading or key term hand-highlighted
+// blue, a hyperlink-styled phrase). Left alone those runs print in colour on an otherwise
+// black/grey page, defeating the whole point of the override. Same walk as
+// clearStrayRed, but unconditional: every explicit run colour is cleared, not just red.
+function clearAllInlineColor(blocks) {
+  const fixSegs = (segs) => { if (Array.isArray(segs)) for (const s of segs) if (s) s.c = null; };
+  const walk = (arr) => {
+    if (!Array.isArray(arr)) return;
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      fixSegs(b.segs);
+      fixSegs(b.qseg);
+      fixSegs(b.aseg);
+      if (Array.isArray(b.rows)) {
+        for (const row of b.rows) {
+          if (!Array.isArray(row)) continue;
+          for (const cell of row) if (cell && Array.isArray(cell.segs)) fixSegs(cell.segs);
+        }
+      }
+      if (Array.isArray(b.body)) walk(b.body);
+      if (Array.isArray(b.parts)) walk(b.parts);
+    }
+  };
+  walk(blocks);
+}
+
 // Inside an activity/exercise box, an author frequently leaves the "SAFETY FIRST"
 // notice and each "Step N:" instruction line un-bolded even though they read as
 // mini sub-headers within the box — inconsistent with the boxes where the SAME
@@ -3728,6 +3756,7 @@ function normaliseQuestionMarkBold(blocks) {
   fixStrayBodyH1s(blocks);
   stripEditorialComments(blocks);
   clearStrayRed(blocks);
+  if (ov.blackWhite) clearAllInlineColor(blocks);
   const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [] };
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }

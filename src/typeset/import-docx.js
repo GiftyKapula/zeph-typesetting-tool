@@ -891,22 +891,34 @@ function buildQAParts(blocks) {
   // markerFor only recognises roman formatting from a template of 2+ roman letters — a
   // template captured from a lone "i." would misread as the letter "i" (see markerFor).
   let primaryNum = null, topTpl = hasRomanTop ? "ii." : "1.", subTpl = "a)", topN = 0, subN = 0, auto = 0;
+  // The numId of the manuscript's real top-level question list (set once, from the
+  // first genuine top-level Word-list item) and the topN count it had reached right
+  // before the most recent "Answers:" divider reset it — so a later question
+  // continuing that SAME list can pick its count back up instead of restarting
+  // (see the divider handler and the decimal-top branch below).
+  let questionNumId = null, topNBeforeDivider = 0;
   const stripLit = (s) => s.replace(/^\(/, "");          // "(a)" -> "a)"
   const parts = [];
   // When sub-parts (a, b, c…) appear with NO numbered question above them, the
   // question stem was left unnumbered — an implied Question 1. Promote the
   // preceding lead-in stem to "1." (or, if there is none, emit a bare "1.").
+  // If topN is 0 only because an "Answers:" divider just reset it (a real question
+  // sits above, or we're mid-answer right after the divider), there's nothing to
+  // promote — leave topN untouched so the divider's reset stays intact for the
+  // decimal-top branch to either restore it (same numId) or start fresh (different
+  // numId); only bump it here when we're truly synthesizing a first top item.
   const ensureTopBeforeSub = () => {
     if (topN > 0) return;
-    topN = 1;
     for (let k = parts.length - 1; k >= 0; k--) {
-      if (parts[k].kind === "q") break;                 // a question already sits above
+      if (parts[k].kind === "q") return;                 // a question already sits above
       if (parts[k].kind === "lead" && parts[k].divider) return;  // an answers divider is not a parent question
       if (parts[k].kind === "lead") {
+        topN = 1;
         parts[k] = { kind: "q", q: parts[k].q, qseg: parts[k].qseg, a: "", marker: markerFor(1, topTpl), depth: 0 };
         return;
       }
     }
+    topN = 1;
     parts.push({ kind: "q", q: "", a: "", marker: markerFor(1, topTpl), depth: 0 });
   };
   for (let i = 0; i < blocks.length; i++) {
@@ -934,6 +946,7 @@ function buildQAParts(blocks) {
     // — even when the writer made the divider itself a numbered list item (which
     // would otherwise be counted as a question and drag the answers up to 11, 12…).
     if (ANSWERS_DIVIDER.test(b.plain.trim())) {
+      topNBeforeDivider = topN;
       topN = 0; subN = 0; auto = 0; primaryNum = null;
       parts.push({ kind: "lead", q: b.plain, qseg: b.segs, divider: true });
       continue;
@@ -994,7 +1007,18 @@ function buildQAParts(blocks) {
       const sub = !decimal && (elvl(b) > 0 || hasDecimalTop);
       let marker;
       if (sub) { if (subN === 0) { subTpl = b.marker; ensureTopBeforeSub(); } subN += 1; marker = markerFor(subN, subTpl); }
-      else { topN += 1; subN = 0; if (topN === 1) topTpl = b.marker; marker = markerFor(topN, topTpl); }
+      else {
+        // A real question continuing the SAME Word list (its numId matches the one
+        // that started this block's top-level numbering) picks its count back up
+        // across an intervening "Answers:" divider instead of restarting at 1 (see
+        // the topN reset below) — while a decimal marker belonging to the answer key
+        // itself (a different numId, e.g. "1. Key Factors" under an answer) still
+        // starts fresh, since it fails this numId check.
+        if (topN === 0 && questionNumId != null && b.numId === questionNumId) topN = topNBeforeDivider;
+        topN += 1; subN = 0;
+        if (topN === 1) { topTpl = b.marker; questionNumId = b.numId; }
+        marker = markerFor(topN, topTpl);
+      }
       const an = grabAnswer();
       // The writer sometimes ALSO types the marker into the text of a Word list
       // item ("4. A shape…"); strip that redundant literal so it isn't doubled with
