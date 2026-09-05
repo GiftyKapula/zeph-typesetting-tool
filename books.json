@@ -8,10 +8,10 @@
       "kind": "LB",
       "author": null,
       "theme": "geography",
-      "state": "typesetting",
+      "state": "sent-for-proofread",
       "page_cap": null,
       "created_at": "2026-09-05 10:14:02",
-      "updated_at": "2026-09-05 10:15:37"
+      "updated_at": "2026-09-05 13:38:11"
     },
     {
       "id": "form-4-geography-tg",
@@ -100,6 +100,16 @@
       "hash": "c623d7f8ad070fe8",
       "note": null,
       "ingested_at": "2026-09-05 10:14:02"
+    },
+    {
+      "id": 7,
+      "book_id": "form-1-geography-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Geography_ Form 1_LB_ready for Typesetting-23 June 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\Geography_ Form 1_LB_ready for Typesetting-23 June 2026\\Geography_ Form 1_LB_ready for Typesetting-23 June 2026 - typeset.pdf",
+      "hash": "7b47145345556bb6",
+      "note": null,
+      "ingested_at": "2026-09-05 13:33:09"
     }
   ],
   "rounds": [
@@ -112,6 +122,16 @@
       "sent_at": "2026-09-05 08:57:59",
       "returned_at": null,
       "status": "closed"
+    },
+    {
+      "id": 2,
+      "book_id": "form-1-geography-lb",
+      "number": 1,
+      "sent_version": null,
+      "returned_version": null,
+      "sent_at": "2026-09-05 13:38:11",
+      "returned_at": null,
+      "status": "open"
     }
   ],
   "comments": []
