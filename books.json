@@ -1,0 +1,118 @@
+{
+  "books": [
+    {
+      "id": "form-1-geography-lb",
+      "title": "Form 1 Geography LB",
+      "grade": "Form 1",
+      "subject": "Geography",
+      "kind": "LB",
+      "author": null,
+      "theme": "geography",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-05 10:14:02",
+      "updated_at": "2026-09-05 10:15:37"
+    },
+    {
+      "id": "form-4-geography-tg",
+      "title": "Form 4 Geography TG",
+      "grade": "Form 4",
+      "subject": "Geography",
+      "kind": "TG",
+      "author": null,
+      "theme": "geography",
+      "state": "approved",
+      "page_cap": null,
+      "created_at": "2026-09-04 13:59:40",
+      "updated_at": "2026-09-05 12:32:48"
+    },
+    {
+      "id": "geography-for-teachers-final",
+      "title": "Geography For teachers Final",
+      "grade": null,
+      "subject": "Geography",
+      "kind": "TG",
+      "author": null,
+      "theme": "geography",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-04 08:31:45",
+      "updated_at": "2026-09-04 08:31:54"
+    }
+  ],
+  "versions": [
+    {
+      "id": 1,
+      "book_id": "geography-for-teachers-final",
+      "kind": "manuscript",
+      "original_name": "Geography For teachers Final.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1\\Geography For teachers Final.docx",
+      "hash": "3b06c377da3aa22c",
+      "note": null,
+      "ingested_at": "2026-09-04 08:31:45"
+    },
+    {
+      "id": 2,
+      "book_id": "form-4-geography-tg",
+      "kind": "manuscript",
+      "original_name": "Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 4 Books\\Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026.docx",
+      "hash": "ca83a9dbd73f9d7d",
+      "note": null,
+      "ingested_at": "2026-09-04 13:59:40"
+    },
+    {
+      "id": 3,
+      "book_id": "form-4-geography-tg",
+      "kind": "overrides",
+      "original_name": "Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 4 Books\\Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026.overrides.json",
+      "hash": "74f4ee7e8020d8d5",
+      "note": null,
+      "ingested_at": "2026-09-04 13:59:40"
+    },
+    {
+      "id": 4,
+      "book_id": "form-4-geography-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 4\\Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026\\Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026 - typeset.pdf",
+      "hash": "67d673df8e432c85",
+      "note": null,
+      "ingested_at": "2026-09-05 08:57:59"
+    },
+    {
+      "id": 5,
+      "book_id": "form-1-geography-lb",
+      "kind": "manuscript",
+      "original_name": "Geography_ Form 1_LB_ready for Typesetting-23 June 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1 Learners Books\\Geography_ Form 1_LB_ready for Typesetting-23 June 2026.docx",
+      "hash": "85fedcf938f2b002",
+      "note": null,
+      "ingested_at": "2026-09-05 10:14:02"
+    },
+    {
+      "id": 6,
+      "book_id": "form-1-geography-lb",
+      "kind": "overrides",
+      "original_name": "Geography_ Form 1_LB_ready for Typesetting-23 June 2026.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1 Learners Books\\Geography_ Form 1_LB_ready for Typesetting-23 June 2026.overrides.json",
+      "hash": "c623d7f8ad070fe8",
+      "note": null,
+      "ingested_at": "2026-09-05 10:14:02"
+    }
+  ],
+  "rounds": [
+    {
+      "id": 1,
+      "book_id": "form-4-geography-tg",
+      "number": 1,
+      "sent_version": 4,
+      "returned_version": null,
+      "sent_at": "2026-09-05 08:57:59",
+      "returned_at": null,
+      "status": "closed"
+    }
+  ],
+  "comments": []
+}
