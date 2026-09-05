@@ -15,15 +15,19 @@ const { ommlToTypst } = require("./omml.js");
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
-// or none — and with the number glued straight on ("Sub-Topic1.1.2") or spaced out. Kept
-// as one shared pattern so every recognition site treats the manuscript's inconsistent
-// spelling identically instead of drifting out of sync heading-by-heading.
-const SUBTOPIC_RE = /^SUB[-\s‐-―]*TOPIC\s*[\d.]+\b/i;
+// or none — and with the number glued straight on ("Sub-Topic1.1.2") or spaced out. Also
+// tolerates a colon planted BEFORE the number instead of after it ("Sub-Topic: 1.2.1" as
+// well as the house form "Sub-Topic 1.2.1:") — a manuscript is not consistent about which
+// side of the number its colon goes on. Kept as one shared pattern so every recognition
+// site treats the manuscript's inconsistent spelling identically instead of drifting out
+// of sync heading-by-heading.
+const SUBTOPIC_RE = /^SUB[-\s‐-―]*TOPIC\s*:?\s*[\d.]+\b/i;
 // A numbered SECTION heading of any kind — TOPIC / UNIT / CHAPTER / the hand-typed
 // sub-topic (any separator, see SUBTOPIC_RE) — followed by its number, with or without a
-// space before the digits (manuscripts sometimes glue them, "Topic1.1.2"). Used wherever
-// a following block must be recognised as "the next section starts here".
-const SECTION_RE = /^(TOPIC|UNIT|CHAPTER|SUB[-\s‐-―]*TOPIC)\s*[\d.]/i;
+// space before the digits (manuscripts sometimes glue them, "Topic1.1.2") and with or
+// without a colon before the number ("TOPIC: 1.3."). Used wherever a following block must
+// be recognised as "the next section starts here".
+const SECTION_RE = /^(TOPIC|UNIT|CHAPTER|SUB[-\s‐-―]*TOPIC)\s*:?\s*[\d.]/i;
 
 const decode = (s) => s
   .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
@@ -1147,9 +1151,10 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   const looksLikeProse = plain.length > 140 || (/[.!?]\s*$/.test(plain) && plain.length > 60);
   if (hmapLevel && !looksLikeProse) return { t: "h" + hmapLevel, text: plain };
   // Numbered TOPIC / UNIT / Sub-Topic headings (some manuscripts hand-size these
-  // with no Word heading style, e.g. Physics "TOPIC 4.1: …" / "Sub-Topic 4.1.1: …").
+  // with no Word heading style, e.g. Physics "TOPIC 4.1: …" / "Sub-Topic 4.1.1: …";
+  // some instead plant the colon before the number, "TOPIC: 4.1 …").
   if (plain.length <= 90 && SUBTOPIC_RE.test(plain)) return { t: "h2", text: plain };
-  if (plain.length <= 90 && /^(TOPIC|UNIT|CHAPTER)\s+[\d.]+\b/i.test(plain)) return { t: "h1", text: plain };
+  if (plain.length <= 90 && /^(TOPIC|UNIT|CHAPTER)\s*:?\s*[\d.]+\b/i.test(plain)) return { t: "h1", text: plain };
   // Local-language unit openers, hand-sized (no heading style), e.g. Lunda
   // "CHIBALU 1: …" or Tonga "CIPATI 1: …". Titles can be long, so allow more room.
   if (plain.length <= 120 && /^(CHIBALU|CIPATI)\s+\d+\b/i.test(plain)) return { t: "h1", text: plain };
@@ -1694,10 +1699,11 @@ async function importDocx(docxPath, opts = {}) {
   // "Specific Competence") share the sub-topic's size and would otherwise be
   // mistaken for sub-topics (and pollute the contents page).
   // Tolerate any mix of hyphen/space between "SUB" and "TOPIC" ("SUB-TOPIC",
-  // "SUB TOPIC", "SUBTOPIC", and the stray-space typo "SUB- TOPIC") so an
-  // inconsistently-typed sub-topic still registers as a level-2 heading (and so
-  // reaches the contents) instead of being demoted to a plain body sub-head.
-  const NUMTOPIC = /^TOPIC\s+\d/i, NUMSUB = /^SUB[-\s‐-―]*TOPIC\s*\d/i;
+  // "SUB TOPIC", "SUBTOPIC", and the stray-space typo "SUB- TOPIC"), and either
+  // side of the number carrying the colon ("TOPIC: 3.1" as well as "TOPIC 3.1:")
+  // so an inconsistently-typed topic/sub-topic still registers as a heading (and
+  // so reaches the contents) instead of being demoted to a plain body sub-head.
+  const NUMTOPIC = /^TOPIC\s*:?\s*\d/i, NUMSUB = /^SUB[-\s‐-―]*TOPIC\s*:?\s*\d/i;
   const hasNumberedTopics = !hasChapters
     && parts.some((x) => !isTbl(x) && NUMTOPIC.test(textOf(x)))
     && parts.some((x) => !isTbl(x) && NUMSUB.test(textOf(x)));

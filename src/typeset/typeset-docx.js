@@ -123,7 +123,9 @@ const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
   : (b.k === "colgrid" || b.t === "colgrid") ? `(k: "colgrid", ${colgridArg(b)})`
   : b.t === "colsum" ? `(k: "colsum", rows: ${strArr(b.rows || [])}, answer: ${strArr(b.answerRows || [])})`
   : `(k: "para", s: ${segArr(b.segs || [])})`);
-const TOPIC_RE = /^TOPIC\s+([\d.]+)\s*:?\s*(.+)$/i;
+// Tolerates the colon landing on either side of the number ("TOPIC 1.4: Title" —
+// the house form — as well as a manuscript that instead types "TOPIC: 1.4 Title").
+const TOPIC_RE = /^TOPIC\s*:?\s*([\d.]+)\s*:?\s*(.+)$/i;
 
 // A paragraph that is PURELY worked math (every segment is an equation) — the
 // continuation lines of a numbered solution step, which should indent under it.
@@ -180,7 +182,7 @@ function emit(blocks) {
         else out += `#sectionhead(${S(b.text)})\n`;
         break;
       }
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))})\n`; break;
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
@@ -960,7 +962,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
       // (not just unlabelled), so a later sibling doesn't skip a number.
       else if (inUnit && x.t === "h2" && /^(introduction|tumbling activities)$/i.test((x.text || "").trim())) {
         // no-op: leave unnumbered, don't advance n
-      } else if (inUnit && x.t === "h2" && !/^(SUB[-\s‐-―]*TOPIC|TOPIC)\s*[\d.]/i.test(x.text) && !/^\d+(\.\d+)+\b/.test(x.text)) {
+      } else if (inUnit && x.t === "h2" && !/^(SUB[-\s‐-―]*TOPIC|TOPIC)\s*:?\s*[\d.]/i.test(x.text) && !/^\d+(\.\d+)+\b/.test(x.text)) {
         n += 1; x.text = `${n}. ${x.text}`;
       }
     }
@@ -1476,7 +1478,7 @@ function applyOverrides(blocks, ov) {
     if (!major) {
       for (const b of blocks) {
         if (b.t !== "h1") continue;
-        const m = (b.text || "").trim().match(/^TOPIC\s+(\d+)\.\d+\b/i);
+        const m = (b.text || "").trim().match(/^TOPIC\s*:?\s*(\d+)\.\d+\b/i);
         if (m) { major = m[1]; break; }
       }
       major = major || "1";
@@ -1485,7 +1487,7 @@ function applyOverrides(blocks, ov) {
     for (const b of blocks) {
       if (b.t !== "h1") continue;
       const t = (b.text || "").trim();
-      const m = t.match(/^TOPIC\s+([\d.]+)\s*:?\s*(.*)$/i);
+      const m = t.match(/^TOPIC\s*:?\s*([\d.]+)\s*:?\s*(.*)$/i);
       if (!m) continue;
       n += 1;
       const title = m[2].trim();

@@ -1,0 +1,20 @@
+{
+  "setHeading": [
+    {
+      "find": "POPULATION",
+      "near": "1.5.1. Population Composition",
+      "text": "TOPIC 1.5: POPULATION",
+      "as": "h1"
+    },
+    {
+      "find": "1.5.1. Population Composition",
+      "text": "Subtopic 1.5.1. Population Composition",
+      "as": "h2"
+    },
+    {
+      "find": "1.6. SETTLEMENTS",
+      "text": "TOPIC 1.6: SETTLEMENTS",
+      "as": "h1"
+    }
+  ]
+}
