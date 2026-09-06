@@ -6,6 +6,15 @@
       "as": "h1"
     }
   ],
+  "removeWhereNext": [
+    {
+      "find": "Homestead:",
+      "next": "Homestead:"
+    }
+  ],
+  "remove": [
+    "usually divided by the Equator (North/South) or the Prime Meridian (East/West)"
+  ],
   "imageToText": {
     "image3.png": "45° ÷ 15° = 3",
     "image4.png": "30° ÷ 15° = 2",
