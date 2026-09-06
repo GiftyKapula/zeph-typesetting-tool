@@ -79,6 +79,7 @@ off, so a change only touches the books that opt in. Keys:
 | `coverImage` | inject a cover photo (book with no hero image); path relative to the `.docx` |
 | `authors` | override the author list (e.g. split "A and B" into two so the cover reads "AUTHORS") |
 | `images` | swap a source image by media filename (`{ "image12.png": { src, w } }`) |
+| `imageToText` | replace a pasted equation-editor screenshot with plain typeset text, by media filename (`{ "image20.png": "15° × 111 km = 1665 km" }`) — for manuscripts where the working is a raster image instead of typed text (the screenshot's baked-in ClearType fringing shows as a visible colour halo once enlarged for print) |
 | `setCaption` | set an image's caption, matched by `near` (existing caption) or `file` (media name) |
 | `theme` | force a theme by name, bypassing `autoTheme()`'s file-name guess (a TG whose title doesn't match its sibling LB's pattern, say) |
 | `synthesiseCover` | force the engine to build a fresh cover from title/subject/booktype/author even when a cover-ish page was detected (its line shapes didn't match what the theme expects) |
