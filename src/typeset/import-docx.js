@@ -406,8 +406,14 @@ function paraSegs(pXml) {
     // counted all breaks and appended them to the end, which moved a leading
     // break to the wrong place and glued two lines together.
     let tm = "";
-    for (const mm of run.matchAll(/<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>/g)) {
-      tm += mm[1] !== undefined ? mm[1] : "\n";
+    for (const mm of run.matchAll(
+      /<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>|<w:noBreakHyphen\b[^>]*\/?>|<w:softHyphen\b[^>]*\/?>/g,
+    )) {
+      if (mm[1] !== undefined) tm += mm[1];
+      else if (/^<w:br\b/.test(mm[0])) tm += "\n";
+      else if (/^<w:noBreakHyphen\b/.test(mm[0])) tm += "-"; // e.g. "Water<nbhy/>saving" -> "Water-saving"
+      // <w:softHyphen/> is an invisible optional hyphenation point (only shows if
+      // Word actually breaks the line there) — dropping it is correct, not lossy.
     }
     const tabs = (run.match(/<w:tab\b/g) || []).length;
     if (!tm && !tabs) continue;
