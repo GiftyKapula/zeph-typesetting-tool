@@ -606,16 +606,24 @@ function cellBlocks(tcXml) {
         else { out.push(paraOf()); out.push(imgBlk); }
       } else out.push(imgBlk);
     }
-    else if (plain) out.push(paraOf());
+    // A cell whose only content is a Word AUTO-NUMBERED list marker (a common way
+    // to build an "S/N" row-number column: an empty paragraph carrying <w:numPr>,
+    // with the digit supplied by Word's numbering engine, not typed as `<w:t>` text)
+    // has no `plain` text at all — keep it anyway when `li` resolved a marker, or
+    // the row number silently vanishes.
+    else if (plain || li) out.push(paraOf());
   }
   return out;
 }
 
 // Paragraph-only view of a cell (for boxes that only need text lines).
 const cellParas = (tcXml) => cellBlocks(tcXml).filter((b) => b.t === "para");
-// Flat text of a cell, including nested-table text (nothing dropped).
+// Flat text of a cell, including nested-table text (nothing dropped). A resolved
+// list marker (see cellBlocks above) is prefixed — otherwise an auto-numbered "S/N"
+// column renders as blank cells despite a real number being defined for each row.
 const cellFlat = (b) => b.t === "table"
-  ? b.rows.map((r) => r.map((c) => c.text).join(" · ")).join("  ") : (b.plain || "");
+  ? b.rows.map((r) => r.map((c) => c.text).join(" · ")).join("  ")
+  : (b.marker ? b.marker + (b.plain ? " " : "") : "") + (b.plain || "");
 const cellText = (tcXml) => cellBlocks(tcXml).map(cellFlat).join(" ").trim();
 
 // A rich table cell: its text AND every image it contains (both kept, so a
@@ -640,6 +648,11 @@ function cellRich(tcXml) {
     else if (b.t === "table") subs.push(b.rows);
     else if (b.t === "para" && b.segs) {
       if (segs.length) segs.push({ t: "\n", b: false, it: false, c: null });
+      // Carry a resolved auto-number marker (see cellBlocks/cellFlat) into the rich
+      // segments too, kept in sync with cellFlat's plain-text path so a cell that
+      // also has styled runs (and so renders via `segs` rather than `text`) doesn't
+      // lose its number.
+      if (b.marker) segs.push({ t: b.marker + (b.segs.length ? " " : ""), b: false, it: false, c: null });
       for (const s of b.segs) segs.push(s);
     }
   });
