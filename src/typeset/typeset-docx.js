@@ -2339,6 +2339,40 @@ function applyOverrides(blocks, ov) {
       });
     }
   }
+  // imageToText: { "image20.png": "15° × 111 km = 1665 km" } — replace a single
+  // embedded picture with plain typeset text, matched by the ORIGINAL media filename
+  // (as it was in the .docx, e.g. "image20.png" — not the "imp_"-prefixed name blocks
+  // carry internally after import). For manuscripts that pasted a screenshot of an
+  // equation editor instead of typing the equation: the screenshot bakes in ClearType
+  // subpixel fringing that reads fine on screen but shows a visible red/cyan halo once
+  // enlarged for print, and the source pixels are usually far too small (a single
+  // text-line's worth) to enlarge without visible blur. Handles both a standalone
+  // image block and one image "part" inside an exercise's answer.
+  for (const [mediaName, text] of Object.entries(ov.imageToText || {})) {
+    const want = "imp_" + mediaName;
+    let done = false;
+    const walk = (arr) => {
+      for (let i = 0; i < arr.length && !done; i++) {
+        const b = arr[i];
+        if (!b || typeof b !== "object") continue;
+        if (b.t === "image" && b.file === want) {
+          arr[i] = { t: "para", segs: mkSegs(text) };
+          done = true; return;
+        }
+        if (b.kind === "image" && b.images && b.images[0] && b.images[0].file === want) {
+          arr[i] = { kind: "lead", q: text, qseg: mkSegs(text), indent: true };
+          done = true; return;
+        }
+        if (b.t === "img" && b.images && b.images[0] && b.images[0].file === want) {
+          arr[i] = { t: "para", segs: mkSegs(text) };
+          done = true; return;
+        }
+        for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key]);
+      }
+    };
+    walk(blocks);
+    if (!done) console.warn("!  imageToText not matched:", mediaName);
+  }
   // remove: ["substring", …] — delete any block whose text contains the substring
   // (e.g. trimming a paragraph so a front-matter section fits on one page).
   for (const sub of ov.remove || []) {
@@ -3693,7 +3727,7 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
