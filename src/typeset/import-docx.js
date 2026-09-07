@@ -426,6 +426,14 @@ function paraSegs(pXml) {
     let c = (rpr.match(/<w:color\s+w:val="([0-9A-Fa-f]{6})"/) || [])[1] || null;
     if (c) c = c.toUpperCase();
     if (c === "auto" || c === "000000") c = null;
+    // A URL/link run (<w:rStyle w:val="Hyperlink"/> or "FollowedHyperlink"/
+    // "InternetLink") prints as plain body text, never Word's live-link blue —
+    // house style for every book, not a per-manuscript choice. Some manuscripts
+    // carry an explicit <w:color w:val="0000FF"/> alongside the style reference
+    // (inconsistent even within one book's own References list, since it depends
+    // on how each URL was pasted in), so the style check must override any inline
+    // colour rather than only filling in when one is absent.
+    if (/<w:rStyle\s+w:val="(?:Hyperlink|FollowedHyperlink|InternetLink)"/i.test(rpr)) c = null;
     // Super/subscript runs (<w:vertAlign>). Word sets these for exponents (2n²),
     // chemical formulas (H₂O, CaCO₃) and ionic charges (Ca²⁺). The importer would
     // otherwise flatten them to inline text ("2n2") — wrong in any science book.
