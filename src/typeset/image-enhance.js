@@ -109,15 +109,35 @@ function emfToPng(buf) {
     }
     if (!best) return null;
     const { w, bpp, bits } = best, h = Math.abs(best.h), bottomUp = best.h > 0;
+    const rowSize = Math.floor((bpp * w + 31) / 32) * 4, bpB = bpp / 8;
+    // A 32bpp DIB's 4th byte is only REAL alpha for a genuine cut-out graphic; for a
+    // plain screenshot/diagram exported as BI_RGB (the common case reaching this
+    // function), it's reserved padding that exporters typically leave at 0 — reading it
+    // as alpha then renders the whole picture fully transparent (invisible, not "blank
+    // white": the RGB data is intact, only unseen). Distinguish the two by checking
+    // whether the byte varies across pixels: real transparency has a mix of values,
+    // reserved padding is uniformly one value (almost always 0, but treat any constant
+    // the same way) — in that case treat every pixel as fully opaque instead.
+    let hasVaryingAlpha = false;
+    if (bpp === 32) {
+      let first = null;
+      outer: for (let y = 0; y < h; y++) {
+        let sp = bits + (bottomUp ? (h - 1 - y) : y) * rowSize + 3;
+        for (let x = 0; x < w; x++) {
+          if (first === null) first = buf[sp];
+          else if (buf[sp] !== first) { hasVaryingAlpha = true; break outer; }
+          sp += bpB;
+        }
+      }
+    }
     const cv = canvasLib.createCanvas(w, h);
     const ctx = cv.getContext("2d");
     const img = ctx.createImageData(w, h);
-    const rowSize = Math.floor((bpp * w + 31) / 32) * 4, bpB = bpp / 8;
     for (let y = 0; y < h; y++) {
       let sp = bits + (bottomUp ? (h - 1 - y) : y) * rowSize, dp = y * w * 4;
       for (let x = 0; x < w; x++) {
         img.data[dp] = buf[sp + 2]; img.data[dp + 1] = buf[sp + 1]; img.data[dp + 2] = buf[sp];
-        img.data[dp + 3] = bpp === 32 ? buf[sp + 3] : 255;
+        img.data[dp + 3] = bpp === 32 && hasVaryingAlpha ? buf[sp + 3] : 255;
         sp += bpB; dp += 4;
       }
     }
