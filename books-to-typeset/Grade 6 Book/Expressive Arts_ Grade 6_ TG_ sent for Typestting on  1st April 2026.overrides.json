@@ -1,0 +1,9 @@
+{
+  "subject": "Expressive Arts",
+  "moveSectionBefore": [
+    {
+      "find": "GLOSSARY OF TERMS",
+      "before": "References"
+    }
+  ]
+}
