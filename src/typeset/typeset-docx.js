@@ -1124,21 +1124,25 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     if (!n) console.warn("!  textFix not matched:", tf.find);
   }
+  // A blank Word paragraph imports as a `vspace` block (no text field at all), not an
+  // empty paragraph, and the line right after ours can be ANOTHER label — one containing
+  // a colon ANYWHERE, not just at the end (some manuscripts glue a dot-leader straight
+  // onto the label, e.g. "Cover and Book layout by:................." — the colon sits
+  // mid-string, not at the end) — or one ending in a bare "by" with no colon at all
+  // ("Illustrated by"). Never a value to fill, so it must not be mistaken for our
+  // placeholder just because ours was blank.
+  const FILL_LABELISH = /:|\bby\s*$/i;
   for (const f of ov.fill || []) {
     const i = blocks.findIndex((b) => blockPlain(b).trim().toLowerCase().startsWith(f.after.toLowerCase()));
     if (i < 0) continue;
     let target = -1;
-    // A blank Word paragraph imports as a `vspace` block (no text field at all), not
-    // an empty paragraph — skip those looking for our label's own placeholder/value
-    // line, but stop at the first line that contains a colon: that is always ANOTHER
-    // label (e.g. "Cover and Book layout by:............."), never a value to fill,
-    // so it must not be mistaken for our placeholder just because ours was blank.
     for (let j = i + 1; j < Math.min(i + 3, blocks.length); j++) {
       const b = blocks[j];
       if (b && b.t === "vspace") continue;
       const txt = blockPlain(b).trim();
       if (txt === "") continue;
-      if (!txt.includes(":")) target = j;   // the dot-leader, or a wrong name to correct
+      if (FILL_LABELISH.test(txt)) break;   // another label — nothing safe to reuse here
+      target = j;
       break;
     }
     if (target >= 0) { setBlockText(blocks[target], f.text); continue; }
@@ -2756,7 +2760,12 @@ function fillLayoutCredit(blocks) {
         // "First Published by:") so it's never mistaken for our placeholder.
         for (let j = i + 1; j < Math.min(i + 4, arr.length); j++) {
           const txt = blockPlain(arr[j]).trim();
-          if (txt === "" || LABELISH.test(txt)) continue;
+          if (txt === "") continue;
+          // Hitting another label means OUR label has no placeholder/name line of its
+          // own — stop here (nameIdx stays -1) rather than skipping past it, which
+          // would land on that OTHER label's own value (e.g. the publisher's name
+          // under "First Published 2026 by:") and overwrite it with our credit.
+          if (LABELISH.test(txt)) break;
           nameIdx = j;
           break;
         }
