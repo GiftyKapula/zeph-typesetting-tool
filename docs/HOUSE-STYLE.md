@@ -77,7 +77,7 @@ off, so a change only touches the books that opt in. Keys:
 |---|---|
 | `isbn` | ISBN on the imprint + back cover (no barcode) |
 | `coverImage` | inject a cover photo (book with no hero image); path relative to the `.docx` |
-| `authors` | override the author list (e.g. split "A and B" into two so the cover reads "AUTHORS") |
+| `authors` | override the author list (e.g. split "A and B" into two so the cover reads "AUTHORS"); an empty array (`[]`) hides the author byline on the cover entirely |
 | `images` | swap a source image by media filename (`{ "image12.png": { src, w } }`) |
 | `setCaption` | set an image's caption, matched by `near` (existing caption) or `file` (media name) |
 | `theme` | force a theme by name, bypassing `autoTheme()`'s file-name guess (a TG whose title doesn't match its sibling LB's pattern, say) |
