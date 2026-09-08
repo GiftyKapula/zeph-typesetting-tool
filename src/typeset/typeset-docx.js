@@ -3795,7 +3795,10 @@ function normaliseQuestionMarkBold(blocks) {
   fixStrayBodyH1s(blocks);
   stripEditorialComments(blocks);
   clearStrayRed(blocks);
-  if (ov.blackWhite) clearAllInlineColor(blocks);
+  // Every Teacher's Guide is black-and-white inside by default (see the fuller note
+  // by the theme-colour greying below); `blackWhite: false` opts a rare TG back out.
+  const wantsBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBookName(base));
+  if (wantsBlackWhite) clearAllInlineColor(blocks);
   const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [] };
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
@@ -4060,12 +4063,17 @@ function normaliseQuestionMarkBold(blocks) {
   // A book may also override the TOC depth directly. Depth 1 keeps top-level
   // sections only (front matter + units/topics) and excludes sub-topics.
   if (ov.tocDepth !== undefined) themeOverrides.tocDepth = ov.tocDepth;
-  // blackWhite: true — render the whole book in greyscale (no colour), as CDC requires for
-  // Teacher's Guides. Force every themed colour to black/grey and every callout box to a light
-  // grey panel with a black title, so headings, banners, rules, bullets, tables and boxes all
-  // print in black and white while their structure (bold titles, borders, bands) stays clear.
-  // Opt-in per book (the shared Learner's Book keeps its colour for young readers).
-  if (ov.blackWhite) {
+  // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
+  // cover the one exception that stays full colour — so this is now the DEFAULT for
+  // any book whose filename marks it a TG, not something each book's overrides.json
+  // has to opt into. `blackWhite: false` in overrides.json is the escape hatch for the
+  // rare TG that must stay in colour; `blackWhite: true` still works to force it on a
+  // Learner's Book (which otherwise keeps its colour for young readers).
+  const useBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBook);
+  // Force every themed colour to black/grey and every callout box to a light grey panel
+  // with a black title, so headings, banners, rules, bullets, tables and boxes all print
+  // in black and white while their structure (bold titles, borders, bands) stays clear.
+  if (useBlackWhite) {
     const K = "000000", GREY = "595959", RULE = "808080", FILL = "f2f2f2", ZEB = "ededed";
     const monobox = { fill: FILL, border: GREY, title: K };
     const orig = THEMES[theme] || {};
