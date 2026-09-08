@@ -784,8 +784,8 @@
         #set text(fill: white)
         #align(center)[
           #if byline.len() > 0 [
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#byline.at(0)]]
-            #if byline.len() > 1 [ \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#byline.slice(1).join(", ")] ]
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]]
+            \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#byline.join(", ")]
           ]
           #if logo != none [ #v(4mm) #box(fill: white, inset: 4pt, radius: 4pt)[#image("_media/" + logo.file, height: 11mm)] ]
           #v(3mm)
@@ -811,13 +811,9 @@
       ])
       #place(bottom + center, dy: -15mm, align(center)[
         #if byline.len() > 0 [
-          #let lbl0 = byline.at(0)
-          #if upper(lbl0) == lbl0 and lbl0.len() > 5 and byline.len() > 1 [
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#lbl0]] \ #v(1pt)
-            #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.slice(1).join(", ")]
-          ] else [
-            #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.join(", ")]
-          ]
+          #block(width: 170mm)[#align(center)[
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]] \ #v(1pt)
+            #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.join(", ")]]]
         ]
         #if logo != none [ #v(4mm) #box(fill: white, inset: 4pt, radius: 4pt, stroke: 0.5pt + T.rulec)[#image("_media/" + logo.file, height: 11mm)] ]
         #v(2mm)
@@ -884,8 +880,9 @@
         #text(size: 13pt, weight: "bold", fill: T.primary, tracking: 1pt)[#upper(booktype)]]
       #v(6mm)
       #if byline.len() > 0 [
-        #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#upper(byline.at(0))]
-        #if byline.len() > 1 [ \ #v(1pt) #text(size: 14pt, weight: "bold")[#byline.slice(1).join(", ")] ]
+        #block(width: 170mm)[#align(center)[
+          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          \ #v(1pt) #text(size: 14pt, weight: "bold")[#byline.join(", ")]]]
       ]
       #if logo != none [ #v(4mm) #box(fill: white, inset: 5pt, radius: 6pt)[#image("_media/" + logo.file, height: 12mm)] ]
       #v(3mm)

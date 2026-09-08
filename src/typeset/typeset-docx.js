@@ -3899,6 +3899,34 @@ function normaliseQuestionMarkBold(blocks) {
       cov.byline = (cov.byline || []).filter(isAuthor);
       console.log("   synthesised cover:", cov.lines.join(" / "), "| authors:", cov.byline.length);
     }
+    // Fallback: the manuscript's own cover page sometimes carries no author
+    // byline at all (no names before the copyright block for the detection
+    // above to find), even though the book has a full "AUTHORS" bio section
+    // further into the front matter — each bio paragraph opens with the
+    // author's name as its own bold run (e.g. "**Adrian Mudenda** holds a
+    // Bachelor's Degree…"), a convention shared across these Teacher's Guides.
+    // Pull those names in so the cover isn't left byline-less just because the
+    // source cover page itself never had one; an explicit `authors` override
+    // (including `[]` to hide the byline) still wins below.
+    if (cov && (!cov.byline || !cov.byline.length) && !Array.isArray(ov.authors)) {
+      const isHeadType = (b) => b && (b.t === "h1" || b.t === "h2" || b.t === "h3" || b.t === "head");
+      const authHeadIdx = blocks.findIndex((b) => isHeadType(b) && /^(THE\s+)?AUTHORS?$/i.test((b.text || "").trim()));
+      if (authHeadIdx >= 0) {
+        const names = [];
+        for (let i = authHeadIdx + 1; i < blocks.length; i++) {
+          const b = blocks[i];
+          if (isHeadType(b)) break;                                  // next section ends the bios
+          const seg0 = Array.isArray(b.segs) && b.segs[0];
+          if (!seg0 || !seg0.b) continue;                            // bio opens with a bold name
+          const name = (seg0.t || "").trim();
+          if (name.length >= 3 && name.length <= 40 && /^[A-Z][A-Za-z'`.\- ]+$/.test(name)) names.push(name);
+        }
+        if (names.length) {
+          cov.byline = names;
+          console.log("   authors pulled from manuscript's AUTHORS section:", names.join(", "));
+        }
+      }
+    }
     // Explicit author list from overrides wins (restores names the manuscript
     // buried in a long bio line, which the name-filter drops). An empty array is a
     // deliberate "hide the author byline" — the client didn't want names credited
