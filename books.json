@@ -34,10 +34,10 @@
       "kind": "TG",
       "author": null,
       "theme": "geography",
-      "state": "applying-corrections",
+      "state": "approved",
       "page_cap": null,
       "created_at": "2026-09-04 13:59:40",
-      "updated_at": "2026-09-08 09:22:29"
+      "updated_at": "2026-09-08 10:41:03"
     },
     {
       "id": "geography-for-teachers-final",
@@ -1298,8 +1298,8 @@
       "page_ref": "p200",
       "anchor": "Mining Areas on the Map of Angola and South Africa",
       "note": "Put this text which is in  a separate MS Word document just after the title: ",
-      "action": "Waiting on the separate MS Word document referenced in the comment (map/content to insert after the 'Mining Areas on the Map of Angola and South Africa' heading, p.200-ish) -- not attached to the annotated PDF. User will send it separately.",
-      "status": "flagged"
+      "action": "Word doc arrived (books-to-typeset/Form 4 Books/Pages/Text for Geography Form 4 Teachers Book page 200.docx). Inserted its Angola/South Africa mining text via insertText override, right after the heading. Also fixed insertText to run **bold**/*italic* markdown through mkSegs (parity with replaceBlocks), so the country names bold correctly. Verified on rendered p.188 (typeset page).",
+      "status": "done"
     },
     {
       "id": 118,
