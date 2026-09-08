@@ -197,7 +197,7 @@ function emit(blocks) {
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
       case "label": out += `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`; break;
       case "para": {
-        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""})\n`;
+        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""})\n`;
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
@@ -2683,28 +2683,13 @@ function reorderBackmatter(blocks) {
   }
 }
 
-// Proofreader house-style polish (primary Teacher's Guides): make the recurring
-// structural labels consistent bold black sub-heads, italicise the "General
-// Competences" value line and the specific-competence code statements, and bold
-// the author's name — normalising the manuscript's inconsistent formatting.
-// The "General Competences", "Specific Competences" and "Expected Standards"
-// outcome lines are statements, not a checklist — the author asked for the bullets
-// removed. Runs for EVERY book (unlike proofPolish, which is gated on boxActivities)
-// so Teacher's Guides in the "science" layout are de-bulleted too.
-function debulletStandards(blocks) {
-  const textOf = (b) => (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "")).trim();
-  const isHead = (b) => b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t);
-  const VALSEC = /^(General\s+Competences?|Specific\s+Competences?|Expected\s+Standards?)\b/i;
-  for (let i = 0; i < blocks.length; i++) {
-    if (!(isHead(blocks[i]) && VALSEC.test(textOf(blocks[i])))) continue;
-    for (let j = i + 1; j < blocks.length; j++) {
-      const y = blocks[j];
-      if (isHead(y)) break;
-      // Strip only the BULLET marker — keep numbered competence codes ("4.4.1.1").
-      if (y.marker === "•") { y.t = "para"; delete y.marker; }
-    }
-  }
-}
+// NOTE: a prior round asked for the bullet dropped from "General Competences" /
+// "Specific Competences" / "Expected Standards" outcome lines, and a
+// debulletStandards() pass here used to strip it on every book accordingly. A
+// later editor pass on Form 4 Geography TG (round 3, Sept 2026) asked for those
+// same bullets back — the manuscript's own numPr already marks each outcome line
+// as a Word bullet list item (see import-docx.js's numPr handling), so the
+// engine now leaves that marker alone and just renders what the manuscript says.
 // Authors indent lines in Word by typing runs of spaces (or a tab) rather than using
 // a paragraph indent. Typeset into a justified column those become ragged, random
 // gaps — a passage reads as if every other line is pushed inwards, and mid-sentence
@@ -2720,7 +2705,7 @@ function debulletStandards(blocks) {
 // the manuscripts leave as an empty dot-leader placeholder ("…………"). We do the
 // typesetting, so fill that placeholder with our credit on every book. Match the
 // label, then set the next dot-leader-only line (within a few blocks) to the name.
-const LAYOUT_CREDIT = "Gift Kapula";
+const LAYOUT_CREDIT = "Ng`ambi Teddy";
 function fillLayoutCredit(blocks) {
   const LABEL = /cover\s+and\s+book\s+layout/i;
   const DOTS = /^[.•․…·\s]+$/;   // only dots / ellipses / middots / space
@@ -3119,7 +3104,12 @@ function splitAnswerLabels(blocks) {
     }
     if (!aSegs || !aSegs.length) return null;
     if (qSegs.length) qSegs[qSegs.length - 1] = { ...qSegs[qSegs.length - 1], t: qSegs[qSegs.length - 1].t.replace(/\s+$/, "") };
-    aSegs[0] = { ...aSegs[0], t: aSegs[0].t.replace(/^\s+/, "") };
+    // The label's colon is sometimes typed as the START of the NEXT run instead of
+    // the end of the label run itself (a formatting-boundary quirk: bold "Answer",
+    // then non-bold ": Angola shows..."). idx-branch only strips the label RUN, so
+    // that leading colon survives onto aSegs[0] and leaks through as "Possible
+    // answer: : Angola shows...". Strip it along with any leading whitespace.
+    aSegs[0] = { ...aSegs[0], t: aSegs[0].t.replace(/^\s*:?\s*/, "") };
     return [qSegs, aSegs];
   };
   // An exercise/assessment question part: move the answer runs to `aseg` (the template
@@ -3153,7 +3143,50 @@ function splitAnswerLabels(blocks) {
     for (const b of arr) {
       if (!b || typeof b !== "object") continue;
       if ((b.t === "exercise" || b.t === "assessment") && Array.isArray(b.parts)) {
-        for (const p of b.parts) if (p && (p.kind === "q" || p.kind === "lead")) splitPart(p);
+        for (let i = 0; i < b.parts.length; i++) {
+          const p = b.parts[i];
+          if (!p || (p.kind !== "q" && p.kind !== "lead")) continue;
+          const wasLead = p.kind === "lead";
+          splitPart(p);
+          // A "lead" whose ENTIRE content was just the bare label ("Answer:" as its
+          // own run, nothing of its own before it) has no real question text —
+          // splitPart still promotes it to "kind: q" so the answer path renders it,
+          // which left a phantom row: an EMPTY question line (its own marker gutter
+          // and v(qgap) gap) sitting between the real question above and its answer,
+          // the "big gap" a manuscript that writes the label as its own paragraph
+          // (rather than gluing it onto the question) triggers. Glue the answer onto
+          // the immediately preceding un-answered question instead, and drop this
+          // now-redundant phantom part, so the gap matches every other question.
+          if (wasLead && p.kind === "q" && !(p.q || "").trim() && Array.isArray(p.aseg) && p.aseg.length) {
+            const prev = b.parts[i - 1];
+            if (prev && prev.kind === "q" && !prev.a && !(prev.aseg && prev.aseg.length)) {
+              prev.a = p.a;
+              prev.aseg = p.aseg;
+              b.parts.splice(i, 1);
+              i--;
+            }
+          }
+        }
+        // A manuscript sometimes tucks a SECOND, unnumbered question into an already-
+        // answered exercise item (e.g. item 3's box also asks "How can communities
+        // encourage...?" right after item 3's own Q&A) — with the label "Answer:"
+        // typed as its OWN paragraph rather than glued onto that second question. The
+        // question survives the loop above as a bare `lead` (nothing in its own runs
+        // to cut), while its answer paragraph — label and all — becomes its own blank-
+        // marker `q` (the label-cut above promotes any lead-that-turns-out-to-carry-an-
+        // answer to kind "q"). The earlier merge only reattaches such a blank answer to
+        // an UNANSWERED preceding question, so when the preceding one is already
+        // answered (our case) the two sit as separate rows with a `lead`-sized gap
+        // between them meant for a genuine section intro, not a tight Q&A pair. Glue a
+        // real-text, still-unanswered lead directly to the very next blank-question
+        // answer instead, so it reads as one question/answer pair like its siblings.
+        for (let i = 0; i < b.parts.length - 1; i++) {
+          const lead = b.parts[i], next = b.parts[i + 1];
+          if (lead.kind !== "lead" || lead.divider || !(lead.q || "").trim()) continue;
+          if (next.kind !== "q" || (next.q || "").trim() || !(next.aseg && next.aseg.length)) continue;
+          b.parts[i] = { kind: "q", q: lead.q, qseg: lead.qseg, a: next.a, aseg: next.aseg, marker: "", depth: 0 };
+          b.parts.splice(i + 1, 1);
+        }
       } else if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) {
         splitPara(b);
       }
@@ -3698,7 +3731,6 @@ async function typesetOne(docxPath, themeName) {
   reformatAcronyms(blocks);
   formatGlossary(blocks);
   displayifyColumnMath(blocks);
-  debulletStandards(blocks);
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
   normaliseSpacing(blocks);
   unboldLeadProse(blocks);
@@ -3863,8 +3895,11 @@ function normaliseQuestionMarkBold(blocks) {
       console.log("   synthesised cover:", cov.lines.join(" / "), "| authors:", cov.byline.length);
     }
     // Explicit author list from overrides wins (restores names the manuscript
-    // buried in a long bio line, which the name-filter drops).
-    if (cov && Array.isArray(ov.authors) && ov.authors.length) cov.byline = ov.authors.slice();
+    // buried in a long bio line, which the name-filter drops). An empty array is a
+    // deliberate "hide the author byline" — the client didn't want names credited
+    // on the cover — as distinct from omitting the key (leave the detected byline
+    // alone).
+    if (cov && Array.isArray(ov.authors)) cov.byline = ov.authors.slice();
     // A localised book-type label (e.g. Lunda "MUKANDA WAKADIZI" = Learner's
     // Book) replaces the synthesised English booktype on the cover.
     if (cov && ov.booktype && cov.lines && cov.lines.length) cov.lines[cov.lines.length - 1] = ov.booktype;

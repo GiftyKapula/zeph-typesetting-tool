@@ -1,3 +1,14 @@
 {
-  "blackWhite": true
+  "blackWhite": true,
+  "authors": ["Njira Mtonga", "Oliver Manongo", "Bishop Siabwanta", "Euster Muyuba", "Precious Sapanoi"],
+  "retext": [
+    { "from": "4.6.1.2. Provide solutions to the challenges of transporting fuel and power.", "to": "Solutions to challenges in production of different types of energy provided accordingly." }
+  ],
+  "removeRange": [
+    { "after": "FORESTRY IN ZAMBIA", "from": "General Competences:", "to": "Subtopic 4.2" }
+  ],
+  "setHeading": [
+    { "find": "MINING", "near": "Mining involves extracting", "text": "TOPIC 4.7: MINING", "as": "h1" },
+    { "find": "KEY COMPETENCES TO BE DEVELOPED", "text": "GENERAL COMPETENCES TO BE DEVELOPED" }
+  ]
 }

@@ -1,6 +1,19 @@
 {
   "books": [
     {
+      "id": "expressive-arts-grade-6-tg-sent-for-typestting-on-1st-april-2026",
+      "title": "Expressive Arts Grade 6 TG sent for Typestting on 1st April 2026",
+      "grade": "Grade 6",
+      "subject": null,
+      "kind": "TG",
+      "author": null,
+      "theme": "navy",
+      "state": "sent-for-proofread",
+      "page_cap": null,
+      "created_at": "2026-09-07 19:10:58",
+      "updated_at": "2026-09-08 06:22:58"
+    },
+    {
       "id": "form-1-geography-lb",
       "title": "Form 1 Geography LB",
       "grade": "Form 1",
@@ -21,15 +34,15 @@
       "kind": "TG",
       "author": null,
       "theme": "geography",
-      "state": "approved",
+      "state": "applying-corrections",
       "page_cap": null,
       "created_at": "2026-09-04 13:59:40",
-      "updated_at": "2026-09-05 12:32:48"
+      "updated_at": "2026-09-08 09:22:29"
     },
     {
       "id": "geography-for-teachers-final",
       "title": "Geography For teachers Final",
-      "grade": null,
+      "grade": "Form 1",
       "subject": "Geography",
       "kind": "TG",
       "author": null,
@@ -37,7 +50,7 @@
       "state": "typesetting",
       "page_cap": null,
       "created_at": "2026-09-04 08:31:45",
-      "updated_at": "2026-09-04 08:31:54"
+      "updated_at": "2026-09-05 14:01:16"
     }
   ],
   "versions": [
@@ -46,7 +59,7 @@
       "book_id": "geography-for-teachers-final",
       "kind": "manuscript",
       "original_name": "Geography For teachers Final.docx",
-      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1\\Geography For teachers Final.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1 Teachers Books\\Geography For teachers Final.docx",
       "hash": "3b06c377da3aa22c",
       "note": null,
       "ingested_at": "2026-09-04 08:31:45"
@@ -110,6 +123,76 @@
       "hash": "7b47145345556bb6",
       "note": null,
       "ingested_at": "2026-09-05 13:33:09"
+    },
+    {
+      "id": 8,
+      "book_id": "geography-for-teachers-final",
+      "kind": "typeset_pdf",
+      "original_name": "Geography For teachers Final - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\Geography For teachers Final\\Geography For teachers Final - typeset.pdf",
+      "hash": "017687011419a70a",
+      "note": null,
+      "ingested_at": "2026-09-05 14:00:03"
+    },
+    {
+      "id": 9,
+      "book_id": "form-4-geography-tg",
+      "kind": "annotated_pdf",
+      "original_name": "Geography Form 4 Teachers _v2.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Geography Form 4 Teachers _v2.pdf",
+      "hash": "d313e3b8a791e999",
+      "note": "returned from proofread",
+      "ingested_at": "2026-09-07 16:16:58"
+    },
+    {
+      "id": 10,
+      "book_id": "form-4-geography-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 4\\Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026\\Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026 - typeset.pdf",
+      "hash": "27122676d68b0605",
+      "note": null,
+      "ingested_at": "2026-09-07 16:41:11"
+    },
+    {
+      "id": 11,
+      "book_id": "expressive-arts-grade-6-tg-sent-for-typestting-on-1st-april-2026",
+      "kind": "manuscript",
+      "original_name": "Expressive Arts_ Grade 6_ TG_ sent for Typestting on  1st April 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Grade 6 Book\\Expressive Arts_ Grade 6_ TG_ sent for Typestting on  1st April 2026.docx",
+      "hash": "eb21cc397f2b6c76",
+      "note": null,
+      "ingested_at": "2026-09-07 19:10:58"
+    },
+    {
+      "id": 12,
+      "book_id": "expressive-arts-grade-6-tg-sent-for-typestting-on-1st-april-2026",
+      "kind": "typeset_pdf",
+      "original_name": "Expressive Arts_ Grade 6_ TG_ sent for Typestting on  1st April 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 6\\Expressive Arts_ Grade 6_ TG_ sent for Typestting on  1st April 2026\\Expressive Arts_ Grade 6_ TG_ sent for Typestting on  1st April 2026 - typeset.pdf",
+      "hash": "86afbb6f10c8c723",
+      "note": null,
+      "ingested_at": "2026-09-08 06:28:18"
+    },
+    {
+      "id": 13,
+      "book_id": "form-4-geography-tg",
+      "kind": "annotated_pdf",
+      "original_name": "Revised Geography Form 4 Teachers Book_with comments of Editor_8 Sept 2026.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 4 Books\\Revised Geography Form 4 Teachers Book_with comments of Editor_8 Sept 2026.pdf",
+      "hash": "aac2346ab2d6e186",
+      "note": "returned from proofread",
+      "ingested_at": "2026-09-08 07:40:12"
+    },
+    {
+      "id": 14,
+      "book_id": "form-4-geography-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 4\\Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026\\Revised Geography Form 4 Teachers Book_ready fro typesetting_ 3 August 2026 - typeset.pdf",
+      "hash": "d402697329798389",
+      "note": null,
+      "ingested_at": "2026-09-08 09:22:27"
     }
   ],
   "rounds": [
@@ -132,7 +215,1208 @@
       "sent_at": "2026-09-05 13:38:11",
       "returned_at": null,
       "status": "open"
+    },
+    {
+      "id": 3,
+      "book_id": "form-4-geography-tg",
+      "number": 2,
+      "sent_version": null,
+      "returned_version": 9,
+      "sent_at": "2026-09-07 16:16:58",
+      "returned_at": "2026-09-07 16:30:13",
+      "status": "closed"
+    },
+    {
+      "id": 4,
+      "book_id": "expressive-arts-grade-6-tg-sent-for-typestting-on-1st-april-2026",
+      "number": 1,
+      "sent_version": null,
+      "returned_version": null,
+      "sent_at": "2026-09-08 06:22:58",
+      "returned_at": null,
+      "status": "open"
+    },
+    {
+      "id": 5,
+      "book_id": "form-4-geography-tg",
+      "number": 3,
+      "sent_version": null,
+      "returned_version": 13,
+      "sent_at": "2026-09-08 07:40:12",
+      "returned_at": "2026-09-08 07:40:12",
+      "status": "closed"
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "id": 1,
+      "round_id": 3,
+      "page_ref": "p1",
+      "anchor": "A U T H O R Euster Muyuba and Precious Sapanoi",
+      "note": "Add all names of authors: Njira Mtonga, Oliver Manongo, Bishop Siabwanta, Euster Muyuba and Precious Sapanoi.",
+      "action": "Added author byline via overrides.json (authors: [...]); engine's cov.byline now renders on both cover and title page.",
+      "status": "done"
+    },
+    {
+      "id": 2,
+      "round_id": 3,
+      "page_ref": "p2",
+      "anchor": "Euster Muyuba and Precious Sapanoi",
+      "note": "Please indicate names of authors.",
+      "action": "Added author byline via overrides.json (authors list); engine's cov.byline now renders on cover and title page.",
+      "status": "done"
+    },
+    {
+      "id": 3,
+      "round_id": 3,
+      "page_ref": "p3",
+      "anchor": "Njira Mtonga, Oliver Manongo, Bishop Siabwanta, Euster Muyuba and Pre",
+      "note": "Do not cut this name",
+      "action": "Already fixed pre-session: imprint-page paragraphs now render with hyphenate:false, so ordinary names never get dictionary-hyphenated. Verified in rebuild.",
+      "status": "done"
+    },
+    {
+      "id": 4,
+      "round_id": 3,
+      "page_ref": "p8",
+      "anchor": "competencebased curriculum",
+      "note": "add space",
+      "action": "Already fixed pre-session: <w:noBreakHyphen/> is now read into paragraph text (was silently dropped, gluing compound words together). Verified in rebuild.",
+      "status": "done"
+    },
+    {
+      "id": 5,
+      "round_id": 3,
+      "page_ref": "p9",
+      "anchor": "manuscript in line with the CompetenceBased Curriculum. ZEPH also appre",
+      "note": "add space between competence and based",
+      "action": "Already fixed pre-session: <w:noBreakHyphen/> is now read into paragraph text (was silently dropped, gluing compound words together). Verified in rebuild.",
+      "status": "done"
+    },
+    {
+      "id": 6,
+      "round_id": 3,
+      "page_ref": "p11",
+      "anchor": "S/N",
+      "note": "Add numbers here, like 1, 2, 3",
+      "action": "Already fixed pre-session: an empty Word-numbered S/N cell now renders its resolved list marker instead of being dropped blank. Verified in rebuild.",
+      "status": "done"
+    },
+    {
+      "id": 7,
+      "round_id": 3,
+      "page_ref": "p16",
+      "anchor": "a.",
+      "note": "In front of this, add the words; Possible Answer. ",
+      "action": "Already fixed pre-session: a bare lettered sub-item with no explicit label is folded into its question as the answer, adding the 'Possible answer:' tag automatically. Verified in rebuild.",
+      "status": "done"
+    },
+    {
+      "id": 8,
+      "round_id": 3,
+      "page_ref": "p24",
+      "anchor": "a.",
+      "note": "Add possible answer in front of this letter.",
+      "action": "Already fixed pre-session: a bare lettered sub-item with no explicit label is folded into its question as the answer, adding the 'Possible answer:' tag automatically. Verified in rebuild.",
+      "status": "done"
+    },
+    {
+      "id": 9,
+      "round_id": 3,
+      "page_ref": "p62",
+      "anchor": "Identify the type of farming practiced.1. Possible answer: The family is practicing subsistence farming.",
+      "note": "Close up this space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 10,
+      "round_id": 3,
+      "page_ref": "p64",
+      "anchor": "LEARNING ACTIVITY 10: Examining the factors that favour irrigation farming in Zambia.",
+      "note": "Justify this sentence",
+      "action": "Root cause: the exercise/activity title's inner block had no explicit width, so it shrank to fit instead of filling the box -- Typst had nothing to justify against. Fixed by adding width:100% in titledbox()'s 'serieslike' branch. Verified visually and via word bounding-box measurement (line now reaches the same right edge as body text).",
+      "status": "done"
+    },
+    {
+      "id": 11,
+      "round_id": 3,
+      "page_ref": "p65",
+      "anchor": "Identify the type of irrigation used.1. Possible answer: Furrow irrigation",
+      "note": "close up this space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 12,
+      "round_id": 3,
+      "page_ref": "p65",
+      "anchor": "a.",
+      "note": "Delete and close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 13,
+      "round_id": 3,
+      "page_ref": "p65",
+      "anchor": "a.",
+      "note": "Delete this and close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 14,
+      "round_id": 3,
+      "page_ref": "p67",
+      "anchor": "Explain how irrigation farming creates employment opportunities.2. Possible answer: Irrigation farming requires regular watering,",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 15,
+      "round_id": 3,
+      "page_ref": "p68",
+      "anchor": "Suggest one way the income earned can improve community de velopment. Possible answer: Income can be used to support local projects",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 16,
+      "round_id": 3,
+      "page_ref": "p68",
+      "anchor": "Identify one nutritional benefit of irrigation farming.5. Possible answer: Vegetables provide vitamins and minerals,",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 17,
+      "round_id": 3,
+      "page_ref": "p68",
+      "anchor": "State two crops grow under irrigation farming.6. Possible answer: Tomatoes and onions. (Other common op",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 18,
+      "round_id": 3,
+      "page_ref": "p71",
+      "anchor": "duction. Possible answer: Climate change has reduced maize production",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 19,
+      "round_id": 3,
+      "page_ref": "p75",
+      "anchor": "Identify the type of farming system practiced.1. Possible answer: Mixed farming.",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 20,
+      "round_id": 3,
+      "page_ref": "p75",
+      "anchor": "Explain how livestock support crop production.2. Possible answer: Livestock provide animal manure, which im",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 21,
+      "round_id": 3,
+      "page_ref": "p75",
+      "anchor": "Explain how this farming system reduces waste.4. Possible answer: Animal waste is recycled as manure, reducing",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 22,
+      "round_id": 3,
+      "page_ref": "p75",
+      "anchor": "Identify the unsustainable practices described.5. Possible answer: Monocropping and excessive chemical fertil",
+      "note": "close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 23,
+      "round_id": 3,
+      "page_ref": "p79",
+      "anchor": "cane? Possible answer: KwaZuluNatal has warm temperatures, high",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 24,
+      "round_id": 3,
+      "page_ref": "p79",
+      "anchor": "production in KwaZuluNatal, South Africa? Possible answer: Both regions have warm climates, good soils,",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 25,
+      "round_id": 3,
+      "page_ref": "p115",
+      "anchor": "while exploring key fishfarming factors",
+      "note": "add space",
+      "action": "Already fixed pre-session: <w:noBreakHyphen/> is now read into paragraph text (was silently dropped, gluing compound words together). Verified in rebuild.",
+      "status": "done"
+    },
+    {
+      "id": 26,
+      "round_id": 3,
+      "page_ref": "p115",
+      "anchor": "Top of FormBottom of FormChallenges affecting Fish Farm ing in Zimbabwe",
+      "note": "Delete this and replace with; Challenges Affecting Fish Farming in Zimbabwe",
+      "action": "Root cause: hidden Word text (<w:vanish/>, a 'Top of Form'/'Bottom of Form' web-field leftover) was being rendered as visible content. Fixed by skipping vanish runs in paraSegs(). Verified: 0 occurrences of 'Top of Form'/'Bottom of Form' left in the rebuilt PDF (was 7).",
+      "status": "done"
+    },
+    {
+      "id": 27,
+      "round_id": 3,
+      "page_ref": "p117",
+      "anchor": "they are suitable. Possible answer: Major areas include Lake Kariba, Lake",
+      "note": "Close up this space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 28,
+      "round_id": 3,
+      "page_ref": "p117",
+      "anchor": "challenges affecting the sector. Possible answer: Promoting factors include good water supply,",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 29,
+      "round_id": 3,
+      "page_ref": "p117",
+      "anchor": "communities can help. Possible answer: Solutions include stronger regulation, better",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 30,
+      "round_id": 3,
+      "page_ref": "p118",
+      "anchor": "plain their importance to local communities. Possible answer: Key fisheries include Lake Tanganyika, Lake",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 31,
+      "round_id": 3,
+      "page_ref": "p118",
+      "anchor": "their advantages and disadvantages. Possible answer: Traditional methods (hooks, baskets, spears)",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 32,
+      "round_id": 3,
+      "page_ref": "p118",
+      "anchor": "duce postharvest losses. Possible answer: Processing methods such as smoking, drying,",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 33,
+      "round_id": 3,
+      "page_ref": "p118",
+      "anchor": "solutions. Possible answer: Challenges include overfishing, illegal gear,",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 34,
+      "round_id": 3,
+      "page_ref": "p119",
+      "anchor": "their importance. Possible answer: Practices include closed seasons, FCAs, regu",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 35,
+      "round_id": 3,
+      "page_ref": "p119",
+      "anchor": "opment in Zambia. Possible answer: Methods include ponds, cages, tanks, and inte",
+      "note": "Close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 36,
+      "round_id": 3,
+      "page_ref": "p119",
+      "anchor": "servation measures. Possible answer: Malawi’s fisheries face overfishing, habitat",
+      "note": "as above",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 37,
+      "round_id": 3,
+      "page_ref": "p119",
+      "anchor": "lutions to challenges faced. Possible answer: Zimbabwe uses ponds, cages, and trout farm",
+      "note": "As above",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 38,
+      "round_id": 3,
+      "page_ref": "p120",
+      "anchor": "ing in improving food security. Possible answer: Combining both increases supply, reduces",
+      "note": "As above",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 39,
+      "round_id": 3,
+      "page_ref": "p129",
+      "anchor": "EXERCISES 5 – 7",
+      "note": "Close up spaces",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 40,
+      "round_id": 3,
+      "page_ref": "p133",
+      "anchor": "EXERCISES 8 – 9",
+      "note": "Close up spaces",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 41,
+      "round_id": 3,
+      "page_ref": "p138",
+      "anchor": "EXERCISES 10 – 12",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 42,
+      "round_id": 3,
+      "page_ref": "p139",
+      "anchor": "END OF TOPIC 5 ASSESSMENT",
+      "note": "Close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 43,
+      "round_id": 3,
+      "page_ref": "p182",
+      "anchor": "vantages and two challenges of this reliance. Possible answer: : Advantages:",
+      "note": "close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 44,
+      "round_id": 3,
+      "page_ref": "p184",
+      "anchor": "sustainable and two that make it unsustainable. Possible answer: Sustainable conditions:",
+      "note": "close up",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 45,
+      "round_id": 3,
+      "page_ref": "p203",
+      "anchor": "EXERCISES 11 13",
+      "note": "close up all spaces",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 46,
+      "round_id": 3,
+      "page_ref": "p204",
+      "anchor": "END OF TOPIC 7 ASSESSMENT Bottom of Form Bottom of Form1.",
+      "note": "Delete this",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 47,
+      "round_id": 3,
+      "page_ref": "p204",
+      "anchor": "Identify major mineral deposits in Zambia and explain why2.",
+      "note": "Number this as 1.",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 48,
+      "round_id": 3,
+      "page_ref": "p204",
+      "anchor": "3.",
+      "note": "No. 2",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 49,
+      "round_id": 3,
+      "page_ref": "p205",
+      "anchor": "4.",
+      "note": "This is No. 3",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 50,
+      "round_id": 3,
+      "page_ref": "p205",
+      "anchor": "5.",
+      "note": "No. 4",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 51,
+      "round_id": 3,
+      "page_ref": "p205",
+      "anchor": "Explain the uses of copper and coal.6.",
+      "note": "No. 5",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 52,
+      "round_id": 3,
+      "page_ref": "p205",
+      "anchor": "Explain the concept of value addition and its importance in7.",
+      "note": "No. 6",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 53,
+      "round_id": 3,
+      "page_ref": "p205",
+      "anchor": "8.",
+      "note": "No. 7",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 54,
+      "round_id": 3,
+      "page_ref": "p206",
+      "anchor": "9.",
+      "note": "No 8",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 55,
+      "round_id": 3,
+      "page_ref": "p206",
+      "anchor": "10.",
+      "note": "No. 9",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 56,
+      "round_id": 3,
+      "page_ref": "p206",
+      "anchor": "11.",
+      "note": "No. 10",
+      "action": "Root cause: a fully-hidden (vanish) Word-numbered list item was still emitted as a visible empty '1.' bullet, consuming a number and pushing every real question down by one. Fixed in cellBlocks(): a numbered item is only kept as an S/N placeholder when it never had real text; one whose text was hidden is dropped entirely, like Word itself would. Verified visually: the assessment now numbers 1-10 correctly with no gap.",
+      "status": "done"
+    },
+    {
+      "id": 57,
+      "round_id": 3,
+      "page_ref": "p210",
+      "anchor": "EXERCISES 1 – 4",
+      "note": "Close up spaces",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 58,
+      "round_id": 3,
+      "page_ref": "p213",
+      "anchor": "EXERCISES 5 – 7",
+      "note": "Close up space here",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 59,
+      "round_id": 3,
+      "page_ref": "p216",
+      "anchor": "1. Locate Iron and Steel Works",
+      "note": "Remove",
+      "action": "Root cause: listitem()/renderbody()'s numbered-list marker was always forced bold regardless of the item's own text style. Fixed to match the marker's weight to its first run's bold state instead. Verified visually: markers '1.'/'2.'/'a)'/'b)' now render regular, matching their non-bold italic text.",
+      "status": "done"
+    },
+    {
+      "id": 60,
+      "round_id": 3,
+      "page_ref": "p216",
+      "anchor": "2. Shade these places grey to show iron and steel industries.",
+      "note": "Remove the bold",
+      "action": "Root cause: listitem()/renderbody()'s numbered-list marker was always forced bold regardless of the item's own text style. Fixed to match the marker's weight to its first run's bold state instead. Verified visually: markers '1.'/'2.'/'a)'/'b)' now render regular, matching their non-bold italic text.",
+      "status": "done"
+    },
+    {
+      "id": 61,
+      "round_id": 3,
+      "page_ref": "p219",
+      "anchor": "EXERCISES 8 & 9",
+      "note": "Remove spaces in between the question and answer",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 62,
+      "round_id": 3,
+      "page_ref": "p223",
+      "anchor": "EXERCISES 10 & 11",
+      "note": "close up spaces",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 63,
+      "round_id": 3,
+      "page_ref": "p228",
+      "anchor": "Solutions to the Challenges of Transport and Communication",
+      "note": "Put in bold and Font size 14",
+      "action": "Root cause: a heading styled via Word's 'Strong' character style (w:rStyle, applied from the ribbon) carries no direct <w:b/>, so the importer's bold/colour heading detection missed it and the line was demoted to plain body text. Fixed by resolving rStyle=Strong/Emphasis as bold/italic in paraSegs(). Verified visually: the line now renders bold at heading size, matching its sibling sub-headings.",
+      "status": "done"
+    },
+    {
+      "id": 64,
+      "round_id": 3,
+      "page_ref": "p230",
+      "anchor": "EXERCISES 1 – 4",
+      "note": "close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 65,
+      "round_id": 3,
+      "page_ref": "p234",
+      "anchor": "EXERCISES 5 8",
+      "note": "close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 66,
+      "round_id": 3,
+      "page_ref": "p238",
+      "anchor": "EXERCISES 9 – 11",
+      "note": "clsoe up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 67,
+      "round_id": 3,
+      "page_ref": "p239",
+      "anchor": "END OF TOPIC 9 ASSESSMENT",
+      "note": "close up space",
+      "action": "Root cause: an unlabeled 'Answer:' paragraph was promoted to a phantom empty question row (pre-existing fix), and/or the answer text still carried its own redundant 'Answer:'/'Possible answer:' label or a leaked colon that this session stripped in import-docx.js (buildQAParts fold) and typeset-docx.js (splitAnswerLabels). Verified via a whole-book text scan for orphan bare-marker lines, doubled labels, and leaked colons -- zero remaining after fix.",
+      "status": "done"
+    },
+    {
+      "id": 68,
+      "round_id": 5,
+      "page_ref": "p11",
+      "anchor": "KEY COMPETENCES TO BE DEVELOPED",
+      "note": "Delete Key and replace with the word; General",
+      "action": "Renamed the front-matter table heading via setHeading override (KEY -> GENERAL COMPETENCES TO BE DEVELOPED); flows into TOC automatically since it's a real outlined heading.",
+      "status": "done"
+    },
+    {
+      "id": 69,
+      "round_id": 5,
+      "page_ref": "p11",
+      "anchor": "Analyse implications for Zambia’s lo- cation Analyse efforts to improve transport and communication in landlocked countries Evaluate renewable and non-renew- able resources Analyse land tenure Analyse unsustainable farming Evaluate fish farming in Zambia Evaluate challenges and solutions of tourism Analyse hydro-electric power in Zam- bia.",
+      "note": "Add bullet points to all the Descriptors",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 70,
+      "round_id": 5,
+      "page_ref": "p14",
+      "anchor": "Analytical Thinking, Citizenship, Collaboration, Creativity and Innovation and Environmental Sustainability.",
+      "note": "Add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 71,
+      "round_id": 5,
+      "page_ref": "p14",
+      "anchor": "Implications of Zambia’s location analysed accordingly.",
+      "note": "Add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 72,
+      "round_id": 5,
+      "page_ref": "p21",
+      "anchor": "Relief and drainage features related to real life situations accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 73,
+      "round_id": 5,
+      "page_ref": "p26",
+      "anchor": "Cultural features of Zambia promoted accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 74,
+      "round_id": 5,
+      "page_ref": "p34",
+      "anchor": "GENERAL COMPETENCES: Creativity & Innovation and Environmental Sustainability.",
+      "note": "Delete this",
+      "action": "Removed the redundant Topic-level 'General Competences: Creativity & Innovation and Environmental Sustainability.' block via removeRange override -- it duplicated the correct Sub-topic-level General Competences right below it. Verified p.34: only one General Competences block remains, under SUB-TOPIC 4.2.1.",
+      "status": "done"
+    },
+    {
+      "id": 75,
+      "round_id": 5,
+      "page_ref": "p34",
+      "anchor": "Creativity and Innovation, Collaboration and Environmental Sustainability.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 76,
+      "round_id": 5,
+      "page_ref": "p34",
+      "anchor": "Sustainable use of vegetation promoted accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 77,
+      "round_id": 5,
+      "page_ref": "p43",
+      "anchor": "Solutions to invasive plants provided appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 78,
+      "round_id": 5,
+      "page_ref": "p48",
+      "anchor": "Deforestation addressed accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 79,
+      "round_id": 5,
+      "page_ref": "p57",
+      "anchor": "Analytical Thinking, Creativity & Innovation, Critical Thinking, Environmental Sustainability and Problem Solving.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 80,
+      "round_id": 5,
+      "page_ref": "p57",
+      "anchor": "Land tenure analysed appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 81,
+      "round_id": 5,
+      "page_ref": "p61",
+      "anchor": "Understanding of farming in zambia demonstrated accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 82,
+      "round_id": 5,
+      "page_ref": "p64",
+      "anchor": "Irrigation farming practised accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 83,
+      "round_id": 5,
+      "page_ref": "p69",
+      "anchor": "Relationship between farming and climate change is analysed accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 84,
+      "round_id": 5,
+      "page_ref": "p73",
+      "anchor": "Sustainable farming practised appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 85,
+      "round_id": 5,
+      "page_ref": "p77",
+      "anchor": "Sugarcane growing in South Africa related to Zambia appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 86,
+      "round_id": 5,
+      "page_ref": "p80",
+      "anchor": "Pastoral farming related to Zambia.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 87,
+      "round_id": 5,
+      "page_ref": "p83",
+      "anchor": "Demonstrate knowledge of major types of farming in the world correctly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 88,
+      "round_id": 5,
+      "page_ref": "p89",
+      "anchor": "Analytical Thinking, Creativity & Innovation, Entrepreneurship and Problem Solving.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 89,
+      "round_id": 5,
+      "page_ref": "p89",
+      "anchor": "Understanding of fisheries in Zambia demonstrated accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 90,
+      "round_id": 5,
+      "page_ref": "p96",
+      "anchor": "Understanding of fish processing demonstrated appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 91,
+      "round_id": 5,
+      "page_ref": "p100",
+      "anchor": "Fisheries related entrepreneurship practiced accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 92,
+      "round_id": 5,
+      "page_ref": "p104",
+      "anchor": "Solutions to fishing challenges provided accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 93,
+      "round_id": 5,
+      "page_ref": "p105",
+      "anchor": "Refer to the Learners Book for detailed notes on this lesson.•",
+      "note": "create space here",
+      "action": "Already correct in this rebuild -- the bullet list item and the following 'Refer to the Learners Book...' bullet render with normal spacing, no glued bullet character. Verified p.92-93 region.",
+      "status": "done"
+    },
+    {
+      "id": 94,
+      "round_id": 5,
+      "page_ref": "p108",
+      "anchor": "Fish farming practised accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 95,
+      "round_id": 5,
+      "page_ref": "p111",
+      "anchor": "Fishing practices from Malawi adopted accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 96,
+      "round_id": 5,
+      "page_ref": "p115",
+      "anchor": "Lessons of fish farming drawn from Zimbabwe.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 97,
+      "round_id": 5,
+      "page_ref": "p121",
+      "anchor": "Analytical Thinking, Collaboration, Environmental Sustainability and Problem Solving.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 98,
+      "round_id": 5,
+      "page_ref": "p121",
+      "anchor": "Knowledge of tourism in Zambia demonstrated clearly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 99,
+      "round_id": 5,
+      "page_ref": "p126",
+      "anchor": "Sustainable tourism practiced appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 100,
+      "round_id": 5,
+      "page_ref": "p130",
+      "anchor": "Solutions to the challenges of tourism provided accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 101,
+      "round_id": 5,
+      "page_ref": "p134",
+      "anchor": "Best tourism practices from Kenya and South Africa adopted appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 102,
+      "round_id": 5,
+      "page_ref": "p142",
+      "anchor": "Analytical Thinking, Collaboration, Creativity and Innovation, Critical Think ing, Environmental Sustainability and Problem Solving.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 103,
+      "round_id": 5,
+      "page_ref": "p142",
+      "anchor": "Renewable and non renewable energy sources examined accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 104,
+      "round_id": 5,
+      "page_ref": "p153",
+      "anchor": "4.6.1.2. Provide solutions to the challenges of transporting fuel and power.",
+      "note": "Delete this and replace with; Solutions to challenges in production of different types of energy provided accordingly.",
+      "action": "Replaced the paragraph via retext override: '4.6.1.2. Provide solutions to the challenges of transporting fuel and power.' -> 'Solutions to challenges in production of different types of energy provided accordingly.' Verified in rebuild.",
+      "status": "done"
+    },
+    {
+      "id": 105,
+      "round_id": 5,
+      "page_ref": "p158",
+      "anchor": "Adopt measures to reduce overdependence on HEP adopted accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 106,
+      "round_id": 5,
+      "page_ref": "p168",
+      "anchor": "Sustainable energy responsibly accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 107,
+      "round_id": 5,
+      "page_ref": "p173",
+      "anchor": "Relationship between energy and climate change examined accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 108,
+      "round_id": 5,
+      "page_ref": "p177",
+      "anchor": "HEP in the Sub Region evaluated accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 109,
+      "round_id": 5,
+      "page_ref": "p184",
+      "anchor": "1.7. MINING",
+      "note": "increase to font size 16",
+      "action": "Root cause: this Topic heading (unlike every sibling Topic) relied on Word's own auto-list numbering ('1.7.') instead of literal 'TOPIC 4.7:' text, so the importer's numPr handling misclassified it as a small numbered list item instead of a Topic banner heading. Fixed via a setHeading override renaming/reclassifying it to 'TOPIC 4.7: MINING' (h1) -- now renders as the same full-width banner as every other Topic. Verified p.172/185.",
+      "status": "done"
+    },
+    {
+      "id": 110,
+      "round_id": 5,
+      "page_ref": "p184",
+      "anchor": "SUB TOPIC 4.7.1 MINING IN ZAMBIA",
+      "note": "reduce to font size 14",
+      "action": "Side effect of #109's fix: once the Topic 4.7 banner rendered at its correct size, the Sub-Topic 4.7.1 heading below it is the same size as every other Sub-Topic heading in the book (it only looked oversized next to the broken tiny Topic heading). No separate font-size change needed. Verified p.172/185.",
+      "status": "done"
+    },
+    {
+      "id": 111,
+      "round_id": 5,
+      "page_ref": "p184",
+      "anchor": "Critical Thinking, Financial Education, Problem Solving and Entrepreneur ship.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 112,
+      "round_id": 5,
+      "page_ref": "p185",
+      "anchor": "Understanding of mining in Zambia demonstrated clearly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 113,
+      "round_id": 5,
+      "page_ref": "p189",
+      "anchor": "Mineral processing to economic growth in Zambia related accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 114,
+      "round_id": 5,
+      "page_ref": "p191",
+      "anchor": "Opportunities within Zambia’s Mineral Value Chain used accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 115,
+      "round_id": 5,
+      "page_ref": "p195",
+      "anchor": "Solutions to challenges Zambia faces in mineral markets provided accord ingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 116,
+      "round_id": 5,
+      "page_ref": "p200",
+      "anchor": "Lessons of mining from Angola and South Africa drawn accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 117,
+      "round_id": 5,
+      "page_ref": "p200",
+      "anchor": "Mining Areas on the Map of Angola and South Africa",
+      "note": "Put this text which is in  a separate MS Word document just after the title: ",
+      "action": "Waiting on the separate MS Word document referenced in the comment (map/content to insert after the 'Mining Areas on the Map of Angola and South Africa' heading, p.200-ish) -- not attached to the annotated PDF. User will send it separately.",
+      "status": "flagged"
+    },
+    {
+      "id": 118,
+      "round_id": 5,
+      "page_ref": "p206",
+      "anchor": "Critical Thinking, Entrepreneurship, Financial Education and Problem Solv ing.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 119,
+      "round_id": 5,
+      "page_ref": "p206",
+      "anchor": "Major processing and manufacturing industries examined accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 120,
+      "round_id": 5,
+      "page_ref": "p210",
+      "anchor": "Solutions to challenges in processing and manufacturing industries provided appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 121,
+      "round_id": 5,
+      "page_ref": "p214",
+      "anchor": "Manufacturing and processing industries in Zimbabwe and South Africa analysed accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 122,
+      "round_id": 5,
+      "page_ref": "p218",
+      "anchor": "Lessons from rapid industrial expansion in Japan and China accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 123,
+      "round_id": 5,
+      "page_ref": "p225",
+      "anchor": "Collaboration, Communication and Environmental Sustainability.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 124,
+      "round_id": 5,
+      "page_ref": "p225",
+      "anchor": "Understanding of transport and communication in Zambia demonstrated appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 125,
+      "round_id": 5,
+      "page_ref": "p227",
+      "anchor": "Environmental impacts of different forms of transport analysed accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 126,
+      "round_id": 5,
+      "page_ref": "p230",
+      "anchor": "Sustainable mobility practices adopted appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 127,
+      "round_id": 5,
+      "page_ref": "p233",
+      "anchor": "transport options? Possible answer: Communities can promote sustainable trans",
+      "note": "close up  this space",
+      "action": "Root cause and fix same as #130 -- see that comment.",
+      "status": "done"
+    },
+    {
+      "id": 128,
+      "round_id": 5,
+      "page_ref": "p234",
+      "anchor": "Efforts to improve transport and communication in landlocked countries analysed accordingly.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 129,
+      "round_id": 5,
+      "page_ref": "p235",
+      "anchor": "Understanding of new trends in transport and communication demonstrated appropriately.",
+      "note": "add bullet point",
+      "action": "Restored the manuscript's own Word bullet (numFmt=bullet numPr) on General/Specific Competences, Expected Standards, and front-matter Descriptors lines. A prior round had removed these bullets engine-wide (debulletStandards() in typeset-docx.js); this round's editor pass asked for them back, so the function was removed and (for table-cell descriptors) cellRich() in import-docx.js was fixed to keep a cell paragraph's own bullet marker instead of flattening it to a plain joined line. Verified across pp.14, 34, 184, 194, 207.",
+      "status": "done"
+    },
+    {
+      "id": 130,
+      "round_id": 5,
+      "page_ref": "p237",
+      "anchor": "and communication today. Possible answer: New trends like electric vehicles, smart tech",
+      "note": "close up this space",
+      "action": "Root cause: a manuscript exercise item with a SECOND, unnumbered follow-up question (label 'Answer:' typed as its own paragraph) survived import as a bare 'lead' part with no answer, while its answer paragraph became a separate blank-marker question part -- two rows where every other item is one, with a lead-sized gap meant for a section intro rather than a tight Q/A pair. Added a merge pass in splitAnswerLabels() (typeset-docx.js) that glues a still-unanswered lead with real question text onto the very next blank-question answer. Verified p.220-221 (EXERCISES 5-8, item 3).",
+      "status": "done"
+    }
+  ]
 }

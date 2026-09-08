@@ -405,9 +405,15 @@ function paraSegs(pXml) {
     // only after (e.g. a signature run "<w:br/>Board Chairperson"). The old code
     // counted all breaks and appended them to the end, which moved a leading
     // break to the wrong place and glued two lines together.
+    // A compound word's hyphen is often typed as Word's non-breaking hyphen
+    // (Ctrl+Shift+minus), stored as the empty element <w:noBreakHyphen/> rather
+    // than a literal "-" inside a <w:t> — invisible to a regex that only looks
+    // for <w:t>/<w:br>, so the hyphen silently vanished ("competence-based" ->
+    // "competencebased"). Render it as a non-breaking hyphen character so the
+    // word still can't wrap there, the way the author intended.
     let tm = "";
-    for (const mm of run.matchAll(/<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>/g)) {
-      tm += mm[1] !== undefined ? mm[1] : "\n";
+    for (const mm of run.matchAll(/<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>|<w:noBreakHyphen\b[^>]*\/?>/g)) {
+      tm += mm[1] !== undefined ? mm[1] : mm[0].startsWith("<w:noBreakHyphen") ? "‑" : "\n";
     }
     const tabs = (run.match(/<w:tab\b/g) || []).length;
     if (!tm && !tabs) continue;
@@ -416,8 +422,22 @@ function paraSegs(pXml) {
       .replace(/ *— */g, " - ");     // em dash -> spaced hyphen (house style)
     if (tabs) t = t + " ".repeat(tabs);                // tabs -> spaces (no column artefacts)
     const rpr = (run.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
-    const b = /<w:b\b(?!Cs)/.test(rpr) && !/<w:b\b[^>]*w:val="(0|false)"/.test(rpr);
-    const it = /<w:i\b(?!Cs)/.test(rpr) && !/<w:i\b[^>]*w:val="(0|false)"/.test(rpr);
+    // Hidden text (<w:vanish/>) — Word itself never displays or prints this run.
+    // The recurring case in these manuscripts is "Top of Form"/"Bottom of Form",
+    // boilerplate left behind when text was copy-pasted out of a legacy Word form
+    // field or web form; the author never sees it (Word hides it, "Show hidden
+    // text" is off by default), so it should never surface in the typeset output.
+    if (/<w:vanish\b/.test(rpr) && !/<w:vanish\b[^>]*w:val="(0|false)"/.test(rpr)) continue;
+    // A run styled via Word's "Strong"/"Emphasis" QUICK STYLE (<w:rStyle>, applied
+    // from the ribbon's style gallery) carries no direct <w:b>/<w:i> of its own —
+    // the bold/italic lives in the STYLE definition instead — so a heading-like
+    // line the author styled this way (rather than pressing Ctrl+B) was silently
+    // read as plain text and demoted to body prose. Both are Word BUILT-IN style
+    // IDs with a fixed meaning apps never redefine, so treat them the same as the
+    // direct formatting they visually apply.
+    const rstyle = (rpr.match(/<w:rStyle\s+w:val="([^"]+)"/) || [])[1] || "";
+    const b = (/<w:b\b(?!Cs)/.test(rpr) && !/<w:b\b[^>]*w:val="(0|false)"/.test(rpr)) || rstyle === "Strong";
+    const it = (/<w:i\b(?!Cs)/.test(rpr) && !/<w:i\b[^>]*w:val="(0|false)"/.test(rpr)) || rstyle === "Emphasis";
     // Author underline (<w:u w:val="single"/>, etc.) — preserved on BODY text only:
     // headings/banners/box-titles emit as plain strings (S(b.text)/S(b.title)), so a
     // structural label the author underlined in Word (e.g. "Exercise") never carries
@@ -607,6 +627,28 @@ function cellBlocks(tcXml) {
       } else out.push(imgBlk);
     }
     else if (plain) out.push(paraOf());
+    // A "S/N" (serial number) column is often typed as an EMPTY Word auto-numbered
+    // list paragraph per row — the author never types "1", "2", "3"…, they just
+    // apply numbering and let Word render the number. Word computes that number
+    // from numbering.xml at display time rather than storing it as text, so a cell
+    // with numPr but no runs has real, correct numbering info (via listResolve)
+    // and nothing else — dropping it (the old behaviour, since `plain` is "") left
+    // the whole column blank in every row. Render the resolved marker itself, but
+    // only for genuine numbered/lettered formats: a lone empty BULLET point is
+    // still dropped, since an unfilled bullet carries no information to show.
+    // A paragraph whose text was HIDDEN (every run carried <w:vanish/> — the
+    // "Bottom of Form" web-field leftover is the recurring case) also comes out
+    // with `plain === ""` here, but it is NOT a deliberate S/N placeholder: it's a
+    // genuine numbered list item the author never meant readers to see at all —
+    // Word itself skips a fully-hidden paragraph's bullet too when hidden text is
+    // off, so it shouldn't consume a number in the printed list either. Tell the
+    // two apart by checking the RAW xml for any actual run text: none at all means
+    // a true S/N blank (render the resolved marker); some text that vanished into
+    // an empty `plain` means drop the item entirely (no marker, no place in list).
+    else if (li && li.marker && li.marker !== "•" && !/<w:t\b[^>]*>[^<]*\S/.test(part)) {
+      out.push({ t: "para", segs: [{ t: li.marker, b: false, it: false, c: null }], plain: li.marker,
+        isList: true, numId: li.numId, lvl: li.lvl, marker: li.marker });
+    }
   }
   return out;
 }
@@ -627,7 +669,12 @@ function cellRich(tcXml) {
   // stacks them vertically instead of collapsing into one wrapped blob. NESTED
   // tables are pulled out into `subs` (rendered as real sub-tables) rather than
   // flattened into "·"-joined text, so a table-inside-a-table keeps its grid.
-  const text = bl.filter((b) => b.t !== "table").map(cellFlat).join("\n").trim();
+  // A paragraph that is a genuine Word BULLET list item (e.g. a front-matter
+  // "Competences and Descriptors" table listing several outcome statements per
+  // cell) keeps that bullet — dropping it left every line looking like one
+  // unbroken run with no visual separation between statements.
+  const bullet = (b) => (b.t === "para" && b.isList && b.marker === "•") ? "• " : "";
+  const text = bl.filter((b) => b.t !== "table").map((b) => bullet(b) + cellFlat(b)).join("\n").trim();
   const imgs = [];
   const subs = [];
   // rich segments so a cell's bold/italic/coloured runs (e.g. a bold category name
@@ -640,6 +687,7 @@ function cellRich(tcXml) {
     else if (b.t === "table") subs.push(b.rows);
     else if (b.t === "para" && b.segs) {
       if (segs.length) segs.push({ t: "\n", b: false, it: false, c: null });
+      if (bullet(b)) segs.push({ t: bullet(b), b: false, it: false, c: null });
       for (const s of b.segs) segs.push(s);
     }
   });
@@ -932,7 +980,16 @@ function buildQAParts(blocks) {
     if (b.t !== "para") continue;
     const grabAnswer = () => {           // pull a trailing "Possible answer: …"
       const nxt = blocks[i + 1];
-      if (nxt && nxt.t === "para" && /^possible answer\s*:/i.test(nxt.plain)) {
+      // Require actual answer TEXT after the label in this SAME paragraph — a bare
+      // "Possible Answer:" with nothing following (the answer typed as its own
+      // separate paragraph/list item right below, a common Teacher's Guide style)
+      // must NOT match here: consuming it as an "answer" of just empty/whitespace
+      // left both the tag suppressed (the template only shows "Possible answer:"
+      // when there IS an answer) and the real answer paragraph orphaned as its own
+      // stray lettered sub-question. Leaving the bare label unconsumed lets the
+      // ANSWERS_DIVIDER handling below fold the following paragraph(s) in properly.
+      if (nxt && nxt.t === "para" && /^possible answer\s*:/i.test(nxt.plain)
+          && nxt.plain.replace(/^possible answer\s*:\s*/i, "").trim() !== "") {
         i++;
         const pl = nxt.plain.replace(/^possible answer\s*:\s*/i, "").trim();
         const off = nxt.plain.length - nxt.plain.replace(/^possible answer\s*:\s*/i, "").length;
@@ -949,7 +1006,48 @@ function buildQAParts(blocks) {
     // A "Possible answers" divider RESETS numbering so the answer key restarts at 1
     // — even when the writer made the divider itself a numbered list item (which
     // would otherwise be counted as a question and drag the answers up to 11, 12…).
+    // That reset assumes the classic BATCH shape: every question listed first, then
+    // one divider, then a whole fresh "1., 2., 3…" run of answers lined up with them.
+    // Some Teacher's Guides instead write "Possible Answer:" right after EACH
+    // question, one at a time, with the actual answer typed as its own tiny Word
+    // list (often a single lettered item) immediately below — never a decimal
+    // top-level marker. Only a following DECIMAL marker is the real batch signal;
+    // anything else means this line is a PER-QUESTION inline label, not a divider.
+    // Treating it as one anyway reset the running count for every later question
+    // (misnumbering them) and left the answer to float free as its own lettered
+    // sub-question — dropping the "Possible answer:" tag and its styling. Instead,
+    // absorb everything up to the next real question straight into the nearest
+    // unanswered question's answer, exactly like `grabAnswer()` does when the label
+    // and its answer share one paragraph.
     if (ANSWERS_DIVIDER.test(b.plain.trim())) {
+      const peek = blocks[i + 1];
+      const isDecimalTop = (x) => x && x.t === "para" &&
+        ((x.marker && /^\(?\d/.test(x.marker)) || LIT_TOP.test((x.plain || "").replace(/^\s+/, "")));
+      if (!isDecimalTop(peek)) {
+        const target = [...parts].reverse().find((p) => p.kind === "q" && !p.a && !(p.aseg && p.aseg.length));
+        if (target) {
+          const absorbed = [];
+          let j = i + 1;
+          while (j < blocks.length) {
+            const nb = blocks[j];
+            if (nb.t !== "para") break;                              // table/image answer: leave to the classic path
+            if (isDecimalTop(nb) || ANSWERS_DIVIDER.test(nb.plain.trim())) break;
+            absorbed.push(nb);
+            j++;
+          }
+          if (absorbed.length) {
+            const aseg = [];
+            absorbed.forEach((ab, k) => {
+              if (k > 0) aseg.push({ t: "\n", b: false, it: false, c: null });
+              for (const s of (ab.segs && ab.segs.length ? ab.segs : [{ t: ab.plain || "", b: false, it: false, c: null }])) aseg.push(s);
+            });
+            target.a = aseg.map((s) => s.t).join("");
+            target.aseg = aseg;
+            i = j - 1;
+            continue;
+          }
+        }
+      }
       topNBeforeDivider = topN;
       topN = 0; subN = 0; auto = 0; primaryNum = null;
       parts.push({ kind: "lead", q: b.plain, qseg: b.segs, divider: true });
@@ -1059,6 +1157,80 @@ function buildQAParts(blocks) {
       [parts[i], parts[i + 1]] = [parts[i + 1], parts[i]];
       i++; // the image now sits at i+1; don't reconsider it
     }
+  }
+  // Some Teacher's Guides never write an explicit "Possible Answer:" label at all —
+  // the answer is simply typed as its own tiny lettered/numbered list right under
+  // the question (one point, or several: "a) …  b) …  c) …"), which the loop above
+  // (with no label to fold it against) has no choice but to parse as literal
+  // lettered SUB-QUESTIONS. Rendered as-is that reads as an unresolved multi-part
+  // question ("1. Question… / a. This is actually the answer…"), the same confusing
+  // shape a label-driven answer used to collapse into before the fix above — just
+  // without the label to trigger it. The reliable tell that a depth-1 run is
+  // really the flat answer rather than genuine separate sub-questions: NONE of its
+  // items has an answer of its own. A genuine multi-part question (e.g. "a) What
+  // is X? … b) What is Y? …") always answers each part separately, so a part that
+  // already carries its own `a`/`aseg` is left alone; only a run where every part
+  // is itself unanswered gets folded up as the parent question's answer, each
+  // point kept on its own line (with its original marker as a prefix when there is
+  // more than one point, so nothing reads as a run-on sentence).
+  // A lead that actually opens the NEXT question's scenario/preamble ("Scenario: A
+  // farmer chooses...", a bare "Question"/"Questions:" divider) rather than
+  // continuing THIS answer — the fold below must stop at one instead of swallowing
+  // the next question's setup into the previous question's answer.
+  const NEXT_SET_INTRO = /^(?:scenario|case\s*study)\s*:|^questions?\s*:?\s*$/i;
+  // A lettered answer item sometimes ALSO carries its own typed "Answer:" /
+  // "Possible Answer:" label ("a) Answer: Flat land allows...") even though
+  // lettering it after an unanswered question already marks it as the answer —
+  // strip that redundant label so it doesn't double up with the "Possible answer:"
+  // tag this fold adds. Mirrors splitAnswerLabels' LABEL_FULL/LABEL_INLINE below.
+  const FOLD_LABEL_FULL = /^\s*(?:possible|expected|suggested|sample|model)?\s*(?:answers?|responses?)\s*:?\s*$/i;
+  const FOLD_LABEL_INLINE = /^\s*(?:possible|expected|suggested|sample|model)?\s*(?:answers?|responses?)\s*:\s*/i;
+  const stripFoldLabel = (segs) => {
+    if (!segs.length) return segs;
+    if (!segs[0].m && FOLD_LABEL_FULL.test(segs[0].t || "")) {
+      segs = segs.slice(1);
+      // The label's own colon is sometimes typed as the START of the NEXT run
+      // instead of the end of the label run itself (a formatting-boundary quirk:
+      // "Possible Answers" bold, then ": Advantages:" non-bold) — strip that
+      // leading colon too, or it leaks through as "Possible answer: : Advantages:".
+      if (segs[0]) segs[0] = { ...segs[0], t: segs[0].t.replace(/^\s*:?\s*/, "") };
+      return segs;
+    }
+    const m = !segs[0].m && (segs[0].t || "").match(FOLD_LABEL_INLINE);
+    if (m) return [{ ...segs[0], t: segs[0].t.slice(m[0].length) }, ...segs.slice(1)];
+    return segs;
+  };
+  for (let i = 0; i < parts.length; i++) {
+    const top = parts[i];
+    if (top.kind !== "q" || (top.depth || 0) !== 0) continue;
+    if (top.a || (top.aseg && top.aseg.length)) continue;   // already answered
+    // The answer sometimes wraps its lettered breakdown in its own unmarked lead-in
+    // ("The community could adopt...") and/or a closing summary line ("These
+    // alternatives are cleaner..."), both plain flowing paragraphs (kind "lead")
+    // rather than lettered items — absorb those too, but only commit the fold when
+    // the run actually contains a lettered item; plain lead prose with no
+    // breakdown at all is already fine as ordinary flowing text under the question.
+    const run = [];
+    let hasLettered = false;
+    let j = i + 1;
+    while (j < parts.length) {
+      const p = parts[j];
+      if (p.kind === "q" && p.depth === 1 && !p.a && !(p.aseg && p.aseg.length)) { run.push(p); hasLettered = true; j++; continue; }
+      if (p.kind === "lead" && !p.divider && !NEXT_SET_INTRO.test((p.q || "").trim())) { run.push(p); j++; continue; }
+      break;
+    }
+    if (!hasLettered) continue;
+    const letteredCount = run.filter((p) => p.kind === "q").length;
+    const aseg = [];
+    run.forEach((p, k) => {
+      if (k > 0) aseg.push({ t: "\n", b: false, it: false, c: null });
+      if (p.kind === "q" && letteredCount > 1 && p.marker) aseg.push({ t: p.marker + " ", b: true, it: false, c: null });
+      const segs = stripFoldLabel(p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }]);
+      for (const s of segs) aseg.push(s);
+    });
+    top.a = aseg.map((s) => s.t).join("");
+    top.aseg = aseg;
+    parts.splice(i + 1, run.length);
   }
   return parts;
 }
@@ -2108,7 +2280,11 @@ async function importDocx(docxPath, opts = {}) {
       if (/^ISBN\b/i.test(plain)) blocks.push({ t: "vspace", h: "8mm" });
       else if (boldFirstRun(x)) blocks.push({ t: "vspace", h: "5mm" });
       const segs2 = segs.map((s) => ({ ...s, t: s.t.replace(/\s{5,}/g, "\n").replace(/ {2,}/g, " ") }));
-      blocks.push({ t: "para", segs: segs2, align: "center" });
+      // hyphenate: false — this is a short centred line (names, addresses, ISBN),
+      // never long justified prose, so there is no line-fitting reason to hyphenate,
+      // and a dictionary match on an ordinary-word name (e.g. "Precious" ->
+      // "Pre-cious") reads as a typo on a formal credits page.
+      blocks.push({ t: "para", segs: segs2, align: "center", hyphenate: false });
       continue;
     }
     // size-inferred heading (books that style headings by hand)
