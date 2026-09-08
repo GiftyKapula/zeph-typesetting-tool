@@ -63,9 +63,14 @@ async function extractPdfComments(file) {
       const note = txt(a.contentsObj) || txt(a.contents) || txt(a.richText);
       let anchor = "";
       if (a.quadPoints && a.quadPoints.length) {
-        // highlight/markup: text under the highlighted quads
-        const xs = a.quadPoints.flat().map((q) => q.x);
-        const ys = a.quadPoints.flat().map((q) => q.y);
+        // highlight/markup: text under the highlighted quads. pdf.js hands back
+        // quadPoints as a FLAT numeric array/typed-array — 8 numbers per quad
+        // (4 corners), x and y interleaved — not an array of {x,y} objects, so
+        // `.flat()` (an Array method the typed array doesn't even have) never
+        // worked here. Read every even index as an x and every odd index as a y.
+        const pts = Array.from(a.quadPoints);
+        const xs = pts.filter((_, i) => i % 2 === 0);
+        const ys = pts.filter((_, i) => i % 2 === 1);
         const x0 = Math.min(...xs), x1 = Math.max(...xs);
         const y0 = Math.min(...ys), y1 = Math.max(...ys);
         anchor = joinItems(items.filter((it) =>

@@ -269,10 +269,21 @@
   // title to two lines, which pushes the in-flow booktype text down; an absolutely
   // positioned byline stayed put at its old fixed offset and collided with it. Flowing
   // it keeps the same visual gap regardless of how many lines the title wrapped to.
+  // One line per author reads best for the usual 1-2 author byline, but a book
+  // credited to several authors (e.g. a Teacher's Guide with a whole writing
+  // panel) stacks past the publisher block below, which sits at a FIXED offset
+  // and doesn't know how far the in-flow byline pushed things down — the two
+  // silently overlapped. Past 2 names, wrap them into one centred paragraph
+  // instead (matching how the cover's own byline already handles a long list).
   if byline.len() > 0 {
     v(20mm)
     align(center)[
-      #for a in byline [ #text(size: 13pt, weight: "medium", fill: T.ink)[#a] #v(3.5mm) ]]
+      #if byline.len() > 2 {
+        text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
+      } else {
+        for a in byline [ #text(size: 13pt, weight: "medium", fill: T.ink)[#a] #v(3.5mm) ]
+      }
+    ]
   }
   place(top + center, dy: 199mm, block(width: 100%)[#align(center)[
     #box(fill: T.primary, width: 28mm, height: 2.5pt, radius: 1pt)
@@ -1135,7 +1146,12 @@
     if buf.len() > 0 { par[#segs(buf)] }
   } else { par[#segs(ss)] }
 }
-#let para(ss, align: none, drop: false) = {
+// hyphenate: false skips Typst's hyphenation dictionary for this paragraph. Used for
+// the imprint/credits page, where a short centred line of proper names ("Precious
+// Sapanoi") has no justification to gain from hyphenating and a dictionary match on
+// an ordinary-word name (Precious -> "Pre-cious") reads as a typo, not a line break.
+#let para(ss, align: none, drop: false, hyphenate: true) = {
+  set text(hyphenate: hyphenate)
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
     // Drop capital: lift the first letter of the first run to ~3-line height in the
     // theme primary colour, then flow the rest of the paragraph. Used for the
@@ -1159,8 +1175,16 @@
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
 #let listitem(ss, marker) = {
   let isbullet = marker == "•"
+  // A numbered/lettered marker used to be bold unconditionally — right for the
+  // common case (a bold numbered step), but it left the marker visibly bolder
+  // than its OWN item text wherever the manuscript's list content is plain/italic
+  // (e.g. an activity's instruction steps), a mismatch a reviewer flagged as
+  // stray bold to remove. Match the marker's weight to the item's own first run
+  // instead of forcing bold, so it always agrees with its text.
+  let firstseg = ss.find(s => s.t.trim() != "")
+  let contentBold = firstseg != none and firstseg.at("b", default: false)
   grid(columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top),
-    text(fill: if isbullet { iaccent2 } else { T.primary }, weight: if isbullet { "regular" } else { "bold" })[#marker],
+    text(fill: if isbullet { iaccent2 } else { T.primary }, weight: if isbullet { "regular" } else if contentBold { "bold" } else { "regular" })[#marker],
     par[#segs(ss)])
 }
 // A worked-solution CONTINUATION line: a stand-alone equation that carries on the
@@ -1447,7 +1471,7 @@
     // a light tinted panel with a coloured left stripe (used for any residual
     // boxed content / key points / reference tables in the flowing series layout)
     block(width: 100%, breakable: breakable, radius: 4pt, fill: kind.fill, stroke: (left: 4pt + kind.border), inset: (x: 11pt, y: 9pt))[
-      #block(sticky: true, below: 7pt)[#text(fill: kind.title, weight: "bold", size: hs(14pt))[#title]]
+      #block(width: 100%, sticky: true, below: 7pt)[#text(fill: kind.title, weight: "bold", size: hs(14pt))[#title]]
       #content]
   } else if panel {
     // filled panel (no border) with a thick accent rule under the title
@@ -1721,9 +1745,15 @@
       // A sub-list (one that restarts its numbering under a numbered parent) is
       // indented so it reads as belonging to that question rather than as a sibling.
       let pad = it.at("indent", default: 0) * 18pt
+      // Match the marker's weight to the item's own first run rather than forcing
+      // bold — a numbered step whose manuscript text is plain/italic (not bold)
+      // otherwise ends up with a visibly bolder marker than its own text (see the
+      // matching fix on `listitem`, used outside a box, just above).
+      let firstseg = it.s.find(s => s.t.trim() != "")
+      let contentBold = firstseg != none and firstseg.at("b", default: false)
       grid(columns: (pad, auto, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
         [],
-        text(fill: if it.marker == "•" { T.primary2 } else { T.primary }, weight: if it.marker == "•" { "regular" } else { "bold" })[#it.marker],
+        text(fill: if it.marker == "•" { T.primary2 } else { T.primary }, weight: if it.marker == "•" { "regular" } else if contentBold { "bold" } else { "regular" })[#it.marker],
         par[#segs(it.s)])
       v(1.5pt)
     }
