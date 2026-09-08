@@ -1739,13 +1739,18 @@ function applyOverrides(blocks, ov) {
     const needle = it.after != null ? it.after : it.before;
     const hay = (b) => `${blockPlain(b)} ${b.heading || ""} ${b.title || ""}`;
     const texts = Array.isArray(it.text) ? it.text : [it.text];
+    // list/para runs go through mkSegs so **bold**/*italic*/$math$ markdown works inside
+    // an inserted block the same way it already does for replaceBlocks's para/listitem —
+    // `it.bold`/`it.italic` (the whole-block flags this took before markdown support was
+    // added) still force every seg, so existing plain-string callers render unchanged.
+    const segsFor = (tx) => mkSegs(tx).map((s) => ({ ...s, ...(it.bold ? { b: true } : {}), ...(it.italic ? { it: true } : {}) }));
     const mkBlks = () => texts.map((tx, idx) => it.as === "section"
       ? { t: "head", text: tx, styleSection: true, noPromote: true }
       : it.as === "head"
       ? { t: "head", text: tx, black: true, noPromote: true }
       : it.as === "list"
-      ? { t: "listitem", isList: true, marker: it.startNum != null ? `${it.startNum + idx}.` : "•", segs: [{ t: tx, b: !!it.bold, it: !!it.italic, c: null }] }
-      : { t: "para", segs: [{ t: tx, b: !!it.bold, it: false, c: null }], ...(it.align ? { align: it.align } : {}) });
+      ? { t: "listitem", isList: true, marker: it.startNum != null ? `${it.startNum + idx}.` : "•", segs: segsFor(tx) }
+      : { t: "para", segs: segsFor(tx), ...(it.align ? { align: it.align } : {}) });
     if (it.all) {
       let n = 0;
       for (let i = 0; i < blocks.length; i++) {

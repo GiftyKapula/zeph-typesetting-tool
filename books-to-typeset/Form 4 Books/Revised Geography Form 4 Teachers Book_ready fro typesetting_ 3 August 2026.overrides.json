@@ -10,5 +10,14 @@
   "setHeading": [
     { "find": "MINING", "near": "Mining involves extracting", "text": "TOPIC 4.7: MINING", "as": "h1" },
     { "find": "KEY COMPETENCES TO BE DEVELOPED", "text": "GENERAL COMPETENCES TO BE DEVELOPED" }
+  ],
+  "insertText": [
+    {
+      "after": "Mining Areas on the Map of Angola and South Africa",
+      "text": [
+        "In **Angola**, petroleum is mainly found along the Atlantic coast and offshore, particularly in Cabinda Province, the Lower Congo Basin, and the Kwanza Basin. Offshore drilling dominates because of the rich undersea oil reserves. Diamond mining is concentrated in Lunda Norte and Lunda Sul, with the Catoca Mine being one of Africa’s largest. Diamonds occur in river valleys and alluvial deposits, especially along the Cuango River. Gold mining takes place on a smaller scale in central and southern provinces such as Huambo, Bié, Huíla, and Cuando Cubango, often in riverbeds and ancient rocks.",
+        "In **South Africa**, diamonds are found around Kimberley, Limpopo, and the Northern Cape. Gold is concentrated in the Witwatersrand Basin, located in Gauteng and the Free State. Uranium occurs mainly in the Karoo Basin and the Northern Cape, where it is linked to sedimentary rocks."
+      ]
+    }
   ]
 }
