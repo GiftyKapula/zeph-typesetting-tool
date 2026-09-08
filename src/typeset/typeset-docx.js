@@ -1128,11 +1128,25 @@ function applyOverrides(blocks, ov) {
     const i = blocks.findIndex((b) => blockPlain(b).trim().toLowerCase().startsWith(f.after.toLowerCase()));
     if (i < 0) continue;
     let target = -1;
+    // A blank Word paragraph imports as a `vspace` block (no text field at all), not
+    // an empty paragraph — skip those looking for our label's own placeholder/value
+    // line, but stop at the first line that contains a colon: that is always ANOTHER
+    // label (e.g. "Cover and Book layout by:............."), never a value to fill,
+    // so it must not be mistaken for our placeholder just because ours was blank.
     for (let j = i + 1; j < Math.min(i + 3, blocks.length); j++) {
-      if (/[.…]{4,}/.test(blockPlain(blocks[j]))) { target = j; break; }   // the dotted placeholder
+      const b = blocks[j];
+      if (b && b.t === "vspace") continue;
+      const txt = blockPlain(b).trim();
+      if (txt === "") continue;
+      if (!txt.includes(":")) target = j;   // the dot-leader, or a wrong name to correct
+      break;
     }
-    if (target < 0) target = i + 1;
-    if (blocks[target]) setBlockText(blocks[target], f.text);
+    if (target >= 0) { setBlockText(blocks[target], f.text); continue; }
+    // Nothing safe to reuse (only a blank line, or the very next real content is
+    // another label) — insert a fresh line for the value right after the label,
+    // rather than writing into a non-text `vspace` block (silently renders nothing)
+    // or overwriting an unrelated section.
+    blocks.splice(i + 1, 0, { t: "para", segs: [{ t: f.text, b: false, it: false, c: null }], align: "center" });
   }
   for (const r of ov.replace || []) {
     const b = flat.find((x) => blockPlain(x).includes(r.find));
@@ -2706,29 +2720,61 @@ function reorderBackmatter(blocks) {
 // (numbered markers, worked-solution continuation, boxed leads) is layout, not
 // spaces, so it is unaffected too. Runs for EVERY book.
 // Authors lay out word lists in two or three columns by typing a big run of spaces
-// The imprint page credits the typesetter on a "Cover and Book Layout:" line, which
-// the manuscripts leave as an empty dot-leader placeholder ("…………"). We do the
-// typesetting, so fill that placeholder with our credit on every book. Match the
-// label, then set the next dot-leader-only line (within a few blocks) to the name.
+// The imprint page credits the typesetter on a "Cover and Book Layout:" line. We do
+// the typesetting, so fill that credit with our name on every book — but manuscripts
+// disagree on where the name goes: some leave the label bare with the name (or a
+// dot-leader placeholder, or someone's self-credit) on its OWN following line
+// ("Cover and Book Layout:" / "Njira Mtonga"); others glue a dot-leader straight onto
+// the SAME line as the label ("Cover and Book layout by:................."), leaving
+// no separate line for a name at all — the very next paragraph there is unrelated
+// real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
+// non-empty block" would destroy that section instead of crediting anyone.
 const LAYOUT_CREDIT = "Ng`ambi Teddy";
 function fillLayoutCredit(blocks) {
   const LABEL = /cover\s+and\s+book\s+layout/i;
-  const DOTS = /^[.•․…·\s]+$/;   // only dots / ellipses / middots / space
+  // Another front-matter label (ends with a colon, or a known "…by:" line) — never a
+  // placeholder to overwrite, even when it directly follows ours with no gap.
+  const LABELISH = /:\s*$|^(edited|illustrated|printed|published|first published)\b/i;
+  const DOTLEADER = /[.•․…·]{3,}\s*$/;   // a run of dot/bullet/ellipsis chars trailing the label
+  const isBlankish = (b) => !b || typeof b !== "object" || b.t === "vspace" || b.t === "showpage" || blockPlain(b).trim() === "";
   const walk = (arr) => {
     for (let i = 0; i < arr.length; i++) {
       const b = arr[i];
       if (!b || typeof b !== "object") continue;
       for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walk(b[k]);
-      if (!LABEL.test(blockPlain(b))) continue;
-      // The credit sits on the next non-empty line. We do the typesetting/layout for every
-      // ZEPH book, so set it to our credit whether the manuscript left a dot-leader
-      // placeholder ("……") OR filled in someone else's name (some authors self-credit the
-      // layout). Only skip if it is ALREADY our credit.
-      for (let j = i + 1; j < Math.min(i + 4, arr.length); j++) {
-        const txt = blockPlain(arr[j]).trim();
-        if (txt === "") continue;
-        if (txt !== LAYOUT_CREDIT) setBlockSegs(arr[j], [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }]);
-        return;
+      const plain = blockPlain(b);
+      if (!LABEL.test(plain)) continue;
+      // Strip a dot-leader baked onto the label's own line so it never prints raw
+      // dots — this also means there is no separate placeholder line to reuse, so
+      // the name gets inserted as a brand new line below.
+      const dotMatch = plain.match(DOTLEADER);
+      if (dotMatch) editBlockText(b, dotMatch[0], "");
+      let nameIdx = -1;
+      if (!dotMatch) {
+        // The name (or a dot-leader placeholder, or someone's self-credit) sits on its
+        // own line within the next few blocks — skip past any OTHER label line (e.g.
+        // "First Published by:") so it's never mistaken for our placeholder.
+        for (let j = i + 1; j < Math.min(i + 4, arr.length); j++) {
+          const txt = blockPlain(arr[j]).trim();
+          if (txt === "" || LABELISH.test(txt)) continue;
+          nameIdx = j;
+          break;
+        }
+      }
+      if (nameIdx >= 0) {
+        if (blockPlain(arr[nameIdx]).trim() !== LAYOUT_CREDIT) {
+          setBlockSegs(arr[nameIdx], [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }]);
+        }
+        // Space the credit from whatever ZEPH statement (publisher block, "First
+        // Published by:", …) follows it, unless a blank line already does the job.
+        if (!isBlankish(arr[nameIdx + 1])) arr.splice(nameIdx + 1, 0, { t: "vspace", h: "4mm" });
+      } else {
+        // No existing line was safe to reuse — insert a fresh one right after the
+        // (now dot-free) label, then a gap so the name never runs straight into
+        // whatever follows.
+        arr.splice(i + 1, 0,
+          { t: "para", segs: [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }], align: b.align || "center" },
+          { t: "vspace", h: "4mm" });
       }
       return;
     }
