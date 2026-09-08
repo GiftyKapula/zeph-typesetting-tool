@@ -17,6 +17,7 @@
 //   return <book> <file>    ingest annotated file, extract comments into the round
 //   comments <book> [--open]  list the latest round's comments
 //   resolve <comment-id> [--action "…"] [--flag] [--wontfix]
+//   close <book> [round] [--force]  close a proofread round (blocks on pending comments unless --force)
 //   state <book> [newstate] get or set a book's lifecycle state
 //   merge <src> <dst>       fold book <src> into <dst> (reconcile split identities)
 //   export                  write books.json (committable DB snapshot)
@@ -260,6 +261,26 @@ function cmdResolve(cid, flags) {
   console.log(`comment #${c.id} → ${status}${flags.action ? `  (${flags.action})` : ""}`);
 }
 
+// close: mark a proofread round 'closed' once its comments are resolved (schema
+// has always documented open|applying|closed for round.status, but nothing set
+// it past 'open' — sent/return only ever left a round dangling "open" forever,
+// even after every comment was resolved). Defaults to the book's most recent
+// non-closed round; pass a round number to target an older one explicitly.
+// Refuses to close over pending comments unless --force, so a round can't be
+// silently closed out from under unresolved feedback.
+function cmdClose(id, roundArg, flags) {
+  const b = requireBook(id);
+  const round = roundArg
+    ? db.prepare("SELECT * FROM round WHERE book_id=? AND number=?").get(b.id, Number(roundArg))
+    : db.prepare("SELECT * FROM round WHERE book_id=? AND status!='closed' ORDER BY number DESC LIMIT 1").get(b.id);
+  if (!round) die(roundArg ? `no round ${roundArg} for ${b.id}` : `no open round for ${b.id}`);
+  if (round.status === "closed") die(`round ${round.number} is already closed`);
+  const pending = db.prepare("SELECT COUNT(*) n FROM comment WHERE round_id=? AND status='pending'").get(round.id).n;
+  if (pending > 0 && !flags.force) die(`round ${round.number} has ${pending} pending comment(s) — resolve them first, or pass --force`);
+  db.prepare("UPDATE round SET status='closed' WHERE id=?").run(round.id);
+  console.log(`Round ${round.number} closed for ${b.id}${pending ? ` (${pending} still pending — forced)` : ""}.`);
+}
+
 function cmdState(id, newState) {
   const b = requireBook(id);
   if (!newState) return console.log(`${b.id}: ${b.state}`);
@@ -304,6 +325,7 @@ function cmdExport() {
     case "return":   await cmdReturn(rest[0], rest[1]); break;
     case "comments": cmdComments(rest[0], flags); break;
     case "resolve":  cmdResolve(rest[0], flags); break;
+    case "close":    cmdClose(rest[0], rest[1], flags); break;
     case "state":    cmdState(rest[0], rest[1]); break;
     case "merge":    cmdMerge(rest[0], rest[1]); break;
     case "export":   cmdExport(); break;
