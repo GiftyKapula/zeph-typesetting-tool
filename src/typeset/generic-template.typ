@@ -430,7 +430,7 @@
           #text(size: 10.5pt, weight: "medium", fill: white.transparentize(22%))[#byline.join("    •    ")]]])
       ]
       #place(bottom + center, dy: -12mm, align(center)[
-        #if logo != none [ #box(fill: white, inset: 4pt, radius: 4pt)[#image("_media/" + logo.file, height: 11mm)] #v(2mm) ]
+        #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(2mm) ]
         #text(size: 10.5pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
       ])
     ]
@@ -485,7 +485,7 @@
       ]
       // publisher + logo
       #place(bottom + center, dy: -13mm, align(center)[
-        #if logo != none [ #box(fill: white, inset: 4pt, radius: 4pt)[#image("_media/" + logo.file, height: 12mm)] #v(2mm) ]
+        #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
         #text(size: 10.5pt, weight: "bold", fill: T.primary)[Zambia Educational Publishing House]
       ])
     ]
@@ -541,9 +541,9 @@
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
-      // publisher + logo, on a small green plate for grounding
+      // publisher + logo
       #place(bottom + center, dy: -12mm, align(center)[
-        #if logo != none [ #box(fill: white, inset: 4pt, radius: 4pt)[#image("_media/" + logo.file, height: 12mm)] #v(2mm) ]
+        #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
         #text(size: 10.5pt, weight: "bold", fill: T.primary)[Zambia Educational Publishing House]
       ])
     ]
@@ -607,7 +607,7 @@
           #text(size: 10pt, weight: "bold", fill: white.transparentize(24%))[#byline.join("   •   ")]]])
       ]
       #place(bottom + center, dy: -9mm, align(center)[
-        #if logo != none [ #box(fill: white, inset: 4pt, radius: 4pt)[#image("_media/" + logo.file, height: 11mm)] #v(1.5mm) ]
+        #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(1.5mm) ]
         #text(size: 10pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
       ])
     ]
@@ -652,7 +652,7 @@
           #text(size: 9.5pt, weight: "bold", fill: white)[#byline.join("   •   ")]]])
       ]
       #place(bottom + center, dy: -8mm, align(center)[
-        #if logo != none [ #box(fill: white, inset: 3.5pt, radius: 4pt)[#image("_media/" + logo.file, height: 10mm)] #v(1mm) ]
+        #if logo != none [ #image("_media/" + logo.file, height: 10mm) #v(1mm) ]
         #text(size: 9.5pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
       ])
     ]
@@ -711,7 +711,7 @@
       ]
       // publisher + logo
       #place(bottom + center, dy: -12mm, align(center)[
-        #if logo != none [ #box(fill: white, inset: 4pt, radius: 4pt)[#image("_media/" + logo.file, height: 12mm)] #v(2mm) ]
+        #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
         #text(size: 10.5pt, weight: "bold", fill: T.primary)[Zambia Educational Publishing House]
       ])
     ]
@@ -760,9 +760,9 @@
         #place(top + center, dy: 201mm, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt)[
           #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#byline.join("   •   ")]]))
       ]
-      // --- publisher + logo, bottom centre (white badge behind the logo) ---
+      // --- publisher + logo, bottom centre ---
       #place(bottom + center, dy: -13mm, align(center)[
-        #if logo != none [ #box(fill: white, inset: 4pt, radius: 4pt)[#image("_media/" + logo.file, height: 12mm)] #v(2mm) ]
+        #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
         #text(size: 10.5pt, weight: "bold", fill: deepteal)[Zambia Educational Publishing House]
       ])
     ]
@@ -795,7 +795,7 @@
             #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]]
             \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#byline.join(", ")]
           ]
-          #if logo != none [ #v(4mm) #box(fill: white, inset: 4pt, radius: 4pt)[#image("_media/" + logo.file, height: 11mm)] ]
+          #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
           #v(3mm)
           #text(size: 9pt, fill: white.transparentize(15%))[Zambia Educational Publishing House]
         ]
@@ -823,7 +823,7 @@
             #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]] \ #v(1pt)
             #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.join(", ")]]]
         ]
-        #if logo != none [ #v(4mm) #box(fill: white, inset: 4pt, radius: 4pt, stroke: 0.5pt + T.rulec)[#image("_media/" + logo.file, height: 11mm)] ]
+        #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
         #v(2mm)
         #text(fill: T.primary2, size: 9pt)[Zambia Educational Publishing House]
       ])
@@ -901,7 +901,7 @@
           #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           \ #v(1pt) #text(size: 14pt, weight: "bold")[#byline.join(", ")]]]
       ]
-      #if logo != none [ #v(4mm) #box(fill: white, inset: 5pt, radius: 6pt)[#image("_media/" + logo.file, height: 12mm)] ]
+      #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 12mm) ]
       #v(3mm)
       #text(size: 9pt, fill: white.transparentize(20%))[Zambia Educational Publishing House]
     ])
@@ -973,9 +973,9 @@
       #v(3mm)
       #box(fill: accentc, width: 34mm, height: 2.5pt, radius: 1.5pt)
     ])
-    // publisher branding, centred (white badge behind the logo)
+    // publisher branding, centred
     #place(top + center, dy: 120mm, align(center)[
-      #if logo != none [ #box(fill: white, inset: 5pt, radius: 5pt)[#image("_media/" + logo.file, height: 20mm)] #v(4mm) ]
+      #if logo != none [ #image("_media/" + logo.file, height: 20mm) #v(4mm) ]
       #text(size: 14pt, weight: "bold", fill: onfield)[Zambia Educational Publishing House]
       #v(1mm)
       #text(size: 11pt, fill: pubsub)[Lusaka, Zambia]
