@@ -144,10 +144,19 @@ off, so a change only touches the books that opt in. Keys:
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
 
-**Images:** generate with **gpt-image-2, `quality: "low"`** (cost). Prompt for
-Zambian context, gender balance, disability inclusion, and youth where relevant;
-keep the replacement's own file extension and a like-for-like aspect ratio.
+**Images:** generate with **gpt-image-2, `quality: "high"`** (raised from the
+old `"low"` cost-saving default — print sharpness now wins over the small
+per-image cost difference). Prompt for Zambian context, gender balance,
+disability inclusion, and youth where relevant; keep the replacement's own
+file extension and a like-for-like aspect ratio.
 
+- **Generate through the gpt-image-2 API directly, never the ChatGPT
+  consumer app.** The ChatGPT app bakes a small visible watermark into
+  every image it generates; the raw API output carries none. Using the API
+  is the fix — not a crop or an edit pass afterward. If a supplied image
+  ever does carry a ChatGPT (or any other) watermark, don't ship it:
+  regenerate it cleanly rather than trying to paint over or crop out the
+  mark.
 - **Replace any picture or illustration that isn't clear** with a sharper one
   of the same subject (via the `images` override) — don't leave a blurry
   scan, a low-res clip-art, or a muddy photo in a finished book.
