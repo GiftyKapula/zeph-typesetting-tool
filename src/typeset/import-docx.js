@@ -85,7 +85,16 @@ function boxKindFromTitle(t) {
   if (/^(Ifyakucita|Mwingilo wakuuba|Nchito|Musebezi|Vyakulinga|Zhakwila(\s+atudizi)?|Cakucita)\b/i.test(s)) return "activity";
   // --- End-of-topic / unit Assessment ---
   if (/^(Ukweshiwa|Kupwa kwa mutwe|Mayeso|Tatubo|Mukanga|Esekelo|Kweseka|Musunko)\b/i.test(s)) return "assessment";
-  if (/ASSESSMENT/i.test(s)) return "assessment";
+  // Anchored at BOTH ends: a real box title is nothing but an optional "(END-)OF-
+  // TOPIC/UNIT" lead-in, an optional topic number BEFORE or AFTER the word (books
+  // vary: "END OF TOPIC 1 - ASSESSMENT", "END OF TOPIC ASSESSMENT 10", "End of
+  // Topic 1 - Assessment"), and "ASSESSMENT[S]" itself — never a sentence that
+  // merely mentions "assessment" in passing. An earlier, unanchored `/ASSESSMENT/i`
+  // matched that word ANYWHERE in the paragraph, which wrongly boxed ordinary
+  // bold-led sentences like "Assess learning: Apply the assessment methods and
+  // criteria to measure learner progress." as an assessment box (title = the whole
+  // sentence) whenever they happened to contain the word.
+  if (/^((END[\s-]*(OF[\s-]*)?)?(TOPIC|UNIT)[\s-]*)?(\d+\s*[-–—]?\s*)?ASSESSMENTS?(\s*[-–—]?\s*\d+)?\s*:?\s*$/i.test(s)) return "assessment";
   // --- Exercise --- (tolerate the common "EXRCISE"/"EXCERCISE" misspellings so a
   // typo'd title still gets the styled, numbered exercise box instead of a raw table)
   // "EXERCISE 9" (number, possibly glued) OR a bare "EXERCISE" whose number the author
