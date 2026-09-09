@@ -1,5 +1,8 @@
 {
   "subject": "Expressive Arts",
+  "fill": [
+    { "after": "Edited by", "text": "Trusty Mudenda" }
+  ],
   "moveSectionBefore": [
     {
       "find": "GLOSSARY OF TERMS",

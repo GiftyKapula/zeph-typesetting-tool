@@ -306,7 +306,7 @@
 })
 #let cdot(x, y, c, r: 1.1mm) = place(top + left, dx: x, dy: y, circle(radius: r, fill: c))
 
-#let cover(lines, byline, hero, logo, isbn) = {
+#let cover(lines, byline, hero, logo, isbn, finished: false) = {
   // The cover keeps its OWN palette even when the interior is printed black-and-white:
   // shadow T with the cover colours so every T.primary/accent/… below draws in colour.
   // (For normal books the cover colours default to the body colours, so this is a no-op.)
@@ -315,10 +315,18 @@
   let grade = if lines.len() > 1 { lines.slice(1).find(l => "GRADE" in upper(l) or "FORM" in upper(l) or "FOMU" in upper(l)) } else { none }
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
 
-  // ---------- SERIES cover: yellow-dominant, diagonal/geometric. Teal title +
-  // accents on the yellow field, a tilted photo panel, an AUTHORS tag, and teal
-  // corner wedges. One cohesive teal is used for the accents. ----------
-  if science {
+  // ---------- FINISHED cover: the manuscript ships a complete, already-designed
+  // cover graphic (title, book type, authors, publisher/logo all baked into the
+  // image itself) rather than a plain hero photo for the template to dress up.
+  // Render it full-bleed and skip every template overlay (title text, byline,
+  // logo, motif) — drawing any of that on top would duplicate what the image
+  // already carries. Opt in per book via the `finishedCover` override once a
+  // manuscript's cover page is confirmed to be pre-designed like this. ----------
+  if finished and hero != none {
+    page(margin: 0pt, header: none, footer: none, width: 176mm, height: 250mm)[
+      #image("_media/" + hero.file, width: 100%, height: 100%, fit: "cover")
+    ]
+  } else if science {
     // ---------- SCIENCE cover (Physics): deep-indigo signature field with
     // concentric "electron orbit" rings, white title, amber FORM tag ----------
     let gl = if ("FORM" in upper(subject)) or ("GRADE" in upper(subject)) { subject } else { grade }
@@ -828,28 +836,37 @@
     #set text(fill: white, font: T.font)
 
     // ---------- background geometry ----------
+    // A symmetric chevron wash (peaks at centre) echoes the centred title below it,
+    // instead of the old one-sided ramp that was shaped for a left-aligned title.
     #place(top + left, dx: 0pt, dy: 0pt, polygon(fill: white.transparentize(93%),
-      (0pt, 0pt), (210mm, 0pt), (210mm, 70mm), (0pt, 120mm)))
+      (0mm, 0mm), (210mm, 0mm), (210mm, 90mm), (105mm, 112mm), (0mm, 90mm)))
     #place(bottom + right, dx: 40mm, dy: 40mm, circle(radius: 70mm, fill: white.transparentize(95%)))
     #place(bottom + left, dx: -38mm, dy: 30mm, circle(radius: 48mm, fill: T.accent.transparentize(86%)))
-    // concentric "orbit" rings, top-right
+    // concentric "orbit" rings, mirrored on both top corners so they bracket the
+    // centred tagline/title symmetrically instead of sitting only on one side.
     #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
     #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + white.transparentize(80%)))
     #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 24mm, fill: none, stroke: 1.4pt + T.accent.transparentize(45%)))
-    // circuit nodes + dots scattered along the top
+    #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
+    #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + white.transparentize(80%)))
+    #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 24mm, fill: none, stroke: 1.4pt + T.accent.transparentize(45%)))
+    // circuit nodes + dots, mirrored left/right so they balance around the centreline
     #cnode(20mm, 18mm, T.accent)
+    #cnode(190mm, 18mm, T.accent)
+    #cnode(60mm, 60mm, white.transparentize(35%), r: 1.9mm)
     #cnode(150mm, 60mm, white.transparentize(35%), r: 1.9mm)
     #cdot(40mm, 30mm, white.transparentize(40%))
-    #cdot(170mm, 40mm, T.accent.transparentize(20%))
+    #cdot(170mm, 30mm, white.transparentize(40%))
     #cdot(28mm, 52mm, white.transparentize(55%))
+    #cdot(182mm, 52mm, white.transparentize(55%))
 
-    // ---------- title block ----------
-    #place(top + left, dx: 18mm, dy: 24mm, block(width: 150mm)[
+    // ---------- title block (centred, matching the rest of the cover) ----------
+    #place(top + center, dy: 24mm, block(width: 160mm)[#align(center)[
       #if T.tagline != "" [ #text(size: 11pt, weight: "bold", tracking: 6pt, fill: T.accent)[#T.tagline] #v(5mm) ]
       #text(size: 40pt, weight: "bold")[#upper(subject)]
       #v(3mm)
       #box(fill: T.accent, width: 56mm, height: 3.5pt, radius: 2pt)
-    ])
+    ]])
 
     // ---------- hero image in a framed card ----------
     #place(center + horizon, dy: 6mm, block[

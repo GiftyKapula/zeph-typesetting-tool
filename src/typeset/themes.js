@@ -233,6 +233,12 @@ const THEMES = {
   // tocDepth 1 keeps the contents to front/back matter + topics, dropping sub-topics —
   // tocUnitsOnly would ALSO drop the front/back matter sections, which this book keeps.
   foodnutrition: { ...zeph({ subject: "Food and Nutrition", signature: "c68a52", primary: "8a4a2e", primary2: "b06b45", accent: "4a8f5b", cyan: "2f8f8a" }), tocDepth: 1 },
+  // Musical Arts (Form 4) — a lively "performance" palette: a royal-blue primary
+  // (echoing the manuscript's own pre-designed cover art) with a warm terracotta/
+  // orange accent, distinct from PE's navy+gold and art's terracotta+teal. Boxed
+  // Learning Activities/Exercises/Assessments (the manuscript uses all three
+  // heavily), so the "science" variant.
+  musicalarts: { ...zeph({ subject: "Musical Arts", variant: "science", signature: "1f5fa8", primary: "1f5fa8", primary2: "3a7ec9", accent: "d9722e", cyan: "2f9e8c" }), tocDepth: 1 },
   // Physical Education and Sport (Form 1) — its OWN athletic identity, distinct from the
   // Form 5 PE book's navy+gold "navy" theme: a vivid cobalt/royal blue primary with a
   // whistle-orange accent (a track-and-field palette), teal for exercises.
@@ -275,6 +281,7 @@ function autoTheme(name) {
   if (/travel|tourism/i.test(name)) return "travel";
   if (/art\s*(and|&|,)?\s*(design|crafts?)|art\s+and\s+design/i.test(name)) return "art";
   if (/geograph/i.test(name)) return "geography";
+  if (/musical\s*arts?/i.test(name)) return "musicalarts";
   if (/food\s*(and|&)?\s*nutrition|nutrition/i.test(name)) return "foodnutrition";
   // Physical Education and Sport at Ordinary Level (Form 1-4) gets its OWN "pesport"
   // theme; the existing Form 5/6 (Advanced Level) PE book keeps its established "navy"

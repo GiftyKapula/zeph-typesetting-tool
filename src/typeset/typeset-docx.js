@@ -158,7 +158,7 @@ function emit(blocks) {
       case "cover": {
         const logo = b.logo ? `(file: ${S(b.logo.file)})` : "none";
         const hero = b.hero ? `(file: ${S(b.hero.file)}, w: ${b.hero.w || 0}, h: ${b.hero.h || 0})` : "none";
-        out += `#cover(${strArr(b.lines)}, ${strArr(b.byline || [])}, ${hero}, ${logo}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
+        out += `#cover(${strArr(b.lines)}, ${strArr(b.byline || [])}, ${hero}, ${logo}, ${b.isbn ? S(b.isbn) : "none"}, finished: ${b.finished ? "true" : "false"})\n`; break;
       }
       case "toc": out += `#tableofcontents()\n`; break;
       case "titlepage": out += `#titlepage(${strArr(b.lines || [])}, ${strArr(b.byline || [])})\n`; break;
@@ -1124,15 +1124,33 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     if (!n) console.warn("!  textFix not matched:", tf.find);
   }
+  // A blank Word paragraph imports as a `vspace` block (no text field at all), not an
+  // empty paragraph, and the line right after ours can be ANOTHER label — one containing
+  // a colon ANYWHERE, not just at the end (some manuscripts glue a dot-leader straight
+  // onto the label, e.g. "Cover and Book layout by:................." — the colon sits
+  // mid-string, not at the end) — or one ending in a bare "by" with no colon at all
+  // ("Illustrated by"). Never a value to fill, so it must not be mistaken for our
+  // placeholder just because ours was blank.
+  const FILL_LABELISH = /:|\bby\s*$/i;
   for (const f of ov.fill || []) {
     const i = blocks.findIndex((b) => blockPlain(b).trim().toLowerCase().startsWith(f.after.toLowerCase()));
     if (i < 0) continue;
     let target = -1;
     for (let j = i + 1; j < Math.min(i + 3, blocks.length); j++) {
-      if (/[.…]{4,}/.test(blockPlain(blocks[j]))) { target = j; break; }   // the dotted placeholder
+      const b = blocks[j];
+      if (b && b.t === "vspace") continue;
+      const txt = blockPlain(b).trim();
+      if (txt === "") continue;
+      if (FILL_LABELISH.test(txt)) break;   // another label — nothing safe to reuse here
+      target = j;
+      break;
     }
-    if (target < 0) target = i + 1;
-    if (blocks[target]) setBlockText(blocks[target], f.text);
+    if (target >= 0) { setBlockText(blocks[target], f.text); continue; }
+    // Nothing safe to reuse (only a blank line, or the very next real content is
+    // another label) — insert a fresh line for the value right after the label,
+    // rather than writing into a non-text `vspace` block (silently renders nothing)
+    // or overwriting an unrelated section.
+    blocks.splice(i + 1, 0, { t: "para", segs: [{ t: f.text, b: false, it: false, c: null }], align: "center" });
   }
   for (const r of ov.replace || []) {
     const b = flat.find((x) => blockPlain(x).includes(r.find));
@@ -2706,29 +2724,66 @@ function reorderBackmatter(blocks) {
 // (numbered markers, worked-solution continuation, boxed leads) is layout, not
 // spaces, so it is unaffected too. Runs for EVERY book.
 // Authors lay out word lists in two or three columns by typing a big run of spaces
-// The imprint page credits the typesetter on a "Cover and Book Layout:" line, which
-// the manuscripts leave as an empty dot-leader placeholder ("…………"). We do the
-// typesetting, so fill that placeholder with our credit on every book. Match the
-// label, then set the next dot-leader-only line (within a few blocks) to the name.
+// The imprint page credits the typesetter on a "Cover and Book Layout:" line. We do
+// the typesetting, so fill that credit with our name on every book — but manuscripts
+// disagree on where the name goes: some leave the label bare with the name (or a
+// dot-leader placeholder, or someone's self-credit) on its OWN following line
+// ("Cover and Book Layout:" / "Njira Mtonga"); others glue a dot-leader straight onto
+// the SAME line as the label ("Cover and Book layout by:................."), leaving
+// no separate line for a name at all — the very next paragraph there is unrelated
+// real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
+// non-empty block" would destroy that section instead of crediting anyone.
 const LAYOUT_CREDIT = "Ng`ambi Teddy";
 function fillLayoutCredit(blocks) {
   const LABEL = /cover\s+and\s+book\s+layout/i;
-  const DOTS = /^[.•․…·\s]+$/;   // only dots / ellipses / middots / space
+  // Another front-matter label (ends with a colon, or a known "…by:" line) — never a
+  // placeholder to overwrite, even when it directly follows ours with no gap.
+  const LABELISH = /:\s*$|^(edited|illustrated|printed|published|first published)\b/i;
+  const DOTLEADER = /[.•․…·]{3,}\s*$/;   // a run of dot/bullet/ellipsis chars trailing the label
+  const isBlankish = (b) => !b || typeof b !== "object" || b.t === "vspace" || b.t === "showpage" || blockPlain(b).trim() === "";
   const walk = (arr) => {
     for (let i = 0; i < arr.length; i++) {
       const b = arr[i];
       if (!b || typeof b !== "object") continue;
       for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walk(b[k]);
-      if (!LABEL.test(blockPlain(b))) continue;
-      // The credit sits on the next non-empty line. We do the typesetting/layout for every
-      // ZEPH book, so set it to our credit whether the manuscript left a dot-leader
-      // placeholder ("……") OR filled in someone else's name (some authors self-credit the
-      // layout). Only skip if it is ALREADY our credit.
-      for (let j = i + 1; j < Math.min(i + 4, arr.length); j++) {
-        const txt = blockPlain(arr[j]).trim();
-        if (txt === "") continue;
-        if (txt !== LAYOUT_CREDIT) setBlockSegs(arr[j], [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }]);
-        return;
+      const plain = blockPlain(b);
+      if (!LABEL.test(plain)) continue;
+      // Strip a dot-leader baked onto the label's own line so it never prints raw
+      // dots — this also means there is no separate placeholder line to reuse, so
+      // the name gets inserted as a brand new line below.
+      const dotMatch = plain.match(DOTLEADER);
+      if (dotMatch) editBlockText(b, dotMatch[0], "");
+      let nameIdx = -1;
+      if (!dotMatch) {
+        // The name (or a dot-leader placeholder, or someone's self-credit) sits on its
+        // own line within the next few blocks — skip past any OTHER label line (e.g.
+        // "First Published by:") so it's never mistaken for our placeholder.
+        for (let j = i + 1; j < Math.min(i + 4, arr.length); j++) {
+          const txt = blockPlain(arr[j]).trim();
+          if (txt === "") continue;
+          // Hitting another label means OUR label has no placeholder/name line of its
+          // own — stop here (nameIdx stays -1) rather than skipping past it, which
+          // would land on that OTHER label's own value (e.g. the publisher's name
+          // under "First Published 2026 by:") and overwrite it with our credit.
+          if (LABELISH.test(txt)) break;
+          nameIdx = j;
+          break;
+        }
+      }
+      if (nameIdx >= 0) {
+        if (blockPlain(arr[nameIdx]).trim() !== LAYOUT_CREDIT) {
+          setBlockSegs(arr[nameIdx], [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }]);
+        }
+        // Space the credit from whatever ZEPH statement (publisher block, "First
+        // Published by:", …) follows it, unless a blank line already does the job.
+        if (!isBlankish(arr[nameIdx + 1])) arr.splice(nameIdx + 1, 0, { t: "vspace", h: "4mm" });
+      } else {
+        // No existing line was safe to reuse — insert a fresh one right after the
+        // (now dot-free) label, then a gap so the name never runs straight into
+        // whatever follows.
+        arr.splice(i + 1, 0,
+          { t: "para", segs: [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }], align: b.align || "center" },
+          { t: "vspace", h: "4mm" });
       }
       return;
     }
@@ -3837,6 +3892,22 @@ function normaliseQuestionMarkBold(blocks) {
       const cov = blocks.find((b) => b.t === "cover");
       if (cov) cov.hero = { file: nm, w: 0, tall: false };
     } else console.warn("!  coverImage not found:", p);
+  }
+
+  // A manuscript can ship its OWN fully-designed cover graphic — title, book
+  // type, authors, and publisher/logo already baked into the image, rather
+  // than a plain hero photo for the template to frame and caption. Drawing
+  // the template's own title/byline/logo on top of one of these duplicates
+  // everything the image already carries. This is an explicit opt-in (not
+  // auto-detected — a full-bleed image doesn't by itself say whether it's a
+  // finished cover or just a big photo) once a book's cover page has been
+  // confirmed pre-designed like this; see cover()'s `finished` branch in
+  // generic-template.typ, which renders the hero full-bleed and skips every
+  // other overlay.
+  if (ov.finishedCover) {
+    const cov = blocks.find((b) => b.t === "cover");
+    if (cov && cov.hero) cov.finished = true;
+    else console.warn("!  finishedCover set but no cover hero image was detected on the manuscript's cover page");
   }
 
   // Cover fallback: some Teacher's Guides have no detectable big-font title on
