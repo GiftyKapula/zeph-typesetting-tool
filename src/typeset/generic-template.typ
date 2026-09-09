@@ -306,7 +306,7 @@
 })
 #let cdot(x, y, c, r: 1.1mm) = place(top + left, dx: x, dy: y, circle(radius: r, fill: c))
 
-#let cover(lines, byline, hero, logo, isbn) = {
+#let cover(lines, byline, hero, logo, isbn, finished: false) = {
   // The cover keeps its OWN palette even when the interior is printed black-and-white:
   // shadow T with the cover colours so every T.primary/accent/… below draws in colour.
   // (For normal books the cover colours default to the body colours, so this is a no-op.)
@@ -315,10 +315,18 @@
   let grade = if lines.len() > 1 { lines.slice(1).find(l => "GRADE" in upper(l) or "FORM" in upper(l) or "FOMU" in upper(l)) } else { none }
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
 
-  // ---------- SERIES cover: yellow-dominant, diagonal/geometric. Teal title +
-  // accents on the yellow field, a tilted photo panel, an AUTHORS tag, and teal
-  // corner wedges. One cohesive teal is used for the accents. ----------
-  if science {
+  // ---------- FINISHED cover: the manuscript ships a complete, already-designed
+  // cover graphic (title, book type, authors, publisher/logo all baked into the
+  // image itself) rather than a plain hero photo for the template to dress up.
+  // Render it full-bleed and skip every template overlay (title text, byline,
+  // logo, motif) — drawing any of that on top would duplicate what the image
+  // already carries. Opt in per book via the `finishedCover` override once a
+  // manuscript's cover page is confirmed to be pre-designed like this. ----------
+  if finished and hero != none {
+    page(margin: 0pt, header: none, footer: none, width: 176mm, height: 250mm)[
+      #image("_media/" + hero.file, width: 100%, height: 100%, fit: "cover")
+    ]
+  } else if science {
     // ---------- SCIENCE cover (Physics): deep-indigo signature field with
     // concentric "electron orbit" rings, white title, amber FORM tag ----------
     let gl = if ("FORM" in upper(subject)) or ("GRADE" in upper(subject)) { subject } else { grade }

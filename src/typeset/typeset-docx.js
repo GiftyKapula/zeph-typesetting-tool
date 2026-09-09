@@ -158,7 +158,7 @@ function emit(blocks) {
       case "cover": {
         const logo = b.logo ? `(file: ${S(b.logo.file)})` : "none";
         const hero = b.hero ? `(file: ${S(b.hero.file)}, w: ${b.hero.w || 0}, h: ${b.hero.h || 0})` : "none";
-        out += `#cover(${strArr(b.lines)}, ${strArr(b.byline || [])}, ${hero}, ${logo}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
+        out += `#cover(${strArr(b.lines)}, ${strArr(b.byline || [])}, ${hero}, ${logo}, ${b.isbn ? S(b.isbn) : "none"}, finished: ${b.finished ? "true" : "false"})\n`; break;
       }
       case "toc": out += `#tableofcontents()\n`; break;
       case "titlepage": out += `#titlepage(${strArr(b.lines || [])}, ${strArr(b.byline || [])})\n`; break;
@@ -3892,6 +3892,22 @@ function normaliseQuestionMarkBold(blocks) {
       const cov = blocks.find((b) => b.t === "cover");
       if (cov) cov.hero = { file: nm, w: 0, tall: false };
     } else console.warn("!  coverImage not found:", p);
+  }
+
+  // A manuscript can ship its OWN fully-designed cover graphic — title, book
+  // type, authors, and publisher/logo already baked into the image, rather
+  // than a plain hero photo for the template to frame and caption. Drawing
+  // the template's own title/byline/logo on top of one of these duplicates
+  // everything the image already carries. This is an explicit opt-in (not
+  // auto-detected — a full-bleed image doesn't by itself say whether it's a
+  // finished cover or just a big photo) once a book's cover page has been
+  // confirmed pre-designed like this; see cover()'s `finished` branch in
+  // generic-template.typ, which renders the hero full-bleed and skips every
+  // other overlay.
+  if (ov.finishedCover) {
+    const cov = blocks.find((b) => b.t === "cover");
+    if (cov && cov.hero) cov.finished = true;
+    else console.warn("!  finishedCover set but no cover hero image was detected on the manuscript's cover page");
   }
 
   // Cover fallback: some Teacher's Guides have no detectable big-font title on

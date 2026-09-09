@@ -77,6 +77,7 @@ off, so a change only touches the books that opt in. Keys:
 |---|---|
 | `isbn` | ISBN on the imprint + back cover (no barcode) |
 | `coverImage` | inject a cover photo (book with no hero image); path relative to the `.docx` |
+| `finishedCover` | the manuscript's own cover page image is already a complete, publication-ready cover (title, book type, authors, publisher/logo all baked into the graphic) rather than a plain hero photo — render it full-bleed and skip every template overlay (title text, byline, logo, motif), which would otherwise duplicate what the image already shows. Explicit opt-in only (a full-bleed image doesn't by itself say whether it's "finished" or just a big photo); the title page and back cover still get their normal templated text, synthesised from the theme's subject as usual |
 | `authors` | override the author list (e.g. split "A and B" into two so the cover reads "AUTHORS"); an empty array (`[]`) hides the author byline on the cover entirely — when omitted, the engine already falls back to the names it finds in the manuscript's own front-matter "AUTHORS" bio section (each bio's opening bold name run) if the cover page itself carried no byline, so this override is only needed to fix names the fallback got wrong or to hide the byline |
 | `images` | swap a source image by media filename (`{ "image12.png": { src, w } }`) |
 | `setCaption` | set an image's caption, matched by `near` (existing caption) or `file` (media name) |
