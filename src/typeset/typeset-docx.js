@@ -3402,6 +3402,14 @@ function proofPolish(blocks) {
   const VALSEC = /^(General\s+Competences?|Specific\s+Competences?|Expected\s+Standards?)\b/i;
   // the recurring lead-in sentences stay regular body text (never a heading)
   const LEADIN = /^(In this sub-?topic|By the end of this sub-?topic)\b/i;
+  // "General/Specific Competence(s)" is a fixed structural label, not manuscript prose —
+  // its display case is a house-style rule, so normalise it to sentence case ("General
+  // competences", "Specific competence") no matter how a given author typed it (some
+  // manuscripts use ALL-CAPS, e.g. a Lunda book needed a one-off `recase` override for
+  // this exact heading). Only the "General/Specific Competence(s)" words themselves are
+  // touched; a trailing code, colon or value is left exactly as written.
+  const fixCompetenceCase = (t) => t.replace(/^(General|Specific)(\s+Competences?)\b/i,
+    (_, w1, w2) => w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.toLowerCase());
   // 0) force the lead-in sentences to plain regular paragraphs
   for (const b of blocks) {
     if (LEADIN.test(textOf(b))) {
@@ -3414,7 +3422,7 @@ function proofPolish(blocks) {
   // 1) normalise the known labels to bold sub-heads (regardless of source style)
   for (const b of blocks) {
     if ((b.t === "para" || b.t === "listitem") && LABEL.test(textOf(b))) {
-      b.text = textOf(b); b.t = "head"; delete b.segs; delete b.marker;
+      b.text = fixCompetenceCase(textOf(b)); b.t = "head"; delete b.segs; delete b.marker;
     }
   }
   // 1f) The language-skill COMPONENT strand that opens a lesson ("LISTENING AND SPEAKING",
@@ -3552,6 +3560,17 @@ function proofPolish(blocks) {
     const b = blocks[i];
     if (!(b.t === "para" || b.t === "listitem") || !b.segs || !b.segs.length) continue;
     if (!VALLABEL.test(b.segs.map((s) => s.t).join("").trim())) continue;
+    // recase the leading "General/Specific Competence(s)" label in place — the fix only
+    // ever changes letter case, so it's length-preserving and safe to redistribute back
+    // across the original segments (keeping each run's own bold/italic intact).
+    {
+      const full = b.segs.map((s) => s.t).join("");
+      const fixedFull = fixCompetenceCase(full);
+      if (fixedFull !== full) {
+        let pos = 0;
+        b.segs = b.segs.map((s) => { const t = fixedFull.slice(pos, pos + s.t.length); pos += s.t.length; return { ...s, t }; });
+      }
+    }
     let passed = false;
     const out = [];
     for (const s of b.segs) {
