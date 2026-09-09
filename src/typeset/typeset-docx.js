@@ -4235,10 +4235,21 @@ async function main() {
     console.error(`No .docx files to typeset. Drop one in input/ or books-to-typeset/, or pass a path.`);
     process.exit(1);
   }
+  // Track whether every file actually produced a PDF. A failure here (a bad
+  // .docx, a Typst compile error, a missing file) was being logged and then
+  // silently swallowed — the loop moved on to the next file and `main()`
+  // returned normally, so the process exited 0 ("success") even though NO
+  // PDF was written. `npm run zeph -- build` just forwards this same exit
+  // code, so a build that actually failed still reported as done, with the
+  // only sign being an easy-to-miss "Failed on <file>" line in the log. Exit
+  // non-zero whenever any file failed, so a failed typeset is never mistaken
+  // for a finished one.
+  let failed = false;
   for (const f of files) {
-    if (!fs.existsSync(f)) { console.error("Not found:", f); continue; }
-    try { await typesetOne(f, themeName); } catch (e) { console.error("Failed on", f, "\n", e.message); }
+    if (!fs.existsSync(f)) { console.error("Not found:", f); failed = true; continue; }
+    try { await typesetOne(f, themeName); } catch (e) { console.error("Failed on", f, "\n", e.message); failed = true; }
   }
+  if (failed) process.exit(1);
 }
 
 if (require.main === module) main();
