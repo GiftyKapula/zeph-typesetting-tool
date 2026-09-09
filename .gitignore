@@ -43,6 +43,9 @@ books-to-typeset/*
 src/typeset/_last.typ
 src/typeset/_last-docx.typ
 
+# --- personal Claude Code settings (not team-shared) ---
+.claude/settings.local.json
+
 # --- OS / editor cruft ---
 .~lock.*#
 ~$*
