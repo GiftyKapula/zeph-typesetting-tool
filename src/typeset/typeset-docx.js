@@ -3594,6 +3594,43 @@ function proofPolish(blocks) {
   }
 }
 
+// "General/Specific Competence(s)" is a fixed structural label, not manuscript prose, so
+// its display case is a house-style rule ("General competences", "Specific competence")
+// regardless of how a given author typed it — see fixCompetenceCase in proofPolish() above
+// for the original version of this fix. That version only fires inside proofPolish(), which
+// itself only runs for the handful of themes/books opted into `boxActivities`; every other
+// book's manuscript case leaks straight through. Worse, a manuscript that bolds these lines
+// (most do) imports them as `label` blocks up front, which render through `lbl()` — and
+// `lbl()` force-uppercases its text for every "series"/"science" themed book (i.e. nearly
+// every subject), so even fixing the block's stored case would have no visible effect: the
+// block must be promoted to a `head` block instead, since `head()` always honours the case
+// it's given. Runs unconditionally, for every book, independent of `boxActivities`.
+function normaliseCompetenceLabels(blocks) {
+  const fixCase = (t) => t.replace(/^(General|Specific)(\s+Competences?)\b/i,
+    (_, w1, w2) => w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.toLowerCase());
+  const STANDALONE = /^(General|Specific)\s+Competences?\s*:?\s*$/i;   // "General Competences" / "…:" alone, value on the next block(s)
+  const INLINE = /^(General|Specific)\s+Competences?\s*:\s*\S/i;       // "General Competences: Analytical Thinking…" on one line
+  for (const b of blocks) {
+    const t = (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "") || "").trim();
+    if (!t) continue;
+    if ((b.t === "label" || b.t === "head") && STANDALONE.test(t)) {
+      b.t = "head"; b.text = fixCase(t); delete b.segs; delete b.marker; delete b.labelColor;
+    } else if ((b.t === "label" || b.t === "head") && INLINE.test(t)) {
+      const ci = t.indexOf(":");
+      b.t = "para";
+      b.segs = [{ t: `${fixCase(t.slice(0, ci))}:`, b: true, it: false, c: null }, { t: ` ${t.slice(ci + 1).trim()}`, b: false, it: false, c: null }];
+      delete b.text; delete b.labelColor;
+    } else if ((b.t === "para" || b.t === "listitem") && b.segs && b.segs.length) {
+      const full = b.segs.map((s) => s.t).join("");
+      const fixed = fixCase(full);
+      if (fixed !== full) {
+        let pos = 0;
+        b.segs = b.segs.map((s) => { const nt = fixed.slice(pos, pos + s.t.length); pos += s.t.length; return { ...s, t: nt }; });
+      }
+    }
+  }
+}
+
 // Group each lesson's header metadata — the "LESSON N" opener plus its Component /
 // Topic / Sub-Topic / competences / Expected Standard / methodology / vocabulary
 // fields — into ONE distinct panel block, set larger than body text so the lesson plan
@@ -3874,6 +3911,10 @@ function normaliseQuestionMarkBold(blocks) {
   const wantsBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBookName(base));
   if (wantsBlackWhite) clearAllInlineColor(blocks);
   const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [] };
+  // Unlike the rest of proofPolish()'s lesson-field normalisation, "General/Specific
+  // Competence(s)" case is a house-style rule for every book, not just the boxActivities
+  // ones — see normaliseCompetenceLabels() above.
+  normaliseCompetenceLabels(blocks);
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   // after boxing, so the assessment bodies exist to scan
