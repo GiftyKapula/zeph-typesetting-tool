@@ -982,10 +982,18 @@
     ])
     // ISBN: if known, print it (no barcode); otherwise reserve a clean box for
     // the press to add the ISBN + barcode at print time.
+    // Kept clear of the bottom-left corner wedge (see "corner wedges" above,
+    // a triangle from (0,197mm) to (0,250mm) to (59,250mm)): at dx: 16mm the
+    // wedge's diagonal edge reaches up to y = 211mm, so anything placed lower
+    // than that clips into the wedge. The opaque white box used to sit at
+    // dy: -22mm (bottom edge at y = 228mm, well inside the wedge) — its
+    // square corner cut a rectangular notch out of the wedge's straight
+    // diagonal, which reads as the box (or the wedge) being crookedly tilted
+    // rather than as an overlap. Raised both branches above the wedge instead.
     #if isbn != none [
-      #place(bottom + left, dx: 16mm, dy: -20mm, text(size: 11pt, weight: "bold", fill: onfield)[ISBN #isbn])
+      #place(bottom + left, dx: 16mm, dy: -43mm, text(size: 11pt, weight: "bold", fill: onfield)[ISBN #isbn])
     ] else [
-      #place(bottom + left, dx: 16mm, dy: -22mm, box(width: 52mm, height: 26mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
+      #place(bottom + left, dx: 16mm, dy: -45mm, box(width: 52mm, height: 26mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
         #align(center + horizon)[#text(size: 8pt, fill: luma(55%))[ISBN & barcode]]])
     ]
   ]
