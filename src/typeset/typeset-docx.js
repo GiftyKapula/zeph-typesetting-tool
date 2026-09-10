@@ -3402,6 +3402,14 @@ function proofPolish(blocks) {
   const VALSEC = /^(General\s+Competences?|Specific\s+Competences?|Expected\s+Standards?)\b/i;
   // the recurring lead-in sentences stay regular body text (never a heading)
   const LEADIN = /^(In this sub-?topic|By the end of this sub-?topic)\b/i;
+  // "General/Specific Competence(s)" is a fixed structural label, not manuscript prose —
+  // its display case is a house-style rule, so normalise it to sentence case ("General
+  // competences", "Specific competence") no matter how a given author typed it (some
+  // manuscripts use ALL-CAPS, e.g. a Lunda book needed a one-off `recase` override for
+  // this exact heading). Only the "General/Specific Competence(s)" words themselves are
+  // touched; a trailing code, colon or value is left exactly as written.
+  const fixCompetenceCase = (t) => t.replace(/^(General|Specific)(\s+Competences?)\b/i,
+    (_, w1, w2) => w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.toLowerCase());
   // 0) force the lead-in sentences to plain regular paragraphs
   for (const b of blocks) {
     if (LEADIN.test(textOf(b))) {
@@ -3414,7 +3422,7 @@ function proofPolish(blocks) {
   // 1) normalise the known labels to bold sub-heads (regardless of source style)
   for (const b of blocks) {
     if ((b.t === "para" || b.t === "listitem") && LABEL.test(textOf(b))) {
-      b.text = textOf(b); b.t = "head"; delete b.segs; delete b.marker;
+      b.text = fixCompetenceCase(textOf(b)); b.t = "head"; delete b.segs; delete b.marker;
     }
   }
   // 1f) The language-skill COMPONENT strand that opens a lesson ("LISTENING AND SPEAKING",
@@ -3552,6 +3560,17 @@ function proofPolish(blocks) {
     const b = blocks[i];
     if (!(b.t === "para" || b.t === "listitem") || !b.segs || !b.segs.length) continue;
     if (!VALLABEL.test(b.segs.map((s) => s.t).join("").trim())) continue;
+    // recase the leading "General/Specific Competence(s)" label in place — the fix only
+    // ever changes letter case, so it's length-preserving and safe to redistribute back
+    // across the original segments (keeping each run's own bold/italic intact).
+    {
+      const full = b.segs.map((s) => s.t).join("");
+      const fixedFull = fixCompetenceCase(full);
+      if (fixedFull !== full) {
+        let pos = 0;
+        b.segs = b.segs.map((s) => { const t = fixedFull.slice(pos, pos + s.t.length); pos += s.t.length; return { ...s, t }; });
+      }
+    }
     let passed = false;
     const out = [];
     for (const s of b.segs) {
@@ -3571,6 +3590,43 @@ function proofPolish(blocks) {
       if (lead && lead.b && /:/.test(lead.t)) break;                       // a new inline label
       if (/:\s*$/.test(y.segs.map((s) => s.t).join(""))) break;           // a lead-in / other label
       y.segs = y.segs.map((s) => ({ ...s, it: true }));
+    }
+  }
+}
+
+// "General/Specific Competence(s)" is a fixed structural label, not manuscript prose, so
+// its display case is a house-style rule ("General competences", "Specific competence")
+// regardless of how a given author typed it — see fixCompetenceCase in proofPolish() above
+// for the original version of this fix. That version only fires inside proofPolish(), which
+// itself only runs for the handful of themes/books opted into `boxActivities`; every other
+// book's manuscript case leaks straight through. Worse, a manuscript that bolds these lines
+// (most do) imports them as `label` blocks up front, which render through `lbl()` — and
+// `lbl()` force-uppercases its text for every "series"/"science" themed book (i.e. nearly
+// every subject), so even fixing the block's stored case would have no visible effect: the
+// block must be promoted to a `head` block instead, since `head()` always honours the case
+// it's given. Runs unconditionally, for every book, independent of `boxActivities`.
+function normaliseCompetenceLabels(blocks) {
+  const fixCase = (t) => t.replace(/^(General|Specific)(\s+Competences?)\b/i,
+    (_, w1, w2) => w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.toLowerCase());
+  const STANDALONE = /^(General|Specific)\s+Competences?\s*:?\s*$/i;   // "General Competences" / "…:" alone, value on the next block(s)
+  const INLINE = /^(General|Specific)\s+Competences?\s*:\s*\S/i;       // "General Competences: Analytical Thinking…" on one line
+  for (const b of blocks) {
+    const t = (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "") || "").trim();
+    if (!t) continue;
+    if ((b.t === "label" || b.t === "head") && STANDALONE.test(t)) {
+      b.t = "head"; b.text = fixCase(t); delete b.segs; delete b.marker; delete b.labelColor;
+    } else if ((b.t === "label" || b.t === "head") && INLINE.test(t)) {
+      const ci = t.indexOf(":");
+      b.t = "para";
+      b.segs = [{ t: `${fixCase(t.slice(0, ci))}:`, b: true, it: false, c: null }, { t: ` ${t.slice(ci + 1).trim()}`, b: false, it: false, c: null }];
+      delete b.text; delete b.labelColor;
+    } else if ((b.t === "para" || b.t === "listitem") && b.segs && b.segs.length) {
+      const full = b.segs.map((s) => s.t).join("");
+      const fixed = fixCase(full);
+      if (fixed !== full) {
+        let pos = 0;
+        b.segs = b.segs.map((s) => { const nt = fixed.slice(pos, pos + s.t.length); pos += s.t.length; return { ...s, t: nt }; });
+      }
     }
   }
 }
@@ -3855,6 +3911,10 @@ function normaliseQuestionMarkBold(blocks) {
   const wantsBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBookName(base));
   if (wantsBlackWhite) clearAllInlineColor(blocks);
   const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [] };
+  // Unlike the rest of proofPolish()'s lesson-field normalisation, "General/Specific
+  // Competence(s)" case is a house-style rule for every book, not just the boxActivities
+  // ones — see normaliseCompetenceLabels() above.
+  normaliseCompetenceLabels(blocks);
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   // after boxing, so the assessment bodies exist to scan
@@ -4235,10 +4295,21 @@ async function main() {
     console.error(`No .docx files to typeset. Drop one in input/ or books-to-typeset/, or pass a path.`);
     process.exit(1);
   }
+  // Track whether every file actually produced a PDF. A failure here (a bad
+  // .docx, a Typst compile error, a missing file) was being logged and then
+  // silently swallowed — the loop moved on to the next file and `main()`
+  // returned normally, so the process exited 0 ("success") even though NO
+  // PDF was written. `npm run zeph -- build` just forwards this same exit
+  // code, so a build that actually failed still reported as done, with the
+  // only sign being an easy-to-miss "Failed on <file>" line in the log. Exit
+  // non-zero whenever any file failed, so a failed typeset is never mistaken
+  // for a finished one.
+  let failed = false;
   for (const f of files) {
-    if (!fs.existsSync(f)) { console.error("Not found:", f); continue; }
-    try { await typesetOne(f, themeName); } catch (e) { console.error("Failed on", f, "\n", e.message); }
+    if (!fs.existsSync(f)) { console.error("Not found:", f); failed = true; continue; }
+    try { await typesetOne(f, themeName); } catch (e) { console.error("Failed on", f, "\n", e.message); failed = true; }
   }
+  if (failed) process.exit(1);
 }
 
 if (require.main === module) main();

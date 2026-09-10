@@ -144,9 +144,43 @@ off, so a change only touches the books that opt in. Keys:
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
 
-**Images:** generate with **gpt-image-2, `quality: "low"`** (cost). Prompt for
-Zambian context, gender balance, disability inclusion, and youth where relevant;
-keep the replacement's own file extension and a like-for-like aspect ratio.
+**Images:** generate with **gpt-image-2, `quality: "high"`** (raised from the
+old `"low"` cost-saving default — print sharpness now wins over the small
+per-image cost difference). Prompt for Zambian context, gender balance,
+disability inclusion, and youth where relevant; keep the replacement's own
+file extension and a like-for-like aspect ratio.
+
+- **Generate through the gpt-image-2 API directly, never the ChatGPT
+  consumer app.** The ChatGPT app bakes a small visible watermark into
+  every image it generates; the raw API output carries none. Using the API
+  is the fix — not a crop or an edit pass afterward. If a supplied image
+  ever does carry a ChatGPT (or any other) watermark, don't ship it:
+  regenerate it cleanly rather than trying to paint over or crop out the
+  mark.
+- **Replace any picture or illustration that isn't clear** with a sharper one
+  of the same subject (via the `images` override) — don't leave a blurry
+  scan, a low-res clip-art, or a muddy photo in a finished book.
+- **The people shown must be the age the book's own grade/level actually
+  serves** — not older, not younger. This is a house-style rule for *every*
+  book, checked at every image swap, not a one-off:
+  | Level | Depicted age |
+  |---|---|
+  | ECE 3-4 | 3-4 years old — mostly cartoon/very young children |
+  | ECE 5-6 | 5-6 years old |
+  | Grade 4 | ~10 years old |
+  | Form 4 | 16-17 years old (youths) |
+  | Form 5-6 | 18-19 years old (youths) |
+
+  Grades outside this table aren't pinned to an exact age yet — treat each
+  primary grade as roughly one year older than the last (Grade 1 the
+  youngest, climbing toward the Grade 4 anchor above and beyond), but
+  confirm with the team before treating a specific untabled grade's age as
+  settled. The one exception to "match the learner's own age": an image
+  illustrating a mother, father, or family scene may show adults (and
+  younger siblings) — but if the image is meant to depict *the learner*
+  practising the skill the page teaches (cooking, laundry, bed-making, …),
+  it needs to show someone the book's own age, not a parent or a much
+  younger child standing in for them.
 
 > This table covers the overrides you'll reach for most often. The engine
 > recognises many more (each is a niche, one-off fix added for a specific

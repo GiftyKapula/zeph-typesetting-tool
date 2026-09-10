@@ -188,7 +188,12 @@ function cmdBuild(id) {
   console.log(`Typesetting ${b.title}\n  ${rel(m.stored_path)}\n`);
   const r = spawnSync(process.execPath, ["src/typeset/typeset-docx.js", m.stored_path],
     { cwd: ROOT, stdio: "inherit" });
-  process.exit(r.status || 0);
+  // `r.status` is null (not 0) when the child died to a signal (OOM kill,
+  // a timeout, ^C) rather than exiting normally — `r.status || 0` collapsed
+  // that into a false "success" exit code, so a build that never produced a
+  // PDF still reported as done. Surface it as a real failure instead.
+  if (r.status == null) { console.error(`typeset-docx.js terminated by signal ${r.signal}`); process.exit(1); }
+  process.exit(r.status);
 }
 
 function cmdSend(id, pdf) {

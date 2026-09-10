@@ -257,6 +257,12 @@ const THEMES = {
   // bright, friendly BLUE with a sunny amber accent (distinct from English's orange
   // and CTS's turquoise), sharing the playful "grade3" cover + header layout.
   mathsci: { ...zeph({ subject: "Mathematics and Science", level: "Primary Education Level", signature: "d5e8f7", primary: "1f6fb5", primary2: "3f92d0", accent: "ff9e2c", cyan: "2bb3c0", coverStyle: "grade3" }), boxActivities: true, hyphenate: false, qgap: "1.5pt" },
+  // Grade 6 Home Economics — a cheerful primary-school ZEPH theme in a warm
+  // terracotta with a fresh sage-green accent (a kitchen/textiles palette,
+  // distinct from CTS's turquoise and Maths & Science's blue), sharing the
+  // same playful "grade3" cover + header layout as the other Grade 3 primary
+  // books so it reads as part of the same friendly, age-appropriate family.
+  homeecon: { ...zeph({ subject: "Home Economics", level: "Primary Education Level", signature: "f6dcc9", primary: "c1592f", primary2: "e08a53", accent: "4f9b6e", cyan: "3f8fa0", coverStyle: "grade3" }), boxActivities: true, hyphenate: false, qgap: "1.5pt" },
 };
 
 // Pick a sensible theme from the file name when none is given.
@@ -270,6 +276,10 @@ function autoTheme(name) {
   // Primary-school combined Mathematics & Science (Grade 1-7) — match before the
   // secondary physics/biology/maths subject routes grab it on the bare "maths".
   if (/grade\s*[1-7](?![0-9])/i.test(name) && /math/i.test(name) && /science/i.test(name)) return "mathsci";
+  // Primary-school Home Economics (Grade 1-7) — guarded by grade like mathsci above,
+  // so a possible future SECONDARY Home Economics book (none exists yet; "Food and
+  // Nutrition" covers that niche at Form level) wouldn't be mis-themed as primary.
+  if (/grade\s*[1-7](?![0-9])/i.test(name) && /home\s*econom/i.test(name)) return "homeecon";
   if (/technolog|design studies|spreadsheet/i.test(name)) return "tech";
   if (/chemistr/i.test(name)) return "chemistry";
   if (/physics|physical science/i.test(name)) return "physics";

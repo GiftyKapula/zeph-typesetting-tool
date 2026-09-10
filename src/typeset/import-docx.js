@@ -842,21 +842,36 @@ function expandGluedSubparts(blocks) {
 // (e.g. "…360°.\n8. Sketch the graph…"). Split such a paragraph at the line break
 // that is immediately followed by a decimal top marker, so the second question
 // gets its own number. Scoped to Q&A blocks only (called from buildQAParts).
+//
+// A single paragraph can carry MORE than one of these fake-numbered breaks (a
+// writer typing "1. …<Shift+Enter>2. …<Shift+Enter>3. …<Shift+Enter>4. …" as one
+// paragraph throughout) — keep cutting at every remaining break, not just the
+// first, or the later items (3., 4., …) stay stranded inside item 2's own
+// content and render as an indented continuation of it instead of their own
+// numbered parts.
 function splitBrokenTops(blocks) {
   const TOP_AFTER_BR = /\n\s*\d{1,2}[.)]\s+[A-Za-z]/;
   const out = [];
   for (const b of blocks) {
     if (b.t !== "para" || !b.segs) { out.push(b); continue; }
-    const plain = b.segs.map((s) => s.t).join("");
-    const m = plain.match(TOP_AFTER_BR);
-    if (!m) { out.push(b); continue; }
-    const cut = m.index;                                  // the "\n"
-    const secStart = cut + plain.slice(cut).match(/^\n\s*/)[0].length;
-    const first = { t: "para", segs: segsSlice(b.segs, 0, cut), plain: plain.slice(0, cut).trim() };
-    if (b.marker) first.marker = b.marker;
-    if (b.numId != null) first.numId = b.numId;
-    if (b.lvl != null) first.lvl = b.lvl;
-    out.push(first, { t: "para", segs: segsSlice(b.segs, secStart, plain.length), plain: plain.slice(secStart).trim() });
+    if (!TOP_AFTER_BR.test(b.segs.map((s) => s.t).join(""))) { out.push(b); continue; }
+    let segs = b.segs, plain = segs.map((s) => s.t).join("");
+    let first = true, m;
+    while ((m = plain.match(TOP_AFTER_BR))) {
+      const cut = m.index;                                // the "\n"
+      const secStart = cut + plain.slice(cut).match(/^\n\s*/)[0].length;
+      const piece = { t: "para", segs: segsSlice(segs, 0, cut), plain: plain.slice(0, cut).trim() };
+      if (first) {          // only the paragraph's ORIGINAL marker/list identity, on its first piece
+        if (b.marker) piece.marker = b.marker;
+        if (b.numId != null) piece.numId = b.numId;
+        if (b.lvl != null) piece.lvl = b.lvl;
+        first = false;
+      }
+      out.push(piece);
+      segs = segsSlice(segs, secStart, plain.length);
+      plain = plain.slice(secStart);
+    }
+    out.push({ t: "para", segs, plain: plain.trim() });
   }
   return out;
 }
