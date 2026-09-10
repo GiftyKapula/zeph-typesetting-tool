@@ -64,9 +64,12 @@ const THEMES = {
     asmt: { fill: "fbeae3", border: "c0703f", title: "8a3d18" },
   },
   // Blue + orange, Century Gothic, modern layout — friendly but professional;
-  // for the Grade 4 Technology Studies learner's book.
+  // used for Technology Studies learner's/teacher's books across grades
+  // (originally built for Grade 4, also picked up by Grade 6 etc. via
+  // autoTheme()'s "technolog" match).
   tech: {
     font: "Century Gothic", variant: "modern", ink: "232a30",
+    subject: "Technology Studies",  // read by cover synthesis when the manuscript's own cover is unusable (see chemistry's `subject` for the same reason) — without this the fallback used the raw filename as the title
     tagline: "TECHNOLOGY · INNOVATION · DESIGN", tab: "ICT · D&T", toctitle: "Table of Contents",
     primary: "13579f", primary2: "2f7ac9", accent: "f29230",
     rulec: "cdd9e8", zebra: "eaf1fa", yellow: "fff39a",
