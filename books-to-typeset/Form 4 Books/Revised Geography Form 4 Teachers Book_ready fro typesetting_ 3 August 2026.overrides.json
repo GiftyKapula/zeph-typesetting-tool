@@ -11,6 +11,9 @@
     { "find": "MINING", "near": "Mining involves extracting", "text": "TOPIC 4.7: MINING", "as": "h1" },
     { "find": "KEY COMPETENCES TO BE DEVELOPED", "text": "GENERAL COMPETENCES TO BE DEVELOPED" }
   ],
+  "pageBreakBefore": [
+    "GENERAL COMPETENCES TO BE DEVELOPED"
+  ],
   "insertText": [
     {
       "after": "Mining Areas on the Map of Angola and South Africa",
