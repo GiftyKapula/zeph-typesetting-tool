@@ -835,6 +835,26 @@
     fill: gradient.linear(deep, T.primary, T.primary2, angle: 150deg))[
     #set text(fill: white, font: T.font)
 
+    #if T.motif == "circuit" [
+      // TECHNOLOGY STUDIES ONLY: a faint perfboard-style dot grid across the
+      // WHOLE cover, drawn FIRST — before the wash/circles/corner traces/
+      // title — so every later element simply layers on top of it and needs
+      // no manual avoidance. Without this, the wide plain-colour field
+      // between the title and the photo card (the same empty band noted in
+      // pcbcorner's comment below) read as generic "light blue" rather than
+      // anything tech-specific. A subtle dot grid is the standard shorthand
+      // for a circuit board / graph-paper look without going dark or busy —
+      // this is a Grade 6 cover, so it stays barely-there (93% transparent).
+      #let dotgrid(step, r, op) = {
+        for gx in range(0, 16) {
+          for gy in range(0, 22) {
+            place(top + left, dx: gx * step, dy: gy * step, circle(radius: r, fill: white.transparentize(op)))
+          }
+        }
+      }
+      #dotgrid(14mm, 0.4mm, 93%)
+    ]
+
     // ---------- background geometry ----------
     // A symmetric chevron wash (peaks at centre) echoes the centred title below it,
     // instead of the old one-sided ramp that was shaped for a left-aligned title.
@@ -842,14 +862,67 @@
       (0mm, 0mm), (210mm, 0mm), (210mm, 90mm), (105mm, 112mm), (0mm, 90mm)))
     #place(bottom + right, dx: 40mm, dy: 40mm, circle(radius: 70mm, fill: white.transparentize(95%)))
     #place(bottom + left, dx: -38mm, dy: 30mm, circle(radius: 48mm, fill: T.accent.transparentize(86%)))
-    // concentric "orbit" rings, mirrored on both top corners so they bracket the
-    // centred tagline/title symmetrically instead of sitting only on one side.
-    #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
-    #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + white.transparentize(80%)))
-    #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 24mm, fill: none, stroke: 1.4pt + T.accent.transparentize(45%)))
-    #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
-    #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + white.transparentize(80%)))
-    #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 24mm, fill: none, stroke: 1.4pt + T.accent.transparentize(45%)))
+    #if T.motif != "circuit" [
+      // concentric "orbit" rings, mirrored on both top corners so they bracket the
+      // centred tagline/title symmetrically instead of sitting only on one side.
+      #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
+      #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + white.transparentize(80%)))
+      #place(top + right, dx: 26mm, dy: -30mm, circle(radius: 24mm, fill: none, stroke: 1.4pt + T.accent.transparentize(45%)))
+      #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
+      #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + white.transparentize(80%)))
+      #place(top + left, dx: -26mm, dy: -30mm, circle(radius: 24mm, fill: none, stroke: 1.4pt + T.accent.transparentize(45%)))
+    ] else [
+      // TECHNOLOGY STUDIES ONLY: right-angle PCB-trace lines with via pads, in
+      // all FOUR corners, in place of the generic "orbit" rings above (which
+      // read as planets/astronomy, not computing — the whole point of this
+      // theme's corner decoration). Every other theme keeps the plain rings.
+      //
+      // This branch's page has NO explicit width/height (unlike most of the
+      // other cover branches, which pin 176mm×250mm) — it inherits T.paper,
+      // which for `tech` defaults to plain A4 (210mm×297mm; confirmed via
+      // `pdfinfo` on an actual typeset PDF), not the 176×250 assumed by an
+      // earlier version of this code, which made the "mirrored" corners
+      // literally asymmetric and put the bottom pair on top of the footer
+      // text. `pcbcorner` mirrors ONE base shape (defined in insets from the
+      // top-left) across the true page box. The corner elbow itself stays
+      // within 12mm of its corner (clear of the tagline, which starts
+      // y: 24mm); a second, dotted trace then runs on down the SIDE margin
+      // (x: 13mm / 197mm) to flank the hero photo card, which this cover
+      // centres at roughly x: 30mm–180mm, y: 111mm–196mm — the trace stops
+      // ~15mm short of the card on every side, so it reads as "leading
+      // toward" the photo without ever touching it or the footer block
+      // (bottom edge y: 297mm − 16mm = 281mm).
+      //
+      // Rounded caps/joins + a dotted (not solid) run + higher transparency
+      // throughout is deliberate: solid sharp-cornered traces read as an
+      // adult PCB schematic, and this cover is for a Grade 6 kids' book —
+      // softened into a faint, friendly "dot-trail" instead.
+      #let cw = 210mm
+      #let ch = 297mm
+      #let softline = stroke(paint: white.transparentize(72%), thickness: 1pt, cap: "round", join: "round")
+      #let dotline = stroke(paint: white.transparentize(78%), thickness: 1.1pt, cap: "round", dash: "dotted")
+      #let pcbcorner(flipx, flipy) = {
+        let mx(v) = if flipx { cw - v } else { v }
+        let my(v) = if flipy { ch - v } else { v }
+        let pt(x, y) = (mx(x), my(y))
+        place(top + left, line(start: pt(24mm, 3mm), end: pt(24mm, 9mm), stroke: softline))
+        place(top + left, line(start: pt(24mm, 9mm), end: pt(13mm, 9mm), stroke: softline))
+        place(top + left, line(start: pt(13mm, 9mm), end: pt(13mm, 12mm), stroke: softline))
+        // extension toward the hero photo's side, drawn as a soft dotted trail
+        place(top + left, line(start: pt(13mm, 12mm), end: pt(13mm, 95mm), stroke: dotline))
+        place(top + left, dx: mx(24mm), dy: my(3mm), circle(radius: 1.4mm, fill: none, stroke: 1pt + T.accent.transparentize(45%)))
+        place(top + left, dx: mx(24mm), dy: my(9mm), circle(radius: 1.3mm, fill: white.transparentize(55%)))
+        place(top + left, dx: mx(13mm), dy: my(9mm), circle(radius: 1.3mm, fill: white.transparentize(55%)))
+        place(top + left, dx: mx(13mm), dy: my(12mm), circle(radius: 1.4mm, fill: T.accent.transparentize(40%)))
+        place(top + left, dx: mx(13mm), dy: my(95mm), circle(radius: 1.8mm, fill: T.accent.transparentize(55%)))
+        place(top + left, line(start: pt(5mm, 6mm), end: pt(16mm, 6mm), stroke: (paint: white.transparentize(80%), thickness: 0.8pt, cap: "round")))
+        place(top + left, dx: mx(5mm), dy: my(6mm), circle(radius: 0.9mm, fill: white.transparentize(60%)))
+      }
+      #pcbcorner(false, false)
+      #pcbcorner(true, false)
+      #pcbcorner(false, true)
+      #pcbcorner(true, true)
+    ]
     // circuit nodes + dots, mirrored left/right so they balance around the centreline
     #cnode(20mm, 18mm, T.accent)
     #cnode(190mm, 18mm, T.accent)
@@ -859,6 +932,26 @@
     #cdot(170mm, 30mm, white.transparentize(40%))
     #cdot(28mm, 52mm, white.transparentize(55%))
     #cdot(182mm, 52mm, white.transparentize(55%))
+    #if T.motif == "circuit" [
+      // TECHNOLOGY STUDIES ONLY: connect the nodes/dots above into an actual
+      // wandering circuit path (they otherwise float unconnected) and carry
+      // it on down into the open band toward the photo card, mirroring the
+      // side trails pcbcorner already runs from the corners — together they
+      // fill what used to be a plain empty stretch of blue with a proper
+      // "this is a circuit board" read, at the same faint opacity as the rest
+      // of the motif so it stays in the background, not competing with text.
+      #let ctrace = stroke(paint: white.transparentize(82%), thickness: 0.8pt, cap: "round", join: "round")
+      #place(top + left, line(start: (20mm, 18mm), end: (40mm, 30mm), stroke: ctrace))
+      #place(top + left, line(start: (40mm, 30mm), end: (28mm, 52mm), stroke: ctrace))
+      #place(top + left, line(start: (28mm, 52mm), end: (60mm, 60mm), stroke: ctrace))
+      #place(top + left, line(start: (60mm, 60mm), end: (60mm, 98mm), stroke: ctrace))
+      #place(top + left, dx: 60mm, dy: 98mm, circle(radius: 1.4mm, fill: T.accent.transparentize(60%)))
+      #place(top + left, line(start: (190mm, 18mm), end: (170mm, 30mm), stroke: ctrace))
+      #place(top + left, line(start: (170mm, 30mm), end: (182mm, 52mm), stroke: ctrace))
+      #place(top + left, line(start: (182mm, 52mm), end: (150mm, 60mm), stroke: ctrace))
+      #place(top + left, line(start: (150mm, 60mm), end: (150mm, 98mm), stroke: ctrace))
+      #place(top + left, dx: 150mm, dy: 98mm, circle(radius: 1.4mm, fill: T.accent.transparentize(60%)))
+    ]
 
     // ---------- title block (centred, matching the rest of the cover) ----------
     #place(top + center, dy: 24mm, block(width: 160mm)[#align(center)[

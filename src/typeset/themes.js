@@ -70,6 +70,7 @@ const THEMES = {
   tech: {
     font: "Century Gothic", variant: "modern", ink: "232a30",
     subject: "Technology Studies",  // read by cover synthesis when the manuscript's own cover is unusable (see chemistry's `subject` for the same reason) — without this the fallback used the raw filename as the title
+    motif: "circuit",  // swaps the default cover's corner "orbit" rings (which read as planets, not tech) for PCB-trace line art — see generic-template.typ's default cover() branch. Every OTHER theme still gets the plain rings; this is deliberately tech-only.
     tagline: "TECHNOLOGY · INNOVATION · DESIGN", tab: "ICT · D&T", toctitle: "Table of Contents",
     primary: "13579f", primary2: "2f7ac9", accent: "f29230",
     rulec: "cdd9e8", zebra: "eaf1fa", yellow: "fff39a",
