@@ -3933,8 +3933,17 @@ function normaliseQuestionMarkBold(blocks) {
   const isPrimaryLB = eduLevel === "Primary Education Level" && !isTeacherBookName(base);
   if (isPrimaryLB && !ov.keepScaffold) blocks = stripPrimaryScaffold(blocks);
 
-  // ZEPH house style: put the ZEPH logo on the front + back covers
-  if (seriesLike) {
+  // ZEPH house style: put the OFFICIAL ZEPH logo (zeph-logo/image.png — a clean
+  // transparent-background mark) on the front + back covers of EVERY book,
+  // regardless of theme/variant. This unconditionally overwrites whatever
+  // `cov.logo` the cover-detection pass in import-docx.js may have picked up
+  // (it grabs any small image sitting on the manuscript's own title page as a
+  // "publisher logo" — for classic/modern/literary/panel books that was never
+  // replaced, so a manuscript's own flattened, white-background copy of the
+  // logo ended up on the cover, showing as a visible white box/container
+  // around the mark instead of our clean cut-out). Every book published
+  // through this pipeline is a ZEPH book, so the logo should always be ours.
+  {
     const zeph = path.join(ROOT, "zeph-logo", "image.png");
     if (fs.existsSync(zeph)) {
       media.push({ src: zeph, name: "zeph_logo.png" });
