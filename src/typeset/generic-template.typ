@@ -212,7 +212,7 @@
   // the eyebrow is the lead line, unless that line is itself the title (carries
   // FORM/GRADE, or equals the subject) — then fall back to the standard descriptor.
   let rawlead = lines.at(0, default: "")
-  let lead = if ("FORM" in upper(rawlead)) or ("GRADE" in upper(rawlead)) or (rawlead == name) { "Secondary Education Ordinary Level" } else { rawlead }
+  let lead = if ("FORM" in upper(rawlead)) or ("GRADE" in upper(rawlead)) or (rawlead == name) { T.eyebrow } else { rawlead }
   let deepteal = T.primary.darken(30%)
   // corner accents tying back to the cover. For a LIGHT signature (yellow) the
   // form tag uses the signature fill with deep text; for a DARK signature
@@ -354,7 +354,7 @@
       // title, an accent rule, the form tag, then the book type). par spacing is
       // zeroed so the explicit #v values fully control the layout.
       #place(top + center, dy: 22mm, block(width: 158mm)[#set par(spacing: 0pt); #align(center)[
-        #text(size: 14pt, weight: "bold", fill: amber, tracking: 3pt)[SECONDARY EDUCATION ORDINARY LEVEL]
+        #text(size: 14pt, weight: "bold", fill: amber, tracking: 3pt)[#upper(T.eyebrow)]
         #v(6mm)
         // shrink a long subject so it never hyphenates / overflows
         #text(size: if name.len() > 13 { 40pt } else { 54pt }, weight: "bold", fill: white, hyphenate: false)[#name]
@@ -946,7 +946,7 @@
   // When line 0 IS the subject (rather than a standard education-level eyebrow) it
   // would otherwise be printed twice — once small and once as the title. Fall back
   // to the education level in that case, as the front cover does.
-  let eyebrow = if ("FORM" in upper(rawsub)) or ("GRADE" in upper(rawsub)) or (rawsub == name) { "Secondary Education Ordinary Level" } else { rawsub }
+  let eyebrow = if ("FORM" in upper(rawsub)) or ("GRADE" in upper(rawsub)) or (rawsub == name) { T.eyebrow } else { rawsub }
   // signature-colour dominant, mirroring the front.
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
