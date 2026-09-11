@@ -223,14 +223,15 @@ const THEMES = {
   // Grade 6 (Primary) Integrated Science — the only "science"-variant theme below
   // Form level, so it must set `level` explicitly (the zeph() default is secondary);
   // that `level` also drives the cover/title-page/back-cover eyebrow (see themeTypst()).
-  // A hands-on "earth science" identity: a deep ocean-blue cover field, an
-  // earth-GREEN structural colour (also the Learning Activity box — moss/
-  // olive, not Biology's brighter emerald "cell" green, so the two stay
-  // distinct), an energetic-orange accent (Key Points-style pop + cover
-  // sunburst), and a lighter ocean-blue for Exercise boxes. `motif: "earth"`
-  // swaps the cover's corner rings for a bespoke pebble/sunburst/horizon design —
-  // see generic-template.typ's cover() — instead of reusing biology's cell motif.
-  grade6sci: zeph({ subject: "Science", level: "Primary Education Level", variant: "science", signature: "0e6683", primary: "3f6b2e", primary2: "6d8f4a", accent: "f07f1a", cyan: "1f8fae", motif: "earth" }),
+  // A hands-on "earth science" identity, GREEN-led rather than blue-led: the
+  // cover field itself is earth-green (no `signature` override — it falls
+  // back to `primary` below), moss/olive rather than Biology's brighter
+  // emerald "cell" green so the two stay distinct. Ocean-blue is kept as a
+  // deliberate SMALL touch rather than the dominant colour — one cover corner
+  // ring (see generic-template.typ's `motif: "earth"` cover() branch) and the
+  // Exercise box. Energetic-orange remains the accent (Key Points-style pop +
+  // cover sunburst).
+  grade6sci: zeph({ subject: "Science", level: "Primary Education Level", variant: "science", primary: "3f6b2e", primary2: "6d8f4a", accent: "f07f1a", cyan: "1f8fae", motif: "earth" }),
   // Prose-heavy subjects -> "series" (flat; boxes kept where the source boxes them)
   travel:    zeph({ subject: "Travel and Tourism", signature: "147a78", primary: "147a78", primary2: "2f9e8c", accent: "e0922f", cyan: "1fb6d6" }),
   // Art and Design (Form 1) — a warm, creative "artist's palette": terracotta/burnt-

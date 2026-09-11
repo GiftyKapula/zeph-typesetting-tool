@@ -354,14 +354,18 @@
       // GRADE 6 SCIENCE (earth): a warm, hands-on identity distinct from every
       // other science book's orbits/flask/cell — the same proven ring anchor
       // point as the electron-orbit design above (so the rings still peek out
-      // from behind the masthead the same way), but one ring re-tinted
-      // earth-green (T.primary), and a small energetic-orange sunburst (light/energy —
-      // this book's own Materials and Energy topic) sitting just inside the
-      // rings where it's actually on-page (the orbit dot's own dx/dy, reused
-      // as-is, places a small shape almost entirely off the top edge).
+      // from behind the masthead the same way). The field itself is earth-
+      // green (T.signature falls back to T.primary — see themes.js), so the
+      // second ring is tinted OCEAN-BLUE (T.cyan) instead of earth-green —
+      // a deliberate small touch of blue, and the only way it would show up
+      // against a green field at all (a same-hue ring would all but vanish).
+      // Plus a small energetic-orange sunburst (light/energy — this book's
+      // own Materials and Energy topic) sitting just inside the rings where
+      // it's actually on-page (the orbit dot's own dx/dy, reused as-is,
+      // places a small shape almost entirely off the top edge).
       #if T.motif == "earth" [
         #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
-        #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + T.primary.transparentize(30%)))
+        #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + T.cyan.transparentize(30%)))
         #place(top + right, dx: 6mm, dy: 10mm, circle(radius: 2.8mm, fill: amber))
         #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-7mm, -3mm), stroke: 1.4pt + amber.transparentize(15%)))
         #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-8mm, 3mm), stroke: 1.4pt + amber.transparentize(15%)))
