@@ -355,7 +355,7 @@
       // other science book's orbits/flask/cell — the same proven ring anchor
       // point as the electron-orbit design above (so the rings still peek out
       // from behind the masthead the same way), but one ring re-tinted
-      // earth-brown, and a small energetic-orange sunburst (light/energy —
+      // earth-green (T.primary), and a small energetic-orange sunburst (light/energy —
       // this book's own Materials and Energy topic) sitting just inside the
       // rings where it's actually on-page (the orbit dot's own dx/dy, reused
       // as-is, places a small shape almost entirely off the top edge).
