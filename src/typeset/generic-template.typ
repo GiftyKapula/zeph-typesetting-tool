@@ -444,12 +444,24 @@
           #place(center + horizon, dx: -22mm, dy: 24mm, circle(radius: 2mm, fill: amber.lighten(15%)))
         ])
       ]
-      // authors (small, wraps if long), then publisher + logo
+      // GRADE 6 SCIENCE (earth): a soft, rounded, barely-there card behind the
+      // author credit — the cover otherwise being one flat colour field reads
+      // a bit plain/severe for a primary-school audience, and this lifts the
+      // (often long) author list off the green rather than leaving it to
+      // float directly on the field.
+      #if T.motif == "earth" and byline.len() > 0 [
+        #place(top + center, dy: 188mm, box(width: 164mm, height: 42mm, radius: 6mm, fill: white.transparentize(88%), stroke: 1pt + white.transparentize(75%)))
+      ]
+      // authors (small, wraps if long), then publisher + logo. Full-opacity,
+      // semibold text — a lightly transparentized white read fine on the
+      // original deep indigo/purple/navy science covers but washes out to a
+      // pale, hard-to-read grey-green on a lighter/more saturated field like
+      // Grade 6 Science's green, so this is no longer transparentized at all.
       #if byline.len() > 0 [
         #place(top + center, dy: 196mm, block(width: 152mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(2mm)
-          #text(size: 10.5pt, weight: "medium", fill: white.transparentize(22%))[#byline.join("    •    ")]]])
+          #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]])
       ]
       #place(bottom + center, dy: -12mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(2mm) ]
