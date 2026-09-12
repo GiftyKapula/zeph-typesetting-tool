@@ -212,7 +212,7 @@
   // the eyebrow is the lead line, unless that line is itself the title (carries
   // FORM/GRADE, or equals the subject) — then fall back to the standard descriptor.
   let rawlead = lines.at(0, default: "")
-  let lead = if ("FORM" in upper(rawlead)) or ("GRADE" in upper(rawlead)) or (rawlead == name) { "Secondary Education Ordinary Level" } else { rawlead }
+  let lead = if ("FORM" in upper(rawlead)) or ("GRADE" in upper(rawlead)) or (rawlead == name) { T.eyebrow } else { rawlead }
   let deepteal = T.primary.darken(30%)
   // corner accents tying back to the cover. For a LIGHT signature (yellow) the
   // form tag uses the signature fill with deep text; for a DARK signature
@@ -341,20 +341,42 @@
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
       // top-right motif: chemistry (flask) keeps the field clean — a single slim
-      // amber accent bar under the masthead is drawn later; physics keeps its
-      // concentric electron orbits.
-      #if T.motif != "flask" [
+      // amber accent bar under the masthead is drawn later; Grade 6 Science
+      // (earth) gets its own pebble/sunburst design below; physics (and every
+      // other science theme) keeps the concentric electron orbits.
+      #if T.motif != "flask" and T.motif != "earth" [
         #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
         #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + white.transparentize(80%)))
         #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 24mm, fill: none, stroke: 1.4pt + amber.transparentize(25%)))
         #place(top + right, dx: 28mm, dy: -34mm, circle(radius: 2.6mm, fill: amber))
         #place(bottom + left, dx: -36mm, dy: 40mm, circle(radius: 44mm, fill: none, stroke: 1pt + white.transparentize(82%)))
       ]
+      // GRADE 6 SCIENCE (earth): a warm, hands-on identity distinct from every
+      // other science book's orbits/flask/cell — the same proven ring anchor
+      // point as the electron-orbit design above (so the rings still peek out
+      // from behind the masthead the same way). The field itself is earth-
+      // green (T.signature falls back to T.primary — see themes.js), so the
+      // second ring is tinted OCEAN-BLUE (T.cyan) instead of earth-green —
+      // a deliberate small touch of blue, and the only way it would show up
+      // against a green field at all (a same-hue ring would all but vanish).
+      // Plus a small energetic-orange sunburst (light/energy — this book's
+      // own Materials and Energy topic) sitting just inside the rings where
+      // it's actually on-page (the orbit dot's own dx/dy, reused as-is,
+      // places a small shape almost entirely off the top edge).
+      #if T.motif == "earth" [
+        #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
+        #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + T.cyan.transparentize(30%)))
+        #place(top + right, dx: 6mm, dy: 10mm, circle(radius: 2.8mm, fill: amber))
+        #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-7mm, -3mm), stroke: 1.4pt + amber.transparentize(15%)))
+        #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-8mm, 3mm), stroke: 1.4pt + amber.transparentize(15%)))
+        #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-2mm, 9mm), stroke: 1.4pt + amber.transparentize(15%)))
+        #place(bottom + left, dx: -36mm, dy: 40mm, circle(radius: 44mm, fill: none, stroke: 1pt + white.transparentize(82%)))
+      ]
       // masthead — CENTRED with the SAME rhythm as the English cover (eyebrow,
       // title, an accent rule, the form tag, then the book type). par spacing is
       // zeroed so the explicit #v values fully control the layout.
       #place(top + center, dy: 22mm, block(width: 158mm)[#set par(spacing: 0pt); #align(center)[
-        #text(size: 14pt, weight: "bold", fill: amber, tracking: 3pt)[SECONDARY EDUCATION ORDINARY LEVEL]
+        #text(size: 14pt, weight: "bold", fill: amber, tracking: 3pt)[#upper(T.eyebrow)]
         #v(6mm)
         // shrink a long subject so it never hyphenates / overflows
         #text(size: if name.len() > 13 { 40pt } else { 54pt }, weight: "bold", fill: white, hyphenate: false)[#name]
@@ -422,12 +444,24 @@
           #place(center + horizon, dx: -22mm, dy: 24mm, circle(radius: 2mm, fill: amber.lighten(15%)))
         ])
       ]
-      // authors (small, wraps if long), then publisher + logo
+      // GRADE 6 SCIENCE (earth): a soft, rounded, barely-there card behind the
+      // author credit — the cover otherwise being one flat colour field reads
+      // a bit plain/severe for a primary-school audience, and this lifts the
+      // (often long) author list off the green rather than leaving it to
+      // float directly on the field.
+      #if T.motif == "earth" and byline.len() > 0 [
+        #place(top + center, dy: 188mm, box(width: 164mm, height: 42mm, radius: 6mm, fill: white.transparentize(88%), stroke: 1pt + white.transparentize(75%)))
+      ]
+      // authors (small, wraps if long), then publisher + logo. Full-opacity,
+      // semibold text — a lightly transparentized white read fine on the
+      // original deep indigo/purple/navy science covers but washes out to a
+      // pale, hard-to-read grey-green on a lighter/more saturated field like
+      // Grade 6 Science's green, so this is no longer transparentized at all.
       #if byline.len() > 0 [
         #place(top + center, dy: 196mm, block(width: 152mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(2mm)
-          #text(size: 10.5pt, weight: "medium", fill: white.transparentize(22%))[#byline.join("    •    ")]]])
+          #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]])
       ]
       #place(bottom + center, dy: -12mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(2mm) ]
@@ -946,7 +980,7 @@
   // When line 0 IS the subject (rather than a standard education-level eyebrow) it
   // would otherwise be printed twice — once small and once as the title. Fall back
   // to the education level in that case, as the front cover does.
-  let eyebrow = if ("FORM" in upper(rawsub)) or ("GRADE" in upper(rawsub)) or (rawsub == name) { "Secondary Education Ordinary Level" } else { rawsub }
+  let eyebrow = if ("FORM" in upper(rawsub)) or ("GRADE" in upper(rawsub)) or (rawsub == name) { T.eyebrow } else { rawsub }
   // signature-colour dominant, mirroring the front.
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)

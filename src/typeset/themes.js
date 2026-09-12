@@ -35,8 +35,9 @@ function zeph({ subject, variant = "series", motif = "atom",
     variant, paper: "iso-b5", ink: "1a1a1a", motif,
     tagline: "", tab: "Learner's Book", toctitle,
     tocUnitsOnly, coverStyle,
-    // `subject` + `eyebrow` are read by the cover-synthesis step (not emitted to
-    // Typst), so the eyebrow follows the education level (primary vs secondary).
+    // `subject` feeds cover-synthesis; `eyebrow` is ALSO emitted to Typst (see
+    // themeTypst()) so the science/title-page/back-cover renderers show the
+    // right education level instead of assuming secondary.
     subject, eyebrow: level.toUpperCase(),
     hdrleft: level + " " + subject,
     hdrtab: "Learner's Book",
@@ -219,7 +220,18 @@ const THEMES = {
   // Subject books (Form 4 / Grade 6): activity-heavy -> "science" (boxed)
   compsci: zeph({ subject: "Computer Science", variant: "science", signature: "1f3a5f", primary: "1f3a5f", primary2: "2f6aa0", accent: "f0a32e", cyan: "1fb6d6" }),
   maths:   zeph({ subject: "Mathematics",      variant: "science", signature: "5e2b5e", primary: "5e2b5e", primary2: "8a4a8a", accent: "e0a32e", cyan: "3f9e8c" }),
-  grade6sci: zeph({ subject: "Science",        variant: "science", signature: "1f6b4a", primary: "1f6b4a", primary2: "2f8f5b", accent: "e8a020", cyan: "1fa0b6", motif: "cell" }),
+  // Grade 6 (Primary) Integrated Science — the only "science"-variant theme below
+  // Form level, so it must set `level` explicitly (the zeph() default is secondary);
+  // that `level` also drives the cover/title-page/back-cover eyebrow (see themeTypst()).
+  // A hands-on "earth science" identity, GREEN-led rather than blue-led: the
+  // cover field itself is earth-green (no `signature` override — it falls
+  // back to `primary` below), moss/olive rather than Biology's brighter
+  // emerald "cell" green so the two stay distinct. Ocean-blue is kept as a
+  // deliberate SMALL touch rather than the dominant colour — one cover corner
+  // ring (see generic-template.typ's `motif: "earth"` cover() branch) and the
+  // Exercise box. Energetic-orange remains the accent (Key Points-style pop +
+  // cover sunburst).
+  grade6sci: zeph({ subject: "Science", level: "Primary Education Level", variant: "science", primary: "3f6b2e", primary2: "6d8f4a", accent: "f07f1a", cyan: "1f8fae", motif: "earth" }),
   // Prose-heavy subjects -> "series" (flat; boxes kept where the source boxes them)
   travel:    zeph({ subject: "Travel and Tourism", signature: "147a78", primary: "147a78", primary2: "2f9e8c", accent: "e0922f", cyan: "1fb6d6" }),
   // Art and Design (Form 1) — a warm, creative "artist's palette": terracotta/burnt-
@@ -287,7 +299,12 @@ function autoTheme(name) {
   if (/chemistr/i.test(name)) return "chemistry";
   if (/physics|physical science/i.test(name)) return "physics";
   if (/biology|life science/i.test(name)) return "biology";
-  if (/grade\s*6.*science|primary science/i.test(name)) return "grade6sci";
+  // Order-independent: manuscripts name the subject before the grade at least
+  // as often as after it (e.g. "Integrated Science_Grade 6_LB..." — subject
+  // first), so this can't require "grade 6" to precede "science" in the string.
+  // `(?!\d)` not `\b` after the digit — same reasoning as the maths regex above:
+  // an underscore is a word char, so "Grade 6_LB" wouldn't otherwise match.
+  if ((/grade\s*6(?!\d)/i.test(name) && /science/i.test(name)) || /primary science/i.test(name)) return "grade6sci";
   // `maths?(?=\b|_)` so "Maths_ Form 1" matches too — an underscore is a word char, so
   // a plain `\bmaths?\b` misses "Maths_..." (no boundary between the "s" and the "_").
   if (/mathematic|\bmaths?(?=\b|_)/i.test(name)) return "maths";
@@ -323,7 +340,7 @@ function themeTypst(theme, overrides = {}) {
   return `#let T = (
   font: "${t.font}", bodyFont: "${t.bodyFont || t.font}", displayFont: "${t.displayFont || t.font}", handFont: "${t.handFont || "Bradley Hand ITC"}", variant: "${t.variant}",
   paper: "${t.paper || "a4"}", bodySize: ${t.bodySize || "12pt"}, hMain: ${t.hMain || "none"}, hSub: ${t.hSub || "none"}, ink: ${c(t.ink)}, motif: ${q(t.motif || "atom")},
-  subject: ${q(t.subject)}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"},
+  subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
   covPrimary: ${c(t.covPrimary || t.primary)}, covPrimary2: ${c(t.covPrimary2 || t.primary2)}, covAccent: ${c(t.covAccent || t.accent)}, covSignature: ${c(t.covSignature || t.signature || t.primary)}, covCyan: ${c(t.covCyan || t.cyan || t.primary2)}, covInk: ${c(t.covInk || t.ink)}, covRulec: ${c(t.covRulec || t.rulec)},
