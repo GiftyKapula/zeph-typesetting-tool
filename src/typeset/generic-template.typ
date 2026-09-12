@@ -355,17 +355,17 @@
       // other science book's orbits/flask/cell — the same proven ring anchor
       // point as the electron-orbit design above (so the rings still peek out
       // from behind the masthead the same way). The field itself is earth-
-      // green (T.signature falls back to T.primary — see themes.js), so the
-      // second ring is tinted OCEAN-BLUE (T.cyan) instead of earth-green —
-      // a deliberate small touch of blue, and the only way it would show up
-      // against a green field at all (a same-hue ring would all but vanish).
+      // green (T.signature falls back to T.primary — see themes.js); ocean-
+      // blue on that green field read poorly (too low-contrast/muddy), so
+      // both rings stay in the white/orange family instead — the second ring
+      // is tinted energetic-orange (T.accent), echoing the GRADE 6 badge.
       // Plus a small energetic-orange sunburst (light/energy — this book's
       // own Materials and Energy topic) sitting just inside the rings where
       // it's actually on-page (the orbit dot's own dx/dy, reused as-is,
       // places a small shape almost entirely off the top edge).
       #if T.motif == "earth" [
         #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
-        #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + T.cyan.transparentize(30%)))
+        #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + T.accent.transparentize(35%)))
         #place(top + right, dx: 6mm, dy: 10mm, circle(radius: 2.8mm, fill: amber))
         #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-7mm, -3mm), stroke: 1.4pt + amber.transparentize(15%)))
         #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-8mm, 3mm), stroke: 1.4pt + amber.transparentize(15%)))
@@ -1293,6 +1293,21 @@
         [#text(fill: T.accent, size: fs(8.5pt), weight: "bold", tracking: 5pt)[TOPIC]
          #v(-3pt)
          #text(fill: white, size: hm(17pt), weight: "bold", hyphenate: false)[#title]])]
+    v(9pt)
+  } else if science and T.motif == "earth" {
+    // GRADE 6 SCIENCE: earth-green banner — the topic number in an energetic-
+    // orange chip, an orange "TOPIC" eyebrow, white title. The generic
+    // fallback below (physics' look) uses T.cyan for the chip/eyebrow, which
+    // reads as a dull blue-on-green here rather than the crisp cyan-on-indigo
+    // it was designed for — orange (already this theme's accent) instead.
+    v(2pt)
+    block(width: 100%, breakable: false, radius: 6pt, fill: T.primary, inset: (x: 14pt, y: 12pt))[
+      #grid(columns: (auto, 1fr), column-gutter: 14pt, align: (horizon, horizon),
+        box(fill: T.accent, inset: (x: 11pt, y: 7pt), radius: 5pt)[
+          #text(fill: T.primary.darken(10%), size: fs(22pt), weight: "bold")[#no]],
+        [#text(fill: T.accent, size: fs(8pt), weight: "bold", tracking: 5pt)[TOPIC]
+         #v(-3pt)
+         #text(fill: white, size: hm(16pt), weight: "bold")[#title]])]
     v(9pt)
   } else if science {
     // PHYSICS: indigo banner, the topic number in an electric-cyan chip, white title
