@@ -1,6 +1,9 @@
 {
   "images": {
     "image7.jpeg": { "src": "media/fig4-teenage-pregnancy-classroom-landscape.png", "w": 700 },
-    "image10.png": { "src": "media/fig7-community-sensitisation.jpeg", "w": 700 }
+    "image10.png": { "src": "media/fig7-community-sensitisation.jpeg", "w": 700 },
+    "image13.jpeg": { "src": "media/fig9-good-nutrition.png", "w": 700 },
+    "image18.jpeg": { "src": "media/fig14-tb-doctor-enhanced.png", "w": 700 },
+    "image26.jpeg": { "src": "media/fig22-reuse-plastic-enhanced.png", "w": 700 }
   }
 }
