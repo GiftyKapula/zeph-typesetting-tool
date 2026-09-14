@@ -541,7 +541,18 @@ function dedupeAdjacentHeadings(blocks) {
 function fixStrayBodyH1s(blocks) {
   const UNIT = /^(TOPIC|UNIT|CHAPTER|CHIBALU|CIPATI)\b/i;
   const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+BOOK)?|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
-  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim());
+  // FRONTBACK requires an EXACT match end-to-end, which is right for most of its
+  // entries (a stray body h1 could otherwise dodge demotion by coincidentally
+  // starting with "Introduction" or "Preface"). But ACRONYMS and (KEY/GENERAL)
+  // COMPETENCES sections are routinely titled with the manuscript's own trailing
+  // words ("ACRONYMS AND ABBREVIATIONS", "GENERAL COMPETENCES TO BE DEVELOPED"
+  // — as this Physics book does) rather than the bare "ACRONYMS"/"KEY COMPETENCES"
+  // FRONTBACK expects, so the exact-match check demoted a genuine front-matter
+  // section to h2 (losing its own page) purely because of the extra words. These
+  // two are safe to match leniently by their lead phrase — the same tolerance the
+  // FM/FM_SECTION front-matter regexes elsewhere already give ACRONYMS.
+  const FRONTBACK_LEAD = /^(LIST OF )?ACRONYMS\b|^(GENERAL|KEY)\s+COMPETEN\w*\b/i;
+  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim()) && !FRONTBACK_LEAD.test((b.text || "").trim());
   const seen = new Set();
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];

@@ -155,11 +155,20 @@
         } else if serieslike {
           // serif italic masthead (subject) + a short teal rule + amber Form pill
           set text(font: T.font, size: 8.5pt)
+          // Pin the internal spacing so the header→rule gap is identical on every
+          // page: without this the header inherits the ambient block spacing,
+          // which is airier in the front matter than the body and floats the
+          // masthead higher on the roman pages than on the arabic ones (the
+          // same fix already applied to the GRADE 2/3 and FORM 2 map headers
+          // above — this is the one remaining "serieslike" header shape that
+          // hadn't gotten it, used by every subject without its own coverStyle).
+          set block(spacing: 0pt)
+          set par(spacing: 0pt)
           grid(columns: (1fr, auto), align: (left + horizon, right + horizon),
             text(style: "italic", weight: "bold", fill: T.primary)[#T.hdrleft],
             box(fill: iaccent, inset: (x: 6pt, y: 2.5pt), radius: 3pt)[
               #text(fill: white, style: "italic", weight: "bold", size: 7.5pt)[#T.hdrtab]])
-          v(-1pt); line(length: 100%, stroke: 1.1pt + T.primary)
+          v(3pt); line(length: 100%, stroke: 1.1pt + T.primary)
         } else {
           set text(size: 8.5pt, fill: T.primary)
           grid(columns: (1fr, auto),
