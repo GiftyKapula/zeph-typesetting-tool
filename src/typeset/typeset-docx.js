@@ -47,6 +47,13 @@ const segArr = (segs) => arr(segs, (s) =>
       : `(t: ${S(zwspBlanks(s.t))}, b: ${s.b ? "true" : "false"}, it: ${s.it ? "true" : "false"}, c: ${s.c ? S(s.c) : "none"}${s.u ? ", u: true" : ""}${s.hw ? ", hw: true" : ""}${s.mono ? ", mono: true" : ""})`);
 
 const strArr = (a) => arr(a, S);
+// A box title/heading is USUALLY plain text (-> a Typst string literal via S()).
+// But when the title paragraph carried a real embedded equation, import-docx.js
+// hands through the paragraph's original formatted segs (`*Segs`) instead of the
+// flattened plain mirror — render those with the template's `segs()` (the same
+// math-aware per-segment renderer a normal paragraph body uses) so the equation
+// typesets instead of its raw Typst math source leaking onto the page as text.
+const titleContent = (text, segs) => (segs && segs.length) ? `segs(${segArr(segs)})` : S(text);
 // A multi-column word-list grid built from space-separated columns (see columnizeLists).
 // rows: [{ marker, cells:[...], style }]. Emits marker + cells for the Typst colgrid.
 const colgridArg = (b) => `rows: ${arr(b.rows, (r) => `(marker: ${S(r.marker || "")}, cells: ${strArr(r.cells)})`)}, ncol: ${b.ncol}, hasMarker: ${b.hasMarker ? "true" : "false"}${b.header ? `, header: ${strArr(b.header)}` : ""}`;
@@ -228,11 +235,11 @@ function emit(blocks) {
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
-      case "activity": out += `#activity(${S(b.title)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
+      case "activity": out += `#activity(${titleContent(b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "fact": out += `#fact(${bodyArr(b.body)})\n`; break;
-      case "keypoints": out += `#keypoints(${b.title ? S(b.title) : "none"}, ${strArr(b.points)})\n`; break;
-      case "exercise": out += `#exercise(${S(b.heading)}, ${partsArr(b.parts || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
-      case "assessment": out += `#assessment(${S(b.title)}, ${strArr(b.intro || [])}, ${partsArr(b.parts || [])}, ${strArr(b.extra || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
+      case "keypoints": out += `#keypoints(${b.title ? titleContent(b.title, b.titleSegs) : "none"}, ${strArr(b.points)})\n`; break;
+      case "exercise": out += `#exercise(${titleContent(b.heading, b.headingSegs)}, ${partsArr(b.parts || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
+      case "assessment": out += `#assessment(${titleContent(b.title, b.titleSegs)}, ${strArr(b.intro || [])}, ${partsArr(b.parts || [])}, ${strArr(b.extra || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "box": out += `#genericbox(${bodyArr(b.body)})\n`; break;
       case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
@@ -261,6 +268,20 @@ function titleCase(s) {
   const small = new Set(["and", "of", "the", "in", "to", "for", "a"]);
   return s.toLowerCase().split(/\s+/).map((w, i) =>
     (i > 0 && small.has(w)) ? w : w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+}
+// Title-case a "form|grade \d+"-shaped match, but first make sure the word and
+// the digit are actually separated. The matching regexes deliberately tolerate
+// a missing space (`\s*`, not `\s+`) so a filename like "PHYSICS.FORM2.ZEPH…"
+// still gets recognised as Form 2 — but titleCase() alone doesn't insert one,
+// so the un-spaced match rode straight through to the synthesised cover ("Form2")
+// and the output folder name ("output/Form2/…"). Worse, downstream code that
+// reads the grade back OFF the cover (the running-header "Form N …" pill) matches
+// with `\s+` and requires the space, so a spaceless "Form2" failed that match
+// silently and fell back to the theme's hardcoded "Form 4" placeholder — wrong for
+// every Form 1-3 book sharing that theme. Normalising the space in HERE, once, at
+// the source keeps every reader of the grade string correct.
+function titleCaseGrade(s) {
+  return titleCase(s.replace(/^(form|grade)(\d)/i, "$1 $2"));
 }
 
 // For the ZEPH "series" layout, restructure the front matter to match the house
@@ -2960,9 +2981,19 @@ function ensureOrIndividually(blocks) {
             for (let i = 0; i < sub.segs.length; i++) {
               const s = sub.segs[i];
               if (s && typeof s.t === "string") {
-                s.t = s.t.replace(/\b(in\s+(small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)(\s*,?\s*)(?!or\s+individually)/gi, (match, p1) => {
-                  return `${p1} or individually `;
-                });
+                // The guard used to be `(\s*,?\s*)(?!or\s+individually)`: a GREEDY
+                // whitespace group sitting right before the negative lookahead. On
+                // text that already said "...groups or individually", the regex
+                // engine would first try consuming that whitespace, see the lookahead
+                // fail, then BACKTRACK the greedy group down to zero characters —
+                // at which point the lookahead is checked one position too early
+                // (right after "groups", before the space), where the literal "or
+                // individually" doesn't immediately follow, so the guard passed
+                // anyway and "or individually" got appended a second time. Moving
+                // the lookahead onto the phrase itself (nothing left to backtrack)
+                // and letting it tolerate the optional whitespace/comma fixes that;
+                // it also stops eating a comma the author had after "groups".
+                s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
                 if (s.t.trimEnd().endsWith("individually")) {
                   s.t = s.t.trimEnd() + " ";
                 }
@@ -4024,7 +4055,7 @@ function normaliseQuestionMarkBold(blocks) {
       // and it falls back to showing the EYEBROW as the title (see cover() in the template:
       // with no form/grade line, `name` defaults to `subject` = lines[0] = the eyebrow).
       const gm2 = gm || linesArr.map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
-      const grade = gm2 ? titleCase(gm2[0]) : "";
+      const grade = gm2 ? titleCaseGrade(gm2[0]) : "";
       const booktype = /(^|[\s_])(tg|teacher)/i.test(base) ? "Teacher's Guide" : "Learner's Book";
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
@@ -4258,7 +4289,7 @@ function normaliseQuestionMarkBold(blocks) {
   // Book…") — fall back to the manuscript's own (already-synthesised) cover lines.
   const gm = detectName.match(/(form|grade)\s*\d+/i)
     || ((blocks.find((b) => b.t === "cover") || {}).lines || []).map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
-  const gradeFolder = gm ? titleCase(gm[0]) : "Other";
+  const gradeFolder = gm ? titleCaseGrade(gm[0]) : "Other";
   const bookDir = path.join(OUTPUT_DIR, gradeFolder, base);
   fs.mkdirSync(bookDir, { recursive: true });
   const outPath = path.join(bookDir, `${base} - typeset.pdf`);

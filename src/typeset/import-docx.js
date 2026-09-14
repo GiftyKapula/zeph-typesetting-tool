@@ -11,7 +11,7 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 const JSZip = require("jszip");
-const { ommlToTypst } = require("./omml.js");
+const { ommlToTypst, convText } = require("./omml.js");
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -1259,6 +1259,19 @@ function buildQAParts(blocks) {
   return parts;
 }
 
+// A box title is normally rendered from its flattened PLAIN text (`.plain`),
+// which is fine for the overwhelming majority of titles — but when the title
+// paragraph itself contains a real embedded equation ("LEARNING ACTIVITY 34:
+// Measuring heat capacity c = <fraction>…"), `.plain` holds that equation's
+// raw Typst MATH SOURCE ("frac(H, Delta T)"), because `.plain` is a flattened
+// search/matching mirror, not a display string. Emitting that straight into a
+// Typst string literal (as every box title used to) printed the math source
+// as literal text instead of typesetting it. When the title paragraph's segs
+// contain a math run, hand the ORIGINAL segs through instead so the emitter
+// can render them with the same math-aware segment renderer a normal
+// paragraph uses — otherwise fall back to the plain string exactly as before.
+const hasMathSeg = (segs) => Array.isArray(segs) && segs.some((s) => s && s.m);
+
 // Turn a recognised single-cell box into a semantic block. `blocks` is the
 // cell's ordered content (paragraphs, images AND nested tables) — nothing lost.
 function makeBox(kind, blocks) {
@@ -1268,10 +1281,17 @@ function makeBox(kind, blocks) {
   // paragraph (keep image blocks so their picture still renders).
   const titleIdx = blocks.findIndex((b) => boxKindFromTitle((b.plain || "").trim()));
   const titlePara = blocks.find((b) => b.t === "para");
-  let titleText = titleIdx >= 0 ? blocks[titleIdx].plain.trim() : (titlePara ? titlePara.plain : "");
+  const titleBlock = titleIdx >= 0 ? blocks[titleIdx] : titlePara;
+  let titleText = titleBlock ? titleBlock.plain.trim() : "";
+  const rawTitleSegs = Array.isArray(titleBlock && titleBlock.segs) ? titleBlock.segs : null;
   // insert a missing space where the manuscript glued the box number to its label
   // ("LEARNING ACTIVITY23" -> "LEARNING ACTIVITY 23", "EXERCISE9" -> "EXERCISE 9").
-  titleText = titleText.replace(/^(LEARNING ACTIVITY|ACTIVITY|EXE?RCISE|EXCERCISE|TASK|PROJECT|ASSESSMENT)(\d)/i, "$1 $2");
+  // Apply the same fix to the leading (plain) seg so the two stay in sync.
+  const GLUE = /^(LEARNING ACTIVITY|ACTIVITY|EXE?RCISE|EXCERCISE|TASK|PROJECT|ASSESSMENT)(\d)/i;
+  titleText = titleText.replace(GLUE, "$1 $2");
+  const titleSegs = rawTitleSegs && !rawTitleSegs[0].m && GLUE.test(rawTitleSegs[0].t)
+    ? [{ ...rawTitleSegs[0], t: rawTitleSegs[0].t.replace(GLUE, "$1 $2") }, ...rawTitleSegs.slice(1)]
+    : rawTitleSegs;
   const bodyFrom = (start) => blocks.filter((b, i) => !(i === start && b.t === "para"));
   // body = everything after a clean title paragraph; or, when the title is glued
   // to an image / not a standalone para, everything except that title-only para.
@@ -1287,23 +1307,31 @@ function makeBox(kind, blocks) {
     const BODY_OPEN = /\s+((?:Divide|Organi[sz]e|Ask|Guide|Instruct|Provide|Facilitate|Work in|Move around|In this activity|Give each|Learners?\b)[\s\S]*)$/;
     const bm = titleText.length > 80 ? titleText.match(BODY_OPEN) : null;
     if (bm) {
+      // The split works on the flattened string, so the formatted segs no
+      // longer line up with the shortened title — fall back to plain text
+      // here (matches prior behaviour; a glued title with embedded math is
+      // an edge case of an edge case).
       const bodyText = bm[1].trim();
       return { t: "activity", title: titleText.slice(0, bm.index).trim(),
         body: [{ t: "para", segs: [{ t: bodyText, b: false, it: true, c: null }], plain: bodyText }, ...after] };
     }
-    return { t: "activity", title: titleText, body: after };
+    return { t: "activity", title: titleText, ...(hasMathSeg(titleSegs) ? { titleSegs } : {}), body: after };
   }
   if (kind === "fact") return { t: "fact", body: after };
   if (kind === "keypoints") {
     const points = after.filter((b) => b.t === "para").map((p) => p.plain.replace(/^[••]\s*/, ""));
     after.filter((b) => b.t === "table").forEach((tb) => tb.rows.forEach((r) => points.push(r.map((c) => c.text).join(" – "))));
     const title = /Mau ofunika|KEY POINTS|Key Points/i.test(titleText) ? titleText : "";
-    return { t: "keypoints", title, points };
+    return { t: "keypoints", title, ...(title && hasMathSeg(titleSegs) ? { titleSegs } : {}), points };
   }
   if (kind === "exercise") {
     // normalise the common "EXRCISE"/"EXCERCISE" misspelling in the visible heading
-    const heading = (titleText || "Exercise").replace(/^\s*EX(?:E?RCISE|CERCISE)\b/i, "EXERCISE");
-    return { t: "exercise", heading, parts: buildQAParts(after) };
+    const MISSPELL = /^\s*EX(?:E?RCISE|CERCISE)\b/i;
+    const heading = (titleText || "Exercise").replace(MISSPELL, "EXERCISE");
+    const headingSegs = titleSegs && !titleSegs[0].m
+      ? [{ ...titleSegs[0], t: titleSegs[0].t.replace(MISSPELL, "EXERCISE") }, ...titleSegs.slice(1)]
+      : titleSegs;
+    return { t: "exercise", heading, ...(hasMathSeg(headingSegs) ? { headingSegs } : {}), parts: buildQAParts(after) };
   }
   return { t: "box", body: blocks }; // generic fallback
 }
@@ -1314,10 +1342,11 @@ function makeAssessmentTable(cells) {
   const blocks = cellBlocks(cells[0][0].xml);
   const titlePara = blocks.find((b) => b.t === "para");
   const title = titlePara ? titlePara.plain : "Assessment";
+  const titleSegs = titlePara && Array.isArray(titlePara.segs) ? titlePara.segs : null;
   const after = titlePara ? blocks.slice(blocks.indexOf(titlePara) + 1) : blocks;
   const extra = [];
   for (let r = 1; r < cells.length; r++) for (const c of cells[r]) { const t = cellText(c.xml); if (t) extra.push(t); }
-  return { t: "assessment", title, intro: [], parts: buildQAParts(after), extra };
+  return { t: "assessment", title, ...(hasMathSeg(titleSegs) ? { titleSegs } : {}), intro: [], parts: buildQAParts(after), extra };
 }
 
 // Classify a paragraph that is NOT a Word heading: section heading, label,
@@ -2418,7 +2447,14 @@ async function importDocx(docxPath, opts = {}) {
 // inline-math run, and the tell-tale hand-layout (a soft break or a 3+ space run).
 function foldInlineCalc(blocks) {
   const textOnly = (b) => (b.segs || []).filter((s) => !s.m).map((s) => s.t).join("");
-  const recon = (b) => (b.segs || []).map((s) => (s.m ? " " + s.t + " " : s.t)).join("");
+  // Plain (non-math) segments here are spliced straight into Typst MATH source, so
+  // they need the same treatment as a real OOXML equation run: `convText` splits
+  // letter runs into single-letter variables and maps Greek glyphs (ρ, θ, …) to
+  // their Typst names. Without it, a continuation line the author typed as
+  // ordinary text instead of re-opening the equation editor (e.g. a plain "= ρgh"
+  // under a worked "P = ρAhg / A") lands in math mode as raw unconverted
+  // characters and Typst reads "ρgh" as one unknown identifier.
+  const recon = (b) => (b.segs || []).map((s) => (s.m ? " " + s.t + " " : convText(s.t))).join("");
   const isCalc = (b) => {
     if (!b || b.t !== "para" || !b.segs || !b.segs.length) return false;
     const to = textOnly(b);
