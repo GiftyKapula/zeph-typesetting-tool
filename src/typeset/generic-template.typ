@@ -1953,12 +1953,13 @@
 // author's "math boxes") came out blank. Inline runs stay in a paragraph. Mirrors
 // `para`. (Parameter is `ss`, not `seg`, so it doesn't shadow the seg() function.)
 #let richflow(ss, plain) = if ss == none or ss.len() == 0 { par[#plain] } else { flowsegs(ss) }
+// No highlighted background — the "Possible answer" callout used to sit inside a
+// yellow/amber highlight() band, which a manuscript's own literal-space padding could
+// stretch into a bare colour bar bleeding past the box (see the space-collapsing fix
+// in normaliseSpacing). Dropped for every book: plain italic accent-coloured text reads
+// as a distinct answer key without depending on a background fill at all.
 #let answer(aseg, a) = context if show-answers.get() and (a != "" or aseg.len() > 0) {
-  if T.at("mono", default: false) {
-    [#text(style: "italic", fill: T.ex.title)[#text(weight: "bold")[Possible answer: ]#rich(aseg, a)]]
-  } else {
-    [#highlight(fill: T.yellow, extent: 1pt)[#text(style: "italic", fill: T.ex.title)[#text(weight: "bold")[Possible answer: ]#rich(aseg, a)]]]
-  }
+  [#text(style: "italic", fill: T.ex.title)[#text(weight: "bold")[Possible answer: ]#rich(aseg, a)]]
 }
 #let qaparts(parts) = {
   // exercise/assessment text is left-aligned (not justified): fill-in-the-blank lines
