@@ -287,6 +287,8 @@
   if byline.len() > 0 {
     v(20mm)
     align(center)[
+      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+      #v(3mm)
       #if byline.len() > 2 {
         text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
       } else {
