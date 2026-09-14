@@ -3139,6 +3139,13 @@ function columnizeLists(blocks) {
   };
   walk(blocks, false);
 }
+// A mark allocation ("[2]", "[1 mark]") reads as an orphan when it wraps alone onto
+// a new line with nothing visibly attaching it to the sentence it scores — which a
+// plain breakable space invites the moment the line is nearly full. Glue it to
+// whatever immediately precedes it with a NON-breaking space instead, so it always
+// travels down together with the last word rather than isolated on its own line.
+const MARK_BRACKET = /\[\s*\d+(?:\s*marks?)?\s*\]/i;
+const glueMarkTail = (t) => t.replace(/[ \t](\[\s*\d+(?:\s*marks?)?\s*\])/gi, " $1");
 function normaliseSpacing(blocks) {
   const fix = (segs) => {
     if (!Array.isArray(segs) || !segs.length) return;
@@ -3146,11 +3153,22 @@ function normaliseSpacing(blocks) {
     while (segs.length && typeof segs[0].t === "string" && /^\s+$/.test(segs[0].t) && segs.length > 1) segs.shift();
     for (const s of segs) {
       if (!s || typeof s.t !== "string") continue;
-      s.t = s.t.replace(/[ \t]{3,}/g, " ").replace(/\t/g, " ");
+      s.t = glueMarkTail(s.t.replace(/[ \t]{3,}/g, " ").replace(/\t/g, " "));
     }
     if (typeof segs[0].t === "string") segs[0].t = segs[0].t.replace(/^[ \t]+/, "");
     const last = segs[segs.length - 1];
     if (last && typeof last.t === "string") last.t = last.t.replace(/[ \t]+$/, "");
+    // A mark can also land in its OWN seg right after a formatting boundary (e.g. the
+    // sentence in one run, "[2]" in the next) — glueMarkTail only sees inside one seg,
+    // so also glue across a seg boundary when one seg ends in a bare space and the
+    // next begins with the mark bracket.
+    for (let k = 0; k < segs.length - 1; k++) {
+      const cur = segs[k], nxt = segs[k + 1];
+      if (!cur || !nxt || typeof cur.t !== "string" || typeof nxt.t !== "string") continue;
+      if (/ $/.test(cur.t) && MARK_BRACKET.test(nxt.t.replace(/^[ \t]+/, "").slice(0, 20)) && /^[ \t]*\[/.test(nxt.t)) {
+        cur.t = cur.t.replace(/ $/, " ");
+      }
+    }
   };
   const walk = (arr) => {
     for (const b of arr) {
@@ -3165,9 +3183,9 @@ function normaliseSpacing(blocks) {
       // nothing in it, often bleeding well past the box into the margin. `segs`/`qseg`/`s`
       // already get this same space-collapsing; `aseg`/`a` need it too.
       if (Array.isArray(b.aseg)) fix(b.aseg);
-      if (typeof b.q === "string") b.q = b.q.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
-      if (typeof b.text === "string") b.text = b.text.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
-      if (typeof b.a === "string") b.a = b.a.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
+      if (typeof b.q === "string") b.q = glueMarkTail(b.q.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
+      if (typeof b.text === "string") b.text = glueMarkTail(b.text.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
+      if (typeof b.a === "string") b.a = glueMarkTail(b.a.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
       for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
     }
   };

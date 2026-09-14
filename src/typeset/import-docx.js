@@ -907,6 +907,13 @@ function splitGluedFirstOption(blocks) {
   return out;
 }
 
+// A mark allocation the author gave its own paragraph ("...gained by the bag.
+// (Take g = 10 m/s²)" then, on its own line, just "[2]") rather than typing it
+// straight after the sentence. Word still renders that as a separate line, but the
+// author's intent is a trailing mark note, not a new point — when this paragraph
+// gets folded into the surrounding answer text (below), join it with a plain space
+// instead of a line break so "[2]"/"[1]" sit right after the sentence they mark.
+const MARK_ONLY = /^\[\s*\d+(?:\s*marks?)?\s*\]$/i;
 function buildQAParts(blocks) {
   blocks = expandGluedSubparts(splitBrokenTops(splitGluedFirstOption(blocks)));
   // Manuscripts sometimes indent an ENTIRE question list one or two Word-list
@@ -1062,7 +1069,8 @@ function buildQAParts(blocks) {
           if (absorbed.length) {
             const aseg = [];
             absorbed.forEach((ab, k) => {
-              if (k > 0) aseg.push({ t: "\n", b: false, it: false, c: null });
+              const markOnly = MARK_ONLY.test((ab.plain || "").trim());
+              if (k > 0) aseg.push({ t: markOnly ? " " : "\n", b: false, it: false, c: null });
               for (const s of (ab.segs && ab.segs.length ? ab.segs : [{ t: ab.plain || "", b: false, it: false, c: null }])) aseg.push(s);
             });
             target.a = aseg.map((s) => s.t).join("");
@@ -1162,6 +1170,25 @@ function buildQAParts(blocks) {
       parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: markerFor(topN, topTpl), depth: 0 });
     } else {                             // a lead-in / heading line ("Expected Answers", "Calculate:")
       subN = 0;
+      // A trailing mark allocation the manuscript gave its OWN paragraph ("...sound
+      // waves cannot." then, alone on the next line, "[2]") would otherwise become
+      // its own standalone continuation line — an orphaned mark with nothing
+      // visibly attaching it to the sentence it scores. Glue it onto whatever
+      // content immediately precedes it instead (the previous part's answer if it
+      // has one, else its question text) with a plain space, so it reads right
+      // after the sentence like a normal mark allocation.
+      const prev = parts[parts.length - 1];
+      if (MARK_ONLY.test(b.plain.trim()) && prev && ((prev.aseg && prev.aseg.length) || prev.qseg)) {
+        const markSegs = b.segs && b.segs.length ? b.segs : [{ t: b.plain, b: false, it: false, c: null }];
+        if (prev.aseg && prev.aseg.length) {
+          prev.aseg = [...prev.aseg, { t: " ", b: false, it: false, c: null }, ...markSegs];
+          prev.a = (prev.a || "") + " " + b.plain.trim();
+        } else {
+          prev.qseg = [...prev.qseg, { t: " ", b: false, it: false, c: null }, ...markSegs];
+          prev.q = (prev.q || "") + " " + b.plain.trim();
+        }
+        continue;
+      }
       // A lead that follows a question is a CONTINUATION of it (e.g. "Find the
       // length of side BC." on its own line under question 2, or "Calculate:"
       // before its sub-parts) — indent it to sit under the question text instead
@@ -1247,7 +1274,8 @@ function buildQAParts(blocks) {
     const letteredCount = run.filter((p) => p.kind === "q").length;
     const aseg = [];
     run.forEach((p, k) => {
-      if (k > 0) aseg.push({ t: "\n", b: false, it: false, c: null });
+      const markOnly = p.kind === "lead" && MARK_ONLY.test((p.q || "").trim());
+      if (k > 0) aseg.push({ t: markOnly ? " " : "\n", b: false, it: false, c: null });
       if (p.kind === "q" && letteredCount > 1 && p.marker) aseg.push({ t: p.marker + " ", b: true, it: false, c: null });
       const segs = stripFoldLabel(p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }]);
       for (const s of segs) aseg.push(s);
