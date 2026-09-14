@@ -3158,8 +3158,16 @@ function normaliseSpacing(blocks) {
       if (Array.isArray(b.segs)) fix(b.segs);
       if (Array.isArray(b.qseg)) fix(b.qseg);
       if (Array.isArray(b.s)) fix(b.s);
+      // An exercise/assessment answer (`aseg`/`a`) is rendered inside `highlight()` (the
+      // "Possible answer" callout) — an author who padded the answer with a long run of
+      // literal spaces to hand-align a trailing mark ("...m/s²)          [2]") gets that
+      // run highlighted right along with the text, rendering as a bare colour bar with
+      // nothing in it, often bleeding well past the box into the margin. `segs`/`qseg`/`s`
+      // already get this same space-collapsing; `aseg`/`a` need it too.
+      if (Array.isArray(b.aseg)) fix(b.aseg);
       if (typeof b.q === "string") b.q = b.q.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
       if (typeof b.text === "string") b.text = b.text.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
+      if (typeof b.a === "string") b.a = b.a.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
       for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
     }
   };
