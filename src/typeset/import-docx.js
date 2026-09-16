@@ -11,7 +11,7 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 const JSZip = require("jszip");
-const { ommlToTypst } = require("./omml.js");
+const { ommlToTypst, convText } = require("./omml.js");
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -185,6 +185,12 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
         else parts.push({ kind: "table", rows: p.rows });
         continue;
       }
+      // Same stray-artifact filter the main body-paragraph loop applies (a lone "."
+      // left over from editing, or a stray single letter anchoring a since-removed
+      // image) — this textbox-box path skips the main loop entirely, so without this
+      // check here those artifacts survive as a bogus paragraph inside the box.
+      const plain = plainOf(p.segs).trim();
+      if (/^[.·•…\/\\|]{1,3}$/.test(plain) || /^[A-Za-z]$/.test(plain)) continue;
       if (kind === "activity") {
         if (numbered(p)) { const { marker } = nextMarker(p); body.push({ t: "listitem", segs: p.segs, marker }); }
         else body.push({ t: "para", segs: p.segs });
@@ -611,7 +617,23 @@ function cellBlocks(tcXml) {
   const parts = masked.match(/@@TBL\d+@@|<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || [];
   for (const part of parts) {
     if (part.startsWith("@@TBL")) {
-      const rows = parseTableRows(tables[parseInt(part.match(/\d+/)[0], 10)]);
+      const tblXml = tables[parseInt(part.match(/\d+/)[0], 10)];
+      // A nested table with exactly one row and one cell is not a real sub-table —
+      // it's a Word artifact seen when a cell's content was built (often via a
+      // copy-paste from Excel, or an accessibility tool) as a stack of 1x1 "wrapper"
+      // tables, one per line, rather than plain paragraphs. Rendering it as a boxed
+      // grid (the genuine-nested-table path below) makes it look like a stray dark
+      // header banner sitting on top of ordinary cell text, with any further empty
+      // 1x1 tables in the stack showing up as blank grey bars beneath it. Flatten it
+      // into the surrounding cell's paragraph flow instead — recursing so a chain of
+      // such wrapper tables (including empty ones, which then contribute nothing)
+      // unwraps fully, all the way down to real paragraphs.
+      const trs = topLevelEls(tblXml, "tr");
+      if (trs.length === 1 && topLevelEls(trs[0], "tc").length === 1) {
+        out.push(...cellBlocks(topLevelEls(trs[0], "tc")[0]));
+        continue;
+      }
+      const rows = parseTableRows(tblXml);
       if (rows.length) out.push({ t: "table", rows });
       continue;
     }
@@ -907,6 +929,13 @@ function splitGluedFirstOption(blocks) {
   return out;
 }
 
+// A mark allocation the author gave its own paragraph ("...gained by the bag.
+// (Take g = 10 m/s²)" then, on its own line, just "[2]") rather than typing it
+// straight after the sentence. Word still renders that as a separate line, but the
+// author's intent is a trailing mark note, not a new point — when this paragraph
+// gets folded into the surrounding answer text (below), join it with a plain space
+// instead of a line break so "[2]"/"[1]" sit right after the sentence they mark.
+const MARK_ONLY = /^\[\s*\d+(?:\s*marks?)?\s*\]$/i;
 function buildQAParts(blocks) {
   blocks = expandGluedSubparts(splitBrokenTops(splitGluedFirstOption(blocks)));
   // Manuscripts sometimes indent an ENTIRE question list one or two Word-list
@@ -1016,7 +1045,15 @@ function buildQAParts(blocks) {
           && nxt.plain.replace(/^possible answer\s*:\s*/i, "").trim() !== "") {
         i++;
         const pl = nxt.plain.replace(/^possible answer\s*:\s*/i, "").trim();
-        const off = nxt.plain.length - nxt.plain.replace(/^possible answer\s*:\s*/i, "").length;
+        // `nxt.plain` is TRIMMED but `nxt.segs` is not — a manuscript answer paragraph
+        // that opens with one or more whitespace-only runs before "Possible Answer:"
+        // (seen e.g. as a stray leading italic run of spaces, a copy-paste leftover)
+        // desyncs an offset measured against the trimmed string once applied to the
+        // untrimmed segs, landing mid-word ("swer: B" instead of "B"). Compensate the
+        // same way `qsegOf` above does for the question side: add back the leading
+        // whitespace the trim removed.
+        const nxtLeadWs = nxt.segs ? (nxt.segs.map((s) => s.t).join("").match(/^\s*/)[0].length) : 0;
+        const off = nxtLeadWs + nxt.plain.length - nxt.plain.replace(/^possible answer\s*:\s*/i, "").length;
         return { a: pl, aseg: segsFrom(nxt.segs, off) };
       }
       return { a: "", aseg: undefined };
@@ -1062,7 +1099,8 @@ function buildQAParts(blocks) {
           if (absorbed.length) {
             const aseg = [];
             absorbed.forEach((ab, k) => {
-              if (k > 0) aseg.push({ t: "\n", b: false, it: false, c: null });
+              const markOnly = MARK_ONLY.test((ab.plain || "").trim());
+              if (k > 0) aseg.push({ t: markOnly ? " " : "\n", b: false, it: false, c: null });
               for (const s of (ab.segs && ab.segs.length ? ab.segs : [{ t: ab.plain || "", b: false, it: false, c: null }])) aseg.push(s);
             });
             target.a = aseg.map((s) => s.t).join("");
@@ -1162,6 +1200,25 @@ function buildQAParts(blocks) {
       parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: markerFor(topN, topTpl), depth: 0 });
     } else {                             // a lead-in / heading line ("Expected Answers", "Calculate:")
       subN = 0;
+      // A trailing mark allocation the manuscript gave its OWN paragraph ("...sound
+      // waves cannot." then, alone on the next line, "[2]") would otherwise become
+      // its own standalone continuation line — an orphaned mark with nothing
+      // visibly attaching it to the sentence it scores. Glue it onto whatever
+      // content immediately precedes it instead (the previous part's answer if it
+      // has one, else its question text) with a plain space, so it reads right
+      // after the sentence like a normal mark allocation.
+      const prev = parts[parts.length - 1];
+      if (MARK_ONLY.test(b.plain.trim()) && prev && ((prev.aseg && prev.aseg.length) || prev.qseg)) {
+        const markSegs = b.segs && b.segs.length ? b.segs : [{ t: b.plain, b: false, it: false, c: null }];
+        if (prev.aseg && prev.aseg.length) {
+          prev.aseg = [...prev.aseg, { t: " ", b: false, it: false, c: null }, ...markSegs];
+          prev.a = (prev.a || "") + " " + b.plain.trim();
+        } else {
+          prev.qseg = [...prev.qseg, { t: " ", b: false, it: false, c: null }, ...markSegs];
+          prev.q = (prev.q || "") + " " + b.plain.trim();
+        }
+        continue;
+      }
       // A lead that follows a question is a CONTINUATION of it (e.g. "Find the
       // length of side BC." on its own line under question 2, or "Calculate:"
       // before its sub-parts) — indent it to sit under the question text instead
@@ -1243,11 +1300,62 @@ function buildQAParts(blocks) {
       if (p.kind === "lead" && !p.divider && !NEXT_SET_INTRO.test((p.q || "").trim())) { run.push(p); j++; continue; }
       break;
     }
+    // A multiple-choice question typed as plain "A. Option" lines (no Word list
+    // numbering), where only the FINAL option carries the real answer label — e.g.
+    // "A. Drum / B. Piano / C. Mbira / D. Xylophone" followed by one "Possible
+    // answer: B" for the whole question, not per option. The loop above only
+    // absorbs UNANSWERED depth-1 items into `run`, so it stops one short of that
+    // final, answered option — which then survives as its own stray sub-question
+    // ("D. Xylophone" with its own boxed "Possible answer: B"), while A-C get
+    // folded into a fabricated "Possible answer: A. Drum\nB. Piano\nC. Mbira".
+    // Detect the shape here — consecutive UPPERCASE single-letter markers (the
+    // reliable tell apart from a genuine lower-case "a) b) c)…" answer-fragment
+    // run, which the fold below already handles correctly) ending in an option
+    // whose own answer is a single letter naming one of them — and fold the WHOLE
+    // option list into the question as its literal text, promoting that letter to
+    // the question's own answer instead.
+    const letterMarker = (k) => String.fromCharCode(65 + k) + ".";
+    const isUpperRun = run.length > 0 && run.every((p, k) => p.kind === "q" && p.marker === letterMarker(k));
+    const finalOpt = parts[j];
+    // The trailing "Possible answer:" is captured by grabAnswer() onto whichever
+    // option paragraph happens to sit right before it in the manuscript — almost
+    // always the LAST option, purely because that's where the label was typed — but
+    // its VALUE names whichever option is actually correct, which is frequently a
+    // different letter (e.g. four options A-D with the label sitting after D, but
+    // reading "Possible answer: C" because C is the right one). So the final option
+    // having ANY answer attached at all (not a letter match to ITS OWN marker) is the
+    // real signal that the whole run is one MCQ whose answer landed on the last line.
+    // The answer may be typed as a bare letter ("C"), a letter with trailing
+    // punctuation ("B."), or a letter followed by a restatement of an option's text
+    // ("D. Recorder, keyboard, drum") — extract just the leading letter so the option
+    // text already shown in the list above isn't duplicated a second time below it.
+    const finalHasAns = finalOpt && (finalOpt.a || (finalOpt.aseg && finalOpt.aseg.length));
+    const ansLetter = finalHasAns ? (finalOpt.a || "").trim().match(/^([A-Za-z])[.)]?\s*/) : null;
+    const isMcq = isUpperRun && finalOpt && finalOpt.kind === "q" && finalOpt.depth === 1 &&
+      finalOpt.marker === letterMarker(run.length) && ansLetter;
+    if (isMcq) {
+      const all = [...run, finalOpt];
+      const qseg = top.qseg ? [...top.qseg] : [];
+      all.forEach((p) => {
+        qseg.push({ t: "\n" + p.marker + " ", b: false, it: false, c: null });
+        for (const s of (p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }])) qseg.push(s);
+      });
+      top.qseg = qseg;
+      top.q = qseg.map((s) => s.t).join("");
+      // Render just the letter — a manuscript answer that restated the option's full
+      // text too ("D. Recorder, keyboard, drum") would otherwise duplicate that text
+      // a second time right under the option list that already shows it.
+      top.a = ansLetter[1].toUpperCase();
+      top.aseg = [{ t: top.a, b: false, it: false, c: null }];
+      parts.splice(i + 1, all.length);
+      continue;
+    }
     if (!hasLettered) continue;
     const letteredCount = run.filter((p) => p.kind === "q").length;
     const aseg = [];
     run.forEach((p, k) => {
-      if (k > 0) aseg.push({ t: "\n", b: false, it: false, c: null });
+      const markOnly = p.kind === "lead" && MARK_ONLY.test((p.q || "").trim());
+      if (k > 0) aseg.push({ t: markOnly ? " " : "\n", b: false, it: false, c: null });
       if (p.kind === "q" && letteredCount > 1 && p.marker) aseg.push({ t: p.marker + " ", b: true, it: false, c: null });
       const segs = stripFoldLabel(p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }]);
       for (const s of segs) aseg.push(s);
@@ -1259,6 +1367,19 @@ function buildQAParts(blocks) {
   return parts;
 }
 
+// A box title is normally rendered from its flattened PLAIN text (`.plain`),
+// which is fine for the overwhelming majority of titles — but when the title
+// paragraph itself contains a real embedded equation ("LEARNING ACTIVITY 34:
+// Measuring heat capacity c = <fraction>…"), `.plain` holds that equation's
+// raw Typst MATH SOURCE ("frac(H, Delta T)"), because `.plain` is a flattened
+// search/matching mirror, not a display string. Emitting that straight into a
+// Typst string literal (as every box title used to) printed the math source
+// as literal text instead of typesetting it. When the title paragraph's segs
+// contain a math run, hand the ORIGINAL segs through instead so the emitter
+// can render them with the same math-aware segment renderer a normal
+// paragraph uses — otherwise fall back to the plain string exactly as before.
+const hasMathSeg = (segs) => Array.isArray(segs) && segs.some((s) => s && s.m);
+
 // Turn a recognised single-cell box into a semantic block. `blocks` is the
 // cell's ordered content (paragraphs, images AND nested tables) — nothing lost.
 function makeBox(kind, blocks) {
@@ -1268,10 +1389,17 @@ function makeBox(kind, blocks) {
   // paragraph (keep image blocks so their picture still renders).
   const titleIdx = blocks.findIndex((b) => boxKindFromTitle((b.plain || "").trim()));
   const titlePara = blocks.find((b) => b.t === "para");
-  let titleText = titleIdx >= 0 ? blocks[titleIdx].plain.trim() : (titlePara ? titlePara.plain : "");
+  const titleBlock = titleIdx >= 0 ? blocks[titleIdx] : titlePara;
+  let titleText = titleBlock ? titleBlock.plain.trim() : "";
+  const rawTitleSegs = Array.isArray(titleBlock && titleBlock.segs) ? titleBlock.segs : null;
   // insert a missing space where the manuscript glued the box number to its label
   // ("LEARNING ACTIVITY23" -> "LEARNING ACTIVITY 23", "EXERCISE9" -> "EXERCISE 9").
-  titleText = titleText.replace(/^(LEARNING ACTIVITY|ACTIVITY|EXE?RCISE|EXCERCISE|TASK|PROJECT|ASSESSMENT)(\d)/i, "$1 $2");
+  // Apply the same fix to the leading (plain) seg so the two stay in sync.
+  const GLUE = /^(LEARNING ACTIVITY|ACTIVITY|EXE?RCISE|EXCERCISE|TASK|PROJECT|ASSESSMENT)(\d)/i;
+  titleText = titleText.replace(GLUE, "$1 $2");
+  const titleSegs = rawTitleSegs && !rawTitleSegs[0].m && GLUE.test(rawTitleSegs[0].t)
+    ? [{ ...rawTitleSegs[0], t: rawTitleSegs[0].t.replace(GLUE, "$1 $2") }, ...rawTitleSegs.slice(1)]
+    : rawTitleSegs;
   const bodyFrom = (start) => blocks.filter((b, i) => !(i === start && b.t === "para"));
   // body = everything after a clean title paragraph; or, when the title is glued
   // to an image / not a standalone para, everything except that title-only para.
@@ -1287,23 +1415,31 @@ function makeBox(kind, blocks) {
     const BODY_OPEN = /\s+((?:Divide|Organi[sz]e|Ask|Guide|Instruct|Provide|Facilitate|Work in|Move around|In this activity|Give each|Learners?\b)[\s\S]*)$/;
     const bm = titleText.length > 80 ? titleText.match(BODY_OPEN) : null;
     if (bm) {
+      // The split works on the flattened string, so the formatted segs no
+      // longer line up with the shortened title — fall back to plain text
+      // here (matches prior behaviour; a glued title with embedded math is
+      // an edge case of an edge case).
       const bodyText = bm[1].trim();
       return { t: "activity", title: titleText.slice(0, bm.index).trim(),
         body: [{ t: "para", segs: [{ t: bodyText, b: false, it: true, c: null }], plain: bodyText }, ...after] };
     }
-    return { t: "activity", title: titleText, body: after };
+    return { t: "activity", title: titleText, ...(hasMathSeg(titleSegs) ? { titleSegs } : {}), body: after };
   }
   if (kind === "fact") return { t: "fact", body: after };
   if (kind === "keypoints") {
     const points = after.filter((b) => b.t === "para").map((p) => p.plain.replace(/^[••]\s*/, ""));
     after.filter((b) => b.t === "table").forEach((tb) => tb.rows.forEach((r) => points.push(r.map((c) => c.text).join(" – "))));
     const title = /Mau ofunika|KEY POINTS|Key Points/i.test(titleText) ? titleText : "";
-    return { t: "keypoints", title, points };
+    return { t: "keypoints", title, ...(title && hasMathSeg(titleSegs) ? { titleSegs } : {}), points };
   }
   if (kind === "exercise") {
     // normalise the common "EXRCISE"/"EXCERCISE" misspelling in the visible heading
-    const heading = (titleText || "Exercise").replace(/^\s*EX(?:E?RCISE|CERCISE)\b/i, "EXERCISE");
-    return { t: "exercise", heading, parts: buildQAParts(after) };
+    const MISSPELL = /^\s*EX(?:E?RCISE|CERCISE)\b/i;
+    const heading = (titleText || "Exercise").replace(MISSPELL, "EXERCISE");
+    const headingSegs = titleSegs && !titleSegs[0].m
+      ? [{ ...titleSegs[0], t: titleSegs[0].t.replace(MISSPELL, "EXERCISE") }, ...titleSegs.slice(1)]
+      : titleSegs;
+    return { t: "exercise", heading, ...(hasMathSeg(headingSegs) ? { headingSegs } : {}), parts: buildQAParts(after) };
   }
   return { t: "box", body: blocks }; // generic fallback
 }
@@ -1314,10 +1450,11 @@ function makeAssessmentTable(cells) {
   const blocks = cellBlocks(cells[0][0].xml);
   const titlePara = blocks.find((b) => b.t === "para");
   const title = titlePara ? titlePara.plain : "Assessment";
+  const titleSegs = titlePara && Array.isArray(titlePara.segs) ? titlePara.segs : null;
   const after = titlePara ? blocks.slice(blocks.indexOf(titlePara) + 1) : blocks;
   const extra = [];
   for (let r = 1; r < cells.length; r++) for (const c of cells[r]) { const t = cellText(c.xml); if (t) extra.push(t); }
-  return { t: "assessment", title, intro: [], parts: buildQAParts(after), extra };
+  return { t: "assessment", title, ...(hasMathSeg(titleSegs) ? { titleSegs } : {}), intro: [], parts: buildQAParts(after), extra };
 }
 
 // Classify a paragraph that is NOT a Word heading: section heading, label,
@@ -1834,12 +1971,27 @@ async function importDocx(docxPath, opts = {}) {
   // first real section begins, even when the manuscript didn't style it as a
   // Word heading (many don't). This stops the imprint's centred styling from
   // bleeding into the Authors/Foreword text.
-  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^KEY COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  // Back-matter section names — a genuine back-matter heading (also reliably Word-
+  // Heading-styled, same as a front-matter one above) must not be folded down to a
+  // plain inline sub-head by the "numbered-topic short Heading-styled paragraph"
+  // rule further below just because its wording happens to be short and plain-
+  // sentenced. A "Scheme of Work" appendix (a term/week-by-week teaching-plan table,
+  // standard in CDC-aligned Teacher's Guides) is routinely titled with the book's
+  // own name prefixed ("FORM 1 FOOD AND NUTRITION – SAMPLE SCHEME OF WORK"), so
+  // match it by its trailing phrase rather than requiring an exact whole match.
+  const BACKMATTER_NAME = /^GLOSSARY\b|^REFERENCES?$|^BIBLIOGRAPHY$|^APPENDI(X|CES)\b|^INDEX$|SCHEME\s+OF\s+WORK$/i;
   let imprintEnd = tocPartIdx >= 0 ? tocPartIdx : parts.length;
   if (copyrightIdx >= 0) {
     for (let i = copyrightIdx + 1; i < imprintEnd; i++) {
+      if (isTbl(parts[i])) continue;
+      // A "COPYRIGHT" heading is some manuscripts' own label for the imprint content
+      // that follows it (© line, ISBN, credits) — it's still part of the imprint page,
+      // not the start of a new front-matter section, even though it's Word-styled as a
+      // Heading like a real section would be. Don't let it end the imprint early.
+      if (/Heading\d/.test(styleOf(parts[i])) && /^COPYRIGHT$/i.test(textOf(parts[i]).trim())) continue;
       // stop at the first styled heading OR the first front-matter section name
-      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i])))) { imprintEnd = i; break; }
+      if (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i]))) { imprintEnd = i; break; }
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.
@@ -2134,6 +2286,15 @@ async function importDocx(docxPath, opts = {}) {
         // scanning until the REAL section (whose next line is a "Figure N:" /
         // "Table N:" entry or substantial body prose) is reached.
         if (/^tableoffigures$/i.test(styleOf(parts[j]))) break;
+        // A real "ACRONYMS" / "LIST OF ACRONYMS" front-matter section: its entry lines
+        // ("ABBR: full form") are much shorter than the 90-char "real section" threshold
+        // the generic peek-ahead below requires, so without this carve-out (mirroring the
+        // LIST OF FIGURES/TABLES one above) the heading is wrongly swallowed as TOC junk
+        // while its entries survive as ordinary paragraphs, landing wherever the scan next
+        // stops — e.g. stray text glued onto the imprint/copyright page. Trust an explicit
+        // Word heading style as the signal this is the real section, not a contents-list
+        // entry (which carries a TOC-styled paragraph or an unstyled short line instead).
+        if (/^(LIST OF )?ACRONYMS$/i.test(t) && /^heading\s*\d/i.test(styleOf(parts[j]))) break;
         if (/^LIST OF (FIGURES|TABLES)$/i.test(t)) {
           let n = j + 1;
           while (n < parts.length && !isTbl(parts[n]) && textOf(parts[n]) === "") n++;
@@ -2322,6 +2483,20 @@ async function importDocx(docxPath, opts = {}) {
         numId: li ? li.numId : null, lvl: li ? li.lvl : null });
       continue;
     }
+    // A recognised front-/back-matter section name that's genuinely Word-Heading-
+    // styled must become a real top-level heading (its own page, its own TOC entry) —
+    // even in a "numbered-topic, flat" book, where (below) Heading styles are
+    // otherwise distrusted for level, because such manuscripts use them
+    // inconsistently for ordinary in-topic sub-headings too. Handle it explicitly
+    // here, before that general rule can fold a genuine section down to a plain
+    // sub-head just because its wording happens to be short and plain-sentenced.
+    if (hasNumberedTopics && flat && hmap[styleOf(x)]) {
+      const plainFM = plainOf(segs).trim();
+      if (plainFM && (FM_SECTION.test(plainFM) || BACKMATTER_NAME.test(plainFM))) {
+        blocks.push({ t: "h1", text: plainFM });
+        continue;
+      }
+    }
     // Numbered-topic books: a SHORT paragraph the writer styled as a Word heading
     // is a bold sub-head (label / content heading), even if the runs were not
     // bolded — this normalises the manuscript's inconsistent formatting (some
@@ -2418,7 +2593,14 @@ async function importDocx(docxPath, opts = {}) {
 // inline-math run, and the tell-tale hand-layout (a soft break or a 3+ space run).
 function foldInlineCalc(blocks) {
   const textOnly = (b) => (b.segs || []).filter((s) => !s.m).map((s) => s.t).join("");
-  const recon = (b) => (b.segs || []).map((s) => (s.m ? " " + s.t + " " : s.t)).join("");
+  // Plain (non-math) segments here are spliced straight into Typst MATH source, so
+  // they need the same treatment as a real OOXML equation run: `convText` splits
+  // letter runs into single-letter variables and maps Greek glyphs (ρ, θ, …) to
+  // their Typst names. Without it, a continuation line the author typed as
+  // ordinary text instead of re-opening the equation editor (e.g. a plain "= ρgh"
+  // under a worked "P = ρAhg / A") lands in math mode as raw unconverted
+  // characters and Typst reads "ρgh" as one unknown identifier.
+  const recon = (b) => (b.segs || []).map((s) => (s.m ? " " + s.t + " " : convText(s.t))).join("");
   const isCalc = (b) => {
     if (!b || b.t !== "para" || !b.segs || !b.segs.length) return false;
     const to = textOnly(b);

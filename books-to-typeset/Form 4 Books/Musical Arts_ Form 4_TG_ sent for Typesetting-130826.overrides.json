@@ -1,3 +1,14 @@
 {
-  "finishedCover": true
+  "finishedCover": true,
+  "edit": [
+    { "find": "Texture” in music how musical sounds are", "with": "“Texture” in music is how musical sounds are" }
+  ],
+  "editAnswer": [
+    { "find": "C use of basso continuo", "with": "use of basso continuo" },
+    { "find": "C Wolfgang Amadeus Mozart", "with": "Wolfgang Amadeus Mozart" }
+  ],
+  "pageBreakBefore": ["INTRODUCTION"],
+  "recase": [
+    { "startsWith": "Learning Activity", "to": "upper" }
+  ]
 }

@@ -155,11 +155,20 @@
         } else if serieslike {
           // serif italic masthead (subject) + a short teal rule + amber Form pill
           set text(font: T.font, size: 8.5pt)
+          // Pin the internal spacing so the header→rule gap is identical on every
+          // page: without this the header inherits the ambient block spacing,
+          // which is airier in the front matter than the body and floats the
+          // masthead higher on the roman pages than on the arabic ones (the
+          // same fix already applied to the GRADE 2/3 and FORM 2 map headers
+          // above — this is the one remaining "serieslike" header shape that
+          // hadn't gotten it, used by every subject without its own coverStyle).
+          set block(spacing: 0pt)
+          set par(spacing: 0pt)
           grid(columns: (1fr, auto), align: (left + horizon, right + horizon),
             text(style: "italic", weight: "bold", fill: T.primary)[#T.hdrleft],
             box(fill: iaccent, inset: (x: 6pt, y: 2.5pt), radius: 3pt)[
               #text(fill: white, style: "italic", weight: "bold", size: 7.5pt)[#T.hdrtab]])
-          v(-1pt); line(length: 100%, stroke: 1.1pt + T.primary)
+          v(3pt); line(length: 100%, stroke: 1.1pt + T.primary)
         } else {
           set text(size: 8.5pt, fill: T.primary)
           grid(columns: (1fr, auto),
@@ -278,6 +287,8 @@
   if byline.len() > 0 {
     v(20mm)
     align(center)[
+      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+      #v(3mm)
       #if byline.len() > 2 {
         text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
       } else {
@@ -305,6 +316,16 @@
   place(center + horizon, circle(radius: r * 0.34, fill: c))
 })
 #let cdot(x, y, c, r: 1.1mm) = place(top + left, dx: x, dy: y, circle(radius: r, fill: c))
+// A small flat "berry cluster" food accent for the series cover's
+// `T.motif == "food"` themes: three overlapping circles in warm harvest
+// colours, built from the same circle primitive as cnode/cdot above (no
+// rotated-ellipse "leaf" shapes — those read as illegible slivers at this
+// size), gated to those themes so no other "series" cover picks it up.
+#let berrycluster(x, y, c1, c2, c3, r: 3.2mm) = place(top + left, dx: x, dy: y, {
+  circle(radius: r, fill: c1)
+  place(dx: r * 1.5, dy: r * 0.3, circle(radius: r * 0.8, fill: c2))
+  place(dx: r * 0.5, dy: r * 1.7, circle(radius: r * 0.65, fill: c3))
+})
 
 #let cover(lines, byline, hero, logo, isbn, finished: false) = {
   // The cover keeps its OWN palette even when the interior is printed black-and-white:
@@ -780,6 +801,10 @@
         #place(top + center, dy: 113mm, rotate(5deg, reflow: false, box(width: 122mm, height: 78mm, radius: 3pt, fill: T.primary)))
         #place(top + center, dy: 113mm, rotate(-4deg, reflow: false, box(width: 122mm, height: 78mm, clip: true, radius: 3pt, stroke: 5pt + white)[
           #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")]))
+        #if T.motif == "food" [
+          #berrycluster(18mm, 96mm, T.accent, T.primary2, T.cyan)
+          #berrycluster(148mm, 96mm, T.primary2, T.accent, T.cyan)
+        ]
       ] else [
         // no cover photo: a tasteful decorative plate (not an empty white box)
         #place(top + center, dy: 113mm, rotate(-4deg, reflow: false, box(width: 122mm, height: 78mm, radius: 4pt, fill: T.primary, stroke: 5pt + white)[
@@ -1942,12 +1967,13 @@
 // author's "math boxes") came out blank. Inline runs stay in a paragraph. Mirrors
 // `para`. (Parameter is `ss`, not `seg`, so it doesn't shadow the seg() function.)
 #let richflow(ss, plain) = if ss == none or ss.len() == 0 { par[#plain] } else { flowsegs(ss) }
+// No highlighted background — the "Possible answer" callout used to sit inside a
+// yellow/amber highlight() band, which a manuscript's own literal-space padding could
+// stretch into a bare colour bar bleeding past the box (see the space-collapsing fix
+// in normaliseSpacing). Dropped for every book: plain italic accent-coloured text reads
+// as a distinct answer key without depending on a background fill at all.
 #let answer(aseg, a) = context if show-answers.get() and (a != "" or aseg.len() > 0) {
-  if T.at("mono", default: false) {
-    [#text(style: "italic", fill: T.ex.title)[#text(weight: "bold")[Possible answer: ]#rich(aseg, a)]]
-  } else {
-    [#highlight(fill: T.yellow, extent: 1pt)[#text(style: "italic", fill: T.ex.title)[#text(weight: "bold")[Possible answer: ]#rich(aseg, a)]]]
-  }
+  [#text(style: "italic", fill: T.ex.title)[#text(weight: "bold")[Possible answer: ]#rich(aseg, a)]]
 }
 #let qaparts(parts) = {
   // exercise/assessment text is left-aligned (not justified): fill-in-the-blank lines
