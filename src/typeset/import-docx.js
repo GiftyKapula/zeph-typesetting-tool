@@ -1971,12 +1971,27 @@ async function importDocx(docxPath, opts = {}) {
   // first real section begins, even when the manuscript didn't style it as a
   // Word heading (many don't). This stops the imprint's centred styling from
   // bleeding into the Authors/Foreword text.
-  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^KEY COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  // Back-matter section names — a genuine back-matter heading (also reliably Word-
+  // Heading-styled, same as a front-matter one above) must not be folded down to a
+  // plain inline sub-head by the "numbered-topic short Heading-styled paragraph"
+  // rule further below just because its wording happens to be short and plain-
+  // sentenced. A "Scheme of Work" appendix (a term/week-by-week teaching-plan table,
+  // standard in CDC-aligned Teacher's Guides) is routinely titled with the book's
+  // own name prefixed ("FORM 1 FOOD AND NUTRITION – SAMPLE SCHEME OF WORK"), so
+  // match it by its trailing phrase rather than requiring an exact whole match.
+  const BACKMATTER_NAME = /^GLOSSARY\b|^REFERENCES?$|^BIBLIOGRAPHY$|^APPENDI(X|CES)\b|^INDEX$|SCHEME\s+OF\s+WORK$/i;
   let imprintEnd = tocPartIdx >= 0 ? tocPartIdx : parts.length;
   if (copyrightIdx >= 0) {
     for (let i = copyrightIdx + 1; i < imprintEnd; i++) {
+      if (isTbl(parts[i])) continue;
+      // A "COPYRIGHT" heading is some manuscripts' own label for the imprint content
+      // that follows it (© line, ISBN, credits) — it's still part of the imprint page,
+      // not the start of a new front-matter section, even though it's Word-styled as a
+      // Heading like a real section would be. Don't let it end the imprint early.
+      if (/Heading\d/.test(styleOf(parts[i])) && /^COPYRIGHT$/i.test(textOf(parts[i]).trim())) continue;
       // stop at the first styled heading OR the first front-matter section name
-      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i])))) { imprintEnd = i; break; }
+      if (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i]))) { imprintEnd = i; break; }
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.
@@ -2271,6 +2286,15 @@ async function importDocx(docxPath, opts = {}) {
         // scanning until the REAL section (whose next line is a "Figure N:" /
         // "Table N:" entry or substantial body prose) is reached.
         if (/^tableoffigures$/i.test(styleOf(parts[j]))) break;
+        // A real "ACRONYMS" / "LIST OF ACRONYMS" front-matter section: its entry lines
+        // ("ABBR: full form") are much shorter than the 90-char "real section" threshold
+        // the generic peek-ahead below requires, so without this carve-out (mirroring the
+        // LIST OF FIGURES/TABLES one above) the heading is wrongly swallowed as TOC junk
+        // while its entries survive as ordinary paragraphs, landing wherever the scan next
+        // stops — e.g. stray text glued onto the imprint/copyright page. Trust an explicit
+        // Word heading style as the signal this is the real section, not a contents-list
+        // entry (which carries a TOC-styled paragraph or an unstyled short line instead).
+        if (/^(LIST OF )?ACRONYMS$/i.test(t) && /^heading\s*\d/i.test(styleOf(parts[j]))) break;
         if (/^LIST OF (FIGURES|TABLES)$/i.test(t)) {
           let n = j + 1;
           while (n < parts.length && !isTbl(parts[n]) && textOf(parts[n]) === "") n++;
@@ -2458,6 +2482,20 @@ async function importDocx(docxPath, opts = {}) {
       blocks.push({ t: "listitem", segs: stripBullet(segs), marker: (li && li.marker) || listMarker(x),
         numId: li ? li.numId : null, lvl: li ? li.lvl : null });
       continue;
+    }
+    // A recognised front-/back-matter section name that's genuinely Word-Heading-
+    // styled must become a real top-level heading (its own page, its own TOC entry) —
+    // even in a "numbered-topic, flat" book, where (below) Heading styles are
+    // otherwise distrusted for level, because such manuscripts use them
+    // inconsistently for ordinary in-topic sub-headings too. Handle it explicitly
+    // here, before that general rule can fold a genuine section down to a plain
+    // sub-head just because its wording happens to be short and plain-sentenced.
+    if (hasNumberedTopics && flat && hmap[styleOf(x)]) {
+      const plainFM = plainOf(segs).trim();
+      if (plainFM && (FM_SECTION.test(plainFM) || BACKMATTER_NAME.test(plainFM))) {
+        blocks.push({ t: "h1", text: plainFM });
+        continue;
+      }
     }
     // Numbered-topic books: a SHORT paragraph the writer styled as a Word heading
     // is a bold sub-head (label / content heading), even if the runs were not

@@ -316,6 +316,16 @@
   place(center + horizon, circle(radius: r * 0.34, fill: c))
 })
 #let cdot(x, y, c, r: 1.1mm) = place(top + left, dx: x, dy: y, circle(radius: r, fill: c))
+// A small flat "berry cluster" food accent for the series cover's
+// `T.motif == "food"` themes: three overlapping circles in warm harvest
+// colours, built from the same circle primitive as cnode/cdot above (no
+// rotated-ellipse "leaf" shapes — those read as illegible slivers at this
+// size), gated to those themes so no other "series" cover picks it up.
+#let berrycluster(x, y, c1, c2, c3, r: 3.2mm) = place(top + left, dx: x, dy: y, {
+  circle(radius: r, fill: c1)
+  place(dx: r * 1.5, dy: r * 0.3, circle(radius: r * 0.8, fill: c2))
+  place(dx: r * 0.5, dy: r * 1.7, circle(radius: r * 0.65, fill: c3))
+})
 
 #let cover(lines, byline, hero, logo, isbn, finished: false) = {
   // The cover keeps its OWN palette even when the interior is printed black-and-white:
@@ -791,6 +801,10 @@
         #place(top + center, dy: 113mm, rotate(5deg, reflow: false, box(width: 122mm, height: 78mm, radius: 3pt, fill: T.primary)))
         #place(top + center, dy: 113mm, rotate(-4deg, reflow: false, box(width: 122mm, height: 78mm, clip: true, radius: 3pt, stroke: 5pt + white)[
           #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")]))
+        #if T.motif == "food" [
+          #berrycluster(18mm, 96mm, T.accent, T.primary2, T.cyan)
+          #berrycluster(148mm, 96mm, T.primary2, T.accent, T.cyan)
+        ]
       ] else [
         // no cover photo: a tasteful decorative plate (not an empty white box)
         #place(top + center, dy: 113mm, rotate(-4deg, reflow: false, box(width: 122mm, height: 78mm, radius: 4pt, fill: T.primary, stroke: 5pt + white)[

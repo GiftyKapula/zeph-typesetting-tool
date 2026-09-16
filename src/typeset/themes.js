@@ -247,7 +247,7 @@ const THEMES = {
   // Activity / Exercise boxes), so the flat "series" layout keeps them as-is.
   // tocDepth 1 keeps the contents to front/back matter + topics, dropping sub-topics —
   // tocUnitsOnly would ALSO drop the front/back matter sections, which this book keeps.
-  foodnutrition: { ...zeph({ subject: "Food and Nutrition", signature: "c68a52", primary: "8a4a2e", primary2: "b06b45", accent: "4a8f5b", cyan: "2f8f8a" }), tocDepth: 1 },
+  foodnutrition: { ...zeph({ subject: "Food and Nutrition", signature: "c68a52", primary: "8a4a2e", primary2: "b06b45", accent: "4a8f5b", cyan: "2f8f8a", motif: "food" }), tocDepth: 1 },
   // Musical Arts (Form 4) — a lively "performance" palette: a royal-blue primary
   // (echoing the manuscript's own pre-designed cover art) with a warm terracotta/
   // orange accent, distinct from PE's navy+gold and art's terracotta+teal. Boxed
