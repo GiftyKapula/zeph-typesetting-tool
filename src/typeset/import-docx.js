@@ -185,6 +185,12 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
         else parts.push({ kind: "table", rows: p.rows });
         continue;
       }
+      // Same stray-artifact filter the main body-paragraph loop applies (a lone "."
+      // left over from editing, or a stray single letter anchoring a since-removed
+      // image) — this textbox-box path skips the main loop entirely, so without this
+      // check here those artifacts survive as a bogus paragraph inside the box.
+      const plain = plainOf(p.segs).trim();
+      if (/^[.·•…\/\\|]{1,3}$/.test(plain) || /^[A-Za-z]$/.test(plain)) continue;
       if (kind === "activity") {
         if (numbered(p)) { const { marker } = nextMarker(p); body.push({ t: "listitem", segs: p.segs, marker }); }
         else body.push({ t: "para", segs: p.segs });
@@ -611,7 +617,23 @@ function cellBlocks(tcXml) {
   const parts = masked.match(/@@TBL\d+@@|<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || [];
   for (const part of parts) {
     if (part.startsWith("@@TBL")) {
-      const rows = parseTableRows(tables[parseInt(part.match(/\d+/)[0], 10)]);
+      const tblXml = tables[parseInt(part.match(/\d+/)[0], 10)];
+      // A nested table with exactly one row and one cell is not a real sub-table —
+      // it's a Word artifact seen when a cell's content was built (often via a
+      // copy-paste from Excel, or an accessibility tool) as a stack of 1x1 "wrapper"
+      // tables, one per line, rather than plain paragraphs. Rendering it as a boxed
+      // grid (the genuine-nested-table path below) makes it look like a stray dark
+      // header banner sitting on top of ordinary cell text, with any further empty
+      // 1x1 tables in the stack showing up as blank grey bars beneath it. Flatten it
+      // into the surrounding cell's paragraph flow instead — recursing so a chain of
+      // such wrapper tables (including empty ones, which then contribute nothing)
+      // unwraps fully, all the way down to real paragraphs.
+      const trs = topLevelEls(tblXml, "tr");
+      if (trs.length === 1 && topLevelEls(trs[0], "tc").length === 1) {
+        out.push(...cellBlocks(topLevelEls(trs[0], "tc")[0]));
+        continue;
+      }
+      const rows = parseTableRows(tblXml);
       if (rows.length) out.push({ t: "table", rows });
       continue;
     }
@@ -1023,7 +1045,15 @@ function buildQAParts(blocks) {
           && nxt.plain.replace(/^possible answer\s*:\s*/i, "").trim() !== "") {
         i++;
         const pl = nxt.plain.replace(/^possible answer\s*:\s*/i, "").trim();
-        const off = nxt.plain.length - nxt.plain.replace(/^possible answer\s*:\s*/i, "").length;
+        // `nxt.plain` is TRIMMED but `nxt.segs` is not — a manuscript answer paragraph
+        // that opens with one or more whitespace-only runs before "Possible Answer:"
+        // (seen e.g. as a stray leading italic run of spaces, a copy-paste leftover)
+        // desyncs an offset measured against the trimmed string once applied to the
+        // untrimmed segs, landing mid-word ("swer: B" instead of "B"). Compensate the
+        // same way `qsegOf` above does for the question side: add back the leading
+        // whitespace the trim removed.
+        const nxtLeadWs = nxt.segs ? (nxt.segs.map((s) => s.t).join("").match(/^\s*/)[0].length) : 0;
+        const off = nxtLeadWs + nxt.plain.length - nxt.plain.replace(/^possible answer\s*:\s*/i, "").length;
         return { a: pl, aseg: segsFrom(nxt.segs, off) };
       }
       return { a: "", aseg: undefined };
@@ -1269,6 +1299,56 @@ function buildQAParts(blocks) {
       if (p.kind === "q" && p.depth === 1 && !p.a && !(p.aseg && p.aseg.length)) { run.push(p); hasLettered = true; j++; continue; }
       if (p.kind === "lead" && !p.divider && !NEXT_SET_INTRO.test((p.q || "").trim())) { run.push(p); j++; continue; }
       break;
+    }
+    // A multiple-choice question typed as plain "A. Option" lines (no Word list
+    // numbering), where only the FINAL option carries the real answer label — e.g.
+    // "A. Drum / B. Piano / C. Mbira / D. Xylophone" followed by one "Possible
+    // answer: B" for the whole question, not per option. The loop above only
+    // absorbs UNANSWERED depth-1 items into `run`, so it stops one short of that
+    // final, answered option — which then survives as its own stray sub-question
+    // ("D. Xylophone" with its own boxed "Possible answer: B"), while A-C get
+    // folded into a fabricated "Possible answer: A. Drum\nB. Piano\nC. Mbira".
+    // Detect the shape here — consecutive UPPERCASE single-letter markers (the
+    // reliable tell apart from a genuine lower-case "a) b) c)…" answer-fragment
+    // run, which the fold below already handles correctly) ending in an option
+    // whose own answer is a single letter naming one of them — and fold the WHOLE
+    // option list into the question as its literal text, promoting that letter to
+    // the question's own answer instead.
+    const letterMarker = (k) => String.fromCharCode(65 + k) + ".";
+    const isUpperRun = run.length > 0 && run.every((p, k) => p.kind === "q" && p.marker === letterMarker(k));
+    const finalOpt = parts[j];
+    // The trailing "Possible answer:" is captured by grabAnswer() onto whichever
+    // option paragraph happens to sit right before it in the manuscript — almost
+    // always the LAST option, purely because that's where the label was typed — but
+    // its VALUE names whichever option is actually correct, which is frequently a
+    // different letter (e.g. four options A-D with the label sitting after D, but
+    // reading "Possible answer: C" because C is the right one). So the final option
+    // having ANY answer attached at all (not a letter match to ITS OWN marker) is the
+    // real signal that the whole run is one MCQ whose answer landed on the last line.
+    // The answer may be typed as a bare letter ("C"), a letter with trailing
+    // punctuation ("B."), or a letter followed by a restatement of an option's text
+    // ("D. Recorder, keyboard, drum") — extract just the leading letter so the option
+    // text already shown in the list above isn't duplicated a second time below it.
+    const finalHasAns = finalOpt && (finalOpt.a || (finalOpt.aseg && finalOpt.aseg.length));
+    const ansLetter = finalHasAns ? (finalOpt.a || "").trim().match(/^([A-Za-z])[.)]?\s*/) : null;
+    const isMcq = isUpperRun && finalOpt && finalOpt.kind === "q" && finalOpt.depth === 1 &&
+      finalOpt.marker === letterMarker(run.length) && ansLetter;
+    if (isMcq) {
+      const all = [...run, finalOpt];
+      const qseg = top.qseg ? [...top.qseg] : [];
+      all.forEach((p) => {
+        qseg.push({ t: "\n" + p.marker + " ", b: false, it: false, c: null });
+        for (const s of (p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }])) qseg.push(s);
+      });
+      top.qseg = qseg;
+      top.q = qseg.map((s) => s.t).join("");
+      // Render just the letter — a manuscript answer that restated the option's full
+      // text too ("D. Recorder, keyboard, drum") would otherwise duplicate that text
+      // a second time right under the option list that already shows it.
+      top.a = ansLetter[1].toUpperCase();
+      top.aseg = [{ t: top.a, b: false, it: false, c: null }];
+      parts.splice(i + 1, all.length);
+      continue;
     }
     if (!hasLettered) continue;
     const letteredCount = run.filter((p) => p.kind === "q").length;

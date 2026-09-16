@@ -552,7 +552,13 @@ function fixStrayBodyH1s(blocks) {
   // two are safe to match leniently by their lead phrase — the same tolerance the
   // FM/FM_SECTION front-matter regexes elsewhere already give ACRONYMS.
   const FRONTBACK_LEAD = /^(LIST OF )?ACRONYMS\b|^(GENERAL|KEY)\s+COMPETEN\w*\b/i;
-  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim()) && !FRONTBACK_LEAD.test((b.text || "").trim());
+  // A back-matter "Scheme of Work" appendix (a term/week-by-week teaching-plan table,
+  // standard in CDC-aligned Teacher's Guides) is routinely titled with the book's own
+  // name prefixed ("FORM 1 FOOD AND NUTRITION – SAMPLE SCHEME OF WORK"), so — like
+  // ACRONYMS/COMPETENCES above — match it by its trailing phrase rather than requiring
+  // an exact whole-string match.
+  const FRONTBACK_TRAIL = /SCHEME\s+OF\s+WORK$/i;
+  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim()) && !FRONTBACK_LEAD.test((b.text || "").trim()) && !FRONTBACK_TRAIL.test((b.text || "").trim());
   const seen = new Set();
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
@@ -872,15 +878,21 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // Front-matter section names — English plus local-language equivalents
   // (e.g. Lunda: ANSONEKI=Authors, MAZU ATACHI=Foreword, KULEMA …WUNU=Preface,
   // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction).
-  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^KEY COMPETENCES|^(LIST OF )?ACRONYMS\b|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
-  // own page. Accept label/head AND listitem/para blocks.
+  // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
+  // sometimes styles a front-matter section as a Word "Heading2" (inconsistent with
+  // its own Heading1 use elsewhere for Authors/Foreword/etc.), which the importer
+  // takes at face value and emits as an h2/h3 sub-head block. Left unpromoted, that
+  // heading renders as a plain in-flow sub-head with no page break before it — so it
+  // silently lands wherever the preceding section's text happens to end, stranded at
+  // the foot of that page instead of starting its own.
   const fmText = (x) => (x.segs ? x.segs.map((s) => s.t).join("") : (x.text || "")).trim();
   const firstUnit0 = blocks.findIndex(isUnit);
   let b = blocks.map((x, i) =>
     (firstUnit0 < 0 || i < firstUnit0) && !x.noPromote &&
-    (x.t === "label" || x.t === "head" || x.t === "listitem" || x.t === "para") &&
+    (x.t === "label" || x.t === "head" || x.t === "listitem" || x.t === "para" || x.t === "h2" || x.t === "h3") &&
     FM.test(fmText(x))
       ? { t: "h1", text: fmText(x) } : x);
   // we place our own table of contents, so drop any auto/imported one
@@ -1074,6 +1086,34 @@ function editBlockText(b, find, repl) {
     if (post) out.push({ ...s, t: post });
   }
   b[k] = out.filter((s) => s.t !== "");
+}
+// Like editBlockText, but targets a qa PART'S OWN ANSWER (`.a`/`.aseg`) instead of its
+// question (`.qseg`/`.text`) — `segKey()`/`blockPlain()` never look at the answer side,
+// so `edit`/`editAll` can't reach it. Needed for a stray leftover option letter the
+// manuscript's own answer text carries (e.g. "C use of basso continuo" on a question
+// that isn't even a lettered multiple-choice), which lives only in this field.
+function editBlockAnswerText(b, find, repl) {
+  if (Array.isArray(b.aseg) && b.aseg.length) {
+    const full = b.aseg.map((s) => s.t).join("");
+    const start = full.indexOf(find);
+    if (start < 0) return false;
+    const end = start + find.length;
+    const out = [];
+    let pos = 0, inserted = false;
+    for (const s of b.aseg) {
+      const segStart = pos, segEnd = pos + s.t.length; pos = segEnd;
+      if (segEnd <= start || segStart >= end) { out.push(s); continue; }
+      const pre = s.t.slice(0, Math.max(0, start - segStart));
+      const post = s.t.slice(Math.max(0, end - segStart));
+      if (pre) out.push({ ...s, t: pre });
+      if (!inserted && repl) { out.push({ t: repl, b: false, it: false, c: null }); inserted = true; }
+      if (post) out.push({ ...s, t: post });
+    }
+    b.aseg = out.filter((s) => s.t !== "");
+    return true;
+  }
+  if (typeof b.a === "string" && b.a.includes(find)) { b.a = b.a.replace(find, repl); return true; }
+  return false;
 }
 // Per-book editorial overrides, kept in a sidecar `<book>.overrides.json` so the
 // manuscript itself stays pristine:
@@ -1576,12 +1616,25 @@ function applyOverrides(blocks, ov) {
   // heading), matched by their fixed opening words so every trailing variant is caught.
   const toTitle = (s) => s.toLowerCase().split(/(\s+)/).map((w) => w ? w.charAt(0).toUpperCase() + w.slice(1) : w).join("");
   const toSentence = (s) => { const t = s.toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
+  const recased = (s, to) => to === "sentence" ? toSentence(s) : to === "upper" ? s.toUpperCase() : toTitle(s);
   for (const rc of ov.recase || []) {
     let n = 0;
     for (const b of flat) {
       if (!(b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)) || typeof b.text !== "string") continue;
       if (!b.text.trim().toUpperCase().startsWith(rc.startsWith.toUpperCase())) continue;
-      b.text = rc.to === "sentence" ? toSentence(b.text.trim()) : toTitle(b.text.trim());
+      b.text = recased(b.text.trim(), rc.to);
+      n++;
+    }
+    // Learning Activity / Exercise / Assessment BOX titles live on `.title`/`.heading`,
+    // a field allTextBlocks() never surfaces into `flat` (see its own comment) — a
+    // manuscript can leave some boxes ALL-CAPS and others in Title Case in the very
+    // same book (e.g. "LEARNING ACTIVITY 1" next to "Learning Activity 2:"), so recase
+    // needs to reach these too, not just plain headings.
+    for (const b of blocks) {
+      const key = b.t === "exercise" ? "heading" : (b.t === "activity" || b.t === "assessment") ? "title" : null;
+      if (!key || typeof b[key] !== "string") continue;
+      if (!b[key].trim().toUpperCase().startsWith(rc.startsWith.toUpperCase())) continue;
+      b[key] = recased(b[key].trim(), rc.to);
       n++;
     }
     if (!n) console.warn("!  recase not matched:", rc.startsWith);
@@ -1618,6 +1671,13 @@ function applyOverrides(blocks, ov) {
     let n = 0;
     for (const b of flat) if (blockPlain(b).includes(e.find)) { editBlockText(b, e.find, e.with || ""); n++; }
     if (!n) console.warn("!  editAll not matched:", e.find);
+  }
+  // editAnswer: [{ find, with }] — like editAll, but rewrites every qa part's ANSWER
+  // text (`.a`/`.aseg`) rather than its question — see editBlockAnswerText().
+  for (const e of ov.editAnswer || []) {
+    let n = 0;
+    for (const b of flat) if (editBlockAnswerText(b, e.find, e.with || "")) n++;
+    if (!n) console.warn("!  editAnswer not matched:", e.find);
   }
   // unbold: ["exact run text", …] — drop bold from any run whose trimmed text equals the
   // entry (mirror of `unitalic`). Used where the author flagged "REMOVE BOLD" on a word/
@@ -2557,6 +2617,30 @@ function replaceTableRows(blocks, match, rows) {
   return false;
 }
 
+// "Phd" for the academic title is a recurring manuscript typo (the author capitalises
+// only the first letter, as if it were an ordinary word) seen across unrelated books,
+// not a one-off — normalise it everywhere, in every run of every text-bearing block,
+// rather than patching it per book via an override. Word-bounded so it can't touch a
+// legitimate word that merely contains "phd" as a substring (there isn't one, but the
+// boundary costs nothing and documents the intent).
+function fixPhdCapitalisation(blocks) {
+  for (const b of allTextBlocks(blocks)) {
+    const k = segKey(b);
+    if (k) { for (const s of b[k]) if (typeof s.t === "string" && /\bPhd\b/.test(s.t)) s.t = s.t.replace(/\bPhd\b/g, "PhD"); }
+    else if (typeof b.text === "string" && /\bPhd\b/.test(b.text)) b.text = b.text.replace(/\bPhd\b/g, "PhD");
+  }
+}
+// "Acappella"/"acappella" (run together as one word) is a recurring spelling slip for
+// "a cappella" — a genuine two-word term, not book-specific vocabulary — so normalise
+// it everywhere the same way as the PhD fix above, rather than as a per-book override.
+function fixACappellaSpacing(blocks) {
+  const fix = (t) => t.replace(/\bAcappella\b/g, "A cappella").replace(/\bacappella\b/g, "a cappella");
+  for (const b of allTextBlocks(blocks)) {
+    const k = segKey(b);
+    if (k) { for (const s of b[k]) if (typeof s.t === "string" && /acappella/i.test(s.t)) s.t = fix(s.t); }
+    else if (typeof b.text === "string" && /acappella/i.test(b.text)) b.text = fix(b.text);
+  }
+}
 // In an ACRONYMS section, manuscripts align "ABBR    Full Word" with spaces/tabs.
 // Render them as "ABBR: Full Word" (bold abbreviation, colon, then the full form).
 function reformatAcronyms(blocks) {
@@ -2655,7 +2739,12 @@ function formatGlossary(blocks) {
       // ("Activity – A task…") — the manuscript bolded some terms so the importer
       // read them as heads — is converted to a normal entry and the glossary
       // continues. Any OTHER heading (a genuine new section) ends the glossary.
-      if (inGloss && ENTRY.test(full) && full.length <= 200) { toEntry(b, full.match(ENTRY)); continue; }
+      // A misread bolded term lands as h2/head/label (the "small bold line reads as
+      // a heading" heuristic), never a real h1 — so exclude h1 from this coincidental-
+      // shape fallback: a genuine top-level section (e.g. a back-matter "… – SAMPLE
+      // SCHEME OF WORK" appendix) can easily match the "Term – meaning" shape by pure
+      // accident of wording and must never be swallowed as a glossary entry.
+      if (inGloss && b.t !== "h1" && ENTRY.test(full) && full.length <= 200) { toEntry(b, full.match(ENTRY)); continue; }
       inGloss = false;
       continue;
     }
@@ -3910,8 +3999,10 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
+  fixPhdCapitalisation(blocks);
+  fixACappellaSpacing(blocks);
   reformatAcronyms(blocks);
   formatGlossary(blocks);
   displayifyColumnMath(blocks);
