@@ -774,6 +774,12 @@ function pairQA(paras) {
 // Re-derive a marker for a local 1-based count `n`, in the FORMAT of the writer's
 // template marker ("1." -> decimal+dot, "a)" -> lower-letter+paren, "i." -> roman).
 function markerFor(n, template) {
+  // A bullet template stays a bullet at every position — it has no sequence of
+  // its own to count through (unlike "a)"/"1."), so falling into the generic
+  // letter-format branch below silently RELETTERED every bulleted sub-answer as
+  // "a.", "b."… (Physics Form 2 TG's Exercise 3: two plain bullet points under
+  // "(c) Two forms…: • Heat • Sound" came out "a. Heat" / "b. Sound").
+  if (template === "•") return "•";
   const suf = (String(template || "").match(/([.)])\s*$/) || [, "."])[1];
   const core = String(template || "").replace(/[.)]\s*$/, "").trim();
   let s;
@@ -1093,6 +1099,17 @@ function buildQAParts(blocks) {
             const nb = blocks[j];
             if (nb.t !== "para") break;                              // table/image answer: leave to the classic path
             if (isDecimalTop(nb) || ANSWERS_DIVIDER.test(nb.plain.trim())) break;
+            // A literal lettered/roman marker ("c) Explain…") is itself a real NEW
+            // sub-question, not more of this one's answer — but only once we're
+            // already inside an active lettered sub-sequence (subN > 0, i.e. this
+            // question was itself an "a)"/"b)"-style sub-part). When subN is still 0
+            // (a plain decimal question with no sub-lettering going), a lettered line
+            // here is the documented "answer typed as its own tiny lettered list"
+            // case and must stay absorbed. Without this guard, a manuscript that
+            // writes "a) …  Possible Answers: <answer lines> c) …" swallows the real
+            // "c)" sub-question whole into "a)"'s answer, so it never renders as its
+            // own question at all.
+            if (subN > 0 && LIT_SUB.test((nb.plain || "").replace(/^\s+/, ""))) break;
             absorbed.push(nb);
             j++;
           }
@@ -1129,8 +1146,36 @@ function buildQAParts(blocks) {
     // left in the run — otherwise "   4. …" / "    (a) …" slip past the ^-anchored
     // regexes and the literal marker gets doubled with the auto one ("4. 4.").
     const plainTrim = b.plain.replace(/^\s+/, "");
-    const sm = plainTrim.match(LIT_SUB);
+    let sm = plainTrim.match(LIT_SUB);
+    // LIT_SUB requires at least one character of content after the marker, so a
+    // BARE marker paragraph ("(a)" on its own line, its actual content sitting in
+    // separate paragraphs below — the shape a formula-heavy answer takes, worked
+    // lines and all, when the writer never glues the first line onto the marker)
+    // never matches it at all — unlike a bare TOP ("7." with nothing after — see
+    // `tm[2].trim()` accepting empty content below), which already has a path.
+    // In bare-letter-list mode (no decimal top anywhere — see hasDecimalTop) that
+    // silently dropped the marker to the "else" lead-in branch as inert flowing
+    // text, so it never advanced topN at all — the NEXT lettered marker with real
+    // content then counted itself as if it were first (Physics Form 2 TG's
+    // Exercise 3: bare "(a)" and "(b)" never advanced the count, so "(c) Two
+    // forms…" rendered as "a)"). Treat a bare marker the same as a bare top: an
+    // empty-content part that still advances topN.
+    if (!sm && !hasDecimalTop) {
+      const bareM = plainTrim.match(/^(\(?(?:[a-z]|[ivx]{2,4})[.)])\s*$/i);
+      if (bareM) sm = [bareM[0], bareM[1], ""];
+    }
     const tm = plainTrim.match(LIT_TOP);
+    // In roman-top mode a lone "i."/"(i)" is genuinely ambiguous (roman numeral
+    // i, or the single letter "i") — LIT_SUB (redefined above to single letters
+    // only) still matches it. Its siblings "ii."/"iii)" are unambiguous romans
+    // and always win the LIT_TOP match, so treating THIS "(i)" as a SUB while
+    // "(ii)"/"(iii)" right after it become fresh TOP items splits one intended
+    // multi-point roman list into a stray nested sub plus disconnected tops
+    // (Physics Form 2 TG's Engines exercise: "(i) Spark ignition…" rendered as
+    // an orphaned "f)" answer while "(ii)"/"(iii)" became separate "g)"/"h)").
+    // Let TOP win for this one ambiguous case so all the points read as one
+    // consistent run, like the rest of the exercise's lettered items.
+    if (hasRomanTop && tm && /^\(?i[.)]/i.test(plainTrim)) sm = null;
     const tmSub = tm && tm[2].match(LIT_SUB);   // "N. (a) text" = top number + its first sub-part
     // Top-level items are RENUMBERED sequentially (1..N) so a block always starts
     // at 1 even when the writer's literal numbers are erratic (skip a number, or
@@ -1145,6 +1190,34 @@ function buildQAParts(blocks) {
       // group renders as a stray "c)".)
       const subLetter = sm[1].replace(/[()\s.]/g, "").toLowerCase();
       const restarts = subLetter === "a" || subLetter === "i";
+      // In a BARE letter-list block (no decimal top anywhere — see hasDecimalTop)
+      // the letters ARE the top items, exactly like the Word-list branch below
+      // already treats them — INCLUDING when every one of them is typed as
+      // literal text ("(a)", "(b)", "(c)"…) rather than a real Word auto-list, the
+      // common shape for a Teacher's Guide answer key with no numbered questions
+      // at all (Physics Form 2 TG's Exercise 3: "(a) … (b) … (c) … (d) … (e) …",
+      // none of them a real Word list item). Without this, the very FIRST "(a)"
+      // has no preceding top to continue, so ensureTopBeforeSub() synthesised an
+      // empty "1." parent and nested EVERY letter under it as a sub-sequence,
+      // corrupting the count the moment a later stray Word-list bullet or a
+      // once-off literal restart showed up (seen rendering "(d)"/"(e)" as fresh
+      // "4."/"5." tops instead of continuing the same a..e run). Only bypassed
+      // Every hasDecimalTop shape (a real numbered top with genuine lettered
+      // sub-parts under it) is untouched — this only fires for a block with no
+      // decimal top anywhere, where NO legitimate deeper sub-level exists at all,
+      // so a literal single-letter marker always starts a fresh top-level item
+      // and closes out whatever bulleted/lettered sub-run (subN) came before it —
+      // not gated on subN already being 0: a top-level letter arriving right
+      // after a sub-bulleted answer (Exercise 3's "(c) …: • Heat • Sound" then
+      // "(d) …") must still end that sub-run and start its own top, not keep
+      // counting as more of (c)'s bullets.
+      if (!hasDecimalTop) {
+        if (topN === 0) topTpl = stripLit(sm[1]);
+        topN += 1; subN = 0;
+        const an = grabAnswer();
+        parts.push({ kind: "q", q: sm[2].trim(), qseg: qsegOf(sm[2]), a: an.a, aseg: an.aseg, marker: markerFor(topN, topTpl), depth: 0 });
+        continue;
+      }
       const topListItem = b.marker && elvl(b) === 0
         && (primaryNum == null || b.numId === primaryNum || /^\d/.test(b.marker || ""));
       if (topListItem && restarts) {
@@ -1168,7 +1241,17 @@ function buildQAParts(blocks) {
       // at ilvl 1 while its own (a)(b) parts sit at ilvl 0). Tops renumber 1..N in
       // their own format; subs count a..z and reset under each new top.
       const decimal = /^\(?\d/.test(b.marker || "");
-      const sub = !decimal && (elvl(b) > 0 || hasDecimalTop);
+      // A plain BULLET ("•") is never one of the answer key's own lettered/numbered
+      // points — it's always informal sub-content under whatever question/letter
+      // came before it (e.g. "(c) Two forms … are: / • Heat / • Sound"), regardless
+      // of hasDecimalTop or Word's own ilvl (a manuscript's bullet sub-list often
+      // sits at the SAME ilvl as the letters above it). Without this, a bare-letter
+      // exercise (hasDecimalTop false, elvl 0) read a bullet exactly like a fresh
+      // top-level letter, turning "(c) Two forms…: • Heat • Sound (d) …" into a
+      // run of unrelated tops ("Heat" and "Sound" claiming their own letters,
+      // shoving the real "(d)" and "(e)" out of sequence) — and rendering those
+      // bullets through the plain bodyArr path instead of the styled qaparts row.
+      const sub = b.marker === "•" || (!decimal && (elvl(b) > 0 || hasDecimalTop));
       let marker;
       if (sub) { if (subN === 0) { subTpl = b.marker; ensureTopBeforeSub(); } subN += 1; marker = markerFor(subN, subTpl); }
       else {
@@ -1189,17 +1272,50 @@ function buildQAParts(blocks) {
       // the auto marker. (sm already branched above, so only a top literal remains.)
       const content = tm ? tm[2] : b.plain;
       parts.push({ kind: "q", q: content.trim(), qseg: qsegOf(content), a: an.a, aseg: an.aseg, marker, depth: sub ? 1 : 0 });
-    } else if (tmSub) {                  // "N. (a) text": emit the top number, then its sub-part
+    } else if (tmSub) {                  // "N. (a) text": the manuscript typed the top
+      // number and its first sub-part glued onto ONE line ("1. (a) Ep = mgh"), with
+      // no text of its own between them — render that as ONE combined marker on ONE
+      // row ("1. a) Ep = mgh…"), exactly as written, rather than splitting it into a
+      // bare "1." row followed by a separate indented "a)" row: the split read as
+      // "1." orphaned above its own answer instead of the single worked line the
+      // manuscript actually wrote. Later sub-parts ("(b)", "(c)"…) still land on
+      // their own rows below, same as ever — only THIS glued first line is merged.
       topN += 1; subN = 1; subTpl = stripLit(tmSub[1]);
-      parts.push({ kind: "q", q: "", a: "", marker: markerFor(topN, topTpl), depth: 0 });
       const an = grabAnswer();
-      parts.push({ kind: "q", q: tmSub[2].trim(), qseg: qsegOf(tmSub[2]), a: an.a, aseg: an.aseg, marker: markerFor(subN, subTpl), depth: 1 });
+      parts.push({ kind: "q", q: tmSub[2].trim(), qseg: qsegOf(tmSub[2]), a: an.a, aseg: an.aseg,
+        marker: markerFor(topN, topTpl) + " " + markerFor(subN, subTpl), depth: 0 });
     } else if (tm) {                     // a literal top item "1." (text may be empty)
       topN += 1; subN = 0;
       const an = grabAnswer();
       parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: markerFor(topN, topTpl), depth: 0 });
     } else {                             // a lead-in / heading line ("Expected Answers", "Calculate:")
-      subN = 0;
+      // A bare calculation-step continuation (the next line of a worked answer:
+      // "(a) VR = distance ÷ distance" / "= 1.8 ÷ 0.6 [1]" / "10 = -4 + v₂" /
+      // "v₂ = 14 m/s") or a standalone mark allocation is still PART of the
+      // sub-part just opened, not a fresh heading — so it must not reset the
+      // running sub-letter count. A manuscript that spans each lettered
+      // sub-part's derivation over several physical paragraphs (formula,
+      // substitution, result) otherwise has every later "(b)"/"(c)" marker (or
+      // real Word-list letter item) recompute from a freshly-reset count of 1,
+      // so EVERY sub-part renders as "a)" (seen on Physics Form 2 TG's Simple
+      // Machines AND Momentum answer keys). The tell: a genuine new lead-in
+      // ("Calculate:", "Expected Answers", "Two factors … are:") always reads
+      // as a real sentence/label before any "=" — a calc-step line's "=" sits
+      // right after a short variable/number (no real word first). Requiring the
+      // "=" within the first few characters, with no earlier ":", separates the
+      // two without needing to recognise every symbol a step might start with.
+      const eq = b.plain.replace(/^\s+/, "");
+      const eqIdx = eq.indexOf("=");
+      // "Where:" is a standard worked-answer convention (state the formula, then
+      // "Where:" to define each symbol used in it) — it always continues the
+      // derivation just opened, never opens a fresh lettered round, even though
+      // it has no "=" of its own to match the check above (Physics Form 2 TG's
+      // "End of Topic Assessment" latent-heat answer: "(a) …equation…" / "Where:"
+      // / "H = …" / "m = …" / "…[1]" / "(b) …" rendered the "(b)" as "a)" again
+      // because "Where:" reset the count right before it).
+      const isContinuation = (eqIdx >= 0 && eqIdx <= 15 && !eq.slice(0, eqIdx).includes(":"))
+        || /^\+/.test(eq) || MARK_ONLY.test(eq.trim()) || /^where\s*:?\s*$/i.test(eq);
+      if (!isContinuation) subN = 0;
       // A trailing mark allocation the manuscript gave its OWN paragraph ("...sound
       // waves cannot." then, alone on the next line, "[2]") would otherwise become
       // its own standalone continuation line — an orphaned mark with nothing
@@ -1239,64 +1355,44 @@ function buildQAParts(blocks) {
       i++; // the image now sits at i+1; don't reconsider it
     }
   }
-  // Some Teacher's Guides never write an explicit "Possible Answer:" label at all —
-  // the answer is simply typed as its own tiny lettered/numbered list right under
-  // the question (one point, or several: "a) …  b) …  c) …"), which the loop above
-  // (with no label to fold it against) has no choice but to parse as literal
-  // lettered SUB-QUESTIONS. Rendered as-is that reads as an unresolved multi-part
-  // question ("1. Question… / a. This is actually the answer…"), the same confusing
-  // shape a label-driven answer used to collapse into before the fix above — just
-  // without the label to trigger it. The reliable tell that a depth-1 run is
-  // really the flat answer rather than genuine separate sub-questions: NONE of its
-  // items has an answer of its own. A genuine multi-part question (e.g. "a) What
-  // is X? … b) What is Y? …") always answers each part separately, so a part that
-  // already carries its own `a`/`aseg` is left alone; only a run where every part
-  // is itself unanswered gets folded up as the parent question's answer, each
-  // point kept on its own line (with its original marker as a prefix when there is
-  // more than one point, so nothing reads as a run-on sentence).
+  // "Possible answer:" is only ever shown when the MANUSCRIPT itself typed that
+  // label (or "Expected Answer:"/"Answer:" etc.) — grabAnswer() above and
+  // splitAnswerLabels() in typeset-docx.js are the only places that set `.a`/
+  // `.aseg`, and both require the literal label text to be present. This engine
+  // used to ALSO fabricate a "Possible answer:" tag out of thin air whenever a
+  // Teacher's Guide answered a question with its own unlabelled lettered list
+  // ("a) …  b) …  c) …", no label at all) by folding that whole run into the
+  // parent question's `.a` field — but "Expected Responses" (the box's own
+  // heading) already says these ARE the answers, so a second, synthesised label
+  // on top of it was redundant at best. At worst it actively broke: a manuscript
+  // whose first Word-list item's own content got entirely absorbed into the fold
+  // left the label standing with nothing visibly beside it (Physics Form 2 TG's
+  // four-stroke-cycle exercise rendered a bare "Possible answer:" floating alone,
+  // with its real "a) …" content stranded across a page break below it). Leaving
+  // the run's items as their own separate lettered rows (depth 1, under the empty
+  // top-level number) instead renders exactly what the manuscript wrote, nothing
+  // invented — genuine multi-part questions that already answer each part
+  // separately (a part carrying its own `a`/`aseg`) were always left alone here
+  // and still are.
   // A lead that actually opens the NEXT question's scenario/preamble ("Scenario: A
   // farmer chooses...", a bare "Question"/"Questions:" divider) rather than
   // continuing THIS answer — the fold below must stop at one instead of swallowing
   // the next question's setup into the previous question's answer.
   const NEXT_SET_INTRO = /^(?:scenario|case\s*study)\s*:|^questions?\s*:?\s*$/i;
-  // A lettered answer item sometimes ALSO carries its own typed "Answer:" /
-  // "Possible Answer:" label ("a) Answer: Flat land allows...") even though
-  // lettering it after an unanswered question already marks it as the answer —
-  // strip that redundant label so it doesn't double up with the "Possible answer:"
-  // tag this fold adds. Mirrors splitAnswerLabels' LABEL_FULL/LABEL_INLINE below.
-  const FOLD_LABEL_FULL = /^\s*(?:possible|expected|suggested|sample|model)?\s*(?:answers?|responses?)\s*:?\s*$/i;
-  const FOLD_LABEL_INLINE = /^\s*(?:possible|expected|suggested|sample|model)?\s*(?:answers?|responses?)\s*:\s*/i;
-  const stripFoldLabel = (segs) => {
-    if (!segs.length) return segs;
-    if (!segs[0].m && FOLD_LABEL_FULL.test(segs[0].t || "")) {
-      segs = segs.slice(1);
-      // The label's own colon is sometimes typed as the START of the NEXT run
-      // instead of the end of the label run itself (a formatting-boundary quirk:
-      // "Possible Answers" bold, then ": Advantages:" non-bold) — strip that
-      // leading colon too, or it leaks through as "Possible answer: : Advantages:".
-      if (segs[0]) segs[0] = { ...segs[0], t: segs[0].t.replace(/^\s*:?\s*/, "") };
-      return segs;
-    }
-    const m = !segs[0].m && (segs[0].t || "").match(FOLD_LABEL_INLINE);
-    if (m) return [{ ...segs[0], t: segs[0].t.slice(m[0].length) }, ...segs.slice(1)];
-    return segs;
-  };
   for (let i = 0; i < parts.length; i++) {
     const top = parts[i];
     if (top.kind !== "q" || (top.depth || 0) !== 0) continue;
     if (top.a || (top.aseg && top.aseg.length)) continue;   // already answered
-    // The answer sometimes wraps its lettered breakdown in its own unmarked lead-in
-    // ("The community could adopt...") and/or a closing summary line ("These
-    // alternatives are cleaner..."), both plain flowing paragraphs (kind "lead")
-    // rather than lettered items — absorb those too, but only commit the fold when
-    // the run actually contains a lettered item; plain lead prose with no
-    // breakdown at all is already fine as ordinary flowing text under the question.
+    // Gather the run of unanswered depth-1 items (and any unmarked lead-in/closing
+    // prose) right after this question — needed below only to detect the MCQ shape
+    // (a run of upper-case options ending in one that carries the manuscript's own
+    // "Possible answer: <letter>"); everything else about the run is left exactly
+    // as parsed, on its own row.
     const run = [];
-    let hasLettered = false;
     let j = i + 1;
     while (j < parts.length) {
       const p = parts[j];
-      if (p.kind === "q" && p.depth === 1 && !p.a && !(p.aseg && p.aseg.length)) { run.push(p); hasLettered = true; j++; continue; }
+      if (p.kind === "q" && p.depth === 1 && !p.a && !(p.aseg && p.aseg.length)) { run.push(p); j++; continue; }
       if (p.kind === "lead" && !p.divider && !NEXT_SET_INTRO.test((p.q || "").trim())) { run.push(p); j++; continue; }
       break;
     }
@@ -1309,9 +1405,9 @@ function buildQAParts(blocks) {
     // ("D. Xylophone" with its own boxed "Possible answer: B"), while A-C get
     // folded into a fabricated "Possible answer: A. Drum\nB. Piano\nC. Mbira".
     // Detect the shape here — consecutive UPPERCASE single-letter markers (the
-    // reliable tell apart from a genuine lower-case "a) b) c)…" answer-fragment
-    // run, which the fold below already handles correctly) ending in an option
-    // whose own answer is a single letter naming one of them — and fold the WHOLE
+    // reliable tell apart from a genuine lower-case "a) b) c)…" run of separate
+    // answer fragments, left as its own rows) ending in an option whose own
+    // answer is a single letter naming one of them — and fold the WHOLE
     // option list into the question as its literal text, promoting that letter to
     // the question's own answer instead.
     const letterMarker = (k) => String.fromCharCode(65 + k) + ".";
@@ -1350,19 +1446,6 @@ function buildQAParts(blocks) {
       parts.splice(i + 1, all.length);
       continue;
     }
-    if (!hasLettered) continue;
-    const letteredCount = run.filter((p) => p.kind === "q").length;
-    const aseg = [];
-    run.forEach((p, k) => {
-      const markOnly = p.kind === "lead" && MARK_ONLY.test((p.q || "").trim());
-      if (k > 0) aseg.push({ t: markOnly ? " " : "\n", b: false, it: false, c: null });
-      if (p.kind === "q" && letteredCount > 1 && p.marker) aseg.push({ t: p.marker + " ", b: true, it: false, c: null });
-      const segs = stripFoldLabel(p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }]);
-      for (const s of segs) aseg.push(s);
-    });
-    top.a = aseg.map((s) => s.t).join("");
-    top.aseg = aseg;
-    parts.splice(i + 1, run.length);
   }
   return parts;
 }

@@ -43,7 +43,9 @@ const zwspBlanks = (t) => t.replace(/_+/g, (run) => {
 // math source (m: true) rendered via eval(mode: "math"); display: true is a
 // block equation.
 const segArr = (segs) => arr(segs, (s) =>
-  s.m ? `(m: true, display: ${s.display ? "true" : "false"}, t: ${S(s.t)})`
+  s.fr ? `(fr: true)`
+  : s.brk ? `(brk: true)`
+  : s.m ? `(m: true, display: ${s.display ? "true" : "false"}, t: ${S(s.t)})`
       : `(t: ${S(zwspBlanks(s.t))}, b: ${s.b ? "true" : "false"}, it: ${s.it ? "true" : "false"}, c: ${s.c ? S(s.c) : "none"}${s.u ? ", u: true" : ""}${s.hw ? ", hw: true" : ""}${s.mono ? ", mono: true" : ""})`);
 
 const strArr = (a) => arr(a, S);
@@ -1034,12 +1036,21 @@ const segKey = (b) => (b.segs ? "segs" : b.qseg ? "qseg" : null);
 // Plain text of a block. Figure/table captions live on an image block's `caption`
 // (or, for side-by-side rows, on each `images[].caption`), so surface those too —
 // otherwise an override can never reach a caption's text (e.g. a mis-numbered "Fig. N:").
+// A Learning Activity/Exercise/Assessment BOX's own title lives on `.title`
+// (activity/assessment) or `.heading` (exercise) — a plain string field the box
+// itself carries, separate from the `.body`/`.parts` content nested inside it.
+// `recase` already had to special-case this (see its own comment); surfacing it
+// here too lets every other text-editing override (`edit`, `editAll`, …) reach a
+// typo in a box's own title instead of silently no-op'ing on it.
+const titleKey = (b) => (b.t === "exercise" ? "heading" : (b.t === "activity" || b.t === "assessment") ? "title" : null);
 const blockPlain = (b) => {
   const k = segKey(b);
   if (k) return b[k].map((s) => s.t).join("");
   if (typeof b.text === "string" && b.text) return b.text;
   if (typeof b.caption === "string") return b.caption;
   if (b.t === "imagerow" && Array.isArray(b.images)) return b.images.map((im) => im.caption || "").join(" ");
+  const tk = titleKey(b);
+  if (tk && typeof b[tk] === "string") return b[tk];
   return "";
 };
 function setBlockText(b, text) {
@@ -1068,6 +1079,8 @@ function editBlockText(b, find, repl) {
     if (b.t === "imagerow" && Array.isArray(b.images)) {
       for (const im of b.images) if (typeof im.caption === "string" && im.caption.includes(find)) { im.caption = im.caption.replace(find, repl); return; }
     }
+    const tk = titleKey(b);
+    if (tk && typeof b[tk] === "string" && b[tk].includes(find)) { b[tk] = b[tk].replace(find, repl); return; }
     return;
   }
   const full = b[k].map((s) => s.t).join("");
@@ -1082,7 +1095,10 @@ function editBlockText(b, find, repl) {
     const pre = s.t.slice(0, Math.max(0, start - segStart));
     const post = s.t.slice(Math.max(0, end - segStart));
     if (pre) out.push({ ...s, t: pre });
-    if (!inserted && repl) { out.push({ t: repl, b: false, it: false, c: null }); inserted = true; }
+    // Keep THIS run's own styling (bold/italic/colour) on the replacement text
+    // instead of resetting it to plain — a substring replaced inside an
+    // italicised (or bold/coloured) run must stay italic, not revert to plain.
+    if (!inserted && repl) { out.push({ ...s, t: repl }); inserted = true; }
     if (post) out.push({ ...s, t: post });
   }
   b[k] = out.filter((s) => s.t !== "");
@@ -1106,7 +1122,8 @@ function editBlockAnswerText(b, find, repl) {
       const pre = s.t.slice(0, Math.max(0, start - segStart));
       const post = s.t.slice(Math.max(0, end - segStart));
       if (pre) out.push({ ...s, t: pre });
-      if (!inserted && repl) { out.push({ t: repl, b: false, it: false, c: null }); inserted = true; }
+      // Keep this run's own styling on the replacement (see editBlockText).
+      if (!inserted && repl) { out.push({ ...s, t: repl }); inserted = true; }
       if (post) out.push({ ...s, t: post });
     }
     b.aseg = out.filter((s) => s.t !== "");
@@ -1130,7 +1147,8 @@ function allTextBlocks(blocks) {
   const visit = (arr) => {
     for (const b of arr) {
       if (!b || typeof b !== "object") continue;
-      if (b.segs || b.qseg || typeof b.text === "string" || typeof b.caption === "string" || b.t === "imagerow" || b.t === "image") out.push(b);
+      const tk = titleKey(b);
+      if (b.segs || b.qseg || typeof b.text === "string" || typeof b.caption === "string" || b.t === "imagerow" || b.t === "image" || (tk && typeof b[tk] === "string")) out.push(b);
       for (const k of Object.keys(b)) {
         if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" &&
             (x.segs || x.qseg || typeof x.text === "string" || x.body || x.parts))) visit(b[k]);
@@ -2635,9 +2653,22 @@ function fixPhdCapitalisation(blocks) {
 // it everywhere the same way as the PhD fix above, rather than as a per-book override.
 function fixACappellaSpacing(blocks) {
   const fix = (t) => t.replace(/\bAcappella\b/g, "A cappella").replace(/\bacappella\b/g, "a cappella");
+  // A run that IS an MCQ option letter on its own ("A. ", "B) ", …) sitting right
+  // before "Acappella" means the word itself is one lettered option in a list
+  // whose siblings (Choir, Duet, Trio, …) are each a single word — splitting only
+  // this one into two breaks that parallelism and reads as a doubled "A. A
+  // cappella". Leave the option text alone in that one case; every other
+  // occurrence (prose, glossary) still gets the correct two-word spelling.
+  const isOptionMarker = (s) => typeof s === "string" && /^\n?\(?[A-Da-d][.)]\s*$/.test(s);
   for (const b of allTextBlocks(blocks)) {
     const k = segKey(b);
-    if (k) { for (const s of b[k]) if (typeof s.t === "string" && /acappella/i.test(s.t)) s.t = fix(s.t); }
+    if (k) {
+      b[k].forEach((s, i) => {
+        if (typeof s.t !== "string" || !/acappella/i.test(s.t)) return;
+        if (isOptionMarker(i > 0 ? b[k][i - 1].t : null)) return;
+        s.t = fix(s.t);
+      });
+    }
     else if (typeof b.text === "string" && /acappella/i.test(b.text)) b.text = fix(b.text);
   }
 }
@@ -3145,6 +3176,15 @@ function columnizeLists(blocks) {
     // guard: a normal sentence with one stray double-gap shouldn't columnize —
     // require every chunk to be short (a word list), not prose
     if (parts.some((p) => p.length > 22 || p.trim().split(/\s+/).length > 4)) return null;
+    // guard: a cell that's NOTHING but a mark-allocation bracket ("[1]") isn't a
+    // real data column — it's a manuscript's own manual spacing to shove a mark
+    // over to the right (the exact pattern glueMarkTail/splitMarksToFr already
+    // collapse into a proper flush-right mark elsewhere). Reading it as tabular
+    // data instead dropped the row out of the exercise's own italic/indented
+    // qaparts styling entirely and into a plain, unstyled, non-flush-right grid
+    // cell (Physics Form 2 TG's Exercise 3: "Heat (thermal energy)     [1]" /
+    // "Sound energy     [1]" rendered as a bare two-column table).
+    if (parts.some((p) => MARK_BRACKET.test(p) && !p.replace(MARK_BRACKET, "").trim())) return null;
     // Derive the row marker consistently: prefer the block's own list marker; else if
     // the first cell starts with a number ("1. Bright light"), lift that number out as
     // the marker so it aligns in the marker column like the other rows.
@@ -3234,7 +3274,22 @@ function columnizeLists(blocks) {
 // whatever immediately precedes it with a NON-breaking space instead, so it always
 // travels down together with the last word rather than isolated on its own line.
 const MARK_BRACKET = /\[\s*\d+(?:\s*marks?)?\s*\]/i;
-const glueMarkTail = (t) => t.replace(/[ \t](\[\s*\d+(?:\s*marks?)?\s*\])/gi, " $1");
+// Some manuscripts type the mark bracket with NO space at all before it ("...good
+// conductor of heat.[1] It transfers...", "...gained kinetic energy,[1] moved...") -
+// the old regex only fired when a space/tab was already there to collapse, so a
+// directly-glued bracket like that sailed straight through untouched. Match the
+// bracket with its (possibly EMPTY) run of leading whitespace and always normalise
+// to exactly one non-breaking space, except right at the start of the string - a
+// mark bracket opening a seg is a deliberate join point another pass glues in from
+// the previous seg/paragraph, not a spot to inject a stray leading space of our own.
+const glueMarkTail = (t) => t.replace(/([ \t]*)(\[\s*\d+(?:\s*marks?)?\s*\])/gi,
+  (m, sp, bracket, offset) => offset === 0 ? bracket : " " + bracket);
+// House style: a mark allocation sits flush against the right edge of the text
+// column, not glued inline right after the sentence — see splitMarksToFr below,
+// which runs last (right before the Typst source is built) and turns the single
+// glued space this function leaves before each bracket into a `{fr: true}` filler
+// segment the template renders as `h(1fr)`, consuming the rest of the current
+// line so the bracket lands at its edge and whatever follows wraps to a new line.
 function normaliseSpacing(blocks) {
   const fix = (segs) => {
     if (!Array.isArray(segs) || !segs.length) return;
@@ -3280,6 +3335,74 @@ function normaliseSpacing(blocks) {
   };
   walk(blocks);
 }
+// Split every segment carrying a mark-allocation bracket into pieces around that
+// bracket, with a `{fr: true}` filler segment (seg() in generic-template.typ
+// renders it as `h(1fr)`) inserted right before it — consuming whatever room is
+// left on the CURRENT line so the bracket lands flush against the column's right
+// edge and whatever text follows it wraps onto a fresh line, exam-paper style.
+// normaliseSpacing() above already guaranteed exactly one glued space (or none,
+// at a segment's own start) immediately before every bracket; that leading space
+// is dropped here since the fractional space replaces it visually. Must run LAST,
+// once no further pass needs every segment to carry a plain `.t` string — several
+// earlier passes (splitAnswerLabels, normaliseQuestionMarkBold, box detection…)
+// read `.t` on every segment in a run.
+const MARK_BRACKET_G = /[ \t]?\[\s*\d+(?:\s*marks?)?\s*\]/gi;
+function splitMarksToFr(segs) {
+  if (!Array.isArray(segs)) return segs;
+  // First pass: flatten into a linear stream of {mark:false, seg} text pieces and
+  // {mark:true, seg} bracket pieces, in order, across every original segment —
+  // needed so the second pass can tell whether a bracket has any REAL text still
+  // to come anywhere later in the run, not just later within its own segment.
+  const pieces = [];
+  for (const s of segs) {
+    if (!s || typeof s.t !== "string" || s.m || !MARK_BRACKET.test(s.t)) { pieces.push({ mark: false, seg: s }); continue; }
+    let last = 0, m;
+    MARK_BRACKET_G.lastIndex = 0;
+    while ((m = MARK_BRACKET_G.exec(s.t))) {
+      const before = s.t.slice(last, m.index);
+      if (before) pieces.push({ mark: false, seg: { ...s, t: before } });
+      pieces.push({ mark: true, seg: { ...s, t: m[0].replace(/^[ \t]+/, "") } });
+      last = m.index + m[0].length;
+    }
+    const rest = s.t.slice(last);
+    if (rest) pieces.push({ mark: false, seg: { ...s, t: rest } });
+  }
+  // Second pass: a mark with more real (non-whitespace) text still coming later in
+  // the run forces a line break right after it — so it always lands at the column's
+  // edge with whatever follows starting fresh below it, even mid-sentence — while a
+  // mark that's the last real content just gets the flush-right treatment with no
+  // break (no trailing blank line under the final mark of an answer).
+  const out = [];
+  for (let i = 0; i < pieces.length; i++) {
+    const p = pieces[i];
+    if (!p.mark) { out.push(p.seg); continue; }
+    out.push({ fr: true });
+    out.push(p.seg);
+    const hasMoreText = pieces.slice(i + 1).some((q) => !q.mark && (q.seg.t || "").trim());
+    if (hasMoreText) {
+      out.push({ brk: true });
+      // Drop the leading space the manuscript had between the bracket and the next
+      // word (it belonged to the old inline layout) — the forced break already
+      // starts a fresh line, so that space would otherwise indent the line's start.
+      const nxt = pieces[i + 1];
+      if (nxt && !nxt.mark && typeof nxt.seg.t === "string") nxt.seg = { ...nxt.seg, t: nxt.seg.t.replace(/^[ \t]+/, "") };
+    }
+  }
+  return out;
+}
+function applyMarkFlushRight(blocks) {
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.segs)) b.segs = splitMarksToFr(b.segs);
+      if (Array.isArray(b.qseg)) b.qseg = splitMarksToFr(b.qseg);
+      if (Array.isArray(b.s)) b.s = splitMarksToFr(b.s);
+      if (Array.isArray(b.aseg)) b.aseg = splitMarksToFr(b.aseg);
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
 // Inside an End-of-Unit Assessment the paper is split into skill sections
 // ("Listening and speaking", "Reading and writing"). Authors type these as ordinary
 // sentences, so they render at body weight and the learner cannot see where one
@@ -3319,7 +3442,13 @@ function splitAnswerLabels(blocks) {
         break;
       }
     }
-    if (!aSegs || !aSegs.length) return null;
+    // A label whose only "remainder" is trailing whitespace (a manuscript's stray
+    // spaces after a bold heading run, e.g. "Expected Responses  " typed as its own
+    // box subheading with two trailing spaces as a separate, non-bold run) is not a
+    // real inline answer — treating a non-empty-but-blank aSegs as one promoted this
+    // heading to its own "q" with a visibly empty "Possible answer:" line floating
+    // under it (Physics Form 2 TG's four-stroke-cycle exercise). Require actual text.
+    if (!aSegs || !aSegs.map((s) => s.t || "").join("").trim()) return null;
     if (qSegs.length) qSegs[qSegs.length - 1] = { ...qSegs[qSegs.length - 1], t: qSegs[qSegs.length - 1].t.replace(/\s+$/, "") };
     // The label's colon is sometimes typed as the START of the NEXT run instead of
     // the end of the label run itself (a formatting-boundary quirk: bold "Answer",
@@ -3999,10 +4128,15 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
-  if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
+  // Generic book-agnostic auto-fixes run BEFORE the book's own overrides, not
+  // after, so a book's explicit `edit` always has the final word — a reviewer
+  // who deliberately asks for "acappella" as one word (or any other spelling a
+  // generic fix would otherwise "correct") must not have that override silently
+  // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
   displayifyColumnMath(blocks);
@@ -4184,7 +4318,7 @@ function normaliseQuestionMarkBold(blocks) {
       // with no form/grade line, `name` defaults to `subject` = lines[0] = the eyebrow).
       const gm2 = gm || linesArr.map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
       const grade = gm2 ? titleCaseGrade(gm2[0]) : "";
-      const booktype = /(^|[\s_])(tg|teacher)/i.test(base) ? "Teacher's Guide" : "Learner's Book";
+      const booktype = isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book";
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -4389,6 +4523,10 @@ function normaliseQuestionMarkBold(blocks) {
       covInk: orig.ink, covRulec: orig.rulec,
     });
   }
+  // Last content pass: push every mark allocation flush against the text column's
+  // right edge (house style — see splitMarksToFr). Must run after every pass that
+  // still expects a plain `.t` string on each segment in a run.
+  applyMarkFlushRight(blocks);
   const tmpl = fs.readFileSync(path.join(__dirname, "generic-template.typ"), "utf8");
   // Inject the theme dict ABOVE the template so its functions capture it.
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;

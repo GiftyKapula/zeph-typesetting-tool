@@ -1160,6 +1160,18 @@
   ]
 ]
 #let seg(s) = {
+  // A zero-content "fill to the edge" marker (see splitMarksToFr in typeset-docx.js):
+  // inserted right before every mark-allocation bracket ("[1]", "[2 marks]") so the
+  // bracket sits flush against the right edge of the text column instead of glued
+  // right after the sentence — the fractional space consumes whatever room is left
+  // on the current line, pushing the bracket to the end of it and wrapping whatever
+  // comes after onto a fresh line, exam-paper style.
+  if s.at("fr", default: false) { return h(1fr) }
+  // Forces the text after a MID-sentence mark bracket onto a fresh line (see
+  // splitMarksToFr) — a plain fr-space alone only visibly pushes to the edge when
+  // it's already the last thing on the line; with more real text still to come on
+  // the SAME line, Typst just collapses it to near-zero instead of breaking.
+  if s.at("brk", default: false) { return linebreak() }
   // A math segment carries Typst math source (converted from Word's equations);
   // render it as a real formula. display = a LEFT-aligned block equation, with roomy
   // spacing above/below so consecutive equations have breathing space between them.
@@ -1207,7 +1219,27 @@
     if s.at("u", default: false) { underline(evade: false, offset: 0.12em)[#styled] } else { styled }
   }
 }
-#let segs(ss) = ss.map(seg).join()
+// A dedicated "\n"-only seg (no other content) marks a fold-in line break between
+// two originally-separate paragraphs (e.g. each step of a worked answer joined into
+// one highlighted "Possible answer:" run). A bare linebreak() there uses the
+// document's fixed par leading (0.66em, tuned for plain text) with no allowance for
+// a TALL inline formula — a stacked fraction ("Ek = 1/2 × 4 × 12²") on either side of
+// the break then collides with the adjacent line's glyphs instead of sitting cleanly
+// below/above it (seen on the Physics Form 2 TG's Exercise 2, item 2(b): the fraction
+// bar of one line overlapped the numerator "1" of the next). Widen just that one
+// break with a little extra vertical space whenever either neighbouring seg carries
+// inline (non-display) math, since a plain-text-only run already fits the fixed
+// leading and doesn't need it.
+#let segs(ss) = {
+  let inlineMath(s) = s != none and s.at("m", default: false) and not s.at("display", default: false)
+  ss.enumerate().map(((i, s)) => {
+    if s.at("t", default: none) == "\n" and not s.at("m", default: false) {
+      let prev = if i > 0 { ss.at(i - 1) } else { none }
+      let next = if i + 1 < ss.len() { ss.at(i + 1) } else { none }
+      if inlineMath(prev) or inlineMath(next) { v(4pt, weak: true); linebreak() } else { seg(s) }
+    } else { seg(s) }
+  }).join()
+}
 // Render a run of segments where any DISPLAY-math segment becomes its own centred
 // block instead of being wrapped in a paragraph — a bare block swallowed inside
 // par[...] renders empty, which is why equations sitting on their own line came out
@@ -1463,6 +1495,10 @@
   }
 }
 #let subhead(t) = {
+  // Every Sub-Topic starts its own fresh page, same house-style rule as Topics
+  // (topicbanner above) — a Sub-Topic heading must never land as a widow at the
+  // foot of the page its parent Topic's overview text happened to fill.
+  pagebreak(weak: true)
   // Sub-topics are omitted from a units-only contents page.
   if not tocUnitsOnly { mark(2, t) }
   v(7pt, weak: true)
@@ -1554,6 +1590,11 @@
 // overflowing the bottom margin (which clips/jumbles the text). Pass
 // `breakable: false` only for a short box that must stay whole.
 #let titledbox(title, kind, content, breakable: true) = {
+  // Headings/box titles are conventionally never hyphenated in print — a long
+  // word wrapping mid-title (e.g. "ACAP-PELLA") reads as broken even though the
+  // break itself is a valid hyphenation point, since a reader expects a title's
+  // words to stay whole. Disable it here once rather than per style branch below.
+  let title = text(hyphenate: false)[#title]
   if boxstyle == "labcard" {
     // Chemistry callout: a clean rounded card. A solid full-width title band in the
     // kind colour caps the card (white title); the body sits on a light tint below.
@@ -2026,8 +2067,29 @@
       // by depth so follow-up parts (a, b, c…) sit under their parent question.
       let pad = it.depth * 16pt
       let aseg = it.at("aseg", default: ())
-      grid(columns: (pad, 22pt, 1fr), column-gutter: (0pt, 6pt), align: (left + top, right + top, left + top),
-        [], [#it.marker], [#richflow(it.at("qseg", default: ()), it.q) #context if show-answers.get() and (it.a != "" or aseg.len() > 0) [ \ #answer(aseg, it.a) ]])
+      let qseg = it.at("qseg", default: ())
+      // A top-level marker with NO question text of its own — the manuscript wrote
+      // "1. (a) <answer text>" with nothing between the number and its first
+      // sub-part, so the fold in import-docx.js hangs the whole lettered answer
+      // off the empty top as its `a`/`aseg` — must not force a blank first line
+      // before the answer: the old unconditional leading `\` left "1." stranded
+      // alone with an empty gap above "Possible answer:" on the next line.
+      let hasQ = it.q != "" or qseg.len() > 0
+      let body = if hasQ {
+        [#richflow(qseg, it.q) #context if show-answers.get() and (it.a != "" or aseg.len() > 0) [ \ #answer(aseg, it.a) ]]
+      } else {
+        [#context if show-answers.get() and (it.a != "" or aseg.len() > 0) [#answer(aseg, it.a)]]
+      }
+      // A combined top+sub marker ("1. a)", the manuscript's own "1. (a) …" glued
+      // onto one line — see the tmSub case in import-docx.js) is too wide for the
+      // fixed 22pt gutter every plain "a)"/"1." marker fits in — a bare `text(...)`
+      // that doesn't fit its grid cell WRAPS inside that narrow cell instead of
+      // overflowing, so "1." and "a)" landed on two separate lines with nothing in
+      // the body column beside the second one. Widen the gutter for just this row
+      // when the marker is longer than a plain single marker ever is.
+      let mkw = if it.marker.len() > 3 { 36pt } else { 22pt }
+      grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, right + top, left + top),
+        [], [#it.marker], body)
       v(T.at("qgap", default: 3pt))
     }
   }
