@@ -43,10 +43,19 @@ const zwspBlanks = (t) => t.replace(/_+/g, (run) => {
 // math source (m: true) rendered via eval(mode: "math"); display: true is a
 // block equation.
 const segArr = (segs) => arr(segs, (s) =>
-  s.m ? `(m: true, display: ${s.display ? "true" : "false"}, t: ${S(s.t)})`
+  s.fr ? `(fr: true)`
+  : s.brk ? `(brk: true)`
+  : s.m ? `(m: true, display: ${s.display ? "true" : "false"}, t: ${S(s.t)})`
       : `(t: ${S(zwspBlanks(s.t))}, b: ${s.b ? "true" : "false"}, it: ${s.it ? "true" : "false"}, c: ${s.c ? S(s.c) : "none"}${s.u ? ", u: true" : ""}${s.hw ? ", hw: true" : ""}${s.mono ? ", mono: true" : ""})`);
 
 const strArr = (a) => arr(a, S);
+// A box title/heading is USUALLY plain text (-> a Typst string literal via S()).
+// But when the title paragraph carried a real embedded equation, import-docx.js
+// hands through the paragraph's original formatted segs (`*Segs`) instead of the
+// flattened plain mirror — render those with the template's `segs()` (the same
+// math-aware per-segment renderer a normal paragraph body uses) so the equation
+// typesets instead of its raw Typst math source leaking onto the page as text.
+const titleContent = (text, segs) => (segs && segs.length) ? `segs(${segArr(segs)})` : S(text);
 // A multi-column word-list grid built from space-separated columns (see columnizeLists).
 // rows: [{ marker, cells:[...], style }]. Emits marker + cells for the Typst colgrid.
 const colgridArg = (b) => `rows: ${arr(b.rows, (r) => `(marker: ${S(r.marker || "")}, cells: ${strArr(r.cells)})`)}, ncol: ${b.ncol}, hasMarker: ${b.hasMarker ? "true" : "false"}${b.header ? `, header: ${strArr(b.header)}` : ""}`;
@@ -234,11 +243,11 @@ function emit(blocks) {
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
-      case "activity": out += `#activity(${S(b.title)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
+      case "activity": out += `#activity(${titleContent(b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "fact": out += `#fact(${bodyArr(b.body)})\n`; break;
-      case "keypoints": out += `#keypoints(${b.title ? S(b.title) : "none"}, ${strArr(b.points)})\n`; break;
-      case "exercise": out += `#exercise(${S(b.heading)}, ${partsArr(b.parts || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
-      case "assessment": out += `#assessment(${S(b.title)}, ${strArr(b.intro || [])}, ${partsArr(b.parts || [])}, ${strArr(b.extra || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
+      case "keypoints": out += `#keypoints(${b.title ? titleContent(b.title, b.titleSegs) : "none"}, ${strArr(b.points)})\n`; break;
+      case "exercise": out += `#exercise(${titleContent(b.heading, b.headingSegs)}, ${partsArr(b.parts || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
+      case "assessment": out += `#assessment(${titleContent(b.title, b.titleSegs)}, ${strArr(b.intro || [])}, ${partsArr(b.parts || [])}, ${strArr(b.extra || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "box": out += `#genericbox(${bodyArr(b.body)})\n`; break;
       case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
@@ -267,6 +276,20 @@ function titleCase(s) {
   const small = new Set(["and", "of", "the", "in", "to", "for", "a"]);
   return s.toLowerCase().split(/\s+/).map((w, i) =>
     (i > 0 && small.has(w)) ? w : w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+}
+// Title-case a "form|grade \d+"-shaped match, but first make sure the word and
+// the digit are actually separated. The matching regexes deliberately tolerate
+// a missing space (`\s*`, not `\s+`) so a filename like "PHYSICS.FORM2.ZEPH…"
+// still gets recognised as Form 2 — but titleCase() alone doesn't insert one,
+// so the un-spaced match rode straight through to the synthesised cover ("Form2")
+// and the output folder name ("output/Form2/…"). Worse, downstream code that
+// reads the grade back OFF the cover (the running-header "Form N …" pill) matches
+// with `\s+` and requires the space, so a spaceless "Form2" failed that match
+// silently and fell back to the theme's hardcoded "Form 4" placeholder — wrong for
+// every Form 1-3 book sharing that theme. Normalising the space in HERE, once, at
+// the source keeps every reader of the grade string correct.
+function titleCaseGrade(s) {
+  return titleCase(s.replace(/^(form|grade)(\d)/i, "$1 $2"));
 }
 
 // For the ZEPH "series" layout, restructure the front matter to match the house
@@ -525,8 +548,25 @@ function dedupeAdjacentHeadings(blocks) {
 // its text is kept but it stops polluting the TOC / forcing a page break.
 function fixStrayBodyH1s(blocks) {
   const UNIT = /^(TOPIC|UNIT|CHAPTER|CHIBALU|CIPATI)\b/i;
-  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+BOOK)?|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
-  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim());
+  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
+  // FRONTBACK requires an EXACT match end-to-end, which is right for most of its
+  // entries (a stray body h1 could otherwise dodge demotion by coincidentally
+  // starting with "Introduction" or "Preface"). But ACRONYMS and (KEY/GENERAL)
+  // COMPETENCES sections are routinely titled with the manuscript's own trailing
+  // words ("ACRONYMS AND ABBREVIATIONS", "GENERAL COMPETENCES TO BE DEVELOPED"
+  // — as this Physics book does) rather than the bare "ACRONYMS"/"KEY COMPETENCES"
+  // FRONTBACK expects, so the exact-match check demoted a genuine front-matter
+  // section to h2 (losing its own page) purely because of the extra words. These
+  // two are safe to match leniently by their lead phrase — the same tolerance the
+  // FM/FM_SECTION front-matter regexes elsewhere already give ACRONYMS.
+  const FRONTBACK_LEAD = /^(LIST OF )?ACRONYMS\b|^(GENERAL|KEY)\s+COMPETEN\w*\b/i;
+  // A back-matter "Scheme of Work" appendix (a term/week-by-week teaching-plan table,
+  // standard in CDC-aligned Teacher's Guides) is routinely titled with the book's own
+  // name prefixed ("FORM 1 FOOD AND NUTRITION – SAMPLE SCHEME OF WORK"), so — like
+  // ACRONYMS/COMPETENCES above — match it by its trailing phrase rather than requiring
+  // an exact whole-string match.
+  const FRONTBACK_TRAIL = /SCHEME\s+OF\s+WORK$/i;
+  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim()) && !FRONTBACK_LEAD.test((b.text || "").trim()) && !FRONTBACK_TRAIL.test((b.text || "").trim());
   const seen = new Set();
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
@@ -845,16 +885,30 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   const isUnit = (x) => x.t === "h1" && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "");
   // Front-matter section names — English plus local-language equivalents
   // (e.g. Lunda: ANSONEKI=Authors, MAZU ATACHI=Foreword, KULEMA …WUNU=Preface,
-  // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction).
-  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^KEY COMPETENCES|^(LIST OF )?ACRONYMS\b|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction). "HOW TO USE THIS
+  // GUIDE/BOOK", "ABBREVIATIONS" and a "SUGGESTED TEACHING METHODOLOGY" list
+  // are common Teacher's-Guide front-matter sections too, often typed with
+  // direct bold/size formatting instead of a named Word Heading style (a
+  // manuscript that styles most of its front matter properly can still slip
+  // into hand-formatting for one or two sections) — without recognising them
+  // here they fall through as a plain bold `head` block that looks like a
+  // heading but never gets its own page or a Table of Contents entry.
+  // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
+  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
-  // own page. Accept label/head AND listitem/para blocks.
+  // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
+  // sometimes styles a front-matter section as a Word "Heading2" (inconsistent with
+  // its own Heading1 use elsewhere for Authors/Foreword/etc.), which the importer
+  // takes at face value and emits as an h2/h3 sub-head block. Left unpromoted, that
+  // heading renders as a plain in-flow sub-head with no page break before it — so it
+  // silently lands wherever the preceding section's text happens to end, stranded at
+  // the foot of that page instead of starting its own.
   const fmText = (x) => (x.segs ? x.segs.map((s) => s.t).join("") : (x.text || "")).trim();
   const firstUnit0 = blocks.findIndex(isUnit);
   let b = blocks.map((x, i) =>
     (firstUnit0 < 0 || i < firstUnit0) && !x.noPromote &&
-    (x.t === "label" || x.t === "head" || x.t === "listitem" || x.t === "para") &&
+    (x.t === "label" || x.t === "head" || x.t === "listitem" || x.t === "para" || x.t === "h2" || x.t === "h3") &&
     FM.test(fmText(x))
       ? { t: "h1", text: fmText(x) } : x);
   // we place our own table of contents, so drop any auto/imported one
@@ -996,12 +1050,21 @@ const segKey = (b) => (b.segs ? "segs" : b.qseg ? "qseg" : null);
 // Plain text of a block. Figure/table captions live on an image block's `caption`
 // (or, for side-by-side rows, on each `images[].caption`), so surface those too —
 // otherwise an override can never reach a caption's text (e.g. a mis-numbered "Fig. N:").
+// A Learning Activity/Exercise/Assessment BOX's own title lives on `.title`
+// (activity/assessment) or `.heading` (exercise) — a plain string field the box
+// itself carries, separate from the `.body`/`.parts` content nested inside it.
+// `recase` already had to special-case this (see its own comment); surfacing it
+// here too lets every other text-editing override (`edit`, `editAll`, …) reach a
+// typo in a box's own title instead of silently no-op'ing on it.
+const titleKey = (b) => (b.t === "exercise" ? "heading" : (b.t === "activity" || b.t === "assessment") ? "title" : null);
 const blockPlain = (b) => {
   const k = segKey(b);
   if (k) return b[k].map((s) => s.t).join("");
   if (typeof b.text === "string" && b.text) return b.text;
   if (typeof b.caption === "string") return b.caption;
   if (b.t === "imagerow" && Array.isArray(b.images)) return b.images.map((im) => im.caption || "").join(" ");
+  const tk = titleKey(b);
+  if (tk && typeof b[tk] === "string") return b[tk];
   return "";
 };
 function setBlockText(b, text) {
@@ -1030,6 +1093,8 @@ function editBlockText(b, find, repl) {
     if (b.t === "imagerow" && Array.isArray(b.images)) {
       for (const im of b.images) if (typeof im.caption === "string" && im.caption.includes(find)) { im.caption = im.caption.replace(find, repl); return; }
     }
+    const tk = titleKey(b);
+    if (tk && typeof b[tk] === "string" && b[tk].includes(find)) { b[tk] = b[tk].replace(find, repl); return; }
     return;
   }
   const full = b[k].map((s) => s.t).join("");
@@ -1044,10 +1109,42 @@ function editBlockText(b, find, repl) {
     const pre = s.t.slice(0, Math.max(0, start - segStart));
     const post = s.t.slice(Math.max(0, end - segStart));
     if (pre) out.push({ ...s, t: pre });
-    if (!inserted && repl) { out.push({ t: repl, b: false, it: false, c: null }); inserted = true; }
+    // Keep THIS run's own styling (bold/italic/colour) on the replacement text
+    // instead of resetting it to plain — a substring replaced inside an
+    // italicised (or bold/coloured) run must stay italic, not revert to plain.
+    if (!inserted && repl) { out.push({ ...s, t: repl }); inserted = true; }
     if (post) out.push({ ...s, t: post });
   }
   b[k] = out.filter((s) => s.t !== "");
+}
+// Like editBlockText, but targets a qa PART'S OWN ANSWER (`.a`/`.aseg`) instead of its
+// question (`.qseg`/`.text`) — `segKey()`/`blockPlain()` never look at the answer side,
+// so `edit`/`editAll` can't reach it. Needed for a stray leftover option letter the
+// manuscript's own answer text carries (e.g. "C use of basso continuo" on a question
+// that isn't even a lettered multiple-choice), which lives only in this field.
+function editBlockAnswerText(b, find, repl) {
+  if (Array.isArray(b.aseg) && b.aseg.length) {
+    const full = b.aseg.map((s) => s.t).join("");
+    const start = full.indexOf(find);
+    if (start < 0) return false;
+    const end = start + find.length;
+    const out = [];
+    let pos = 0, inserted = false;
+    for (const s of b.aseg) {
+      const segStart = pos, segEnd = pos + s.t.length; pos = segEnd;
+      if (segEnd <= start || segStart >= end) { out.push(s); continue; }
+      const pre = s.t.slice(0, Math.max(0, start - segStart));
+      const post = s.t.slice(Math.max(0, end - segStart));
+      if (pre) out.push({ ...s, t: pre });
+      // Keep this run's own styling on the replacement (see editBlockText).
+      if (!inserted && repl) { out.push({ ...s, t: repl }); inserted = true; }
+      if (post) out.push({ ...s, t: post });
+    }
+    b.aseg = out.filter((s) => s.t !== "");
+    return true;
+  }
+  if (typeof b.a === "string" && b.a.includes(find)) { b.a = b.a.replace(find, repl); return true; }
+  return false;
 }
 // Per-book editorial overrides, kept in a sidecar `<book>.overrides.json` so the
 // manuscript itself stays pristine:
@@ -1064,7 +1161,8 @@ function allTextBlocks(blocks) {
   const visit = (arr) => {
     for (const b of arr) {
       if (!b || typeof b !== "object") continue;
-      if (b.segs || b.qseg || typeof b.text === "string" || typeof b.caption === "string" || b.t === "imagerow" || b.t === "image") out.push(b);
+      const tk = titleKey(b);
+      if (b.segs || b.qseg || typeof b.text === "string" || typeof b.caption === "string" || b.t === "imagerow" || b.t === "image" || (tk && typeof b[tk] === "string")) out.push(b);
       for (const k of Object.keys(b)) {
         if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" &&
             (x.segs || x.qseg || typeof x.text === "string" || x.body || x.parts))) visit(b[k]);
@@ -1347,11 +1445,17 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     if (!done) console.warn("!  deleteRun not matched:", dr.from, "..", dr.to);
   }
-  // editCell: [{ find, with }] — rewrite TABLE CELLS whose whole trimmed text === find.
-  // Table cells live in a block's `rows` (array of rows, each an array of {text,imgs})
-  // and are NOT reached by the paragraph/heading overrides (allTextBlocks skips them),
-  // so a header typo inside a table — e.g. a stray capital in a fill-in header ("O"->"o",
-  // "Oe"->"oe") — needs this. Rewrites every matching cell at any depth. Preserves imgs.
+  // editCell: [{ find, with }] — rewrite TABLE CELLS whose whole trimmed text === find,
+  // or (falling back) a substring found inside a cell's text. Table cells live in a
+  // block's `rows` (array of rows, each an array of {text,imgs[,segs]}) and are NOT
+  // reached by the paragraph/heading overrides (allTextBlocks skips them), so a header
+  // typo inside a table — e.g. a stray capital in a fill-in header ("O"->"o", "Oe"->"oe")
+  // — needs this. Rewrites every matching cell at any depth. Preserves imgs.
+  // A cell with mixed formatting (e.g. a bold title over italic answer lines, all in one
+  // cell — some manuscripts wrap a whole callout box in a 1-cell table) carries that
+  // styling in `cell.segs`, which rendering prefers over the plain `cell.text`; a `find`
+  // that isn't the cell's WHOLE text also gets rewritten there, run-by-run, so the fix
+  // actually shows up in the PDF instead of silently no-op'ing on the still-styled cell.
   for (const ec of ov.editCell || []) {
     let n = 0;
     const walkT = (arr) => {
@@ -1359,7 +1463,15 @@ function applyOverrides(blocks, ov) {
         if (!b || typeof b !== "object") continue;
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
-            if (cell && typeof cell.text === "string" && cell.text.trim() === ec.find) { cell.text = ec.with; n++; }
+            if (!cell || typeof cell.text !== "string") continue;
+            if (cell.text.trim() === ec.find) { cell.text = ec.with; n++; continue; }
+            if (cell.text.includes(ec.find)) {
+              cell.text = cell.text.split(ec.find).join(ec.with);
+              if (Array.isArray(cell.segs)) {
+                for (const s of cell.segs) if (typeof s.t === "string" && s.t.includes(ec.find)) s.t = s.t.split(ec.find).join(ec.with);
+              }
+              n++;
+            }
           }
         }
         for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
@@ -1550,12 +1662,25 @@ function applyOverrides(blocks, ov) {
   // heading), matched by their fixed opening words so every trailing variant is caught.
   const toTitle = (s) => s.toLowerCase().split(/(\s+)/).map((w) => w ? w.charAt(0).toUpperCase() + w.slice(1) : w).join("");
   const toSentence = (s) => { const t = s.toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
+  const recased = (s, to) => to === "sentence" ? toSentence(s) : to === "upper" ? s.toUpperCase() : toTitle(s);
   for (const rc of ov.recase || []) {
     let n = 0;
     for (const b of flat) {
       if (!(b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)) || typeof b.text !== "string") continue;
       if (!b.text.trim().toUpperCase().startsWith(rc.startsWith.toUpperCase())) continue;
-      b.text = rc.to === "sentence" ? toSentence(b.text.trim()) : toTitle(b.text.trim());
+      b.text = recased(b.text.trim(), rc.to);
+      n++;
+    }
+    // Learning Activity / Exercise / Assessment BOX titles live on `.title`/`.heading`,
+    // a field allTextBlocks() never surfaces into `flat` (see its own comment) — a
+    // manuscript can leave some boxes ALL-CAPS and others in Title Case in the very
+    // same book (e.g. "LEARNING ACTIVITY 1" next to "Learning Activity 2:"), so recase
+    // needs to reach these too, not just plain headings.
+    for (const b of blocks) {
+      const key = b.t === "exercise" ? "heading" : (b.t === "activity" || b.t === "assessment") ? "title" : null;
+      if (!key || typeof b[key] !== "string") continue;
+      if (!b[key].trim().toUpperCase().startsWith(rc.startsWith.toUpperCase())) continue;
+      b[key] = recased(b[key].trim(), rc.to);
       n++;
     }
     if (!n) console.warn("!  recase not matched:", rc.startsWith);
@@ -1592,6 +1717,13 @@ function applyOverrides(blocks, ov) {
     let n = 0;
     for (const b of flat) if (blockPlain(b).includes(e.find)) { editBlockText(b, e.find, e.with || ""); n++; }
     if (!n) console.warn("!  editAll not matched:", e.find);
+  }
+  // editAnswer: [{ find, with }] — like editAll, but rewrites every qa part's ANSWER
+  // text (`.a`/`.aseg`) rather than its question — see editBlockAnswerText().
+  for (const e of ov.editAnswer || []) {
+    let n = 0;
+    for (const b of flat) if (editBlockAnswerText(b, e.find, e.with || "")) n++;
+    if (!n) console.warn("!  editAnswer not matched:", e.find);
   }
   // unbold: ["exact run text", …] — drop bold from any run whose trimmed text equals the
   // entry (mirror of `unitalic`). Used where the author flagged "REMOVE BOLD" on a word/
@@ -2565,6 +2697,43 @@ function replaceTableRows(blocks, match, rows) {
   return false;
 }
 
+// "Phd" for the academic title is a recurring manuscript typo (the author capitalises
+// only the first letter, as if it were an ordinary word) seen across unrelated books,
+// not a one-off — normalise it everywhere, in every run of every text-bearing block,
+// rather than patching it per book via an override. Word-bounded so it can't touch a
+// legitimate word that merely contains "phd" as a substring (there isn't one, but the
+// boundary costs nothing and documents the intent).
+function fixPhdCapitalisation(blocks) {
+  for (const b of allTextBlocks(blocks)) {
+    const k = segKey(b);
+    if (k) { for (const s of b[k]) if (typeof s.t === "string" && /\bPhd\b/.test(s.t)) s.t = s.t.replace(/\bPhd\b/g, "PhD"); }
+    else if (typeof b.text === "string" && /\bPhd\b/.test(b.text)) b.text = b.text.replace(/\bPhd\b/g, "PhD");
+  }
+}
+// "Acappella"/"acappella" (run together as one word) is a recurring spelling slip for
+// "a cappella" — a genuine two-word term, not book-specific vocabulary — so normalise
+// it everywhere the same way as the PhD fix above, rather than as a per-book override.
+function fixACappellaSpacing(blocks) {
+  const fix = (t) => t.replace(/\bAcappella\b/g, "A cappella").replace(/\bacappella\b/g, "a cappella");
+  // A run that IS an MCQ option letter on its own ("A. ", "B) ", …) sitting right
+  // before "Acappella" means the word itself is one lettered option in a list
+  // whose siblings (Choir, Duet, Trio, …) are each a single word — splitting only
+  // this one into two breaks that parallelism and reads as a doubled "A. A
+  // cappella". Leave the option text alone in that one case; every other
+  // occurrence (prose, glossary) still gets the correct two-word spelling.
+  const isOptionMarker = (s) => typeof s === "string" && /^\n?\(?[A-Da-d][.)]\s*$/.test(s);
+  for (const b of allTextBlocks(blocks)) {
+    const k = segKey(b);
+    if (k) {
+      b[k].forEach((s, i) => {
+        if (typeof s.t !== "string" || !/acappella/i.test(s.t)) return;
+        if (isOptionMarker(i > 0 ? b[k][i - 1].t : null)) return;
+        s.t = fix(s.t);
+      });
+    }
+    else if (typeof b.text === "string" && /acappella/i.test(b.text)) b.text = fix(b.text);
+  }
+}
 // In an ACRONYMS section, manuscripts align "ABBR    Full Word" with spaces/tabs.
 // Render them as "ABBR: Full Word" (bold abbreviation, colon, then the full form).
 function reformatAcronyms(blocks) {
@@ -2663,7 +2832,12 @@ function formatGlossary(blocks) {
       // ("Activity – A task…") — the manuscript bolded some terms so the importer
       // read them as heads — is converted to a normal entry and the glossary
       // continues. Any OTHER heading (a genuine new section) ends the glossary.
-      if (inGloss && ENTRY.test(full) && full.length <= 200) { toEntry(b, full.match(ENTRY)); continue; }
+      // A misread bolded term lands as h2/head/label (the "small bold line reads as
+      // a heading" heuristic), never a real h1 — so exclude h1 from this coincidental-
+      // shape fallback: a genuine top-level section (e.g. a back-matter "… – SAMPLE
+      // SCHEME OF WORK" appendix) can easily match the "Term – meaning" shape by pure
+      // accident of wording and must never be swallowed as a glossary entry.
+      if (inGloss && b.t !== "h1" && ENTRY.test(full) && full.length <= 200) { toEntry(b, full.match(ENTRY)); continue; }
       inGloss = false;
       continue;
     }
@@ -2773,7 +2947,7 @@ function reorderBackmatter(blocks) {
 // no separate line for a name at all — the very next paragraph there is unrelated
 // real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
 // non-empty block" would destroy that section instead of crediting anyone.
-const LAYOUT_CREDIT = "Ng`ambi Teddy";
+const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
 function fillLayoutCredit(blocks) {
   const LABEL = /cover\s+and\s+book\s+layout/i;
   // Another front-matter label (ends with a colon, or a known "…by:" line) — never a
@@ -3000,9 +3174,31 @@ function ensureOrIndividually(blocks) {
             for (let i = 0; i < sub.segs.length; i++) {
               const s = sub.segs[i];
               if (s && typeof s.t === "string") {
-                s.t = s.t.replace(/\b(in\s+(small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)(\s*,?\s*)(?!or\s+individually)/gi, (match, p1) => {
-                  return `${p1} or individually `;
-                });
+                // The guard used to be `(\s*,?\s*)(?!or\s+individually)`: a GREEDY
+                // whitespace group sitting right before the negative lookahead. On
+                // text that already said "...groups or individually", the regex
+                // engine would first try consuming that whitespace, see the lookahead
+                // fail, then BACKTRACK the greedy group down to zero characters —
+                // at which point the lookahead is checked one position too early
+                // (right after "groups", before the space), where the literal "or
+                // individually" doesn't immediately follow, so the guard passed
+                // anyway and "or individually" got appended a second time. Moving
+                // the lookahead onto the phrase itself (nothing left to backtrack)
+                // and letting it tolerate the optional whitespace/comma fixes that;
+                // it also stops eating a comma the author had after "groups".
+                //
+                // That per-phrase lookahead still isn't enough when a sentence already
+                // lists all three modes together up front, e.g. "Work individually, in
+                // pairs or in groups using a toy car…" — "individually" there sits
+                // nowhere near "in pairs" or "in groups", so each of those two triggers
+                // independently passed the lookahead and both got "or individually"
+                // appended, producing "in pairs or individually or in groups or
+                // individually…". House style only needs ONE "individually" per
+                // sentence/segment, so skip the whole segment once it already contains
+                // the word anywhere, rather than checking only right after each trigger.
+                if (!/\bindividually\b/i.test(s.t)) {
+                  s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
+                }
                 if (s.t.trimEnd().endsWith("individually")) {
                   s.t = s.t.trimEnd() + " ";
                 }
@@ -3054,6 +3250,15 @@ function columnizeLists(blocks) {
     // guard: a normal sentence with one stray double-gap shouldn't columnize —
     // require every chunk to be short (a word list), not prose
     if (parts.some((p) => p.length > 22 || p.trim().split(/\s+/).length > 4)) return null;
+    // guard: a cell that's NOTHING but a mark-allocation bracket ("[1]") isn't a
+    // real data column — it's a manuscript's own manual spacing to shove a mark
+    // over to the right (the exact pattern glueMarkTail/splitMarksToFr already
+    // collapse into a proper flush-right mark elsewhere). Reading it as tabular
+    // data instead dropped the row out of the exercise's own italic/indented
+    // qaparts styling entirely and into a plain, unstyled, non-flush-right grid
+    // cell (Physics Form 2 TG's Exercise 3: "Heat (thermal energy)     [1]" /
+    // "Sound energy     [1]" rendered as a bare two-column table).
+    if (parts.some((p) => MARK_BRACKET.test(p) && !p.replace(MARK_BRACKET, "").trim())) return null;
     // Derive the row marker consistently: prefer the block's own list marker; else if
     // the first cell starts with a number ("1. Bright light"), lift that number out as
     // the marker so it aligns in the marker column like the other rows.
@@ -3137,6 +3342,28 @@ function columnizeLists(blocks) {
   };
   walk(blocks, false);
 }
+// A mark allocation ("[2]", "[1 mark]") reads as an orphan when it wraps alone onto
+// a new line with nothing visibly attaching it to the sentence it scores — which a
+// plain breakable space invites the moment the line is nearly full. Glue it to
+// whatever immediately precedes it with a NON-breaking space instead, so it always
+// travels down together with the last word rather than isolated on its own line.
+const MARK_BRACKET = /\[\s*\d+(?:\s*marks?)?\s*\]/i;
+// Some manuscripts type the mark bracket with NO space at all before it ("...good
+// conductor of heat.[1] It transfers...", "...gained kinetic energy,[1] moved...") -
+// the old regex only fired when a space/tab was already there to collapse, so a
+// directly-glued bracket like that sailed straight through untouched. Match the
+// bracket with its (possibly EMPTY) run of leading whitespace and always normalise
+// to exactly one non-breaking space, except right at the start of the string - a
+// mark bracket opening a seg is a deliberate join point another pass glues in from
+// the previous seg/paragraph, not a spot to inject a stray leading space of our own.
+const glueMarkTail = (t) => t.replace(/([ \t]*)(\[\s*\d+(?:\s*marks?)?\s*\])/gi,
+  (m, sp, bracket, offset) => offset === 0 ? bracket : " " + bracket);
+// House style: a mark allocation sits flush against the right edge of the text
+// column, not glued inline right after the sentence — see splitMarksToFr below,
+// which runs last (right before the Typst source is built) and turns the single
+// glued space this function leaves before each bracket into a `{fr: true}` filler
+// segment the template renders as `h(1fr)`, consuming the rest of the current
+// line so the bracket lands at its edge and whatever follows wraps to a new line.
 function normaliseSpacing(blocks) {
   const fix = (segs) => {
     if (!Array.isArray(segs) || !segs.length) return;
@@ -3144,11 +3371,22 @@ function normaliseSpacing(blocks) {
     while (segs.length && typeof segs[0].t === "string" && /^\s+$/.test(segs[0].t) && segs.length > 1) segs.shift();
     for (const s of segs) {
       if (!s || typeof s.t !== "string") continue;
-      s.t = s.t.replace(/[ \t]{3,}/g, " ").replace(/\t/g, " ");
+      s.t = glueMarkTail(s.t.replace(/[ \t]{3,}/g, " ").replace(/\t/g, " "));
     }
     if (typeof segs[0].t === "string") segs[0].t = segs[0].t.replace(/^[ \t]+/, "");
     const last = segs[segs.length - 1];
     if (last && typeof last.t === "string") last.t = last.t.replace(/[ \t]+$/, "");
+    // A mark can also land in its OWN seg right after a formatting boundary (e.g. the
+    // sentence in one run, "[2]" in the next) — glueMarkTail only sees inside one seg,
+    // so also glue across a seg boundary when one seg ends in a bare space and the
+    // next begins with the mark bracket.
+    for (let k = 0; k < segs.length - 1; k++) {
+      const cur = segs[k], nxt = segs[k + 1];
+      if (!cur || !nxt || typeof cur.t !== "string" || typeof nxt.t !== "string") continue;
+      if (/ $/.test(cur.t) && MARK_BRACKET.test(nxt.t.replace(/^[ \t]+/, "").slice(0, 20)) && /^[ \t]*\[/.test(nxt.t)) {
+        cur.t = cur.t.replace(/ $/, " ");
+      }
+    }
   };
   const walk = (arr) => {
     for (const b of arr) {
@@ -3156,8 +3394,84 @@ function normaliseSpacing(blocks) {
       if (Array.isArray(b.segs)) fix(b.segs);
       if (Array.isArray(b.qseg)) fix(b.qseg);
       if (Array.isArray(b.s)) fix(b.s);
-      if (typeof b.q === "string") b.q = b.q.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
-      if (typeof b.text === "string") b.text = b.text.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
+      // An exercise/assessment answer (`aseg`/`a`) is rendered inside `highlight()` (the
+      // "Possible answer" callout) — an author who padded the answer with a long run of
+      // literal spaces to hand-align a trailing mark ("...m/s²)          [2]") gets that
+      // run highlighted right along with the text, rendering as a bare colour bar with
+      // nothing in it, often bleeding well past the box into the margin. `segs`/`qseg`/`s`
+      // already get this same space-collapsing; `aseg`/`a` need it too.
+      if (Array.isArray(b.aseg)) fix(b.aseg);
+      if (typeof b.q === "string") b.q = glueMarkTail(b.q.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
+      if (typeof b.text === "string") b.text = glueMarkTail(b.text.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
+      if (typeof b.a === "string") b.a = glueMarkTail(b.a.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
+// Split every segment carrying a mark-allocation bracket into pieces around that
+// bracket, with a `{fr: true}` filler segment (seg() in generic-template.typ
+// renders it as `h(1fr)`) inserted right before it — consuming whatever room is
+// left on the CURRENT line so the bracket lands flush against the column's right
+// edge and whatever text follows it wraps onto a fresh line, exam-paper style.
+// normaliseSpacing() above already guaranteed exactly one glued space (or none,
+// at a segment's own start) immediately before every bracket; that leading space
+// is dropped here since the fractional space replaces it visually. Must run LAST,
+// once no further pass needs every segment to carry a plain `.t` string — several
+// earlier passes (splitAnswerLabels, normaliseQuestionMarkBold, box detection…)
+// read `.t` on every segment in a run.
+const MARK_BRACKET_G = /[ \t]?\[\s*\d+(?:\s*marks?)?\s*\]/gi;
+function splitMarksToFr(segs) {
+  if (!Array.isArray(segs)) return segs;
+  // First pass: flatten into a linear stream of {mark:false, seg} text pieces and
+  // {mark:true, seg} bracket pieces, in order, across every original segment —
+  // needed so the second pass can tell whether a bracket has any REAL text still
+  // to come anywhere later in the run, not just later within its own segment.
+  const pieces = [];
+  for (const s of segs) {
+    if (!s || typeof s.t !== "string" || s.m || !MARK_BRACKET.test(s.t)) { pieces.push({ mark: false, seg: s }); continue; }
+    let last = 0, m;
+    MARK_BRACKET_G.lastIndex = 0;
+    while ((m = MARK_BRACKET_G.exec(s.t))) {
+      const before = s.t.slice(last, m.index);
+      if (before) pieces.push({ mark: false, seg: { ...s, t: before } });
+      pieces.push({ mark: true, seg: { ...s, t: m[0].replace(/^[ \t]+/, "") } });
+      last = m.index + m[0].length;
+    }
+    const rest = s.t.slice(last);
+    if (rest) pieces.push({ mark: false, seg: { ...s, t: rest } });
+  }
+  // Second pass: a mark with more real (non-whitespace) text still coming later in
+  // the run forces a line break right after it — so it always lands at the column's
+  // edge with whatever follows starting fresh below it, even mid-sentence — while a
+  // mark that's the last real content just gets the flush-right treatment with no
+  // break (no trailing blank line under the final mark of an answer).
+  const out = [];
+  for (let i = 0; i < pieces.length; i++) {
+    const p = pieces[i];
+    if (!p.mark) { out.push(p.seg); continue; }
+    out.push({ fr: true });
+    out.push(p.seg);
+    const hasMoreText = pieces.slice(i + 1).some((q) => !q.mark && (q.seg.t || "").trim());
+    if (hasMoreText) {
+      out.push({ brk: true });
+      // Drop the leading space the manuscript had between the bracket and the next
+      // word (it belonged to the old inline layout) — the forced break already
+      // starts a fresh line, so that space would otherwise indent the line's start.
+      const nxt = pieces[i + 1];
+      if (nxt && !nxt.mark && typeof nxt.seg.t === "string") nxt.seg = { ...nxt.seg, t: nxt.seg.t.replace(/^[ \t]+/, "") };
+    }
+  }
+  return out;
+}
+function applyMarkFlushRight(blocks) {
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.segs)) b.segs = splitMarksToFr(b.segs);
+      if (Array.isArray(b.qseg)) b.qseg = splitMarksToFr(b.qseg);
+      if (Array.isArray(b.s)) b.s = splitMarksToFr(b.s);
+      if (Array.isArray(b.aseg)) b.aseg = splitMarksToFr(b.aseg);
       for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
     }
   };
@@ -3196,13 +3510,28 @@ function splitAnswerLabels(blocks) {
         const m = (s.t || "").match(LABEL_INLINE);
         if (!m) continue;
         const before = s.t.slice(0, m.index);
+        // The label only marks a real inline Q&A split when it follows an actual
+        // question/prompt (ending ., ?, or !) or nothing at all — not when it's mid-
+        // phrase inside the manuscript's own prose. E.g. a "How to Use This Guide" step
+        // labelled "Use possible answers:" (the whole phrase is the manuscript's OWN
+        // bold list-item label) matched here, splitting the sentence-fragment "Use" off
+        // as a bogus question and mangling the plural "answers" to look like an
+        // answer-key tag. Require terminal punctuation right before the match.
+        const priorTrim = (segs.slice(0, i).map((x) => x.t || "").join("") + before).trim();
+        if (priorTrim && !/[.?!]$/.test(priorTrim)) continue;
         const after = s.t.slice(m.index + m[0].length);
         qSegs = segs.slice(0, i).concat(before.trim() ? [{ ...s, t: before }] : []);
         aSegs = (after.trim() ? [{ ...s, b: false, t: after }] : []).concat(segs.slice(i + 1));
         break;
       }
     }
-    if (!aSegs || !aSegs.length) return null;
+    // A label whose only "remainder" is trailing whitespace (a manuscript's stray
+    // spaces after a bold heading run, e.g. "Expected Responses  " typed as its own
+    // box subheading with two trailing spaces as a separate, non-bold run) is not a
+    // real inline answer — treating a non-empty-but-blank aSegs as one promoted this
+    // heading to its own "q" with a visibly empty "Possible answer:" line floating
+    // under it (Physics Form 2 TG's four-stroke-cycle exercise). Require actual text.
+    if (!aSegs || !aSegs.map((s) => s.t || "").join("").trim()) return null;
     if (qSegs.length) qSegs[qSegs.length - 1] = { ...qSegs[qSegs.length - 1], t: qSegs[qSegs.length - 1].t.replace(/\s+$/, "") };
     // The label's colon is sometimes typed as the START of the NEXT run instead of
     // the end of the label run itself (a formatting-boundary quirk: bold "Answer",
@@ -3443,13 +3772,15 @@ function proofPolish(blocks) {
   // the recurring lead-in sentences stay regular body text (never a heading)
   const LEADIN = /^(In this sub-?topic|By the end of this sub-?topic)\b/i;
   // "General/Specific Competence(s)" is a fixed structural label, not manuscript prose —
-  // its display case is a house-style rule, so normalise it to sentence case ("General
-  // competences", "Specific competence") no matter how a given author typed it (some
+  // its display case is a house-style rule, so normalise it to title case ("General
+  // Competences", "Specific Competence") no matter how a given author typed it (some
   // manuscripts use ALL-CAPS, e.g. a Lunda book needed a one-off `recase` override for
-  // this exact heading). Only the "General/Specific Competence(s)" words themselves are
+  // this exact heading; a Physics Form 2 LB proofread round asked for "Specific
+  // competence" — sentence case, the engine's older default — to read "Specific
+  // Competence" instead). Only the "General/Specific Competence(s)" words themselves are
   // touched; a trailing code, colon or value is left exactly as written.
-  const fixCompetenceCase = (t) => t.replace(/^(General|Specific)(\s+Competences?)\b/i,
-    (_, w1, w2) => w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.toLowerCase());
+  const fixCompetenceCase = (t) => t.replace(/^(General|Specific)\s+(Competences?)\b/i,
+    (_, w1, w2) => `${w1.charAt(0).toUpperCase()}${w1.slice(1).toLowerCase()} ${w2.charAt(0).toUpperCase()}${w2.slice(1).toLowerCase()}`);
   // 0) force the lead-in sentences to plain regular paragraphs
   for (const b of blocks) {
     if (LEADIN.test(textOf(b))) {
@@ -3533,12 +3864,14 @@ function proofPolish(blocks) {
     ];
   }
   // 1d) The lesson-header field labels read in SENTENCE case, never uppercase
-  // ("General competences:", "Specific competence 2.1.3.1:", "Expected standard:",
-  // "Teaching methodology:", "Suggested teaching and learning resources:", "Vocabulary:",
-  // "Structure:", "Component:"), whatever the manuscript's (inconsistent) casing. Only the
-  // label part up to the colon is recased — the numeric code and the value stay untouched.
-  // (Topic / Sub-Topic are proper identifiers kept in Title Case by step 1e, so excluded.)
-  const CASEFIELD = /^(general\s+competences?|specific\s+competences?|expected\s+standards?|teaching\s+methodology|suggested\s+teaching\s+and\s+learning\s+(?:resources?|materials?)|teaching\s+and\s+learning\s+(?:resources?|materials?)|vocabulary|structure|component|key\s*words?|learning\s+outcomes?)\b/i;
+  // ("Expected standard:", "Teaching methodology:", "Suggested teaching and learning
+  // resources:", "Vocabulary:", "Structure:", "Component:"), whatever the manuscript's
+  // (inconsistent) casing. Only the label part up to the colon is recased — the numeric
+  // code and the value stay untouched. (Topic / Sub-Topic are proper identifiers kept in
+  // Title Case by step 1e, so excluded; General/Specific Competence(s) is title-cased by
+  // fixCompetenceCase below instead of sentence-cased here.)
+  const CASEFIELD = /^(expected\s+standards?|teaching\s+methodology|suggested\s+teaching\s+and\s+learning\s+(?:resources?|materials?)|teaching\s+and\s+learning\s+(?:resources?|materials?)|vocabulary|structure|component|key\s*words?|learning\s+outcomes?)\b/i;
+  const COMPFIELD = /^(General|Specific)\s+Competences?\b/i;
   const sentenceLabel = (t) => {
     const ci = t.indexOf(":");
     const head = ci >= 0 ? t.slice(0, ci) : t;
@@ -3548,9 +3881,12 @@ function proofPolish(blocks) {
   for (const b of blocks) {
     if ((b.t === "head" || b.t === "label") && CASEFIELD.test((b.text || "").trim())) {
       b.text = sentenceLabel(b.text);
+    } else if ((b.t === "head" || b.t === "label") && COMPFIELD.test((b.text || "").trim())) {
+      b.text = fixCompetenceCase(b.text);
     } else if ((b.t === "para" || b.t === "listitem") && b.segs && b.segs.length) {
       const lead = b.segs.find((s) => s.t.trim());
       if (lead && CASEFIELD.test(lead.t.trim())) lead.t = sentenceLabel(lead.t);
+      else if (lead && COMPFIELD.test(lead.t.trim())) lead.t = fixCompetenceCase(lead.t);
     }
   }
   // 1e) The three structural identifiers (Component / Topic / Sub-Topic) name the lesson
@@ -3635,7 +3971,7 @@ function proofPolish(blocks) {
 }
 
 // "General/Specific Competence(s)" is a fixed structural label, not manuscript prose, so
-// its display case is a house-style rule ("General competences", "Specific competence")
+// its display case is a house-style rule ("General Competences", "Specific Competence")
 // regardless of how a given author typed it — see fixCompetenceCase in proofPolish() above
 // for the original version of this fix. That version only fires inside proofPolish(), which
 // itself only runs for the handful of themes/books opted into `boxActivities`; every other
@@ -3646,8 +3982,8 @@ function proofPolish(blocks) {
 // block must be promoted to a `head` block instead, since `head()` always honours the case
 // it's given. Runs unconditionally, for every book, independent of `boxActivities`.
 function normaliseCompetenceLabels(blocks) {
-  const fixCase = (t) => t.replace(/^(General|Specific)(\s+Competences?)\b/i,
-    (_, w1, w2) => w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.toLowerCase());
+  const fixCase = (t) => t.replace(/^(General|Specific)\s+(Competences?)\b/i,
+    (_, w1, w2) => `${w1.charAt(0).toUpperCase()}${w1.slice(1).toLowerCase()} ${w2.charAt(0).toUpperCase()}${w2.slice(1).toLowerCase()}`);
   const STANDALONE = /^(General|Specific)\s+Competences?\s*:?\s*$/i;   // "General Competences" / "…:" alone, value on the next block(s)
   const INLINE = /^(General|Specific)\s+Competences?\s*:\s*\S/i;       // "General Competences: Analytical Thinking…" on one line
   for (const b of blocks) {
@@ -3980,7 +4316,14 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText) { applyOverrides(blocks, ov); }
+  // Generic book-agnostic auto-fixes run BEFORE the book's own overrides, not
+  // after, so a book's explicit `edit` always has the final word — a reviewer
+  // who deliberately asks for "acappella" as one word (or any other spelling a
+  // generic fix would otherwise "correct") must not have that override silently
+  // clobbered by the very next pipeline step.
+  fixPhdCapitalisation(blocks);
+  fixACappellaSpacing(blocks);
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -4162,8 +4505,8 @@ function normaliseQuestionMarkBold(blocks) {
       // and it falls back to showing the EYEBROW as the title (see cover() in the template:
       // with no form/grade line, `name` defaults to `subject` = lines[0] = the eyebrow).
       const gm2 = gm || linesArr.map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
-      const grade = gm2 ? titleCase(gm2[0]) : "";
-      const booktype = /(^|[\s_])(tg|teacher)/i.test(base) ? "Teacher's Guide" : "Learner's Book";
+      const grade = gm2 ? titleCaseGrade(gm2[0]) : "";
+      const booktype = isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book";
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -4438,6 +4781,10 @@ function normaliseQuestionMarkBold(blocks) {
       covInk: orig.ink, covRulec: orig.rulec,
     });
   }
+  // Last content pass: push every mark allocation flush against the text column's
+  // right edge (house style — see splitMarksToFr). Must run after every pass that
+  // still expects a plain `.t` string on each segment in a run.
+  applyMarkFlushRight(blocks);
   const tmpl = fs.readFileSync(path.join(__dirname, "generic-template.typ"), "utf8");
   // Inject the theme dict ABOVE the template so its functions capture it.
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
@@ -4466,7 +4813,7 @@ function normaliseQuestionMarkBold(blocks) {
   // Book…") — fall back to the manuscript's own (already-synthesised) cover lines.
   const gm = detectName.match(/(form|grade)\s*\d+/i)
     || ((blocks.find((b) => b.t === "cover") || {}).lines || []).map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
-  const gradeFolder = gm ? titleCase(gm[0]) : "Other";
+  const gradeFolder = gm ? titleCaseGrade(gm[0]) : "Other";
   const bookDir = path.join(OUTPUT_DIR, gradeFolder, base);
   fs.mkdirSync(bookDir, { recursive: true });
   const outPath = path.join(bookDir, `${base} - typeset.pdf`);

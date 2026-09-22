@@ -109,6 +109,7 @@ off, so a change only touches the books that opt in. Keys:
 | Key | What it does |
 |---|---|
 | `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block |
+| `editAnswer` | like `editAll`, but rewrites a qa part's own **answer** text (`.a`/`.aseg`) instead of its question — for a stray leftover option letter the manuscript's answer itself carries (e.g. "C use of basso continuo" on a question that isn't even multiple-choice) |
 | `subtext` | replace a substring in **every run** containing it, keeping its bold/italic/colour |
 | `retext` | change a run whose trimmed text equals `from` to `to`, keeping bold/italic/colour |
 | `unbold` / `unitalic` | drop bold / italics from a run whose trimmed text matches |
@@ -128,7 +129,7 @@ off, so a change only touches the books that opt in. Keys:
 | `activityHeadsBlack` | render every Activity/Exercise heading bold black instead of the accent colour |
 | `pageBreakBefore` | insert a page break before the first block containing the text |
 | `replaceSection` | swap a whole section body (heading → next section) for supplied `items` (markdown-ish: `**bold**`, `*italic*`, `$math$`, `## sub-head`); optional `rename`/`until` |
-| `recase` | change a block's case (`{ startsWith, to: "sentence" }`) — e.g. an ALL-CAPS label the house style wants in sentence case |
+| `recase` | change a block's case (`{ startsWith, to: "sentence" \| "title" \| "upper" }`, default `"title"`) — e.g. an ALL-CAPS label the house style wants in sentence case, or a Learning Activity/Exercise/Assessment box title a manuscript left inconsistently cased (`to: "upper"`) next to sibling boxes that are ALL-CAPS |
 | `setHeading` | force a block to render as a specific heading kind (`as: "label"`, etc.) — for a heading the importer classified wrong |
 | `centrePara` | centre a paragraph (and, inside an exercise, its "lead" part) rather than justify/left-align it — matches a manuscript's own centred diagram or ASCII layout |
 | `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |

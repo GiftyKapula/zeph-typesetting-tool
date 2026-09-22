@@ -1,3 +1,30 @@
 {
-  "finishedCover": true
+  "finishedCover": true,
+  "authors": ["Dr Mary Mwila (PhD)", "Dr Chipo Namaiko (PhD)"],
+  "edit": [
+    { "find": "Texture” in music how musical sounds are", "with": "“Texture” in music is how musical sounds are" },
+    { "find": "CHOIRS, ACAPELLA …)", "with": "CHOIRS, ACAPPELLA …)" },
+    { "find": "Agness Mumba Wilkins and Annie Zulu Banda", "with": "Agness Mumba Wilkins (PhD) and Annie Zulu Banda" },
+    { "find": "and they you can make a difference", "with": "and they can make a difference" }
+  ],
+  "editAll": [
+    { "find": "a cappella", "with": "acappella" },
+    { "find": "A cappella", "with": "Acappella" },
+    { "find": "Let’s encourage", "with": "Let us encourage" }
+  ],
+  "editCell": [
+    { "find": "They all open with an untitled score sheet", "with": "1. They all open with an untitled score sheet" },
+    { "find": "They all allow you to create, edit, and print professional-quality musical scores.", "with": "2. They all allow you to create, edit, and print professional-quality musical scores." },
+    { "find": "All three programs can play back your compositions, enabling you to hear your music and identify errors before performance.", "with": "3. All three programs can play back your compositions, enabling you to hear your music and identify errors before performance." },
+    { "find": "Each software includes tools for entering notes, adding key signatures, time signatures, dynamics, articulations, lyrics, and other musical symbols.", "with": "4. Each software includes tools for entering notes, adding key signatures, time signatures, dynamics, articulations, lyrics, and other musical symbols." }
+  ],
+  "editAnswer": [
+    { "find": "C use of basso continuo", "with": "use of basso continuo" },
+    { "find": "C Wolfgang Amadeus Mozart", "with": "Wolfgang Amadeus Mozart" },
+    { "find": "Bar 1 (treble): Passing tone, \nBar 1(Bass staff): Pedal tones\nBar 2 Lower neighbour tone\nBar 3: Suspension\nBar 4: Anticipation\nBar 5: Appoggiatura\nBar 7: Changing tone", "with": "\n1. Bar 1 (treble): Passing tone,\n2. Bar 1(Bass staff): Pedal tones\n3. Bar 2 Lower neighbour tone\n4. Bar 3: Suspension\n5. Bar 4: Anticipation\n6. Bar 5: Appoggiatura\n7. Bar 7: Changing tone" }
+  ],
+  "pageBreakBefore": ["INTRODUCTION", "SUGGESSTED TEACHING METHODOLOGY"],
+  "recase": [
+    { "startsWith": "Learning Activity", "to": "upper" }
+  ]
 }

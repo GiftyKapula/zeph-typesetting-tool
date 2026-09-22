@@ -1,0 +1,25 @@
+{
+  "coverImage": "cover-waves-sound.png",
+  "retext": [
+    { "from": "Stella Libongani", "to": "Edward Mubanga and Stella Libongani" }
+  ],
+  "edit": [
+    { "find": "Efficiency of a Simple machine", "with": "Efficiency of a Simple Machine" },
+    { "find": "Relationship Between Celsius and kelvin Scales", "with": "Relationship Between Celsius and Kelvin Scales" },
+    { "find": "Exploring the relationship between Celsius and kelvin scales", "with": "Exploring the relationship between Celsius and Kelvin scales" },
+    { "find": "Model of an internal combustion engine", "with": "Model of an Internal Combustion Engine" },
+    { "find": "LEARNING ACTIVITY 34: Measuring heat capacity c =", "with": "LEARNING ACTIVITY 34: Measuring heat capacity C =" },
+    { "find": "c is the heat capacity (J K", "with": "C is the heat capacity (J K" },
+    { "find": "outside conditions are unfavourable.", "with": "outside conditions are unfavourable. This provides an analogy model of the natural greenhouse and what it does to the inhabitants of the Earth." },
+    { "find": "Analyse the following scenarios and determine whether work is done or not.", "with": "Working in groups or individually, analyse the following scenarios and determine whether work is done or not." },
+    { "find": "Use a toy car, a smooth ramp (inclined plane), a metre rule and a stopwatch. Raise one end", "with": "Working in groups or individually, use a toy car, a smooth ramp (inclined plane), a metre rule and a stopwatch. Raise one end" },
+    { "find": "Study the gas laws and their corresponding equations given below.", "with": "Working in groups or individually, study the gas laws and their corresponding equations given below." },
+    { "find": "Use different instruments such as an oscilloscope, sound level meter, microphone connected to a computer or smartphone sound analyser and tuning fork to investigate sound.", "with": "In groups, use different instruments such as an oscilloscope, sound level meter, microphone connected to a computer or smartphone sound analyser and tuning fork to investigate sound." }
+  ],
+  "boldToItalic": [
+    "Work in small groups or individually. Use a guitar, xylophone, tuning fork, piano, whistle, drum, ruler and other available sound-producing objects. Produce sound from each source and carefully observe the part that vibrates to produce the sound. Identify the vibrating part of each source and record your findings. Compare your observations with those of others and present your findings to the class."
+  ],
+  "setCaption": [
+    { "near": "Sea breeze during the day", "text": "Figure 31: An analogy model of the atmospheric greenhouse effect" }
+  ]
+}

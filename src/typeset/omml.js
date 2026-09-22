@@ -109,6 +109,22 @@ const FUNC = new Set(["sin", "cos", "tan", "cot", "sec", "csc", "sinh", "cosh", 
 // would be read by Typst as ONE (undefined) identifier — e.g. "mx", "AB", "K500"
 // -> "unknown variable" — so split letter runs into single-letter variables
 // (keeping known function names whole).
+//
+// That per-letter split is right for genuinely concatenated symbols ("mgh" = m
+// times g times h), which a Word author always types with no space between them
+// — but some authors instead type a whole descriptive WORD or PHRASE straight
+// into the equation editor as a fraction's label ("Useful Output Energy" over
+// "energy input", "distance travelled" over "time taken"). A real multi-word
+// phrase is the one case where a SPACE shows up inside a single <m:t> run (an
+// author never spaces out multiplied variables within one run), so it's a safe
+// tell. Splitting it letter-by-letter anyway doesn't just look ugly — the fix
+// destroys the very thing it's meant to preserve: Typst's math-mode spacing
+// between adjacent single-letter atoms is the same tight gap the source had one
+// space or many, so "Useful Output Energy" came out as the glued, run-together
+// "UsefulOutputEnergy". Render a detected phrase as one Typst STRING instead:
+// math mode displays a string as plain upright text with its real word-spacing
+// intact, and — like any string — it can never be misread as an identifier.
+const PHRASE = /^[A-Za-z]+(?:[ \t]+[A-Za-z]+)+/;
 function convText(s) {
   s = decode(s);
   if (!s) return "";
@@ -117,6 +133,14 @@ function convText(s) {
   while (i < s.length) {
     const ch = s[i];
     if (/[A-Za-z]/.test(ch)) {
+      const phrase = PHRASE.exec(s.slice(i));
+      if (phrase) {
+        const words = phrase[0].split(/\s+/);
+        if (words.some((w) => w.length >= 2) && !words.some((w) => FUNC.has(w.toLowerCase()))) {
+          out += ` "${phrase[0].replace(/\s+/g, " ").trim().replace(/"/g, '\\"')}" `;
+          i += phrase[0].length; continue;
+        }
+      }
       let j = i; while (j < s.length && /[A-Za-z]/.test(s[j])) j++;
       const word = s.slice(i, j);
       if (FUNC.has(word.toLowerCase())) out += " " + word.toLowerCase() + " ";
@@ -140,6 +164,22 @@ function conv(xml) {
 // frac()/^()/root() error on a blank argument, so fall back to empty text "").
 const C = (xml, tag) => conv(innerOf(xml, tag)).trim() || '""';
 
+// The base of a subscript/superscript used to be UNCONDITIONALLY wrapped in
+// "(...)" before the "_(...)"/"^(...)". That's only correct grouping syntax
+// immediately AFTER the "_"/"^" (Typst's special invisible argument-grouping
+// parens); parens placed BEFORE it, around the base itself, are just an
+// ordinary parenthesized math atom, and Typst renders those literally — so
+// "V" (a single already-unambiguous token) turned into a visibly parenthesised
+// "(V)" with the subscript sitting outside it, e.g. Charles'/Gay-Lussac's law
+// rendering as "(V)₁" instead of "V₁". A single token never needs grouping at
+// all; only wrap when the base is itself a multi-token expression (e.g. an
+// "a+b" that must stay together under the sub/superscript) — and there the
+// visible parens are exactly what standard notation shows anyway.
+function wrapBase(expr) {
+  const e = (expr || "").trim();
+  return e && !/\s/.test(e) ? e : `(${e})`;
+}
+
 function convEl(el) {
   const t = el.tag;
   switch (t) {
@@ -159,10 +199,10 @@ function convEl(el) {
       if (ty === "lin") return `(${num}) \\/ (${den})`;
       return `frac(${num}, ${den})`;
     }
-    case "m:sSup": return `(${C(el.inner, "m:e")})^(${C(el.inner, "m:sup")})`;
-    case "m:sSub": return `(${C(el.inner, "m:e")})_(${C(el.inner, "m:sub")})`;
-    case "m:sSubSup": return `(${C(el.inner, "m:e")})_(${C(el.inner, "m:sub")})^(${C(el.inner, "m:sup")})`;
-    case "m:sPre": return `""_(${C(el.inner, "m:sub")})^(${C(el.inner, "m:sup")}) (${C(el.inner, "m:e")})`;
+    case "m:sSup": return `${wrapBase(C(el.inner, "m:e"))}^(${C(el.inner, "m:sup")})`;
+    case "m:sSub": return `${wrapBase(C(el.inner, "m:e"))}_(${C(el.inner, "m:sub")})`;
+    case "m:sSubSup": return `${wrapBase(C(el.inner, "m:e"))}_(${C(el.inner, "m:sub")})^(${C(el.inner, "m:sup")})`;
+    case "m:sPre": return `""_(${C(el.inner, "m:sub")})^(${C(el.inner, "m:sup")}) ${wrapBase(C(el.inner, "m:e"))}`;
     case "m:rad": {
       const e = C(el.inner, "m:e");
       const degXml = innerOf(el.inner, "m:deg");
@@ -239,4 +279,4 @@ function ommlToTypst(xml) {
   return normalizeDegrees(conv(xml).replace(/\s+/g, " ").trim());
 }
 
-module.exports = { ommlToTypst };
+module.exports = { ommlToTypst, convText };
