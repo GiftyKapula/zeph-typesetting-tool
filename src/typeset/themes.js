@@ -51,6 +51,36 @@ function zeph({ subject, variant = "series", motif = "atom",
   };
 }
 
+// Factory for a CDC CURRICULUM SYLLABUS theme — a genuinely different book family
+// from the B5 learner's books above: LANDSCAPE (A4), whose interior is one bordered
+// 5-column matrix (TOPIC · SUB-TOPIC · SPECIFIC COMPETENCE · LEARNING/SUGGESTED
+// ACTIVITIES · EXPECTED STANDARD) with a grey header row REPEATED on every page, and
+// a two-panel spread cover (subject-colour field + a contrasting title band, ministry
+// crest + CDC logo). Reverse-engineered from the 2024 CDC O-level syllabuses. The
+// interior is BLACK & WHITE (`mono`) — only the covers carry `signature`.
+function syllabus({ subject, level = "Secondary Education Ordinary Level", year = 2024,
+                    signature, band = "ffffff", covText = "ffffff",
+                    title = "16302f", ink = "1a1a1a", matHeader = "d9d9d9" }) {
+  return {
+    font: "Times New Roman", bodyFont: "Times New Roman", displayFont: "Arial",
+    variant: "syllabus", paper: "a4", landscape: true, ink, motif: "",
+    subject, year, level, eyebrow: level.toUpperCase(),
+    tagline: "", tab: "Syllabus", toctitle: "Table of Contents",
+    hdrleft: subject + " Syllabus " + year, hdrtab: "",
+    mono: true,
+    primary: "232323", primary2: "232323", accent: "8c8c8c", cyan: "232323", signature,
+    covSignature: signature, covPrimary: signature, covPrimary2: signature, covAccent: signature,
+    covBand: band, covText, covTitle: title, covInk: ink, matHeader,
+    coverStyle: "syllabus", tocDepth: 3,
+    rulec: "111111", zebra: "efefef", yellow: "fff39a",
+    act:  { fill: "eeeeee", border: "999999", title: "333333" },
+    ex:   { fill: "eeeeee", border: "999999", title: "333333" },
+    kp:   { fill: "eeeeee", border: "999999", title: "333333" },
+    fact: { fill: "eeeeee", border: "999999", title: "333333" },
+    asmt: { fill: "eeeeee", border: "999999", title: "333333" },
+  };
+}
+
 const THEMES = {
   // Navy + gold, serif, classic layout — the Form 5 Physical Education look.
   navy: {
@@ -278,12 +308,24 @@ const THEMES = {
   // same playful "grade3" cover + header layout as the other Grade 3 primary
   // books so it reads as part of the same friendly, age-appropriate family.
   homeecon: { ...zeph({ subject: "Home Economics", level: "Primary Education Level", signature: "f6dcc9", primary: "c1592f", primary2: "e08a53", accent: "4f9b6e", cyan: "3f8fa0", coverStyle: "grade3" }), boxActivities: true, hyphenate: false, qgap: "1.5pt" },
+
+  // ---- CDC SYLLABUSES (landscape; see syllabus() above) ------------------------
+  // Travel & Tourism Teacher's Diploma (2026) — a warm tourism teal cover field with
+  // a white title band; the first landscape syllabus typeset from the CDC references.
+  travelsyl: syllabus({ subject: "Travel and Tourism", level: "Secondary Teacher's Diploma",
+    year: 2026, signature: "12807e", band: "ffffff", covText: "ffffff", title: "16302f" }),
 };
 
 // Pick a sensible theme from the file name when none is given.
 function autoTheme(name) {
   // order matters: more specific names first (e.g. "Computer Science" before
   // a bare "Science"; subjects before the generic "literature/language").
+  // CDC SYLLABUSES are landscape and must take a syllabus() theme, NOT the B5 subject
+  // theme of the same name. Match "syllabus" FIRST and route by subject.
+  if (/syllabus/i.test(name)) {
+    if (/travel|tourism/i.test(name)) return "travelsyl";
+    // other subjects fall through to their B5 theme until a syllabus() theme exists
+  }
   if (/computer\s*science|computing|\bict\b/i.test(name)) return "compsci";
   // CTS = Creative and Technology Studies (primary school). Match before the
   // generic "technolog" route so it gets the cheerful primary-school theme.
@@ -339,7 +381,8 @@ function themeTypst(theme, overrides = {}) {
   const q = (s) => '"' + String(s || "").replace(/"/g, '\\"') + '"';
   return `#let T = (
   font: "${t.font}", bodyFont: "${t.bodyFont || t.font}", displayFont: "${t.displayFont || t.font}", handFont: "${t.handFont || "Bradley Hand ITC"}", variant: "${t.variant}",
-  paper: "${t.paper || "a4"}", bodySize: ${t.bodySize || "12pt"}, hMain: ${t.hMain || "none"}, hSub: ${t.hSub || "none"}, ink: ${c(t.ink)}, motif: ${q(t.motif || "atom")},
+  paper: "${t.paper || "a4"}", landscape: ${t.landscape ? "true" : "false"}, bodySize: ${t.bodySize || "12pt"}, hMain: ${t.hMain || "none"}, hSub: ${t.hSub || "none"}, ink: ${c(t.ink)}, motif: ${q(t.motif || "atom")},
+  year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
   subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
