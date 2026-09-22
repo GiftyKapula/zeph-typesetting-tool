@@ -393,10 +393,19 @@
         #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-2mm, 9mm), stroke: 1.4pt + amber.transparentize(15%)))
         #place(bottom + left, dx: -36mm, dy: 40mm, circle(radius: 44mm, fill: none, stroke: 1pt + white.transparentize(82%)))
       ]
+      // MUSICAL ARTS (notes): a scatter of small colourful eighth/beamed notes in the
+      // open blue field around the masthead and hero photo — echoes the manuscript's
+      // own note-and-staff illustration without drawing on top of the photo itself.
+      #if T.motif == "notes" [
+        #place(top + left, dx: 14mm, dy: 14mm, rotate(-12deg, text(size: 26pt, fill: white.transparentize(25%))[♪]))
+        #place(top + right, dx: -14mm, dy: 46mm, rotate(10deg, text(size: 22pt, fill: amber.transparentize(10%))[♬]))
+        #place(bottom + left, dx: 12mm, dy: -96mm, rotate(8deg, text(size: 24pt, fill: T.cyan.transparentize(10%))[♫]))
+        #place(bottom + right, dx: -16mm, dy: -30mm, rotate(-8deg, text(size: 22pt, fill: white.transparentize(30%))[♪]))
+      ]
       // masthead — CENTRED with the SAME rhythm as the English cover (eyebrow,
       // title, an accent rule, the form tag, then the book type). par spacing is
       // zeroed so the explicit #v values fully control the layout.
-      #place(top + center, dy: 22mm, block(width: 158mm)[#set par(spacing: 0pt); #align(center)[
+      #let mastheadBlock = block(width: 158mm)[#set par(spacing: 0pt); #align(center)[
         #text(size: 14pt, weight: "bold", fill: amber, tracking: 3pt)[#upper(T.eyebrow)]
         #v(6mm)
         // shrink a long subject so it never hyphenates / overflows
@@ -408,86 +417,127 @@
             #text(size: 28pt, weight: "bold", fill: T.primary.darken(8%), tracking: 1pt)[#upper(formtxt)]] ]
         #v(5mm)
         #text(size: 18pt, weight: "bold", fill: white)[#upper(booktype)]
-      ]])
+      ]]
+      #place(top + center, dy: 22mm, mastheadBlock)
       // hero photo (straight, white frame) when present; otherwise a central
-      // "atom" motif (nucleus + elliptical orbits + electrons) fills the field
-      #if hero != none and T.motif == "flask" [
-        // CHEMISTRY hero: a clean 3:2 landscape plate in a simple white frame, with a
-        // slim amber accent bar sitting just above it. No motif.
-        #place(top + center, dy: 104mm, box(width: 148mm, height: 78mm, clip: true, radius: 3pt, stroke: 4pt + white)[
-          #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")])
-        #place(top + center, dy: 98mm, box(fill: amber, width: 148mm, height: 3pt, radius: 1.5pt))
-      ] else if hero != none [
-        #place(top + center, dy: 110mm, box(width: 144mm, height: 78mm, clip: true, radius: 2pt, stroke: 3pt + white)[
-          #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")])
-      ] else if T.motif == "cell" [
-        // biology: a stylised CELL — membrane, nucleus + nucleolus, and a few
-        // organelles (mitochondria-like ellipses) and free dots.
-        #place(top + center, dy: 104mm, box(width: 96mm, height: 72mm)[
-          #place(center + horizon, circle(radius: 33mm, fill: white.transparentize(94%), stroke: 1.4pt + white.transparentize(45%)))
-          #place(center + horizon, dx: 5mm, dy: -3mm, circle(radius: 12mm, fill: T.cyan.transparentize(55%), stroke: 1.2pt + T.cyan.transparentize(15%)))
-          #place(center + horizon, dx: 8mm, dy: -5mm, circle(radius: 3.2mm, fill: white.transparentize(20%)))
-          #place(center + horizon, dx: -16mm, dy: 9mm, rotate(25deg, ellipse(width: 13mm, height: 5mm, fill: none, stroke: 1pt + white.transparentize(50%))))
-          #place(center + horizon, dx: -11mm, dy: -14mm, rotate(-30deg, ellipse(width: 10mm, height: 4mm, fill: none, stroke: 1pt + white.transparentize(58%))))
-          #place(center + horizon, dx: 17mm, dy: 14mm, circle(radius: 2.2mm, fill: amber))
-          #place(center + horizon, dx: 19mm, dy: -13mm, circle(radius: 1.6mm, fill: white.transparentize(40%)))
-          #place(center + horizon, dx: -21mm, dy: -4mm, circle(radius: 1.4mm, fill: amber.lighten(15%)))
-        ])
-      ] else if T.motif == "flask" [
-        // chemistry: a conical (Erlenmeyer) flask with a rising bubble stream — a
-        // clean laboratory identity distinct from the physics orbits and the biology
-        // cell. No benzene-ring hexagon (the locked chemistry design drops hexagons
-        // everywhere); the flask is centred on the page on its own.
-        #place(top + center, dy: 104mm, box(width: 100mm, height: 74mm)[
-          // flask body (triangle) + neck, drawn from white strokes
-          #place(center + horizon, dx: -9mm, dy: 8mm, polygon(fill: white.transparentize(88%), stroke: 1.6pt + white,
-            (0mm, 0mm), (30mm, 0mm), (19mm, -34mm), (11mm, -34mm)))
-          // neck walls
-          #place(center + horizon, dx: -9mm, dy: 8mm, line(start: (11mm, -34mm), end: (11mm, -44mm), stroke: 1.6pt + white))
-          #place(center + horizon, dx: -9mm, dy: 8mm, line(start: (19mm, -34mm), end: (19mm, -44mm), stroke: 1.6pt + white))
-          // mouth lip
-          #place(center + horizon, dx: -9mm, dy: 8mm, box(width: 12mm, height: 2.4pt, fill: amber, radius: 1pt))
-          // liquid line inside the flask
-          #place(center + horizon, dx: -9mm, dy: 8mm, line(start: (4mm, -8mm), end: (26mm, -8mm), stroke: 1pt + amber.transparentize(20%)))
-          // bubbles rising from the neck
-          #place(center + horizon, dx: 6mm, dy: -34mm, circle(radius: 1.8mm, fill: amber))
-          #place(center + horizon, dx: 10mm, dy: -42mm, circle(radius: 1.2mm, fill: white.transparentize(20%)))
-          #place(center + horizon, dx: 4mm, dy: -48mm, circle(radius: 1mm, fill: amber.lighten(15%)))
-        ])
-      ] else [
-        #place(top + center, dy: 108mm, box(width: 90mm, height: 64mm)[
-          #place(center + horizon, ellipse(width: 86mm, height: 30mm, fill: none, stroke: 1.2pt + white.transparentize(40%)))
-          #place(center + horizon, rotate(60deg, ellipse(width: 86mm, height: 30mm, fill: none, stroke: 1.2pt + white.transparentize(40%))))
-          #place(center + horizon, rotate(-60deg, ellipse(width: 86mm, height: 30mm, fill: none, stroke: 1.2pt + amber.transparentize(20%))))
-          #place(center + horizon, circle(radius: 5mm, fill: amber))
-          #place(center + horizon, dx: 43mm, circle(radius: 2mm, fill: white))
-          #place(center + horizon, dx: -21mm, dy: -23mm, circle(radius: 2mm, fill: white))
-          #place(center + horizon, dx: -22mm, dy: 24mm, circle(radius: 2mm, fill: amber.lighten(15%)))
-        ])
-      ]
-      // GRADE 6 SCIENCE (earth): a soft, rounded, barely-there card behind the
-      // author credit — the cover otherwise being one flat colour field reads
-      // a bit plain/severe for a primary-school audience, and this lifts the
-      // (often long) author list off the green rather than leaving it to
-      // float directly on the field.
-      #if T.motif == "earth" and byline.len() > 0 [
-        #place(top + center, dy: 188mm, box(width: 164mm, height: 42mm, radius: 6mm, fill: white.transparentize(88%), stroke: 1pt + white.transparentize(75%)))
-      ]
-      // authors (small, wraps if long), then publisher + logo. Full-opacity,
-      // semibold text — a lightly transparentized white read fine on the
-      // original deep indigo/purple/navy science covers but washes out to a
-      // pale, hard-to-read grey-green on a lighter/more saturated field like
-      // Grade 6 Science's green, so this is no longer transparentized at all.
-      #if byline.len() > 0 [
-        #place(top + center, dy: 196mm, block(width: 152mm)[#align(center)[
+      // "atom" motif (nucleus + elliptical orbits + electrons) fills the field.
+      // The hero photo and the masthead above used to sit at INDEPENDENT fixed
+      // offsets, which worked as long as the title was a short single word
+      // (Physics, Chemistry) — but an Advanced Level cover's big title is the
+      // long generic "Advanced Secondary Education Level" phrase (verbatim
+      // from the manuscript's own title page, not the subject name), which
+      // wraps to 3 lines and pushed past the fixed hero offset, so the photo
+      // landed on top of the "Teacher's Guide" line below it. Measuring the
+      // masthead's actual rendered height and only pushing the hero (and the
+      // byline below it) down when it would otherwise collide keeps every
+      // existing short-title cover pixel-identical while fixing the
+      // long-title case.
+      #let heroBaseDy = if T.motif == "flask" { 104mm } else { 110mm }
+      #let earthCard = T.motif == "earth" and byline.len() > 0
+      #context {
+        let mastheadH = measure(mastheadBlock).height
+        let heroDy = calc.max(heroBaseDy, 22mm + mastheadH + 8mm)
+        if hero != none and T.motif == "flask" {
+          // CHEMISTRY hero: a clean 3:2 landscape plate in a simple white frame, with a
+          // slim amber accent bar sitting just above it. No motif.
+          place(top + center, dy: heroDy, box(width: 148mm, height: 78mm, clip: true, radius: 3pt, stroke: 4pt + white)[
+            #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")])
+          place(top + center, dy: heroDy - 6mm, box(fill: amber, width: 148mm, height: 3pt, radius: 1.5pt))
+        } else if hero != none {
+          place(top + center, dy: heroDy, box(width: 144mm, height: 78mm, clip: true, radius: 2pt, stroke: 3pt + white)[
+            #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")])
+        } else if T.motif == "cell" {
+          // biology: a stylised CELL — membrane, nucleus + nucleolus, and a few
+          // organelles (mitochondria-like ellipses) and free dots.
+          place(top + center, dy: 104mm, box(width: 96mm, height: 72mm)[
+            #place(center + horizon, circle(radius: 33mm, fill: white.transparentize(94%), stroke: 1.4pt + white.transparentize(45%)))
+            #place(center + horizon, dx: 5mm, dy: -3mm, circle(radius: 12mm, fill: T.cyan.transparentize(55%), stroke: 1.2pt + T.cyan.transparentize(15%)))
+            #place(center + horizon, dx: 8mm, dy: -5mm, circle(radius: 3.2mm, fill: white.transparentize(20%)))
+            #place(center + horizon, dx: -16mm, dy: 9mm, rotate(25deg, ellipse(width: 13mm, height: 5mm, fill: none, stroke: 1pt + white.transparentize(50%))))
+            #place(center + horizon, dx: -11mm, dy: -14mm, rotate(-30deg, ellipse(width: 10mm, height: 4mm, fill: none, stroke: 1pt + white.transparentize(58%))))
+            #place(center + horizon, dx: 17mm, dy: 14mm, circle(radius: 2.2mm, fill: amber))
+            #place(center + horizon, dx: 19mm, dy: -13mm, circle(radius: 1.6mm, fill: white.transparentize(40%)))
+            #place(center + horizon, dx: -21mm, dy: -4mm, circle(radius: 1.4mm, fill: amber.lighten(15%)))
+          ])
+        } else if T.motif == "flask" {
+          // chemistry: a conical (Erlenmeyer) flask with a rising bubble stream — a
+          // clean laboratory identity distinct from the physics orbits and the biology
+          // cell. No benzene-ring hexagon (the locked chemistry design drops hexagons
+          // everywhere); the flask is centred on the page on its own.
+          place(top + center, dy: 104mm, box(width: 100mm, height: 74mm)[
+            // flask body (triangle) + neck, drawn from white strokes
+            #place(center + horizon, dx: -9mm, dy: 8mm, polygon(fill: white.transparentize(88%), stroke: 1.6pt + white,
+              (0mm, 0mm), (30mm, 0mm), (19mm, -34mm), (11mm, -34mm)))
+            // neck walls
+            #place(center + horizon, dx: -9mm, dy: 8mm, line(start: (11mm, -34mm), end: (11mm, -44mm), stroke: 1.6pt + white))
+            #place(center + horizon, dx: -9mm, dy: 8mm, line(start: (19mm, -34mm), end: (19mm, -44mm), stroke: 1.6pt + white))
+            // mouth lip
+            #place(center + horizon, dx: -9mm, dy: 8mm, box(width: 12mm, height: 2.4pt, fill: amber, radius: 1pt))
+            // liquid line inside the flask
+            #place(center + horizon, dx: -9mm, dy: 8mm, line(start: (4mm, -8mm), end: (26mm, -8mm), stroke: 1pt + amber.transparentize(20%)))
+            // bubbles rising from the neck
+            #place(center + horizon, dx: 6mm, dy: -34mm, circle(radius: 1.8mm, fill: amber))
+            #place(center + horizon, dx: 10mm, dy: -42mm, circle(radius: 1.2mm, fill: white.transparentize(20%)))
+            #place(center + horizon, dx: 4mm, dy: -48mm, circle(radius: 1mm, fill: amber.lighten(15%)))
+          ])
+        } else {
+          place(top + center, dy: 108mm, box(width: 90mm, height: 64mm)[
+            #place(center + horizon, ellipse(width: 86mm, height: 30mm, fill: none, stroke: 1.2pt + white.transparentize(40%)))
+            #place(center + horizon, rotate(60deg, ellipse(width: 86mm, height: 30mm, fill: none, stroke: 1.2pt + white.transparentize(40%))))
+            #place(center + horizon, rotate(-60deg, ellipse(width: 86mm, height: 30mm, fill: none, stroke: 1.2pt + amber.transparentize(20%))))
+            #place(center + horizon, circle(radius: 5mm, fill: amber))
+            #place(center + horizon, dx: 43mm, circle(radius: 2mm, fill: white))
+            #place(center + horizon, dx: -21mm, dy: -23mm, circle(radius: 2mm, fill: white))
+            #place(center + horizon, dx: -22mm, dy: 24mm, circle(radius: 2mm, fill: amber.lighten(15%)))
+          ])
+        }
+        // authors (small, wraps if long), then publisher + logo. Full-opacity,
+        // semibold text — a lightly transparentized white read fine on the
+        // original deep indigo/purple/navy science covers but washes out to a
+        // pale, hard-to-read grey-green on a lighter/more saturated field like
+        // Grade 6 Science's green, so this is no longer transparentized at all.
+        let bylineBlock = block(width: 152mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(2mm)
-          #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]])
+          #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]]
+        if earthCard {
+          // GRADE 6 SCIENCE (earth): a soft, rounded, barely-there card behind the
+          // author credit — the cover otherwise being one flat colour field reads
+          // a bit plain/severe for a primary-school audience, and this lifts the
+          // (often long) author list off the green rather than leaving it to
+          // float directly on the field. The card used to sit at a fixed dy
+          // flush against the photo's bottom edge (no gap) with a fixed 42mm
+          // height that a long author list (this format regularly lists a dozen
+          // contributors) overflowed — spilling text past the card into the
+          // logo/publisher line below it. Both are now measured/derived: a real
+          // gap under the photo, and a height that actually fits the byline, with
+          // the logo+publisher line placed below the card's own bottom edge
+          // instead of pinned to the page bottom, so it never overlaps.
+          // The cover page is only 250mm tall (not A4) and this sits below a
+          // 78mm-tall photo already 110mm+ down the page, so every gap here is
+          // kept deliberately tight — a generous padding budget (that reads fine
+          // on a full A4 page) pushed the logo/publisher line off the bottom
+          // edge of this shorter page entirely.
+          let bylineH = measure(bylineBlock).height
+          let cardTop = heroDy + 78mm + 5mm
+          let cardH = bylineH + 8mm
+          place(top + center, dy: cardTop, box(width: 164mm, height: cardH, radius: 6mm, fill: white.transparentize(88%), stroke: 1pt + white.transparentize(75%)))
+          place(top + center, dy: cardTop + 4mm, bylineBlock)
+          place(top + center, dy: cardTop + cardH + 5mm, align(center)[
+            #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(2mm) ]
+            #text(size: 10.5pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
+          ])
+        } else if byline.len() > 0 {
+          let bylineDy = if hero != none { calc.max(196mm, heroDy + 78mm + 10mm) } else { 196mm }
+          place(top + center, dy: bylineDy, bylineBlock)
+        }
+      }
+      #if not earthCard [
+        #place(bottom + center, dy: -12mm, align(center)[
+          #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(2mm) ]
+          #text(size: 10.5pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
+        ])
       ]
-      #place(bottom + center, dy: -12mm, align(center)[
-        #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(2mm) ]
-        #text(size: 10.5pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
-      ])
     ]
   } else if series and T.at("coverStyle", default: "") == "form1" {
     // ---------- FORM 1 cover: a younger, friendlier look that is clearly distinct
@@ -1012,26 +1062,38 @@
     // corner wedges
     #place(top + left, polygon(fill: accentc, (0mm, 250mm), (0mm, 197mm), (59mm, 250mm)))
     #place(top + left, polygon(fill: accentc, (176mm, 250mm), (176mm, 215mm), (137mm, 250mm)))
-    // book identity
-    #place(top + left, dx: 16mm, dy: 20mm, block(width: 144mm)[
+    // MUSICAL ARTS (notes): the same scattered colourful note glyphs as the front
+    // cover, echoed here in the open field so front and back read as one set.
+    #if T.motif == "notes" [
+      #place(top + left, dx: 20mm, dy: 60mm, rotate(-10deg, text(size: 22pt, fill: onfield.transparentize(20%))[♪]))
+      #place(top + right, dx: -22mm, dy: 62mm, rotate(10deg, text(size: 20pt, fill: accentc.transparentize(10%))[♬]))
+      #place(bottom + left, dx: 24mm, dy: -70mm, rotate(8deg, text(size: 20pt, fill: onfield.transparentize(25%))[♫]))
+      #place(bottom + right, dx: -26mm, dy: -70mm, rotate(-8deg, text(size: 22pt, fill: accentc.transparentize(10%))[♪]))
+    ]
+    // book identity — CENTRED (every element on the back cover reads centred,
+    // matching the publisher branding block below it).
+    #place(top + center, dy: 20mm, block(width: 144mm)[#align(center)[
       #text(size: 11pt, weight: "bold", fill: onfield, tracking: 1.5pt)[#upper(eyebrow)]
       #v(3mm)
-      // Subject and form on ONE line. `box` keeps them unbreakable so the "·"
-      // separator can never be orphaned at the start of a wrapped line; if the
-      // pair is wider than the block (e.g. a long subject name) it is scaled down
-      // to fit rather than allowed to wrap.
+      // Subject on its own line — scaled down to fit if a long subject name
+      // would otherwise overflow the block.
       #layout(sz => {
-        let ttl = box(text(size: 26pt, weight: "bold", fill: onfield)[#name#if formtxt != "" [ #h(6pt)#text(fill: accentc)[#sym.dot.c]#h(6pt)#upper(formtxt) ]])
+        let ttl = box(text(size: 26pt, weight: "bold", fill: onfield)[#name])
         let m = measure(ttl)
         if m.width > sz.width and m.width > 0pt {
           scale(x: sz.width / m.width * 100%, y: sz.width / m.width * 100%, reflow: true, origin: left + horizon, ttl)
         } else { ttl }
       })
+      // Form/grade on its OWN line, between the subject and the book type.
+      #if formtxt != "" [
+        #v(2mm)
+        #text(size: 16pt, weight: "bold", fill: accentc)[#upper(formtxt)]
+      ]
       #v(1mm)
       #text(size: 13pt, weight: "bold", fill: onfield)[#upper(booktype)]
       #v(3mm)
       #box(fill: accentc, width: 34mm, height: 2.5pt, radius: 1.5pt)
-    ])
+    ]])
     // publisher branding, centred
     #place(top + center, dy: 120mm, align(center)[
       #if logo != none [ #image("_media/" + logo.file, height: 20mm) #v(4mm) ]
@@ -1040,19 +1102,15 @@
       #text(size: 11pt, fill: pubsub)[Lusaka, Zambia]
     ])
     // ISBN: if known, print it (no barcode); otherwise reserve a clean box for
-    // the press to add the ISBN + barcode at print time.
-    // Kept clear of the bottom-left corner wedge (see "corner wedges" above,
-    // a triangle from (0,197mm) to (0,250mm) to (59,250mm)): at dx: 16mm the
-    // wedge's diagonal edge reaches up to y = 211mm, so anything placed lower
-    // than that clips into the wedge. The opaque white box used to sit at
-    // dy: -22mm (bottom edge at y = 228mm, well inside the wedge) — its
-    // square corner cut a rectangular notch out of the wedge's straight
-    // diagonal, which reads as the box (or the wedge) being crookedly tilted
-    // rather than as an overlap. Raised both branches above the wedge instead.
+    // the press to add the ISBN + barcode at print time. CENTRED, like every
+    // other element on the back cover — sitting on the page's centre line also
+    // keeps it well clear of both bottom corner wedges (see "corner wedges"
+    // above: triangles from (0,197mm)-(0,250mm)-(59,250mm) and the mirrored one
+    // on the right), which only reach in from the left/right edges.
     #if isbn != none [
-      #place(bottom + left, dx: 16mm, dy: -43mm, text(size: 11pt, weight: "bold", fill: onfield)[ISBN #isbn])
+      #place(bottom + center, dy: -43mm, text(size: 11pt, weight: "bold", fill: onfield)[ISBN #isbn])
     ] else [
-      #place(bottom + left, dx: 16mm, dy: -45mm, box(width: 52mm, height: 26mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
+      #place(bottom + center, dy: -45mm, box(width: 52mm, height: 26mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
         #align(center + horizon)[#text(size: 8pt, fill: luma(55%))[ISBN & barcode]]])
     ]
   ]
@@ -1594,7 +1652,12 @@
   // word wrapping mid-title (e.g. "ACAP-PELLA") reads as broken even though the
   // break itself is a valid hyphenation point, since a reader expects a title's
   // words to stay whole. Disable it here once rather than per style branch below.
-  let title = text(hyphenate: false)[#title]
+  // Titles are also never JUSTIFIED: the document body defaults to justify:true,
+  // but a short, wrapped, all-caps title (e.g. "LEARNING ACTIVITY 1: WRITING
+  // MUSIC.  REFER TO FORM 4 LEARNER'S BOOK PAGE 70.") has so few spaces per line
+  // that justification stretches them into visibly uneven gaps — worst on the
+  // line with the fewest words. Headings are conventionally left-ragged in print.
+  let title = { set par(justify: false); text(hyphenate: false)[#title] }
   if boxstyle == "labcard" {
     // Chemistry callout: a clean rounded card. A solid full-width title band in the
     // kind colour caps the card (white title); the body sits on a light tint below.
@@ -1783,8 +1846,20 @@
   // every cell is short, single-line, imageless label text. A table whose first
   // row already carries data (long descriptors, line breaks, images) has NO
   // header and is rendered entirely as body rows (no purple banner).
+  // A cell that carries a `seg` is normally excluded (its formatting would be
+  // lost if flattened to the plain `c.text` the header band renders with) —
+  // but almost every header cell in a real manuscript is simply BOLD, and the
+  // importer now attaches a `seg` to any styled cell (not just genuinely rich
+  // ones like equations), so this used to reject nearly every bold header row
+  // outright. A cell whose `seg` is a single non-math run carries no styling
+  // beyond what the forced-bold header band already applies, so it's still a
+  // plain label for this purpose.
+  let plainHeaderCell(c) = {
+    let sg = c.at("seg", default: ())
+    sg.len() == 0 or (sg.len() == 1 and not sg.at(0).at("m", default: false))
+  }
   let hdr = (not noHeader) and rows.at(0).all(c =>
-    c.imgs.len() == 0 and c.at("seg", default: ()).len() == 0
+    c.imgs.len() == 0 and plainHeaderCell(c)
     and not c.text.contains("\n") and c.text.len() <= 40 and c.text != "")
   let hasimg = rows.any(r => r.any(c => c.imgs.len() > 0))
   // Content-proportional column widths (all `fr`, so a table that breaks across pages
@@ -1796,7 +1871,14 @@
   // empty columns roomy.
   let ncols = rows.at(0).len()
   let colsumlen(c) = { let cs = c.at("colsum", default: none); if cs == none { 0 } else { let m = 0; for r in cs.rows { if r.len() > m { m = r.len() } }; for a in cs.answer { if a.len() > m { m = a.len() } }; m * 3 + 12 } }
-  let celllen(c) = c.text.len() + c.at("seg", default: ()).len() * 6 + c.imgs.len() * 30 + colsumlen(c)
+  // Only MATH segments get an extra width bonus: their Typst source length is a
+  // poor proxy for rendered width, unlike plain bold/italic text where c.text's
+  // own length already tracks the rendered width closely enough. Counting every
+  // seg (the old behaviour) inflated any merely-bold cell — including a short
+  // "Week"/"Topic" header label — enough to defeat narrowNum's auto-width test
+  // below, squeezing a numbering column so far that its header word overflowed
+  // into its neighbour.
+  let celllen(c) = c.text.len() + c.at("seg", default: ()).filter(s => s.at("m", default: false)).len() * 6 + c.imgs.len() * 30 + colsumlen(c)
   let bigcontent = rows.any(r => r.any(c => celllen(c) >= 100))
   let collen(ci) = { let m = 0; for r in rows { let l = celllen(r.at(ci)); if l > m { m = l } }; m }
   // The longest UNBREAKABLE word anywhere in a column (header OR body). A column
@@ -1938,17 +2020,18 @@
   ]
   v(4pt)
 }
-#let framedsection(kind, title, body) = layout(sz => {
+#let framedsection(kind, title, body) = {
   let content = renderbody(body)
-  // Keep a box WHOLE (unbreakable) whenever it is short enough to sit on a page by
-  // itself: measure the rendered height and, if it fits comfortably (< 180mm, leaving
-  // room for the title + insets on a B5 page), don't let it break. This stops a short
-  // Exercise/Activity from splitting so that a stray last item or two orphans onto an
-  // otherwise-empty page — it moves wholesale to the next page instead. Genuinely tall
-  // boxes stay breakable so they never overflow the page.
-  let fits = measure(box(width: sz.width, content)).height < 180mm
-  titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: not fits)
-})
+  // Always breakable (mirrors titledbox's own default). A prior version kept any box
+  // under 180mm tall fully atomic so it could never split and orphan a stray last item
+  // — but Typst then moves the WHOLE box to the next page whenever it doesn't fit
+  // what's left of the current one, regardless of how much of the current page that
+  // wastes (observed leaving up to ~85% of a page blank, flagged by a reviewer across
+  // several books). The title stays `sticky` inside titledbox either way, so it still
+  // can't be stranded alone at the foot of a page; letting the body break normally
+  // trades a rare small widow for guaranteed no more multi-page blank gaps.
+  titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: true)
+}
 // The lesson-header metadata (LESSON N + Component / Topic / Sub-Topic / competences /
 // Expected Standard / methodology / vocabulary) grouped and STYLED — NOT boxed. The
 // author asked for the header set larger (14pt vs the 12pt body) and visually distinct,
@@ -1985,10 +2068,12 @@
     context (if not boxfits.get() { pagebreak(weak: true) })
     context titledbox(title, T.at(kind), content, breakable: not boxfits.get())
   } else {
-    layout(sz => {
-      let fits = measure(box(width: sz.width, content)).height < 180mm
-      titledbox(title, T.at(kind), content, breakable: not fits)
-    })
+    // Always breakable — see framedsection for why the old "atomic if short" rule was
+    // dropped from the default (non-`force`) path: it could strand the whole box on a
+    // fresh page while leaving most of the current one blank. `force` (from a book's
+    // `forceFreshPage` override, opted into per-widow) keeps its own measured behaviour
+    // unchanged, since that's an author-curated exception, not the common case.
+    titledbox(title, T.at(kind), content, breakable: true)
   }
 }
 #let activity(title, body, force: false) = keepwhole("act", title, renderbody(body), force: force)

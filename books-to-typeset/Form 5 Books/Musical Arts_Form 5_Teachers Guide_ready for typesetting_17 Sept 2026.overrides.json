@@ -1,0 +1,56 @@
+{
+  "authors": ["Dr Mary Mwila (PhD)", "Dr Chipo Namaiko (PhD)"],
+  "tocDepth": 2,
+  "synthesiseCover": true,
+  "images": {
+    "image1.jpeg": { "src": "musical-arts-form5-cover.png" }
+  },
+  "edit": [
+    { "find": "Edited by: Agness Mumba Wilkins, Annie Zulu Banda and Njira Mtonga", "with": "Edited by: Agness Mumba Wilkins (PhD), Annie Zulu Banda and Njira Mtonga" },
+    { "find": "Mary Mwila and Chipo Namaiko", "with": "Mary Mwila (PhD) and Chipo Namaiko (PhD)" }
+  ],
+  "fixExercise": [
+    {
+      "match": "EXERCISE",
+      "near": "Note entry",
+      "heading": "EXERCISE 2",
+      "markers": [null, null, null, null, null, null, null, "", "5.", null]
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "Multi-track Recording",
+      "heading": "EXERCISE 7"
+    },
+    {
+      "match": "EXERCISE",
+      "near": "good posture when playing",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "appropriate format when plan",
+      "heading": "EXERCISE 4"
+    },
+    {
+      "match": "EXERCISE 8",
+      "near": "MIDI stands for",
+      "markers": [null, null, null, null, null, null, null, null, "", "5.", null]
+    }
+  ],
+  "textFix": [
+    { "find": "LEARNING ACITIVITY", "with": "LEARNING ACTIVITY" },
+    { "find": "Mumba-Wilkins", "with": "Mumba Wilkins" },
+    { "find": "Zulu-Banda", "with": "Zulu Banda" }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "X: Twitter",
+      "with": [
+        { "raw": { "t": "para", "segs": [
+          { "t": "X:", "b": true, "it": false, "c": null },
+          { "t": " Twitter", "b": false, "it": false, "c": null }
+        ] } }
+      ]
+    }
+  ]
+}

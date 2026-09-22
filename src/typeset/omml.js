@@ -164,6 +164,22 @@ function conv(xml) {
 // frac()/^()/root() error on a blank argument, so fall back to empty text "").
 const C = (xml, tag) => conv(innerOf(xml, tag)).trim() || '""';
 
+// The base of a subscript/superscript used to be UNCONDITIONALLY wrapped in
+// "(...)" before the "_(...)"/"^(...)". That's only correct grouping syntax
+// immediately AFTER the "_"/"^" (Typst's special invisible argument-grouping
+// parens); parens placed BEFORE it, around the base itself, are just an
+// ordinary parenthesized math atom, and Typst renders those literally — so
+// "V" (a single already-unambiguous token) turned into a visibly parenthesised
+// "(V)" with the subscript sitting outside it, e.g. Charles'/Gay-Lussac's law
+// rendering as "(V)₁" instead of "V₁". A single token never needs grouping at
+// all; only wrap when the base is itself a multi-token expression (e.g. an
+// "a+b" that must stay together under the sub/superscript) — and there the
+// visible parens are exactly what standard notation shows anyway.
+function wrapBase(expr) {
+  const e = (expr || "").trim();
+  return e && !/\s/.test(e) ? e : `(${e})`;
+}
+
 function convEl(el) {
   const t = el.tag;
   switch (t) {
@@ -183,10 +199,10 @@ function convEl(el) {
       if (ty === "lin") return `(${num}) \\/ (${den})`;
       return `frac(${num}, ${den})`;
     }
-    case "m:sSup": return `(${C(el.inner, "m:e")})^(${C(el.inner, "m:sup")})`;
-    case "m:sSub": return `(${C(el.inner, "m:e")})_(${C(el.inner, "m:sub")})`;
-    case "m:sSubSup": return `(${C(el.inner, "m:e")})_(${C(el.inner, "m:sub")})^(${C(el.inner, "m:sup")})`;
-    case "m:sPre": return `""_(${C(el.inner, "m:sub")})^(${C(el.inner, "m:sup")}) (${C(el.inner, "m:e")})`;
+    case "m:sSup": return `${wrapBase(C(el.inner, "m:e"))}^(${C(el.inner, "m:sup")})`;
+    case "m:sSub": return `${wrapBase(C(el.inner, "m:e"))}_(${C(el.inner, "m:sub")})`;
+    case "m:sSubSup": return `${wrapBase(C(el.inner, "m:e"))}_(${C(el.inner, "m:sub")})^(${C(el.inner, "m:sup")})`;
+    case "m:sPre": return `""_(${C(el.inner, "m:sub")})^(${C(el.inner, "m:sup")}) ${wrapBase(C(el.inner, "m:e"))}`;
     case "m:rad": {
       const e = C(el.inner, "m:e");
       const degXml = innerOf(el.inner, "m:deg");

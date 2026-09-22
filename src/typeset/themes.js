@@ -253,7 +253,7 @@ const THEMES = {
   // orange accent, distinct from PE's navy+gold and art's terracotta+teal. Boxed
   // Learning Activities/Exercises/Assessments (the manuscript uses all three
   // heavily), so the "science" variant.
-  musicalarts: { ...zeph({ subject: "Musical Arts", variant: "science", signature: "1f5fa8", primary: "1f5fa8", primary2: "3a7ec9", accent: "d9722e", cyan: "2f9e8c" }), tocDepth: 1 },
+  musicalarts: { ...zeph({ subject: "Musical Arts", variant: "science", signature: "1f5fa8", primary: "1f5fa8", primary2: "3a7ec9", accent: "d9722e", cyan: "2f9e8c", motif: "notes" }), tocDepth: 1 },
   // Physical Education and Sport (Form 1) — its OWN athletic identity, distinct from the
   // Form 5 PE book's navy+gold "navy" theme: a vivid cobalt/royal blue primary with a
   // whistle-orange accent (a track-and-field palette), teal for exercises.

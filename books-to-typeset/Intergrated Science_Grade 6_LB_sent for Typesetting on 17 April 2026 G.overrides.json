@@ -1,0 +1,17 @@
+{
+  "keepScaffold": true,
+  "coverImage": "g6sci-cover-tree-planting.png",
+  "images": {
+    "image68.png": { "src": "g6sci-fig60-drought-resistant-crops.png" },
+    "image26.jpeg": { "src": "g6sci-fig22-plastic.png" },
+    "image33.jpeg": { "src": "g6sci-fig29-well.png" },
+    "image19.jpeg": { "src": "g6sci-fig15-tbcare.png" },
+    "image8.jpeg": { "src": "g6sci-fig5-teenpregnancy.png" },
+    "image13.jpeg": { "src": "g6sci-fig9-nutrition.png" }
+  },
+  "setCaption": [
+    { "near": "Selecting the right seeds for drought resistant crops", "text": "Fig 60: Drought Resistant Crops" },
+    { "near": "Care and support for TB patients (courtesy, CDC Africa)", "text": "Fig 15: Care and support for TB patients" },
+    { "near": "Fig 9: Good nutrition; (www.shutterstock.com)", "text": "Fig 9: Good nutrition" }
+  ]
+}

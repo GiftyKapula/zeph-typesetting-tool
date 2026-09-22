@@ -129,13 +129,40 @@ const NAVY = "1F3864";
 // array exists. Returns { rawDoc } with the swap applied; boxes are pushed onto `out`.
 function extractTextboxBoxes(rawDoc, out, numMap) {
   let result = "", last = 0;
-  const dre = /<w:drawing\b[\s\S]*?<\/w:drawing>/g;
-  let m;
-  while ((m = dre.exec(rawDoc))) {
-    const d = m[0];
-    if (/<a:blip\b/.test(d)) continue;                         // a real picture — leave it alone
+  // Nesting-aware: a text box's own content can carry an inline picture (e.g. a
+  // small diagram in an Exercise box's Tips section), which is ALSO wrapped in its
+  // own <w:drawing>…</w:drawing>. A naive non-greedy `<w:drawing\b[\s\S]*?<\/w:drawing>`
+  // scan then closed the match at that INNER drawing's end instead of the outer
+  // text box's own end — truncating it well before the real </w:txbxContent>, so
+  // the txbxContent match below came back null and the whole box was silently
+  // skipped (falling through to a generic paragraph-merge fallback that flattened
+  // the box's title, body and list into one garbled, unstyled block). Track depth
+  // so only a depth-0 </w:drawing> ends a match, the same technique the main
+  // paragraph splitter uses for a floating picture nested inside a paragraph.
+  const drawingSpans = [];
+  {
+    const tokRe = /<w:drawing\b[^>]*>|<\/w:drawing>/g;
+    let tm, depth = 0, start = -1;
+    while ((tm = tokRe.exec(rawDoc))) {
+      if (tm[0] === "</w:drawing>") {
+        if (depth > 0 && --depth === 0) { drawingSpans.push([start, tm.index + tm[0].length]); start = -1; }
+      } else if (depth++ === 0) start = tm.index;
+    }
+  }
+  for (const [spanStart, spanEnd] of drawingSpans) {
+    const d = rawDoc.slice(spanStart, spanEnd);
     const tbm = d.match(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/);
     if (!tbm) continue;
+    // A drawing that's fundamentally a PHOTO (not a text box) carries its <a:blip>
+    // outside the text box's own content — e.g. a picture-filled shape. A blip
+    // belonging to a picture the box's OWN prose embeds (an illustrative diagram
+    // partway through an Exercise's Tips section) sits INSIDE the txbxContent and
+    // must not disqualify the box itself — checking the whole drawing string (the
+    // old behaviour) wrongly treated any such box as "just a photo" and skipped it,
+    // so its title+body+list fell through to a generic paragraph-merge fallback
+    // that flattened them into one garbled, unstyled block.
+    const outsideTextbox = d.slice(0, tbm.index) + d.slice(tbm.index + tbm[0].length);
+    if (/<a:blip\b/.test(outsideTextbox)) continue;            // a real picture — leave it alone
     // A box's floating shape can carry a NESTED TABLE (a reference table inside a
     // Learning Activity/Exercise/Assessment) — mask it out first (maskTables), like the
     // main body parser does, so the naive <w:p> scan below never grabs a stray cell
@@ -146,7 +173,11 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       .map((p) => p[0].startsWith("@@TBL")
         ? { isTable: true, rows: parseTableRows(tbTables[+p[0].match(/\d+/)[0]]) }
         : { xml: p[0], segs: paraSegs(p[0]) })
-      .filter((p) => p.isTable || p.segs.some((s) => (s.t || "").trim()));
+      // Keep a paragraph that carries no TEXT but does carry a picture (e.g. a
+      // sample poster illustrating the activity, dropped in as its own paragraph
+      // with no caption) — dropping it here silently lost the image with no way
+      // to recover it later, since paraSegs never captures <w:drawing> content.
+      .filter((p) => p.isTable || p.segs.some((s) => (s.t || "").trim()) || /<w:drawing\b/.test(p.xml));
     if (!paras.length || paras[0].isTable) continue;   // a title-less box (table first) — leave it
     const title = plainOf(paras[0].segs).trim();
     const kind = boxKindFromTitle(title);
@@ -191,6 +222,14 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       // check here those artifacts survive as a bogus paragraph inside the box.
       const plain = plainOf(p.segs).trim();
       if (/^[.·•…\/\\|]{1,3}$/.test(plain) || /^[A-Za-z]$/.test(plain)) continue;
+      // An image inside the box's own text box (e.g. a sample poster the activity's
+      // instructions reference) can't be resolved to a real file yet — imagesOf()
+      // isn't wired up (needs rels/tmp, set up later in importDocx) at the point
+      // this runs. Stash the paragraph's raw xml in a placeholder block; a pass
+      // right after imagesOf becomes available (see `imgResolve = imagesOf`) walks
+      // every text-box-authored box and swaps each placeholder for the real image.
+      if (kind === "activity" && /<w:drawing\b[\s\S]*?<a:blip\b/.test(p.xml)) body.push({ t: "pendingimg", xml: p.xml });
+      if (!plain) continue;
       if (kind === "activity") {
         if (numbered(p)) { const { marker } = nextMarker(p); body.push({ t: "listitem", segs: p.segs, marker }); }
         else body.push({ t: "para", segs: p.segs });
@@ -209,8 +248,8 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     // helps…"); leaving the sentinel run in that same paragraph risks it being merged
     // with the next run's text by paraSegs' run-joining pass. A dedicated paragraph
     // sidesteps that entirely — no run-merge, no dependence on differing styles.
-    result += rawDoc.slice(last, m.index) + `</w:p><w:p><w:r><w:t>@@BOX${idx}@@</w:t></w:r></w:p><w:p>`;
-    last = m.index + d.length;
+    result += rawDoc.slice(last, spanStart) + `</w:p><w:p><w:r><w:t>@@BOX${idx}@@</w:t></w:r></w:p><w:p>`;
+    last = spanEnd;
   }
   result += rawDoc.slice(last);
   return { rawDoc: result };
@@ -509,6 +548,10 @@ function paraSegs(pXml) {
       // touched). Only the z is swapped, so the word's own casing is preserved.
       .replace(/\b(summar|special|emphas|organ|recogn|visual|minim|stabil|crystall|synthes|immobil|fertil|general|categor|character|util|standard|maxim|coloni|memor)i(z)(e|es|ed|ing|ation|able|ably)\b/gi,
         (_, stem, z, suf) => stem + "i" + (z === "Z" ? "S" : "s") + suf)
+      // "analyze"/"analyse" is the same US/UK split but a different shape — "analy" +
+      // z/s directly, no "i" glue (unlike "recogn-ize") — so it needs its own pattern
+      // rather than joining the stem list above (which would wrongly require "analyize").
+      .replace(/\b(analy)(z)(e|es|ed|ing|able|ably)\b/gi, (_, stem, z, suf) => stem + (z === "Z" ? "S" : "s") + suf)
       // British -our for a curated set (colour, behaviour, flavour, odour, vapour,
       // favour…). "labo(u)r" is left out so "laboratory" is never touched.
       .replace(/\b(colo|behavio|flavo|odo|vapo|favo|humo|rigo|vigo)r([a-z]*)\b/gi, "$1ur$2");
@@ -1176,7 +1219,18 @@ function buildQAParts(blocks) {
     // Let TOP win for this one ambiguous case so all the points read as one
     // consistent run, like the rest of the exercise's lettered items.
     if (hasRomanTop && tm && /^\(?i[.)]/i.test(plainTrim)) sm = null;
-    const tmSub = tm && tm[2].match(LIT_SUB);   // "N. (a) text" = top number + its first sub-part
+    // LIT_SUB matches case-insensitively so a genuine standalone "A. Option text"
+    // MCQ option (its own paragraph, part of a real run — see isUpperRun below)
+    // still counts as a sub-marker. But glued onto the SAME line as a decimal top
+    // ("3. E. coli is an example of a ……"), that same case-insensitivity reads a
+    // capitalised abbreviation's initial as an intentional "(a)"-style sub-marker
+    // glued to its question, splitting "E. coli" into a bogus marker "E." + orphan
+    // text "coli is an example of a ……" (then renumbered to "A." for good measure).
+    // Every genuine glued-marker manuscript example ("1. (a) Ep = mgh") types that
+    // marker lowercase, so require lowercase here — the standalone run-based MCQ
+    // path below is untouched, since it doesn't go through tmSub at all.
+    const tmSubRaw = tm && tm[2].match(LIT_SUB);
+    const tmSub = tmSubRaw && /[a-z]/.test(tmSubRaw[1]) ? tmSubRaw : null;   // "N. (a) text" = top number + its first sub-part
     // Top-level items are RENUMBERED sequentially (1..N) so a block always starts
     // at 1 even when the writer's literal numbers are erratic (skip a number, or
     // start at 2). Sub-parts count a..z and reset under each new top. The writer's
@@ -1495,7 +1549,25 @@ function makeBox(kind, blocks) {
     // title is abnormally long AND runs into an imperative body opener, split the
     // body off so the title stays a short heading and the body flows as normal
     // (italic) activity text rather than being swallowed by the green title.
-    const BODY_OPEN = /\s+((?:Divide|Organi[sz]e|Ask|Guide|Instruct|Provide|Facilitate|Work in|Move around|In this activity|Give each|Learners?\b)[\s\S]*)$/;
+    // The trigger list only covered a handful of classroom-management verbs
+    // (Divide/Organise/Ask/…) — plenty for a group-work activity, but a science
+    // activity's body very often opens with an experimental-procedure verb
+    // instead ("Use a physics textbook…", "Study the gas laws…", "Identify
+    // examples of…", "Investigate…", "Measure…"), which fell through undetected.
+    // A glued title with no other split point then rendered as ONE giant bold
+    // heading — instructions and all — instead of a short title over a normal
+    // italic body paragraph (e.g. Physics Form 2's "LEARNING ACTIVITY 31:
+    // Exploring terms used in the measurement of heat" swallowing its entire
+    // "Use a physics textbook…doDiscuss each term…" body).
+    // Every trigger must be a WHOLE word — a bare `\b` after the alternation
+    // doesn't help distinguish e.g. "Identify" from "Identifying" (both the "y"
+    // and the following "i" are word characters, so no boundary exists between
+    // them); a genuine title like "…Identifying vibrating parts in the
+    // production of sound…" would otherwise get chopped mid-word into a fake
+    // "title" ending at "…LEARNING ACTIVITY 1:" and a bogus "body" starting at
+    // "Identifying…". Require the matched trigger to be followed by whitespace
+    // or sentence punctuation instead, so it only fires at a genuine word end.
+    const BODY_OPEN = /\s+((?:Divide|Organi[sz]e|Ask|Guide|Instruct|Provide|Facilitate|Work in|Move around|In this activity|Give each|Learners?|Use|Study|Identify|Observe|Investigate|Measure|Determine|Compare|Discuss|Conduct|Explore|Construct|Design|Record|Calculate|Demonstrate|Collect|Draw|Examine|Set up)(?=[\s.,:;])[\s\S]*)$/;
     const bm = titleText.length > 80 ? titleText.match(BODY_OPEN) : null;
     if (bm) {
       // The split works on the flattened string, so the formatted segs no
@@ -1611,10 +1683,17 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
 // Collapse runs of manual line breaks ("\n") inside a flowing paragraph: join
 // across the break when it sits mid-word (a letter on each side, e.g. a word
 // split as "nta\n\n\nñishi" -> "ntañishi"), otherwise use a single space.
+// A break followed by a capital letter or digit is NOT a mid-word wrap — it's
+// the start of a new field/sentence (e.g. a "Subject: X<br>Grade: Y<br>Term: Z"
+// label list authored with Shift+Enter, where joining "...Nutrition" straight
+// into "Grade:..." glued them into "NutritionGrade:" with no space at all).
+// Genuine mid-word wraps continue in lowercase, so gate the no-space join on
+// that.
 // Operates across segment boundaries so run formatting (bold/italic) is kept.
 function reflowBreaks(segs) {
   if (!segs.some((s) => s.t.includes("\n"))) return segs;
   const isWord = (c) => !!c && /[^\s.,;:!?()\[\]"'’“”…—–\-]/.test(c);
+  const startsNewWord = (c) => !!c && /[A-Z0-9]/.test(c);
   let prevChar = "";
   for (let i = 0; i < segs.length; i++) {
     let nextChar = "";
@@ -1622,7 +1701,7 @@ function reflowBreaks(segs) {
     segs[i].t = segs[i].t.replace(/\n+/g, (m, off, str) => {
       const before = off > 0 ? str[off - 1] : prevChar;
       const after = off + m.length < str.length ? str[off + m.length] : nextChar;
-      return (isWord(before) && isWord(after)) ? "" : " ";
+      return (isWord(before) && isWord(after) && !startsNewWord(after)) ? "" : " ";
     }).replace(/ {2,}/g, " ");
     if (segs[i].t.length) prevChar = segs[i].t[segs[i].t.length - 1];
   }
@@ -2033,6 +2112,17 @@ async function importDocx(docxPath, opts = {}) {
     return out;
   };
   imgResolve = imagesOf; // make image extraction available to cell parsing
+  // Resolve the image placeholders extractTextboxBoxes stashed (see `pendingimg`
+  // above) now that imagesOf can actually turn a raw paragraph's <w:drawing> into
+  // a real, on-disk picture reference.
+  for (const box of tbBoxes) {
+    if (box.kind !== "activity" || !box.body) continue;
+    box.body = box.body.flatMap((b) => {
+      if (b.t !== "pendingimg") return [b];
+      const images = imagesOf(b.xml);
+      return images.length ? [{ t: "img", images }] : [];
+    });
+  }
 
   // Does this book mark text with a bold + coloured run (PE house style uses
   // navy headings)? If so, a bold-black line is a label; otherwise a short bold
@@ -2054,7 +2144,7 @@ async function importDocx(docxPath, opts = {}) {
   // first real section begins, even when the manuscript didn't style it as a
   // Word heading (many don't). This stops the imprint's centred styling from
   // bleeding into the Authors/Foreword text.
-  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // Back-matter section names — a genuine back-matter heading (also reliably Word-
   // Heading-styled, same as a front-matter one above) must not be folded down to a
   // plain inline sub-head by the "numbered-topic short Heading-styled paragraph"

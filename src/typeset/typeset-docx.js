@@ -542,7 +542,7 @@ function dedupeAdjacentHeadings(blocks) {
 // its text is kept but it stops polluting the TOC / forcing a page break.
 function fixStrayBodyH1s(blocks) {
   const UNIT = /^(TOPIC|UNIT|CHAPTER|CHIBALU|CIPATI)\b/i;
-  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+BOOK)?|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
+  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
   // FRONTBACK requires an EXACT match end-to-end, which is right for most of its
   // entries (a stray body h1 could otherwise dodge demotion by coincidentally
   // starting with "Introduction" or "Preface"). But ACRONYMS and (KEY/GENERAL)
@@ -879,8 +879,16 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   const isUnit = (x) => x.t === "h1" && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "");
   // Front-matter section names — English plus local-language equivalents
   // (e.g. Lunda: ANSONEKI=Authors, MAZU ATACHI=Foreword, KULEMA …WUNU=Preface,
-  // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction).
-  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction). "HOW TO USE THIS
+  // GUIDE/BOOK", "ABBREVIATIONS" and a "SUGGESTED TEACHING METHODOLOGY" list
+  // are common Teacher's-Guide front-matter sections too, often typed with
+  // direct bold/size formatting instead of a named Word Heading style (a
+  // manuscript that styles most of its front matter properly can still slip
+  // into hand-formatting for one or two sections) — without recognising them
+  // here they fall through as a plain bold `head` block that looks like a
+  // heading but never gets its own page or a Table of Contents entry.
+  // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
+  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
   // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
@@ -1431,11 +1439,17 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     if (!done) console.warn("!  deleteRun not matched:", dr.from, "..", dr.to);
   }
-  // editCell: [{ find, with }] — rewrite TABLE CELLS whose whole trimmed text === find.
-  // Table cells live in a block's `rows` (array of rows, each an array of {text,imgs})
-  // and are NOT reached by the paragraph/heading overrides (allTextBlocks skips them),
-  // so a header typo inside a table — e.g. a stray capital in a fill-in header ("O"->"o",
-  // "Oe"->"oe") — needs this. Rewrites every matching cell at any depth. Preserves imgs.
+  // editCell: [{ find, with }] — rewrite TABLE CELLS whose whole trimmed text === find,
+  // or (falling back) a substring found inside a cell's text. Table cells live in a
+  // block's `rows` (array of rows, each an array of {text,imgs[,segs]}) and are NOT
+  // reached by the paragraph/heading overrides (allTextBlocks skips them), so a header
+  // typo inside a table — e.g. a stray capital in a fill-in header ("O"->"o", "Oe"->"oe")
+  // — needs this. Rewrites every matching cell at any depth. Preserves imgs.
+  // A cell with mixed formatting (e.g. a bold title over italic answer lines, all in one
+  // cell — some manuscripts wrap a whole callout box in a 1-cell table) carries that
+  // styling in `cell.segs`, which rendering prefers over the plain `cell.text`; a `find`
+  // that isn't the cell's WHOLE text also gets rewritten there, run-by-run, so the fix
+  // actually shows up in the PDF instead of silently no-op'ing on the still-styled cell.
   for (const ec of ov.editCell || []) {
     let n = 0;
     const walkT = (arr) => {
@@ -1443,7 +1457,15 @@ function applyOverrides(blocks, ov) {
         if (!b || typeof b !== "object") continue;
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
-            if (cell && typeof cell.text === "string" && cell.text.trim() === ec.find) { cell.text = ec.with; n++; }
+            if (!cell || typeof cell.text !== "string") continue;
+            if (cell.text.trim() === ec.find) { cell.text = ec.with; n++; continue; }
+            if (cell.text.includes(ec.find)) {
+              cell.text = cell.text.split(ec.find).join(ec.with);
+              if (Array.isArray(cell.segs)) {
+                for (const s of cell.segs) if (typeof s.t === "string" && s.t.includes(ec.find)) s.t = s.t.split(ec.find).join(ec.with);
+              }
+              n++;
+            }
           }
         }
         for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
@@ -2885,7 +2907,7 @@ function reorderBackmatter(blocks) {
 // no separate line for a name at all — the very next paragraph there is unrelated
 // real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
 // non-empty block" would destroy that section instead of crediting anyone.
-const LAYOUT_CREDIT = "Ng`ambi Teddy";
+const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
 function fillLayoutCredit(blocks) {
   const LABEL = /cover\s+and\s+book\s+layout/i;
   // Another front-matter label (ends with a colon, or a known "…by:" line) — never a
@@ -3124,7 +3146,19 @@ function ensureOrIndividually(blocks) {
                 // the lookahead onto the phrase itself (nothing left to backtrack)
                 // and letting it tolerate the optional whitespace/comma fixes that;
                 // it also stops eating a comma the author had after "groups".
-                s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
+                //
+                // That per-phrase lookahead still isn't enough when a sentence already
+                // lists all three modes together up front, e.g. "Work individually, in
+                // pairs or in groups using a toy car…" — "individually" there sits
+                // nowhere near "in pairs" or "in groups", so each of those two triggers
+                // independently passed the lookahead and both got "or individually"
+                // appended, producing "in pairs or individually or in groups or
+                // individually…". House style only needs ONE "individually" per
+                // sentence/segment, so skip the whole segment once it already contains
+                // the word anywhere, rather than checking only right after each trigger.
+                if (!/\bindividually\b/i.test(s.t)) {
+                  s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
+                }
                 if (s.t.trimEnd().endsWith("individually")) {
                   s.t = s.t.trimEnd() + " ";
                 }
@@ -3436,6 +3470,15 @@ function splitAnswerLabels(blocks) {
         const m = (s.t || "").match(LABEL_INLINE);
         if (!m) continue;
         const before = s.t.slice(0, m.index);
+        // The label only marks a real inline Q&A split when it follows an actual
+        // question/prompt (ending ., ?, or !) or nothing at all — not when it's mid-
+        // phrase inside the manuscript's own prose. E.g. a "How to Use This Guide" step
+        // labelled "Use possible answers:" (the whole phrase is the manuscript's OWN
+        // bold list-item label) matched here, splitting the sentence-fragment "Use" off
+        // as a bogus question and mangling the plural "answers" to look like an
+        // answer-key tag. Require terminal punctuation right before the match.
+        const priorTrim = (segs.slice(0, i).map((x) => x.t || "").join("") + before).trim();
+        if (priorTrim && !/[.?!]$/.test(priorTrim)) continue;
         const after = s.t.slice(m.index + m[0].length);
         qSegs = segs.slice(0, i).concat(before.trim() ? [{ ...s, t: before }] : []);
         aSegs = (after.trim() ? [{ ...s, b: false, t: after }] : []).concat(segs.slice(i + 1));
@@ -3689,13 +3732,15 @@ function proofPolish(blocks) {
   // the recurring lead-in sentences stay regular body text (never a heading)
   const LEADIN = /^(In this sub-?topic|By the end of this sub-?topic)\b/i;
   // "General/Specific Competence(s)" is a fixed structural label, not manuscript prose —
-  // its display case is a house-style rule, so normalise it to sentence case ("General
-  // competences", "Specific competence") no matter how a given author typed it (some
+  // its display case is a house-style rule, so normalise it to title case ("General
+  // Competences", "Specific Competence") no matter how a given author typed it (some
   // manuscripts use ALL-CAPS, e.g. a Lunda book needed a one-off `recase` override for
-  // this exact heading). Only the "General/Specific Competence(s)" words themselves are
+  // this exact heading; a Physics Form 2 LB proofread round asked for "Specific
+  // competence" — sentence case, the engine's older default — to read "Specific
+  // Competence" instead). Only the "General/Specific Competence(s)" words themselves are
   // touched; a trailing code, colon or value is left exactly as written.
-  const fixCompetenceCase = (t) => t.replace(/^(General|Specific)(\s+Competences?)\b/i,
-    (_, w1, w2) => w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.toLowerCase());
+  const fixCompetenceCase = (t) => t.replace(/^(General|Specific)\s+(Competences?)\b/i,
+    (_, w1, w2) => `${w1.charAt(0).toUpperCase()}${w1.slice(1).toLowerCase()} ${w2.charAt(0).toUpperCase()}${w2.slice(1).toLowerCase()}`);
   // 0) force the lead-in sentences to plain regular paragraphs
   for (const b of blocks) {
     if (LEADIN.test(textOf(b))) {
@@ -3779,12 +3824,14 @@ function proofPolish(blocks) {
     ];
   }
   // 1d) The lesson-header field labels read in SENTENCE case, never uppercase
-  // ("General competences:", "Specific competence 2.1.3.1:", "Expected standard:",
-  // "Teaching methodology:", "Suggested teaching and learning resources:", "Vocabulary:",
-  // "Structure:", "Component:"), whatever the manuscript's (inconsistent) casing. Only the
-  // label part up to the colon is recased — the numeric code and the value stay untouched.
-  // (Topic / Sub-Topic are proper identifiers kept in Title Case by step 1e, so excluded.)
-  const CASEFIELD = /^(general\s+competences?|specific\s+competences?|expected\s+standards?|teaching\s+methodology|suggested\s+teaching\s+and\s+learning\s+(?:resources?|materials?)|teaching\s+and\s+learning\s+(?:resources?|materials?)|vocabulary|structure|component|key\s*words?|learning\s+outcomes?)\b/i;
+  // ("Expected standard:", "Teaching methodology:", "Suggested teaching and learning
+  // resources:", "Vocabulary:", "Structure:", "Component:"), whatever the manuscript's
+  // (inconsistent) casing. Only the label part up to the colon is recased — the numeric
+  // code and the value stay untouched. (Topic / Sub-Topic are proper identifiers kept in
+  // Title Case by step 1e, so excluded; General/Specific Competence(s) is title-cased by
+  // fixCompetenceCase below instead of sentence-cased here.)
+  const CASEFIELD = /^(expected\s+standards?|teaching\s+methodology|suggested\s+teaching\s+and\s+learning\s+(?:resources?|materials?)|teaching\s+and\s+learning\s+(?:resources?|materials?)|vocabulary|structure|component|key\s*words?|learning\s+outcomes?)\b/i;
+  const COMPFIELD = /^(General|Specific)\s+Competences?\b/i;
   const sentenceLabel = (t) => {
     const ci = t.indexOf(":");
     const head = ci >= 0 ? t.slice(0, ci) : t;
@@ -3794,9 +3841,12 @@ function proofPolish(blocks) {
   for (const b of blocks) {
     if ((b.t === "head" || b.t === "label") && CASEFIELD.test((b.text || "").trim())) {
       b.text = sentenceLabel(b.text);
+    } else if ((b.t === "head" || b.t === "label") && COMPFIELD.test((b.text || "").trim())) {
+      b.text = fixCompetenceCase(b.text);
     } else if ((b.t === "para" || b.t === "listitem") && b.segs && b.segs.length) {
       const lead = b.segs.find((s) => s.t.trim());
       if (lead && CASEFIELD.test(lead.t.trim())) lead.t = sentenceLabel(lead.t);
+      else if (lead && COMPFIELD.test(lead.t.trim())) lead.t = fixCompetenceCase(lead.t);
     }
   }
   // 1e) The three structural identifiers (Component / Topic / Sub-Topic) name the lesson
@@ -3881,7 +3931,7 @@ function proofPolish(blocks) {
 }
 
 // "General/Specific Competence(s)" is a fixed structural label, not manuscript prose, so
-// its display case is a house-style rule ("General competences", "Specific competence")
+// its display case is a house-style rule ("General Competences", "Specific Competence")
 // regardless of how a given author typed it — see fixCompetenceCase in proofPolish() above
 // for the original version of this fix. That version only fires inside proofPolish(), which
 // itself only runs for the handful of themes/books opted into `boxActivities`; every other
@@ -3892,8 +3942,8 @@ function proofPolish(blocks) {
 // block must be promoted to a `head` block instead, since `head()` always honours the case
 // it's given. Runs unconditionally, for every book, independent of `boxActivities`.
 function normaliseCompetenceLabels(blocks) {
-  const fixCase = (t) => t.replace(/^(General|Specific)(\s+Competences?)\b/i,
-    (_, w1, w2) => w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.toLowerCase());
+  const fixCase = (t) => t.replace(/^(General|Specific)\s+(Competences?)\b/i,
+    (_, w1, w2) => `${w1.charAt(0).toUpperCase()}${w1.slice(1).toLowerCase()} ${w2.charAt(0).toUpperCase()}${w2.slice(1).toLowerCase()}`);
   const STANDALONE = /^(General|Specific)\s+Competences?\s*:?\s*$/i;   // "General Competences" / "…:" alone, value on the next block(s)
   const INLINE = /^(General|Specific)\s+Competences?\s*:\s*\S/i;       // "General Competences: Analytical Thinking…" on one line
   for (const b of blocks) {
