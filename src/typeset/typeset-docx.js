@@ -161,7 +161,13 @@ function emit(blocks) {
         out += `#cover(${strArr(b.lines)}, ${strArr(b.byline || [])}, ${hero}, ${logo}, ${b.isbn ? S(b.isbn) : "none"}, finished: ${b.finished ? "true" : "false"})\n`; break;
       }
       case "toc": out += `#tableofcontents()\n`; break;
-      case "titlepage": out += `#titlepage(${strArr(b.lines || [])}, ${strArr(b.byline || [])})\n`; break;
+      case "titlepage": {
+        const hero = b.hero ? `(file: ${S(b.hero.file)})` : "none";
+        const logo = b.logo ? `(file: ${S(b.logo.file)})` : "none";
+        out += `#titlepage(${strArr(b.lines || [])}, ${strArr(b.byline || [])}, hero: ${hero}, logo: ${logo})\n`; break;
+      }
+      case "imprint": out += `#imprint(${S(String(b.year || ""))}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
+      case "divider": out += `#divider(${S(b.text || "")})\n`; break;
       // pagebreak FIRST so the counter/numbering reset lands on the NEW page, not
       // the trailing previous one. Roman counting begins (silently) on the title
       // page = i; it becomes VISIBLE at the first prose front-matter page (so the
@@ -182,7 +188,7 @@ function emit(blocks) {
         else out += `#sectionhead(${S(b.text)})\n`;
         break;
       }
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))})\n`; break;
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
@@ -3728,6 +3734,100 @@ function eduLevelFor(base) {
   return null;
 }
 
+// A CDC syllabus has NO callout boxes — its interior is front-matter prose + the 5-column
+// matrix. Flatten any callout the box-detector produced (ASSESSMENT / CBA come through as
+// `assessment` boxes) back to a plain h2 heading + its content as ordinary paragraphs.
+function flattenSyllabusBoxes(blocks) {
+  const para = (text, seg, isList) => ({ t: "para", plain: text,
+    segs: (seg && seg.length) ? seg : [{ t: text, b: false, it: false, c: null }], isList: !!isList });
+  const out = [];
+  const isEnum = (t) => /^\s*(\d+|[a-z])[.)]\s/i.test(t || "");
+  const pushTitle = (title) => {
+    if (!title) return;
+    if (isEnum(title)) out.push(para(title, [{ t: title, b: true, it: false, c: null }]));
+    else out.push({ t: "h2", text: title });
+  };
+  for (const b of blocks) {
+    if (b.t === "assessment" || b.t === "exercise") {
+      pushTitle((b.title || b.heading || "").trim());
+      for (const s of b.intro || []) out.push(para(s));
+      for (const p of b.parts || []) {
+        const mk = p.marker ? p.marker + " " : "";
+        const seg = (p.qseg && p.qseg.length)
+          ? [{ t: mk, b: false, it: false, c: null }, ...p.qseg]
+          : [{ t: mk + (p.q || ""), b: false, it: false, c: null }];
+        out.push(para(mk + (p.q || ""), seg, true));
+        if (p.a) out.push(para(p.a, p.aseg));
+      }
+      for (const s of b.extra || []) out.push(para(s));
+    } else if (b.t === "activity" || b.t === "framedsection") {
+      pushTitle((b.title || "").trim());
+      for (const bb of b.body || []) out.push(bb);
+    } else if (b.t === "keypoints" || b.t === "fact") {
+      pushTitle((b.title || "").trim());
+      for (const pt of b.points || []) out.push(para(pt, null, true));
+      for (const bb of b.body || []) out.push(bb);
+    } else if (b.t === "box") {
+      const body = b.body || [];
+      if (body.length && body[0].t === "para") {
+        pushTitle((body[0].plain || "").trim());
+        for (const bb of body.slice(1)) out.push(bb);
+      } else for (const bb of body) out.push(bb);
+    } else {
+      out.push(b);
+    }
+  }
+  return out;
+}
+
+// A syllabus signatory reads: NAME / office / MINISTRY OF EDUCATION. The manuscript styles
+// the org line as a heading (left accent bar) and leaves name/office plain. House style: a
+// clear space ABOVE, the NAME and ORGANISATION bold, the office line NOT bold, no bar.
+function fixSyllabusSignatures(blocks) {
+  const txtOf = (b) => (b ? (blockPlain(b) || "").trim() : "");
+  const prevNonEmpty = (from) => { let j = from; while (j >= 0 && txtOf(blocks[j]) === "") j--; return j; };
+  const bold = (t) => ({ t: "para", plain: t, segs: [{ t, b: true, it: false, c: null }] });
+  const plain = (t) => ({ t: "para", plain: t, segs: [{ t, b: false, it: false, c: null }] });
+  for (let i = 0; i < blocks.length; i++) {
+    if (!/^ministry of education$/i.test(txtOf(blocks[i]))) continue;
+    blocks[i] = bold(txtOf(blocks[i]).toUpperCase());
+    const ti = prevNonEmpty(i - 1);
+    if (ti < 0) continue;
+    blocks[ti] = plain(txtOf(blocks[ti]));
+    const ni = prevNonEmpty(ti - 1);
+    if (ni < 0) continue;
+    blocks[ni] = bold(txtOf(blocks[ni]));
+    blocks.splice(ni, 0, { t: "sigspace" });
+    i++;
+  }
+  return blocks;
+}
+
+// Arrange the syllabus front matter: cover (unnumbered) → title page (B&W echo, unnumbered)
+// → [roman i] copyright + imprint → TOC → [roman visible] Vision … front matter → level
+// divider page → [arabic 1] Competences & Descriptors → body → back cover. The counter
+// resets/visibility ride on the marker blocks (titlestart/showpage/bodystart).
+function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {}) {
+  const coverIdx = blocks.findIndex((b) => b.t === "cover");
+  const cov = coverIdx >= 0 ? blocks[coverIdx] : null;
+  const visionIdx = blocks.findIndex((b) => b.t === "h1");
+  const compIdx = blocks.findIndex((b) => /^h[12]$/.test(b.t) && /^competen[ct]es?\s+and\s+descriptors/i.test((b.text || "").trim()));
+  const crIdx = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+  const out = [];
+  for (let i = 0; i < blocks.length; i++) {
+    if (cov && i === coverIdx + 1) {
+      out.push({ t: "titlepage", lines: cov.lines || [], byline: cov.byline || [], hero: cov.heroGrey || cov.hero || null, logo: cov.logoGrey || cov.logo || null });
+      out.push({ t: "titlestart" });
+    }
+    if (i === visionIdx && visionIdx >= 0) out.push({ t: "showpage", spacing: "0.95em" });
+    if (i === compIdx && compIdx >= 0) { out.push({ t: "divider", text: level }); out.push({ t: "bodystart" }); }
+    out.push(blocks[i]);
+    if (i === crIdx && crIdx >= 0) out.push({ t: "imprint", year, isbn });
+  }
+  if (cov) out.push({ t: "backcover", lines: cov.lines || [], logo: null, isbn });
+  return out;
+}
+
 async function typesetOne(docxPath, themeName) {
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
   // Expand a standalone "G 2"/"G2" abbreviation to "Grade 2" for all grade/level/theme
@@ -3773,6 +3873,7 @@ async function typesetOne(docxPath, themeName) {
 
   const importOpts = variant === "series" ? { series: true }
     : variant === "science" ? { styled: true, flat: false, textCover: true }
+    : variant === "syllabus" ? { textCover: true }
     : {};
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
@@ -4079,6 +4180,76 @@ function normaliseQuestionMarkBold(blocks) {
     // A localised book-type label (e.g. Lunda "MUKANDA WAKADIZI" = Learner's
     // Book) replaces the synthesised English booktype on the cover.
     if (cov && ov.booktype && cov.lines && cov.lines.length) cov.lines[cov.lines.length - 1] = ov.booktype;
+  }
+
+  // ---- CDC SYLLABUS post-processing (landscape matrix book) ----------------------
+  if (variant === "syllabus") {
+    blocks = flattenSyllabusBoxes(blocks);
+    // The importer may KEEP the manuscript's list bullets inside matrix cells; the matrix
+    // renders its own bullets, so strip the source ones (from cell text + segs) to avoid
+    // a doubled "• •" in the activities column and a stray bullet on numbered topics.
+    for (const b of blocks) {
+      if (!Array.isArray(b.rows)) continue;
+      for (const row of b.rows) for (const c of row) {
+        if (!c) continue;
+        if (typeof c.text === "string") c.text = c.text.replace(/[•▪◦●·‣∙]\s?/g, "");
+        if (Array.isArray(c.segs)) for (const s of c.segs) if (typeof s.t === "string") s.t = s.t.replace(/[•▪◦●·‣∙]\s?/g, "");
+      }
+    }
+    // The manuscript's own "TABLE OF CONTENT" heading is left over after its TOC1 lines
+    // became the generated outline; relabel it VISION (the section that follows it) so the
+    // duplicate banner disappears and the outline shows VISION, not a self-referential TOC.
+    for (const b of blocks) {
+      if (/^h[12]$/.test(b.t) && /^table of contents?$/i.test((b.text || "").trim())) {
+        b.t = "h1"; b.text = "VISION"; break;
+      }
+    }
+    blocks = fixSyllabusSignatures(blocks);
+    // Appendix "YEAR 1" is a heading but "YEAR 2" a plain para — promote bare "YEAR N".
+    for (const b of blocks) {
+      if (b.t === "para" && /^year\s+\d+$/i.test((blockPlain(b) || "").trim())) {
+        b.t = "head"; b.text = (blockPlain(b) || "").trim().toUpperCase(); delete b.segs;
+      }
+    }
+    // COMPETENCES AND DESCRIPTORS table: first column (competence names) in UPPERCASE.
+    for (const b of blocks) {
+      if (!Array.isArray(b.rows)) continue;
+      const hi = b.rows.findIndex((r) => r.length >= 2
+        && /^competen/i.test((r[0].text || "").trim()) && /descriptor/i.test((r[1].text || "").trim()));
+      if (hi < 0) continue;
+      for (let ri = hi + 1; ri < b.rows.length; ri++) {
+        const c = b.rows[ri][0];
+        if (!c) continue;
+        if (c.text) c.text = c.text.toUpperCase();
+        if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
+      }
+    }
+    // Keep a section head (h1) and its FIRST sub-head (h2) together (APPENDICES + APPENDIX 1).
+    for (let i = 1; i < blocks.length; i++) {
+      if (blocks[i].t !== "h2") continue;
+      let j = i - 1;
+      while (j >= 0 && blocks[j].t === "para" && !(blockPlain(blocks[j]) || "").trim()) j--;
+      if (j >= 0 && blocks[j].t === "h1") blocks[i].nobreak = true;
+    }
+    const cov = blocks.find((b) => b.t === "cover");
+    if (cov) {
+      // Cover images: the Zambia coat of arms at the TOP (bundled asset — the engine may
+      // force the ZEPH logo onto a manuscript cover, so don't rely on the manuscript's own
+      // logo), and the CDC roundel below the band (the manuscript ships it as unreadable WMF).
+      const crest = path.join(__dirname, "assets", "zambia-crest.png");
+      if (fs.existsSync(crest)) { media.push({ name: "syl_crest.png", src: crest }); cov.hero = { file: "syl_crest.png" }; }
+      else if (cov.logo && cov.logo.file) cov.hero = cov.logo;
+      const cdc = path.join(__dirname, "assets", "cdc-badge.png");
+      if (fs.existsSync(cdc)) { media.push({ name: "syl_cdc.png", src: cdc }); cov.logo = { file: "syl_cdc.png" }; }
+      else cov.logo = null;
+      // Greyscale crest + badge for the B&W title page (the cover keeps colour ones).
+      const crestG = path.join(__dirname, "assets", "crest-grey.png");
+      const cdcG = path.join(__dirname, "assets", "cdc-badge-grey.png");
+      if (fs.existsSync(crestG)) { media.push({ name: "syl_crest_grey.png", src: crestG }); cov.heroGrey = { file: "syl_crest_grey.png" }; }
+      if (fs.existsSync(cdcG)) { media.push({ name: "syl_cdc_grey.png", src: cdcG }); cov.logoGrey = { file: "syl_cdc_grey.png" }; }
+    }
+    const Tsyl = THEMES[theme] || {};
+    blocks = applySyllabusFront(blocks, { year: Tsyl.year || "", level: Tsyl.eyebrow || "", isbn: ov.isbn || null });
   }
 
   // Restructure the front matter (title page, roman/arabic numbering, etc.).

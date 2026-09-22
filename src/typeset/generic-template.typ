@@ -12,6 +12,9 @@
 #let panel = T.variant == "panel"
 #let series = T.variant == "series"
 #let science = T.variant == "science"
+// "syllabus" = the CDC landscape curriculum-syllabus family (A4 landscape, a grey-
+// header 5-column matrix interior, a spread cover). Its own page furniture below.
+#let syllabus = T.variant == "syllabus"
 // "series" (English, flat) and "science" (Physics, boxed) share the ZEPH B5
 // house mechanics: page size/margins, running header, tilde footer, roman/arabic
 // numbering, designed cover + title page + back cover.
@@ -61,6 +64,10 @@
 // itself — the visible heading is drawn by the functions below.
 #show heading: none
 #let mark(lvl, body) = heading(level: lvl, outlined: true, numbering: none)[#body]
+// Register a heading so the real outline (TOC) finds it at THIS page, but render nothing
+// on the page — used to list the matrix TOPICS (which live inside table cells) in the
+// contents with their true page numbers, nested under the YEAR heading.
+#let tocentry(lvl, body) = place(hide(heading(level: lvl, outlined: true, numbering: none, bookmarked: false)[#body]))
 
 // CDC 2025 sets a larger body size for young readers (Grade 1 → 18pt, Grade 2-3 →
 // 16pt, Grade 4-6 → 14pt; Teacher's Guides and secondary stay 12pt). `fs()` scales a
@@ -101,12 +108,15 @@
   let tallhdr = serieslike and (T.at("coverStyle", default: "") == "form2" or T.at("coverStyle", default: "") == "grade3" or T.at("coverStyle", default: "") == "grade2" or boxstyle == "labcard")
   set page(
     paper: T.paper,
-    margin: if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
+    flipped: T.at("landscape", default: false),
+    margin: if syllabus { (top: 14mm, bottom: 15mm, x: 14mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
     header-ascent: if tallhdr { 8mm } else { 30% },
-    footer-descent: 30%,
+    footer-descent: if syllabus { 40% } else { 30% },
     header: context {
       let visible = if serieslike { pastcover.get() } else { counter(page).get().first() > 1 }
-      if visible {
+      if syllabus {
+        // No running header on the matrix pages (the wide matrix uses the full width).
+      } else if visible {
         if serieslike and (T.at("coverStyle", default: "") == "grade3" or T.at("coverStyle", default: "") == "grade2" or boxstyle == "labcard") {
           // GRADE 2/3 playful header: subject in a rounded pill, book tag on the
           // right, over a two-tone rule (a short thick accent segment then a thin
@@ -170,7 +180,25 @@
       }
     },
     footer: context {
-      if serieslike {
+      if syllabus {
+        // CDC syllabus footer: a double black rule + the italic "‹Subject› Syllabus
+        // ‹year›" masthead on the left, from the copyright page onward (pastcover). The
+        // page number sits in a black chip centred on the rule, but only once numbering
+        // is VISIBLE (pgvisible) — i.e. from the Vision page (roman) through the body.
+        if pastcover.get() {
+          set text(font: T.bodyFont, size: 9pt, fill: T.ink)
+          place(top, line(length: 100%, stroke: 1.6pt + T.ink))
+          place(top, dy: 3pt, line(length: 100%, stroke: 0.6pt + T.ink))
+          v(5pt)
+          grid(columns: (1fr, auto, 1fr), align: (left + horizon, center + horizon, right),
+            text(style: "italic", weight: "bold")[#T.hdrleft],
+            if pgvisible.get() {
+              box(fill: T.ink, inset: (x: 8pt, y: 2.5pt))[
+                #text(fill: white, weight: "bold")[#counter(page).display()]]
+            } else { [] },
+            [])
+        }
+      } else if serieslike {
         if pgvisible.get() {
           // counter(page).display() honours the page's native numbering pattern
           // (roman in front matter, arabic in the body)
@@ -194,7 +222,39 @@
 
 // ---- title page (series): the book name repeated, modern sans, with a small
 // geometric accent that echoes the cover ----
-#let titlepage(lines, byline) = {
+#let titlepage(lines, byline, hero: none, logo: none) = {
+  // SYLLABUS title page: a black-and-white echo of the cover — crest + ministry, the
+  // title between two grey rules, the level line, the CDC badge and the developed-by
+  // block. Unnumbered (its own footer:none page). Mirrors the reference second page.
+  if syllabus {
+    let subject = lines.at(0, default: "")
+    let name = if subject != "" and not ("SYLLABUS" in upper(subject)) { subject } else { T.subject }
+    let year = T.at("year", default: "")
+    let grey = rgb("#c8c8c8")
+    return {
+      pagebreak(weak: true)
+      page(paper: "a4", flipped: true, margin: (x: 26mm, y: 16mm), header: none, footer: none)[
+        #set align(center)
+        #if hero != none and hero.file != "" { image("_media/" + hero.file, height: 40mm); v(3mm) }
+        #text(font: T.bodyFont, size: 15pt, weight: "bold", fill: T.ink)[Republic of Zambia] #linebreak()
+        #text(font: T.bodyFont, size: 18pt, weight: "bold", fill: T.ink)[MINISTRY OF EDUCATION]
+        #v(9mm)
+        #line(length: 100%, stroke: 3pt + grey)
+        #v(7mm)
+        #text(font: T.displayFont, size: 33pt, weight: "black", fill: T.ink, tracking: 0.5pt)[#upper(name) SYLLABUS] #linebreak()
+        #v(4mm)
+        #text(font: T.bodyFont, size: 19pt, weight: "bold", fill: T.ink)[#upper(T.eyebrow)]
+        #v(7mm)
+        #line(length: 100%, stroke: 3pt + grey)
+        #v(11mm)
+        #if logo != none and logo.file != "" { image("_media/" + logo.file, height: 26mm); v(4mm) }
+        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[Developed by the Curriculum Development Centre] #linebreak()
+        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[#year]
+      ]
+      pastcover.update(true)
+      pagebreak(weak: true)
+    }
+  }
   pagebreak(weak: true)
   set text(font: T.displayFont)
   let grade = lines.find(l => "FORM" in upper(l) or "GRADE" in upper(l))
@@ -322,7 +382,44 @@
   // logo, motif) — drawing any of that on top would duplicate what the image
   // already carries. Opt in per book via the `finishedCover` override once a
   // manuscript's cover page is confirmed to be pre-designed like this. ----------
-  if finished and hero != none {
+  if syllabus {
+    // ---------- SYLLABUS cover (CDC landscape): a solid subject-colour FIELD with a
+    // contrasting horizontal BAND carrying the title; ministry crest + "Republic of
+    // Zambia"/"Ministry of Education" up top; the CDC roundel + developed-by below. ----
+    let field = T.covSignature
+    let band = T.at("covBand", default: white)
+    let ftext = T.at("covText", default: white)
+    let title = T.at("covTitle", default: T.ink)
+    let name = if subject != "" and not ("SYLLABUS" in upper(subject)) { subject } else { T.subject }
+    let year = T.at("year", default: "")
+    page(paper: "a4", flipped: true, margin: 0pt, header: none, footer: none, fill: field)[
+      #place(top + center, dy: 9mm, box(width: 230mm)[
+        #set align(center)
+        #if hero != none and hero.file != "" { image("_media/" + hero.file, height: 40mm); v(2.5mm) }
+        #text(font: T.bodyFont, size: 19pt, weight: "bold", fill: ftext)[Republic of Zambia] #linebreak()
+        #text(font: T.bodyFont, size: 27pt, weight: "bold", fill: ftext)[Ministry of Education]
+      ])
+      #place(top + left, dy: 82mm, rect(width: 100%, height: 40mm, fill: band, stroke: none))
+      #place(top + center, dy: 82mm, box(width: 282mm, height: 40mm)[
+        #set align(center + horizon)
+        #stack(spacing: 4mm,
+          text(font: T.displayFont, size: 31pt, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS],
+          text(font: T.bodyFont, size: 18pt, weight: "bold", fill: title)[#upper(T.eyebrow)])
+      ])
+      #place(top + center, dy: 128mm, box(width: 140mm)[
+        #set align(center)
+        #if logo != none and logo.file != "" { image("_media/" + logo.file, height: 30mm) }
+      ])
+      #place(bottom + center, dy: -16mm, box(width: 240mm)[
+        #set align(center)
+        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[DEVELOPED BY THE CURRICULUM DEVELOPMENT CENTRE] #linebreak()
+        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[LUSAKA] #linebreak()
+        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[#year]
+      ])
+    ]
+    pastcover.update(true)
+    pagebreak(weak: true)
+  } else if finished and hero != none {
     page(margin: 0pt, header: none, footer: none, width: 176mm, height: 250mm)[
       #image("_media/" + hero.file, width: 100%, height: 100%, fit: "cover")
     ]
@@ -949,6 +1046,28 @@
 #let backcover(lines, logo, isbn) = {
   // keep the cover palette even in a black-and-white interior (see cover()).
   let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
+  // ---------- SYLLABUS back cover: solid subject field + a RESERVED white ISBN/barcode
+  // box + the "Printed by / Zambia Educational Publishing House" imprint. A4 landscape. --
+  if syllabus {
+    let field = T.covSignature
+    let ftext = T.at("covText", default: white)
+    return {
+      page(paper: "a4", flipped: true, margin: 0pt, header: none, footer: none, fill: field)[
+        #place(top + center, dy: 40mm, box(width: 120mm, height: 34mm, fill: white, stroke: 0.75pt + rgb("#cccccc"))[
+          #set align(center + horizon)
+          #{
+            if isbn != none { text(font: T.bodyFont, size: 13pt, fill: black)[ISBN #isbn] }
+            else { text(font: T.bodyFont, size: 10pt, fill: rgb("#999999"))[ISBN / barcode] }
+          }
+        ])
+        #place(bottom + center, dy: -30mm, box(width: 160mm)[
+          #set align(center)
+          #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Printed by] #linebreak()
+          #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Zambia Educational Publishing House]
+        ])
+      ]
+    }
+  }
   let subject = lines.at(0, default: "")
   let grade = lines.find(l => "FORM" in upper(l) or "GRADE" in upper(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
@@ -1354,6 +1473,47 @@
 // section that must SHARE a page with what precedes it (e.g. an ACRONYMS list that
 // sits directly under the Competences table), so it gets the styled section heading
 // but no page break. `outlined` (default true) lists it in the contents.
+// SYLLABUS imprint block — the ISBN + publisher/address + printer, centred, under the
+// copyright paragraph on the copyright page (mirrors the reference imprint page).
+#let imprint(year, isbn) = {
+  let isbnText = if isbn != none { isbn } else { "...................." }
+  v(40pt)
+  align(center, {
+    set text(font: T.bodyFont, size: 12pt, fill: T.ink)
+    [*ISBN:* #isbnText]
+    v(20pt)
+    [First Published #year by \
+     Zambia Educational Publishing House \
+     Light Industrial Area \
+     Chishango Road \
+     P.O. BOX 32708 \
+     Lusaka Zambia]
+    v(20pt)
+    [Printed by: \
+     *Zambia Educational Publishing House (ZEPH)*]
+  })
+}
+
+// SYLLABUS section divider — a blank page carrying only the education level, before the
+// arabic body begins (unnumbered). Styled as a centred band framed by a double rule top
+// AND bottom (echoing the footer's double-rule motif) — a distinct, cleaner treatment.
+#let divider(txt) = {
+  page(paper: "a4", flipped: true, margin: 0pt, header: none, footer: none)[
+    #place(center + horizon, block(width: 205mm)[
+      #set align(center)
+      #line(length: 100%, stroke: 2.4pt + T.ink)
+      #v(2.5pt)
+      #line(length: 100%, stroke: 0.8pt + T.ink)
+      #v(13mm)
+      #text(font: T.displayFont, size: 30pt, weight: "bold", fill: T.ink, tracking: 2.5pt)[#upper(txt)]
+      #v(13mm)
+      #line(length: 100%, stroke: 0.8pt + T.ink)
+      #v(2.5pt)
+      #line(length: 100%, stroke: 2.4pt + T.ink)
+    ])
+  ]
+}
+
 #let sectionhead(t, brk: true, outlined: true) = {
   if brk { pagebreak(weak: true) }
   // Outline units always; outline front-matter sections only when the TOC is not
@@ -1437,9 +1597,16 @@
     v(6pt)
   }
 }
-#let subhead(t) = {
-  // Sub-topics are omitted from a units-only contents page.
-  if not tocUnitsOnly { mark(2, t) }
+#let subhead(t, nobrk: false) = {
+  // In a SYLLABUS every section (Methodologies, Time Allocation, Year 1/2…) starts on
+  // its own page — EXCEPT a sub-head directly following its section head (nobrk), e.g.
+  // "APPENDICES" then "APPENDIX 1: …" which belong together.
+  if syllabus and not nobrk { pagebreak(weak: true) }
+  // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
+  // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them.
+  if not tocUnitsOnly {
+    if syllabus and t.trim().match(regex("(?i)^year\\s+\\d+$")) != none { mark(1, t) } else { mark(2, t) }
+  }
   v(7pt, weak: true)
   if boxstyle == "labcard" {
     // CHEMISTRY sub-topic: a small amber label+number eyebrow, the name below in
@@ -1480,6 +1647,10 @@
   } else if modern {
     block(width: 100%, breakable: false, radius: 4pt, fill: T.act.fill, stroke: (left: 5pt + T.accent), inset: (x: 11pt, y: 8pt))[
       #text(fill: T.primary, size: hs(14pt), weight: "bold")[#t]]
+  } else if syllabus {
+    // clean solid banner — no left accent stripe
+    block(width: 100%, breakable: false, radius: 3pt, fill: T.primary, inset: (x: 12pt, y: 8pt))[
+      #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
   } else {
     block(width: 100%, breakable: false, clip: true, radius: 3pt, stroke: (left: 5pt + T.accent), fill: T.primary, inset: (x: 11pt, y: 8pt))[
       #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
@@ -1508,6 +1679,9 @@
       #text(fill: T.primary, size: hs(13pt), weight: "bold")[#t]
       #v(1pt)
       #line(length: 38pt, stroke: 2pt + T.accent)]
+  } else if syllabus {
+    // plain bold heading — NO vertical accent bar (the reference has none)
+    block(breakable: false)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
   } else {
     block(breakable: false)[
       #grid(columns: (4pt, auto), column-gutter: 7pt,
@@ -1772,7 +1946,90 @@
     c.text != "" and not c.text.contains(" ") and c.text.len() <= 10
     and c.at("seg", default: ()).len() == 0 and c.imgs.len() == 0))
   let cols = if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) { auto } else { colweight(ci) * 1fr }) }
-  let tbl = if hdr {
+  // ---- CDC SYLLABUS matrix look: a GREY header row that REPEATS on every page, a black
+  // inner grid + thicker outer frame, no zebra, the TOPIC column bold, the activities
+  // column bulleted, and the TOPIC/SUB-TOPIC row-span merge (empty left cells continue the
+  // one above, so no line between them). Each non-empty topic also drops a hidden TOC entry.
+  let syl = T.variant == "syllabus"
+  let plainlabel(c) = {
+    let t = c.at("text", default: "")
+    if t == none { t = "" }
+    if t != "" { t } else { c.at("seg", default: ()).map(s => { let x = s.at("t", default: ""); if x == none { "" } else { x } }).join() }
+  }
+  // Strip a leading bullet/marker — the importer may KEEP the manuscript's list bullet in
+  // a cell, and the matrix adds its own, so drop the source one to avoid a double bullet.
+  let stripLead(s) = if s == none { "" } else { s.replace(regex("^\\s*[•▪◦●·‣∙\\-]+\\s*"), "") }
+  let sylhdr = syl and (not noHeader) and rows.at(0).all(c =>
+    c.imgs.len() == 0 and not plainlabel(c).contains("\n")
+    and plainlabel(c).len() <= 44 and plainlabel(c).trim() != "")
+  // The SUGGESTED/LEARNING ACTIVITIES column (ACT…VIT — tolerates the "ACTVITIES" typo).
+  let actCol = if sylhdr { rows.at(0).position(c => upper(plainlabel(c)).contains(regex("ACT.?VIT"))) } else { none }
+  let sylbullets(c) = {
+    let sg = c.at("seg", default: ())
+    let lines = ()
+    if sg.len() > 0 {
+      let cur = ()
+      for s in sg {
+        let parts = s.t.split("\n")
+        for (i, p) in parts.enumerate() {
+          if i > 0 { lines.push(cur); cur = () }
+          if p != "" { cur.push((..s, t: p)) }
+        }
+      }
+      lines.push(cur)
+      lines = lines.filter(l => l.len() > 0)
+    } else {
+      lines = c.text.split("\n").filter(t => t.trim() != "")
+    }
+    let clean(l) = if type(l) == array { let m = l; if m.len() > 0 { m.at(0) = (..m.at(0), t: stripLead(m.at(0).t)) }; m } else { stripLead(l) }
+    if lines.len() == 0 { cell(c) } else {
+      grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
+        ..lines.map(l => { let cl = clean(l); (text[•], if type(cl) == array { segs(cl) } else { cl }) }).flatten())
+    }
+  }
+  let isEmptyCell(x, y) = {
+    if y < 1 or y >= rows.len() or x >= rows.at(y).len() { false }
+    else {
+      let c = rows.at(y).at(x)
+      c.text.trim() == "" and c.at("seg", default: ()).len() == 0 and c.imgs.len() == 0
+    }
+  }
+  let mergeTop(x, y) = x <= 1 and y >= 1 and isEmptyCell(x, y)
+  let sylStroke = (x, y) => {
+    let lastr = rows.len() - 1
+    let lastc = rows.at(0).len() - 1
+    (
+      left: (if x == 0 { 1.3pt } else { 0.5pt }) + T.ink,
+      right: (if x == lastc { 1.3pt } else { 0.5pt }) + T.ink,
+      top: if y == 0 { 1.3pt + T.ink } else if mergeTop(x, y) { none } else { 0.5pt + T.ink },
+      bottom: if y == lastr { 1.3pt + T.ink } else if mergeTop(x, y + 1) { none } else { 0.5pt + T.ink },
+    )
+  }
+  let topicNum(row) = {
+    let st = if row.len() > 1 { row.at(1).text } else { "" }
+    let m = st.match(regex("^\\s*(\\d+)\\.(\\d+)"))
+    if m != none { m.captures.at(0) + "." + m.captures.at(1) } else { "" }
+  }
+  let sylbody(ci, c, row) = if actCol != none and ci == actCol {
+    sylbullets(c)
+  } else if ci == 0 {
+    let tt = stripLead(plainlabel(c)).trim()
+    let body = text(weight: "bold")[#tt]
+    if tt != "" and sylhdr and actCol != none {
+      let num = topicNum(row)
+      let label = if num == "" or tt.match(regex("^\\d+\\.\\d")) != none { tt } else { num + "  " + tt }
+      [#tocentry(2, label)#body]
+    } else { body }
+  } else { cell(c) }
+  let tbl = if syl and sylhdr {
+    table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt),
+      fill: (col, row) => if row == 0 { T.at("matHeader", default: rgb("#d9d9d9")) } else { white },
+      table.header(..rows.at(0).map(c => align(center)[#text(fill: T.ink, weight: "bold")[#plainlabel(c)]])),
+      ..rows.slice(1).map(r => r.enumerate().map(((ci, c)) => sylbody(ci, c, r))).flatten())
+  } else if syl {
+    table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt), fill: white,
+      ..rows.map(r => r.enumerate().map(((ci, c)) => sylbody(ci, c, r))).flatten())
+  } else if hdr {
     table(columns: cols, stroke: 0.5pt + T.rulec,
       fill: (col, row) => if row == 0 { T.primary } else if calc.odd(row) { T.zebra } else { white },
       inset: (x: ix, y: iy),
