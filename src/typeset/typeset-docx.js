@@ -3816,15 +3816,18 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     if (cov && i === coverIdx + 1) {
-      out.push({ t: "titlepage", lines: cov.lines || [], byline: cov.byline || [], hero: cov.heroGrey || cov.hero || null, logo: cov.logoGrey || cov.logo || null });
+      // Roman counting begins (silently) on the TITLE PAGE — the cover spread is page 1
+      // of the sheet but is NOT counted, so the title page is roman i, Vision ≈ v.
       out.push({ t: "titlestart" });
+      out.push({ t: "titlepage", lines: cov.lines || [], byline: cov.byline || [], hero: cov.heroGrey || cov.hero || null, logo: cov.logoGrey || cov.logo || null });
     }
     if (i === visionIdx && visionIdx >= 0) out.push({ t: "showpage", spacing: "0.95em" });
-    if (i === compIdx && compIdx >= 0) { out.push({ t: "divider", text: level }); out.push({ t: "bodystart" }); }
+    // Arabic 1 begins on the LEVEL DIVIDER page (the "Secondary Teacher's Diploma" page).
+    if (i === compIdx && compIdx >= 0) { out.push({ t: "bodystart" }); out.push({ t: "divider", text: level }); }
     out.push(blocks[i]);
     if (i === crIdx && crIdx >= 0) out.push({ t: "imprint", year, isbn });
   }
-  if (cov) out.push({ t: "backcover", lines: cov.lines || [], logo: null, isbn });
+  // No separate back cover — the front + back covers are combined on the cover SPREAD.
   return out;
 }
 
