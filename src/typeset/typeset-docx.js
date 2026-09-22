@@ -2438,8 +2438,23 @@ function applyOverrides(blocks, ov) {
           // centred instead of flushing the tail left
           if (k > 0) { const tail = b.segs.splice(k); arr.splice(i + 1, 0, { t: "para", segs: tail, ...(b.align ? { align: b.align } : {}) }); done = true; return; }
         }
+        // An exercise/assessment QUESTION part (kind "q"/"lead") carries its text in
+        // `.qseg`, not `.segs` — the manuscript typed a whole new section divider
+        // ("Section B: Application and Analysis") as the tail of the previous item's
+        // own paragraph, with no paragraph break, so it imported glued onto that
+        // item's question text instead of starting its own line. Split it the same
+        // way, inserting the tail as a fresh unnumbered "lead" part right after.
+        if ((b.kind === "q" || b.kind === "lead") && Array.isArray(b.qseg)) {
+          const k = b.qseg.findIndex((s) => typeof s.t === "string" && s.t.trimStart().startsWith(sp.find));
+          if (k > 0) {
+            const tail = b.qseg.splice(k);
+            b.q = b.qseg.map((s) => s.t || "").join("");
+            arr.splice(i + 1, 0, { kind: "lead", q: tail.map((s) => s.t || "").join(""), qseg: tail, indent: false });
+            done = true; return;
+          }
+        }
         for (const key of Object.keys(b)) {
-          if (Array.isArray(b[key]) && b[key].some((x) => x && typeof x === "object" && (x.segs || x.body || x.parts))) { walk(b[key]); if (done) return; }
+          if (Array.isArray(b[key]) && b[key].some((x) => x && typeof x === "object" && (x.segs || x.body || x.parts || x.qseg))) { walk(b[key]); if (done) return; }
         }
       }
     };

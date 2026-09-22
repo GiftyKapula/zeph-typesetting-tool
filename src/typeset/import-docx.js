@@ -764,8 +764,13 @@ function cellRich(tcXml) {
   // "Competences and Descriptors" table listing several outcome statements per
   // cell) keeps that bullet — dropping it left every line looking like one
   // unbroken run with no visual separation between statements.
+  // cellFlat() already prefixes a resolved marker (including a plain "•") onto
+  // b.plain, so the plain-text path must NOT prepend bullet(b) again on top of
+  // it — doing so doubled every bullet ("• • Demonstrate…") in a table cell's
+  // bullet list. bullet() is still needed below for the rich/segs path, which
+  // builds its own text from b.segs (never touches cellFlat).
   const bullet = (b) => (b.t === "para" && b.isList && b.marker === "•") ? "• " : "";
-  const text = bl.filter((b) => b.t !== "table").map((b) => bullet(b) + cellFlat(b)).join("\n").trim();
+  const text = bl.filter((b) => b.t !== "table").map(cellFlat).join("\n").trim();
   const imgs = [];
   const subs = [];
   // rich segments so a cell's bold/italic/coloured runs (e.g. a bold category name
