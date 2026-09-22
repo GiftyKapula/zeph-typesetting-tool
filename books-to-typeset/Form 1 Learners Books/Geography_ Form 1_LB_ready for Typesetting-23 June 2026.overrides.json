@@ -16,5 +16,27 @@
       "text": "TOPIC 1.6: SETTLEMENTS",
       "as": "h1"
     }
+  ],
+  "setMarker": [
+    {
+      "find": "You will be in four groups, and each group will move to a specific corner of the labelled card.",
+      "marker": "i)"
+    },
+    {
+      "find": "At each specific corner you have selected, you will represent the main reason people move to cities and you will discuss why your chosen card attracts people to urban areas.",
+      "marker": "ii)"
+    },
+    {
+      "find": "In groups, you will read the card and discuss how urbanisation affects that area",
+      "marker": "i)"
+    },
+    {
+      "find": "Each group will write three key impacts on chart paper and place it in that corner",
+      "marker": "ii)"
+    },
+    {
+      "find": "The class does a gallery walk, moving around the room to read and compare each group’s findings.",
+      "marker": "iii)"
+    }
   ]
 }

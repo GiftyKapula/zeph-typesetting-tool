@@ -455,6 +455,14 @@ function paraSegs(pXml) {
     let c = (rpr.match(/<w:color\s+w:val="([0-9A-Fa-f]{6})"/) || [])[1] || null;
     if (c) c = c.toUpperCase();
     if (c === "auto" || c === "000000") c = null;
+    // A URL/link run (<w:rStyle w:val="Hyperlink"/> or "FollowedHyperlink"/
+    // "InternetLink") prints as plain body text, never Word's live-link blue —
+    // house style for every book, not a per-manuscript choice. Some manuscripts
+    // carry an explicit <w:color w:val="0000FF"/> alongside the style reference
+    // (inconsistent even within one book's own References list, since it depends
+    // on how each URL was pasted in), so the style check must override any inline
+    // colour rather than only filling in when one is absent.
+    if (/<w:rStyle\s+w:val="(?:Hyperlink|FollowedHyperlink|InternetLink)"/i.test(rpr)) c = null;
     // Super/subscript runs (<w:vertAlign>). Word sets these for exponents (2n²),
     // chemical formulas (H₂O, CaCO₃) and ionic charges (Ca²⁺). The importer would
     // otherwise flatten them to inline text ("2n2") — wrong in any science book.
@@ -642,9 +650,12 @@ function cellBlocks(tcXml) {
     // from numbering.xml at display time rather than storing it as text, so a cell
     // with numPr but no runs has real, correct numbering info (via listResolve)
     // and nothing else — dropping it (the old behaviour, since `plain` is "") left
-    // the whole column blank in every row. Render the resolved marker itself, but
-    // only for genuine numbered/lettered formats: a lone empty BULLET point is
-    // still dropped, since an unfilled bullet carries no information to show.
+    // the whole column blank in every row. Go through `paraOf()` (not a hand-built
+    // block with the marker also copied into `.plain`) — cellFlat/cellRich already
+    // prefix `.marker` onto the cell's text themselves, so duplicating it into
+    // `.plain` too would print the number twice ("1. 1."). Only for genuine
+    // numbered/lettered formats: a lone empty BULLET point is still dropped, since
+    // an unfilled bullet carries no information to show.
     // A paragraph whose text was HIDDEN (every run carried <w:vanish/> — the
     // "Bottom of Form" web-field leftover is the recurring case) also comes out
     // with `plain === ""` here, but it is NOT a deliberate S/N placeholder: it's a
@@ -654,19 +665,19 @@ function cellBlocks(tcXml) {
     // two apart by checking the RAW xml for any actual run text: none at all means
     // a true S/N blank (render the resolved marker); some text that vanished into
     // an empty `plain` means drop the item entirely (no marker, no place in list).
-    else if (li && li.marker && li.marker !== "•" && !/<w:t\b[^>]*>[^<]*\S/.test(part)) {
-      out.push({ t: "para", segs: [{ t: li.marker, b: false, it: false, c: null }], plain: li.marker,
-        isList: true, numId: li.numId, lvl: li.lvl, marker: li.marker });
-    }
+    else if (li && li.marker && li.marker !== "•" && !/<w:t\b[^>]*>[^<]*\S/.test(part)) out.push(paraOf());
   }
   return out;
 }
 
 // Paragraph-only view of a cell (for boxes that only need text lines).
 const cellParas = (tcXml) => cellBlocks(tcXml).filter((b) => b.t === "para");
-// Flat text of a cell, including nested-table text (nothing dropped).
+// Flat text of a cell, including nested-table text (nothing dropped). A resolved
+// list marker (see cellBlocks above) is prefixed — otherwise an auto-numbered "S/N"
+// column renders as blank cells despite a real number being defined for each row.
 const cellFlat = (b) => b.t === "table"
-  ? b.rows.map((r) => r.map((c) => c.text).join(" · ")).join("  ") : (b.plain || "");
+  ? b.rows.map((r) => r.map((c) => c.text).join(" · ")).join("  ")
+  : (b.marker ? b.marker + (b.plain ? " " : "") : "") + (b.plain || "");
 const cellText = (tcXml) => cellBlocks(tcXml).map(cellFlat).join(" ").trim();
 
 // A rich table cell: its text AND every image it contains (both kept, so a
@@ -697,6 +708,12 @@ function cellRich(tcXml) {
     else if (b.t === "para" && b.segs) {
       if (segs.length) segs.push({ t: "\n", b: false, it: false, c: null });
       if (bullet(b)) segs.push({ t: bullet(b), b: false, it: false, c: null });
+      // Carry a resolved auto-number marker (see cellBlocks/cellFlat) into the rich
+      // segments too, kept in sync with cellFlat's plain-text path so a cell that
+      // also has styled runs (and so renders via `segs` rather than `text`) doesn't
+      // lose its number. `bullet(b)` already covers a plain "•" marker above, so
+      // this only fires for a genuine numbered/lettered one.
+      else if (b.marker) segs.push({ t: b.marker + (b.segs.length ? " " : ""), b: false, it: false, c: null });
       for (const s of b.segs) segs.push(s);
     }
   });
