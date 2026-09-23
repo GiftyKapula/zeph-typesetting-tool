@@ -4619,13 +4619,6 @@ function normaliseQuestionMarkBold(blocks) {
         if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
       }
     }
-    // Keep a section head (h1) and its FIRST sub-head (h2) together (APPENDICES + APPENDIX 1).
-    for (let i = 1; i < blocks.length; i++) {
-      if (blocks[i].t !== "h2") continue;
-      let j = i - 1;
-      while (j >= 0 && blocks[j].t === "para" && !(blockPlain(blocks[j]) || "").trim()) j--;
-      if (j >= 0 && blocks[j].t === "h1") blocks[i].nobreak = true;
-    }
     const cov = blocks.find((b) => b.t === "cover");
     if (cov) {
       // Cover images: the Zambia coat of arms at the TOP (bundled asset — the engine may
@@ -4645,6 +4638,22 @@ function normaliseQuestionMarkBold(blocks) {
     }
     const Tsyl = THEMES[theme] || {};
     blocks = applySyllabusFront(blocks, { year: Tsyl.year || "", level: Tsyl.eyebrow || "", isbn: ov.isbn || null });
+  }
+
+  // Keep a Topic banner (h1) and its FIRST Sub-Topic (h2) together when the
+  // manuscript gave that Topic no introduction of its own — subhead() otherwise
+  // force-page-breaks before every Sub-Topic unconditionally (house style: a
+  // Sub-Topic always starts a fresh page), which is fine when the Topic banner's
+  // page is already filled by an intro paragraph, but strands the banner alone
+  // on a near-empty page when there's nothing between it and the first Sub-Topic
+  // (e.g. Form 4 Food and Nutrition TG's "TOPIC 4.2: FOOD SERVICE", which the
+  // manuscript runs straight into "Sub-Topic 4.2.1" with no Topic-level intro).
+  // Applies to every book variant, not just the syllabus matrix layout.
+  for (let i = 1; i < blocks.length; i++) {
+    if (blocks[i].t !== "h2") continue;
+    let j = i - 1;
+    while (j >= 0 && blocks[j].t === "para" && !(blockPlain(blocks[j]) || "").trim()) j--;
+    if (j >= 0 && blocks[j].t === "h1") blocks[i].nobreak = true;
   }
 
   // Restructure the front matter (title page, roman/arabic numbering, etc.).
