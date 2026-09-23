@@ -4102,8 +4102,18 @@ function normaliseQuestionMarkBold(blocks) {
     // a real short subject, or a "… Form N" line exists); the SERIES cover takes
     // the eyebrow from line 0 (good only if line 0 IS the standard eyebrow AND a
     // subject+form line follows, like English). Otherwise synthesise a clean cover.
+    // !isEyebrow gates BOTH science clauses (not just the short-subject one): the
+    // science cover's own `subject`/eyebrow derivation (generic-template.typ's
+    // `cover()`) takes line 0 verbatim as the subject, with no eyebrow-filtering of
+    // its own. A manuscript that opens with the standard eyebrow on its own line
+    // (the "series" 3-line shape: eyebrow / subject / Form N, e.g. a book saved from
+    // the same template as the English series) can still satisfy `hasForm` from its
+    // separate "Form N" line, which used to be enough to pass goodTitle even though
+    // line 0 is the eyebrow, not the subject — producing a cover with the eyebrow
+    // printed as the giant title and the real subject dropped entirely. Requiring
+    // !isEyebrow for the hasForm clause too forces synthesis in that shape instead.
     const goodTitle = variant === "science"
-      ? ((!isEyebrow && t0.length > 0 && t0.length <= 34) || hasForm)
+      ? (!isEyebrow && (t0.length > 0 && t0.length <= 34 || hasForm))
       : (isEyebrow && hasForm);
     // Local-language covers are extra-inconsistent — always synthesise (keeping any
     // hero photo + real author names).
@@ -4469,6 +4479,22 @@ function normaliseQuestionMarkBold(blocks) {
   try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) {}
 }
 
+// Recursively collect .docx files under `dir`, skipping Word's own "~$" lock
+// files. Books get dropped in nested subfolders (a series folder, a
+// language folder), not just directly in input/ or books-to-typeset/.
+function findDocxFiles(dir) {
+  const out = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...findDocxFiles(full));
+    } else if (/\.docx$/i.test(entry.name) && !entry.name.startsWith("~$")) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
 async function main() {
   // Parse args: positional .docx paths + an optional `--theme NAME`.
   const argv = process.argv.slice(2);
@@ -4489,9 +4515,7 @@ async function main() {
   } else {
     for (const dir of INPUT_DIRS) {
       if (!fs.existsSync(dir)) continue;
-      for (const f of fs.readdirSync(dir)) {
-        if (/\.docx$/i.test(f) && !f.startsWith("~$")) files.push(path.join(dir, f));
-      }
+      files.push(...findDocxFiles(dir));
     }
   }
   if (!files.length) {
