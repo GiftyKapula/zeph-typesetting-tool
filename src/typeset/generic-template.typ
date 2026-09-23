@@ -109,9 +109,11 @@
   set page(
     paper: T.paper,
     flipped: T.at("landscape", default: false),
-    margin: if syllabus { (top: 20mm, bottom: 20mm, x: 20mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
+    // 20mm frame all round: the footer/page number lives in the bottom margin, so the
+    // bottom margin is enlarged just enough that the footer itself sits 20mm from the edge.
+    margin: if syllabus { (top: 20mm, bottom: 32mm, x: 20mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
     header-ascent: if tallhdr { 8mm } else { 30% },
-    footer-descent: if syllabus { 40% } else { 30% },
+    footer-descent: if syllabus { 6mm } else { 30% },
     header: context {
       let visible = if serieslike { pastcover.get() } else { counter(page).get().first() > 1 }
       if syllabus {
@@ -189,7 +191,7 @@
           set text(font: T.bodyFont, size: 9pt, fill: T.ink)
           place(top, line(length: 100%, stroke: 1.6pt + T.ink))
           place(top, dy: 3pt, line(length: 100%, stroke: 0.6pt + T.ink))
-          v(5pt)
+          v(7pt)
           grid(columns: (1fr, auto, 1fr), align: (left + horizon, center + horizon, right),
             text(style: "italic", weight: "bold")[#T.hdrleft],
             if pgvisible.get() {
@@ -1344,8 +1346,11 @@
 // the imprint/credits page, where a short centred line of proper names ("Precious
 // Sapanoi") has no justification to gain from hyphenating and a dictionary match on
 // an ordinary-word name (Precious -> "Pre-cious") reads as a typo, not a line break.
-#let para(ss, align: none, drop: false, hyphenate: true) = {
+#let para(ss, align: none, drop: false, hyphenate: true, indent: false) = {
   set text(hyphenate: hyphenate)
+  // A syllabus body paragraph that sits UNDER a numbered item is indented to align with
+  // the heading text (past the number), for a clean outline look.
+  if indent { return pad(left: 7mm, para(ss, align: align, drop: drop, hyphenate: hyphenate)) }
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
     // Drop capital: lift the first letter of the first run to ~3-line height in the
     // theme primary colour, then flow the rest of the paragraph. Used for the
@@ -1364,6 +1369,27 @@
   }
   else if align == "center" { block(width: 100%)[#std.align(center, par[#segs(ss)])] }
   else if align == "right" { block(width: 100%)[#std.align(right, par[#segs(ss)])] }
+  else if syllabus and ss.len() > 0 and (ss.map(s => s.at("t", default: "")).join(default: "")).match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+")) != none {
+    // SYLLABUS numbered item ("1. …", "2.1 …"): a HANGING item — the number in its own
+    // column, the text aligned under itself, with a clear gap after the number.
+    let p = ss.map(s => s.at("t", default: "")).join(default: "")
+    let m = p.match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+"))
+    let num = m.captures.at(0)
+    let cut = m.text.len()
+    let firstBold = ss.at(0).at("b", default: false)
+    let removed = 0
+    let out = ()
+    for s in ss {
+      let t = s.at("t", default: "")
+      if t == none { t = "" }
+      if removed >= cut { out.push(s) }
+      else if removed + t.len() <= cut { removed += t.len() }
+      else { out.push((..s, t: t.slice(cut - removed))); removed = cut }
+    }
+    block(width: 100%)[
+      #grid(columns: (7mm, 1fr), column-gutter: 0pt, align: (left + top, left + top),
+        if firstBold { text(weight: "bold")[#num] } else { num }, par[#segs(out)])]
+  }
   else { flowsegs(ss) }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
@@ -1628,7 +1654,9 @@
   if not tocUnitsOnly {
     if isyear { mark(1, t) } else { mark(2, t) }
   }
-  v(7pt, weak: true)
+  // Clear space ABOVE a heading — a syllabus front-matter sub-section needs real
+  // separation from the paragraph before it (the weak 7pt collapsed to almost nothing).
+  v(if syllabus and not isyear { 18pt } else { 7pt }, weak: true)
   if boxstyle == "labcard" {
     // CHEMISTRY sub-topic: a small amber label+number eyebrow, the name below in
     // amethyst bold, over a single thin rule. Split on the first colon.
@@ -1668,10 +1696,16 @@
   } else if modern {
     block(width: 100%, breakable: false, radius: 4pt, fill: T.act.fill, stroke: (left: 5pt + T.accent), inset: (x: 11pt, y: 8pt))[
       #text(fill: T.primary, size: hs(14pt), weight: "bold")[#t]]
-  } else if syllabus {
-    // clean solid banner — no left accent stripe
+  } else if syllabus and isyear {
+    // YEAR banner — a solid section divider, kept prominent (it opens a whole year).
     block(width: 100%, breakable: false, radius: 3pt, fill: T.primary, inset: (x: 12pt, y: 8pt))[
       #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
+  } else if syllabus {
+    // Front-matter sub-section (Methodologies, Assessment, Time Allocation…): a sleek,
+    // understated label — tracked bold caps in the ink colour, no rule and no banner, so
+    // it doesn't shout under Introduction. Clear space above it (set on the leading v()).
+    block(width: 100%, breakable: false)[
+      #text(fill: T.ink, size: hs(12pt), weight: "bold", tracking: 1pt)[#upper(t)]]
   } else {
     block(width: 100%, breakable: false, clip: true, radius: 3pt, stroke: (left: 5pt + T.accent), fill: T.primary, inset: (x: 11pt, y: 8pt))[
       #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
@@ -1701,8 +1735,18 @@
       #v(1pt)
       #line(length: 38pt, stroke: 2pt + T.accent)]
   } else if syllabus {
-    // plain bold heading — NO vertical accent bar (the reference has none)
-    block(breakable: false)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
+    // plain bold heading — NO vertical accent bar. A NUMBERED head ("1. Project-Based
+    // Learning") hangs its number in a fixed 7mm column so the title lines up with the
+    // indented body paragraph beneath it.
+    let m = t.match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+"))
+    if m != none {
+      block(breakable: false)[
+        #grid(columns: (7mm, 1fr), column-gutter: 0pt, align: (left + top, left + top),
+          text(fill: T.ink, size: hs(13pt), weight: "bold")[#m.captures.at(0)],
+          text(fill: T.ink, size: hs(13pt), weight: "bold")[#t.slice(m.text.len())])]
+    } else {
+      block(breakable: false)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
+    }
   } else {
     block(breakable: false)[
       #grid(columns: (4pt, auto), column-gutter: 7pt,

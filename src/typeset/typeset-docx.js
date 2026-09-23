@@ -203,7 +203,7 @@ function emit(blocks) {
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
       case "label": out += `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`; break;
       case "para": {
-        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""})\n`;
+        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""})\n`;
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
@@ -4225,6 +4225,26 @@ function normaliseQuestionMarkBold(blocks) {
         if (!c) continue;
         if (c.text) c.text = c.text.toUpperCase();
         if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
+      }
+    }
+    // Indent a numbered item's body paragraphs to align under the heading text: a bold
+    // "1. Project-Based Learning" heading, then its prose indented to line up with the
+    // title. Resets at the next heading. (The numbered heading itself keeps its hanging
+    // number, so it is NOT indented.)
+    {
+      const numbered = (s) => /^\d+(?:\.\d+)*\.?\s/.test((s || "").trim());
+      let inNumbered = false;
+      for (const b of blocks) {
+        const plain = (blockPlain(b) || b.text || "").trim();
+        if (/^h[123]$/.test(b.t) || b.t === "head" || b.t === "label") {
+          // a NUMBERED heading ("1. Project-Based Learning") opens a numbered item; any
+          // other heading closes it.
+          inNumbered = numbered(plain); continue;
+        }
+        if (b.t !== "para") { inNumbered = false; continue; }
+        if (!plain) continue;
+        if (numbered(plain)) inNumbered = true;      // a numbered item written as a paragraph
+        else if (inNumbered) b.sylIndent = true;     // its body — indent to align under the title
       }
     }
     // Keep a section head (h1) and its FIRST sub-head (h2) together (APPENDICES + APPENDIX 1).
