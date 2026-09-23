@@ -4275,6 +4275,22 @@ function normaliseQuestionMarkBold(blocks) {
   try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) {}
 }
 
+// Recursively collect .docx files under `dir`, skipping Word's own "~$" lock
+// files. Books get dropped in nested subfolders (a series folder, a
+// language folder), not just directly in input/ or books-to-typeset/.
+function findDocxFiles(dir) {
+  const out = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...findDocxFiles(full));
+    } else if (/\.docx$/i.test(entry.name) && !entry.name.startsWith("~$")) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
 async function main() {
   // Parse args: positional .docx paths + an optional `--theme NAME`.
   const argv = process.argv.slice(2);
@@ -4295,9 +4311,7 @@ async function main() {
   } else {
     for (const dir of INPUT_DIRS) {
       if (!fs.existsSync(dir)) continue;
-      for (const f of fs.readdirSync(dir)) {
-        if (/\.docx$/i.test(f) && !f.startsWith("~$")) files.push(path.join(dir, f));
-      }
+      files.push(...findDocxFiles(dir));
     }
   }
   if (!files.length) {
