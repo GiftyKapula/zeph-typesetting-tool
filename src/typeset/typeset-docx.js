@@ -3998,8 +3998,18 @@ function normaliseQuestionMarkBold(blocks) {
     // a real short subject, or a "… Form N" line exists); the SERIES cover takes
     // the eyebrow from line 0 (good only if line 0 IS the standard eyebrow AND a
     // subject+form line follows, like English). Otherwise synthesise a clean cover.
+    // !isEyebrow gates BOTH science clauses (not just the short-subject one): the
+    // science cover's own `subject`/eyebrow derivation (generic-template.typ's
+    // `cover()`) takes line 0 verbatim as the subject, with no eyebrow-filtering of
+    // its own. A manuscript that opens with the standard eyebrow on its own line
+    // (the "series" 3-line shape: eyebrow / subject / Form N, e.g. a book saved from
+    // the same template as the English series) can still satisfy `hasForm` from its
+    // separate "Form N" line, which used to be enough to pass goodTitle even though
+    // line 0 is the eyebrow, not the subject — producing a cover with the eyebrow
+    // printed as the giant title and the real subject dropped entirely. Requiring
+    // !isEyebrow for the hasForm clause too forces synthesis in that shape instead.
     const goodTitle = variant === "science"
-      ? ((!isEyebrow && t0.length > 0 && t0.length <= 34) || hasForm)
+      ? (!isEyebrow && (t0.length > 0 && t0.length <= 34 || hasForm))
       : (isEyebrow && hasForm);
     // Local-language covers are extra-inconsistent — always synthesise (keeping any
     // hero photo + real author names).
