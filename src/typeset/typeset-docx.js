@@ -203,7 +203,7 @@ function emit(blocks) {
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
       case "label": out += `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`; break;
       case "para": {
-        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""})\n`;
+        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""})\n`;
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
@@ -4102,8 +4102,18 @@ function normaliseQuestionMarkBold(blocks) {
     // a real short subject, or a "… Form N" line exists); the SERIES cover takes
     // the eyebrow from line 0 (good only if line 0 IS the standard eyebrow AND a
     // subject+form line follows, like English). Otherwise synthesise a clean cover.
+    // !isEyebrow gates BOTH science clauses (not just the short-subject one): the
+    // science cover's own `subject`/eyebrow derivation (generic-template.typ's
+    // `cover()`) takes line 0 verbatim as the subject, with no eyebrow-filtering of
+    // its own. A manuscript that opens with the standard eyebrow on its own line
+    // (the "series" 3-line shape: eyebrow / subject / Form N, e.g. a book saved from
+    // the same template as the English series) can still satisfy `hasForm` from its
+    // separate "Form N" line, which used to be enough to pass goodTitle even though
+    // line 0 is the eyebrow, not the subject — producing a cover with the eyebrow
+    // printed as the giant title and the real subject dropped entirely. Requiring
+    // !isEyebrow for the hasForm clause too forces synthesis in that shape instead.
     const goodTitle = variant === "science"
-      ? ((!isEyebrow && t0.length > 0 && t0.length <= 34) || hasForm)
+      ? (!isEyebrow && (t0.length > 0 && t0.length <= 34 || hasForm))
       : (isEyebrow && hasForm);
     // Local-language covers are extra-inconsistent — always synthesise (keeping any
     // hero photo + real author names).
@@ -4225,6 +4235,26 @@ function normaliseQuestionMarkBold(blocks) {
         if (!c) continue;
         if (c.text) c.text = c.text.toUpperCase();
         if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
+      }
+    }
+    // Indent a numbered item's body paragraphs to align under the heading text: a bold
+    // "1. Project-Based Learning" heading, then its prose indented to line up with the
+    // title. Resets at the next heading. (The numbered heading itself keeps its hanging
+    // number, so it is NOT indented.)
+    {
+      const numbered = (s) => /^\d+(?:\.\d+)*\.?\s/.test((s || "").trim());
+      let inNumbered = false;
+      for (const b of blocks) {
+        const plain = (blockPlain(b) || b.text || "").trim();
+        if (/^h[123]$/.test(b.t) || b.t === "head" || b.t === "label") {
+          // a NUMBERED heading ("1. Project-Based Learning") opens a numbered item; any
+          // other heading closes it.
+          inNumbered = numbered(plain); continue;
+        }
+        if (b.t !== "para") { inNumbered = false; continue; }
+        if (!plain) continue;
+        if (numbered(plain)) inNumbered = true;      // a numbered item written as a paragraph
+        else if (inNumbered) b.sylIndent = true;     // its body — indent to align under the title
       }
     }
     // Keep a section head (h1) and its FIRST sub-head (h2) together (APPENDICES + APPENDIX 1).
@@ -4449,6 +4479,22 @@ function normaliseQuestionMarkBold(blocks) {
   try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) {}
 }
 
+// Recursively collect .docx files under `dir`, skipping Word's own "~$" lock
+// files. Books get dropped in nested subfolders (a series folder, a
+// language folder), not just directly in input/ or books-to-typeset/.
+function findDocxFiles(dir) {
+  const out = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...findDocxFiles(full));
+    } else if (/\.docx$/i.test(entry.name) && !entry.name.startsWith("~$")) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
 async function main() {
   // Parse args: positional .docx paths + an optional `--theme NAME`.
   const argv = process.argv.slice(2);
@@ -4469,9 +4515,7 @@ async function main() {
   } else {
     for (const dir of INPUT_DIRS) {
       if (!fs.existsSync(dir)) continue;
-      for (const f of fs.readdirSync(dir)) {
-        if (/\.docx$/i.test(f) && !f.startsWith("~$")) files.push(path.join(dir, f));
-      }
+      files.push(...findDocxFiles(dir));
     }
   }
   if (!files.length) {

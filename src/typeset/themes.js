@@ -313,7 +313,7 @@ const THEMES = {
   // Travel & Tourism Teacher's Diploma (2026) — a warm tourism teal cover field with
   // a white title band; the first landscape syllabus typeset from the CDC references.
   travelsyl: { ...syllabus({ subject: "Travel and Tourism", level: "Secondary Teacher's Diploma",
-    year: 2026, signature: "e35b1a", band: "ffffff", covText: "ffffff", title: "1c1c1c" }), hyphenate: false },
+    year: 2026, signature: "c45911", band: "ffffff", covText: "ffffff", title: "1c1c1c" }), hyphenate: false },
 };
 
 // Pick a sensible theme from the file name when none is given.
