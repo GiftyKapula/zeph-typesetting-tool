@@ -6131,7 +6131,7 @@
       "page_ref": "p111",
       "anchor": "Form 2 Teacher's GuideSecondary Education Ordinary Level Physics insulation, support learners in seeing how the insulating properties of some materials make them to be useful in everyday life.",
       "note": null,
-      "action": null,
+      "action": "Continuation of comment #641: the same highlighted run carried over the page break from printed p98, covered by that note (\"REPLACE ALL HIGHLIGHTED WITH...\"). No separate instruction of its own.",
       "status": "pending"
     },
     {
@@ -6446,8 +6446,8 @@
       "page_ref": "p153",
       "anchor": "General competences",
       "note": null,
-      "action": null,
-      "status": "pending"
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
     },
     {
       "id": 678,
