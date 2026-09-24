@@ -1,3 +1,400 @@
 {
-  "coverImage": "cover-simple-machines.png"
+  "coverImage": "cover-simple-machines.png",
+  "insertText": [
+    {
+      "after": "ZCBC - Zambian Competence-Based Curriculum",
+      "text": [
+        "**HCCI** - Homogeneous Charge Compression Ignition",
+        "**RTD** - Resistance Temperature Detector"
+      ]
+    }
+  ],
+  "edit": [
+    {
+      "find": "Edited by: Stella Libongani",
+      "with": "Edited by: Edward Mubanga and Stella Libongani"
+    },
+    {
+      "find": "Temperature verses Heat Energy",
+      "with": "Temperature versus Heat Energy"
+    },
+    {
+      "find": "R = 2.5 × 10³ J mol⁻¹ K⁻¹",
+      "with": "R = 8.31 J mol⁻¹ K⁻¹"
+    },
+    {
+      "find": "Lead the to discuss how heating curves",
+      "with": "Lead the learners to discuss how heating curves"
+    },
+    {
+      "find": "= 20 × 20 × 2.5",
+      "with": "= 20 × 10 × 2.5"
+    },
+    {
+      "find": "Calculating pressure in liquids and gas",
+      "with": "Calculating pressure in liquids"
+    },
+    {
+      "find": "An object floats when the upthrust acting on it is equal to or greater than its weight. It sinks when its weight is greater than the upthrust.",
+      "with": ""
+    },
+    {
+      "find": "Let learners to explain how sound is used, identify its benefits, provide real-life examples, and present their findings to the class.",
+      "with": ""
+    }
+  ],
+  "fixExercise": [
+    {
+      "match": "EXERCISE 10",
+      "near": "hybrid",
+      "heading": "EXERCISE 9"
+    },
+    {
+      "match": "EXERCISE 11",
+      "near": "360 ÷ 0.06",
+      "markers": [
+        null,
+        "(a)",
+        null,
+        null,
+        "(b) (i)",
+        null,
+        null,
+        "(ii)",
+        "(iii)"
+      ]
+    },
+    {
+      "match": "EXERCISE 8",
+      "near": "Spark ignition engine – Cars",
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "f) (i)",
+        "(ii)",
+        "(iii)"
+      ]
+    },
+    {
+      "match": "EXERCISE 9",
+      "near": "Fuel saved",
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "e) (i)",
+        null,
+        "(ii)",
+        null,
+        null,
+        "(iii)"
+      ],
+      "addParts": [
+        {
+          "marker": "(iv)",
+          "text": "*Money saved over 100 km*"
+        },
+        {
+          "text": "*Money saved = 3 × K27.50*"
+        },
+        {
+          "text": "*= K82.50* [1]"
+        },
+        {
+          "text": "*Therefore, the hybrid vehicle saves K82.50 per 100 km.* [1]"
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE 11",
+      "near": "Refrigerators",
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "d) (i)",
+        null,
+        null,
+        "(ii)",
+        null,
+        null,
+        "(iii)",
+        null,
+        null,
+        "(iv)"
+      ]
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "Wavelength is the distance between two successive points",
+      "markers": [
+        null,
+        "(a) (i)",
+        "(ii)",
+        "(iii)",
+        "(b)",
+        "(c) (i)",
+        "(ii)",
+        "(d)",
+        "(e)"
+      ]
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "Radio waves are the most suitable",
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        "c) (i)",
+        "(ii)"
+      ]
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "In a guitar, the vibrating part",
+      "markers": [
+        null,
+        "",
+        "(a) (i)",
+        "(ii)",
+        "(iii)",
+        "(b)",
+        "(c)",
+        null,
+        null,
+        "(d)",
+        "(e)"
+      ]
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "Timbre enables",
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        "(b)",
+        "•",
+        "•",
+        "•",
+        "•",
+        "(c)"
+      ]
+    }
+  ],
+  "editAll": [
+    {
+      "find": "P = m₁u₁ + m₂u₂",
+      "with": "p = m₁v₁ + m₂v₂"
+    },
+    {
+      "find": "and u₁ and u₂ are their respective velocities",
+      "with": "and v₁ and v₂ are their respective velocities"
+    },
+    {
+      "find": "P = mv",
+      "with": "p = mv"
+    },
+    {
+      "find": "P=mv",
+      "with": "p=mv"
+    },
+    {
+      "find": "P = mu",
+      "with": "p = mv"
+    },
+    {
+      "find": "P= mu",
+      "with": "p= mv"
+    },
+    {
+      "find": "P = 50 × 2",
+      "with": "p = 50 × 2"
+    },
+    {
+      "find": "P = 100kgm/s",
+      "with": "p = 100kgm/s"
+    },
+    {
+      "find": "P= 50 × 4",
+      "with": "p= 50 × 4"
+    },
+    {
+      "find": "P = 200kgm/s",
+      "with": "p = 200kgm/s"
+    },
+    {
+      "find": "P =5 × 4",
+      "with": "p =5 × 4"
+    },
+    {
+      "find": "P = 20kgm/s",
+      "with": "p = 20kgm/s"
+    },
+    {
+      "find": "P =3 × 2",
+      "with": "p =3 × 2"
+    },
+    {
+      "find": "P = 6kgm/s",
+      "with": "p = 6kgm/s"
+    },
+    {
+      "find": "It is important for farmers to use machines with high efficiency because they waste less energy, reduce operating costs and use fuel or electricity more effectively.",
+      "with": "High-efficiency machines waste less energy, thereby reducing energy consumption and operating costs."
+    },
+    {
+      "find": "Lubricate moving parts regularly to reduce friction.",
+      "with": "Reduce friction by properly lubricating moving parts."
+    },
+    {
+      "find": "Carry out regular maintenance and replace worn-out parts.",
+      "with": "Regularly maintain and service the pump to ensure that it operates efficiently."
+    },
+    {
+      "find": "while heat energy is thermal energy associated with the substance and depends on its amount and thermal properties.",
+      "with": "while heat energy is thermal energy transferred because of a temperature difference."
+    },
+    {
+      "find": "thermal energy is absorbed, stored and released",
+      "with": "thermal energy is absorbed, stored as internal energy and released"
+    },
+    {
+      "find": "heat energy as the thermal energy transferred from a hotter body",
+      "with": "heat energy as the energy transferred from a hotter body"
+    },
+    {
+      "find": "while heat energy is thermal energy transferred because of a temperature difference",
+      "with": "while heat energy is energy transferred because of a temperature difference"
+    },
+    {
+      "find": "of particles, while heat energy depends on factors",
+      "with": "of particles, while the change in thermal energy depends on factors"
+    }
+  ],
+  "replace": [
+    {
+      "find": "Help learners understand that work is done when an applied force causes an object",
+      "with": "Work is done when a force causes a displacement and has a component in the direction of the displacement. The work done depends on the component of the force acting along the displacement of the object."
+    },
+    {
+      "find": "instruct the learners to attach the spring balance to the toy car",
+      "with": "**Procedure:** *Have learners work individually, in pairs or in groups using a toy car or trolley, spring balance (Newton meter), metre rule or measuring tape and a smooth, flat surface. First, have them keep the displacement constant while varying the applied force and record the work done for each force. Next, have them keep the force constant while varying the displacement and record the corresponding work done. Ask them to plot graphs of work done against force and work done against displacement, analyse the patterns and use the graphs to establish the relationship between work done, force and displacement. Have learners use the observed relationships to derive the mathematical equation for work done.*"
+    },
+    {
+      "find": "Ensure the toy car is pulled in a straight line",
+      "with": "**Teacher tips:** *Ensure the toy car or trolley moves along a smooth, flat surface and that the spring balance is read accurately. Encourage learners to vary only one quantity at a time and record measurements carefully. Remind them to use consistent SI units and appropriate scales when plotting the graphs.*"
+    },
+    {
+      "find": "displacement generally increases as the applied force increases",
+      "with": "**Expected findings/observations:** *Learners should observe that, for a constant displacement, work done increases as the applied force increases. They should also observe that, for a constant force, work done increases as displacement increases. The graphs should show direct proportional relationships, enabling learners to establish the relationship between work done, force and displacement.*"
+    },
+    {
+      "find": "work done depends on the applied force and displacement in the direction of the force",
+      "with": "**Conclusion:** *Learners should use their observations and graphical results to state the relationship between work done, force and displacement and derive the appropriate mathematical equation.*"
+    },
+    {
+      "find": "Let learners source materials locally on their own",
+      "with": "**Procedure:** *Have learners source suitable materials locally and work individually, in pairs or in groups to design and construct any simple machine of their choice. They may construct a lever, pulley, wheel and axle, inclined plane, wedge, screw or another suitable simple machine. Ask learners to test their machines by using them to perform a simple task and observe how the machine changes the effort required, direction of force or distance through which the effort is applied. Have learners record their observations, identify the type of simple machine constructed and explain how it makes work easier.*"
+    },
+    {
+      "find": "Ensure the ramp is stable and the activity is conducted in a safe area",
+      "with": "**Teacher tips:** *Encourage learners to select materials that are safe and suitable for construction. Ensure that cutting tools and other potentially hazardous materials are handled safely. Encourage creativity and allow learners to modify their designs after testing them. Emphasise that the constructed machine should be stable and functional.*"
+    },
+    {
+      "find": "objects released from greater heights generally move faster",
+      "with": "**Expected findings/observations:** *Learners should observe that different simple machines can change the size or direction of the applied force or the distance through which the effort is applied. They should recognise that simple machines can make tasks easier by providing a mechanical advantage.*"
+    },
+    {
+      "find": "increased speed generally results in greater stopping distances",
+      "with": "**Conclusion:** *Learners should use their observations and testing results to explain how the simple machine they constructed makes work easier.*"
+    },
+    {
+      "find": "Laboratory thermometer, beakers, heat source, tripod stand, wire gauze, ice, candle wax, butter, water, stopwatch",
+      "with": "**Required materials:** *Laboratory thermometer, beakers, heat source, tripod stand, wire gauze, and samples such as ice, candle wax, butter and water.*"
+    },
+    {
+      "find": "Guide learners to work individually, in pairs or in groups using the available thermometers. Ask them to measure and record the temperature",
+      "with": "**Procedure:** *Have learners work individually, in pairs or in groups to heat each substance gradually while recording its temperature at regular intervals. Ask them to identify and record the temperatures at which each substance begins to melt or boil. Have learners tabulate and compare their results and discuss similarities and differences in the melting and boiling points of the substances. Encourage learners to relate their observations to the properties of the substances and present their findings to the class.*"
+    },
+    {
+      "find": "Ensure learners heat the substances gently and safely",
+      "with": "**Teacher tips:** *Ensure that the thermometer is positioned correctly and does not touch the bottom of the container. Emphasise gradual heating and safe handling of hot materials.*"
+    },
+    {
+      "find": "different substances melt and boil at different temperatures. They should find that the t",
+      "with": "**Expected findings/observations:** *Learners should observe that different substances melt and boil at different temperatures. Some substances may show a clearer change of state than others.*"
+    },
+    {
+      "find": "every pure substance has characteristic melting and boiling points",
+      "with": "**Conclusion:** *Learners should use their observations to explain that substances have different melting and boiling points depending on their properties.*"
+    },
+    {
+      "find": "Ensure learners handle the thermometers carefully, especially mercury thermometers",
+      "with": "**Teacher tips:** *Prohibit learners from directly handling mercury thermometers or any mercury spill. Where mercury thermometers are used, they should be handled only by the teacher or authorised laboratory personnel. Ensure thermometers are given sufficient time to stabilise before readings are taken and avoid touching the thermometer bulbs. In the event of breakage or a mercury spill, stop the activity, restrict access to the area and follow the institution’s approved mercury spill and hazardous-materials disposal protocol. Do not permit learners to sweep, touch or attempt to clean up the spill.*"
+    },
+    {
+      "find": "Help learners appreciate that materials differ in their ability to transfer",
+      "with": "Help learners appreciate that materials differ in their ability to absorb and emit radiant heat. Explain that dull, dark surfaces are generally good absorbers and good emitters of radiant heat, while shiny, light-coloured surfaces are generally poorer absorbers and poorer emitters. Use practical examples such as the use of dull black surfaces in solar heating devices and shiny surfaces in thermal insulation to help learners relate absorptivity and emissivity to everyday applications. Encourage learners to discuss how the surface properties of materials influence the absorption and emission of thermal radiation."
+    },
+    {
+      "find": "Ensure the ramp is stable and the activity is conducted in a safe area",
+      "with": "**Teacher tips:** *Encourage learners to select materials that are safe and suitable for construction. Ensure that cutting tools and other potentially hazardous materials are handled safely. Encourage creativity and allow learners to modify their designs after testing them. Emphasise that the constructed machine should be stable and functional.*"
+    },
+    {
+      "find": "objects released from greater heights generally move faster",
+      "with": "**Expected findings/observations:** *Learners should observe that different simple machines can change the size or direction of the applied force or the distance through which the effort is applied. They should recognise that simple machines can make tasks easier by providing a mechanical advantage.*"
+    },
+    {
+      "find": "increased speed generally results in greater stopping distances",
+      "with": "**Conclusion:** *Learners should use their observations and testing results to explain how the simple machine they constructed makes work easier.*"
+    },
+    {
+      "find": "Hybrid vehicles contribute to environmental sustainability by reducing dependence on fossil fuels.",
+      "with": "-Hybrid vehicles contribute to environmental sustainability by reducing dependence on fossil fuels. Any two of the above [2]"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "The wheelbarrow reduces the effort required to move the fer",
+      "marker": "(c)",
+      "depth": 0
+    },
+    {
+      "find": "A pulley. It changes the direction of the applied force",
+      "marker": "(d)",
+      "depth": 0
+    }
+  ],
+  "textFix": [
+    {
+      "find": "Measuring heat capacity c =",
+      "with": "Measuring heat capacity C ="
+    }
+  ]
 }
