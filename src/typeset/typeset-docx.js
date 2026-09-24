@@ -1262,7 +1262,20 @@ function applyOverrides(blocks, ov) {
   }
   for (const r of ov.replace || []) {
     const b = flat.find((x) => blockPlain(x).includes(r.find));
-    if (b) setBlockText(b, r.with);
+    // Warn when nothing matched, the way edit/editAll/setMarker/fixExercise already do.
+    // This was silent, so an override whose `find` drifted from the manuscript by one
+    // space or a changed word simply did nothing and the book built clean — the edit
+    // looked applied until someone read the page. Silence is the wrong default for a
+    // primitive whose whole job is to change text that is meant to be there.
+    if (!b) { console.warn("!  replace not matched:", r.find); continue; }
+    // Honour the same lightweight markup every other author-facing primitive takes
+    // (**bold**, *italic*, $math$) instead of flattening to one plain run. Activity
+    // bodies are styled "bold label: italic body", so a flattened rewrite of a
+    // Procedure or Teacher tips paragraph came out roman and unlabelled next to its
+    // untouched siblings. Reviewers write their replacements as "**Procedure:** ..."
+    // already, so this renders what they actually asked for. Text with no markers
+    // parses to a single plain run, exactly as before.
+    setBlockSegs(b, mkSegs(r.with));
   }
   // setCaption: [{ near|file, index, text }] — set the caption of an image. Match by
   // `near` (an existing caption's text, on a lone image or any image in a row) or by
@@ -1674,10 +1687,19 @@ function applyOverrides(blocks, ov) {
   // per sub-topic. They are fixed series-wide labels, not this book's wording, so recase
   // them by default; a book that genuinely wants something else can still override via
   // `recase` below, which runs after this and wins.
+  // Capitalise ONLY the word itself, and only on a heading that is not already
+  // ALL-CAPS. Title-casing the whole heading was wrong twice over: it rewrote
+  // "GENERAL COMPETENCES TO BE DEVELOPED" (a legitimate all-caps house heading, used
+  // by the Form 4 Geography TG among others) into title case, which both changed a
+  // heading nobody asked to change and broke that book's `pageBreakBefore` anchor,
+  // since the override matches the heading text.
   const HOUSE_LABELS = /^(general|specific|key)\s+competences?\b/i;
+  const isAllCaps = (s) => s === s.toUpperCase() && /[A-Z]/.test(s);
   for (const b of flat) {
     if (!(b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)) || typeof b.text !== "string") continue;
-    if (HOUSE_LABELS.test(b.text.trim())) b.text = toTitle(b.text.trim());
+    const t = b.text.trim();
+    if (!HOUSE_LABELS.test(t) || isAllCaps(t)) continue;
+    b.text = t.replace(/\bcompetences?\b/gi, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
   }
   for (const rc of ov.recase || []) {
     let n = 0;
@@ -2529,6 +2551,23 @@ function applyOverrides(blocks, ov) {
         // (e.g. an answer sequence the import left un-numbered) to a proper question part.
         if (mk && p.kind === "lead") { p.kind = "q"; p.a = p.a || ""; p.aseg = p.aseg || []; }
       });
+    }
+    // addParts: [{ text, marker?, depth?, at? }] — insert answer lines the manuscript
+    // never carried. A proofreader who finds a question whose answer key is simply
+    // missing writes the answer out in their note; until now there was no way to get it
+    // into the box, because every other primitive can only rewrite parts that already
+    // exist. Appended at the end of the box by default, or spliced in at index `at`.
+    // Runs AFTER `markers`, whose indices refer to the original part list. `text` takes
+    // the usual **bold**/*italic*/$math$ markup, and a trailing mark ("[2]") is
+    // right-aligned by the normal mark handling, so write it with ordinary spaces.
+    for (const ap of fx.addParts || []) {
+      const part = {
+        kind: "q", marker: ap.marker || "", depth: ap.depth != null ? ap.depth : 0,
+        q: String(ap.text || ""), qseg: mkSegs(String(ap.text || "")),
+        a: "", aseg: [],
+      };
+      if (ap.at != null && ap.at >= 0 && ap.at <= parts.length) parts.splice(ap.at, 0, part);
+      else parts.push(part);
     }
   }
   // imageToText: { "image20.png": "15° × 111 km = 1665 km" } — replace a single
