@@ -13,7 +13,7 @@ const os = require("os");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
 const { importDocx } = require("./import-docx.js");
 const { THEMES, autoTheme, themeTypst } = require("./themes.js");
-const { enhanceLineArt, cropImage, emfToPng } = require("./image-enhance.js");
+const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 
 const ROOT = path.join(__dirname, "..", "..");
 const INPUT_DIRS = [path.join(ROOT, "input"), path.join(ROOT, "books-to-typeset")];
@@ -326,7 +326,7 @@ function boxifyActivities(blocks, opts = {}) {
   // Bemba: Ifyakucita, Nyanja: Nchito, Silozi: Musebezi, Luvale: Vyakulinga,
   // Tonga: Cakucita, Kaonde: Mwingilo wakuuba) — a numbered activity heading the
   // manuscript left un-boxed, so it becomes a titled activity box (T.act colour).
-  const ACT = /^(LEARNING\s+(ACTIVITY|MODELS?)|LEARNING|ACTIVITY|MODELS?|Zhakwila(\s+atudizi)?|Ifyakucita|Nchito|Musebezi|Vyakulinga|Cakucita|Mwingilo\s+wakuuba)\s+\d/i;
+  const ACT = /^(LEARNING\s+(ACT(?:IVIT|IVT|VIT)Y?|MODELS?)|LEARNING|ACT(?:IVIT|IVT|VIT)Y?|MODELS?|Zhakwila(\s+atudizi)?|Ifyakucita|Nchito|Musebezi|Vyakulinga|Cakucita|Mwingilo\s+wakuuba)\s+\d/i;
   // "EXERCISE 1" or a bare "Exercise" (many Learner's Books number neither), or a
   // plural range heading ("EXERCISES 1 - 4") some books use instead — the isDefn
   // guard below still excludes a glossary line like "Exercise – Physical…". No \b
@@ -342,7 +342,11 @@ function boxifyActivities(blocks, opts = {}) {
   // Also accepts UNIT as well as TOPIC ("End of Unit Assessment", the wording used
   // in the primary Learner's Books) and a plural "Assessments" — without those the
   // heading was not recognised and the whole end-of-unit section stayed un-boxed.
-  const ASMT = /^(((END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*)?ASSESSMENTS?|(END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*EXERCISE)(\s+\d+)?\s*:?\s*$/i;
+  // "ASSESS?MENT" (not "ASSESSMENT") because "ASSESMENT" with one S is a very common
+  // manuscript typo — spelt that way it was not recognised as a heading at all and the
+  // whole end-of-topic answer key stayed un-boxed, flush against the body text. The
+  // misspelling is corrected in the PRINTED title by fixBoxTitleSpelling (import-docx.js).
+  const ASMT = /^(((END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*)?ASSESS?MENTS?|(END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*EXERCISE)(\s+\d+)?\s*:?\s*$/i;
   // a glossary definition line ("Term – meaning") is never a box heading
   const isDefn = (t) => /\s[–-]\s/.test(t);
   // A Teacher's Guide answer section ("Exercise – Expected Answers", "Assessment –
@@ -350,7 +354,7 @@ function boxifyActivities(blocks, opts = {}) {
   // really an exercise box that should frame the answers below it. Recognise it FIRST,
   // tolerating the dash type, plural/typo forms ("Exercises", "EXERCSE"), case and a
   // trailing period, so every answer key is boxed like the other exercises.
-  const EXPECT = /^(EXERC\w*|ASSESSMENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
+  const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
   const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : null);
   const INTERNAL = /^(teaching and learning materials|teacher.?s?\s*facilitation procedure|facilitation procedure|teacher.?s?\s*notes?|take note of responses|expected responses?|possible answers?|materials?|answers?|procedure)\b/i;
   // The recurring teaching PHASES inside a single activity (the 3Ps / lesson-cycle
@@ -1663,6 +1667,18 @@ function applyOverrides(blocks, ov) {
   const toTitle = (s) => s.toLowerCase().split(/(\s+)/).map((w) => w ? w.charAt(0).toUpperCase() + w.slice(1) : w).join("");
   const toSentence = (s) => { const t = s.toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
   const recased = (s, to) => to === "sentence" ? toSentence(s) : to === "upper" ? s.toUpperCase() : toTitle(s);
+  // House style capitalises the standing structural labels that open every sub-topic:
+  // "General Competences", "Specific Competence", "Key Competences". Manuscripts type
+  // them inconsistently ("General competences", "Specific competence") and a reviewer
+  // then flags EVERY occurrence by hand — 26 of them in one Form 2 Teacher's Guide, one
+  // per sub-topic. They are fixed series-wide labels, not this book's wording, so recase
+  // them by default; a book that genuinely wants something else can still override via
+  // `recase` below, which runs after this and wins.
+  const HOUSE_LABELS = /^(general|specific|key)\s+competences?\b/i;
+  for (const b of flat) {
+    if (!(b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)) || typeof b.text !== "string") continue;
+    if (HOUSE_LABELS.test(b.text.trim())) b.text = toTitle(b.text.trim());
+  }
   for (const rc of ov.recase || []) {
     let n = 0;
     for (const b of flat) {
@@ -4680,7 +4696,7 @@ function normaliseQuestionMarkBold(blocks) {
   // crop (so a cropped screenshot shows only the kept region, not the whole window),
   // then deepening faint line-art diagrams (photos/crisp diagrams/cut-outs unchanged).
   // Falls back to a plain copy when neither applies or `canvas` isn't available.
-  let enhanced = 0, cropped = 0, emfConv = 0;
+  let enhanced = 0, cropped = 0, rotated = 0, emfConv = 0;
   for (const m of media) {
     const dest = path.join(mediaDir, m.name);
     try {
@@ -4692,6 +4708,10 @@ function normaliseQuestionMarkBold(blocks) {
         if (png) { fs.writeFileSync(dest, png); emfConv++; }
         continue;
       }
+      // A picture the author turned in Word (a sideways phone photo of a poster, say):
+      // bake the turn in, since the stored bytes are still in the original orientation.
+      // rotateImage does the crop itself, in the right order.
+      if (m.rot && rotateImage(m.src, dest, m.rot, m.crop, fs)) { rotated++; continue; }
       if (m.crop && cropImage(m.src, dest, m.crop, fs)) { cropped++; continue; }
       if (enhanceLineArt(m.src, dest, fs)) enhanced++;
       else fs.copyFileSync(m.src, dest);
@@ -4699,6 +4719,7 @@ function normaliseQuestionMarkBold(blocks) {
   }
   if (emfConv) console.log(`   recovered ${emfConv} EMF image(s) to PNG`);
   if (cropped) console.log(`   applied Word crop to ${cropped} image(s)`);
+  if (rotated) console.log(`   applied Word rotation to ${rotated} image(s)`);
   if (enhanced) console.log(`   enhanced ${enhanced} faint line-art image(s)`);
 
   const title = deriveTitle(blocks, base);

@@ -157,8 +157,33 @@ function convText(s) {
   return out;
 }
 
+// Word does not keep a typed phrase in ONE <m:r>. Whenever the author's formatting
+// changes mid-phrase — and it always does, because Word emits each inter-word space
+// as its own upright <m:sty m:val="p"> run between italic word runs — "Useful Output
+// Energy" arrives as five sibling runs: "Useful", " ", "Output", " ", "Energy". No
+// single <m:t> then contains a space, so convText's phrase detection never fires, each
+// word is split into single-letter italic identifiers, and the lone space runs vanish
+// (Typst math ignores literal whitespace between atoms). The result is the glued
+// "UsefulOutputEnergy" / "energyinput" reviewers keep flagging on efficiency, density
+// and speed formulae. Join adjacent run siblings back into one before converting, so
+// the phrase is seen whole and rendered as an upright string with real word spacing.
+function mergeRuns(els) {
+  const out = [];
+  for (const el of els) {
+    if (el.tag === "m:r") {
+      const mt = el.inner.match(/<m:t\b[^>]*>([\s\S]*?)<\/m:t>/);
+      const txt = mt ? mt[1] : "";
+      const prev = out[out.length - 1];
+      if (prev && prev.tag === "m:rtext") { prev.text += txt; continue; }
+      out.push({ tag: "m:rtext", text: txt });
+      continue;
+    }
+    out.push(el);
+  }
+  return out;
+}
 function conv(xml) {
-  return parseEls(xml).map(convEl).filter(Boolean).join(" ");
+  return mergeRuns(parseEls(xml)).map(convEl).filter(Boolean).join(" ");
 }
 // converted inner of a child tag, trimmed and never empty (Typst calls like
 // frac()/^()/root() error on a blank argument, so fall back to empty text "").
@@ -186,6 +211,7 @@ function convEl(el) {
     case "m:oMathPara": case "m:oMath": case "m:e": case "m:num": case "m:den":
     case "m:sup": case "m:sub": case "m:deg": case "m:lim": case "m:box": case "m:limLow": case "m:limUpp":
       return conv(el.inner);
+    case "m:rtext": return convText(el.text);   // one or more adjacent <m:r> joined by mergeRuns
     case "m:r": {
       const mt = el.inner.match(/<m:t\b[^>]*>([\s\S]*?)<\/m:t>/);
       return mt ? convText(mt[1]) : "";

@@ -68,6 +68,28 @@ function imageSize(file) {
   return null;
 }
 
+// Box titles routinely arrive misspelt — "EXRCISE"/"EXCERCISE", "ASSESMENT"
+// (one S), "ACTIVTY"/"ACTVITIES". Two things go wrong, and reviewers flag both:
+// the misspelling is printed verbatim in the heading, AND it defeats the
+// kind-detection regexes below, so the box silently degrades to a plain heading
+// with its questions spilled into the body instead of a framed, numbered box.
+// So: the detectors accept the known misspellings, and every box title is passed
+// through `fixBoxTitleSpelling` before it is printed. Case is preserved, since
+// these titles appear both ALL-CAPS ("END OF TOPIC ASSESMENT") and in Title Case.
+function matchCase(seen, correct) {
+  if (seen === seen.toUpperCase()) return correct.toUpperCase();
+  if (seen[0] === seen[0].toUpperCase()) return correct.charAt(0).toUpperCase() + correct.slice(1);
+  return correct;
+}
+function fixBoxTitleSpelling(s) {
+  if (typeof s !== "string" || !s) return s;
+  return s
+    .replace(/\bEX(?:ER|R|CER)CISE(S?)\b/gi, (m, pl) => matchCase(m, "exercise" + (pl ? "s" : "")))
+    .replace(/\bASSESS?MENT(S?)\b/gi, (m, pl) => matchCase(m, "assessment" + (pl ? "s" : "")))
+    .replace(/\bACT(?:IVI|IVT|VIT)T?(?:Y|IES)\b/gi, (m) =>
+      matchCase(m, /IES$/i.test(m) ? "activities" : "activity"));
+}
+
 // Recognise a box by the TITLE TEXT in its first cell. This is book-agnostic:
 // different books use different fill colours (and sometimes inconsistent ones),
 // but the leading label is reliable. Fill colour is only a secondary hint.
@@ -81,7 +103,7 @@ function boxKindFromTitle(t) {
   // --- Learning Activity --- ("LEARNING ACTIVITY" tested without a trailing \b so a
   // glued number like "LEARNING ACTIVITY23" (author typo) is still recognised as an
   // activity box rather than falling through to a raw table).
-  if (/^LEARNING\s+ACTIVIT/i.test(s)) return "activity";   // ACTIVITY or the plural ACTIVITIES
+  if (/^LEARNING\s+ACT(?:IVIT|IVT|VIT)/i.test(s)) return "activity";   // ACTIVITY/ACTIVITIES + the ACTIVTY/ACTVITY misspellings
   if (/^(Ifyakucita|Mwingilo wakuuba|Nchito|Musebezi|Vyakulinga|Zhakwila(\s+atudizi)?|Cakucita)\b/i.test(s)) return "activity";
   // --- End-of-topic / unit Assessment ---
   if (/^(Ukweshiwa|Kupwa kwa mutwe|Mayeso|Tatubo|Mukanga|Esekelo|Kweseka|Musunko)\b/i.test(s)) return "assessment";
@@ -94,7 +116,7 @@ function boxKindFromTitle(t) {
   // bold-led sentences like "Assess learning: Apply the assessment methods and
   // criteria to measure learner progress." as an assessment box (title = the whole
   // sentence) whenever they happened to contain the word.
-  if (/^((END[\s-]*(OF[\s-]*)?)?(TOPIC|UNIT)[\s-]*)?(\d+\s*[-–—]?\s*)?ASSESSMENTS?(\s*[-–—]?\s*\d+)?\s*:?\s*$/i.test(s)) return "assessment";
+  if (/^((END[\s-]*(OF[\s-]*)?)?(TOPIC|UNIT)[\s-]*)?(\d+\s*[-–—]?\s*)?ASSESS?MENTS?(\s*[-–—]?\s*\d+)?\s*:?\s*$/i.test(s)) return "assessment";
   // --- Exercise --- (tolerate the common "EXRCISE"/"EXCERCISE" misspellings so a
   // typo'd title still gets the styled, numbered exercise box instead of a raw table)
   // "EXERCISE 9" (number, possibly glued) OR a bare "EXERCISE" whose number the author
@@ -236,7 +258,15 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       } else {
         const q = plainOf(p.segs);
         if (numbered(p)) { const { marker, depth } = nextMarker(p); parts.push({ kind: "q", q, qseg: p.segs, a: "", aseg: [], marker, depth }); }
-        else parts.push({ kind: "lead", q, qseg: p.segs, indent: false });
+        // An unnumbered line that FOLLOWS a numbered question is a continuation of it
+        // (the next line of a worked solution, "= 250 × 12", or a lettered sub-part the
+        // author left unnumbered) — indent it to the marker gutter so it aligns under
+        // the question text instead of hugging the box's left edge under the number.
+        // Matches what buildQAParts already does for boxes built from paragraphs; this
+        // text-box path had it hard-coded false, so the same book rendered the two
+        // styles inconsistently and a reviewer flagged the ragged ones ("align so that
+        // (b) aligns with (a)", "the equal signs … not directly under 1 but under W").
+        else parts.push({ kind: "lead", q, qseg: p.segs, indent: parts.some((x) => x.kind === "q") });
       }
     }
     const idx = out.length;
@@ -2010,6 +2040,19 @@ async function importDocx(docxPath, opts = {}) {
     if (l + r >= 0.98 || t + b >= 0.98) return null;       // degenerate — would erase the image
     return { l, t, r, b };
   };
+  // Read a picture's on-page rotation (<pic:spPr><a:xfrm rot="…">, in 60000ths of a
+  // degree, clockwise). The usual source is a phone photo of a poster or wall chart
+  // shot sideways and straightened inside Word: the bytes in media/ keep the ORIGINAL
+  // sideways orientation and only this attribute says otherwise, so dropping it printed
+  // the picture lying on its side. Returns degrees for a quarter turn, else 0 — that is
+  // what "straighten this photo" produces, and it is the only rotation that bakes into
+  // the extracted file without resampling or leaving bare corners behind.
+  const parseRot = (d) => {
+    const m = d.match(/<pic:spPr[^>]*>[^<]*<a:xfrm[^>]*rot="(-?[0-9]+)"/);
+    if (!m) return 0;
+    const deg = ((Math.round(+m[1] / 60000) % 360) + 360) % 360;
+    return deg % 90 === 0 ? deg : 0;
+  };
   // All images in a paragraph, with their on-page size (px), IN DOCUMENT ORDER.
   // Handles BOTH picture encodings Word emits:
   //   • modern DrawingML  — <w:drawing> … <a:blip r:embed> sized by <wp:extent> (EMU/9525=px)
@@ -2053,7 +2096,7 @@ async function importDocx(docxPath, opts = {}) {
       // paragraph, so it must keep the real magnitude (never clamped — a large drop is
       // exactly what tells us the picture belongs far below its anchor).
       const voff = Math.round(verticalOffset / 9525);
-      recs.push({ pos: dm.index, rid, w: ext.w, h: ext.h, crop: parseCrop(d), floatingBelowText: verticalOffset >= 1000000, side, voff });
+      recs.push({ pos: dm.index, rid, w: ext.w, h: ext.h, crop: parseCrop(d), rot: parseRot(d), floatingBelowText: verticalOffset >= 1000000, side, voff });
     }
     // For the VML scan, drop <mc:Fallback> regions: when a picture is stored as an
     // <mc:AlternateContent> pair, the modern <a:blip> (from <mc:Choice>, already
@@ -2097,8 +2140,11 @@ async function importDocx(docxPath, opts = {}) {
       // crop on extraction. A replacement image (override) is already clean, so it is
       // never cropped. A cropped picture is re-encoded to PNG, so force a .png name.
       const crop = useOvr ? null : rec.crop;
+      // Same reasoning as the crop: a replacement image is supplied ready to print, in the
+      // orientation it should appear in, so the manuscript's rotation is not re-applied.
+      const rot = useOvr ? 0 : (rec.rot || 0);
       let outBase = useOvr ? path.basename(base, path.extname(base)) + path.extname(ovr) : base;
-      if (crop) outBase = outBase.replace(/\.jpe?g$/i, ".png");
+      if (crop || rot) outBase = outBase.replace(/\.jpe?g$/i, ".png");
       if (isEmf) outBase = outBase.replace(/\.emf$/i, ".png");   // extracted to PNG at copy
       // Word occasionally saves a picture with the WRONG extension (a pasted PNG kept
       // inside media/ as "imageNN.jpg" — the bytes are a real PNG, only the name lies).
@@ -2106,7 +2152,7 @@ async function importDocx(docxPath, opts = {}) {
       // opaque "Illegal start bytes" error. Sniff the real format from the file's magic
       // bytes and correct the extension before it's baked into the Typst reference — the
       // bytes themselves need no re-encoding, only the name has to tell the truth.
-      if (!isEmf && !crop) {
+      if (!isEmf && !crop && !rot) {
         try {
           const fd = fs.openSync(src, "r");
           const head = Buffer.alloc(8);
@@ -2120,18 +2166,30 @@ async function importDocx(docxPath, opts = {}) {
         } catch (_) { /* sniff best-effort; fall through with the original name */ }
       }
       const name = imgPrefix + outBase;
-      mediaOut.push({ src, name, crop, emf: isEmf });
+      mediaOut.push({ src, name, crop, rot, emf: isEmf });
       let dispW = rec.w || 0, dispH = rec.h || 0;
+      // Word records <wp:extent> for the UNROTATED frame, so a quarter-turned picture
+      // occupies its transpose on the page.
+      if (rot === 90 || rot === 270) { const t = dispW; dispW = dispH; dispH = t; }
       if (dispW && dispH && dispW < 16 && dispH < 16) continue;  // tiny spacer/artifact, not content
       // an override may force on-page width — either alongside a replacement image, or
       // width-only (no src) to resize the author's own picture (e.g. shrink an opener
       // that would otherwise strand its unit banner on a near-empty page)
       if (ovrEntry && ovrEntry.w) { dispW = ovrEntry.w; dispH = 0; }
       const real = imageSize(src);                            // true pixels (aspect is reliable)
-      // aspect must reflect the CROPPED region (its width/height ratio), not the full file
-      const aspect = crop && real && real.w
-        ? (real.h * (1 - crop.t - crop.b)) / (real.w * (1 - crop.l - crop.r))
-        : (real && real.w ? real.h / real.w : (dispW ? dispH / dispW : 1));
+      // aspect must reflect the CROPPED region (its width/height ratio), not the full
+      // file — and then the rotation, which swaps the two on a quarter turn. Getting this
+      // wrong doesn't just mis-size the picture: "tall" is derived from it, and a
+      // landscape photo mislabelled tall gets pinned to a fixed height by the template.
+      let aspect;
+      if (real && real.w) {
+        let rw = real.w, rh = real.h;
+        if (crop) { rw *= 1 - crop.l - crop.r; rh *= 1 - crop.t - crop.b; }
+        if (rot === 90 || rot === 270) { const t = rw; rw = rh; rh = t; }
+        aspect = rh / rw;
+      } else {
+        aspect = dispW ? dispH / dispW : 1;
+      }
       // hmm: force the on-page display HEIGHT (mm). Needed to enlarge a `tall`
       // picture, which the template otherwise pins to a fixed height regardless of w.
       const forceH = ovrEntry && ovrEntry.hmm ? ovrEntry.hmm : 0;
@@ -2781,7 +2839,30 @@ async function importDocx(docxPath, opts = {}) {
   // (a no-op unless images carry a side, i.e. the manuscript floated them).
   out = groupSideFigures(out, textWidthPx);
   out = autoToc(out);
+  normaliseBoxTitles(out);
   return { blocks: out, media: mediaOut, tmp };
+}
+
+// Walk the finished block tree and correct misspelt box titles wherever they are
+// printed. Done as one late pass rather than at each of the several sites that build
+// a box (paragraph run, table, text box, grouped assessment), so no path can miss it.
+// The heading's rich segments carry the same text for math-bearing titles, so fix
+// those too — otherwise the segment copy would print the misspelling right back.
+function normaliseBoxTitles(blocks) {
+  const fixSegs = (segs) => {
+    if (!Array.isArray(segs)) return;
+    for (const sg of segs) if (sg && !sg.m && typeof sg.t === "string") sg.t = fixBoxTitleSpelling(sg.t);
+  };
+  const walk = (list) => {
+    if (!Array.isArray(list)) return;
+    for (const b of list) {
+      if (!b || typeof b !== "object") continue;
+      if (b.t === "activity" || b.t === "assessment") { b.title = fixBoxTitleSpelling(b.title); fixSegs(b.titleSegs); }
+      else if (b.t === "exercise") { b.heading = fixBoxTitleSpelling(b.heading); fixSegs(b.headingSegs); }
+      for (const k of ["body", "blocks", "parts", "left", "right", "items"]) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
 }
 
 // Some worked calculations are typed as ONE ordinary paragraph of INLINE math

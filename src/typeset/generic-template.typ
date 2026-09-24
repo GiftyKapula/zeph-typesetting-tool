@@ -2315,6 +2315,15 @@
       [#tocentry(2, label)#body]
     } else { body }
   } else { numcell(c) }
+  // A table row that SPLITS across a page break strands a fragment of one cell under
+  // the repeated header on the next page (a two-word tail sitting alone above a blank
+  // page). Keep each row whole so it moves to the next page intact instead. Applied
+  // only to rows short enough that they cannot plausibly be taller than a page — a very
+  // tall row (a nested sub-table, a stack of images) must stay breakable or it could
+  // not be placed at all. The syllabus matrix keeps its own behaviour: its rows are
+  // long by design and routinely exceed a page.
+  let rowlen(r) = r.fold(0, (a, c) => a + celllen(c))
+  let rowcell(r, c) = if rowlen(r) <= 600 { table.cell(breakable: false)[#cell(c)] } else { cell(c) }
   let tbl = if syl and sylhdr {
     table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt),
       fill: (col, row) => if row == 0 { T.at("matHeader", default: rgb("#d9d9d9")) } else { white },
@@ -2328,12 +2337,12 @@
       fill: (col, row) => if row == 0 { T.primary } else if calc.odd(row) { T.zebra } else { white },
       inset: (x: ix, y: iy),
       table.header(..rows.at(0).map(c => text(fill: white, weight: "bold")[#c.text])),
-      ..rows.slice(1).map(r => r.map(cell)).flatten())
+      ..rows.slice(1).map(r => r.map(c => rowcell(r, c))).flatten())
   } else {
     table(columns: cols, stroke: 0.5pt + T.rulec,
       fill: (col, row) => if calc.even(row) { T.zebra } else { white },
       inset: (x: ix, y: iy),
-      ..rows.map(r => r.map(cell)).flatten())
+      ..rows.map(r => r.map(c => rowcell(r, c))).flatten())
   }
   // Keep a table whole on one page so its coloured header never orphans at the
   // foot of a page (author's "table must be on one page") — but ONLY when it
@@ -2501,8 +2510,16 @@
 // stretch into a bare colour bar bleeding past the box (see the space-collapsing fix
 // in normaliseSpacing). Dropped for every book: plain italic accent-coloured text reads
 // as a distinct answer key without depending on a background fill at all.
+// No label either. The box's own heading ("Expected Responses", printed directly under
+// the EXERCISE/ASSESSMENT title of every Teacher's Guide answer key) already says these
+// are the answers, so a second "Possible answer:" tag on each one is pure repetition —
+// the same reasoning import-docx.js already applies to the label it used to synthesise
+// for unlabelled lettered answers, now extended to the label a manuscript typed itself.
+// A reviewer struck out all seventeen of them in one Form 2 Teacher's Guide, every
+// occurrence in the book. The answer stays visually distinct without it: italic, in the
+// box's accent colour, against the roman body of the question above it.
 #let answer(aseg, a) = context if show-answers.get() and (a != "" or aseg.len() > 0) {
-  [#text(style: "italic", fill: T.ex.title)[#text(weight: "bold")[Possible answer: ]#rich(aseg, a)]]
+  [#text(style: "italic", fill: T.ex.title)[#rich(aseg, a)]]
 }
 #let qaparts(parts) = {
   // exercise/assessment text is left-aligned (not justified): fill-in-the-blank lines
