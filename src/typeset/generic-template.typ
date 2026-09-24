@@ -236,22 +236,55 @@
     return {
       pagebreak(weak: true)
       page(paper: "a4", flipped: true, margin: (x: 26mm, y: 16mm), header: none, footer: none)[
-        #set align(center)
-        #if hero != none and hero.file != "" { image("_media/" + hero.file, height: 40mm); v(3mm) }
-        #text(font: T.bodyFont, size: 15pt, weight: "bold", fill: T.ink)[Republic of Zambia] #linebreak()
-        #text(font: T.bodyFont, size: 18pt, weight: "bold", fill: T.ink)[MINISTRY OF EDUCATION]
-        #v(9mm)
-        #line(length: 100%, stroke: 3pt + grey)
-        #v(7mm)
-        #text(font: T.displayFont, size: 33pt, weight: "black", fill: T.ink, tracking: 0.5pt)[#upper(name) SYLLABUS] #linebreak()
-        #v(4mm)
-        #text(font: T.bodyFont, size: 19pt, weight: "bold", fill: T.ink)[#upper(T.eyebrow)]
-        #v(7mm)
-        #line(length: 100%, stroke: 3pt + grey)
-        #v(11mm)
-        #if logo != none and logo.file != "" { image("_media/" + logo.file, height: 26mm); v(4mm) }
-        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[Developed by the Curriculum Development Centre] #linebreak()
-        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[#year]
+        // This page has to hold a title of ANY length. "Travel and Tourism" sets on one
+        // line at the design size; a full CDC course title ("Curriculum, Instructional
+        // Strategies and Assessment for Special Education - Secondary") runs to four, and
+        // at fixed sizes that pushed the CDC badge and the "Developed by..." credit off the
+        // bottom onto a near-empty page of their own.
+        //
+        // So the whole column is measured and stepped down together. Two things matter in
+        // how it degrades: the furniture (crest, badge, the generous gaps) gives way BEFORE
+        // the title does, because the title is the page; and the level line shrinks with the
+        // title, never past it -- shrinking the title alone drove it below the 19pt level
+        // line and left the page looking like its subtitle was the headline. The title is
+        // ragged-right too: justified display caps open rivers of space between the words
+        // ("CURRICULUM,    INSTRUCTIONAL    STRATEGIES"), which reads as broken.
+        #context {
+          let tw = 245mm
+          let col(c) = block(width: tw)[
+            #set align(center)
+            #if hero != none and hero.file != "" { image("_media/" + hero.file, height: c.hero); v(3mm * c.g) }
+            #text(font: T.bodyFont, size: 15pt, weight: "bold", fill: T.ink)[Republic of Zambia] #linebreak()
+            #text(font: T.bodyFont, size: 18pt, weight: "bold", fill: T.ink)[MINISTRY OF EDUCATION]
+            #v(9mm * c.g)
+            #line(length: 100%, stroke: 3pt + grey)
+            #v(7mm * c.g)
+            #block(width: 100%, par(justify: false, std.align(center,
+              text(font: T.displayFont, size: c.title, weight: "black", fill: T.ink, tracking: 0.5pt)[#upper(name) SYLLABUS])))
+            #v(4mm * c.g)
+            #text(font: T.bodyFont, size: c.eyebrow, weight: "bold", fill: T.ink)[#upper(T.eyebrow)]
+            #v(7mm * c.g)
+            #line(length: 100%, stroke: 3pt + grey)
+            #v(11mm * c.g)
+            #if logo != none and logo.file != "" { image("_media/" + logo.file, height: c.logo); v(4mm * c.g) }
+            #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[Developed by the Curriculum Development Centre] #linebreak()
+            #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[#year]
+          ]
+          let steps = (
+            (title: 33pt, eyebrow: 19pt, hero: 40mm, logo: 26mm, g: 1.0),
+            (title: 33pt, eyebrow: 19pt, hero: 36mm, logo: 24mm, g: 0.85),
+            (title: 30pt, eyebrow: 18pt, hero: 34mm, logo: 23mm, g: 0.75),
+            (title: 28pt, eyebrow: 17pt, hero: 32mm, logo: 22mm, g: 0.70),
+            (title: 26pt, eyebrow: 16pt, hero: 30mm, logo: 20mm, g: 0.65),
+            (title: 24pt, eyebrow: 15pt, hero: 28mm, logo: 19mm, g: 0.60),
+            (title: 22pt, eyebrow: 14pt, hero: 26mm, logo: 18mm, g: 0.55),
+            (title: 20pt, eyebrow: 13pt, hero: 24mm, logo: 17mm, g: 0.50),
+          )
+          // 178mm is the live height (A4 landscape, 16mm margins); leave a little slack.
+          let pick = steps.last()
+          for c in steps { if measure(col(c)).height <= 174mm { pick = c; break } }
+          col(pick)
+        }
       ]
       pastcover.update(true)
       pagebreak(weak: true)
@@ -407,9 +440,28 @@
       ])
       #place(top + left, dx: fdx, dy: 82mm, box(width: 297mm, height: 40mm)[
         #set align(center + horizon)
-        #stack(spacing: 4mm,
-          text(font: T.displayFont, size: 31pt, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS],
-          text(font: T.bodyFont, size: 18pt, weight: "bold", fill: title)[#upper(T.eyebrow)])
+        // The title has to fit the band whatever the subject is called. "Travel and
+        // Tourism" sets on one line at 31pt, but a full CDC course title ("Curriculum,
+        // Instructional Strategies and Assessment for Special Education – Secondary")
+        // needs three lines: at a fixed 31pt it overran the band into the level line
+        // below and spilled off the right edge of the panel. Step down through sizes and
+        // take the first that measures inside the band, inside a width that keeps a
+        // margin either side of the panel.
+        #context {
+          let tw = 265mm
+          let eyebrow = text(font: T.bodyFont, size: 18pt, weight: "bold", fill: title)[#upper(T.eyebrow)]
+          let avail = 40mm - measure(eyebrow).height - 8mm
+          // justify: false — a justified multi-line title stretches the word gaps into
+          // rivers ("CURRICULUM,    INSTRUCTIONAL    STRATEGIES    AND"), which reads
+          // as broken on a cover. Ragged-right centred is what the CDC references show.
+          let mk(s) = block(width: tw, par(justify: false, align(center,
+            text(font: T.displayFont, size: s, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS])))
+          let pick = 13pt
+          for s in (31pt, 28pt, 25pt, 22pt, 20pt, 18pt, 16pt, 15pt, 14pt, 13pt) {
+            if measure(mk(s)).height <= avail { pick = s; break }
+          }
+          stack(spacing: 4mm, mk(pick), eyebrow)
+        }
       ])
       #place(top + left, dx: fdx, dy: 128mm, box(width: 297mm)[
         #set align(center)
@@ -1346,7 +1398,13 @@
 // the imprint/credits page, where a short centred line of proper names ("Precious
 // Sapanoi") has no justification to gain from hyphenating and a dictionary match on
 // an ordinary-word name (Precious -> "Pre-cious") reads as a typo, not a line break.
-#let para(ss, align: none, drop: false, hyphenate: true, indent: false) = {
+// hyphenate defaults to `auto` meaning "inherit the theme", NOT `true`: a hard `true`
+// here silently defeated a theme's own `hyphenate: false` (themes.js sets it on the CDC
+// syllabus themes), because every body paragraph and run-in heading goes through para().
+// That is how a syllabus year heading came out as "...SECONDARY TEACH-ERS' DIPLOMA" even
+// though the theme had asked for no hyphenation anywhere in the book.
+#let para(ss, align: none, drop: false, hyphenate: auto, indent: false) = {
+  let hyphenate = if hyphenate == auto { T.at("hyphenate", default: true) } else { hyphenate }
   set text(hyphenate: hyphenate)
   // A syllabus body paragraph that sits UNDER a numbered item is indented to align with
   // the heading text (past the number), for a clean outline look.

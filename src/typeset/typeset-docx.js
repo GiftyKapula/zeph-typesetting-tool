@@ -3752,6 +3752,22 @@ function flattenSyllabusBoxes(blocks) {
       pushTitle((b.title || b.heading || "").trim());
       for (const s of b.intro || []) out.push(para(s));
       for (const p of b.parts || []) {
+        // A part that carries a TABLE is re-emitted as a real table block, never
+        // flattened to a paragraph. This mattered enormously: when the box detector
+        // wraps a stretch of a syllabus (an "ASSESSMENT" heading is enough to start a
+        // box, and it then runs to the next heading it recognises), the 5-column
+        // matrix — the entire substance of the syllabus — gets absorbed into that box
+        // as a table part. Dropping it here silently produced a 10-page syllabus with
+        // every topic, competence and expected standard missing, and a clean build log.
+        // Keyed on the part's KIND, not merely on it having `rows`: a `colgrid` part
+        // also carries `rows`, but shaped { marker, cells[] } rather than an array of
+        // cells, and emitting one as a table throws "row is not iterable".
+        if (p.kind === "table" && Array.isArray(p.rows)) { out.push({ t: "table", rows: p.rows }); continue; }
+        if (p.kind === "colgrid") {
+          out.push({ t: "colgrid", rows: p.rows, ncol: p.ncol, hasMarker: p.hasMarker, header: p.header });
+          continue;
+        }
+        if (p.kind === "image" && Array.isArray(p.images)) { for (const im of p.images) out.push({ t: "image", ...im }); continue; }
         const mk = p.marker ? p.marker + " " : "";
         const seg = (p.qseg && p.qseg.length)
           ? [{ t: mk, b: false, it: false, c: null }, ...p.qseg]
@@ -4193,7 +4209,7 @@ function normaliseQuestionMarkBold(blocks) {
     // a doubled "• •" in the activities column and a stray bullet on numbered topics.
     for (const b of blocks) {
       if (!Array.isArray(b.rows)) continue;
-      for (const row of b.rows) for (const c of row) {
+      for (const row of b.rows) for (const c of (Array.isArray(row) ? row : [])) {
         if (!c) continue;
         if (typeof c.text === "string") c.text = c.text.replace(/[•▪◦●·‣∙]\s?/g, "");
         if (Array.isArray(c.segs)) for (const s of c.segs) if (typeof s.t === "string") s.t = s.t.replace(/[•▪◦●·‣∙]\s?/g, "");
@@ -4510,7 +4526,7 @@ async function main() {
   let failed = false;
   for (const f of files) {
     if (!fs.existsSync(f)) { console.error("Not found:", f); failed = true; continue; }
-    try { await typesetOne(f, themeName); } catch (e) { console.error("Failed on", f, "\n", e.message); failed = true; }
+    try { await typesetOne(f, themeName); } catch (e) { console.error("Failed on", f, "\n", e.stack || e.message); failed = true; }
   }
   if (failed) process.exit(1);
 }
