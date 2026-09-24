@@ -83,6 +83,33 @@ function cropImage(srcPath, destPath, crop, fs) {
   } catch (_) { return false; }
 }
 
+// Bake a picture's Word rotation into the pixels: srcPath -> destPath turned `rot`
+// degrees clockwise (quarter turns only). A Word <a:srcRect> crop is applied FIRST when
+// present, because srcRect addresses the picture in its own, unrotated coordinate space
+// — cropping after the turn would trim the wrong two edges. destPath must be .png (we
+// re-encode). Returns true on success, false when there is nothing to do or canvas is off.
+function rotateImage(srcPath, destPath, rot, crop, fs) {
+  const turns = ((Math.round(rot / 90) % 4) + 4) % 4;
+  if (!canvasLib || !turns || !destPath.toLowerCase().endsWith(".png")) return false;
+  try {
+    const img = new canvasLib.Image();
+    img.src = fs.readFileSync(srcPath);
+    const W = img.width, H = img.height;
+    if (!W || !H) return false;
+    const sx = crop ? Math.round(crop.l * W) : 0, sy = crop ? Math.round(crop.t * H) : 0;
+    const sw = crop ? Math.max(1, Math.round((1 - crop.l - crop.r) * W)) : W;
+    const sh = crop ? Math.max(1, Math.round((1 - crop.t - crop.b) * H)) : H;
+    const swap = turns % 2 === 1;
+    const c = canvasLib.createCanvas(swap ? sh : sw, swap ? sw : sh);
+    const ctx = c.getContext("2d");
+    ctx.translate(c.width / 2, c.height / 2);
+    ctx.rotate((turns * Math.PI) / 2);
+    ctx.drawImage(img, sx, sy, sw, sh, -sw / 2, -sh / 2, sw, sh);
+    fs.writeFileSync(destPath, c.toBuffer("image/png"));
+    return true;
+  } catch (_) { return false; }
+}
+
 // Extract the embedded raster from an EMF that wraps a bitmap via EMR_STRETCHDIBITS /
 // EMR_SETDIBITSTODEVICE. Word stores many pasted pictures as such EMFs; Typst cannot
 // read EMF, so without this the picture is dropped ("picture missing"). Returns a PNG
@@ -146,4 +173,4 @@ function emfToPng(buf) {
   } catch (_) { return null; }
 }
 
-module.exports = { enhanceLineArt, cropImage, emfToPng };
+module.exports = { enhanceLineArt, cropImage, rotateImage, emfToPng };
