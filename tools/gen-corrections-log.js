@@ -122,7 +122,14 @@ function makePrintedPage(map) {
 // Tidy the author's own note: drop the instruction verb, collapse space, cap.
 const cleanNote = (s) => {
   let t = String(s || "").replace(/\r/g, " ").replace(/\s+/g, " ").trim();
-  t = t.replace(/^(REPLACE( THIS PARA)?( WITH)?( THIS)?|RWT|REMOVE|DELETE)\s*:?\s*/i,
+  // A note that is nothing BUT the instruction word ("delete") must not be turned into
+  // a dangling "Remove: " with empty space after the colon — 39 of one round's 163 rows
+  // read that way. The passage column already shows what is meant, so say it in full.
+  const isDel = /^(REMOVE|DELETE)\s*:?\s*$/i.test(t);
+  const isRep = /^(REPLACE( THIS PARA)?( WITH)?( THIS)?|RWT)\s*:?\s*$/i.test(t);
+  if (isDel) t = "Remove this passage.";
+  else if (isRep) t = "Replace this passage.";
+  else t = t.replace(/^(REPLACE( THIS PARA)?( WITH)?( THIS)?|RWT|REMOVE|DELETE)\s*:?\s*/i,
     (m) => (/REMOVE|DELETE/i.test(m) ? "Remove: " : "New text: "));
   if (t.length > 420) t = t.slice(0, 417) + "…";
   return t;
@@ -158,7 +165,10 @@ const cleanAction = (s) => {
   t = t.replace(/\s{2,}/g, " ").replace(/\s+\./g, ".").replace(/\s+,/g, ",").trim();
   t = t.replace(/^[\s:;,.\-–]+/, "").trim();
   if (t) t = t.charAt(0).toUpperCase() + t.slice(1);
-  return t || "Addressed.";
+  // Empty means "no note was recorded" — the CALLER decides what that reads as, since
+  // the right wording depends on the comment's status (a resolved one with no note is
+  // "Addressed."; a pending one is not).
+  return t;
 };
 
 // ---- docx layout ----------------------------------------------------------
@@ -218,12 +228,37 @@ async function main() {
   const header = new TableRow({ tableHeader: true, children: [
     th("Page", 7), th("Passage in the book", 30), th("Your comment", 33), th("What was done", 30),
   ] });
-  const bodyRows = sorted.map((r, i) => new TableRow({ children: [
-    td(printedPage(r.page_ref), 7, { shade: i % 2 === 1, bold: true }),
-    td(r.anchor ? `“${String(r.anchor).replace(/\r/g, " ").replace(/~\s*\d+\s*~/g, " ").replace(/\s+/g, " ").trim()}”` : "—", 30, { shade: i % 2 === 1, color: GREY }),
-    td(cleanNote(r.note), 33, { shade: i % 2 === 1 }),
-    td([new TextRun({ text: "✓ ", bold: true, color: TEAL, size: 18 }), new TextRun({ text: cleanAction(r.action), size: 18 })], 30, { shade: i % 2 === 1 }),
-  ] }));
+  // The outcome column must reflect the comment's STATUS, not just its action text.
+  // It used to print a teal "✓" and fall back to "Addressed." on every row whose
+  // `action` happened to be empty — which is exactly what a still-pending comment
+  // looks like. A log generated mid-round therefore told the author that every note
+  // they left had been dealt with, including the ones nobody had touched yet. Only a
+  // comment actually resolved in zeph gets the tick; the rest say plainly where they
+  // stand, so the author is never told work is done that isn't.
+  const OUTCOME = {
+    done:    { mark: "✓ ", color: TEAL,   fallback: "Addressed." },
+    wontfix: { mark: "— ", color: GREY,   fallback: "Left as it is — see the note below the table." },
+    flagged: { mark: "? ", color: "B26B00", fallback: "Needs a decision from you before we can act on it." },
+    pending: { mark: "• ", color: GREY,   fallback: "Not yet actioned." },
+  };
+  const bodyRows = sorted.map((r, i) => {
+    const o = OUTCOME[r.status] || OUTCOME.pending;
+    // A pending comment's `action` is an internal breadcrumb, never a claim that the
+    // work is finished — don't print it as the outcome.
+    const text = r.status === "done" || r.status === "wontfix" || r.status === "flagged"
+      ? cleanAction(r.action) || o.fallback
+      : o.fallback;
+    return new TableRow({ children: [
+      td(printedPage(r.page_ref), 7, { shade: i % 2 === 1, bold: true }),
+      td(r.anchor ? `“${String(r.anchor).replace(/\r/g, " ").replace(/~\s*\d+\s*~/g, " ").replace(/\s+/g, " ").trim()}”` : "—", 30, { shade: i % 2 === 1, color: GREY }),
+      // A reviewer can highlight a passage and attach no note — usually the tail of a
+      // highlighted run that carried over a page break, or a second mark over one they
+      // had already annotated. The cell must say that rather than sit blank, or the
+      // author sees a passage quoted at them with no apparent reason.
+      td(cleanNote(r.note) || "(passage highlighted, no note attached)", 33, { shade: i % 2 === 1 }),
+      td([new TextRun({ text: o.mark, bold: true, color: o.color, size: 18 }), new TextRun({ text, size: 18 })], 30, { shade: i % 2 === 1 }),
+    ] });
+  });
 
   const grey = { style: BorderStyle.SINGLE, size: 2, color: "CCCCCC" };
   const thin = { style: BorderStyle.SINGLE, size: 1, color: "DDDDDD" };
