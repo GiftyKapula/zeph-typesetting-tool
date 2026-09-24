@@ -5276,8 +5276,8 @@
       "page_ref": "p3",
       "anchor": "Stella Libongani",
       "note": "Write Edward Mubanga and Stella Libongani",
-      "action": null,
-      "status": "pending"
+      "action": "The editor credit now reads 'Edited by: Edward Mubanga and Stella Libongani'.",
+      "status": "done"
     },
     {
       "id": 548,
@@ -5285,8 +5285,8 @@
       "page_ref": "p12",
       "anchor": "ZCBC:",
       "note": "add  following acronyms HCCI, RDT as on page ix",
-      "action": null,
-      "status": "pending"
+      "action": "HCCI and RTD have both been added to the acronym list. Your note read \"RDT\"; the Learner's Book acronym list gives RTD — Resistance Temperature Detector, so that is the spelling used. HCCI is Homogeneous Charge Compression Ignition.",
+      "status": "done"
     },
     {
       "id": 549,
@@ -5312,8 +5312,8 @@
       "page_ref": "p15",
       "anchor": "Help learners understand that work is done when an applied force causes an object to move in the direction of the force. Guide them to appreciate that",
       "note": "replace with, Work is done when a force causes a displacement and has a component in the direction of the displacement. The work done depends on the component of the force acting along the displacement of the object.",
-      "action": null,
-      "status": "pending"
+      "action": "Replaced with your wording.",
+      "status": "done"
     },
     {
       "id": 552,
@@ -5321,8 +5321,8 @@
       "page_ref": "p17",
       "anchor": "Procedure: Provide the required materials and instruct the learners to attach the spring balance to the toy car and pull it along a smooth, flat surface using different forces such as 1 N, 2 N, 3 N, 4 N and 5 N. Ask them to measure and record the distance moved for each applied force. Guide them to compare the results and discuss how displacement changes as the applied force increases. Encourage t",
       "note": "replace with **Procedure:** Have learners work individually, in pairs or in groups using a toy car or trolley, spring balance (Newton meter), metre rule or measuring tape and a smooth, flat surface. First, have them keep the displacement constant while varying the applied force and record the work done for each force. Next, have them keep the force constant while varying the displacement and record the corresponding work done. Ask them to plot graphs of work done against force and work done against displacement, analyse the patterns and use the graphs to establish the relationship between work done, force and displacement. Have learners use the observed relationships to derive the mathematical equation for work done.\n\n**Teacher tips:** Ensure the toy car or trolley moves along a smooth, flat surface and that the spring balance is read accurately. Encourage learners to vary only one quantity at a time and record measurements carefully. Remind them to use consistent SI units and appropriate scales when plotting the graphs.\n\n**Expected findings/observations:** Learners should observe that, for a constant displacement, work done increases as the applied force increases. They should also observe that, for a constant force, work done increases as displacement increases. The graphs should show direct proportional relationships, enabling learners to establish the relationship between work done, force and displacement.\n\n**Conclusion:** Learners should use their observations and graphical results to state the relationship between work done, force and displacement and derive the appropriate mathematical equation.\n",
-      "action": null,
-      "status": "pending"
+      "action": "The activity's Procedure, Teacher tips, Expected findings and Conclusion were replaced with your wording.",
+      "status": "done"
     },
     {
       "id": 553,
@@ -5330,8 +5330,8 @@
       "page_ref": "p20",
       "anchor": "= 20 × 20 × 2.5",
       "note": "replace with  10",
-      "action": null,
-      "status": "pending"
+      "action": "Corrected to = 20 × 10 × 2.5, which gives the 500 J shown on the next line.",
+      "status": "done"
     },
     {
       "id": 554,
@@ -5366,8 +5366,8 @@
       "page_ref": "p25",
       "anchor": "Heat (thermal energy) Sound energy",
       "note": "answers for (c), indicate it before the highlighted words\n",
-      "action": null,
-      "status": "pending"
+      "action": "The two energy forms now sit as bullets under (c). Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 558,
@@ -5375,8 +5375,8 @@
       "page_ref": "p25",
       "anchor": "Lubricate moving parts regularly to reduce friction. [1]4.",
       "note": "replace number 4 with (d) and the statement with, High-efficiency machines waste less energy, thereby reducing energy consumption and operating costs.",
-      "action": null,
-      "status": "pending"
+      "action": "Answer (d) now reads 'High-efficiency machines waste less energy, thereby reducing energy consumption and operating costs.'",
+      "status": "done"
     },
     {
       "id": 559,
@@ -5384,8 +5384,8 @@
       "page_ref": "p25",
       "anchor": "Carry out regular maintenance and replace worn5.",
       "note": "replace with (e),",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 560,
@@ -5393,8 +5393,8 @@
       "page_ref": "p25",
       "anchor": "Carry out regular maintenance and replace worn out parts.",
       "note": "replace with, Reduce friction by properly lubricating moving parts. [1]\nRegularly maintain and service the pump to ensure that it operates efficiently. [1]",
-      "action": null,
-      "status": "pending"
+      "action": "The two ways of improving the pump now read 'Reduce friction by properly lubricating moving parts.' and 'Regularly maintain and service the pump to ensure that it operates efficiently.'",
+      "status": "done"
     },
     {
       "id": 561,
@@ -5402,8 +5402,8 @@
       "page_ref": "p29",
       "anchor": "d) Heat (thermal energy)",
       "note": "delete letter d",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 562,
@@ -5411,8 +5411,8 @@
       "page_ref": "p29",
       "anchor": "Two ways of improving the efficiency of the motor are:f)",
       "note": "replace with (d)",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 563,
@@ -5420,8 +5420,8 @@
       "page_ref": "p29",
       "anchor": "Lubricate the moving parts regularly to reduce friction.g)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 564,
@@ -5429,8 +5429,8 @@
       "page_ref": "p29",
       "anchor": "h)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 565,
@@ -5438,8 +5438,8 @@
       "page_ref": "p29",
       "anchor": "e) Sound energy",
       "note": "delete letter e",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 566,
@@ -5465,8 +5465,8 @@
       "page_ref": "p32",
       "anchor": "both the mass and velocity of an object and is given by P=mv.",
       "note": "replace with lower case letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 569,
@@ -5474,8 +5474,8 @@
       "page_ref": "p32",
       "anchor": "P = mv",
       "note": "replace with a lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 570,
@@ -5483,8 +5483,8 @@
       "page_ref": "p33",
       "anchor": "P = mua)",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 571,
@@ -5492,8 +5492,8 @@
       "page_ref": "p33",
       "anchor": "P = 50 × 2",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 572,
@@ -5501,8 +5501,8 @@
       "page_ref": "p33",
       "anchor": "P = 100kgm/s",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 573,
@@ -5510,8 +5510,8 @@
       "page_ref": "p33",
       "anchor": "P = mub)",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 574,
@@ -5519,8 +5519,8 @@
       "page_ref": "p33",
       "anchor": "P= 50 × 4",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 575,
@@ -5528,8 +5528,8 @@
       "page_ref": "p33",
       "anchor": "P = 200kgm/s",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 576,
@@ -5537,8 +5537,8 @@
       "page_ref": "p33",
       "anchor": "P = mu",
       "note": "replace with lower case v",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 577,
@@ -5546,8 +5546,8 @@
       "page_ref": "p33",
       "anchor": "P = mu",
       "note": "replace with lower case v",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 578,
@@ -5555,8 +5555,8 @@
       "page_ref": "p33",
       "anchor": "P = m",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 579,
@@ -5564,8 +5564,8 @@
       "page_ref": "p33",
       "anchor": "₁u₁",
       "note": "replace with lower case letter v1, 1 to be a subscript",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 580,
@@ -5573,8 +5573,8 @@
       "page_ref": "p33",
       "anchor": "₂u₂",
       "note": "replace with lower case letter v2, 2 to be a subscript",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 581,
@@ -5582,8 +5582,8 @@
       "page_ref": "p33",
       "anchor": "and u₂ are their",
       "note": "replace with lower case letter v2, 2 to be a subscript",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 582,
@@ -5591,8 +5591,8 @@
       "page_ref": "p33",
       "anchor": "u₁ and",
       "note": "replace with lower case letter v1, 1 to be a subscript",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 583,
@@ -5600,8 +5600,8 @@
       "page_ref": "p35",
       "anchor": "P= mu",
       "note": "replace with lower case letter v",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 584,
@@ -5609,8 +5609,8 @@
       "page_ref": "p35",
       "anchor": "P= mu",
       "note": "replace with lower case letter v",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 585,
@@ -5618,8 +5618,8 @@
       "page_ref": "p35",
       "anchor": "P= mua)",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 586,
@@ -5627,8 +5627,8 @@
       "page_ref": "p35",
       "anchor": "P =5 × 4",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 587,
@@ -5636,8 +5636,8 @@
       "page_ref": "p35",
       "anchor": "P = 20kgm/s",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 588,
@@ -5645,8 +5645,8 @@
       "page_ref": "p35",
       "anchor": "P= mu",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 589,
@@ -5654,8 +5654,8 @@
       "page_ref": "p35",
       "anchor": "P =3 × 2",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 590,
@@ -5663,8 +5663,8 @@
       "page_ref": "p35",
       "anchor": "P = 6kgm/s",
       "note": "replace with lowercase letter p",
-      "action": null,
-      "status": "pending"
+      "action": "Momentum is now set in the lower-case symbol p throughout (p = mv), and the total-momentum formula now reads p = m₁v₁ + m₂v₂. Pressure and power keep their capital P.",
+      "status": "done"
     },
     {
       "id": 591,
@@ -5708,8 +5708,8 @@
       "page_ref": "p40",
       "anchor": "Required materials: Locally available materials such as wood, card board, nails, ropes, bottle tops, sticks, wire, tins, bamboo or other suitable materials, cutting tools and adhesive. Procedure: Let learners source materials locally on their own and work individually or in groups or individually to construct a simple ramp using a wooden board, cardboard, books or other appropriate materials. Guid",
       "note": "replace with, **Required materials:** Locally available materials such as wood, cardboard, nails, ropes, bottle tops, sticks, wire, tins, bamboo or other suitable materials, cutting tools and adhesive.\n\n**Procedure:** Have learners source suitable materials locally and work individually, in pairs or in groups to design and construct any simple machine of their choice. They may construct a lever, pulley, wheel and axle, inclined plane, wedge, screw or another suitable simple machine. Ask learners to test their machines by using them to perform a simple task and observe how the machine changes the effort required, direction of force or distance through which the effort is applied. Have learners record their observations, identify the type of simple machine constructed and explain how it makes work easier.\n\n**Teacher tips:** Encourage learners to select materials that are safe and suitable for construction. Ensure that cutting tools and other potentially hazardous materials are handled safely. Encourage creativity and allow learners to modify their designs after testing them. Emphasise that the constructed machine should be stable and functional.\n\n**Expected findings/observations:** Learners should observe that different simple machines can change the size or direction of the applied force or the distance through which the effort is applied. They should recognise that simple machines can make tasks easier by providing a mechanical advantage.\n\n**Conclusion:** Learners should use their observations and testing results to explain how the simple machine they constructed makes work easier.\n",
-      "action": null,
-      "status": "pending"
+      "action": "The activity's Procedure, Teacher tips, Expected findings and Conclusion were replaced with your wording. The tips, findings and conclusion had described a ramp experiment rather than the machine-building task the activity sets.",
+      "status": "done"
     },
     {
       "id": 596,
@@ -5726,8 +5726,8 @@
       "page_ref": "p44",
       "anchor": "a)",
       "note": "replace with (c) ",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered to (c).",
+      "status": "done"
     },
     {
       "id": 598,
@@ -5735,8 +5735,8 @@
       "page_ref": "p44",
       "anchor": "b)",
       "note": "replace with (d)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered to (d).",
+      "status": "done"
     },
     {
       "id": 599,
@@ -5789,8 +5789,8 @@
       "page_ref": "p52",
       "anchor": "The second pressure is greater than the first because the samec)",
       "note": "replace with (ii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 605,
@@ -5798,8 +5798,8 @@
       "page_ref": "p52",
       "anchor": "Wide tyres on tractors reduce pressure on the ground by increasd)",
       "note": "replace with (iii) ",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 606,
@@ -5807,8 +5807,8 @@
       "page_ref": "p52",
       "anchor": "P = F ÷ Ab)",
       "note": "add (i) for the solution",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 607,
@@ -5816,8 +5816,8 @@
       "page_ref": "p54",
       "anchor": "and gas",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "The activity title now reads 'Calculating pressure in liquids'.",
+      "status": "done"
     },
     {
       "id": 608,
@@ -5825,8 +5825,8 @@
       "page_ref": "p58",
       "anchor": "An object floats when the upthrust acting on it is equal to or greater than its weight. It sinks when its weight is greater than the",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Sentence removed.",
+      "status": "done"
     },
     {
       "id": 609,
@@ -5906,8 +5906,8 @@
       "page_ref": "p74",
       "anchor": "Required materials: Laboratory thermometer, beakers, heat source, tripod stand, wire gauze, ice, candle wax, butter, water, stopwatch, obser vation sheet and pen. Procedure: Guide learners to work individually, in pairs or individually or in groups or individually using the available thermometers. Ask them to measure and record the temperatures of cold water, room air, warm water and the human bod",
       "note": "replace with, **Required materials:** Laboratory thermometer, beakers, heat source, tripod stand, wire gauze, and samples such as ice, candle wax, butter and water.\n\n**Procedure:** Have learners work individually, in pairs or in groups to heat each substance gradually while recording its temperature at regular intervals. Ask them to identify and record the temperatures at which each substance begins to melt or boil. Have learners tabulate and compare their results and discuss similarities and differences in the melting and boiling points of the substances. Encourage learners to relate their observations to the properties of the substances and present their findings to the class.\n\n**Teacher tips:** Ensure that the thermometer is positioned correctly and does not touch the bottom of the container. Emphasise gradual heating and safe handling of hot materials.\n\n**Expected findings/observations:** Learners should observe that different substances melt and boil at different temperatures. Some substances may show a clearer change of state than others.\n\n**Conclusion:** Learners should use their observations to explain that substances have different melting and boiling points depending on their properties.\n",
-      "action": null,
-      "status": "pending"
+      "action": "The activity's Procedure, Teacher tips, Expected findings and Conclusion were replaced with your wording.",
+      "status": "done"
     },
     {
       "id": 618,
@@ -5915,8 +5915,8 @@
       "page_ref": "p81",
       "anchor": "Teacher tips: Ensure learners handle the thermometers carefully, espe cially mercury thermometers, to prevent breakage. Remind learners to allow sufficient time for the thermometers to stabilise before taking read ings and to avoid touching the bulbs during measurements.",
       "note": "replace with, Prohibit learners from directly handling mercury thermometers or any mercury spill. Where mercury thermometers are used, they should be handled only by the teacher or authorised laboratory personnel. Ensure thermometers are given sufficient time to stabilise before readings are taken and avoid touching the thermometer bulbs. In the event of breakage or a mercury spill, stop the activity, restrict access to the area and follow the institution’s approved mercury spill and hazardous-materials disposal protocol. Do not permit learners to sweep, touch or attempt to clean up the spill.",
-      "action": null,
-      "status": "pending"
+      "action": "Replaced with your mercury-handling wording, including the spill protocol and the instruction that learners must not clean up a spill.",
+      "status": "done"
     },
     {
       "id": 619,
@@ -5942,8 +5942,8 @@
       "page_ref": "p87",
       "anchor": "changes of state occur under standard atmospheric pressure. Lead the to",
       "note": "replace with learners",
-      "action": null,
-      "status": "pending"
+      "action": "Now reads 'Lead the learners to discuss'.",
+      "status": "done"
     },
     {
       "id": 622,
@@ -5960,8 +5960,8 @@
       "page_ref": "p91",
       "anchor": "Ideal gas equation: R = 2.5 × 10³ J mol⁻¹ K⁻¹",
       "note": "replace with,  8.31 J mol⁻¹ K⁻¹ ",
-      "action": null,
-      "status": "pending"
+      "action": "Corrected to R = 8.31 J mol⁻¹ K⁻¹.",
+      "status": "done"
     },
     {
       "id": 624,
@@ -5987,8 +5987,8 @@
       "page_ref": "p97",
       "anchor": "Compression ignition engine – Trucks, buses, tractors or heavyg)",
       "note": "replace with (ii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 627,
@@ -5996,8 +5996,8 @@
       "page_ref": "p97",
       "anchor": "Rotary engine – Sports cars or aircraft.h)",
       "note": "replace with (iii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 628,
@@ -6005,8 +6005,8 @@
       "page_ref": "p97",
       "anchor": "Spark ignition engine – Cars, motorcycles or small generators.f)",
       "note": "add (i) after (f)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 629,
@@ -6014,8 +6014,8 @@
       "page_ref": "p101",
       "anchor": "EXERCISE 10",
       "note": "delete and replace with 9",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered to EXERCISE 9.",
+      "status": "done"
     },
     {
       "id": 630,
@@ -6032,8 +6032,8 @@
       "page_ref": "p103",
       "anchor": "Fuel saved = 8 L − 5 Le)",
       "note": "add (i) after (e)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 632,
@@ -6041,8 +6041,8 @@
       "page_ref": "p103",
       "anchor": "f)",
       "note": "replace with (ii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 633,
@@ -6050,8 +6050,8 @@
       "page_ref": "p103",
       "anchor": "g)",
       "note": "replace with (iii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 634,
@@ -6059,8 +6059,8 @@
       "page_ref": "p103",
       "anchor": "[1]",
       "note": "change to [2]. add another solution for (iv), Money saved over 100 km\nMoney saved =3 * K27.50  =K82.50 \nTherefore, the hybrid vehicle saves K82.50 per 100 km.",
-      "action": null,
-      "status": "pending"
+      "action": "The mark on the pollution answer is now [2], matching the Learner's Book. A new part (iv) has been added with your money-saved working (3 × K27.50 = K82.50 per 100 km).",
+      "status": "done"
     },
     {
       "id": 635,
@@ -6086,8 +6086,8 @@
       "page_ref": "p108",
       "anchor": "Refrigeratorsd)",
       "note": "insert (i) before letter R",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 638,
@@ -6095,8 +6095,8 @@
       "page_ref": "p108",
       "anchor": "e)",
       "note": "replace with (ii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 639,
@@ -6104,8 +6104,8 @@
       "page_ref": "p108",
       "anchor": "f)",
       "note": "replace with (iii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 640,
@@ -6113,8 +6113,8 @@
       "page_ref": "p108",
       "anchor": "g)",
       "note": "replace with (iv)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 641,
@@ -6122,8 +6122,8 @@
       "page_ref": "p110",
       "anchor": "Help learners appreciate that materials differ in their ability to transfer heat. Guide them in understanding that a good conductor of heat allows heat to pass through it quickly, while a bad conductor of heat or insulator slows down the transfer of heat. Using practical examples such as cooking utensil handles, oven mitts, flask stoppers, electrical cable insulation and refrigerator ~ 98 ~",
       "note": "REPLACE ALL HIGHLIGHTED WITH, Help learners appreciate that materials differ in their ability to absorb and emit radiant heat. Explain that dull, dark surfaces are generally good absorbers and good emitters of radiant heat, while shiny, light-coloured surfaces are generally poorer absorbers and poorer emitters. Use practical examples such as the use of dull black surfaces in solar heating devices and shiny surfaces in thermal insulation to help learners relate absorptivity and emissivity to everyday applications. Encourage learners to discuss how the surface properties of materials influence the absorption and emission of thermal radiation.",
-      "action": null,
-      "status": "pending"
+      "action": "Replaced with your wording on absorbing and emitting radiant heat.",
+      "status": "done"
     },
     {
       "id": 642,
@@ -6131,8 +6131,8 @@
       "page_ref": "p111",
       "anchor": "Form 2 Teacher's GuideSecondary Education Ordinary Level Physics insulation, support learners in seeing how the insulating properties of some materials make them to be useful in everyday life.",
       "note": null,
-      "action": "Continuation of comment #641: the same highlighted run carried over the page break from printed p98, covered by that note (\"REPLACE ALL HIGHLIGHTED WITH...\"). No separate instruction of its own.",
-      "status": "pending"
+      "action": "Covered by the change to the passage beginning on the previous page — your highlight ran across the page break.",
+      "status": "done"
     },
     {
       "id": 643,
@@ -6158,8 +6158,8 @@
       "page_ref": "p116",
       "anchor": "plaining how thermal energy is absorbed, stored and released during changes",
       "note": "replace with stored as internal",
-      "action": null,
-      "status": "pending"
+      "action": "Now reads \"absorbed, stored as internal energy and released\". Your note read \"stored as internal\" — we have completed it to \"internal energy\", which is the only reading that scans; please confirm.",
+      "status": "done"
     },
     {
       "id": 646,
@@ -6167,8 +6167,8 @@
       "page_ref": "p119",
       "anchor": "Temperature verses Heat Energy",
       "note": "replace with versus",
-      "action": null,
-      "status": "pending"
+      "action": "Corrected to 'Temperature versus Heat Energy'.",
+      "status": "done"
     },
     {
       "id": 647,
@@ -6176,8 +6176,8 @@
       "page_ref": "p119",
       "anchor": "and heat energy as the thermal energy transferred from a hotter body to a",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "The word \"thermal\" has been removed, so the sentence now reads \"heat energy as the energy transferred from a hotter body to a colder body due to a temperature difference\".",
+      "status": "done"
     },
     {
       "id": 648,
@@ -6185,8 +6185,8 @@
       "page_ref": "p120",
       "anchor": "or coldness, while heat energy is thermal energy associated with the",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "The word \"thermal\" has been removed here too, so with the replacement below the sentence now reads \"while heat energy is energy transferred because of a temperature difference\".",
+      "status": "done"
     },
     {
       "id": 649,
@@ -6194,8 +6194,8 @@
       "page_ref": "p120",
       "anchor": "or coldness, while heat energy is thermal energy associated with the substance and depends on its amount and thermal properties.",
       "note": "replace with, transferred because of a temperature difference",
-      "action": null,
-      "status": "pending"
+      "action": "Now reads 'while heat energy is thermal energy transferred because of a temperature difference.'",
+      "status": "done"
     },
     {
       "id": 650,
@@ -6203,8 +6203,8 @@
       "page_ref": "p120",
       "anchor": "relates to the average kinetic energy of particles, while heat energy de",
       "note": "replace with the change in thermal energy",
-      "action": null,
-      "status": "pending"
+      "action": "Now reads \"while the change in thermal energy depends on factors such as mass, specific heat capacity and temperature\".",
+      "status": "done"
     },
     {
       "id": 651,
@@ -6212,8 +6212,8 @@
       "page_ref": "p121",
       "anchor": "LEARNING ACTIVITY 34: Measuring heat capacity c =",
       "note": "replace with uppercase letter C",
-      "action": null,
-      "status": "pending"
+      "action": "The activity title now uses the capital C for heat capacity, keeping the lower-case c for specific heat capacity.",
+      "status": "done"
     },
     {
       "id": 652,
@@ -6275,8 +6275,8 @@
       "page_ref": "p133",
       "anchor": "Wavelength is the distance between two successive points on aa)",
       "note": "add (i) after (a)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 659,
@@ -6284,8 +6284,8 @@
       "page_ref": "p133",
       "anchor": "b)",
       "note": "replace with (ii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 660,
@@ -6293,8 +6293,8 @@
       "page_ref": "p133",
       "anchor": "Frequency is the number of complete waves or oscillations proc)",
       "note": "replace with (iii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 661,
@@ -6302,8 +6302,8 @@
       "page_ref": "p133",
       "anchor": "Transverse waves have particles that vibrate at right angles (perd)",
       "note": "replace with (b)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 662,
@@ -6311,8 +6311,8 @@
       "page_ref": "p133",
       "anchor": "Moving the rope up and down produces a transverse wave.e)",
       "note": "replace with (c) (i)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 663,
@@ -6320,8 +6320,8 @@
       "page_ref": "p133",
       "anchor": "f)",
       "note": "replace with (ii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 664,
@@ -6329,8 +6329,8 @@
       "page_ref": "p133",
       "anchor": "Sound waves are classified as longitudinal waves because theg)",
       "note": "replace with (d)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 665,
@@ -6338,8 +6338,8 @@
       "page_ref": "p133",
       "anchor": "An example of a transverse wave found in everyday life is a lighth)",
       "note": "replace with (e)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 666,
@@ -6365,8 +6365,8 @@
       "page_ref": "p145",
       "anchor": "c)",
       "note": "replace with (c) (i)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 669,
@@ -6374,8 +6374,8 @@
       "page_ref": "p145",
       "anchor": "Radio waves are the most suitable electromagnetic waves ford)",
       "note": "replace with (ii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 670,
@@ -6392,8 +6392,8 @@
       "page_ref": "p149",
       "anchor": "They are transverse waves.c)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 672,
@@ -6401,8 +6401,8 @@
       "page_ref": "p149",
       "anchor": "They travel at the same speed in a vacuum (3.0 × 10⁸ m sd)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 673,
@@ -6410,8 +6410,8 @@
       "page_ref": "p149",
       "anchor": "Radio waves are suitable for communication over long distancese)",
       "note": "replace with (c) ",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 674,
@@ -6419,8 +6419,8 @@
       "page_ref": "p149",
       "anchor": "Excessive exposure to strong radio waves may cause heating off)",
       "note": "replace with (d)",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 675,
@@ -6428,8 +6428,8 @@
       "page_ref": "p149",
       "anchor": "g)",
       "note": "replace with (e)",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 676,
@@ -6473,8 +6473,8 @@
       "page_ref": "p157",
       "anchor": "In a guitar, the vibrating part is the strings.b)",
       "note": "replace with (i)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 681,
@@ -6482,8 +6482,8 @@
       "page_ref": "p157",
       "anchor": "a) (a)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "The stray empty item was removed.",
+      "status": "done"
     },
     {
       "id": 682,
@@ -6491,8 +6491,8 @@
       "page_ref": "p157",
       "anchor": "c)",
       "note": "replace with (ii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 683,
@@ -6500,8 +6500,8 @@
       "page_ref": "p157",
       "anchor": "In a tuning fork, the vibrating part is the prongs.d)",
       "note": "replace with (iii)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 684,
@@ -6509,8 +6509,8 @@
       "page_ref": "p157",
       "anchor": "e)",
       "note": "replace with (b)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 685,
@@ -6518,8 +6518,8 @@
       "page_ref": "p157",
       "anchor": "Two instruments used to measure sound are:f)",
       "note": "replace with (c)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 686,
@@ -6527,8 +6527,8 @@
       "page_ref": "p157",
       "anchor": "g)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 687,
@@ -6536,8 +6536,8 @@
       "page_ref": "p157",
       "anchor": "h)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 688,
@@ -6545,8 +6545,8 @@
       "page_ref": "p157",
       "anchor": "Sound travels faster in solids than in gases because the particlesi)",
       "note": "replace with (d)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 689,
@@ -6554,8 +6554,8 @@
       "page_ref": "p157",
       "anchor": "Measuring the level of sound is important for monitoring noise polj)",
       "note": "replace with (e)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 690,
@@ -6563,8 +6563,8 @@
       "page_ref": "p160",
       "anchor": "e)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 691,
@@ -6572,8 +6572,8 @@
       "page_ref": "p160",
       "anchor": "It records very short time intervals automatically, giving more relif)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 692,
@@ -6581,8 +6581,8 @@
       "page_ref": "p160",
       "anchor": "g)",
       "note": "replace with (e)",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 693,
@@ -6590,8 +6590,8 @@
       "page_ref": "p160",
       "anchor": "h)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 694,
@@ -6599,8 +6599,8 @@
       "page_ref": "p160",
       "anchor": "Background noise, which may make it difficult to identify the exacti)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 695,
@@ -6608,8 +6608,8 @@
       "page_ref": "p163",
       "anchor": "b)",
       "note": "delete ",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 696,
@@ -6617,8 +6617,8 @@
       "page_ref": "p163",
       "anchor": "Amplitude is the maximum displacement of particles from theirc)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 697,
@@ -6626,8 +6626,8 @@
       "page_ref": "p163",
       "anchor": "Wavelength is the distance between two successive compresd)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 698,
@@ -6635,8 +6635,8 @@
       "page_ref": "p163",
       "anchor": "Increasing the frequency increases the pitch of the sound, makinge)",
       "note": "replace with (b)",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 699,
@@ -6644,8 +6644,8 @@
       "page_ref": "p163",
       "anchor": "Increasing the amplitude increases the loudness (intensity) of thef)",
       "note": "replace with (c)",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 700,
@@ -6653,8 +6653,8 @@
       "page_ref": "p163",
       "anchor": "g)",
       "note": "replace with (d)",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 701,
@@ -6662,8 +6662,8 @@
       "page_ref": "p166",
       "anchor": "b)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 702,
@@ -6671,8 +6671,8 @@
       "page_ref": "p166",
       "anchor": "c)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 703,
@@ -6680,8 +6680,8 @@
       "page_ref": "p166",
       "anchor": "d) Waveform.",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "Already correct in the current typeset — the lettering was fixed by an engine change made after your proofreading copy was printed. Verified on the page.",
+      "status": "done"
     },
     {
       "id": 704,
@@ -6689,8 +6689,8 @@
       "page_ref": "p166",
       "anchor": "Timbre enables different musical instruments playing the samee)",
       "note": "replace with (b)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 705,
@@ -6698,8 +6698,8 @@
       "page_ref": "p166",
       "anchor": "Ringing bell – Musical sound. [1]f) g) Car horn – Noise. [1] h) Flute – Musical sound. [1] Drilling machine – Noise. [1]i)",
       "note": "delete",
-      "action": null,
-      "status": "pending"
+      "action": "The stray letters were removed; the four classifications now sit as bullets.",
+      "status": "done"
     },
     {
       "id": 706,
@@ -6707,8 +6707,8 @@
       "page_ref": "p166",
       "anchor": "Musical sound is pleasant to the ear, has regular vibrations andj)",
       "note": "replace with (c)",
-      "action": null,
-      "status": "pending"
+      "action": "Renumbered as requested so the answer key matches the question structure.",
+      "status": "done"
     },
     {
       "id": 707,
@@ -6716,8 +6716,8 @@
       "page_ref": "p167",
       "anchor": "in different fields. Let learners to explain how sound is used, identify",
       "note": "DELETE",
-      "action": null,
-      "status": "pending"
+      "action": "Sentence removed.",
+      "status": "done"
     },
     {
       "id": 708,
