@@ -40,6 +40,19 @@
       "updated_at": "2026-09-18 12:37:41"
     },
     {
+      "id": "form-4-food-and-nutrition-tg",
+      "title": "Form 4 Food and Nutrition TG",
+      "grade": "Form 4",
+      "subject": "Food and Nutrition",
+      "kind": "TG",
+      "author": null,
+      "theme": "foodnutrition",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-22 07:51:28",
+      "updated_at": "2026-09-22 07:52:35"
+    },
+    {
       "id": "form-4-geography-tg",
       "title": "Form 4 Geography TG",
       "grade": "Form 4",
@@ -50,7 +63,7 @@
       "state": "published",
       "page_cap": null,
       "created_at": "2026-09-04 13:59:40",
-      "updated_at": "2026-09-18 12:37:42"
+      "updated_at": "2026-09-22 07:51:28"
     },
     {
       "id": "form-4-musical-arts-tg",
@@ -63,7 +76,7 @@
       "state": "drafting",
       "page_cap": null,
       "created_at": "2026-09-11 15:01:14",
-      "updated_at": "2026-09-18 12:37:42"
+      "updated_at": "2026-09-22 07:51:28"
     },
     {
       "id": "form-5-musical-arts-tg",
@@ -203,10 +216,10 @@
       "kind": "TG",
       "author": null,
       "theme": "physics",
-      "state": "typesetting",
+      "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-16 10:29:24",
-      "updated_at": "2026-09-18 12:37:42"
+      "updated_at": "2026-09-24 07:59:42"
     },
     {
       "id": "physics-form2-zeph-lb-1-1-docx",
@@ -795,6 +808,26 @@
       "hash": "866cc5fc3001e147",
       "note": null,
       "ingested_at": "2026-09-21 12:42:21"
+    },
+    {
+      "id": 57,
+      "book_id": "form-4-food-and-nutrition-tg",
+      "kind": "manuscript",
+      "original_name": "FORM 4 FOOD AND NUTRITION TEACHERS' GUIDE_READY FOR IND.REVIEW_16 SEPT 2026(1).docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 4 Books\\FORM 4 FOOD AND NUTRITION TEACHERS' GUIDE_READY FOR IND.REVIEW_16 SEPT 2026(1).docx",
+      "hash": "42a3a8838e9a6928",
+      "note": null,
+      "ingested_at": "2026-09-22 07:51:28"
+    },
+    {
+      "id": 58,
+      "book_id": "physics-form2-zeph-edited-tg-4-docx",
+      "kind": "annotated_pdf",
+      "original_name": "Physics Form 2 TG - For 2nd Proofreading (2).pdf",
+      "stored_path": "C:\\Users\\biine stores\\Downloads\\Physics Form 2 TG - For 2nd Proofreading (2).pdf",
+      "hash": "a4c3e272e649b0a5",
+      "note": "returned from proofread",
+      "ingested_at": "2026-09-24 07:59:38"
     }
   ],
   "rounds": [
@@ -876,6 +909,16 @@
       "returned_version": 55,
       "sent_at": "2026-09-21 12:39:03",
       "returned_at": "2026-09-21 12:39:03",
+      "status": "open"
+    },
+    {
+      "id": 10,
+      "book_id": "physics-form2-zeph-edited-tg-4-docx",
+      "number": 1,
+      "sent_version": null,
+      "returned_version": 58,
+      "sent_at": "2026-09-24 07:59:38",
+      "returned_at": "2026-09-24 07:59:38",
       "status": "open"
     }
   ],
@@ -5225,6 +5268,1473 @@
       "anchor": "END OF TOPIC ASSESMENT",
       "note": "replace with the correct spelling which is assessment",
       "action": "Already resolved in the 16 Sept manuscript revision — 'END OF TOPIC ASSESMENT' spelling fixed to ASSESSMENT throughout.",
+      "status": "done"
+    },
+    {
+      "id": 547,
+      "round_id": 10,
+      "page_ref": "p3",
+      "anchor": "Stella Libongani",
+      "note": "Write Edward Mubanga and Stella Libongani",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 548,
+      "round_id": 10,
+      "page_ref": "p12",
+      "anchor": "ZCBC:",
+      "note": "add  following acronyms HCCI, RDT as on page ix",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 549,
+      "round_id": 10,
+      "page_ref": "p14",
+      "anchor": "General competences",
+      "note": "use upper case letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 550,
+      "round_id": 10,
+      "page_ref": "p14",
+      "anchor": "Specific competence",
+      "note": "use uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 551,
+      "round_id": 10,
+      "page_ref": "p15",
+      "anchor": "Help learners understand that work is done when an applied force causes an object to move in the direction of the force. Guide them to appreciate that",
+      "note": "replace with, Work is done when a force causes a displacement and has a component in the direction of the displacement. The work done depends on the component of the force acting along the displacement of the object.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 552,
+      "round_id": 10,
+      "page_ref": "p17",
+      "anchor": "Procedure: Provide the required materials and instruct the learners to attach the spring balance to the toy car and pull it along a smooth, flat surface using different forces such as 1 N, 2 N, 3 N, 4 N and 5 N. Ask them to measure and record the distance moved for each applied force. Guide them to compare the results and discuss how displacement changes as the applied force increases. Encourage t",
+      "note": "replace with **Procedure:** Have learners work individually, in pairs or in groups using a toy car or trolley, spring balance (Newton meter), metre rule or measuring tape and a smooth, flat surface. First, have them keep the displacement constant while varying the applied force and record the work done for each force. Next, have them keep the force constant while varying the displacement and record the corresponding work done. Ask them to plot graphs of work done against force and work done against displacement, analyse the patterns and use the graphs to establish the relationship between work done, force and displacement. Have learners use the observed relationships to derive the mathematical equation for work done.\n\n**Teacher tips:** Ensure the toy car or trolley moves along a smooth, flat surface and that the spring balance is read accurately. Encourage learners to vary only one quantity at a time and record measurements carefully. Remind them to use consistent SI units and appropriate scales when plotting the graphs.\n\n**Expected findings/observations:** Learners should observe that, for a constant displacement, work done increases as the applied force increases. They should also observe that, for a constant force, work done increases as displacement increases. The graphs should show direct proportional relationships, enabling learners to establish the relationship between work done, force and displacement.\n\n**Conclusion:** Learners should use their observations and graphical results to state the relationship between work done, force and displacement and derive the appropriate mathematical equation.\n",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 553,
+      "round_id": 10,
+      "page_ref": "p20",
+      "anchor": "= 20 × 20 × 2.5",
+      "note": "replace with  10",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 554,
+      "round_id": 10,
+      "page_ref": "p20",
+      "anchor": "Possible answer: a)",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 555,
+      "round_id": 10,
+      "page_ref": "p20",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 556,
+      "round_id": 10,
+      "page_ref": "p25",
+      "anchor": "𝑒𝑛𝑒𝑟𝑔𝑦𝑖𝑛𝑝𝑢𝑡",
+      "note": "leave space between energy and input",
+      "action": "Fixed in the engine: words typed into an equation are now kept as real words with their spacing, so the formula reads \"Useful Output Energy / energy input\" instead of running together.",
+      "status": "done"
+    },
+    {
+      "id": 557,
+      "round_id": 10,
+      "page_ref": "p25",
+      "anchor": "Heat (thermal energy) Sound energy",
+      "note": "answers for (c), indicate it before the highlighted words\n",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 558,
+      "round_id": 10,
+      "page_ref": "p25",
+      "anchor": "Lubricate moving parts regularly to reduce friction. [1]4.",
+      "note": "replace number 4 with (d) and the statement with, High-efficiency machines waste less energy, thereby reducing energy consumption and operating costs.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 559,
+      "round_id": 10,
+      "page_ref": "p25",
+      "anchor": "Carry out regular maintenance and replace worn5.",
+      "note": "replace with (e),",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 560,
+      "round_id": 10,
+      "page_ref": "p25",
+      "anchor": "Carry out regular maintenance and replace worn out parts.",
+      "note": "replace with, Reduce friction by properly lubricating moving parts. [1]\nRegularly maintain and service the pump to ensure that it operates efficiently. [1]",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 561,
+      "round_id": 10,
+      "page_ref": "p29",
+      "anchor": "d) Heat (thermal energy)",
+      "note": "delete letter d",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 562,
+      "round_id": 10,
+      "page_ref": "p29",
+      "anchor": "Two ways of improving the efficiency of the motor are:f)",
+      "note": "replace with (d)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 563,
+      "round_id": 10,
+      "page_ref": "p29",
+      "anchor": "Lubricate the moving parts regularly to reduce friction.g)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 564,
+      "round_id": 10,
+      "page_ref": "p29",
+      "anchor": "h)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 565,
+      "round_id": 10,
+      "page_ref": "p29",
+      "anchor": "e) Sound energy",
+      "note": "delete letter e",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 566,
+      "round_id": 10,
+      "page_ref": "p30",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 567,
+      "round_id": 10,
+      "page_ref": "p30",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 568,
+      "round_id": 10,
+      "page_ref": "p32",
+      "anchor": "both the mass and velocity of an object and is given by P=mv.",
+      "note": "replace with lower case letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 569,
+      "round_id": 10,
+      "page_ref": "p32",
+      "anchor": "P = mv",
+      "note": "replace with a lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 570,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P = mua)",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 571,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P = 50 × 2",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 572,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P = 100kgm/s",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 573,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P = mub)",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 574,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P= 50 × 4",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 575,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P = 200kgm/s",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 576,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P = mu",
+      "note": "replace with lower case v",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 577,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P = mu",
+      "note": "replace with lower case v",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 578,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "P = m",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 579,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "₁u₁",
+      "note": "replace with lower case letter v1, 1 to be a subscript",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 580,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "₂u₂",
+      "note": "replace with lower case letter v2, 2 to be a subscript",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 581,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "and u₂ are their",
+      "note": "replace with lower case letter v2, 2 to be a subscript",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 582,
+      "round_id": 10,
+      "page_ref": "p33",
+      "anchor": "u₁ and",
+      "note": "replace with lower case letter v1, 1 to be a subscript",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 583,
+      "round_id": 10,
+      "page_ref": "p35",
+      "anchor": "P= mu",
+      "note": "replace with lower case letter v",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 584,
+      "round_id": 10,
+      "page_ref": "p35",
+      "anchor": "P= mu",
+      "note": "replace with lower case letter v",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 585,
+      "round_id": 10,
+      "page_ref": "p35",
+      "anchor": "P= mua)",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 586,
+      "round_id": 10,
+      "page_ref": "p35",
+      "anchor": "P =5 × 4",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 587,
+      "round_id": 10,
+      "page_ref": "p35",
+      "anchor": "P = 20kgm/s",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 588,
+      "round_id": 10,
+      "page_ref": "p35",
+      "anchor": "P= mu",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 589,
+      "round_id": 10,
+      "page_ref": "p35",
+      "anchor": "P =3 × 2",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 590,
+      "round_id": 10,
+      "page_ref": "p35",
+      "anchor": "P = 6kgm/s",
+      "note": "replace with lowercase letter p",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 591,
+      "round_id": 10,
+      "page_ref": "p37",
+      "anchor": "Possible answer: a)",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 592,
+      "round_id": 10,
+      "page_ref": "p37",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 593,
+      "round_id": 10,
+      "page_ref": "p39",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 594,
+      "round_id": 10,
+      "page_ref": "p39",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 595,
+      "round_id": 10,
+      "page_ref": "p40",
+      "anchor": "Required materials: Locally available materials such as wood, card board, nails, ropes, bottle tops, sticks, wire, tins, bamboo or other suitable materials, cutting tools and adhesive. Procedure: Let learners source materials locally on their own and work individually or in groups or individually to construct a simple ramp using a wooden board, cardboard, books or other appropriate materials. Guid",
+      "note": "replace with, **Required materials:** Locally available materials such as wood, cardboard, nails, ropes, bottle tops, sticks, wire, tins, bamboo or other suitable materials, cutting tools and adhesive.\n\n**Procedure:** Have learners source suitable materials locally and work individually, in pairs or in groups to design and construct any simple machine of their choice. They may construct a lever, pulley, wheel and axle, inclined plane, wedge, screw or another suitable simple machine. Ask learners to test their machines by using them to perform a simple task and observe how the machine changes the effort required, direction of force or distance through which the effort is applied. Have learners record their observations, identify the type of simple machine constructed and explain how it makes work easier.\n\n**Teacher tips:** Encourage learners to select materials that are safe and suitable for construction. Ensure that cutting tools and other potentially hazardous materials are handled safely. Encourage creativity and allow learners to modify their designs after testing them. Emphasise that the constructed machine should be stable and functional.\n\n**Expected findings/observations:** Learners should observe that different simple machines can change the size or direction of the applied force or the distance through which the effort is applied. They should recognise that simple machines can make tasks easier by providing a mechanical advantage.\n\n**Conclusion:** Learners should use their observations and testing results to explain how the simple machine they constructed makes work easier.\n",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 596,
+      "round_id": 10,
+      "page_ref": "p44",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 597,
+      "round_id": 10,
+      "page_ref": "p44",
+      "anchor": "a)",
+      "note": "replace with (c) ",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 598,
+      "round_id": 10,
+      "page_ref": "p44",
+      "anchor": "b)",
+      "note": "replace with (d)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 599,
+      "round_id": 10,
+      "page_ref": "p45",
+      "anchor": "Possible answer: a)",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 600,
+      "round_id": 10,
+      "page_ref": "p46",
+      "anchor": "Possible answer: a)",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 601,
+      "round_id": 10,
+      "page_ref": "p46",
+      "anchor": "Possible answer: a)",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 602,
+      "round_id": 10,
+      "page_ref": "p47",
+      "anchor": "General competences",
+      "note": "use uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 603,
+      "round_id": 10,
+      "page_ref": "p47",
+      "anchor": "Specific competence",
+      "note": "use uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 604,
+      "round_id": 10,
+      "page_ref": "p52",
+      "anchor": "The second pressure is greater than the first because the samec)",
+      "note": "replace with (ii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 605,
+      "round_id": 10,
+      "page_ref": "p52",
+      "anchor": "Wide tyres on tractors reduce pressure on the ground by increasd)",
+      "note": "replace with (iii) ",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 606,
+      "round_id": 10,
+      "page_ref": "p52",
+      "anchor": "P = F ÷ Ab)",
+      "note": "add (i) for the solution",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 607,
+      "round_id": 10,
+      "page_ref": "p54",
+      "anchor": "and gas",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 608,
+      "round_id": 10,
+      "page_ref": "p58",
+      "anchor": "An object floats when the upthrust acting on it is equal to or greater than its weight. It sinks when its weight is greater than the",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 609,
+      "round_id": 10,
+      "page_ref": "p59",
+      "anchor": "= 250 × 12 = 3000 J",
+      "note": "Align to the right sligtly so that the equal signs are not directly under 1 but under W. Do the same for the rest of the responses for the work to look neat",
+      "action": "Fixed in the engine: continuation lines and sub-parts of a numbered answer are now indented to align under the question text instead of under its number.",
+      "status": "done"
+    },
+    {
+      "id": 610,
+      "round_id": 10,
+      "page_ref": "p63",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 611,
+      "round_id": 10,
+      "page_ref": "p63",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 612,
+      "round_id": 10,
+      "page_ref": "p68",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 613,
+      "round_id": 10,
+      "page_ref": "p68",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 614,
+      "round_id": 10,
+      "page_ref": "p68",
+      "anchor": "Possible answer:",
+      "note": "delete\n",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 615,
+      "round_id": 10,
+      "page_ref": "p69",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 616,
+      "round_id": 10,
+      "page_ref": "p69",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 617,
+      "round_id": 10,
+      "page_ref": "p74",
+      "anchor": "Required materials: Laboratory thermometer, beakers, heat source, tripod stand, wire gauze, ice, candle wax, butter, water, stopwatch, obser vation sheet and pen. Procedure: Guide learners to work individually, in pairs or individually or in groups or individually using the available thermometers. Ask them to measure and record the temperatures of cold water, room air, warm water and the human bod",
+      "note": "replace with, **Required materials:** Laboratory thermometer, beakers, heat source, tripod stand, wire gauze, and samples such as ice, candle wax, butter and water.\n\n**Procedure:** Have learners work individually, in pairs or in groups to heat each substance gradually while recording its temperature at regular intervals. Ask them to identify and record the temperatures at which each substance begins to melt or boil. Have learners tabulate and compare their results and discuss similarities and differences in the melting and boiling points of the substances. Encourage learners to relate their observations to the properties of the substances and present their findings to the class.\n\n**Teacher tips:** Ensure that the thermometer is positioned correctly and does not touch the bottom of the container. Emphasise gradual heating and safe handling of hot materials.\n\n**Expected findings/observations:** Learners should observe that different substances melt and boil at different temperatures. Some substances may show a clearer change of state than others.\n\n**Conclusion:** Learners should use their observations to explain that substances have different melting and boiling points depending on their properties.\n",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 618,
+      "round_id": 10,
+      "page_ref": "p81",
+      "anchor": "Teacher tips: Ensure learners handle the thermometers carefully, espe cially mercury thermometers, to prevent breakage. Remind learners to allow sufficient time for the thermometers to stabilise before taking read ings and to avoid touching the bulbs during measurements.",
+      "note": "replace with, Prohibit learners from directly handling mercury thermometers or any mercury spill. Where mercury thermometers are used, they should be handled only by the teacher or authorised laboratory personnel. Ensure thermometers are given sufficient time to stabilise before readings are taken and avoid touching the thermometer bulbs. In the event of breakage or a mercury spill, stop the activity, restrict access to the area and follow the institution’s approved mercury spill and hazardous-materials disposal protocol. Do not permit learners to sweep, touch or attempt to clean up the spill.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 619,
+      "round_id": 10,
+      "page_ref": "p84",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 620,
+      "round_id": 10,
+      "page_ref": "p84",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 621,
+      "round_id": 10,
+      "page_ref": "p87",
+      "anchor": "changes of state occur under standard atmospheric pressure. Lead the to",
+      "note": "replace with learners",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 622,
+      "round_id": 10,
+      "page_ref": "p88",
+      "anchor": "LEARNING ACTIVTY 16: Determining the boiling and melting points",
+      "note": "wrongly spelt, replace with ACTIVITY",
+      "action": "Fixed in the engine: the \"ACTIVTY\" misspelling is now recognised and printed as \"ACTIVITY\".",
+      "status": "done"
+    },
+    {
+      "id": 623,
+      "round_id": 10,
+      "page_ref": "p91",
+      "anchor": "Ideal gas equation: R = 2.5 × 10³ J mol⁻¹ K⁻¹",
+      "note": "replace with,  8.31 J mol⁻¹ K⁻¹ ",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 624,
+      "round_id": 10,
+      "page_ref": "p93",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 625,
+      "round_id": 10,
+      "page_ref": "p93",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 626,
+      "round_id": 10,
+      "page_ref": "p97",
+      "anchor": "Compression ignition engine – Trucks, buses, tractors or heavyg)",
+      "note": "replace with (ii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 627,
+      "round_id": 10,
+      "page_ref": "p97",
+      "anchor": "Rotary engine – Sports cars or aircraft.h)",
+      "note": "replace with (iii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 628,
+      "round_id": 10,
+      "page_ref": "p97",
+      "anchor": "Spark ignition engine – Cars, motorcycles or small generators.f)",
+      "note": "add (i) after (f)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 629,
+      "round_id": 10,
+      "page_ref": "p101",
+      "anchor": "EXERCISE 10",
+      "note": "delete and replace with 9",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 630,
+      "round_id": 10,
+      "page_ref": "p102",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 631,
+      "round_id": 10,
+      "page_ref": "p103",
+      "anchor": "Fuel saved = 8 L − 5 Le)",
+      "note": "add (i) after (e)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 632,
+      "round_id": 10,
+      "page_ref": "p103",
+      "anchor": "f)",
+      "note": "replace with (ii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 633,
+      "round_id": 10,
+      "page_ref": "p103",
+      "anchor": "g)",
+      "note": "replace with (iii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 634,
+      "round_id": 10,
+      "page_ref": "p103",
+      "anchor": "[1]",
+      "note": "change to [2]. add another solution for (iv), Money saved over 100 km\nMoney saved =3 * K27.50  =K82.50 \nTherefore, the hybrid vehicle saves K82.50 per 100 km.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 635,
+      "round_id": 10,
+      "page_ref": "p104",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 636,
+      "round_id": 10,
+      "page_ref": "p104",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 637,
+      "round_id": 10,
+      "page_ref": "p108",
+      "anchor": "Refrigeratorsd)",
+      "note": "insert (i) before letter R",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 638,
+      "round_id": 10,
+      "page_ref": "p108",
+      "anchor": "e)",
+      "note": "replace with (ii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 639,
+      "round_id": 10,
+      "page_ref": "p108",
+      "anchor": "f)",
+      "note": "replace with (iii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 640,
+      "round_id": 10,
+      "page_ref": "p108",
+      "anchor": "g)",
+      "note": "replace with (iv)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 641,
+      "round_id": 10,
+      "page_ref": "p110",
+      "anchor": "Help learners appreciate that materials differ in their ability to transfer heat. Guide them in understanding that a good conductor of heat allows heat to pass through it quickly, while a bad conductor of heat or insulator slows down the transfer of heat. Using practical examples such as cooking utensil handles, oven mitts, flask stoppers, electrical cable insulation and refrigerator ~ 98 ~",
+      "note": "REPLACE ALL HIGHLIGHTED WITH, Help learners appreciate that materials differ in their ability to absorb and emit radiant heat. Explain that dull, dark surfaces are generally good absorbers and good emitters of radiant heat, while shiny, light-coloured surfaces are generally poorer absorbers and poorer emitters. Use practical examples such as the use of dull black surfaces in solar heating devices and shiny surfaces in thermal insulation to help learners relate absorptivity and emissivity to everyday applications. Encourage learners to discuss how the surface properties of materials influence the absorption and emission of thermal radiation.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 642,
+      "round_id": 10,
+      "page_ref": "p111",
+      "anchor": "Form 2 Teacher's GuideSecondary Education Ordinary Level Physics insulation, support learners in seeing how the insulating properties of some materials make them to be useful in everyday life.",
+      "note": null,
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 643,
+      "round_id": 10,
+      "page_ref": "p116",
+      "anchor": "General competences",
+      "note": "use uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 644,
+      "round_id": 10,
+      "page_ref": "p116",
+      "anchor": "Specific competence",
+      "note": "use uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 645,
+      "round_id": 10,
+      "page_ref": "p116",
+      "anchor": "plaining how thermal energy is absorbed, stored and released during changes",
+      "note": "replace with stored as internal",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 646,
+      "round_id": 10,
+      "page_ref": "p119",
+      "anchor": "Temperature verses Heat Energy",
+      "note": "replace with versus",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 647,
+      "round_id": 10,
+      "page_ref": "p119",
+      "anchor": "and heat energy as the thermal energy transferred from a hotter body to a",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 648,
+      "round_id": 10,
+      "page_ref": "p120",
+      "anchor": "or coldness, while heat energy is thermal energy associated with the",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 649,
+      "round_id": 10,
+      "page_ref": "p120",
+      "anchor": "or coldness, while heat energy is thermal energy associated with the substance and depends on its amount and thermal properties.",
+      "note": "replace with, transferred because of a temperature difference",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 650,
+      "round_id": 10,
+      "page_ref": "p120",
+      "anchor": "relates to the average kinetic energy of particles, while heat energy de",
+      "note": "replace with the change in thermal energy",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 651,
+      "round_id": 10,
+      "page_ref": "p121",
+      "anchor": "LEARNING ACTIVITY 34: Measuring heat capacity c =",
+      "note": "replace with uppercase letter C",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 652,
+      "round_id": 10,
+      "page_ref": "p126",
+      "anchor": "Possible answer: a)",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 653,
+      "round_id": 10,
+      "page_ref": "p127",
+      "anchor": "Possible answer: a)",
+      "note": "delete and add 8.",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 654,
+      "round_id": 10,
+      "page_ref": "p127",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 655,
+      "round_id": 10,
+      "page_ref": "p128",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 656,
+      "round_id": 10,
+      "page_ref": "p130",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 657,
+      "round_id": 10,
+      "page_ref": "p130",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 658,
+      "round_id": 10,
+      "page_ref": "p133",
+      "anchor": "Wavelength is the distance between two successive points on aa)",
+      "note": "add (i) after (a)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 659,
+      "round_id": 10,
+      "page_ref": "p133",
+      "anchor": "b)",
+      "note": "replace with (ii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 660,
+      "round_id": 10,
+      "page_ref": "p133",
+      "anchor": "Frequency is the number of complete waves or oscillations proc)",
+      "note": "replace with (iii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 661,
+      "round_id": 10,
+      "page_ref": "p133",
+      "anchor": "Transverse waves have particles that vibrate at right angles (perd)",
+      "note": "replace with (b)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 662,
+      "round_id": 10,
+      "page_ref": "p133",
+      "anchor": "Moving the rope up and down produces a transverse wave.e)",
+      "note": "replace with (c) (i)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 663,
+      "round_id": 10,
+      "page_ref": "p133",
+      "anchor": "f)",
+      "note": "replace with (ii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 664,
+      "round_id": 10,
+      "page_ref": "p133",
+      "anchor": "Sound waves are classified as longitudinal waves because theg)",
+      "note": "replace with (d)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 665,
+      "round_id": 10,
+      "page_ref": "p133",
+      "anchor": "An example of a transverse wave found in everyday life is a lighth)",
+      "note": "replace with (e)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 666,
+      "round_id": 10,
+      "page_ref": "p138",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 667,
+      "round_id": 10,
+      "page_ref": "p138",
+      "anchor": "Specific competence",
+      "note": "replace with uppercase letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 668,
+      "round_id": 10,
+      "page_ref": "p145",
+      "anchor": "c)",
+      "note": "replace with (c) (i)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 669,
+      "round_id": 10,
+      "page_ref": "p145",
+      "anchor": "Radio waves are the most suitable electromagnetic waves ford)",
+      "note": "replace with (ii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 670,
+      "round_id": 10,
+      "page_ref": "p147",
+      "anchor": "Possible answer:",
+      "note": "delete",
+      "action": "Fixed in the engine: the \"Possible answer:\" tag is no longer printed on each answer — the box heading \"Expected Responses\" already says these are the answers. Removed for every book.",
+      "status": "done"
+    },
+    {
+      "id": 671,
+      "round_id": 10,
+      "page_ref": "p149",
+      "anchor": "They are transverse waves.c)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 672,
+      "round_id": 10,
+      "page_ref": "p149",
+      "anchor": "They travel at the same speed in a vacuum (3.0 × 10⁸ m sd)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 673,
+      "round_id": 10,
+      "page_ref": "p149",
+      "anchor": "Radio waves are suitable for communication over long distancese)",
+      "note": "replace with (c) ",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 674,
+      "round_id": 10,
+      "page_ref": "p149",
+      "anchor": "Excessive exposure to strong radio waves may cause heating off)",
+      "note": "replace with (d)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 675,
+      "round_id": 10,
+      "page_ref": "p149",
+      "anchor": "g)",
+      "note": "replace with (e)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 676,
+      "round_id": 10,
+      "page_ref": "p149",
+      "anchor": "END OF TOPIC ASSESMENT",
+      "note": "replace with the correct spelling ASSESSMENT",
+      "action": "Fixed in the engine: the \"ASSESMENT\" misspelling is now recognised and printed as \"ASSESSMENT\". It was also stopping the heading being recognised, so the end-of-topic answer key now sits in its proper framed box.",
+      "status": "done"
+    },
+    {
+      "id": 677,
+      "round_id": 10,
+      "page_ref": "p153",
+      "anchor": "General competences",
+      "note": null,
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 678,
+      "round_id": 10,
+      "page_ref": "p153",
+      "anchor": "General competences",
+      "note": "replace with uppercase letter",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 679,
+      "round_id": 10,
+      "page_ref": "p153",
+      "anchor": "Specific competence",
+      "note": "replace with uppercae letter C",
+      "action": "Fixed in the engine: the standing sub-topic labels (General/Specific/Key Competences) are now capitalised to house style automatically for every book, so the manuscript casing no longer shows through.",
+      "status": "done"
+    },
+    {
+      "id": 680,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "In a guitar, the vibrating part is the strings.b)",
+      "note": "replace with (i)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 681,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "a) (a)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 682,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "c)",
+      "note": "replace with (ii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 683,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "In a tuning fork, the vibrating part is the prongs.d)",
+      "note": "replace with (iii)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 684,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "e)",
+      "note": "replace with (b)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 685,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "Two instruments used to measure sound are:f)",
+      "note": "replace with (c)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 686,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "g)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 687,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "h)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 688,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "Sound travels faster in solids than in gases because the particlesi)",
+      "note": "replace with (d)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 689,
+      "round_id": 10,
+      "page_ref": "p157",
+      "anchor": "Measuring the level of sound is important for monitoring noise polj)",
+      "note": "replace with (e)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 690,
+      "round_id": 10,
+      "page_ref": "p160",
+      "anchor": "e)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 691,
+      "round_id": 10,
+      "page_ref": "p160",
+      "anchor": "It records very short time intervals automatically, giving more relif)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 692,
+      "round_id": 10,
+      "page_ref": "p160",
+      "anchor": "g)",
+      "note": "replace with (e)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 693,
+      "round_id": 10,
+      "page_ref": "p160",
+      "anchor": "h)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 694,
+      "round_id": 10,
+      "page_ref": "p160",
+      "anchor": "Background noise, which may make it difficult to identify the exacti)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 695,
+      "round_id": 10,
+      "page_ref": "p163",
+      "anchor": "b)",
+      "note": "delete ",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 696,
+      "round_id": 10,
+      "page_ref": "p163",
+      "anchor": "Amplitude is the maximum displacement of particles from theirc)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 697,
+      "round_id": 10,
+      "page_ref": "p163",
+      "anchor": "Wavelength is the distance between two successive compresd)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 698,
+      "round_id": 10,
+      "page_ref": "p163",
+      "anchor": "Increasing the frequency increases the pitch of the sound, makinge)",
+      "note": "replace with (b)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 699,
+      "round_id": 10,
+      "page_ref": "p163",
+      "anchor": "Increasing the amplitude increases the loudness (intensity) of thef)",
+      "note": "replace with (c)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 700,
+      "round_id": 10,
+      "page_ref": "p163",
+      "anchor": "g)",
+      "note": "replace with (d)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 701,
+      "round_id": 10,
+      "page_ref": "p166",
+      "anchor": "b)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 702,
+      "round_id": 10,
+      "page_ref": "p166",
+      "anchor": "c)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 703,
+      "round_id": 10,
+      "page_ref": "p166",
+      "anchor": "d) Waveform.",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 704,
+      "round_id": 10,
+      "page_ref": "p166",
+      "anchor": "Timbre enables different musical instruments playing the samee)",
+      "note": "replace with (b)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 705,
+      "round_id": 10,
+      "page_ref": "p166",
+      "anchor": "Ringing bell – Musical sound. [1]f) g) Car horn – Noise. [1] h) Flute – Musical sound. [1] Drilling machine – Noise. [1]i)",
+      "note": "delete",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 706,
+      "round_id": 10,
+      "page_ref": "p166",
+      "anchor": "Musical sound is pleasant to the ear, has regular vibrations andj)",
+      "note": "replace with (c)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 707,
+      "round_id": 10,
+      "page_ref": "p167",
+      "anchor": "in different fields. Let learners to explain how sound is used, identify",
+      "note": "DELETE",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 708,
+      "round_id": 10,
+      "page_ref": "p168",
+      "anchor": "END OF TOPIC ASSESMENT",
+      "note": "replace with correct spelling ASSESSMENT",
+      "action": "Fixed in the engine: the \"ASSESMENT\" misspelling is now recognised and printed as \"ASSESSMENT\". It was also stopping the heading being recognised, so the end-of-topic answer key now sits in its proper framed box.",
+      "status": "done"
+    },
+    {
+      "id": 709,
+      "round_id": 10,
+      "page_ref": "p168",
+      "anchor": "(b) A compression is a region where particles of the medium are closely packed together, while a rarefaction is a region where particles are spread farther apart. [1]",
+      "note": "Align to the right so that (b) aligns with (a). Do the same  for c, d etc below and the rest of the question responses to look neat",
+      "action": "Fixed in the engine: continuation lines and sub-parts of a numbered answer are now indented to align under the question text instead of under its number.",
       "status": "done"
     }
   ]
