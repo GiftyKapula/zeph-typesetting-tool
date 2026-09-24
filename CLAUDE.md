@@ -87,3 +87,31 @@ know — that's the kind of thing `zeph.db`'s `comment.action` field and
   shared engine used by every book, and a change that looks correct in
   isolation can still break the pipeline (a missing import, a changed
   function signature another call site relied on).
+## Image print-quality
+Before finalizing any document, check every image's resolution
+against its intended print size. Required: 300 DPI at final print
+size. Calculate required pixel width as:
+  (print width in inches) x 300 = minimum pixel width
+
+If an image falls below this, it must be upscaled before use.
+
+Use Real-ESRGAN (ncnn-vulkan build), installed at:
+C:\Users\biine stores\Desktop\REAL-\realesrgan-ncnn-vulkan.exe
+
+Command:
+realesrgan-ncnn-vulkan.exe -i <input> -o <output> -n realesrgan-x4plus
+
+This upscales 4x. Run it from within the REAL- folder, or reference
+its full path if called from elsewhere.
+
+After upscaling:
+1. Convert to a print-safe format (TIFF or high-quality PNG — never
+   JPEG, due to compression artifacts).
+2. Confirm final DPI meets the 300 DPI requirement at intended print
+   size before re-inserting into the document.
+3. Re-insert the processed image into the source, replacing the
+   original low-res reference.
+
+Skip CMYK conversion unless the document is going to a commercial
+printer. Always report which images were upscaled and their
+original vs. new dimensions before finalizing.

@@ -1,5 +1,9 @@
 {
   "splitBefore": [
     { "find": "Section B:" }
-  ]
+  ],
+  "images": {
+    "image1.png": { "src": "fn-form4-cover-classroom-photo.png" },
+    "image3.jpeg": { "src": "fn-form4-consumer-awareness-poster.png", "w": 537 }
+  }
 }
