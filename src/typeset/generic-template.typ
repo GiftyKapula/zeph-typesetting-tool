@@ -192,8 +192,14 @@
           place(top, line(length: 100%, stroke: 1.6pt + T.ink))
           place(top, dy: 3pt, line(length: 100%, stroke: 0.6pt + T.ink))
           v(7pt)
-          grid(columns: (1fr, auto, 1fr), align: (left + horizon, center + horizon, right),
-            text(style: "italic", weight: "bold")[#T.hdrleft],
+          // The masthead is the book's full title, and a CDC course title is long: at a
+          // fixed 9pt "Curriculum, Instructional Strategies and Assessment for Special
+          // Education - Secondary Syllabus 2025" wrapped to two justified lines whose first
+          // line ran under the page chip. Step the size down for a long title, leave a
+          // gutter before the chip, and never justify a masthead.
+          let ms = if T.hdrleft.len() > 72 { 7pt } else if T.hdrleft.len() > 50 { 8pt } else { 9pt }
+          grid(columns: (1fr, auto, 1fr), column-gutter: 10pt, align: (left + horizon, center + horizon, right),
+            par(justify: false, text(style: "italic", weight: "bold", size: ms)[#T.hdrleft]),
             if pgvisible.get() {
               box(fill: T.ink, inset: (x: 8pt, y: 2.5pt))[
                 #text(fill: white, weight: "bold")[#counter(page).display()]]
@@ -1793,6 +1799,12 @@
       #v(1pt)
       #line(length: 38pt, stroke: 2pt + T.accent)]
   } else if syllabus {
+    // A syllabus's front matter (Preface, Introduction, Methodology, Assessment, Time
+    // allocation) is written at this heading level, and the contents page has to list it:
+    // the Travel & Tourism reference shows every one of those sections. head() outlines
+    // nothing by default, so without this the generated contents jumped from its title
+    // straight to topic 1.1 and the whole front matter was unreachable from it.
+    mark(2, t)
     // plain bold heading — NO vertical accent bar. A NUMBERED head ("1. Project-Based
     // Learning") hangs its number in a fixed 7mm column so the title lines up with the
     // indented body paragraph beneath it.

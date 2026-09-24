@@ -1326,18 +1326,18 @@ function makeAssessmentTable(cells) {
 //   When it doesn't (e.g. headings are bold black), a short bold line is treated
 //   as a heading unless it ends with a colon (then it's a label like
 //   "Specific Competence:").
-function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
+function classifyPara(pXml, segs, hmapLevel, colorHeads, noBoxes, flat) {
   const plain = plainOf(segs).trim();
   // A short box label that wasn't boxed (its content was in a following table or
   // blank) should stay a label, never a heading. The length guard avoids
   // demoting ordinary sentences that merely begin with a label word. In the
   // "flat" (series) layout there are no boxes, so Activity/Exercise lines are
   // headings, not labels — skip this demotion there.
-  if (!flat && plain.length <= 40 && boxKindFromTitle(plain)) return { t: "label", text: plain };
+  if (!noBoxes && plain.length <= 40 && boxKindFromTitle(plain)) return { t: "label", text: plain };
   // Series layout: an Activity / Exercise / Task / Assessment line (English or a
   // local language) is always a heading, even if the source didn't bold the whole
   // line — so they style consistently. (Table-wrapped boxes are still kept.)
-  if (flat && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
+  if (noBoxes && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
   // Trust the manuscript's own Word heading style — EXCEPT when the "heading" reads as
   // body prose: a manuscript occasionally applies Heading1 to a whole paragraph by
   // mistake (a Foreword/Preface/bio paragraph, a body sentence under a topic), which
@@ -1373,7 +1373,13 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   // box (a bold short line would otherwise be promoted to a heading below and end the box).
   const toks = plain.split(/[\s,]+/).filter(Boolean);
   if (toks.length >= 3 && toks.every((w) => w.replace(/[.\/]/g, "").length <= 1)) return { t: "para", segs };
-  if (allBold && /assessment/i.test(plain) && plain.length <= 80) return { t: "assessmentTitle", text: plain };
+  // An assessmentTitle is consumed by groupAssessments and by nothing else, so in a
+  // layout that runs no grouping pass it would reach the emitter, match no case, and
+  // disappear from the page without a word in the build log. "ASSESSMENT METHODS AND
+  // WEIGHTINGS" went missing from the syllabus exactly that way. With no boxes it is
+  // simply a heading.
+  if (allBold && /assessment/i.test(plain) && plain.length <= 80)
+    return noBoxes ? { t: "head", text: plain } : { t: "assessmentTitle", text: plain };
   if (allBold && colored) return { t: "head", text: plain };               // coloured heading (PE)
   if (colorHeads) {
     if (allBold && plain.length <= 60) return { t: "label", text: plain };  // PE: bold-black = label
@@ -1462,9 +1468,17 @@ async function importDocx(docxPath, opts = {}) {
   //   styled    – trust Word heading styles (don't infer headings from colour/size)
   //   flat      – no callout boxes; activities/exercises become headings (English)
   //   textCover – build a designed cover even with no hero image
-  // `series: true` is shorthand for all three (the English "series" layout).
+  //   syllabus  – CDC syllabus: no exercises, no assessment boxes, and the
+  //               manuscript's own clause numbering is authoritative content
+  // `series: true` is shorthand for the first three (the English "series" layout).
   const styled = !!(opts.styled || opts.series);
+  const syllabus = !!opts.syllabus;
   const flat = opts.flat !== undefined ? !!opts.flat : !!opts.series;
+  // Layouts with no callout boxes at all. A box-word line ("ASSESSMENT", "ASSESSMENT
+  // METHODS AND WEIGHTINGS") is then a section HEADING, not a box label: classifyPara
+  // demotes such lines to { t: "label" }, which only ever renders as part of a box, so
+  // with boxes off the line vanished from the page entirely.
+  const noBoxes = flat || syllabus;
   const textCover = !!(opts.textCover || opts.series);
   const imgOverrides = opts.imgOverrides || {};
   // Media filename prefix. Defaults to "imp_". A secondary import spliced into a
@@ -2010,7 +2024,13 @@ async function importDocx(docxPath, opts = {}) {
   // following non-empty lines (up to a blank line, heading, table, or next box)
   // are its body. Maps start-index -> { kind, end, labelSegs, body[] }.
   const paraBox = new Map();
-  for (let i = 0; flat ? false : i < parts.length; i++) {  // flat layout: no callout boxes (activities/exercises flow as headings)
+  // A CDC syllabus is excluded for the same reason as a flat layout, and more sharply: its
+  // "ASSESSMENT" is a bold prose section heading, not a callout label, so it opened a box
+  // that ran on until the next recognised heading and swallowed the 5-column matrix and
+  // the weightings clauses. Everything inside a box is then renumbered as exercise
+  // questions, which rewrote the manuscript's own clause numbers ("6.1. Continuous
+  // Assessment" became "15. 1. Continuous Assessment", continuing the 14-item list above).
+  for (let i = 0; (flat || syllabus) ? false : i < parts.length; i++) {  // flat layout: no callout boxes (activities/exercises flow as headings)
     const x = parts[i];
     if (isTbl(x) || inImprint(i)) continue;
     const text = textOf(x);
@@ -2246,7 +2266,7 @@ async function importDocx(docxPath, opts = {}) {
       } else if (text && !/^[.·•…\/\\|]{1,3}$/.test(text.trim()) && !/^[A-Za-z]$/.test(text.trim())) {
         // (a lone "." or stray single letter that merely anchors the image is
         // dropped — only the image is kept)
-        const textBlk = classifyPara(x, paraSegs(x), ignoreStyles ? undefined : hmap[styleOf(x)], colorHeads, flat);
+        const textBlk = classifyPara(x, paraSegs(x), ignoreStyles ? undefined : hmap[styleOf(x)], colorHeads, noBoxes, flat);
         // A heading always comes BEFORE its illustration (a topic image belongs
         // under the topic title, not above it), regardless of run order;
         // otherwise keep the paragraph's natural image/text order.
@@ -2342,7 +2362,7 @@ async function importDocx(docxPath, opts = {}) {
         continue;
       }
     }
-    const blk = classifyPara(x, segs, ignoreStyles ? undefined : hmap[styleOf(x)], colorHeads, flat);
+    const blk = classifyPara(x, segs, ignoreStyles ? undefined : hmap[styleOf(x)], colorHeads, noBoxes, flat);
     if (blk.t === "para") {
       const a = alignOf(x);
       // Honour the writer's centre/right justification for prose — but NOT for a
@@ -2400,7 +2420,16 @@ async function importDocx(docxPath, opts = {}) {
   foldInlineCalc(blocks);
   foldDisplayCalc(blocks);
   const withBoxes = resolveTextboxBoxes(blocks, tbBoxes);
-  let out = groupAssessments(attachCaptions(mergeImageRows(unwrapLayoutTables(withBoxes))));
+  // groupAssessments turns a run of numbered paragraphs into an exercise and RENUMBERS
+  // its questions 1..N -- right for a learner book, destructive for a syllabus, where the
+  // numbers are the document's own clause references. In this syllabus the weightings
+  // clauses "6.1. Continuous Assessment / 6.1.1. Assignment / 6.1.2. Presentation" were
+  // renumbered to "1. / 1.1. / 1.2." and then given a second, outer set of markers
+  // ("15. 1. Continuous Assessment") by continuing the 14-item list above them. A CDC
+  // syllabus has no exercises and no assessment callouts at all -- its "ASSESSMENT" is a
+  // prose section heading -- so the whole pass is skipped and the numbering left alone.
+  let out = attachCaptions(mergeImageRows(unwrapLayoutTables(withBoxes)));
+  if (!syllabus) out = groupAssessments(out);
   // Pair the author's left/right side-figures with the text that flows beside them
   // (a no-op unless images carry a side, i.e. the manuscript floated them).
   out = groupSideFigures(out, textWidthPx);

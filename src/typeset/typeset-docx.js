@@ -3826,9 +3826,25 @@ function fixSyllabusSignatures(blocks) {
 function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {}) {
   const coverIdx = blocks.findIndex((b) => b.t === "cover");
   const cov = coverIdx >= 0 ? blocks[coverIdx] : null;
-  const visionIdx = blocks.findIndex((b) => b.t === "h1");
-  const compIdx = blocks.findIndex((b) => /^h[12]$/.test(b.t) && /^competen[ct]es?\s+and\s+descriptors/i.test((b.text || "").trim()));
+  // Where the VISIBLE roman numbering starts: the first prose front-matter section.
+  // Travel & Tourism opens that stretch with a VISION h1, but keying on "the first h1"
+  // is a trap -- a manuscript whose front-matter headings are all lower-level has its
+  // first h1 somewhere near the back (in the Special Education syllabus it was
+  // REFERENCES), so numbering switched on two pages before the end and the book printed
+  // no folios at all, with a clean build log. Fall back to the first heading of any
+  // level after the copyright page.
+  const isHead = (b) => /^h[123]$/.test(b.t) || b.t === "head";
   const crIdx = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+  let visionIdx = blocks.findIndex((b) => b.t === "h1");
+  if (visionIdx < 0 || (crIdx >= 0 && visionIdx > crIdx + 40))
+    visionIdx = blocks.findIndex((b, i) => i > crIdx && isHead(b));
+  // Arabic page 1 starts at the competences section -- the last front-matter heading
+  // before the matrix. Matching only "COMPETENCES AND DESCRIPTORS" at h1/h2 was too
+  // narrow: the Special Education syllabus calls it "Competencies to be developed" and
+  // styles it a lower-level heading, so the body never started, the level divider never
+  // appeared, and every page -- REFERENCES included -- numbered as roman front matter.
+  const compIdx = blocks.findIndex((b) => (/^h[123]$/.test(b.t) || b.t === "head")
+    && /^competen[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim()));
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     if (cov && i === coverIdx + 1) {
@@ -3892,7 +3908,7 @@ async function typesetOne(docxPath, themeName) {
 
   const importOpts = variant === "series" ? { series: true }
     : variant === "science" ? { styled: true, flat: false, textCover: true }
-    : variant === "syllabus" ? { textCover: true }
+    : variant === "syllabus" ? { textCover: true, syllabus: true }
     : {};
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
@@ -4222,6 +4238,23 @@ function normaliseQuestionMarkBold(blocks) {
       if (/^h[12]$/.test(b.t) && /^table of contents?$/i.test((b.text || "").trim())) {
         b.t = "h1"; b.text = "VISION"; break;
       }
+    }
+    // The manuscript types its own table of contents as ordinary paragraphs -- a row of
+    // ellipsis characters and a page number keyed in by hand ("METHODOLOGY......vii").
+    // Those numbers are the AUTHOR'S Word pagination, not this typeset book's, so
+    // reproducing them prints confident-looking page references that are simply wrong
+    // (five entries in a row claimed page vii). Drop the hand-typed block and emit the
+    // real outline instead, the way the Travel & Tourism syllabus does.
+    const tocHeadAt = blocks.findIndex((b) => (/^h[123]$/.test(b.t) || b.t === "head")
+      && /^table of contents?$/i.test((b.text || "").trim()));
+    if (tocHeadAt >= 0 && !blocks.some((b) => b.t === "toc")) {
+      // A hand-typed entry is a short line carrying a run of dot leaders.
+      const isEntry = (b) => b && b.t === "para" && /[.\u2026]{4,}/.test(blockPlain(b) || "")
+        && (blockPlain(b) || "").trim().length <= 200;
+      let end = tocHeadAt + 1;
+      while (end < blocks.length && (isEntry(blocks[end]) || (blockPlain(blocks[end]) || "").trim() === "")) end++;
+      // Only swap when a typed-out list was actually found, never on a bare heading.
+      if (blocks.slice(tocHeadAt + 1, end).some(isEntry)) blocks.splice(tocHeadAt, end - tocHeadAt, { t: "toc" });
     }
     blocks = fixSyllabusSignatures(blocks);
     // Appendix "YEAR 1" is a heading but "YEAR 2" a plain para — promote bare "YEAR N".
