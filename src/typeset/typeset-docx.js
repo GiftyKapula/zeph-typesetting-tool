@@ -3019,7 +3019,13 @@ function reorderBackmatter(blocks) {
 // non-empty block" would destroy that section instead of crediting anyone.
 const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
 function fillLayoutCredit(blocks) {
-  const LABEL = /cover\s+and\s+book\s+layout/i;
+  // Manuscripts word this credit several ways — "Cover and Book Layout:", "Cover
+  // designed by:", "Book layout by:", "Design and layout:" — and matching only the
+  // first spelling left the credit unfilled on any book using another. The ICT Form 2
+  // Teacher's Guide says "Cover designed by:" and printed a bare row of dots.
+  // Capped at a short line so the phrase can't match inside body prose.
+  const LABEL = /(cover|book)\s+(and\s+book\s+)?(layout|design)|(layout|design)\s+and\s+(design|layout)/i;
+  const LABEL_MAXLEN = 60;
   // Another front-matter label (ends with a colon, or a known "…by:" line) — never a
   // placeholder to overwrite, even when it directly follows ours with no gap.
   const LABELISH = /:\s*$|^(edited|illustrated|printed|published|first published)\b/i;
@@ -3031,7 +3037,7 @@ function fillLayoutCredit(blocks) {
       if (!b || typeof b !== "object") continue;
       for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walk(b[k]);
       const plain = blockPlain(b);
-      if (!LABEL.test(plain)) continue;
+      if (!LABEL.test(plain) || plain.trim().length > LABEL_MAXLEN) continue;
       // Strip a dot-leader baked onto the label's own line so it never prints raw
       // dots — this also means there is no separate placeholder line to reuse, so
       // the name gets inserted as a brand new line below.
