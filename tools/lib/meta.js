@@ -20,8 +20,14 @@ function gradeOf(name) {
   return null;
 }
 
-const kindOf = (base) =>
-  /(?:^|[^a-z])TG(?:[^a-z]|$)|teacher/i.test(base) ? "TG" : "LB";
+// A CDC curriculum SYLLABUS is neither a Learner's Book nor a Teacher's Guide — it is
+// the document those books are written against. Taken from the resolved theme's variant
+// rather than the file name, so it stays in step with the engine's own routing: these
+// file names carry no "LB"/"TG" marker at all, so every book in the syllabus family was
+// registered as a Learner's Book by the `: "LB"` fallback below.
+const kindOf = (base, theme) =>
+  (THEMES[theme] || {}).variant === "syllabus" ? "SYL"
+    : /(?:^|[^a-z])TG(?:[^a-z]|$)|teacher/i.test(base) ? "TG" : "LB";
 
 // Strip workflow/status noise to get a clean human title.
 function titleOf(base, grade, subject, kind) {
@@ -46,7 +52,7 @@ function metaForDocx(docxPath) {
   const detect = detectNameOf(base);
   const theme = autoTheme(detect);
   const grade = gradeOf(detect);
-  const kind = kindOf(base);
+  const kind = kindOf(base, theme);
 
   let ov = {};
   const ovPath = docxPath.replace(/\.docx$/i, ".overrides.json");
@@ -67,7 +73,7 @@ function guessBookId(anyPath) {
   const base = path.basename(anyPath).replace(/\.(docx|pdf)$/i, "");
   const detect = detectNameOf(base);
   const grade = gradeOf(detect);
-  const kind = kindOf(base);
+  const kind = kindOf(base, autoTheme(detect));
   return { grade, kind, base, detect };
 }
 
