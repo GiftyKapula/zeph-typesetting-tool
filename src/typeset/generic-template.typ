@@ -101,7 +101,28 @@
 
 #let doc(title: "", body) = {
   set document(title: title)
-  set text(font: T.bodyFont, size: bodySize, fill: T.ink, lang: "en", hyphenate: T.at("hyphenate", default: true))
+  // HYPHENATION. `costs.hyphenation` raises the price the line-breaker pays for a
+  // hyphen, so it still breaks a word where the alternative is an overfull line —
+  // a ~26mm rubric column cannot hold "demonstrated" whole — but stops breaking
+  // words merely to tidy a body line that would have set perfectly well.
+  //
+  // 300% was picked by measuring, not taste. Across the 284-page ICT Form 2
+  // Teacher's Guide: 1237 hyphenated line-breaks at the default 100%, 981 at 200%,
+  // 807 at 300%, 738 at 500% — and the runs of consecutive hyphenated lines that
+  // Hart's Rules calls a "ladder" fell 118 -> 47 between 100% and 300%, then barely
+  // moved. Past 300% the gain is marginal and the justification pays for it.
+  //
+  // `region: "gb"` is language TAGGING, for a Zambian book following British
+  // spelling and for the PDF's own language metadata. It does NOT change the
+  // breaks: this Typst builds identical hyphenation with and without it (measured
+  // — all four counts unchanged), because it ships one English pattern set rather
+  // than separate en-GB/en-US ones.
+  //
+  // What this cannot do is enforce the 3-letters-before / 3-after minimum the print
+  // standards ask for; Typst exposes no such control. ~70 breaks still fall short
+  // of it, nearly all inside the narrow rubric columns where the measure leaves no
+  // other option. Body prose is where the win landed.
+  set text(font: T.bodyFont, size: bodySize, fill: T.ink, costs: (hyphenation: 300%), lang: "en", region: "gb", hyphenate: T.at("hyphenate", default: true))
   set par(justify: true, leading: 0.66em, first-line-indent: 0pt, spacing: 0.86em, linebreaks: "optimized")
   // The authors set every stand-alone equation flush to the LEFT text margin (not
   // centred) so a reader can scan a working straight down the page. Typst centres
