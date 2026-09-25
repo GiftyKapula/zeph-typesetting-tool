@@ -924,6 +924,26 @@
       "hash": "feeb419c3b3ae6bd",
       "note": null,
       "ingested_at": "2026-09-25 10:27:19"
+    },
+    {
+      "id": 66,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "be7ea037e5962307",
+      "note": null,
+      "ingested_at": "2026-09-25 12:15:54"
+    },
+    {
+      "id": 67,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "6de313dd6b43a323",
+      "note": null,
+      "ingested_at": "2026-09-25 12:55:00"
     }
   ],
   "rounds": [
