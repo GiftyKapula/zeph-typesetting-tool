@@ -249,7 +249,12 @@ const THEMES = {
   bemba:   zeph({ subject: "Ichibemba",  signature: "62bfe8", primary: "1b5773", primary2: "2f7fa0", accent: "edab3a", cyan: "2f9e8c" }),  // sky blue
   silozi:  zeph({ subject: "Silozi",     signature: "bfe3c8", primary: "2e7d46", primary2: "45a066", accent: "e0a52e", cyan: "2f9e8c" }),  // forest green
   // Subject books (Form 4 / Grade 6): activity-heavy -> "science" (boxed)
-  compsci: zeph({ subject: "Computer Science", variant: "science", signature: "1f3a5f", primary: "1f3a5f", primary2: "2f6aa0", accent: "f0a32e", cyan: "1fb6d6" }),
+  // Computing/IT (ICT, Computer Science): the "circuit" motif swaps the science
+  // cover's electron-orbit rings for chip/gadget outlines and connection traces —
+  // orbits read as astronomy, which is the wrong signal for a computing book. See
+  // generic-template.typ's science cover() branch; it varies the art slightly per
+  // subject so IT titles are one family without being one picture.
+  compsci: zeph({ subject: "Computer Science", variant: "science", motif: "circuit", signature: "1f3a5f", primary: "1f3a5f", primary2: "2f6aa0", accent: "f0a32e", cyan: "1fb6d6" }),
   maths:   zeph({ subject: "Mathematics",      variant: "science", signature: "5e2b5e", primary: "5e2b5e", primary2: "8a4a8a", accent: "e0a32e", cyan: "3f9e8c" }),
   // Grade 6 (Primary) Integrated Science — the only "science"-variant theme below
   // Form level, so it must set `level` explicitly (the zeph() default is secondary);

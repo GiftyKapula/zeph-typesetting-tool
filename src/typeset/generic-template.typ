@@ -488,7 +488,7 @@
       // amber accent bar under the masthead is drawn later; Grade 6 Science
       // (earth) gets its own pebble/sunburst design below; physics (and every
       // other science theme) keeps the concentric electron orbits.
-      #if T.motif != "flask" and T.motif != "earth" [
+      #if T.motif != "flask" and T.motif != "earth" and T.motif != "circuit" [
         #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 50mm, fill: none, stroke: 1pt + white.transparentize(72%)))
         #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 37mm, fill: none, stroke: 1pt + white.transparentize(80%)))
         #place(top + right, dx: 32mm, dy: -30mm, circle(radius: 24mm, fill: none, stroke: 1.4pt + amber.transparentize(25%)))
@@ -515,6 +515,87 @@
         #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-8mm, 3mm), stroke: 1.4pt + amber.transparentize(15%)))
         #place(top + right, dx: 6mm, dy: 10mm, line(start: (0mm, 0mm), end: (-2mm, 9mm), stroke: 1.4pt + amber.transparentize(15%)))
         #place(bottom + left, dx: -36mm, dy: 40mm, circle(radius: 44mm, fill: none, stroke: 1pt + white.transparentize(82%)))
+      ]
+      // COMPUTING / IT books (circuit): faint gadget outlines and connection
+      // traces instead of the concentric orbit rings above. The rings read as
+      // planets — fine for physics, wrong for a computing book — so an ICT or
+      // Computer Science cover gets a chip package with pin ticks, a few via
+      // pads, and trace lines running off toward the page edges and down the
+      // side margin. Everything stays in the same faint white/accent family and
+      // the same corners the rings occupied (top-right, bottom-left), so the
+      // masthead and hero card sit on top of it exactly as before.
+      //
+      // `v` varies the art a little from book to book, so ICT, Computer Science
+      // and any future computing title are recognisably the same family without
+      // being the same picture. It is derived from the subject name rather than
+      // randomised, so a given book's cover is stable across rebuilds and a
+      // Learner's Book matches its own Teacher's Guide (both carry the same
+      // subject; only `booktype` differs).
+      #if T.motif == "circuit" [
+        #let v = calc.rem(subject.len(), 3)
+        #let trace = stroke(paint: white.transparentize(72%), thickness: 1pt, cap: "round", join: "round")
+        #let faint = stroke(paint: white.transparentize(84%), thickness: 0.8pt, cap: "round", join: "round")
+        #let trail = stroke(paint: white.transparentize(80%), thickness: 1pt, cap: "round", dash: "dotted")
+        // pads are placed by their CENTRE, unlike Typst's top-left default for
+        // `place` + `circle`, so the geometry below reads as coordinates on the
+        // trace rather than as corner offsets.
+        #let pad(x, y, r, c) = place(top + left, dx: x - r, dy: y - r, circle(radius: r, fill: c))
+        #let ring(x, y, r, c) = place(top + left, dx: x - r, dy: y - r, circle(radius: r, fill: none, stroke: 1.1pt + c))
+        #let seg(x1, y1, x2, y2, s) = place(top + left, line(start: (x1, y1), end: (x2, y2), stroke: s))
+
+        // ---- top-right: the chip package ----
+        // Sized/nudged per book; the pin ticks always run down its left edge and
+        // along its bottom, which is what makes it read as a chip rather than a
+        // plain rectangle.
+        #let cx = if v == 1 { 128mm } else { 133mm }
+        #let cy = if v == 2 { 16mm } else { 11mm }
+        #let cw2 = if v == 1 { 32mm } else { 27mm }
+        #let chh = if v == 2 { 16mm } else { 21mm }
+        #place(top + left, dx: cx, dy: cy, rect(width: cw2, height: chh, radius: 1.5mm, fill: none, stroke: trace))
+        #for i in range(0, 4) {
+          seg(cx - 5mm, cy + 4mm + i * 4.5mm, cx, cy + 4mm + i * 4.5mm, faint)
+        }
+        #for i in range(0, 3) {
+          seg(cx + 6mm + i * 7mm, cy + chh, cx + 6mm + i * 7mm, cy + chh + 4mm, faint)
+        }
+        // traces off the chip to the page edges
+        #seg(cx + cw2, cy + 7mm, 176mm, cy + 7mm, trace)
+        #seg(cx + 9mm, cy, cx + 9mm, 0mm, faint)
+        // The elbow leaves the chip on its RIGHT side and drops down the right
+        // MARGIN, not back across the page. Routed inward (an earlier version ran
+        // it down x = cx - 18mm) it crossed the centred masthead, and the dotted
+        // trail read as a line ruled through "COMMUNICATION" / "TECHNOLOGY". The
+        // masthead block is 158mm wide on a 176mm page, so only the outer ~9mm is
+        // reliably clear of title glyphs -- hence x: 171mm, and a stop well above
+        // the hero card.
+        #let ey = cy + chh - 4mm
+        #seg(cx + cw2, ey, 171mm, ey, trace)
+        #pad(171mm, ey, 1.5mm, T.accent.transparentize(35%))
+        #seg(171mm, ey, 171mm, if v == 0 { 96mm } else { 84mm }, trail)
+        #ring(cx + cw2 - 4mm, cy + 4mm, 1.6mm, amber.transparentize(30%))
+
+        // ---- bottom-left: a smaller gadget (a screen/tablet outline) ----
+        // Mirrors the corner the old lower ring sat in, so the cover keeps its
+        // diagonal balance. v picks whether it reads as a tablet or a small
+        // hand-held, which is the most visible of the per-book differences.
+        #let gx = 12mm
+        // v2 sits its gadget LANDSCAPE, so it needs a little more headroom than the
+        // portrait variants to clear the hero card, whose bottom edge is ~196mm.
+        #let gy = if v == 2 { 201mm } else { 202mm }
+        #let gw = if v == 2 { 30mm } else { 22mm }
+        #let gh = if v == 2 { 20mm } else { 30mm }
+        #place(top + left, dx: gx, dy: gy, rect(width: gw, height: gh, radius: 2mm, fill: none, stroke: trace))
+        #place(top + left, dx: gx + 2.5mm, dy: gy + 3mm, rect(width: gw - 5mm, height: gh - 8mm, radius: 0.8mm, fill: white.transparentize(93%), stroke: faint))
+        #pad(gx + gw / 2, gy + gh - 2.5mm, 1.1mm, white.transparentize(55%))
+        // traces leaving the gadget toward the page edges
+        #seg(gx, gy + 8mm, 0mm, gy + 8mm, faint)
+        #seg(gx + gw, gy + gh - 6mm, gx + gw + 12mm, gy + gh - 6mm, trace)
+        #pad(gx + gw + 12mm, gy + gh - 6mm, 1.5mm, T.accent.transparentize(45%))
+        #seg(gx + gw + 12mm, gy + gh - 6mm, gx + gw + 12mm, 250mm, trail)
+        // a couple of loose vias in the open field, so the two corners read as
+        // parts of one board rather than two isolated drawings
+        #pad(26mm, gy - 14mm, 1.3mm, white.transparentize(62%))
+        #pad(if v == 1 { 40mm } else { 34mm }, gy - 26mm, 1mm, white.transparentize(70%))
       ]
       // MUSICAL ARTS (notes): a scatter of small colourful eighth/beamed notes in the
       // open blue field around the masthead and hero photo — echoes the manuscript's
