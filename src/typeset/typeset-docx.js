@@ -3619,11 +3619,42 @@ function splitAnswerLabels(blocks) {
   };
   // An exercise/assessment question part: move the answer runs to `aseg` (the template
   // then sets them on their own highlighted "Possible answer:" line).
+  // A question whose runs END with the answer label and nothing after it — the answer
+  // is the list that FOLLOWS, not text on the same line ("State two advantages of using
+  // this technique before sending the report.Expected answer:" with the two advantages
+  // as the next list items). cut() rightly refuses that (its remainder is empty), but
+  // the label was then left in the question and printed, so one exercise showed answers
+  // unlabelled for most of its items and a stray "Expected answer:" on the one item
+  // whose answer was a list. Trim the label off; the answer below still reads as the
+  // answer. Deliberately narrow: only when real question text ending in terminal
+  // punctuation precedes the label, which is what keeps a manuscript's own standalone
+  // "Expected Responses" box heading (Physics Form 2 TG) out of scope.
+  const trimTrailingLabel = (segs) => {
+    if (!Array.isArray(segs) || !segs.length) return null;
+    for (let i = segs.length - 1; i >= 0; i--) {
+      const s = segs[i]; if (!s || s.m || typeof s.t !== "string") continue;
+      const m = s.t.match(LABEL_INLINE);
+      if (!m) { if (s.t.trim()) return null; continue; }   // label must be in the LAST text run
+      if (s.t.slice(m.index + m[0].length).trim()) return null;      // text after it → cut() handles
+      if (segs.slice(i + 1).some((x) => (x && x.t || "").trim())) return null;
+      const before = s.t.slice(0, m.index);
+      const prior = (segs.slice(0, i).map((x) => x.t || "").join("") + before).trim();
+      if (!prior || !/[.?!]$/.test(prior)) return null;
+      const out = segs.slice(0, i);
+      if (before.trim()) out.push({ ...s, t: before.replace(/\s+$/, "") });
+      return out.length ? out : null;
+    }
+    return null;
+  };
   const splitPart = (p) => {
     if (!Array.isArray(p.qseg) || !p.qseg.length) return;
     if (Array.isArray(p.aseg) && p.aseg.length) return;             // already split
     const c = cut(p.qseg);
-    if (!c) return;
+    if (!c) {
+      const trimmed = trimTrailingLabel(p.qseg);
+      if (trimmed) { p.qseg = trimmed; p.q = plainOf(trimmed); }
+      return;
+    }
     p.qseg = c[0]; p.q = plainOf(c[0]);
     p.aseg = c[1]; p.a = plainOf(c[1]);
     // a lead-in that turned out to carry its own answer is really a question — promote it
