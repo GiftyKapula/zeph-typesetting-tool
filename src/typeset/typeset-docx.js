@@ -4467,9 +4467,16 @@ function normaliseQuestionMarkBold(blocks) {
     // head() gives the syllabus's plain bold section style and a level-2 outline mark.
     const isMatrix = (b) => Array.isArray(b.rows) && b.rows.length && (b.rows[0] || []).length >= 5;
     const frontEnd = blocks.findIndex(isMatrix) >= 0 ? blocks.findIndex(isMatrix) : blocks.length;
-    // A trailing colon marks a run-in lead-in ("Course Name:"), not a section.
-    const isSectionLabel = (b) => b.t === "label"
-      && (b.text || "").trim() && (b.text || "").trim().length <= 80 && !/:$/.test((b.text || "").trim());
+    // `head` as well as `label`: a front-matter section can arrive either way depending
+    // on how the manuscript styled it (this book's "Assessment" comes through as a head
+    // because the box-flattener produced it), and normalising only one of them left a
+    // single section in plain title case among tracked-caps siblings.
+    // A trailing colon marks a run-in lead-in ("Course Name:"), not a section; a leading
+    // digit marks a numbered item ("1. Project-Based Learning"), which head() already
+    // hangs on its number and which the reference does not set as a section either.
+    const isSectionLabel = (b) => (b.t === "label" || b.t === "head")
+      && (b.text || "").trim() && (b.text || "").trim().length <= 80
+      && !/:$/.test((b.text || "").trim()) && !/^\d/.test((b.text || "").trim());
     // Which of those sections are TOP-LEVEL. In the reference book (Travel & Tourism)
     // VISION, PREFACE, ACKNOWLEDGEMENT and INTRODUCTION each OPEN THEIR OWN PAGE with a
     // ruled section head and a level-1 contents entry, while the sub-sections under
@@ -4487,6 +4494,9 @@ function normaliseQuestionMarkBold(blocks) {
     // set (Rationale, Aim, Outcomes, Admission Requirements, Assessment, Time
     // Allocation …) flows beneath its parent, as the reference's sub-sections do.
     const TOPSECTION = /^(vision|mission|foreword|preface|acknowledge?ments?|background|introduction)\b\.?$/i;
+    // The BACK-matter divisions are top-level too: the reference opens REFERENCES on
+    // its own page with the same ruled section head its front matter uses.
+    const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|prescribed\s+(text\s*books?|reading)|recommended\s+(references?|reading)s?)\b[\s.:]*$/i;
     const isCaps = (s) => s === s.toUpperCase() && /[A-Z]{3}/.test(s);
     const frontLabels = [];
     for (let i = 0; i < frontEnd; i++) if (isSectionLabel(blocks[i])) frontLabels.push((blocks[i].text || "").trim());
@@ -4497,11 +4507,49 @@ function normaliseQuestionMarkBold(blocks) {
     // named divisions above are unconditional: they are top-level whatever the casing.
     const caseIsMeaningful = nCaps > 0 && nCaps <= 6 && nCaps < frontLabels.length;
     const isTopLevel = (s) => TOPSECTION.test(s) || (caseIsMeaningful && isCaps(s));
-    for (let i = 0; i < frontEnd; i++) {
+    for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
       if (!isSectionLabel(b)) continue;
       const t = (b.text || "").trim();
-      blocks[i] = isTopLevel(t) ? { t: "h1", text: t } : { t: "head", text: t };
+      // A sub-section becomes h2, NOT `head`. In a syllabus h2 is the tracked bold-caps
+      // label the reference uses for Assessment, College Based Assessment, Time
+      // Allocation and Competences and Descriptors; `head` renders plain bold title
+      // case, which left this book's whole front matter looking nothing like it.
+      if (i < frontEnd) { blocks[i] = isTopLevel(t) ? { t: "h1", text: t } : { t: "h2", text: t }; continue; }
+      // Past the matrix the same block types also carry the assessment WEIGHTINGS
+      // ("Total 40%", "Theory 25%", "CA + EXAM = 100%"), which are data lines, not
+      // sections — set as headings they would come out in tracked caps and be filed in
+      // the contents. A section title in this family never carries a figure, so require
+      // none. That still catches the real sections an author puts after the matrix
+      // (Teaching and learning methods, Assessment methods and weighting, Examination,
+      // Time Allocation), which the reference carries in its front matter and styles
+      // exactly like the ones above.
+      if (/\d/.test(t)) continue;
+      blocks[i] = { t: "h2", text: t };
+    }
+    // A top-level section the manuscript typed as a bold LINE rather than a heading:
+    // the Special Education syllabus writes its Vision as a centred bold paragraph, so
+    // it reached the page as ordinary body text — no section head, no page of its own
+    // and no contents entry — where the reference opens VISION like any other section.
+    // Guarded hard: wholly bold, short, and one of the named divisions.
+    for (let i = 0; i < frontEnd; i++) {
+      const b = blocks[i];
+      if (b.t !== "para") continue;
+      const t = (blockPlain(b) || "").trim();
+      if (!t || t.length > 40 || !TOPSECTION.test(t)) continue;
+      const segs = Array.isArray(b.segs) ? b.segs : [];
+      if (!segs.length || !segs.every((s) => s.b)) continue;
+      blocks[i] = { t: "h1", text: t };
+    }
+    // Back-matter divisions are top-level. "Prescribed Textbooks" came through as a
+    // flowing sub-section stranded at the foot of a page with its list overleaf, and
+    // "Recommended References" as a plain bold line that reached neither the contents
+    // nor a page of its own — where the reference gives REFERENCES a page and a rule.
+    for (let i = frontEnd; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!(b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t))) continue;
+      const t = (b.text || "").trim();
+      if (t && BACKSECTION.test(t)) blocks[i] = { t: "h1", text: t };
     }
     // COMPETENCES AND DESCRIPTORS table: the competence NAMES set in UPPERCASE, as the
     // reference book sets them ("ANALYTICAL THINKING", "COLLABORATION", …) against

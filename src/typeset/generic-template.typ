@@ -1655,6 +1655,12 @@
 }
 
 #let sectionhead(t, brk: true, outlined: true) = {
+  // A syllabus sets its top-level section heads in CAPS — VISION, PREFACE,
+  // ACKNOWLEDGEMENT, INTRODUCTION, REFERENCES in the reference book — to sit with the
+  // tracked-caps sub-sections beneath them. Manuscripts type them either way (one book
+  // capitalises, the next writes "Vision" and "Preface"), so normalise here rather than
+  // letting two books in the same family head their pages differently.
+  let t = if syllabus { upper(t) } else { t }
   if brk { pagebreak(weak: true) }
   // Outline units always; outline front-matter sections only when the TOC is not
   // restricted to units (some books want a units-only contents page).

@@ -60,7 +60,21 @@ family** (page numbering in brackets):
 | then | Level divider page (e.g. "SECONDARY TEACHER'S DIPLOMA") | **arabic 1** |
 | then | Competences & Descriptors, then the year matrices | arabic |
 
-Two rules that follow from it, both automatic:
+**Heading levels**, also enforced — a manuscript's own styling is normalised to
+these, because two books in the family were heading their pages three different
+ways:
+
+| Level | Set as | Used for |
+|---|---|---|
+| **top-level** (`h1`) | **BOLD CAPS + short rule, own page**, level-1 contents entry | Vision, Preface, Acknowledgement, Background/Introduction; and at the back Appendices, Glossary, References, Prescribed Textbooks |
+| **sub-section** (`h2`) | **tracked BOLD CAPS**, flows, level-2 contents entry | Rationale, Aim, Outcomes, Admission Requirements, Assessment, Course Description, Competences and Descriptors, Time Allocation … |
+| year banner (`h2`, matched by name) | solid filled banner, own page, level-1 entry | `YEAR 1` / `FIRST YEAR` |
+| data line (`label`) | plain bold, not a heading, not in contents | `Total 40%`, `CA + EXAM = 100%` |
+
+Past the matrix a section title is only recognised when it carries **no digit** —
+that is what keeps the assessment weightings out of the heading stream.
+
+Two more rules, both automatic:
 
 - **The contents page always sits directly after the copyright page**, before
   the prose front matter — wherever the manuscript happened to type its own.
