@@ -6,6 +6,32 @@ this codebase before — they explain the pipeline (`import-docx.js` →
 `typeset-docx.js` → `generic-template.typ` → Typst → PDF) and where `zeph`
 fits on top of it.
 
+## FIRST: which branch are you on? Portrait and landscape never mix
+
+The work lives on **two permanently separate branches**, one per book format:
+
+| Branch | Format | Books |
+|---|---|---|
+| `portrait-books` | portrait B5 | the learner's/teacher's book family — Geography, Physics, Technology Studies, Home Economics, Food & Nutrition, Musical Arts, local languages … |
+| `landscape-syllabus` | A4 landscape | the CDC curriculum syllabuses (the 5-column matrix family) |
+
+**Never merge them, and never offer to.** The engine rules for the two families
+are different and must not be mixed — page geometry, front-matter structure,
+heading levels, cover construction and table styling all diverge. The two
+branches *will* drift apart, and that drift is the intended state, not a
+problem to go and fix.
+
+- Check the branch before you touch `src/typeset/`. If you are on
+  `portrait-books`, do not edit syllabus rules; if you are on
+  `landscape-syllabus`, do not edit portrait rules.
+- Don't port a fix from one branch to the other on your own initiative. If a
+  fix is shared *plumbing* rather than layout (something in `import-docx.js`,
+  the override primitives, image handling) say so and let the human decide —
+  don't cherry-pick across.
+- If asked how to "tell apart", "differentiate" or "call" the two families,
+  that is a question about naming and which branch to be on. It is **not** a
+  request to merge them or to make one branch serve both.
+
 ## The core loop — never skip the "look at it" step
 
 1. Typeset the book (`npm run typeset:docx`, or `npm run zeph -- build <id>`).
