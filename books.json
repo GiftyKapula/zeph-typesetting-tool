@@ -884,6 +884,16 @@
       "hash": "90a5c990ebe8852b",
       "note": null,
       "ingested_at": "2026-09-25 07:31:46"
+    },
+    {
+      "id": 62,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "a52a74df50b3eb05",
+      "note": null,
+      "ingested_at": "2026-09-25 08:36:09"
     }
   ],
   "rounds": [
