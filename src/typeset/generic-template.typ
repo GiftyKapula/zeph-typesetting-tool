@@ -23,6 +23,13 @@
 // with a rounded tinted CARD: a solid title chip + a hexagon (benzene-ring) motif
 // and a full hairline border, no side stripe. Empty = the theme's default box.
 #let boxstyle = T.at("boxStyle", default: "")
+// The x-inset a BOX's content sits at. titledbox picks this per theme (see its
+// branches); genericbox mirrors it here rather than hard-coding its own, so an
+// untitled box's text and list markers line up down the page with the titled
+// boxes around it. They differed by 1pt before — invisible on its own, but it put
+// two list families in one book at two different left edges, which is exactly the
+// unevenness the numbering rules elsewhere work to avoid.
+#let boxinx = if boxstyle == "labcard" { 14pt } else if serieslike or panel or literary or modern { 11pt } else { 10pt }
 // A small hexagon (benzene ring) used as the chemistry callout motif.
 #let hexmark(c, sz: 5.2mm, w: 0.9pt) = polygon.regular(vertices: 6, size: sz,
   fill: none, stroke: w + c)
@@ -2606,7 +2613,7 @@
 #let keypoints(title, items) = titledbox(if title == none { "Key Points to Remember" } else { title }, T.kp,
   { for it in items [#grid(columns: (10pt, 1fr), text(fill: T.kp.border)[•], par[#it]); #v(1.5pt)] })
 #let genericbox(body) = { block(width: 100%, breakable: true, radius: 3pt,
-  stroke: 0.9pt + T.rulec, fill: rgb("#f7f9fc"), inset: (x: 10pt, y: 8pt))[#renderbody(body)]; v(3pt) }
+  stroke: 0.9pt + T.rulec, fill: rgb("#f7f9fc"), inset: (x: boxinx, y: 8pt))[#renderbody(body)]; v(3pt) }
 
 // ---- exercises & assessment (ordered q/table parts, manual numbering) -----
 #let show-answers = state("show-answers", true)
