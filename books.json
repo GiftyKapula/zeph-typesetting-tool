@@ -40,6 +40,19 @@
       "updated_at": "2026-09-18 12:37:41"
     },
     {
+      "id": "form-2-information-and-communication-technology-tg",
+      "title": "Form 2 Information and Communication Technology TG",
+      "grade": "Form 2",
+      "subject": "Information and Communication Technology",
+      "kind": "TG",
+      "author": null,
+      "theme": "compsci",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-25 13:22:26",
+      "updated_at": "2026-09-25 13:26:01"
+    },
+    {
       "id": "form-4-food-and-nutrition-tg",
       "title": "Form 4 Food and Nutrition TG",
       "grade": "Form 4",
@@ -219,7 +232,7 @@
       "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-16 10:29:24",
-      "updated_at": "2026-09-24 07:59:42"
+      "updated_at": "2026-09-25 13:22:26"
     },
     {
       "id": "physics-form2-zeph-lb-1-1-docx",
@@ -232,7 +245,20 @@
       "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-14 10:38:52",
-      "updated_at": "2026-09-21 12:39:17"
+      "updated_at": "2026-09-25 13:22:27"
+    },
+    {
+      "id": "physics-form2-zeph-lb-1-1-docx-latest",
+      "title": "PHYSICS.FORM2.ZEPH.LB . (1) (1).docx LATEST.",
+      "grade": "Form 2",
+      "subject": null,
+      "kind": "LB",
+      "author": null,
+      "theme": "physics",
+      "state": "drafting",
+      "page_cap": null,
+      "created_at": "2026-09-25 13:22:26",
+      "updated_at": "2026-09-25 13:22:26"
     },
     {
       "id": "technology-studies-grade-6-lb-sent-for-typesetting-31-march-2026",
@@ -246,6 +272,32 @@
       "page_cap": null,
       "created_at": "2026-09-10 09:21:20",
       "updated_at": "2026-09-10 09:23:27"
+    },
+    {
+      "id": "validated-curriculum-instruction-strategies-and-assessment-spe-edu-secondary-syllabus-eugine-muuka",
+      "title": "VALIDATED CURRICULUM INSTRUCTION STRATEGIES AND ASSESSMENT SPE. EDU. SECONDARY SYLLABUS - Eugine Muuka",
+      "grade": null,
+      "subject": "Curriculum, Instructional Strategies and Assessment for Special Education – Secondary",
+      "kind": "SYL",
+      "author": null,
+      "theme": "speciaedsyl",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-24 14:25:26",
+      "updated_at": "2026-09-25 07:31:26"
+    },
+    {
+      "id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "title": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka",
+      "grade": null,
+      "subject": "Devices and Materials Production",
+      "kind": "SYL",
+      "author": null,
+      "theme": "dmpsyl",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-25 07:29:15",
+      "updated_at": "2026-09-25 07:31:58"
     }
   ],
   "versions": [
@@ -828,6 +880,156 @@
       "hash": "a4c3e272e649b0a5",
       "note": "returned from proofread",
       "ingested_at": "2026-09-24 07:59:38"
+    },
+    {
+      "id": 59,
+      "book_id": "validated-curriculum-instruction-strategies-and-assessment-spe-edu-secondary-syllabus-eugine-muuka",
+      "kind": "manuscript",
+      "original_name": "VALIDATED CURRICULUM INSTRUCTION STRATEGIES AND ASSESSMENT SPE. EDU. SECONDARY SYLLABUS - Eugine Muuka.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Syllabuses\\VALIDATED CURRICULUM INSTRUCTION STRATEGIES AND ASSESSMENT SPE. EDU. SECONDARY SYLLABUS - Eugine Muuka.docx",
+      "hash": "f80346f8f3529378",
+      "note": null,
+      "ingested_at": "2026-09-24 14:25:26"
+    },
+    {
+      "id": 60,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "manuscript",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Syllabuses\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka.docx",
+      "hash": "a0f01a87cc902c66",
+      "note": null,
+      "ingested_at": "2026-09-25 07:29:15"
+    },
+    {
+      "id": 61,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "90a5c990ebe8852b",
+      "note": null,
+      "ingested_at": "2026-09-25 07:31:46"
+    },
+    {
+      "id": 62,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "a52a74df50b3eb05",
+      "note": null,
+      "ingested_at": "2026-09-25 08:36:09"
+    },
+    {
+      "id": 63,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "231d8b74b918affe",
+      "note": null,
+      "ingested_at": "2026-09-25 09:18:20"
+    },
+    {
+      "id": 64,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "9f2ea01c8a2b8ccc",
+      "note": null,
+      "ingested_at": "2026-09-25 09:48:20"
+    },
+    {
+      "id": 65,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "feeb419c3b3ae6bd",
+      "note": null,
+      "ingested_at": "2026-09-25 10:27:19"
+    },
+    {
+      "id": 66,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "be7ea037e5962307",
+      "note": null,
+      "ingested_at": "2026-09-25 12:15:54"
+    },
+    {
+      "id": 67,
+      "book_id": "validated-devices-and-material-production-pri-and-sec-syllabus-eugine-muuka",
+      "kind": "typeset_pdf",
+      "original_name": "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Other\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka\\VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka - typeset.pdf",
+      "hash": "6de313dd6b43a323",
+      "note": null,
+      "ingested_at": "2026-09-25 12:55:00"
+    },
+    {
+      "id": 68,
+      "book_id": "form-2-information-and-communication-technology-tg",
+      "kind": "manuscript",
+      "original_name": "ICT Form 2 Teacher's Guide - ready for typesetting.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\ICT Form 2 Teacher's Guide - ready for typesetting.docx",
+      "hash": "f9bc6a01227961c5",
+      "note": null,
+      "ingested_at": "2026-09-25 13:22:26"
+    },
+    {
+      "id": 69,
+      "book_id": "form-2-information-and-communication-technology-tg",
+      "kind": "overrides",
+      "original_name": "ICT Form 2 Teacher's Guide - ready for typesetting.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\ICT Form 2 Teacher's Guide - ready for typesetting.overrides.json",
+      "hash": "145ef3199c619241",
+      "note": null,
+      "ingested_at": "2026-09-25 13:22:26"
+    },
+    {
+      "id": 70,
+      "book_id": "physics-form2-zeph-edited-tg-4-docx",
+      "kind": "overrides",
+      "original_name": "PHYSICS.FORM2.ZEPH.EDITED.TG (4).docx Advanced draft 23 August.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\PHYSICS.FORM2.ZEPH.EDITED.TG (4).docx Advanced draft 23 August.overrides.json",
+      "hash": "8683923ebcba06ce",
+      "note": null,
+      "ingested_at": "2026-09-25 13:22:26"
+    },
+    {
+      "id": 71,
+      "book_id": "physics-form2-zeph-lb-1-1-docx-latest",
+      "kind": "manuscript",
+      "original_name": "PHYSICS.FORM2.ZEPH.LB 16 SEPT. (1) (1).docx LATEST.ADVANCED DRAFT.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\PHYSICS.FORM2.ZEPH.LB 16 SEPT. (1) (1).docx LATEST.ADVANCED DRAFT.docx",
+      "hash": "866cc5fc3001e147",
+      "note": null,
+      "ingested_at": "2026-09-25 13:22:27"
+    },
+    {
+      "id": 72,
+      "book_id": "physics-form2-zeph-lb-1-1-docx-latest",
+      "kind": "overrides",
+      "original_name": "PHYSICS.FORM2.ZEPH.LB 16 SEPT. (1) (1).docx LATEST.ADVANCED DRAFT.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\PHYSICS.FORM2.ZEPH.LB 16 SEPT. (1) (1).docx LATEST.ADVANCED DRAFT.overrides.json",
+      "hash": "49070e39fb97d9a9",
+      "note": null,
+      "ingested_at": "2026-09-25 13:22:27"
+    },
+    {
+      "id": 73,
+      "book_id": "form-2-information-and-communication-technology-tg",
+      "kind": "typeset_pdf",
+      "original_name": "ICT Form 2 Teacher's Guide - ready for typesetting - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\ICT Form 2 Teacher's Guide - ready for typesetting\\ICT Form 2 Teacher's Guide - ready for typesetting - typeset.pdf",
+      "hash": "b36c0ec13798db03",
+      "note": null,
+      "ingested_at": "2026-09-25 13:25:59"
     }
   ],
   "rounds": [
