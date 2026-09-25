@@ -3910,6 +3910,13 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
   // `label`, not an h1/h2/h3. Keyed to h-levels alone, the two searches below both came
   // up empty and the book printed with no folios and no level divider at all.
   const isHead = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
+  // The contents page belongs immediately after the copyright/imprint page and before
+  // the prose front matter — the order the reference book sets (cover, title page,
+  // copyright, CONTENTS, Vision, Preface, Acknowledgement, Introduction). A manuscript
+  // that typed its own contents somewhere else left the generated one stranded there:
+  // the Special Education syllabus printed its Preface and Acknowledgements BEFORE its
+  // contents page. Lift any existing one out; the canonical position is set below.
+  blocks = blocks.filter((b) => b.t !== "toc");
   // The copyright page. When the manuscript has no copyright paragraph — the CDC
   // house wording is boilerplate and authors do leave it out — synthesise the
   // family's standard one, so the page exists and the imprint below has an anchor.
@@ -3969,12 +3976,12 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
     out.push(blocks[i]);
     if (i === crEnd && crIdx >= 0) {
       out.push({ t: "imprint", year, isbn });
-      // Every book in the family carries a contents page (the Travel & Tourism
-      // reference lists its front matter, then each year's topics). The generated one
-      // used to be emitted ONLY in place of a contents the author had typed out by
-      // hand, so a manuscript that simply omitted one produced a book with none at
-      // all. It belongs here: straight after the copyright/imprint page.
-      if (!blocks.some((b) => b.t === "toc")) out.push({ t: "toc" });
+      // Every book in the family carries a contents page (the reference lists its
+      // front matter, then each year's topics), and it always sits right here —
+      // straight after the copyright/imprint page. The generated one used to be
+      // emitted ONLY in place of a contents the author had typed out by hand, so a
+      // manuscript that simply omitted one produced a book with none at all.
+      out.push({ t: "toc" });
     }
   }
   // No separate back cover — the front + back covers are combined on the cover SPREAD.
@@ -4460,13 +4467,41 @@ function normaliseQuestionMarkBold(blocks) {
     // head() gives the syllabus's plain bold section style and a level-2 outline mark.
     const isMatrix = (b) => Array.isArray(b.rows) && b.rows.length && (b.rows[0] || []).length >= 5;
     const frontEnd = blocks.findIndex(isMatrix) >= 0 ? blocks.findIndex(isMatrix) : blocks.length;
+    // A trailing colon marks a run-in lead-in ("Course Name:"), not a section.
+    const isSectionLabel = (b) => b.t === "label"
+      && (b.text || "").trim() && (b.text || "").trim().length <= 80 && !/:$/.test((b.text || "").trim());
+    // Which of those sections are TOP-LEVEL. In the reference book (Travel & Tourism)
+    // VISION, PREFACE, ACKNOWLEDGEMENT and INTRODUCTION each OPEN THEIR OWN PAGE with a
+    // ruled section head and a level-1 contents entry, while the sub-sections under
+    // INTRODUCTION (Methodologies, Assessment, Time Allocation …) flow on beneath it.
+    // CDC manuscripts mark that division by CASE — the top-level sections are typed in
+    // full caps, the sub-sections in title case — so key on that. Without it every
+    // front-matter section came through at one flat level and two separately signed
+    // sections (Preface, closing with the Permanent Secretary; Acknowledgement, with
+    // the Director) ran together on a single page, which the reference never does.
+    // The standard CDC top-level front-matter divisions, by name. Case alone isn't
+    // enough: Travel & Tourism opens its descriptive front matter with INTRODUCTION on
+    // its own page, and the book that corresponds to it here titles the same section
+    // "Background" in title case — so without this it ran on immediately under the
+    // Acknowledgement's signatory instead of starting a page. Everything NOT in this
+    // set (Rationale, Aim, Outcomes, Admission Requirements, Assessment, Time
+    // Allocation …) flows beneath its parent, as the reference's sub-sections do.
+    const TOPSECTION = /^(vision|mission|foreword|preface|acknowledge?ments?|background|introduction)\b\.?$/i;
+    const isCaps = (s) => s === s.toUpperCase() && /[A-Z]{3}/.test(s);
+    const frontLabels = [];
+    for (let i = 0; i < frontEnd; i++) if (isSectionLabel(blocks[i])) frontLabels.push((blocks[i].text || "").trim());
+    const nCaps = frontLabels.filter(isCaps).length;
+    // If a manuscript capitalises EVERY front-matter heading then case carries no
+    // information, and breaking on all of them would leave a dozen near-empty pages —
+    // so trust the CASE signal only while caps headings are a clear minority. The
+    // named divisions above are unconditional: they are top-level whatever the casing.
+    const caseIsMeaningful = nCaps > 0 && nCaps <= 6 && nCaps < frontLabels.length;
+    const isTopLevel = (s) => TOPSECTION.test(s) || (caseIsMeaningful && isCaps(s));
     for (let i = 0; i < frontEnd; i++) {
       const b = blocks[i];
-      if (b.t !== "label") continue;
+      if (!isSectionLabel(b)) continue;
       const t = (b.text || "").trim();
-      // A trailing colon marks a run-in lead-in ("Course Name:"), not a section.
-      if (!t || t.length > 80 || /:$/.test(t)) continue;
-      blocks[i] = { t: "head", text: t };
+      blocks[i] = isTopLevel(t) ? { t: "h1", text: t } : { t: "head", text: t };
     }
     // COMPETENCES AND DESCRIPTORS table: first column (competence names) in UPPERCASE.
     for (const b of blocks) {

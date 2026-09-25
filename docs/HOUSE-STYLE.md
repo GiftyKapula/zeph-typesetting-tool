@@ -34,6 +34,49 @@ house style *and still renders a box for any activity/exercise the manuscript
 puts in a table* — so we never force-flatten a real box, and never force a box
 where the writer used flowing text.
 
+## 2a. CDC syllabuses (`syllabus`) — the demo book defines the structure
+
+The CDC landscape curriculum syllabuses are their own book family: A4
+landscape, a 5-column matrix interior (TOPIC · SUB-TOPIC · SPECIFIC COMPETENCE
+· SUGGESTED LEARNING ACTIVITIES · EXPECTED STANDARD) with a grey header row
+repeated on every page, and a two-panel spread cover.
+
+**The reference ("demo") book is the Travel and Tourism TED syllabus**, kept at
+`reference/Travel and Tourism TED Syllabus - DEMO BOOK.pdf`. Measure any new
+syllabus against it page by page — a clean build log says nothing about whether
+the structure is right. Only its typeset PDF exists (no `.docx`), so it is a
+*visual* reference; pick a different book for an end-to-end regression run.
+
+**Front matter order, which the engine now enforces for every book in the
+family** (page numbering in brackets):
+
+| Page | Content | Folio |
+|---|---|---|
+| 1 | Cover **spread** — back panel left, front panel right, one sheet | none |
+| 2 | Title page — black-and-white echo of the cover | none |
+| 3 | Copyright notice + ISBN/publisher/printer imprint | roman, hidden |
+| 4– | **Table of Contents** — generated, real page numbers + dot leaders | roman, hidden |
+| next | Vision / Preface / Acknowledgement / Introduction — **each on its own page** | roman, visible |
+| then | Level divider page (e.g. "SECONDARY TEACHER'S DIPLOMA") | **arabic 1** |
+| then | Competences & Descriptors, then the year matrices | arabic |
+
+Two rules that follow from it, both automatic:
+
+- **The contents page always sits directly after the copyright page**, before
+  the prose front matter — wherever the manuscript happened to type its own.
+- **A top-level front-matter section always opens a new page.** Top-level means
+  one of the standard CDC divisions by name (Vision, Mission, Foreword,
+  Preface, Acknowledgement(s), Background, Introduction), or — when the
+  manuscript's casing distinguishes them — an ALL-CAPS heading. Everything else
+  (Rationale, Aim, Outcomes, Admission Requirements, Assessment, Time
+  Allocation …) flows on beneath its parent as a sub-section, exactly as the
+  demo book's sub-sections flow under Introduction.
+
+Cover geometry: the white title band is fixed (it has to line up across the
+spread), so it divides each panel into an above-band and a below-band zone, and
+each zone's content is centred in it both ways. Don't reintroduce hand-tuned
+`dy` offsets.
+
 ## 3. ZEPH house style (shared by `series` + `science`)
 
 - **B5** (176×250 mm); margins top 19 / bottom 16 / x 17 mm.
