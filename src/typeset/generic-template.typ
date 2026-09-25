@@ -2101,9 +2101,19 @@
       else { ts }
     } else if ncol >= 6 { 9.5pt } else if ncol >= 5 { 10pt } else { 12pt }
   })
-  // Syllabus matrix cells are ragged-right (not justified): with hyphenation OFF, justified
-  // narrow columns open ugly word gaps. Other books keep the document's justified cells.
-  set par(justify: T.variant != "syllabus")
+  // Narrow columns are set RAGGED-RIGHT and unhyphenated. Justifying a ~26mm column
+  // forces a hyphen into almost every line to make the measure ("Transac-tion steps",
+  // "Recipi-ent", "demon-strated" down a whole assessment rubric), which is what made
+  // the 6-column rubrics in the ICT Form 2 Teacher's Guide so dense. Ragged-right with
+  // whole words reads far better at this width, and the rubric vocabulary is short
+  // enough that nothing needs breaking. Wide-column tables (4 or fewer) keep the
+  // document's justified cells, and the syllabus matrix stays ragged as it already was.
+  // Hyphenation STAYS ON: turning it off overflowed the cells outright — "Not
+  // demonstrated 0" clipped to "Not demo" and the last column's text ran over its
+  // neighbour's, because a ~22mm column cannot hold "demonstrated" or
+  // "understanding" whole. Dropping the justification is what actually helps.
+  let narrowcols = rows.at(0).len() >= 5
+  set par(justify: T.variant != "syllabus" and not narrowcols)
   // Is a cell completely empty? Such cells appear in "Complete the table" / "Fill
   // in the table" grids the learner writes into. When many body cells are empty
   // the table is a FILL-IN table — give every empty cell a minimum writing height
