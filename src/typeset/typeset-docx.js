@@ -4503,18 +4503,32 @@ function normaliseQuestionMarkBold(blocks) {
       const t = (b.text || "").trim();
       blocks[i] = isTopLevel(t) ? { t: "h1", text: t } : { t: "head", text: t };
     }
-    // COMPETENCES AND DESCRIPTORS table: first column (competence names) in UPPERCASE.
+    // COMPETENCES AND DESCRIPTORS table: the competence NAMES set in UPPERCASE, as the
+    // reference book sets them ("ANALYTICAL THINKING", "COLLABORATION", …) against
+    // sentence-case descriptors beside them.
+    // Find the competence column BY ITS HEADER wherever it sits, rather than assuming
+    // it is column 0 with descriptors in column 1: that assumption held for the
+    // reference's two-column table but not for a book that numbers its rows, where the
+    // columns run S/N | COMPETENCE | DESCRIPTORS — so the rule silently did nothing and
+    // the casing came out however the author had typed it.
+    const uc = (c) => {
+      if (!c) return;
+      if (c.text) c.text = c.text.toUpperCase();
+      if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
+    };
     for (const b of blocks) {
       if (!Array.isArray(b.rows)) continue;
-      const hi = b.rows.findIndex((r) => r.length >= 2
-        && /^competen/i.test((r[0].text || "").trim()) && /descriptor/i.test((r[1].text || "").trim()));
-      if (hi < 0) continue;
-      for (let ri = hi + 1; ri < b.rows.length; ri++) {
-        const c = b.rows[ri][0];
-        if (!c) continue;
-        if (c.text) c.text = c.text.toUpperCase();
-        if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
+      const cellText = (r, i) => ((r[i] && r[i].text) || "").trim();
+      let hi = -1, ci = -1;
+      for (let ri = 0; ri < b.rows.length && hi < 0; ri++) {
+        const r = b.rows[ri];
+        if (!Array.isArray(r) || r.length < 2) continue;
+        const comp = r.findIndex((_, i) => /^competen/i.test(cellText(r, i)));
+        const desc = r.findIndex((_, i) => /descriptor/i.test(cellText(r, i)));
+        if (comp >= 0 && desc >= 0 && comp !== desc) { hi = ri; ci = comp; }
       }
+      if (hi < 0) continue;
+      for (let ri = hi + 1; ri < b.rows.length; ri++) uc((b.rows[ri] || [])[ci]);
     }
     // Indent a numbered item's body paragraphs to align under the heading text: a bold
     // "1. Project-Based Learning" heading, then its prose indented to line up with the

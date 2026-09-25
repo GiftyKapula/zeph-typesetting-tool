@@ -2213,7 +2213,12 @@
   let sylbody(ci, c, row) = if actCol != none and ci == actCol {
     sylbullets(c)
   } else if ci == 0 {
-    let tt = stripLead(plainlabel(c)).trim()
+    // The TOPIC column is set in BOLD UPPERCASE, as the reference book sets it
+    // ("INTRODUCTION TO TRAVEL AND TOURISM"), while the SUB-TOPIC column beside it
+    // stays bold title case. Manuscripts are inconsistent about this — one book typed
+    // its early topics in caps and its later ones in title case — so normalise here
+    // rather than leaving the column looking like two different styles down the page.
+    let tt = upper(stripLead(plainlabel(c)).trim())
     let body = text(weight: "bold")[#tt]
     if tt != "" and sylhdr and actCol != none {
       let num = topicNum(row)

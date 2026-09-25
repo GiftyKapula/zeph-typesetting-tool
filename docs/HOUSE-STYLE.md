@@ -72,6 +72,22 @@ Two rules that follow from it, both automatic:
   Allocation …) flows on beneath its parent as a sub-section, exactly as the
   demo book's sub-sections flow under Introduction.
 
+**Column casing in the tables** — normalised by the engine, because manuscripts
+are inconsistent about it (one book typed its early topics in caps and its
+later ones in title case; another typed its competences in title case):
+
+| Column | Set as |
+|---|---|
+| matrix **TOPIC** | **BOLD UPPERCASE** |
+| matrix **SUB-TOPIC** | bold title case — *not* uppercase |
+| matrix SPECIFIC COMPETENCE / ACTIVITIES / EXPECTED STANDARD | sentence case |
+| competences table **COMPETENCE** | **UPPERCASE** |
+| competences table DESCRIPTORS | sentence case |
+
+The competence column is found by its own header wherever it sits, so a table
+that numbers its rows (`S/N | COMPETENCE | DESCRIPTORS`) is handled as well as
+the reference's two-column one.
+
 Cover geometry: the white title band is fixed (it has to line up across the
 spread), so it divides each panel into an above-band and a below-band zone, and
 each zone's content is centred in it both ways. Don't reintroduce hand-tuned
