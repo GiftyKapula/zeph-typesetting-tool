@@ -1,0 +1,14 @@
+{
+  "_comment": [
+    "ICT Form 2 Teacher's Guide.",
+    "",
+    "The book routes to the shared `compsci` theme (autoTheme matches \\bict\\b), which",
+    "is right for the palette and layout but carries the subject name \"Computer",
+    "Science\". This manuscript is not Computer Science: its own title page reads",
+    "\"INFORMATION AND COMMUNICATION TECHNOLOGY FORM 2\", and it says ICT 121 times",
+    "against Computer Science twice. Without this the cover, title page and running",
+    "header all called the book Computer Science."
+  ],
+
+  "subject": "Information and Communication Technology"
+}

@@ -69,6 +69,13 @@
 // contents with their true page numbers, nested under the YEAR heading.
 #let tocentry(lvl, body) = place(hide(heading(level: lvl, outlined: true, numbering: none, bookmarked: false)[#body]))
 
+// Does this cover line name a form/grade? FORM, GRADE and FOMU must match as WORDS,
+// never as substrings. "INFORMATION" contains "FORM": a plain `"FORM" in upper(line)`
+// took the subject line of "Information and Communication Technology" for the form
+// line, found no "FORM <digit>" in it, and silently dropped the FORM 2 tag from that
+// book's cover. The same trap is waiting in PERFORMING ARTS, TRANSFORMATION, REFORM.
+#let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU)\\b")) != none
+
 // CDC 2025 sets a larger body size for young readers (Grade 1 → 18pt, Grade 2-3 →
 // 16pt, Grade 4-6 → 14pt; Teacher's Guides and secondary stay 12pt). `fs()` scales a
 // pt value that was tuned around a 12pt body so the whole content hierarchy (headings,
@@ -266,7 +273,7 @@
   }
   pagebreak(weak: true)
   set text(font: T.displayFont)
-  let grade = lines.find(l => "FORM" in upper(l) or "GRADE" in upper(l))
+  let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
   let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
   // The subject title: if the grade line is "SUBJECT FORM N" use the stripped
@@ -275,13 +282,13 @@
   let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
-      not ("FORM" in upper(l)) and not ("GRADE" in upper(l)) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
+      not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
     cand.at(0, default: lines.at(0, default: ""))
   }
   // the eyebrow is the lead line, unless that line is itself the title (carries
   // FORM/GRADE, or equals the subject) — then fall back to the standard descriptor.
   let rawlead = lines.at(0, default: "")
-  let lead = if ("FORM" in upper(rawlead)) or ("GRADE" in upper(rawlead)) or (rawlead == name) { T.eyebrow } else { rawlead }
+  let lead = if hasGradeWord(rawlead) or (rawlead == name) { T.eyebrow } else { rawlead }
   let deepteal = T.primary.darken(30%)
   // corner accents tying back to the cover. For a LIGHT signature (yellow) the
   // form tag uses the signature fill with deep text; for a DARK signature
@@ -393,7 +400,7 @@
   // (For normal books the cover colours default to the body colours, so this is a no-op.)
   let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
   let subject = lines.at(0, default: "")
-  let grade = if lines.len() > 1 { lines.slice(1).find(l => "GRADE" in upper(l) or "FORM" in upper(l) or "FOMU" in upper(l)) } else { none }
+  let grade = if lines.len() > 1 { lines.slice(1).find(l => hasGradeWord(l)) } else { none }
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
 
   // ---------- FINISHED cover: the manuscript ships a complete, already-designed
@@ -466,7 +473,7 @@
   } else if science {
     // ---------- SCIENCE cover (Physics): deep-indigo signature field with
     // concentric "electron orbit" rings, white title, amber FORM tag ----------
-    let gl = if ("FORM" in upper(subject)) or ("GRADE" in upper(subject)) { subject } else { grade }
+    let gl = if hasGradeWord(subject) { subject } else { grade }
     let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
     // The subject title comes from the subject line with any form/grade token
     // stripped (e.g. "PHYSICS FORM 4" -> "PHYSICS"). When the subject and form
@@ -521,7 +528,12 @@
       // masthead — CENTRED with the SAME rhythm as the English cover (eyebrow,
       // title, an accent rule, the form tag, then the book type). par spacing is
       // zeroed so the explicit #v values fully control the layout.
-      #let mastheadBlock = block(width: 158mm)[#set par(spacing: 0pt); #align(center)[
+      // justify: false — a cover title that wraps must stay ragged-centred. Justified,
+      // a two-word first line is stretched to the full 158mm ("INFORMATION      AND"),
+      // which reads as broken. Only bites once a subject is long enough to wrap, so it
+      // went unnoticed until a book with a long name ("Information and Communication
+      // Technology") came through.
+      #let mastheadBlock = block(width: 158mm)[#set par(spacing: 0pt, justify: false); #align(center)[
         #text(size: 14pt, weight: "bold", fill: amber, tracking: 3pt)[#upper(T.eyebrow)]
         #v(6mm)
         // shrink a long subject so it never hyphenates / overflows
@@ -1256,7 +1268,7 @@
     }
   }
   let subject = lines.at(0, default: "")
-  let grade = lines.find(l => "FORM" in upper(l) or "GRADE" in upper(l))
+  let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
   let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
   // Subject title: strip the form/grade token off the grade line ("ENGLISH GRADE 2"
@@ -1267,7 +1279,7 @@
   let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
-      not ("FORM" in upper(l)) and not ("GRADE" in upper(l)) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
+      not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
     cand.at(0, default: lines.at(0, default: ""))
   }
   // The back cover stays in FULL COLOUR even when the interior is greyscale (mono), so use
@@ -1286,7 +1298,7 @@
   // When line 0 IS the subject (rather than a standard education-level eyebrow) it
   // would otherwise be printed twice — once small and once as the title. Fall back
   // to the education level in that case, as the front cover does.
-  let eyebrow = if ("FORM" in upper(rawsub)) or ("GRADE" in upper(rawsub)) or (rawsub == name) { T.eyebrow } else { rawsub }
+  let eyebrow = if hasGradeWord(rawsub) or (rawsub == name) { T.eyebrow } else { rawsub }
   // signature-colour dominant, mirroring the front.
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
