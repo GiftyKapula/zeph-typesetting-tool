@@ -665,8 +665,19 @@ function cellBlocks(tcXml) {
 // Paragraph-only view of a cell (for boxes that only need text lines).
 const cellParas = (tcXml) => cellBlocks(tcXml).filter((b) => b.t === "para");
 // Flat text of a cell, including nested-table text (nothing dropped).
-const cellFlat = (b) => b.t === "table"
-  ? b.rows.map((r) => r.map((c) => c.text).join(" · ")).join("  ") : (b.plain || "");
+// A cell paragraph's own list marker (a resolved "1.", "a)", "•" from cellBlocks)
+// is part of its plain text — without it a numbered or lettered list inside a table
+// cell lost its numbering entirely, and a bulleted one depended on the caller
+// re-adding the bullet by hand (which then doubled it; see cellRich).
+const cellFlat = (b) => {
+  if (b.t === "table") return b.rows.map((r) => r.map((c) => c.text).join(" · ")).join("  ");
+  const p = b.plain || "", m = (b.marker || "").trim();
+  // Don't double a number the author ALSO typed out. A cell can be BOTH a Word
+  // auto-numbered list item and carry its own number in the text ("1.12." typed
+  // inside the paragraph numbered 1.12), which came out as "1.12. 1.12.".
+  if (m && p.trim().startsWith(m)) return p;
+  return (m ? m + (p ? " " : "") : "") + p;
+};
 const cellText = (tcXml) => cellBlocks(tcXml).map(cellFlat).join(" ").trim();
 
 // A rich table cell: its text AND every image it contains (both kept, so a
@@ -694,8 +705,13 @@ function cellRich(tcXml) {
   const BULLETS = "•▪◦●‣∙";
   const splitInlineBullets = (s) =>
     String(s || "").replace(new RegExp(`(\\S)[ \\t]*[${BULLETS}][ \\t]*`, "g"), "$1\n• ");
+  // NOTE the bare `cellFlat`, not `bullet(b) + cellFlat(b)`: cellFlat now prefixes the
+  // resolved marker itself (including a plain "•"), so re-adding it here doubled every
+  // bullet in a table cell's list ("• • Demonstrate…"). `bullet()` is still needed for
+  // the rich/segs path below, which builds its own text from b.segs and never goes
+  // through cellFlat.
   const text = splitInlineBullets(
-    bl.filter((b) => b.t !== "table").map((b) => bullet(b) + cellFlat(b)).join("\n")).trim();
+    bl.filter((b) => b.t !== "table").map(cellFlat).join("\n")).trim();
   const imgs = [];
   const subs = [];
   // rich segments so a cell's bold/italic/coloured runs (e.g. a bold category name
@@ -709,6 +725,14 @@ function cellRich(tcXml) {
     else if (b.t === "para" && b.segs) {
       if (segs.length) segs.push({ t: "\n", b: false, it: false, c: null });
       if (bullet(b)) segs.push({ t: bullet(b), b: false, it: false, c: null });
+      // Carry the resolved auto-number marker into the rich segments too, kept in step
+      // with cellFlat's plain-text path. These MUST agree: the syllabus matrix reads a
+      // cell's leading number from `text` and then slices that many characters off the
+      // SEGS to get the body, so a marker present in one and not the other sheared the
+      // first word off every numbered cell ("1.7.1. Braille Materials" rendered as
+      // "1.7.1. Materials"). `bullet(b)` covers a plain "•" above, so this fires only
+      // for a genuine numbered/lettered marker.
+      else if (b.marker) segs.push({ t: b.marker + (b.segs.length ? " " : ""), b: false, it: false, c: null });
       // Same interior-bullet break as `text` above, but preserving each run's styling:
       // split the run's text and re-emit the pieces with a newline seg between them,
       // so a cell whose statements are bold/italic still breaks line per statement.
