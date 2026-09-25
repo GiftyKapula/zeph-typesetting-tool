@@ -2102,25 +2102,27 @@
     } else if ncol >= 6 { 9.5pt } else if ncol >= 5 { 10pt } else { 12pt }
   })
   // Multi-column cells are set RAGGED-RIGHT. A table column is a narrow measure —
-  // roughly 35mm across 4 columns, 26mm across 6 — and justifying one that narrow
-  // forces a hyphen into almost every line just to reach the measure ("Transac-tion
-  // steps", "Recipi-ent", "demon-strated" down a whole assessment rubric; "Traditional
-  // out-door cooking" across a 4-column comparison grid), stretching whatever word
-  // gaps survive. That is what made the ICT Form 2 rubrics and the Food & Nutrition
-  // comparison tables read as a wall of broken words. Ragged-right keeps whole words
-  // on most lines at both widths.
+  // roughly 47mm split three ways, 35mm four ways, 26mm six ways — and justifying one
+  // that narrow forces a hyphen into almost every line just to reach the measure
+  // ("Transac-tion steps", "Recipi-ent", "demon-strated" down a whole assessment
+  // rubric; "Traditional out-door cooking" across a comparison grid), stretching
+  // whatever word gaps survive. That is what made the ICT Form 2 rubrics and the
+  // Food & Nutrition comparison tables read as a wall of broken words. Ragged-right
+  // keeps whole words on most lines at every one of those widths.
   //
-  // Tables of 3 columns or fewer have enough measure for justification to behave, so
-  // they keep the document's justified cells, and the syllabus matrix stays ragged as
-  // it already was. A cell whose text never wraps is unaffected either way —
-  // justification only ever stretches a line that is not the last of its paragraph,
-  // so short data grids ("Chanda | 101 | 14 | 977000001") render identically.
+  // 2-column tables still justify, but by default rather than by merit: columns are
+  // sized to their CONTENT, not split evenly, so a "Safety Rule | Purpose" grid can
+  // hand its first column ~55mm and stretch exactly the same way ("Report  hazards
+  // and  acci-/dents"). Lower this threshold again if that bites. The syllabus matrix
+  // stays ragged as it already was. A cell whose text never wraps is unaffected either
+  // way — justification only ever stretches a line that is not the last of its
+  // paragraph, so short data grids ("Chanda | 101 | 14 | 977000001") render identically.
   //
   // Hyphenation STAYS ON: turning it off overflowed the cells outright — "Not
   // demonstrated 0" clipped to "Not demo" and the last column's text ran over its
   // neighbour's, because a ~22mm column cannot hold "demonstrated" or
   // "understanding" whole. Dropping the justification is what actually helps.
-  let narrowcols = rows.at(0).len() >= 4
+  let narrowcols = rows.at(0).len() >= 3
   set par(justify: T.variant != "syllabus" and not narrowcols)
   // Is a cell completely empty? Such cells appear in "Complete the table" / "Fill
   // in the table" grids the learner writes into. When many body cells are empty
