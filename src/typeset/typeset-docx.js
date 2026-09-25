@@ -1359,7 +1359,19 @@ function applyOverrides(blocks, ov) {
         if (!b || typeof b !== "object") continue;
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
-            if (cell && typeof cell.text === "string" && cell.text.trim() === ec.find) { cell.text = ec.with; n++; }
+            if (cell && typeof cell.text === "string" && cell.text.trim() === ec.find) {
+              cell.text = ec.with;
+              // Rewrite the rich runs too. A syllabus matrix cell renders its number
+              // from `text` but its BODY from `segs`, slicing the segs by the length of
+              // the number it just matched — so rewriting `text` alone silently sheared
+              // the body ("1.8.4.Produce multi-sensory…" edited to "1.8.3.1 Produce…"
+              // rendered as "oduce multi-sensory…"). Collapse to a single run carrying
+              // the first run's styling, which is what these cells actually use.
+              if (Array.isArray(cell.segs) && cell.segs.length) {
+                cell.segs = [{ ...cell.segs[0], t: ec.with }];
+              }
+              n++;
+            }
           }
         }
         for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
@@ -1367,6 +1379,36 @@ function applyOverrides(blocks, ov) {
     };
     walkT(blocks);
     if (!n) console.warn("!  editCell not matched:", ec.find);
+  }
+  // removeRow: [{ find }] — delete a whole TABLE ROW, matched by any one of its cells
+  // whose trimmed text equals `find` (or starts with it, with `startsWith` instead).
+  // For a row the author duplicated or a clause withdrawn after validation: `remove`
+  // deletes a whole block and `editCell` only rewrites text, so before this there was
+  // no way to drop one row of a syllabus matrix from a book's overrides. Never matches
+  // the header row, so a stray match can't behead the table.
+  for (const rr of ov.removeRow || []) {
+    const want = rr.find != null ? String(rr.find) : null;
+    const pre = rr.startsWith != null ? String(rr.startsWith) : null;
+    let n = 0;
+    const hit = (cell) => {
+      const t = ((cell && cell.text) || "").trim();
+      if (!t) return false;
+      return want != null ? t === want : (pre != null && t.startsWith(pre));
+    };
+    const walkR = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          const keep = b.rows.filter((row, ri) =>
+            ri === 0 || !Array.isArray(row) || !row.some(hit));
+          n += b.rows.length - keep.length;
+          b.rows = keep;
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkR(b[k]);
+      }
+    };
+    walkR(blocks);
+    if (!n) console.warn("!  removeRow not matched:", want || pre);
   }
   // deleteExact: ["exact trimmed text", …] — remove EVERY block (at any depth) whose
   // whole trimmed plain text equals the string, splicing it out of the tree entirely
@@ -4060,7 +4102,7 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -4339,6 +4381,51 @@ function normaliseQuestionMarkBold(blocks) {
       if (blocks.slice(tocHeadAt + 1, end).some(isEntry)) blocks.splice(tocHeadAt, end - tocHeadAt, { t: "toc" });
     }
     blocks = fixSyllabusSignatures(blocks);
+    // Drop a matrix row left empty but for its clause number. An author who adds a row
+    // to the table and never fills it in leaves a full-width band of empty cells with a
+    // lone "1.12." in the first column, which also files a numbered entry in the
+    // generated contents pointing at nothing. A row carrying content in no column is
+    // never intentional, so this is safe for every book in the family.
+    const clauseOnly = (s) => /^\d+(?:\.\d+)*\.?$/.test(String(s || "").trim());
+    for (const b of blocks) {
+      if (!Array.isArray(b.rows) || b.rows.length < 2) continue;
+      if ((b.rows[0] || []).length < 5) continue;                      // the 5-column matrix only
+      const keep = b.rows.filter((row, ri) => {
+        if (ri === 0 || !Array.isArray(row)) return true;              // never the header
+        const texts = row.map((c) => ((c && c.text) || "").trim());
+        const hasImg = row.some((c) => c && Array.isArray(c.imgs) && c.imgs.length);
+        return hasImg || texts.some((t) => t && !clauseOnly(t));
+      });
+      if (keep.length !== b.rows.length) {
+        console.log(`   dropped ${b.rows.length - keep.length} empty matrix row(s)`);
+        b.rows = keep;
+      }
+    }
+    // Resequence a serial-number column that has gaps. The competences table is headed
+    // "S/N" — a plain 1..N counter, not a clause reference — and this manuscript's runs
+    // 1, 2, 3, 5, 6, 7, so the printed table appears to be missing a competence. Only a
+    // column literally headed S/N (or No.) and holding nothing but bare integers is
+    // touched, so the matrix's own numbering — which the house style keeps exactly as
+    // the manuscript wrote it — is never in scope.
+    for (const b of blocks) {
+      if (!Array.isArray(b.rows) || b.rows.length < 2) continue;
+      const hdr = ((b.rows[0][0] || {}).text || "").trim();
+      if (!/^(s\s*\/?\s*n(o\.?)?|no\.?|#)$/i.test(hdr)) continue;
+      const body = b.rows.slice(1);
+      if (!body.every((r) => /^\d+\.?$/.test(((r[0] || {}).text || "").trim()))) continue;
+      const now = body.map((r) => (r[0].text || "").trim());
+      // Compare the VALUES, not the strings: a column already running 1..N is left
+      // exactly as the author typed it. Matching on the string rewrote a correct
+      // "1., 2., 3., 4." to "1, 2, 3, 4" purely to drop the trailing dots.
+      if (now.every((s, i) => parseInt(s, 10) === i + 1)) continue;
+      const dotted = now.every((s) => s.endsWith("."));      // keep the author's style
+      const want = body.map((_, i) => String(i + 1) + (dotted ? "." : ""));
+      console.log(`   resequenced "${hdr}" column: ${now.join(",")} -> ${want.join(",")}`);
+      body.forEach((r, i) => {
+        r[0].text = want[i];
+        if (Array.isArray(r[0].segs)) r[0].segs = [{ ...(r[0].segs[0] || {}), t: want[i] }];
+      });
+    }
     // Drop a paragraph that is nothing but a bare 1-3 digit number. Authors type their
     // Word page numbers into the body (this syllabus carries a stray "2" between the
     // weightings and Time Allocation), and it printed as a loose digit mid-page against

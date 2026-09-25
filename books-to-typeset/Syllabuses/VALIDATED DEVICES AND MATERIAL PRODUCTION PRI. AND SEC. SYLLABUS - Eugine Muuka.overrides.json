@@ -1,0 +1,63 @@
+{
+  "_comment": [
+    "Editorial corrections to the Devices and Materials Production syllabus. These are",
+    "THIS manuscript's own slips, so they live here rather than in the engine (the",
+    "general defects it shared with the rest of the family -- the empty trailing matrix",
+    "row and the gap in the S/N column -- are fixed in src/typeset/ instead).",
+    "",
+    "Every change below is a numbering or grammar repair. NONE of them rewrites a",
+    "competence, an activity or an expected standard: the syllabus content is the",
+    "author's and CDC's.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * Row 16 has NO subtopic at all. Its specific competence (renumbered 1.4.3.1",
+    "    below) hangs under topic 1.4 with an empty SUBTOPIC cell. The missing subtopic",
+    "    name cannot be recovered from the manuscript.",
+    "  * 1.8.3 'Multi-Sensory Resources' duplicates 1.7.4 'Multi-Sensory Resources'",
+    "    verbatim -- same competence, activities and standard -- under a different topic.",
+    "    Possibly deliberate, possibly a paste; left exactly as written."
+  ],
+
+  "removeRow": [
+    {
+      "_why": "1.9.1 and 1.9.2 repeat 1.8.1 and 1.8.2 word for word -- same subtopic, competence, activities and expected standard -- under a second copy of the topic title 'Production of Learning Materials for Learners with Intellectual and Developmental Disabilities'. Only 1.9.3 (Assistive Technology Devices) is new, so the duplicated pair is dropped and 1.9.3 renumbered 1.8.4 below. Its TOPIC cell is empty, so it merges up into the 1.8 topic automatically.",
+      "find": "1.9.1.Communication Boards"
+    },
+    { "find": "1.9.2. Life Skills Teaching Aids" }
+  ],
+
+  "editCell": [
+    {
+      "_why": "Specific competence under subtopic 1.8.3 must be 1.8.3.x; the author numbered it 1.8.4, which reads as a subtopic that does not exist.",
+      "find": "1.8.4.Produce multi-sensory teaching materials",
+      "with": "1.8.3.1 Produce multi-sensory teaching materials"
+    },
+    {
+      "_why": "Sole surviving row of the old 1.9 block -- renumbered to follow 1.8.3 under the topic it now sits in.",
+      "find": "1.9.3. Assistive Technology Devices",
+      "with": "1.8.4. Assistive Technology Devices"
+    },
+    {
+      "find": "1.9.3.1. Operate assistive technologies",
+      "with": "1.8.4.1 Operate assistive technologies"
+    },
+    {
+      "_why": "This is a ONE-year syllabus with no Year 2, so a competence cannot be numbered 2.x. Sits under subtopic 1.3.2 Ergonomics considerations.",
+      "find": "2.3.2.1 Use Ergonomics consideration in product realisation",
+      "with": "1.3.2.1 Use Ergonomics consideration in product realisation"
+    },
+    {
+      "_why": "Same year-2 slip. Third competence under topic 1.4, after 1.4.1.1 and 1.4.2.1 -- but see the outstanding note above: its subtopic cell is empty in the manuscript.",
+      "find": "2.1.1.3 Use different Supportive devices in different situations",
+      "with": "1.4.3.1 Use different Supportive devices in different situations"
+    }
+  ],
+
+  "edit": [
+    {
+      "_why": "Grammar: the duration is one year.",
+      "find": "one (1) years starting",
+      "with": "one (1) year starting"
+    }
+  ]
+}

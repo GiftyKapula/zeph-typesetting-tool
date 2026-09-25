@@ -435,16 +435,29 @@
     let year = T.at("year", default: "")
     let fdx = 297mm   // left edge of the FRONT (right) panel
     page(width: 594mm, height: 210mm, flipped: false, margin: 0pt, header: none, footer: none, fill: field)[
+      // The band is a fixed spread-wide element (it has to line up across both panels),
+      // so it splits each panel into two zones: everything ABOVE it and everything
+      // BELOW it. Each zone's content is then CENTRED in that zone, vertically as well
+      // as horizontally, rather than pinned at a hand-tuned dy. The fixed offsets left
+      // the front panel top-heavy with a band of dead space at the foot, and the back
+      // panel's ISBN box and printer imprint floating at two unrelated heights.
+      #let bandTop = 82mm
+      #let bandH = 40mm
+      #let panelW = 297mm
+      #let zAbove = bandTop
+      #let zBelow = 210mm - (bandTop + bandH)
+      #let zone(dx, dy, h, body) = place(top + left, dx: dx, dy: dy,
+        box(width: panelW, height: h)[#set align(center + horizon)
+          #body])
       // full-width title band across the whole spread
-      #place(top + left, dy: 82mm, rect(width: 100%, height: 40mm, fill: band, stroke: none))
+      #place(top + left, dy: bandTop, rect(width: 100%, height: bandH, fill: band, stroke: none))
       // ---- FRONT cover (right panel) ----
-      #place(top + left, dx: fdx, dy: 9mm, box(width: 297mm)[
-        #set align(center)
+      #zone(fdx, 0mm, zAbove)[
         #if hero != none and hero.file != "" { image("_media/" + hero.file, height: 40mm); v(2.5mm) }
         #text(font: T.bodyFont, size: 19pt, weight: "bold", fill: ftext)[Republic of Zambia] #linebreak()
         #text(font: T.bodyFont, size: 27pt, weight: "bold", fill: ftext)[Ministry of Education]
-      ])
-      #place(top + left, dx: fdx, dy: 82mm, box(width: 297mm, height: 40mm)[
+      ]
+      #place(top + left, dx: fdx, dy: bandTop, box(width: panelW, height: bandH)[
         #set align(center + horizon)
         // The title has to fit the band whatever the subject is called. "Travel and
         // Tourism" sets on one line at 31pt, but a full CDC course title ("Curriculum,
@@ -469,23 +482,24 @@
           stack(spacing: 4mm, mk(pick), eyebrow)
         }
       ])
-      #place(top + left, dx: fdx, dy: 128mm, box(width: 297mm)[
-        #set align(center)
-        #if logo != none and logo.file != "" { image("_media/" + logo.file, height: 30mm) }
-      ])
-      #place(top + left, dx: fdx, dy: 176mm, box(width: 297mm)[
-        #set align(center)
-        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[DEVELOPED BY THE CURRICULUM DEVELOPMENT CENTRE] #linebreak()
-        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[LUSAKA] #linebreak()
-        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[#year]
-      ])
+      // The CDC badge and the developed-by credit are ONE group below the band, so they
+      // centre together — placed separately they read as two unrelated floating blocks.
+      #zone(fdx, bandTop + bandH, zBelow)[
+        #stack(spacing: 11mm,
+          if logo != none and logo.file != "" { image("_media/" + logo.file, height: 30mm) } else { none },
+          block(width: panelW)[
+            #set align(center)
+            #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[DEVELOPED BY THE CURRICULUM DEVELOPMENT CENTRE] #linebreak()
+            #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[LUSAKA] #linebreak()
+            #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[#year]
+          ])
+      ]
       // ---- BACK cover (left panel): ISBN/barcode reserve + printer imprint ----
-      // dy keeps the 34mm-tall white box clear of the white title band that crosses the
-      // whole spread at 82mm. At 58mm the box ran 10mm INTO the band, so its lower
-      // border vanished and the pair read as one notched shape rather than a reserved
-      // barcode panel — on every book in the family, Travel & Tourism included.
-      #place(top + left, dx: 0mm, dy: 34mm, box(width: 297mm)[
-        #set align(center)
+      // Centred in the zone ABOVE the band, which also keeps the 34mm-tall white box
+      // clear of the white title band. Pinned at 58mm the box ran 10mm INTO the band,
+      // so its lower border vanished and the pair read as one notched shape rather than
+      // a reserved barcode panel — on every book in the family, Travel & Tourism included.
+      #zone(0mm, 0mm, zAbove)[
         #box(width: 120mm, height: 34mm, fill: white, stroke: 0.75pt + rgb("#cccccc"))[
           #set align(center + horizon)
           #{
@@ -493,12 +507,11 @@
             else { text(font: T.bodyFont, size: 10pt, fill: rgb("#999999"))[ISBN / barcode] }
           }
         ]
-      ])
-      #place(top + left, dx: 0mm, dy: 150mm, box(width: 297mm)[
-        #set align(center)
+      ]
+      #zone(0mm, bandTop + bandH, zBelow)[
         #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Printed by] #linebreak()
         #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Zambia Educational Publishing House]
-      ])
+      ]
     ]
     pastcover.update(true)
     pagebreak(weak: true)
