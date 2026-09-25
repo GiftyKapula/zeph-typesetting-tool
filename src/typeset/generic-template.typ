@@ -480,7 +480,11 @@
         #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[#year]
       ])
       // ---- BACK cover (left panel): ISBN/barcode reserve + printer imprint ----
-      #place(top + left, dx: 0mm, dy: 58mm, box(width: 297mm)[
+      // dy keeps the 34mm-tall white box clear of the white title band that crosses the
+      // whole spread at 82mm. At 58mm the box ran 10mm INTO the band, so its lower
+      // border vanished and the pair read as one notched shape rather than a reserved
+      // barcode panel — on every book in the family, Travel & Tourism included.
+      #place(top + left, dx: 0mm, dy: 34mm, box(width: 297mm)[
         #set align(center)
         #box(width: 120mm, height: 34mm, fill: white, stroke: 0.75pt + rgb("#cccccc"))[
           #set align(center + horizon)
@@ -1615,7 +1619,20 @@
       #v(2.5pt)
       #line(length: 100%, stroke: 0.8pt + T.ink)
       #v(13mm)
-      #text(font: T.displayFont, size: 30pt, weight: "bold", fill: T.ink, tracking: 2.5pt)[#upper(txt)]
+      // justify: false, and stepped down to fit — for the same reason the cover and
+      // title page set their titles ragged-right. A level line short enough to sit on
+      // one line ("Secondary Teacher's Diploma") never showed the problem, but a
+      // two-line one ("Primary and Secondary Teachers' Diploma") had its first line
+      // justified across the full block and set as "PRIMARY    AND    SECONDARY".
+      #context {
+        let mk(s) = block(width: 100%, par(justify: false, std.align(center,
+          text(font: T.displayFont, size: s, weight: "bold", fill: T.ink, tracking: 2.5pt)[#upper(txt)])))
+        let pick = 20pt
+        for s in (30pt, 27pt, 24pt, 22pt, 20pt) {
+          if measure(mk(s)).height <= 46mm { pick = s; break }
+        }
+        mk(pick)
+      }
       #v(13mm)
       #line(length: 100%, stroke: 0.8pt + T.ink)
       #v(2.5pt)
@@ -1711,7 +1728,9 @@
   // In a SYLLABUS only the YEAR banners start on their own page; the front-matter
   // sub-sections (Methodologies, Assessment, CBA, Time Allocation…) FLOW as normal
   // headings under their parent section (Introduction), so they don't page-break.
-  let isyear = syllabus and t.trim().match(regex("(?i)^year\\s+\\d+$")) != none
+  // "FIRST YEAR" as well as "YEAR 1" — CDC manuscripts write the year either way, and
+  // the book keeps whichever wording its own manuscript used.
+  let isyear = syllabus and t.trim().match(regex("(?i)^(year\\s+\\d+|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
   if isyear and not nobrk { pagebreak(weak: true) }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
   // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them.
@@ -2185,8 +2204,17 @@
     let body = text(weight: "bold")[#tt]
     if tt != "" and sylhdr and actCol != none {
       let num = topicNum(row)
-      let label = if num == "" or tt.match(regex("^\\d+\\.\\d")) != none { tt } else { num + "  " + tt }
-      [#tocentry(2, label)#body]
+      // ONE entry per line. A topic cell usually holds a single title, but authors do
+      // stack several in one cell (this syllabus lists Visual, Hearing and Physical
+      // together). Filed as one entry, the stack became a single multi-line contents
+      // line whose dot leaders and page number appeared only after the LAST title, so
+      // the ones above it read as headings with no page reference at all.
+      let titles = tt.split("\n").map(s => s.trim()).filter(s => s != "")
+      let entry(s, first) = {
+        let label = if num == "" or not first or s.match(regex("^\\d+\\.\\d")) != none { s } else { num + "  " + s }
+        tocentry(2, label)
+      }
+      [#titles.enumerate().map(((i, s)) => entry(s, i == 0)).join()#body]
     } else { body }
   } else { numcell(c) }
   let tbl = if syl and sylhdr {

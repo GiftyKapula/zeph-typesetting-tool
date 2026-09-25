@@ -320,6 +320,21 @@ const THEMES = {
   speciaedsyl: { ...syllabus({ subject: "Curriculum, Instructional Strategies and Assessment for Special Education – Secondary",
     level: "Secondary Teachers' Diploma", year: 2025, signature: "14555c", band: "ffffff",
     covText: "ffffff", title: "1c1c1c" }), hyphenate: false },
+  // Devices and Materials Production for Learners with Special Education Needs and
+  // Disabilities — the first syllabus in the family taught at BOTH levels, so its
+  // level line names them both. A deep indigo cover field: the third distinct shelf
+  // colour after Travel & Tourism's orange and Special Education's teal.
+  dmpsyl: { ...syllabus({ subject: "Devices and Materials Production",
+    level: "Primary and Secondary Teachers' Diploma", year: 2025, signature: "35306b",
+    band: "ffffff", covText: "ffffff", title: "1c1c1c" }), hyphenate: false },
+  // GENERIC CDC syllabus — the safety net for a syllabus whose subject has no named
+  // theme yet. Before this existed, such a book fell through to the B5 portrait
+  // `navy` theme and silently typeset as a completely wrong book family (portrait,
+  // colour callout boxes, no matrix styling) with a clean build log. Its `subject`,
+  // `level` and `year` are filled in per book from the manuscript by typesetOne(),
+  // so the placeholders here should never reach a page.
+  gensyl: { ...syllabus({ subject: "", level: "Teachers' Diploma", year: "",
+    signature: "4a4a4a", band: "ffffff", covText: "ffffff", title: "1c1c1c" }), hyphenate: false },
 };
 
 // Pick a sensible theme from the file name when none is given.
@@ -330,11 +345,23 @@ function autoTheme(name) {
   // theme of the same name. Match "syllabus" FIRST and route by subject.
   if (/syllabus/i.test(name)) {
     if (/travel|tourism/i.test(name)) return "travelsyl";
+    // Devices and Materials Production. Checked BEFORE Special Education: this
+    // syllabus is itself *for* learners with special educational needs, so its
+    // title words can read as a special-education book. The filename singularises
+    // it ("DEVICES AND MATERIAL PRODUCTION") while the manuscript's own cover says
+    // "MATERIALS", so match either.
+    if (/devices?\s+and\s+materials?\s+produc/i.test(name)) return "dmpsyl";
     // Special Education. Matched on the subject words rather than "special education"
     // alone, because the filename abbreviates it ("SPE. EDU.") — as CDC filenames
     // routinely do — so a bare /special\s+education/ would miss it.
     if (/spe(?:c(?:ial)?)?\.?\s*edu/i.test(name)) return "speciaedsyl";
-    // other subjects fall through to their B5 theme until a syllabus() theme exists
+    // NO fall-through to a B5 theme. A CDC syllabus is landscape with a 5-column
+    // matrix interior; routing one to a portrait B5 subject theme produces a
+    // wholly wrong book with a clean build log (it happened to Devices and
+    // Materials Production, which typeset as `navy` until it got a theme above).
+    // An unrecognised subject gets the generic syllabus theme instead, and
+    // typesetOne() fills its subject/level/year in from the manuscript.
+    return "gensyl";
   }
   if (/computer\s*science|computing|\bict\b/i.test(name)) return "compsci";
   // CTS = Creative and Technology Studies (primary school). Match before the

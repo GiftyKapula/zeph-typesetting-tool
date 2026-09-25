@@ -3734,6 +3734,35 @@ function eduLevelFor(base) {
   return null;
 }
 
+// Read a CDC syllabus's subject and level out of its file name, for the generic `gensyl`
+// theme — the fallback a syllabus takes when its subject has no named theme yet. CDC
+// syllabus file names run "[VALIDATED] <SUBJECT> <LEVEL ABBREV> SYLLABUS - <Author>",
+// e.g. "VALIDATED DEVICES AND MATERIAL PRODUCTION PRI. AND SEC. SYLLABUS - Eugine Muuka".
+// Everything but the subject is boilerplate, so strip it off from both ends.
+function syllabusIdentityFromName(name) {
+  let s = String(name || "")
+    .replace(/\.docx$/i, "")
+    .replace(/\s*[-–—]\s*[A-Za-z'`.\s]+$/, "")   // trailing " - Author Name"
+    .replace(/\bvalidated\b/gi, "")
+    .replace(/\bfinal\b|\bdraft\b/gi, "")
+    .replace(/\bsyllabus(es)?\b/gi, "")
+    .replace(/\bTED\b/g, "");
+  // The level abbreviations CDC uses ("PRI. AND SEC.", "SEC.", "PRIMARY") sit as one
+  // clause at the END, after the subject. Match the whole clause in one go and strip
+  // it entire — picking the words off individually would leave the clause's own "AND"
+  // behind and glue it to the subject ("Devices And Material Production And").
+  const lvl = s.match(/\s((?:pri(?:mary)?|sec(?:ondary)?)\.?)(?:\s+and\s+((?:pri(?:mary)?|sec(?:ondary)?)\.?))?\s*$/i);
+  const words = lvl ? [lvl[1], lvl[2]].filter(Boolean).join(" ") : "";
+  const hasPri = /pri/i.test(words), hasSec = /sec/i.test(words);
+  if (lvl) s = s.slice(0, lvl.index);
+  s = s.replace(/\s{2,}/g, " ").replace(/^[\s.,&-]+|[\s.,&-]+$/g, "");
+  const level = hasPri && hasSec ? "Primary and Secondary Teachers' Diploma"
+    : hasPri ? "Primary Teachers' Diploma"
+    : hasSec ? "Secondary Teachers' Diploma"
+    : "Teachers' Diploma";
+  return { subject: titleCase(s), level };
+}
+
 // A CDC syllabus has NO callout boxes — its interior is front-matter prose + the 5-column
 // matrix. Flatten any callout the box-detector produced (ASSESSMENT / CBA come through as
 // `assessment` boxes) back to a plain h2 heading + its content as ordinary paragraphs.
@@ -3833,8 +3862,43 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
   // REFERENCES), so numbering switched on two pages before the end and the book printed
   // no folios at all, with a clean build log. Fall back to the first heading of any
   // level after the copyright page.
-  const isHead = (b) => /^h[123]$/.test(b.t) || b.t === "head";
+  // What counts as a heading here. `label` MUST be in this set: a manuscript that types
+  // its section titles as plain bold lines rather than applying Word heading styles (as
+  // Devices and Materials Production does throughout) imports every one of them as a
+  // `label`, not an h1/h2/h3. Keyed to h-levels alone, the two searches below both came
+  // up empty and the book printed with no folios and no level divider at all.
+  const isHead = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
+  // The copyright page. When the manuscript has no copyright paragraph — the CDC
+  // house wording is boilerplate and authors do leave it out — synthesise the
+  // family's standard one, so the page exists and the imprint below has an anchor.
+  if (!blocks.some((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""))) {
+    const line = (t, b = false) => ({ t: "para", plain: t, segs: [{ t, b, it: false, c: null }], align: "center" });
+    const covAt = blocks.findIndex((b) => b.t === "cover");
+    // Absorb the manuscript's own stray "PUBLISHED BY …" line — it belongs on this
+    // page, and left where it sat it opened the preface page as a loose bold label.
+    // …matching heading blocks too: the front-matter promotion upstream has already
+    // turned a bold "PUBLISHED BY …" line into a heading by the time this runs, and
+    // missing it left the line sitting in the generated contents as a section.
+    const pubAt = blocks.findIndex((b) => (b.t === "para" || isHead(b))
+      && /^published by\b.*curriculum development centre/i.test(((b.text || blockPlain(b)) || "").trim()));
+    if (pubAt >= 0) blocks.splice(pubAt, 1);
+    blocks.splice(covAt + 1, 0,
+      line("Published by the Curriculum Development Centre", true),
+      line(String(year || ""), true),
+      line(`© Curriculum Development Centre, ${year || ""}`.trim().replace(/,\s*$/, ""), true),
+      line("All rights reserved."),
+      line("No part of this publication may be reproduced, stored in a retrieval system, "
+        + "or transmitted by electronic, mechanical, photocopying, recording or otherwise "
+        + "without prior written permission of the copyright owner."));
+  }
   const crIdx = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+  // The copyright notice usually runs on past "All rights reserved." into the
+  // no-reproduction sentence. The imprint and contents page go after the WHOLE notice:
+  // anchored to the "All rights reserved" line alone they were pushed in ahead of that
+  // last sentence, which then set on its own at the foot of the contents page.
+  let crEnd = crIdx;
+  while (crEnd >= 0 && crEnd + 1 < blocks.length && blocks[crEnd + 1].t === "para"
+    && /no part of this publication|retrieval system|written permission/i.test(blockPlain(blocks[crEnd + 1]) || "")) crEnd++;
   let visionIdx = blocks.findIndex((b) => b.t === "h1");
   if (visionIdx < 0 || (crIdx >= 0 && visionIdx > crIdx + 40))
     visionIdx = blocks.findIndex((b, i) => i > crIdx && isHead(b));
@@ -3843,8 +3907,12 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
   // narrow: the Special Education syllabus calls it "Competencies to be developed" and
   // styles it a lower-level heading, so the body never started, the level divider never
   // appeared, and every page -- REFERENCES included -- numbered as roman front matter.
-  const compIdx = blocks.findIndex((b) => (/^h[123]$/.test(b.t) || b.t === "head")
-    && /^competen[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim()));
+  // …and not anchored to the start of the line either: this section is titled
+  // "Competences and Descriptors" in one book, "Competencies to be developed" in the
+  // next and "General Competences and Descriptors" in the third, so a `^competen…`
+  // anchor missed the one with a leading qualifier and the body never started.
+  const compIdx = blocks.findIndex((b) => isHead(b)
+    && /\bcompeten[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim()));
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     if (cov && i === coverIdx + 1) {
@@ -3857,7 +3925,15 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
     // Arabic 1 begins on the LEVEL DIVIDER page (the "Secondary Teacher's Diploma" page).
     if (i === compIdx && compIdx >= 0) { out.push({ t: "bodystart" }); out.push({ t: "divider", text: level }); }
     out.push(blocks[i]);
-    if (i === crIdx && crIdx >= 0) out.push({ t: "imprint", year, isbn });
+    if (i === crEnd && crIdx >= 0) {
+      out.push({ t: "imprint", year, isbn });
+      // Every book in the family carries a contents page (the Travel & Tourism
+      // reference lists its front matter, then each year's topics). The generated one
+      // used to be emitted ONLY in place of a contents the author had typed out by
+      // hand, so a manuscript that simply omitted one produced a book with none at
+      // all. It belongs here: straight after the copyright/imprint page.
+      if (!blocks.some((b) => b.t === "toc")) out.push({ t: "toc" });
+    }
   }
   // No separate back cover — the front + back covers are combined on the cover SPREAD.
   return out;
@@ -3882,6 +3958,12 @@ async function typesetOne(docxPath, themeName) {
   const theme = themeName || ov.theme || autoTheme(detectName);
   const variant = (THEMES[theme] || {}).variant;
   const eduLevel = eduLevelFor(detectName);
+  // Subject/level for a syllabus running on the generic `gensyl` theme (see
+  // syllabusIdentityFromName). Derived HERE, not down beside the other theme
+  // overrides, because the front-matter arranger below needs the level too and runs
+  // first — reading it from THEMES[theme] there would print gensyl's placeholder on
+  // the level-divider page.
+  const sylId = theme === "gensyl" ? syllabusIdentityFromName(base) : null;
   // The ZEPH B5 house style is shared by the "series" (flat, English) and
   // "science" (boxed, Physics) layouts.
   const seriesLike = variant === "series" || variant === "science";
@@ -4257,11 +4339,47 @@ function normaliseQuestionMarkBold(blocks) {
       if (blocks.slice(tocHeadAt + 1, end).some(isEntry)) blocks.splice(tocHeadAt, end - tocHeadAt, { t: "toc" });
     }
     blocks = fixSyllabusSignatures(blocks);
-    // Appendix "YEAR 1" is a heading but "YEAR 2" a plain para — promote bare "YEAR N".
+    // Drop a paragraph that is nothing but a bare 1-3 digit number. Authors type their
+    // Word page numbers into the body (this syllabus carries a stray "2" between the
+    // weightings and Time Allocation), and it printed as a loose digit mid-page against
+    // this book's own, different folio. Capped at 3 digits so a year on the copyright
+    // page is never mistaken for one; matrix cells aren't paragraphs, so the clause
+    // numbering in the matrix is untouched.
+    // (`label` as well as `para`: the digit is usually typed bold, which imports as a
+    // label — this syllabus's stray "2" did, and a para-only filter left it on the page.)
+    blocks = blocks.filter((b) => !((b.t === "para" || b.t === "label")
+      && /^\d{1,3}$/.test(((b.t === "label" ? b.text : blockPlain(b)) || "").trim())));
+    // A year line may reach here as a styled heading, a plain para or a bold label,
+    // depending on how the manuscript typed it. Normalise all three to h2, the level
+    // that draws the YEAR banner and files a TOP-LEVEL contents entry — promoting to
+    // `head` instead (as this did) left the line as an ordinary bold sub-heading with
+    // a level-2 contents entry, so a year set as a bare paragraph looked nothing like
+    // the year above it. Ordinal wording counts too ("FIRST YEAR"): Devices and
+    // Materials Production labels its only year that way.
+    const YEARLINE = /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
     for (const b of blocks) {
-      if (b.t === "para" && /^year\s+\d+$/i.test((blockPlain(b) || "").trim())) {
-        b.t = "head"; b.text = (blockPlain(b) || "").trim().toUpperCase(); delete b.segs;
+      const t = (b.t === "label" ? b.text : blockPlain(b) || "").trim();
+      if ((b.t === "para" || b.t === "label") && YEARLINE.test(t)) {
+        b.t = "h2"; b.text = t.toUpperCase(); delete b.segs;
       }
+    }
+    // Front-matter section titles that the manuscript typed as plain bold lines rather
+    // than styling as Word headings import as `label` blocks, which render as a small
+    // run-in bold line and outline NOTHING. Devices and Materials Production types every
+    // one of its sections that way, so its whole front matter (Preface, Acknowledgement,
+    // Background, Rationale, Aim, Outcomes, Admission Requirements …) set as loose bold
+    // lines and the contents page had nothing to list. In this family a bold line
+    // standing alone in the front matter IS a section heading, so promote it to one —
+    // head() gives the syllabus's plain bold section style and a level-2 outline mark.
+    const isMatrix = (b) => Array.isArray(b.rows) && b.rows.length && (b.rows[0] || []).length >= 5;
+    const frontEnd = blocks.findIndex(isMatrix) >= 0 ? blocks.findIndex(isMatrix) : blocks.length;
+    for (let i = 0; i < frontEnd; i++) {
+      const b = blocks[i];
+      if (b.t !== "label") continue;
+      const t = (b.text || "").trim();
+      // A trailing colon marks a run-in lead-in ("Course Name:"), not a section.
+      if (!t || t.length > 80 || /:$/.test(t)) continue;
+      blocks[i] = { t: "head", text: t };
     }
     // COMPETENCES AND DESCRIPTORS table: first column (competence names) in UPPERCASE.
     for (const b of blocks) {
@@ -4303,6 +4421,26 @@ function normaliseQuestionMarkBold(blocks) {
       while (j >= 0 && blocks[j].t === "para" && !(blockPlain(blocks[j]) || "").trim()) j--;
       if (j >= 0 && blocks[j].t === "h1") blocks[i].nobreak = true;
     }
+    // A CDC syllabus's cover spread and title page are drawn by the template from the
+    // THEME (subject, level, year) over bundled crest/badge assets — the manuscript
+    // contributes nothing to them but its own artwork, which is replaced below anyway.
+    // The importer, though, only raises a `cover` block when it can read the cover text
+    // as paragraphs AND find an "All rights reserved" line to close the front matter.
+    // Devices and Materials Production satisfies neither: its whole cover page is one
+    // grouped DrawingML of text-box rectangles (so the importer saw a single `image`
+    // block), and it carries no copyright line at all. The book typeset with a blank
+    // page 1, that cover drawing blown up to fill page 2, and no title page, copyright
+    // page, contents or page numbers anywhere — on a clean build log. Synthesise both
+    // pages here: every book in the family needs them and neither is manuscript content.
+    if (!blocks.some((b) => b.t === "cover")) {
+      // Drop the manuscript's own cover artwork. Left in place it printed as a
+      // full-page figure where the title page belongs.
+      let k = 0;
+      while (k < blocks.length && (blocks[k].t === "image"
+        || (blocks[k].t === "para" && !(blockPlain(blocks[k]) || "").trim()))) k++;
+      blocks.splice(0, k);
+      blocks.unshift({ t: "cover", lines: [], byline: [], hero: null, logo: null });
+    }
     const cov = blocks.find((b) => b.t === "cover");
     if (cov) {
       // Cover images: the Zambia coat of arms at the TOP (bundled asset — the engine may
@@ -4321,7 +4459,8 @@ function normaliseQuestionMarkBold(blocks) {
       if (fs.existsSync(cdcG)) { media.push({ name: "syl_cdc_grey.png", src: cdcG }); cov.logoGrey = { file: "syl_cdc_grey.png" }; }
     }
     const Tsyl = THEMES[theme] || {};
-    blocks = applySyllabusFront(blocks, { year: Tsyl.year || "", level: Tsyl.eyebrow || "", isbn: ov.isbn || null });
+    blocks = applySyllabusFront(blocks, { year: Tsyl.year || "",
+      level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null });
   }
 
   // Restructure the front matter (title page, roman/arabic numbering, etc.).
@@ -4376,6 +4515,17 @@ function normaliseQuestionMarkBold(blocks) {
   // A per-book subject name (e.g. the CDC name "English Literacy and Language"
   // rather than the theme's short "English") feeds the cover title, eyebrow,
   // title page and running-header pill alike.
+  // A syllabus with no named theme runs on the generic `gensyl` one, whose subject and
+  // level are deliberately blank — fill them in from the file name so the cover, title
+  // page, level divider and footer masthead all name the real book.
+  if (sylId) {
+    if (sylId.subject) {
+      themeOverrides.subject = sylId.subject;
+      themeOverrides.hdrleft = sylId.subject + " Syllabus";
+    }
+    themeOverrides.level = sylId.level;
+    themeOverrides.eyebrow = sylId.level.toUpperCase();
+  }
   if (ov.subject) themeOverrides.subject = ov.subject;
   // Align the running-header left text with the grade/form-derived education level
   // (the cover eyebrow already uses it), overriding the theme's fixed default so the

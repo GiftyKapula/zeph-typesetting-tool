@@ -683,7 +683,19 @@ function cellRich(tcXml) {
   // cell) keeps that bullet — dropping it left every line looking like one
   // unbroken run with no visual separation between statements.
   const bullet = (b) => (b.t === "para" && b.isList && b.marker === "•") ? "• " : "";
-  const text = bl.filter((b) => b.t !== "table").map((b) => bullet(b) + cellFlat(b)).join("\n").trim();
+  // Authors often type a cell's list as literal bullet CHARACTERS inside ONE paragraph
+  // ("• Develop sensory learning aids.• Construct educational games.• Test materials.")
+  // instead of making each line a Word list item. Joined on paragraph boundaries alone,
+  // the whole cell came out as one run-on line with the sentences fused at the full
+  // stops ("...learning aids.Construct educational games.Test materials."). Break at an
+  // INTERIOR bullet — one with text before it — so each statement gets its own line, in
+  // every column (the bulleted activities column and the plain expected-standard one
+  // alike). A leading bullet is left alone; the matrix strips it and draws its own.
+  const BULLETS = "•▪◦●‣∙";
+  const splitInlineBullets = (s) =>
+    String(s || "").replace(new RegExp(`(\\S)[ \\t]*[${BULLETS}][ \\t]*`, "g"), "$1\n• ");
+  const text = splitInlineBullets(
+    bl.filter((b) => b.t !== "table").map((b) => bullet(b) + cellFlat(b)).join("\n")).trim();
   const imgs = [];
   const subs = [];
   // rich segments so a cell's bold/italic/coloured runs (e.g. a bold category name
@@ -697,7 +709,17 @@ function cellRich(tcXml) {
     else if (b.t === "para" && b.segs) {
       if (segs.length) segs.push({ t: "\n", b: false, it: false, c: null });
       if (bullet(b)) segs.push({ t: bullet(b), b: false, it: false, c: null });
-      for (const s of b.segs) segs.push(s);
+      // Same interior-bullet break as `text` above, but preserving each run's styling:
+      // split the run's text and re-emit the pieces with a newline seg between them,
+      // so a cell whose statements are bold/italic still breaks line per statement.
+      for (const s of b.segs) {
+        if (s.m || typeof s.t !== "string" || !new RegExp(`\\S[ \\t]*[${BULLETS}]`).test(s.t)) { segs.push(s); continue; }
+        const pieces = splitInlineBullets(s.t).split("\n");
+        pieces.forEach((p, i) => {
+          if (i) segs.push({ t: "\n", b: false, it: false, c: null });
+          segs.push({ ...s, t: p });
+        });
+      }
     }
   });
   // Only worth carrying when a run is actually STYLED (bold/italic/coloured/math) —
