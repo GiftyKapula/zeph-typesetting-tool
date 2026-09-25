@@ -100,13 +100,47 @@ function markSubLists(blks) {
   // only a heading or a fresh box resets the grouping; a plain paragraph, image or
   // table can sit between a question and its options ("Look at the picture" + image
   // + a/b/c) without ending the question.
+  // A short, fully-BOLD paragraph is a run-in sub-heading — "Individual Work",
+  // "Group Work", "Task 2: Extracting a Compressed Folder" — even though it never
+  // became a real heading block, and it ends the list above it exactly as a heading
+  // would. Without this, an activity's second list was read as a sub-list of its
+  // first and indented one level, leaving two sibling lists in one box at different
+  // left edges. This catches what the numId/depth test below cannot: the ICT Form 2
+  // Teacher's Guide writes one activity's "Individual Work" list at Word ilvl 0 and
+  // its "Group Work" list at ilvl 1, so by depth alone the second looks nested.
+  // Requires EVERY run to be bold, so a bold lead-in on ordinary prose
+  // ("Teacher's Role: Provide each learner with…") is not mistaken for a heading.
+  const boldHead = (b) => {
+    if (!b || b.t !== "para" || !Array.isArray(b.segs) || !b.segs.length) return false;
+    const txt = b.segs.map((s) => s.t || "").join("").trim();
+    if (!txt || txt.length > 60) return false;
+    return b.segs.every((s) => !(s.t || "").trim() || s.b);
+  };
   const breaks = (b) => b && (b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)
-    || b.t === "framedsection" || b.t === "activity" || b.t === "box");
+    || b.t === "framedsection" || b.t === "activity" || b.t === "box"|| boldHead(b));
+  // A "1." arriving while a top-level list is still open is USUALLY a sub-list
+  // restarting underneath it ("1. … a) … 1. 2."). It is NOT when Word says the item
+  // belongs to a different numbered list (its own numId) and that list is not
+  // NESTED under the open one. A Teacher's Guide activity does this constantly: an
+  // "Individual Work" run of 1., 2., 3., a bold lead-in, then a "Group Work" run
+  // that starts again at 1. Treating the second run as a sub-list indented it one
+  // level, so two top-level lists in the same box marched down the page at
+  // different left edges.
+  //
+  // Depth is compared RELATIVELY (`lvl <= topLvl`), never against zero. Word's ilvl
+  // is not a reliable absolute in hand-built manuscripts: the ICT Form 2 Teacher's
+  // Guide writes one activity's two lists at ilvl 0 and the next activity's two at
+  // ilvl 1, both meaning "top level here". What does hold either way is that a
+  // genuinely nested list sits DEEPER than the list it hangs off, so an item no
+  // deeper than the open top-level run is a sibling list, not a child of it.
+  const newList = (b, topId, topLvl) => b.numId != null && topId != null
+    && b.numId !== topId && (b.lvl == null || topLvl == null || b.lvl <= topLvl);
   let top = 0;   // last TOP-level number seen (0 = none / reset)
   let sub = 0;   // last sub-level index (numeric value or letter position); 0 = not in a sub-list
+  let topId = null, topLvl = null;   // Word numId/ilvl of the open top-level list
   for (const b of blks) {
     if (!b || typeof b !== "object") continue;
-    if (!isList(b)) { if (breaks(b)) { top = 0; sub = 0; } continue; }
+    if (!isList(b)) { if (breaks(b)) { top = 0; sub = 0; topId = null; topLvl = null; } continue; }
     const p = parse(b);
     if (!p) { if (top > 0) b._sub = 1; continue; }                 // a bullet under a numbered parent is a sub-item
     if (p.kind === "alpha") {                                       // letters are always the sub level
@@ -114,8 +148,9 @@ function markSubLists(blks) {
       continue;
     }
     if (sub > 0 && p.n === sub + 1) { b._sub = 1; sub = p.n; continue; }   // continues a numeric sub-list
-    if (top > 0 && p.n === 1) { b._sub = 1; sub = 1; continue; }           // numeric sub-list restarting at 1
+    if (top > 0 && p.n === 1 && !newList(b, topId, topLvl)) { b._sub = 1; sub = 1; continue; }   // numeric sub-list restarting at 1
     top = p.n; sub = 0;                                                    // a top-level item
+    if (b.numId != null) { topId = b.numId; topLvl = b.lvl != null ? b.lvl : null; }
   }
   return blks;
 }
@@ -2990,6 +3025,83 @@ function reorderBackmatter(blocks) {
   }
 }
 
+// HOUSE STYLE: a book's structural box LABELS -- "LEARNING ACTIVITY 3", "EXERCISE 7",
+// "END OF TOPIC ASSESSMENT" -- all read in the same case throughout the book.
+// Manuscripts are not consistent about this: the ICT Form 2 Teacher's Guide types
+// every activity and exercise in caps but three of its four end-of-topic assessments
+// in Title Case, so the same structural divider appeared in two different registers
+// depending which topic you were reading.
+//
+// fixBoxTitleSpelling() in import-docx.js deliberately PRESERVES the manuscript's
+// case (it corrects spelling, not style), so this normalisation belongs here instead.
+// Only the LABEL is touched: an activity's descriptive tail after the colon
+// ("LEARNING ACTIVITY 9: Creating a budget using spreadsheet") is the author's own
+// sentence and keeps its case.
+//
+// The target is whichever case the book itself already uses most across ALL its box
+// labels, so a caps-dominant book has its stragglers raised and a Title-Case-dominant
+// book has its shouting ones lowered -- neither gets a house case imposed on it from
+// outside. An exact tie changes nothing, there being no majority to conform to.
+const BOX_LABEL_WORD = /^(END|OF|TOPIC|UNIT|LEARNING|ACTIVITY|ACTIVITIES|EXERCISE|EXERCISES|ASSESSMENT|ASSESSMENTS)$/i;
+const BOX_LABEL_SMALL = /^(of|the|and|to|in|for)$/i;
+// The label is everything before the first colon. A title with NO colon qualifies only
+// when it is nothing but label words and numbers ("End of Topic Assessment"), so a
+// colon-less descriptive title is left alone rather than half-recased.
+function boxLabelOf(title) {
+  const t = (title || "").trim();
+  if (!t) return null;
+  const ci = t.indexOf(":");
+  const label = ci >= 0 ? t.slice(0, ci) : t;
+  if (!/[A-Za-z]/.test(label)) return null;
+  const toks = label.replace(/[-\u2013\u2014().]/g, " ").split(/\s+/).filter(Boolean);
+  if (!toks.length || !toks.every((w) => /^\d+$/.test(w) || BOX_LABEL_WORD.test(w))) return null;
+  return label;
+}
+const isAllCapsLabel = (s) => /[A-Za-z]/.test(s) && s === s.toUpperCase();
+const toTitleCaseLabel = (s) => s.replace(/[A-Za-z]+/g, (w, off) =>
+  off > 0 && BOX_LABEL_SMALL.test(w) ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+
+function uniformBoxLabelCase(blocks) {
+  const boxes = [];
+  (function walk(arr) {
+    for (const b of arr || []) {
+      if (!b || typeof b !== "object") continue;
+      if (b.t === "activity" || b.t === "assessment") boxes.push({ b, k: "title", s: "titleSegs" });
+      else if (b.t === "exercise") boxes.push({ b, k: "heading", s: "headingSegs" });
+      if (Array.isArray(b.body)) walk(b.body);
+      if (Array.isArray(b.blocks)) walk(b.blocks);
+    }
+  })(blocks);
+  let caps = 0, mixed = 0;
+  for (const { b, k } of boxes) {
+    const lab = boxLabelOf(b[k]);
+    if (lab) (isAllCapsLabel(lab) ? caps++ : mixed++);
+  }
+  if (caps === mixed) return;
+  const recase = caps > mixed ? ((s) => s.toUpperCase()) : toTitleCaseLabel;
+  for (const { b, k, s } of boxes) {
+    const lab = boxLabelOf(b[k]);
+    if (!lab) continue;
+    const fixed = recase(lab);
+    if (fixed === lab) continue;
+    b[k] = fixed + (b[k] || "").trim().slice(lab.length);
+    // The rich segments win over the plain string at emit time (see titleContent), so
+    // recase them in step. Only letter case changes, so `fixed` is the same length as
+    // the label and can be written back across however many runs the manuscript split
+    // it into, character for character.
+    if (Array.isArray(b[s]) && b[s].length) {
+      let pos = 0;
+      for (const seg of b[s]) {
+        if (pos >= fixed.length) break;
+        const txt = seg.t || "";
+        const take = Math.min(txt.length, fixed.length - pos);
+        seg.t = fixed.slice(pos, pos + take) + txt.slice(take);
+        pos += take;
+      }
+    }
+  }
+}
+
 // NOTE: a prior round asked for the bullet dropped from "General Competences" /
 // "Specific Competences" / "Expected Standards" outcome lines, and a
 // debulletStandards() pass here used to strip it on every book accordingly. A
@@ -4510,6 +4622,8 @@ function normaliseQuestionMarkBold(blocks) {
   boldSafetyAndSteps(blocks);
   // Teacher's Guide: peel each inline "Possible Answer:" off its question onto its own line.
   splitAnswerLabels(blocks);
+  // House style: make every structural box label read in one case across the book.
+  uniformBoxLabelCase(blocks);
   // Group each lesson's header metadata into one distinct 14pt panel (Teacher's Guide).
   if (ov.polish) blocks = groupLessonMeta(blocks);
   reorderBackmatter(blocks);
