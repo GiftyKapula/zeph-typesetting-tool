@@ -1030,6 +1030,16 @@
       "hash": "b36c0ec13798db03",
       "note": null,
       "ingested_at": "2026-09-25 13:25:59"
+    },
+    {
+      "id": 74,
+      "book_id": "form-2-information-and-communication-technology-tg",
+      "kind": "typeset_pdf",
+      "original_name": "ICT Form 2 Teacher's Guide - ready for typesetting - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\ICT Form 2 Teacher's Guide - ready for typesetting\\ICT Form 2 Teacher's Guide - ready for typesetting - typeset.pdf",
+      "hash": "2b1b94e992751eca",
+      "note": null,
+      "ingested_at": "2026-09-25 14:29:01"
     }
   ],
   "rounds": [
