@@ -141,3 +141,19 @@ After upscaling:
 Skip CMYK conversion unless the document is going to a commercial
 printer. Always report which images were upscaled and their
 original vs. new dimensions before finalizing.
+
+## Image content — who is in the picture
+
+These three rules apply to every book, every time, not just the one
+being worked on. See `docs/HOUSE-STYLE.md` §5 for the full text.
+
+- **A useless or very poor picture gets replaced**, not left and not
+  deleted — swap in an ideal one that still depicts what the original
+  depicted, so the page's text and the caption still hold.
+- **Wherever human beings appear — covers included — one learner must
+  represent people with disability**: a wheelchair user, an albino
+  learner, a hearing aid, or a blind person's walking cane. A cover
+  assembled as a mosaic must carry that representation in one of its
+  pictures.
+- **Male and female representation must be equal.** Count the people
+  actually shown, don't assume the prompt delivered it.

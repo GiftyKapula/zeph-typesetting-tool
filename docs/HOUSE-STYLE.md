@@ -163,7 +163,19 @@ file extension and a like-for-like aspect ratio.
   mark.
 - **Replace any picture or illustration that isn't clear** with a sharper one
   of the same subject (via the `images` override) — don't leave a blurry
-  scan, a low-res clip-art, or a muddy photo in a finished book.
+  scan, a low-res clip-art, or a muddy photo in a finished book. The same
+  goes for a picture that earns no place on its page: swap it for an ideal
+  one that still depicts what the original depicted, so the surrounding text
+  and its caption still hold. Replace, never simply delete.
+- **Every picture with people in it must include a learner with a visible
+  disability** — a wheelchair user, an albino learner, a hearing aid, or a
+  white cane. This holds for the **cover** as much as for a page figure, and
+  a cover built as a mosaic of several pictures must carry that
+  representation somewhere in the mosaic. Name the marker explicitly when
+  prompting for a replacement; "inclusive" on its own does not produce it.
+- **Keep male and female representation equal.** Count the people actually
+  shown when assembling a cover or swapping a figure, rather than assuming a
+  prompt delivered the balance it asked for.
 - **The people shown must be the age the book's own grade/level actually
   serves** — not older, not younger. This is a house-style rule for *every*
   book, checked at every image swap, not a one-off:
