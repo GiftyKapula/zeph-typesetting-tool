@@ -4748,7 +4748,14 @@ function normaliseQuestionMarkBold(blocks) {
     const cov = blocks.find((b) => b.t === "cover");
     const linesArr = (cov && cov.lines) || [];
     const t0 = (linesArr[0] || "").trim();
-    const isEyebrow = /^secondary education ordinary level/i.test(t0);
+    // An "eyebrow" is any line that states the EDUCATION LEVEL rather than the subject.
+    // Manuscripts write it a dozen ways — the full house string ("Secondary Education
+    // Ordinary Level"), but just as often a bare "SECONDARY LEVEL", "PRIMARY LEVEL" or
+    // "SECONDARY SCHOOL". Matching only the house string made the short forms look like a
+    // subject, so the cover printed "SECONDARY LEVEL" as its title with the real subject
+    // (the next line) dropped, and the template's own eyebrow repeated above it. No real
+    // subject is called "Secondary"/"Primary", so matching the whole line is safe.
+    const isEyebrow = /^(junior\s+|senior\s+)?(secondary|primary|basic)(\s+(education|school))?(\s+(ordinary|advanced|higher))?(\s+level)?$/i.test(t0);
     const hasForm = linesArr.some((l) => /\b(form|grade)\s*\d/i.test(l));
     // Good detection = a real subject on line 0 (short, not the eyebrow) OR a
     // "… Form N" subject line somewhere. Otherwise the manuscript cover is junk
@@ -4758,8 +4765,10 @@ function normaliseQuestionMarkBold(blocks) {
     // a real short subject, or a "… Form N" line exists); the SERIES cover takes
     // the eyebrow from line 0 (good only if line 0 IS the standard eyebrow AND a
     // subject+form line follows, like English). Otherwise synthesise a clean cover.
+    // The science cover prints line 0 AS the title, so an eyebrow on line 0 is never a
+    // good title however many "Form N" lines follow it — `hasForm` must not rescue it.
     const goodTitle = variant === "science"
-      ? ((!isEyebrow && t0.length > 0 && t0.length <= 34) || hasForm)
+      ? (!isEyebrow && ((t0.length > 0 && t0.length <= 34) || hasForm))
       : (isEyebrow && hasForm);
     // Local-language covers are extra-inconsistent — always synthesise (keeping any
     // hero photo + real author names).
