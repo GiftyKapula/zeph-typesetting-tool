@@ -79,28 +79,82 @@ function dims(buf) {
   return null;
 }
 
-// Resample `src` down to `width` in a SHORT-LIVED CHILD process. Decoding a 4x
-// intermediate costs ~90MB, and doing it in-process made the footprint grow across
-// a long run until the OS killed it; a child hands the memory back every time.
-function resample(src, dst, width) {
-  const script = `
-    const { createCanvas, loadImage } = require(${JSON.stringify(require.resolve("canvas"))});
-    (async () => {
-      const img = await loadImage(process.argv[1]);
-      const w = Math.min(+process.argv[3], img.width);
-      const h = Math.round(img.height * (w / img.width));
-      const cv = createCanvas(w, h);
-      const ctx = cv.getContext("2d");
-      ctx.patternQuality = "best";
-      ctx.quality = "best";
-      ctx.imageSmoothingEnabled = true;
-      ctx.drawImage(img, 0, 0, w, h);
-      require("fs").writeFileSync(process.argv[2], cv.toBuffer("image/png"));
-    })().catch((e) => { console.error(e.message); process.exit(1); });
-  `;
-  const r = cp.spawnSync(process.execPath, ["-e", script, src, dst, String(width)],
+const IMGOP = path.join(__dirname, "_imgop.js");
+
+// Every canvas operation runs as its own short-lived process (see _imgop.js).
+function imgop(args) {
+  const r = cp.spawnSync(process.execPath, [IMGOP, ...args.map(String)],
     { stdio: ["ignore", "ignore", "pipe"], encoding: "utf8" });
-  if (r.status !== 0) throw new Error((r.stderr || "resample child failed").trim());
+  if (r.status !== 0) throw new Error((r.stderr || "image op failed").trim());
+}
+const resample = (src, dst, width) => imgop(["resize", src, dst, width]);
+
+// The largest source area we will hand Real-ESRGAN in one go. It allocates per
+// whole frame, so on a small machine the run is killed above a certain size —
+// measured at roughly 1MP here (0.73MP images went through, 1.05MP ones were
+// killed three times running). Stay well under it.
+const MAX_PIECE_PX = 400000;
+
+// Upscale `src` by `scale`, splitting it first if it is too big to survive in one
+// pass. Pieces are cut with an overlap and the overlap is trimmed back off when
+// they are stitched, so the ESRGAN edge effect at each cut never reaches the
+// visible part of the picture and the seams don't show.
+function esrganUpscale(src, dst, scale, tile, work, tag) {
+  const d = dims(fs.readFileSync(src));
+  // ALWAYS the model's native 4x, and resample down afterwards ourselves.
+  //
+  // Asking the binary for `-s 2` looks like the obvious saving — most pictures are
+  // only ~1.2x short, and it quarters the intermediate. It is a trap: on this
+  // hardware that path returns the frame as a visible patchwork, each tile a
+  // slightly different brightness, in a grid that tracks `-t` exactly (checked at
+  // 64 and 192, both bad; 256 and above will not allocate at all). The native 4x
+  // path over the same picture is clean. So the scale is not a knob to tune —
+  // memory is controlled by splitting the picture instead (see MAX_PIECE_PX).
+  const run = (i, o) => cp.execFileSync(ESRGAN,
+    ["-i", i, "-o", o, "-n", "realesrgan-x4plus", "-s", "4", "-t", String(tile)],
+    { stdio: "ignore" });
+  scale = 4;
+
+  if (!d || d.w * d.h <= MAX_PIECE_PX) { run(src, dst); return 1; }
+
+  // Choose a grid whose pieces each come in under the cap, keeping them squarish.
+  const parts = Math.ceil((d.w * d.h) / MAX_PIECE_PX);
+  let cols = Math.ceil(Math.sqrt(parts * (d.w / d.h)));
+  let rows = Math.ceil(parts / cols);
+  while (Math.ceil(d.w / cols) * Math.ceil(d.h / rows) > MAX_PIECE_PX) {
+    if (d.w / cols >= d.h / rows) cols++; else rows++;
+  }
+  const OV = 24;                                   // source-pixel overlap per cut
+  const pieces = [];
+  let n = 0;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const x0 = Math.floor((d.w * c) / cols), x1 = Math.floor((d.w * (c + 1)) / cols);
+      const y0 = Math.floor((d.h * r) / rows), y1 = Math.floor((d.h * (r + 1)) / rows);
+      const cx = Math.max(0, x0 - OV), cy = Math.max(0, y0 - OV);
+      const cw = Math.min(d.w, x1 + OV) - cx, ch = Math.min(d.h, y1 + OV) - cy;
+      const cut = path.join(work, `pc_${n}_cut.png`);
+      const up = path.join(work, `pc_${n}_up.png`);
+      imgop(["crop", src, cut, cx, cy, cw, ch]);
+      run(cut, up);
+      fs.unlinkSync(cut);
+      pieces.push({
+        file: up,
+        sx: (x0 - cx) * scale, sy: (y0 - cy) * scale,          // trim the overlap
+        sw: (x1 - x0) * scale, sh: (y1 - y0) * scale,
+        dx: x0 * scale, dy: y0 * scale,
+      });
+      n++;
+      process.stdout.write(`\r      ${tag}: piece ${n}/${cols * rows}   `);
+    }
+  }
+  const spec = path.join(work, "stitch.json");
+  fs.writeFileSync(spec, JSON.stringify({ out: dst, w: d.w * scale, h: d.h * scale, pieces }));
+  imgop(["stitch", spec]);
+  for (const p of pieces) { try { fs.unlinkSync(p.file); } catch (_) { /* ignore */ } }
+  fs.unlinkSync(spec);
+  process.stdout.write("\r");
+  return cols * rows;
 }
 
 function parseArgs(argv) {
@@ -193,13 +247,6 @@ async function main() {
   const head = Math.round(opt.dpi * 1.03);
   for (const j of jobs) {
     j.target = Math.min(j.w * 4, Math.ceil(j.w * head / j.ppi));
-    // Ask Real-ESRGAN for the SMALLEST scale that still covers what we need. The
-    // network always runs at 4x internally, so this costs no quality — but it
-    // quarters the intermediate we then have to decode and resample, which is the
-    // difference between finishing and being killed on a small machine. Most
-    // pictures are only ~1.2x short, so 2 is the usual answer.
-    const need = j.target / j.w;
-    j.scale = need <= 2 ? 2 : need <= 3 ? 3 : 4;
   }
   jobs.sort((a, b) => a.ppi - b.ppi);          // worst first — most visible gain earliest
   const run = opt.limit > 0 ? jobs.slice(0, opt.limit) : jobs;
@@ -211,7 +258,7 @@ async function main() {
       unresolved.map((p) => `p${p.page} ${p.w}x${p.h}@${p.ppi}`).join(", "));
   }
   for (const j of run) {
-    console.log(`   p${String(j.page).padStart(3)}  ${j.name.padEnd(15)} ${String(j.w).padStart(5)}px @${String(j.ppi).padStart(4)} DPI -> ${j.target}px @~${Math.round(j.target / j.w * j.ppi)} DPI  (esrgan x${j.scale})${j.cropped ? ", cropped" : ""}`);
+    console.log(`   p${String(j.page).padStart(3)}  ${j.name.padEnd(15)} ${String(j.w).padStart(5)}px @${String(j.ppi).padStart(4)} DPI -> ${j.target}px @~${Math.round(j.target / j.w * j.ppi)} DPI${j.cropped ? ", cropped" : ""}`);
   }
   if (opt.dryRun) { console.log("\n(dry run — nothing written)"); return; }
 
@@ -225,11 +272,9 @@ async function main() {
     if (fs.existsSync(outFile)) { console.log(`${tag}: already done, skipping`); done.push({ j, outFile }); continue; }
     const big = path.join(work, "up_" + path.basename(j.name, path.extname(j.name)) + ".png");
     const t0 = Date.now();
+    let nPieces = 1;
     try {
-      cp.execFileSync(ESRGAN,
-        ["-i", j.from, "-o", big, "-n", "realesrgan-x4plus",
-         "-s", String(j.scale), "-t", String(opt.tile)],
-        { stdio: "ignore" });
+      nPieces = esrganUpscale(j.from, big, 4, opt.tile, work, j.name);
     } catch (e) {
       console.warn(`${tag}: Real-ESRGAN failed (${e.message.split("\n")[0]}) — left as is`);
       continue;
@@ -243,7 +288,7 @@ async function main() {
     }
     try { fs.unlinkSync(big); } catch (_) { /* ignore */ }
     const d = dims(fs.readFileSync(outFile));
-    console.log(`${tag}: ${j.w}px -> ${d ? d.w : "?"}px  (${((Date.now() - t0) / 1000).toFixed(0)}s, ${(fs.statSync(outFile).size / 1048576).toFixed(1)} MB)`);
+    console.log(`${tag}: ${j.w}px -> ${d ? d.w : "?"}px  (${((Date.now() - t0) / 1000).toFixed(0)}s, ${(fs.statSync(outFile).size / 1048576).toFixed(1)} MB${nPieces > 1 ? ", " + nPieces + " pieces" : ""})`);
     done.push({ j, outFile });
   }
 
