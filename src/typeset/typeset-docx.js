@@ -12,7 +12,7 @@ const path = require("path");
 const os = require("os");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
 const { importDocx } = require("./import-docx.js");
-const { THEMES, autoTheme, themeTypst } = require("./themes.js");
+const { THEMES, autoTheme, themeTypst, tgCoverSignature } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 
 const ROOT = path.join(__dirname, "..", "..");
@@ -5074,6 +5074,17 @@ function normaliseQuestionMarkBold(blocks) {
       covInk: orig.ink, covRulec: orig.rulec,
     });
   }
+  // A Teacher's Guide takes a shifted version of its subject's cover colour, so it
+  // is distinguishable at a glance from the Learner's Book it shares a theme with
+  // (they were identical apart from the "TEACHER'S GUIDE"/"LEARNER'S BOOK" tag).
+  // See tgCoverSignature() for how the shift is derived. This runs AFTER the
+  // black-and-white block above, which sets covSignature back to the full-colour
+  // signature — the cover is the one part of a TG that stays in colour, and this is
+  // the colour it should stay in. A book can still pin its own with `coverColor`.
+  if (isTeacherBook && !ov.coverColor) {
+    themeOverrides.covSignature = tgCoverSignature(theme);
+  }
+  if (ov.coverColor) themeOverrides.covSignature = String(ov.coverColor).replace(/^#/, "");
   // Last content pass: push every mark allocation flush against the text column's
   // right edge (house style — see splitMarksToFr). Must run after every pass that
   // still expects a plain `.t` string on each segment in a run.

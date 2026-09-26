@@ -413,4 +413,44 @@ function themeTypst(theme, overrides = {}) {
 )\n`;
 }
 
-module.exports = { THEMES, autoTheme, themeTypst };
+// A Teacher's Guide and its Learner's Book are the same subject, so they share a
+// theme — and their covers came out identical apart from one line of tag text
+// ("TEACHER'S GUIDE" / "LEARNER'S BOOK"). On a shelf, or in a pile on a desk, that
+// is not enough to tell them apart.
+//
+// So a TG's cover field is the subject's signature colour shifted halfway toward
+// the theme's OWN second tone. Deriving it from the theme rather than hard-coding a
+// colour is what keeps this a rule instead of a one-off: every subject stays
+// recognisably itself (ICT's navy moves to a brighter blue, not to some unrelated
+// hue) while its two books are clearly different at a glance, and a subject added
+// later gets the same treatment for free.
+//
+// Only the COVER changes. The interior is untouched — and for a TG it is greyscale
+// anyway (see the blackWhite default in typeset-docx.js).
+function mixHex(a, b, t) {
+  const p = (h) => [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const [ar, ag, ab] = p(a), [br, bg, bb] = p(b);
+  return [ar + (br - ar) * t, ag + (bg - ag) * t, ab + (bb - ab) * t]
+    .map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
+}
+
+function tgCoverSignature(theme) {
+  const t = THEMES[theme] || {};
+  const sig = t.signature || t.primary;
+  const second = t.primary2 || t.cyan;
+  if (!sig || !second) return sig;
+  const shifted = mixHex(sig, second, 0.5);
+  // A theme whose second tone sits almost on top of its signature would shift by an
+  // amount nobody could see. Fall back to lifting the signature toward its own cyan,
+  // so the two covers still read as different.
+  const dist = (x, y) => {
+    const p = (h) => [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+    const [xr, xg, xb] = p(x), [yr, yg, yb] = p(y);
+    return Math.abs(xr - yr) + Math.abs(xg - yg) + Math.abs(xb - yb);
+  };
+  if (dist(sig, shifted) >= 60) return shifted;
+  const alt = t.cyan && t.cyan !== second ? mixHex(sig, t.cyan, 0.45) : mixHex(sig, "ffffff", 0.22);
+  return dist(sig, alt) >= 60 ? alt : mixHex(sig, "ffffff", 0.22);
+}
+
+module.exports = { THEMES, autoTheme, themeTypst, tgCoverSignature };
