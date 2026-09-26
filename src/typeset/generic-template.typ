@@ -1569,6 +1569,41 @@
       grid(columns: (auto, auto), column-gutter: 16pt, align: center, node(a), node(b)))
   ]
 ]
+// A word carrying an INTERNAL capital is a product or brand name — WinRAR, PowerISO,
+// PeaZip, JavaScript, iPhone — and print convention does not break those: "Win-RAR"
+// and "Pow-erISO" read as two words or a typo, not as the product. (Both appeared in
+// the ICT Form 2 Learner's Book's narrow "Tool" column.) Turn hyphenation off for just
+// those words, so the whole name moves to the next line instead.
+//
+// `text(hyphenate: false)` rather than `box()`: it still allows a normal break at the
+// spaces either side, so such a name can only overflow where the measure is narrower
+// than the name itself. Body text is never that narrow; a table column can be, so
+// cells use nohyphcell() below instead of this.
+//
+// Ordinary words are untouched (they carry no internal capital) and the split only
+// runs on a string that actually contains one, so the common path is unchanged. An
+// acronym ("ICT", "ZIP") has no lower-to-upper step and never matches.
+#let camelRe = regex("[a-z][A-Z]")
+#let nohyph(p) = if p.find(camelRe) == none { [#p] } else {
+  p.split(" ").map(t => if t.find(camelRe) == none { [#t] } else {
+    text(hyphenate: false)[#t]
+  }).join(" ")
+}
+
+// The TABLE-CELL flavour. A table column is a far narrower measure than the body
+// text, and simply refusing to hyphenate can leave a name wider than its column, so
+// it overruns the neighbouring cell ("WinRARCompress and extract...") — which is
+// worse than the hyphen it replaced. So in a cell the name also gets a zero-width
+// space at each internal capital: a real break opportunity that prints NOTHING.
+// dtable's camel floor below is what normally keeps such a name whole; this is the
+// fallback for when even that is not enough, and it degrades to "Power" / "ISO"
+// rather than to "Pow-" / "erISO" or to an overflow across the cell border.
+#let camelBreak(t) = t.replace(regex("([a-z])([A-Z])"), m => m.captures.at(0) + "\u{200B}" + m.captures.at(1))
+#let nohyphcell(p) = if p.find(camelRe) == none { [#p] } else {
+  p.split(" ").map(t => if t.find(camelRe) == none { [#t] } else {
+    text(hyphenate: false)[#camelBreak(t)]
+  }).join(" ")
+}
 #let seg(s) = {
   // A zero-content "fill to the edge" marker (see splitMarksToFr in typeset-docx.js):
   // inserted right before every mark-allocation bracket ("[1]", "[2 marks]") so the
@@ -1603,7 +1638,7 @@
     // before the run's last character — so s.t already carries the right break points.
     let src = s.t
     // honour soft line breaks (encoded as "\n")
-    let body = src.split("\n").map(p => [#p]).join(linebreak())
+    let body = src.split("\n").map(p => nohyph(p)).join(linebreak())
     // a run marked monospace (ASCII-art diagrams the author laid out with literal spaces
     // in Word — a proportional font can't hold the columns the manuscript relied on)
     // renders through raw() so every space keeps its exact fixed-width position.
@@ -2255,7 +2290,10 @@
       segs(sg)
     } else if c.text != "" {
       // honour line breaks: a cell may list several items on separate lines
-      for (i, ln) in c.text.split("\n").enumerate() { if i > 0 { linebreak() }; ln }
+      // A plain cell never goes through seg(), so the brand-name rule is applied here
+      // too — the narrow "Tool" column of a compression-tools table is exactly where a
+      // name like PowerISO would otherwise be hyphenated.
+      for (i, ln) in c.text.split("\n").enumerate() { if i > 0 { linebreak() }; nohyphcell(ln) }
     } else if fillin and subs.len() == 0 {
       // reserve room for the learner to write into an empty fill-in cell
       box(width: 100%, height: 12pt)[]
@@ -2318,8 +2356,20 @@
   // `fr` weight alone can't guarantee that, so we raise the column's floor to it.
   let longword(s) = s.split(regex("\s+")).fold(0, (a, w) => calc.max(a, w.len()))
   let colword(ci) = { let m = 0; for r in rows { let l = longword(r.at(ci).text); if l > m { m = l } }; m }
+  // The longest word in a column that nohyphcell() renders UNHYPHENATABLE (a brand
+  // name like PowerISO). For every other word the floor above is only a preference —
+  // hyphenation can always rescue a column that ends up a little too narrow — but
+  // one of these has to fit whole or it breaks at its capital (or, before the
+  // zero-width space, spilled into the next cell). The `* 2` proxy is calibrated for
+  // a word that may hyphenate and is about a third short of the real rendered width,
+  // so these get a bigger multiplier, capped so one long name cannot starve the rest
+  // of the table. Columns with no such word are untouched, which keeps every table
+  // in every other book laid out exactly as before.
+  let camelword(ci) = { let m = 0; for r in rows { for w in r.at(ci).text.split(regex("\s+")) { if w.find(camelRe) != none and w.len() > m { m = w.len() } } }; m }
   let colweight(ci) = {
     let floor = calc.max(6, colword(ci) * 2)   // fit the column's longest (unbreakable) word
+    let cwl = camelword(ci)
+    let floor = if cwl > 0 { calc.max(floor, calc.min(30, cwl * 3.2)) } else { floor }
     if fillin and not bigcontent {
       let bodyEmpty = rows.slice(calc.min(1, rows.len())).all(r => celllen(r.at(ci)) == 0)
       if bodyEmpty { calc.max(20, floor) } else { calc.max(floor, calc.min(collen(ci), 45)) }
