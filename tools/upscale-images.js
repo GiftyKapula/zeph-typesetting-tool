@@ -37,6 +37,16 @@
  *                   (see "cropped pictures" below) to its source media file
  *     --dry-run     report the plan and write nothing
  *     --limit <n>   process only the n worst images (useful to sample first)
+ *     --tile <n>    Real-ESRGAN tile size (default 64)
+ *
+ * Memory: this is the binding constraint, not speed. A 4x pass over a ~1.4MP
+ * picture produces a ~22MP intermediate, and decoding that to resample it costs
+ * ~90MB on its own — enough to get the process killed on a small machine (it was,
+ * on a 4GB one). Two things keep the footprint flat: Real-ESRGAN runs with a small
+ * `-t` tile so it never allocates the whole frame at once, and the resample runs in
+ * a SHORT-LIVED CHILD process, so the intermediate is freed the moment it is
+ * written rather than accumulating across a long run. Runs are resumable, so a
+ * process that dies anyway can simply be started again.
  *
  * Cropped pictures: Word stores the FULL picture plus a crop rectangle, and
  * import-docx.js applies the crop — but it deliberately does NOT crop a replacement
@@ -69,8 +79,32 @@ function dims(buf) {
   return null;
 }
 
+// Resample `src` down to `width` in a SHORT-LIVED CHILD process. Decoding a 4x
+// intermediate costs ~90MB, and doing it in-process made the footprint grow across
+// a long run until the OS killed it; a child hands the memory back every time.
+function resample(src, dst, width) {
+  const script = `
+    const { createCanvas, loadImage } = require(${JSON.stringify(require.resolve("canvas"))});
+    (async () => {
+      const img = await loadImage(process.argv[1]);
+      const w = Math.min(+process.argv[3], img.width);
+      const h = Math.round(img.height * (w / img.width));
+      const cv = createCanvas(w, h);
+      const ctx = cv.getContext("2d");
+      ctx.patternQuality = "best";
+      ctx.quality = "best";
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(img, 0, 0, w, h);
+      require("fs").writeFileSync(process.argv[2], cv.toBuffer("image/png"));
+    })().catch((e) => { console.error(e.message); process.exit(1); });
+  `;
+  const r = cp.spawnSync(process.execPath, ["-e", script, src, dst, String(width)],
+    { stdio: ["ignore", "ignore", "pipe"], encoding: "utf8" });
+  if (r.status !== 0) throw new Error((r.stderr || "resample child failed").trim());
+}
+
 function parseArgs(argv) {
-  const o = { dpi: 300, map: {}, dryRun: false, limit: 0 };
+  const o = { dpi: 300, map: {}, dryRun: false, limit: 0, tile: 64 };
   const pos = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -78,6 +112,7 @@ function parseArgs(argv) {
     else if (a === "--out") o.out = argv[++i];
     else if (a === "--dry-run") o.dryRun = true;
     else if (a === "--limit") o.limit = +argv[++i];
+    else if (a === "--tile") o.tile = +argv[++i];
     else if (a === "--map") {
       for (const pair of argv[++i].split(",")) {
         const [k, v] = pair.split("=");
@@ -99,7 +134,6 @@ async function main() {
     if (!fs.existsSync(f)) { console.error("!  not found:", f); process.exit(2); }
   }
   const JSZip = require("jszip");
-  const { createCanvas, loadImage } = require("canvas");
 
   const base = path.basename(opt.docx, path.extname(opt.docx));
   const outDir = opt.out
@@ -108,7 +142,7 @@ async function main() {
   const work = fs.mkdtempSync(path.join(require("os").tmpdir(), "upscale-"));
 
   // ---- 1. the manuscript's own pictures -------------------------------------
-  const zip = await JSZip.loadAsync(fs.readFileSync(opt.docx));
+  let zip = await JSZip.loadAsync(fs.readFileSync(opt.docx));
   const byDims = new Map();           // "WxH" -> [media name]
   const srcDir = path.join(work, "src");
   fs.mkdirSync(srcDir, { recursive: true });
@@ -122,6 +156,7 @@ async function main() {
     if (!byDims.has(k)) byDims.set(k, []);
     byDims.get(k).push(b);
   }
+  zip = null;                      // the whole .docx is held in here; let it go
 
   // ---- 2. how big each one actually PRINTS ----------------------------------
   const listing = cp.execSync(`pdfimages -list "${opt.pdf}"`, { encoding: "utf8", maxBuffer: 1 << 28 });
@@ -156,7 +191,16 @@ async function main() {
   }
   // Render a little above the target so rounding can never land under it.
   const head = Math.round(opt.dpi * 1.03);
-  for (const j of jobs) j.target = Math.min(j.w * 4, Math.ceil(j.w * head / j.ppi));
+  for (const j of jobs) {
+    j.target = Math.min(j.w * 4, Math.ceil(j.w * head / j.ppi));
+    // Ask Real-ESRGAN for the SMALLEST scale that still covers what we need. The
+    // network always runs at 4x internally, so this costs no quality — but it
+    // quarters the intermediate we then have to decode and resample, which is the
+    // difference between finishing and being killed on a small machine. Most
+    // pictures are only ~1.2x short, so 2 is the usual answer.
+    const need = j.target / j.w;
+    j.scale = need <= 2 ? 2 : need <= 3 ? 3 : 4;
+  }
   jobs.sort((a, b) => a.ppi - b.ppi);          // worst first — most visible gain earliest
   const run = opt.limit > 0 ? jobs.slice(0, opt.limit) : jobs;
 
@@ -167,7 +211,7 @@ async function main() {
       unresolved.map((p) => `p${p.page} ${p.w}x${p.h}@${p.ppi}`).join(", "));
   }
   for (const j of run) {
-    console.log(`   p${String(j.page).padStart(3)}  ${j.name.padEnd(15)} ${String(j.w).padStart(5)}px @${String(j.ppi).padStart(4)} DPI -> ${j.target}px @~${Math.round(j.target / j.w * j.ppi)} DPI${j.cropped ? "  (cropped)" : ""}`);
+    console.log(`   p${String(j.page).padStart(3)}  ${j.name.padEnd(15)} ${String(j.w).padStart(5)}px @${String(j.ppi).padStart(4)} DPI -> ${j.target}px @~${Math.round(j.target / j.w * j.ppi)} DPI  (esrgan x${j.scale})${j.cropped ? ", cropped" : ""}`);
   }
   if (opt.dryRun) { console.log("\n(dry run — nothing written)"); return; }
 
@@ -182,23 +226,24 @@ async function main() {
     const big = path.join(work, "up_" + path.basename(j.name, path.extname(j.name)) + ".png");
     const t0 = Date.now();
     try {
-      cp.execFileSync(ESRGAN, ["-i", j.from, "-o", big, "-n", "realesrgan-x4plus"], { stdio: "ignore" });
+      cp.execFileSync(ESRGAN,
+        ["-i", j.from, "-o", big, "-n", "realesrgan-x4plus",
+         "-s", String(j.scale), "-t", String(opt.tile)],
+        { stdio: "ignore" });
     } catch (e) {
       console.warn(`${tag}: Real-ESRGAN failed (${e.message.split("\n")[0]}) — left as is`);
       continue;
     }
-    const img = await loadImage(big);
-    const w = Math.min(j.target, img.width);
-    const h = Math.round(img.height * (w / img.width));
-    const cv = createCanvas(w, h);
-    const ctx = cv.getContext("2d");
-    ctx.patternQuality = "best";
-    ctx.quality = "best";
-    ctx.imageSmoothingEnabled = true;
-    ctx.drawImage(img, 0, 0, w, h);
-    fs.writeFileSync(outFile, cv.toBuffer("image/png"));
-    fs.unlinkSync(big);
-    console.log(`${tag}: ${j.w}px -> ${w}px  (${((Date.now() - t0) / 1000).toFixed(0)}s, ${(fs.statSync(outFile).size / 1048576).toFixed(1)} MB)`);
+    try {
+      resample(big, outFile, j.target);
+    } catch (e) {
+      console.warn(`${tag}: resample failed (${e.message.split("\n")[0]}) — left as is`);
+      try { fs.unlinkSync(big); } catch (_) { /* ignore */ }
+      continue;
+    }
+    try { fs.unlinkSync(big); } catch (_) { /* ignore */ }
+    const d = dims(fs.readFileSync(outFile));
+    console.log(`${tag}: ${j.w}px -> ${d ? d.w : "?"}px  (${((Date.now() - t0) / 1000).toFixed(0)}s, ${(fs.statSync(outFile).size / 1048576).toFixed(1)} MB)`);
     done.push({ j, outFile });
   }
 
