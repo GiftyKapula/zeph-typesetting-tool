@@ -2551,37 +2551,94 @@
 // Mixed box body: paragraphs, sub-headings, list items, images and nested
 // tables, in order.
 #let renderbody(body, hsize: none) = {
-  for it in body {
-    if it.k == "table" { dtable(it.r, noHeader: it.at("nohdr", default: false)) }
-    else if it.k == "img" {
-      if it.images.len() == 1 { figimg(it.images.at(0).file, it.images.at(0).w, it.images.at(0).tall, it.images.at(0).cap, hmm: it.images.at(0).at("hmm", default: 0)) }
-      else { imagerow(it.images) }
-    }
-    else if it.k == "head" {
-      v(3pt)
-      let hd = text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t]
-      block(breakable: false, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
-      v(2pt)
-    }
-    else if it.k == "list" {
-      // A sub-list (one that restarts its numbering under a numbered parent) is
-      // indented so it reads as belonging to that question rather than as a sibling.
-      let pad = it.at("indent", default: 0) * 18pt
-      // Match the marker's weight to the item's own first run rather than forcing
-      // bold — a numbered step whose manuscript text is plain/italic (not bold)
-      // otherwise ends up with a visibly bolder marker than its own text (see the
-      // matching fix on `listitem`, used outside a box, just above).
-      let firstseg = it.s.find(s => s.t.trim() != "")
-      let contentBold = firstseg != none and firstseg.at("b", default: false)
-      grid(columns: (pad, auto, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
-        [],
-        text(fill: if it.marker == "•" { T.primary2 } else { T.primary }, weight: if it.marker == "•" { "regular" } else if contentBold { "bold" } else { "regular" })[#it.marker],
-        par[#segs(it.s)])
-      v(1.5pt)
-    }
-    else if it.k == "colgrid" { colgrid(rows: it.rows, ncol: it.ncol, hasMarker: it.hasMarker) }
-    else if it.k == "colsum" { colsum(it.rows, it.answer) }
-    else { flowsegs(it.s); v(2pt) }
+  // Render ONE body item. Factored out of the loop below so a run of items that must
+  // stay together (see the checklist grouping) can be rendered inside a single block.
+  let one(it) = {
+      if it.k == "table" { dtable(it.r, noHeader: it.at("nohdr", default: false)) }
+      else if it.k == "img" {
+        if it.images.len() == 1 { figimg(it.images.at(0).file, it.images.at(0).w, it.images.at(0).tall, it.images.at(0).cap, hmm: it.images.at(0).at("hmm", default: 0)) }
+        else { imagerow(it.images) }
+      }
+      else if it.k == "head" {
+        v(3pt)
+        let hd = text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t]
+        block(breakable: false, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
+        v(2pt)
+      }
+      else if it.k == "list" {
+        // A sub-list (one that restarts its numbering under a numbered parent) is
+        // indented so it reads as belonging to that question rather than as a sibling.
+        let pad = it.at("indent", default: 0) * 18pt
+        // Match the marker's weight to the item's own first run rather than forcing
+        // bold — a numbered step whose manuscript text is plain/italic (not bold)
+        // otherwise ends up with a visibly bolder marker than its own text (see the
+        // matching fix on `listitem`, used outside a box, just above).
+        let firstseg = it.s.find(s => s.t.trim() != "")
+        let contentBold = firstseg != none and firstseg.at("b", default: false)
+        grid(columns: (pad, auto, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
+          [],
+          text(fill: if it.marker == "•" { T.primary2 } else { T.primary }, weight: if it.marker == "•" { "regular" } else if contentBold { "bold" } else { "regular" })[#it.marker],
+          par[#segs(it.s)])
+        v(1.5pt)
+      }
+      else if it.k == "colgrid" { colgrid(rows: it.rows, ncol: it.ncol, hasMarker: it.hasMarker) }
+      else if it.k == "colsum" { colsum(it.rows, it.answer) }
+      else { flowsegs(it.s); v(2pt) }
+  }
+  // ---- keep an ACTIVITY CHECKLIST with the table it introduces ----
+  // A closing checklist ("ACTIVITY CHECKLIST" / "Before you finish, check that you
+  // have completed the following:" / the Done|Checklist item table / its "Table N:"
+  // caption) is ONE thing to a reader, but it reaches renderbody as four separate
+  // items. dtable already keeps a short table unbreakable, so when the table did not
+  // fit in what was left of the page it jumped to the next one ON ITS OWN — stranding
+  // the heading and the "Before you finish" line at the foot of the previous page,
+  // with the table then opening a fresh box fragment that reads as a second, unrelated
+  // callout. Group the run and keep it whole, so the whole checklist travels together
+  // and stays attached to the activity that owns it.
+  let txt(it) = if it.at("s", default: none) == none { "" } else {
+    it.s.map(g => { let x = g.at("t", default: ""); if x == none { "" } else { x } }).join()
+  }
+  let isHead(it) = it.k != "table" and it.k != "img" and it.k != "colgrid" and it.k != "colsum" and {
+    let t = upper(txt(it).trim())
+    t.len() > 0 and t.len() <= 44 and t.ends-with("CHECKLIST")
+  }
+  let n = body.len()
+  // mark: -1 render normally, -2 already consumed by a group, >= 0 group start (end index)
+  let mark = range(n).map(_ => -1)
+  let i = 0
+  while i < n {
+    if isHead(body.at(i)) {
+      // the table should follow within a line or two (the "Before you finish" lead-in)
+      let j = i + 1
+      let tbl = -1
+      while j < n and j <= i + 3 and tbl < 0 {
+        let k = body.at(j).k
+        if k == "table" { tbl = j } else if k == "para" { j = j + 1 } else { j = n + 1 }
+      }
+      if tbl < 0 { i = i + 1 } else {
+        let stop = tbl + 1
+        // pull in the table caption ("Table 2: Alternative Activity Checklist") too
+        if stop < n and body.at(stop).k == "para" and lower(txt(body.at(stop)).trim()).starts-with("table") {
+          stop = stop + 1
+        }
+        mark.at(i) = stop
+        for x in range(i + 1, stop) { mark.at(x) = -2 }
+        i = stop
+      }
+    } else { i = i + 1 }
+  }
+  for (idx, it) in body.enumerate() {
+    let m = mark.at(idx)
+    if m >= 0 {
+      let grp = body.slice(idx, m).map(g => one(g)).join()
+      // Keep it whole only when it actually FITS on a page — the same guard dtable
+      // uses. A checklist longer than a page must stay breakable or it would be
+      // pushed off whole and leave a near-empty page behind it.
+      layout(size => {
+        let h = measure(box(width: size.width)[#grp]).height
+        if h < 460pt { block(breakable: false, width: 100%)[#grp] } else { grp }
+      })
+    } else if m == -1 { one(it) }
   }
 }
 // A framed Learning Activity / Exercise / Assessment (primary Teacher's Guide):
