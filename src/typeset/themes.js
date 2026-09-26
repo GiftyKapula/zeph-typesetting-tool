@@ -255,6 +255,16 @@ const THEMES = {
   // generic-template.typ's science cover() branch; it varies the art slightly per
   // subject so IT titles are one family without being one picture.
   compsci: zeph({ subject: "Computer Science", variant: "science", motif: "circuit", signature: "1f3a5f", primary: "1f3a5f", primary2: "2f6aa0", accent: "f0a32e", cyan: "1fb6d6" }),
+  // ICT shares Computer Science's palette, layout and cover motif but is a DIFFERENT
+  // SUBJECT, and the subject name is printed: a manuscript whose own title page reads
+  // "INFORMATION AND COMMUNICATION TECHNOLOGY" must not be relabelled "Computer
+  // Science" on its cover, title page and running header. Both used to route to
+  // `compsci`, whose `subject` then won over the manuscript during cover synthesis, so
+  // every ICT book needed a per-book `subject` override to undo the theme's own name
+  // (the ICT Form 2 Teacher's Guide's overrides.json documents exactly that, and the
+  // Learner's Book printed "COMPUTER SCIENCE" on its cover until this split). Same
+  // palette, right name, no override needed.
+  ict: zeph({ subject: "Information and Communication Technology", variant: "science", motif: "circuit", signature: "1f3a5f", primary: "1f3a5f", primary2: "2f6aa0", accent: "f0a32e", cyan: "1fb6d6" }),
   maths:   zeph({ subject: "Mathematics",      variant: "science", signature: "5e2b5e", primary: "5e2b5e", primary2: "8a4a8a", accent: "e0a32e", cyan: "3f9e8c" }),
   // Grade 6 (Primary) Integrated Science — the only "science"-variant theme below
   // Form level, so it must set `level` explicitly (the zeph() default is secondary);
@@ -332,7 +342,10 @@ function autoTheme(name) {
     if (/travel|tourism/i.test(name)) return "travelsyl";
     // other subjects fall through to their B5 theme until a syllabus() theme exists
   }
-  if (/computer\s*science|computing|\bict\b/i.test(name)) return "compsci";
+  // ICT before Computer Science: they share a palette but not a name (see the `ict`
+  // theme above). A filename saying ICT must not land on the Computer Science theme.
+  if (/\bict\b|information\s+and\s+communication/i.test(name)) return "ict";
+  if (/computer\s*science|computing/i.test(name)) return "compsci";
   // CTS = Creative and Technology Studies (primary school). Match before the
   // generic "technolog" route so it gets the cheerful primary-school theme.
   if (/\bCTS\b|creative and technolog/i.test(name)) return "cts";
