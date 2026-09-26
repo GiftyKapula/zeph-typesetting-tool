@@ -30,14 +30,14 @@ from the engine *running*.
 | **Typst** (`@myriaddreamin/typst-ts-node-compiler`) | A modern typesetting engine, written in **Rust** | The real workhorse: paginates, lays out, embeds fonts, renders the **PDF** | No |
 | **System fonts** (Times New Roman / Century Gothic) | Font files on the PC | Provide the actual letterforms | No |
 
-The other npm packages are for the *separate* "generate the PE book from code"
-path, not the import path:
+The other npm packages support the tooling around the engine:
 
-- **`docx`** — builds Word `.docx` files programmatically (used by `assemble.js`
-  to author the Form 5 PE books).
-- **LibreOffice** (headless `soffice`, installed on the machine) — converts those
-  generated `.docx` files to PDF and scans page numbers for their table of
-  contents.
+- **`docx`** — writes the author-facing corrections-log report
+  (`tools/gen-corrections-log.js`, `npm run report`).
+- **`canvas`** + **`pdfjs-dist`** — image clean-up and rendering PDF pages to
+  PNG so you can look at them (`tools/dev/pdf-render.mjs`).
+- **LibreOffice** (headless `soffice`, installed on the machine) — converts an
+  old `.doc` manuscript to `.docx` before it is typeset.
 
 ## Step by step — which tool, and is AI involved?
 
@@ -69,7 +69,7 @@ Every runtime step is deterministic code. **No step calls an AI model.**
 
 ## So where *is* AI, exactly?
 
-Three places — and the first is the only one that touches *this* engine:
+Two or three places — and the first is the only one that touches *this* engine:
 
 1. **Building the engine (design time, not run time).** Claude wrote the parser,
    the heuristics, the Typst template, the themes, and fixed the reported bugs.
@@ -77,17 +77,14 @@ Three places — and the first is the only one that touches *this* engine:
    forever without AI. This is the big one: **AI was the author of the tool, not
    a component of it.**
 
-2. **Illustrations (optional, separate).** For the **PE Form 5** book,
-   `genimage.js` calls **OpenAI's image model (`gpt-image-2`)** to generate the
-   photographs/diagrams. That *is* a live AI call — but it's a one-time
-   content-creation step, completely outside the typesetting pipeline. For the
-   **Grade 4 Technology** book, the images came already embedded in the `.docx`,
-   so **no AI images were involved there at all.**
+2. **Replacement pictures (optional, separate).** A book's images normally come
+   embedded in the author's `.docx`. When one is unusable (too small, a
+   screenshot, missing) a replacement may be drawn or generated separately and
+   wired in through the book's `.overrides.json`. That is a one-time content
+   step, completely outside the typesetting pipeline.
 
-3. **Authoring the text (only for books we wrote).** The PE Form 5
-   learner/teacher *content* was written with AI assistance. For the Grade 4
-   book, the manuscript was the author's existing text — AI didn't write or alter
-   a word of it; the engine only re-laid it out.
+3. **Never the author's text.** The manuscript is the author's own work — the
+   engine only re-lays it out; AI doesn't write or alter a word of it.
 
 ## One-line summary
 

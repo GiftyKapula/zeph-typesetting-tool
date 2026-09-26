@@ -82,7 +82,7 @@ function syllabus({ subject, level = "Secondary Education Ordinary Level", year 
 }
 
 const THEMES = {
-  // Navy + gold, serif, classic layout — the Form 5 Physical Education look.
+  // Navy + gold, serif, classic layout.
   navy: {
     font: "Times New Roman", variant: "classic", ink: "1a1a1a",
     tagline: "MOVEMENT · HEALTH · PERFORMANCE", tab: "", toctitle: "Table of Contents",
@@ -301,7 +301,7 @@ const THEMES = {
   // heavily), so the "science" variant.
   musicalarts: { ...zeph({ subject: "Musical Arts", variant: "science", signature: "1f5fa8", primary: "1f5fa8", primary2: "3a7ec9", accent: "d9722e", cyan: "2f9e8c", motif: "notes" }), tocDepth: 1 },
   // Physical Education and Sport (Form 1) — its OWN athletic identity, distinct from the
-  // Form 5 PE book's navy+gold "navy" theme: a vivid cobalt/royal blue primary with a
+  // navy+gold "navy" theme: a vivid cobalt/royal blue primary with a
   // whistle-orange accent (a track-and-field palette), teal for exercises.
   pesport: { ...zeph({ subject: "Physical Education and Sport", signature: "3f7fc4", primary: "1a4d8f", primary2: "2f6bb0", accent: "e8622e", cyan: "1fa39e" }), tocDepth: 1 },
   // Primary school (Grade 1-6) — same ZEPH house style, but a cheerful palette and
@@ -385,9 +385,8 @@ function autoTheme(name) {
   if (/musical\s*arts?/i.test(name)) return "musicalarts";
   if (/food\s*(and|&)?\s*nutrition|nutrition/i.test(name)) return "foodnutrition";
   // Physical Education and Sport at Ordinary Level (Form 1-4) gets its OWN "pesport"
-  // theme; the existing Form 5/6 (Advanced Level) PE book keeps its established "navy"
-  // look — matched by grade so the two books, which share almost the same title, don't
-  // collide.
+  // theme; an Advanced Level (Form 5/6) PE title is left to the classic "navy" look —
+  // matched by grade because the titles are otherwise almost identical.
   if (/physical\s*education.*sport|\bPES\b/i.test(name) && /form\s*[1-4]\b/i.test(name)) return "pesport";
   // Primary-school English (Grade 1-7) — "Eng"/"English" + a primary grade.
   if (/grade\s*[1-7]\b/i.test(name) && /\beng(lish)?\b/i.test(name)) return "primaryeng";
