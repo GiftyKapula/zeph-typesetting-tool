@@ -20,7 +20,7 @@
 //   close <book> [round] [--force]  close a proofread round (blocks on pending comments unless --force)
 //   state <book> [newstate] get or set a book's lifecycle state
 //   merge <src> <dst>       fold book <src> into <dst> (reconcile split identities)
-//   export                  write books.json (committable DB snapshot)
+//   export                  write data/books.json (committable DB snapshot)
 
 const fs = require("node:fs");
 const path = require("node:path");
@@ -310,7 +310,7 @@ function cmdExport() {
     rounds: db.prepare("SELECT * FROM round ORDER BY id").all(),
     comments: db.prepare("SELECT * FROM comment ORDER BY id").all(),
   };
-  const out = path.join(ROOT, "books.json");
+  const out = path.join(ROOT, "data", "books.json");
   fs.writeFileSync(out, JSON.stringify(data, null, 2));
   console.log(`Wrote ${rel(out)} (${data.books.length} books, ${data.versions.length} versions, ${data.comments.length} comments).`);
 }

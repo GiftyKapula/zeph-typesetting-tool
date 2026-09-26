@@ -12,13 +12,14 @@
 //        --kind LB --title "..." --grade "Form 1" --subject Chemistry [--price 50]
 //
 // Output (both, for convenience):
-//   dist-ebooks/<book-id>/           browsable bundle  (book.json + media/ + math/)
-//   dist-ebooks/<book-id>.zephbook   the single upload file (a zip of the above)
+//   output/ebooks/<book-id>/           browsable bundle  (book.json + media/ + math/)
+//   output/ebooks/<book-id>.zephbook   the single upload file (a zip of the above)
 //
 // Design contract lives in docs/EBOOK-FORMAT.md (schemaVersion 1).
 
 const fs = require("fs");
 const path = require("path");
+const { resolveBookPath } = require("./paths.js");
 const crypto = require("crypto");
 const JSZip = require("jszip");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
@@ -27,7 +28,7 @@ const { emfToPng, cropImage } = require("./image-enhance.js");
 const { THEMES, autoTheme } = require("./themes.js");
 
 const ROOT = path.join(__dirname, "..", "..");
-const OUT_ROOT = path.join(ROOT, "dist-ebooks");
+const OUT_ROOT = path.join(ROOT, "output", "ebooks");
 const SCHEMA_VERSION = 1;
 const WIN_FONTS = process.env.WINDIR
   ? path.join(process.env.WINDIR, "Fonts")
@@ -53,7 +54,7 @@ function parseArgs(argv) {
 function resolveTarget(args) {
   if (args.book) {
     const { DatabaseSync } = require("node:sqlite");
-    const db = new DatabaseSync(path.join(ROOT, "zeph.db"));
+    const db = new DatabaseSync(path.join(ROOT, "data", "zeph.db"));
     const book = db
       .prepare("SELECT id,title,grade,subject,kind,author FROM book WHERE id=?")
       .get(args.book);
@@ -146,9 +147,7 @@ function coverAssets(docxPath) {
     try {
       const ov = JSON.parse(fs.readFileSync(ovPath, "utf8"));
       if (ov.coverImage) {
-        const p = path.isAbsolute(ov.coverImage)
-          ? ov.coverImage
-          : path.resolve(path.dirname(docxPath), ov.coverImage);
+        const p = resolveBookPath(docxPath, ov.coverImage);
         if (fs.existsSync(p)) out.heroSrc = p;
       }
     } catch { /* ignore malformed sidecar */ }

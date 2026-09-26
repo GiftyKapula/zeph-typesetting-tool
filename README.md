@@ -78,28 +78,49 @@ before guessing why something renders oddly, fix engine bugs in the engine
 │   ├── WORKFLOW.md            #   the zeph tool: books, versions, proofread rounds
 │   ├── LOCAL-LANGUAGE-GLOSSARY.md  # local-language structural term mappings
 │   └── EBOOK-FORMAT.md        #   the ZEPH Learn eBook export contract
-├── src/typeset/                # THE ENGINE
-│   ├── typeset-docx.js         #   drop-a-docx -> typeset PDF runner (entry point)
+├── CONTRIBUTING.md             # how to work on a branch + open a pull request
+├── src/typeset/                # THE ENGINE (one concern per file — see docs/ARCHITECTURE.md)
+│   ├── typeset-docx.js         #   entry point: runs the passes in order, compiles the PDF
 │   ├── import-docx.js          #   reads ANY .docx -> structure-aware blocks
-│   ├── themes.js                #   colour palettes / house styles per book
+│   ├── overrides.js            #   applies a book's .overrides.json corrections
+│   ├── passes/                 #   block-list passes: structure, activities, marks,
+│   │                           #   polish, backmatter, series-front, syllabus
+│   ├── emit.js                 #   blocks -> Typst markup
 │   ├── generic-template.typ    #   the themed Typst design
-│   ├── image-enhance.js        #   line-art cleanup, crop, EMF->PNG
-│   ├── omml.js                  #   Office-Math -> Typst math
+│   ├── themes.js                #   colour palettes / house styles per book
+│   ├── paths.js                #   override paths: "@/images/…" = repo root
+│   ├── naming.js, blocktext.js, image-enhance.js, omml.js   (helpers)
 │   └── emit-ebook.js           #   export a typeset book -> ZEPH Learn eBook bundle
 ├── tools/                       # THE WORKFLOW TOOL (zeph)
 │   ├── zeph.js                  #   CLI: import / build / send / return / comments / resolve
 │   ├── db.js                    #   schema (book / version / round / comment)
 │   ├── gen-corrections-log.js  #   author-facing "what was done" report
-│   └── lib/                     #   metadata + comment extractors (pdf & docx)
+│   ├── lib/                     #   metadata + comment extractors (pdf & docx)
+│   └── dev/                     #   regress.js (prove an engine change didn't break other
+│                                #   books), pdf-render / pdf-size / pdf-measure
 ├── zeph-logo/image.png          # publisher logo, used on auto-synthesised covers
-├── books-to-typeset/            # drop whole manuscripts here (git-ignored, see its README)
+├── books-to-typeset/            # manuscripts, filed <Subject>/<Level>/<date received>/ (see its README)
 ├── input/                       # drop a single .docx here (git-ignored, see its README)
 ├── proofread-books/             # drop annotated returns here (git-ignored, see its README)
-├── output/                      # generated typeset PDFs (git-ignored)
+├── output/                      # generated typeset PDFs + ebooks/ (git-ignored)
 ├── output-examples/             # two finished books, committed as a reference (see its README)
-├── zeph.db                      # local workflow database (git-ignored)
+├── data/                        # zeph.db (git-ignored) + books.json snapshot (committed)
 └── reference/                   # your own syllabus/reference PDFs (git-ignored)
 ```
+
+## Changing the engine safely
+
+Before and after any change to `src/typeset/`, take a snapshot of every book
+you have locally and compare. It builds into a temp folder (never `output/`):
+
+```bash
+npm run regress -- snapshot before.json
+# … make your change …
+npm run regress -- snapshot after.json
+npm run regress -- compare before.json after.json   # lists every book whose output changed
+```
+
+Only the books you meant to change should appear. Put the result in your PR.
 
 ## The big idea
 

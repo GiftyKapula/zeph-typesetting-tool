@@ -7,7 +7,7 @@ through the tool follows it. Both the print PDF and this eBook are outputs of th
 
 ## The `.zephbook` bundle
 
-A `.zephbook` is a ZIP with this layout (also written unzipped to `dist-ebooks/<id>/`):
+A `.zephbook` is a ZIP with this layout (also written unzipped to `output/ebooks/<id>/`):
 
 ```
 manifest.json        what the app's learn_books row needs (metadata only)
@@ -103,5 +103,5 @@ and the "Answers" divider lead is dropped. Teacher's Guides (`TG`) keep them.
 ## Adding a book
 
 `node --experimental-sqlite src/typeset/emit-ebook.js --book <zeph.db-id>` — reads the registered
-manuscript, runs `importDocx()`, writes `dist-ebooks/<id>.zephbook`. No reader changes needed for a
+manuscript, runs `importDocx()`, writes `output/ebooks/<id>.zephbook`. No reader changes needed for a
 new book; it arrives in this same shape. The app admin uploads the `.zephbook` via the UI.

@@ -98,6 +98,35 @@ Everything above is a *pure function of a `.docx` file*. `zeph` (`tools/zeph.js`
 sits above it and tracks the real publishing loop across many books: identity
 by content hash (not filename), every version (manuscript / overrides /
 typeset PDF / annotated return), proofread rounds, and every reviewer comment,
-in one local SQLite file (`zeph.db`). `npm run zeph -- build <book>` is just
+in one local SQLite file (`data/zeph.db`). `npm run zeph -- build <book>` is just
 "run everything above against this book's latest manuscript, and record the
 result as a new version." See `docs/WORKFLOW.md` for the full lifecycle.
+
+## Engine modules (`src/typeset/`)
+
+`typeset-docx.js` only orchestrates; each concern lives in its own file so no
+module grows into a 5,000-line monolith:
+
+```
+typeset-docx.js        runner: load overrides → import → passes (in order) → emit → Typst → PDF
+├── paths.js           ROOT + resolveBookPath() — "@/…" = repo root, else next to the .docx
+├── import-docx.js     .docx XML → semantic blocks
+├── overrides.js       applyOverrides(): the per-book .overrides.json primitives
+├── passes/            block-list → block-list transforms, one concern per file
+│   ├── structure.js       activity boxing, box-label casing, heading clean-up, banners
+│   ├── activities.js      continuation merging, table activities, competence labels
+│   ├── marks.js           "[N marks]" glue + flush-right
+│   ├── polish.js          list columns, spacing, answer labels, column maths, scaffold
+│   ├── backmatter.js      acronyms, glossary, references order, layout credit
+│   ├── series-front.js    ZEPH B5 front matter + front-matter ordering
+│   └── syllabus.js        CDC landscape syllabus (variant "syllabus") — syllabusPostProcess()
+├── blocktext.js       read/replace a block's text or rich segments
+├── naming.js          title / grade / teacher-book / education-level detection
+├── emit.js            blocks → Typst markup
+├── themes.js          palettes + layout variants → the Typst theme dict `T`
+└── generic-template.typ  the design itself (inlined into every build)
+```
+
+**Adding a fix:** put it in the pass module whose concern it is (or a new file in
+`passes/`), export it, call it from `typesetOne` at the right point, and run
+`npm run regress` before/after.

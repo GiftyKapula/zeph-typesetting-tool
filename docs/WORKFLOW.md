@@ -3,15 +3,15 @@
 Once you typeset many books that go out for proofreading and come back marked
 up, filenames stop being a reliable identity ("Draft 4", "sent for review",
 "…(2)", "final FINAL"). `zeph` gives every book a stable identity and records
-its whole life in a single local SQLite file (`zeph.db`).
+its whole life in a single local SQLite file (`data/zeph.db`).
 
 - **Local, zero-install.** Uses Node's built-in SQLite (`node:sqlite`). No
   server, no cloud, no Supabase. The DB is one file at the repo root.
 - **Register in place.** `zeph` never moves or copies your files. It stores the
   *path* to where each file already sits, plus a content hash so the same book
   under a new name is recognised as a new *version*, not a new book.
-- **Version control.** `zeph.db` is git-ignored; run `zeph export` to write
-  `books.json`, a human-readable snapshot you commit alongside the code.
+- **Version control.** `data/zeph.db` is git-ignored; run `zeph export` to write
+  `data/books.json`, a human-readable snapshot you commit alongside the code.
 
 Run everything through npm (it adds the required `--experimental-sqlite` flag):
 
@@ -60,7 +60,7 @@ drafting → typesetting → sent-for-proofread → returned
 | `resolve <comment-id> [--action "…"] [--flag] [--wontfix]` | close a comment |
 | `state <book> [newstate]` | get or set a book's lifecycle state |
 | `merge <src> <dst>` | fold book `src` into `dst` (reconcile a split identity) |
-| `export` | write `books.json` (commit this) |
+| `export` | write `data/books.json` (commit this) |
 
 Book ids can be abbreviated to any unique substring, e.g.
 `npm run zeph -- show technology-studies-tg`.
@@ -89,7 +89,7 @@ npm run report -- <book-id>
 #   → proofread-books/<Book Title> - corrections log.docx
 ```
 
-It reads the comments straight from `zeph.db` and produces a tidy 4-column Word
+It reads the comments straight from `data/zeph.db` and produces a tidy 4-column Word
 table: **Page · Passage in the book · Your comment · What was done**. Two things
 it does for you automatically:
 
@@ -111,12 +111,12 @@ from the database. Implementation: `tools/gen-corrections-log.js`.
 
 ## Viewing the database directly
 
-`zeph.db` is an ordinary SQLite file, so you can inspect it any way you like:
+`data/zeph.db` is an ordinary SQLite file, so you can inspect it any way you like:
 
 - **Through zeph (no extra tools).** `npm run zeph -- list`, `show <book>`,
   `comments <book>` cover most day-to-day needs.
 - **A GUI (easiest for browsing).** Install **DB Browser for SQLite**
-  (free, <https://sqlitebrowser.org>) and open `zeph.db`. The *Browse Data* tab
+  (free, <https://sqlitebrowser.org>) and open `data/zeph.db`. The *Browse Data* tab
   lets you page through the `book` / `version` / `round` / `comment` tables and
   run filters without writing SQL. (In VS Code, the *SQLite Viewer* extension
   does the same inside the editor.)
@@ -124,7 +124,7 @@ from the database. Implementation: `tools/gen-corrections-log.js`.
 
   ```bash
   node --experimental-sqlite -e "const {DatabaseSync}=require('node:sqlite'); \
-    const db=new DatabaseSync('./zeph.db'); \
+    const db=new DatabaseSync('./data/zeph.db'); \
     console.table(db.prepare('SELECT id,title,state FROM book').all());"
   ```
 
@@ -150,5 +150,5 @@ npm run zeph -- return grade-3-...-tg "C:/Users/…/Downloads/… with comments.
 npm run zeph -- comments grade-3-...-tg --open
 npm run zeph -- resolve 42 --action "setCaption override on fig 3.2"
 npm run report -- grade-3-...-tg          # corrections log for the author
-npm run zeph -- export                    # snapshot -> books.json, commit it
+npm run zeph -- export                    # snapshot -> data/books.json, commit it
 ```

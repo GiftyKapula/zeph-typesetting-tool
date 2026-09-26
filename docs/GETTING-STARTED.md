@@ -60,7 +60,7 @@ Create `books-to-typeset/My Book.overrides.json` (same name as the `.docx`,
 
 ```json
 {
-  "coverImage": "../../images/cov-my-book.png",
+  "coverImage": "@/images/cov-my-book.png",
   "blackWhite": true,
   "recase": [{ "startsWith": "Specific Competence", "to": "sentence" }]
 }
@@ -124,12 +124,12 @@ language (no internal jargon like override key names). Details:
 ## 7. Snapshot your work
 
 ```bash
-npm run zeph -- export     # writes books.json — commit this
-git add books-to-typeset/*.overrides.json books.json
+npm run zeph -- export     # writes data/books.json — commit this
+git add books-to-typeset data/books.json
 git commit -m "Typeset My Book"
 ```
 
-`zeph.db` itself is git-ignored (it's a local database file); `books.json` is
+`data/zeph.db` itself is git-ignored (it's a local database file); `data/books.json` is
 the committable, human-readable snapshot of it.
 
 ## Troubleshooting

@@ -132,7 +132,7 @@ controlled. Two kinds:
 ```json
 {
   "isbn": "978-9982-01-762-5",
-  "images": { "image8.jpeg": "../images/eng-debate.png" },
+  "images": { "image8.jpeg": "@/images/eng-debate.png" },
   "fill":    [{ "after": "Edited by", "text": "…" }],
   "replace": [{ "find": "Special thanks are due to facilitators", "with": "…" }]
 }
@@ -150,7 +150,7 @@ controlled. Two kinds:
   the manuscript's media filename (e.g. `image8.jpeg` — find it by mapping each
   embedded image to its caption); the value is a path to the replacement, resolved
   relative to the `.docx` (keep the file under the tracked `images/` folder, e.g.
-  `"../images/eng-debate.png"`). The override stands in for the original
+  `"@/images/eng-debate.png"` — `@/` is the repo root, so it works from any folder depth). The override stands in for the original
   everywhere — its bytes are copied **and** its true aspect ratio is read from it,
   so a like-for-like aspect avoids distortion. The replacement keeps its **own**
   extension in the output name (a `.png` must not masquerade under a `.jpeg` name —
