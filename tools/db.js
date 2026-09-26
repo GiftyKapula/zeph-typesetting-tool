@@ -1,8 +1,8 @@
 // zeph — local workflow database (single-file SQLite, zero install).
 //
 // Uses Node's built-in SQLite (node:sqlite, needs --experimental-sqlite).
-// The database is a single file `zeph.db` at the repo root. It is gitignored;
-// `zeph export` writes a committable books.json snapshot for version control.
+// The database is a single file `data/zeph.db`. It is gitignored;
+// `zeph export` writes a committable data/books.json snapshot for version control.
 //
 // The DB never OWNS the book files — it only references where they already sit
 // on disk (register-in-place). Nothing is moved or copied by importing.
@@ -11,8 +11,20 @@ const path = require("node:path");
 const { DatabaseSync } = require("node:sqlite");
 
 const ROOT = path.join(__dirname, "..");
-const DB_PATH = process.env.ZEPH_DB || path.join(ROOT, "zeph.db");
+const DB_PATH = process.env.ZEPH_DB || path.join(ROOT, "data", "zeph.db");
 
+// One-time move: until 2026-09 the database lived at the repo root. The first time zeph
+// runs after that change, move it (with any WAL side-files) into data/ so nobody's local
+// history is lost. Skipped when ZEPH_DB points somewhere explicit.
+{
+  const fs = require("node:fs");
+  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+  const legacy = path.join(ROOT, "zeph.db");
+  if (!process.env.ZEPH_DB && !fs.existsSync(DB_PATH) && fs.existsSync(legacy)) {
+    for (const ext of ["", "-wal", "-shm"]) if (fs.existsSync(legacy + ext)) fs.renameSync(legacy + ext, DB_PATH + ext);
+    console.error("zeph: moved zeph.db -> data/zeph.db");
+  }
+}
 const db = new DatabaseSync(DB_PATH);
 db.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;");
 

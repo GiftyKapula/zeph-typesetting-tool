@@ -6,7 +6,10 @@
   "scripts": {
     "typeset:docx": "node src/typeset/typeset-docx.js",
     "zeph": "node --experimental-sqlite tools/zeph.js",
-    "report": "node --experimental-sqlite tools/gen-corrections-log.js"
+    "report": "node --experimental-sqlite tools/gen-corrections-log.js",
+    "regress": "node tools/dev/regress.js",
+    "pdf:render": "node tools/dev/pdf-render.mjs",
+    "pdf:size": "node tools/dev/pdf-size.mjs"
   },
   "keywords": [
     "typesetting",

@@ -6,31 +6,24 @@ this codebase before — they explain the pipeline (`import-docx.js` →
 `typeset-docx.js` → `generic-template.typ` → Typst → PDF) and where `zeph`
 fits on top of it.
 
-## FIRST: which branch are you on? Portrait and landscape never mix
+## FIRST: branches — one `main`, short-lived branches, pull requests
 
-The work lives on **two permanently separate branches**, one per book format:
+There is **one** long-lived branch: `main`. Every change is made on a short-lived
+branch and lands through a pull request (see `CONTRIBUTING.md`):
 
-| Branch | Format | Books |
-|---|---|---|
-| `portrait-books` | portrait B5 | the learner's/teacher's book family — Geography, Physics, Technology Studies, Home Economics, Food & Nutrition, Musical Arts, local languages … |
-| `landscape-syllabus` | A4 landscape | the CDC curriculum syllabuses (the 5-column matrix family) |
-
-**Never merge them, and never offer to.** The engine rules for the two families
-are different and must not be mixed — page geometry, front-matter structure,
-heading levels, cover construction and table styling all diverge. The two
-branches *will* drift apart, and that drift is the intended state, not a
-problem to go and fix.
-
-- Check the branch before you touch `src/typeset/`. If you are on
-  `portrait-books`, do not edit syllabus rules; if you are on
-  `landscape-syllabus`, do not edit portrait rules.
-- Don't port a fix from one branch to the other on your own initiative. If a
-  fix is shared *plumbing* rather than layout (something in `import-docx.js`,
-  the override primitives, image handling) say so and let the human decide —
-  don't cherry-pick across.
-- If asked how to "tell apart", "differentiate" or "call" the two families,
-  that is a question about naming and which branch to be on. It is **not** a
-  request to merge them or to make one branch serve both.
+- Start from an up-to-date `main`: `git switch main && git pull`, then
+  `git switch -c fix/<book-or-topic>`.
+- Never commit to `main` directly, never force-push, never create long-running
+  "integration"/"all-fixes" branches. One branch = one book or one engine fix.
+- Portrait books (B5 learner's/teacher's books) and the landscape CDC syllabi
+  share this one branch. They are kept apart **in the code**, not in git:
+  syllabus rules live in `src/typeset/passes/syllabus.js` and in the
+  `syllabus` branches of `generic-template.typ`, all gated on
+  `variant === "syllabus"`. A portrait fix must not touch syllabus code and
+  vice versa; shared plumbing (`import-docx.js`, override primitives, image
+  handling) affects both — say so in the PR.
+- Prove it with `npm run regress` (README → "Changing the engine safely"):
+  only the books you meant to change may differ.
 
 ## The core loop — never skip the "look at it" step
 
@@ -82,7 +75,7 @@ says something else entirely. Verify, then fix.
 
 ## `zeph` is the source of truth for "what's already been done" — but verify it
 
-`zeph.db` can go stale (a book typeset outside the tracked flow, a merge that
+`data/zeph.db` can go stale (a book typeset outside the tracked flow, a merge that
 didn't happen, a state nobody updated). Before reporting on a book's status,
 cross-check `npm run zeph -- show <id>` against what's actually in `output/`
 — don't repeat a stale DB state as fact.
@@ -96,7 +89,7 @@ operation (a reorg, a re-copy) resets mtimes for everything at once, and
 If you can't derive a fact, say so and leave it blank rather than presenting a
 plausible-looking guess as fact. The same goes for anything about a
 proofreading round, correction, or approval that only a human reviewer would
-know — that's the kind of thing `zeph.db`'s `comment.action` field and
+know — that's the kind of thing `data/zeph.db`'s `comment.action` field and
 `docs/WORKFLOW.md`'s corrections-log exist to capture, not to be inferred.
 
 ## Housekeeping while working
