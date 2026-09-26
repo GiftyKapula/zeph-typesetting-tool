@@ -49,22 +49,23 @@ plain `navy` layout). `autoTheme(name)` guesses a theme from the file name if
 you don't pass `--theme` explicitly. Add a book's own look by adding a block to
 `themes.js`.
 
-## 3. Cleanup passes + overrides — `typeset-docx.js`
+## 3. Cleanup passes + overrides — `passes/` and `overrides.js`
 
 Between import and emission, a series of JS passes normalise real-world
 manuscript mess: de-duplicating adjacent headings, boxifying a plain-text
 "EXERCISE 4" heading that wasn't a real Word box, fixing stray formatting,
 normalising unit/lesson banners, applying the ZEPH series front-matter layout,
-and more (`boxifyActivities`, `normaliseUnitHeads`, `applySeriesFront`, …).
+and more (`boxifyActivities`, `normaliseUnitHeads`, `applySeriesFront`, …). Each pass
+lives in `src/typeset/passes/<concern>.js`; `typeset-docx.js` calls them in order.
 
 Then a book's own **`<name>.overrides.json`** (sitting next to its `.docx` in
 `books-to-typeset/`) is applied — a JSON-driven set of surgical fixes for
 things generic enough to have a primitive (`recase`, `moveSectionBefore`,
 `replaceBlocks`, `blackWhite`, `coverImage`, `authors`, `theme`, …) but too
-book-specific to bake into the engine itself. This is the main lever you reach
+book-specific to bake into the engine itself (`applyOverrides()` in `overrides.js`). This is the main lever you reach
 for when a book needs *this one thing* fixed without touching the manuscript.
 
-## 4. Emitting Typst — `typeset-docx.js` → `generic-template.typ`
+## 4. Emitting Typst — `emit.js` → `generic-template.typ`
 
 `emit(blocks)` walks the (now-cleaned) block array and writes Typst source —
 one function call per block (`#para(...)`, `#activity(...)`, `#dtable(...)`,

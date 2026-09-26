@@ -130,7 +130,8 @@ Only the books you meant to change should appear. Put the result in your PR.
    figures, lists — regardless of how the author styled it in Word.
 2. **`themes.js`** picks (or is told) a palette + font + layout variant for the
    book — a `theme`.
-3. **`typeset-docx.js`** emits that block tree as Typst markup against
+3. **`typeset-docx.js`** runs the clean-up passes (`passes/`) and the book's
+   overrides (`overrides.js`), then `emit.js` writes the block tree as Typst markup against
    **`generic-template.typ`**, styled by the chosen theme, and compiles it with
    the Typst engine into a print-ready PDF in `output/`.
 4. **`zeph`** (`tools/zeph.js`) sits on top of all that: it gives every book a

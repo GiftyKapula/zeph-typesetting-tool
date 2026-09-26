@@ -142,8 +142,8 @@ controlled. Two kinds:
   (e.g. the `Edited by:` / `Illustrated by:` / `Cover and Book Layout:` lines on
   the imprint page). The ISBN line is left blank for the press.
   - The **`Cover and Book Layout:`** line is filled automatically for *every*
-    book (engine default `fillLayoutCredit` in `typeset-docx.js` → **Gift Kapula**,
-    the typesetter). You do not need a per-book override for it; add one only to
+    book (engine default: `LAYOUT_CREDIT` / `fillLayoutCredit` in
+    `src/typeset/passes/backmatter.js`, the typesetter's name). You do not need a per-book override for it; add one only to
     override the default.
 - **`replace`** swaps a paragraph that contains the given text.
 - **`images`** swaps a specific source image for a contextualised one. The key is

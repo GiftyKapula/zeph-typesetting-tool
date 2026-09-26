@@ -24,9 +24,9 @@ from the engine *running*.
 |---|---|---|---|
 | **Node.js** | JavaScript runtime | Runs all our scripts | No |
 | **JSZip** (`jszip`) | Zip library | A `.docx` is a zip file; this unpacks it in memory | No |
-| **Our parser** (`import-docx.js`) | ~500 lines of our own JavaScript | Reads the unzipped XML and recognises structure (headings, boxes, tables, images…) using rules/heuristics we wrote | No |
+| **Our parser** (`import-docx.js`) | ~2,700 lines of our own JavaScript | Reads the unzipped XML and recognises structure (headings, boxes, tables, images…) using rules/heuristics we wrote | No |
 | **Our theme config** (`themes.js`) | Plain data | Colours, font, layout variant per book | No |
-| **Our emitter** (`typeset-docx.js`) | Our JavaScript | Turns the recognised structure into Typst markup | No |
+| **Our clean-up + emitter** (`typeset-docx.js` → `passes/`, `overrides.js`, `emit.js`) | Our JavaScript | Turns the recognised structure into Typst markup | No |
 | **Typst** (`@myriaddreamin/typst-ts-node-compiler`) | A modern typesetting engine, written in **Rust** | The real workhorse: paginates, lays out, embeds fonts, renders the **PDF** | No |
 | **System fonts** (Times New Roman / Century Gothic) | Font files on the PC | Provide the actual letterforms | No |
 
@@ -56,7 +56,7 @@ path, not the import path:
         → themes.js + filename/flag                               [no AI]
 
 5. The structure is turned into Typst markup
-        → typeset-docx.js                                         [no AI]
+        → typeset-docx.js (passes/ + overrides.js → emit.js)       [no AI]
 
 6. Typst lays it out and renders the PDF
         → Typst engine (Rust)                                     [no AI]

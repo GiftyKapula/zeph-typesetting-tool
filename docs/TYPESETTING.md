@@ -4,26 +4,9 @@ The typeset edition is produced by the **Typst** engine (a real, modern
 typesetting system) — not by Word/LibreOffice. This is what makes the output
 look human-typeset rather than "a PDF from a word processor".
 
-## How to build it
+## Typeset a Word document (`npm run typeset:docx`)
 
-```bash
-npm run typeset      # -> output/TYPESET - Topic 5.1 ....pdf
-```
-
-Driven by `src/typeset/typst-build.js`, which:
-1. captures the topic's content as semantic blocks (`capture.js` — see
-   `ARCHITECTURE.md`),
-2. emits Typst markup that calls the design functions in `template.typ`,
-3. compiles to PDF with `@myriaddreamin/typst-ts-node-compiler`.
-
-`build(topicFile, no, title, outName, { showAnswers })` — set `showAnswers:false`
-for a clean print version (current default) or `true` to keep the
-yellow-highlighted possible answers (e.g. a teacher/answer copy).
-
-## Typeset ANY Word document (`npm run typeset:docx`)
-
-The same engine can typeset arbitrary, **non-typeset** `.docx` books — not just
-the books this project generates. Drop a Word document in `input/` or
+The engine typesets arbitrary, **non-typeset** `.docx` books. Drop a Word document in `input/` or
 `books-to-typeset/` and run:
 
 ```bash
@@ -132,8 +115,8 @@ engine:
   print house expects. Do **not** fake A4.
 - **Front-matter sequence:** cover → a **title page** that repeats the book name
   → copyright/imprint → **Table of Contents** → Authors / Foreword / Preface /
-  Acknowledgements / Introduction. `typeset-docx.js` rebuilds this from the raw
-  manuscript via `applySeriesFront()` (it inserts the title page after the cover
+  Acknowledgements / Introduction. The engine rebuilds this from the raw
+  manuscript via `applySeriesFront()` (`src/typeset/passes/series-front.js`) (it inserts the title page after the cover
   and the `titlestart` / `showpage` / `bodystart` page-numbering markers).
 - **Page numbering:** roman counting begins (silently) on the **title page = i**,
   so the title/copyright/contents pages count as *i, ii, iii…* but print **no**
@@ -171,24 +154,15 @@ engine:
   (defaults to `primary` for themes that don't override it).
 
 > Note: Typst array literals — an **empty** list must be emitted as `()`, never
-> `(,)` (a lone comma is a parse error). The emit helpers in `typeset-docx.js`
+> `(,)` (a lone comma is a parse error). The emit helpers in `emit.js`
 > handle this; keep it in mind if you add new array-valued blocks.
 
-## The design (`src/typeset/template.typ`)
+## The design (`src/typeset/generic-template.typ`)
 
-- **Body face:** Times New Roman, justified, optimised line breaks + hyphenation.
-- **Colour scheme:** navy `#1f3864` + gold `#c79a3b`.
-- **Page furniture on every page:**
-  - a **full-bleed navy top band** with a gold hairline,
-  - a **running header** ("Form 5 · Physical Education and Sport" | topic title),
-  - a **decorated footer** (book name · page number in a navy pill · topic no.).
-- **Topic opener:** a navy **number block** with a gold "TOPIC" eyebrow + the big
-  number, the title in large serif with a **gold underline**, and the opener
-  image in a **gold keyline frame**.
-- **Sub-topic headings:** navy band with a gold leading edge.
-- **Section headings:** navy text with a small accent bar.
-- **Boxes:** Learning Activity (blue), Exercise (green), Key Points (amber),
-  Did You Know? (teal) — matching the Word edition.
+Every book is laid out by `generic-template.typ`, styled by its theme from
+`themes.js` (fonts, palette, layout `variant`). The house rules it implements are
+in `docs/HOUSE-STYLE.md` (the gospel) and `docs/SERIES-GUIDELINES.md`; the
+theme/variant mechanics are described above under *Themes*.
 
 ## Previewing a Typst PDF
 
