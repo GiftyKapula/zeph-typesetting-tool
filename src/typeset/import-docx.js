@@ -28,6 +28,18 @@ const SUBTOPIC_RE = /^SUB[-\s‐-―]*TOPIC\s*:?\s*[\d.]+\b/i;
 // without a colon before the number ("TOPIC: 1.3."). Used wherever a following block must
 // be recognised as "the next section starts here".
 const SECTION_RE = /^(TOPIC|UNIT|CHAPTER|SUB[-\s‐-―]*TOPIC)\s*:?\s*[\d.]/i;
+// The manuscript's own hand-typed contents heading, in every spelling we see. Writers
+// type the singular "TABLE OF CONTENT" at least as often as the plural, and some type a
+// bare "CONTENTS" with no "TABLE OF" — all three must be recognised, because this
+// heading is what triggers dropping the hand-typed entry lines that follow it. When it is
+// NOT matched, every "TOPIC 2.1: … 11" entry line survives into the body, where the
+// ordinary heading rules turn it into a real (but empty) topic banner — so the book gains
+// a run of blank ghost topic pages and a contents page listing every topic twice. Keep it
+// in one place so the call sites below can never drift apart.
+const TOC_HEAD_RE = /^(TABLE\s+OF\s+CONTENTS?|CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i;
+// A contents-page line that declares a section: "TOPIC 2.4: AMBITIONS AND HOPE   69".
+// Groups: keyword, number, and the title (still carrying its leaders/page number).
+const TOC_TOPIC_RE = /^(TOPIC|UNIT|CHAPTER)\s*:?\s*(\d+(?:\.\d+)*)\s*[:.–—-]?\s*(.+)$/i;
 
 const decode = (s) => s
   .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
@@ -2222,7 +2234,7 @@ async function importDocx(docxPath, opts = {}) {
   // ---- front-matter detection (only when the book clearly has one) ----
   const hasTocStyle = parts.some((x) => /<w:pStyle\s+w:val="TOC\d/.test(x));
   const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso/i.test(textOf(x)));
-  const tocPartIdx = parts.findIndex((x) => !isTbl(x) && /^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(textOf(x)));
+  const tocPartIdx = parts.findIndex((x) => !isTbl(x) && TOC_HEAD_RE.test(textOf(x)));
   // The imprint (copyright/credits) page is centred plain text in the original.
   // It ends at the TOC, the next styled heading, or a safety cap — whichever is
   // first — so a book WITHOUT a TOC doesn't treat its whole body as imprint.
@@ -2334,6 +2346,59 @@ async function importDocx(docxPath, opts = {}) {
     }
   }
   // bold + large => heading level (1/2/3) or 0.
+  // ---- the topics the book's own contents page declares ----
+  // A manuscript does not always type its topic banners consistently. This RE Form 2
+  // book opens four of its six topics correctly ("TOPIC 2.3: SELF-ESTEEM") but types
+  // 2.2 as a bare "2.2 FREEDOM AND COMMUNITY" (the word TOPIC dropped) and 2.4 as a
+  // bare "AMBITIONS AND HOPE" (its number coming from a Word list, not the text).
+  // Neither matches NUMTOPIC, so neither was recognised as a heading: each was
+  // swallowed into the PREVIOUS topic's END OF TOPIC assessment as one more numbered
+  // question, dragging that topic's figure and introduction in with it, and neither
+  // topic reached the contents page.
+  //
+  // The contents page is the book telling us its own section list, so it is the
+  // evidence that settles those lines. Collect the topics it declares here (entries
+  // end in a page number, which is what distinguishes a contents line from the body
+  // banner of the same name), and let a bold, heading-sized body line that reads
+  // exactly like one of those titles — with or without its number — count as that
+  // topic's banner, restored to the canonical spelling its siblings use.
+  const tocTopics = [];
+  {
+    const flatten = (s) => String(s || "").replace(/\s+/g, " ").trim();
+    const ti = parts.findIndex((x) => !isTbl(x) && TOC_HEAD_RE.test(flatten(textOf(x))));
+    for (let k = ti + 1; ti >= 0 && k < Math.min(parts.length, ti + 200); k++) {
+      if (isTbl(parts[k])) continue;
+      const t = flatten(textOf(parts[k]));
+      if (!/\d\s*$/.test(t)) continue;                       // a contents line ends in its page number
+      const m = t.match(TOC_TOPIC_RE);
+      if (!m) continue;
+      const title = m[3].replace(/[\s.…]*\[?\d{1,3}\]?$/, "").replace(/[\s.…]+$/, "").trim();
+      if (title) tocTopics.push({ num: m[2], title, full: `${m[1].toUpperCase()} ${m[2]}: ${title}` });
+    }
+  }
+  const normTitle = (s) => String(s || "").toUpperCase().replace(/[^A-Z0-9]+/g, " ").trim();
+  // Part index -> the canonical banner to print there. Only a topic whose banner is
+  // MISSING from the body is restored, and only at its FIRST match: a topic that opens
+  // correctly needs nothing, and an in-topic sub-heading repeating the topic's name
+  // further down ("Freedom and Community" inside TOPIC 2.2) must stay a sub-heading.
+  const restoredBanner = new Map();
+  {
+    const flatten = (s) => String(s || "").replace(/\s+/g, " ").trim();
+    const bannered = new Set();
+    parts.forEach((x) => { if (!isTbl(x)) { const t = flatten(textOf(x)); if (NUMTOPIC.test(t)) bannered.add(normTitle(t)); } });
+    for (const tp of tocTopics) {
+      if (bannered.has(normTitle(tp.full))) continue;            // typed properly already
+      const key = normTitle(tp.title);
+      if (key.replace(/ /g, "").length < 4) continue;            // too short to match safely
+      const numbered = normTitle(tp.num + " " + tp.title);
+      const k = parts.findIndex((x) => {
+        if (isTbl(x) || !boldFirstRun(x) || sizeOf(x) < 27) return false;
+        const n = normTitle(flatten(textOf(x)));
+        return n === key || n === numbered;                      // the WHOLE line, never a substring
+      });
+      if (k >= 0) restoredBanner.set(k, tp.full);
+    }
+  }
   const sizeHeadLevel = (x, i) => {
     if (!sizeHeads || isTbl(x) || !boldFirstRun(x)) return 0;
     const s = sizeOf(x), t = textOf(x), front = i < firstTopicIdx;
@@ -2343,6 +2408,8 @@ async function importDocx(docxPath, opts = {}) {
       // to classifyPara (which makes them a "head", not an outlined sub-topic).
       if (NUMTOPIC.test(t)) return 1;
       if (NUMSUB.test(t)) return 2;
+      // a topic banner the writer typed without the word TOPIC — see restoredBanner
+      if (restoredBanner.has(i)) return 1;
       if (front && s >= 27) return 1;               // a front-matter section heading
       return 0;
     }
@@ -2434,6 +2501,7 @@ async function importDocx(docxPath, opts = {}) {
       const ty = textOf(y);
       if (/Heading\d/.test(styleOf(y)) || sizeHeadLevel(y, j)) break; // a heading ends it
       if (SECTION_RE.test(ty)) break; // a numbered heading (no Word style)
+      if (restoredBanner.has(j)) break; // the next topic's banner, typed without "TOPIC"
       if (boxKindFromTitle(ty) && boldFirstRun(y)) break;        // the next box label
       // An End-of-Topic assessment runs to the next section: its questions are
       // interleaved with diagrams to read and data tables, and separated by blank
@@ -2530,12 +2598,25 @@ async function importDocx(docxPath, opts = {}) {
     // "CHIBALU N: …" per line). Drop the contiguous run of short, heading-like
     // lines; stop at the first real section header — recognised because the line
     // that follows IT is a substantial body paragraph (the section's prose).
-    if (/^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(textOf(x))) {
+    if (TOC_HEAD_RE.test(textOf(x))) {
       blocks.push({ t: "toc" });
       let j = i + 1;
-      const bodyLen = (k) => (k < parts.length && !isTbl(parts[k]) ? textOf(parts[k]).length : 0);
+      // Measure every line on WHITESPACE-COLLAPSED text. A hand-typed contents entry is
+      // padded out to the page number with a run of tabs or spaces, so its raw length is
+      // meaningless: "TOPIC 2.1: DIVISION, SIN AND FORGIVENESS    11" is 63 raw characters
+      // but only 43 real ones, and an entry whose page number sits in a separate run can
+      // carry 80 trailing spaces. Measuring raw length made short entries look like long
+      // body prose, which ended the scan early and let the rest of the contents list
+      // through into the body as real (empty) topic banners.
+      const flat = (s) => s.replace(/\s+/g, " ").trim();
+      const bodyLen = (k) => (k < parts.length && !isTbl(parts[k]) ? flat(textOf(parts[k])).length : 0);
+      // A contents entry leadered with TABS or SPACES rather than dots — "Title      12".
+      // Word's own TOC field uses dot leaders, but a hand-typed one is just as often
+      // padded with tabs, and that form has to be recognised the same way.
+      const spaceLeader = (s) => /\S[ \t ]{2,}\[?\d{1,3}\]?\s*$/.test(s);
       while (j < parts.length && !isTbl(parts[j])) {
-        const t = textOf(parts[j]);
+        const raw = textOf(parts[j]);
+        const t = flat(raw);
         // A genuine "List of Figures" / "List of Tables" section (its heading or a
         // TableofFigures-styled entry) is real front matter, not hand-typed TOC
         // junk — stop dropping so it is kept and rendered. But a bare
@@ -2563,6 +2644,7 @@ async function importDocx(docxPath, opts = {}) {
         }
         if (t === "") { j++; continue; }                                   // blank padding
         if (/[.…]{2,}\s*\[?\d+\]?\s*$/.test(t)) { j++; continue; }          // dot-leader entry
+        if (spaceLeader(raw)) { j++; continue; }                            // tab/space-leader entry
         if (/^(CHIBALU|CIPATI)\s*\d+\b/i.test(t)) { j++; continue; }        // a unit entry (may be long)
         // The genuine first section heading ("UNIT 1: …") carries a real heading
         // STYLE (Heading1) or a large font — unlike its same-named contents entry,
@@ -2579,8 +2661,9 @@ async function importDocx(docxPath, opts = {}) {
           // padding, dot-leadered lines, and numbered TOPIC/UNIT rows). Otherwise a
           // bare section name sitting just above the dotted topic list (e.g. a
           // stray "HOW TO USE THIS BOOK") would be mistaken for a real header.
-          const isTocEntry = (s) => s === "" || /[.…]{2,}\s*\[?\d+\]?\s*$/.test(s)
-            || SECTION_RE.test(s) || /^(CHIBALU|CIPATI)\s+[\d.]/i.test(s) || /^GLOSSARY\b/i.test(s);
+          const isTocEntry = (s) => flat(s) === "" || /[.…]{2,}\s*\[?\d+\]?\s*$/.test(flat(s))
+            || spaceLeader(s)
+            || SECTION_RE.test(flat(s)) || /^(CHIBALU|CIPATI)\s+[\d.]/i.test(flat(s)) || /^GLOSSARY\b/i.test(flat(s));
           let n = j + 1;
           while (n < parts.length && !isTbl(parts[n]) && isTocEntry(textOf(parts[n]))) n++;
           if (bodyLen(n) >= 90) break;     // real section header — keep it (stop dropping)
@@ -2732,6 +2815,12 @@ async function importDocx(docxPath, opts = {}) {
       continue;
     }
     // size-inferred heading (books that style headings by hand)
+    // A topic banner the writer under-typed, restored to the spelling its siblings
+    // use, so "2.2 FREEDOM AND COMMUNITY" and a bare "AMBITIONS AND HOPE" print — and
+    // reach the contents page — as "TOPIC 2.2: …" / "TOPIC 2.4: …". Checked before
+    // both heading routes, since neither the size rule (off in a styled book) nor
+    // classifyPara's numbered-topic rule recognises a line typed this way.
+    if (restoredBanner.has(i)) { blocks.push({ t: "h1", text: restoredBanner.get(i) }); continue; }
     const lvl = sizeHeadLevel(x, i);
     if (lvl) { blocks.push({ t: "h" + lvl, text: plainOf(segs).trim() }); continue; }
     // a Word auto-numbered/bulleted list item: keep the writer's real marker
