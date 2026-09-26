@@ -189,8 +189,9 @@ file extension and a like-for-like aspect ratio.
 > This table covers the overrides you'll reach for most often. The engine
 > recognises many more (each is a niche, one-off fix added for a specific
 > manuscript problem) — the definitive, always-current list is every
-> `ov.<key>` read in `applyOverrides()` in `src/typeset/typeset-docx.js`
-> (`grep -oE "ov\.[a-zA-Z]+" src/typeset/typeset-docx.js | sort -u`). If a
+> `ov.<key>` read in `applyOverrides()` in `src/typeset/overrides.js` (plus a few
+> read directly by `typesetOne` in `typeset-docx.js`):
+> `grep -ohE "ov\.[a-zA-Z]+" src/typeset/overrides.js src/typeset/typeset-docx.js | sort -u`. If a
 > problem you're hitting sounds oddly specific, search there before adding a
 > new primitive — there's a decent chance it already exists.
 
