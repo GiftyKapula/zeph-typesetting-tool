@@ -329,7 +329,13 @@ const THEMES = {
   // Travel & Tourism Teacher's Diploma (2026) — a warm tourism teal cover field with
   // a white title band; the first landscape syllabus typeset from the CDC references.
   travelsyl: { ...syllabus({ subject: "Travel and Tourism", level: "Secondary Teacher's Diploma",
-    year: 2026, signature: "e35b1a", band: "ffffff", covText: "ffffff", title: "1c1c1c" }), hyphenate: false },
+    year: 2026, signature: "c45911", band: "ffffff", covText: "ffffff", title: "1c1c1c" }), hyphenate: false },
+  // Curriculum, Instructional Strategies and Assessment for Special Education (Secondary)
+  // Teacher Education Diploma (2025) — a deep teal cover field, distinct from Travel &
+  // Tourism's orange so the two TED syllabuses are tellable apart on a shelf.
+  speciaedsyl: { ...syllabus({ subject: "Curriculum, Instructional Strategies and Assessment for Special Education – Secondary",
+    level: "Secondary Teachers' Diploma", year: 2025, signature: "14555c", band: "ffffff",
+    covText: "ffffff", title: "1c1c1c" }), hyphenate: false },
 };
 
 // Pick a sensible theme from the file name when none is given.
@@ -340,6 +346,10 @@ function autoTheme(name) {
   // theme of the same name. Match "syllabus" FIRST and route by subject.
   if (/syllabus/i.test(name)) {
     if (/travel|tourism/i.test(name)) return "travelsyl";
+    // Special Education. Matched on the subject words rather than "special education"
+    // alone, because the filename abbreviates it ("SPE. EDU.") — as CDC filenames
+    // routinely do — so a bare /special\s+education/ would miss it.
+    if (/spe(?:c(?:ial)?)?\.?\s*edu/i.test(name)) return "speciaedsyl";
     // other subjects fall through to their B5 theme until a syllabus() theme exists
   }
   // ICT before Computer Science: they share a palette but not a name (see the `ict`

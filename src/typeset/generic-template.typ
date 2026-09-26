@@ -144,9 +144,11 @@
   set page(
     paper: T.paper,
     flipped: T.at("landscape", default: false),
-    margin: if syllabus { (top: 20mm, bottom: 20mm, x: 20mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
+    // 20mm frame all round: the footer/page number lives in the bottom margin, so the
+    // bottom margin is enlarged just enough that the footer itself sits 20mm from the edge.
+    margin: if syllabus { (top: 20mm, bottom: 32mm, x: 20mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
     header-ascent: if tallhdr { 8mm } else { 30% },
-    footer-descent: if syllabus { 40% } else { 30% },
+    footer-descent: if syllabus { 6mm } else { 30% },
     header: context {
       let visible = if serieslike { pastcover.get() } else { counter(page).get().first() > 1 }
       if syllabus {
@@ -233,9 +235,15 @@
           set text(font: T.bodyFont, size: 9pt, fill: T.ink)
           place(top, line(length: 100%, stroke: 1.6pt + T.ink))
           place(top, dy: 3pt, line(length: 100%, stroke: 0.6pt + T.ink))
-          v(5pt)
-          grid(columns: (1fr, auto, 1fr), align: (left + horizon, center + horizon, right),
-            text(style: "italic", weight: "bold")[#T.hdrleft],
+          v(7pt)
+          // The masthead is the book's full title, and a CDC course title is long: at a
+          // fixed 9pt "Curriculum, Instructional Strategies and Assessment for Special
+          // Education - Secondary Syllabus 2025" wrapped to two justified lines whose first
+          // line ran under the page chip. Step the size down for a long title, leave a
+          // gutter before the chip, and never justify a masthead.
+          let ms = if T.hdrleft.len() > 72 { 7pt } else if T.hdrleft.len() > 50 { 8pt } else { 9pt }
+          grid(columns: (1fr, auto, 1fr), column-gutter: 10pt, align: (left + horizon, center + horizon, right),
+            par(justify: false, text(style: "italic", weight: "bold", size: ms)[#T.hdrleft]),
             if pgvisible.get() {
               box(fill: T.ink, inset: (x: 8pt, y: 2.5pt))[
                 #text(fill: white, weight: "bold")[#counter(page).display()]]
@@ -278,22 +286,55 @@
     return {
       pagebreak(weak: true)
       page(paper: "a4", flipped: true, margin: (x: 26mm, y: 16mm), header: none, footer: none)[
-        #set align(center)
-        #if hero != none and hero.file != "" { image("_media/" + hero.file, height: 40mm); v(3mm) }
-        #text(font: T.bodyFont, size: 15pt, weight: "bold", fill: T.ink)[Republic of Zambia] #linebreak()
-        #text(font: T.bodyFont, size: 18pt, weight: "bold", fill: T.ink)[MINISTRY OF EDUCATION]
-        #v(9mm)
-        #line(length: 100%, stroke: 3pt + grey)
-        #v(7mm)
-        #text(font: T.displayFont, size: 33pt, weight: "black", fill: T.ink, tracking: 0.5pt)[#upper(name) SYLLABUS] #linebreak()
-        #v(4mm)
-        #text(font: T.bodyFont, size: 19pt, weight: "bold", fill: T.ink)[#upper(T.eyebrow)]
-        #v(7mm)
-        #line(length: 100%, stroke: 3pt + grey)
-        #v(11mm)
-        #if logo != none and logo.file != "" { image("_media/" + logo.file, height: 26mm); v(4mm) }
-        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[Developed by the Curriculum Development Centre] #linebreak()
-        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[#year]
+        // This page has to hold a title of ANY length. "Travel and Tourism" sets on one
+        // line at the design size; a full CDC course title ("Curriculum, Instructional
+        // Strategies and Assessment for Special Education - Secondary") runs to four, and
+        // at fixed sizes that pushed the CDC badge and the "Developed by..." credit off the
+        // bottom onto a near-empty page of their own.
+        //
+        // So the whole column is measured and stepped down together. Two things matter in
+        // how it degrades: the furniture (crest, badge, the generous gaps) gives way BEFORE
+        // the title does, because the title is the page; and the level line shrinks with the
+        // title, never past it -- shrinking the title alone drove it below the 19pt level
+        // line and left the page looking like its subtitle was the headline. The title is
+        // ragged-right too: justified display caps open rivers of space between the words
+        // ("CURRICULUM,    INSTRUCTIONAL    STRATEGIES"), which reads as broken.
+        #context {
+          let tw = 245mm
+          let col(c) = block(width: tw)[
+            #set align(center)
+            #if hero != none and hero.file != "" { image("_media/" + hero.file, height: c.hero); v(3mm * c.g) }
+            #text(font: T.bodyFont, size: 15pt, weight: "bold", fill: T.ink)[Republic of Zambia] #linebreak()
+            #text(font: T.bodyFont, size: 18pt, weight: "bold", fill: T.ink)[MINISTRY OF EDUCATION]
+            #v(9mm * c.g)
+            #line(length: 100%, stroke: 3pt + grey)
+            #v(7mm * c.g)
+            #block(width: 100%, par(justify: false, std.align(center,
+              text(font: T.displayFont, size: c.title, weight: "black", fill: T.ink, tracking: 0.5pt)[#upper(name) SYLLABUS])))
+            #v(4mm * c.g)
+            #text(font: T.bodyFont, size: c.eyebrow, weight: "bold", fill: T.ink)[#upper(T.eyebrow)]
+            #v(7mm * c.g)
+            #line(length: 100%, stroke: 3pt + grey)
+            #v(11mm * c.g)
+            #if logo != none and logo.file != "" { image("_media/" + logo.file, height: c.logo); v(4mm * c.g) }
+            #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[Developed by the Curriculum Development Centre] #linebreak()
+            #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: T.ink)[#year]
+          ]
+          let steps = (
+            (title: 33pt, eyebrow: 19pt, hero: 40mm, logo: 26mm, g: 1.0),
+            (title: 33pt, eyebrow: 19pt, hero: 36mm, logo: 24mm, g: 0.85),
+            (title: 30pt, eyebrow: 18pt, hero: 34mm, logo: 23mm, g: 0.75),
+            (title: 28pt, eyebrow: 17pt, hero: 32mm, logo: 22mm, g: 0.70),
+            (title: 26pt, eyebrow: 16pt, hero: 30mm, logo: 20mm, g: 0.65),
+            (title: 24pt, eyebrow: 15pt, hero: 28mm, logo: 19mm, g: 0.60),
+            (title: 22pt, eyebrow: 14pt, hero: 26mm, logo: 18mm, g: 0.55),
+            (title: 20pt, eyebrow: 13pt, hero: 24mm, logo: 17mm, g: 0.50),
+          )
+          // 178mm is the live height (A4 landscape, 16mm margins); leave a little slack.
+          let pick = steps.last()
+          for c in steps { if measure(col(c)).height <= 174mm { pick = c; break } }
+          col(pick)
+        }
       ]
       pastcover.update(true)
       pagebreak(weak: true)
@@ -461,9 +502,28 @@
       ])
       #place(top + left, dx: fdx, dy: 82mm, box(width: 297mm, height: 40mm)[
         #set align(center + horizon)
-        #stack(spacing: 4mm,
-          text(font: T.displayFont, size: 31pt, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS],
-          text(font: T.bodyFont, size: 18pt, weight: "bold", fill: title)[#upper(T.eyebrow)])
+        // The title has to fit the band whatever the subject is called. "Travel and
+        // Tourism" sets on one line at 31pt, but a full CDC course title ("Curriculum,
+        // Instructional Strategies and Assessment for Special Education – Secondary")
+        // needs three lines: at a fixed 31pt it overran the band into the level line
+        // below and spilled off the right edge of the panel. Step down through sizes and
+        // take the first that measures inside the band, inside a width that keeps a
+        // margin either side of the panel.
+        #context {
+          let tw = 265mm
+          let eyebrow = text(font: T.bodyFont, size: 18pt, weight: "bold", fill: title)[#upper(T.eyebrow)]
+          let avail = 40mm - measure(eyebrow).height - 8mm
+          // justify: false — a justified multi-line title stretches the word gaps into
+          // rivers ("CURRICULUM,    INSTRUCTIONAL    STRATEGIES    AND"), which reads
+          // as broken on a cover. Ragged-right centred is what the CDC references show.
+          let mk(s) = block(width: tw, par(justify: false, align(center,
+            text(font: T.displayFont, size: s, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS])))
+          let pick = 13pt
+          for s in (31pt, 28pt, 25pt, 22pt, 20pt, 18pt, 16pt, 15pt, 14pt, 13pt) {
+            if measure(mk(s)).height <= avail { pick = s; break }
+          }
+          stack(spacing: 4mm, mk(pick), eyebrow)
+        }
       ])
       #place(top + left, dx: fdx, dy: 128mm, box(width: 297mm)[
         #set align(center)
@@ -1708,8 +1768,17 @@
 // the imprint/credits page, where a short centred line of proper names ("Precious
 // Sapanoi") has no justification to gain from hyphenating and a dictionary match on
 // an ordinary-word name (Precious -> "Pre-cious") reads as a typo, not a line break.
-#let para(ss, align: none, drop: false, hyphenate: true) = {
+// hyphenate defaults to `auto` meaning "inherit the theme", NOT `true`: a hard `true`
+// here silently defeated a theme's own `hyphenate: false` (themes.js sets it on the CDC
+// syllabus themes), because every body paragraph and run-in heading goes through para().
+// That is how a syllabus year heading came out as "...SECONDARY TEACH-ERS' DIPLOMA" even
+// though the theme had asked for no hyphenation anywhere in the book.
+#let para(ss, align: none, drop: false, hyphenate: auto, indent: false) = {
+  let hyphenate = if hyphenate == auto { T.at("hyphenate", default: true) } else { hyphenate }
   set text(hyphenate: hyphenate)
+  // A syllabus body paragraph that sits UNDER a numbered item is indented to align with
+  // the heading text (past the number), for a clean outline look.
+  if indent { return pad(left: 7mm, para(ss, align: align, drop: drop, hyphenate: hyphenate)) }
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
     // Drop capital: lift the first letter of the first run to ~3-line height in the
     // theme primary colour, then flow the rest of the paragraph. Used for the
@@ -1728,6 +1797,27 @@
   }
   else if align == "center" { block(width: 100%)[#std.align(center, par[#segs(ss)])] }
   else if align == "right" { block(width: 100%)[#std.align(right, par[#segs(ss)])] }
+  else if syllabus and ss.len() > 0 and (ss.map(s => s.at("t", default: "")).join(default: "")).match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+")) != none {
+    // SYLLABUS numbered item ("1. …", "2.1 …"): a HANGING item — the number in its own
+    // column, the text aligned under itself, with a clear gap after the number.
+    let p = ss.map(s => s.at("t", default: "")).join(default: "")
+    let m = p.match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+"))
+    let num = m.captures.at(0)
+    let cut = m.text.len()
+    let firstBold = ss.at(0).at("b", default: false)
+    let removed = 0
+    let out = ()
+    for s in ss {
+      let t = s.at("t", default: "")
+      if t == none { t = "" }
+      if removed >= cut { out.push(s) }
+      else if removed + t.len() <= cut { removed += t.len() }
+      else { out.push((..s, t: t.slice(cut - removed))); removed = cut }
+    }
+    block(width: 100%)[
+      #grid(columns: (7mm, 1fr), column-gutter: 0pt, align: (left + top, left + top),
+        if firstBold { text(weight: "bold")[#num] } else { num }, par[#segs(out)])]
+  }
   else { flowsegs(ss) }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
@@ -1995,7 +2085,9 @@
   if not tocUnitsOnly {
     if isyear { mark(1, t) } else { mark(2, t) }
   }
-  v(7pt, weak: true)
+  // Clear space ABOVE a heading — a syllabus front-matter sub-section needs real
+  // separation from the paragraph before it (the weak 7pt collapsed to almost nothing).
+  v(if syllabus and not isyear { 18pt } else { 7pt }, weak: true)
   if boxstyle == "labcard" {
     // CHEMISTRY sub-topic: a small amber label+number eyebrow, the name below in
     // amethyst bold, over a single thin rule. Split on the first colon.
@@ -2035,10 +2127,16 @@
   } else if modern {
     block(width: 100%, breakable: false, radius: 4pt, fill: T.act.fill, stroke: (left: 5pt + T.accent), inset: (x: 11pt, y: 8pt))[
       #text(fill: T.primary, size: hs(14pt), weight: "bold")[#t]]
-  } else if syllabus {
-    // clean solid banner — no left accent stripe
+  } else if syllabus and isyear {
+    // YEAR banner — a solid section divider, kept prominent (it opens a whole year).
     block(width: 100%, breakable: false, radius: 3pt, fill: T.primary, inset: (x: 12pt, y: 8pt))[
       #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
+  } else if syllabus {
+    // Front-matter sub-section (Methodologies, Assessment, Time Allocation…): a sleek,
+    // understated label — tracked bold caps in the ink colour, no rule and no banner, so
+    // it doesn't shout under Introduction. Clear space above it (set on the leading v()).
+    block(width: 100%, breakable: false)[
+      #text(fill: T.ink, size: hs(12pt), weight: "bold", tracking: 1pt)[#upper(t)]]
   } else {
     block(width: 100%, breakable: false, clip: true, radius: 3pt, stroke: (left: 5pt + T.accent), fill: T.primary, inset: (x: 11pt, y: 8pt))[
       #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
@@ -2068,8 +2166,24 @@
       #v(1pt)
       #line(length: 38pt, stroke: 2pt + T.accent)]
   } else if syllabus {
-    // plain bold heading — NO vertical accent bar (the reference has none)
-    block(breakable: false)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
+    // A syllabus's front matter (Preface, Introduction, Methodology, Assessment, Time
+    // allocation) is written at this heading level, and the contents page has to list it:
+    // the Travel & Tourism reference shows every one of those sections. head() outlines
+    // nothing by default, so without this the generated contents jumped from its title
+    // straight to topic 1.1 and the whole front matter was unreachable from it.
+    mark(2, t)
+    // plain bold heading — NO vertical accent bar. A NUMBERED head ("1. Project-Based
+    // Learning") hangs its number in a fixed 7mm column so the title lines up with the
+    // indented body paragraph beneath it.
+    let m = t.match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+"))
+    if m != none {
+      block(breakable: false)[
+        #grid(columns: (7mm, 1fr), column-gutter: 0pt, align: (left + top, left + top),
+          text(fill: T.ink, size: hs(13pt), weight: "bold")[#m.captures.at(0)],
+          text(fill: T.ink, size: hs(13pt), weight: "bold")[#t.slice(m.text.len())])]
+    } else {
+      block(breakable: false)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
+    }
   } else {
     block(breakable: false)[
       #grid(columns: (4pt, auto), column-gutter: 7pt,

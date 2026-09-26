@@ -247,7 +247,7 @@ function emit(blocks) {
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
       case "label": out += `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`; break;
       case "para": {
-        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""})\n`;
+        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""})\n`;
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
@@ -4398,6 +4398,22 @@ function flattenSyllabusBoxes(blocks) {
       pushTitle((b.title || b.heading || "").trim());
       for (const s of b.intro || []) out.push(para(s));
       for (const p of b.parts || []) {
+        // A part that carries a TABLE is re-emitted as a real table block, never
+        // flattened to a paragraph. This mattered enormously: when the box detector
+        // wraps a stretch of a syllabus (an "ASSESSMENT" heading is enough to start a
+        // box, and it then runs to the next heading it recognises), the 5-column
+        // matrix — the entire substance of the syllabus — gets absorbed into that box
+        // as a table part. Dropping it here silently produced a 10-page syllabus with
+        // every topic, competence and expected standard missing, and a clean build log.
+        // Keyed on the part's KIND, not merely on it having `rows`: a `colgrid` part
+        // also carries `rows`, but shaped { marker, cells[] } rather than an array of
+        // cells, and emitting one as a table throws "row is not iterable".
+        if (p.kind === "table" && Array.isArray(p.rows)) { out.push({ t: "table", rows: p.rows }); continue; }
+        if (p.kind === "colgrid") {
+          out.push({ t: "colgrid", rows: p.rows, ncol: p.ncol, hasMarker: p.hasMarker, header: p.header });
+          continue;
+        }
+        if (p.kind === "image" && Array.isArray(p.images)) { for (const im of p.images) out.push({ t: "image", ...im }); continue; }
         const mk = p.marker ? p.marker + " " : "";
         const seg = (p.qseg && p.qseg.length)
           ? [{ t: mk, b: false, it: false, c: null }, ...p.qseg]
@@ -4456,9 +4472,25 @@ function fixSyllabusSignatures(blocks) {
 function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {}) {
   const coverIdx = blocks.findIndex((b) => b.t === "cover");
   const cov = coverIdx >= 0 ? blocks[coverIdx] : null;
-  const visionIdx = blocks.findIndex((b) => b.t === "h1");
-  const compIdx = blocks.findIndex((b) => /^h[12]$/.test(b.t) && /^competen[ct]es?\s+and\s+descriptors/i.test((b.text || "").trim()));
+  // Where the VISIBLE roman numbering starts: the first prose front-matter section.
+  // Travel & Tourism opens that stretch with a VISION h1, but keying on "the first h1"
+  // is a trap -- a manuscript whose front-matter headings are all lower-level has its
+  // first h1 somewhere near the back (in the Special Education syllabus it was
+  // REFERENCES), so numbering switched on two pages before the end and the book printed
+  // no folios at all, with a clean build log. Fall back to the first heading of any
+  // level after the copyright page.
+  const isHead = (b) => /^h[123]$/.test(b.t) || b.t === "head";
   const crIdx = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+  let visionIdx = blocks.findIndex((b) => b.t === "h1");
+  if (visionIdx < 0 || (crIdx >= 0 && visionIdx > crIdx + 40))
+    visionIdx = blocks.findIndex((b, i) => i > crIdx && isHead(b));
+  // Arabic page 1 starts at the competences section -- the last front-matter heading
+  // before the matrix. Matching only "COMPETENCES AND DESCRIPTORS" at h1/h2 was too
+  // narrow: the Special Education syllabus calls it "Competencies to be developed" and
+  // styles it a lower-level heading, so the body never started, the level divider never
+  // appeared, and every page -- REFERENCES included -- numbered as roman front matter.
+  const compIdx = blocks.findIndex((b) => (/^h[123]$/.test(b.t) || b.t === "head")
+    && /^competen[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim()));
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     if (cov && i === coverIdx + 1) {
@@ -4522,7 +4554,7 @@ async function typesetOne(docxPath, themeName) {
 
   const importOpts = variant === "series" ? { series: true }
     : variant === "science" ? { styled: true, flat: false, textCover: true }
-    : variant === "syllabus" ? { textCover: true }
+    : variant === "syllabus" ? { textCover: true, syllabus: true }
     : {};
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
@@ -4849,7 +4881,7 @@ function normaliseQuestionMarkBold(blocks) {
     // a doubled "• •" in the activities column and a stray bullet on numbered topics.
     for (const b of blocks) {
       if (!Array.isArray(b.rows)) continue;
-      for (const row of b.rows) for (const c of row) {
+      for (const row of b.rows) for (const c of (Array.isArray(row) ? row : [])) {
         if (!c) continue;
         if (typeof c.text === "string") c.text = c.text.replace(/[•▪◦●·‣∙]\s?/g, "");
         if (Array.isArray(c.segs)) for (const s of c.segs) if (typeof s.t === "string") s.t = s.t.replace(/[•▪◦●·‣∙]\s?/g, "");
@@ -4862,6 +4894,23 @@ function normaliseQuestionMarkBold(blocks) {
       if (/^h[12]$/.test(b.t) && /^table of contents?$/i.test((b.text || "").trim())) {
         b.t = "h1"; b.text = "VISION"; break;
       }
+    }
+    // The manuscript types its own table of contents as ordinary paragraphs -- a row of
+    // ellipsis characters and a page number keyed in by hand ("METHODOLOGY......vii").
+    // Those numbers are the AUTHOR'S Word pagination, not this typeset book's, so
+    // reproducing them prints confident-looking page references that are simply wrong
+    // (five entries in a row claimed page vii). Drop the hand-typed block and emit the
+    // real outline instead, the way the Travel & Tourism syllabus does.
+    const tocHeadAt = blocks.findIndex((b) => (/^h[123]$/.test(b.t) || b.t === "head")
+      && /^table of contents?$/i.test((b.text || "").trim()));
+    if (tocHeadAt >= 0 && !blocks.some((b) => b.t === "toc")) {
+      // A hand-typed entry is a short line carrying a run of dot leaders.
+      const isEntry = (b) => b && b.t === "para" && /[.\u2026]{4,}/.test(blockPlain(b) || "")
+        && (blockPlain(b) || "").trim().length <= 200;
+      let end = tocHeadAt + 1;
+      while (end < blocks.length && (isEntry(blocks[end]) || (blockPlain(blocks[end]) || "").trim() === "")) end++;
+      // Only swap when a typed-out list was actually found, never on a bare heading.
+      if (blocks.slice(tocHeadAt + 1, end).some(isEntry)) blocks.splice(tocHeadAt, end - tocHeadAt, { t: "toc" });
     }
     blocks = fixSyllabusSignatures(blocks);
     // Appendix "YEAR 1" is a heading but "YEAR 2" a plain para — promote bare "YEAR N".
@@ -4881,6 +4930,26 @@ function normaliseQuestionMarkBold(blocks) {
         if (!c) continue;
         if (c.text) c.text = c.text.toUpperCase();
         if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
+      }
+    }
+    // Indent a numbered item's body paragraphs to align under the heading text: a bold
+    // "1. Project-Based Learning" heading, then its prose indented to line up with the
+    // title. Resets at the next heading. (The numbered heading itself keeps its hanging
+    // number, so it is NOT indented.)
+    {
+      const numbered = (s) => /^\d+(?:\.\d+)*\.?\s/.test((s || "").trim());
+      let inNumbered = false;
+      for (const b of blocks) {
+        const plain = (blockPlain(b) || b.text || "").trim();
+        if (/^h[123]$/.test(b.t) || b.t === "head" || b.t === "label") {
+          // a NUMBERED heading ("1. Project-Based Learning") opens a numbered item; any
+          // other heading closes it.
+          inNumbered = numbered(plain); continue;
+        }
+        if (b.t !== "para") { inNumbered = false; continue; }
+        if (!plain) continue;
+        if (numbered(plain)) inNumbered = true;      // a numbered item written as a paragraph
+        else if (inNumbered) b.sylIndent = true;     // its body — indent to align under the title
       }
     }
     const cov = blocks.find((b) => b.t === "cover");
@@ -5175,7 +5244,7 @@ async function main() {
   let failed = false;
   for (const f of files) {
     if (!fs.existsSync(f)) { console.error("Not found:", f); failed = true; continue; }
-    try { await typesetOne(f, themeName); } catch (e) { console.error("Failed on", f, "\n", e.message); failed = true; }
+    try { await typesetOne(f, themeName); } catch (e) { console.error("Failed on", f, "\n", e.stack || e.message); failed = true; }
   }
   if (failed) process.exit(1);
 }
