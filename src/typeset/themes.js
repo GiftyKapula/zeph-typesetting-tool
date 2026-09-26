@@ -303,6 +303,15 @@ const THEMES = {
   // Physical Education and Sport (Form 1) — its OWN athletic identity, distinct from the
   // Form 5 PE book's navy+gold "navy" theme: a vivid cobalt/royal blue primary with a
   // whistle-orange accent (a track-and-field palette), teal for exercises.
+  // Religious Education (Form 1-4) — a "liturgical" palette that is deliberately not
+  // a science blue: a deep indigo-violet primary with a warm votive-gold accent, teal
+  // for exercises. Distinct from navy+gold (PE Form 5), musicalarts royal-blue+terracotta
+  // and pesport cobalt+orange. The RE syllabus is built around community, society and the
+  // four religions of Zambia rather than a lab subject, so it takes the "earth" motif
+  // (globe + ring) rather than the default atom. The manuscript carries 47 boxed
+  // EXERCISE blocks, so the "science" (boxed) variant, and tocDepth 1 keeps the contents
+  // to front/back matter + topics rather than listing every sub-topic.
+  religious: { ...zeph({ subject: "Religious Education", variant: "science", signature: "6f5aa8", primary: "4a3582", primary2: "6b53a8", accent: "d9a22b", cyan: "2f8f8a", motif: "earth" }), tocDepth: 1 },
   pesport: { ...zeph({ subject: "Physical Education and Sport", signature: "3f7fc4", primary: "1a4d8f", primary2: "2f6bb0", accent: "e8622e", cyan: "1fa39e" }), tocDepth: 1 },
   // Primary school (Grade 1-6) — same ZEPH house style, but a cheerful palette and
   // a "Primary Education Level" eyebrow/header (see the education-level rule on `level`).
@@ -371,6 +380,11 @@ function autoTheme(name) {
   if (/mathematic|\bmaths?(?=\b|_)/i.test(name)) return "maths";
   if (/travel|tourism/i.test(name)) return "travel";
   if (/art\s*(and|&|,)?\s*(design|crafts?)|art\s+and\s+design/i.test(name)) return "art";
+  // Religious Education — match on the subject words themselves, and on the common
+  // abbreviation "RE" only when it stands alone as a word (a bare /re/ would match
+  // almost every filename). Kept above the generic literature/language route, which
+  // would otherwise not catch it at all and drop RE onto the fallback navy theme.
+  if (/religious\s*(education|studies)|\bR\.?\s?E\.?(?=\b|_)/i.test(name)) return "religious";
   if (/geograph/i.test(name)) return "geography";
   if (/musical\s*arts?/i.test(name)) return "musicalarts";
   if (/food\s*(and|&)?\s*nutrition|nutrition/i.test(name)) return "foodnutrition";
