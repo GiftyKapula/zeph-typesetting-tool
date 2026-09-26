@@ -2952,6 +2952,63 @@ function formatGlossary(blocks) {
   }
 }
 
+// HOUSE STYLE (docs/HOUSE-STYLE.md s.3): the front matter runs cover -> title page
+// -> imprint -> TOC -> Authors -> Foreword -> Preface -> Acknowledgement ->
+// Introduction -> (Key Competences / Acronyms) -> body. Manuscripts routinely file
+// the acronyms list early instead, among the Author/Foreword/Preface pages: both ICT
+// Form 2 books put it straight after AUTHOR, and both Food & Nutrition Teacher's
+// Guides open the front matter with it. That is 4 of the 17 books currently built,
+// across three subjects, so it is a recurring manuscript habit rather than one
+// book's slip -- engine, not an override.
+//
+// Deliberately NARROW: it only moves an acronyms section that sits BEFORE the
+// Acknowledgement, which is the unambiguous violation. A book that already has it
+// after the Acknowledgement is left alone even where the order is not strictly
+// house-perfect (the two Geography books run Acknowledgement -> Acronyms ->
+// Introduction, with the acronyms one slot early), because those have been through
+// review and re-flowing settled books to satisfy a stricter reading buys nothing.
+function reorderFrontmatter(blocks) {
+  const txt = (b) => {
+    if (!b) return "";
+    if (b.text) return b.text;
+    if (b.plain) return b.plain;
+    if (Array.isArray(b.segs)) return b.segs.map((s) => s.t || "").join("");
+    return "";
+  };
+  // A front-matter section heading is `h1` OR `head`: the importer gives the
+  // acronyms list a plain `head` in three of the four affected books (it is meant to
+  // share a page rather than open its own), and only the Food & Nutrition Form 4
+  // Teacher's Guide makes it an `h1`. Matching h1 alone silently missed the other
+  // three. The block's own type is preserved -- this pass changes ORDER, not styling.
+  const isSec = (b) => b && (b.t === "h1" || b.t === "head");
+  const BODY  = /^(TOPIC|UNIT|CHAPTER)\s*:?\s*[\d.]/i;
+  const ACRO  = /^(LIST\s+OF\s+)?ACRONYMS?\b/i;
+  const ACK   = /^ACKNOWLEDGE?MENTS?\b/i;
+  const INTRO = /^INTRODUCTION\b/i;
+
+  // Front matter ends at the first numbered TOPIC/UNIT heading.
+  let bodyAt = blocks.findIndex((b) => b && b.t === "h1" && BODY.test(txt(b).trim()));
+  if (bodyAt < 0) bodyAt = blocks.length;
+  const at = (re) => blocks.findIndex((b, i) => i < bodyAt && isSec(b) && re.test(txt(b).trim()));
+  // A section runs from its own heading to the next h1 (or the body).
+  const endOf = (i) => { let j = i + 1; while (j < bodyAt && !isSec(blocks[j])) j++; return j; };
+
+  const acroAt = at(ACRO);
+  const ackAt  = at(ACK);
+  if (acroAt < 0 || ackAt < 0 || acroAt > ackAt) return;   // absent, or already in place
+
+  // Land it after the LAST of Acknowledgement / Introduction, which is where the
+  // house order puts it: the final front-matter section before the body.
+  const introAt = at(INTRO);
+  const anchor = Math.max(ackAt, introAt);
+  const acroEnd = endOf(acroAt);
+  const anchorEnd = endOf(anchor);
+  const cut = blocks.splice(acroAt, acroEnd - acroAt);
+  // Everything after the removed slice shifted left by its length.
+  blocks.splice(anchorEnd - cut.length, 0, ...cut);
+  console.log(`reorderFrontmatter: moved "${txt(cut[0]).trim()}" (${cut.length} blocks) to after ${txt(blocks[anchor - cut.length] || {}).trim() || "the acknowledgement"}`);
+}
+
 function reorderBackmatter(blocks) {
   const getText = (b) => {
     if (!b) return "";
@@ -4626,6 +4683,7 @@ function normaliseQuestionMarkBold(blocks) {
   uniformBoxLabelCase(blocks);
   // Group each lesson's header metadata into one distinct 14pt panel (Teacher's Guide).
   if (ov.polish) blocks = groupLessonMeta(blocks);
+  reorderFrontmatter(blocks);   // house-style front-matter order (see the function)
   reorderBackmatter(blocks);
 
   // Primary Learner's Books drop the teacher/curriculum scaffolding (Sub-Topics,
