@@ -2026,10 +2026,32 @@
     // a lesson heading (already numbered "1. …" at build time) — generous space
     // before it, and `sticky` so a heading never strands at the foot of a page
     v(22pt, weak: true)
-    block(width: 100%, breakable: false, sticky: true)[
-      #text(fill: T.primary, size: hs(14pt), weight: "bold")[#upper(t)]
+    // The banner is ALWAYS as tall as a two-line title, so the text beneath it starts
+    // at the same height on every sub-topic page. Sub-topics each open their own page,
+    // and a title that wraps ("SUB-TOPIC 2.1.4: SIN, FORGIVENESS AND RECONCILIATION",
+    // "…: THE TEACHINGS OF THE FOUR RELIGIONS IN ZAMBIA ON FREEDOM…") pushed everything
+    // under it down by a line: measured across this book, ten sub-topic pages started
+    // their body at one height and seven at another, a 9.5mm step for a heading that
+    // is otherwise the same element on every page. Padding the short ones out costs a
+    // line of white space that the wrapped ones spend on the title anyway.
+    let bannerBody = [
+      // never hyphenated: house style everywhere else already refuses to break a
+      // heading's words ("…RECONCILIA-TION" reads as broken even though the break is
+      // a legal one), and a sub-topic banner is the biggest heading on its page.
+      #text(fill: T.primary, size: hs(14pt), weight: "bold", hyphenate: false)[#upper(t)]
       #v(2pt)
       #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt)]
+    // Measured through `layout`, so both heights are worked out at the REAL column
+    // width: measuring a `width: 100%` block in an unbounded context instead returns a
+    // nonsense height, which padded every banner out by a third of the page.
+    layout(size => context {
+      let twoLine = measure(block(width: size.width)[
+        #text(fill: T.primary, size: hs(14pt), weight: "bold")[X \ X]
+        #v(2pt)
+        #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt)]).height
+      let own = measure(block(width: size.width, bannerBody)).height
+      block(width: 100%, height: calc.max(own, twoLine), breakable: false, sticky: true, bannerBody)
+    })
   } else if literary {
     // small diamond + italic serif title, with a thin gold rule under it
     block(width: 100%, breakable: false)[
