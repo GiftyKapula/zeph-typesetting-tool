@@ -11,6 +11,7 @@
  *   node tools/_imgop.js crop   <src> <dst> <x> <y> <w> <h>
  *   node tools/_imgop.js resize <src> <dst> <width>
  *   node tools/_imgop.js stitch <spec.json>
+ *   node tools/_imgop.js hist   <src>            (prints a JSON colour signature)
  *
  * The stitch spec is { out, w, h, pieces: [{ file, dx, dy, sx, sy, sw, sh }] } —
  * each piece is drawn from its own (sx,sy,sw,sh) region to (dx,dy), which is how
@@ -44,6 +45,23 @@ async function main() {
     const { cv, ctx } = ctxOf(w, h);
     ctx.drawImage(img, 0, 0, w, h);
     fs.writeFileSync(dst, cv.toBuffer("image/png"));
+  } else if (op === "hist") {
+    // A coarse 4x4x4 RGB histogram of the picture, printed as JSON — the signature
+    // upscale-images.js uses to work out WHICH of the manuscript's pictures a bitmap
+    // lifted out of the PDF actually is. Taken off a 64px-wide thumbnail, so it costs
+    // nothing and is unaffected by scale: a crop of a picture still carries its
+    // source's palette and scores far closer to it than to any other picture.
+    const img = await loadImage(a[0]);
+    const w = 64, h = Math.max(1, Math.round((img.height / img.width) * 64));
+    const { ctx } = ctxOf(w, h);
+    ctx.drawImage(img, 0, 0, w, h);
+    const d = ctx.getImageData(0, 0, w, h).data;
+    const bins = new Array(64).fill(0);
+    for (let i = 0; i < d.length; i += 4) {
+      bins[((d[i] >> 6) << 4) | ((d[i + 1] >> 6) << 2) | (d[i + 2] >> 6)]++;
+    }
+    const n = d.length / 4;
+    process.stdout.write(JSON.stringify(bins.map((v) => v / n)));
   } else if (op === "stitch") {
     const spec = JSON.parse(fs.readFileSync(a[0], "utf8"));
     const { cv, ctx } = ctxOf(spec.w, spec.h);

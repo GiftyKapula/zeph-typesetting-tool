@@ -33,9 +33,10 @@
  *   node tools/upscale-images.js "<book.docx>" "<book - typeset.pdf>" [options]
  *     --dpi <n>     target DPI (default 300; images are rendered a little above it)
  *     --out <dir>   where the upscaled files go (default "<docx dir>/<base>-hires")
- *     --map p<N>=<media name>   map a placed image this tool could not identify
- *                   (see "cropped pictures" below) to its source media file
+ *     --map p<N>=<media name>   name the source of the picture on PDF page N yourself,
+ *                   overriding the automatic match (rarely needed — see below)
  *     --dry-run     report the plan and write nothing
+ *     --only a.png,b.png   process just these (the pictures whose WORDS need it)
  *     --limit <n>   process only the n worst images (useful to sample first)
  *     --tile <n>    Real-ESRGAN tile size (default 64)
  *
@@ -48,12 +49,23 @@
  * written rather than accumulating across a long run. Runs are resumable, so a
  * process that dies anyway can simply be started again.
  *
- * Cropped pictures: Word stores the FULL picture plus a crop rectangle, and
- * import-docx.js applies the crop — but it deliberately does NOT crop a replacement
- * image (an override is taken as already print-ready). So a cropped picture cannot
- * be matched to its source by pixel size, and upscaling the source would reinstate
- * the cropped-away region. For those, pass --map: the tool takes the already-cropped
- * bitmap out of the PDF and upscales that, which keeps the author's crop.
+ * What gets upscaled is always the bitmap in the PDF, never the manuscript's own
+ * media file. Word stores the FULL picture plus a crop rectangle and import-docx.js
+ * applies that crop — but it deliberately does NOT crop a REPLACEMENT image (an
+ * override is taken as already print-ready). Upscaling the media file would therefore
+ * hand the book back whatever the author had cropped away; on one book that restored
+ * an "AI-Generated" badge in a corner the crop had removed. The PDF's copy is already
+ * cropped, so building the replacement from it keeps the author's framing.
+ *
+ * Which picture is which: matched by a coarse colour signature (a 4x4x4 histogram of
+ * a thumbnail, via `_imgop.js hist`), assigned closest-first with each media file
+ * claimed once. Pixel size cannot do this job — a book will happily carry a dozen
+ * pictures all exactly 1536x1024 (the RE Form 2 Learner's Book carries eleven), and
+ * size alone paired most of them with the wrong source, while a cropped placement
+ * matched nothing at all and had to be named by hand. A crop keeps its source's
+ * palette, so it still scores far closer to its own source than to any other picture.
+ * A match weaker than the confidence threshold is reported rather than used silently,
+ * and --map still lets you name any page's source yourself.
  */
 const fs = require("fs");
 const path = require("path");
@@ -86,6 +98,13 @@ function imgop(args) {
   const r = cp.spawnSync(process.execPath, [IMGOP, ...args.map(String)],
     { stdio: ["ignore", "ignore", "pipe"], encoding: "utf8" });
   if (r.status !== 0) throw new Error((r.stderr || "image op failed").trim());
+}
+// …the same, for the one op that answers on stdout.
+function imgopOut(args) {
+  const r = cp.spawnSync(process.execPath, [IMGOP, ...args.map(String)],
+    { stdio: ["ignore", "pipe", "pipe"], encoding: "utf8", maxBuffer: 1 << 24 });
+  if (r.status !== 0) throw new Error((r.stderr || "image op failed").trim());
+  return r.stdout;
 }
 const resample = (src, dst, width) => imgop(["resize", src, dst, width]);
 
@@ -166,6 +185,7 @@ function parseArgs(argv) {
     else if (a === "--out") o.out = argv[++i];
     else if (a === "--dry-run") o.dryRun = true;
     else if (a === "--limit") o.limit = +argv[++i];
+    else if (a === "--only") o.only = new Set(argv[++i].split(",").map((s) => s.trim()).filter(Boolean));
     else if (a === "--tile") o.tile = +argv[++i];
     else if (a === "--map") {
       for (const pair of argv[++i].split(",")) {
@@ -181,7 +201,7 @@ function parseArgs(argv) {
 async function main() {
   const opt = parseArgs(process.argv.slice(2));
   if (!opt.docx || !opt.pdf) {
-    console.error("usage: node tools/upscale-images.js <book.docx> <book.pdf> [--dpi 300] [--out dir] [--map pN=imageN.png] [--dry-run] [--limit n]");
+    console.error("usage: node tools/upscale-images.js <book.docx> <book.pdf> [--dpi 300] [--out dir] [--map pN=imageN.png] [--only a.png,b.png] [--dry-run] [--limit n]");
     process.exit(2);
   }
   for (const f of [opt.docx, opt.pdf]) {
@@ -219,29 +239,66 @@ async function main() {
     .filter((r) => r[2] === "image")
     .map((r) => ({ page: +r[0], w: +r[3], h: +r[4], ppi: +r[12] }));
 
-  const taken = new Set();
-  const jobs = [];
+  // Lift every under-target picture out of the PDF. That copy — never the manuscript's
+  // own media file — is what gets upscaled. Word stores the FULL picture plus a crop
+  // rectangle and import-docx.js applies the crop, but it deliberately does NOT crop a
+  // REPLACEMENT image, so upscaling the media file hands the book back whatever the
+  // author cropped away (on one book that restored an "AI-Generated" badge sitting in
+  // a corner the crop had removed). The PDF's copy is already cropped, so a
+  // replacement built from it keeps the author's framing by construction.
   const unresolved = [];
+  const shots = [];
   for (const p of placed) {
     if (!isFinite(p.ppi) || p.ppi <= 0 || p.ppi >= opt.dpi) continue;
-    const mapped = opt.map[String(p.page)];
-    if (mapped) {
-      // a cropped picture: upscale the cropped bitmap the PDF already holds
-      const stem = path.join(work, "crop_p" + p.page);
-      cp.execSync(`pdfimages -f ${p.page} -l ${p.page} -png "${opt.pdf}" "${stem}"`, { stdio: "ignore" });
-      const cand = fs.readdirSync(work)
-        .filter((f) => f.startsWith("crop_p" + p.page + "-"))
-        .map((f) => ({ f, d: dims(fs.readFileSync(path.join(work, f))) }))
-        .find((c) => c.d && c.d.w === p.w && c.d.h === p.h);
-      if (!cand) { unresolved.push(p); continue; }
-      taken.add(mapped);
-      jobs.push({ name: mapped, from: path.join(work, cand.f), w: p.w, ppi: p.ppi, page: p.page, cropped: true });
-      continue;
+    const stem = path.join(work, "pdf_p" + p.page);
+    cp.execSync(`pdfimages -f ${p.page} -l ${p.page} -png "${opt.pdf}" "${stem}"`, { stdio: "ignore" });
+    const cand = fs.readdirSync(work)
+      .filter((f) => f.startsWith("pdf_p" + p.page + "-"))
+      .map((f) => ({ f, d: dims(fs.readFileSync(path.join(work, f))) }))
+      .find((c) => c.d && c.d.w === p.w && c.d.h === p.h);
+    if (!cand) { unresolved.push(p); continue; }
+    shots.push({ p, file: path.join(work, cand.f) });
+  }
+
+  // Identify each one by CONTENT, not by pixel size. Size cannot do it: a book will
+  // happily carry a dozen pictures all exactly 1536x1024 (the RE Form 2 book carries
+  // eleven), and matching on size alone then paired most of them with the wrong source
+  // — while a cropped placement, whose size matches nothing, could not be identified at
+  // all and had to be named by hand with --map. A coarse colour signature does identify
+  // them: a crop keeps its source's palette, so it still scores far closer to its own
+  // source than to any other picture. Pairs are assigned closest-first, each media file
+  // claimed once, so a confident match takes its source before a doubtful one can.
+  const WEAK = 0.6;                       // above this, say so rather than quietly guess
+  const sig = new Map();
+  const sigOf = (f) => { if (!sig.has(f)) sig.set(f, JSON.parse(imgopOut(["hist", f]))); return sig.get(f); };
+  const sigDist = (a, b) => { let s = 0; for (let i = 0; i < a.length; i++) s += Math.abs(a[i] - b[i]); return s; };
+  const mediaNames = [...byDims.values()].flat();
+  const taken = new Set(Object.values(opt.map));
+  const pairs = [];
+  for (const s of shots) {
+    if (opt.map[String(s.p.page)]) continue;                   // named by hand
+    for (const n of mediaNames) {
+      if (taken.has(n)) continue;
+      pairs.push({ d: sigDist(sigOf(s.file), sigOf(path.join(srcDir, n))), s, n });
     }
-    const names = (byDims.get(p.w + "x" + p.h) || []).filter((n) => !taken.has(n));
-    if (!names.length) { unresolved.push(p); continue; }
-    taken.add(names[0]);
-    jobs.push({ name: names[0], from: path.join(srcDir, names[0]), w: p.w, ppi: p.ppi, page: p.page, cropped: false });
+  }
+  pairs.sort((a, b) => a.d - b.d);
+  const claimed = new Map();
+  for (const { d, s, n } of pairs) {
+    if (claimed.has(s) || taken.has(n)) continue;
+    claimed.set(s, { name: n, score: d });
+    taken.add(n);
+  }
+  const jobs = [];
+  for (const s of shots) {
+    const forced = opt.map[String(s.p.page)];
+    const got = forced ? { name: forced, score: 0 } : claimed.get(s);
+    if (!got) { unresolved.push(s.p); continue; }
+    if (got.score > WEAK) {
+      console.log(`!  p${s.p.page} looks like ${got.name} but only weakly (${got.score.toFixed(2)}) —` +
+        ` check that figure, or name it yourself with --map p${s.p.page}=<media file>`);
+    }
+    jobs.push({ name: got.name, from: s.file, w: s.p.w, ppi: s.p.ppi, page: s.p.page, score: got.score });
   }
   // Render a little above the target so rounding can never land under it.
   const head = Math.round(opt.dpi * 1.03);
@@ -249,16 +306,21 @@ async function main() {
     j.target = Math.min(j.w * 4, Math.ceil(j.w * head / j.ppi));
   }
   jobs.sort((a, b) => a.ppi - b.ppi);          // worst first — most visible gain earliest
-  const run = opt.limit > 0 ? jobs.slice(0, opt.limit) : jobs;
+  // A full book is hours of Real-ESRGAN, and most of that buys nothing a reader would
+  // notice: the pictures where the shortfall really shows are the ones with WORDS in
+  // them (a diagram's captions and speech bubbles go mushy long before a photograph
+  // does). `--only` names the ones worth the time; `--limit` takes the N worst by DPI.
+  const run = (opt.only ? jobs.filter((j) => opt.only.has(j.name)) : jobs)
+    .slice(0, opt.limit > 0 ? opt.limit : undefined);
 
   console.log(`${placed.length} placed image(s); ${jobs.length} below ${opt.dpi} DPI` +
     (opt.limit ? ` (processing the worst ${run.length})` : ""));
   if (unresolved.length) {
-    console.log("!  could not identify (pass --map pN=<media file>): " +
+    console.log("!  no bitmap in the PDF for (name it with --map pN=<media file>): " +
       unresolved.map((p) => `p${p.page} ${p.w}x${p.h}@${p.ppi}`).join(", "));
   }
   for (const j of run) {
-    console.log(`   p${String(j.page).padStart(3)}  ${j.name.padEnd(15)} ${String(j.w).padStart(5)}px @${String(j.ppi).padStart(4)} DPI -> ${j.target}px @~${Math.round(j.target / j.w * j.ppi)} DPI${j.cropped ? ", cropped" : ""}`);
+    console.log(`   p${String(j.page).padStart(3)}  ${j.name.padEnd(15)} ${String(j.w).padStart(5)}px @${String(j.ppi).padStart(4)} DPI -> ${j.target}px @~${Math.round(j.target / j.w * j.ppi)} DPI`);
   }
   if (opt.dryRun) { console.log("\n(dry run — nothing written)"); return; }
 
