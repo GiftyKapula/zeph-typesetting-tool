@@ -17,6 +17,12 @@ function gradeOf(name) {
   if (g && +g[1] >= 1 && +g[1] <= 7) return `Grade ${g[1]}`;
   const f = name.match(/(?:^|[^a-z])form\s*(\d+)/i);
   if (f) return `Form ${f[1]}`;
+  // The abbreviations a manuscript filename uses — "LIT in ENG F1 LB", "Maths G3 TG".
+  // Word-bounded and digit-bounded, or a bare F/G would fire on any letter-digit token.
+  const fa = name.match(/(?:^|[^a-z])f\s*([1-6])(?![0-9a-z])/i);
+  if (fa) return `Form ${fa[1]}`;
+  const ga = name.match(/(?:^|[^a-z])g\s*([1-7])(?![0-9a-z])/i);
+  if (ga) return `Grade ${ga[1]}`;
   return null;
 }
 

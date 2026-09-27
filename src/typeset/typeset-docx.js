@@ -4493,7 +4493,15 @@ async function typesetOne(docxPath, themeName) {
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
   // Expand a standalone "G 2"/"G2" abbreviation to "Grade 2" for all grade/level/theme
   // detection (kept separate from `base` so the output file keeps its original name).
-  const detectName = base.replace(/(^|[^A-Za-z])[Gg]\s*([1-7])(?![0-9])/g, "$1Grade $2");
+  // Expand the abbreviations a manuscript filename uses for its level, so every
+  // grade/form test below sees the long form: "G3" -> "Grade 3" (already), and
+  // "F1" -> "Form 1", which arrives spelled that way often enough ("LIT in ENG F1 LB")
+  // and otherwise leaves the book with no level at all — no FORM tag on the cover, and
+  // nothing for the running header. Both are word-bounded: a bare F or G would fire on
+  // any filename with a letter-and-digit token in it.
+  const detectName = base
+    .replace(/(^|[^A-Za-z])[Gg]\s*([1-7])(?![0-9])/g, "$1Grade $2")
+    .replace(/(^|[^A-Za-z])[Ff]\s*([1-6])(?![0-9])/g, "$1Form $2");
   // per-book editorial overrides (sidecar JSON next to the .docx). Loaded before theme
   // detection so `ov.theme` can override autoTheme's filename guess — needed when a
   // sibling book's title doesn't match the same pattern (e.g. a Teacher's Guide titled
@@ -4858,11 +4866,15 @@ function normaliseQuestionMarkBold(blocks) {
     // a real short subject, or a "… Form N" line exists); the SERIES cover takes
     // the eyebrow from line 0 (good only if line 0 IS the standard eyebrow AND a
     // subject+form line follows, like English). Otherwise synthesise a clean cover.
-    // The science cover prints line 0 AS the title, so an eyebrow on line 0 is never a
-    // good title however many "Form N" lines follow it — `hasForm` must not rescue it.
-    const goodTitle = variant === "science"
-      ? (!isEyebrow && ((t0.length > 0 && t0.length <= 34) || hasForm))
-      : (isEyebrow && hasForm);
+    // Only the SERIES cover is eyebrow-first. Every other layout — science, literary,
+    // panel, classic — prints line 0 AS the title, so an eyebrow sitting there is never
+    // a good title however many "Form N" lines follow it, and `hasForm` must not rescue
+    // it. Judging them all by the series rule is what put "SECONDARY EDUCATION" across
+    // the front of the Literature in English Form 1 Learner's Book, with the subject
+    // nowhere on the cover and "FORM 1 · FORM 1" where the grade and book type belong.
+    const goodTitle = variant === "series"
+      ? (isEyebrow && hasForm)
+      : (!isEyebrow && ((t0.length > 0 && t0.length <= 34) || hasForm));
     // Local-language covers are extra-inconsistent — always synthesise (keeping any
     // hero photo + real author names).
     const LANG_THEMES = new Set(["nyanja", "tonga", "lunda", "luvale", "bemba", "silozi"]);

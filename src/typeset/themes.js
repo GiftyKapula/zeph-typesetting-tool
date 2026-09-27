@@ -124,6 +124,24 @@ const THEMES = {
     fact: { fill: "ece9f0", border: "6f5a93", title: "473767" },  // Did You Know (plum)
     asmt: { fill: "f6e7e3", border: "b25a3f", title: "7d3320" },  // Assessment (terracotta)
   },
+  // Literature in English (Form 1-4) — the same burgundy-and-gold literary look as
+  // `lit`, which was built for Literature in a Zambian language and still carries that
+  // book's Lunda contents title. This one is the English-medium sibling: an English
+  // contents page, and a `subject` of its own so the cover and the running header name
+  // the book instead of falling back to whatever the manuscript's first cover line
+  // happened to say (a filename like "LIT in ENG F1 LB" tells the engine nothing).
+  literature: {
+    subject: "Literature in English",
+    font: "Times New Roman", variant: "literary", ink: "211a1c",
+    tagline: "LITERATURE · LANGUAGE · CULTURE", tab: "", toctitle: "Table of Contents",
+    primary: "6b2737", primary2: "8e3b4f", accent: "b68a3e",
+    rulec: "e0cdd2", zebra: "f6eef0", yellow: "fff39a",
+    act:  { fill: "f3e9ec", border: "8e3b4f", title: "6b2737" },  // Learning Activity (rose)
+    ex:   { fill: "f1ecdf", border: "9a7d34", title: "6d5316" },  // Exercise (gold)
+    kp:   { fill: "eef0e8", border: "6f7e4e", title: "47532c" },  // Key Points (olive)
+    fact: { fill: "ece9f0", border: "6f5a93", title: "473767" },  // Did You Know (plum)
+    asmt: { fill: "f6e7e3", border: "b25a3f", title: "7d3320" },  // Assessment (terracotta)
+  },
   // Teal + amber + cyan, serif display over a sans body, "series" layout —
   // the Zambia Educational Publishing House secondary-school house style
   // (e.g. English Language Form 4). Printed at B5 (176x250mm), with a graphic
@@ -393,6 +411,13 @@ function autoTheme(name) {
   // look — matched by grade so the two books, which share almost the same title, don't
   // collide.
   if (/physical\s*education.*sport|\bPES\b/i.test(name) && /form\s*[1-4]\b/i.test(name)) return "pesport";
+  // Literature in English, however the filename writes it. Manuscripts arrive
+  // abbreviated at least as often as spelled out ("LIT in ENG F1 LB"), and the
+  // abbreviation must be word-bounded — a bare /lit/ matches "quality", "political",
+  // "facility". Above the English routes on purpose: "LIT in ENG" is a literature
+  // book, not an English-language one. A Literature book in a Zambian language keeps
+  // the older `lit` theme, whose contents page is titled in that language.
+  if (/\blit(?:erature)?\b/i.test(name) && /\beng(?:lish)?\b/i.test(name)) return "literature";
   // Primary-school English (Grade 1-7) — "Eng"/"English" + a primary grade.
   if (/grade\s*[1-7]\b/i.test(name) && /\beng(lish)?\b/i.test(name)) return "primaryeng";
   if (/english/i.test(name)) return "english";
