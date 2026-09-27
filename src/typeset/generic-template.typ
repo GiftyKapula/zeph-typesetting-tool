@@ -1915,6 +1915,19 @@
   // restricted to units (some books want a units-only contents page).
   if outlined and (isUnitTitle(t) or not tocUnitsOnly) { mark(1, t) }
   curtopic.update(t)
+  // Never hyphenate a section heading — the rule subhead()'s banner already states for
+  // sub-topics: a heading broken mid-word reads as broken even where the break is a
+  // legal one, and at display size it is unmissable ("GENERAL COMPETENCES TO BE
+  // DEVEL-OPED", the Religious Education Form 2 Teacher's Guide's competences page).
+  //
+  // Deliberately NOT paired with `set par(justify: false)` the way subhead() is. A
+  // section heading does not stretch when it wraps, so there is nothing to switch off —
+  // but switching it off costs: justification lets Typst tighten inter-word space a
+  // little, and at this size "GENERAL COMPETENCES TO BE DEVELOPED" needs that tightening
+  // to hold one line. Forcing ragged wrapped it onto two and pushed a row of the
+  // competences table to the next page in BOTH Religious Education Form 2 books, which
+  // were right as they were. Ragged belongs in subhead(), where the stretching is real.
+  set text(hyphenate: false)
   if boxstyle == "labcard" {
     let u = upper(t)
     let isunit = isUnitTitle(t)
@@ -2006,6 +2019,18 @@
   if not tocUnitsOnly {
     if isyear { mark(1, t) } else { mark(2, t) }
   }
+  // A HEADING IS NEVER JUSTIFIED. Body text is justified, and a heading that wraps
+  // inherits that: Typst then stretches its first line to the full column, so
+  // "SUB-TOPIC 2.1.4: SIN, FORGIVENESS AND RECONCILIATION" printed as
+  // "SUB-TOPIC    2.1.4:    SIN,    FORGIVENESS    AND" over "RECONCILIATION" —
+  // rivers of white space through the biggest heading on the page, and the same
+  // element set differently from every sub-topic whose title happens to fit on one
+  // line. Set ragged here, for every branch below, exactly as topicbanner() and the
+  // cover title already do ("a cover title that wraps must stay ragged-centred").
+  set par(justify: false)
+  // Never hyphenated either — the serieslike banner below already sets this on its own
+  // text; hoisting it here gives every other sub-topic style the same rule.
+  set text(hyphenate: false)
   v(7pt, weak: true)
   if boxstyle == "labcard" {
     // CHEMISTRY sub-topic: a small amber label+number eyebrow, the name below in
@@ -2265,7 +2290,39 @@
 ]
 
 // ---- data table (rich cells: each cell is (text, img)) -------------------
-#let dtable(rows, noHeader: false) = if rows.len() > 0 and rows.at(0).len() > 0 {
+// A table drawn AS A SPREADSHEET: lettered columns across the top, numbered rows down
+// the side, the way the same cells look in Excel or Calc. An ICT exercise that tells a
+// learner to "draw the table as it would appear in a spreadsheet" and then asks for
+// "the formula that would calculate the Total Estimated Expenditure" is asking about
+// cell references — B7, =SUM(B2:B6) — so without the row and column headers the
+// question cannot be answered from the page. The headers are the content here, not
+// decoration. Which tables get this is decided from the exercise's own words (see
+// markSpreadsheetTables in typeset-docx.js), never per book.
+#let sheetgrid(rows) = if rows.len() > 0 and rows.at(0).len() > 0 {
+  let ncol = rows.at(0).len()
+  let letters = ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L")
+  let headfill = luma(226)
+  // a spreadsheet right-aligns a number and left-aligns text; keeping that makes the
+  // money column read as a money column, exactly as it would on screen
+  let isnum(s) = { let t = s.trim().replace(",", ""); t != "" and t.matches(regex("^[0-9]+(\.[0-9]+)?$")).len() > 0 }
+  v(4pt)
+  set text(size: 11pt)
+  set par(justify: false)
+  align(center, table(
+    columns: (9mm,) + (auto,) * ncol,
+    stroke: 0.5pt + luma(150),
+    inset: (x: 7pt, y: 5pt),
+    table.cell(fill: headfill)[],
+    ..letters.slice(0, ncol).map(l => table.cell(fill: headfill, align: center)[
+      #text(weight: "bold", fill: luma(60))[#l]]),
+    ..rows.enumerate().map(((i, r)) => (
+      table.cell(fill: headfill, align: center)[#text(weight: "bold", fill: luma(60))[#(i + 1)]],
+      ..r.map(c => table.cell(align: if isnum(c.text) { right } else { left })[#c.text]),
+    )).flatten(),
+  ))
+  v(4pt)
+}
+#let dtable(rows, noHeader: false, sheet: false) = if sheet { sheetgrid(rows) } else if rows.len() > 0 and rows.at(0).len() > 0 {
   v(2pt)
   // table text matches the body size (12pt) for readability; very wide tables
   // (5+ columns) step down so they still fit the page width. A theme may set a larger
@@ -2599,7 +2656,7 @@
   // Render ONE body item. Factored out of the loop below so a run of items that must
   // stay together (see the checklist grouping) can be rendered inside a single block.
   let one(it) = {
-      if it.k == "table" { dtable(it.r, noHeader: it.at("nohdr", default: false)) }
+      if it.k == "table" { dtable(it.r, noHeader: it.at("nohdr", default: false), sheet: it.at("sheet", default: false)) }
       else if it.k == "img" {
         if it.images.len() == 1 { figimg(it.images.at(0).file, it.images.at(0).w, it.images.at(0).tall, it.images.at(0).cap, hmm: it.images.at(0).at("hmm", default: 0)) }
         else { imagerow(it.images) }
@@ -2830,8 +2887,9 @@
     else if it.kind == "table" {
       // an answer that is a comparison table may carry a part marker (e.g. "c)")
       let tm = it.at("marker", default: "")
-      if tm != "" { grid(columns: (22pt, 1fr), column-gutter: 6pt, align: (right + top, left + top), text(fill: T.primary, weight: "bold")[#tm], dtable(it.r)) }
-      else { dtable(it.r) }
+      let sh = it.at("sheet", default: false)
+      if tm != "" { grid(columns: (22pt, 1fr), column-gutter: 6pt, align: (right + top, left + top), text(fill: T.primary, weight: "bold")[#tm], dtable(it.r, sheet: sh)) }
+      else { dtable(it.r, sheet: sh) }
     }
     else if it.kind == "image" {
       let mk = it.at("marker", default: "")

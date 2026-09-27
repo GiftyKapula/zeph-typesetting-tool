@@ -70,7 +70,7 @@ const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w:
 // Ordered questions + lead-ins + reference tables + diagrams (preserves position).
 const partsArr = (parts) => arr(parts, (p) =>
   p.kind === "colsum" ? `(kind: "colsum", rows: ${strArr(p.rows || [])}, answer: ${strArr(p.answerRows || [])}, marker: ${S(p.marker || "")})`
-  : p.kind === "table" ? `(kind: "table", r: ${rowArr(p.rows)}, marker: ${S(p.marker || "")})`
+  : p.kind === "table" ? `(kind: "table", r: ${rowArr(p.rows)}, marker: ${S(p.marker || "")}${p.sheet ? ", sheet: true" : ""})`
   : p.kind === "image" ? `(kind: "image", images: ${imgArr(p.images)}, marker: ${S(p.marker || "")})`
   : p.kind === "lead" ? `(kind: "lead", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, indent: ${p.indent ? "true" : "false"}${p.align ? `, align: ${S(p.align)}` : ""})`
   // a run of space-separated columns inside an exercise (e.g. a place-value chart:
@@ -155,7 +155,7 @@ function markSubLists(blks) {
   return blks;
 }
 const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
-  b.t === "table" ? `(k: "table", r: ${rowArr(b.rows)}${b.noHeader ? ", nohdr: true" : ""})`
+  b.t === "table" ? `(k: "table", r: ${rowArr(b.rows)}${b.noHeader ? ", nohdr: true" : ""}${b.sheet ? ", sheet: true" : ""})`
   : (b.t === "img" || b.t === "imagerow") ? `(k: "img", images: ${imgArr(b.images)})`
   : b.t === "image" ? `(k: "img", images: ${imgArr([{ file: b.file, w: b.w, tall: b.tall, caption: b.caption, hmm: b.hmm }])})`
   : (b.t === "head" || b.t === "label" || b.t === "h3") ? `(k: "head", t: ${S(b.text || "")}${b.align === "center" ? ", center: true" : ""})`
@@ -286,7 +286,7 @@ function emit(blocks) {
       case "box": out += `#genericbox(${bodyArr(b.body)})\n`; break;
       case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
-      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""})\n`; break;
+      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""}${b.sheet ? ", sheet: true" : ""})\n`; break;
       case "colgrid": out += `#colgrid(${colgridArg(b)})\n`; break;
       default: break;
     }
@@ -3840,7 +3840,19 @@ function splitAnswerLabels(blocks) {
     const c = cut(segs);
     if (!c) return;
     const [qSegs, aSegs] = c;
-    const tag = { t: "\nPossible answer: ", b: true, it: false, c: null };
+    // The leading newline breaks the answer off the question that precedes it ON THE
+    // SAME LINE. When the manuscript instead puts the answer in its OWN paragraph
+    // ("What is division?" as one paragraph, "Possible Response: Division is…" as the
+    // next), cut() returns an EMPTY qSegs — there is no question here to break away
+    // from — and that newline lands at the very start of the paragraph, printing a
+    // blank line above every single answer in the book. On the Religious Education
+    // Form 2 Teacher's Guide that is 221 answers, each one floating a line below its
+    // question instead of sitting under it.
+    // This is the same defect the `hasQ` guard in generic-template.typ's qaparts
+    // already prevents on the exercise/assessment path ("must not force a blank first
+    // line before the answer"); it simply was never applied on this one.
+    const leadIn = plainOf(qSegs).trim() ? "\n" : "";
+    const tag = { t: leadIn + "Possible answer: ", b: true, it: false, c: null };
     const ans = aSegs.map((s) => (s.m ? s : { ...s, it: true }));
     b.segs = qSegs.concat([tag], ans);
   };
@@ -4601,12 +4613,93 @@ async function typesetOne(docxPath, themeName) {
   fixACappellaSpacing(blocks);
   if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
+  competenceLeadIn(blocks, isTeacherBookName(base));
+  markSpreadsheetTables(blocks);
   reformatAcronyms(blocks);
   formatGlossary(blocks);
   displayifyColumnMath(blocks);
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
   normaliseSpacing(blocks);
   unboldLeadProse(blocks);
+// The line that introduces a section's Specific Competences, in one wording per book
+// kind. Manuscripts word it three ways in the SAME book — the ICT Form 2 Teacher's
+// Guide typed "In this section, you will:" five times and "In this section, you will
+// learn to:" twice — and a Teacher's Guide addressing "you" is wrong besides: it is the
+// LEARNERS who will do these things, not the teacher reading the guide. The proofreader
+// went through and rewrote every one of them by hand, which is the kind of thing the
+// engine should be doing once for every book. So the lead-in is set here: "In this
+// section, learners will:" in a Teacher's Guide, "In this section, you will:" in a
+// Learner's Book, inserted when a section has no lead-in at all (one ICT section
+// didn't), and left alone where the manuscript put something that is not a lead-in.
+function competenceLeadIn(blocks, isTeacherGuide) {
+  // Teacher's Guides only. A Learner's Book says "In this sub-topic, you will:" and
+  // means it — the learner IS the reader, and the book's own unit of organisation is
+  // the sub-topic, not the section — so rewriting those would be a downgrade, not a
+  // normalisation. The fault being fixed is specific to a guide: it addresses "you",
+  // the teacher, and then lists what the learners will be able to do.
+  if (!isTeacherGuide) return;
+  const LEAD = "In this section, learners will:";
+  const LABEL = /^specific\s+competenc(e|es|ies)\s*:?\s*$/i;
+  // what a lead-in looks like however the writer worded it — "In this section/sub-topic,
+  // you will (learn to)?:", "learners will:", "you are expected to:" …
+  const ISLEAD = /^in\s+this\s+(section|sub-?topic|topic|unit|lesson)\b[^.!?]*:\s*$/i;
+  // Flatten runs locally: the `plainOf` this used to call is scoped inside
+  // splitAnswerLabels(), so it is not visible here and every book reaching this line
+  // died with "plainOf is not defined". It only bites once a manuscript actually has a
+  // "Specific Competence" head followed by a paragraph — which the RE Form 2 Teacher's
+  // Guide is the first to have.
+  const flat = (segs) => (segs || []).map((s) => s.t).join("");
+  const plain = (b) => (b.t === "para" || b.t === "listitem"
+    ? (b.segs ? flat(b.segs) : (b.text || ""))
+    : (b.text || "")).trim();
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!b || !(b.t === "head" || b.t === "label") || !LABEL.test(plain(b))) continue;
+    const nxt = blocks[i + 1];
+    if (nxt && nxt.t === "para" && ISLEAD.test(plain(nxt))) {
+      blocks[i + 1] = { t: "para", segs: [{ t: LEAD, b: false, it: false, c: null }] };
+    } else {
+      blocks.splice(i + 1, 0, { t: "para", segs: [{ t: LEAD, b: false, it: false, c: null }] });
+      i++;
+    }
+  }
+}
+
+// A table that belongs to a SPREADSHEET exercise is drawn as a spreadsheet — lettered
+// columns across the top, numbered rows down the side — because that is what the
+// questions around it are about: "draw the table as it would appear in a spreadsheet",
+// then "write the formula that would calculate the Total". Without the headers there is
+// no B7 and no =SUM(B2:B6) to point at, so the grid furniture IS the content. Detected
+// from the exercise's own words rather than configured per book, so any ICT manuscript
+// teaching spreadsheets gets it without a sidecar entry.
+function markSpreadsheetTables(blocks) {
+  // The trigger is the INSTRUCTION to show the table as a spreadsheet, not the mere
+  // mention of one. A marking rubric for this very exercise quotes "=SUM(B2:B7)" in
+  // its criteria, and a looser test turned that six-column wall of prose into a
+  // spreadsheet grid — so match only a sentence that asks for the spreadsheet FORM.
+  const SHEET = /\b(appears?|appear|shown|set\s+out|laid\s+out|drawn?|write|type|enter)\b[^.!?]{0,40}\bin\s+(a|the|your)\s+spread\s?sheet\b/i;
+  // …and only a table SHAPED like one: a data grid of short cells, never a prose table.
+  const gridlike = (rows) => Array.isArray(rows) && rows.length >= 2 && rows[0].length <= 6
+    && rows.every((r) => r.every((c) => ((c && c.text) || "").trim().length <= 40));
+  const words = (b) => {
+    const bits = [b.heading, b.title, ...(b.intro || [])];
+    for (const p of b.parts || []) bits.push(p.q, p.a);
+    for (const x of b.body || []) bits.push(x.plain || x.text || "");
+    return bits.filter(Boolean).join(" ");
+  };
+  const walk = (arr) => {
+    for (const b of arr || []) {
+      if (!b || typeof b !== "object") continue;
+      if ((b.parts || b.body) && SHEET.test(words(b))) {
+        for (const p of b.parts || []) if (p.kind === "table" && gridlike(p.rows)) p.sheet = true;
+        for (const x of b.body || []) if (x.t === "table" && gridlike(x.rows)) x.sheet = true;
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
+
 function normaliseQuestionMarkBold(blocks) {
   const fixSegs = (segs) => {
     if (!Array.isArray(segs) || segs.length === 0) return;
