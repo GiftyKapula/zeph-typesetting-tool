@@ -380,23 +380,34 @@
   // silently overlapped. Past 2 names, wrap them into one centred paragraph
   // instead (matching how the cover's own byline already handles a long list).
   if byline.len() > 0 {
-    v(20mm)
+    v(16mm)
     align(center)[
       #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
       #v(3mm)
-      #if byline.len() > 2 {
-        text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
-      } else {
-        for a in byline [ #text(size: 13pt, weight: "medium", fill: T.ink)[#a] #v(3.5mm) ]
-      }
+      // Every author on ONE line, separated by bullets — the same shape the cover's
+      // byline uses. Stacking one name per line cost a line and a 3.5mm gap each, and
+      // on a title that wraps to two lines (Religious Education, Food and Nutrition…)
+      // that was enough to push the publisher imprint off the foot of the page
+      // altogether. One line keeps the whole title page on one page, unsqueezed.
+      #text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
     ]
   }
-  place(top + center, dy: 199mm, block(width: 100%)[#align(center)[
+  // The publisher imprint used to sit at a FIXED 199mm from the top of the page while
+  // the byline above it FLOWS. A subject that wraps the title to two lines (Religious
+  // Education, Food and Nutrition, Information and Communication Technology …) pushes
+  // the byline that much further down, and at two authors it reached the imprint: the
+  // little purple rule printed straight across the last author's name. Flow the imprint
+  // to the foot of the page instead — `1fr` takes up whatever is left — so the rule
+  // always clears the byline by the same margin however far down the byline ended.
+  v(10mm)
+  v(1fr)
+  align(center)[
     #box(fill: T.primary, width: 28mm, height: 2.5pt, radius: 1pt)
     #v(4mm)
     #text(size: 12pt, weight: "bold", fill: T.ink)[Zambia Educational Publishing House]
     #v(1mm)
-    #text(size: 11pt, fill: T.ink)[Lusaka]]])
+    #text(size: 11pt, fill: T.ink)[Lusaka]]
+  v(6mm)
   // Turn the running header on only AFTER the title page, so the title page itself
   // (which already carries the big CHEMISTRY / FORM 1 / LEARNER'S BOOK) shows no
   // redundant masthead. The imprint page onward gets the header.
@@ -2076,9 +2087,21 @@
         rect(fill: T.primary2, width: 4pt, height: 14pt, radius: 1pt),
         text(fill: T.primary, size: hs(13pt), weight: "bold")[#t])]
   }
+  // A heading must never strand at the foot of a page with a line or two of its
+  // section beneath it — "Exploring Muslim Teachings on Division and Hatred" opened
+  // three lines from the bottom of a page, which reads as a heading belonging to
+  // nothing. `sticky` alone does not catch that: it only stops a heading being the
+  // very LAST thing on a page, and three lines of the section did fit. Typst has no
+  // orphan control, so the heading RESERVES the height of about four body lines
+  // inside its own unbreakable block — when that much room is not left, the whole
+  // heading moves to the next page and opens its section there — and the reservation
+  // is handed straight back below, so a heading with room to spare sits exactly where
+  // it always did and no existing page changes.
+  let keep = 27mm
+  let kept = block(breakable: false)[#body #v(keep)]
   // a heading the author asked to centre (e.g. a reading passage / picture title)
-  if al == "center" { std.align(center)[#body] } else { body }
-  v(2pt)
+  if al == "center" { std.align(center)[#kept] } else { kept }
+  v(2pt - keep)
 }
 #let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
 
