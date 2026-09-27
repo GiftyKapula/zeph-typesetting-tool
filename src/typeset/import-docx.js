@@ -2576,7 +2576,34 @@ async function importDocx(docxPath, opts = {}) {
         i = b.end;
         continue;
       }
-      const body = b.body.map((k) => { const segs = paraSegs(parts[k]); return { t: "para", segs, plain: plainOf(segs).trim(), isList: false }; });
+      // Carry each paragraph's Word list numbering (real marker, numId, level) into the
+      // box, exactly as the assessment branch just above already does. Flattening every
+      // paragraph to `isList: false` with no marker threw that away, and for an EXERCISE
+      // — whose parts go through buildQAParts — it destroyed the question structure:
+      // buildQAParts decides depth by asking whether any block carries a DECIMAL marker
+      // (hasDecimalTop), so with every marker gone it concluded the box had no numbered
+      // questions at all. The real "1./2./3." questions fell through to unnumbered
+      // lead-in lines, and the hand-typed "a)"/"b)" sub-parts were promoted to top level
+      // and lettered straight through the whole box. Religious Education Form 2 TG
+      // Exercise 1 printed its three questions unnumbered with one continuous a)…g)
+      // running across them, instead of 1. a) b) / 2. i.–iv. / 3. a) b) c).
+      // Restricted to the EXERCISE kind on purpose. Only exercise (and assessment,
+      // handled above) sends its body through buildQAParts, which is what needs the
+      // numbering. An activity/keypoints/fact body is rendered as ordinary flowing
+      // prose, and handing it markers makes previously-plain lines sprout bullets —
+      // a change to every book with an activity box, which is not what is broken here.
+      const keepNums = b.kind === "exercise";
+      const body = b.body.map((k) => {
+        const y = parts[k];
+        const segs = paraSegs(y);
+        const plain = plainOf(segs).trim();
+        if (keepNums && hasListNumbering(y)) {
+          const li = listResolve(y);
+          return { t: "para", segs: stripBullet(segs), plain, isList: true,
+            marker: li ? li.marker : null, numId: li ? li.numId : null, lvl: li ? li.lvl : null };
+        }
+        return { t: "para", segs, plain, isList: false };
+      });
       blocks.push(makeBox(b.kind, [{ t: "para", segs: b.labelSegs, plain: b.title, isList: false }, ...body]));
       i = b.end;
       continue;

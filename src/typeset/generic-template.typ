@@ -2931,8 +2931,23 @@
       // before the answer: the old unconditional leading `\` left "1." stranded
       // alone with an empty gap above "Possible answer:" on the next line.
       let hasQ = it.q != "" or qseg.len() > 0
+      // richflow() closes the question inside its own `par`, so the `\` below opened a
+      // NEW paragraph and the answer picked up full paragraph spacing — a blank line
+      // between every question and its answer, while the very same Q&A pair inside an
+      // ACTIVITY box sits tight (splitAnswerLabels emits both in one paragraph). The
+      // same element, set two different ways depending on which box it landed in.
+      // When the question carries no DISPLAY math there is nothing needing a block-level
+      // paragraph, so set it inline and let the `\` be an ordinary line break — question
+      // and answer stay in one paragraph, matching the activity boxes. A question that
+      // DOES carry display math keeps richflow: its equations must stay block-level or
+      // they render empty (see richflow's own note).
+      let qdisp = qseg.any(s => s.at("m", default: false) and s.at("display", default: false))
       let body = if hasQ {
-        [#richflow(qseg, it.q) #context if show-answers.get() and (it.a != "" or aseg.len() > 0) [ \ #answer(aseg, it.a) ]]
+        if qdisp {
+          [#richflow(qseg, it.q) #context if show-answers.get() and (it.a != "" or aseg.len() > 0) [ \ #answer(aseg, it.a) ]]
+        } else {
+          [#rich(qseg, it.q)#context if show-answers.get() and (it.a != "" or aseg.len() > 0) [ \ #answer(aseg, it.a) ]]
+        }
       } else {
         [#context if show-answers.get() and (it.a != "" or aseg.len() > 0) [#answer(aseg, it.a)]]
       }
