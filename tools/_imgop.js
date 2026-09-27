@@ -63,11 +63,21 @@ async function main() {
     const n = d.length / 4;
     process.stdout.write(JSON.stringify(bins.map((v) => v / n)));
   } else if (op === "stitch") {
+    // `outW` stitches straight into the FINAL width instead of assembling the whole 4x
+    // frame and resampling it afterwards. That intermediate is what killed long runs on
+    // a small machine: a 1536x1024 picture at 4x is 25 megapixels, ~100MB of RGBA in one
+    // allocation, on top of whatever else is running. Scaling each piece as it is drawn
+    // keeps the peak to one piece plus the (much smaller) output.
     const spec = JSON.parse(fs.readFileSync(a[0], "utf8"));
-    const { cv, ctx } = ctxOf(spec.w, spec.h);
+    const k = spec.outW ? spec.outW / spec.w : 1;
+    const { cv, ctx } = ctxOf(Math.round(spec.w * k), Math.round(spec.h * k));
     for (const p of spec.pieces) {
       const img = await loadImage(p.file);
-      ctx.drawImage(img, p.sx, p.sy, p.sw, p.sh, p.dx, p.dy, p.sw, p.sh);
+      // a 1px overlap on the scaled edges, so rounding cannot leave a hairline seam
+      const ov = k < 1 ? 1 : 0;
+      ctx.drawImage(img, p.sx, p.sy, p.sw, p.sh,
+        Math.floor(p.dx * k), Math.floor(p.dy * k),
+        Math.ceil(p.sw * k) + ov, Math.ceil(p.sh * k) + ov);
     }
     fs.writeFileSync(spec.out, cv.toBuffer("image/png"));
   } else {

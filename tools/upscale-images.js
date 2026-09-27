@@ -118,7 +118,7 @@ const MAX_PIECE_PX = 400000;
 // pass. Pieces are cut with an overlap and the overlap is trimmed back off when
 // they are stitched, so the ESRGAN edge effect at each cut never reaches the
 // visible part of the picture and the seams don't show.
-function esrganUpscale(src, dst, scale, tile, work, tag) {
+function esrganUpscale(src, dst, scale, tile, work, tag, outW) {
   const d = dims(fs.readFileSync(src));
   // ALWAYS the model's native 4x, and resample down afterwards ourselves.
   //
@@ -168,7 +168,9 @@ function esrganUpscale(src, dst, scale, tile, work, tag) {
     }
   }
   const spec = path.join(work, "stitch.json");
-  fs.writeFileSync(spec, JSON.stringify({ out: dst, w: d.w * scale, h: d.h * scale, pieces }));
+  // stitch straight into the final width — see the note in _imgop.js: assembling the
+  // whole 4x frame first is the allocation that gets a long run killed.
+  fs.writeFileSync(spec, JSON.stringify({ out: dst, w: d.w * scale, h: d.h * scale, outW, pieces }));
   imgop(["stitch", spec]);
   for (const p of pieces) { try { fs.unlinkSync(p.file); } catch (_) { /* ignore */ } }
   fs.unlinkSync(spec);
@@ -336,7 +338,7 @@ async function main() {
     const t0 = Date.now();
     let nPieces = 1;
     try {
-      nPieces = esrganUpscale(j.from, big, 4, opt.tile, work, j.name);
+      nPieces = esrganUpscale(j.from, big, 4, opt.tile, work, j.name, j.target);
     } catch (e) {
       console.warn(`${tag}: Real-ESRGAN failed (${e.message.split("\n")[0]}) — left as is`);
       continue;
