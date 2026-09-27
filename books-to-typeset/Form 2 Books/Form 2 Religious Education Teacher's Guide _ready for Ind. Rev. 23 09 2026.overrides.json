@@ -3,9 +3,18 @@
 
   "//manuscript-correction": "APPLIED DIRECTLY TO THE .docx, and it must be re-applied if that file is ever re-converted from the original .doc. The manuscript's copyright line was typed '@Zambia Educational Publishing House' — an '@' for '©', and missing the year. Corrected to '© Zambia Educational Publishing House (2026)', the exact form the Learner's Book and every other 2026-cycle manuscript here uses. This cannot be done with an override: the engine finds the imprint page by looking for '©' or 'All rights reserved', so with the '@' spelling the copyright line fell BEFORE the detected imprint start and was swept into the cover block's byline array as a second 'author', where the cover's name filter discarded it. It never reached the block list that overrides operate on. Recorded here because books-to-typeset/ is git-ignored, so the edit itself is invisible to version control. The author should carry this into the next issue of the manuscript.",
 
+  "//coverImage": "The manuscript's own cover graphic is a PORTRAIT six-panel infographic (1024x1536) that cannot sit in the landscape 144x78mm hero window without being cut: forced in, it showed the bottom of the top two panels as strips of feet and legs, with the artwork's cream ground filling the rest of the box. Its only religious panel was also unusable for a cover — it illustrates Topic 2.1 'Division, Sin and Forgiveness', so its centre is the SIN half: a handgun, a liquor bottle, banknotes, gambling dice and handcuffs. Replaced with the author's newer six-panel artwork (kava.png), whose first panel shows a church and cross with a wheelchair user and a blind man with a white cane. The hero is that first row's two photographs, cut past the coloured header pills so no lettering reaches the cover, and starting past the left-hand figure rather than slicing her — the author's instruction was to crop the first part out completely and leave a clean look. Cut at 748x405 = the window's exact 144:78, upscaled 4x with Real-ESRGAN and resampled to 2474x1340 (436 DPI at the 144mm printed width; the raw cut is only 132 DPI, far under the 300 DPI rule). The engine therefore crops nothing.",
+  "coverImage": "re-form2-tg-cover.png",
+
   "//authors": "Same byline defect as the Learner's Book: the manuscript's cover byline is one 44-character string ('Francis Siakumena and Mirriam Mhone-Muzona'), which the cover's author filter drops as too long, leaving only the single name recovered from the AUTHORS bio section — so the cover and title page read 'AUTHOR: Francis Siakumena' and dropped the second author entirely. Split into two so both are credited. The second name is spelled WITHOUT the hyphen the manuscript uses — Mirriam Mhone Muzona — on the author's own instruction, matching the Learner's Book.",
   "authors": [
     "Francis Siakumena",
     "Mirriam Mhone Muzona"
+  ],
+
+  "//subtext": "The `authors` override above only reaches the COVER and TITLE PAGE. The manuscript spells the same author two further ways in its own body text — 'Mirriam Mhone-Muzona' in the imprint page's 'Illustrated by' line, and 'Mirriam Mhone‑Muzona' in her AUTHORS bio, where Word's <w:noBreakHyphen> makes it a U+2011 non-breaking hyphen rather than the ASCII one. The book therefore printed her name three different ways in its first five pages. Both variants are folded to the unhyphenated spelling the author asked for, so the name reads the same everywhere. Two entries because the two hyphens are different characters and `subtext` matches literally.",
+  "subtext": [
+    { "from": "Mhone-Muzona", "to": "Mhone Muzona" },
+    { "from": "Mhone‑Muzona", "to": "Mhone Muzona" }
   ]
 }

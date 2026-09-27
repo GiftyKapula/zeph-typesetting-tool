@@ -1,0 +1,27 @@
+{
+  "_note": "Literature in English, Form 1 Learner's Book.",
+  "_unitThree": "The manuscript never titled its third unit: it types a bare 'UNIT THREE' as the heading and lists it that way in its own hand-typed contents, while units one and two carry their subject ('UNIT ONE: INTRODUCTION TO LITERATURE', 'UNIT TWO - ORAL LITERATURE'). So the contents page showed one untitled unit among three, and the running header on every page of the unit said only 'UNIT THREE'. The subject is not in doubt - the unit opens on written literature and runs through prose, drama and poetry - so give it the same NAME: SUBJECT shape its siblings use. This is the manuscript's own gap, not an engine fault, which is why it is fixed here and not in src/typeset/.",
+  "replaceExact": [
+    {
+      "find": "UNIT THREE",
+      "with": "UNIT THREE: WRITTEN LITERATURE"
+    }
+  ],
+  "images": {
+    "image21.png": {
+      "src": "LIT in ENG F1 LB-hires/image21.png"
+    },
+    "image19.jpg": {
+      "src": "LIT in ENG F1 LB-hires/image19.png"
+    },
+    "image12.png": {
+      "src": "LIT in ENG F1 LB-hires/image12.png"
+    },
+    "image14.png": {
+      "src": "LIT in ENG F1 LB-hires/image14.png"
+    },
+    "image11.png": {
+      "src": "LIT in ENG F1 LB-hires/image11.png"
+    }
+  }
+}

@@ -1,3 +1,20 @@
 {
-  "coverImage": "ict-form2-lb-cover.png"
+  "coverImage": "ict-form2-lb-cover.png",
+  "images": {
+    "image21.png": {
+      "src": "ICT Form 2 Learner's Book - ready for typesetting-hires/image21.png"
+    },
+    "image17.png": {
+      "src": "ICT Form 2 Learner's Book - ready for typesetting-hires/image17.png"
+    },
+    "image4.jpeg": {
+      "src": "ICT Form 2 Learner's Book - ready for typesetting-hires/image4.png"
+    },
+    "image5.png": {
+      "src": "ICT Form 2 Learner's Book - ready for typesetting-hires/image5.png"
+    },
+    "image33.jpeg": {
+      "src": "ICT Form 2 Learner's Book - ready for typesetting-hires/image33.png"
+    }
+  }
 }
