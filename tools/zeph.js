@@ -13,6 +13,9 @@
 //   where <book>            print latest file paths for a book
 //   add <book> <file>       attach any file (pdf/docx/log) as a version
 //   build <book>            typeset the latest manuscript (runs the engine)
+//   deliver <book> [--to d] copy the typeset PDF out, named for its round:
+//                          "For Proofreading" before the comments come back, "Final" after
+//                          (default destination: your Downloads folder)
 //   send <book> [pdf]       open a proofread round; mark sent-for-proofread
 //   return <book> <file>    ingest annotated file, extract comments into the round
 //   comments <book> [--open]  list the latest round's comments
@@ -196,6 +199,67 @@ function cmdBuild(id) {
   process.exit(r.status);
 }
 
+// A delivered PDF is named for the round it belongs to, never by hand. A book on its
+// way out to a reviewer is delivered "For Proofreading"; once the proofreader's
+// annotated copy has come back and its comments have been extracted (`return`), what
+// goes out is the "Final". Driving the name off the book's own state means the two can
+// never drift apart, and a book sent out for a SECOND proofread (state back to
+// sent-for-proofread) correctly goes out as "For Proofreading" again.
+const PROOF_STATES = new Set(["drafting", "typesetting", "sent-for-proofread"]);
+const KIND_WORD = { LB: "Learner's Book", TG: "Teacher's Guide", SYL: "Syllabus" };
+// Built from what the book IS — subject, grade, kind — not from the manuscript's
+// filename, which carries a working title nobody outside the office should read
+// ("…Learners Book_ready for Ind. Rev. 5 Sept 2026"). Falls back to the stored title
+// when a book has no subject/grade recorded.
+function deliveryName(b) {
+  const round = PROOF_STATES.has(b.state) ? "For Proofreading" : "Final";
+  const stem = b.subject
+    ? [b.subject, b.grade, KIND_WORD[b.kind] || b.kind].filter(Boolean).join(" ")
+    // No subject recorded (an older row, or one imported before subjects were parsed):
+    // use the title, minus the "…ready for Ind. Rev. 5 Sept 2026" tail a manuscript
+    // filename carries, which is production chatter and not part of the book's name.
+    : b.title.replace(/[\s_-]*\b(ready|sent)\s+f(or|ro)\b.*$/i, "").trim();
+  return `${stem} - ${round}.pdf`.replace(/[\\/:*?"<>|]/g, "-");
+}
+
+// The freshest typeset PDF: whichever is newer of the one recorded as a version and the
+// one the engine last wrote under output/ (a plain `npm run typeset:docx` doesn't
+// register a version, so the DB alone can be behind).
+function newestTypesetPdf(b) {
+  const cands = [];
+  const v = latestVersion(b.id, "typeset_pdf");
+  if (v && fs.existsSync(v.stored_path)) cands.push(v.stored_path);
+  const m = latestVersion(b.id, "manuscript");
+  if (m) {
+    const want = path.basename(m.stored_path, path.extname(m.stored_path)) + " - typeset.pdf";
+    const walk = (dir) => {
+      let ents = [];
+      try { ents = fs.readdirSync(dir, { withFileTypes: true }); } catch (_) { return; }
+      for (const e of ents) {
+        const p = path.join(dir, e.name);
+        if (e.isDirectory()) walk(p);
+        else if (e.name === want) cands.push(p);
+      }
+    };
+    walk(path.join(ROOT, "output"));
+  }
+  if (!cands.length) return null;
+  return cands.sort((x, y) => fs.statSync(y).mtimeMs - fs.statSync(x).mtimeMs)[0];
+}
+
+function cmdDeliver(id, flags) {
+  const b = requireBook(id);
+  const src = newestTypesetPdf(b);
+  if (!src) die(`no typeset PDF for ${b.id} — run:  npm run zeph -- build ${b.id}`);
+  const dir = flags.to ? path.resolve(flags.to) : path.join(require("node:os").homedir(), "Downloads");
+  if (!fs.existsSync(dir)) die("no such folder: " + dir);
+  const dst = path.join(dir, deliveryName(b));
+  fs.copyFileSync(src, dst);
+  addVersion(b.id, "typeset_pdf", src);          // keep the DB abreast of what shipped
+  const mb = (fs.statSync(dst).size / 1048576).toFixed(1);
+  console.log(`${b.title}  [${b.state}]\n  ${rel(src)}\n  → ${dst}  (${mb} MB)`);
+}
+
 function cmdSend(id, pdf) {
   const b = requireBook(id);
   const prev = latestRound(b.id);
@@ -326,6 +390,7 @@ function cmdExport() {
     case "where":    cmdWhere(rest[0]); break;
     case "add":      cmdAdd(rest[0], rest[1]); break;
     case "build":    cmdBuild(rest[0]); break;
+    case "deliver":  cmdDeliver(rest[0], flags); break;
     case "send":     cmdSend(rest[0], rest[1]); break;
     case "return":   await cmdReturn(rest[0], rest[1]); break;
     case "comments": cmdComments(rest[0], flags); break;
