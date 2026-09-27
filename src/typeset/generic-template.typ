@@ -7,6 +7,21 @@
 // =====================================================================
 
 #let curtopic = state("curtopic", "")
+// RUNNING-HEADER TIMING — the header is laid out at the TOP of a page, before that
+// page's own body has run, so `curtopic.get()` there still holds the PREVIOUS
+// section: the page that opens "UNIT ONE" was headed "Acknowledgements", and every
+// unit opener in the book carried the name of the section before it. `settopic`
+// therefore drops an invisible, queryable marker beside the state update, so the
+// header can ask "what is the last topic marked on or before this page?" instead of
+// reading a state that has not been updated yet. The marker carries the same string
+// the state does — topicbanner marks its FULL title for the contents but stores the
+// short one for the header, and those must not be allowed to drift apart.
+#let settopic(t) = { curtopic.update(t); [#metadata(t)<zephtopic>] }
+// The topic in force on the page being laid out, header-safe (see settopic).
+#let topicnow() = {
+  let ms = query(selector(<zephtopic>)).filter(m => m.location().page() <= here().page())
+  if ms.len() > 0 { ms.last().value } else { curtopic.get() }
+}
 #let modern = T.variant == "modern"
 #let literary = T.variant == "literary"
 #let panel = T.variant == "panel"
@@ -218,7 +233,7 @@
           set text(size: 8.5pt, fill: T.primary)
           grid(columns: (1fr, auto),
             align(left)[#smallcaps[#title]],
-            align(right)[#smallcaps[#curtopic.get()]])
+            align(right)[#smallcaps[#topicnow()]])
           v(-3pt); line(length: 100%, stroke: 0.6pt + if modern { T.accent } else { T.primary })
         }
       }
@@ -1482,12 +1497,27 @@
 // ---- table of contents (real outline; correct page numbers + leaders) ----
 #let tableofcontents() = {
   pagebreak(weak: true)
+  // The contents page must name ITSELF in the running header. Every other page in the
+  // book is headed by the section it belongs to, but the contents set no topic at all,
+  // so it inherited whatever front-matter section happened to be typed last before it
+  // — "Acknowledgements" in every book whose contents sits after the acknowledgements,
+  // which is all of them. Two pages of the book therefore claimed to be part of a
+  // section that had already ended, the same defect settopic() was introduced to cure
+  // for the unit openers.
+  settopic(T.toctitle)
   block(breakable: false)[
     #text(fill: T.primary, size: 20pt, weight: "bold")[#T.toctitle]
     #v(3pt)
     #box(fill: iaccent, width: 60pt, height: 3pt, radius: 1.5pt)]
   v(8pt)
   set par(leading: 0.9em)
+  // Never hyphenate a contents entry — the same rule sectionhead() states for a
+  // section heading, and for the same reason. A long entry broken mid-word leaves
+  // the fragment and the whole dot leader stranded on a second line ("… WRITTEN
+  // LITERA-" / "TURE …………… 106"), so that one entry reads completely unlike the
+  // single-line entries above and below it. Without hyphenation the entry wraps at
+  // a word boundary instead, and the leader stays with its page number.
+  set text(hyphenate: false)
   let tgap = T.at("tocGap", default: 10pt)
   show outline.entry: it => { v(5pt, weak: true); upper(it) }
   let tdepth = T.at("tocDepth", default: 2)
@@ -1767,7 +1797,7 @@
 #let topicbanner(no, title, full) = {
   pagebreak(weak: true)
   mark(1, full)
-  curtopic.update(title)
+  settopic(title)
   // Black-and-white interior: the banner band is near-black, so its accent/cyan eyebrow
   // and number chip (which turn black in mono) would be invisible on it. Lift accent/cyan
   // to a light grey WITHIN the banner so they read on the dark band (the title is already
@@ -1914,7 +1944,7 @@
   // Outline units always; outline front-matter sections only when the TOC is not
   // restricted to units (some books want a units-only contents page).
   if outlined and (isUnitTitle(t) or not tocUnitsOnly) { mark(1, t) }
-  curtopic.update(t)
+  settopic(t)
   // Never hyphenate a section heading — the rule subhead()'s banner already states for
   // sub-topics: a heading broken mid-word reads as broken even where the break is a
   // legal one, and at display size it is unmissable ("GENERAL COMPETENCES TO BE
@@ -2196,7 +2226,14 @@
       #content]
   } else if literary {
     block(width: 100%, breakable: breakable, radius: 2pt, clip: true, stroke: 0.7pt + kind.border)[
-      #block(width: 100%, fill: kind.border, inset: (x: 11pt, y: 5pt))[
+      // sticky: the title band must never be the last thing on a page. Without it the
+      // band broke away from its own body — "ACTIVITY 1: Discussing different functions
+      // of Literature" sat alone at the foot of one page of the Literature in English
+      // Form 1 Learner's Book while the box opened headless on the next, so that one
+      // activity read quite unlike every other activity in the book. The labcard and
+      // serieslike variants above already mark their title band this way; the literary
+      // variant was simply missing it.
+      #block(width: 100%, sticky: true, fill: kind.border, inset: (x: 11pt, y: 5pt))[
         #text(fill: white, weight: "bold", size: hs(13pt))[#title]]
       #block(width: 100%, breakable: breakable, fill: kind.fill, inset: (x: 11pt, y: 9pt))[#content]]
   } else if modern {
@@ -2868,8 +2905,79 @@
 // A reviewer struck out all seventeen of them in one Form 2 Teacher's Guide, every
 // occurrence in the book. The answer stays visually distinct without it: italic, in the
 // box's accent colour, against the roman body of the question above it.
+// Split a segment run into one list per line, breaking at the "\n" the importer folds
+// separate manuscript paragraphs into. Math segments are opaque and never split.
+#let seglines(ss) = {
+  let lines = ()
+  let cur = ()
+  for s in ss {
+    if s.at("m", default: false) { cur.push(s) }
+    else {
+      let t = s.at("t", default: "")
+      if t.contains("\n") {
+        let parts = t.split("\n")
+        for i in range(parts.len()) {
+          if i > 0 { lines.push(cur); cur = () }
+          let p = parts.at(i)
+          if p != "" { let c = s; c.insert("t", p); cur.push(c) }
+        }
+      } else { cur.push(s) }
+    }
+  }
+  lines.push(cur)
+  lines.filter(l => l.len() > 0)
+}
+// Peel an enumeration marker ("i.", "a)", "(3)") off the front of one such line,
+// returning (marker, remaining-segments) — or none when the line doesn't start with one.
+#let peelmark(line) = {
+  if line.len() == 0 { return none }
+  let f = line.at(0)
+  if f.at("m", default: false) { return none }
+  let t = f.at("t", default: "")
+  let m = t.match(regex("^\\s*(\\(?(?:[ivxIVX]+|[A-Za-z]|[0-9]{1,2})[.)])\\s+"))
+  if m == none { return none }
+  let rest = t.slice(m.end)
+  let out = ()
+  if rest != "" { let c = f; c.insert("t", rest); out.push(c) }
+  for i in range(1, line.len()) { out.push(line.at(i)) }
+  if out.len() == 0 { return none }
+  (m.captures.at(0), out)
+}
+// An answer the manuscript typed as an enumerated list — "i. …", "a) …", "1. …", one
+// item per line inside a SINGLE answer run. Rendered flat it came out as a block of
+// prose: every wrapped line ran back under its own marker, so nothing hung, while the
+// a)/b) sub-part answers immediately above it sat properly in the 22pt marker gutter —
+// the same element set two different ways on one page. Give the list the same gutter
+// the question markers and the references list use, so every answer list in every book
+// hangs alike. Returns none when the run isn't a list, and the flat rendering stands.
+#let answerlist(aseg, a) = {
+  let ss = if aseg != none and aseg.len() > 0 { aseg } else { ((t: a, b: false, it: true, c: none),) }
+  let lines = seglines(ss)
+  if lines.len() < 2 { return none }
+  let rows = ()
+  for l in lines {
+    let e = peelmark(l)
+    // every line must carry a marker — one bare line means this is prose with a
+    // stray "A." in it, not an author's list
+    if e == none { return none }
+    rows.push(e)
+  }
+  // distinct markers: prose whose lines happen to open "I. " twice isn't an enumeration
+  let marks = rows.map(r => r.at(0))
+  if marks.dedup().len() != marks.len() { return none }
+  text(style: "italic", fill: T.ex.title)[#grid(
+    // A grid row is only as tall as its own glyphs — it carries none of the paragraph
+    // leading that separates two lines INSIDE an item — so a small row-gutter puts the
+    // items closer together than the lines within them and the list reads as one mass.
+    // 6pt restores a gap a little wider than the leading, matching the v(3pt) that
+    // separates the a)/b) parts above.
+    columns: (22pt, 1fr), column-gutter: 6pt, row-gutter: 6pt,
+    align: (right + top, left + top),
+    ..rows.map(r => ([#segs(((t: r.at(0), b: false, it: false, c: none),))], [#segs(r.at(1))])).flatten())]
+}
 #let answer(aseg, a) = context if show-answers.get() and (a != "" or aseg.len() > 0) {
-  [#text(style: "italic", fill: T.ex.title)[#rich(aseg, a)]]
+  let lst = answerlist(aseg, a)
+  if lst != none { lst } else { [#text(style: "italic", fill: T.ex.title)[#rich(aseg, a)]] }
 }
 #let qaparts(parts) = {
   // exercise/assessment text is left-aligned (not justified): fill-in-the-blank lines
@@ -2958,7 +3066,12 @@
       // overflowing, so "1." and "a)" landed on two separate lines with nothing in
       // the body column beside the second one. Widen the gutter for just this row
       // when the marker is longer than a plain single marker ever is.
-      let mkw = if it.marker.len() > 3 { 36pt } else { 22pt }
+      // Tested on the SPACE a combined marker always carries (markerFor(top) + " " +
+      // markerFor(sub) in import-docx.js), not on length: a plain roman "iii." is four
+      // characters too, and widening its gutter shifted that one item's question and
+      // answer right while its "i."/"ii." siblings stayed put — the same list set two
+      // ways down one column (RE Form 2 TG, Exercises 13 & 14).
+      let mkw = if it.marker.contains(" ") { 36pt } else { 22pt }
       grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, right + top, left + top),
         [], [#it.marker], body)
       v(T.at("qgap", default: 3pt))

@@ -245,7 +245,18 @@ function emit(blocks) {
         break;
       }
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
-      case "label": out += `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`; break;
+      case "label": {
+        const l = `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`;
+        // A label sitting directly above a picture is that picture's heading, so it
+        // must travel with it. Unlike the head/para cases above, this is NOT limited to
+        // figure labels: a label IS a heading here, and the ones that strand are the
+        // ordinary section labels ("Songs", "Proverbs", "PRAISES"). When the picture
+        // below was too tall for the rest of the page it jumped alone to the next one,
+        // leaving the label as the last thing on a half-empty page and opening the
+        // picture's page with no idea what it was showing.
+        out += (nextIsImg && (b.text || "").trim().length <= 60) ? stickyWrap(l) : l;
+        break;
+      }
       case "para": {
         const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""})\n`;
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
@@ -3734,6 +3745,47 @@ function applyMarkFlushRight(blocks) {
 // the label moves to `aseg` (the label itself is dropped — the answer renderer re-adds a
 // "Possible answer:" tag and sets the answer on its own highlighted line). Runs for every
 // exercise/assessment question (and answer-bearing lead-in, promoted to a question).
+// An answer label opening a LINE — "Possible Answer:", "Expected Response:". Shared by
+// the exercise path below and by stripBoxAnswerLabels(), because house style is that no
+// expected answer anywhere in these books prints a label of its own; the answer is set
+// in italic and that is what marks it. Matching only at a line start leaves a genuine
+// mention in running prose ("accept any possible answer: see the syllabus") alone.
+const ANSWER_LABEL_RE = /^\s*(possible|expected|sample|suggested|model)\s*(answers?|responses?)\s*:\s*/i;
+// Strip every such label from a run of segments. `atStart` says whether the run's FIRST
+// segment already counts as the beginning of a line: true for a standalone paragraph,
+// false inside an exercise answer whose opening label was another pass's job.
+function stripAnswerLabelRuns(segs, atStart) {
+  if (!Array.isArray(segs) || !segs.length) return segs;
+  let lineStart = atStart;   // is the next character the start of a line?
+  let eating = false;        // a label was just removed — swallow the blanks left behind
+  let changed = false;
+  const out = [];
+  for (const s of segs) {
+    if (!s || s.m || typeof s.t !== "string") { out.push(s); lineStart = false; eating = false; continue; }
+    // Walk the run LINE BY LINE. A Word soft break and the label it introduces usually
+    // land in the same run ("…carrying out duties.\nPossible Answer: Responsibility"),
+    // so a test that only looks at the run's first character never sees the label at all.
+    const parts = s.t.split("\n");
+    for (let i = 0; i < parts.length; i++) {
+      if (i > 0) { lineStart = true; eating = false; }
+      let p = parts[i];
+      if (lineStart && ANSWER_LABEL_RE.test(p)) {
+        p = p.replace(ANSWER_LABEL_RE, "");
+        changed = true;
+        eating = true;   // the label is often its own bold run, leaving "" behind
+      } else if (eating) {
+        // a lone space run after the label would otherwise indent the line it now opens
+        const q = p.replace(/^[ \t]+/, "");
+        if (q !== p) { changed = true; p = q; }
+      }
+      if (p !== "") { eating = false; lineStart = false; }
+      parts[i] = p;
+    }
+    const t = parts.join("\n");
+    out.push(t === s.t ? s : { ...s, t });
+  }
+  return changed ? out : segs;
+}
 function splitAnswerLabels(blocks) {
   // a run that is ENTIRELY the answer label (its own bold run, e.g. "Possible Answer:")
   const LABEL_FULL = /^\s*(possible|expected|sample|suggested|model)?\s*(answers?|responses?)\s*:?\s*$/i;
@@ -3815,6 +3867,18 @@ function splitAnswerLabels(blocks) {
     }
     return null;
   };
+  // An answer label the manuscript typed INSIDE an already-multi-line answer
+  // ("Honesty\nii. ____ means carrying out duties…\nPossible Answer: Responsibility")
+  // never reaches cut(): by then the part already has its `aseg`, so the label just
+  // rides along as literal text and prints. The book then shows the same element two
+  // ways inside one exercise — the first sub-answer bare, the next two tagged. On the
+  // RE Form 2 Teacher's Guide that was Exercises 13 & 14 and both End-of-Topic
+  // assessments, where "a) Justice" answered plainly and "b) Injustice" carried a
+  // "Possible Answer:" tag on the very next line. No answer prints a label anywhere
+  // else in these books (the answer-key box's own heading already says these are the
+  // answers — see `answer()` in generic-template.typ), so strip it here too. The answer's
+  // own FIRST line was cut()'s job, not ours, so start mid-line.
+  const stripInnerLabels = (segs) => stripAnswerLabelRuns(segs, false);
   const splitPart = (p) => {
     if (!Array.isArray(p.qseg) || !p.qseg.length) return;
     if (Array.isArray(p.aseg) && p.aseg.length) return;             // already split
@@ -3865,6 +3929,10 @@ function splitAnswerLabels(blocks) {
           if (!p || (p.kind !== "q" && p.kind !== "lead")) continue;
           const wasLead = p.kind === "lead";
           splitPart(p);
+          if (Array.isArray(p.aseg) && p.aseg.length) {
+            const cleaned = stripInnerLabels(p.aseg);
+            if (cleaned !== p.aseg) { p.aseg = cleaned; p.a = plainOf(cleaned); }
+          }
           // A "lead" whose ENTIRE content was just the bare label ("Answer:" as its
           // own run, nothing of its own before it) has no real question text —
           // splitPart still promotes it to "kind: q" so the answer path renders it,
@@ -3907,6 +3975,183 @@ function splitAnswerLabels(blocks) {
       } else if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) {
         splitPara(b);
       }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
+// Split a run of segments into one array per line, breaking at the "\n" a Word soft
+// line break (<w:br/>) becomes. Math segments are opaque and never split.
+function segsToLines(segs) {
+  const lines = [[]];
+  for (const s of segs || []) {
+    if (!s) continue;
+    if (s.m || typeof s.t !== "string") { lines[lines.length - 1].push(s); continue; }
+    const parts = s.t.split("\n");
+    for (let i = 0; i < parts.length; i++) {
+      if (i > 0) lines.push([]);
+      if (parts[i] !== "") lines[lines.length - 1].push({ ...s, t: parts[i] });
+    }
+  }
+  return lines.filter((l) => l.some((x) => x.m || (x.t || "").trim()));
+}
+const ROMAN_SEQ = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii"];
+// Some Teacher's Guides type a multi-part question as ONE Word paragraph, its parts
+// separated by soft line breaks rather than by real list items:
+//
+//   "Define the following terms:⏎a) Justice"     ← the whole thing is question `1.`
+//   "Justice is fairness…⏎b) Injustice⏎Injustice occurs…"   ← and this the answer
+//
+// Nothing here is malformed to Word, but the importer sees one question with one long
+// answer, so the parts print flush against the lead-in while the very same construct
+// typed as separate paragraphs elsewhere in the same book renders as proper indented
+// a)/b) rows with their answers hanging under them. The RE Form 2 Teacher's Guide has
+// it both ways within a few pages (Exercise 10 correct, End-of-Topic 5 Assessment and
+// Exercises 13 & 14 folded). Unfold it: the lead-in keeps the question's own number,
+// and each lettered/roman/numbered part becomes a real depth-1 part carrying the lines
+// that follow it as its answer — the shape the rest of the book already uses.
+//
+// Deliberately narrow. The fold is only recognised when the question's LAST line opens
+// with a part marker and the answer carries the markers that CONTINUE that sequence
+// (a→b→c, i→ii→iii, 1→2→3) in the same punctuation style, which ordinary prose that
+// happens to begin "I. " or "A." cannot satisfy.
+function splitFoldedSubParts(blocks) {
+  const MARK = /^\s*(\(?)([A-Za-z]|[ivxIVX]{1,4}|\d{1,2})([.)])\s+/;
+  const markOf = (line) => {
+    const first = line.find((s) => s && !s.m && typeof s.t === "string" && s.t.trim());
+    if (!first || first !== line[0]) return null;
+    const m = first.t.match(MARK);
+    return m ? { open: m[1], core: m[2], close: m[3], len: m[0].length } : null;
+  };
+  // does `b` directly follow `a` in one of the three marker sequences?
+  const follows = (a, b) => {
+    if (a.open !== b.open || a.close !== b.close) return false;
+    const x = a.core, y = b.core;
+    if (/^\d+$/.test(x) && /^\d+$/.test(y)) return Number(y) === Number(x) + 1;
+    if (/^\d+$/.test(x) || /^\d+$/.test(y)) return false;
+    const sameCase = (x === x.toLowerCase()) === (y === y.toLowerCase());
+    if (!sameCase) return false;
+    const ri = ROMAN_SEQ.indexOf(x.toLowerCase());
+    if (ri >= 0 && ROMAN_SEQ[ri + 1] === y.toLowerCase()) return true;
+    return x.length === 1 && y.length === 1 && y.charCodeAt(0) === x.charCodeAt(0) + 1;
+  };
+  const peel = (line, mk) => {
+    const out = line.slice();
+    out[0] = { ...out[0], t: out[0].t.slice(mk.len) };
+    return out.filter((s) => s.m || (s.t || "") !== "");
+  };
+  const joinLines = (ls) => {
+    const out = [];
+    ls.forEach((l, i) => { if (i > 0) out.push({ t: "\n", b: false, it: false, c: null }); out.push(...l); });
+    return out;
+  };
+  const plainOf = (segs) => segs.map((s) => (s.m ? "" : s.t)).join("");
+  const unfold = (p) => {
+    if (p.kind !== "q" || (p.depth || 0) !== 0) return null;
+    const qLines = segsToLines(p.qseg);
+    const aLines = segsToLines(p.aseg);
+    if (qLines.length < 2 || !aLines.length) return null;
+    const firstMk = markOf(qLines[qLines.length - 1]);
+    if (!firstMk) return null;
+    // the lead-in must NOT itself be a marker line, or this is a plain list, not a fold
+    if (markOf(qLines[qLines.length - 2])) return null;
+    // walk the answer, opening a new sub-part at each marker that continues the sequence
+    const subs = [{ mk: firstMk, q: peel(qLines[qLines.length - 1], firstMk), a: [] }];
+    for (const line of aLines) {
+      const mk = markOf(line);
+      if (mk && follows(subs[subs.length - 1].mk, mk)) subs.push({ mk, q: peel(line, mk), a: [] });
+      else subs[subs.length - 1].a.push(line);
+    }
+    if (subs.length < 2) return null;
+    const lead = { ...p, qseg: joinLines(qLines.slice(0, -1)), aseg: [], a: "" };
+    lead.q = plainOf(lead.qseg);
+    const out = [lead];
+    for (const s of subs) {
+      const qseg = s.q, aseg = s.a.length ? joinLines(s.a) : [];
+      out.push({ kind: "q", depth: (p.depth || 0) + 1, marker: s.mk.open + s.mk.core + s.mk.close,
+        qseg, q: plainOf(qseg), aseg, a: plainOf(aseg) });
+    }
+    return out;
+  };
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if ((b.t === "exercise" || b.t === "assessment") && Array.isArray(b.parts)) {
+        for (let i = 0; i < b.parts.length; i++) {
+          const rep = unfold(b.parts[i]);
+          if (!rep) continue;
+          b.parts.splice(i, 1, ...rep);
+          i += rep.length - 1;
+        }
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
+// The same answer label, but inside a BOX BODY rather than an exercise question — an
+// activity's guidance is a flat run of paragraphs, so its expected answers arrive as
+// ordinary `para` blocks opening with a bold "Possible answer:" run instead of as an
+// exercise part with its own `aseg`. splitAnswerLabels() therefore never saw them, and
+// the RE Form 2 Teacher's Guide printed the element two ways on a single page: the
+// activity box at the top of printed page 91 tagged its answer, while EXERCISE 13
+// directly beneath it set the very same thing as bare italic. House style is that no
+// expected answer prints a label anywhere — the italic is what marks it — so strip the
+// label here too and the two boxes match.
+// Only a paragraph that OPENS with the label is touched, and only when something
+// survives it, so a lead-in that is nothing but the word "Answer:" is left for the
+// existing passes to deal with rather than being emptied to a blank line.
+function stripBoxAnswerLabels(blocks) {
+  // `inBody` is true only for the blocks nested inside a box's own `body` — the label is
+  // left alone in ordinary running prose, where "Possible answer:" opening a paragraph
+  // is the writer addressing the teacher rather than a tagged answer in a box.
+  const walk = (arr, inBody) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (inBody && b.t === "para" && Array.isArray(b.segs)) {
+        const cleaned = stripAnswerLabelRuns(b.segs, true);
+        if (cleaned !== b.segs) {
+          const kept = cleaned.filter((s) => s.m || (s.t || "") !== "");
+          if (kept.some((s) => s.m || (s.t || "").trim())) {
+            b.segs = kept;
+            b.plain = kept.map((s) => (s.m ? "" : s.t)).join("");
+          }
+        }
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k], k === "body");
+    }
+  };
+  walk(blocks, false);
+}
+// A sub-heading that only repeats the unit heading directly above it. Writers produce
+// this whenever they type the unit's subject twice — once on the unit line and again as
+// the first sub-topic — and it also appears the moment a unit that was left untitled
+// ("UNIT THREE") is given the subject its first sub-topic already carried. Either way
+// the opener reads "UNIT THREE: WRITTEN LITERATURE" with "WRITTEN LITERATURE" set
+// immediately beneath it, and the contents lists the same words twice, indented under
+// themselves. Drop the echo: the unit heading already says it.
+// Deliberately narrow. The echo must sit IMMEDIATELY under its unit heading with nothing
+// in between, and must match either the whole unit heading or the subject after its
+// "UNIT THREE:" / "TOPIC 2 –" style prefix. A sub-topic that merely starts with the same
+// words ("WRITTEN LITERATURE IN ZAMBIA") is a real heading and is left alone.
+function dropUnitTitleEcho(blocks) {
+  const norm = (s) => String(s || "").replace(/\s+/g, " ").replace(/^[\s:–—-]+/, "").replace(/[\s.:–—-]+$/, "").toUpperCase();
+  // the part after "UNIT THREE:" / "TOPIC 2 –" — "" when the heading carries no subject
+  const subjectOf = (t) => {
+    const m = String(t || "").match(/^\s*(?:UNIT|TOPIC|CHAPTER)\b[^:–—-]*[:–—-]\s*(.+)$/i);
+    return m ? m[1] : "";
+  };
+  const walk = (arr) => {
+    for (let i = 0; i < arr.length - 1; i++) {
+      const a = arr[i], b = arr[i + 1];
+      if (!a || !b || typeof a !== "object" || typeof b !== "object") continue;
+      if (a.t !== "h1" || (b.t !== "h2" && b.t !== "h3" && b.t !== "head")) continue;
+      const bt = norm(b.text);
+      if (!bt) continue;
+      if (bt === norm(a.text) || bt === norm(subjectOf(a.text))) { arr.splice(i + 1, 1); i--; }
+    }
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
       for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
     }
   };
@@ -4780,8 +5025,17 @@ function normaliseQuestionMarkBold(blocks) {
   boldSafetyAndSteps(blocks);
   // Teacher's Guide: peel each inline "Possible Answer:" off its question onto its own line.
   splitAnswerLabels(blocks);
+  // …and unfold a multi-part question the manuscript typed as ONE paragraph of soft
+  // line breaks, so its a)/b) parts sit in the same indented rows as everywhere else.
+  splitFoldedSubParts(blocks);
+  // …and drop the same answer label where it opens a paragraph inside a box body, so an
+  // activity's expected answer reads exactly like an exercise's.
+  stripBoxAnswerLabels(blocks);
   // House style: make every structural box label read in one case across the book.
   uniformBoxLabelCase(blocks);
+  // Runs after applyOverrides() above, so a unit heading corrected by an override is the
+  // one compared against the sub-heading below it.
+  dropUnitTitleEcho(blocks);
   // Group each lesson's header metadata into one distinct 14pt panel (Teacher's Guide).
   if (ov.polish) blocks = groupLessonMeta(blocks);
   reorderFrontmatter(blocks);   // house-style front-matter order (see the function)

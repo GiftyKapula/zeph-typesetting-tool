@@ -27,7 +27,20 @@ const SUBTOPIC_RE = /^SUB[-\s‐-―]*TOPIC\s*:?\s*[\d.]+\b/i;
 // space before the digits (manuscripts sometimes glue them, "Topic1.1.2") and with or
 // without a colon before the number ("TOPIC: 1.3."). Used wherever a following block must
 // be recognised as "the next section starts here".
-const SECTION_RE = /^(TOPIC|UNIT|CHAPTER|SUB[-\s‐-―]*TOPIC)\s*:?\s*[\d.]/i;
+// A section number may also be SPELLED OUT — "UNIT ONE: INTRODUCTION TO LITERATURE",
+// "UNIT TWO – ORAL LITERATURE". A manuscript that spells its unit numbers this way used
+// to lose its FIRST unit heading outright: that heading sits immediately after the
+// contents list, so the TOC-junk scan below reached it, failed this test, and dropped it
+// as one more contents entry — leaving the unit's sections hanging under the last
+// front-matter heading ("Acknowledgements") in the running header and in the contents.
+// Later units survive only because the scan has already stopped by the time it reaches
+// them. The spelled-out form must be followed by a separator or the end of the line, so
+// ordinary prose that happens to open with "Unit one is …" is not read as a heading.
+const SECTION_WORD = "ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN|ELEVEN|TWELVE|" +
+  "THIRTEEN|FOURTEEN|FIFTEEN|SIXTEEN|SEVENTEEN|EIGHTEEN|NINETEEN|TWENTY";
+const SECTION_RE = new RegExp(
+  "^(TOPIC|UNIT|CHAPTER|SUB[-\\s‐-―]*TOPIC)\\s*:?\\s*" +
+  "(?:[\\d.]|(?:" + SECTION_WORD + ")\\b(?=\\s*(?:[:.–—-]|$)))", "i");
 // The manuscript's own hand-typed contents heading, in every spelling we see. Writers
 // type the singular "TABLE OF CONTENT" at least as often as the plural, and some type a
 // bare "CONTENTS" with no "TABLE OF" — all three must be recognised, because this
@@ -158,7 +171,13 @@ function boxKindFromTitle(t) {
   // Plural "EXERCISES 1 - 4" (a range of several numbered questions under one box) is
   // as common as the singular "EXERCISE 9" in some books' house style — accept an
   // optional trailing "S" before the number/colon/newline/end.
-  if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|$)/i.test(s) || /^ACTIVITY\s*\d/i.test(s)) return "exercise";
+  // "ACTIVITY" takes an optional colon BEFORE its number too ("ACTIVITY: 4 Composing
+  // Short Stories"), exactly as the EXERCISE pattern beside it already does. Without it
+  // that label was not a box label at all, so it was swallowed as one more body line of
+  // the PRECEDING activity box — Activity 4 of the Literature in English Form 1
+  // Learner's Book printed as the last question of Activity 3, its own questions with
+  // it, while every other activity in the book stood in its own framed box.
+  if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|$)/i.test(s) || /^ACTIVITY\s*:?\s*\d/i.test(s)) return "exercise";
   if (/^(U?Mulimo|Mwingilo|Zocitila|Zoc[hk]?ita|Zakueza|Mudimu)\b/i.test(s)) return "exercise";
   // --- Key points / Did you know ---
   if (/^(KEY POINTS|Key Points to Remember|Mau ofunika kudziwa)/i.test(s)) return "keypoints";
@@ -1635,6 +1654,35 @@ function makeBox(kind, blocks) {
     ? bodyFrom(titleIdx)
     : (titlePara ? blocks.slice(blocks.indexOf(titlePara) + 1) : blocks);
   if (kind === "activity") {
+    // The manuscript typed the activity's instruction on a NEW LINE INSIDE the title
+    // paragraph — Shift+Enter (a <w:br/>, which the run reader keeps as "\n") rather
+    // than a real paragraph break — and left that instruction un-bold while the title
+    // above it is bold. Both halves therefore arrive as one title block and the whole
+    // instruction printed inside the box's bold title: 30 of the RE Form 2 Teacher's
+    // Guide's 71 activity titles ran to three or four bold lines, while the other 41,
+    // whose author happened to press Enter, showed a short title over a normal body
+    // paragraph — the same element set two ways through one book.
+    // The soft break PLUS the bold-to-plain change is a precise signal (a genuinely
+    // two-line title stays bold across the break), and a far more reliable split point
+    // than the BODY_OPEN verb list below, which can never enumerate every way an
+    // instruction may open — "In groups, …" and "Individually, …" both defeated it.
+    // So try this first; BODY_OPEN still catches titles glued without any break.
+    // Note the split must be made on the SEGS: `titleText` comes from the block's
+    // `plain`, where the soft break has already been flattened to a space.
+    const brk = (titleSegs || []).findIndex((s, k) => k > 0 && !s.m && typeof s.t === "string"
+      && /^\n/.test(s.t) && !s.b && titleSegs.slice(0, k).some((p) => !p.m && p.b && (p.t || "").trim()));
+    if (brk > 0) {
+      const headSegs = titleSegs.slice(0, brk);
+      const restSegs = titleSegs.slice(brk);
+      restSegs[0] = { ...restSegs[0], t: restSegs[0].t.replace(/^\n+/, "") };
+      const flat = (ss) => ss.map((s) => (s.m ? "" : s.t)).join("").replace(/\s+/g, " ").trim();
+      const headText = flat(headSegs), restText = flat(restSegs);
+      if (headText && restText) {
+        return { t: "activity", title: headText,
+          ...(hasMathSeg(headSegs) ? { titleSegs: headSegs } : {}),
+          body: [{ t: "para", segs: restSegs.filter((s) => s.m || s.t !== ""), plain: restText }, ...after] };
+      }
+    }
     // A disorganised manuscript sometimes glues the activity's body onto its title
     // paragraph ("LEARNING ACTIVITY 4: Name Divide learners into groups…"). When the
     // title is abnormally long AND runs into an imperative body opener, split the
@@ -2489,8 +2537,16 @@ async function importDocx(docxPath, opts = {}) {
       // header, title fragments (e.g. a duplicate "PHYSICS FORM 4" from the
       // image-bearing title paragraph), grade lines, and stray junk like "]".
       cover.lines = lines;
-      cover.byline = byline.filter((t) => {
-        const s = t.trim();
+      // Collapse whitespace inside a byline entry before anything reads it. A cover
+      // byline is hand-typed and padded by hand — every name in the Literature in
+      // English Form 1 manuscript is pushed across the page with a long run of spaces,
+      // and one is typed "R  Moono " with a double space INSIDE the name and a trailing
+      // one. Trimming the ends is not enough: the double space survives onto the printed
+      // cover and title page, where that one author is set unlike the three beside him.
+      // Not this book's quirk — a hand-padded byline is the norm in these manuscripts —
+      // so it is normalised here, at the one point both pages read.
+      cover.byline = byline.map((t) => t.replace(/\s+/g, " ").trim()).filter((t) => {
+        const s = t;
         if (s.length <= 2) return false;
         if (/^(names of authors|authors)$/i.test(s)) return false;
         if (/\b(form|grade)\s+\d/i.test(s)) return false;
@@ -2514,16 +2570,46 @@ async function importDocx(docxPath, opts = {}) {
     if (isTbl(x) || inImprint(i)) continue;
     const text = textOf(x);
     const kind = text && boxKindFromTitle(text);
-    if (!kind || !boldFirstRun(x)) continue;
+    // A box label is normally typed as a bold paragraph, but an author may equally
+    // reach for a Word HEADING style — the label looks the same on screen, and the
+    // bold comes from the style rather than from a run, so boldFirstRun() cannot see
+    // it. Left out, that one label is the only activity in its book that is NOT a box:
+    // the Literature in English Form 1 Learner's Book styles fifteen of its sixteen
+    // "Activity 2" labels as bold paragraphs, which become proper framed activity
+    // boxes, and the sixteenth as Heading2 — which printed as a section heading with
+    // its questions spilled loose beneath it, and put "ACTIVITY 2: Distinguishing
+    // Forms of written Literature" in the table of contents beside the real sections.
+    // boxKindFromTitle() is anchored and narrow, so accepting a heading here only ever
+    // captures a paragraph that really is a box label.
+    if (!kind || !(boldFirstRun(x) || hmap[styleOf(x)])) continue;
     const bodyIdx = [];
     let lastContent = -1;
+    // The size of the body the box has absorbed so far, to spot the JUMP UP that marks
+    // the next section starting (see the break below).
+    let bodySize = 0;
     for (let j = i + 1; j < parts.length; j++) {
       const y = parts[j];
       const ty = textOf(y);
       if (/Heading\d/.test(styleOf(y)) || sizeHeadLevel(y, j)) break; // a heading ends it
+      // A hand-styled section heading — bold, and set LARGER than the body this box has
+      // been absorbing — also ends it. sizeHeadLevel() can't speak for these: in a book
+      // with numbered topics it grades strictly by the "TOPIC 2.1"/"2.1.1" number
+      // pattern and returns 0 for every other bold line, so an ordinary sub-heading
+      // ("Factors That Make Freedom Possible", "Types of Hope") was pulled inside the
+      // preceding answer-key box and printed as a stray bold line in the grey panel,
+      // taking the paragraphs under it along. Fifteen headings in the RE Form 2
+      // Teacher's Guide landed that way.
+      // The test is RELATIVE — strictly larger than what the box has been absorbing —
+      // not an absolute point size, so a manuscript whose body is itself set at 14pt
+      // doesn't break at every bold line. That contrast is also what separates these
+      // from the labels that genuinely belong inside a box ("Section A: Ambition",
+      // "Specific Competence"), which the same manuscript sets at body size.
+      if (bodySize && !isTbl(y) && ty && boldFirstRun(y) && sizeOf(y) > bodySize && !boxKindFromTitle(ty)) break;
       if (SECTION_RE.test(ty)) break; // a numbered heading (no Word style)
       if (restoredBanner.has(j)) break; // the next topic's banner, typed without "TOPIC"
       if (boxKindFromTitle(ty) && boldFirstRun(y)) break;        // the next box label
+      // learn the box's own body size from the first sized line it takes in
+      if (!bodySize && !isTbl(y) && ty) { const sy = sizeOf(y); if (sy) bodySize = sy; }
       // An End-of-Topic assessment runs to the next section: its questions are
       // interleaved with diagrams to read and data tables, and separated by blank
       // gaps — none of which should end it. Other boxes still stop at the first
@@ -2533,8 +2619,20 @@ async function importDocx(docxPath, opts = {}) {
         if (isTbl(y) || ty || imagesOf(y).length) lastContent = bodyIdx.length - 1;
         continue;
       }
-      if (isTbl(y)) break;
-      if (!ty) break;                                            // blank line ends the box
+      // A box may OPEN with its illustration or its data table — "Activity 1: In
+      // groups, attempt the following riddles?" is followed straight away by the table
+      // of riddles, and "Activity 1: Discussing different types of proverbs" by the
+      // proverbs infographic. Stopping at the first table or picture collected NO body
+      // at all for those, so they never became boxes: one printed as plain body text
+      // and the other as a bare label, while the other eighteen activities in the
+      // Literature in English Form 1 Learner's Book stood in proper framed boxes.
+      // Only as the FIRST thing taken in: once the box holds prose, a table or a blank
+      // still ends it, which is the tight-block rule the comment above describes.
+      if (isTbl(y)) { if (bodyIdx.length) break; bodyIdx.push(j); lastContent = bodyIdx.length - 1; continue; }
+      if (!ty) {                                                 // blank line ends the box
+        if (bodyIdx.length || !imagesOf(y).length) break;        // …unless it is the box's own opening picture
+        bodyIdx.push(j); lastContent = bodyIdx.length - 1; continue;
+      }
       bodyIdx.push(j);
       lastContent = bodyIdx.length - 1;
     }
@@ -2595,15 +2693,22 @@ async function importDocx(docxPath, opts = {}) {
       const keepNums = b.kind === "exercise";
       const body = b.body.map((k) => {
         const y = parts[k];
+        // A table or a picture the box opened with (see the collection loop above).
+        // Shaped exactly as the assessment branch shapes them, because both consumers
+        // want the same thing: buildQAParts (exercise) and bodyArr (activity and the
+        // rest) each already render a "table" and an "img" block.
+        if (isTbl(y)) { const rows = parseTableRows(tables[parseInt(y.match(/\d+/)[0], 10)]); return rows.length ? { t: "table", rows } : null; }
+        const bimgs = imagesOf(y);
         const segs = paraSegs(y);
         const plain = plainOf(segs).trim();
+        if (bimgs.length && !plain) return { t: "img", images: bimgs };
         if (keepNums && hasListNumbering(y)) {
           const li = listResolve(y);
           return { t: "para", segs: stripBullet(segs), plain, isList: true,
             marker: li ? li.marker : null, numId: li ? li.numId : null, lvl: li ? li.lvl : null };
         }
         return { t: "para", segs, plain, isList: false };
-      });
+      }).filter(Boolean);
       blocks.push(makeBox(b.kind, [{ t: "para", segs: b.labelSegs, plain: b.title, isList: false }, ...body]));
       i = b.end;
       continue;

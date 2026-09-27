@@ -436,10 +436,15 @@ function themeTypst(theme, overrides = {}) {
   const t = { ...(THEMES[theme] || THEMES.navy), ...overrides };
   const c = (h) => `rgb("#${h}")`;
   const box = (b) => `(fill: ${c(b.fill)}, border: ${c(b.border)}, title: ${c(b.title)})`;
+  // PAPER DEFAULT — the portrait book family prints at B5 (176x250mm), so that is the
+  // fallback here. Themes built through zeph() set `paper` themselves; the hand-written
+  // literal themes (navy, tech, lit, literature, cinyanja) never did, and so came out A4 —
+  // a whole book at the wrong trim size, with nothing in the build log to say so. Only a
+  // theme that genuinely wants another size (the A4 landscape syllabus) sets it.
   const q = (s) => '"' + String(s || "").replace(/"/g, '\\"') + '"';
   return `#let T = (
   font: "${t.font}", bodyFont: "${t.bodyFont || t.font}", displayFont: "${t.displayFont || t.font}", handFont: "${t.handFont || "Bradley Hand ITC"}", variant: "${t.variant}",
-  paper: "${t.paper || "a4"}", landscape: ${t.landscape ? "true" : "false"}, bodySize: ${t.bodySize || "12pt"}, hMain: ${t.hMain || "none"}, hSub: ${t.hSub || "none"}, ink: ${c(t.ink)}, motif: ${q(t.motif || "atom")},
+  paper: "${t.paper || "iso-b5"}", landscape: ${t.landscape ? "true" : "false"}, bodySize: ${t.bodySize || "12pt"}, hMain: ${t.hMain || "none"}, hSub: ${t.hSub || "none"}, ink: ${c(t.ink)}, motif: ${q(t.motif || "atom")},
   year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
   subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
