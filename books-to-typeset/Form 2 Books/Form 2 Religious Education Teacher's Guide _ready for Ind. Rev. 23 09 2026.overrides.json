@@ -1,0 +1,9 @@
+{
+  "//source": "This manuscript arrived as a legacy binary .doc and was converted with `soffice --headless --convert-to docx` (docs/GETTING-STARTED.md). That conversion stamps <w:numPr><w:numId w:val=\"0\"/></w:numPr> — OOXML for 'numbering explicitly removed' — onto ordinary paragraphs, which the importer used to read as 'this is a list item'. That is fixed in the engine (hasListNumbering() in import-docx.js), not here, because it will recur for every .doc-sourced manuscript.",
+
+  "//authors": "Same byline defect as the Learner's Book: the manuscript's cover byline is one 44-character string ('Francis Siakumena and Mirriam Mhone-Muzona'), which the cover's author filter drops as too long, leaving only the single name recovered from the AUTHORS bio section — so the cover and title page read 'AUTHOR: Francis Siakumena' and dropped the second author entirely. Split into two so both are credited. The second name is spelled WITHOUT the hyphen the manuscript uses — Mirriam Mhone Muzona — on the author's own instruction, matching the Learner's Book.",
+  "authors": [
+    "Francis Siakumena",
+    "Mirriam Mhone Muzona"
+  ]
+}

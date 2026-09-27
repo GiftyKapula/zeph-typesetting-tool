@@ -40,6 +40,27 @@ const TOC_HEAD_RE = /^(TABLE\s+OF\s+CONTENTS?|CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?
 // A contents-page line that declares a section: "TOPIC 2.4: AMBITIONS AND HOPE   69".
 // Groups: keyword, number, and the title (still carrying its leaders/page number).
 const TOC_TOPIC_RE = /^(TOPIC|UNIT|CHAPTER)\s*:?\s*(\d+(?:\.\d+)*)\s*[:.–—-]?\s*(.+)$/i;
+// Is this paragraph's XML really part of a numbered/bulleted Word list?
+//
+// The presence of <w:numPr> alone is NOT the answer. In OOXML a numId of ZERO means
+// numbering is explicitly REMOVED from the paragraph (it cancels a list the paragraph
+// style would otherwise impose) — the opposite of "this is a list item". Word rarely
+// writes that form, but LibreOffice does: every .doc we convert with
+// `soffice --convert-to docx` (the documented route for a legacy binary manuscript —
+// see docs/GETTING-STARTED.md) stamps <w:numPr><w:ilvl w:val="0"/><w:numId w:val="0"/>
+// </w:numPr> onto ordinary, un-listed paragraphs.
+//
+// Testing for <w:numPr> bare therefore turned every such paragraph into a list item
+// before the heading rules downstream ever saw it. On the Religious Education Form 2
+// Teacher's Guide that swallowed all six "TOPIC 2.x:" banners and all seventeen
+// "Sub-Topic 2.x.y:" headings into bulleted list items: with no h1 left, the body never
+// began, so the whole 201-page book numbered in roman numerals and the contents page
+// listed a repeated "GENERAL COMPETENCES"/"INTRODUCTION" (front-matter promotion runs
+// book-wide when no unit is found) instead of the topics.
+//
+// A <w:numPr> carrying no numId at all still counts: there the numbering is inherited
+// from the paragraph style, which is a genuine list.
+const hasListNumbering = (xml) => /<w:numPr>/.test(xml) && !/<w:numId\s+w:val="0"\s*\/?>/.test(xml);
 
 const decode = (s) => s
   .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
@@ -231,7 +252,7 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     const counts = {};
     const ilvlOf = (p) => +((p.xml.match(/<w:ilvl\s+w:val="(\d+)"/) || [])[1] || 0);
     const numIdOf = (p) => (p.xml.match(/<w:numId\s+w:val="(\d+)"/) || [])[1];
-    const numbered = (p) => /<w:numPr>/.test(p.xml);
+    const numbered = (p) => hasListNumbering(p.xml);
     const fmtOf = (p) => { const numId = numIdOf(p); return numId ? ((levelInfo(numMap, numId, ilvlOf(p)) || {}).fmt || null) : null; };
     const rest = paras.slice(1);
     let topFmt = null;
@@ -1744,7 +1765,7 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
     if (allBold && !endsColon && plain.length <= 72) return { t: "head", text: plain }; // bold-black heading
     if (allBold && plain.length <= 60) return { t: "label", text: plain };
   }
-  if (/<w:numPr>/.test(pXml) || /^[••]/.test(plain)) return { t: "listitem", segs: stripBullet(segs) };
+  if (hasListNumbering(pXml) || /^[••]/.test(plain)) return { t: "listitem", segs: stripBullet(segs) };
   // In the flowing (series) layout, collapse manual line breaks the author used
   // to hand-wrap a paragraph so the text reflows to the page width (poetry uses
   // the literary variant, which is not flat, so it keeps its breaks).
@@ -1980,7 +2001,7 @@ async function importDocx(docxPath, opts = {}) {
   // Expose list level + marker for cell paragraphs (questions/sub-questions in
   // exercise & assessment tables), so their real numbering is preserved.
   listResolve = (x) => {
-    if (!/<w:numPr>/.test(x)) return null;
+    if (!hasListNumbering(x)) return null;
     const numId = (x.match(/<w:numId\s+w:val="(\d+)"/) || [])[1];
     const lvl = parseInt((x.match(/<w:ilvl\s+w:val="(\d+)"/) || [])[1] || "0", 10);
     return { numId, lvl, marker: listMarker(x) };
@@ -2548,7 +2569,7 @@ async function importDocx(docxPath, opts = {}) {
           const segs = paraSegs(y);
           const plain = plainOf(segs).trim();
           if (!plain) return null;
-          if (/<w:numPr>/.test(y)) { const li = listResolve(y); return { t: "para", segs: stripBullet(segs), plain, marker: li ? li.marker : null, isList: true, numId: li ? li.numId : null, lvl: li ? li.lvl : null }; }
+          if (hasListNumbering(y)) { const li = listResolve(y); return { t: "para", segs: stripBullet(segs), plain, marker: li ? li.marker : null, isList: true, numId: li ? li.numId : null, lvl: li ? li.lvl : null }; }
           return { t: "para", segs, plain, isList: false };
         }).filter(Boolean);
         blocks.push({ t: "assessment", title: b.title, intro: [], parts: buildQAParts(bodyBlocks), extra: [] });
@@ -2825,7 +2846,7 @@ async function importDocx(docxPath, opts = {}) {
     if (lvl) { blocks.push({ t: "h" + lvl, text: plainOf(segs).trim() }); continue; }
     // a Word auto-numbered/bulleted list item: keep the writer's real marker
     // (a, b, c / 1, 2, 3 / i, ii) instead of forcing a bullet.
-    if (/<w:numPr>/.test(x) && (ignoreStyles || !hmap[styleOf(x)])) {
+    if (hasListNumbering(x) && (ignoreStyles || !hmap[styleOf(x)])) {
       const li = listResolve(x);
       blocks.push({ t: "listitem", segs: stripBullet(segs), marker: (li && li.marker) || listMarker(x),
         numId: li ? li.numId : null, lvl: li ? li.lvl : null });
