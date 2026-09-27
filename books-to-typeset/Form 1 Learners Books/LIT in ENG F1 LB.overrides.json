@@ -23,5 +23,6 @@
     "image11.png": {
       "src": "LIT in ENG F1 LB-hires/image11.png"
     }
-  }
+  },
+  "//manuscript-correction": "APPLIED DIRECTLY TO THE .docx, and it must be re-applied if that file is ever re-converted from the original. The manuscript bolds every activity label but two - 'Activity 1: In groups, attempt the following riddles?' and 'ACTIVITY: 4 Composing Short Stories' were typed as ordinary body text - so the engine, which starts a callout box on a bold or heading-styled label, did not box them: the riddles label printed as a loose line above its table, and Activity 4 was swallowed into Activity 3's box together with its own four questions. Both runs now carry <w:b/><w:bCs/>, which is all the other 62 labels in the book have. This cannot be done with an override: the box is built at IMPORT time, before overrides run, and the only override that reaches it (boxifyLoose, via boxActivities) rebuilt just one of the two and as a framedsection rather than the exercise box its siblings use. It must not be fixed in src/typeset/ either: a scan of every manuscript in books-to-typeset shows that dropping the bold requirement engine-wide would turn the sentence 'Key points include:' into a Key Points box in Geography For Teachers and newly boxify up to 111 paragraphs in Home Ecnomics Grade 4 TG. A copy of the file as it was is kept beside it as 'LIT in ENG F1 LB.docx.bak-before-bold'. The author should bold both labels in the next issue."
 }
