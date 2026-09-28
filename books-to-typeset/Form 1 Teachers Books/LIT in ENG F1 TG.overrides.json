@@ -33,6 +33,14 @@
     {
       "find": "5.Learners to explain the line pattern.",
       "with": "5. Learners to explain the line pattern"
+    },
+    {
+      "find": "SUBTOPIC: POETRY",
+      "with": "Performing Poems"
+    },
+    {
+      "find": "SUBTOPIC: POEMS",
+      "with": "Reviewing Poems"
     }
   ],
   "//strayHeadings": "Two separate faults, both about a line being styled unlike the lines it belongs with. \"Lesson Procedure\" is the label opening the procedure part of a lesson plan and it recurs all through the book; the writer styled this ONE instance Heading2, so that single occurrence climbed into the contents while every sibling stayed out. It becomes a plain bold head - still visible on the page, no longer a section. The poetry lesson's five numbered teaching steps were styled THREE different ways: steps 1 and 2 as Heading4, which the engine emits as #head (bold italic); steps 3 and 4 left as ordinary body paragraphs; and step 5 as Heading1, which is why it alone appeared in the contents. Demoting step 5 to a paragraph would have fixed the contents and left the run just as uneven, so instead steps 3, 4 and 5 are all raised to the same #head its first two siblings already use, and the five now read alike. Step 5 also lost the space after its number and carried a full stop none of the others has, both corrected in replaceExact above so the heading text matches too.",
@@ -40,7 +48,27 @@
     "Lesson Procedure",
     "3. Define and identify internal rhymes",
     "4. Purpose of rhymes in a poem",
-    "5. Learners to explain the line pattern"
+    "5. Learners to explain the line pattern",
+    "Performing Poems",
+    "Reviewing Poems",
+    "Idioms: Lesson Procedure"
   ],
-  "//unresolved-for-the-author": "NOT fixed here, because neither is a typo and both need the author or editor to decide. (1) Sub-topic 1.2.1.7 IDIOMS is taught TWICE, and the two are not duplicates - the first, opening at manuscript paragraph 367, runs 94 paragraphs; the second, at 1105, runs 43; they share exactly one paragraph of text. The first also sits OUT OF SEQUENCE, before 1.2.1.1 FORMS OF ORAL LITERATURE, and carries its own \"TOPIC: 1.2.1 Oral Literature\" heading, which is why that topic line appears twice in the contents. Whether one of the two treatments should go, or they should merge, or the first should simply move after 1.2.1.6, is an editorial call and nothing in the manuscript settles it. (2) SUBTOPIC: POETRY and SUBTOPIC: POEMS are unnumbered and follow the numbered SUBTOPIC: 1.2.2.4. POETRY, so the book appears to teach poetry three times under two spellings."
+  "remove": [
+    "TOPIC: 1.2.1 Oral Literature"
+  ],
+  "moveSectionBefore": [
+    {
+      "find": "SUB TOPIC: 1.2.1.7 Idioms",
+      "until": "TOPIC: 1.2.1 ORAL LITERATURE",
+      "before": "Idioms: Lesson Procedure"
+    }
+  ],
+  "//idioms": "Sub-topic 1.2.1.7 IDIOMS was written in TWO halves that had drifted apart, not twice. Every properly formed sub-topic in this book carries the same shape - a prose introduction, GENERAL/SPECIFIC COMPETENCES with the syllabus code, EXPECTED STANDARDS, materials, then the lesson procedure - and RIDDLES and DRAMA both show it whole. Idioms had the first half sitting at the TOP of Unit Two, ahead of 1.2.1.1 FORMS OF ORAL LITERATURE, carrying the introduction and the only occurrence in the whole book of the numbered competence 1.2.1.7.1; and the second half in its correct slot after 1.2.1.6 PRAISES, carrying the lesson procedure but a competence with no number on it at all - the only unnumbered one in the book. Neither half is a duplicate of the other: they share exactly one paragraph of 94 and 43. So the first half is MOVED down to meet the second, which restores both the ascending sub-topic order and the shape every other sub-topic has, and the second half's heading is dropped because the two are now one section under one title. Nothing is deleted but that repeated heading, and the stray \"TOPIC: 1.2.1 Oral Literature\" line that existed only to introduce the displaced half and duplicated the real topic heading six sections later.",
+  "//poetry": "SUBTOPIC: POETRY and SUBTOPIC: POEMS are not sub-topics, and the book says so itself: both carry SPECIFIC COMPETENCE 1.2.2.4.2, which is the second competence of sub-topic 1.2.2.4 POETRY - the section above them, which carries 1.2.2.4.1. Three poetry entries in the contents were one sub-topic with its competences mis-promoted to headings. They become plain bold heads inside 1.2.2.4, and are renamed from their own opening lines so the two can be told apart: the first is about reciting to an audience and its competence reads \"Perform Poems\", the second opens \"Reviewing poems involves analysing content and meaning, poetic devices and techniques\". Their shared 1.2.2.4.2 is the writer having copied the competence line rather than numbering the second one, which is for the author to settle, not the typesetter.",
+  "replace": [
+    {
+      "find": "SUB -TOPIC: 1.2.1.7",
+      "with": "Idioms: Lesson Procedure"
+    }
+  ]
 }
