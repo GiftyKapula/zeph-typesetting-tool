@@ -3765,7 +3765,7 @@ function applyMarkFlushRight(blocks) {
 // "Possible answer:" tag and sets the answer on its own highlighted line). Runs for every
 // exercise/assessment question (and answer-bearing lead-in, promoted to a question).
 // An answer label opening a LINE — "Possible Answer:", "Expected Response:". Shared by
-// the exercise path below and by stripBoxAnswerLabels(), because house style is that no
+// the exercise path below and by stripStrayAnswerLabels(), because house style is that no
 // expected answer anywhere in these books prints a label of its own; the answer is set
 // in italic and that is what marks it. Matching only at a line start leaves a genuine
 // mention in running prose ("accept any possible answer: see the syllabus") alone.
@@ -4108,27 +4108,38 @@ function splitFoldedSubParts(blocks) {
   };
   walk(blocks);
 }
-// The same answer label, but inside a BOX BODY rather than an exercise question — an
-// activity's guidance is a flat run of paragraphs, so its expected answers arrive as
-// ordinary `para` blocks opening with a bold "Possible answer:" run instead of as an
-// exercise part with its own `aseg`. splitAnswerLabels() therefore never saw them, and
-// the RE Form 2 Teacher's Guide printed the element two ways on a single page: the
-// activity box at the top of printed page 91 tagged its answer, while EXERCISE 13
-// directly beneath it set the very same thing as bare italic. House style is that no
-// expected answer prints a label anywhere — the italic is what marks it — so strip the
-// label here too and the two boxes match.
-// Only a paragraph that OPENS with the label is touched, and only when something
-// survives it, so a lead-in that is nothing but the word "Answer:" is left for the
-// existing passes to deal with rather than being emptied to a blank line.
-function stripBoxAnswerLabels(blocks) {
-  // `inBody` is true only for the blocks nested inside a box's own `body` — the label is
-  // left alone in ordinary running prose, where "Possible answer:" opening a paragraph
-  // is the writer addressing the teacher rather than a tagged answer in a box.
+// The same answer label, but outside an exercise question's own `aseg` — sitting in a
+// flat run of paragraphs or list items instead. splitAnswerLabels() therefore never saw
+// these, and the RE Form 2 Teacher's Guide printed the element two ways on a single
+// page: the activity box at the top of printed page 91 tagged its answer, while
+// EXERCISE 13 directly beneath it set the very same thing as bare italic. House style is
+// that no expected answer prints a label anywhere — the italic is what marks it — so the
+// label comes off here too and every answer in a book reads alike.
+// WHERE the label may sit depends on where the block is:
+//   - inside a box's own `body`, a label OPENING the block is stripped, because an
+//     activity's guidance is a flat run of paragraphs whose answers arrive as ordinary
+//     blocks led by a bold "Possible answer:" run;
+//   - in ordinary running prose, only a label opening a LINE INSIDE the block is. That
+//     is the shape a Word soft break leaves when a writer types the answer beneath its
+//     own question ("What has keys but cannot open a door?\nPossible answer: A piano.").
+//     A paragraph that OPENS with the label out here is still left alone: there it is
+//     the writer addressing the teacher, not a tagged answer.
+// List items count as well as paragraphs. The Literature in English Form 1 Learner's
+// Book sets its two worked riddles as numbered `listitem`s with the answer on a second
+// line, and the Home Economics Grade 6 Teacher's Guide writes its end-of-topic answers
+// the same way inside an assessment box — a para-only pass missed both.
+// Only a block where something survives the label is touched, so a lead-in that is
+// nothing but the word "Answer:" is left for the existing passes to deal with rather
+// than being emptied to a blank line.
+function stripStrayAnswerLabels(blocks) {
+  // `inBody` is true only for the blocks nested inside a box's own `body`, and doubles as
+  // the `atStart` flag above: in a box the block's first character already counts as the
+  // start of a line, out in prose it does not.
   const walk = (arr, inBody) => {
     for (const b of arr) {
       if (!b || typeof b !== "object") continue;
-      if (inBody && b.t === "para" && Array.isArray(b.segs)) {
-        const cleaned = stripAnswerLabelRuns(b.segs, true);
+      if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) {
+        const cleaned = stripAnswerLabelRuns(b.segs, inBody);
         if (cleaned !== b.segs) {
           const kept = cleaned.filter((s) => s.m || (s.t || "") !== "");
           if (kept.some((s) => s.m || (s.t || "").trim())) {
@@ -5047,9 +5058,10 @@ function normaliseQuestionMarkBold(blocks) {
   // …and unfold a multi-part question the manuscript typed as ONE paragraph of soft
   // line breaks, so its a)/b) parts sit in the same indented rows as everywhere else.
   splitFoldedSubParts(blocks);
-  // …and drop the same answer label where it opens a paragraph inside a box body, so an
-  // activity's expected answer reads exactly like an exercise's.
-  stripBoxAnswerLabels(blocks);
+  // …and drop the same answer label wherever else it survives - opening a paragraph or
+  // list item inside a box body, or opening a line inside one out in running prose - so
+  // that every expected answer in the book is marked by its italic and nothing else.
+  stripStrayAnswerLabels(blocks);
   // House style: make every structural box label read in one case across the book.
   uniformBoxLabelCase(blocks);
   // Runs after applyOverrides() above, so a unit heading corrected by an override is the
