@@ -3,5 +3,44 @@
   "//cover": "The manuscript ships NO usable picture. Its four media files are two copies of a 128x128 JPEG of crumpled brown paper, a 231x149 PNG and an empty GIF, and the engine took the 128px paper texture as the cover hero - 33 DPI at the size it is placed, about a ninth of the 300 DPI floor, and a picture of nothing. It cannot be upscaled, because there is no detail in it to reconstruct; house style is that a useless picture is REPLACED, not left and not deleted. The replacement is the firelit storytelling scene its sibling Learner's Book already carries: an elder narrating to Form 1 learners with masks and drums behind her, a wheelchair user at the left and a learner with a prosthetic leg at the right, and a balanced mix of boys and girls - so it satisfies the subject, disability, age and gender rules at once, and at 1610x1277 it is already above the resolution floor. Using the SAME photograph on both covers of a family is normally avoided, and it is accepted here only because the book has nothing else to offer. Be aware that the two covers are currently told apart by NOTHING but the \"FORM 1 - TEACHER'S GUIDE\" line: the automatic Teacher's Guide colour shift does not reach this layout. tgCoverSignature() moves covSignature (6b2737 would become c35b73 here), but only the SYLLABUS cover spread reads covSignature - the portrait \"literary\" variant this book uses paints its field from primary, which the shift never touches. Setting coverColor on this book would differentiate them by hand; fixing it for the whole portrait family is engine work.",
   "coverImage": "LIT in ENG F1 TG-art/cover-storytelling.png",
   "//synthesiseCover": "The manuscript's own title page reads only 'LITERATURE IN ENGLISH TEACHER'S BOOK' and never says Form 1, so the cover the engine lifted from it carried no level tag while the sibling Learner's Book reads 'FORM 1 - LEARNER'S BOOK'. Forcing a synthesised cover builds it from the detected title, subject, book type and level instead, so the two covers carry the same furniture.",
-  "synthesiseCover": true
+  "synthesiseCover": true,
+  "//contents": "The manuscript hand-types its own table of contents and the engine builds a fresh one from the headings, so every fault below was in the HEADINGS themselves, not in the contents page. UNITE for UNIT is the consequential one: the engine detects a unit by the word, so \"UNITE 1\" and \"UNITE 2\" were never recognised as units and their entries sat indented under ACKNOWLEDGEMENTS instead of opening their own level. LITURATURE is a straight misspelling in the same line. UNIT THREE is untitled exactly as it was in the sibling Learner's Book, and is given the same NAME: SUBJECT shape its siblings carry. PRAISES is numbered 1.6.3 where its neighbours run 1.2.1.4 PROVERBS, 1.2.1.5 SONGS and 1.2.1.7 IDIOMS, so it is the missing 1.2.1.6. The RIDDLES heading is typed \"Subtopic. 1.2.1.3:\" with the full stop where the colon belongs, which the prefix normaliser could not read and which printed as \"SUB-TOPIC . 1.2.1.3: RIDDLES\". COMPOSING SHORT STORIES is a real sub-topic that simply lost its SUBTOPIC prefix. None of this is engine work - it is one manuscript's typing.",
+  "replaceExact": [
+    {
+      "find": "UNITE 1: INTRODUCTION TO LITURATURE",
+      "with": "UNIT 1: INTRODUCTION TO LITERATURE"
+    },
+    {
+      "find": "UNITE 2: ORAL LITERATURE",
+      "with": "UNIT 2: ORAL LITERATURE"
+    },
+    {
+      "find": "UNIT THREE",
+      "with": "UNIT THREE: WRITTEN LITERATURE"
+    },
+    {
+      "find": "SUBTOPIC: 1.6.3 PRAISES",
+      "with": "SUBTOPIC: 1.2.1.6 PRAISES"
+    },
+    {
+      "find": "Subtopic. 1.2.1.3: Riddles",
+      "with": "SUBTOPIC: 1.2.1.3 Riddles"
+    },
+    {
+      "find": "1.2.2.2.2 COMPOSING SHORT STORIES",
+      "with": "SUBTOPIC: 1.2.2.2.2 COMPOSING SHORT STORIES"
+    },
+    {
+      "find": "5.Learners to explain the line pattern.",
+      "with": "5. Learners to explain the line pattern"
+    }
+  ],
+  "//strayHeadings": "Two separate faults, both about a line being styled unlike the lines it belongs with. \"Lesson Procedure\" is the label opening the procedure part of a lesson plan and it recurs all through the book; the writer styled this ONE instance Heading2, so that single occurrence climbed into the contents while every sibling stayed out. It becomes a plain bold head - still visible on the page, no longer a section. The poetry lesson's five numbered teaching steps were styled THREE different ways: steps 1 and 2 as Heading4, which the engine emits as #head (bold italic); steps 3 and 4 left as ordinary body paragraphs; and step 5 as Heading1, which is why it alone appeared in the contents. Demoting step 5 to a paragraph would have fixed the contents and left the run just as uneven, so instead steps 3, 4 and 5 are all raised to the same #head its first two siblings already use, and the five now read alike. Step 5 also lost the space after its number and carried a full stop none of the others has, both corrected in replaceExact above so the heading text matches too.",
+  "asHead": [
+    "Lesson Procedure",
+    "3. Define and identify internal rhymes",
+    "4. Purpose of rhymes in a poem",
+    "5. Learners to explain the line pattern"
+  ],
+  "//unresolved-for-the-author": "NOT fixed here, because neither is a typo and both need the author or editor to decide. (1) Sub-topic 1.2.1.7 IDIOMS is taught TWICE, and the two are not duplicates - the first, opening at manuscript paragraph 367, runs 94 paragraphs; the second, at 1105, runs 43; they share exactly one paragraph of text. The first also sits OUT OF SEQUENCE, before 1.2.1.1 FORMS OF ORAL LITERATURE, and carries its own \"TOPIC: 1.2.1 Oral Literature\" heading, which is why that topic line appears twice in the contents. Whether one of the two treatments should go, or they should merge, or the first should simply move after 1.2.1.6, is an editorial call and nothing in the manuscript settles it. (2) SUBTOPIC: POETRY and SUBTOPIC: POEMS are unnumbered and follow the numbered SUBTOPIC: 1.2.2.4. POETRY, so the book appears to teach poetry three times under two spellings."
 }
