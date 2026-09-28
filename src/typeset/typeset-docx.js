@@ -228,7 +228,7 @@ function emit(blocks) {
       case "backcover": out += `#backcover(${strArr(b.lines || [])}, ${b.logo ? `(file: ${S(b.logo.file)})` : "none"}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
       case "h1": {
         const m = b.text.match(TOPIC_RE);
-        if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(b.text)})\n`;
+        if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(b.text)}${b.nobreak ? ", nobrk: true" : ""})\n`;
         else out += `#sectionhead(${S(b.text)})\n`;
         break;
       }
@@ -2147,10 +2147,28 @@ function applyOverrides(blocks, ov) {
   // flattens the replacement to roman) this keeps formatting, so it is safe on text
   // that may fall inside italic/bold runs — e.g. a manuscript typo like "fourfigure"
   // that must become "four figure" both in body prose and inside an italic activity.
+  // It reaches EVERY place a book prints words, not just body paragraphs: a heading's
+  // own `.text`, an exercise question's `.qseg`/`.q` and its answer's `.aseg`/`.a`, and
+  // an image caption. Walking `.segs` alone made a correction land in some of a book's
+  // voices and not others — fixing the American "practicing" in the prose while two
+  // headings, "Ways of Practicing Unity and Love in Daily Living" and "Practicing Steps
+  // Needed for Forgiveness", kept it, and "organizations" survived inside an assessment
+  // question. A spelling correction that reaches half a book is worse than none, because
+  // the book then disagrees with itself in print.
   for (const st of ov.subtext || []) {
     let n = 0;
-    for (const b of flat) for (const s of b.segs || []) {
+    const inSegs = (segs) => { for (const s of segs || []) {
       if (!s.m && s.t && s.t.includes(st.from)) { s.t = s.t.split(st.from).join(st.to); n++; }
+    } };
+    const inStr = (o, k) => {
+      if (o && typeof o[k] === "string" && o[k].includes(st.from)) { o[k] = o[k].split(st.from).join(st.to); n++; }
+    };
+    for (const b of flat) {
+      inSegs(b.segs); inSegs(b.qseg); inSegs(b.aseg);
+      // the plain-text mirrors beside those runs, so later passes that match on them
+      // (and the corrections log, which reads `.q`) see the corrected wording too
+      for (const k of ["text", "caption", "q", "a", "plain", "title"]) inStr(b, k);
+      if (b.t === "imagerow") for (const im of b.images || []) inStr(im, "caption");
     }
     if (!n) console.warn("!  subtext not matched:", st.from);
   }
@@ -2878,6 +2896,65 @@ function fixACappellaSpacing(blocks) {
 }
 // In an ACRONYMS section, manuscripts align "ABBR    Full Word" with spaces/tabs.
 // Render them as "ABBR: Full Word" (bold abbreviation, colon, then the full form).
+// A figure caption's LABEL ("Fig. 4:", "Fig 2:", "Fig.9:", "Figure 1:") is the same
+// element on every picture in a book, and manuscripts type it several ways in one
+// book — the RE Form 2 Learner's Book uses five shapes across its sixteen figures
+// ("Fig 1.", "Fig 2:", "Fig. 4:", "Fig. 6.", "Fig.9:"), and the Grade 6 Science books
+// four across eighty-three. House style is that the same element looks the same
+// everywhere, so every label is rewritten to the shape that book already uses most.
+//
+// The DOMINANT shape is used rather than one fixed house form because books differ
+// legitimately and deliberately: ICT and Technology Studies write "Figure 1:", the
+// Geography and Science books write "Fig 1:". Both are correct; what is wrong is a
+// book disagreeing with itself. Only the label is touched — never the description,
+// the number, or a caption that carries no label at all.
+const CAP_LABEL = /^(\s*)(figure|fig|table|tbl)(\.?)(\s*)(\d+)(\s*)([:.–—-]?)(\s*)/i;
+function normaliseCaptionLabels(blocks) {
+  const caps = [];            // every caption that carries a label, with a setter
+  const walk = (arr) => {
+    for (const b of arr || []) {
+      if (!b || typeof b !== "object") continue;
+      if (b.t === "figcaption" && typeof b.text === "string") caps.push([b.text, (v) => { b.text = v; }]);
+      if ((b.t === "image" || b.t === "img") && typeof b.caption === "string") caps.push([b.caption, (v) => { b.caption = v; }]);
+      if (b.t === "imagerow") for (const im of b.images || []) {
+        if (typeof im.caption === "string") caps.push([im.caption, (v) => { im.caption = v; }]);
+      }
+      for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+
+  // Tally the shapes actually in use. A shape is the label's spelling and spacing with
+  // the number itself removed, so "Fig. 4:" and "Fig. 11:" count as one shape.
+  const seen = new Map();     // shape -> { n, first, parts }
+  for (const [text] of caps) {
+    const m = text.match(CAP_LABEL);
+    if (!m) continue;
+    const shape = [m[2].toLowerCase(), m[3], m[4] ? " " : "", m[6] ? " " : "", m[7]].join("|");
+    const rec = seen.get(shape) || { n: 0, first: caps.length, parts: m };
+    rec.n++;
+    if (!seen.has(shape)) rec.first = seen.size;
+    seen.set(shape, rec);
+  }
+  if (seen.size < 2) return;  // nothing to reconcile: one shape, or no labels at all
+
+  // Most used wins; a tie goes to whichever appeared first, so the result is stable.
+  const [, best] = [...seen.entries()].sort((a, b) => (b[1].n - a[1].n) || (a[1].first - b[1].first))[0];
+  const w = best.parts;
+  const word = w[2], dot = w[3], gap = w[4] ? " " : "", pad = w[6] ? " " : "", sep = w[7];
+  // Keep each caption's own capitalisation of the word ("Fig"/"fig") rather than
+  // forcing the winner's, so a lower-case caption is not shouted mid-sentence.
+  let changed = 0;
+  for (const [text, set] of caps) {
+    const m = text.match(CAP_LABEL);
+    if (!m) continue;
+    const keepCase = /^[A-Z]/.test(m[2]) ? word.charAt(0).toUpperCase() + word.slice(1) : word;
+    const rebuilt = m[1] + keepCase + dot + gap + m[5] + pad + sep + (m[8] || " ");
+    const next = rebuilt + text.slice(m[0].length);
+    if (next !== text) { set(next); changed++; }
+  }
+  if (changed) console.log(`   caption labels: ${changed} normalised to "${word}${dot}${gap}N${pad}${sep}"`);
+}
 function reformatAcronyms(blocks) {
   // The ACRONYMS heading can arrive as any heading-like block (h1/h2/head/label)
   // depending on how the manuscript styled it — and it may only be promoted to
@@ -5033,6 +5110,7 @@ async function typesetOne(docxPath, themeName) {
   competenceLeadIn(blocks, isTeacherBookName(base));
   markSpreadsheetTables(blocks);
   reformatAcronyms(blocks);
+  normaliseCaptionLabels(blocks);
   formatGlossary(blocks);
   displayifyColumnMath(blocks);
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
