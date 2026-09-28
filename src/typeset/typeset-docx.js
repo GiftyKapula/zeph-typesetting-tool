@@ -12,7 +12,7 @@ const path = require("path");
 const os = require("os");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
 const { importDocx } = require("./import-docx.js");
-const { THEMES, autoTheme, themeTypst, tgCoverSignature } = require("./themes.js");
+const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 
 const ROOT = path.join(__dirname, "..", "..");
@@ -5523,14 +5523,38 @@ function normaliseQuestionMarkBold(blocks) {
   // A Teacher's Guide takes a shifted version of its subject's cover colour, so it
   // is distinguishable at a glance from the Learner's Book it shares a theme with
   // (they were identical apart from the "TEACHER'S GUIDE"/"LEARNER'S BOOK" tag).
-  // See tgCoverSignature() for how the shift is derived. This runs AFTER the
+  // See tgShift() for how the shift is derived. This runs AFTER the
   // black-and-white block above, which sets covSignature back to the full-colour
   // signature — the cover is the one part of a TG that stays in colour, and this is
   // the colour it should stay in. A book can still pin its own with `coverColor`.
+  //
+  // BOTH cover fields move, because which one IS the field depends on the cover's
+  // shape. The landscape syllabus spread fills its page with covSignature; every
+  // PORTRAIT cover — literary, panel, classic, modern, science — paints its masthead,
+  // its bottom band and its grade/book-type line from covPrimary and never reads
+  // covSignature at all. Moving the signature alone is what used to happen, so the
+  // rule worked for the syllabuses and did nothing whatever for the portrait family:
+  // the Literature in English Form 1 Teacher's Guide and its Learner's Book both came
+  // out #6b2737, identical but for the book-type line, which is exactly what this
+  // rule exists to prevent.
+  //
+  // They move in OPPOSITE directions, and tgCoverPrimary() explains why: a portrait
+  // cover carries the accent colour ON the field (the tracked tagline, the AUTHORS
+  // label), and every theme's accent is a mid-lightness gold, so lightening that
+  // field walks it into the accent and the accent vanishes. The syllabus field
+  // carries no such accent. They are also derived from different colours, since 16
+  // of the 31 themes give `signature` a colour of its own.
   if (isTeacherBook && !ov.coverColor) {
     themeOverrides.covSignature = tgCoverSignature(theme);
+    themeOverrides.covPrimary = tgCoverPrimary(theme);
   }
-  if (ov.coverColor) themeOverrides.covSignature = String(ov.coverColor).replace(/^#/, "");
+  // A pinned `coverColor` is the book saying what its field should be, so it pins
+  // whichever of the two its own cover shape actually uses — set both.
+  if (ov.coverColor) {
+    const pinned = String(ov.coverColor).replace(/^#/, "");
+    themeOverrides.covSignature = pinned;
+    themeOverrides.covPrimary = pinned;
+  }
   // Last content pass: push every mark allocation flush against the text column's
   // right edge (house style — see splitMarksToFr). Must run after every pass that
   // still expects a plain `.t` string on each segment in a run.

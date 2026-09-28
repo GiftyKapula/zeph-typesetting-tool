@@ -493,23 +493,61 @@ function hslToHex(hu, s, l) {
   return [r, g, b].map((v) => Math.round((v + m) * 255).toString(16).padStart(2, "0")).join("");
 }
 
-function tgCoverSignature(theme) {
-  const t = THEMES[theme] || {};
-  const sig = t.signature || t.primary;
-  if (!sig) return sig;
-  const [hu, s, l] = hexToHsl(sig);
-  // Move the LIGHTNESS and leave hue and saturation alone. Keeping the hue is what
-  // makes this a family rule rather than a repaint: ICT's navy becomes a lighter
-  // ICT blue, Geography's green a lighter Geography green. The two books read as
-  // one series, told apart by weight rather than by colour.
-  //
-  // A dark signature (all of them, today) goes lighter; a light one (English's
-  // yellow) goes darker instead, so the shift is always visible rather than
-  // running into the end of the scale. The lighter cap keeps large white cover
-  // type readable — at the ICT end this lands around 3.9:1, fine for display
-  // type but not somewhere to push further.
+// The shift itself, applied to ONE colour. Moves the LIGHTNESS and leaves hue and
+// saturation alone. Keeping the hue is what makes this a family rule rather than a
+// repaint: ICT's navy becomes a lighter ICT blue, Geography's green a lighter
+// Geography green. The two books read as one series, told apart by weight rather
+// than by colour.
+//
+// A dark colour (nearly all of them) goes lighter; a light one (English's yellow)
+// goes darker instead, so the shift is always visible rather than running into the
+// end of the scale. The lighter cap keeps large white cover type readable — at the
+// ICT end this lands around 3.9:1, fine for display type but not somewhere to push
+// further.
+function tgShift(hex) {
+  if (!hex) return hex;
+  const [hu, s, l] = hexToHsl(hex);
   const target = l > 0.5 ? Math.max(0.16, l - 0.28) : Math.min(0.56, l + 0.28);
   return hslToHex(hu, s, target);
 }
+// The shifted SIGNATURE — the field colour of the landscape syllabus cover spread.
+function tgCoverSignature(theme) {
+  const t = THEMES[theme] || {};
+  return tgShift(t.signature || t.primary);
+}
+// The DEEPENED primary — the field colour of every PORTRAIT cover. The literary,
+// panel, classic, modern and science covers all paint their masthead, their bottom
+// band and their grade/book-type line from `primary`; only the syllabus spread uses
+// `signature` as its field. So a portrait Teacher's Guide needs this one to be told
+// apart from the Learner's Book it shares a theme with, and shifting the signature
+// alone (which is all that used to happen) left the two covers identical.
+//
+// It goes DOWN in lightness where tgShift goes up, and that direction is the whole
+// point. A portrait cover carries the accent colour on the field — the tracked
+// smallcaps tagline across the masthead and the AUTHORS label in the bottom band —
+// and every theme's accent is a mid-lightness gold or orange. Lightening the field
+// walks it straight into that accent: on Literature, the gold fell from 3.40:1 to
+// 1.32:1 and simply disappeared. Deepening moves the other way, so the accent and
+// the white title both gain contrast rather than lose it (gold 3.40 to 5.13, white
+// 10.66 to 16.08 on Literature), and no theme's accent has to be repainted to keep
+// up. The syllabus spread has no such accent on its field, which is why tgShift can
+// afford to lighten and this cannot.
+//
+// The step is smaller than tgShift's for the same reason it is safe: it is measured
+// against a floor rather than a cap, and a dark subject colour has less room below it
+// than above. 0.13 is enough to read as a different book at a glance while leaving
+// every theme clear of black.
+//
+// Deliberately a second function rather than a widening of the first: 16 of the 31
+// themes give `signature` a colour of its own — English's cover is teal while its
+// signature is yellow — so the two are not interchangeable, and shifting whichever
+// one happens to be at hand would repaint the wrong thing.
+function tgCoverPrimary(theme) {
+  const t = THEMES[theme] || {};
+  if (!t.primary) return t.primary;
+  const [hu, s, l] = hexToHsl(t.primary);
+  // A light primary has room to go much darker; a dark one only has a little.
+  return hslToHex(hu, s, l > 0.5 ? Math.max(0.16, l - 0.30) : Math.max(0.10, l - 0.13));
+}
 
-module.exports = { THEMES, autoTheme, themeTypst, tgCoverSignature };
+module.exports = { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary };
