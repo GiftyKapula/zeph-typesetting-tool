@@ -1368,12 +1368,19 @@ function applyOverrides(blocks, ov) {
     }
     else b.caption = sc.text;
 
-    // Clear any standalone paragraph block that repeats this caption text
-    if (sc.near) {
+    // Clear any standalone paragraph block that repeats this caption text.
+    // Gated on `near` alone, this never ran for a caption matched by `file`, so
+    // attaching a caption that way left the writer's loose copy of it still sitting
+    // in the running text — which is the whole defect being fixed (the RE Form 2
+    // Learner's Book types its Fig. 4 caption two paragraphs below the picture, so
+    // the picture printed captionless and the caption printed as a stray centred
+    // line mid-page). `text` identifies the duplicate just as well, and is matched
+    // whole rather than as a substring, so it can only remove an exact repeat.
+    if (sc.near || sc.text) {
       for (const p of flat) {
         if (p && p !== b && (p.t === "para" || p.t === "figcaption")) {
           const plain = blockPlain(p).trim();
-          if (plain.includes(sc.near) || (sc.text && plain === sc.text)) {
+          if ((sc.near && plain.includes(sc.near)) || (sc.text && plain === sc.text)) {
             p.t = "none";
             p.segs = [];
           }
@@ -2886,6 +2893,39 @@ function reformatAcronyms(blocks) {
   // whose text is "SHORT-TOKEN: meaning" as an acronym ENTRY while inside the list — not a
   // new section — so it still gets split into a bold abbreviation + plain meaning below.
   const ENTRY_RE = /^[A-Za-z][A-Za-z0-9./]{0,9}:\s*\S/;
+  // A manuscript often types the whole list as ONE paragraph with manual line breaks
+  // (Shift+Enter) between the entries instead of a paragraph each. The formatter below
+  // works a paragraph at a time, so only the FIRST entry of such a paragraph was ever
+  // reformatted: the RE Form 2 Learner's Book printed "BALIS: Bachelor's in Library and
+  // Information Science…" in house format and then "CBC – Competence-Based Curriculum",
+  // "CSHZ – Cheshire Homes Society of Zambia" and nine more keeping the writer's dash —
+  // the same element set two ways down one page. Split on those breaks first so every
+  // entry is its own paragraph and the formatter reaches all of them.
+  const splitOnBreaks = (segs) => {
+    const groups = [[]];
+    for (const s of segs) {
+      if (typeof s.t !== "string" || !s.t.includes("\n")) { groups[groups.length - 1].push(s); continue; }
+      s.t.split("\n").forEach((piece, i) => {
+        if (i > 0) groups.push([]);
+        if (piece !== "") groups[groups.length - 1].push({ ...s, t: piece });
+      });
+    }
+    return groups.filter((g) => g.map((s) => s.t).join("").trim());
+  };
+  {
+    let inList = false;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      const entryish = inList && isHeadingBlk(b) && ENTRY_RE.test((b.text || "").trim());
+      if (isHeadingBlk(b) && !entryish) { inList = /^(LIST OF )?ACRONYMS\b/i.test((b.text || "").trim()); continue; }
+      if (!inList || b.t !== "para" || !(b.segs && b.segs.length)) continue;
+      if (!b.segs.some((s) => typeof s.t === "string" && s.t.includes("\n"))) continue;
+      const groups = splitOnBreaks(b.segs);
+      if (groups.length < 2) continue;
+      blocks.splice(i, 1, ...groups.map((g) => ({ t: "para", segs: g })));
+      i += groups.length - 1;
+    }
+  }
   let inAcronyms = false;
   for (const b of blocks) {
     const asEntry = inAcronyms && isHeadingBlk(b) && ENTRY_RE.test((b.text || "").trim());
@@ -2903,7 +2943,14 @@ function reformatAcronyms(blocks) {
     // "ABBR: Full form". The abbreviation is a short token (letters/dots) with no
     // spaces, e.g. BA, GIS, H.E., PhD, V.I., ZEPH.
     const full = segs.map((s) => s.t).join("").trim();
-    const hy = full.match(/^([A-Za-z][A-Za-z.]{0,7})\s*-\s*(\S.*)$/);
+    // …but only when the hyphen really IS the separator. An abbreviation may contain a
+    // hyphen of its own ("BA-Primary – Bachelor of Arts – Primary Education"), and this
+    // rule then split it at that internal hyphen and printed "BA: Primary – Bachelor of
+    // Arts – Primary Education". A spaced EN/EM dash in the line is the separator the
+    // writer actually used, so leave those to the run-based path below, which takes the
+    // whole leading run as the abbreviation and lets cleanMeaning() drop the dash.
+    const dashSeparated = /\s[–—]\s/.test(full);
+    const hy = dashSeparated ? null : full.match(/^([A-Za-z][A-Za-z.]{0,7})\s*-\s*(\S.*)$/);
     if (hy && !/\s/.test(hy[1])) {
       b.segs = [
         { t: hy[1].replace(/:+$/, ""), b: true, it: false, c: null },

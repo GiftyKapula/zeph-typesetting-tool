@@ -141,6 +141,14 @@ function fixBoxTitleSpelling(s) {
 // but the leading label is reliable. Fill colour is only a secondary hint.
 // Labels include local-language equivalents (Lunda: Zhakwila atudizi = Learning
 // Activity, Mudimu = Exercise) — add a book's labels here as new books arrive.
+// "Section A:", "Part B -", "Part 2 : …" — a divider that opens a new GROUP of
+// questions inside an exercise or assessment, as opposed to a lead-in line that
+// continues the question above it. Anchored, and the letter/number must be followed
+// by punctuation, so ordinary prose opening "Part of the reason…" never matches.
+function isSectionDivider(t) {
+  return /^(SECTION|PART)\s+([A-Za-z]|\d{1,2})\s*[:.)–—-]/i.test((t || "").trim());
+}
+
 function boxKindFromTitle(t) {
   const s = t.replace(/^\s+/, "");
   // Labels in English + Zambian local languages (see local-language-glossary).
@@ -318,7 +326,10 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
         // text-box path had it hard-coded false, so the same book rendered the two
         // styles inconsistently and a reviewer flagged the ragged ones ("align so that
         // (b) aligns with (a)", "the equal signs … not directly under 1 but under W").
-        else parts.push({ kind: "lead", q, qseg: p.segs, indent: parts.some((x) => x.kind === "q") });
+        // …except a section divider, which opens a new group rather than continuing
+        // the question above it — see isSectionDivider().
+        else parts.push({ kind: "lead", q, qseg: p.segs,
+          indent: parts.some((x) => x.kind === "q") && !isSectionDivider(q) });
       }
     }
     const idx = out.length;
@@ -1504,7 +1515,14 @@ function buildQAParts(blocks) {
       // before its sub-parts) — indent it to sit under the question text instead
       // of hugging the box's left margin. A lead BEFORE any question (a genuine
       // exercise-wide lead-in) stays flush.
-      const indent = parts.some((p) => p.kind === "q");
+      // A SECTION DIVIDER is the exception: it opens a new group of questions
+      // rather than continuing the one above it, so it stays flush wherever it
+      // falls. Position alone got this wrong — only the FIRST divider in a box
+      // has no question before it, so "Section A: Ambition" printed flush and
+      // "Section B: Hope" printed indented under question 5, the same element set
+      // two ways inside one box (the RE Form 2 proofreader: "make the layout
+      // uniform"). Five books in the repo have it, the two Geography books worst.
+      const indent = parts.some((p) => p.kind === "q") && !isSectionDivider(b.plain);
       parts.push({ kind: "lead", q: b.plain, qseg: b.segs, indent });
     }
   }

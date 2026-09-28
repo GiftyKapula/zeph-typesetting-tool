@@ -31,5 +31,51 @@
     "image8.jpeg": {
       "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image8.png"
     }
-  }
+  },
+  "//unitalic": "Round 2, printed page vii: the proofreader asked for the two names credited in the ACKNOWLEDGEMENT to be bold. The manuscript sets them in italic, so the italic comes off here and boldFind puts the weight on below (unitalic is applied before boldFind, so the pair leaves them plain bold rather than bold-italic).",
+  "unitalic": [
+    "Ms Njira Mtonga,",
+    "Mr James Chiwele,"
+  ],
+  "//boldFind": "See //unitalic — the second half of bolding the two credited names.",
+  "boldFind": [
+    {
+      "find": "Ms Njira Mtonga,"
+    },
+    {
+      "find": "Mr James Chiwele,"
+    }
+  ],
+  "//splitBefore": "Round 2, printed page x: the ACRONYMS list glues two entries into one paragraph, so it printed as 'Bachelor's in Library and Information Science and Development StudiesBA-Primary - Bachelor of Arts - Primary Education'. BA-Primary is its own bold run, so the paragraph splits cleanly in front of it and the entry gets its own line.",
+  "splitBefore": [
+    {
+      "find": "BA-Primary"
+    }
+  ],
+  "//subtext": "Round 2. Two standardisations the proofreader asked for and one spelling. (1) The line introducing each Specific Competence was written four different ways across the book's 22 sub-topics - 'In this sub-topic, you will:' 12 times, 'In this subtopic, you will:' 4, 'In this subtopic, you will learn to:' 4, 'In this sub-topic, you will learn to:' once, 'In this section, you will:' once. The notes 'let it be sub-topic' (page 2) and 'make this standard for all before the specific competences' (page 75) both point at it, so all 22 are normalised to the commonest form. The two other 'In this section, you will ...' sentences are running prose, not lead-ins, and are left alone. (2) 'rumors' -> 'rumours': the note reads 'delete and write like this; rumuors', which is a slip for the British spelling - the book already writes 'rumours' twice against 'rumors' twice, and is consistently -our/-ise throughout (behaviour 55, colour 48, recognise 31, and no American spelling anywhere).",
+  "subtext": [
+    {
+      "from": "In this subtopic",
+      "to": "In this sub-topic"
+    },
+    {
+      "from": "In this sub-topic, you will learn to:",
+      "to": "In this sub-topic, you will:"
+    },
+    {
+      "from": "In this section, you will:",
+      "to": "In this sub-topic, you will:"
+    },
+    {
+      "from": "rumors",
+      "to": "rumours"
+    }
+  ],
+  "//setCaption": "Round 2, printed page 27: 'Take this to the picture above'. The manuscript types the Fig. 4 caption two paragraphs below its picture, so the picture printed with no caption and the caption printed as a stray centred line in the middle of the running text on the next page. setCaption attaches it to the image and clears the loose paragraph.",
+  "setCaption": [
+    {
+      "file": "image6.png",
+      "text": "Fig. 4: Forgiveness helps restore relationships and promote peace."
+    }
+  ]
 }
