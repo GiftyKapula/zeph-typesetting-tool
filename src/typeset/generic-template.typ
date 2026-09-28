@@ -2094,6 +2094,23 @@
   // sub-sections (Methodologies, Assessment, CBA, Time Allocation…) FLOW as normal
   // headings under their parent section (Introduction), so they don't page-break.
   let isyear = syllabus and t.trim().match(regex("(?i)^year\\s+\\d+$")) != none
+  // The rule above guards a Sub-Topic heading against being stranded at the FOOT of a
+  // full page. It says nothing about the opposite waste — a Sub-Topic breaking away
+  // from a page holding only the line or two that had just spilled onto it. The
+  // Literature in English Form 1 Learner's Book has eight such pages (printed 11, 16,
+  // 28, 106, 107, 126 and 128; two carry a single line, one a lone figure caption cut
+  // from its own picture), each the tail of the section before, marooned when the next
+  // Sub-Topic took a fresh page. That is a real defect and it is still open.
+  //
+  // NOTE: do not try to fix it by making this break conditional on how far down the
+  // page we already are.
+  // Measuring `here().position().y` and then breaking on the result is circular — the
+  // break moves the position that decided it, Typst's layout stops converging, and the
+  // damage shows up not as a bad break but as a WRONG PAGE NUMBER: tried once, the
+  // Learner's Book printed "18" in the footer of page 40 and "1" on every page from 64
+  // to the end, while the pages themselves looked right. The stranded-tail problem this
+  // was meant to solve is real and still open; it needs a mechanism that does not read
+  // back the position it is about to change.
   if not nobrk and (isyear or not syllabus) { pagebreak(weak: true) }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
   // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them.
@@ -2158,6 +2175,17 @@
       let own = measure(block(width: size.width, bannerBody)).height
       block(width: 100%, height: calc.max(own, twoLine), breakable: false, sticky: true, bannerBody)
     })
+    // Close the gap between the banner's rule and the first line under it. The
+    // proofreader marked one sub-topic page "the space is too much", and measured
+    // across this book the rule sat 14.4mm above the first line of text on every
+    // sub-topic page, with a one-line title adding 6.7mm of uniformity padding on top
+    // of that — about three blank body lines before the section starts.
+    // Taken off the SHARED gap rather than off the padding, so every sub-topic page
+    // still begins its body at exactly the same height: reducing the padding instead
+    // would buy the same white space back by re-opening the 9.5mm step between pages
+    // whose title wraps and pages whose title does not, which is the defect that
+    // padding exists to close.
+    v(-14pt)
   } else if literary {
     // small diamond + italic serif title, with a thin gold rule under it
     block(width: 100%, breakable: false)[
