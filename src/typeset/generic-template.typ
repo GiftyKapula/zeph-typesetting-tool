@@ -2965,7 +2965,7 @@
   // distinct markers: prose whose lines happen to open "I. " twice isn't an enumeration
   let marks = rows.map(r => r.at(0))
   if marks.dedup().len() != marks.len() { return none }
-  text(style: "italic", fill: T.ex.title)[#grid(
+  let lst = text(style: "italic", fill: T.ex.title)[#grid(
     // A grid row is only as tall as its own glyphs — it carries none of the paragraph
     // leading that separates two lines INSIDE an item — so a small row-gutter puts the
     // items closer together than the lines within them and the list reads as one mass.
@@ -2974,6 +2974,24 @@
     columns: (22pt, 1fr), column-gutter: 6pt, row-gutter: 6pt,
     align: (right + top, left + top),
     ..rows.map(r => ([#segs(((t: r.at(0), b: false, it: false, c: none),))], [#segs(r.at(1))])).flatten())]
+  // …and it must READ as one mass across a page break too. An assessment box is
+  // deliberately breakable (see framedsection), so Typst was free to break INSIDE
+  // this grid, and at the end of a topic it did: the RE Form 2 Teacher's Guide broke
+  // the answer to its last question two lines from the end, leaving item v. and the
+  // "(Other relevant…)" note alone on the topic's final page — about 85% of that page
+  // blank, twice in the same book, because the next topic opens on a fresh page and
+  // nothing could flow up behind them. Keep the list whole so the break falls BEFORE
+  // it and the answer travels in one piece, the way every other answer list reads.
+  //
+  // Bounded, for the reason framedsection records: anything made unconditionally
+  // atomic gets moved wholesale to the next page when it doesn't fit, wasting
+  // whatever was left of the current one. A list past the cap stays breakable, so
+  // this rule can never cost more than the ~200pt it measures — well inside the
+  // 460pt guard dtable and the activity checklists already use for the same trade.
+  layout(size => {
+    let h = measure(box(width: size.width)[#lst]).height
+    if h < 200pt { block(breakable: false, width: 100%)[#lst] } else { lst }
+  })
 }
 #let answer(aseg, a) = context if show-answers.get() and (a != "" or aseg.len() > 0) {
   let lst = answerlist(aseg, a)
@@ -3072,8 +3090,28 @@
       // answer right while its "i."/"ii." siblings stayed put — the same list set two
       // ways down one column (RE Form 2 TG, Exercises 13 & 14).
       let mkw = if it.marker.contains(" ") { 36pt } else { 22pt }
-      grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, right + top, left + top),
-        [], [#it.marker], body)
+      // A question and its answer are ONE unit and must not be split by a page break.
+      // The assessment box around them is deliberately breakable (see framedsection),
+      // so Typst was free to break anywhere in this grid — and at the end of a topic,
+      // where nothing can flow up behind the remainder because the next topic opens on
+      // a fresh page, that left four pages of the RE Form 2 Teacher's Guide (printed
+      // 53, 69, 82 and 93) holding two or three lines above ~85% white: the tail of a
+      // question stem, or the last item of its answer, plus the "(Other relevant…)"
+      // note. Keeping the pair whole moves the break to the gap BEFORE the question,
+      // so the reader always meets a question and its full answer together.
+      //
+      // Bounded, for the reason framedsection records: anything unconditionally atomic
+      // is pushed wholesale to the next page when it doesn't fit, wasting whatever was
+      // left of the current one. A pair past the cap stays breakable — and answerlist
+      // still keeps ITS grid whole underneath, so a long pair breaks between question
+      // and answer rather than inside the answer. 240pt is about a third of the text
+      // block, well inside the 460pt guard dtable and the checklists already use.
+      layout(size => {
+        let qa = grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, right + top, left + top),
+          [], [#it.marker], body)
+        let h = measure(box(width: size.width)[#qa]).height
+        if h < 240pt { block(breakable: false, width: 100%, above: 0pt, below: 0pt)[#qa] } else { qa }
+      })
       v(T.at("qgap", default: 3pt))
     }
   }

@@ -581,6 +581,25 @@ function dedupeAdjacentHeadings(blocks) {
   return out;
 }
 
+// A back-matter REFERENCES heading, as manuscripts actually spell it. The bare word
+// is only the commonest form: the RE Form 2 Teacher's Guide heads its list
+// "SUGGESTED REFERENCES", and "FURTHER READING" / "RECOMMENDED READING" are just as
+// common. An anchored /^references\b/ matched none of them, so such a section was
+// demoted to h2 by fixStrayBodyH1s (losing its own page, and with it its TOC entry)
+// and skipped by reorderBackmatter (never normalised to the house heading, never
+// re-ordered after the glossary) - while the sibling Learner's Book, which writes a
+// plain "REFERENCES", listed its own correctly. The same section must read the same
+// in both books, so match the qualified spellings too. READING needs one of the
+// qualifiers ("Further Reading", never a bare "Reading", which is an ordinary topic
+// title in a language book). SUGGES+TED tolerates the "SUGGESSTED" typo, the same
+// tolerance the front-matter FM regex above already gives it.
+const REF_QUALIFIER = "(?:SUGGES+TED|RECOMMENDED|FURTHER|SELECTED|USEFUL|ADDITIONAL)";
+const REF_HEADING = new RegExp(
+  "^(?:" + REF_QUALIFIER + "\\s+)?REFERENCES?\\b" + "|" +
+  "^" + REF_QUALIFIER + "\\s+READINGS?\\b",
+  "i"
+);
+
 // Some manuscripts style a craft/skill GROUP name ("Plaiting", "Weaving",
 // "Educational Gymnastics (Tumbling and Stunts)") with Word's Heading1 — the same
 // style as the real "TOPIC N: …" opener — even though it is really a sub-topic-level
@@ -616,7 +635,7 @@ function fixStrayBodyH1s(blocks) {
   // ACRONYMS/COMPETENCES above — match it by its trailing phrase rather than requiring
   // an exact whole-string match.
   const FRONTBACK_TRAIL = /SCHEME\s+OF\s+WORK$/i;
-  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim()) && !FRONTBACK_LEAD.test((b.text || "").trim()) && !FRONTBACK_TRAIL.test((b.text || "").trim());
+  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim()) && !FRONTBACK_LEAD.test((b.text || "").trim()) && !REF_HEADING.test((b.text || "").trim()) && !FRONTBACK_TRAIL.test((b.text || "").trim());
   const seen = new Set();
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
@@ -3034,7 +3053,7 @@ function reorderBackmatter(blocks) {
   let refItems = [];
 
   // Case 1: Standalone References heading block
-  let refIdx = blocks.findIndex((b) => b && (b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para") && /^references\b/i.test(getText(b).trim()));
+  let refIdx = blocks.findIndex((b) => b && (b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para") && REF_HEADING.test(getText(b).trim()));
   if (refIdx >= 0) {
     refHeader = { t: "h1", text: "REFERENCES" };
     let j = refIdx + 1;
@@ -3048,7 +3067,7 @@ function reorderBackmatter(blocks) {
     for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
       if (b && (b.t === "exercise" || b.kind === "exercise") && Array.isArray(b.parts)) {
-        const pIdx = b.parts.findIndex(p => p && (p.q || p.text) && /^references\b/i.test((p.q || p.text).trim()));
+        const pIdx = b.parts.findIndex(p => p && (p.q || p.text) && REF_HEADING.test((p.q || p.text).trim()));
         if (pIdx >= 0) {
           const extracted = b.parts.splice(pIdx);
           refHeader = { t: "h1", text: "REFERENCES" };
