@@ -4081,6 +4081,93 @@ const ROMAN_SEQ = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", 
 // with a part marker and the answer carries the markers that CONTINUE that sequence
 // (a→b→c, i→ii→iii, 1→2→3) in the same punctuation style, which ordinary prose that
 // happens to begin "I. " or "A." cannot satisfy.
+// A numbered run the writer typed inside ONE paragraph, its items separated by soft
+// line breaks rather than by real list items:
+//
+//   "TIPS TO THE TEACHER:⏎1. Start by asking learners…⏎2. Explain the meaning…"
+//
+// Word is perfectly happy with that, but the importer sees a single paragraph, so the
+// run printed as ordinary prose: every item wrapped flush to the left margin and its
+// second line ran back underneath its own number, while the very same list typed as
+// real Word list items a few lines earlier hung correctly in a marker column. One
+// element, two appearances — and house style is that a numbered sentence never lets
+// its next line start where the number is. Unfold the run into real `listitem`s and
+// the existing marker/text grid gives every one of them the hanging indent.
+//
+// Deliberately narrow, and narrow in the same way splitFoldedSubParts() is: the run is
+// only recognised when TWO OR MORE markers CONTINUE a sequence (1→2→3, a→b→c, i→ii→iii)
+// in one punctuation style. Ordinary prose that happens to open a line with "I. " or a
+// single stray "1." cannot satisfy that, so nothing is unfolded on the strength of one
+// marker alone. Any text before the first marker stays behind as its own paragraph —
+// that is the lead-in ("TIPS TO THE TEACHER:"), which is not part of the list.
+function splitNumberedRuns(blocks) {
+  const MARK = /^\s*(\(?)([A-Za-z]|[ivxIVX]{1,4}|\d{1,2})([.)])\s+/;
+  const follows = (a, b) => {
+    if (a.open !== b.open || a.close !== b.close) return false;
+    const x = a.core, y = b.core;
+    if (/^\d+$/.test(x) && /^\d+$/.test(y)) return Number(y) === Number(x) + 1;
+    if (/^\d+$/.test(x) || /^\d+$/.test(y)) return false;
+    const sameCase = (x === x.toLowerCase()) === (y === y.toLowerCase());
+    if (!sameCase) return false;
+    const ri = ROMAN_SEQ.indexOf(x.toLowerCase());
+    if (ri >= 0 && ROMAN_SEQ[ri + 1] === y.toLowerCase()) return true;
+    return x.length === 1 && y.length === 1 && y.charCodeAt(0) === x.charCodeAt(0) + 1;
+  };
+  // Split a run of segments into lines at every soft break, keeping each line's own runs
+  // (and their bold/italic) intact, so an unfolded item keeps the formatting it had.
+  const toLines = (segs) => {
+    const lines = [[]];
+    for (const s of segs) {
+      if (!s || s.m || typeof s.t !== "string") { lines[lines.length - 1].push(s); continue; }
+      const parts = s.t.split("\n");
+      parts.forEach((p, i) => {
+        if (i > 0) lines.push([]);
+        if (p !== "") lines[lines.length - 1].push({ ...s, t: p });
+      });
+    }
+    return lines;
+  };
+  const markOf = (line) => {
+    const first = line.find((s) => s && !s.m && typeof s.t === "string" && s.t.trim());
+    if (!first || first !== line[0]) return null;
+    const m = first.t.match(MARK);
+    return m ? { open: m[1], core: m[2], close: m[3], len: m[0].length, text: m[0].trim() } : null;
+  };
+  const walk = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      const b = arr[i];
+      if (!b || typeof b !== "object") continue;
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs") walk(b[k]);
+      if (b.t !== "para" || !Array.isArray(b.segs)) continue;
+      if (!b.segs.some((s) => s && !s.m && typeof s.t === "string" && s.t.includes("\n"))) continue;
+      const lines = toLines(b.segs).filter((l) => l.some((s) => s && (s.m || (s.t || "").trim())));
+      const marks = lines.map(markOf);
+      // the run has to be a real sequence, not one stray marker
+      let best = 0, runAt = -1;
+      for (let a = 0; a < marks.length; a++) {
+        if (!marks[a]) continue;
+        let n = 1;
+        while (a + n < marks.length && marks[a + n] && follows(marks[a + n - 1], marks[a + n])) n++;
+        if (n > best) { best = n; runAt = a; }
+      }
+      if (best < 2) continue;
+      const out = [];
+      const lead = lines.slice(0, runAt);
+      if (lead.length) out.push({ ...b, segs: lead.flatMap((l, j) => (j ? [{ t: "\n", b: false, it: false, c: null }, ...l] : l)) });
+      for (let j = runAt; j < runAt + best; j++) {
+        const mk = marks[j];
+        const body = lines[j].slice();
+        body[0] = { ...body[0], t: body[0].t.slice(mk.len) };
+        out.push({ t: "listitem", marker: mk.text, isList: true, segs: body.filter((s) => s.m || (s.t || "") !== "") });
+      }
+      const tail = lines.slice(runAt + best);
+      if (tail.length) out.push({ ...b, segs: tail.flatMap((l, j) => (j ? [{ t: "\n", b: false, it: false, c: null }, ...l] : l)) });
+      arr.splice(i, 1, ...out);
+      i += out.length - 1;
+    }
+  };
+  walk(blocks);
+}
 function splitFoldedSubParts(blocks) {
   const MARK = /^\s*(\(?)([A-Za-z]|[ivxIVX]{1,4}|\d{1,2})([.)])\s+/;
   const markOf = (line) => {
@@ -5105,6 +5192,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and unfold a multi-part question the manuscript typed as ONE paragraph of soft
   // line breaks, so its a)/b) parts sit in the same indented rows as everywhere else.
   splitFoldedSubParts(blocks);
+  // …and unfold a numbered run the writer typed as ONE paragraph of soft line breaks,
+  // so each item hangs in the marker column like every other numbered line in the book.
+  splitNumberedRuns(blocks);
   // …and drop the same answer label wherever else it survives - opening a paragraph or
   // list item inside a box body, or opening a line inside one out in running prose - so
   // that every expected answer in the book is marked by its italic and nothing else.

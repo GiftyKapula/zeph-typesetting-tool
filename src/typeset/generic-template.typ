@@ -1749,6 +1749,17 @@
 // the imprint/credits page, where a short centred line of proper names ("Precious
 // Sapanoi") has no justification to gain from hyphenating and a dictionary match on
 // an ordinary-word name (Precious -> "Pre-cious") reads as a typo, not a line break.
+// The marker opening a paragraph the writer numbered by hand: "1." / "12)" / "iv." /
+// "a)". Deliberately narrow — at most two digits, at most four roman letters, or a
+// single letter, and a real space after it — so that an ordinary sentence is never
+// mistaken for a numbered item. See the use in para() below for why it matters.
+// Leading whitespace is allowed because a Word paragraph often opens with the soft
+// break that ended the line before it ("⏎8. Use pair work…"); anchoring hard at the
+// number would miss every item that arrived that way, and they are exactly the ones
+// that look wrong next to their neighbours.
+#let PARA_NUM = regex("^[ \t\r\n]*([0-9]{1,2}[.)]|[ivxIVX]{1,4}[.)]|[a-zA-Z][.)])[ \t]+")
+// The same marker, but occupying a run entirely on its own.
+#let PARA_NUM_ONLY = regex("^[ \t\r\n]*([0-9]{1,2}[.)]|[ivxIVX]{1,4}[.)]|[a-zA-Z][.)])[ \t]*$")
 #let para(ss, align: none, drop: false, hyphenate: true) = {
   set text(hyphenate: hyphenate)
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
@@ -1769,7 +1780,43 @@
   }
   else if align == "center" { block(width: 100%)[#std.align(center, par[#segs(ss)])] }
   else if align == "right" { block(width: 100%)[#std.align(right, par[#segs(ss)])] }
-  else { flowsegs(ss) }
+  else {
+    // A paragraph the MANUSCRIPT numbered by TYPING "1. " into its text rather than by
+    // using Word's own list numbering. It imports as an ordinary paragraph, so it wrapped
+    // flush to the left margin and its second line ran back underneath its own number,
+    // while a real list item — drawn as a marker column beside a text column — hung
+    // correctly. That is one element with two appearances, and the numbered paragraph was
+    // the wrong one: house style is that a numbered sentence never lets its next line
+    // start where the number is. Draw it in the identical grid listitem() uses, so every
+    // numbered line in a book aligns the same way whichever route it arrived by.
+    let first = if ss.len() > 0 { ss.at(0) } else { none }
+    let plain = if first != none and first.at("m", default: false) == false { first.t } else { "" }
+    let m = if plain.len() > 0 { plain.match(PARA_NUM) } else { none }
+    // The writer often sets the marker in a run of its OWN — usually bold — with the
+    // sentence following in the next run, so nothing but "1." is in the first run and
+    // the space that PARA_NUM looks for sits at the head of the run after it.
+    let mOnly = if plain.len() > 0 and m == none { plain.match(PARA_NUM_ONLY) } else { none }
+    let row(marker, restSegs, bold) = grid(
+      columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top),
+      text(fill: T.primary, weight: if bold { "bold" } else { "regular" })[#marker],
+      par[#segs(restSegs)])
+    if m != none and plain.len() > m.end {
+      let tail = if ss.len() > 1 { ss.slice(1) } else { () }
+      let restSegs = (((:) + first) + (t: plain.slice(m.end)),) + tail
+      // Match the marker's weight to the item's own text, exactly as listitem() does, so
+      // a bold-typed marker on plain text does not sit heavier than the sentence it numbers.
+      let body = restSegs.find(s => s.at("m", default: false) == false and s.t.trim() != "")
+      row(m.captures.at(0), restSegs, body != none and body.at("b", default: false))
+    } else if mOnly != none and ss.len() > 1 {
+      let tail = ss.slice(1)
+      let head2 = tail.at(0)
+      let restSegs = if head2.at("m", default: false) == false {
+        (((:) + head2) + (t: head2.t.trim(at: start)),) + tail.slice(1)
+      } else { tail }
+      let body = restSegs.find(s => s.at("m", default: false) == false and s.t.trim() != "")
+      row(mOnly.captures.at(0), restSegs, body != none and body.at("b", default: false))
+    } else { flowsegs(ss) }
+  }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
 #let listitem(ss, marker) = {
