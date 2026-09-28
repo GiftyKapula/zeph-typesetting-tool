@@ -30,6 +30,30 @@
     },
     "image8.jpeg": {
       "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image8.png"
+    },
+    "image3.png": {
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image3.png"
+    },
+    "image4.png": {
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image4.png"
+    },
+    "image9.png": {
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image9.png"
+    },
+    "image10.jpeg": {
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image10.png"
+    },
+    "image12.png": {
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image12.png"
+    },
+    "image14.png": {
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image14.png"
+    },
+    "image15.png": {
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image15.png"
+    },
+    "image17.jpeg": {
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image17.png"
     }
   },
   "//unitalic": "Round 2, printed page vii: the proofreader asked for the two names credited in the ACKNOWLEDGEMENT to be bold. The manuscript sets them in italic, so the italic comes off here and boldFind puts the weight on below (unitalic is applied before boldFind, so the pair leaves them plain bold rather than bold-italic).",
@@ -52,7 +76,7 @@
       "find": "BA-Primary"
     }
   ],
-  "//subtext": "Round 2. Two standardisations the proofreader asked for and one spelling. (1) The line introducing each Specific Competence was written four different ways across the book's 22 sub-topics - 'In this sub-topic, you will:' 12 times, 'In this subtopic, you will:' 4, 'In this subtopic, you will learn to:' 4, 'In this sub-topic, you will learn to:' once, 'In this section, you will:' once. The notes 'let it be sub-topic' (page 2) and 'make this standard for all before the specific competences' (page 75) both point at it, so all 22 are normalised to the commonest form. The two other 'In this section, you will ...' sentences are running prose, not lead-ins, and are left alone. (2) 'rumors' -> 'rumours': the note reads 'delete and write like this; rumuors', which is a slip for the British spelling - the book already writes 'rumours' twice against 'rumors' twice, and is consistently -our/-ise throughout (behaviour 55, colour 48, recognise 31, and no American spelling anywhere).",
+  "//subtext": "Round 2. Two standardisations the proofreader asked for and one spelling. (1) The line introducing each Specific Competence was written four different ways across the book's 22 sub-topics - 'In this sub-topic, you will:' 12 times, 'In this subtopic, you will:' 4, 'In this subtopic, you will learn to:' 4, 'In this sub-topic, you will learn to:' once, 'In this section, you will:' once. The notes 'let it be sub-topic' (page 2) and 'make this standard for all before the specific competences' (page 75) both point at it, so all 22 are normalised to the commonest form. The two other 'In this section, you will ...' sentences are running prose, not lead-ins, and are left alone. (2) 'rumors' -> 'rumours': the note reads 'delete and write like this; rumuors', which is a slip for the British spelling - the book already writes 'rumours' twice against 'rumors' twice, and is consistently -our/-ise throughout (behaviour 55, colour 48, recognise 31, and no American spelling anywhere). (4) The second author's name was printed three ways in one book: 'Mirriam Mhone Muzona' on the cover (set by the authors override, on her own instruction), 'Mirriam Mhone-Muzona' on the imprint page, and 'Mirriam Mhone\\u2011Muzona' - with a non-breaking hyphen - in her own AUTHORS biography. The instruction had only ever reached the cover. Both hyphenated forms are now normalised to the spelling she asked for. (5) Spelling found at the pre-print check, none of it raised by the proofreader. The book is consistently British - behaviour 55, colour 48, recognise 31, organis- 26, apologis- 16 - but carried one 'apologize', one 'organizations', and used the American 'practicing/practice' for the VERB in four places against nine British 'practising'. The noun 'into practice' is correct and is left alone. The sentence ending '...the relationship between freedom and laws in the community' had no full stop, in both places it appears.",
   "subtext": [
     {
       "from": "In this subtopic",
@@ -69,6 +93,38 @@
     {
       "from": "rumors",
       "to": "rumours"
+    },
+    {
+      "from": "Mirriam Mhone-Muzona",
+      "to": "Mirriam Mhone Muzona"
+    },
+    {
+      "from": "Mirriam Mhone‑Muzona",
+      "to": "Mirriam Mhone Muzona"
+    },
+    {
+      "from": "Practicing",
+      "to": "Practising"
+    },
+    {
+      "from": "Practice unity and love",
+      "to": "Practise unity and love"
+    },
+    {
+      "from": "practice unity and love",
+      "to": "practise unity and love"
+    },
+    {
+      "from": "apologize",
+      "to": "apologise"
+    },
+    {
+      "from": "organizations",
+      "to": "organisations"
+    },
+    {
+      "from": "the relationship between freedom and laws in the community",
+      "to": "the relationship between freedom and laws in the community."
     }
   ],
   "//setCaption": "Round 2, printed page 27: 'Take this to the picture above'. The manuscript types the Fig. 4 caption two paragraphs below its picture, so the picture printed with no caption and the caption printed as a stray centred line in the middle of the running text on the next page. setCaption attaches it to the image and clears the loose paragraph.",
@@ -76,6 +132,14 @@
     {
       "file": "image6.png",
       "text": "Fig. 4: Forgiveness helps restore relationships and promote peace."
+    }
+  ],
+  "//images": "Every picture is swapped for a Real-ESRGAN x4 upscale so it reaches the 300 DPI print requirement at its printed size. The first eight were done earlier; image3, image4, image9, image10, image12, image14, image15 and image17 were found still under 300 at the pre-print check (274, 275, 275, 256, 275, 275, 299 and 256 DPI respectively) and upscaled in the same way. image10 and image17 were JPEGs in the manuscript and are replaced by PNGs, since JPEG compression artefacts are not print-safe.",
+  "//moveBefore": "Found at the pre-print check, not raised by the proofreader: the glossary runs \"... Retributive justice, Self-esteem, Self-awareness, Social and Emotional Learning ...\". Self-awareness and Self-esteem are transposed - the rest of the 26-term list is alphabetical - and the slip is easy to miss because a page break falls between them. Swapped back.",
+  "moveBefore": [
+    {
+      "find": "Self-awareness – Understanding one",
+      "before": "Self-esteem – The way a person values"
     }
   ]
 }

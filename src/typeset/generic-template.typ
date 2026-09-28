@@ -1841,8 +1841,12 @@
 #let contmath(ss) = pad(left: 18pt, flowsegs(ss))
 
 // ---- headings ------------------------------------------------------------
-#let topicbanner(no, title, full) = {
-  pagebreak(weak: true)
+// `nobrk` suppresses the fresh page, for the one case the emitter detects: a Topic
+// that opens immediately under its UNIT heading. The unit page carries nothing but
+// the unit title, so breaking again here spends a second page to put the banner on,
+// and the reader gets two near-empty pages in a row before any teaching starts.
+#let topicbanner(no, title, full, nobrk: false) = {
+  if not nobrk { pagebreak(weak: true) }
   mark(1, full)
   settopic(title)
   // Black-and-white interior: the banner band is near-black, so its accent/cyan eyebrow

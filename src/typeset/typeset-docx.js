@@ -5449,11 +5449,50 @@ function normaliseQuestionMarkBold(blocks) {
   // (e.g. Form 4 Food and Nutrition TG's "TOPIC 4.2: FOOD SERVICE", which the
   // manuscript runs straight into "Sub-Topic 4.2.1" with no Topic-level intro).
   // Applies to every book variant, not just the syllabus matrix layout.
+  // Widened twice since, both for the same reason the rule was written: the test is
+  // whether the page left behind would be near-empty, and "nothing at all between the
+  // two headings" turned out to be only the most extreme way for that to happen.
+  //
+  // First, a SHORT intro counts as near-empty. The Literature in English Form 1
+  // Teacher's Guide gives each Topic a two-sentence overview, so the walk below hit a
+  // non-blank paragraph, declined to set nobreak, and the Topic banner got a page of
+  // its own carrying three lines and about 80% white before the first Sub-Topic
+  // started the next one. A Topic page is worth spending only when there is enough
+  // text to fill it; TOPIC_INTRO_FILL is the measured floor, in characters, below
+  // which the intro plainly will not.
+  //
+  // Second, the same treatment for a Topic banner under its UNIT heading. A unit page
+  // carries the unit title and nothing else whatever, so a Topic breaking again
+  // straight afterwards spends a second page before any teaching begins — three
+  // near-empty pages in a row at the head of every unit (printed 8 and 9, 18 and 19,
+  // 62 and 63 in that Teacher's Guide). topicbanner() takes nobrk for this.
+  const TOPIC_INTRO_FILL = 600;
+  const runLen = (from, to) => {
+    let n = 0;
+    for (let k = from; k < to; k++) {
+      const b = blocks[k];
+      if (!b) continue;
+      if (b.t === "table" || b.t === "img") return TOPIC_INTRO_FILL;  // a table or picture fills a page
+      n += ((blockPlain(b) || "").trim()).length;
+    }
+    return n;
+  };
   for (let i = 1; i < blocks.length; i++) {
-    if (blocks[i].t !== "h2") continue;
+    const kind = blocks[i].t;
+    if (kind !== "h2" && kind !== "h1") continue;
+    // walk back over whatever sits between this heading and the one above it
     let j = i - 1;
-    while (j >= 0 && blocks[j].t === "para" && !(blockPlain(blocks[j]) || "").trim()) j--;
-    if (j >= 0 && blocks[j].t === "h1") blocks[i].nobreak = true;
+    while (j >= 0 && (blocks[j].t === "para" || blocks[j].t === "listitem")) j--;
+    if (j < 0) continue;
+    // A Unit heading and a Topic banner are both h1; what separates them is that only a
+    // Topic's text matches TOPIC_RE (the emitter routes on exactly that, sending one to
+    // topicbanner() and the other to sectionhead()).
+    const isTopic = (b) => b.t === "h1" && TOPIC_RE.test(b.text || "");
+    const isUnit = (b) => b.t === "h1" && !TOPIC_RE.test(b.text || "");
+    // an h2 hangs under its Topic; a Topic hangs under its Unit heading
+    const pairs = (kind === "h2" && blocks[j].t === "h1") || (isTopic(blocks[i]) && isUnit(blocks[j]));
+    if (!pairs) continue;
+    if (runLen(j + 1, i) < TOPIC_INTRO_FILL) blocks[i].nobreak = true;
   }
 
   // Restructure the front matter (title page, roman/arabic numbering, etc.).
