@@ -1806,6 +1806,27 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   if (toks.length >= 3 && toks.every((w) => w.replace(/[.\/]/g, "").length <= 1)) return { t: "para", segs };
   if (allBold && /assessment/i.test(plain) && plain.length <= 80) return { t: "assessmentTitle", text: plain };
   if (allBold && colored) return { t: "head", text: plain };               // coloured heading (PE)
+  // A writer may mark a sub-heading with COLOUR ALONE and never bold it. The RE Form 2
+  // Learner's Book sets all thirty-eight of its third-level headings — "Sin",
+  // "Sin against Others", "Showing Kindness and Compassion", "Ahimsa (Non-violence)" —
+  // in blue italic at body size, un-bold, so every rule below (all of which require
+  // allBold) missed them and they printed as ordinary paragraphs. That cost them the
+  // heading's styling, its table-of-contents entry, and — what the proofreader actually
+  // marked — head()'s orphan control, so four of them stranded alone at the foot of a
+  // page with their section starting overleaf ("Push the title to the other page").
+  // Only about half carry a Word outlineLvl, so that alone can't be the test: it would
+  // leave the same element set two ways through one book.
+  // The signal is that EVERY run of a short line carries the SAME deliberate colour.
+  // Guards, in order: a near-black colour is body text, not a heading; a line ending in
+  // sentence punctuation is prose; and a URL or e-mail is a link Word coloured blue by
+  // itself (a references list is full of them), never a heading.
+  const oneColour = nonblank.length > 0 && nonblank.every((s) => s.c) && new Set(nonblank.map((s) => s.c)).size === 1;
+  if (oneColour && !endsColon && plain.length <= 100 && !/[.!?;,]$/.test(plain)
+      && !/(https?:\/\/|www\.|@[\w.-]+\.\w{2,}|\.(com|org|net|edu|gov|int)\b)/i.test(plain)) {
+    const rgb = parseInt(nonblank[0].c, 16);
+    const nearBlack = ((rgb >> 16) & 255) < 70 && ((rgb >> 8) & 255) < 70 && (rgb & 255) < 70;
+    if (!nearBlack) return { t: "head", text: plain };
+  }
   if (colorHeads) {
     if (allBold && plain.length <= 60) return { t: "label", text: plain };  // PE: bold-black = label
   } else {

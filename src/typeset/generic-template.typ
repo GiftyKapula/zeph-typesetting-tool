@@ -2877,6 +2877,21 @@
     // fresh page while leaving most of the current one blank. `force` (from a book's
     // `forceFreshPage` override, opted into per-widow) keeps its own measured behaviour
     // unchanged, since that's an author-curated exception, not the common case.
+    //
+    // Breakable must not mean "may OPEN anywhere", though. A box that begins in the last
+    // line or two of a page shows its title and a single question, then breaks — which
+    // reads as a stray fragment, not as the start of a box. The RE Form 2 proofreader
+    // marked two of them: "EXERCISES 3 & 4 — put to next page", "EXERCISE 18 — push it
+    // to the other page". So the OPENING reserves the height of about five body lines,
+    // the same idiom head() uses for a heading: an unbreakable block carries the
+    // reservation, and when that much room is not left the block — and with it the box
+    // it is glued to — starts on the next page instead. The reservation is handed
+    // straight back on the line below, so a box with room to spare sits exactly where it
+    // always did and no existing page changes. Only the box's START is guarded; once
+    // open it still breaks and flows as before, so a long box is unaffected.
+    let openkeep = 32mm
+    block(breakable: false, sticky: true)[#v(openkeep)]
+    v(-openkeep)
     titledbox(title, T.at(kind), content, breakable: true)
   }
 }
