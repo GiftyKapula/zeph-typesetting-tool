@@ -2734,8 +2734,13 @@
   // with the table then opening a fresh box fragment that reads as a second, unrelated
   // callout. Group the run and keep it whole, so the whole checklist travels together
   // and stays attached to the activity that owns it.
+  // `fold`, not `join`: Typst's array.join() returns NONE for an EMPTY array, so a
+  // block carrying `s: ()` (a paragraph with no runs at all — a blank line the writer
+  // left inside a box) made txt() return none and the `.trim()` in isHead() below fail
+  // the whole compile. fold with a "" seed returns "" for that case and is otherwise
+  // identical.
   let txt(it) = if it.at("s", default: none) == none { "" } else {
-    it.s.map(g => { let x = g.at("t", default: ""); if x == none { "" } else { x } }).join()
+    it.s.fold("", (acc, g) => { let x = g.at("t", default: ""); acc + if x == none { "" } else { x } })
   }
   let isHead(it) = it.k != "table" and it.k != "img" and it.k != "colgrid" and it.k != "colsum" and {
     let t = upper(txt(it).trim())

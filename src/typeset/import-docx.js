@@ -2103,6 +2103,21 @@ async function importDocx(docxPath, opts = {}) {
     const jc = (x.match(/<w:jc\s+w:val="([^"]+)"/) || [])[1];
     return jc === "center" ? "center" : jc === "right" ? "right" : null;
   };
+  // Did the writer draw a real BOX around this paragraph in Word (<w:pBdr> on all
+  // four sides)? Many manuscripts mark an activity/exercise box that way instead of
+  // putting it in a table cell, and the run of bordered paragraphs is then an exact,
+  // author-stated statement of where the box ends — far better than any guess made
+  // from wording or italics. The paraBox collection loop below uses it to stop a box
+  // absorbing the section notes that follow it.
+  // Require all four sides with a real value: a lone bottom border is a horizontal
+  // RULE (a common way to underline a heading), not a box, and must not be read as one.
+  const SIDES = ["top", "left", "bottom", "right"];
+  const boxBorderOf = (x) => {
+    const pPr = (x.match(/<w:pPr>[\s\S]*?<\/w:pPr>/) || [""])[0];
+    const bdr = (pPr.match(/<w:pBdr>[\s\S]*?<\/w:pBdr>/) || [""])[0];
+    if (!bdr) return false;
+    return SIDES.every((s) => new RegExp(`<w:${s}\\b[^>]*w:val="(?!nil|none)`).test(bdr));
+  };
   // Word sometimes stores vector pictures as EMF/WMF (and a few other formats)
   // that Typst can't read — skip just those rather than fail the whole book.
   // (Don't require a known extension: some docs store images with none, and
@@ -2584,6 +2599,38 @@ async function importDocx(docxPath, opts = {}) {
     if (!kind || !(boldFirstRun(x) || hmap[styleOf(x)])) continue;
     const bodyIdx = [];
     let lastContent = -1;
+    // When the WRITER drew a real box around the label in Word (a four-sided paragraph
+    // border — see boxBorderOf above), the run of bordered paragraphs states exactly
+    // what is inside it, and no guess below is needed: the box ends where the border
+    // ends.
+    //
+    // This is what the RE Form 2 Learner's Book needed. Its activities are one or two
+    // bordered paragraphs — "LEARNING ACTIVITY 2: Describing Freedom and Community"
+    // and its instruction — followed by the sub-topic's ordinary NOTES, unbordered.
+    // The notes are plain prose at body size with no heading, so none of the rules
+    // below ended the box: it ran on to the next EXERCISE, swallowing five or six
+    // paragraphs. The proofreader marked sixty activities "this is the only content
+    // which should be in the Learning Activity Box. The rest are the notes after."
+    //
+    // Narrow on purpose: only a manuscript that actually draws borders is affected, and
+    // only when the label itself carries one. A book that marks its activities some
+    // other way — the Geography Form 1 Teacher's Guide draws no paragraph borders at
+    // all — reaches none of this and keeps every rule below unchanged.
+    if (boxBorderOf(x)) {
+      for (let j = i + 1; j < parts.length && !isTbl(parts[j]) && boxBorderOf(parts[j]); j++) {
+        // Skip a blank bordered line outright — writers leave them inside the border for
+        // spacing, they carry nothing, and an empty block reaches the template as
+        // `s: ()`, which it has no text to render.
+        if (!textOf(parts[j]) && !imagesOf(parts[j]).length) continue;
+        bodyIdx.push(j);
+        lastContent = bodyIdx.length - 1;
+      }
+      if (lastContent >= 0) {
+        bodyIdx.length = lastContent + 1;
+        paraBox.set(i, { kind, end: bodyIdx[bodyIdx.length - 1], labelSegs: paraSegs(x), title: text, body: bodyIdx });
+      }
+      continue;
+    }
     // The size of the body the box has absorbed so far, to spot the JUMP UP that marks
     // the next section starting (see the break below).
     let bodySize = 0;
