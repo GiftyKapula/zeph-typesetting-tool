@@ -218,9 +218,27 @@ async function main() {
   children.push(new Paragraph({ children: [new TextRun({ text: displayTitle, bold: true, size: 40, color: TEAL })], spacing: { after: 60 } }));
   children.push(new Paragraph({ children: [new TextRun({ text: "Author's proofread comments — corrections log", size: 26, color: GREY })], spacing: { after: 40 } }));
   children.push(new Paragraph({ children: [new TextRun({ text: subtitleParts, italics: true, size: 20, color: GREY })], spacing: { after: 160 } }));
+  // The summary must be counted from the comments' STATUSES, exactly as the outcome
+  // column below is. It used to read "all N comments you left have been addressed"
+  // unconditionally — the same fault the per-row outcome had, left behind in this one
+  // spot when that was fixed. A round with anything still open therefore opened by
+  // telling the author every note was dealt with, and the table underneath then
+  // contradicted it row by row. The reviewer reads the summary line first and often
+  // only that, so this is the sentence that must not overstate.
+  const tally = rows.reduce((a, r) => { a[r.status] = (a[r.status] || 0) + 1; return a; }, {});
+  const n = (k) => tally[k] || 0;
+  const plural = (c) => (c === 1 ? "comment has" : "comments have");
+  const summary = n("done") === rows.length
+    ? `all ${rows.length} comments you left have been addressed.`
+    : [
+        n("done") ? `${n("done")} of the ${rows.length} ${plural(n("done"))} been addressed` : null,
+        n("wontfix") ? `${n("wontfix")} ${plural(n("wontfix"))} been left as ${n("wontfix") === 1 ? "it is" : "they are"}` : null,
+        n("flagged") ? `${n("flagged")} ${n("flagged") === 1 ? "needs" : "need"} a decision from you` : null,
+        n("pending") ? `${n("pending")} ${n("pending") === 1 ? "is" : "are"} not yet actioned` : null,
+      ].filter(Boolean).join("; ") + ".";
   children.push(new Paragraph({ children: [
     new TextRun({ text: "Summary: ", bold: true, size: 22 }),
-    new TextRun({ text: `all ${rows.length} comments you left have been addressed.`, size: 22, color: TEAL }),
+    new TextRun({ text: summary, size: 22, color: n("done") === rows.length ? TEAL : GREY }),
   ], spacing: { after: 60 } }));
   children.push(new Paragraph({ children: [new TextRun({ text: "Each row lists the page, the passage your note was attached to, what you asked for, and what was done. Page numbers are the printed page numbers of the book.", size: 20, color: GREY })], spacing: { after: 200 } }));
 
