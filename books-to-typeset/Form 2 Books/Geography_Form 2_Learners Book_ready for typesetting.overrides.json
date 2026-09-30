@@ -1,0 +1,135 @@
+{
+  "//authors": "The manuscript's cover byline is the single string 'Njira Mtonga and Nzila O. Siabalima', which the cover's author filter passes through whole — so the cover read AUTHOR (singular) with both names run together on one line. Split into two so the label becomes AUTHORS and each name is credited separately. Same fault, same fix, as the RE Form 2 Learner's Book. The surname form kept here is the cover's own ('Nzila O. Siabalima'); the AUTHORS bio section spells it out as 'Nzila Osma Siabalima'.",
+  "authors": [
+    "Njira Mtonga",
+    "Nzila O. Siabalima"
+  ],
+  "imageToText": {
+    "image8.png": "Gradient = Vertical Interval (V.I) / Horizontal Distance Equivalent (H.E)",
+    "image9.png": "Gradient = 100 m / 1400 m = 1/14",
+    "image10.png": "200/2000 = 1/10 or 1:10",
+    "image13.png": "1/50,000",
+    "image15.png": "500,000 cm / 100,000 = 5 km",
+    "image16.png": "500,000 × 0.5 = 5 km",
+    "image17.png": "Formula: (Full Squares + Partial Squares/2) × Area of one square",
+    "image19.png": "Triangle: 1/2 × Base × Height",
+    "image24.png": "k = N/n"
+  },
+  "imageToTable": {
+    "image23.png": [
+      [
+        "Broad Topic",
+        "Specific Research Problem (Example)"
+      ],
+      [
+        "**Farming**",
+        "Challenges facing small-scale poultry farmers in [Local Area]."
+      ],
+      [
+        "**Water**",
+        "Factors contributing to water shortages in our school during the dry season."
+      ],
+      [
+        "**Trade**",
+        "The impact of the new bypass road on the local vegetable market."
+      ],
+      [
+        "**Transport**",
+        "Causes of traffic congestion at the school gate during morning hours."
+      ]
+    ],
+    "image25.png": [
+      [
+        "Instrument",
+        "Feature Measured",
+        "Common Unit"
+      ],
+      [
+        "………………………",
+        "Distance / Width / Length",
+        "Meters (m)"
+      ],
+      [
+        "**Clinometer**",
+        "………………………",
+        "Degrees (°)"
+      ],
+      [
+        "………………………",
+        "Wind speed",
+        "km/h or knots"
+      ],
+      [
+        "**Compass**",
+        "Direction",
+        "………………………"
+      ],
+      [
+        "**Rain Gauge**",
+        "………………………",
+        "Millimeters (mm)"
+      ]
+    ]
+  },
+  "images": {
+    "image1.png": {
+      "//": "The cover hero, re-cut LANDSCAPE. The manuscript ships this artwork PORTRAIT and tiny (384x576), and the cover hero window is 144x78mm - 1.85:1 - with fit:\"cover\", so the template was cropping a band out of a portrait picture and could only reach 291 DPI. Cut to the window aspect here instead: the band starting at y=667 of the 4x upscale is the lowest one that keeps all four learners heads WHOLE (the band low enough to include the map table cuts the left learner off at the neck, which no cover may do) while keeping the forearm crutch and wheelchair, two boys and two girls, and the falls, river, hills, elephants and village. Real-ESRGAN then took 1536x832 to 1760x953 = 310.4 DPI across the 144mm window, so the picture fills the window edge to edge and the engine crops nothing. KNOWN LOSS: the map, compass and globe on the table sit below the crop. A 1.85:1 band of a 2:3 scene cannot hold both the faces and the table - a cover showing learners AND the map needs artwork composed landscape from the start.",
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-art/cover-hero-landscape.png"
+    },
+    "image12.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image12.png"
+    },
+    "image11.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image11.png"
+    },
+    "image21.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image21.png"
+    },
+    "image6.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image6.png"
+    },
+    "image4.png": {
+      "//": "Figure 1: Major map Symbols - the topographic KEY. The manuscript shipped a flat-cyan scan whose forty-odd English/French symbol pairs printed at 112 DPI; upscaling alone only made a poor scan bigger. Replaced with a clean white-ground version of the same key supplied by the publisher (Downloads/MAP.jpeg, 1280x942), taken through Real-ESRGAN to 1800x1325 = about 322 DPI across the 142mm text width and written as PNG, never JPEG. This also settles the open question in the .artprompts.json: image4 was deliberately left out of image GENERATION because a symbol key is almost entirely lettering, and the note said the honest options were to typeset the key as a real two-column figure or keep the upscaled scan. A clean source is the better third answer.",
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-art/map-key.png"
+    },
+    "image5.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image5.png"
+    },
+    "image14.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image14.png"
+    },
+    "image7.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image7.png"
+    },
+    "image20.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image20.png",
+      "//": "The Part 2 assessment map. It must NEVER be regenerated: ten questions are answered by reading features off this exact grid, so a redrawn version would move every one of them and quietly falsify the printed answers. Its defect was photographic, not pictorial — a camera photo of a book page sitting inside a black frame. Real-ESRGAN took it to 309 DPI, then the frame was cropped off (insets measured as a constant 9px left/top, 24px right, 23px bottom, so the frame was a true rectangle and the crop takes no map content with it). 1630x1001 -> 1591x963, which still prints at 301.6 DPI across the same width."
+    },
+    "image27.jpeg": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image27.png"
+    },
+    "image29.jpeg": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image29.png"
+    },
+    "image22.jpeg": {
+      "//": "TOPIC 2.2 opener. The generator burnt garbled lettering into the flipchart - the two-line axis label under the bar chart reads \"Access TO Clean Water / INcome Attsunces\", which is legible enough at print size to read as nonsense. Real-ESRGAN cannot fix this: upscaling only renders the nonsense more crisply. The art spec asked for a regenerated picture with a deliberately wordless chart, but the image API is out of credits, so the lettering is PAINTED OUT IN PLACE instead - the house rule for burnt-in lettering, never a crop. dewatermark.js masks the named box and rebuilds the pixels underneath from the surrounding flipchart paper by patch-based inpainting. Only the garbled label is named: the rest of the chart is real English that reads correctly and reinforces the topic (COMMUNITY SURVEY RESULTS, Household Activities, Most households rely on farming, Challenges: Water access). Box given as 0..1 FRACTIONS so it still fits if the picture is ever re-upscaled.",
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image22.png",
+      "watermark": {
+        "x": 0.311,
+        "y": 0.401,
+        "w": 0.1145,
+        "h": 0.0519
+      }
+    },
+    "image18.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image18.png"
+    },
+    "image26.png": {
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-hires/image26.png"
+    },
+    "image3.png": {
+      "//": "The TOPIC 2.1 MAP READING TECHNIQUES opener, re-cut LANDSCAPE. It was the only portrait topic opener in the book - 2.2, 2.3 and 2.4 all open with a landscape picture at about 3:2 - and the template pins a `tall` picture to a fixed 95mm height while the others run the full text width, so 2.1 rendered visibly unlike its three siblings. Re-cut to 3:2 to match them. The framing is the LOWEST 3:2 band that keeps all four learners heads whole: the bands low enough to include the table map (y=440, y=510 of the 1024x1536 original) clip the crowns of the left-hand boy and both girls, so y=380 is used. It keeps the globe, the wall map of Zambia, the bookshelf, the wheelchair and the magnifier. Real-ESRGAN then took 1024x683 to 1800x1201 = about 322 DPI across the 142mm text width. No engine change is needed for the orientation: import-docx reads a replacement images aspect from the override file itself, so `tall` becomes false on its own.",
+      "src": "Geography_Form 2_Learners Book_ready for typesetting-art/topic-2-1-opener-landscape.png"
+    }
+  }
+}
