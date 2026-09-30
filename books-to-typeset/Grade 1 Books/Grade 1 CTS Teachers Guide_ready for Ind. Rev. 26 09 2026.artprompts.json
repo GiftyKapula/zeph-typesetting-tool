@@ -1,0 +1,18 @@
+{
+  "//": "Art spec for `node tools/genimage.js`. Only the cover is listed: this Teacher's Guide places just one picture of its own (the cover hero) — the rest of its artwork lives in the Learner's Book. The prompt says only what the picture must DEPICT; the standing requirements (semi-realistic register, Zambian setting, equal male/female, a visible disability wherever people appear, no lettering) are appended to every prompt by the tool, so they are deliberately not repeated here except where the scene needs them placed concretely.",
+
+  "//why": "The manuscript's own cover artwork is a finished graphic — title, GRADE 1 roundel and TEACHER'S GUIDE banner baked in — whose photograph, once cropped free of the lettering, shows four Grade 1 learners: two boys and two girls, so gender is balanced, but none of them has a visible disability. House style requires one learner representing people with disability in every picture where human beings appear, covers included, so the cover has to be replaced rather than patched.",
+
+  "//age": "Learners in this book are Grade 1 — about six to seven years old. The replacement must show children of that age, not the older primary learners a generic 'schoolchildren' prompt tends to produce.",
+
+  "//geometry": "The grade3 cover's photo card is 138mm x 82mm (generic-template.typ), i.e. 1.683:1, and the image is placed with fit:\"cover\". Generating at 1536x1024 (1.5:1), upscaling to 1700 across and centre-cropping to 1700x1010 gives exactly that ratio, so the engine crops nothing and no edge of the artwork is lost, and the picture fills the window edge to edge. 1700px across 138mm is 313 DPI, clearing the 300 DPI print requirement. The centre-crop takes about 5% off the top and the same off the bottom of what the model returns, which is why the prompt keeps every face and every object inside the middle band.",
+
+  "figures": {
+    "cover": {
+      "aspect": "landscape",
+      "targetWidthPx": 1700,
+      "cropTo": { "w": 1700, "h": 1010 },
+      "prompt": "A bright, warm Zambian lower-primary classroom at a wide low table, filling the whole frame edge to edge with no border, no vignette and no blank margin, and with every face and every object kept well inside the middle band of the picture, nothing important near the top or bottom edge. Four Grade 1 pupils, about six or seven years old — small children with rounded faces and short stature, clearly infants rather than older primary learners — working together on a creative and practical lesson, with a woman teacher leaning in from one side to help. Two boys and two girls. One of the girls uses a child-sized wheelchair and is drawn right up at the table among the others, her hands busy in the work, part of the group rather than beside it. The children are in simple light blue school shirts and navy tunics. Across the table, the making is in progress: one child cutting coloured paper with round-ended safety scissors, one threading a paper chain, one moulding a small animal from bright modelling clay, one drawing with wax crayons from a yellow pot of coloured pencils, with a glue stick, folded coloured paper and a short wooden ruler on the table, and at one end a small tablet computer lying flat beside the craft materials. Behind them a green chalkboard carrying only simple cut-paper shapes — a house, a tree, a sun — a low bookshelf with stacked books and clay pots, a potted plant, and a window with a Zambian flag and green trees outside. Warm daylight, cheerful primary colours, a calm and busy mood. Absolutely no letters, numbers, words, writing, signage or labels anywhere in the picture — the chalkboard, the papers and the books must all be blank or purely pictorial."
+    }
+  }
+}

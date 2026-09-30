@@ -1,0 +1,59 @@
+{
+  "//images": "Two things were wrong with the cover picture. (1) RESOLUTION: the manuscript's file is 1024px, which prints at 188 DPI at the size the template gives it, short of the 300 DPI print requirement. Upscaled 4x with Real-ESRGAN and resampled down to 1684px by tools/upscale-images.js, which lands it at 310 DPI. (2) CUT-OFF LETTERING: the manuscript ships a FINISHED cover graphic — title, GRADE 1 roundel, TEACHER'S GUIDE banner and a strip of five decorative vignettes all baked into the artwork — and only the photograph inside it may be used, since the template sets all of that type itself. The template's own crop landed just above the banner's bottom edge, so a sliver of its yellow rounded border printed across the top of the hero window, reading as a cut-off piece of artwork. `image2-cover-crop.png` is the upscaled file cropped to the classroom photograph alone (x0 y815, 1684x1015 — below the banner, above the vignette strip). Its 1.66 aspect matches the hero window, so the picture fills it edge to edge. Still 1684px wide, so the 310 DPI is unaffected.",
+  "images": {
+    "image2.png": {
+      "src": "Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026-hires/image2-cover-crop.png"
+    }
+  },
+  "//subtext": "The manuscript was built from the Grade 3 Teacher's Guide and two sentences still say so: the PREFACE ('the effective teaching and learning of Grade 3 Creative and Technology Studies') and the ACKNOWLEDGEMENT ('the development of this Grade 3 Creative and Technology Studies Teacher's Guide'). Everything else in the book — its title page, its twenty TOPIC 1.x banners, and all 39 'Refer to the Grade 1 Learner's Book' cross-references — says Grade 1, so this is a leftover rather than an ambiguity. 'Grade 3' appears nowhere else in the book, so the substitution is safe. NOTE: the same two sections also still LIST the Grade 3 topics (Cookery, Recreation, Energy, Designing) instead of this book's (Drama, ICT Devices in Everyday Life, Tourism, Graphic Communication, Structures, Entrepreneurship). That is a rewrite, not a substitution, so it is left for the editor rather than guessed at here.",
+  "subtext": [
+    {
+      "from": "Grade 3",
+      "to": "Grade 1"
+    },
+    {
+      "from": "Publishing House Light Industrial Area",
+      "to": "Publishing House\nLight Industrial Area"
+    }
+  ],
+  "//editAll": "The FOREWORD and the PREFACE each listed the GRADE 3 book's topics, carried over with the rest of the front matter. Both sentences named Cookery, Recreation, Energy and Designing, which this book does not teach, and Computer and Travel, which it teaches under other names — while omitting Tools and Equipment, Drama, ICT Devices in Everyday Life and Graphic Communication entirely. This is not an editorial judgement: the correct list is the book's own twenty TOPIC 1.x banners, in their own order, so it is transcribed from the contents rather than composed. The two sentences are worded slightly differently (the PREFACE's also dropped Structures), hence two entries. `editAll` rather than `subtext` because Word split both sentences across dozens of runs — the FOREWORD's list into one bold run, the PREFACE's into twenty-six — and `subtext` only matches inside a single run; `editAll` joins the runs first and keeps the FOREWORD list's bold.",
+  "editAll": [
+    {
+      "find": "Safety, Cookery, Drawing and Colouring, Materials, Patterns, Computer, Hospitality, Sounds, Recreation, Travel, Energy, Health and Fitness Management, Needlework, Sports Skills Development, Crafts, Designing, Lettering, Swimming, Structures and Entrepreneurship",
+      "with": "Safety, Drawing and Colouring, Tools and Equipment, Materials, Patterns, Sounds, Drama, Hospitality, ICT Devices in Everyday Life, Computer Software, Health and Fitness Management, Tourism, Sports Skills Development, Needlework, Graphic Communication, Crafts, Lettering, Swimming, Structures and Entrepreneurship"
+    },
+    {
+      "find": "Safety, Cookery, Drawing and Colouring, Materials, Patterns, Computer, Hospitality, Sounds, Recreation, Travel, Energy, Health and Fitness Management, Needlework, Sports Skills Development, Crafts, Designing, Lettering, Swimming and Entrepreneurship",
+      "with": "Safety, Drawing and Colouring, Tools and Equipment, Materials, Patterns, Sounds, Drama, Hospitality, ICT Devices in Everyday Life, Computer Software, Health and Fitness Management, Tourism, Sports Skills Development, Needlework, Graphic Communication, Crafts, Lettering, Swimming, Structures and Entrepreneurship"
+    },
+    {
+      "//": "Topic 1.16's sub-topics ran 1.16.1, 1.16.2, 1.16.4 — there is no 1.16.3. Every other topic in the book numbers its sub-topics consecutively from 1, so the pattern settles this: the last one is a mis-number, not a missing sub-topic, and it closes up to 1.16.3. Its specific-competence code moves with it, so the two stay in step.",
+      "find": "Subtopic 1.16.4: Modelling",
+      "with": "Subtopic 1.16.3: Modelling"
+    },
+    {
+      "find": "1.16.4.1 Model objects using clay/plasticine.",
+      "with": "1.16.3.1 Model objects using clay/plasticine."
+    }
+  ],
+  "//subtextAddress": "The imprint page names the publisher and its street in one breath — \"Zambia Educational Publishing House Light Industrial Area\" — because the manuscript typed them with a single space between. The engine turns a run of five or more spaces into a real line break (that is how a Word-typed address usually arrives) and a single space gives it nothing to go on, so the two have to be parted here. Every other ZEPH imprint page sets the publisher on its own line above the street.",
+  "//editCell": "The GENERAL COMPETENCES grid. Four of its descriptor bullets are wrong in the manuscript itself, not in the way they are set. Three run two or three separate descriptors together inside one bullet with no punctuation between them (\"Break down problems Evaluate solutions\"), which the capital letter mid-line gives away; every other bullet in the grid holds exactly one descriptor, so they are split to match rather than rewritten. One does the opposite, breaking a single sentence across two bullets (\"Establish relationships, patterns and\" / \"make connections.\"), and is closed back up. \"at-tributes\" is a hyphen left behind by a copy out of a justified PDF column.",
+  "editCell": [
+    {
+      "find": "Break down problems Evaluate solutions",
+      "with": "Break down problems\n• Evaluate solutions"
+    },
+    {
+      "find": "Solve basic problems logically Ask the basic questions",
+      "with": "Solve basic problems logically\n• Ask the basic questions"
+    },
+    {
+      "find": "Make simple logical conclusions Create new patterns and shapes Organise things according to their at-tributes",
+      "with": "Make simple logical conclusions\n• Create new patterns and shapes\n• Organise things according to their attributes"
+    },
+    {
+      "find": "Establish relationships, patterns and\n• make connections.",
+      "with": "Establish relationships, patterns and make connections."
+    }
+  ]
+}
