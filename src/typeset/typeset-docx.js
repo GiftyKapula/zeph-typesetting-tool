@@ -2544,8 +2544,19 @@ function applyOverrides(blocks, ov) {
       if (blockPlain(blocks[k]).trim().startsWith(rn.find)) { i = k; break; }
     }
     if (i < 0) { console.warn("!  renameNear not matched:", `${rn.find} near ${rn.near}`); continue; }
-    blocks[i].text = rn.to;
-    delete blocks[i].segs;
+    // Write back through the same field blockPlain just matched on. A Learning Activity
+    // or Exercise BOX keeps its heading in its own title key, not in `.text`; setting
+    // `.text` on one adds a field the template never reads, so the rename would report
+    // success while the old title went on printing — which is exactly how a duplicated
+    // activity heading survived a renameNear that had matched it (Grade 1 CTS Teacher’s
+    // Guide, Topic 1.1).
+    const rnTk = titleKey(blocks[i]);
+    if (!segKey(blocks[i]) && typeof blocks[i].text !== "string" && rnTk && typeof blocks[i][rnTk] === "string") {
+      blocks[i][rnTk] = rn.to;
+    } else {
+      blocks[i].text = rn.to;
+      delete blocks[i].segs;
+    }
   }
   // pageBreakBefore: ["text", …] — insert a page break before the first TOP-LEVEL
   // block containing the text, so a section that fell at a page foot starts on a fresh
@@ -3064,7 +3075,12 @@ function applyOverrides(blocks, ov) {
   // text — needed when `from` itself repeats book-wide (e.g. a duplicated lesson whose
   // heading "LISTENING AND SPEAKING: LESSON 1" is not unique) so the removal targets
   // the intended occurrence rather than the first one in the book. `after` narrows the
-  // top-level scan only.
+  // nested scan too, which is what a run duplicated INSIDE a box needs: an activity
+  // whose prologue repeats the previous activity verbatim cannot be reached otherwise,
+  // because nestedFind returns the first match in the book and the duplicate is by
+  // definition identical to the copy standing before it (Grade 1 CTS Teacher’s Guide,
+  // Topic 1.1, where the playground activity was pasted in under a second copy of the
+  // specialised-rooms heading and its whole sixteen-line prologue).
   //
   // `to` may be omitted, which means "through the last block of the list `from` is in".
   // That is the shape trailing matter inside a box has: there is no following sibling
@@ -3088,7 +3104,9 @@ function applyOverrides(blocks, ov) {
     let nested = false;
     let start = blocks.findIndex((b, i) => i >= base && blockPlain(b).includes(rr.from));
     if (start < 0) {
-      const found = nestedFind(blocks, rr.from);
+      // Slicing keeps the same block OBJECTS, so the nested array nestedFind returns is
+      // still the real one in the tree and splicing it below edits the document.
+      const found = nestedFind(base ? blocks.slice(base) : blocks, rr.from);
       if (found) { arr = found.arr; start = found.i; nested = true; }
     }
     if (start < 0) { console.warn("!  removeRange start not matched:", rr.from); continue; }
