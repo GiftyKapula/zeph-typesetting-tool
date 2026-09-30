@@ -86,10 +86,10 @@
       "kind": "LB",
       "author": null,
       "theme": "geography",
-      "state": "typesetting",
+      "state": "sent-for-proofread",
       "page_cap": null,
       "created_at": "2026-09-28 09:02:33",
-      "updated_at": "2026-09-28 09:03:44"
+      "updated_at": "2026-09-30 12:33:24"
     },
     {
       "id": "form-2-information-and-communication-technology-lb",
@@ -216,10 +216,10 @@
       "kind": "TG",
       "author": null,
       "theme": "cts",
-      "state": "typesetting",
+      "state": "applying-corrections",
       "page_cap": null,
       "created_at": "2026-09-28 16:53:43",
-      "updated_at": "2026-09-28 16:54:46"
+      "updated_at": "2026-09-30 13:45:54"
     },
     {
       "id": "grade-6-expressive-arts-tg",
@@ -1647,6 +1647,36 @@
       "hash": "469ad03d4b5b7301",
       "note": null,
       "ingested_at": "2026-09-30 09:59:39"
+    },
+    {
+      "id": 124,
+      "book_id": "form-2-geography-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Geography_Form 2_Learners Book_ready for typesetting - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Geography_Form 2_Learners Book_ready for typesetting\\Geography_Form 2_Learners Book_ready for typesetting - typeset.pdf",
+      "hash": "e5d9a64d4421c261",
+      "note": null,
+      "ingested_at": "2026-09-30 12:25:33"
+    },
+    {
+      "id": 125,
+      "book_id": "grade-1-creative-and-technology-studies-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026 - typeset.pdf",
+      "hash": "e0df41edd979d6a3",
+      "note": null,
+      "ingested_at": "2026-09-30 12:30:08"
+    },
+    {
+      "id": 126,
+      "book_id": "grade-1-creative-and-technology-studies-tg",
+      "kind": "annotated_pdf",
+      "original_name": "Grade 1 CTS Teacher's Guide - proofread return.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\proofread-books\\Grade 1 CTS Teacher's Guide - proofread return.pdf",
+      "hash": "f26d431424b327a6",
+      "note": "returned from proofread",
+      "ingested_at": "2026-09-30 12:30:10"
     }
   ],
   "rounds": [
@@ -1778,6 +1808,26 @@
       "returned_version": 119,
       "sent_at": "2026-09-30 07:03:21",
       "returned_at": "2026-09-30 07:03:26",
+      "status": "open"
+    },
+    {
+      "id": 15,
+      "book_id": "grade-1-creative-and-technology-studies-tg",
+      "number": 1,
+      "sent_version": 125,
+      "returned_version": 126,
+      "sent_at": "2026-09-30 12:30:08",
+      "returned_at": "2026-09-30 12:30:10",
+      "status": "open"
+    },
+    {
+      "id": 16,
+      "book_id": "form-2-geography-lb",
+      "number": 1,
+      "sent_version": 124,
+      "returned_version": null,
+      "sent_at": "2026-09-30 12:33:24",
+      "returned_at": null,
       "status": "open"
     }
   ],
@@ -9637,6 +9687,69 @@
       "anchor": "data to evaluate audience engagement and recommend improve- ments.",
       "note": "write as one word",
       "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 937,
+      "round_id": 15,
+      "page_ref": "p4",
+      "anchor": "TOPIC 1.20: ENTREPRENEURSHIP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 160",
+      "note": "Down after this topic add Glossary\n\n# GLOSSARY\n\n**Analytical Thinking:** The ability to examine information carefully, break problems into smaller parts and find possible solutions.\n\n**Assessment:** The process of checking what learners know, understand and can do.\n\n**Collaboration:** Working together with others to achieve a common goal.\n\n**Colouring:** Filling a drawing or picture with colour to make it clear and attractive.\n\n**Communication:** The process of sharing information, ideas, thoughts and feelings with others.\n\n**Computer:** An electronic device used to process, store and display information.\n\n**Computer Software:** Programmes that give instructions to a computer and help it perform different tasks.\n\n**Creativity:** The ability to use imagination and ideas to create or do something new.\n\n**Critical Thinking:** The ability to think carefully, ask questions, examine information and make simple decisions.\n\n**Digital Device:** An electronic device that can receive, process, store or communicate information.\n\n**Digital Literacy:** The ability to use digital devices safely, appropriately and effectively.\n\n**Drama:** An activity in which people act out characters, situations or stories.\n\n**Emotional Intelligence:** The ability to recognise and manage one's emotions and understand the feelings of others.\n\n**Entrepreneur:** A person who starts and manages a business.\n\n**Entrepreneurship:** The knowledge, skills and attitudes involved in starting and managing a business.\n\n**Environmental Sustainability:** The responsible use and protection of the environment and natural resources.\n\n**Equipment:** Items used to carry out a particular activity or task.\n\n**Financial Literacy:** Knowledge and skills needed to earn, save, spend and manage money responsibly.\n\n**Fitness:** The ability of the body to perform physical activities effectively and remain healthy.\n\n**Freehand Drawing:** Drawing without using a ruler or another instrument to guide the lines.\n\n**Hand Tool:** A simple tool operated by hand to perform a particular task.\n\n**Hardware:** The physical parts of a computer or digital device that can be seen and touched.\n\n**Health:** A state of physical, mental and social well-being.\n\n**Hospitality:** The act of welcoming, helping and caring for guests or visitors.\n\n**ICT:** Information and Communication Technology; the use of technology to create, process, store and communicate information.\n\n**ICT Device:** An electronic device used to create, process, store or communicate information.\n\n**Innovation:** The introduction or use of a new idea, method or way of doing something.\n\n**Internet:** A worldwide network that connects computers and other digital devices for communication and sharing information.\n\n**Lettering:** The art of writing or designing letters in a clear and attractive way.\n\n**Materials:** Substances or items used to make or create something.\n\n**Modelling:** The process of making a three-dimensional object by shaping materials such as clay or plasticine.\n\n**Needlework:** The making or decorating of items using a needle, thread and fabric.\n\n**Online Safety:** Safe and responsible behaviour when using the internet and digital devices.\n\n**Pattern:** A repeated arrangement of lines, shapes, colours, sounds or objects.\n\n**Posture:** The way a person holds or positions the body when sitting, standing, walking or performing an activity.\n\n**Problem Solving:** The process of finding ways to deal with a problem or challenge.\n\n**Protective Clothing:** Clothing worn to protect the body from injury, dirt or other dangers.\n\n**Recycling:** The process of using materials again instead of throwing them away.\n\n**Role-Play:** Acting out a situation, character or role to help learners understand an idea or situation.\n\n**Safety:** Being protected from danger, injury or harm.\n\n**Sketching:** Making a simple drawing using lines and shapes.\n\n**Software:** Programmes or instructions that tell a computer or digital device what to do.\n\n**Sound:** Something that can be heard by the ears.\n\n**Specialised Room:** A room designed or equipped for a particular activity or purpose.\n\n**Sports Skills:** Abilities used when taking part in sports and games.\n\n**Structure:** Something that is built or formed and has a particular shape or purpose.\n\n**Swimming:** The activity of moving through water using the body.\n\n**Tourism:** The activity of travelling to places for enjoyment, learning or other purposes.\n\n**Tourist:** A person who travels to another place for a visit.\n\n**Utensil:** A tool or object used for a particular task, especially in cooking.\n\n**Visual Information:** Information that is communicated through pictures, signs, symbols, diagrams or objects.\n\n**Waste:** Materials or things that are no longer wanted or needed.",
+      "action": "The glossary is now listed in the table of contents, directly after TOPIC 1.20.",
+      "status": "done"
+    },
+    {
+      "id": 938,
+      "round_id": 15,
+      "page_ref": "p5",
+      "anchor": "Grade 1 Teacher's Guide",
+      "note": null,
+      "action": "No note was attached to this highlight, so we could not act on it. It sits on the running header at the top of the page rather than on the text below. In your copy that header used a straight apostrophe where the rest of the book uses a curly one; that has since been corrected. Please confirm this was your point. See the query note.",
+      "status": "flagged"
+    },
+    {
+      "id": 939,
+      "round_id": 15,
+      "page_ref": "p21",
+      "anchor": "Learners should use cleaning materials carefully and follow the teacher’s instructions.",
+      "note": "UNDER THIS SETENCE INSERT\n\n\n# EXERCISE 1\n\n**1. Complete the table by matching each item to its correct storage place.**\n\n**Expected Answer:**\n\n- **Books** → Bookshelf\n- **Charts** → Chart display\n- **Brooms** → Storage cupboard\n- **Crayons** → Crayon tray\n- **Pencils** → Pencil holder\n\n**2. Draw one storage place found in your classroom.**\n\n**Expected Performance:**  \nLearner correctly draws one appropriate storage place found in the classroom.\n\n\n",
+      "action": "The five answers you supplied have been put into the storage exercise that already stood under Learning Activity 2, replacing the vague 'Learner correctly matches each item' line. We did not add a second exercise: the text you pasted is the same exercise that was already there. See the query note - we need to know what the Activity 1 exercise should ask.",
+      "status": "done"
+    },
+    {
+      "id": 940,
+      "round_id": 15,
+      "page_ref": "p22",
+      "anchor": "EXERCISE 1",
+      "note": "EXERCISE 2",
+      "action": "Not renumbered yet. The renumbering only works once a new EXERCISE 1 exists under Learning Activity 1, and we do not yet know what that exercise should ask. See the query note.",
+      "status": "wontfix"
+    },
+    {
+      "id": 941,
+      "round_id": 15,
+      "page_ref": "p27",
+      "anchor": "EXERCISE 2",
+      "note": "EXERCISE 3",
+      "action": "Not renumbered yet. The renumbering only works once a new EXERCISE 1 exists under Learning Activity 1, and we do not yet know what that exercise should ask. See the query note.",
+      "status": "wontfix"
+    },
+    {
+      "id": 942,
+      "round_id": 15,
+      "page_ref": "p29",
+      "anchor": "EXERCISE 3",
+      "note": "EXERCISE 4",
+      "action": "Not renumbered yet. The renumbering only works once a new EXERCISE 1 exists under Learning Activity 1, and we do not yet know what that exercise should ask. See the query note.",
+      "status": "wontfix"
+    },
+    {
+      "id": 943,
+      "round_id": 15,
+      "page_ref": "p186",
+      "anchor": "(a) Saying “Thank you”.",
+      "note": "ON THE NEXT PAGE ADD THIS\n\n\n# GLOSSARY\n\n**Analytical Thinking:** The ability to examine information carefully, break problems into smaller parts and find possible solutions.\n\n**Assessment:** The process of checking what learners know, understand and can do.\n\n**Collaboration:** Working together with others to achieve a common goal.\n\n**Colouring:** Filling a drawing or picture with colour to make it clear and attractive.\n\n**Communication:** The process of sharing information, ideas, thoughts and feelings with others.\n\n**Computer:** An electronic device used to process, store and display information.\n\n**Computer Software:** Programmes that give instructions to a computer and help it perform different tasks.\n\n**Creativity:** The ability to use imagination and ideas to create or do something new.\n\n**Critical Thinking:** The ability to think carefully, ask questions, examine information and make simple decisions.\n\n**Digital Device:** An electronic device that can receive, process, store or communicate information.\n\n**Digital Literacy:** The ability to use digital devices safely, appropriately and effectively.\n\n**Drama:** An activity in which people act out characters, situations or stories.\n\n**Emotional Intelligence:** The ability to recognise and manage one's emotions and understand the feelings of others.\n\n**Entrepreneur:** A person who starts and manages a business.\n\n**Entrepreneurship:** The knowledge, skills and attitudes involved in starting and managing a business.\n\n**Environmental Sustainability:** The responsible use and protection of the environment and natural resources.\n\n**Equipment:** Items used to carry out a particular activity or task.\n\n**Financial Literacy:** Knowledge and skills needed to earn, save, spend and manage money responsibly.\n\n**Fitness:** The ability of the body to perform physical activities effectively and remain healthy.\n\n**Freehand Drawing:** Drawing without using a ruler or another instrument to guide the lines.\n\n**Hand Tool:** A simple tool operated by hand to perform a particular task.\n\n**Hardware:** The physical parts of a computer or digital device that can be seen and touched.\n\n**Health:** A state of physical, mental and social well-being.\n\n**Hospitality:** The act of welcoming, helping and caring for guests or visitors.\n\n**ICT:** Information and Communication Technology; the use of technology to create, process, store and communicate information.\n\n**ICT Device:** An electronic device used to create, process, store or communicate information.\n\n**Innovation:** The introduction or use of a new idea, method or way of doing something.\n\n**Internet:** A worldwide network that connects computers and other digital devices for communication and sharing information.\n\n**Lettering:** The art of writing or designing letters in a clear and attractive way.\n\n**Materials:** Substances or items used to make or create something.\n\n**Modelling:** The process of making a three-dimensional object by shaping materials such as clay or plasticine.\n\n**Needlework:** The making or decorating of items using a needle, thread and fabric.\n\n**Online Safety:** Safe and responsible behaviour when using the internet and digital devices.\n\n**Pattern:** A repeated arrangement of lines, shapes, colours, sounds or objects.\n\n**Posture:** The way a person holds or positions the body when sitting, standing, walking or performing an activity.\n\n**Problem Solving:** The process of finding ways to deal with a problem or challenge.\n\n**Protective Clothing:** Clothing worn to protect the body from injury, dirt or other dangers.\n\n**Recycling:** The process of using materials again instead of throwing them away.\n\n**Role-Play:** Acting out a situation, character or role to help learners understand an idea or situation.\n\n**Safety:** Being protected from danger, injury or harm.\n\n**Sketching:** Making a simple drawing using lines and shapes.\n\n**Software:** Programmes or instructions that tell a computer or digital device what to do.\n\n**Sound:** Something that can be heard by the ears.\n\n**Specialised Room:** A room designed or equipped for a particular activity or purpose.\n\n**Sports Skills:** Abilities used when taking part in sports and games.\n\n**Structure:** Something that is built or formed and has a particular shape or purpose.\n\n**Swimming:** The activity of moving through water using the body.\n\n**Tourism:** The activity of travelling to places for enjoyment, learning or other purposes.\n\n**Tourist:** A person who travels to another place for a visit.\n\n**Utensil:** A tool or object used for a particular task, especially in cooking.\n\n**Visual Information:** Information that is communicated through pictures, signs, symbols, diagrams or objects.\n\n**Waste:** Materials or things that are no longer wanted or needed.",
+      "action": "Added. The glossary now runs on printed pages 167-169, with all 52 entries set in the book's usual glossary style.",
       "status": "done"
     }
   ]
