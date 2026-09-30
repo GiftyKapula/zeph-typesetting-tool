@@ -1993,6 +1993,15 @@
   // to a light grey WITHIN the banner so they read on the dark band (the title is already
   // white). No effect in colour — the banner keeps its full palette.
   let T = if T.at("mono", default: false) { (..T, accent: rgb("#dcdcdc"), cyan: rgb("#dcdcdc")) } else { T }
+  // A topic title is a TITLE, so it is never hyphenated and never justified. Both rules
+  // were already here but only on two of the six theme branches (cell and flask), so the
+  // same element behaved differently depending on the book: the Geography Form 2
+  // Learner’s Book broke “ZAMBIA” as “ZAM-” / “BIA” across the banner, and with the
+  // hyphen removed it then stretched “AGRO-ECOLOGICAL   REGIONS   IN” across the full
+  // measure to justify a two-line title. Set once here, for every branch, rather than
+  // per-theme — a banner is one element and must look the same in every book.
+  set par(justify: false)
+  set text(hyphenate: false)
   if science and T.motif == "cell" {
     // BIOLOGY: an emerald card with a circular amber-ringed number badge, a soft
     // "cell" motif in the corner, and an amber baseline — organic and distinct.
@@ -2040,7 +2049,7 @@
           #text(fill: T.primary.darken(10%), size: fs(22pt), weight: "bold")[#no]],
         [#text(fill: T.accent, size: fs(8pt), weight: "bold", tracking: 5pt)[TOPIC]
          #v(-3pt)
-         #text(fill: white, size: hm(16pt), weight: "bold")[#title]])]
+         #text(fill: white, size: hm(16pt), weight: "bold", hyphenate: false)[#title]])]
     v(9pt)
   } else if science {
     // PHYSICS: indigo banner, the topic number in an electric-cyan chip, white title
@@ -2051,7 +2060,7 @@
           #text(fill: T.primary.darken(10%), size: fs(22pt), weight: "bold")[#no]],
         [#text(fill: T.cyan, size: fs(8pt), weight: "bold", tracking: 5pt)[TOPIC]
          #v(-3pt)
-         #text(fill: white, size: hm(16pt), weight: "bold")[#title]])]
+         #text(fill: white, size: hm(16pt), weight: "bold", hyphenate: false)[#title]])]
     v(9pt)
   } else if modern {
     // full-width banner: outlined number + title, accent base rule
@@ -2061,7 +2070,7 @@
         text(fill: T.accent, size: fs(30pt), weight: "bold")[#no],
         [#text(fill: white.transparentize(20%), size: fs(8pt), weight: "bold", tracking: 5pt)[TOPIC]
          #v(-3pt)
-         #text(fill: white, size: hm(16pt), weight: "bold")[#title]])]
+         #text(fill: white, size: hm(16pt), weight: "bold", hyphenate: false)[#title]])]
     v(9pt)
   } else {
     v(2pt)
@@ -2070,7 +2079,7 @@
         box(fill: T.primary, inset: (x: 15pt, y: 11pt), radius: 5pt)[
           #align(center)[#text(fill: T.accent, size: fs(8pt), weight: "bold", tracking: 4pt)[TOPIC]
             #v(-4pt) #text(fill: white, size: fs(24pt), weight: "bold")[#no]]],
-        [#text(fill: T.primary, size: hm(16pt), weight: "bold")[#title]
+        [#text(fill: T.primary, size: hm(16pt), weight: "bold", hyphenate: false)[#title]
          #v(5pt) #box(fill: T.accent, width: 60pt, height: 3pt, radius: 1.5pt)])]
     v(8pt)
   }
