@@ -78,6 +78,14 @@
     {
       "find": "LEARNING ACTIVITY 3: Using Small Needlework Tools To Make Small ITEMS",
       "with": "LEARNING ACTIVITY 3: Using Small Needlework Tools to Make Small Items"
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Demonstrating Safety Rules on the Road",
+      "with": "LEARNING ACTIVITY 5: Demonstrating Safety Rules on the Road"
+    },
+    {
+      "find": "LEARNING ACTIVITY 5: Performing Correct Postural Habits",
+      "with": "LEARNING ACTIVITY 6: Performing Correct Postural Habits"
     }
   ],
   "//subtextAddress": "The imprint page names the publisher and its street in one breath — \"Zambia Educational Publishing House Light Industrial Area\" — because the manuscript typed them with a single space between. The engine turns a run of five or more spaces into a real line break (that is how a Word-typed address usually arrives) and a single space gives it nothing to go on, so the two have to be parted here. Every other ZEPH imprint page sets the publisher on its own line above the street.",
@@ -278,9 +286,39 @@
           }
         }
       ]
+    },
+    {
+      "find": "Playground equipment",
+      "with": [
+        {
+          "para": "Learner’s Book: Pages 5–6"
+        },
+        {
+          "para": "Teaching and Learning Materials"
+        },
+        {
+          "listitem": "Playground equipment",
+          "marker": "•"
+        }
+      ]
     }
   ],
   "//editAllExercise1": "PROOFREADING ROUND 1, comment #939. The reviewer pasted an exercise to be inserted under LEARNING ACTIVITY 1, but the text they pasted is the storage-place exercise that is ALREADY EXERCISE 1 under LEARNING ACTIVITY 2 on the facing page — and they separately renumbered that existing box to EXERCISE 2 rather than deleting it, so applying the paste literally would have printed two near-identical storage exercises back to back, the first under a cleaning activity it has nothing to do with. Read instead as what actually differs between their version and the book's: the real answers. The manuscript's box only carries the rubric 'Learner correctly matches each item with its appropriate storage place', which tells a teacher nothing; the reviewer supplies the five matches. So the existing box is upgraded in place, under the activity it belongs to, and no exercise is added or renumbered. Decided with the user, who chose this reading over applying the paste verbatim. The reviewer's 'Expected Answer:'/'Expected Performance:' labels are deliberately NOT carried over - house style renders an expected answer as plain italic with no label, which the engine already does by stripping them.",
   "//editAllActivityNumbers": "QA PASS (not a reviewer comment). The book numbers its LEARNING ACTIVITY headings two different ways. In five of the eight topics that have more than one sub-topic (1.2, 1.8, 1.11, 1.13, 1.16) the activities run CONTINUOUSLY through the topic, so Topic 1.13 reads 1..6 straight across its two sub-topics. In two (1.3, 1.4) they restart at 1 in each sub-topic, so Topic 1.3 prints two separate 'LEARNING ACTIVITY 1' headings. Exercises, by contrast, run continuously in EVERY topic including these two - Topic 1.3's run 1..6 - so the restart is not a deliberate per-sub-topic scheme, just an inconsistency. House style is that the same element may not look different on different pages, so the two outliers are brought over to the majority's continuous numbering. Done as five surgical renames rather than with `renumberActivities`, for two reasons: that key resets its counter only at 'UNIT N' and 'LESSON N' banners, neither of which this primary family uses (it uses TOPIC/SUB-TOPIC), so it would number all 61 activities 1..61 across the whole book; and it would also silently renumber Topic 1.1, whose sequence is broken by a duplicated heading in the manuscript that is still with the reviewer - masking that defect instead of leaving it visible. Each `find` carries its activity's full title, and every one of those titles is unique in the book.",
-  "//editAllHeadingCase": "QA PASS (not a reviewer comment). Four LEARNING ACTIVITY titles print out of step with the other 57, which are all Title Case. Two shout a single word mid-title (ACTIVITIES, ITEMS); the engine preserves an all-caps word inside an otherwise mixed heading in case it is an acronym, which is what correctly protects ICT elsewhere in this book, but neither of these is one. The manuscript is messier than that - six of its titles shout in full caps - but the engine's uniformBoxTitleCase pass already brings those over on the way out, so only these two survive into the PDF. `headingCase` was tried first and backed out: it is the documented key for settling a book's heading case, but on this book it fixed eight titles and broke nine, because TITLE_SMALL (which it uses) lists 'using' while the engine's own unasked pass explicitly refuses to lower it - 'never Using, a participle that title case capitalises' - so seven correct headings lost their capital, and its recase regex treats a hyphenated compound as a single word, flattening 'Role-Playing' to 'Role-playing' and 'Free-Form' to 'Free-form'. Two surgical renames are the smaller, safer change. NOTE the direction of the second one: this book capitalises Using everywhere else ('Making Products Using Hand Tools', 'Locating Landmarks Using Cardinal Points'), and this title only lost its capital because it arrived in full caps and was rebuilt through TITLE_SMALL - so it gains the capital back rather than its siblings losing theirs."
+  "//editAllHeadingCase": "QA PASS (not a reviewer comment). Four LEARNING ACTIVITY titles print out of step with the other 57, which are all Title Case. Two shout a single word mid-title (ACTIVITIES, ITEMS); the engine preserves an all-caps word inside an otherwise mixed heading in case it is an acronym, which is what correctly protects ICT elsewhere in this book, but neither of these is one. The manuscript is messier than that - six of its titles shout in full caps - but the engine's uniformBoxTitleCase pass already brings those over on the way out, so only these two survive into the PDF. `headingCase` was tried first and backed out: it is the documented key for settling a book's heading case, but on this book it fixed eight titles and broke nine, because TITLE_SMALL (which it uses) lists 'using' while the engine's own unasked pass explicitly refuses to lower it - 'never Using, a participle that title case capitalises' - so seven correct headings lost their capital, and its recase regex treats a hyphenated compound as a single word, flattening 'Role-Playing' to 'Role-playing' and 'Free-Form' to 'Free-form'. Two surgical renames are the smaller, safer change. NOTE the direction of the second one: this book capitalises Using everywhere else ('Making Products Using Hand Tools', 'Locating Landmarks Using Cardinal Points'), and this title only lost its capital because it arrived in full caps and was rebuilt through TITLE_SMALL - so it gains the capital back rather than its siblings losing theirs.",
+  "//topic11PlaygroundActivity": "QA PASS (not a reviewer comment). TOPIC 1.1 printed two LEARNING ACTIVITY 3 headings, so its activities ran 1, 2, 3, 3, 4, 5. The second box is not a duplicate activity: it is the PLAYGROUND activity, pasted in under a second copy of the specialised-rooms heading together with that activity’s entire sixteen-line prologue. The importer shows it exactly — the second activity block opens with body items byte-identical to the first block’s complete body (Learner’s Book ref, materials, and all nine procedure steps), and only then begins its own material: playground equipment, its own eight-step procedure, its own Teacher’s Brief Notes, LET’S TALK AND LEARN, LET’S DO and EXERCISE 2. The manuscript settles what it is without anyone having to guess. Learner’s Book references run Page 4 for specialised rooms, pages 5–6 for this block (stated in its own Brief Notes), Pages 7–8 for the road and Pages 9–10 for posture — a continuous ascending sequence in which the playground is unambiguously the FOURTH activity of the topic, between specialised rooms and road safety. So the duplicated prologue is deleted, the block is renumbered 4, and the road and posture activities move to 5 and 6. INFERRED, and the one thing here not read off the manuscript: the wording of the new title. The block carries no title of its own, so it takes the parallel form of its sibling — “Practising Safety Rules in Specialised Rooms” becomes “Practising Safety Rules on the Playground”. If the author worded it differently in the syllabus, that line is the one to change. NOT fixed here, and still the reviewer’s: the topic’s EXERCISE numbering, which runs 1, 2, 3, 5. Every other topic in the book gives each activity exactly one exercise; this one now has six activities and four exercises, so exercises are genuinely missing rather than merely mis-numbered, and comments #940-942 cannot be applied until the author supplies them.",
+  "renameNear": [
+    {
+      "find": "LEARNING ACTIVITY 3: Practising Safety Rules",
+      "near": "Playing is fun and helps us to grow strong and healthy",
+      "to": "LEARNING ACTIVITY 4: Practising Safety Rules on the Playground"
+    }
+  ],
+  "removeRange": [
+    {
+      "after": "Learners should remain under the teacher’s supervision",
+      "from": "Learner’s Book: Page 4",
+      "to": "Learner’s Book: Pages 5–6"
+    }
+  ]
 }

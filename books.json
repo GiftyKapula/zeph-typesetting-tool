@@ -1677,6 +1677,16 @@
       "hash": "f26d431424b327a6",
       "note": "returned from proofread",
       "ingested_at": "2026-09-30 12:30:10"
+    },
+    {
+      "id": 127,
+      "book_id": "grade-1-creative-and-technology-studies-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026 - typeset.pdf",
+      "hash": "5861fd8aaad6d6c3",
+      "note": null,
+      "ingested_at": "2026-09-30 17:11:51"
     }
   ],
   "rounds": [
@@ -9722,7 +9732,7 @@
       "page_ref": "p22",
       "anchor": "EXERCISE 1",
       "note": "EXERCISE 2",
-      "action": "Not renumbered yet. The renumbering only works once a new EXERCISE 1 exists under Learning Activity 1, and we do not yet know what that exercise should ask. See the query note.",
+      "action": "Still not renumbered, and we can now say exactly why. Topic 1.1 has six learning activities but only four exercises (numbered 1, 2, 3, 5). Every other topic in the book gives each activity exactly one exercise, in step with it, so this topic is short of exercises rather than merely mis-numbered: shifting the existing numbers up by one would still leave gaps, and would leave Activity 1 and Activity 3 with no exercise at all. Please supply the missing exercise(s) - at minimum the Activity 1 exercise your note assumes - and we will apply the renumbering in one pass.",
       "status": "wontfix"
     },
     {
@@ -9731,7 +9741,7 @@
       "page_ref": "p27",
       "anchor": "EXERCISE 2",
       "note": "EXERCISE 3",
-      "action": "Not renumbered yet. The renumbering only works once a new EXERCISE 1 exists under Learning Activity 1, and we do not yet know what that exercise should ask. See the query note.",
+      "action": "Still not renumbered, and we can now say exactly why. Topic 1.1 has six learning activities but only four exercises (numbered 1, 2, 3, 5). Every other topic in the book gives each activity exactly one exercise, in step with it, so this topic is short of exercises rather than merely mis-numbered: shifting the existing numbers up by one would still leave gaps, and would leave Activity 1 and Activity 3 with no exercise at all. Please supply the missing exercise(s) - at minimum the Activity 1 exercise your note assumes - and we will apply the renumbering in one pass.",
       "status": "wontfix"
     },
     {
@@ -9740,7 +9750,7 @@
       "page_ref": "p29",
       "anchor": "EXERCISE 3",
       "note": "EXERCISE 4",
-      "action": "Not renumbered yet. The renumbering only works once a new EXERCISE 1 exists under Learning Activity 1, and we do not yet know what that exercise should ask. See the query note.",
+      "action": "Still not renumbered, and we can now say exactly why. Topic 1.1 has six learning activities but only four exercises (numbered 1, 2, 3, 5). Every other topic in the book gives each activity exactly one exercise, in step with it, so this topic is short of exercises rather than merely mis-numbered: shifting the existing numbers up by one would still leave gaps, and would leave Activity 1 and Activity 3 with no exercise at all. Please supply the missing exercise(s) - at minimum the Activity 1 exercise your note assumes - and we will apply the renumbering in one pass.",
       "status": "wontfix"
     },
     {
