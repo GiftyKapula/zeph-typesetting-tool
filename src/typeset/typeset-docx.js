@@ -14,6 +14,7 @@ const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
 const { importDocx } = require("./import-docx.js");
 const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
+const { stripWatermark } = require("./dewatermark.js");
 
 const ROOT = path.join(__dirname, "..", "..");
 const INPUT_DIRS = [path.join(ROOT, "input"), path.join(ROOT, "books-to-typeset")];
@@ -193,6 +194,17 @@ function emit(blocks) {
     // the unit banner (the heading is already `sticky` in its own right).
     const FIGLABEL = /^(\(?[a-z]\)|fig(ure)?\.?\s*\d+|diagram\s*\w?|table\s*\d+|picture\s*\d+)\b/i;
     const nextIsImg = nextB && (nextB.t === "image" || nextB.t === "imagerow");
+    // A "Table N: …" caption belongs to the table under it exactly as a figure label
+    // belongs to its picture. dtable keeps a short table unbreakable, so a table that
+    // did not fit in the rest of the page moved to the next one and left its caption
+    // stranded at the foot of the previous page above half a page of white — printed
+    // p100 of the Geography Form 2 Learner's Book did precisely that. The allowance is
+    // wider than a figure label's because a table caption routinely names its columns
+    // ("Table 17: Relationship between Agriculture and Agro-Ecological Regions in
+    // Zambia") and would otherwise fall straight back through the 60-character gate.
+    const nextIsTable = nextB && nextB.t === "table";
+    const TBLCAP = /^table\s*\d/i;
+    const capOfTable = (t) => nextIsTable && TBLCAP.test(t) && t.length > 0 && t.length <= 120;
     const stickyWrap = (s) => `#block(sticky: true)[${s.trim()}]\n`;
     // Indent a pure-math continuation under the numbered step it belongs to.
     if (underStep && isPureMath(b)) { out += `#contmath(${segArr(b.segs)})\n`; continue; }
@@ -232,13 +244,56 @@ function emit(blocks) {
         else out += `#sectionhead(${S(b.text)})\n`;
         break;
       }
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
+      // The punctuation a writer leaves after a sub-topic's number is dropped so every
+      // sub-topic in a book reads the same. It used to strip only a full stop, which is
+      // what most manuscripts type — but Geography Form 2 writes "Sub-Topic: 2.1.4:
+      // Relief" for one of its twenty-one sub-topics, and that lone colon survived into
+      // the heading and the contents ("SUB-TOPIC 2.1.4: RELIEF" standing among
+      // "SUB-TOPIC 2.1.5 DRAINAGE FEATURES" and the rest). A colon there is the same
+      // slip as a full stop, so both go.
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:](\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
         // table it follows — renders with the section-heading look, not a plain sub-head.
         if (b.styleSection) { out += `#sectionhead(${S(b.text)}, brk: false, outlined: false)\n`; break; }
         const h = `#head(${S(b.text)}${b.align === "center" ? `, al: "center"` : ""}${b.black ? `, black: true` : ""}${b.headColor ? `, col: ${S(b.headColor)}` : ""})\n`;
+        // ---- keep a body HEADING with the LIST it introduces ----
+        // The same rule renderbody applies inside a box, which a body list never reaches:
+        // "Teacher's Brief Notes" and its bullets are emitted here as a flat run of
+        // #head + #listitem calls, so a page break fell wherever the page ran out and cut
+        // a single bullet off from the rest of its list ("• Refer to the Grade 1 Learner's
+        // Book, pages 18-19 …" opening a page on its own, above the next heading). Making
+        // the heading sticky did not reach this: sticky stops a heading from ENDING a page
+        // and says nothing about where the list beneath it may then break.
+        //
+        // The run is not forced whole — that cost this book nine pages of white space when
+        // tried, because a run that did not fit jumped off the page entire. Brace the two
+        // ENDS instead and leave the middle free: the heading with its first two items, and
+        // the last two items with each other, so a break can still fall inside the run but
+        // never immediately after the first item or immediately before the last. Below four
+        // items the braces would overlap, and the run is a few lines deep anyway, so it is
+        // simply kept whole.
+        const runEnd = (() => { let k = bi + 1; while (k < blocks.length && blocks[k].t === "listitem") k++; return k; })();
+        const nItems = runEnd - (bi + 1);
+        if (nItems >= 1 && !(nextIsImg && FIGLABEL.test((b.text || "").trim()) && (b.text || "").trim().length <= 60)) {
+          const li = (x) => `#listitem(${segArr(x.segs)}, ${S(x.marker || "•")})\n`;
+          const items = blocks.slice(bi + 1, runEnd);
+          const keep = (s) => `#block(breakable: false, width: 100%)[${s.trim()}]\n`;
+          if (nItems < 4) out += keep(h + items.map(li).join(""));
+          else {
+            out += keep(h + items.slice(0, 2).map(li).join(""));
+            out += items.slice(2, nItems - 2).map(li).join("");
+            out += keep(items.slice(nItems - 2).map(li).join(""));
+          }
+          // The loop tracks, per item, whether we are under a NUMBERED step, so a pure-math
+          // continuation line can be indented beneath it. Consuming the run here skips that
+          // bookkeeping, so carry it over from the run's last item by hand.
+          const lastLi = items[items.length - 1];
+          underStep = !!(lastLi.marker && lastLi.marker !== "•");
+          bi = runEnd - 1;
+          break;
+        }
         // A short figure label ("(a) Histogram", "Figure 1") right before its picture
         // must not be orphaned at a page break — stick it to the image that follows.
         out += (nextIsImg && FIGLABEL.test((b.text || "").trim()) && (b.text || "").trim().length <= 60) ? stickyWrap(h) : h;
@@ -262,14 +317,18 @@ function emit(blocks) {
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
-        out += (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60) ? stickyWrap(p) : p;
+        out += (b.stickyNext || capOfTable(plain) || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(p) : p;
         break;
       }
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
       case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")})\n`; break;
-      case "figcaption": out += `#figcaption(${S(b.text)})\n`; break;
+      case "figcaption": {
+        const fc = `#figcaption(${S(b.text)})\n`;
+        out += capOfTable((b.text || "").trim()) ? stickyWrap(fc) : fc;
+        break;
+      }
       case "loentry": out += `#loentry(${S(b.num)}, ${S(b.title)}, ${S(b.page)})\n`; break;
       case "image": {
         // Keep a picture with the heading that titles it. Only a SUB-heading (h3/head)
@@ -350,6 +409,53 @@ function titleCaseGrade(s) {
 // assessment heading and runs until the next such heading, the next topic/
 // sub-topic, or a fresh content heading — internal labels (Teaching and Learning
 // Materials, Teacher Facilitation Procedure, Teacher Notes, …) stay inside it.
+// A manuscript's OWN framed box that ran on past the end of its activity.
+//
+// Where a writer draws the Learning Activity boxes by hand — a Word text box or a
+// shaded single-cell table — the box's extent is whatever they happened to drag, and
+// one box in a book usually swallows the sections that follow it. The Grade 1 CTS
+// Teacher's Guide draws all 61, and in 60 of them the box closes after the facilitation
+// procedure, leaving "Teacher's Brief Notes" and everything under it on white; in the
+// 61st (Learning Activity 4, road safety) the text box was dragged further, so the
+// brief notes printed inside the grey panel — the same element set two ways.
+//
+// Which headings belong OUTSIDE is not guessed from a word list: it is read off the
+// book itself. Any heading the document sets at top level, outside every box, is one
+// that escaped its box when it turns up bolded inside one — so the box is cut there and
+// the remainder lifted back out to sit beside it. A book that genuinely keeps its notes
+// inside its boxes never puts those headings at top level, so nothing matches and
+// nothing moves.
+const BOXKINDS = new Set(["activity", "exercise", "assessment"]);
+function liftRunOnBoxSections(blocks) {
+  const norm = (s) => String(s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  // The headings this document sets outside any box.
+  const outside = new Set();
+  for (const b of blocks) {
+    if (!b || typeof b !== "object") continue;
+    if (b.t === "head" || b.t === "label" || b.t === "h3") {
+      const t = norm(b.text);
+      if (t) outside.add(t);
+    }
+  }
+  if (!outside.size) return;
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!b || !BOXKINDS.has(b.t) || !Array.isArray(b.body)) continue;
+    // Start at 1: a box whose FIRST body block is such a heading is a box the writer
+    // opened on the heading itself, not one that ran on, and cutting it would empty it.
+    const cut = b.body.findIndex((x, j) => j > 0 && x && x.t === "para"
+      && Array.isArray(x.segs) && x.segs.length
+      && x.segs.every((s) => s.m || !(s.t || "").trim() || s.b)
+      && outside.has(norm(blockPlain(x))));
+    if (cut < 1) continue;
+    const tail = b.body.splice(cut);
+    // The heading arrived as a bold paragraph because everything inside a hand-drawn
+    // box does; out here it is a heading again, and must be one so it prints like the
+    // sixty others and so the passes that end a box at a heading can see it.
+    tail[0] = { t: "head", text: blockPlain(tail[0]).replace(/\s+/g, " ").trim() };
+    blocks.splice(i + 1, 0, ...tail);
+  }
+}
 function boxifyActivities(blocks, opts = {}) {
   // `looseStarts` (per-book): also treat a `para`/`listitem`/`h2` block as an
   // activity/exercise/assessment box START (not just a real head/label) and absorb a
@@ -447,9 +553,23 @@ function boxifyActivities(blocks, opts = {}) {
   // is swallowed into the previous exercise's box and reads as "missing".
   const LESSONBANNER = /^.+?:\s*LESSON\s+\d+\s*$/i;
   const isLessonBanner = (b) => LESSONBANNER.test(blockPlain(b).trim());
+  // An activity/exercise/assessment box is teaching furniture: it belongs to a topic.
+  // The FRONT MATTER of a Teacher's Guide, though, explains the very words the box
+  // headings are made of — "HOW TO USE THIS TEACHER'S GUIDE" walks through SPECIFIC
+  // COMPETENCE, LEARNING ACTIVITY, EXPECTED PERFORMANCE and EXERCISE one heading at a
+  // time — and one of its own sections is a bare "ASSESSMENT". In the Grade 1 CTS
+  // Teacher's Guide that heading boxed, and because nothing that follows a front-matter
+  // section reads as a box end, the box ran on and swallowed the two sections after it
+  // (INCLUSIVE TEACHING, ENJOY TEACHING AND LEARNING), which lost their heading style
+  // and printed as bold lines inside a grey panel two pages long. So no box may start
+  // before the book's first topic/unit. Guarded on actually FINDING one, so a book
+  // whose sections are titled some other way still boxes from the top as before.
+  const firstUnitIdx = blocks.findIndex((x) => x && x.t === "h1"
+    && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test((x.text || "").trim()));
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
+    if (firstUnitIdx > 0 && i < firstUnitIdx) { out.push(b); continue; }
     // A boxHead (per-book) starts a box regardless of the usual keyword patterns.
     const bhKey = (b.t === "head" || b.t === "label" || b.t === "h2" || b.t === "h3" || b.t === "para")
       ? blockPlain(b).replace(/\s+/g, " ").trim() : null;
@@ -507,8 +627,39 @@ function boxifyActivities(blocks, opts = {}) {
         && ALTACT.test((y.text || blockPlain(y) || "").trim())
         && (y.t === "h2" || y.t === "h3" || isHead(y)
           || ((y.t === "para" || y.t === "listitem") && (y.segs || []).some((s) => s.b)));
+      // A box's OWN question-and-answer lines, which a manuscript often types as bold
+      // paragraphs rather than as a list, must not be read as the heading that ends
+      // the box. The Grade 1 CTS Teacher's Guide writes every exercise that way —
+      //   EXERCISE 2 / "1. Complete the sentence." / the sentence /
+      //   "Expected Answer: turn" / "2. Following safety rules helps prevent ___." /
+      //   "Expected Answer: accidents"
+      // — so the box closed after the first question and the rest of the exercise
+      // printed outside it, the answers set as full-size bold headings. Two shapes
+      // are box content wherever they appear: an expected-answer line (any box kind
+      // — an activity's guidance carries them too), and, inside an exercise or
+      // assessment, a line opening with a plain question marker ("2.", "(3)", "b)").
+      // The marker test deliberately refuses a multi-level code, so a competence line
+      // like "1.1.1.1 Apply safety…" is still a heading and still ends the box.
+      const answerLine = isHead(y) && ANSWER_LABEL_RE.test(ht(y));
+      const questionLine = (k === "ex" || k === "asmt") && isHead(y)
+        && /^\(?(?:\d{1,2}|[a-z])[.)]\s+\S/i.test(ht(y));
+      // A "complete the sentences using the words in the box" exercise prints its WORD
+      // BANK on a line of its own between the instruction and the questions — "Paper –
+      // Collage – Glue". The manuscript styles it as a heading, so it read as a fresh
+      // content heading and closed the box before a single question was in it: both
+      // such exercises in the Grade 1 CTS Teacher's Guide printed as an EXERCISE box
+      // holding nothing but its lead-in, with the word bank and every question set
+      // outside it at heading size. The bank is box content. Recognised by shape —
+      // three or more short items divided by dashes and no sentence punctuation — which
+      // a glossary "Term – meaning" line (one dash, a sentence after it) never has.
+      const wordBankLine = (k === "ex" || k === "asmt") && isHead(y) && (() => {
+        const t = ht(y);
+        if (t.length > 70 || /[.?!:;]/.test(t)) return false;
+        const items = t.split(/\s+[–—-]\s+/);
+        return items.length >= 3 && items.every((w) => w.trim() && w.trim().split(/\s+/).length <= 3);
+      })();
       if (altActPending && !isHead(y)) { body.push(y); j++; altActDone = true; break; }
-      if (!passageHead && !leadAbsorb && !phaseHead && !altActHead) {
+      if (!passageHead && !leadAbsorb && !phaseHead && !altActHead && !answerLine && !questionLine && !wordBankLine) {
         if (y.t === "h1" || y.t === "h2" || y.t === "h3") break;     // topic / sub-topic / sub-sub-heading
         if (isHead(y)) {
           const yt = ht(y);
@@ -1166,13 +1317,23 @@ function editBlockText(b, find, repl) {
     if (tk && typeof b[tk] === "string" && b[tk].includes(find)) { b[tk] = b[tk].replace(find, repl); return; }
     return;
   }
-  const full = b[k].map((s) => s.t).join("");
-  const start = full.indexOf(find);
-  if (start < 0) return;
+  const r = replaceSegSpan(b[k], find, repl);
+  if (r) b[k] = r.segs;
+}
+// Replace ONE occurrence of `find` in a run list, even where it straddles several runs
+// — which is the normal case, since Word splits a sentence into a run per styling
+// change and the importer adds a run of its own for every line break inside a cell.
+// Returns the rewritten runs and the offset just past the replacement (so a caller
+// can walk on to the next occurrence), or null when the text isn't there.
+function replaceSegSpan(segs, find, repl, from) {
+  if (!Array.isArray(segs) || !find) return null;
+  const full = segs.map((s) => s.t).join("");
+  const start = full.indexOf(find, from || 0);
+  if (start < 0) return null;
   const end = start + find.length;
   const out = [];
   let pos = 0, inserted = false;
-  for (const s of b[k]) {
+  for (const s of segs) {
     const segStart = pos, segEnd = pos + s.t.length; pos = segEnd;
     if (segEnd <= start || segStart >= end) { out.push(s); continue; }   // outside the span
     const pre = s.t.slice(0, Math.max(0, start - segStart));
@@ -1184,7 +1345,7 @@ function editBlockText(b, find, repl) {
     if (!inserted && repl) { out.push({ ...s, t: repl }); inserted = true; }
     if (post) out.push({ ...s, t: post });
   }
-  b[k] = out.filter((s) => s.t !== "");
+  return { segs: out.filter((s) => s.t !== ""), next: start + repl.length };
 }
 // Like editBlockText, but targets a qa PART'S OWN ANSWER (`.a`/`.aseg`) instead of its
 // question (`.qseg`/`.text`) — `segKey()`/`blockPlain()` never look at the answer side,
@@ -1225,6 +1386,62 @@ function editBlockAnswerText(b, find, repl) {
 // activity/box `body` or an exercise/assessment `parts`/`intro`/`extra`. Returned
 // as live references, so mutating one edits the document in place. `edit`/`replace`
 // use this so a fix reaches text the writer buried inside a boxed activity.
+// Uniform run colour. The same kind of thing must not print in a different colour on a
+// different page, and manuscripts routinely break that: the Religious Education Form 2
+// Learner's Book coloured its scripture references bright blue 143 times, navy 56
+// times, green 4 times and blue-violet once, so "Bhagavad Gita 5:18" stood out green on
+// printed page 14 among blue references everywhere else in the book.
+//
+// Two passes, in order:
+//
+//  1. A near-black run colour is DROPPED rather than normalised. Pasting from a browser
+//     or another document leaves body text at 0A0A0A, 181818, 222222, 0F1115 — shades a
+//     reader cannot name but which leave one paragraph sitting slightly off its
+//     neighbours. That is paste residue, never a decision, so it gives way to the body
+//     colour. It is also the bulk of what manuscripts carry: the two Geography Learner's
+//     Books hold 249 and 117 such runs between them and not one real colour among them.
+//
+//  2. Whatever real colour survives collapses onto the one the book uses MOST. A book
+//     that colours one kind of thing settles on one colour for it. A book that never had
+//     more than one real shade is left exactly as it was — which, once the near-blacks
+//     are gone, is every other book currently in output/.
+//
+// `keepRunColours: true` in a book's overrides turns the pass off whole, for a
+// manuscript whose several colours are genuinely carrying meaning.
+function normaliseRunColours(blocks, keep) {
+  if (keep) return;
+  const segs = [];
+  const visit = (v) => {
+    if (!v || typeof v !== "object") return;
+    if (Array.isArray(v)) { for (const x of v) visit(x); return; }
+    // A run is the only thing carrying both its own text and a colour slot; a block's
+    // `t` is its type name and has no `c` beside it.
+    if (typeof v.t === "string" && "c" in v) segs.push(v);
+    for (const k of Object.keys(v)) if (v[k] && typeof v[k] === "object") visit(v[k]);
+  };
+  visit(blocks);
+  const hex = (c) => (typeof c === "string" && /^#?[0-9A-Fa-f]{6}$/.test(c) ? c.replace("#", "").toUpperCase() : null);
+  const nearBlack = (h) => {
+    const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+    return Math.max(r, g, b) <= 0x40 && Math.max(r, g, b) - Math.min(r, g, b) <= 0x18;
+  };
+  let dropped = 0;
+  for (const s of segs) { const h = hex(s.c); if (h && nearBlack(h)) { s.c = null; dropped++; } }
+  const tally = new Map();
+  for (const s of segs) { const h = hex(s.c); if (h) tally.set(h, (tally.get(h) || 0) + 1); }
+  let snapped = 0, win = null;
+  if (tally.size > 1) {
+    win = [...tally.entries()].sort((a, b) => b[1] - a[1])[0][0];
+    for (const s of segs) { const h = hex(s.c); if (h && h !== win) { s.c = win; snapped++; } }
+  }
+  if (dropped || snapped) {
+    const bits = [];
+    if (dropped) bits.push(`${dropped} near-black run(s) returned to the body colour`);
+    if (snapped) bits.push(`${snapped} run(s) snapped to #${win}`);
+    console.log("   uniform run colour: " + bits.join("; "));
+  }
+}
+
 function allTextBlocks(blocks) {
   const out = [];
   const visit = (arr) => {
@@ -1556,8 +1773,15 @@ function applyOverrides(blocks, ov) {
             if (cell.text.trim() === ec.find) { cell.text = ec.with; n++; continue; }
             if (cell.text.includes(ec.find)) {
               cell.text = cell.text.split(ec.find).join(ec.with);
+              // The cell's RUNS are what gets drawn, and an edit rarely sits inside one
+              // of them: a cell holds a run per styling change and another per line
+              // break, so anything spanning a line ("…patterns and" + newline + "• " +
+              // "make connections.") crossed three. Matching run by run left `text`
+              // corrected and the runs untouched, and the page came back unchanged
+              // while the build log said the override had applied.
               if (Array.isArray(cell.segs)) {
-                for (const s of cell.segs) if (typeof s.t === "string" && s.t.includes(ec.find)) s.t = s.t.split(ec.find).join(ec.with);
+                let at = 0, r;
+                while ((r = replaceSegSpan(cell.segs, ec.find, ec.with, at))) { cell.segs = r.segs; at = r.next; }
               }
               n++;
             }
@@ -1844,6 +2068,43 @@ function applyOverrides(blocks, ov) {
       if (s.b && (s.t || "").trim() === u) { s.b = false; n++; }
     }
     if (!n) console.warn("!  unbold not matched:", JSON.stringify(u).slice(0, 50));
+  }
+  // unboldBlock: ["substring", …] — drop bold from EVERY run of any block whose text
+  // contains the substring, rather than from one run matched exactly. Where `unbold`
+  // answers "this phrase should not be bold", this answers "this paragraph should carry
+  // no bold at all", which is what a reviewer usually means. Manuscripts bold the
+  // cross-cutting-issue sentence inside a teacher-facilitation paragraph ("Guide
+  // learners to discuss how cultural music can promote good governance …"), and Word
+  // splits that stretch of bold across several runs — a trailing comma or full stop of
+  // its own, a stray letter where a spell-check edit landed — so listing runs by their
+  // exact text leaves the punctuation between them still bold and needs an entry whose
+  // text is "," or ".", which would match half the book. Naming the paragraph once
+  // takes the whole stretch, fragments included.
+  for (const u of ov.unboldBlock || []) {
+    let n = 0;
+    for (const b of flat) {
+      const segs = b.segs || b.qseg || null;
+      if (!segs || !segs.length) continue;
+      if (!segs.map((s) => s.t || "").join("").includes(u)) continue;
+      for (const s of segs) if (s.b) s.b = false;
+      n++;
+    }
+    if (!n) console.warn("!  unboldBlock not matched:", JSON.stringify(u).slice(0, 60));
+  }
+  // unitalicBlock: ["substring", …] — the mirror of `unboldBlock` for italics. A manuscript
+  // that sets one Teaching Step in italic among ten roman siblings prints the same element
+  // two ways down one list, and the italic stretch is split across runs the same way a
+  // bolded one is, so naming the paragraph takes all of it.
+  for (const u of ov.unitalicBlock || []) {
+    let n = 0;
+    for (const b of flat) {
+      const segs = b.segs || b.qseg || null;
+      if (!segs || !segs.length) continue;
+      if (!segs.map((s) => s.t || "").join("").includes(u)) continue;
+      for (const s of segs) if (s.it) s.it = false;
+      n++;
+    }
+    if (!n) console.warn("!  unitalicBlock not matched:", JSON.stringify(u).slice(0, 60));
   }
   // boldToItalic: ["exact run text", …] — drop bold AND set italic on a matching run
   // (the author's "REMOVE BOLD, THEN ITALICISE"). Trimmed-equality match like unbold.
@@ -2669,30 +2930,84 @@ function applyOverrides(blocks, ov) {
   // enlarged for print, and the source pixels are usually far too small (a single
   // text-line's worth) to enlarge without visible blur. Handles both a standalone
   // image block and one image "part" inside an exercise's answer.
-  for (const [mediaName, text] of Object.entries(ov.imageToText || {})) {
+  // Both imageToText and imageToTable find the picture the same way, so they share one
+  // walk: the media file appears either as a standalone image block or as an image
+  // "part" inside an exercise's answer, and `make` says what to put in its place.
+  // EVERY placement of the picture is replaced, not just the first: a manuscript that
+  // uses one equation screenshot twice means the same equation both times, and leaving
+  // the second as a picture is exactly the "same element looking different" defect.
+  //
+  // A picture may also be one of SEVERAL in an image row (the importer pairs pictures
+  // that sat side by side into a single `imagerow`). Replacing the whole row would throw
+  // away the sibling — on the Geography Form 2 Learner's Book that would have deleted the
+  // grid-squares diagram along with the formula beside it. So the row is split instead:
+  // the replacement goes where the picture was, and the row keeps whatever is left. A
+  // caption belongs to the row as a whole, so if the replaced picture was carrying it, it
+  // passes to a surviving picture rather than vanishing and renumbering every later figure.
+  const replaceImageBlock = (mediaName, make, what) => {
     const want = "imp_" + mediaName;
-    let done = false;
+    let hits = 0;
     const walk = (arr) => {
-      for (let i = 0; i < arr.length && !done; i++) {
+      for (let i = 0; i < arr.length; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
-        if (b.t === "image" && b.file === want) {
-          arr[i] = { t: "para", segs: mkSegs(text) };
-          done = true; return;
+        if (b.t === "image" && b.file === want) { arr[i] = make("block"); hits++; continue; }
+        if (b.kind === "image" && Array.isArray(b.images) && b.images.some((im) => im.file === want)) {
+          arr[i] = make("part"); hits++; continue;
         }
-        if (b.kind === "image" && b.images && b.images[0] && b.images[0].file === want) {
-          arr[i] = { kind: "lead", q: text, qseg: mkSegs(text), indent: true };
-          done = true; return;
+        if ((b.t === "img" || b.t === "imagerow") && Array.isArray(b.images)) {
+          const k = b.images.findIndex((im) => im.file === want);
+          if (k >= 0) {
+            if (b.images.length === 1) { arr[i] = make("block"); hits++; continue; }
+            const [gone] = b.images.splice(k, 1);
+            if (gone && gone.caption) {
+              const keep = b.images.find((im) => !im.caption);
+              if (keep) keep.caption = gone.caption;
+            }
+            // Before the row if it led, after it otherwise — the reading order the
+            // side-by-side row had is the order the page should keep.
+            const at = k === 0 ? i : i + 1;
+            arr.splice(at, 0, make("block"));
+            hits++;
+            if (at <= i) i++;               // the row moved down by one
+            continue;
+          }
         }
-        if (b.t === "img" && b.images && b.images[0] && b.images[0].file === want) {
-          arr[i] = { t: "para", segs: mkSegs(text) };
-          done = true; return;
-        }
-        for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key]);
+        for (const key of Object.keys(b)) if (Array.isArray(b[key])) walk(b[key]);
       }
     };
     walk(blocks);
-    if (!done) console.warn("!  imageToText not matched:", mediaName);
+    if (!hits) console.warn(`!  ${what} not matched:`, mediaName);
+  };
+  for (const [mediaName, text] of Object.entries(ov.imageToText || {})) {
+    replaceImageBlock(mediaName, (where) => (where === "part"
+      ? { kind: "lead", q: text, qseg: mkSegs(text), indent: true }
+      : { t: "para", segs: mkSegs(text) }), "imageToText");
+  }
+  // imageToTable: { "image23.png": [["Broad Topic", "Example"], ["Farming", "…"]] } —
+  // the same idea for a picture that is really a TABLE. Authors paste a screenshot of a
+  // Word table often enough that it is worth a key of its own: as a picture it can never
+  // pick up the house header band, its rules and type do not match the real tables on the
+  // pages around it, and it is frozen at whatever resolution the screenshot had (the
+  // Geography Form 2 Learner's Book carried two at 115 and 120 DPI). Typeset as a real
+  // table it is vector-sharp, matches its siblings, and reflows like any other table.
+  // Pass the rows directly, or `{ rows, noHeader }` where the picture had no header row.
+  for (const [mediaName, spec] of Object.entries(ov.imageToTable || {})) {
+    const src = Array.isArray(spec) ? spec : (spec && spec.rows) || [];
+    if (!src.length) { console.warn("!  imageToTable has no rows:", mediaName); continue; }
+    // Only a cell that actually carries markup gets `segs` — a cell with segs is never
+    // styled as a coloured header (see toTable), so giving every cell one would quietly
+    // cost the table its header band.
+    const mkCell = (c) => {
+      const text = String(c);
+      const cell = { text, imgs: [] };
+      if (/\*\*[^*]+\*\*|\*[^*]+\*|\$[^$]+\$/.test(text)) cell.segs = mkSegs(text);
+      return cell;
+    };
+    const noHeader = !Array.isArray(spec) && !!spec.noHeader;
+    // Built fresh per placement: the same picture can appear more than once, and two
+    // blocks sharing one rows array would have later passes edit both at once.
+    replaceImageBlock(mediaName, () => ({ t: "table", rows: src.map((r) => r.map(mkCell)), noHeader }), "imageToTable");
   }
   // remove: ["substring", …] — delete any block whose text contains the substring
   // (e.g. trimming a paragraph so a front-matter section fits on one page).
@@ -2722,14 +3037,46 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     if (!done) console.warn("!  removeWhereNext not matched:", rw.find);
   }
-  // removeRange: [{ from, to, after? }] — delete a contiguous run of blocks, from the
+  // A block list nested inside another block — an activity's or exercise's body.
+  // removeRange falls back to these when its `from` anchor is not a top-level block,
+  // so a run of lines the importer absorbed INTO a box can be taken out without
+  // disturbing the box. What counts as a body is the same test removeWhereNext uses:
+  // an array whose members are themselves blocks.
+  const nestedFind = (arr, needle) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      for (const key of Object.keys(b)) {
+        const kid = b[key];
+        if (!Array.isArray(kid) || !kid.some((x) => x && typeof x === "object" && (x.segs || x.body || x.parts || typeof x.text === "string"))) continue;
+        const i = kid.findIndex((x) => blockPlain(x).includes(needle));
+        if (i >= 0) return { arr: kid, i };
+        const deeper = nestedFind(kid, needle);
+        if (deeper) return deeper;
+      }
+    }
+    return null;
+  };
+  // removeRange: [{ from, to?, after? }] — delete a contiguous run of blocks, from the
   // first block containing `from` up to (but NOT including) the next block containing
   // `to`. Use when the two anchors share text a plain `remove` can't tell apart (e.g. a
   // duplicated/mislabelled sub-topic heading that must go while its twin stays).
   // Optional `after`: only start searching for `from` AFTER the block containing this
   // text — needed when `from` itself repeats book-wide (e.g. a duplicated lesson whose
   // heading "LISTENING AND SPEAKING: LESSON 1" is not unique) so the removal targets
-  // the intended occurrence rather than the first one in the book.
+  // the intended occurrence rather than the first one in the book. `after` narrows the
+  // top-level scan only.
+  //
+  // `to` may be omitted, which means "through the last block of the list `from` is in".
+  // That is the shape trailing matter inside a box has: there is no following sibling
+  // to anchor against. Omitting `to` on a TOP-LEVEL match would delete the rest of the
+  // book, so it is refused rather than obeyed.
+  //
+  // The Religious Education Form 2 Learner's Book needed both halves at once. LEARNING
+  // ACTIVITY 18 is the one activity its writer drew no border around, so the box ran on
+  // past the instruction and swallowed his planning scaffold — bare scripture
+  // references, a Discussion Task repeating the instruction six lines above it, and the
+  // unfinished note "Also add appropriate proverbs …" — twenty-one lines the finished
+  // prose underneath already says in full.
   for (const rr of ov.removeRange || []) {
     let base = 0;
     if (rr.after) {
@@ -2737,11 +3084,23 @@ function applyOverrides(blocks, ov) {
       if (a < 0) { console.warn("!  removeRange 'after' not matched:", rr.after); continue; }
       base = a + 1;
     }
-    const start = blocks.findIndex((b, i) => i >= base && blockPlain(b).includes(rr.from));
+    let arr = blocks;
+    let nested = false;
+    let start = blocks.findIndex((b, i) => i >= base && blockPlain(b).includes(rr.from));
+    if (start < 0) {
+      const found = nestedFind(blocks, rr.from);
+      if (found) { arr = found.arr; start = found.i; nested = true; }
+    }
     if (start < 0) { console.warn("!  removeRange start not matched:", rr.from); continue; }
-    let end = blocks.findIndex((b, i) => i > start && blockPlain(b).includes(rr.to));
-    if (end < 0) { console.warn("!  removeRange end not matched:", rr.to); continue; }
-    blocks.splice(start, end - start);
+    let end;
+    if (rr.to == null) {
+      if (!nested) { console.warn("!  removeRange without a 'to' would delete the rest of the book:", rr.from); continue; }
+      end = arr.length;
+    } else {
+      end = arr.findIndex((b, i) => i > start && blockPlain(b).includes(rr.to));
+      if (end < 0) { console.warn("!  removeRange end not matched:", rr.to); continue; }
+    }
+    arr.splice(start, end - start);
   }
   // moveBefore: [{ find, before }] — lift the block whose text contains `find` and
   // re-insert it immediately before the block whose text contains `before`. Used to
@@ -3078,6 +3437,7 @@ function formatGlossary(blocks) {
     ];
   };
   let inGloss = false;
+  const entries = [];
   for (const b of blocks) {
     const full = (b.segs ? b.segs.map((s) => s.t).join("") : b.text || "").trim();
     if (isHead(b)) {
@@ -3096,14 +3456,24 @@ function formatGlossary(blocks) {
       // shape fallback: a genuine top-level section (e.g. a back-matter "… – SAMPLE
       // SCHEME OF WORK" appendix) can easily match the "Term – meaning" shape by pure
       // accident of wording and must never be swallowed as a glossary entry.
-      if (inGloss && b.t !== "h1" && ENTRY.test(full) && full.length <= 200) { toEntry(b, full.match(ENTRY)); continue; }
+      if (inGloss && b.t !== "h1" && ENTRY.test(full) && full.length <= 200) { toEntry(b, full.match(ENTRY)); entries.push(b); continue; }
       inGloss = false;
       continue;
     }
     if (!inGloss) continue;
     const m = full.match(ENTRY);
-    if (m) toEntry(b, m);
+    if (m) { toEntry(b, m); entries.push(b); }
   }
+  // The LAST definition must never stand alone on a page. A glossary is one long run of
+  // short paragraphs, so only its final entry can be orphaned — and it was: the Musical
+  // Arts Form 5 Teacher’s Guide put "Part: The written music intended for a specific
+  // instrument…" by itself on printed page 154, under a running head and above nothing.
+  // Binding the SECOND-TO-LAST entry to the last one moves the pair together when the
+  // break falls there, which is the same one-bullet-deep sticky qaparts() uses on a run
+  // of sibling answers, and for the same reason: anything wider would push a healthy
+  // chunk of the glossary onto a fresh page to avoid a fault that only ever affects the
+  // tail. Runs for every book.
+  if (entries.length >= 2) entries[entries.length - 2].stickyNext = true;
 }
 
 // HOUSE STYLE (docs/HOUSE-STYLE.md s.3): the front matter runs cover -> title page
@@ -3176,8 +3546,34 @@ function reorderBackmatter(blocks) {
   let refHeader = null;
   let refItems = [];
 
-  // Case 1: Standalone References heading block
-  let refIdx = blocks.findIndex((b) => b && (b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para") && REF_HEADING.test(getText(b).trim()));
+  // Case 1: Standalone References heading block.
+  //
+  // A references section opens with a line that is NOTHING BUT its name. REF_HEADING
+  // asks only that the text START with "References", which is right for a block the
+  // importer already called a heading ("SUGGESTED REFERENCES", "FURTHER READING") but
+  // badly wrong for an unstyled body paragraph. Geography Form 2 teaches how to write
+  // up a field report, and one of the steps reads "References: Cite your sources (e.g.,
+  // using APA style) to show your research is grounded in evidence." That sentence was
+  // taken for the book's reference list, so the 18 blocks behind it — the rest of
+  // sub-topic 2.2.5, Table 10, Exercise 18 and the whole END OF TOPIC ASSESSMENT for
+  // topic 2.2 — were lifted out of the middle of the book and re-planted after the
+  // glossary under a REFERENCES heading of the engine's own making, with the real
+  // bibliography left behind it as a second REFERENCES. Any book that so much as
+  // mentions how to cite sources is exposed to this, so a para or a label (a label
+  // introduces the text under it by definition) now counts only when the whole line is
+  // the section's name.
+  const REF_ONLY = new RegExp(
+    "^(?:" + REF_QUALIFIER + "\\s+)?REFERENCES?\\s*[:.]?\\s*$" + "|" +
+    "^" + REF_QUALIFIER + "\\s+READINGS?\\s*[:.]?\\s*$",
+    "i"
+  );
+  const isRefOpener = (b) => {
+    const t = getText(b).trim();
+    if (b.t === "h1" || b.t === "h2" || b.t === "head") return REF_HEADING.test(t);
+    if (b.t === "label" || b.t === "para") return REF_ONLY.test(t);
+    return false;
+  };
+  let refIdx = blocks.findIndex((b) => b && isRefOpener(b));
   if (refIdx >= 0) {
     refHeader = { t: "h1", text: "REFERENCES" };
     let j = refIdx + 1;
@@ -3272,6 +3668,44 @@ const isAllCapsLabel = (s) => /[A-Za-z]/.test(s) && s === s.toUpperCase();
 const toTitleCaseLabel = (s) => s.replace(/[A-Za-z]+/g, (w, off) =>
   off > 0 && BOX_LABEL_SMALL.test(w) ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
 
+// A box heading that is nothing BUT its label — "EXERCISE 4", "END OF TOPIC 6
+// ASSESSMENT", "EXERCISE 3 (PROJECT)" — carries no sentence and therefore no closing
+// punctuation. Authors type one anyway, inconsistently: the Musical Arts Form 5
+// Teacher's Guide prints 14 boxes headed "EXERCISE 1" and one headed "EXERCISE 1.",
+// seven "EXERCISE 2" against three "EXERCISE 2." and two "EXERCISE 2:". Nothing follows
+// the mark, so it is punctuating nothing; it just makes the same element print three
+// ways through one book. Trimmed on every book, and only when the label really is the
+// whole heading — "EXERCISE 2: Match the columns" keeps its colon, because there the
+// colon introduces something.
+function stripBoxLabelPunct(blocks) {
+  (function walk(arr) {
+    for (const b of arr || []) {
+      if (!b || typeof b !== "object") continue;
+      const k = b.t === "exercise" ? "heading" : (b.t === "activity" || b.t === "assessment") ? "title" : null;
+      if (k && typeof b[k] === "string") {
+        const s = b[k].trim();
+        const bare = s.replace(/[.:;,]+$/, "");
+        // A trailing "(Project)" / "(Assignment)" qualifier is part of the label, so it
+        // is set aside before asking whether what remains is nothing but label words.
+        const core = bare.replace(/\s*\([^)]*\)\s*$/, "").trim();
+        if (bare !== s && core && boxLabelOf(core) === core) {
+          b[k] = bare;
+          const sk = b.t === "exercise" ? "headingSegs" : "titleSegs";
+          if (Array.isArray(b[sk]) && b[sk].length) {
+            let left = bare.length;
+            for (const seg of b[sk]) {
+              const t = seg.t || "";
+              if (left <= 0) { seg.t = ""; continue; }
+              if (t.length > left) { seg.t = t.slice(0, left); left = 0; } else left -= t.length;
+            }
+          }
+        }
+      }
+      for (const key of Object.keys(b)) if (Array.isArray(b[key])) walk(b[key]);
+    }
+  })(blocks);
+}
+
 function uniformBoxLabelCase(blocks) {
   const boxes = [];
   (function walk(arr) {
@@ -3311,6 +3745,247 @@ function uniformBoxLabelCase(blocks) {
       }
     }
   }
+  uniformBoxTitleCase(boxes);
+}
+// ---- and the DESCRIPTION after the colon ----
+// The pass above deliberately stops at the colon, because what follows it is the
+// writer's own prose rather than a label made of fixed words. But a box title is still
+// one recurring element, and a manuscript that shouts six of its titles and Title-Cases
+// the other fifty-eight prints that element two ways: the Grade 1 CTS Teacher's Guide
+// sets "LEARNING ACTIVITY 1: IDENTIFYING DIFFERENT CULTURES" on printed page 91 and
+// "LEARNING ACTIVITY 1: Sketching Simple Objects" on page 14.
+//
+// Only the ALL-CAPS outliers are touched, and only when they are outnumbered — a book
+// that shouts every title is making a house choice and is left alone, as is one split
+// evenly, there being no majority to conform to. The case they are brought to is
+// whichever the majority actually writes, Title or sentence, counted rather than
+// assumed: forcing Title Case on a sentence-case book would trade one inconsistency
+// for another. Nothing but letter case changes, so the title keeps its length and the
+// rich segments can be rewritten across it character for character, as above.
+const TITLE_SMALL = /^(a|an|and|as|at|but|by|for|from|in|into|nor|of|on|or|the|to|up|with|using)$/i;
+function uniformBoxTitleCase(boxes) {
+  const descOf = (title) => {
+    const t = (title || "").trim();
+    const ci = t.indexOf(":");
+    if (ci < 0) return null;
+    const d = t.slice(ci + 1);
+    return /[A-Za-z]/.test(d) ? { d, at: ci + 1 } : null;
+  };
+  const words = (d) => d.match(/[A-Za-z][A-Za-z'’-]*/g) || [];
+  const shouts = (d) => d === d.toUpperCase();
+  // Title case is judged on the words a sentence would NOT capitalise: a description
+  // whose every such word opens with a capital is Title Case, one where they are lower
+  // is sentence case. The first word tells nothing either way, so it is skipped.
+  const isTitleCase = (d) => {
+    const w = words(d).slice(1).filter((x) => x.length > 3 && !TITLE_SMALL.test(x));
+    return w.length > 0 && w.filter((x) => /^[A-Z]/.test(x)).length * 2 > w.length;
+  };
+  let caps = 0, title = 0, sentence = 0;
+  const found = [];
+  for (const box of boxes) {
+    const info = descOf(box.b[box.k]);
+    if (!info) continue;
+    found.push({ ...box, ...info });
+    if (shouts(info.d)) caps++;
+    else if (isTitleCase(info.d)) title++;
+    else sentence++;
+  }
+  if (!caps || caps >= title + sentence) return;
+  const toTitle = (d) => d.replace(/[A-Za-z][A-Za-z'’-]*/g, (w, off) =>
+    (off > 0 && TITLE_SMALL.test(w)) ? w.toLowerCase()
+      : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+  const toSentence = (d) => {
+    let first = true;
+    return d.replace(/[A-Za-z][A-Za-z'’-]*/g, (w) => {
+      if (first) { first = false; return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase(); }
+      return w.toLowerCase();
+    });
+  };
+  const recase = title >= sentence ? toTitle : toSentence;
+  for (const { b, k, s, d, at } of found) {
+    if (!shouts(d)) continue;
+    const fixedD = recase(d);
+    if (fixedD === d) continue;
+    const whole = (b[k] || "").trim();
+    const fixed = whole.slice(0, at) + fixedD + whole.slice(at + d.length);
+    b[k] = fixed;
+    if (Array.isArray(b[s]) && b[s].length) {
+      let pos = 0;
+      for (const seg of b[s]) {
+        if (pos >= fixed.length) break;
+        const txt = seg.t || "";
+        const take = Math.min(txt.length, fixed.length - pos);
+        seg.t = fixed.slice(pos, pos + take) + txt.slice(take);
+        pos += take;
+      }
+    }
+  }
+}
+
+function applySplitBoxTitle(blocks, list) {
+  // splitBoxTitle: [{ find, at }] — take the tail off a box title and make it the box's
+  // first body line. An author who types a box's title and its instruction as ONE Word
+  // paragraph hands the importer a title that runs on into a whole sentence, and it
+  // prints as four lines of bold heading where every other box on the page prints one
+  // bold line and an italic instruction: "LEARNING ACTIVITY 3: Creating and Managing
+  // Events Budgets. Working in groups, prepare a budget for a school musical arts
+  // concert. Include the expected sources of income …". `find` picks the box by a
+  // substring of its title, `at` is where the title should stop; everything from `at`
+  // onwards moves into the body (an activity) or becomes a lead line (an exercise or
+  // assessment), where the box's own styling sets it in italic like its siblings. The
+  // remaining title collapses to one run — a title the author typed in one go carries
+  // one format anyway, and the tail must not take the heading's weight with it.
+  for (const sp of list || []) {
+    let n = 0;
+    (function walk(arr) {
+      for (const b of arr || []) {
+        if (!b || typeof b !== "object") continue;
+        const isBox = b.t === "activity" || b.t === "assessment" || b.t === "exercise";
+        const k = b.t === "exercise" ? "heading" : "title";
+        const sk = b.t === "exercise" ? "headingSegs" : "titleSegs";
+        if (isBox && typeof b[k] === "string" && b[k].includes(sp.find)) {
+          const idx = b[k].indexOf(sp.at);
+          if (idx > 0) {
+            const head = b[k].slice(0, idx).trim();
+            const tail = b[k].slice(idx).trim();
+            b[k] = head;
+            // Only rewrite rich title segments that already exist. A box the importer
+            // built from a one-cell Word table carries none, and the emitter then reads
+            // the plain string and gives it the heading's own weight — inventing a
+            // segment here would hand it that segment's formatting instead and print
+            // the title in body weight next to its bold siblings.
+            if (Array.isArray(b[sk]) && b[sk].length) b[sk] = [{ ...b[sk][0], t: head }];
+            // The tail takes the formatting the box's own body already uses (italic, in
+            // every theme that boxes activities), not a fresh roman run.
+            const model = (b.t === "activity"
+              ? (b.body || []).find((x) => Array.isArray(x.segs) && x.segs.length)?.segs[0]
+              : (b.parts || []).find((p) => Array.isArray(p.qseg) && p.qseg.length)?.qseg[0])
+              || { b: false, it: b.t === "activity", c: null };
+            const seg = { ...model, t: tail };
+            if (b.t === "activity") {
+              // A box whose whole instruction had been swallowed by the title has an
+              // EMPTY body paragraph left behind; keeping it prints as a blank line of
+              // padding under the box, so the box sits taller than its siblings.
+              const rest = (b.body || []).filter((x) => !(x && x.t === "para"
+                && !(x.segs || []).map((s) => s.t || "").join("").trim()));
+              b.body = [{ t: "para", segs: [seg] }, ...rest];
+            } else b.parts = [{ kind: "lead", q: tail, qseg: [seg] }, ...(b.parts || [])];
+            n++;
+          }
+        }
+        for (const key of Object.keys(b)) if (Array.isArray(b[key])) walk(b[key]);
+      }
+    })(blocks);
+    if (!n) console.warn("!  splitBoxTitle not matched:", sp.find);
+  }
+}
+
+// ---- headingCase: one decision about a whole book's heading case ----
+// The two passes above bring a book's stragglers over to whatever case that book
+// already writes most often, which is the right DEFAULT: no house case is imposed from
+// outside. But a reviewer can ask for a specific one, and then it is one decision about
+// the book rather than a note per heading. The Musical Arts Form 5 Teacher's Guide came
+// back with about forty-five separate marks lowering a word in a box title or sub-topic
+// head — the small words ("in", "of", "and", "the") throughout, and in the software unit
+// the ordinary words too ("Salient", "Available", "Tracks", "Using") — under the summary
+// note "there is need for consistence[,] some headings are in upper cases while others
+// in lower and upper cases". Forty-five overrides would each be a fact about one page;
+// this is a fact about the book:
+//
+//   "headingCase": { "to": "sentence", "apply": ["boxTitle", "head"],
+//                    "keep": ["African", "Latin"], "skip": ["Teaching Steps"] }
+//
+// `to` is "sentence" (only the opening word capitalised) or "title" (every word but the
+// small ones). `apply` chooses what it reaches: "boxTitle" recases the DESCRIPTION after
+// the colon of every activity/exercise/assessment title, leaving the label itself to
+// uniformBoxLabelCase above; "head" recases a plain bold sub-topic head, again only
+// after a colon when one is present, so "Teaching Steps: Classification …" keeps its
+// label. `keep` names the words that are proper nouns in this book and survive whatever
+// their position; `skip` names whole heads to leave alone — the structural labels a
+// Teacher's Guide repeats on every lesson ("Teaching Steps", "Specific competence").
+// An ALL-CAPS word inside a heading that is NOT itself all-caps is read as an acronym
+// (MIDI, HIV, SATB) and kept; a heading that shouts throughout is recased entire, which
+// is the whole point of asking for this.
+function applyHeadingCase(blocks, cfg) {
+  if (!cfg || typeof cfg !== "object") return;
+  const to = cfg.to === "title" ? "title" : "sentence";
+  const keep = new Map((cfg.keep || []).map((w) => [String(w).toLowerCase(), String(w)]));
+  const skip = new Set((cfg.skip || []).map((s) => String(s).trim().toLowerCase()));
+  const apply = new Set(cfg.apply || ["boxTitle", "head"]);
+  const recase = (d) => {
+    const shouts = d === d.toUpperCase();
+    let first = true;
+    return d.replace(/[A-Za-z][A-Za-z'’-]*/g, (w) => {
+      const kept = keep.get(w.toLowerCase());
+      const cap = () => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+      if (kept) { first = false; return kept; }
+      if (!shouts && w.length >= 2 && w === w.toUpperCase()) { first = false; return w; }
+      if (first) { first = false; return cap(); }
+      return (to === "title" && !TITLE_SMALL.test(w)) ? cap() : w.toLowerCase();
+    });
+  };
+  // Rewrite `whole` from `at` onwards and push the result back across the rich segments
+  // character for character — only letter case changes, so the string keeps its length
+  // and the segments keep their own bold/italic/colour (the same write-back the two
+  // passes above use, and for the same reason: the segments win at emit time).
+  const writeBack = (b, k, s, at, d) => {
+    const fixedD = recase(d);
+    if (fixedD === d) return;
+    const whole = (b[k] || "").trim();
+    const fixed = whole.slice(0, at) + fixedD + whole.slice(at + d.length);
+    b[k] = fixed;
+    if (!Array.isArray(b[s]) || !b[s].length) return;
+    let pos = 0;
+    for (const seg of b[s]) {
+      if (pos >= fixed.length) break;
+      const txt = seg.t || "";
+      const take = Math.min(txt.length, fixed.length - pos);
+      seg.t = fixed.slice(pos, pos + take) + txt.slice(take);
+      pos += take;
+    }
+  };
+  // The part this pass may touch: everything after the first colon, or the whole string
+  // when there is none. `skip` is consulted only in the second case — a label followed
+  // by a colon is preserved anyway, so "Teaching Steps: Classification of Various
+  // African Music Genres" still has its description recased while the 58 bare "Teaching
+  // Steps" heads the same guide repeats are left exactly as they are.
+  // `needColon` is set for box titles: a title with no colon is nothing but its label
+  // ("EXERCISE 4", "END OF TOPIC 6 ASSESSMENT"), which uniformBoxLabelCase owns and this
+  // pass must never touch — recasing it would print "Exercise 4" under a book whose
+  // every other box shouts its label.
+  // A signatory's name arrives as a bold `head` block and is only grouped into a
+  // `signature` later, so this pass sees it as an ordinary heading and would sentence-case
+  // a real person: the Foreword's "Dr Beatrice Chirwa" came out "Dr beatrice chirwa", and
+  // "Agness Mumba Wilkins (PhD)" lost both her capitals and her doctorate. A head that
+  // opens with an honorific, or closes with one in brackets, is a person and never a
+  // section heading — the same two shapes applySeriesFront's SIGNAME uses to find them.
+  const HONORIFIC = /^(?:dr|prof|mr|mrs|ms|hon|rev|fr|sr)\.?\s+\S|\(\s*(?:dr|ms|mr|mrs|prof|hon|ph\.?\s?d|ed\.?\s?d|m\.?\s?ed|phd)\.?\s*\)\s*$/i;
+  const target = (t, needColon) => {
+    const s = (t || "").trim();
+    if (!s) return null;
+    if (HONORIFIC.test(s)) return null;
+    const ci = s.indexOf(":");
+    if (ci < 0 && (needColon || skip.has(s.toLowerCase()))) return null;
+    const at = ci >= 0 ? ci + 1 : 0;
+    const d = s.slice(at);
+    return /[A-Za-z]/.test(d) ? { at, d } : null;
+  };
+  (function walk(arr) {
+    for (const b of arr || []) {
+      if (!b || typeof b !== "object") continue;
+      if (apply.has("boxTitle") && (b.t === "activity" || b.t === "assessment")) {
+        const info = target(b.title, true);
+        if (info) writeBack(b, "title", "titleSegs", info.at, info.d);
+      } else if (apply.has("boxTitle") && b.t === "exercise") {
+        const info = target(b.heading, true);
+        if (info) writeBack(b, "heading", "headingSegs", info.at, info.d);
+      } else if (apply.has("head") && b.t === "head" && typeof b.text === "string") {
+        const info = target(b.text, false);
+        if (info) writeBack(b, "text", "__none", info.at, info.d);
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  })(blocks);
 }
 
 // NOTE: a prior round asked for the bullet dropped from "General Competences" /
@@ -3361,13 +4036,31 @@ function fillLayoutCredit(blocks) {
       for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walk(b[k]);
       const plain = blockPlain(b);
       if (!LABEL.test(plain) || plain.trim().length > LABEL_MAXLEN) continue;
+      // Word very often ends the bold run one character early, leaving the colon out of
+      // it: the Grade 1 CTS Teacher's Guide printed "Cover and Book Layout:" with a
+      // light colon directly beneath "Edited by:" and above "First Published by:",
+      // whose colons are both bold. Make the label line agree with ITSELF — this does
+      // not decide whether the credit is bold, so a label the book sets plain stays
+      // plain; it only stops one line being set two ways across its own length.
+      if (Array.isArray(b.segs) && b.segs.some((s) => s && !s.m && s.b && (s.t || "").trim())) {
+        for (const s of b.segs) if (s && !s.m && (s.t || "").trim()) s.b = true;
+      }
       // Strip a dot-leader baked onto the label's own line so it never prints raw
       // dots — this also means there is no separate placeholder line to reuse, so
       // the name gets inserted as a brand new line below.
       const dotMatch = plain.match(DOTLEADER);
       if (dotMatch) editBlockText(b, dotMatch[0], "");
+      // A third wording: the name sits on the label's OWN line after the colon
+      // ("Cover and Book Layout: Gift Kapula"), usually whoever laid the manuscript
+      // out before us. There is no placeholder line below to fill, so the insert
+      // branch printed OUR name underneath THEIRS and the finished page credited two
+      // different people for the same work. Take their name off the label line; the
+      // insert branch below then gives ours its own line, which is also how every
+      // other credit on the imprint page is set (label line, then name line).
+      const inlineName = dotMatch ? null : plain.match(/:\s*(\S.*?)\s*$/);
+      if (inlineName) editBlockText(b, inlineName[1], "");
       let nameIdx = -1;
-      if (!dotMatch) {
+      if (!dotMatch && !inlineName) {
         // The name (or a dot-leader placeholder, or someone's self-credit) sits on its
         // own line within the next few blocks — skip past any OTHER label line (e.g.
         // "First Published by:") so it's never mistaken for our placeholder.
@@ -3439,6 +4132,61 @@ function unboldLeadProse(blocks) {
 // typeset book shows two distinct boxes (the second an orphaned header + tail of rows) where
 // the author meant one continuous table. Fold the continuation's table (minus its repeated
 // header row) and any trailing body blocks back into the first activity, then drop it.
+// The manuscript's OWN back cover, pasted at the end of the document. The engine
+// builds its own back cover as the last page of every book, so those paragraphs are
+// not content — but nothing was dropping them, and they printed as body: the Grade 1
+// CTS Teacher's Guide ended with "P R I M A R Y S C H O O L" swallowed into its last
+// exercise box, the title and "TEACHER'S GUIDE" set as body headings, and a final
+// page carrying nothing but the publisher's name, all immediately before the real
+// back cover said the same thing again.
+//
+// Runs BEFORE the activity boxer: once a box has been built around the last exercise
+// it has already swallowed the first of those stray lines, and a tail walk over the
+// top-level blocks can no longer see it.
+//
+// Only a TRAILING run is considered, and only one that actually names this book —
+// its subject, or the kind of book it is — so a volume that genuinely ends in a
+// glossary, references or a last illustration keeps them: the first block that is not
+// back-cover furniture stops the walk, and with no such naming line in the run nothing
+// is removed at all. The test uses the THEME's subject rather than the cover block's
+// lines because the cover's text is synthesised further down the pipeline, well after
+// this runs; at this point that block still has no lines to compare against.
+function stripManuscriptBackCover(blocks, subject) {
+  const coverIdx = blocks.findIndex((x) => x.t === "cover");
+  if (coverIdx < 0 || blocks.length <= 1) return;
+  const norm = (s) => String(s || "").toUpperCase().replace(/[^A-Z0-9]+/g, "");
+  const subj = norm(subject);
+  if (subj.length < 6) return;
+  const PUBLISHER = /^(ZAMBIAEDUCATIONALPUBLISHINGHOUSE|ZEPH|LUSAKA|LUSAKAZAMBIA|ISBNBARCODE|ISBN)/;
+  const SCHOOLLINE = /^(PRIMARY|SECONDARY)(SCHOOL|EDUCATION)/;
+  // "TEACHER'S GUIDE", "LEARNER'S BOOK" — the book-kind line of a cover, optionally
+  // carrying the grade or form with it.
+  const KINDLINE = /^(GRADE\d{1,2}|FORM\d)?(TEACHERS?(GUIDE|BOOK)|LEARNERS?BOOK|PUPILS?BOOK)(GRADE\d{1,2}|FORM\d)?$/;
+  // Only these block types can be back-cover furniture. Anything else — a box, a
+  // table, a real heading level — ends the walk immediately. Without that guard a
+  // blank-looking container (a built box carries its content under `body`, so its own
+  // text is empty) reads as an empty spacer and the walk eats straight through the
+  // book's last exercise.
+  const FURNITURE = new Set(["image", "imagerow", "para", "listitem", "head", "label"]);
+  let start = blocks.length, sawCoverEcho = false;
+  for (let i = blocks.length - 1; i > coverIdx && blocks.length - i <= 12; i--) {
+    const x = blocks[i];
+    if (!x || !FURNITURE.has(x.t)) break;
+    if (x.t === "image" || x.t === "imagerow") { start = i; continue; }
+    const text = x.t === "head" || x.t === "label" ? (x.text || "") : blockPlain(x);
+    const n = norm(text);
+    if (!n) { start = i; continue; }
+    if (String(text).length > 80) break;
+    const echo = n.includes(subj) || KINDLINE.test(n);
+    if (echo || PUBLISHER.test(n) || SCHOOLLINE.test(n)) {
+      if (echo) sawCoverEcho = true;
+      start = i; continue;
+    }
+    break;
+  }
+  if (sawCoverEcho && start < blocks.length) blocks.length = start;
+}
+
 function mergeContinuationActivities(blocks) {
   const CONT = /\s*\(Continuation\)\s*$/i;
   for (let i = 1; i < blocks.length; i++) {
@@ -3800,6 +4548,16 @@ function normaliseSpacing(blocks) {
       // nothing in it, often bleeding well past the box into the margin. `segs`/`qseg`/`s`
       // already get this same space-collapsing; `aseg`/`a` need it too.
       if (Array.isArray(b.aseg)) fix(b.aseg);
+      // A BOX TITLE was the one text path this pass never reached, so an author's stray
+      // run of spaces survived into the largest type on the page: the Musical Arts Form 5
+      // Teacher's Guide set "LEARNING ACTIVITY 1:   Listening to various European folk
+      // music genres" with a three-space gap after the colon, beside forty identical
+      // headings with one. The rich segments are fixed alongside the plain string, since
+      // they are what the emitter prints.
+      if (Array.isArray(b.titleSegs)) fix(b.titleSegs);
+      if (Array.isArray(b.headingSegs)) fix(b.headingSegs);
+      if (typeof b.title === "string") b.title = glueMarkTail(b.title.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
+      if (typeof b.heading === "string") b.heading = glueMarkTail(b.heading.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
       if (typeof b.q === "string") b.q = glueMarkTail(b.q.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
       if (typeof b.text === "string") b.text = glueMarkTail(b.text.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
       if (typeof b.a === "string") b.a = glueMarkTail(b.a.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
@@ -3893,7 +4651,18 @@ function applyMarkFlushRight(blocks) {
 // expected answer anywhere in these books prints a label of its own; the answer is set
 // in italic and that is what marks it. Matching only at a line start leaves a genuine
 // mention in running prose ("accept any possible answer: see the syllabus") alone.
-const ANSWER_LABEL_RE = /^\s*(possible|expected|sample|suggested|model)\s*(answers?|responses?)\s*:\s*/i;
+// "performance" belongs in the noun list because a practical subject words its model
+// answer that way: a Teacher's Guide exercise that asks the learner to DO something
+// ("Draw children in a relay race.") answers with "Expected Performance: Learner draws
+// children appropriately…". That is the same element as the "Expected Answer:" line
+// sitting beside it — the Grade 1 CTS Teacher's Guide printed both inside one exercise
+// box, the answer bare and italic and the performance bold-labelled and roman.
+const ANSWER_LABEL_RE = /^\s*(possible|expected|sample|suggested|model)\s*(answers?|responses?|performances?)\s*:\s*/i;
+// The same label with NOTHING after it on the line is a different animal: some
+// manuscripts head a lesson-spec FIELD with "Expected Performance:" and set the
+// descriptor beneath it, and that heading has to survive. So the pass that drops a
+// lone label and italicises the run below it keeps to the answer nouns only.
+const ANSWER_LABEL_ALONE_RE = /^\s*(possible|expected|sample|suggested|model)\s*(answers?|responses?)\s*:\s*/i;
 // Strip every such label from a run of segments. `atStart` says whether the run's FIRST
 // segment already counts as the beginning of a line: true for a standalone paragraph,
 // false inside an exercise answer whose opening label was another pass's job.
@@ -4039,8 +4808,17 @@ function splitAnswerLabels(blocks) {
   };
   // A plain paragraph / list item that reads "Question? Possible Answer: text" (an
   // assessment the manuscript left un-boxed, as flowing numbered paragraphs): keep it one
-  // block, but break the answer onto its own line — bold "Possible answer:" tag, italic
-  // answer — so it reads like the boxed exercises instead of one glued sentence.
+  // block, but break the answer onto its own line, set in italic, so it reads like the
+  // boxed exercises instead of one glued sentence.
+  // NO LABEL. House style is that an expected answer is marked by the italic and by
+  // nothing else — no highlight, and no tag in front of it, anywhere in a book. This
+  // pass used to drop the manuscript's own label and write a bold "Possible answer: "
+  // back in its place, which is the one thing the rule forbids. Worse, when the
+  // manuscript puts the answer in its OWN paragraph (the Grade 1 CTS Teacher's Guide
+  // writes "Expected Answer: …" as the line after each question), the re-added tag
+  // opened the paragraph — exactly the position stripStrayAnswerLabels deliberately
+  // leaves alone, since a label out in prose there is the writer addressing the
+  // teacher — so the engine's own tag was immune to the pass that removes labels.
   const splitPara = (b) => {
     const segs = b.segs;
     if (!Array.isArray(segs) || !segs.length) return;
@@ -4059,9 +4837,18 @@ function splitAnswerLabels(blocks) {
     // already prevents on the exercise/assessment path ("must not force a blank first
     // line before the answer"); it simply was never applied on this one.
     const leadIn = plainOf(qSegs).trim() ? "\n" : "";
-    const tag = { t: leadIn + "Possible answer: ", b: true, it: false, c: null };
     const ans = aSegs.map((s) => (s.m ? s : { ...s, it: true }));
-    b.segs = qSegs.concat([tag], ans);
+    if (leadIn) {
+      const k = ans.findIndex((s) => s && !s.m && typeof s.t === "string");
+      if (k >= 0) ans[k] = { ...ans[k], t: leadIn + ans[k].t };
+      else ans.unshift({ t: leadIn, b: false, it: false, c: null });
+    } else {
+      // No question of its own in this block — it is nothing but the answer, so the
+      // question is the block above it. Flag it for uniformQuestionLines(), which
+      // needs to find those questions once the label that identified them is gone.
+      b.ansline = true;
+    }
+    b.segs = qSegs.concat(ans);
   };
   const walk = (arr) => {
     for (const b of arr) {
@@ -4346,9 +5133,49 @@ function stripStrayAnswerLabels(blocks) {
   // `inBody` is true only for the blocks nested inside a box's own `body`, and doubles as
   // the `atStart` flag above: in a box the block's first character already counts as the
   // start of a line, out in prose it does not.
+  // Set a block's runs in italic — what marks an answer once its label is gone.
+  const italicise = (b) => {
+    if (Array.isArray(b.segs)) b.segs = b.segs.map((s) => (s && !s.m ? { ...s, it: true } : s));
+  };
   const walk = (arr, inBody) => {
-    for (const b of arr) {
+    for (let bi = 0; bi < arr.length; bi++) {
+      const b = arr[bi];
       if (!b || typeof b !== "object") continue;
+      // A whole heading that IS an answer. A manuscript that types its exercises as
+      // bold paragraphs rather than as a list leaves each answer as its own bold
+      // line ("Expected Answer: turn"), which arrives here as a `head` — so it
+      // printed at heading weight with its label intact, while the identical thing
+      // written as a paragraph elsewhere in the same book printed as bare italic.
+      // Turn it into the italic answer paragraph it is; the label comes off with it.
+      if ((b.t === "head" || b.t === "label") && typeof b.text === "string"
+          && ANSWER_LABEL_RE.test(b.text)) {
+        const rest = b.text.replace(ANSWER_LABEL_RE, "").trim();
+        if (rest) {
+          b.t = "para";
+          b.segs = [{ t: rest, b: false, it: true, c: null }];
+          b.plain = rest;
+          // Remember that this paragraph is an answer. Nothing in the finished block
+          // says so any more once the label is gone — the italic is a style, not a
+          // fact — and uniformQuestionLines() needs to know in order to find the
+          // question sitting immediately above it.
+          b.ansline = true;
+          delete b.text;
+          continue;
+        }
+        // The label ALONE, with the answer on the lines below it — the shape an
+        // ordering exercise takes ("Expected Answer:" then the steps in order).
+        // Dropping the label on its own would leave those lines looking like more of
+        // the question's own list, so the run that follows takes the italic instead:
+        // the label goes, and the answer is still marked as the answer. Only inside a
+        // box, where the run belongs to one exercise and the next heading ends it.
+        if (inBody && ANSWER_LABEL_ALONE_RE.test(b.text)) {
+          let k = bi + 1;
+          while (k < arr.length && (arr[k].t === "para" || arr[k].t === "listitem")) {
+            italicise(arr[k]); k++;
+          }
+          if (k > bi + 1) { arr.splice(bi, 1); bi--; continue; }
+        }
+      }
       if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) {
         const cleaned = stripAnswerLabelRuns(b.segs, inBody);
         if (cleaned !== b.segs) {
@@ -4363,6 +5190,92 @@ function stripStrayAnswerLabels(blocks) {
     }
   };
   walk(blocks, false);
+}
+// Every discussion question in a book set the same way.
+//
+// A question that carries an expected answer ("1. What are the learners doing?" with
+// the answer on the line beneath) is one recurring element, so it must print one way
+// throughout — but a manuscript rarely types it one way. The Grade 1 CTS Teacher's
+// Guide bolds the question line in 196 places and leaves it plain in 64, and three of
+// its fifty-nine "Let's Talk and Learn" sections do BOTH on a single page: some
+// questions standing out as headings, the next sitting in body text, with identical
+// italic answers under each. The engine was faithfully reproducing that, which is the
+// inconsistency rather than a rendering of it.
+//
+// So decide once for the whole document and apply it everywhere. A question is found
+// by the answer beneath it (flagged by stripStrayAnswerLabels above) rather than by
+// any label wording, which keeps this free of one book's vocabulary: whatever a book
+// calls its discussion sections, the pairs look the same. The majority treatment
+// wins, so a book whose questions are mostly plain stays plain and one whose
+// questions are mostly headings — as here — sets them all as headings.
+// An answer that runs to a second line arrives as an INDENTED lead part sitting right
+// after the question it answers — the manuscript typed it as its own paragraph, so the
+// importer could only hang the first half off the question as its `aseg`. The two halves
+// then print differently: `answer()` italicises what it holds, while the lead renders as
+// ordinary roman, so one answer reads in two faces ("Concert Pitch: C – D – E – G" in
+// italic, "English Horn Part (written a perfect fifth higher): G – A – B – D" in roman,
+// directly beneath it; and "(Other acceptable examples may be given)." roman under an
+// italic answer). An indented lead already MEANS "this continues the part above" — the
+// template pads it to the question's own column for exactly that reason — so when the
+// part above carries an answer, this is the rest of that answer and takes its italic.
+// Narrow by construction: a lead that is a fresh instruction is not indented, and a
+// question with no answer key leaves its followers alone.
+function italiciseAnswerTails(blocks) {
+  const walk = (arr) => {
+    for (const b of arr || []) {
+      if (!b || typeof b !== "object") continue;
+      const parts = Array.isArray(b.parts) ? b.parts : null;
+      if (parts) {
+        for (let i = 1; i < parts.length; i++) {
+          const p = parts[i], prev = parts[i - 1];
+          if (!p || p.kind !== "lead" || !p.indent) continue;
+          if (!prev || prev.kind !== "q") continue;
+          const hasAnswer = (prev.a || "").trim() || (prev.aseg || []).some((s) => (s.t || "").trim());
+          if (!hasAnswer) continue;
+          for (const s of p.qseg || []) if (!s.m) s.it = true;
+        }
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
+
+function uniformQuestionLines(blocks) {
+  const QMARK = /^\(?\d{1,2}[.)]\s+\S/;
+  const found = [];                     // [{arr, i}] — every question with an answer under it
+  const walk = (arr) => {
+    for (let i = 1; i < arr.length; i++) {
+      const b = arr[i], q = arr[i - 1];
+      if (b && b.ansline && q && typeof q === "object") {
+        const text = q.t === "head" || q.t === "label" ? (q.text || "") : blockPlain(q);
+        if (QMARK.test(String(text).trim())) found.push({ arr, i: i - 1 });
+      }
+    }
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+  if (found.length < 4) return;         // too few to call a house pattern
+  let heads = 0;
+  for (const f of found) { const t = f.arr[f.i].t; if (t === "head" || t === "label") heads++; }
+  const wantHead = heads * 2 >= found.length;
+  for (const f of found) {
+    const b = f.arr[f.i];
+    const isHead = b.t === "head" || b.t === "label";
+    if (isHead === wantHead) continue;
+    if (wantHead) {
+      const text = blockPlain(b).trim();
+      if (!text) continue;
+      f.arr[f.i] = { t: "head", text };
+    } else {
+      const text = (b.text || "").trim();
+      if (!text) continue;
+      f.arr[f.i] = { t: "para", segs: [{ t: text, b: false, it: false, c: null }], plain: text };
+    }
+  }
 }
 // A sub-heading that only repeats the unit heading directly above it. Writers produce
 // this whenever they type the unit's subject twice — once on the unit line and again as
@@ -4535,11 +5448,105 @@ function stripPrimaryScaffold(blocks) {
   }
   return out;
 }
+// A lesson-spec field name prints as a label — small, letter-spaced, in the accent
+// colour — and a bold sub-head prints as a bold sub-head. A manuscript that types the
+// SAME words both ways gets both treatments in the same book, and a reader meets one
+// line set two different ways: the Grade 1 CTS Teacher's Guide writes "Expected
+// Performance" sixty-odd times as a bold sub-head and once, a colon after it, as a
+// field name; the Literature in English Form 1 Teacher's Guide does the reverse with
+// "TEACHING PROCEDURE" and "TIPS TO THE TEACHER", mostly labels with a couple of heads
+// among them. Neither form is right in the abstract — what is wrong is the book
+// disagreeing with itself — so the book's own majority decides, and the stragglers are
+// brought over to it. Nothing fires unless a text really is set both ways.
+function unifyStrayLabels(blocks) {
+  // Case-sensitive: only the very same words, spelt the very same way, are the same
+  // element. A book that writes a field name in capitals ("EXPECTED STANDARD") and a
+  // sub-head in sentence case ("Expected standard") is distinguishing them on purpose.
+  // A trailing colon is not such a distinction, so it is not part of the key.
+  const key = (t) => String(t || "").trim().replace(/\s*:\s*$/, "");
+  const seen = new Map();   // key -> { head: [], label: [] }
+  const walk = (arr) => {
+    if (!Array.isArray(arr)) return;
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if ((b.t === "head" || b.t === "label") && b.text) {
+        const k = key(b.text);
+        if (k) {
+          if (!seen.has(k)) seen.set(k, { head: [], label: [] });
+          seen.get(k)[b.t].push(b);
+        }
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs" && k !== "rows") walk(b[k]);
+    }
+  };
+  walk(blocks);
+  for (const { head, label } of seen.values()) {
+    if (!head.length || !label.length || head.length === label.length) continue;  // a tie decides nothing
+    if (head.length > label.length) {
+      // The colon belongs to the field-name form; a sub-head does not carry one.
+      for (const b of label) { b.t = "head"; b.text = key(b.text); }
+    } else {
+      for (const b of head) b.t = "label";
+    }
+  }
+}
+
+// A multiple-choice line typed with the space missing before the next option letter —
+// "(a) Sleeping(b) Reading (c) Balancing on one foot" — which prints the option and the
+// one before it as a single word. Authors type it this way constantly (nine lines of the
+// Grade 1 CTS Teacher's Guide alone), so it is worth knowing about here rather than
+// listing every instance in a sidecar. Only a line that is ALREADY an options list is
+// touched: it must carry both an "(a)" and a "(b)" marker, which ordinary prose with a
+// bracketed letter — or a "learner(s)" plural — never does.
+function spaceOptionMarkers(blocks) {
+  const GLUED = /([^\s(])\((?=[a-e]\)\s)/g;
+  const walk = (arr) => {
+    if (!Array.isArray(arr)) return;
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      const full = (b.text || "") + (Array.isArray(b.segs) ? b.segs.map((s) => s.t).join("") : "");
+      if (/\(a\)\s/.test(full) && /\(b\)/.test(full)) {
+        if (typeof b.text === "string") b.text = b.text.replace(GLUED, "$1 (");
+        if (Array.isArray(b.segs)) for (const s of b.segs) if (typeof s.t === "string") s.t = s.t.replace(GLUED, "$1 (");
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs" && k !== "rows") walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
+
+// The recurring sub-topic labels a Teacher's Guide is built out of — the fixed list its
+// own Introduction numbers off. They are bold sub-heads wherever they stand.
+const GUIDE_LABEL = /^(Introduction|General\s+Competences?|Specific\s+Competences?|Expected\s+Standards?|Teaching and Learning Materials|Teacher.?s?\s*Facilitation Procedure|Facilitation Procedure|Teacher.?s?\s*Notes?|Take note of responses.*)$/i;
+
+// proofPolish() below normalises those labels, but only across TOP-LEVEL blocks, and by
+// the time it runs an activity the manuscript wrapped in a TABLE is already a box, its
+// labels nested inside it and out of that pass's reach. The Grade 1 CTS Teacher's Guide
+// shows what that costs: the five topics whose author styled them with Word headings
+// (1.16-1.20) are exactly the ones built that way, so nine of the book's sixty-one
+// activity boxes set "Teaching and Learning Materials" and "Teacher Facilitation
+// Procedure" at body weight while the other fifty-two set them bold — the same label,
+// in the same kind of box, printed two ways. Reach inside the boxes and settle it.
+function boldGuideLabels(blocks) {
+  const walk = (arr) => {
+    if (!Array.isArray(arr)) return;
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) {
+        const t = b.segs.map((s) => s.t).join("").trim();
+        if (t && GUIDE_LABEL.test(t)) { b.t = "head"; b.text = t; delete b.segs; delete b.marker; continue; }
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs" && k !== "rows") walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
+
 function proofPolish(blocks) {
   const textOf = (b) => (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "")).trim();
   const isHead = (b) => b.t === "head" || b.t === "label";
   // recurring sub-topic labels that must be bold black sub-heads everywhere
-  const LABEL = /^(Introduction|General\s+Competences?|Specific\s+Competences?|Expected\s+Standards?|Teaching and Learning Materials|Teacher.?s?\s*Facilitation Procedure|Facilitation Procedure|Teacher.?s?\s*Notes?|Take note of responses.*)$/i;
+  const LABEL = GUIDE_LABEL;
   // labels whose VALUE lines are set in italics (competences, competence codes,
   // expected-standard outcomes) — matching each other across the whole book.
   const VALSEC = /^(General\s+Competences?|Specific\s+Competences?|Expected\s+Standards?)\b/i;
@@ -5105,12 +6112,14 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base));
+  mergeSplitTables(blocks);  // a grid the author split in Word is one table again
   markSpreadsheetTables(blocks);
   reformatAcronyms(blocks);
   normaliseCaptionLabels(blocks);
+  normaliseRunColours(blocks, ov.keepRunColours);
   formatGlossary(blocks);
   displayifyColumnMath(blocks);
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
@@ -5158,6 +6167,48 @@ function competenceLeadIn(blocks, isTeacherGuide) {
       i++;
     }
   }
+}
+
+// An author who wants a long grid to break where THEY choose splits it in Word
+// (Ctrl+Shift+Enter), which writes TWO <w:tbl> elements with an empty paragraph
+// wedged between them rather than one table left to flow. The importer drops that
+// blank paragraph, so the halves reach us as two adjacent table blocks and the book
+// prints one grid as two: the second half carries no header band, so its rows lose
+// the column labels they are read by, its zebra striping restarts out of step, and a
+// closing rule is drawn across the join. The Grade 1 CTS Teacher's Guide splits its
+// GENERAL COMPETENCES grid this way, mid-row. Glue the halves back into the single
+// table the author was describing, and let it break wherever it needs to — Typst
+// repeats a table.header on every page it continues onto.
+//
+// Deliberately narrow: the first table must carry a header of its own and the second
+// must NOT (a continuation never repeats one — it opens either with the empty cells of
+// a row cut in half, or simply with more data), and the two must be the same width. Two
+// genuinely separate grids sitting back to back each carry their own header, so they
+// are left alone.
+function mergeSplitTables(blocks) {
+  // The same shape test the template uses to decide whether to draw a header band
+  // (`hdr` in dtable): every cell short, single-line, non-empty and picture-free.
+  const headerRow = (row) => Array.isArray(row) && row.length > 0 && row.every((c) =>
+    c && (!c.imgs || c.imgs.length === 0) && typeof c.text === "string" &&
+    c.text !== "" && !c.text.includes("\n") && c.text.length <= 40);
+  const isTable = (b) => b && typeof b === "object" && b.t === "table" && Array.isArray(b.rows) && b.rows.length > 0;
+  const walk = (arr) => {
+    if (!Array.isArray(arr)) return;
+    for (let i = 0; i < arr.length - 1; i++) {
+      const a = arr[i], b = arr[i + 1];
+      if (!isTable(a) || !isTable(b)) continue;
+      if (a.rows[0].length !== b.rows[0].length) continue;
+      if (!headerRow(a.rows[0]) || headerRow(b.rows[0])) continue;
+      a.rows.push(...b.rows);
+      arr.splice(i + 1, 1);
+      i--;   // the next table may be a third slice of the same grid
+    }
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows" && k !== "segs") walk(b[k]);
+    }
+  };
+  walk(blocks);
 }
 
 // A table that belongs to a SPREADSHEET exercise is drawn as a spreadsheet — lettered
@@ -5232,7 +6283,16 @@ function normaliseQuestionMarkBold(blocks) {
   walk(blocks);
 }
 
-  ensureOrIndividually(blocks);
+  // `orIndividually: false` switches the pass above off for one book. It was added
+  // because a reviewer wanted every activity to admit solo work, and it writes "or
+  // individually" into a body that only offered group or pair work. The Musical Arts
+  // Form 5 Teacher's Guide came back with the opposite instruction — "delete so that
+  // in pairs remains" — marked on three of the thirteen activities the pass had
+  // touched. Honouring only those three would leave the same book saying it two ways,
+  // which is the fault its reviewer objected to most often, so this is a per-book
+  // switch rather than three surgical edits: off, the activities read exactly as the
+  // manuscript wrote them, and every other book keeps the rule.
+  if (ov.orIndividually !== false) ensureOrIndividually(blocks);
   normaliseQuestionMarkBold(blocks);
   fillLayoutCredit(blocks);  // credit the typesetter on the "Cover and Book Layout:" line
   labelIntroductions(blocks);
@@ -5243,9 +6303,11 @@ function normaliseQuestionMarkBold(blocks) {
   // theme flag turns on both polish + boxing; a per-book `boxActivities` override
   // turns on JUST the boxing (e.g. a local-language TG whose activities the author
   // left as bold headings, to match its Learner's Book).
+  stripManuscriptBackCover(blocks, (THEMES[theme] || {}).subject);
   mergeContinuationActivities(blocks);
   splitActivityTables(blocks);
   convertTableActivities(blocks);
+  liftRunOnBoxSections(blocks);   // a hand-drawn box that swallowed the sections after it
   normaliseLessonBanners(blocks);
   blocks = dedupeAdjacentHeadings(blocks);
   fixStrayBodyH1s(blocks);
@@ -5263,6 +6325,9 @@ function normaliseQuestionMarkBold(blocks) {
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   // after boxing, so the assessment bodies exist to scan
+  boldGuideLabels(blocks);   // and so do the activity bodies proofPolish couldn't reach
+  unifyStrayLabels(blocks);  // a field name the book also uses as a sub-head IS that sub-head
+  spaceOptionMarkers(blocks); // "(a) Sleeping(b) Reading" -> "(a) Sleeping (b) Reading"
   boldAssessmentSections(blocks);
   boldSafetyAndSteps(blocks);
   // Teacher's Guide: peel each inline "Possible Answer:" off its question onto its own line.
@@ -5277,8 +6342,21 @@ function normaliseQuestionMarkBold(blocks) {
   // list item inside a box body, or opening a line inside one out in running prose - so
   // that every expected answer in the book is marked by its italic and nothing else.
   stripStrayAnswerLabels(blocks);
-  // House style: make every structural box label read in one case across the book.
+  // …and the second half of an answer the manuscript split into its own paragraph is set
+  // the same way as the first.
+  italiciseAnswerTails(blocks);
+  uniformQuestionLines(blocks);
+  // Runs here, not in applyOverrides(): a box the author drew as a one-cell Word table
+  // only becomes an `activity` block at convertTableActivities() above, so an override
+  // naming its title cannot see it any earlier.
+  applySplitBoxTitle(blocks, ov.splitBoxTitle);
+  // House style: a heading that is only a box label ends without punctuation…
+  stripBoxLabelPunct(blocks);
+  // …and every structural box label reads in one case across the book.
   uniformBoxLabelCase(blocks);
+  // …and, where a book has been asked for a specific heading case rather than its own
+  // majority, settle that for every box title and sub-topic head at once.
+  applyHeadingCase(blocks, ov.headingCase);
   // Runs after applyOverrides() above, so a unit heading corrected by an override is the
   // one compared against the sub-heading below it.
   dropUnitTitleEcho(blocks);
@@ -5399,7 +6477,7 @@ function normaliseQuestionMarkBold(blocks) {
       // with no form/grade line, `name` defaults to `subject` = lines[0] = the eyebrow).
       const gm2 = gm || linesArr.map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
       const grade = gm2 ? titleCaseGrade(gm2[0]) : "";
-      const booktype = isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book";
+      const booktype = isTeacherBookName(base) ? "Teacher’s Guide" : "Learner’s Book";
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -5593,35 +6671,60 @@ function normaliseQuestionMarkBold(blocks) {
   const ws = fs.mkdtempSync(path.join(os.tmpdir(), "typeset-"));
   const mediaDir = path.join(ws, "_media");
   fs.mkdirSync(mediaDir, { recursive: true });
+  // Generator-watermark removal is on by default for every book, because a stamped
+  // "AI-Generated"/"Made with AI" badge is never wanted in print and the detector is
+  // narrow enough to leave everything else alone. A book can switch it off wholesale
+  // with `"watermark": false`, and a single picture can be excused — or have its badge
+  // pointed at by hand, when the detector cannot see one — through that picture's entry
+  // in `images` (`"watermark": false`, or a box / list of boxes {x, y, w, h}, in pixels
+  // or as 0..1 fractions of the picture). See docs/HOUSE-STYLE.md §5.
+  const wmOff = ov.watermark === false;
+  const wmPer = (orig) => (orig && imgOverrides[orig] ? imgOverrides[orig].watermark : undefined);
+  const wmBoxes = (per) => (Array.isArray(per) ? per : per && typeof per === "object" ? [per] : null);
+  const wmNames = [];
+
   // Copy each imported image into the workspace — first applying the author's Word
   // crop (so a cropped screenshot shows only the kept region, not the whole window),
   // then deepening faint line-art diagrams (photos/crisp diagrams/cut-outs unchanged).
   // Falls back to a plain copy when neither applies or `canvas` isn't available.
-  let enhanced = 0, cropped = 0, rotated = 0, emfConv = 0;
+  let enhanced = 0, cropped = 0, rotated = 0, emfConv = 0, dewatermarked = 0;
   for (const m of media) {
     const dest = path.join(mediaDir, m.name);
     try {
+      let wrote = false;
       // An EMF that wraps a raster: extract the bitmap to PNG so the picture appears
       // instead of being dropped (Typst can't read EMF). If it's genuine vector art
       // with no embedded bitmap, emfToPng returns null and the image is skipped.
       if (m.emf) {
         const png = emfToPng(fs.readFileSync(m.src));
-        if (png) { fs.writeFileSync(dest, png); emfConv++; }
-        continue;
-      }
+        if (png) { fs.writeFileSync(dest, png); emfConv++; wrote = true; }
       // A picture the author turned in Word (a sideways phone photo of a poster, say):
       // bake the turn in, since the stored bytes are still in the original orientation.
       // rotateImage does the crop itself, in the right order.
-      if (m.rot && rotateImage(m.src, dest, m.rot, m.crop, fs)) { rotated++; continue; }
-      if (m.crop && cropImage(m.src, dest, m.crop, fs)) { cropped++; continue; }
-      if (enhanceLineArt(m.src, dest, fs)) enhanced++;
-      else fs.copyFileSync(m.src, dest);
+      } else if (m.rot && rotateImage(m.src, dest, m.rot, m.crop, fs)) { rotated++; wrote = true; }
+      else if (m.crop && cropImage(m.src, dest, m.crop, fs)) { cropped++; wrote = true; }
+      else if (enhanceLineArt(m.src, dest, fs)) { enhanced++; wrote = true; }
+      else { fs.copyFileSync(m.src, dest); wrote = true; }
+      // Take off any generator badge burnt into the picture ("AI-Generated", "Made
+      // with AI" and the like, stamped into a corner). Authors paste these pictures in
+      // badge and all, and a stamped label has no place in a printed book. The badge's
+      // footprint is rebuilt from the picture around it, so nothing else changes and
+      // the picture keeps its full frame — see src/typeset/dewatermark.js. Runs LAST,
+      // after any crop/rotation, so the badge is hunted in the orientation that prints.
+      if (wrote && !wmOff) {
+        const per = wmPer(m.orig);
+        if (per !== false) {
+          const hit = stripWatermark(dest, dest, fs, wmBoxes(per));
+          if (hit) { dewatermarked++; wmNames.push(`${m.orig || m.name} (${hit.length})`); }
+        }
+      }
     } catch (e) { /* skip missing */ }
   }
   if (emfConv) console.log(`   recovered ${emfConv} EMF image(s) to PNG`);
   if (cropped) console.log(`   applied Word crop to ${cropped} image(s)`);
   if (rotated) console.log(`   applied Word rotation to ${rotated} image(s)`);
   if (enhanced) console.log(`   enhanced ${enhanced} faint line-art image(s)`);
+  if (dewatermarked) console.log(`   removed a generator watermark from ${dewatermarked} image(s): ${wmNames.join(", ")}`);
 
   const title = deriveTitle(blocks, base);
   // Running-header pill reflects the actual book (e.g. "Form 4 Teacher's Book"

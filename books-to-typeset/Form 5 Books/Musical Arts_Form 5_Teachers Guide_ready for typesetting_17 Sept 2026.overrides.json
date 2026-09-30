@@ -1,20 +1,81 @@
 {
-  "authors": ["Dr Mary Mwila (PhD)", "Dr Chipo Namaiko (PhD)"],
+  "authors": [
+    "Dr Mary Mwila (PhD)",
+    "Dr Chipo Namaiko (PhD)"
+  ],
   "tocDepth": 2,
+  "orIndividually": false,
   "synthesiseCover": true,
   "images": {
-    "image1.jpeg": { "src": "musical-arts-form5-cover.png" }
+    "image1.jpeg": {
+      "src": "musical-arts-form5-cover.png"
+    }
+  },
+  "headingCase": {
+    "to": "sentence",
+    "apply": [
+      "boxTitle",
+      "head"
+    ],
+    "keep": [
+      "African",
+      "American",
+      "Asian",
+      "European",
+      "Latin",
+      "Zambian",
+      "MIDI",
+      "SATB",
+      "Finale",
+      "Sibelius",
+      "MuseScore",
+      "Musescore",
+      "Protools",
+      "Flutloops",
+      "Facebook",
+      "Tiktok",
+      "Instagram",
+      "YouTube"
+    ],
+    "skip": [
+      "Teaching Steps",
+      "Specific competence",
+      "Expected standard",
+      "Introduction",
+      "General competences"
+    ]
   },
   "edit": [
-    { "find": "Edited by: Agness Mumba Wilkins, Annie Zulu Banda and Njira Mtonga", "with": "Edited by: Agness Mumba Wilkins (PhD), Annie Zulu Banda and Njira Mtonga" },
-    { "find": "Mary Mwila and Chipo Namaiko", "with": "Mary Mwila (PhD) and Chipo Namaiko (PhD)" }
+    {
+      "find": "Edited by: Agness Mumba Wilkins, Annie Zulu Banda and Njira Mtonga",
+      "with": "Edited by: Agness Mumba Wilkins (PhD), Annie Zulu Banda and Njira Mtonga"
+    },
+    {
+      "find": "Mary Mwila and Chipo Namaiko",
+      "with": "Mary Mwila (PhD) and Chipo Namaiko (PhD)"
+    },
+    {
+      "find": "holds a PhD in Music Education and a Master of Education in",
+      "with": "holds a PhD in Music Education (University of Zambia) and a Master of Education in"
+    }
   ],
   "fixExercise": [
     {
       "match": "EXERCISE",
       "near": "Note entry",
       "heading": "EXERCISE 2",
-      "markers": [null, null, null, null, null, null, null, "", "5.", null]
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "",
+        "5.",
+        null
+      ]
     },
     {
       "match": "EXERCISE 1",
@@ -34,23 +95,249 @@
     {
       "match": "EXERCISE 8",
       "near": "MIDI stands for",
-      "markers": [null, null, null, null, null, null, null, null, "", "5.", null]
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "",
+        "5.",
+        null
+      ]
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "For an F Horn",
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        "2.",
+        null,
+        null,
+        "3.",
+        null,
+        null,
+        "4."
+      ]
+    }
+  ],
+  "splitBoxTitle": [
+    {
+      "find": "Creating And Managing Events Budgets",
+      "at": "Working in groups, prepare a budget"
     }
   ],
   "textFix": [
-    { "find": "LEARNING ACITIVITY", "with": "LEARNING ACTIVITY" },
-    { "find": "Mumba-Wilkins", "with": "Mumba Wilkins" },
-    { "find": "Zulu-Banda", "with": "Zulu Banda" }
+    {
+      "find": "LEARNING ACITIVITY",
+      "with": "LEARNING ACTIVITY"
+    },
+    {
+      "find": "Mumba-Wilkins",
+      "with": "Mumba Wilkins"
+    },
+    {
+      "find": "Zulu-Banda",
+      "with": "Zulu Banda"
+    },
+    {
+      "find": "Musicmaking",
+      "with": "Music-making"
+    },
+    {
+      "find": ". Refer to the form 5 learners’ book page …..",
+      "with": "."
+    },
+    {
+      "find": ". Refer to the form 5 learners’ book page ….",
+      "with": "."
+    },
+    {
+      "find": ". Refer to form 5 learners’ book page ….",
+      "with": "."
+    },
+    {
+      "find": " refer to form 5 learners’ book page….",
+      "with": ""
+    },
+    {
+      "find": "SUGGESSTED TEACHING METHODOLOGY",
+      "with": "SUGGESTED TEACHING METHODOLOGY"
+    }
+  ],
+  "subtext": [
+    {
+      "from": "Teaching steps",
+      "to": "Teaching Steps"
+    },
+    {
+      "from": "In this topic, learners will",
+      "to": "In this section, learners will"
+    },
+    {
+      "from": ", referring to the Form Five Learners’ Book, page ….",
+      "to": "."
+    },
+    {
+      "from": ", referring to the Form Five Learners’ Book, page …",
+      "to": "."
+    },
+    {
+      "from": ", referring to the Form Five Learners’ Book.",
+      "to": "."
+    },
+    {
+      "from": "in Column A with",
+      "to": "in column A with"
+    },
+    {
+      "from": "in Column B. Write",
+      "to": "in column B. Write"
+    },
+    {
+      "from": "instruments, including at least three transposing",
+      "to": "instruments, three transposing"
+    },
+    {
+      "from": "Evidence of research or data collection.",
+      "to": "Evidence of research and data collection."
+    },
+    {
+      "from": "three career opportunities that a learner could pursue in the music industry.",
+      "to": "three career opportunities that a learner could pursue."
+    },
+    {
+      "from": "emphasise issue of",
+      "to": "Emphasise issue of"
+    },
+    {
+      "from": "Remind learners on issue of",
+      "to": "Remind learners on the issue of"
+    },
+    {
+      "from": "MuseScore. Present your findings in",
+      "to": "MuseScore. Learners should present their findings in"
+    },
+    {
+      "from": "Present two contrasting melodies. and guide",
+      "to": "Present two contrasting melodies and guide"
+    },
+    {
+      "from": "a virtual instrument. they should edit",
+      "to": "a virtual instrument. They should edit"
+    },
+    {
+      "from": "freely available for use and modification",
+      "to": "freely available for use and modification."
+    }
+  ],
+  "unboldBlock": [
+    "share their preferred genres with reasons",
+    "Promote social and emotional learning by encouraging active listening",
+    "Promote digital literacy by guiding learners",
+    "Guide learners to apply financial education",
+    "Promote human rights and freedoms by encouraging",
+    "Promote social and emotional learning by fostering",
+    "explain the musical features they incorporated",
+    "Guide learners to observe the participation and roles",
+    "Guide learners to recognise and discuss the participation",
+    "Guide learners to demonstrate empathy and respect",
+    "Guide learners to discuss how cultural music can promote good governance",
+    "Facilitate discussion on the contributions of people of different genders",
+    "Guide each pair to consider responsible allocation",
+    "Guide learners to recognise values such as respect, unity",
+    "Encourage learners to explore environmentally sustainable approaches",
+    "Guide learners to consider affordable and locally available alternatives",
+    "Create a supportive learning environment in which learners can manage frustration",
+    "Encourage cooperation, confidence, self-discipline",
+    "or recycled materials for rhythmic accompaniment",
+    "Provide appropriate adaptations and accessible resources",
+    "ensure equal participation regardless of gender, and use locally available materials",
+    "skills can support entrepreneurial opportunities in music production",
+    "Reinforce values such as cooperation, respect, responsibility",
+    "provide suitable adaptations for learners with different abilities, and encourage patience",
+    "provide supportive feedback when errors occur",
+    "Provide appropriate adaptations, repeated demonstrations and accessible resources",
+    "Encourage cooperation, active listening, patience and respectful communication when evaluating",
+    "provide appropriate adaptations and shared roles",
+    "Reinforce cooperation, respect, creativity and responsible decision-making",
+    "Guide them to evaluate each other",
+    "Guide learners to respect the cultural origins and rights",
+    "Guide learners to explore how music can promote healthy living",
+    "Guide learners to manage instruments, recording tools",
+    "Promote cooperation, active listening, empathy and respectful communication",
+    "Provide appropriate adaptations to enable learners with different abilities",
+    "Emphasise on promotion of gender",
+    "by sensitising them to correct playing posture",
+    "cyber safety and responsible digital citizenship",
+    "handle ICT equipment carefully",
+    "by observing copyright and intellectual property requirements",
+    "privacy and responsible use of information",
+    "digital citizenship and online safety",
+    "ethical behaviour",
+    "environmental awareness"
   ],
   "replaceBlocks": [
     {
       "find": "X: Twitter",
       "with": [
-        { "raw": { "t": "para", "segs": [
-          { "t": "X:", "b": true, "it": false, "c": null },
-          { "t": " Twitter", "b": false, "it": false, "c": null }
-        ] } }
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "X:",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " Twitter",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Percussion Instruments are Instruments that produce sound when struck, shaken, scraped, or rubbed.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Percussion Instruments",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": ": Instruments that produce sound when struck, shaken, scraped, or rubbed.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
       ]
     }
+  ],
+  "unitalicBlock": [
+    "by observing copyright and intellectual property requirements",
+    "assess their ability to select appropriate promotional strategies",
+    "throughout the activity",
+    "including practical recommendations for improving future"
   ]
 }

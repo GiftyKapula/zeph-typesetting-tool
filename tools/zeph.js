@@ -14,7 +14,7 @@
 //   add <book> <file>       attach any file (pdf/docx/log) as a version
 //   build <book>            typeset the latest manuscript (runs the engine)
 //   deliver <book> [--to d] copy the typeset PDF out, named for its round:
-//                          "For Proofreading" before the comments come back, "Final" after
+//                          "For Proofreading" before the comments come back, "For Printing" after
 //                          (default destination: your Downloads folder)
 //   send <book> [pdf]       open a proofread round; mark sent-for-proofread
 //   return <book> <file>    ingest annotated file, extract comments into the round
@@ -202,7 +202,7 @@ function cmdBuild(id) {
 // A delivered PDF is named for the round it belongs to, never by hand. A book on its
 // way out to a reviewer is delivered "For Proofreading"; once the proofreader's
 // annotated copy has come back and its comments have been extracted (`return`), what
-// goes out is the "Final". Driving the name off the book's own state means the two can
+// goes out is "For Printing". Driving the name off the book's own state means the two can
 // never drift apart, and a book sent out for a SECOND proofread (state back to
 // sent-for-proofread) correctly goes out as "For Proofreading" again.
 const PROOF_STATES = new Set(["drafting", "typesetting", "sent-for-proofread"]);
@@ -212,7 +212,7 @@ const KIND_WORD = { LB: "Learner's Book", TG: "Teacher's Guide", SYL: "Syllabus"
 // ("…Learners Book_ready for Ind. Rev. 5 Sept 2026"). Falls back to the stored title
 // when a book has no subject/grade recorded.
 function deliveryName(b) {
-  const round = PROOF_STATES.has(b.state) ? "For Proofreading" : "Final";
+  const round = PROOF_STATES.has(b.state) ? "For Proofreading" : "For Printing";
   const stem = b.subject
     ? [b.subject, b.grade, KIND_WORD[b.kind] || b.kind].filter(Boolean).join(" ")
     // No subject recorded (an older row, or one imported before subjects were parsed):

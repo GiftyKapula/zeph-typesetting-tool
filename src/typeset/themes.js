@@ -33,14 +33,14 @@ function zeph({ subject, variant = "series", motif = "atom",
   return {
     font: "Times New Roman", displayFont: "Segoe UI", bodyFont: "Arial",
     variant, paper: "iso-b5", ink: "1a1a1a", motif,
-    tagline: "", tab: "Learner's Book", toctitle,
+    tagline: "", tab: "Learner’s Book", toctitle,
     tocUnitsOnly, coverStyle,
     // `subject` feeds cover-synthesis; `eyebrow` is ALSO emitted to Typst (see
     // themeTypst()) so the science/title-page/back-cover renderers show the
     // right education level instead of assuming secondary.
     subject, eyebrow: level.toUpperCase(),
     hdrleft: level + " " + subject,
-    hdrtab: "Learner's Book",
+    hdrtab: "Learner’s Book",
     signature, primary, primary2, accent, cyan,
     rulec: tint(primary, 0.78), zebra: tint(primary, 0.93), yellow: "fff39a",
     act:  { fill: tint(primary, 0.9),  border: primary2, title: primary },
@@ -152,9 +152,9 @@ const THEMES = {
     displayFont: "Segoe UI",      // cover + title page (modern sans)
     bodyFont: "Arial",            // body text + interior headings (sans)
     variant: "series", paper: "iso-b5", ink: "1a1a1a",
-    tagline: "", tab: "Form 4 Learner's Book", toctitle: "Table of Contents",
+    tagline: "", tab: "Form 4 Learner’s Book", toctitle: "Table of Contents",
     hdrleft: "Secondary Education Ordinary Level English Language",
-    hdrtab: "Form 4 Learner's Book",
+    hdrtab: "Form 4 Learner’s Book",
     // English's signature cover colour is YELLOW (used for the cover bands/shapes,
     // with teal as the readable text/structure colour).
     signature: "f6c324",
@@ -176,9 +176,9 @@ const THEMES = {
     displayFont: "Segoe UI",      // cover + title page (clean technical sans)
     bodyFont: "Arial",            // body + interior headings (sans)
     variant: "science", paper: "iso-b5", ink: "1a1a1a", motif: "atom",
-    tagline: "", tab: "Form 4 Learner's Book", toctitle: "Table of Contents",
+    tagline: "", tab: "Form 4 Learner’s Book", toctitle: "Table of Contents",
     hdrleft: "Secondary Education Ordinary Level Physics",
-    hdrtab: "Form 4 Learner's Book",
+    hdrtab: "Form 4 Learner’s Book",
     signature: "26346b",          // deep indigo (cover signature)
     primary: "26346b", primary2: "3a4a8c", accent: "f0a32e", cyan: "1fb6d6",
     rulec: "cfd6ea", zebra: "eef1f8", yellow: "fff39a",
@@ -198,9 +198,9 @@ const THEMES = {
     displayFont: "Segoe UI",      // cover + title page
     bodyFont: "Arial",            // body + interior headings (sans)
     variant: "science", paper: "iso-b5", ink: "1a1a1a", motif: "cell",
-    tagline: "", tab: "Form 4 Learner's Book", toctitle: "Table of Contents",
+    tagline: "", tab: "Form 4 Learner’s Book", toctitle: "Table of Contents",
     hdrleft: "Secondary Education Ordinary Level Biology",
-    hdrtab: "Form 4 Learner's Book",
+    hdrtab: "Form 4 Learner’s Book",
     signature: "17633a",          // deep emerald (cover signature)
     primary: "17633a", primary2: "2f8f5b", accent: "e8a020", cyan: "16a085",
     rulec: "cfe3d6", zebra: "edf6f0", yellow: "fff39a",
@@ -228,9 +228,9 @@ const THEMES = {
     subject: "Chemistry",         // read by cover synthesis + running-header pill
     boxStyle: "labcard",          // unique chemistry callout (no left stripe)
     tocDepth: 1,                  // contents lists TOPICS only (no sub-topics)
-    tagline: "", tab: "Form 1 Learner's Book", toctitle: "Table of Contents",
+    tagline: "", tab: "Form 1 Learner’s Book", toctitle: "Table of Contents",
     hdrleft: "Secondary Education Ordinary Level Chemistry",
-    hdrtab: "Form 1 Learner's Book",
+    hdrtab: "Form 1 Learner’s Book",
     signature: "6a2c8f",          // amethyst purple (cover signature)
     primary: "6a2c8f", primary2: "8a4aad", accent: "e79a2b", cyan: "17a2b8",
     rulec: "e0d3ec", zebra: "f4eef9", yellow: "fff39a",

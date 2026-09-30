@@ -24,6 +24,7 @@ const JSZip = require("jszip");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
 const { importDocx } = require("./import-docx.js");
 const { emfToPng, cropImage } = require("./image-enhance.js");
+const { stripWatermark } = require("./dewatermark.js");
 const { THEMES, autoTheme } = require("./themes.js");
 
 const ROOT = path.join(__dirname, "..", "..");
@@ -390,6 +391,9 @@ function stageMedia(media, mediaDir, warn) {
       } else {
         fs.copyFileSync(m.src, dest);
       }
+      // The same generator-badge removal the print pipeline does, so an e-book never
+      // ships a picture the PDF had cleaned (see src/typeset/dewatermark.js).
+      stripWatermark(dest, dest, fs);
       n++;
     } catch (e) {
       warn(`media copy failed ${m.name}: ${e.message}`);
@@ -430,7 +434,7 @@ async function main() {
     eyebrow: levelFor(meta.grade),
     title: meta.subject || (THEMES[theme.key] && THEMES[theme.key].subject) || meta.title,
     subtitleTop: meta.grade || "",
-    subtitle: meta.kind === "TG" ? "Teacher's Guide" : "Learner's Book",
+    subtitle: meta.kind === "TG" ? "Teacher’s Guide" : "Learner’s Book",
     author: meta.author,
     publisher: "Zambia Educational Publishing House",
     year: new Date().getFullYear(),

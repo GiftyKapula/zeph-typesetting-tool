@@ -317,7 +317,7 @@
   pagebreak(weak: true)
   set text(font: T.displayFont)
   let grade = lines.find(l => hasGradeWord(l))
-  let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
+  let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
   let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
   // The subject title: if the grade line is "SUBJECT FORM N" use the stripped
   // subject ("PHYSICS"); if the grade line is just "FORM N", the subject sits on
@@ -455,7 +455,7 @@
   let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
   let subject = lines.at(0, default: "")
   let grade = if lines.len() > 1 { lines.slice(1).find(l => hasGradeWord(l)) } else { none }
-  let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
+  let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
 
   // ---------- FINISHED cover: the manuscript ships a complete, already-designed
   // cover graphic (title, book type, authors, publisher/logo all baked into the
@@ -1404,7 +1404,7 @@
   }
   let subject = lines.at(0, default: "")
   let grade = lines.find(l => hasGradeWord(l))
-  let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
+  let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
   let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
   // Subject title: strip the form/grade token off the grade line ("ENGLISH GRADE 2"
   // -> "ENGLISH"). When the subject and the form sit on SEPARATE lines
@@ -1518,6 +1518,14 @@
   // single-line entries above and below it. Without hyphenation the entry wraps at
   // a word boundary instead, and the leader stays with its page number.
   set text(hyphenate: false)
+  // An entry too long for one line wraps at a word boundary (above), and its second
+  // line must hang under the entry's TEXT rather than fall back to the entry's own left
+  // edge. Without this, "SUB-TOPIC 2.2.2 PLANNING AND PREPARATION FOR FIELD / WORK"
+  // put WORK hard against the margin, where it reads as a new entry of its own rather
+  // than as the tail of the one above — the same hanging-indent rule a wrapped numbered
+  // item already follows in the body. 1.2em matches the outline's own indent step, so a
+  // continuation line sits exactly one level in from where its entry began.
+  set par(hanging-indent: 1.2em)
   let tgap = T.at("tocGap", default: 10pt)
   show outline.entry: it => { v(5pt, weak: true); upper(it) }
   let tdepth = T.at("tocDepth", default: 2)
@@ -1760,8 +1768,33 @@
 #let PARA_NUM = regex("^[ \t\r\n]*([0-9]{1,2}[.)]|[ivxIVX]{1,4}[.)]|[a-zA-Z][.)])[ \t]+")
 // The same marker, but occupying a run entirely on its own.
 #let PARA_NUM_ONLY = regex("^[ \t\r\n]*([0-9]{1,2}[.)]|[ivxIVX]{1,4}[.)]|[a-zA-Z][.)])[ \t]*$")
+// A fill-in blank ("________") carries no break opportunity, so a long one is a single
+// atomic token: it moves WHOLE to the next line rather than splitting across two. That
+// is deliberate and wanted (see zwspBlanks in typeset-docx.js). What is NOT wanted is
+// what it leaves behind: the line it vacated is still justified, so Typst stretches the
+// few remaining words across the whole measure. The Geography Form 2 Learner's Book
+// Exercise 5 printed "Feature   A:   A   solid   red   line   running   across   the"
+// with the rule sitting alone underneath, while the short blanks in Part 1 of the very
+// same exercise looked fine — one element, two appearances.
+//
+// So a paragraph carrying a long blank sets ragged right. The words keep their natural
+// spacing and the rule still drops whole to the next line. Short blanks are deliberately
+// left justified: they seldom fail to fit, and a paragraph's last line is never
+// stretched anyway, so they never produced the defect.
+//
+// This is the SAME decision the exercise/assessment renderer already makes for its own
+// text (it sets justify: false outright, for exactly this reason — see the note there
+// about "Natural Resources = ____"). That guard covers anything inside an exercise or
+// assessment BOX; this one covers the body-prose case it cannot reach. Geography Form 2
+// Exercise 5 is that case: it imported as plain headings and paragraphs rather than a
+// boxed exercise, so it fell outside the existing rule and was the one place the defect
+// still showed.
+#let FILLBLANK = regex("_{12,}")
+#let hasFillBlank(ss) = ss.any(s => s.at("m", default: false) == false
+  and s.at("t", default: "").find(FILLBLANK) != none)
 #let para(ss, align: none, drop: false, hyphenate: true) = {
   set text(hyphenate: hyphenate)
+  set par(justify: false) if hasFillBlank(ss)
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
     // Drop capital: lift the first letter of the first run to ~3-line height in the
     // theme primary colour, then flow the rest of the paragraph. Used for the
@@ -1829,9 +1862,115 @@
   // instead of forcing bold, so it always agrees with its text.
   let firstseg = ss.find(s => s.t.trim() != "")
   let contentBold = firstseg != none and firstseg.at("b", default: false)
-  grid(columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top),
-    text(fill: if isbullet { iaccent2 } else { T.primary }, weight: if isbullet { "regular" } else if contentBold { "bold" } else { "regular" })[#marker],
-    par[#segs(ss)])
+  let wt = if isbullet { "regular" } else if contentBold { "bold" } else { "regular" }
+  let mk = text(fill: if isbullet { iaccent2 } else { T.primary }, weight: wt)[#marker]
+  // A NUMBERED list reserves the same marker column for every one of its items, sized
+  // to a two-digit number rather than to each item's own marker. With an `auto` column
+  // each item is its own grid, so "1." and "10." size differently and an item's text
+  // starts about a millimetre further right once the list reaches ten: a thirteen-step
+  // facilitation procedure develops a ragged left edge halfway down, and the same list
+  // indents two different amounts on the same page. A marker that needs more room than
+  // two digits — "(iii)", "(a)" — still gets it; a bullet keeps its own narrow column,
+  // since every bullet is the same width anyway.
+  context {
+    let mw = measure(mk).width
+    let colw = if isbullet { mw } else { calc.max(mw, measure(text(weight: wt)[88.]).width) }
+    grid(columns: (colw, 1fr), column-gutter: 7pt, align: (left + top, left + top),
+      mk, par[#segs(ss)])
+  }
+}
+// ---- a marker-led line INSIDE A TABLE CELL -------------------------------
+// House style: a line that opens with a marker never lets its next line start where
+// the marker is. A real Word list item gets that from listitem() and a hand-numbered
+// paragraph from para(), but a table CELL took neither route. A cell lists its items
+// by typing "• " at the head of each line and parting them with soft breaks, and the
+// whole cell rendered as ONE paragraph, so any item too long for the column wrapped
+// back under its own bullet — "• Organise things according to their / attributes" in
+// the GENERAL COMPETENCES grid, whose items are the same list element the body sets
+// correctly a few pages later. That is one element with two appearances in a single
+// book. A cell now draws each marker-led line in the same marker-column grid the
+// other two routes use.
+//
+// Deliberately narrow, for the reason PARA_NUM is: a bullet glyph, or the same one-
+// or two-character numbering shapes, and then a real space or the end of the run. A
+// cell holding ordinary data ("1", "No.", "2.5 kg") is never mistaken for a list.
+// The trailing alternative matters because the importer very often gives the bullet
+// a run of its OWN ("• ") with the item's text in the run after it.
+#let CELL_MARK = regex("^[ \t]*(•|●|▪|◦|‣|[0-9]{1,2}[.)]|[ivxIVX]{1,4}[.)]|[a-zA-Z][.)])([ \t]+|[ \t]*$)")
+
+// Split a run of segments into LINES, breaking on "\n" wherever it appears: as a
+// segment of its own (how the importer parts two separately-styled runs) and inside a
+// run's own text (how it emits several lines typed into one run). Each line keeps its
+// segments and their styling, so a bold item stays bold.
+#let seglines(ss) = {
+  let lines = ()
+  let cur = ()
+  for s in ss {
+    let t = if s.at("m", default: false) { "" } else { s.at("t", default: "") }
+    if not t.contains("\n") { cur.push(s); continue }
+    for (i, p) in t.split("\n").enumerate() {
+      if i > 0 { lines.push(cur); cur = () }
+      if p != "" { cur.push(((:) + s) + (t: p)) }
+    }
+  }
+  lines.push(cur)
+  lines.filter(l => l.len() > 0)
+}
+
+// The marker opening a line, if it has one: the matched marker and the segments left
+// after it, or none. The marker may fill its whole first run, in which case the item's
+// text begins in the run after it.
+#let linemarker(l) = {
+  let first = if l.len() > 0 { l.at(0) } else { none }
+  if first == none or first.at("m", default: false) { return none }
+  let plain = first.at("t", default: "")
+  let m = if plain.len() > 0 { plain.match(CELL_MARK) } else { none }
+  if m == none { return none }
+  let rest = if plain.len() > m.end {
+    (((:) + first) + (t: plain.slice(m.end)),) + l.slice(1)
+  } else { l.slice(1) }
+  // Nothing after the marker is not a list item — it is a cell that happens to hold
+  // "1." or a lone bullet, and it must render exactly as it did before.
+  if rest.len() == 0 or rest.all(s => s.at("m", default: false) == false and s.t.trim() == "") { return none }
+  (marker: m.captures.at(0), rest: rest)
+}
+
+#let cellmarked(ss) = seglines(ss).any(l => linemarker(l) != none)
+
+// Render a cell's segments with every marker-led line hung under its own text. A line
+// with no marker is set as an ordinary paragraph, so a lead-in sentence sitting above
+// a list inside the same cell is untouched.
+#let cellsegs(ss) = {
+  // The gutter is 4pt, not the 7pt listitem() uses in the body: a table column is a
+  // far narrower measure (a six-column grid hands a cell ~26mm), and spending the
+  // body's gutter there would take a whole word off every line of the item.
+  // Every gap in the list is one line: the space BETWEEN two items matches the leading
+  // WITHIN a wrapped one, which is what the cell looked like when it was a single
+  // paragraph of soft-broken lines and is the only rhythm that reads as one list. Left
+  // at the default, a wrapped item sat closer to the item below it than to its own
+  // second line, so its tail read as the head of the next item — the defect this
+  // change exists to cure, reintroduced one line down. 0.66em is the body leading
+  // loentry() also matches.
+  set par(leading: 0.66em, spacing: 0.66em)
+  set block(spacing: 0.66em)
+  for l in seglines(ss) {
+    let lm = linemarker(l)
+    if lm == none { par[#segs(l)] } else {
+      let isbullet = lm.marker.match(regex("^[0-9a-zA-Z]")) == none
+      let body = lm.rest.find(s => s.at("m", default: false) == false and s.t.trim() != "")
+      let wt = if isbullet { "regular" } else if body != none and body.at("b", default: false) { "bold" } else { "regular" }
+      let mk = text(fill: if isbullet { iaccent2 } else { T.primary }, weight: wt)[#lm.marker]
+      // Reserve one marker column for the whole list, sized to a two-digit number, for
+      // the reason listitem() states: with an `auto` column "1." and "10." size
+      // differently and the item text steps right once the list reaches ten.
+      context {
+        let mw = measure(mk).width
+        let colw = if isbullet { mw } else { calc.max(mw, measure(text(weight: wt)[88.]).width) }
+        grid(columns: (colw, 1fr), column-gutter: 4pt, align: (left + top, left + top),
+          mk, par[#segs(lm.rest)])
+      }
+    }
+  }
 }
 // A worked-solution CONTINUATION line: a stand-alone equation that carries on the
 // numbered step above it (e.g. under "1. 2A = …" the next line "2A + D = …"). The
@@ -2087,31 +2226,33 @@
   }
 }
 #let subhead(t, nobrk: false) = {
-  // Every Sub-Topic starts its own fresh page, same house-style rule as Topics
-  // (topicbanner above) — a Sub-Topic heading must never land as a widow at the
-  // foot of the page its parent Topic's overview text happened to fill. In a
-  // SYLLABUS, though, only the YEAR banners get that treatment; the front-matter
-  // sub-sections (Methodologies, Assessment, CBA, Time Allocation…) FLOW as normal
-  // headings under their parent section (Introduction), so they don't page-break.
-  let isyear = syllabus and t.trim().match(regex("(?i)^year\\s+\\d+$")) != none
-  // The rule above guards a Sub-Topic heading against being stranded at the FOOT of a
-  // full page. It says nothing about the opposite waste — a Sub-Topic breaking away
-  // from a page holding only the line or two that had just spilled onto it. The
-  // Literature in English Form 1 Learner's Book has eight such pages (printed 11, 16,
-  // 28, 106, 107, 126 and 128; two carry a single line, one a lone figure caption cut
-  // from its own picture), each the tail of the section before, marooned when the next
-  // Sub-Topic took a fresh page. That is a real defect and it is still open.
+  // A Sub-Topic takes a fresh page only when there is no room left for it on this one.
   //
-  // NOTE: do not try to fix it by making this break conditional on how far down the
-  // page we already are.
-  // Measuring `here().position().y` and then breaking on the result is circular — the
-  // break moves the position that decided it, Typst's layout stops converging, and the
-  // damage shows up not as a bad break but as a WRONG PAGE NUMBER: tried once, the
-  // Learner's Book printed "18" in the footer of page 40 and "1" on every page from 64
-  // to the end, while the pages themselves looked right. The stranded-tail problem this
-  // was meant to solve is real and still open; it needs a mechanism that does not read
-  // back the position it is about to change.
-  if not nobrk and (isyear or not syllabus) { pagebreak(weak: true) }
+  // It used to take one unconditionally, the same house-style rule as Topics, to keep a
+  // Sub-Topic heading off the foot of the page its parent Topic's overview happened to
+  // fill. That bought the guarantee at a steep price in blank paper, at both ends: a
+  // Topic whose introduction runs four lines spent the rest of that page on nothing, and
+  // a Sub-Topic breaking away from the line or two that had just spilled onto a page left
+  // that page almost empty too (the Literature in English Form 1 Learner's Book had eight
+  // such pages; the Grade 1 CTS Teacher's Guide, twenty topic openers). The rule the user
+  // set instead is about how much stands above the heading: "if the introduction very
+  // short put the subtopic on the same page but if it is long to almost the whole page
+  // then the subtopic should start on new page."
+  //
+  // That is what ordinary flow does, once the heading itself is `sticky` — every branch
+  // below sets it — so Typst carries the heading to the next page rather than stranding
+  // it whenever what follows will not fit beside it. Nothing here reads the position it
+  // is about to change, which is the one way this must NOT be done: measuring
+  // `here().position().y` and breaking on the answer is circular, Typst stops
+  // converging, and the damage surfaces not as a bad break but as WRONG PAGE NUMBERS —
+  // tried once, the Learner's Book printed "18" in the footer of page 40 and "1" on
+  // every page from 64 to the end while the pages themselves looked right.
+  //
+  // A SYLLABUS is unchanged: its YEAR banners still open a page of their own, and its
+  // front-matter sub-sections (Methodologies, Assessment, CBA, Time Allocation…) still
+  // flow as ordinary headings under their parent section.
+  let isyear = syllabus and t.trim().match(regex("(?i)^year\\s+\\d+$")) != none
+  if not nobrk and isyear { pagebreak(weak: true) }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
   // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them.
   if not tocUnitsOnly {
@@ -2149,9 +2290,11 @@
     // a lesson heading (already numbered "1. …" at build time) — generous space
     // before it, and `sticky` so a heading never strands at the foot of a page
     v(22pt, weak: true)
-    // The banner is ALWAYS as tall as a two-line title, so the text beneath it starts
-    // at the same height on every sub-topic page. Sub-topics each open their own page,
-    // and a title that wraps ("SUB-TOPIC 2.1.4: SIN, FORGIVENESS AND RECONCILIATION",
+    // The banner is ALWAYS as tall as a two-line title, so what follows it sits the same
+    // distance below on every sub-topic, whether the title wrapped or not. When
+    // sub-topics each opened their own page this also lined up the first body line
+    // across pages; it still keeps the element itself one fixed height. A title that
+    // wraps ("SUB-TOPIC 2.1.4: SIN, FORGIVENESS AND RECONCILIATION",
     // "…: THE TEACHINGS OF THE FOUR RELIGIONS IN ZAMBIA ON FREEDOM…") pushed everything
     // under it down by a line: measured across this book, ten sub-topic pages started
     // their body at one height and seven at another, a 9.5mm step for a heading that
@@ -2167,14 +2310,19 @@
     // Measured through `layout`, so both heights are worked out at the REAL column
     // width: measuring a `width: 100%` block in an unbounded context instead returns a
     // nonsense height, which padded every banner out by a third of the page.
-    layout(size => context {
-      let twoLine = measure(block(width: size.width)[
-        #text(fill: T.primary, size: hs(14pt), weight: "bold")[X \ X]
-        #v(2pt)
-        #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt)]).height
-      let own = measure(block(width: size.width, bannerBody)).height
-      block(width: 100%, height: calc.max(own, twoLine), breakable: false, sticky: true, bannerBody)
-    })
+    // The sticky lives on the OUTER block, not on the one inside `layout`. Typst's flow
+    // sees the `layout` call as the element here, so a sticky set inside it never reached
+    // the flow and two sub-topic banners still printed as the last thing on their page
+    // (printed 16 and 86) once sub-topics stopped taking a page of their own.
+    block(width: 100%, breakable: false, sticky: true)[
+      #layout(size => context {
+        let twoLine = measure(block(width: size.width)[
+          #text(fill: T.primary, size: hs(14pt), weight: "bold")[X \ X]
+          #v(2pt)
+          #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt)]).height
+        let own = measure(block(width: size.width, bannerBody)).height
+        block(width: 100%, height: calc.max(own, twoLine), breakable: false, bannerBody)
+      })]
     // Close the gap between the banner's rule and the first line under it. The
     // proofreader marked one sub-topic page "the space is too much", and measured
     // across this book the rule sat 14.4mm above the first line of text on every
@@ -2188,7 +2336,7 @@
     v(-14pt)
   } else if literary {
     // small diamond + italic serif title, with a thin gold rule under it
-    block(width: 100%, breakable: false)[
+    block(width: 100%, breakable: false, sticky: true)[
       #grid(columns: (auto, 1fr), column-gutter: 7pt, align: (horizon, horizon),
         rotate(45deg, rect(fill: T.accent, width: 4pt, height: 4pt)),
         text(fill: T.primary, size: hs(14pt), weight: "bold", style: "italic")[#t])
@@ -2196,18 +2344,18 @@
       #line(length: 100%, stroke: 0.5pt + T.accent.lighten(12%))]
   } else if panel {
     // a solid colour "chip", sized to the text
-    block(breakable: false)[
+    block(breakable: false, sticky: true)[
       #box(fill: T.primary, inset: (x: 10pt, y: 5pt), radius: 4pt)[
         #text(fill: white, size: hs(14pt), weight: "bold")[#t]]]
   } else if modern {
-    block(width: 100%, breakable: false, radius: 4pt, fill: T.act.fill, stroke: (left: 5pt + T.accent), inset: (x: 11pt, y: 8pt))[
+    block(width: 100%, breakable: false, sticky: true, radius: 4pt, fill: T.act.fill, stroke: (left: 5pt + T.accent), inset: (x: 11pt, y: 8pt))[
       #text(fill: T.primary, size: hs(14pt), weight: "bold")[#t]]
   } else if syllabus {
     // clean solid banner — no left accent stripe
-    block(width: 100%, breakable: false, radius: 3pt, fill: T.primary, inset: (x: 12pt, y: 8pt))[
+    block(width: 100%, breakable: false, sticky: true, radius: 3pt, fill: T.primary, inset: (x: 12pt, y: 8pt))[
       #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
   } else {
-    block(width: 100%, breakable: false, clip: true, radius: 3pt, stroke: (left: 5pt + T.accent), fill: T.primary, inset: (x: 11pt, y: 8pt))[
+    block(width: 100%, breakable: false, sticky: true, clip: true, radius: 3pt, stroke: (left: 5pt + T.accent), fill: T.primary, inset: (x: 11pt, y: 8pt))[
       #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
   }
   v(5pt)
@@ -2254,7 +2402,13 @@
   // is handed straight back below, so a heading with room to spare sits exactly where
   // it always did and no existing page changes.
   let keep = 27mm
-  let kept = block(breakable: false)[#body #v(keep)]
+  // `sticky` belongs on THIS block, not on the one inside `body`: the flow sees `kept`,
+  // so a sticky set further in never reached it and headings still ended pages alone —
+  // fifteen of them in the Grade 1 CTS Teacher's Guide, "LET'S TALK AND LEARN" as the
+  // last line of printed page 122 among them. The reservation below does not catch that
+  // case on its own: this heading fits, and it is the NEXT heading — reserving its own
+  // 27mm — that cannot, so it leaves and this one stays behind.
+  let kept = block(breakable: false, sticky: true)[#body #v(keep)]
   // a heading the author asked to centre (e.g. a reading passage / picture title)
   if al == "center" { std.align(center)[#kept] } else { kept }
   v(2pt - keep)
@@ -2332,6 +2486,23 @@
 // Single image. Landscape: width scaled from natural px (small stay small).
 // Tall/portrait (detected from the real image aspect): capped by HEIGHT so one
 // picture can't fill the whole page.
+// ---- figure/table markers, so a List of Figures can report the REAL page ----
+// A manuscript's List of Figures carries the page numbers the author's Word document
+// happened to have, and those are never the typeset book's: the Geography Form 2
+// Learner's Book listed Figure 5 on 19 when it prints on 21, and every entry after it
+// was out by a similar drift. A list of figures that sends a reader to the wrong page
+// is worse than no list, so the numbers are derived rather than copied. Every caption
+// that names itself "Figure N" / "Table N" drops an invisible, addressable marker on
+// the page it lands on, and each list entry looks its own number up. The manuscript's
+// number survives only as the fallback for a figure that has no caption to find.
+#let capnum(t) = {
+  let m = str(t).matches(regex("^\\s*(Figure|Table)\\s+([0-9]+(?:\\.[0-9]+)*)"))
+  if m.len() > 0 { (lower(m.first().captures.at(0)), m.first().captures.at(1)) } else { none }
+}
+#let capmark(t) = {
+  let k = capnum(t)
+  if k != none [#metadata(none)#label(k.at(0) + "-" + k.at(1))]
+}
 #let figimg(pathstr, wpx, tall, cap, sticky: false, hmm: 0) = {
   v(2pt)
   let img = if hmm > 0 {
@@ -2348,7 +2519,7 @@
   // `sticky` keeps the picture on the same page as the heading/title that follows it.
   align(center)[#block(breakable: false, sticky: sticky)[
     #img
-    #if cap != none [ #v(2pt) #text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
+    #if cap != none [ #v(2pt) #capmark(cap)#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
   ]]
   v(3pt)
 }
@@ -2366,7 +2537,7 @@
       #grid(columns: imgs.map(_ => auto), column-gutter: 10pt, align: top + center,
         ..imgs.map(im => block(width: auto)[
           #image(im.at("file"), height: h)
-          #if im.at("cap") != none [ #v(2pt) #text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
+          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
         ]))]
     // At a uniform height, two landscape images (e.g. side-by-side formula
     // images) can be wider than the text block and bleed off the margins. If the
@@ -2386,23 +2557,29 @@
       #grid(columns: imgs.map(im => (im.at("w") / total) * 1fr), column-gutter: 6pt, align: top + center,
         ..imgs.map(im => [
           #image(im.at("file"), width: 100%)
-          #if im.at("cap") != none [ #v(2pt) #text(size: fs(7.5pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
+          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(7.5pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
         ]))]
   }
   v(5pt)
 }
-#let figcaption(t) = { align(center)[#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#t]]; v(5pt) }
+#let figcaption(t) = { align(center)[#capmark(t)#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#t]]; v(5pt) }
 
 // ---- a List of Figures / List of Tables entry: a bold "Figure N"/"Table N"
 // label + caption on the left, a dotted leader, and a right-aligned page number
 // — styled like the table of contents, not like a centred caption. ----
-#let loentry(num, title, page) = block(above: 0.86em, below: 0pt, width: 100%)[
+// `pgno`, not `page` — the parameter would shadow Typst's own `page` element and break
+// the `counter(page)` lookup below.
+#let loentry(num, title, pgno) = block(above: 0.86em, below: 0pt, width: 100%)[
   // match the book's body: 12pt text, the same leading and inter-paragraph gap
   #set text(size: fs(12pt))
   #set par(leading: 0.66em)
   #grid(columns: (1fr, auto), gutter: 6pt, align: (left + top, right + top),
     [#if num != "" [#text(weight: "bold", fill: T.primary)[#num]#if title != "" [: ]]#title],
-    [#page])
+    [#context {
+      let k = capnum(num)
+      let hits = if k != none { query(label(k.at(0) + "-" + k.at(1))) } else { () }
+      if hits.len() > 0 [#counter(page).at(hits.first().location()).first()] else [#pgno]
+    }])
 ]
 
 // ---- data table (rich cells: each cell is (text, img)) -------------------
@@ -2505,13 +2682,27 @@
       colsum(cs.rows, cs.answer, size: fs(13pt))
     } else if sg.len() > 0 {
       // rich cell (holds an equation): render the segments (with real math)
-      segs(sg)
+      // A cell that LISTS its items — a bullet or a number typed at the head of each
+      // line — hangs every line under its own text instead of letting it wrap back
+      // under the marker. See cellsegs(); the rule is the one listitem() and para()
+      // already follow, so a list reads the same inside a table as outside one.
+      if cellmarked(sg) { cellsegs(sg) } else { segs(sg) }
     } else if c.text != "" {
       // honour line breaks: a cell may list several items on separate lines
-      // A plain cell never goes through seg(), so the brand-name rule is applied here
-      // too — the narrow "Tool" column of a compression-tools table is exactly where a
-      // name like PowerISO would otherwise be hyphenated.
-      for (i, ln) in c.text.split("\n").enumerate() { if i > 0 { linebreak() }; nohyphcell(ln) }
+      // A plain cell that lists its items takes the same hanging marker column as a
+      // rich one; it forgoes nohyphcell()'s brand-name guard, which only ever matters
+      // for a camel-cased product name and never for a list of short descriptors.
+      let lns = c.text.split("\n")
+      if lns.any(ln => ln.match(CELL_MARK) != none) {
+        let ss = ()
+        for (i, ln) in lns.enumerate() {
+          if i > 0 { ss.push((t: "\n", b: false, it: false, c: none)) }
+          ss.push((t: ln, b: false, it: false, c: none))
+        }
+        cellsegs(ss)
+      } else {
+        for (i, ln) in lns.enumerate() { if i > 0 { linebreak() }; nohyphcell(ln) }
+      }
     } else if fillin and subs.len() == 0 {
       // reserve room for the learner to write into an empty fill-in cell
       box(width: 100%, height: 12pt)[]
@@ -2780,7 +2971,10 @@
       else if it.k == "head" {
         v(3pt)
         let hd = text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t]
-        block(breakable: false, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
+        // sticky, like every other heading: a box's own sub-heading must not be the last
+        // thing on a page with its list beginning on the next one ("Teacher Facilitation
+        // Procedure" ended seven pages of the Grade 1 CTS Teacher's Guide that way).
+        block(breakable: false, sticky: true, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
         v(2pt)
       }
       else if it.k == "list" {
@@ -2793,10 +2987,19 @@
         // matching fix on `listitem`, used outside a box, just above).
         let firstseg = it.s.find(s => s.t.trim() != "")
         let contentBold = firstseg != none and firstseg.at("b", default: false)
-        grid(columns: (pad, auto, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
-          [],
-          text(fill: if it.marker == "•" { T.primary2 } else { T.primary }, weight: if it.marker == "•" { "regular" } else if contentBold { "bold" } else { "regular" })[#it.marker],
-          par[#segs(it.s)])
+        let isbullet = it.marker == "•"
+        let wt = if isbullet { "regular" } else if contentBold { "bold" } else { "regular" }
+        let mk = text(fill: if isbullet { T.primary2 } else { T.primary }, weight: wt)[#it.marker]
+        // Same fixed marker column as `listitem` above, and for the same reason: with an
+        // `auto` column "1." and "10." size differently, so a facilitation procedure's
+        // steps start indenting a millimetre further right the moment the list reaches
+        // ten. Reserve two digits for every numbered item.
+        context {
+          let mw = measure(mk).width
+          let colw = if isbullet { mw } else { calc.max(mw, measure(text(weight: wt)[88.]).width) }
+          grid(columns: (pad, colw, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
+            [], mk, par[#segs(it.s)])
+        }
         v(1.5pt)
       }
       else if it.k == "colgrid" { colgrid(rows: it.rows, ncol: it.ncol, hasMarker: it.hasMarker) }
@@ -2828,6 +3031,10 @@
   let n = body.len()
   // mark: -1 render normally, -2 already consumed by a group, >= 0 group start (end index)
   let mark = range(n).map(_ => -1)
+  // Which KIND of group starts here: two different runs are collected below and they
+  // are kept whole on different terms — "checklist" (a heading and the table it
+  // introduces) and "list" (a heading and the list it introduces).
+  let gkind = range(n).map(_ => "")
   let i = 0
   while i < n {
     if isHead(body.at(i)) {
@@ -2845,22 +3052,91 @@
           stop = stop + 1
         }
         mark.at(i) = stop
+        gkind.at(i) = "checklist"
         for x in range(i + 1, stop) { mark.at(x) = -2 }
         i = stop
       }
+    } else if body.at(i).k == "head" and i + 1 < n and body.at(i + 1).k == "list" {
+      // ---- keep a HEADING with the LIST it introduces ----
+      // "Teaching and Learning Materials" and its four or five bullets are one thing to
+      // a reader, but they arrive as separate items and broke wherever the page ran out.
+      // Fourteen pages of the Grade 1 CTS Teacher's Guide opened on a single bullet cut
+      // off from the list on the page before — a lone "Learner's Book" sitting above the
+      // next heading — while the same list elsewhere in the book rendered whole. One
+      // element with two appearances, and the reason making the heading sticky only half
+      // cured it: sticky stops a heading from ENDING a page and says nothing about where
+      // the list beneath it may then break.
+      let j = i + 1
+      while j < n and body.at(j).k == "list" { j = j + 1 }
+      mark.at(i) = j
+      gkind.at(i) = "list"
+      for x in range(i + 1, j) { mark.at(x) = -2 }
+      i = j
+    } else if (body.at(i).k == "head" and i + 1 < n and body.at(i + 1).k == "para"
+        and body.at(i).at("t", default: "").trim().match(regex("^\\(?(?:[0-9]{1,2}|[a-zA-Z])[.)]\\s+\\S")) != none) {
+      // ---- keep a QUESTION with its options and its ANSWER ----
+      // An exercise whose questions the writer typed as bold paragraphs rather than as
+      // a Word list reaches the page as a flat run of items — the question a `head`, its
+      // options and its expected answer ordinary `para`s — so none of qaparts()' pairing
+      // applies and a break could fall between a question and the answer that belongs to
+      // it. In the Grade 1 CTS Teacher's Guide printed page 47 ended on "1. A mat is made
+      // using ___ / (a) Reeds (b) Clay" and page 48 opened on the bare answer "(a) Reeds.",
+      // alone above a blank page, while every other question in the book sat with its
+      // answer. The question is recognised by its own marker ("1.", "(a)", "b)"), which
+      // needs no vocabulary and cannot fire on a section heading.
+      let j = i + 1
+      while j < n and body.at(j).k == "para" { j = j + 1 }
+      mark.at(i) = j
+      gkind.at(i) = "qa"
+      for x in range(i + 1, j) { mark.at(x) = -2 }
+      i = j
     } else { i = i + 1 }
   }
   for (idx, it) in body.enumerate() {
     let m = mark.at(idx)
     if m >= 0 {
-      let grp = body.slice(idx, m).map(g => one(g)).join()
-      // Keep it whole only when it actually FITS on a page — the same guard dtable
-      // uses. A checklist longer than a page must stay breakable or it would be
-      // pushed off whole and leave a near-empty page behind it.
-      layout(size => {
-        let h = measure(box(width: size.width)[#grp]).height
-        if h < 460pt { block(breakable: false, width: 100%)[#grp] } else { grp }
-      })
+      let items = body.slice(idx, m)
+      let grp = items.map(g => one(g)).join()
+      if gkind.at(idx) == "checklist" {
+        // Keep it whole only when it actually FITS on a page — the same guard dtable
+        // uses. A checklist longer than a page must stay breakable or it would be
+        // pushed off whole and leave a near-empty page behind it.
+        layout(size => {
+          let h = measure(box(width: size.width)[#grp]).height
+          if h < 460pt { block(breakable: false, width: 100%)[#grp] } else { grp }
+        })
+      } else if gkind.at(idx) == "qa" {
+        // Bounded exactly as qaparts() bounds its own pairs, and for the reason recorded
+        // there: a pair that is unconditionally atomic is pushed to the next page whole
+        // when it does not fit, wasting whatever was left of this one. Past the cap the
+        // run stays breakable, so a long question breaks inside itself rather than
+        // leaving its answer stranded.
+        layout(size => {
+          let h = measure(box(width: size.width)[#grp]).height
+          if h < 240pt { block(breakable: false, width: 100%)[#grp] } else { grp }
+        })
+      } else {
+        // A heading and its list. The run is NOT forced whole: doing that cost the
+        // Grade 1 CTS Teacher's Guide nine extra pages, because every run that did not
+        // fit in what was left of a page jumped off it entire and left the white space
+        // behind. What actually has to be prevented is narrower than that — ONE item
+        // alone, cut off from the rest of its list.
+        //
+        // So brace the two ends instead and leave the middle free: the heading with its
+        // first two items, and the last two items with each other. A break can then
+        // still fall anywhere inside the run, where an item always has neighbours on
+        // its own page, but never immediately after the first item or immediately
+        // before the last. The braces are only applied when they cannot overlap
+        // (heading plus four items or more); a shorter run is a few lines deep, so it
+        // is kept whole outright and costs almost nothing when it moves.
+        let nb = items.len()
+        if nb < 5 { block(breakable: false, width: 100%)[#grp] }
+        else {
+          block(breakable: false, width: 100%)[#items.slice(0, 3).map(g => one(g)).join()]
+          items.slice(3, nb - 2).map(g => one(g)).join()
+          block(breakable: false, width: 100%)[#items.slice(nb - 2).map(g => one(g)).join()]
+        }
+      }
     } else if m == -1 { one(it) }
   }
 }
@@ -2888,7 +3164,7 @@
       image(im.at("file"), width: 100%)
       if im.at("cap", default: none) != none [
         #v(2pt)
-        #align(center)[#text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")]]
+        #align(center)[#capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")]]
       ]
     }
   ]
@@ -3092,16 +3368,49 @@
     if h < 200pt { block(breakable: false, width: 100%)[#lst] } else { lst }
   })
 }
+// An expected answer is marked by ONE thing: it is set in italic. That was already what
+// this function asked for, but it could not deliver it — seg() writes each run's own
+// style explicitly (`style: if s.it { "italic" } else { "normal" }`), so a manuscript
+// that typed its answer in roman overrode the italic set here and the answer printed in
+// the same face as the question above it. That went unnoticed while every answer still
+// carried a bold "Possible answer:" tag doing the signalling; once the tag came off (see
+// the note above), nothing was left to tell answer from question — in a black-and-white
+// Teacher's Guide the accent colour says nothing either. So italicise the runs
+// themselves before rendering, leaving math segments alone (a formula is not prose and
+// must not be slanted).
 #let answer(aseg, a) = context if show-answers.get() and (a != "" or aseg.len() > 0) {
-  let lst = answerlist(aseg, a)
-  if lst != none { lst } else { [#text(style: "italic", fill: T.ex.title)[#rich(aseg, a)]] }
+  let ital(ss) = ss.map(s => if s.at("m", default: false) { s } else { s + (it: true) })
+  let ai = ital(aseg)
+  let lst = answerlist(ai, a)
+  if lst != none { lst } else { [#text(style: "italic", fill: T.ex.title)[#rich(ai, a)]] }
 }
 #let qaparts(parts) = {
   // exercise/assessment text is left-aligned (not justified): fill-in-the-blank lines
   // ("Natural Resources = ____") end in a long unbreakable underscore run that wraps to
   // the next line, and justification would stretch the orphaned label across the column.
   set par(justify: false)
-  for it in parts {
+  // …and NEVER hyphenated. doc() tunes `costs.hyphenation` for body prose, where a
+  // measured 300% is the right trade; a question is not body prose. It is a short,
+  // numbered instruction a teacher reads out and a learner copies, so a word split
+  // across two lines ("distribute mu- sic", "two fac- tors", "recording meth- ods") is
+  // read as a defect rather than as tidy justification — the Musical Arts Form 5
+  // Teacher's Guide came back with nine separate notes saying "write as one word" and
+  // "move to next line to avoid word dividing", every one of them inside an exercise or
+  // assessment and not one in the prose around it. Nothing is lost by refusing here:
+  // these lines are already unjustified, so the slack goes to the ragged right edge
+  // instead of between the words.
+  set text(hyphenate: false)
+  // A run of sibling BULLET answers under one question is a list like any other, and
+  // the last of them must never be cut off alone onto the next page. Each pair below is
+  // already kept whole on its own, which is what let the pair SPLIT: two bullets under
+  // question 6 of the ICT Form 2 Teacher's Guide sat one on each side of a break, so a
+  // page opened with a single bullet and then the box ended. Marking the second-to-last
+  // bullet of a run `sticky` binds it to the last one, so the two always travel
+  // together — and only those two, so a long run still breaks freely further up rather
+  // than being pushed off the page entire.
+  let mk(i) = if i >= 0 and i < parts.len() { parts.at(i).at("marker", default: "") } else { "" }
+  let bindNext = range(parts.len()).map(i => mk(i) == "•" and mk(i + 1) == "•" and mk(i + 2) != "•")
+  for (pi, it) in parts.enumerate() {
     if it.kind == "colsum" {
       // a vertical column sum/subtraction answer (converted from an unaligned fraction),
       // optionally numbered by the part's marker.
@@ -3205,12 +3514,26 @@
       // still keeps ITS grid whole underneath, so a long pair breaks between question
       // and answer rather than inside the answer. 240pt is about a third of the text
       // block, well inside the 460pt guard dtable and the checklists already use.
-      layout(size => {
+      // The `sticky` that binds this bullet to the next one must sit on the block the
+      // FLOW sees, which is this one — not on anything inside the `layout` call below.
+      // Typst treats the layout call itself as the element here, so a sticky set within
+      // it never reaches the flow: the same trap subhead() records a few hundred lines
+      // up, and setting it inside left the bullet stranded exactly as before.
+      let qablock = layout(size => {
         let qa = grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, right + top, left + top),
           [], [#it.marker], body)
         let h = measure(box(width: size.width)[#qa]).height
         if h < 240pt { block(breakable: false, width: 100%, above: 0pt, below: 0pt)[#qa] } else { qa }
       })
+      // The sticky wrapper must not change how the item SITS, only where it may break.
+      // `above: 0pt, below: 0pt` did both: it stripped the block spacing every other
+      // item in the run keeps, so the second-to-last bullet of a run closed up against
+      // its neighbours on both sides and one list printed with two different leadings —
+      // six bullets at ~30pt apart and the last three at ~17pt, plainly visible on the
+      // Musical Arts Form 5 Teacher's Guide's assessment rubrics. Let the wrapper take
+      // the same default spacing as its unwrapped siblings; the `sticky` is what this
+      // block is for, and it is unaffected.
+      if bindNext.at(pi) { block(sticky: true, width: 100%)[#qablock] } else { qablock }
       v(T.at("qgap", default: 3pt))
     }
   }

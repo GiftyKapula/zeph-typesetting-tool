@@ -141,5 +141,26 @@
       "find": "Self-awareness – Understanding one",
       "before": "Self-esteem – The way a person values"
     }
+  ],
+  "//removeRange": "Round 2, printed pages 155-156: \"Refer to the Learner's Book or attached Activity\" and \"Please get the right activity from the Learners' Book or the attached copy in word\". No Word file was attached, but the manuscript answers the note itself. LEARNING ACTIVITY 18 is the one activity the writer drew no box border around, so the box ran on past the instruction and took in his planning scaffold: a bare list of scripture references under \"1. Christianity\", \"2. Hindu\", \"3. Muslim\" and \"4. Zambian Traditional Religion\", a \"Discussion Task\" repeating word for word the instruction six lines above it, and the unfinished note to himself \"Also add appropriate proverbs ...\". Immediately below the box the same sub-topic sets all of it out as finished learner prose, religion by religion. So the scaffold goes, from \"1. Christianity\" to the end of the box, leaving the activity as its instruction alone - the shape the proofreader asked for on the other sixty activities. Three teachings in the scaffold were NOT repeated in the prose and are carried into it by the edits below, so nothing is lost.",
+  "removeRange": [
+    {
+      "from": "1. Christianity"
+    }
+  ],
+  "//edit": "The three teachings the scaffold removed above carried alone, written into the prose in the author's own words. (1) Bhagavad Gita 3:8 was the only scriptural reference for Hinduism anywhere in the sub-topic - the Hindu prose cites none, while Christianity carries five references, Islam carries Qur'an 53:39 and Zambian Traditional Religion carries proverbs. (2) \"Work is a command\" is Islam's framing of work as an obligation rather than a choice; the prose says work is valuable and should be honest but never that it is commanded, and the scaffold's own contrast line (\"emphasis on divine command, communal duty, or personal motives\") points straight back at it. (3) \"Neglecting work results in lack of food\" is the Zambian Traditional Religion consequence; the prose covers responsibility, communal work and cooperation but never what follows from not working.",
+  "edit": [
+    {
+      "find": "This encourages you to take pride in doing your duties well.",
+      "with": "This encourages you to take pride in doing your duties well. Bhagavad Gita 3:8 teaches that performing your duty is better than avoiding work. This encourages you to take part in your responsibilities rather than leaving them to others."
+    },
+    {
+      "find": "Islam recognises the dignity of people who work with their hands and encourages respect for manual workers.",
+      "with": "Work is regarded as a command rather than a matter of personal choice. Islam recognises the dignity of people who work with their hands and encourages respect for manual workers."
+    },
+    {
+      "find": "A person is expected to contribute according to their abilities and circumstances rather than remaining unwilling to help others.",
+      "with": "A person is expected to contribute according to their abilities and circumstances rather than remaining unwilling to help others. Neglecting work is discouraged because it can result in a lack of food and hardship for the family."
+    }
   ]
 }

@@ -37,7 +37,72 @@
       "state": "sent-for-proofread",
       "page_cap": null,
       "created_at": "2026-09-05 10:14:02",
-      "updated_at": "2026-09-18 12:37:41"
+      "updated_at": "2026-09-27 12:20:54"
+    },
+    {
+      "id": "form-1-literature-in-english-lb",
+      "title": "Form 1 Literature in English LB",
+      "grade": "Form 1",
+      "subject": "Literature in English",
+      "kind": "LB",
+      "author": null,
+      "theme": "literature",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-27 12:20:55",
+      "updated_at": "2026-09-27 12:21:52"
+    },
+    {
+      "id": "form-1-literature-in-english-tg",
+      "title": "Form 1 Literature in English TG",
+      "grade": "Form 1",
+      "subject": "Literature in English",
+      "kind": "TG",
+      "author": null,
+      "theme": "literature",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-28 06:53:32",
+      "updated_at": "2026-09-28 06:54:40"
+    },
+    {
+      "id": "form-2-computer-science-lb",
+      "title": "Form 2 Computer Science LB",
+      "grade": "Form 2",
+      "subject": "Computer Science",
+      "kind": "LB",
+      "author": null,
+      "theme": "compsci",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-26 04:26:31",
+      "updated_at": "2026-09-26 04:29:03"
+    },
+    {
+      "id": "form-2-geography-lb",
+      "title": "Form 2 Geography LB",
+      "grade": "Form 2",
+      "subject": "Geography",
+      "kind": "LB",
+      "author": null,
+      "theme": "geography",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-28 09:02:33",
+      "updated_at": "2026-09-28 09:03:44"
+    },
+    {
+      "id": "form-2-information-and-communication-technology-lb",
+      "title": "Form 2 Information and Communication Technology LB",
+      "grade": "Form 2",
+      "subject": "Information and Communication Technology",
+      "kind": "LB",
+      "author": null,
+      "theme": "ict",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-26 10:21:30",
+      "updated_at": "2026-09-28 09:02:33"
     },
     {
       "id": "form-2-information-and-communication-technology-tg",
@@ -46,11 +111,37 @@
       "subject": "Information and Communication Technology",
       "kind": "TG",
       "author": null,
-      "theme": "compsci",
-      "state": "typesetting",
+      "theme": "ict",
+      "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-25 13:22:26",
-      "updated_at": "2026-09-25 13:26:01"
+      "updated_at": "2026-09-28 09:02:34"
+    },
+    {
+      "id": "form-2-religious-education-lb",
+      "title": "Form 2 Religious Education LB",
+      "grade": "Form 2",
+      "subject": "Religious Education",
+      "kind": "LB",
+      "author": "Francis Siakumena, Mirriam Mhone Muzona",
+      "theme": "religious",
+      "state": "approved",
+      "page_cap": null,
+      "created_at": "2026-09-27 08:24:03",
+      "updated_at": "2026-09-29 05:06:07"
+    },
+    {
+      "id": "form-2-religious-education-tg",
+      "title": "Form 2 Religious Education TG",
+      "grade": "Form 2",
+      "subject": "Religious Education",
+      "kind": "TG",
+      "author": "Francis Siakumena, Mirriam Mhone Muzona",
+      "theme": "religious",
+      "state": "sent-for-proofread",
+      "page_cap": null,
+      "created_at": "2026-09-27 08:24:02",
+      "updated_at": "2026-09-28 09:02:33"
     },
     {
       "id": "form-4-food-and-nutrition-tg",
@@ -99,10 +190,10 @@
       "kind": "TG",
       "author": null,
       "theme": "musicalarts",
-      "state": "typesetting",
+      "state": "applying-corrections",
       "page_cap": null,
       "created_at": "2026-09-18 12:37:42",
-      "updated_at": "2026-09-18 12:40:13"
+      "updated_at": "2026-09-30 08:18:02"
     },
     {
       "id": "geography-for-teachers-final",
@@ -115,7 +206,20 @@
       "state": "typesetting",
       "page_cap": null,
       "created_at": "2026-09-04 08:31:45",
-      "updated_at": "2026-09-18 12:37:42"
+      "updated_at": "2026-09-28 06:53:32"
+    },
+    {
+      "id": "grade-1-creative-and-technology-studies-tg",
+      "title": "Grade 1 Creative and Technology Studies TG",
+      "grade": "Grade 1",
+      "subject": "Creative and Technology Studies",
+      "kind": "TG",
+      "author": null,
+      "theme": "cts",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-28 16:53:43",
+      "updated_at": "2026-09-28 16:54:46"
     },
     {
       "id": "grade-6-expressive-arts-tg",
@@ -232,7 +336,7 @@
       "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-16 10:29:24",
-      "updated_at": "2026-09-25 13:22:26"
+      "updated_at": "2026-09-28 09:02:35"
     },
     {
       "id": "physics-form2-zeph-lb-1-1-docx",
@@ -245,7 +349,7 @@
       "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-14 10:38:52",
-      "updated_at": "2026-09-25 13:22:27"
+      "updated_at": "2026-09-28 09:02:35"
     },
     {
       "id": "physics-form2-zeph-lb-1-1-docx-latest",
@@ -255,10 +359,23 @@
       "kind": "LB",
       "author": null,
       "theme": "physics",
-      "state": "drafting",
+      "state": "typesetting",
       "page_cap": null,
       "created_at": "2026-09-25 13:22:26",
-      "updated_at": "2026-09-25 13:22:26"
+      "updated_at": "2026-09-30 07:15:19"
+    },
+    {
+      "id": "religious-education-form-2-learners-book-ready-for-ind-rev-2026",
+      "title": "Religious Education Form 2 Learners Book ready for Ind. Rev. 2026",
+      "grade": "Form 2",
+      "subject": null,
+      "kind": "LB",
+      "author": null,
+      "theme": "navy",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-26 10:21:31",
+      "updated_at": "2026-09-26 10:22:00"
     },
     {
       "id": "technology-studies-grade-6-lb-sent-for-typesetting-31-march-2026",
@@ -1040,6 +1157,486 @@
       "hash": "2b1b94e992751eca",
       "note": null,
       "ingested_at": "2026-09-25 14:29:01"
+    },
+    {
+      "id": 75,
+      "book_id": "form-2-computer-science-lb",
+      "kind": "manuscript",
+      "original_name": "ICT Form 2 Learner's Book - ready for typesetting.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\ICT Form 2 Learner's Book - ready for typesetting.docx",
+      "hash": "1ea1eb36d226b4c3",
+      "note": null,
+      "ingested_at": "2026-09-26 04:26:31"
+    },
+    {
+      "id": 76,
+      "book_id": "form-2-information-and-communication-technology-lb",
+      "kind": "manuscript",
+      "original_name": "ICT Form 2 Learner's Book - ready for typesetting.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\ICT Form 2 Learner's Book - ready for typesetting.docx",
+      "hash": "1ea1eb36d226b4c3",
+      "note": null,
+      "ingested_at": "2026-09-26 10:21:31"
+    },
+    {
+      "id": 77,
+      "book_id": "form-2-information-and-communication-technology-lb",
+      "kind": "overrides",
+      "original_name": "ICT Form 2 Learner's Book - ready for typesetting.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\ICT Form 2 Learner's Book - ready for typesetting.overrides.json",
+      "hash": "339597648f6f2acb",
+      "note": null,
+      "ingested_at": "2026-09-26 10:21:31"
+    },
+    {
+      "id": 78,
+      "book_id": "religious-education-form-2-learners-book-ready-for-ind-rev-2026",
+      "kind": "manuscript",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.docx",
+      "hash": "57adf13aa8b98a7e",
+      "note": null,
+      "ingested_at": "2026-09-26 10:21:31"
+    },
+    {
+      "id": 79,
+      "book_id": "form-2-religious-education-tg",
+      "kind": "manuscript",
+      "original_name": "Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026.docx",
+      "hash": "8aa7ec5a4bfde84d",
+      "note": null,
+      "ingested_at": "2026-09-27 08:24:02"
+    },
+    {
+      "id": 80,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "manuscript",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.docx",
+      "hash": "57adf13aa8b98a7e",
+      "note": null,
+      "ingested_at": "2026-09-27 08:24:03"
+    },
+    {
+      "id": 81,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "overrides",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.overrides.json",
+      "hash": "db00a361d21bf988",
+      "note": null,
+      "ingested_at": "2026-09-27 08:24:03"
+    },
+    {
+      "id": 82,
+      "book_id": "form-2-information-and-communication-technology-tg",
+      "kind": "annotated_pdf",
+      "original_name": "ICT Form 2 Teacher's Guide - ready for proofreading-1.pdf",
+      "stored_path": "C:\\Users\\biine stores\\Downloads\\ICT Form 2 Teacher's Guide - ready for proofreading-1.pdf",
+      "hash": "a11b92bcdb1fe0bd",
+      "note": "returned from proofread",
+      "ingested_at": "2026-09-27 09:18:31"
+    },
+    {
+      "id": 83,
+      "book_id": "religious-education-form-2-learners-book-ready-for-ind-rev-2026",
+      "kind": "typeset_pdf",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "hash": "87971c71f3d392e7",
+      "note": null,
+      "ingested_at": "2026-09-27 10:19:29"
+    },
+    {
+      "id": 84,
+      "book_id": "form-2-information-and-communication-technology-tg",
+      "kind": "typeset_pdf",
+      "original_name": "ICT Form 2 Teacher's Guide - ready for typesetting - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\ICT Form 2 Teacher's Guide - ready for typesetting\\ICT Form 2 Teacher's Guide - ready for typesetting - typeset.pdf",
+      "hash": "f5d76553282dcf96",
+      "note": null,
+      "ingested_at": "2026-09-27 10:19:35"
+    },
+    {
+      "id": 85,
+      "book_id": "religious-education-form-2-learners-book-ready-for-ind-rev-2026",
+      "kind": "typeset_pdf",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "hash": "e378566bb39913a8",
+      "note": null,
+      "ingested_at": "2026-09-27 10:21:27"
+    },
+    {
+      "id": 86,
+      "book_id": "religious-education-form-2-learners-book-ready-for-ind-rev-2026",
+      "kind": "typeset_pdf",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "hash": "c8766879fcf37339",
+      "note": null,
+      "ingested_at": "2026-09-27 11:16:37"
+    },
+    {
+      "id": 87,
+      "book_id": "form-1-geography-lb",
+      "kind": "overrides",
+      "original_name": "Geography_ Form 1_LB_ready for Typesetting-23 June 2026.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1 Learners Books\\Geography_ Form 1_LB_ready for Typesetting-23 June 2026.overrides.json",
+      "hash": "436adfbf8ca98321",
+      "note": null,
+      "ingested_at": "2026-09-27 11:48:32"
+    },
+    {
+      "id": 88,
+      "book_id": "form-1-literature-in-english-lb",
+      "kind": "manuscript",
+      "original_name": "LIT in ENG F1 LB.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1 Learners Books\\LIT in ENG F1 LB.docx",
+      "hash": "d27e1bbfbeb7b9f4",
+      "note": null,
+      "ingested_at": "2026-09-27 11:48:33"
+    },
+    {
+      "id": 89,
+      "book_id": "form-1-literature-in-english-lb",
+      "kind": "manuscript",
+      "original_name": "LIT in ENG F1 LB.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1 Learners Books\\LIT in ENG F1 LB.docx",
+      "hash": "d27e1bbfbeb7b9f4",
+      "note": null,
+      "ingested_at": "2026-09-27 12:20:55"
+    },
+    {
+      "id": 90,
+      "book_id": "form-1-literature-in-english-lb",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 LB - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 LB\\LIT in ENG F1 LB - typeset.pdf",
+      "hash": "e77bb9c41d8c24c2",
+      "note": null,
+      "ingested_at": "2026-09-27 12:21:52"
+    },
+    {
+      "id": 91,
+      "book_id": "form-1-literature-in-english-lb",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 LB - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 LB\\LIT in ENG F1 LB - typeset.pdf",
+      "hash": "eb7894b656295bc6",
+      "note": null,
+      "ingested_at": "2026-09-27 18:10:28"
+    },
+    {
+      "id": 92,
+      "book_id": "form-2-religious-education-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026\\Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026 - typeset.pdf",
+      "hash": "2058fba43a4e9d21",
+      "note": null,
+      "ingested_at": "2026-09-28 04:32:58"
+    },
+    {
+      "id": 93,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "hash": "61e18094c9c869be",
+      "note": null,
+      "ingested_at": "2026-09-28 05:11:29"
+    },
+    {
+      "id": 94,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "annotated_pdf",
+      "original_name": "Religious Education Form 2 Learner's Book - For proofreading _2.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\proofread-books\\Religious Education Form 2 Learner's Book - For proofreading _2.pdf",
+      "hash": "45451886189d3c84",
+      "note": "returned from proofread",
+      "ingested_at": "2026-09-28 05:11:40"
+    },
+    {
+      "id": 95,
+      "book_id": "form-1-literature-in-english-lb",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 LB - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 LB\\LIT in ENG F1 LB - typeset.pdf",
+      "hash": "f21cb1f06a1d7b9e",
+      "note": null,
+      "ingested_at": "2026-09-28 06:03:57"
+    },
+    {
+      "id": 96,
+      "book_id": "geography-for-teachers-final",
+      "kind": "overrides",
+      "original_name": "Geography For teachers Final.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1 Teachers Books\\Geography For teachers Final.overrides.json",
+      "hash": "ed0d3ade7dcfafc4",
+      "note": null,
+      "ingested_at": "2026-09-28 06:53:32"
+    },
+    {
+      "id": 97,
+      "book_id": "form-1-literature-in-english-tg",
+      "kind": "manuscript",
+      "original_name": "LIT in ENG F1 TG.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 1 Teachers Books\\LIT in ENG F1 TG.docx",
+      "hash": "d845dbc5d3efc51b",
+      "note": null,
+      "ingested_at": "2026-09-28 06:53:32"
+    },
+    {
+      "id": 98,
+      "book_id": "form-1-literature-in-english-lb",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 LB - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 LB\\LIT in ENG F1 LB - typeset.pdf",
+      "hash": "8c1f8849b970a79d",
+      "note": null,
+      "ingested_at": "2026-09-28 07:30:45"
+    },
+    {
+      "id": 99,
+      "book_id": "form-1-literature-in-english-tg",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 TG - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 TG\\LIT in ENG F1 TG - typeset.pdf",
+      "hash": "a7be5848cf3b1336",
+      "note": null,
+      "ingested_at": "2026-09-28 08:09:46"
+    },
+    {
+      "id": 100,
+      "book_id": "form-1-literature-in-english-tg",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 TG - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 TG\\LIT in ENG F1 TG - typeset.pdf",
+      "hash": "0f05cbf8122b2363",
+      "note": null,
+      "ingested_at": "2026-09-28 08:25:09"
+    },
+    {
+      "id": 101,
+      "book_id": "form-1-literature-in-english-tg",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 TG - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 TG\\LIT in ENG F1 TG - typeset.pdf",
+      "hash": "11db093052cbd65c",
+      "note": null,
+      "ingested_at": "2026-09-28 08:37:46"
+    },
+    {
+      "id": 102,
+      "book_id": "form-1-literature-in-english-lb",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 LB - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 LB\\LIT in ENG F1 LB - typeset.pdf",
+      "hash": "c8710042f76a410b",
+      "note": null,
+      "ingested_at": "2026-09-28 09:00:12"
+    },
+    {
+      "id": 103,
+      "book_id": "form-2-religious-education-tg",
+      "kind": "manuscript",
+      "original_name": "Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026.docx",
+      "hash": "7996ff2c7a9f3396",
+      "note": null,
+      "ingested_at": "2026-09-28 09:02:33"
+    },
+    {
+      "id": 104,
+      "book_id": "form-2-religious-education-tg",
+      "kind": "overrides",
+      "original_name": "Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Form 2 Religious Education Teacher's Guide _ready for Ind. Rev. 23 09 2026.overrides.json",
+      "hash": "373f5a72d05e330d",
+      "note": null,
+      "ingested_at": "2026-09-28 09:02:33"
+    },
+    {
+      "id": 105,
+      "book_id": "form-2-geography-lb",
+      "kind": "manuscript",
+      "original_name": "Geography_Form 2_Learners Book_ready for typesetting.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Geography_Form 2_Learners Book_ready for typesetting.docx",
+      "hash": "904260c0152ba186",
+      "note": null,
+      "ingested_at": "2026-09-28 09:02:33"
+    },
+    {
+      "id": 106,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "overrides",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.overrides.json",
+      "hash": "0a0e0a3500bc5c02",
+      "note": null,
+      "ingested_at": "2026-09-28 09:02:37"
+    },
+    {
+      "id": 107,
+      "book_id": "form-1-literature-in-english-tg",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 TG - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 TG\\LIT in ENG F1 TG - typeset.pdf",
+      "hash": "1270067bb67bee75",
+      "note": null,
+      "ingested_at": "2026-09-28 12:35:43"
+    },
+    {
+      "id": 108,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "hash": "ec3d4dcb5f0dcfa3",
+      "note": null,
+      "ingested_at": "2026-09-28 13:42:41"
+    },
+    {
+      "id": 109,
+      "book_id": "form-1-literature-in-english-tg",
+      "kind": "typeset_pdf",
+      "original_name": "LIT in ENG F1 TG - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 1\\LIT in ENG F1 TG\\LIT in ENG F1 TG - typeset.pdf",
+      "hash": "0bef129fa7ec7737",
+      "note": null,
+      "ingested_at": "2026-09-28 13:50:19"
+    },
+    {
+      "id": 110,
+      "book_id": "grade-1-creative-and-technology-studies-tg",
+      "kind": "manuscript",
+      "original_name": "Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Grade 1 Books\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026.docx",
+      "hash": "be70b356a657bae2",
+      "note": null,
+      "ingested_at": "2026-09-28 16:53:43"
+    },
+    {
+      "id": 111,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "hash": "7f6fe82998f2ce6c",
+      "note": null,
+      "ingested_at": "2026-09-29 05:02:52"
+    },
+    {
+      "id": 112,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "hash": "c54ec9cb4e18e5fa",
+      "note": null,
+      "ingested_at": "2026-09-29 07:33:07"
+    },
+    {
+      "id": 113,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026 - typeset.pdf",
+      "hash": "04f00b6cd7e889d3",
+      "note": null,
+      "ingested_at": "2026-09-29 07:50:17"
+    },
+    {
+      "id": 114,
+      "book_id": "grade-1-creative-and-technology-studies-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026 - typeset.pdf",
+      "hash": "b50e5f09639fd39d",
+      "note": null,
+      "ingested_at": "2026-09-29 10:24:02"
+    },
+    {
+      "id": 115,
+      "book_id": "grade-1-creative-and-technology-studies-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026 - typeset.pdf",
+      "hash": "535e9ab2c179fc3b",
+      "note": null,
+      "ingested_at": "2026-09-29 11:04:47"
+    },
+    {
+      "id": 116,
+      "book_id": "form-2-geography-lb",
+      "kind": "overrides",
+      "original_name": "Geography_Form 2_Learners Book_ready for typesetting.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Geography_Form 2_Learners Book_ready for typesetting.overrides.json",
+      "hash": "33e6283d1991dad5",
+      "note": null,
+      "ingested_at": "2026-09-29 12:57:09"
+    },
+    {
+      "id": 117,
+      "book_id": "form-2-geography-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Geography_Form 2_Learners Book_ready for typesetting - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Geography_Form 2_Learners Book_ready for typesetting\\Geography_Form 2_Learners Book_ready for typesetting - typeset.pdf",
+      "hash": "1a448d7bd190373a",
+      "note": null,
+      "ingested_at": "2026-09-29 12:57:17"
+    },
+    {
+      "id": 118,
+      "book_id": "form-5-musical-arts-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 5\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "hash": "3678de8a112d1b86",
+      "note": null,
+      "ingested_at": "2026-09-30 07:03:21"
+    },
+    {
+      "id": 119,
+      "book_id": "form-5-musical-arts-tg",
+      "kind": "annotated_pdf",
+      "original_name": "PROOF READNlatest Musical Arts_Form 5_Teachers Guide_ready for proofreading_19 Sept 2026  -.pdf",
+      "stored_path": "C:\\Users\\biine stores\\Downloads\\PROOF READNlatest Musical Arts_Form 5_Teachers Guide_ready for proofreading_19 Sept 2026  -.pdf",
+      "hash": "e0314662a6265561",
+      "note": "returned from proofread",
+      "ingested_at": "2026-09-30 07:03:26"
+    },
+    {
+      "id": 120,
+      "book_id": "form-5-musical-arts-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 5\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "hash": "e179663df4c66cb0",
+      "note": null,
+      "ingested_at": "2026-09-30 08:18:02"
+    },
+    {
+      "id": 121,
+      "book_id": "form-5-musical-arts-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 5\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "hash": "0ab30e15ee8c2758",
+      "note": null,
+      "ingested_at": "2026-09-30 08:31:46"
+    },
+    {
+      "id": 122,
+      "book_id": "form-5-musical-arts-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 5\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "hash": "e994c7faf7b17998",
+      "note": null,
+      "ingested_at": "2026-09-30 09:27:51"
     }
   ],
   "rounds": [
@@ -1131,6 +1728,46 @@
       "returned_version": 58,
       "sent_at": "2026-09-24 07:59:38",
       "returned_at": "2026-09-24 07:59:38",
+      "status": "open"
+    },
+    {
+      "id": 11,
+      "book_id": "form-2-information-and-communication-technology-tg",
+      "number": 1,
+      "sent_version": null,
+      "returned_version": 82,
+      "sent_at": "2026-09-27 09:18:31",
+      "returned_at": "2026-09-27 09:18:31",
+      "status": "open"
+    },
+    {
+      "id": 12,
+      "book_id": "form-2-religious-education-tg",
+      "number": 1,
+      "sent_version": 92,
+      "returned_version": null,
+      "sent_at": "2026-09-28 04:34:01",
+      "returned_at": null,
+      "status": "open"
+    },
+    {
+      "id": 13,
+      "book_id": "form-2-religious-education-lb",
+      "number": 2,
+      "sent_version": null,
+      "returned_version": 94,
+      "sent_at": "2026-09-28 05:11:40",
+      "returned_at": "2026-09-28 05:11:40",
+      "status": "closed"
+    },
+    {
+      "id": 14,
+      "book_id": "form-5-musical-arts-tg",
+      "number": 1,
+      "sent_version": 118,
+      "returned_version": 119,
+      "sent_at": "2026-09-30 07:03:21",
+      "returned_at": "2026-09-30 07:03:26",
       "status": "open"
     }
   ],
@@ -6947,6 +7584,2049 @@
       "anchor": "(b) A compression is a region where particles of the medium are closely packed together, while a rarefaction is a region where particles are spread farther apart. [1]",
       "note": "Align to the right so that (b) aligns with (a). Do the same  for c, d etc below and the rest of the question responses to look neat",
       "action": "Fixed in the engine: continuation lines and sub-parts of a numbered answer are now indented to align under the question text instead of under its number.",
+      "status": "done"
+    },
+    {
+      "id": 710,
+      "round_id": 13,
+      "page_ref": "p8",
+      "anchor": "Mr James Chiwele,",
+      "note": "Let it be in bold",
+      "action": "Done. Both names credited in the acknowledgement are now set in bold; the manuscript had them in italic.",
+      "status": "done"
+    },
+    {
+      "id": 711,
+      "round_id": 13,
+      "page_ref": "p8",
+      "anchor": "Ms Njira Mtonga,",
+      "note": "Let it be in bold",
+      "action": "Done. Both names credited in the acknowledgement are now set in bold; the manuscript had them in italic.",
+      "status": "done"
+    },
+    {
+      "id": 712,
+      "round_id": 13,
+      "page_ref": "p9",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education supervision of the writing, editing, design and production processes, which ensured the successful and timely publication of this book. Agness Mumba Wilkins (PhD) Managing Director/Chief Executive Officer ZAMBIA EDUCATIONAL PUBLISHING HOUSE",
+      "note": "Replace this with the one in word attached",
+      "action": "Waiting on the replacement acknowledgement text. The note says \"replace this with the one in word attached\", but no Word file came with the returned PDF and none could be found. Please send it and it will be dropped in.",
+      "status": "flagged"
+    },
+    {
+      "id": 713,
+      "round_id": 13,
+      "page_ref": "p11",
+      "anchor": "StudiesBA-Primary – Bachelor of Arts – Primary Education",
+      "note": "This to be moved to the next line",
+      "action": "Done. The manuscript ran two acronyms into one paragraph, so the page read \"...Development StudiesBA-Primary - Bachelor of Arts...\". BA-Primary now starts its own line. While fixing it we also found the list was printing two ways on the same page - one entry in house format and the rest keeping the writer's dash - so every entry now reads \"ABBR: meaning\".",
+      "status": "done"
+    },
+    {
+      "id": 714,
+      "round_id": 13,
+      "page_ref": "p15",
+      "anchor": "In this subtopic, you will learn to:",
+      "note": "let it be sub-topic",
+      "action": "Done, and applied throughout. The line introducing each Specific Competence was written four different ways across the book's 22 sub-topics; all of them now read \"In this sub-topic, you will:\".",
+      "status": "done"
+    },
+    {
+      "id": 715,
+      "round_id": 13,
+      "page_ref": "p17",
+      "anchor": "may begin spreading false rumors about",
+      "note": "Delete and write like this; rumuors",
+      "action": "Done, spelt \"rumours\". The note reads \"rumuors\", which we have taken as a slip: the book already writes \"rumours\" elsewhere and uses British spelling throughout. Please say if the other spelling was intended.",
+      "status": "done"
+    },
+    {
+      "id": 716,
+      "round_id": 13,
+      "page_ref": "p21",
+      "anchor": "means working together despite differences in tribe, religion, language,",
+      "note": "The space is too much",
+      "action": "Done, fixed in the engine (commit adf737f). Measured across the book, the sub-topic banner's rule sat 14.4mm above the first line of text; 14pt has come off that shared gap, giving every sub-topic page 4.9mm more usable text. The 6.7mm of padding that a one-line title adds is deliberately kept - it is what makes a page whose title wraps and a page whose title does not both start their body at the same height, so removing it would re-open a 9.5mm step between sub-topic pages. Book length is unchanged at 164 pages.",
+      "status": "done"
+    },
+    {
+      "id": 717,
+      "round_id": 13,
+      "page_ref": "p21",
+      "anchor": "Showing Kindness and Compassion",
+      "note": "Push to the next page",
+      "action": "Fixed in the engine. The blue sub-headings were not being recognised as headings at all, so they are now set as proper headings; and a heading no longer sits alone at the foot of a page, it moves to the top of the next page with its section.",
+      "status": "done"
+    },
+    {
+      "id": 718,
+      "round_id": 13,
+      "page_ref": "p26",
+      "anchor": "LEARNING ACTIVITY 5: Examining Hindu Teachings on Division and Hatred In groups or individually, discuss the Hindu teachings on division and hatred; focusing on non-violence, equality, compassion, tolerance, self- control and living in harmony. Present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 719,
+      "round_id": 13,
+      "page_ref": "p26",
+      "anchor": "Tolerance and Respect for Others",
+      "note": "Pust the title to the other page",
+      "action": "Fixed in the engine. The blue sub-headings were not being recognised as headings at all, so they are now set as proper headings; and a heading no longer sits alone at the foot of a page, it moves to the top of the next page with its section.",
+      "status": "done"
+    },
+    {
+      "id": 720,
+      "round_id": 13,
+      "page_ref": "p36",
+      "anchor": "LEARNING ACTIVITY 10: Discussing sin, forgiveness and reconciliation Scenario: During a group assignment, Michael accused Mukuka of refusing to contribute to the group's work. Without listening to Mukuka's explanation, Michael insulted him in front of the class. Later, the teacher discovered that Mukuka had been absent because he was attending a medical appointment. Michael admitted that he was wr",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 721,
+      "round_id": 13,
+      "page_ref": "p36",
+      "anchor": "Sin",
+      "note": "Push it to the next page",
+      "action": "Fixed in the engine. The blue sub-headings were not being recognised as headings at all, so they are now set as proper headings; and a heading no longer sits alone at the foot of a page, it moves to the top of the next page with its section.",
+      "status": "done"
+    },
+    {
+      "id": 722,
+      "round_id": 13,
+      "page_ref": "p39",
+      "anchor": "Fig. 4: Forgiveness helps restore relationships and promote peace.",
+      "note": "Take this to the picture above",
+      "action": "Done. The manuscript typed the caption two paragraphs below its picture, so the picture printed with no caption and the caption printed as a loose line in the middle of the next page's text. It now sits under the picture.",
+      "status": "done"
+    },
+    {
+      "id": 723,
+      "round_id": 13,
+      "page_ref": "p42",
+      "anchor": "Sin against Others",
+      "note": "Push to the next page",
+      "action": "Fixed in the engine. The blue sub-headings were not being recognised as headings at all, so they are now set as proper headings; and a heading no longer sits alone at the foot of a page, it moves to the top of the next page with its section.",
+      "status": "done"
+    },
+    {
+      "id": 724,
+      "round_id": 13,
+      "page_ref": "p44",
+      "anchor": "LEARNING ACTIVITY 12: Practising steps needed for forgiveness and reconciliation to take place. In pairs or individually, study the following situation and discuss how the conflict can be resolved. Situation: During a Science practical lesson, Tehillah accidentally broke a measuring cylinder that belonged to Abraham. Instead of admitting her mistake, she blamed Walusungu. This caused an argument a",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 725,
+      "round_id": 13,
+      "page_ref": "p48",
+      "anchor": "LEARNING ACTIVITY 1: Showing the significance of freedom in community In groups or individually, discuss situations in which people need freedom at school, at home and in the community. Explain why freedom is important in each situation. Give examples of how freedom can contribute to peaceful community living. Share your findings with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 726,
+      "round_id": 13,
+      "page_ref": "p49",
+      "anchor": "Freedom and Community4.",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 727,
+      "round_id": 13,
+      "page_ref": "p49",
+      "anchor": "LEARNING ACTIVITY 2: Describing Freedom and Community In pairs or individually, discuss what freedom means in your community. Identify different ways people exercise freedom, such as expressing ~ 36 ~",
+      "note": null,
+      "action": "Covered by the note on the same page; the stray numbering is gone.",
+      "status": "done"
+    },
+    {
+      "id": 728,
+      "round_id": 13,
+      "page_ref": "p50",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education opinions, associating with others and participating in community activ- ities. Give examples from your community and explain how responsible use of freedom can promote peaceful relationships. Share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 729,
+      "round_id": 13,
+      "page_ref": "p51",
+      "anchor": "LEARNING ACTIVITY 3: Explaining freedom in conflict In groups or individually, discuss situations in which the exercise of freedom may lead to disagreement or conflict at school, at home or in the community. Identify the causes of the disagreements and suggest peaceful ways of resolving them. Present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 730,
+      "round_id": 13,
+      "page_ref": "p51",
+      "anchor": "Freedom in Conflict4.",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 731,
+      "round_id": 13,
+      "page_ref": "p53",
+      "anchor": "LEARNING ACTIVITY 4: Analysing factors that make freedom possible In pairs or individually, identify factors that can promote or limit freedom in a community. Consider education, laws, respect for human rights, poverty, discrimination, fear and access to information. Discuss how each factor can affect people's ability to exercise freedom. Give examples from your community and share your findings w",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 732,
+      "round_id": 13,
+      "page_ref": "p53",
+      "anchor": "Factors That Make Freedom Possible4.",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 733,
+      "round_id": 13,
+      "page_ref": "p54",
+      "anchor": null,
+      "note": "The exercise must be from 1 to 3",
+      "action": "Done. The exercise now runs 1 to 3. Every exercise in the book was checked and they all now number their questions from 1.",
+      "status": "done"
+    },
+    {
+      "id": 734,
+      "round_id": 13,
+      "page_ref": "p54",
+      "anchor": "Relationship between Freedom and Laws in the Community",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 735,
+      "round_id": 13,
+      "page_ref": "p55",
+      "anchor": "People need freedom to participate in society, but communities also need rules to protect people's rights and maintain order. Laws provide a framework within which people can exercise their freedoms responsibly.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 736,
+      "round_id": 13,
+      "page_ref": "p56",
+      "anchor": "LEARNING ACTIVITY 6: Describing collaboration in relation to freedom In groups or individually, discuss what collaboration means and identify situations at home, at school and in the community where people need ~ 43 ~",
+      "note": "This must be gudiaed Learning Activity",
+      "action": "Needs the author or editor. \"Guided Learning Activity\" is not a kind of box this book uses - all 72 of its activities are plain Learning Activities - so this is a change to how the activity is written, not to the typesetting. Please advise what the guided version should say.",
+      "status": "flagged"
+    },
+    {
+      "id": 737,
+      "round_id": 13,
+      "page_ref": "p57",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education to work together. Explain how people can collaborate while still enjoying their freedom. Share your findings with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 738,
+      "round_id": 13,
+      "page_ref": "p58",
+      "anchor": "Importance of Collaboration in Community",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 739,
+      "round_id": 13,
+      "page_ref": "p58",
+      "anchor": "5. When people work together, they can use their different abilities and experiences to address common needs. Collaboration can make community activities more successful because responsibil- ities can be shared among the people involved.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 740,
+      "round_id": 13,
+      "page_ref": "p58",
+      "anchor": "Collaboration is important because it helps people achieve common goals. When several people contribute their efforts, a task can often be completed more effectively than when one person works alone. Collaboration promotes unity. When people work towards a common purpose, they learn to appreciate one another and develop a sense of belonging. For example, learners from different classes can work to",
+      "note": "These are notes",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 741,
+      "round_id": 13,
+      "page_ref": "p59",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education Working together also promotes peaceful relationships. When people listen to one another and cooperate, they develop understanding and reduce unnecessary disagreements. Collaboration encourages inclusion because people with different abilities can contribute in different ways. A person who may not be able to perform physic",
+      "note": "Remove these from the Learning Activity. (These are notes)",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 742,
+      "round_id": 13,
+      "page_ref": "p59",
+      "anchor": "Linkage between Collaboration and Freedom in Community",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 743,
+      "round_id": 13,
+      "page_ref": "p59",
+      "anchor": "5. Collaboration does not mean that everyone must think, speak or act in exactly the same way. People can work together while maintaining their freedom to express ideas and make responsible choices.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 744,
+      "round_id": 13,
+      "page_ref": "p60",
+      "anchor": "The linkage between collaboration and freedom refers to the connection between people's ability to work together and their ability to make choices and express their ideas responsibly. Freedom supports collaboration because people need an opportunity to express their ideas. When you are working in a group, you should be able to suggest ideas, ask questions and give your opinion respectfully. At the",
+      "note": "These are notes.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 745,
+      "round_id": 13,
+      "page_ref": "p61",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education Respecting different opinions also promotes tolerance. You do not have to agree with every idea presented by another person, but you should listen respectfully and consider whether the idea can contribute to the common goal. When people combine freedom with collaboration, they can participate in decision-making, share resp",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 746,
+      "round_id": 13,
+      "page_ref": "p61",
+      "anchor": "5. Collaboration becomes successful when people practise team- work. Teamwork requires individuals to contribute towards a shared goal and to support one another throughout the activity.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 747,
+      "round_id": 13,
+      "page_ref": "p61",
+      "anchor": "LEARNING ACTIVITY 9: Showing how teamwork can be practised in community In groups or individually, identify activities in your school or community that require teamwork. Choose one activity and demonstrate how different people can contribute to its success. After the demonstration, explain the qualities that helped the group to work effectively.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 748,
+      "round_id": 13,
+      "page_ref": "p61",
+      "anchor": "How Teamwork can be practised in the Community4.",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 749,
+      "round_id": 13,
+      "page_ref": "p71",
+      "anchor": "LEARNING ACTIVITY 2: Describing types of self-esteem In groups or individually, discuss situations that show healthy self- esteem and low self-esteem. Give examples from school, home or the community. Explain how a person's view of himself or herself can affect behaviour, relationships and performance. Present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 750,
+      "round_id": 13,
+      "page_ref": "p72",
+      "anchor": "5. Self-esteem can be influenced by how people understand themselves, respond to challenges and relate to others. Certain personal qualities can help individuals develop healthy self- esteem.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 751,
+      "round_id": 13,
+      "page_ref": "p72",
+      "anchor": "Identifying Factors Influencing Self-Esteem4.",
+      "note": "This is a learning activity title",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 752,
+      "round_id": 13,
+      "page_ref": "p72",
+      "anchor": "LEARNING ACTIVITY 3: Identifying factors influencing self-esteem In groups or individually, discuss the following factors that may influence self-esteem: confidence, self-acceptance, self-responsibility, self-aware- ness, purposive living and personal integrity. Explain how each factor can strengthen a person's self-esteem. Give examples of how learners can develop these qualities in their daily l",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 753,
+      "round_id": 13,
+      "page_ref": "p75",
+      "anchor": "LEARNING ACTIVITY 4: Identifying Social and Emotional Learning Competencies In groups or individually, discuss situations in which learners need to understand their feelings, control their emotions, understand other people's feelings, maintain good relationships and make responsible decisions. Give examples from your school, home or community. Identify the Social and Emotional Learning competency ",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 754,
+      "round_id": 13,
+      "page_ref": "p76",
+      "anchor": "LEARNING ACTIVITY 5: Exploring self-awareness, self- management, social awareness, relationship skills and responsible decision-making. In pairs or individually, discuss how a learner can demonstrate self- awareness, self-management, social awareness, relationship skills and responsible decision-making when working with other learners. Give one example of each competency and explain how it can hel",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 755,
+      "round_id": 13,
+      "page_ref": "p77",
+      "anchor": "5. Everyone experiences challenges in life. As a learner, you may sometimes experience difficulties with schoolwork, friendships, family relationships or making decisions. It is important to know how to deal with such challenges and when to seek help from other people.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 756,
+      "round_id": 13,
+      "page_ref": "p77",
+      "anchor": "Discussing Personal Challenges with Others4.",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 757,
+      "round_id": 13,
+      "page_ref": "p78",
+      "anchor": "LEARNING ACTIVITY 6: Discussing personal challenges with others In groups or individually, discuss personal challenges that learners may experience at school, at home or in the community. Identify people whom a learner can approach for guidance and support. Discuss why it is important to talk to a trusted person when facing a difficult situation. Also discuss how you can respond when a friend shar",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 758,
+      "round_id": 13,
+      "page_ref": "p79",
+      "anchor": "LEARNING ACTIVITY 7: Applying Social and Emotional Learning Competencies in Real Life In groups or individually, role-play situations in which learners experience disagreement, disappointment, pressure from friends or difficulties with schoolwork. Show how the learner can use Social and Emotional Learning competencies to deal with the situation. After the role play, discuss the competencies that w",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 759,
+      "round_id": 13,
+      "page_ref": "p81",
+      "anchor": "LEARNING ACTIVITY 8: Examining religious teachings on self-esteem In groups or individually, research or discuss teachings on self-esteem from Christianity, Hinduism, Islam and Zambian Traditional Religion. For Christianity, use Genesis 1:26–27, Joshua 1:1–9, 1 Samuel 16:7 and 2 Timothy 1:7. For the other religions, use appropriate religious teachings, stories, proverbs or practices that you have ",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 760,
+      "round_id": 13,
+      "page_ref": "p84",
+      "anchor": "LEARNING ACTIVITY 9: Applying religious teachings on self-esteem to real-life situations In pairs or individually, discuss how teachings from Christianity, Hinduism, Islam and Zambian Traditional Religion can help a young person who lacks confidence. Give examples of how these teachings can be applied at school, at home and in the community. Share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 761,
+      "round_id": 13,
+      "page_ref": "p88",
+      "anchor": null,
+      "note": "Make this standard for all before the specific competences.",
+      "action": "Done. The line introducing the Specific Competence is now the same everywhere: \"In this sub-topic, you will:\". It had been written four different ways across the book's 22 sub-topics.",
+      "status": "done"
+    },
+    {
+      "id": 762,
+      "round_id": 13,
+      "page_ref": "p88",
+      "anchor": "LEARNING ACTIVITY 1: Explaining the meaning of ambition In pairs or individually, discuss what ambition means. Identify some ambitions that young people may have at school, at home or in the community. Explain why it is important for you to have ambitions and share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 763,
+      "round_id": 13,
+      "page_ref": "p89",
+      "anchor": "LEARNING ACTIVITY 2: Illustrating positive and negative effects of ambitions In groups or individually, discuss the positive and negative effects of having ambitions. Give examples of how ambition can influence a learner's schoolwork, relationships and behaviour. Identify ways in which you can pursue your ambitions without harming yourself or other people. Present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 764,
+      "round_id": 13,
+      "page_ref": "p90",
+      "anchor": "5. People develop ambitions for different reasons. Your interests, abilities, experiences and the people around you can influence what you want to achieve in life.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 765,
+      "round_id": 13,
+      "page_ref": "p90",
+      "anchor": "Factors that Determine Ambitions4.",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 766,
+      "round_id": 13,
+      "page_ref": "p90",
+      "anchor": "LEARNING ACTIVITY 3: Describing factors that determine ambitions In groups or individually, discuss factors that can influence the ambitions of young people. Consider the influence of family, school, personal abilities, interests, role models, and community and life experiences. Explain how each factor can influence a person's ambitions and present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 767,
+      "round_id": 13,
+      "page_ref": "p91",
+      "anchor": "LEARNING ACTIVITY 4: Promoting One’s ambitions (Determination, set goals…) Individual Work and Pair Discussion Think about one ambition that you have for your future. Write down three steps that you can take to work towards achieving it. Share your plan with a partner and discuss how determination, setting goals and proper use of time can help you achieve your ambition. ~ 78 ~",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 768,
+      "round_id": 13,
+      "page_ref": "p92",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education Present some of your ideas to the class.",
+      "note": "This content should be in the Learning Activity Box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 769,
+      "round_id": 13,
+      "page_ref": "p92",
+      "anchor": "EXERCISES 3 & 4",
+      "note": "Put to next page",
+      "action": "Fixed in the engine. A box no longer opens in the last line or two of a page: when there is not room for about five lines it now starts at the top of the next page instead.",
+      "status": "done"
+    },
+    {
+      "id": 770,
+      "round_id": 13,
+      "page_ref": "p93",
+      "anchor": "LEARNING ACTIVITY 5: Describing creativity and innovation In pairs or individually, discuss what creativity and innovation mean. Identify creative and innovative activities that young people can carry out at school, at home or in the community. Explain how these activities can help you achieve your ambitions and present your ideas to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 771,
+      "round_id": 13,
+      "page_ref": "p94",
+      "anchor": "LEARNING ACTIVITY 6: Discussing the importance of creativity and innovation in ambitions and hope In groups or individually, discuss the importance of creativity and innovation in achieving ambitions. Identify challenges that young people may face when pursuing their ambitions and suggest creative or innovative ways of overcoming them. Present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 772,
+      "round_id": 13,
+      "page_ref": "p95",
+      "anchor": "5. An ambition can be turned into action through proper planning. One way of putting an idea into practice is by designing a project. A project allows you to identify a need, plan activities and use available resources to achieve a particular goal.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 773,
+      "round_id": 13,
+      "page_ref": "p95",
+      "anchor": "LEARNING ACTIVITY 7: Explaining steps in designing a project (Identifying an ambition, describing it, planning the project and acting/conducting project) In groups or individually, identify a problem or need that could be addressed by a project at your school or in your community. Discuss the ~ 82 ~",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 774,
+      "round_id": 13,
+      "page_ref": "p95",
+      "anchor": "Steps in Designing a Project4.",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 775,
+      "round_id": 13,
+      "page_ref": "p96",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education steps that you would follow to design the project. Explain what would be needed at each step and present your ideas to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 776,
+      "round_id": 13,
+      "page_ref": "p96",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education steps that you would follow to design the project. Explain what would be needed at each step and present your ideas to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 777,
+      "round_id": 13,
+      "page_ref": "p97",
+      "anchor": "LEARNING ACTIVITY 8: Designing a project based on your ambition Individual Work and Group Discussion Choose one ambition that you have for your future. Design a simple project that can help you develop towards that ambition or address a need in your school or community. Identify the problem or need, project idea, objectives, activities, resources and expected results. Share your project with your ",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 778,
+      "round_id": 13,
+      "page_ref": "p99",
+      "anchor": "LEARNING ACTIVITY 9: Describing hope In pairs or individually, discuss what hope means. Give examples of things that young people may hope for in their lives. Explain how hope can influence the way you respond to challenges at school, at home or in your community. Share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after the activity.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 779,
+      "round_id": 13,
+      "page_ref": "p100",
+      "anchor": "LEARNING ACTIVITY 10: Exploring attributes of hope In groups or individually, identify qualities that can help a person remain hopeful when facing challenges. Discuss how determination, patience, confidence, positive thinking and perseverance can help you maintain hope. Give examples from school, home or the community and present your findings to the class.",
+      "note": "This is the only content which should be in the leaning activity box",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 780,
+      "round_id": 13,
+      "page_ref": "p101",
+      "anchor": "5. People may have different hopes depending on their needs, experiences and goals. Some hopes may concern personal devel- opment, while others may concern relationships, education or the community.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 781,
+      "round_id": 13,
+      "page_ref": "p101",
+      "anchor": "Types of Hope4.",
+      "note": "Remove the 4. This is a Learning Activity title.",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 782,
+      "round_id": 13,
+      "page_ref": "p103",
+      "anchor": "LEARNING ACTIVITY 12: Analysing factors that influence hope In groups or individually, discuss factors that can influence hope among young people. Consider family support, friends, education, personal experiences, achievements, challenges and guidance from responsible people. Explain how each factor can strengthen or weaken hope and present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 783,
+      "round_id": 13,
+      "page_ref": "p105",
+      "anchor": "LEARNING ACTIVITY 13: Exploring religious teachings on ambitions and hope in the four religions (Christianity; Luke 12 vs. 16-21, Luke 12 vs. 22-34), Hinduism Islam, Zambian Traditional Religion) In groups or individually, explore teachings on ambitions and hope in Christianity, Hinduism, Islam and Zambian Traditional Religion. For Christianity, read Luke 12:16–21 and Luke 12:22–34. For Hinduism, ",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 784,
+      "round_id": 13,
+      "page_ref": "p108",
+      "anchor": "4.",
+      "note": "Remove the 4",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 785,
+      "round_id": 13,
+      "page_ref": "p108",
+      "anchor": "Section B: Hope ~ 95 ~",
+      "note": "Make the layout uniform",
+      "action": "Done, and it was a general fault. A section divider inside an assessment was being treated as a continuation of the question above it, so the first divider in a box printed flush and every later one printed indented. Section A and Section B now match.",
+      "status": "done"
+    },
+    {
+      "id": 786,
+      "round_id": 13,
+      "page_ref": "p111",
+      "anchor": "LEARNING ACTIVITY 1: Discussing justice and injustice in society In groups or individually, discuss situations in which people may experience justice or injustice at home, at school or in the community. Give examples of fair and unfair treatment and explain why you consider each situation fair or unfair. Share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 787,
+      "round_id": 13,
+      "page_ref": "p117",
+      "anchor": "5. Although justice promotes fairness, injustice can occur when people use unfair practices to obtain benefits or opportunities. Some forms of injustice may appear normal to people because they have become common in certain situations, but they can cause serious harm to individuals and society.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 788,
+      "round_id": 13,
+      "page_ref": "p117",
+      "anchor": "LEARNING ACTIVITY 3: Analysing forms of injustice within a social system (Bribery, Tribalism, Corruption, Nepotism) In groups or individually, discuss forms of injustice such as bribery, tribalism, corruption and nepotism. Identify situations in which each practice may occur and explain how it can affect individuals, schools, workplaces and communities. Suggest ways of promoting fairness and prese",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 789,
+      "round_id": 13,
+      "page_ref": "p117",
+      "anchor": "Analysing Forms of Injustice in Society4.",
+      "note": "Remove the 4 and this is a learning activity title",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 790,
+      "round_id": 13,
+      "page_ref": "p118",
+      "anchor": "LEARNING ACTIVITY 4: Describing steps to arrive at an informed decision In pairs or individually, discuss the steps you can follow when making a decision about a situation involving justice or injustice. Consider identifying the problem, gathering information, listening to different views, considering possible consequences and choosing the most responsible action. Present your ideas to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 791,
+      "round_id": 13,
+      "page_ref": "p119",
+      "anchor": "5. Justice is important in every society because people need to feel respected, valued and fairly treated. When justice is promoted, people are more likely to trust one another and work together peacefully.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 792,
+      "round_id": 13,
+      "page_ref": "p119",
+      "anchor": "Importance of Justice in Society4.",
+      "note": "Remove the 4 and this is the learning activity title",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 793,
+      "round_id": 13,
+      "page_ref": "p119",
+      "anchor": "LEARNING ACTIVITY 5: Showing the importance of justice in society (equality, human dignity, equity…) In groups or individually, discuss the importance of justice in your school and community. Explain how fairness, equality, human dignity and equity can promote peaceful relationships. Suggest practical ways in which you can promote justice in your daily life and present your ideas to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 794,
+      "round_id": 13,
+      "page_ref": "p120",
+      "anchor": "Explain three reasons why justice is important in society. Give three practical ways in which you can promote justice at school, at home or in your community.",
+      "note": "Number the exercise: 1. Explain ... 2. Give thre... 3. Propose...",
+      "action": "Done. The exercise is now numbered 1, 2, 3.",
+      "status": "done"
+    },
+    {
+      "id": 795,
+      "round_id": 13,
+      "page_ref": "p120",
+      "anchor": "Explain three reasons why justice is important in society. Give three practical ways in which you can promote justice at school, at home or in your community. Propose two actions that young people can take to discourage bribery, tribalism, corruption and nepotism in their communities.",
+      "note": "Number the exercise: 1. Explain ... 2. Give thre... 3. Propose...",
+      "action": "Done. The exercise is now numbered 1, 2, 3.",
+      "status": "done"
+    },
+    {
+      "id": 796,
+      "round_id": 13,
+      "page_ref": "p121",
+      "anchor": "LEARNING ACTIVITY 6: Discussing good governance In groups or individually, discuss what good governance means. Identify examples of good governance that you may observe in your school, family or community. Discuss the qualities that leaders should demonstrate when making decisions that affect other people. Present your ideas to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 797,
+      "round_id": 13,
+      "page_ref": "p122",
+      "anchor": "LEARNING ACTIVITY 7: Explaining the importance of good governance in promoting social justice In pairs or individually, discuss why good governance is important in promoting social justice. Consider fairness, equality, human dignity, participation, accountability and access to opportunities. Give examples of how good governance can improve life at school and in the community. Share your ideas with",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 798,
+      "round_id": 13,
+      "page_ref": "p123",
+      "anchor": "5. Social justice and good governance are closely connected. Good governance can create conditions in which people are treated fairly, while social justice encourages leaders and citizens to consider the rights, needs and dignity of everyone.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 799,
+      "round_id": 13,
+      "page_ref": "p123",
+      "anchor": "Evaluating Social Justice and Good Governance in Society4.",
+      "note": "Remove the 4 and this is the learning activity title",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 800,
+      "round_id": 13,
+      "page_ref": "p123",
+      "anchor": "LEARNING ACTIVITY 8: Evaluating social justice and good governance in society In groups or individually, discuss situations in your school or community where good governance can promote social justice. Evaluate whether the decisions made in these situations are fair, transparent and accountable. Identify what could be improved and suggest responsible ways of promoting greater fairness and equality",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 801,
+      "round_id": 13,
+      "page_ref": "p128",
+      "anchor": "LEARNING ACTIVITY 10: Showing how religious teachings on justice can be applied in real life In pairs or individually, discuss how the teachings of Christianity, Hinduism, Islam and Zambian Traditional Religion on justice can be applied in real-life situations. Give examples of situations involving unfair treatment, discrimination, dishonesty or conflict at school, at home or in the community. Exp",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 802,
+      "round_id": 13,
+      "page_ref": "p129",
+      "anchor": "4.",
+      "note": "Remove the 4 and 5",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 803,
+      "round_id": 13,
+      "page_ref": "p129",
+      "anchor": "5.",
+      "note": null,
+      "action": "Covered by the note on the same page; the stray numbering is gone.",
+      "status": "done"
+    },
+    {
+      "id": 804,
+      "round_id": 13,
+      "page_ref": "p130",
+      "anchor": "10.",
+      "note": "Remove the 10 here and change 11 to 10",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 805,
+      "round_id": 13,
+      "page_ref": "p132",
+      "anchor": "LEARNING ACTIVITY 1: Describing types of work In pairs or individually, discuss what work means. Identify different types of work that people do in your community. Classify the examples into formal and informal work. Explain how each type contributes to people's lives and share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 806,
+      "round_id": 13,
+      "page_ref": "p133",
+      "anchor": "LEARNING ACTIVITY 2: Analysing why people work In groups or individually, discuss why people work. Consider income, meeting basic needs, supporting families, gaining experience, develop- ing skills, serving others and contributing to community development. Give examples of people whose work you see around you and explain why they work. Present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 807,
+      "round_id": 13,
+      "page_ref": "p134",
+      "anchor": "5. A vocation is an occupation or type of work that a person may feel strongly called or suited to perform. People may choose vocations based on their interests, abilities, talents, values and opportunities available to them.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 808,
+      "round_id": 13,
+      "page_ref": "p134",
+      "anchor": "Discussing Vocation as Work4.",
+      "note": "Remove the 4 and this is a learning",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 809,
+      "round_id": 13,
+      "page_ref": "p134",
+      "anchor": "LEARNING ACTIVITY 3: Discussing vocations as work In pairs or individually, discuss occupations that people in your community may regard as vocations. Explain why a person may choose a particular vocation and identify the qualities and skills needed to perform it well. Share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 810,
+      "round_id": 13,
+      "page_ref": "p135",
+      "anchor": "LEARNING ACTIVITY 4: Examining interdependence of work in modern Zambia In groups or individually, identify different occupations found in Zambia. Choose occupations such as farming, teaching, health care, transport, trading, construction and manufacturing. Discuss how people in these occupations depend on one another. Draw a simple diagram showing these relationships and present it to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 811,
+      "round_id": 13,
+      "page_ref": "p136",
+      "anchor": "LEARNING ACTIVITY 5: Identifying solutions to dependence on formal employment In groups or individually, discuss why some people depend heavily on formal employment. Identify challenges that may arise when formal jobs are limited. Suggest practical ways young people can prepare themselves for different work opportunities, including self-employment and skills-based work. Present your ideas to the c",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 812,
+      "round_id": 13,
+      "page_ref": "p138",
+      "anchor": "LEARNING ACTIVITY 6: Assessing different ways of earning money In groups or individually, identify different ways through which people earn money in your community. Classify them as formal employment, self-employment or other income-generating activities. Discuss the skills and resources needed for each activity and explain the benefits of the different ways of earning money. Present your findings",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 813,
+      "round_id": 13,
+      "page_ref": "p139",
+      "anchor": "LEARNING ACTIVITY 7: Evaluating different work opportunities available In pairs or individually, identify three work opportunities available in your community. For each opportunity, discuss the skills required, resources needed, possible income and challenges that may be encountered. Decide which opportunity would be most suitable for a young person with limited resources and explain your choice t",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 814,
+      "round_id": 13,
+      "page_ref": "p140",
+      "anchor": "5. The money you earn from work can be used in different ways. You may use it to meet your immediate needs, but you can also set aside part of it for future use. When earnings are used wisely to create future benefits or income, work becomes a source of investment.",
+      "note": "Remove the 5. These are the brief notes after the Learning Activity before the Exercise",
+      "action": "Fixed in the engine. These notes no longer run on from the exercise above them, so they are set as ordinary text and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 815,
+      "round_id": 13,
+      "page_ref": "p140",
+      "anchor": "LEARNING ACTIVITY 8: Exploring ways of using work as a source of investment In groups or individually, imagine that you have earned K5,000 from a school holiday business. Decide how much you would use for immediate needs, how much you would save and how much you would invest. Explain your choices to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 816,
+      "round_id": 13,
+      "page_ref": "p140",
+      "anchor": "Ways of Using Work as a Source of Investment4.",
+      "note": "Remove the 4 and this is the learning activity title",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 817,
+      "round_id": 13,
+      "page_ref": "p141",
+      "anchor": "LEARNING ACTIVITY 9: Analysing reasons for saving In pairs or individually, discuss why people save money. Identify situations in which saving can help a person at school, at home or in business. Explain how saving can support investment and help people prepare for future needs. Share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 818,
+      "round_id": 13,
+      "page_ref": "p143",
+      "anchor": "LEARNING ACTIVITY 10: Describing entrepreneurial activities In groups or individually, identify entrepreneurial activities carried out by people in your community. Discuss the goods or services provided, the skills and resources required and how the activities generate income. Share your findings with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 819,
+      "round_id": 13,
+      "page_ref": "p144",
+      "anchor": "LEARNING ACTIVITY 11: Identifying entrepreneurial activities in the community In pairs or individually, identify five entrepreneurial activities found in your community. For each activity, describe what is produced or provided, who benefits from it and the skills needed to carry it out. Discuss how these activities contribute to the well-being of families and the community.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 820,
+      "round_id": 13,
+      "page_ref": "p145",
+      "anchor": "LEARNING ACTIVITY 12: Justifying entrepreneurial activities as a form of employment In groups or individually, discuss why entrepreneurial activities can be considered a form of employment. Choose one entrepreneurial activity and explain the work involved, the income it can generate and the employment opportunities it may create. Present your ideas to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 821,
+      "round_id": 13,
+      "page_ref": "p147",
+      "anchor": "LEARNING ACTIVITY 13: Describing ethics In pairs or individually, discuss behaviours that show good and poor conduct when people are carrying out their duties at school, at home or at work. Give examples of honesty, responsibility, respect and fairness. Explain why each behaviour is appropriate or inappropriate and share your ideas with the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 822,
+      "round_id": 13,
+      "page_ref": "p148",
+      "anchor": "LEARNING ACTIVITY 14: Demonstrating the relationship between ethics and work In groups or individually, discuss how ethical behaviour can influence the quality of work and relationships among workers. Identify examples of ethical and unethical behaviour in different occupations. Explain what may happen when good work ethics are practised or ignored and present your findings to the class.",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 823,
+      "round_id": 13,
+      "page_ref": "p149",
+      "anchor": "4.",
+      "note": "Remove the numbering 4 and 5",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 824,
+      "round_id": 13,
+      "page_ref": "p149",
+      "anchor": "5.",
+      "note": "Remove",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 825,
+      "round_id": 13,
+      "page_ref": "p150",
+      "anchor": "LEARNING ACTIVITY 15: Evaluating attitudes to work in Zambia today In groups or individually, discuss different attitudes that people may have towards work in Zambia today. Consider formal employment, farming, trading, skilled work and entrepreneurship. Identify positive and negative attitudes and explain how these attitudes can influence young people's choices about work. Present your findings to",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 826,
+      "round_id": 13,
+      "page_ref": "p151",
+      "anchor": "LEARNING ACTIVITY 16: Exploring the importance of positive attitudes towards work In pairs or individually, discuss the importance of hard work, punctuality, perseverance, cooperation, responsibility and willingness to learn. Explain how these qualities can benefit a worker, an organisation and the community. Suggest ways in which you can practise these attitudes in your daily life and share your ",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 827,
+      "round_id": 13,
+      "page_ref": "p152",
+      "anchor": "LEARNING ACTIVITY 17: Examining the relevance of the code of ethics at work (dress code, conduct, punctuality…) In groups or individually, discuss why a Code of Ethics is important in the workplace. Consider conduct, punctuality, dress code, honesty, confiden- tiality, respect, professionalism and responsible use of resources. Explain how these standards can influence workers and their organisatio",
+      "note": "This is the only content which should be in the Learning Activity Box. The rest are the notes after. Remove them from the box.",
+      "action": "Fixed in the engine. The Learning Activity box now ends where the box border the writer drew in the Word file ends, so only the activity instruction stays inside it and the notes that follow now run as ordinary text beneath the box.",
+      "status": "done"
+    },
+    {
+      "id": 828,
+      "round_id": 13,
+      "page_ref": "p154",
+      "anchor": "4.",
+      "note": "Remove the numbering 4 and 5",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 829,
+      "round_id": 13,
+      "page_ref": "p154",
+      "anchor": "5.",
+      "note": "Remove the numbering 4 and 5",
+      "action": "Fixed in the engine. The heading no longer runs on from the exercise above it, so it is set as a heading in its own right and the stray number is gone.",
+      "status": "done"
+    },
+    {
+      "id": 830,
+      "round_id": 13,
+      "page_ref": "p155",
+      "anchor": "LEARNING ACTIVITY 18: Examining Religious Teachings on Work in the Four Religions",
+      "note": "Refer to the Learner's Book or attached Activity",
+      "action": "Answered by the manuscript, not by an attachment. LEARNING ACTIVITY 18 is the one activity the writer drew no box border around, so the box ran on past the instruction and took in his planning scaffold: bare scripture references under '1. Christianity', '2. Hindu', '3. Muslim' and '4. Zambian Traditional Religion', a 'Discussion Task' repeating word for word the instruction six lines above it, and the unfinished note 'Also add appropriate proverbs ...'. The finished learner prose on all four religions follows immediately below the box and already says all of it. The scaffold is removed, so the activity is now its instruction alone - the shape asked for on the other sixty activities. Three teachings the scaffold carried alone (Bhagavad Gita 3:8, 'work is a command' in Islam, and 'neglecting work results in lack of food' in Zambian Traditional Religion) are written into the prose so nothing is lost.",
+      "status": "done"
+    },
+    {
+      "id": 831,
+      "round_id": 13,
+      "page_ref": "p156",
+      "anchor": "Form 2 Learner's BookSecondary Education Ordinary Level Religious Education 2. Hindu Work is a source of happiness.a) One should work without seeking approval or thanks.b) Work must be done with right motives.c) Bhagavad Gita 3:8d) 3. Muslim Work is a commanda) No disrespect for manual workersb) Also read Qur’an 53:39c) 4. Zambian Traditional Religion Everyone is considered a worker.a) Neglecting ",
+      "note": "Please get the right activity from the Learners' Book or the attached copy in word",
+      "action": "Same activity as the note on the page before, and settled the same way. The listed teachings ('2. Hindu - Work is a source of happiness ...') were the writer's planning scaffold, which the finished prose under the box already sets out in full for all four religions. The scaffold is removed and the three teachings it carried alone are written into the prose. The activity box now ends at the instruction, so its extent no longer needs setting by hand.",
+      "status": "done"
+    },
+    {
+      "id": 832,
+      "round_id": 13,
+      "page_ref": "p158",
+      "anchor": "EXERCISE 18 Describe one teaching about work from each of the four religions:1.",
+      "note": "Push it to the other page",
+      "action": "Fixed in the engine. A box no longer opens in the last line or two of a page: when there is not room for about five lines it now starts at the top of the next page instead.",
+      "status": "done"
+    },
+    {
+      "id": 833,
+      "round_id": 13,
+      "page_ref": "p160",
+      "anchor": "GLOSSARY",
+      "note": "Let it be on its own page",
+      "action": "Checked in the current typesetting: the glossary and the references each already begin on a page of their own.",
+      "status": "done"
+    },
+    {
+      "id": 834,
+      "round_id": 13,
+      "page_ref": "p161",
+      "anchor": "REFERENCES",
+      "note": "Let it be on its own page",
+      "action": "Checked in the current typesetting: the glossary and the references each already begin on a page of their own.",
+      "status": "done"
+    },
+    {
+      "id": 835,
+      "round_id": 14,
+      "page_ref": "p6",
+      "anchor": "holds a PhD in Music Education and a Master of Education in",
+      "note": "after 'education' in brackets, insert University of Zambia",
+      "action": "Override: '(University of Zambia)' inserted after the PhD in Mary Mwila's bio, as marked. NOTE for the author: the sentence now names the university twice (once for the PhD, once for the Master's) — say the word and the second one goes.",
+      "status": "flagged"
+    },
+    {
+      "id": 836,
+      "round_id": 14,
+      "page_ref": "p29",
+      "anchor": "EUROPEAN FOLK MUSIC GENRES. Refer to the form 5 learners’ book page ….",
+      "note": "This statement should be delete for consistency ",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 837,
+      "round_id": 14,
+      "page_ref": "p29",
+      "anchor": null,
+      "note": "This statement should be delete for consistency ",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 838,
+      "round_id": 14,
+      "page_ref": "p30",
+      "anchor": "EXERCISE 1. Refer to the form 5 learners’ book page …..",
+      "note": "CDC evaluation criteria always looks for this reference but it is not consistent if we are to maintain then all exercises should refere to LB with exact page",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 839,
+      "round_id": 14,
+      "page_ref": "p32",
+      "anchor": "European Music Genres (Rhythm, Form, Texture …) refer to form 5 learners’ book page….",
+      "note": "as  observed earlier",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 840,
+      "round_id": 14,
+      "page_ref": "p34",
+      "anchor": "(Historical, regional, function…). Refer to form 5 learners’ book page ….",
+      "note": "as earlier observed",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 841,
+      "round_id": 14,
+      "page_ref": "p36",
+      "anchor": "European Folk Music Genres. Refer to form 5 learners’ book page ….",
+      "note": "refer to earlier comment",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 842,
+      "round_id": 14,
+      "page_ref": "p39",
+      "anchor": "Music Genres. Refer to form 5 learners’ book page ….",
+      "note": "refer to earlier comment",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 843,
+      "round_id": 14,
+      "page_ref": "p41",
+      "anchor": "ments, and overall mood of each musical example. Guide learners to demonstrate empathy and respect when discussing different cultural traditions, encourage participation by learners with diverse abilities, and highlight how traditional music can provide opportunities",
+      "note": "I have observed cross cutting issues are in bold through out the document I suggest they are unbold I am sure this can be done when submitting for CDC evaluation but on printing unbold",
+      "action": "Engine: new unboldBlock override — the cross-cutting-issue sentences now read in the same weight as the paragraph around them, throughout the book (44 paragraphs).",
+      "status": "done"
+    },
+    {
+      "id": 844,
+      "round_id": 14,
+      "page_ref": "p43",
+      "anchor": "ments used, and performance style. Guide learners to discuss how cultural music can promote good governance, social cohesion and responsible citizenship. Facilitate discussion on the effects of corrup",
+      "note": "refer to earlier comment on being in  bold",
+      "action": "Engine: new unboldBlock override — the cross-cutting-issue sentences now read in the same weight as the paragraph around them, throughout the book (44 paragraphs).",
+      "status": "done"
+    },
+    {
+      "id": 845,
+      "round_id": 14,
+      "page_ref": "p45",
+      "anchor": "LEARNING ACTIVITY 4: Classification Of Various Asian Music Genres.",
+      "note": "There is need for consistence some headings are in upper cases while others in lower and upper cases.",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 846,
+      "round_id": 14,
+      "page_ref": "p45",
+      "anchor": "resources. Facilitate discussion on the contributions of people of different genders to Asian musical traditions and the importance of equal participation. Encourage learners to consider environmentally",
+      "note": "refer to earlier comment on 'bold'",
+      "action": "Engine: new unboldBlock override — the cross-cutting-issue sentences now read in the same weight as the paragraph around them, throughout the book (44 paragraphs).",
+      "status": "done"
+    },
+    {
+      "id": 847,
+      "round_id": 14,
+      "page_ref": "p46",
+      "anchor": "Match the Asian music genre in Column A with its correct descrip",
+      "note": "small letter 'c'",
+      "action": "Override: 'Column A' / 'Column B' set as 'column A' / 'column B' in the question. The table's own headings keep their capitals.",
+      "status": "done"
+    },
+    {
+      "id": 848,
+      "round_id": 14,
+      "page_ref": "p46",
+      "anchor": "tion or country of origin in Column B. Write the correct letter next",
+      "note": "small letter 'c'",
+      "action": "Override: 'Column A' / 'Column B' set as 'column A' / 'column B' in the question. The table's own headings keep their capitals.",
+      "status": "done"
+    },
+    {
+      "id": 849,
+      "round_id": 14,
+      "page_ref": "p48",
+      "anchor": "LEARNING ACTIVITY 1: Listening To Various Latin American Music Genres.",
+      "note": "upper or lower?",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 850,
+      "round_id": 14,
+      "page_ref": "p50",
+      "anchor": "LEARNING ACTIVITY 2: Discussing The Features Of Latin American Music Genres (Rhythm, Form, Texture…).",
+      "note": "Upper or lower?",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 851,
+      "round_id": 14,
+      "page_ref": "p50",
+      "anchor": "tunities for musicians, dancers and other creative practitioners. Guide each pair to consider responsible allocation and management of festival resources, including budgeting for performers, equipment and promotion. Emphasise the importance of transparency, account",
+      "note": "refer to earlier comment on 'bold'",
+      "action": "Engine: new unboldBlock override — the cross-cutting-issue sentences now read in the same weight as the paragraph around them, throughout the book (44 paragraphs).",
+      "status": "done"
+    },
+    {
+      "id": 852,
+      "round_id": 14,
+      "page_ref": "p52",
+      "anchor": "appropriate explanations. Guide learners to recognise values such as respect, unity, tolerance, cooperation and appreciation of cultural diversity reflected in the musical traditions. Facilitate discussion on",
+      "note": "refer to earlier comment",
+      "action": "Engine: new unboldBlock override — the cross-cutting-issue sentences now read in the same weight as the paragraph around them, throughout the book (44 paragraphs).",
+      "status": "done"
+    },
+    {
+      "id": 853,
+      "round_id": 14,
+      "page_ref": "p52",
+      "anchor": "LEARNING ACTIVITY 3: Identifying Different Genres",
+      "note": "refer to earlier comment",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 854,
+      "round_id": 14,
+      "page_ref": "p54",
+      "anchor": "LEARNING ACTIVITY 4: Classification Of Various Latin American Music.",
+      "note": "refer to earlier comment",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 855,
+      "round_id": 14,
+      "page_ref": "p54",
+      "anchor": "the development of cultural practices and music. Encourage learners to explore environmentally sustainable approaches to organising music activities, including responsible use of energy, materials and other resources. Encourage respectful participation by ensuring that",
+      "note": "refer to earlier comment",
+      "action": "Engine: new unboldBlock override — the cross-cutting-issue sentences now read in the same weight as the paragraph around them, throughout the book (44 paragraphs).",
+      "status": "done"
+    },
+    {
+      "id": 856,
+      "round_id": 14,
+      "page_ref": "p59",
+      "anchor": "concentration and well being. Guide learners to consider affordable and locally available alternatives for percussion instruments and responsible use of limited resources. Highlight how developing rhyth",
+      "note": "unbold",
+      "action": "Engine: new unboldBlock override — the cross-cutting-issue sentences now read in the same weight as the paragraph around them, throughout the book (44 paragraphs).",
+      "status": "done"
+    },
+    {
+      "id": 857,
+      "round_id": 14,
+      "page_ref": "p63",
+      "anchor": "LEARNING ACTIVITY 3: PLAYING SOL FA NOTATION IN RELATION TO MUSICAL NOTES (Clapping, Recorder,",
+      "note": "upper or lower cases consistence needed",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 858,
+      "round_id": 14,
+      "page_ref": "p67",
+      "anchor": "Fa From An Audio Source.",
+      "note": "from an",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 859,
+      "round_id": 14,
+      "page_ref": "p69",
+      "anchor": "Patterns In Tonic Sol",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 860,
+      "round_id": 14,
+      "page_ref": "p75",
+      "anchor": "LEARNING ACTIVITY 2: Creating Melodies In Binary",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 861,
+      "round_id": 14,
+      "page_ref": "p75",
+      "anchor": "Form In Major Keys.",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 862,
+      "round_id": 14,
+      "page_ref": "p77",
+      "anchor": "Melodies To Provided Written Pieces",
+      "note": "to",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 863,
+      "round_id": 14,
+      "page_ref": "p84",
+      "anchor": "LEARNING ACTIVITY 1: Applying Voice Leading Rules In",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 864,
+      "round_id": 14,
+      "page_ref": "p88",
+      "anchor": "Voice Leading In Closed and Open Positions",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 865,
+      "round_id": 14,
+      "page_ref": "p88",
+      "anchor": "LEARNING ACTIVITY 3: Creating Voice Leading In",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 866,
+      "round_id": 14,
+      "page_ref": "p88",
+      "anchor": "Closed And Open Positions (Jazz, Pop, Classical …)",
+      "note": "and",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 867,
+      "round_id": 14,
+      "page_ref": "p97",
+      "anchor": "In Music Composition (Melodic, Rhythmic, Harmonic,",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 868,
+      "round_id": 14,
+      "page_ref": "p97",
+      "anchor": "African traditional music, referring to the Form Five Learners’ Book, page …",
+      "note": "delete unless specific page number  is known then it can be added",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 869,
+      "round_id": 14,
+      "page_ref": "p98",
+      "anchor": "LEARNING ACTIVITY 3: Developing Themes From Motifs",
+      "note": "from",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 870,
+      "round_id": 14,
+      "page_ref": "p100",
+      "anchor": "LEARNING ACTIVITY 4: Applying Variation In Developed",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 871,
+      "round_id": 14,
+      "page_ref": "p109",
+      "anchor": "The teacher should facilitate learners to be in pairs or individually and",
+      "note": "delete so that in pairs remains",
+      "action": "Engine: the standing rule that writes 'or individually' into every activity is switched off for this book (new orIndividually: false override), so all thirteen activities read as the manuscript wrote them.",
+      "status": "done"
+    },
+    {
+      "id": 872,
+      "round_id": 14,
+      "page_ref": "p110",
+      "anchor": "Research six musical instruments, including at least three trans",
+      "note": "delete",
+      "action": "Override: 'including at least' deleted — the question now reads 'Research six musical instruments, three transposing and three non-transposing instruments.'",
+      "status": "done"
+    },
+    {
+      "id": 873,
+      "round_id": 14,
+      "page_ref": "p110",
+      "anchor": "Evidence of research or data collection.",
+      "note": "and",
+      "action": "Override: 'Evidence of research or data collection' now reads 'and data collection'.",
+      "status": "done"
+    },
+    {
+      "id": 874,
+      "round_id": 14,
+      "page_ref": "p111",
+      "anchor": "Skills (Writing And Performing) For Different Musical",
+      "note": "small letters 'f' and 'd'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 875,
+      "round_id": 14,
+      "page_ref": "p112",
+      "anchor": "1.",
+      "note": "2.",
+      "action": "Override: the three repeated '1.' answers in Exercise 3 renumbered 2., 3. and 4.",
+      "status": "done"
+    },
+    {
+      "id": 876,
+      "round_id": 14,
+      "page_ref": "p112",
+      "anchor": "1.",
+      "note": "3.",
+      "action": "Override: the three repeated '1.' answers in Exercise 3 renumbered 2., 3. and 4.",
+      "status": "done"
+    },
+    {
+      "id": 877,
+      "round_id": 14,
+      "page_ref": "p112",
+      "anchor": "1.",
+      "note": "4.",
+      "action": "Override: the three repeated '1.' answers in Exercise 3 renumbered 2., 3. and 4.",
+      "status": "done"
+    },
+    {
+      "id": 878,
+      "round_id": 14,
+      "page_ref": "p118",
+      "anchor": "In Music Ensemble Conducting (Auditioning, Resource",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 879,
+      "round_id": 14,
+      "page_ref": "p119",
+      "anchor": "In Music Ensemble Conducting",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 880,
+      "round_id": 14,
+      "page_ref": "p126",
+      "anchor": "Prior Skills on The Instrument of own Choice",
+      "note": "the",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 881,
+      "round_id": 14,
+      "page_ref": "p127",
+      "anchor": "Playing Techniques through Enhanced Practice",
+      "note": "e",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 882,
+      "round_id": 14,
+      "page_ref": "p129",
+      "anchor": "Individually and In Groups (Scored, Improvised…)",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 883,
+      "round_id": 14,
+      "page_ref": "p132",
+      "anchor": "LEARNING ACTIVITY 1: Discussing Sources Of Music",
+      "note": "of",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 884,
+      "round_id": 14,
+      "page_ref": "p132",
+      "anchor": "emphasise issue of",
+      "note": "E",
+      "action": "Override: the sentence now opens 'Emphasise issue of cyber safety …' with a capital.",
+      "status": "done"
+    },
+    {
+      "id": 885,
+      "round_id": 14,
+      "page_ref": "p133",
+      "anchor": "Features of Available Music Notation Software",
+      "note": "a",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 886,
+      "round_id": 14,
+      "page_ref": "p134",
+      "anchor": "LEARNING ACTIVITY 2: Describing Features Of Available",
+      "note": "use small letters 'o' and 'a'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 887,
+      "round_id": 14,
+      "page_ref": "p134",
+      "anchor": "the features of Finale, Sibelius and MuseScore. Present your findings in",
+      "note": "Learners should present their ....",
+      "action": "Override: 'Present your findings in a comparison chart' now reads 'Learners should present their findings in a comparison chart.'",
+      "status": "done"
+    },
+    {
+      "id": 888,
+      "round_id": 14,
+      "page_ref": "p135",
+      "anchor": "Notating Music Using Available Music Notation Software",
+      "note": "use small letters 'u' and 'a'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 889,
+      "round_id": 14,
+      "page_ref": "p137",
+      "anchor": "LEARNING ACTIVITY 1: Describing Features Of A Music",
+      "note": "small letters 'o' and 'a'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 890,
+      "round_id": 14,
+      "page_ref": "p138",
+      "anchor": "Ins in Available Music making Software",
+      "note": "small letter 'a'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 891,
+      "round_id": 14,
+      "page_ref": "p138",
+      "anchor": "LEARNING ACTIVITY 2: Identifying Salient Plug",
+      "note": "small letter 's'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 892,
+      "round_id": 14,
+      "page_ref": "p138",
+      "anchor": "Ins in Available Music making Software",
+      "note": "small letter 'i'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 893,
+      "round_id": 14,
+      "page_ref": "p140",
+      "anchor": "Full Instrumental Tracks Using Available Music Making Soft",
+      "note": "use small letters for 't', 'u' and 'a'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 894,
+      "round_id": 14,
+      "page_ref": "p140",
+      "anchor": "LEARNING ACTIVITY 3: Making Full Instrumental Tracks Using Available Music Making Software",
+      "note": "use small letters 'f', 'i', 't', 'u' and 'a'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 895,
+      "round_id": 14,
+      "page_ref": "p142",
+      "anchor": "LEARNING ACTIVITY 1: Describing Features Of A",
+      "note": "use small letters of 'f', 'o' and 'a'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 896,
+      "round_id": 14,
+      "page_ref": "p142",
+      "anchor": "effects processing, mixing, playback and volume control, referring to the Form Five Learners’ Book.",
+      "note": "specify specific page number or delete this part",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 897,
+      "round_id": 14,
+      "page_ref": "p143",
+      "anchor": "Control of Virtual Instruments, Recording and Editing Using",
+      "note": "'u'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 898,
+      "round_id": 14,
+      "page_ref": "p143",
+      "anchor": "LEARNING ACTIVITY 2: Demonstrating Control Of Virtual",
+      "note": "of",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 899,
+      "round_id": 14,
+      "page_ref": "p144",
+      "anchor": "duration and timing, then play back the final version. Remind learners on",
+      "note": "on the ...",
+      "action": "Override: both occurrences now read 'Remind learners on the issue of …'.",
+      "status": "done"
+    },
+    {
+      "id": 900,
+      "round_id": 14,
+      "page_ref": "p144",
+      "anchor": "Remind learners on issue of",
+      "note": "on the ...",
+      "action": "Override: both occurrences now read 'Remind learners on the issue of …'.",
+      "status": "done"
+    },
+    {
+      "id": 901,
+      "round_id": 14,
+      "page_ref": "p145",
+      "anchor": "LEARNING ACTIVITY 3: Applying Mixing And Mastering",
+      "note": "a",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 902,
+      "round_id": 14,
+      "page_ref": "p145",
+      "anchor": "Skills In Music Recording Software",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 903,
+      "round_id": 14,
+      "page_ref": "p149",
+      "anchor": "Correctly demonstrates both audio and MIDI recording meth- ods.",
+      "note": "move to next line to avoid word dividing",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 904,
+      "round_id": 14,
+      "page_ref": "p149",
+      "anchor": "Explains that MIDI recording captures performance instruc- tions.",
+      "note": "move to next line to avoid word dividing",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 905,
+      "round_id": 14,
+      "page_ref": "p151",
+      "anchor": "In groups or individually, research and identify at least five career oppor",
+      "note": "delete",
+      "action": "Engine: the standing rule that writes 'or individually' into every activity is switched off for this book (new orIndividually: false override), so all thirteen activities read as the manuscript wrote them.",
+      "status": "done"
+    },
+    {
+      "id": 906,
+      "round_id": 14,
+      "page_ref": "p152",
+      "anchor": "Past, Current and Future Trends In the Music Industry",
+      "note": "in",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 907,
+      "round_id": 14,
+      "page_ref": "p152",
+      "anchor": "LEARNING ACTIVITY 2: Analysing Past, Current And",
+      "note": "a",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 908,
+      "round_id": 14,
+      "page_ref": "p152",
+      "anchor": "Future Trends In The Music Industry",
+      "note": "small letters 'i' and 't'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 909,
+      "round_id": 14,
+      "page_ref": "p152",
+      "anchor": "Work in groups or individually to compare music production, distribution",
+      "note": "delete",
+      "action": "Engine: the standing rule that writes 'or individually' into every activity is switched off for this book (new orIndividually: false override), so all thirteen activities read as the manuscript wrote them.",
+      "status": "done"
+    },
+    {
+      "id": 910,
+      "round_id": 14,
+      "page_ref": "p152",
+      "anchor": "During a career guidance activity on the music industry, identify",
+      "note": "delete",
+      "action": "Override: the question repeated 'the music industry' twice, so the trailing 'in the music industry' is dropped — it now reads '… identify three career opportunities that a learner could pursue.' The two marks read literally ('the' and 'industry') would have left the sentence ungrammatical, so please confirm this reading.",
+      "status": "flagged"
+    },
+    {
+      "id": 911,
+      "round_id": 14,
+      "page_ref": "p152",
+      "anchor": "industry.",
+      "note": "delete",
+      "action": "Override: the question repeated 'the music industry' twice, so the trailing 'in the music industry' is dropped — it now reads '… identify three career opportunities that a learner could pursue.' The two marks read literally ('the' and 'industry') would have left the sentence ungrammatical, so please confirm this reading.",
+      "status": "flagged"
+    },
+    {
+      "id": 912,
+      "round_id": 14,
+      "page_ref": "p153",
+      "anchor": "technology, identify two methods that were used to distribute mu- sic in the past.",
+      "note": "be written as one word",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 913,
+      "round_id": 14,
+      "page_ref": "p153",
+      "anchor": "Possible answer: vinyl records and CDs. (Check for other learn- ers’ responses).",
+      "note": "be written as one word",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 914,
+      "round_id": 14,
+      "page_ref": "p153",
+      "anchor": "Preferences In The Music Industry",
+      "note": "small letters 'i' and 't'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 915,
+      "round_id": 14,
+      "page_ref": "p154",
+      "anchor": "LEARNING ACTIVITY 4: Designing A Suitable Business",
+      "note": "use small letters 'a' and 's'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 916,
+      "round_id": 14,
+      "page_ref": "p155",
+      "anchor": "During a class discussion on music consumption, identify two fac- tors that influence people’s music preferences.",
+      "note": "write as one word",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 917,
+      "round_id": 14,
+      "page_ref": "p156",
+      "anchor": "A music entrepreneur wants to attract and retain customers. Ex- plain why having a marketing strategy is important.",
+      "note": "write as one word",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 918,
+      "round_id": 14,
+      "page_ref": "p157",
+      "anchor": "LEARNING ACTIVITY 1: Assessing The Current",
+      "note": "the",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 919,
+      "round_id": 14,
+      "page_ref": "p157",
+      "anchor": "Marketing And Promotion Strategies (Facebook, Tiktok,",
+      "note": "and",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 920,
+      "round_id": 14,
+      "page_ref": "p158",
+      "anchor": "LEARNING ACTIVITY 2: Evaluating The Effectiveness of",
+      "note": "the",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 921,
+      "round_id": 14,
+      "page_ref": "p158",
+      "anchor": "the Identified Marketing And Promotion Strategies And",
+      "note": "and",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 922,
+      "round_id": 14,
+      "page_ref": "p158",
+      "anchor": "the Identified Marketing And Promotion Strategies And Make Data Driven Decisions",
+      "note": "small letters 'a', 'm', 'd', 'd' and 'd'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 923,
+      "round_id": 14,
+      "page_ref": "p159",
+      "anchor": "And Promotion Strategies In Line With Consumer",
+      "note": "and",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 924,
+      "round_id": 14,
+      "page_ref": "p159",
+      "anchor": "And Promotion Strategies In Line With Consumer",
+      "note": "small letters 'i', 'l' and 'w'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 925,
+      "round_id": 14,
+      "page_ref": "p159",
+      "anchor": "Preferences In The Music Industry.",
+      "note": "small letters 'i' and 't'",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 926,
+      "round_id": 14,
+      "page_ref": "p161",
+      "anchor": "LEARNING ACTIVITY 1: Identifying Types Of Events And",
+      "note": "types of...",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 927,
+      "round_id": 14,
+      "page_ref": "p161",
+      "anchor": "LEARNING ACTIVITY 1: Identifying Types Of Events And",
+      "note": "a",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 928,
+      "round_id": 14,
+      "page_ref": "p161",
+      "anchor": "musical arts events in their school, community or country, referring to the Form Five Learners’ Book.",
+      "note": "add specific page or delete the phrase",
+      "action": "Override: the 'Refer to the Form 5 Learner's Book page ….' placeholder deleted, no page number being known. The one real cross-reference (page 80) is kept.",
+      "status": "done"
+    },
+    {
+      "id": 929,
+      "round_id": 14,
+      "page_ref": "p163",
+      "anchor": "Budgets. Working in groups, prepare a budget for a school musical arts concert. Include the expected sources of income, estimated expenditure and the projected balance, then present and justify your budget to the class.",
+      "note": "enter, italise and remove from bold",
+      "action": "Engine: new splitBoxTitle override — the instruction that had run on inside the Learning Activity 3 heading is now the box's own italic body line, matching every other activity box.",
+      "status": "done"
+    },
+    {
+      "id": 930,
+      "round_id": 14,
+      "page_ref": "p163",
+      "anchor": "LEARNING ACTIVITY 3: Creating And Managing Events",
+      "note": "a",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 931,
+      "round_id": 14,
+      "page_ref": "p163",
+      "anchor": "LEARNING ACTIVITY 4: Creating A Promotional Plan",
+      "note": "a",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 932,
+      "round_id": 14,
+      "page_ref": "p163",
+      "anchor": "Innovations And Delivering A Five Minute Speech.",
+      "note": "change first letters to lower case",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 933,
+      "round_id": 14,
+      "page_ref": "p165",
+      "anchor": "LEARNING ACTIVITY 6: Assessing The Success Through Feedback.",
+      "note": "first letters to be in lower case",
+      "action": "Engine: new headingCase override, set to sentence case for this book — every Learning Activity / Exercise title and every sub-topic head now reads with only its opening word capitalised (proper nouns kept), so the whole book is consistent.",
+      "status": "done"
+    },
+    {
+      "id": 934,
+      "round_id": 14,
+      "page_ref": "p166",
+      "anchor": "Why is it important to choose the appropriate format when plan- ning a musical arts event? Give two reasons.",
+      "note": "write correctly",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 935,
+      "round_id": 14,
+      "page_ref": "p166",
+      "anchor": "Possible answer: It helps meet the needs of the intended audi- ence.",
+      "note": "write correctly",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
+      "status": "done"
+    },
+    {
+      "id": 936,
+      "round_id": 14,
+      "page_ref": "p169",
+      "anchor": "data to evaluate audience engagement and recommend improve- ments.",
+      "note": "write as one word",
+      "action": "Engine: exercise and assessment text is no longer hyphenated (generic-template.typ, qaparts), so no word in a question or answer is split across two lines. Body prose keeps its tuned hyphenation.",
       "status": "done"
     }
   ]

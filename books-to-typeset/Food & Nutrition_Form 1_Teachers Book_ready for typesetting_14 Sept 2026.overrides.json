@@ -1,5 +1,6 @@
 {
   "tocDepth": 2,
-  "coverImage": "food-nutrition-form1-cover.jpg",
+  "//coverImage": "The supplied cover photograph was 610x390, which placed at 127 DPI on the printed cover — well under half of CLAUDE.md's 300 DPI at final print size. Taken up with Real-ESRGAN (x4 native, resampled back down) to 1500x959, which prints at ~309 DPI at the cover's 122mm. Re-encoded to PNG rather than kept as JPEG, so the upscaled result is not round-tripped back through lossy compression. The 610px original is kept beside it as the provenance of the file.",
+  "coverImage": "food-nutrition-form1-cover-hires.png",
   "authors": ["Dr. Mathews Phiri (Ph.D)"]
 }

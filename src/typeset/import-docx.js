@@ -572,7 +572,15 @@ function paraSegs(pXml) {
     if (!tm && !tabs) continue;
     let t = decode(tm)
       .replace(/[​-‍﻿]/g, "")   // drop zero-width junk (breaks ^label matching)
-      .replace(/ *— */g, " - ");     // em dash -> spaced hyphen (house style)
+      .replace(/ *— */g, " - ")      // em dash -> spaced hyphen (house style)
+      // A typewriter apostrophe inside a word is Word's autocorrect having been off (or
+      // the text having been pasted out of a plain-text source). The books set the
+      // typographic apostrophe everywhere else, so a manuscript that mixes the two
+      // prints "Teacher's" two different ways — the Grade 1 CTS Teacher's Guide carried
+      // both through one book. Only BETWEEN letters, which is always a contraction or a
+      // possessive; a quotation mark stands next to a space or punctuation instead and
+      // is left for the quote handling to deal with.
+      .replace(/([A-Za-z])'([A-Za-z])/g, "$1’$2");
     if (tabs) t = t + " ".repeat(tabs);                // tabs -> spaces (no column artefacts)
     const rpr = (run.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     // Hidden text (<w:vanish/>) — Word itself never displays or prints this run.
@@ -1099,6 +1107,67 @@ function splitGluedFirstOption(blocks) {
   return out;
 }
 
+// Some manuscripts type SEVERAL multiple-choice options on one line — "A) 1 cm
+// represents 5 km    B) 1:50,000", with "C) … D) …" on the line below. Word is happy
+// with that, but the importer sees one option per PARAGRAPH, so four options count as
+// two. The marker is then re-derived from that count (markerFor), and the paragraph
+// the author literally began "C)" prints as "B)" — every option after a glued pair is
+// lettered one place early, which in an assessment silently renames the answer a
+// learner is meant to choose. The Geography Form 2 Learner's Book has it both ways in
+// one question set: the options typed as separate paragraphs come out A/B/C/D, the
+// glued ones come out A/B/B/D, and they print two-to-a-line beside questions that
+// print one-to-a-line.
+//
+// Split a glued run into one paragraph per option, so the count matches the letters
+// the author typed and every option in the book sits on its own line.
+//
+// Deliberately narrow, in the same way expandGluedSubparts() is: the paragraph must
+// carry TWO OR MORE bare option markers that ASCEND CONSECUTIVELY in ONE punctuation
+// style (A)→B), or C.→D.), each followed by real text. A lone "C) …" paragraph is
+// left alone — once the glued pairs are split, its position already gives it the
+// right letter. Only reached from buildQAParts(), so it can never touch body prose.
+function splitGluedOptions(blocks) {
+  const OPT = /(?:^|\s)([A-Z])([.)])(?=\s)/g;
+  const out = [];
+  for (const b of blocks) {
+    if (b.t !== "para" || b.marker || !b.segs || b.segs.some((s) => s.m)) { out.push(b); continue; }
+    // Index the SEGMENT text, never b.plain: b.plain is trimmed, so its offsets are
+    // shifted from the segments segsSlice() actually cuts, and every option would lose
+    // its last few characters ("1:50,000" -> "1:5").
+    const plain = b.segs.map((s) => s.t).join("");
+    const marks = [];
+    OPT.lastIndex = 0;
+    for (let m; (m = OPT.exec(plain)); ) {
+      marks.push({ idx: m.index + m[0].length - 2, ch: m[1], suf: m[2] });
+      OPT.lastIndex = m.index + m[0].length - 1;   // let "A) x B) y" see the B
+    }
+    // grow the consecutive ascending run from the first marker
+    const seq = [];
+    for (const k of marks) {
+      if (!seq.length) { seq.push(k); continue; }
+      const last = seq[seq.length - 1];
+      if (k.suf === last.suf && k.ch.charCodeAt(0) === last.ch.charCodeAt(0) + 1) seq.push(k);
+      else break;
+    }
+    // every option must carry real text, or this is prose that merely mentions "A)"
+    const bodyOk = seq.length >= 2 && seq.every((s, i) => {
+      const end = i + 1 < seq.length ? seq[i + 1].idx : plain.length;
+      return plain.slice(s.idx + 2, end).trim().length > 0;
+    });
+    if (!bodyOk) { out.push(b); continue; }
+    const stem = plain.slice(0, seq[0].idx).trim();
+    const ranges = [];
+    if (stem) ranges.push([0, seq[0].idx]);
+    for (let i = 0; i < seq.length; i++) ranges.push([seq[i].idx, i + 1 < seq.length ? seq[i + 1].idx : plain.length]);
+    for (const [s, e] of ranges) {
+      const txt = plain.slice(s, e).trim();
+      if (!txt) continue;
+      out.push({ t: "para", segs: segsSlice(b.segs, s, e), plain: txt });
+    }
+  }
+  return out;
+}
+
 // A mark allocation the author gave its own paragraph ("...gained by the bag.
 // (Take g = 10 m/s²)" then, on its own line, just "[2]") rather than typing it
 // straight after the sentence. Word still renders that as a separate line, but the
@@ -1107,7 +1176,7 @@ function splitGluedFirstOption(blocks) {
 // instead of a line break so "[2]"/"[1]" sit right after the sentence they mark.
 const MARK_ONLY = /^\[\s*\d+(?:\s*marks?)?\s*\]$/i;
 function buildQAParts(blocks) {
-  blocks = expandGluedSubparts(splitBrokenTops(splitGluedFirstOption(blocks)));
+  blocks = expandGluedSubparts(splitBrokenTops(splitGluedOptions(splitGluedFirstOption(blocks))));
   // Manuscripts sometimes indent an ENTIRE question list one or two Word-list
   // levels deep (e.g. every question at ilvl=2 with nothing at ilvl 0/1). Those
   // questions are really the top level, so normalise every marked item's level by
@@ -1724,7 +1793,15 @@ function makeBox(kind, blocks) {
     // "title" ending at "…LEARNING ACTIVITY 1:" and a bogus "body" starting at
     // "Identifying…". Require the matched trigger to be followed by whitespace
     // or sentence punctuation instead, so it only fires at a genuine word end.
-    const BODY_OPEN = /\s+((?:Divide|Organi[sz]e|Ask|Guide|Instruct|Provide|Facilitate|Work in|Move around|In this activity|Give each|Learners?|Use|Study|Identify|Observe|Investigate|Measure|Determine|Compare|Discuss|Conduct|Explore|Construct|Design|Record|Calculate|Demonstrate|Collect|Draw|Examine|Set up)(?=[\s.,:;])[\s\S]*)$/;
+    // "Work in" alone was too loose. It is meant for "Work in groups…"/"Work in
+    // pairs…", but it also matches a title that merely CONTAINS the words — the
+    // Religious Education Form 2 Learner's Book has "LEARNING ACTIVITY 18: Examining
+    // Religious Teachings on Work in the Four Religions", 81 characters, one over the
+    // length guard — and the split left the heading reading "…Religious Teachings on"
+    // with "Work in the Four Religions" stranded below it as a stray italic line,
+    // while every other activity in the book carries its title whole. So the trigger
+    // now requires the grouping word that makes it an instruction.
+    const BODY_OPEN = /\s+((?:Divide|Organi[sz]e|Ask|Guide|Instruct|Provide|Facilitate|Work in (?:small |your |the )?(?:groups|pairs|threes|twos|teams|a group|a pair)|Move around|In this activity|Give each|Learners?|Use|Study|Identify|Observe|Investigate|Measure|Determine|Compare|Discuss|Conduct|Explore|Construct|Design|Record|Calculate|Demonstrate|Collect|Draw|Examine|Set up)(?=[\s.,:;])[\s\S]*)$/;
     const bm = titleText.length > 80 ? titleText.match(BODY_OPEN) : null;
     if (bm) {
       // The split works on the flattened string, so the formatted segs no
@@ -1798,8 +1875,21 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   // Numbered TOPIC / UNIT / Sub-Topic headings (some manuscripts hand-size these
   // with no Word heading style, e.g. Physics "TOPIC 4.1: …" / "Sub-Topic 4.1.1: …";
   // some instead plant the colon before the number, "TOPIC: 4.1 …").
-  if (plain.length <= 90 && SUBTOPIC_RE.test(plain)) return { t: "h2", text: plain };
-  if (plain.length <= 90 && /^(TOPIC|UNIT|CHAPTER)\s*:?\s*[\d.]+\b/i.test(plain)) return { t: "h1", text: plain };
+  //
+  // Both rules fire on the TEXT alone, which is what a manuscript with no heading
+  // styles needs — but it also promoted ordinary prose that merely opens with the
+  // word Chapter. Geography Form 2 teaches how to write up a field report and
+  // lists its parts as plain, unbolded, body-size paragraphs — "Chapter 1:
+  // Introduction:", "Chapter 2: Methodology:" and two more — and all four climbed
+  // out of sub-topic 2.2.5 to stand in the contents beside the real topics. What
+  // separates them from a genuine hand-typed "TOPIC 4.1: Forces" is the TRAILING
+  // colon: a line ending in one introduces the text beneath it, so it is a label,
+  // never a section title. That is the same test the bold-line rule further down
+  // already applies, and across every manuscript here these four lines are the
+  // only ones either rule caught that end that way.
+  const endsInColon = /:\s*$/.test(plain);
+  if (plain.length <= 90 && !endsInColon && SUBTOPIC_RE.test(plain)) return { t: "h2", text: plain };
+  if (plain.length <= 90 && !endsInColon && /^(TOPIC|UNIT|CHAPTER)\s*:?\s*[\d.]+\b/i.test(plain)) return { t: "h1", text: plain };
   // Local-language unit openers, hand-sized (no heading style), e.g. Lunda
   // "CHIBALU 1: …" or Tonga "CIPATI 1: …". Titles can be long, so allow more room.
   if (plain.length <= 120 && /^(CHIBALU|CIPATI)\s+\d+\b/i.test(plain)) return { t: "h1", text: plain };
@@ -1811,6 +1901,21 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   const colored = nonblank.some((s) => s.c);
   const endsColon = /:\s*$/.test(plain);
   if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(plain)) return { t: "figcaption", text: plain };
+  // The same caption with NO separator after the number — "Figure 1 Major map Symbols"
+  // sitting in the same book as "Figure 4: Six Figure Grid References". Without this it
+  // is never recognised as a caption at all, and the two failures compound: it prints
+  // left-aligned in body type under a picture whose neighbours carry centred captions,
+  // AND normaliseCaptionLabels() never sees it, so the separator it is missing can never
+  // be supplied — the book disagrees with itself and has no way to self-correct.
+  //
+  // Narrow, because "Figure 2 below is found in Grid Square 47" is prose ABOUT a figure,
+  // not a caption. A caption names its picture, so its title starts with a capital and
+  // the line is caption-length; a prose reference carries on in lower case ("below",
+  // "above") and runs into a sentence. All three guards must hold.
+  const NOSEP_CAP = /^[Ff]ig(?:ure)?\.?\s*\d+\s+[A-Z]/;   // no /i flag: the capital IS the test
+  if (plain.length <= 80 && NOSEP_CAP.test(plain)
+      && !/\.\s+\S/.test(plain) && !/\b(?:below|above)\b/i.test(plain))
+    return { t: "figcaption", text: plain };
   // A bare figure label ("Figure 11") — just the word and a number, nothing after
   // it — is a caption sitting under its image. Some writers bold it; without this
   // guard the bold-text rule below would turn it into a left-aligned heading. Emit
@@ -1848,8 +1953,17 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   if (colorHeads) {
     if (allBold && plain.length <= 60) return { t: "label", text: plain };  // PE: bold-black = label
   } else {
-    if (allBold && endsColon && plain.length <= 60) return { t: "label", text: plain };
-    if (allBold && !endsColon && plain.length <= 72) return { t: "head", text: plain }; // bold-black heading
+    // A label is a lesson-spec FIELD NAME ("Vocabulary:", "Expected Performance:",
+    // "Suggested Teaching and Learning Resources:") and prints as one — small, letter-
+    // spaced, in the accent colour. A trailing colon alone does not make a line one: an
+    // instruction that introduces what follows ("Paint different pictures based on given
+    // themes, such as:", "Work with a friend and demonstrate the following correctly:")
+    // is an ordinary bold sub-head that happens to end in a colon, and setting it as a
+    // field name printed it unlike every one of its colon-less siblings on the same kind
+    // of page. Field names are short and never run to a comma, so ask for that too.
+    const fieldName = plain.split(/\s+/).length <= 6 && !plain.includes(",");
+    if (allBold && endsColon && fieldName && plain.length <= 60) return { t: "label", text: plain };
+    if (allBold && (!endsColon || !fieldName) && plain.length <= 72) return { t: "head", text: plain }; // bold-black heading
     if (allBold && plain.length <= 60) return { t: "label", text: plain };
   }
   if (hasListNumbering(pXml) || /^[••]/.test(plain)) return { t: "listitem", segs: stripBullet(segs) };
@@ -2301,7 +2415,9 @@ async function importDocx(docxPath, opts = {}) {
         } catch (_) { /* sniff best-effort; fall through with the original name */ }
       }
       const name = imgPrefix + outBase;
-      mediaOut.push({ src, name, crop, rot, emf: isEmf });
+      // `orig` is the picture's name inside the manuscript, before the media prefix
+      // and any corrected extension — the key a book's overrides file addresses it by.
+      mediaOut.push({ src, name, orig: base, crop, rot, emf: isEmf });
       let dispW = rec.w || 0, dispH = rec.h || 0;
       // Word records <wp:extent> for the UNROTATED frame, so a quarter-turned picture
       // occupies its transpose on the page.
@@ -2375,15 +2491,27 @@ async function importDocx(docxPath, opts = {}) {
   // own name prefixed ("FORM 1 FOOD AND NUTRITION – SAMPLE SCHEME OF WORK"), so
   // match it by its trailing phrase rather than requiring an exact whole match.
   const BACKMATTER_NAME = /^GLOSSARY\b|^REFERENCES?$|^BIBLIOGRAPHY$|^APPENDI(X|CES)\b|^INDEX$|SCHEME\s+OF\s+WORK$/i;
+  // An imprint credit label. Matched only on a short line, so the wording can never
+  // catch inside body prose. "ISBN" anchors at the start because manuscripts glue the
+  // next label onto its dotted placeholder ("ISBN……………… Illustrated by:"); the rest
+  // anchor at the end, where the label's colon sits.
+  const isImprintLabel = (t) => t.length <= 60 &&
+    (/^COPYRIGHT$/i.test(t) || /^ISBN\b/i.test(t) ||
+     /\b(edited|illustrated|printed|published|typeset|design(ed)?|layout)\s*(by)?\s*:?\s*$/i.test(t));
   let imprintEnd = tocPartIdx >= 0 ? tocPartIdx : parts.length;
   if (copyrightIdx >= 0) {
     for (let i = copyrightIdx + 1; i < imprintEnd; i++) {
       if (isTbl(parts[i])) continue;
-      // A "COPYRIGHT" heading is some manuscripts' own label for the imprint content
-      // that follows it (© line, ISBN, credits) — it's still part of the imprint page,
-      // not the start of a new front-matter section, even though it's Word-styled as a
-      // Heading like a real section would be. Don't let it end the imprint early.
-      if (/Heading\d/.test(styleOf(parts[i])) && /^COPYRIGHT$/i.test(textOf(parts[i]).trim())) continue;
+      // The imprint page's own labels — "COPYRIGHT", "ISBN ……", "Edited by:",
+      // "Illustrated by:", "Cover and Book Layout:", "First Published by:", "Printed
+      // by:" — are the CONTENT of the imprint page, not the start of a new front-matter
+      // section, even where a manuscript styles them as Word Headings the way a real
+      // section would be. Several do: the Grade 1 CTS Teacher's Guide styles every one
+      // of its credit labels Heading7. Ending the imprint at the first of them dropped
+      // the whole credits block out of the imprint's centred styling, so the credits
+      // printed flush left beneath a centred copyright statement — one page laid out
+      // two different ways. Skip them; a genuine section heading still ends the page.
+      if (/Heading\d/.test(styleOf(parts[i])) && isImprintLabel(textOf(parts[i]).trim())) continue;
       // stop at the first styled heading OR the first front-matter section name
       if (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i]))) { imprintEnd = i; break; }
     }
@@ -2449,6 +2577,19 @@ async function importDocx(docxPath, opts = {}) {
   const hasNumberedTopics = !hasChapters
     && parts.some((x) => !isTbl(x) && NUMTOPIC.test(textOf(x)))
     && parts.some((x) => !isTbl(x) && NUMSUB.test(textOf(x)));
+  // How deep this book numbers its sub-topics — 3 for Geography's "2.1.1", 4 for
+  // Literature's "1.2.1.1" — read off the sub-topics that DID keep their prefix.
+  // It is the yardstick for spotting one that lost it (see the rule further down),
+  // and it has to come from the manuscript rather than a constant because the two
+  // book families number to different depths.
+  const subDepthTally = {};
+  for (const x of parts) {
+    if (isTbl(x)) continue;
+    const m = textOf(x).match(/^SUB[-\s‐-―]*TOPIC\s*:?\s*(\d+(?:\.\d+)+)/i);
+    if (m) { const d = m[1].split(".").length; subDepthTally[d] = (subDepthTally[d] || 0) + 1; }
+  }
+  const subDepth = Number(Object.keys(subDepthTally)
+    .sort((a, b) => subDepthTally[b] - subDepthTally[a])[0] || 0);
   // The first body topic marks the end of the front matter; front-matter section
   // headings are promoted to top level so each starts its own page.
   // Some manuscripts (e.g. the primary Teacher's Guides) apply Word heading styles
@@ -2459,7 +2600,14 @@ async function importDocx(docxPath, opts = {}) {
   const ignoreStyles = sizeHeads || (hasNumberedTopics && flat);
   let firstTopicIdx = Infinity;
   if (hasNumberedTopics) {
-    const k = parts.findIndex((x) => !isTbl(x) && NUMTOPIC.test(textOf(x)));
+    // The book's own contents page lists the same banners ("TOPIC 3.1: SAFETY1"),
+    // and those lines come FIRST, so a plain search for the pattern put the "end of
+    // the front matter" at the contents page — leaving every section after it
+    // (Introduction, General Competences) counted as body. A contents entry ends in
+    // its page number and a body banner does not; that is the same test the
+    // `tocTopics` collector below uses, so use it here too.
+    const k = parts.findIndex((x) => !isTbl(x) && NUMTOPIC.test(textOf(x))
+      && !/\d\s*$/.test(String(textOf(x)).replace(/\s+/g, " ").trim()));
     if (k >= 0) firstTopicIdx = k;
   } else if (sizeHeads) {
     for (let i = 0; i < parts.length; i++) {
@@ -2941,11 +3089,21 @@ async function importDocx(docxPath, opts = {}) {
           // paragraph with no "Figure N" marker (e.g. "…and Breaking-" / "Through Games").
           // Treat it as a CONTINUATION of the previous entry's title, not the section's
           // end — otherwise every entry after the wrap silently falls out of the list.
-          // never absorb a real heading ("LIST OF TABLES", the next section) as if it
-          // were a wrapped continuation — an ALL-CAPS line is always a heading, never a
-          // caption fragment (those keep normal sentence case).
+          // never absorb a real heading ("List of Tables", the next section) as if it
+          // were a wrapped continuation. Capitalisation alone cannot decide this: the
+          // Geography Form 2 Learner's Book writes that heading in title case, so the
+          // ALL-CAPS test passed it through and the heading — plus the seven Table
+          // entries behind it — was glued onto the end of the last Figure entry, which
+          // both lost those entries and left the book with no List of Tables at all.
+          // Word's own paragraph STYLE says it outright, whatever the casing, so ask it
+          // first and keep the ALL-CAPS test as a fallback for unstyled manuscripts.
+          const styleIsHeading = /^heading\d*$/i.test(styleOf(parts[j]) || "");
           const looksLikeHeading = bodyTxt === bodyTxt.toUpperCase() && /[A-Z]/.test(bodyTxt);
-          if (kept && pending.length && bodyTxt.length > 0 && bodyTxt.length <= 60 && !looksLikeHeading) {
+          // A line that opens "Figure N" / "Table N" is an ENTRY, never the tail of the
+          // entry above — including one of the OTHER list, which is how this section ends.
+          const isEntryLine = /^(Figure|Table)\s+\d+(?:\.\d+)*\b/i.test(bodyTxt);
+          if (kept && pending.length && bodyTxt.length > 0 && bodyTxt.length <= 60
+              && !looksLikeHeading && !styleIsHeading && !isEntryLine) {
             pending[pending.length - 1].title = `${pending[pending.length - 1].title} ${bodyTxt}`.trim();
             j++; continue;
           }
@@ -3043,9 +3201,29 @@ async function importDocx(docxPath, opts = {}) {
       // credits from the copyright statement, and a gap before each credit label
       // (Edited by / Illustrated by / Cover and Book Layout / Published / Printed)
       // so each credit reads as its own group rather than a squeezed list.
+      // A label earns its emphasis and its gap however the manuscript happened to
+      // style it. Some hand-bold the run; others leave the weight to a Word Heading
+      // style, which boldFirstRun() cannot see — so the same credit line printed
+      // bold and spaced in one book and plain and squeezed in the next. Decide from
+      // the wording, and set the bold here when the style was carrying it.
+      const isLabel = isImprintLabel(plain);
+      // Manuscripts type the NEXT credit label onto the tail of the ISBN's dotted
+      // placeholder, so one line reads "ISBN……………… Illustrated by:" and two credits
+      // share a line while every other credit on the page stands on its own. Give the
+      // second label the line and the gap its siblings get.
+      const glued = plain.match(/^(ISBN\b[^A-Za-z]*)\s*(\S.*\bby\s*:)$/i);
+      if (glued) {
+        const style = { ...(segs[0] || {}), b: true, it: false };
+        blocks.push({ t: "vspace", h: "8mm" });
+        blocks.push({ t: "para", segs: [{ ...style, t: glued[1] }], align: "center", hyphenate: false });
+        blocks.push({ t: "vspace", h: "5mm" });
+        blocks.push({ t: "para", segs: [{ ...style, t: glued[2] }], align: "center", hyphenate: false });
+        continue;
+      }
       if (/^ISBN\b/i.test(plain)) blocks.push({ t: "vspace", h: "8mm" });
-      else if (boldFirstRun(x)) blocks.push({ t: "vspace", h: "5mm" });
-      const segs2 = segs.map((s) => ({ ...s, t: s.t.replace(/\s{5,}/g, "\n").replace(/ {2,}/g, " ") }));
+      else if (boldFirstRun(x) || isLabel) blocks.push({ t: "vspace", h: "5mm" });
+      let segs2 = segs.map((s) => ({ ...s, t: s.t.replace(/\s{5,}/g, "\n").replace(/ {2,}/g, " ") }));
+      if (isLabel && !boldFirstRun(x)) segs2 = segs2.map((s) => ({ ...s, b: true }));
       // hyphenate: false — this is a short centred line (names, addresses, ISBN),
       // never long justified prose, so there is no line-fitting reason to hyphenate,
       // and a dictionary match on an ordinary-word name (e.g. "Precious" ->
@@ -3077,10 +3255,47 @@ async function importDocx(docxPath, opts = {}) {
     // inconsistently for ordinary in-topic sub-headings too. Handle it explicitly
     // here, before that general rule can fold a genuine section down to a plain
     // sub-head just because its wording happens to be short and plain-sentenced.
+    //
+    // A FRONT-matter name only counts while we are still IN the front matter
+    // (before the first topic banner). Several of those names — "Introduction",
+    // "General Competences" — are also the ordinary sub-heads that open every
+    // topic and sub-topic of a Teacher's Guide, so an unqualified match promoted
+    // them mid-body: the Grade 1 CTS guide styles topics 1.1-1.15 without Word
+    // headings but 1.16-1.20 with them, and only the latter five had their
+    // "Introduction" blown up into a full-page section heading with its own
+    // contents entry, while their sub-topic heading was stranded underneath. The
+    // same element must look the same in all twenty topics. BACK-matter names
+    // (Glossary, References, Appendix, Scheme of Work) need no such guard — they
+    // never recur as an in-topic sub-head — so they still match anywhere.
     if (hasNumberedTopics && flat && hmap[styleOf(x)]) {
       const plainFM = plainOf(segs).trim();
-      if (plainFM && (FM_SECTION.test(plainFM) || BACKMATTER_NAME.test(plainFM))) {
+      if (plainFM && ((i < firstTopicIdx && FM_SECTION.test(plainFM)) || BACKMATTER_NAME.test(plainFM))) {
         blocks.push({ t: "h1", text: plainFM });
+        continue;
+      }
+    }
+    // A sub-topic whose "Sub-Topic:" prefix the writer simply forgot. In a
+    // numbered-topic book the LEVEL comes from that prefix, so a heading typed as a
+    // bare number never became one: Geography Form 2's "2.4.1. Zambia's
+    // Agro-Ecological Regions" and its two neighbours reached the page as ordinary
+    // body text, and topic 2.4 stood in the contents with no sub-topics under it at
+    // all while its twenty-one siblings elsewhere in the book all read "Sub-Topic:
+    // 2.x.y …". Geography Form 4 has the same slip at "4.4.3. Fisheries related
+    // Entrepreneurship", so it is the pattern rather than one book's typing.
+    // Three things must agree before the prefix is restored, which is what keeps
+    // this off the competence codes the rule below deliberately excludes: the
+    // writer styled the line as a Word heading, the line is short and title-like,
+    // and its number is exactly as deep as the numbers on the sub-topics that did
+    // keep their prefix (Geography's competences run one level deeper). The guard
+    // is `ignoreStyles`, not `flat` as the two rules below it use, because that is
+    // the condition that actually threw the writer's Heading2 away — Geography
+    // Form 2 reaches it through `sizeHeads`, with `flat` false.
+    if (hasNumberedTopics && ignoreStyles && hmap[styleOf(x)] && subDepth) {
+      const plainST = plainOf(segs).trim();
+      const m = plainST.match(/^(\d+(?:\.\d+)+)\.?\s+(\S.*)$/);
+      if (m && m[1].split(".").length === subDepth
+          && plainST.length <= 90 && !/[.!?:]$/.test(plainST)) {
+        blocks.push({ t: "h2", text: "Sub-Topic: " + m[1] + " " + m[2] });
         continue;
       }
     }

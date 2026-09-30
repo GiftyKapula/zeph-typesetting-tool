@@ -38,7 +38,10 @@
  *     --dry-run     report the plan and write nothing
  *     --only a.png,b.png   process just these (the pictures whose WORDS need it)
  *     --limit <n>   process only the n worst images (useful to sample first)
- *     --tile <n>    Real-ESRGAN tile size (default 64)
+ *     --tile <n>    Real-ESRGAN tile size (default 128 — its per-pass working
+ *                   set; 256 and above will not allocate here). It does NOT change
+ *                   how many pieces a frame is cut into (that is MAX_PIECE_PX in
+ *                   lib/esrgan.js), only the cost of each piece.
  *
  * Memory: this is the binding constraint, not speed. A 4x pass over a ~1.4MP
  * picture produces a ~22MP intermediate, and decoding that to resample it costs
@@ -57,129 +60,47 @@
  * an "AI-Generated" badge in a corner the crop had removed. The PDF's copy is already
  * cropped, so building the replacement from it keeps the author's framing.
  *
- * Which picture is which: matched by a coarse colour signature (a 4x4x4 histogram of
- * a thumbnail, via `_imgop.js hist`), assigned closest-first with each media file
- * claimed once. Pixel size cannot do this job — a book will happily carry a dozen
- * pictures all exactly 1536x1024 (the RE Form 2 Learner's Book carries eleven), and
- * size alone paired most of them with the wrong source, while a cropped placement
- * matched nothing at all and had to be named by hand. A crop keeps its source's
- * palette, so it still scores far closer to its own source than to any other picture.
- * A match weaker than the confidence threshold is reported rather than used silently,
- * and --map still lets you name any page's source yourself.
+ * Which picture is which: pixel size FIRST, colour signature only to break a tie.
+ * Neither alone is enough. Size alone fails when a book carries a dozen pictures all
+ * exactly 1536x1024 (the RE Form 2 Learner's Book carries eleven). A colour signature
+ * alone (a 4x4x4 histogram of a thumbnail, via `_imgop.js hist`) fails just as badly
+ * the other way: the Geography Form 2 Learner's Book carries a dozen pasted
+ * equation screenshots that are all black-on-white, so their histograms are nearly
+ * identical and the matcher confidently handed several pages the wrong source — which
+ * would have swapped one figure for another in a printed book.
+ *
+ * So a placement is matched only against the media files of EXACTLY its pixel size,
+ * and the signature decides between them when there are several. Only a placement
+ * whose size matches nothing — a Word crop, which changes the size but keeps the
+ * palette — falls back to scoring against every remaining picture. A match weaker
+ * than the confidence threshold is reported rather than used silently, and --map
+ * still lets you name any page's source yourself.
+ *
+ * One picture placed on several pages is ONE job, not several. Word stores it once and
+ * Typst places the same XObject twice, so the two placements are byte-identical; they
+ * are grouped by content hash and upscaled once, to whatever the most demanding
+ * placement needs. Without that the second placement lost the race for the (already
+ * claimed) media name and was handed some other picture's file instead.
  */
 const fs = require("fs");
 const path = require("path");
 const cp = require("child_process");
 
-const ESRGAN = process.env.REALESRGAN
-  || "C:\\Users\\biine stores\\Desktop\\REAL-\\realesrgan-ncnn-vulkan.exe";
+// Real-ESRGAN and the canvas helpers now live in tools/lib/esrgan.js, so
+// genimage.js can drive the same upscaler over the art it generates.
+const { dims, imgop, resample, esrganUpscale } = require("./lib/esrgan.js");
 
-// ---- tiny image helpers (dimensions straight from the file header) ----------
-function dims(buf) {
-  if (buf[0] === 0x89 && buf[1] === 0x50) return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
-  if (buf[0] === 0xff && buf[1] === 0xd8) {
-    let i = 2;
-    while (i < buf.length) {
-      if (buf[i] !== 0xff) { i++; continue; }
-      const m = buf[i + 1];
-      if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) {
-        return { w: buf.readUInt16BE(i + 7), h: buf.readUInt16BE(i + 5) };
-      }
-      i += 2 + buf.readUInt16BE(i + 2);
-    }
-  }
-  return null;
-}
-
-const IMGOP = path.join(__dirname, "_imgop.js");
-
-// Every canvas operation runs as its own short-lived process (see _imgop.js).
-function imgop(args) {
-  const r = cp.spawnSync(process.execPath, [IMGOP, ...args.map(String)],
-    { stdio: ["ignore", "ignore", "pipe"], encoding: "utf8" });
-  if (r.status !== 0) throw new Error((r.stderr || "image op failed").trim());
-}
-// …the same, for the one op that answers on stdout.
+// …the same as imgop, for the one op that answers on stdout.
 function imgopOut(args) {
+  const IMGOP = path.join(__dirname, "_imgop.js");
   const r = cp.spawnSync(process.execPath, [IMGOP, ...args.map(String)],
     { stdio: ["ignore", "pipe", "pipe"], encoding: "utf8", maxBuffer: 1 << 24 });
   if (r.status !== 0) throw new Error((r.stderr || "image op failed").trim());
   return r.stdout;
 }
-const resample = (src, dst, width) => imgop(["resize", src, dst, width]);
-
-// The largest source area we will hand Real-ESRGAN in one go. It allocates per
-// whole frame, so on a small machine the run is killed above a certain size —
-// measured at roughly 1MP here (0.73MP images went through, 1.05MP ones were
-// killed three times running). Stay well under it.
-const MAX_PIECE_PX = 400000;
-
-// Upscale `src` by `scale`, splitting it first if it is too big to survive in one
-// pass. Pieces are cut with an overlap and the overlap is trimmed back off when
-// they are stitched, so the ESRGAN edge effect at each cut never reaches the
-// visible part of the picture and the seams don't show.
-function esrganUpscale(src, dst, scale, tile, work, tag, outW) {
-  const d = dims(fs.readFileSync(src));
-  // ALWAYS the model's native 4x, and resample down afterwards ourselves.
-  //
-  // Asking the binary for `-s 2` looks like the obvious saving — most pictures are
-  // only ~1.2x short, and it quarters the intermediate. It is a trap: on this
-  // hardware that path returns the frame as a visible patchwork, each tile a
-  // slightly different brightness, in a grid that tracks `-t` exactly (checked at
-  // 64 and 192, both bad; 256 and above will not allocate at all). The native 4x
-  // path over the same picture is clean. So the scale is not a knob to tune —
-  // memory is controlled by splitting the picture instead (see MAX_PIECE_PX).
-  const run = (i, o) => cp.execFileSync(ESRGAN,
-    ["-i", i, "-o", o, "-n", "realesrgan-x4plus", "-s", "4", "-t", String(tile)],
-    { stdio: "ignore" });
-  scale = 4;
-
-  if (!d || d.w * d.h <= MAX_PIECE_PX) { run(src, dst); return 1; }
-
-  // Choose a grid whose pieces each come in under the cap, keeping them squarish.
-  const parts = Math.ceil((d.w * d.h) / MAX_PIECE_PX);
-  let cols = Math.ceil(Math.sqrt(parts * (d.w / d.h)));
-  let rows = Math.ceil(parts / cols);
-  while (Math.ceil(d.w / cols) * Math.ceil(d.h / rows) > MAX_PIECE_PX) {
-    if (d.w / cols >= d.h / rows) cols++; else rows++;
-  }
-  const OV = 24;                                   // source-pixel overlap per cut
-  const pieces = [];
-  let n = 0;
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const x0 = Math.floor((d.w * c) / cols), x1 = Math.floor((d.w * (c + 1)) / cols);
-      const y0 = Math.floor((d.h * r) / rows), y1 = Math.floor((d.h * (r + 1)) / rows);
-      const cx = Math.max(0, x0 - OV), cy = Math.max(0, y0 - OV);
-      const cw = Math.min(d.w, x1 + OV) - cx, ch = Math.min(d.h, y1 + OV) - cy;
-      const cut = path.join(work, `pc_${n}_cut.png`);
-      const up = path.join(work, `pc_${n}_up.png`);
-      imgop(["crop", src, cut, cx, cy, cw, ch]);
-      run(cut, up);
-      fs.unlinkSync(cut);
-      pieces.push({
-        file: up,
-        sx: (x0 - cx) * scale, sy: (y0 - cy) * scale,          // trim the overlap
-        sw: (x1 - x0) * scale, sh: (y1 - y0) * scale,
-        dx: x0 * scale, dy: y0 * scale,
-      });
-      n++;
-      process.stdout.write(`\r      ${tag}: piece ${n}/${cols * rows}   `);
-    }
-  }
-  const spec = path.join(work, "stitch.json");
-  // stitch straight into the final width — see the note in _imgop.js: assembling the
-  // whole 4x frame first is the allocation that gets a long run killed.
-  fs.writeFileSync(spec, JSON.stringify({ out: dst, w: d.w * scale, h: d.h * scale, outW, pieces }));
-  imgop(["stitch", spec]);
-  for (const p of pieces) { try { fs.unlinkSync(p.file); } catch (_) { /* ignore */ } }
-  fs.unlinkSync(spec);
-  process.stdout.write("\r");
-  return cols * rows;
-}
 
 function parseArgs(argv) {
-  const o = { dpi: 300, map: {}, dryRun: false, limit: 0, tile: 64 };
+  const o = { dpi: 300, map: {}, dryRun: false, limit: 0, tile: 128 };
   const pos = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -222,8 +143,13 @@ async function main() {
   const byDims = new Map();           // "WxH" -> [media name]
   const srcDir = path.join(work, "src");
   fs.mkdirSync(srcDir, { recursive: true });
-  for (const name of Object.keys(zip.files).filter((n) => n.startsWith("word/media/"))) {
-    const buf = await zip.file(name).async("nodebuffer");
+  // `zip.files` lists DIRECTORY entries too ("word/media/" itself), and JSZip's
+  // .file() answers null for a directory — which crashed the whole run on any
+  // manuscript whose .docx happens to store that entry. Keep only real files.
+  for (const name of Object.keys(zip.files).filter((n) => n.startsWith("word/media/") && !zip.files[n].dir)) {
+    const entry = zip.file(name);
+    if (!entry) continue;
+    const buf = await entry.async("nodebuffer");
     const d = dims(buf);
     if (!d) continue;
     const b = path.basename(name);
@@ -262,45 +188,99 @@ async function main() {
     shots.push({ p, file: path.join(work, cand.f) });
   }
 
-  // Identify each one by CONTENT, not by pixel size. Size cannot do it: a book will
-  // happily carry a dozen pictures all exactly 1536x1024 (the RE Form 2 book carries
-  // eleven), and matching on size alone then paired most of them with the wrong source
-  // — while a cropped placement, whose size matches nothing, could not be identified at
-  // all and had to be named by hand with --map. A coarse colour signature does identify
-  // them: a crop keeps its source's palette, so it still scores far closer to its own
-  // source than to any other picture. Pairs are assigned closest-first, each media file
-  // claimed once, so a confident match takes its source before a doubtful one can.
+  // One picture used on several pages is stored once by Word and placed twice by Typst,
+  // so the two placements come out of the PDF byte-identical. Group them by content hash
+  // BEFORE matching: they are one picture and must end up with one media name. Matching
+  // them separately made the second placement lose the race for the (already claimed)
+  // name and take some other picture's file instead — a silent figure swap. The group
+  // keeps the WORST ppi, so the single upscale satisfies every page it appears on.
+  const crypto = require("crypto");
+  const groups = new Map();               // content hash -> { file, w, h, ppi, pages[] }
+  for (const s of shots) {
+    const h = crypto.createHash("sha1").update(fs.readFileSync(s.file)).digest("hex");
+    const g = groups.get(h);
+    if (g) { g.ppi = Math.min(g.ppi, s.p.ppi); g.pages.push(s.p.page); }
+    else groups.set(h, { file: s.file, w: s.p.w, h: s.p.h, ppi: s.p.ppi, pages: [s.p.page] });
+  }
+
+  // Identify each picture by pixel size FIRST, colour signature only as the tie-break.
+  // A placement is scored ONLY against the media files of exactly its own size; the
+  // signature (a coarse 4x4x4 histogram) then says which of those it is. Size alone
+  // cannot do it — a book will happily carry a dozen pictures all exactly 1536x1024 (the
+  // RE Form 2 book carries eleven) — but neither can the signature alone: this book's
+  // pasted equation screenshots are all black-on-white, so their histograms are nearly
+  // identical and the matcher confidently gave several pages the wrong source. Only a
+  // placement whose size matches NO media file — a Word crop, which changes the size but
+  // keeps the palette — is scored against every remaining picture, as before.
   const WEAK = 0.6;                       // above this, say so rather than quietly guess
   const sig = new Map();
   const sigOf = (f) => { if (!sig.has(f)) sig.set(f, JSON.parse(imgopOut(["hist", f]))); return sig.get(f); };
   const sigDist = (a, b) => { let s = 0; for (let i = 0; i < a.length; i++) s += Math.abs(a[i] - b[i]); return s; };
   const mediaNames = [...byDims.values()].flat();
-  const taken = new Set(Object.values(opt.map));
-  const pairs = [];
-  for (const s of shots) {
-    if (opt.map[String(s.p.page)]) continue;                   // named by hand
-    for (const n of mediaNames) {
-      if (taken.has(n)) continue;
-      pairs.push({ d: sigDist(sigOf(s.file), sigOf(path.join(srcDir, n))), s, n });
-    }
-  }
-  pairs.sort((a, b) => a.d - b.d);
+  // A picture the book's own overrides have already turned into text or a real table is
+  // no longer in the PDF at all, so it cannot be any placement's source either. Without
+  // this it stays a free candidate and a cropped placement will happily take it: p122 of
+  // the Geography Form 2 Learner's Book (a cropped map) claimed image16.png, an equation
+  // screenshot that imageToText had already replaced.
+  const ovFile = path.join(path.dirname(opt.docx), base + ".overrides.json");
+  const bookOv = fs.existsSync(ovFile) ? JSON.parse(fs.readFileSync(ovFile, "utf8")) : {};
+  const converted = new Set([
+    ...Object.keys(bookOv.imageToText || {}),
+    ...Object.keys(bookOv.imageToTable || {}),
+  ]);
+  const taken = new Set([...Object.values(opt.map), ...converted]);
+  const named = (g) => g.pages.some((pg) => opt.map[String(pg)]);
+  // A media file whose exact pixel size appears among the PLACED images is already
+  // accounted for — it is that placement's source, whether or not that placement needs
+  // upscaling. So it cannot also be the source of a CROPPED placement, whose size by
+  // definition matches nothing. Holding those back stopped p130 of the Geography Form 2
+  // Learner's Book (a cropped map) from taking image18.png, a grid-squares diagram that
+  // sits on p69 at 576 DPI and was therefore never claimed as a job of its own.
+  const sizesPlaced = new Set(placed.map((q) => q.w + "x" + q.h));
+  const spokenFor = new Set(mediaNames.filter((n) => {
+    const d = dims(fs.readFileSync(path.join(srcDir, n)));
+    return d && sizesPlaced.has(d.w + "x" + d.h);
+  }));
+  // Two rounds: every same-size candidate set is settled first, and only then do the
+  // cropped placements (which can match anything) get to pick from what is left.
   const claimed = new Map();
-  for (const { d, s, n } of pairs) {
-    if (claimed.has(s) || taken.has(n)) continue;
-    claimed.set(s, { name: n, score: d });
-    taken.add(n);
+  for (const sized of [true, false]) {
+    const pairs = [];
+    for (const g of groups.values()) {
+      if (named(g) || claimed.has(g)) continue;
+      const exact = byDims.get(g.w + "x" + g.h) || [];
+      if (sized !== exact.length > 0) continue;
+      // The cropped round prefers pictures no placement has already spoken for, and only
+      // falls back to the whole list if that leaves it nothing to choose from.
+      let pool = exact;
+      if (!exact.length) {
+        pool = mediaNames.filter((n) => !taken.has(n) && !spokenFor.has(n));
+        if (!pool.length) pool = mediaNames;
+      }
+      for (const n of pool) {
+        if (taken.has(n)) continue;
+        pairs.push({ d: sigDist(sigOf(g.file), sigOf(path.join(srcDir, n))), g, n, sized: exact.length > 0 });
+      }
+    }
+    pairs.sort((a, b) => a.d - b.d);
+    for (const { d, g, n, sized: bySize } of pairs) {
+      if (claimed.has(g) || taken.has(n)) continue;
+      claimed.set(g, { name: n, score: d, bySize });
+      taken.add(n);
+    }
   }
   const jobs = [];
-  for (const s of shots) {
-    const forced = opt.map[String(s.p.page)];
-    const got = forced ? { name: forced, score: 0 } : claimed.get(s);
-    if (!got) { unresolved.push(s.p); continue; }
-    if (got.score > WEAK) {
-      console.log(`!  p${s.p.page} looks like ${got.name} but only weakly (${got.score.toFixed(2)}) —` +
-        ` check that figure, or name it yourself with --map p${s.p.page}=<media file>`);
+  for (const g of groups.values()) {
+    const forced = g.pages.map((pg) => opt.map[String(pg)]).find(Boolean);
+    const got = forced ? { name: forced, score: 0, bySize: true } : claimed.get(g);
+    if (!got) { unresolved.push({ page: g.pages[0], w: g.w, h: g.h, ppi: g.ppi }); continue; }
+    // A size-confirmed match needs no hedging: the signature only chose between pictures
+    // that are already the right shape. Warn only where size could not vouch for it.
+    if (!got.bySize && got.score > WEAK) {
+      console.log(`!  p${g.pages[0]} looks like ${got.name} but only weakly (${got.score.toFixed(2)}) —` +
+        ` check that figure, or name it yourself with --map p${g.pages[0]}=<media file>`);
     }
-    jobs.push({ name: got.name, from: s.file, w: s.p.w, ppi: s.p.ppi, page: s.p.page, score: got.score });
+    jobs.push({ name: got.name, from: g.file, w: g.w, ppi: g.ppi, page: g.pages[0], pages: g.pages, score: got.score });
   }
   // Render a little above the target so rounding can never land under it.
   const head = Math.round(opt.dpi * 1.03);
@@ -322,7 +302,8 @@ async function main() {
       unresolved.map((p) => `p${p.page} ${p.w}x${p.h}@${p.ppi}`).join(", "));
   }
   for (const j of run) {
-    console.log(`   p${String(j.page).padStart(3)}  ${j.name.padEnd(15)} ${String(j.w).padStart(5)}px @${String(j.ppi).padStart(4)} DPI -> ${j.target}px @~${Math.round(j.target / j.w * j.ppi)} DPI`);
+    const where = j.pages && j.pages.length > 1 ? ` (also p${j.pages.slice(1).join(", p")})` : "";
+    console.log(`   p${String(j.page).padStart(3)}  ${j.name.padEnd(15)} ${String(j.w).padStart(5)}px @${String(j.ppi).padStart(4)} DPI -> ${j.target}px @~${Math.round(j.target / j.w * j.ppi)} DPI${where}`);
   }
   if (opt.dryRun) { console.log("\n(dry run — nothing written)"); return; }
 
