@@ -3880,6 +3880,76 @@ function applySplitBoxTitle(blocks, list) {
   }
 }
 
+// ---- a heading never capitalises a function word in the middle of itself ----
+// This is orthography, not a house preference, so it runs on EVERY book rather than
+// waiting for a reviewer to ask. The Musical Arts Form 5 Teacher's Guide came back with
+// roughly forty-five marks lowering one — "Applying Voice Leading Rules In Harmony",
+// "Developing Themes From Motifs", "Creating A Promotional Plan" — and it is not that
+// book's problem: the same fault is in thirteen of the books already typeset here, from
+// "Describing The Effects of Invasive Plant Species" in the Geography Form 4 Teacher's
+// Guide to "Families And Communities' Engagement in Farming".
+//
+// Deliberately narrower than TITLE_SMALL, which `headingCase` uses when a whole book is
+// being recased on purpose. Here only articles, coordinating conjunctions and short
+// prepositions are lowered — never "Using", a participle that title case capitalises —
+// because this fires unasked on books that are already in print and must not restyle a
+// heading anyone would defend. Three further guards keep it off everything else:
+//
+//   - a heading that shouts THROUGHOUT is a house choice and is left entirely alone;
+//   - the FIRST and LAST word of a heading keep their capital, as title case requires
+//     ("Themes to Work From" ends correctly);
+//   - only a word written "Xxx" is touched, so an acronym or an all-caps span inside an
+//     otherwise mixed heading survives ("factors that influence LOCATION OF SETTLEMENT").
+const HEAD_FUNCTION_WORD = /^(a|an|and|as|at|but|by|for|from|in|into|nor|of|on|or|the|to|up|with)$/i;
+function lowercaseHeadingFunctionWords(blocks) {
+  const fix = (s) => {
+    const ci = s.indexOf(":");
+    const at = ci >= 0 ? ci + 1 : 0;
+    const d = s.slice(at);
+    if (!/[a-z]/.test(d)) return s;                       // shouts throughout: leave it
+    const hits = [...d.matchAll(/[A-Za-z][A-Za-z'’-]*/g)];
+    if (hits.length < 3) return s;                        // no "middle" to speak of
+    let out = d, delta = 0;
+    hits.forEach((m, i) => {
+      if (i === 0 || i === hits.length - 1) return;       // first and last keep theirs
+      const w = m[0];
+      if (!/^[A-Z][a-z]+$/.test(w) || !HEAD_FUNCTION_WORD.test(w)) return;
+      const p = m.index + delta;
+      out = out.slice(0, p) + w.toLowerCase() + out.slice(p + w.length);
+    });
+    return out === d ? s : s.slice(0, at) + out;
+  };
+  // Only letter case changes, so the string keeps its length and the rich segments can be
+  // rewritten across it character for character — the same write-back the case passes
+  // above use, and necessary for the same reason: the segments win at emit time.
+  const push = (b, k, s, fixed) => {
+    b[k] = fixed;
+    if (!Array.isArray(b[s]) || !b[s].length) return;
+    let pos = 0;
+    for (const seg of b[s]) {
+      if (pos >= fixed.length) break;
+      const txt = seg.t || "";
+      const take = Math.min(txt.length, fixed.length - pos);
+      seg.t = fixed.slice(pos, pos + take) + txt.slice(take);
+      pos += take;
+    }
+  };
+  (function walk(arr) {
+    for (const b of arr || []) {
+      if (!b || typeof b !== "object") continue;
+      const spec = (b.t === "activity" || b.t === "assessment") ? ["title", "titleSegs"]
+        : b.t === "exercise" ? ["heading", "headingSegs"]
+        : b.t === "head" ? ["text", "__none"] : null;
+      if (spec && typeof b[spec[0]] === "string") {
+        const cur = b[spec[0]].trim();
+        const fixed = fix(cur);
+        if (fixed !== cur) push(b, spec[0], spec[1], fixed);
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  })(blocks);
+}
+
 // ---- headingCase: one decision about a whole book's heading case ----
 // The two passes above bring a book's stragglers over to whatever case that book
 // already writes most often, which is the right DEFAULT: no house case is imposed from
@@ -4511,6 +4581,29 @@ const glueMarkTail = (t) => t.replace(/([ \t]*)(\[\s*\d+(?:\s*marks?)?\s*\])/gi,
 // glued space this function leaves before each bracket into a `{fr: true}` filler
 // segment the template renders as `h(1fr)`, consuming the rest of the current
 // line so the bracket lands at its edge and whatever follows wraps to a new line.
+// Collapse the whitespace right after a box title's first colon to a single space, in the
+// plain string and across the rich segments alike. Word often splits the run there, so the
+// spaces can sit in the seg holding the colon, in the seg after it, or in a whitespace-only
+// seg of their own; all three are handled, and nothing before the colon is touched.
+function afterLabelColon(b, k, sk) {
+  if (typeof b[k] !== "string" || !b[k].includes(":")) return;
+  b[k] = b[k].replace(/:[ \t]{2,}/, ": ");
+  const segs = b[sk];
+  if (!Array.isArray(segs) || !segs.length) return;
+  let seen = false;
+  for (let i = 0; i < segs.length; i++) {
+    const t = segs[i].t;
+    if (typeof t !== "string") continue;
+    if (!seen && /:[ \t]{2,}/.test(t)) { segs[i].t = t.replace(/:[ \t]{2,}/, ": "); return; }
+    if (!seen && t.includes(":")) {
+      seen = true;
+      if (/:[ \t]*$/.test(t)) segs[i].t = t.replace(/:[ \t]*$/, ": ");
+      continue;
+    }
+    if (seen) { segs[i].t = t.replace(/^[ \t]+/, ""); return; }
+  }
+}
+
 function normaliseSpacing(blocks) {
   const fix = (segs) => {
     if (!Array.isArray(segs) || !segs.length) return;
@@ -4556,6 +4649,14 @@ function normaliseSpacing(blocks) {
       // they are what the emitter prints.
       if (Array.isArray(b.titleSegs)) fix(b.titleSegs);
       if (Array.isArray(b.headingSegs)) fix(b.headingSegs);
+      // …and the gap after a box title's LABEL COLON is exactly one space. `fix` above
+      // collapses runs of three or more, deliberately leaving two alone because a double
+      // space after a full stop is a convention some authors still keep in prose. Right
+      // after "LEARNING ACTIVITY 3:" it is not a convention, it is a slip, and it shows:
+      // 24 box titles across ten of the books typeset here set two spaces there beside
+      // hundreds of siblings setting one.
+      afterLabelColon(b, "title", "titleSegs");
+      afterLabelColon(b, "heading", "headingSegs");
       if (typeof b.title === "string") b.title = glueMarkTail(b.title.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
       if (typeof b.heading === "string") b.heading = glueMarkTail(b.heading.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
       if (typeof b.q === "string") b.q = glueMarkTail(b.q.replace(/[ \t]{3,}/g, " ").replace(/^[ \t]+|[ \t]+$/g, ""));
@@ -6354,6 +6455,8 @@ function normaliseQuestionMarkBold(blocks) {
   stripBoxLabelPunct(blocks);
   // …and every structural box label reads in one case across the book.
   uniformBoxLabelCase(blocks);
+  // …no heading capitalises a function word in the middle of itself, asked for or not…
+  lowercaseHeadingFunctionWords(blocks);
   // …and, where a book has been asked for a specific heading case rather than its own
   // majority, settle that for every box title and sub-topic head at once.
   applyHeadingCase(blocks, ov.headingCase);

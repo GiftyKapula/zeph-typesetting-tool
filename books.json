@@ -1637,6 +1637,16 @@
       "hash": "e994c7faf7b17998",
       "note": null,
       "ingested_at": "2026-09-30 09:27:51"
+    },
+    {
+      "id": 123,
+      "book_id": "form-5-musical-arts-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 5\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026\\Musical Arts_Form 5_Teachers Guide_ready for typesetting_17 Sept 2026 - typeset.pdf",
+      "hash": "469ad03d4b5b7301",
+      "note": null,
+      "ingested_at": "2026-09-30 09:59:39"
     }
   ],
   "rounds": [

@@ -111,6 +111,19 @@ where the writer used flowing text.
 - **A sticky wrapper changes where an item may break, never how it sits.** Zeroing a
   sticky block's `above`/`below` strips the spacing its unwrapped siblings keep, and
   one bullet list then prints with two different leadings.
+- **A heading never capitalises a function word in the middle of itself** — "Applying
+  Voice Leading Rules in Harmony", not "… In Harmony". Runs on every book, because this
+  is orthography rather than a house preference: a proofreading round on the Musical
+  Arts Form 5 Teacher's Guide marked about forty-five of them, and the same fault was
+  then found in thirteen of the books already typeset here. Deliberately narrow — only
+  articles, coordinating conjunctions and short prepositions, never a participle like
+  "Using"; a heading that shouts throughout is left alone; the first and last word keep
+  their capital; and only a word written "Xxx" is touched, so an acronym or an all-caps
+  span inside a mixed heading survives.
+- **One space after a box title's label colon.** The general space-collapsing leaves a
+  double space alone, since some authors still double-space after a full stop in prose;
+  right after "LEARNING ACTIVITY 3:" it is a slip, and it showed on 24 titles across ten
+  books beside hundreds of siblings setting one.
 - **A question is never hyphenated, and its answer is always italic.** `doc()` tunes
   `costs.hyphenation` for body prose; an exercise or assessment question is not prose
   but a short numbered instruction, so `qaparts` refuses hyphenation outright and a
@@ -260,6 +273,19 @@ where the writer used flowing text.
 - **A sticky wrapper changes where an item may break, never how it sits.** Zeroing a
   sticky block's `above`/`below` strips the spacing its unwrapped siblings keep, and
   one bullet list then prints with two different leadings.
+- **A heading never capitalises a function word in the middle of itself** — "Applying
+  Voice Leading Rules in Harmony", not "… In Harmony". Runs on every book, because this
+  is orthography rather than a house preference: a proofreading round on the Musical
+  Arts Form 5 Teacher's Guide marked about forty-five of them, and the same fault was
+  then found in thirteen of the books already typeset here. Deliberately narrow — only
+  articles, coordinating conjunctions and short prepositions, never a participle like
+  "Using"; a heading that shouts throughout is left alone; the first and last word keep
+  their capital; and only a word written "Xxx" is touched, so an acronym or an all-caps
+  span inside a mixed heading survives.
+- **One space after a box title's label colon.** The general space-collapsing leaves a
+  double space alone, since some authors still double-space after a full stop in prose;
+  right after "LEARNING ACTIVITY 3:" it is a slip, and it showed on 24 titles across ten
+  books beside hundreds of siblings setting one.
 - **A question is never hyphenated, and its answer is always italic.** `doc()` tunes
   `costs.hyphenation` for body prose; an exercise or assessment question is not prose
   but a short numbered instruction, so `qaparts` refuses hyphenation outright and a
@@ -469,6 +495,32 @@ file extension and a like-for-like aspect ratio.
 > (`grep -oE "ov\.[a-zA-Z]+" src/typeset/typeset-docx.js | sort -u`). If a
 > problem you're hitting sounds oddly specific, search there before adding a
 > new primitive — there's a decent chance it already exists.
+
+
+### Rulings from proofreading rounds — what generalises and what does not
+
+A reviewer's mark is evidence, not yet a rule. Before promoting one to the engine,
+measure how many of the books already built here it would touch and look at what it
+would touch — `output/*/_source.typ` is the honest corpus for that. The Musical Arts
+Form 5 round is the worked example:
+
+| The ask | Books affected | Where it went |
+|---|---|---|
+| A word in a question must not split across two lines | every Teacher's Guide | **engine** — `qaparts` refuses hyphenation |
+| An expected answer must read as an answer | every Teacher's Guide | **engine** — `answer()` italicises its own runs |
+| Headings must be consistent about small words | 13 of 27 | **engine** — `lowercaseHeadingFunctionWords` |
+| One space after a box title's label colon | 10 of 27 | **engine** — `afterLabelColon` |
+| A box label ends without punctuation | several | **engine** — `stripBoxLabelPunct` |
+| The last glossary entry must not stand alone | any book with a glossary | **engine** — `formatGlossary` |
+| Set the whole book in sentence case | this reviewer's call, not a house rule | **override** — `headingCase` |
+| Un-bold the cross-cutting-issue sentences | 0 — the bold runs in other books' activity bodies are legitimate emphasis ("In this lesson, learners will…", quoted questions, role lists) | **override** — `unboldBlock` |
+| Delete the unfilled "refer to … page …." placeholder | 0 — no other book carries one | **override** — `textFix`/`subtext` |
+| Drop "or individually" | contested: an earlier reviewer asked for it to be ADDED | **override** — `orIndividually: false` |
+
+The two columns that matter are the middle one and the reason behind it. A rule that
+would restyle a heading somebody would defend belongs in a sidecar however often it is
+asked for; a rule that only ever corrects a fault belongs in the engine even when one
+book asked for it.
 
 ## 6. Workflow for scaling (many books)
 
