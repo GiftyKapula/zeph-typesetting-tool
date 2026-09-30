@@ -34,6 +34,14 @@
     {
       "find": "1.16.4.1 Model objects using clay/plasticine.",
       "with": "1.16.3.1 Model objects using clay/plasticine."
+    },
+    {
+      "find": "Learner correctly matches each item with its appropriate storage place.",
+      "with": "Books → Bookshelf\nCharts → Chart display\nBrooms → Storage cupboard\nCrayons → Crayon tray\nPencils → Pencil holder"
+    },
+    {
+      "find": "Learner draws an appropriate storage place found in the classroom.",
+      "with": "Learner correctly draws one appropriate storage place found in the classroom."
     }
   ],
   "//subtextAddress": "The imprint page names the publisher and its street in one breath — \"Zambia Educational Publishing House Light Industrial Area\" — because the manuscript typed them with a single space between. The engine turns a run of five or more spaces into a real line break (that is how a Word-typed address usually arrives) and a single space gives it nothing to go on, so the two have to be parted here. Every other ZEPH imprint page sets the publisher on its own line above the street.",
@@ -55,5 +63,186 @@
       "find": "Establish relationships, patterns and\n• make connections.",
       "with": "Establish relationships, patterns and make connections."
     }
-  ]
+  ],
+  "//replaceBlocks": "PROOFREADING ROUND 1, comments #937 + #943 (one instruction, not two: the reviewer pasted the same 52-entry glossary twice — once on the contents page asking for it to be listed there, once on the last content page asking for the pages themselves). The manuscript ships no glossary at all, so this grafts one in as back matter. The anchor is the first block of the BACK COVER; it is replaced by the glossary followed by a verbatim `raw` copy of itself, which is how an append is expressed with replaceBlocks. `h1` gives the section its own page and a contents entry; the cts theme sets tocUnitsOnly:false, so the TOC line #937 asks for lands automatically after TOPIC 1.20 and needs no separate override. Entries are plain 'Term: meaning' paragraphs because formatGlossary() runs after applyOverrides() and styles them itself (bold term + ': ' + meaning), so the house glossary look is not hand-built here. Text transcribed programmatically from the reviewer's own note in zeph.db, not retyped.",
+  "replaceBlocks": [
+    {
+      "find": "P R I M A R Y S C H O O L",
+      "with": [
+        {
+          "h1": "GLOSSARY"
+        },
+        {
+          "para": "Analytical Thinking: The ability to examine information carefully, break problems into smaller parts and find possible solutions."
+        },
+        {
+          "para": "Assessment: The process of checking what learners know, understand and can do."
+        },
+        {
+          "para": "Collaboration: Working together with others to achieve a common goal."
+        },
+        {
+          "para": "Colouring: Filling a drawing or picture with colour to make it clear and attractive."
+        },
+        {
+          "para": "Communication: The process of sharing information, ideas, thoughts and feelings with others."
+        },
+        {
+          "para": "Computer: An electronic device used to process, store and display information."
+        },
+        {
+          "para": "Computer Software: Programmes that give instructions to a computer and help it perform different tasks."
+        },
+        {
+          "para": "Creativity: The ability to use imagination and ideas to create or do something new."
+        },
+        {
+          "para": "Critical Thinking: The ability to think carefully, ask questions, examine information and make simple decisions."
+        },
+        {
+          "para": "Digital Device: An electronic device that can receive, process, store or communicate information."
+        },
+        {
+          "para": "Digital Literacy: The ability to use digital devices safely, appropriately and effectively."
+        },
+        {
+          "para": "Drama: An activity in which people act out characters, situations or stories."
+        },
+        {
+          "para": "Emotional Intelligence: The ability to recognise and manage one's emotions and understand the feelings of others."
+        },
+        {
+          "para": "Entrepreneur: A person who starts and manages a business."
+        },
+        {
+          "para": "Entrepreneurship: The knowledge, skills and attitudes involved in starting and managing a business."
+        },
+        {
+          "para": "Environmental Sustainability: The responsible use and protection of the environment and natural resources."
+        },
+        {
+          "para": "Equipment: Items used to carry out a particular activity or task."
+        },
+        {
+          "para": "Financial Literacy: Knowledge and skills needed to earn, save, spend and manage money responsibly."
+        },
+        {
+          "para": "Fitness: The ability of the body to perform physical activities effectively and remain healthy."
+        },
+        {
+          "para": "Freehand Drawing: Drawing without using a ruler or another instrument to guide the lines."
+        },
+        {
+          "para": "Hand Tool: A simple tool operated by hand to perform a particular task."
+        },
+        {
+          "para": "Hardware: The physical parts of a computer or digital device that can be seen and touched."
+        },
+        {
+          "para": "Health: A state of physical, mental and social well-being."
+        },
+        {
+          "para": "Hospitality: The act of welcoming, helping and caring for guests or visitors."
+        },
+        {
+          "para": "ICT: Information and Communication Technology; the use of technology to create, process, store and communicate information."
+        },
+        {
+          "para": "ICT Device: An electronic device used to create, process, store or communicate information."
+        },
+        {
+          "para": "Innovation: The introduction or use of a new idea, method or way of doing something."
+        },
+        {
+          "para": "Internet: A worldwide network that connects computers and other digital devices for communication and sharing information."
+        },
+        {
+          "para": "Lettering: The art of writing or designing letters in a clear and attractive way."
+        },
+        {
+          "para": "Materials: Substances or items used to make or create something."
+        },
+        {
+          "para": "Modelling: The process of making a three-dimensional object by shaping materials such as clay or plasticine."
+        },
+        {
+          "para": "Needlework: The making or decorating of items using a needle, thread and fabric."
+        },
+        {
+          "para": "Online Safety: Safe and responsible behaviour when using the internet and digital devices."
+        },
+        {
+          "para": "Pattern: A repeated arrangement of lines, shapes, colours, sounds or objects."
+        },
+        {
+          "para": "Posture: The way a person holds or positions the body when sitting, standing, walking or performing an activity."
+        },
+        {
+          "para": "Problem Solving: The process of finding ways to deal with a problem or challenge."
+        },
+        {
+          "para": "Protective Clothing: Clothing worn to protect the body from injury, dirt or other dangers."
+        },
+        {
+          "para": "Recycling: The process of using materials again instead of throwing them away."
+        },
+        {
+          "para": "Role-Play: Acting out a situation, character or role to help learners understand an idea or situation."
+        },
+        {
+          "para": "Safety: Being protected from danger, injury or harm."
+        },
+        {
+          "para": "Sketching: Making a simple drawing using lines and shapes."
+        },
+        {
+          "para": "Software: Programmes or instructions that tell a computer or digital device what to do."
+        },
+        {
+          "para": "Sound: Something that can be heard by the ears."
+        },
+        {
+          "para": "Specialised Room: A room designed or equipped for a particular activity or purpose."
+        },
+        {
+          "para": "Sports Skills: Abilities used when taking part in sports and games."
+        },
+        {
+          "para": "Structure: Something that is built or formed and has a particular shape or purpose."
+        },
+        {
+          "para": "Swimming: The activity of moving through water using the body."
+        },
+        {
+          "para": "Tourism: The activity of travelling to places for enjoyment, learning or other purposes."
+        },
+        {
+          "para": "Tourist: A person who travels to another place for a visit."
+        },
+        {
+          "para": "Utensil: A tool or object used for a particular task, especially in cooking."
+        },
+        {
+          "para": "Visual Information: Information that is communicated through pictures, signs, symbols, diagrams or objects."
+        },
+        {
+          "para": "Waste: Materials or things that are no longer wanted or needed."
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "P R I M A R Y S C H O O L",
+                "b": true,
+                "it": false,
+                "c": "0A6F72"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "//editAllExercise1": "PROOFREADING ROUND 1, comment #939. The reviewer pasted an exercise to be inserted under LEARNING ACTIVITY 1, but the text they pasted is the storage-place exercise that is ALREADY EXERCISE 1 under LEARNING ACTIVITY 2 on the facing page — and they separately renumbered that existing box to EXERCISE 2 rather than deleting it, so applying the paste literally would have printed two near-identical storage exercises back to back, the first under a cleaning activity it has nothing to do with. Read instead as what actually differs between their version and the book's: the real answers. The manuscript's box only carries the rubric 'Learner correctly matches each item with its appropriate storage place', which tells a teacher nothing; the reviewer supplies the five matches. So the existing box is upgraded in place, under the activity it belongs to, and no exercise is added or renumbered. Decided with the user, who chose this reading over applying the paste verbatim. The reviewer's 'Expected Answer:'/'Expected Performance:' labels are deliberately NOT carried over - house style renders an expected answer as plain italic with no label, which the engine already does by stripping them."
 }
