@@ -4,6 +4,13 @@
     { "from": "DESCRIPTERS", "to": "DESCRIPTORS" },
     { "from": "Problem Saving", "to": "Problem Solving" }
   ],
+  "//coverImage": "The cover picture the user chose (supplied as 10.jpeg, 853x1280). Converted to PNG and upscaled with Real-ESRGAN to 1800px wide, because 853px across the 144mm hero window is about 150 DPI against the 300 DPI print rule — 144mm needs 1701px. It is an accounting still life (ledgers, a columned cash book, a calculator, coin stacks and charts) with no people in it, so it depicts the subject but does not engage the disability-representation or gender-balance rules, which apply where human beings appear. NOTE: the source is 2:3 PORTRAIT and the hero window is 144x78mm (1.846:1 LANDSCAPE), filled with fit: \"cover\" — so the window keeps only a central horizontal band and the rest is cropped away.",
+  "coverImage": "Accounting F2 28 Sept-art/cover.png",
+  "//setMarker": "Two roman sub-lists in the END OF TOPIC ASSESSMENT for Topic 2.5 printed with the wrong label. The manuscript types each as a SINGLE Word paragraph holding all of its items separated by line breaks and numbered as literal text ('i. Gross profit margin' / 'ii. Net profit margin' / …), under a parent part that ends in a colon. The importer models two list levels — a decimal top ('1.') and a lettered sub ('a)') — and has no third, so the first roman item was counted as one more letter in the lettered run and came out as 'e)' on printed p.134 and 'h)' on printed p.136, while its siblings stayed literal text underneath. The letters are plainly wrong (they read as further tasks rather than as the list the parent part introduces), so the marker is forced back to 'i.' in both. The remaining items still sit in the same paragraph as continuation lines; giving this manuscript shape a real third list level is an engine change, deliberately NOT attempted here.",
+  "setMarker": [
+    { "find": "ii. Net profit margin", "marker": "i." },
+    { "find": "Gross profit margin \nii. Current ratio", "marker": "i." }
+  ],
   "//remove": "The manuscript's ACRONYMS section is a Heading1 with nothing whatsoever under it — the author left the section empty — so it typeset as a heading alone on an otherwise blank page (printed p.xii) and claimed a contents entry pointing at it. Dropped on the user's instruction rather than filled: the acronyms a book uses are the author's to supply, not something to invent. The only other occurrence of the word is in the manuscript's own Word-generated table of contents, which the engine discards and rebuilds from the headings anyway, so removing both leaves nothing dangling.",
   "remove": [
     "ACRONYMS"

@@ -331,23 +331,36 @@ const THEMES = {
   // to front/back matter + topics rather than listing every sub-topic.
   religious: { ...zeph({ subject: "Religious Education", variant: "science", signature: "6f5aa8", primary: "4a3582", primary2: "6b53a8", accent: "d9a22b", cyan: "2f8f8a", motif: "earth" }), tocDepth: 1 },
   pesport: { ...zeph({ subject: "Physical Education and Sport", signature: "3f7fc4", primary: "1a4d8f", primary2: "2f6bb0", accent: "e8622e", cyan: "1fa39e" }), tocDepth: 1 },
-  // Accounting (Form 1-4) — a "ledger" palette: graphite slate with a brass
-  // accent and a slate-blue for exercises, the colours of a bound cash book
-  // rather than of a lab subject. The obvious choice for a commerce book is
-  // ledger green, and it was tried first — but this library's green family is
-  // already full (cinyanja 1f5c45, biology 17633a, geography 18704a, silozi,
-  // nyanja, grade6sci), and a bottle green landed within ΔE 3.4 of cinyanja in
-  // Lab space, i.e. the same colour. Graphite sits ~20 ΔE from its nearest
-  // neighbour (compsci's navy), which matters here because Geography Form 2 is a
-  // deep-green shelf-mate of this very book. Before this theme existed Accounting
-  // fell through autoTheme() to the generic `navy` fallback, which carries no
-  // `subject` — so cover synthesis had nothing to use as a title but the raw
-  // filename (the same trap `tech` and `chemistry` note on their own `subject`
-  // keys). The manuscripts wrap all 26 Learning Activities in Word tables, so the
-  // "science" (boxed) variant renders them as real callouts; the contents keeps
-  // the default depth 2 because the books carry only five topics and the authors'
-  // own table of contents lists the sub-topics.
-  accounting: zeph({ subject: "Accounting", variant: "science", signature: "37474f", primary: "37474f", primary2: "5a6b74", accent: "c79a3b", cyan: "2f7f9e" }),
+  // Accounting (Form 1-4) — a deep violet taken from the books' own cover artwork,
+  // with a brass accent and teal for exercises.
+  //
+  // The colour is SAMPLED, not chosen: the dark end of the hero photograph's
+  // dominant hue, which fills 38% of that frame (the stacked ledgers, the pen, the
+  // calculator keys, the charts — the picture is deliberately colour-themed). A
+  // cover field is read together with the picture sitting on it, so deriving one
+  // from the other is what makes the two halves a single design instead of two.
+  // The warm desk wood that makes up the next 12% of the frame is why the brass
+  // accent earns its place beside it.
+  //
+  // Two earlier palettes were tried and rejected, and the reasons are worth
+  // keeping. Ledger green is the obvious commerce colour, but this library's green
+  // family is full (cinyanja 1f5c45, biology 17633a, geography 18704a, silozi,
+  // nyanja, grade6sci) and a bottle green landed within ΔE 3.4 of cinyanja — the
+  // same colour. Graphite slate separated beautifully (~20 ΔE from compsci's navy)
+  // but had nothing to do with the artwork, and the cover read as two colour
+  // stories. This violet sits 12.3 ΔE from its nearest neighbour (luvale 3a2a73,
+  // then religious 4a3582), which is the ordinary spacing between themes in this
+  // file rather than the luxury graphite had — the right trade when the gain is a
+  // cover that agrees with itself.
+  //
+  // Before this theme existed Accounting fell through autoTheme() to the generic
+  // `navy` fallback, which carries no `subject` — so cover synthesis had nothing to
+  // use as a title but the raw filename (the same trap `tech` and `chemistry` note
+  // on their own `subject` keys). The manuscripts wrap all 26 Learning Activities
+  // in Word tables, so the "science" (boxed) variant renders them as real callouts;
+  // the contents keeps the default depth 2 because the books carry only five topics
+  // and the authors' own table of contents lists the sub-topics.
+  accounting: zeph({ subject: "Accounting", variant: "science", signature: "372157", primary: "372157", primary2: "6a4a9c", accent: "c79a3b", cyan: "2f8f8a" }),
   // Primary school (Grade 1-6) — same ZEPH house style, but a cheerful palette and
   // a "Primary Education Level" eyebrow/header (see the education-level rule on `level`).
   // sunny yellow-gold + teal; big lower-primary tables. Hyphenation OFF (as on the
