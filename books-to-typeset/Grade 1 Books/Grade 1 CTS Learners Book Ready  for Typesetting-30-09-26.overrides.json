@@ -1,0 +1,31 @@
+{
+  "//recolor": "The manuscript colours seven of its 'Specific Competence(s):' lines green and leaves the other thirteen in the body colour, and it colours the word COPYRIGHT on the imprint page green too. Twenty topic openers that are otherwise identical therefore print two different ways, and the green is the minority. Nothing in this book uses colour to carry meaning — those are the only coloured runs in it — so every author colour is returned to the body colour and the competence line reads the same on every topic opener. The entry carries no 'from', which clears them all: naming one green was not enough, because the manuscript uses two (#92D050 and #00B050) and clearing only the commoner one left four runs behind for the engine's uniform-colour pass to settle on the other green instead. That pass cannot fix this by itself — it compares one colour against another, and here the majority of the same element carries no colour at all. Only runs the author coloured are affected; the theme's own colours are applied at render time and are untouched.",
+  "recolor": [
+    {}
+  ],
+
+  "//retext": "Two whole-run fixes, kept as retext rather than subtext because the text they match also occurs elsewhere ALREADY CORRECT and must not be touched there. 'What are the learners doing' is asked twenty-four times in this book; twenty-three carry their question mark and one, in Topic 4, does not. 'Different cleaning items help us to keep rooms clean' ends Topic 4's opening prose with no full stop while the two sentences above it have one.",
+  "retext": [
+    { "from": "What are the learners doing", "to": "What are the learners doing?" },
+    { "from": "Different cleaning items help us to keep rooms clean", "to": "Different cleaning items help us to keep rooms clean." }
+  ],
+
+  "//subtext": "Manuscript slips, each occurring exactly once in the book and each verified against the raw OOXML before being corrected here rather than guessed at from the rendered page. They divide into four kinds. QUESTIONS MISSING THEIR MARK: four questions in LET'S TALK AND LEARN lists end with nothing, or with a full stop, while every one of their siblings in the same list ends with a question mark. WORDS RUN TOGETHER: the manuscript breaks three phrases into separate Word runs with no space between them, so they print glued — 'Do'/'the'/'following:' prints as 'Dothe following:', the option 'c)' is welded to the end of the option before it, and item 5's number is welded to its first word. TYPOS: 'cplour' for 'colour', and 'devise' for 'device' twice in Topic 9 (the same two sentences name the thing correctly elsewhere on the page). A STRAY WORD: activity 3 of Topic 2 is titled '…Showing Various Activities Show', the last word left over from an earlier wording. A MISSING BOX LABEL: Topic 3's Kitchen Utensils section runs one activity in two parts, and the author typed the first as 'LEARNING ACTIVITY 2:  (i) Cleaning Kitchen Utensils' but the second as a bare '(ii) Storing Kitchen Utensils in Suitable Places'. Without the label the engine cannot see the second half as an activity at all, so (i) printed inside the teal activity box and (ii) as an ordinary black heading — the same element, two looks, three inches apart. Restoring the label the author dropped boxes it like its own first half; both halves keep the number 2, which is the manuscript's own scheme (one activity, parts i and ii) rather than a renumbering of the topic. AN INSTRUCTION LEFT IN THE TEXT: Topic 3's Learning Activity 2 heads its look-and-discuss section 'LET'S LOOK (swap the pictures)' — a note to whoever typesets the book, not words for a Grade 1 learner, and it printed as part of the heading. Only the parenthetical is removed here; the picture swap it asks for is a separate change to the artwork itself.",
+  "subtext": [
+    { "from": "Why should we keep our classroom clean", "to": "Why should we keep our classroom clean?" },
+    { "from": "How are the learners in  the pictures", "to": "How are the learners in the pictures?" },
+    { "from": "Why should kitchen utensils be cleaned.", "to": "Why should kitchen utensils be cleaned?" },
+    { "from": "Which picture shows relay race.", "to": "Which picture shows a relay race?" },
+    { "from": "Dothe following", "to": "Do the following" },
+    { "from": "sellerc)", "to": "seller  c)" },
+    { "from": "5.My favourite", "to": "5. My favourite" },
+    { "from": "cplour", "to": "colour" },
+    { "from": "switch ICT devise on and off", "to": "switch ICT devices on and off" },
+    { "from": "Choose ICT devise that", "to": "Choose an ICT device that" },
+    { "from": "Showing Various Activities Show", "to": "Showing Various Activities" },
+    { "from": "(c) Arranging desks and chairs", "to": "(b) Arranging desks and chairs" },
+    { "from": "litter and Sweep the", "to": "litter and sweep the" },
+    { "from": "(ii) Storing Kitchen Utensils", "to": "LEARNING ACTIVITY 2: (ii) Storing Kitchen Utensils" },
+    { "from": " (swap the pictures)", "to": "" }
+  ]
+}
