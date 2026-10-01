@@ -15,6 +15,7 @@ const { importDocx, fixBoxTitleSpelling, isProseSentence } = require("./import-d
 const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 const { stripWatermark } = require("./dewatermark.js");
+const { writeManuscriptMarkdown } = require("./docx-to-markdown.js");
 
 const ROOT = path.join(__dirname, "..", "..");
 const INPUT_DIRS = [path.join(ROOT, "input"), path.join(ROOT, "books-to-typeset")];
@@ -269,6 +270,22 @@ function emit(blocks) {
     const nextIsTable = nextB && nextB.t === "table";
     const TBLCAP = /^table\s*\d/i;
     const capOfTable = (t) => nextIsTable && TBLCAP.test(t) && t.length > 0 && t.length <= 120;
+    // A table caption is often written on TWO lines — the business that owns the
+    // statement on the first, the statement and its date on the second:
+    //   Mubita Traders’
+    //   Trial Balance as at 31 December 20X6
+    //   [the table]
+    // The second line is a heading and so is sticky already, and it duly travelled to
+    // the next page with its table — but the first line is an ordinary short paragraph,
+    // so it stayed behind alone at the foot of the previous page, reading as a stray
+    // fragment under the preceding section. Keep the owner line with the caption it
+    // opens. Deliberately narrow: the line must be short, carry no sentence-ending
+    // punctuation (so a real sentence that merely happens to precede a captioned table
+    // is left alone), and the thing it sits above must itself be the heading of a table.
+    const nextIsTableCap = nextB && (nextB.t === "head" || nextB.t === "label"
+      || nextB.t === "h2" || nextB.t === "h3")
+      && blocks[bi + 2] && blocks[bi + 2].t === "table";
+    const capOpener = (t) => nextIsTableCap && t.length > 0 && t.length <= 80 && !/[.!?:;]$/.test(t);
     const stickyWrap = (s) => `#block(sticky: true)[${s.trim()}]\n`;
     // Indent a pure-math continuation under the numbered step it belongs to.
     if (underStep && isPureMath(b)) { out += `#contmath(${segArr(b.segs)})\n`; continue; }
@@ -404,7 +421,7 @@ function emit(blocks) {
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
-        out += (b.stickyNext || capOfTable(plain) || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(p) : p;
+        out += (b.stickyNext || capOfTable(plain) || capOpener(plain) || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(p) : p;
         break;
       }
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
@@ -859,14 +876,31 @@ function dedupeAdjacentHeadings(blocks) {
   // the weaker `head`/`label` copy left a sub-topic silently unstyled AND (since it
   // no longer counted) skewed every later sub-topic's number by one.
   const RANK = { h2: 2, h3: 2, head: 1, label: 1 };
+  // The repeat is just as often ENUMERATED on one of the two lines and bare on the
+  // other — a worked set of ledger accounts heads each member "7. Drawings Account"
+  // and then repeats "Drawings Account" as the caption over its table, nine times in
+  // a row. Comparing the raw text missed every one of those, so the book showed the
+  // same account name twice, stacked. Strip a leading "7. " / "7) " / "(7) " item
+  // number before comparing so the two forms match. Only the ENUMERATION goes — the
+  // heading text itself must still be identical, so "7. Drawings Account" beside a
+  // genuinely different "8. Rent Account" is untouched.
+  const bare = (s) => String(s || "").trim().toLowerCase()
+    .replace(/^\(?\d+\)[\s.]+|^\d+[.)]\s+/, "").trim();
   const out = [];
   for (const b of blocks) {
     const prev = out[out.length - 1];
     if (prev && HEADISH.has(prev.t) && HEADISH.has(b.t)) {
       const a = (prev.text || "").trim().toLowerCase();
       const c = (b.text || "").trim().toLowerCase();
-      if (a && a === c) {
-        if ((RANK[b.t] || 0) > (RANK[prev.t] || 0)) out[out.length - 1] = b;
+      // Equal outright, or equal once each side's item number is stripped.
+      const same = (a && a === c) || (bare(a) && bare(a) === bare(c));
+      if (same) {
+        // Prefer the structurally stronger block as before; when they rank equally
+        // keep whichever still CARRIES the item number, so the set stays enumerated
+        // (dropping "7." would leave the reader with nine identical-looking captions).
+        const strongerB = (RANK[b.t] || 0) > (RANK[prev.t] || 0);
+        const sameRank = (RANK[b.t] || 0) === (RANK[prev.t] || 0);
+        if (strongerB || (sameRank && bare(c) !== c && bare(a) === a)) out[out.length - 1] = b;
         continue; // skip the duplicate
       }
     }
@@ -2574,6 +2608,32 @@ function applyOverrides(blocks, ov) {
       for (const k of ["text", "caption", "q", "a", "plain", "title"]) inStr(b, k);
       if (b.t === "imagerow") for (const im of b.images || []) inStr(im, "caption");
     }
+    // …and a TABLE's cells, which are as much "a place the book prints words" as any
+    // paragraph. `flat` cannot carry them: allTextBlocks() collects blocks that have
+    // `.segs`/`.text` and descends only into arrays of such objects, and a table has
+    // neither — its words live in `rows`, an array of arrays of cells. So a correction
+    // applied to the prose and silently skipped every table: the Accounting Form 2
+    // Learner's Book spells its competence column header "DESCRIPTERS" and names the
+    // competence "Problem Saving", both only inside the KEY COMPETENCES table, and
+    // `subtext` logged "not matched" while the typos printed. Walk tables separately
+    // (the same shape `editCell` and the table passes below already walk). A cell
+    // carries its own `.text` beside the runs actually drawn, so correct both.
+    (function cells(arr) {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          for (const row of b.rows) {
+            if (!Array.isArray(row)) continue;
+            for (const cell of row) {
+              if (!cell || typeof cell !== "object") continue;
+              inStr(cell, "text");
+              inSegs(cell.segs);
+            }
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k])) cells(b[k]);
+      }
+    })(blocks);
     if (!n) console.warn("!  subtext not matched:", st.from);
   }
   // centre: ["exact heading text", …] — centre a heading (a `head`/h1/h2/h3 block whose
@@ -5603,6 +5663,35 @@ function labelIntroductions(blocks) {
     if (/^introduction$/i.test(txt)) { b.t = "head"; b.text = txt; delete b.segs; }
   }
 }
+// A competence line already carries its own number — the curriculum code it opens
+// with ("2.2.1.1 Prepare the Trial Balance"). When the author ALSO typed it as a
+// Word numbered list, it renders with an ordinal in front of that code, reading
+// "1. 2.2.1.1 Prepare the Trial Balance"; when they didn't, the same line renders
+// clean. Manuscripts are inconsistent about this within a single book — the
+// Accounting Form 2 Learner's Book numbers five of its six Specific Competences
+// blocks and leaves the sixth plain — so the identical element looked different
+// from sub-topic to sub-topic. Drop the redundant ordinal and let every competence
+// line render the same way: as its code plus its text.
+// Narrow by design. Only a MULTI-LEVEL code counts (three or more components, the
+// shape a competence code always has), so an ordinary numbered list that happens to
+// begin "1.5 million people…" keeps its marker, and so does a two-part section
+// number. A bulleted competence keeps its bullet — only ordinals are redundant.
+function unnumberCompetenceCodes(blocks) {
+  const CODE = /^\s*\d+(?:\.\d+){2,}\b/;
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (b.t === "listitem" && b.marker && b.marker !== "•") {
+        const txt = (b.segs || []).map((s) => s.t).join("");
+        // Rendered as a plain paragraph, which is exactly what the un-numbered
+        // instances of the same element already produce — so the two match.
+        if (CODE.test(txt)) { b.t = "para"; delete b.marker; delete b._sub; delete b.isList; }
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
 // Primary Learner's Books: strip the teacher/curriculum scaffolding young readers do
 // not need — Sub-Topic headings, the "Specific Competence" blocks (label + "In this
 // section you will learn to:" + the numbered competence codes), and the ACRONYMS /
@@ -6246,6 +6335,15 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
 
 async function typesetOne(docxPath, themeName) {
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
+  // House rule: convert the manuscript to plain text BEFORE typesetting it, so that
+  // checking what the manuscript actually says is reading a markdown file rather
+  // than slicing raw OOXML. Written beside the .docx as a `.manuscript.md` sidecar
+  // (the drop folders are git-ignored, so it can't clutter a commit) and never read
+  // back by the pipeline — the engine still typesets from the .docx itself.
+  const mdPath = docxPath.replace(/\.docx$/i, ".manuscript.md");
+  const md = await writeManuscriptMarkdown(docxPath, mdPath);
+  if (md.ok) console.log(`   plain text (${md.how}): ${path.basename(mdPath)}`);
+  else console.warn(`!  manuscript not converted to plain text: ${md.error}`);
   // Expand a standalone "G 2"/"G2" abbreviation to "Grade 2" for all grade/level/theme
   // detection (kept separate from `base` so the output file keeps its original name).
   // Expand the abbreviations a manuscript filename uses for its level, so every
@@ -6565,6 +6663,7 @@ function normaliseQuestionMarkBold(blocks) {
   normaliseQuestionMarkBold(blocks);
   fillLayoutCredit(blocks);  // credit the typesetter on the "Cover and Book Layout:" line
   labelIntroductions(blocks);
+  unnumberCompetenceCodes(blocks);
   boldAuthorNames(blocks);
 
   // Primary Teacher's Guides: house-style polish + box each Learning Activity /

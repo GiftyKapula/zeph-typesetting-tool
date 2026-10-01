@@ -49,8 +49,15 @@ problem to go and fix.
 
 ## Before you fix anything: check the actual manuscript, don't guess
 
-If something renders oddly, unzip the `.docx` and read the raw OOXML before
-assuming why:
+**Every build first converts the manuscript to plain text**, writing
+`<book>.manuscript.md` beside the `.docx` (git-ignored, regenerated each run —
+see `src/typeset/docx-to-markdown.js`, which uses `pandoc` when it is installed
+and falls back to its own converter when it isn't). Read and grep **that** file
+first: headings, lists, tables and captions come out in a form you can search in
+one pass, which is how you find out what the manuscript actually says.
+
+Drop to the raw OOXML only for what markdown cannot show — the Word *style* on a
+paragraph, a `numPr` list binding, run colour:
 
 ```bash
 node -e "const JSZip=require('jszip'),fs=require('fs'); \

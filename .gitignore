@@ -42,6 +42,11 @@ books-to-typeset/*
 # --- typeset scratch ---
 src/typeset/_last.typ
 src/typeset/_last-docx.typ
+# The plain-text rendering every build writes beside its manuscript (see
+# src/typeset/docx-to-markdown.js). Regenerated on each run and derived wholly from
+# the .docx, which is itself ignored — a reading aid for checking what a manuscript
+# actually says, never an input to the pipeline.
+*.manuscript.md
 
 # --- personal Claude Code settings (not team-shared) ---
 .claude/settings.local.json
