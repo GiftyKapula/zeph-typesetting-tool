@@ -1,0 +1,22 @@
+{
+  "//subtext": "Two typos in the KEY COMPETENCES table of the manuscript, both verified against the raw OOXML before being corrected here. 'DESCRIPTERS' is the table's own column header (the CDC syllabus and every other book in the family spell it DESCRIPTORS), and 'Problem Saving' is the competence the syllabus calls Problem Solving — neither is a Zambian spelling variant, both are slips.",
+  "subtext": [
+    { "from": "DESCRIPTERS", "to": "DESCRIPTORS" },
+    { "from": "Problem Saving", "to": "Problem Solving" }
+  ],
+  "//remove": "The manuscript's ACRONYMS section is a Heading1 with nothing whatsoever under it — the author left the section empty — so it typeset as a heading alone on an otherwise blank page (printed p.xii) and claimed a contents entry pointing at it. Dropped on the user's instruction rather than filled: the acronyms a book uses are the author's to supply, not something to invent. The only other occurrence of the word is in the manuscript's own Word-generated table of contents, which the engine discards and rebuilds from the headings anyway, so removing both leaves nothing dangling.",
+  "remove": [
+    "ACRONYMS"
+  ],
+  "//editCell": "The KEY COMPETENCES table repeats two of its descriptor lines verbatim — a copy-paste slip, not two different competences: 'Draw up the Statement of Financial Position…' appears three times in the Analytical Thinking row and 'Prepare the Statement of Profit or Loss' twice in the Financial Education row. Each is collapsed to a single bullet. The find strings begin with the newline-and-bullet separator the cell text uses, so only a CONSECUTIVE repeat inside one cell matches: the single, legitimate 'Prepare the Statement of Profit or Loss' under Entrepreneurship is a different competence's descriptor and is left alone.",
+  "editCell": [
+    {
+      "find": "\n• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities)\n• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities)",
+      "with": ""
+    },
+    {
+      "find": "\n• Prepare the Statement of Profit or Loss\n• Prepare the Statement of Profit or Loss",
+      "with": "\n• Prepare the Statement of Profit or Loss"
+    }
+  ]
+}

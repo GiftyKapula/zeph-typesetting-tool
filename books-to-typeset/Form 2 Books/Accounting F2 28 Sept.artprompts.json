@@ -1,0 +1,16 @@
+{
+  "//": "Art spec for `node tools/genimage.js`. Each prompt says only what the picture must DEPICT — the standing requirements (semi-realistic register, Zambian setting, equal gender balance, a visible disability wherever people appear, no lettering) are appended to every prompt by the tool, so they are deliberately absent here. Learners in this book are Form 2: about 14 to 16 years old.",
+
+  "//cover": "Replaces the manuscript's own cover photograph, which showed a stack of labelled accounting books and a calculator with no people in it. Two faults made it unusable: the lettering on the book spines is burnt into the picture (the house rule forbids lettering in cover art), and it is a 1024x1536 PORTRAIT image being dropped into a 144mm x 78mm LANDSCAPE hero window, so `fit: \"cover\"` cropped away two of its five spines — a cut-off cover picture, which the house rule forbids outright. Replacing it with learners also brings the cover under the representation rules, which a cover with no people in it sidesteps rather than satisfies.",
+
+  "//cover-geometry": "The hero window is 144mm x 78mm (generic-template.typ, the `science`/default cover branch), i.e. 1.846:1, and is filled with fit: \"cover\". 144mm at 300 DPI is 1701px, so targetWidthPx 1800 clears the print-resolution rule with a margin. The model renders 3:2 (1536x1024), which is NOT the window's ratio, so cropTo trims the upscaled picture to exactly 1800x975 (1.846:1) — after that the window crops nothing at all and no part of the artwork is lost. The centre crop removes about 19% of the height, which is why the prompt asks for the figures to sit in the central band with headroom above and below.",
+
+  "figures": {
+    "cover": {
+      "aspect": "landscape",
+      "targetWidthPx": 1800,
+      "cropTo": { "w": 1800, "h": 975 },
+      "prompt": "A bright Zambian secondary-school accounting lesson, seen across a long classroom desk. Four Form 2 learners of about 14 to 16, in school uniform, are working together on the accounts of a small business. Spread across the desk in front of them are an open columned ledger with ruled debit and credit columns, a cash book, a stack of receipts and invoices on a spike, a desk calculator, and a printed trial balance with two columns of figures. One learner is entering a figure in the ledger with a pen, one is working the calculator, one is holding up a receipt to check it against the page, and one is pointing to a line on the trial balance and explaining it to the others. A teacher stands behind them, leaning in to look at the ledger. The figures and the desk objects sit within the central horizontal band of the picture, with clear headroom above the heads and clear space below the desk edge. Warm daylight from a window to one side, an ordinary classroom wall behind."
+    }
+  }
+}
