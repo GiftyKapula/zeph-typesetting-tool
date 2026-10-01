@@ -6408,7 +6408,14 @@ function competenceLeadIn(blocks, isTeacherGuide) {
   const LABEL = /^specific\s+competenc(e|es|ies)\s*:?\s*$/i;
   // what a lead-in looks like however the writer worded it — "In this section/sub-topic,
   // you will (learn to)?:", "learners will:", "you are expected to:" …
-  const ISLEAD = /^in\s+this\s+(section|sub-?topic|topic|unit|lesson)\b[^.!?]*:\s*$/i;
+  // "sub topic" is written as TWO WORDS at least as often as it is hyphenated or
+  // closed up — the Accounting Form 2 Teacher's Guide heads all eleven of its
+  // sub-topics "SUB TOPIC 2.1.1:" and leads them in with "In this sub topic, you
+  // will learn to:". `sub-?topic` matched neither of those, so the manuscript's own
+  // lead-in was not recognised as one and this function spliced a second lead-in in
+  // above it, printing both lines back to back under every Specific Competences
+  // heading in the book.
+  const ISLEAD = /^in\s+this\s+(section|sub[-\s]?topic|topic|unit|lesson)\b[^.!?]*:\s*$/i;
   // Flatten runs locally: the `plainOf` this used to call is scoped inside
   // splitAnswerLabels(), so it is not visible here and every book reaching this line
   // died with "plainOf is not defined". It only bites once a manuscript actually has a

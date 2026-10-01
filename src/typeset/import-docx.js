@@ -1277,6 +1277,37 @@ function buildQAParts(blocks) {
   // markerFor only recognises roman formatting from a template of 2+ roman letters — a
   // template captured from a lone "i." would misread as the letter "i" (see markerFor).
   let primaryNum = null, topTpl = hasRomanTop ? "ii." : "1.", subTpl = "a)", topN = 0, subN = 0, auto = 0;
+  // The sub-run that was open when a lead-in last closed it, kept so a sub-part the
+  // manuscript itself numbers as the CONTINUATION of that run can resume it instead
+  // of restarting at "a)". See resumesSubRun() below for why this is needed.
+  let lastSubN = 0, lastSubTpl = "a)";
+  // Does this incoming literal marker continue the sub-run a lead-in just closed?
+  //
+  // Sub-letters are renumbered locally (a, b, c…) because manuscript numbering is
+  // often broken, and the count resets whenever a lead-in line comes between two
+  // sub-parts — otherwise a fresh round of answers would keep counting from the
+  // previous question's letters. But an answer key spreads one lettered part's
+  // working over several ordinary paragraphs all the time, and only CALCULATION
+  // steps are recognised as continuations (see the lead branch below). Prose
+  // answers are not: Accounting Form 2's Teacher's Guide answers each lettered
+  // part with a sentence ("A gross profit margin of 30% means that…"), so every
+  // later part's count was reset and "c)" and "d)" both re-rendered as "a)" — in an
+  // answer key, where the letters have to match the Learner's Book questions they
+  // answer, that is wrong content, not just untidy layout.
+  //
+  // Rather than widen the guess about which paragraphs are continuations, trust the
+  // manuscript when it has already said so: if the writer's own marker is exactly
+  // the one that would come NEXT in the run just closed, it continues that run.
+  // A list genuinely restarting at "a)" never matches (the next marker would be
+  // "b)"), so nothing that renumbers correctly today changes. Deliberately limited
+  // to decimal and single-letter markers: a lone roman "i." is indistinguishable
+  // from the letter "i", and markerFor() has the same ambiguity.
+  const resumesSubRun = (lit) => {
+    if (lastSubN <= 0) return false;
+    const core = String(lit || "").replace(/^\(/, "").replace(/[.)]\s*$/, "").trim();
+    if (!/^(\d+|[A-Za-z])$/.test(core)) return false;
+    return markerFor(lastSubN + 1, lastSubTpl) === stripLit(String(lit || ""));
+  };
   // The numId of the manuscript's real top-level question list (set once, from the
   // first genuine top-level Word-list item) and the topN count it had reached right
   // before the most recent "Answers:" divider reset it — so a later question
@@ -1403,7 +1434,7 @@ function buildQAParts(blocks) {
         }
       }
       topNBeforeDivider = topN;
-      topN = 0; subN = 0; auto = 0; primaryNum = null;
+      topN = 0; subN = 0; auto = 0; primaryNum = null; lastSubN = 0;
       parts.push({ kind: "lead", q: b.plain, qseg: b.segs, divider: true });
       continue;
     }
@@ -1499,7 +1530,7 @@ function buildQAParts(blocks) {
       // counting as more of (c)'s bullets.
       if (!hasDecimalTop) {
         if (topN === 0) topTpl = stripLit(sm[1]);
-        topN += 1; subN = 0;
+        topN += 1; subN = 0; lastSubN = 0;
         const an = grabAnswer();
         parts.push({ kind: "q", q: sm[2].trim(), qseg: qsegOf(sm[2]), a: an.a, aseg: an.aseg, marker: markerFor(topN, topTpl), depth: 0 });
         continue;
@@ -1508,13 +1539,16 @@ function buildQAParts(blocks) {
         && (primaryNum == null || b.numId === primaryNum || /^\d/.test(b.marker || ""));
       if (topListItem && restarts) {
         if (primaryNum == null) { primaryNum = b.numId; if (/^\d/.test(b.marker || "")) topTpl = b.marker; }
-        topN += 1; subN = 1; subTpl = stripLit(sm[1]);
+        topN += 1; subN = 1; subTpl = stripLit(sm[1]); lastSubN = 0;
         parts.push({ kind: "q", q: "", a: "", marker: markerFor(topN, topTpl), depth: 0 });
         const an = grabAnswer();
         parts.push({ kind: "q", q: sm[2].trim(), qseg: qsegOf(sm[2]), a: an.a, aseg: an.aseg, marker: markerFor(subN, subTpl), depth: 1 });
         continue;
       }
-      if (subN === 0) { subTpl = stripLit(sm[1]); ensureTopBeforeSub(); }
+      if (subN === 0) {
+        if (resumesSubRun(sm[1])) { subN = lastSubN; subTpl = lastSubTpl; }   // the writer's own letter says this continues
+        else { subTpl = stripLit(sm[1]); ensureTopBeforeSub(); }
+      }
       subN += 1;
       const an = grabAnswer();
       parts.push({ kind: "q", q: sm[2].trim(), qseg: qsegOf(sm[2]), a: an.a, aseg: an.aseg, marker: markerFor(subN, subTpl), depth: 1 });
@@ -1539,7 +1573,13 @@ function buildQAParts(blocks) {
       // bullets through the plain bodyArr path instead of the styled qaparts row.
       const sub = b.marker === "•" || (!decimal && (elvl(b) > 0 || hasDecimalTop));
       let marker;
-      if (sub) { if (subN === 0) { subTpl = b.marker; ensureTopBeforeSub(); } subN += 1; marker = markerFor(subN, subTpl); }
+      if (sub) {
+        if (subN === 0) {
+          if (resumesSubRun(b.marker)) { subN = lastSubN; subTpl = lastSubTpl; }
+          else { subTpl = b.marker; ensureTopBeforeSub(); }
+        }
+        subN += 1; marker = markerFor(subN, subTpl);
+      }
       else {
         // A real question continuing the SAME Word list (its numId matches the one
         // that started this block's top-level numbering) picks its count back up
@@ -1548,7 +1588,7 @@ function buildQAParts(blocks) {
         // itself (a different numId, e.g. "1. Key Factors" under an answer) still
         // starts fresh, since it fails this numId check.
         if (topN === 0 && questionNumId != null && b.numId === questionNumId) topN = topNBeforeDivider;
-        topN += 1; subN = 0;
+        topN += 1; subN = 0; lastSubN = 0;
         if (topN === 1) { topTpl = b.marker; questionNumId = b.numId; }
         marker = markerFor(topN, topTpl);
       }
@@ -1566,12 +1606,12 @@ function buildQAParts(blocks) {
       // "1." orphaned above its own answer instead of the single worked line the
       // manuscript actually wrote. Later sub-parts ("(b)", "(c)"…) still land on
       // their own rows below, same as ever — only THIS glued first line is merged.
-      topN += 1; subN = 1; subTpl = stripLit(tmSub[1]);
+      topN += 1; subN = 1; subTpl = stripLit(tmSub[1]); lastSubN = 0;
       const an = grabAnswer();
       parts.push({ kind: "q", q: tmSub[2].trim(), qseg: qsegOf(tmSub[2]), a: an.a, aseg: an.aseg,
         marker: markerFor(topN, topTpl) + " " + markerFor(subN, subTpl), depth: 0 });
     } else if (tm) {                     // a literal top item "1." (text may be empty)
-      topN += 1; subN = 0;
+      topN += 1; subN = 0; lastSubN = 0;
       const an = grabAnswer();
       parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: markerFor(topN, topTpl), depth: 0 });
     } else {                             // a lead-in / heading line ("Expected Answers", "Calculate:")
@@ -1601,7 +1641,7 @@ function buildQAParts(blocks) {
       // because "Where:" reset the count right before it).
       const isContinuation = (eqIdx >= 0 && eqIdx <= 15 && !eq.slice(0, eqIdx).includes(":"))
         || /^\+/.test(eq) || MARK_ONLY.test(eq.trim()) || /^where\s*:?\s*$/i.test(eq);
-      if (!isContinuation) subN = 0;
+      if (!isContinuation) { if (subN > 0) { lastSubN = subN; lastSubTpl = subTpl; } subN = 0; }
       // A trailing mark allocation the manuscript gave its OWN paragraph ("...sound
       // waves cannot." then, alone on the next line, "[2]") would otherwise become
       // its own standalone continuation line — an orphaned mark with nothing

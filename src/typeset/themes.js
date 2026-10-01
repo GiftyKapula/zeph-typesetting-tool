@@ -331,6 +331,23 @@ const THEMES = {
   // to front/back matter + topics rather than listing every sub-topic.
   religious: { ...zeph({ subject: "Religious Education", variant: "science", signature: "6f5aa8", primary: "4a3582", primary2: "6b53a8", accent: "d9a22b", cyan: "2f8f8a", motif: "earth" }), tocDepth: 1 },
   pesport: { ...zeph({ subject: "Physical Education and Sport", signature: "3f7fc4", primary: "1a4d8f", primary2: "2f6bb0", accent: "e8622e", cyan: "1fa39e" }), tocDepth: 1 },
+  // Accounting (Form 1-4) — a "ledger" palette: graphite slate with a brass
+  // accent and a slate-blue for exercises, the colours of a bound cash book
+  // rather than of a lab subject. The obvious choice for a commerce book is
+  // ledger green, and it was tried first — but this library's green family is
+  // already full (cinyanja 1f5c45, biology 17633a, geography 18704a, silozi,
+  // nyanja, grade6sci), and a bottle green landed within ΔE 3.4 of cinyanja in
+  // Lab space, i.e. the same colour. Graphite sits ~20 ΔE from its nearest
+  // neighbour (compsci's navy), which matters here because Geography Form 2 is a
+  // deep-green shelf-mate of this very book. Before this theme existed Accounting
+  // fell through autoTheme() to the generic `navy` fallback, which carries no
+  // `subject` — so cover synthesis had nothing to use as a title but the raw
+  // filename (the same trap `tech` and `chemistry` note on their own `subject`
+  // keys). The manuscripts wrap all 26 Learning Activities in Word tables, so the
+  // "science" (boxed) variant renders them as real callouts; the contents keeps
+  // the default depth 2 because the books carry only five topics and the authors'
+  // own table of contents lists the sub-topics.
+  accounting: zeph({ subject: "Accounting", variant: "science", signature: "37474f", primary: "37474f", primary2: "5a6b74", accent: "c79a3b", cyan: "2f7f9e" }),
   // Primary school (Grade 1-6) — same ZEPH house style, but a cheerful palette and
   // a "Primary Education Level" eyebrow/header (see the education-level rule on `level`).
   // sunny yellow-gold + teal; big lower-primary tables. Hyphenation OFF (as on the
@@ -411,6 +428,13 @@ function autoTheme(name) {
   // look — matched by grade so the two books, which share almost the same title, don't
   // collide.
   if (/physical\s*education.*sport|\bPES\b/i.test(name) && /form\s*[1-4]\b/i.test(name)) return "pesport";
+  // Accounting, however the manuscript titles it — "Accounting", "Accounts",
+  // "Principles of Accounts", "Accountancy". A suffix is required so a bare
+  // "Account" in some other filename can't claim the theme, and the boundaries
+  // are written `(?:^|[^a-z])` / `(?=\b|_)` rather than `\b` because these
+  // filenames separate fields with underscores, which are word characters — the
+  // same trap the maths and "Grade 6_LB" routes above document.
+  if (/(?:^|[^a-z])account(?:ing|ancy|s)(?=\b|_)/i.test(name)) return "accounting";
   // Literature in English, however the filename writes it. Manuscripts arrive
   // abbreviated at least as often as spelled out ("LIT in ENG F1 LB"), and the
   // abbreviation must be word-bounded — a bare /lit/ matches "quality", "political",

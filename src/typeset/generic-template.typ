@@ -2721,6 +2721,29 @@
   // neighbour's, because a ~22mm column cannot hold "demonstrated" or
   // "understanding" whole. Dropping the justification is what actually helps.
   set par(justify: false)
+  // …but hyphenation being ON is not the same as it being CHEAP. doc() prices a
+  // hyphen at 300%, a figure measured against BODY prose, where a break costs the
+  // reader little. A table cell is a different measure: the column is a few
+  // centimetres wide, so the line-breaker reaches for a hyphen constantly, and what
+  // it breaks is mostly proper nouns and column headings — "Bwem-bya", "Mweemba
+  // Wholesal-ers", "Classifica-tion", "Credit Ac-count" in the Accounting Form 2
+  // Teacher's Guide, whose ledger tables are columns of Zambian trader names. A
+  // broken name reads as a different name, and print convention does not break
+  // proper nouns at all.
+  //
+  // Raising the price rather than forbidding the break keeps the escape hatch the
+  // comment above was written for: a word still breaks where the alternative is an
+  // overfull line, so "demonstrated" in a ~22mm rubric column behaves exactly as
+  // before, but nothing breaks merely to tidy a line that would have wrapped
+  // perfectly well. Set here, inside dtable(), so body prose keeps its own measured
+  // 300% untouched.
+  //
+  // The figure is deliberately an order of magnitude past "expensive" — at 2000% the
+  // breaker still bought "Capital re-ceipt" and "in-troduced" in a 30mm column, and
+  // only at this price does a cell break a word solely when leaving it whole would
+  // overflow. The one survivor on that page is "Classifi-cation" in a ~22mm heading,
+  // which is the escape hatch doing its job, not a failure of it.
+  set text(costs: (hyphenation: 100000%))
   // Is a cell completely empty? Such cells appear in "Complete the table" / "Fill
   // in the table" grids the learner writes into. When many body cells are empty
   // the table is a FILL-IN table — give every empty cell a minimum writing height
