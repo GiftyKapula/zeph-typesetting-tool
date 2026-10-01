@@ -11,7 +11,7 @@ const fs = require("fs");
 const path = require("path");
 const os = require("os");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
-const { importDocx } = require("./import-docx.js");
+const { importDocx, fixBoxTitleSpelling, isProseSentence } = require("./import-docx.js");
 const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 const { stripWatermark } = require("./dewatermark.js");
@@ -79,6 +79,21 @@ const partsArr = (parts) => arr(parts, (p) =>
   // part so qaparts renders the aligned columns instead of dropping to an empty q.
   : (p.k === "colgrid" || p.kind === "colgrid") ? `(kind: "colgrid", ${colgridArg(p)})`
   : `(kind: "q", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, a: ${S(p.a)}, aseg: ${segArr(p.aseg || [])}, marker: ${S(p.marker || "")}, depth: ${p.depth || 0})`);
+// A question's ANSWER SURFACE: the row of lettered choices a learner picks from
+// ("a) Ladder  b) Slide  c) Rope"), or the sentence with a blank to fill in ("We
+// should take ______ when using playground equipment."). A manuscript types it either
+// glued onto the question's own paragraph or as a paragraph of its own; only the glued
+// form used to end up in the question's text column, the loose form dropping back to
+// the left margin as though it answered no question at all. Recognised in one place so
+// the box path (markSubLists) and the top-level path (emit) agree on what one is.
+const OPTROW_RE = /^\s*\(?[a-z]\)\s+\S/i;
+const BLANK_RE = /_{3,}/;
+const isAnswerSurface = (b) => {
+  if (!b || b.t !== "para" || !Array.isArray(b.segs)) return false;
+  const t = b.segs.map((s) => s.t || "").join("");
+  return !!t.trim() && (OPTROW_RE.test(t) || BLANK_RE.test(t));
+};
+
 // Mixed box body: paragraphs, sub-headings, list items, images and nested
 // tables, in order. (Sub-headings/list items appear when a flowing section — a
 // primary Teacher's Guide activity — is boxed after import.)
@@ -153,6 +168,37 @@ function markSubLists(blks) {
     top = p.n; sub = 0;                                                    // a top-level item
     if (b.numId != null) { topId = b.numId; topLvl = b.lvl != null ? b.lvl : null; }
   }
+  // ---- a question's answer surface belongs in the question's own text column ----
+  // An EXERCISE question is followed by the surface the learner answers on: a row of
+  // lettered choices ("a) Ladder  b) Slide  c) Rope") or a sentence with a blank to fill
+  // in ("We should take ______ when using playground equipment."). A manuscript types
+  // that surface either glued onto the question's own paragraph or as a paragraph of
+  // its own, and the two used to render completely differently: glued, it stayed inside
+  // the numbered item and lined up under the question's text; loose, it fell back to the
+  // box's left margin, out of the column, reading as though it answered no question at
+  // all. One EXERCISE in the Grade 1 CTS Learner's Book showed both forms three lines
+  // apart — thirteen loose choice rows and five loose fill-in lines across the book. The
+  // writer's typing is not a layout decision, so mark the loose form here and let it be
+  // set in the same column as the item it answers.
+  //
+  // Only a surface that follows its item IMMEDIATELY (or follows another such surface)
+  // is attached. Anything else in between ends the question: a closing remark sitting
+  // after the last item of a box ("People buy and sell goods every day.") answers
+  // nothing and must keep the box's own left margin.
+  {
+    let host = null;                              // indent level of the open list item
+    for (const b of blks) {
+      if (!b || typeof b !== "object") continue;
+      if (isList(b)) { host = b._sub ? b._sub : 0; continue; }
+      if (host !== null && isAnswerSurface(b)) { b._cont = host; continue; }
+      // A picture, a table or a caption may stand BETWEEN a question and the choices it
+      // offers — "1. Identify the following materials:", the four photographs, then
+      // "(a) Leather (b) Reeds (c) Wood (d) Clay" — and does not end the question; the
+      // same allowance the sub-list grouping above already makes. Anything else does.
+      if (b.t === "img" || b.t === "image" || b.t === "imagerow" || b.t === "table" || b.t === "figcaption") continue;
+      host = null;
+    }
+  }
   return blks;
 }
 const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
@@ -167,7 +213,7 @@ const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
   : (b.t === "para" && b.marker && b.isList) ? `(k: "list", marker: ${S(b.marker)}, s: ${segArr(b.segs)}${b._sub ? `, indent: ${b._sub}` : ""})`
   : (b.k === "colgrid" || b.t === "colgrid") ? `(k: "colgrid", ${colgridArg(b)})`
   : b.t === "colsum" ? `(k: "colsum", rows: ${strArr(b.rows || [])}, answer: ${strArr(b.answerRows || [])})`
-  : `(k: "para", s: ${segArr(b.segs || [])})`);
+  : `(k: "para", s: ${segArr(b.segs || [])}${b._cont != null ? `, cont: ${b._cont}` : ""})`);
 // Tolerates the colon landing on either side of the number ("TOPIC 1.4: Title" —
 // the house form — as well as a manuscript that instead types "TOPIC: 1.4 Title").
 const TOPIC_RE = /^TOPIC\s*:?\s*([\d.]+)\s*:?\s*(.+)$/i;
@@ -177,7 +223,25 @@ const TOPIC_RE = /^TOPIC\s*:?\s*([\d.]+)\s*:?\s*(.+)$/i;
 const isPureMath = (b) => (b.t === "para") && Array.isArray(b.segs) && b.segs.length > 0
   && b.segs.every((s) => s && s.m) && !b.align;
 
+// How a list item is written out. There are two places that emit one — here for an
+// ordinary item, and the sticky-grouping branch that braces a heading to the first
+// items of its run — and they must agree: the grouped copy used to be built by its own
+// one-line helper, which knew nothing of the item's nesting level, so a sub-list lost
+// its indent precisely when it happened to fall at the top or bottom of a run. Build
+// the call in one place so the two cannot drift.
+const listitemCall = (x) => `#listitem(${segArr(x.segs)}, ${S(x.marker || "•")}${x._sub ? `, indent: ${x._sub}` : ""})\n`;
+
 function emit(blocks) {
+  // A nested list needs marking OUTSIDE a box as much as inside one. markSubLists has
+  // always run over a box's body (see bodyArr) but never over the blocks between the
+  // boxes, and listitem() had no indent to give them anyway — so a sub-list typed under
+  // a plain numbered question was set flat, at the same left edge and in its own
+  // numbering: the Grade 1 CTS Learner's Book asks "2. How are the learners in the
+  // pictures" and follows it with Standing / Sitting / Kneeling / Walking / Lifting,
+  // which printed as 1, 2, 1, 2, 3, 4, 5, 3 down one column with nothing to say which
+  // 1 belonged to which question. Same pass, same 18pt step as inside a box, so a
+  // nested list reads the same wherever it sits.
+  blocks = markSubLists(blocks);
   let out = "";
   // Tracks whether the current run still belongs under a numbered list item, so a
   // following stand-alone equation is indented under that step rather than reset to
@@ -208,8 +272,20 @@ function emit(blocks) {
     const stickyWrap = (s) => `#block(sticky: true)[${s.trim()}]\n`;
     // Indent a pure-math continuation under the numbered step it belongs to.
     if (underStep && isPureMath(b)) { out += `#contmath(${segArr(b.segs)})\n`; continue; }
+    // …and the same for the answer surface of a numbered question — the exact situation
+    // contmath() already handles for maths: it belongs under the step it answers, not back
+    // at the left margin. Left outside this gate, a LET'S DO step's lettered choices stood
+    // at the margin while the very same choices set inside an EXERCISE box lined up right.
+    if (underStep && isAnswerSurface(b)) { out += `#contline(${segArr(b.segs)})\n`; continue; }
     if (b.t === "listitem" && b.marker && b.marker !== "•") underStep = true;
-    else if (b.t !== "vspace" && b.t !== "pagebreak") underStep = false;
+    // A picture, a table or a caption between the step and what continues it does not
+    // close the step: "1. Identify the following materials:" is followed by the four
+    // photographs and only then by "(a) Leather (b) Reeds (c) Wood (d) Clay", which
+    // belongs to that step as much as if the figure were not there. Same allowance the
+    // box path makes; a vspace or a page break never closed a step either.
+    else if (b.t !== "vspace" && b.t !== "pagebreak"
+      && b.t !== "img" && b.t !== "image" && b.t !== "imagerow"
+      && b.t !== "table" && b.t !== "figcaption") underStep = false;
     switch (b.t) {
       case "cover": {
         const logo = b.logo ? `(file: ${S(b.logo.file)})` : "none";
@@ -240,7 +316,18 @@ function emit(blocks) {
       case "backcover": out += `#backcover(${strArr(b.lines || [])}, ${b.logo ? `(file: ${S(b.logo.file)})` : "none"}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
       case "h1": {
         const m = b.text.match(TOPIC_RE);
-        if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(b.text)}${b.nobreak ? ", nobrk: true" : ""})\n`;
+        // The contents list prints this banner's FULL title, so it must be spelled the
+        // house way rather than however the writer happened to type it. Manuscripts are
+        // not consistent about the colon after the topic number: the Grade 1 CTS
+        // Learner's Book types seventeen of its twenty topics "TOPIC 4: MATERIALS" and
+        // the other three "TOPIC 2 DRAWING AND COLOURING", "TOPIC 3 TOOLS AND EQUIPMENT"
+        // and "TOPIC 14 NEEDLEWORK" — and the contents page showed exactly that, three
+        // lines out of step with the seventeen around them. The banner itself is
+        // unaffected (it sets the number and the title in separate cells), so this is
+        // purely about the contents entry; rebuild it from the parts the regex has
+        // already split out, so every topic in every book reads the same.
+        const topicfull = m ? `TOPIC ${m[1].replace(/[.:]+$/, "")}: ${m[2].trim()}` : "";
+        if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(topicfull)}${b.nobreak ? ", nobrk: true" : ""})\n`;
         else out += `#sectionhead(${S(b.text)})\n`;
         break;
       }
@@ -277,7 +364,7 @@ function emit(blocks) {
         const runEnd = (() => { let k = bi + 1; while (k < blocks.length && blocks[k].t === "listitem") k++; return k; })();
         const nItems = runEnd - (bi + 1);
         if (nItems >= 1 && !(nextIsImg && FIGLABEL.test((b.text || "").trim()) && (b.text || "").trim().length <= 60)) {
-          const li = (x) => `#listitem(${segArr(x.segs)}, ${S(x.marker || "•")})\n`;
+          const li = listitemCall;
           const items = blocks.slice(bi + 1, runEnd);
           const keep = (s) => `#block(breakable: false, width: 100%)[${s.trim()}]\n`;
           if (nItems < 4) out += keep(h + items.map(li).join(""));
@@ -323,7 +410,7 @@ function emit(blocks) {
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
-      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")})\n`; break;
+      case "listitem": out += listitemCall(b); break;
       case "figcaption": {
         const fc = `#figcaption(${S(b.text)})\n`;
         out += capOfTable((b.text || "").trim()) ? stickyWrap(fc) : fc;
@@ -478,13 +565,23 @@ function boxifyActivities(blocks, opts = {}) {
   // Bemba: Ifyakucita, Nyanja: Nchito, Silozi: Musebezi, Luvale: Vyakulinga,
   // Tonga: Cakucita, Kaonde: Mwingilo wakuuba) — a numbered activity heading the
   // manuscript left un-boxed, so it becomes a titled activity box (T.act colour).
-  const ACT = /^(LEARNING\s+(ACT(?:IVIT|IVT|VIT)Y?|MODELS?)|LEARNING|ACT(?:IVIT|IVT|VIT)Y?|MODELS?|Zhakwila(\s+atudizi)?|Ifyakucita|Nchito|Musebezi|Vyakulinga|Cakucita|Mwingilo\s+wakuuba)\s+\d/i;
+  // `\s*\d`, not `\s+\d`: the number may be GLUED to the label. Authors type
+  // "LEARNING ACTIVITY1:" often enough that import-docx.js's boxKindFromTitle() says so
+  // in as many words and repairs the spacing — but this recogniser required the space,
+  // so Topic 9 of the Grade 1 CTS Learner's Book was the one activity in the book that
+  // never became a box: its title printed as an ordinary black heading with the picture
+  // and questions loose beneath it, while the other fifty-eight sat in the teal box.
+  // The two recognisers have to agree about what an activity heading looks like.
+  const ACT = /^(LEARNING\s+(ACT(?:IVIT|IVT|VIT)Y?|MODELS?)|LEARNING|ACT(?:IVIT|IVT|VIT)Y?|MODELS?|Zhakwila(\s+atudizi)?|Ifyakucita|Nchito|Musebezi|Vyakulinga|Cakucita|Mwingilo\s+wakuuba)\s*\d/i;
   // "EXERCISE 1" or a bare "Exercise" (many Learner's Books number neither), or a
   // plural range heading ("EXERCISES 1 - 4") some books use instead — the isDefn
   // guard below still excludes a glossary line like "Exercise – Physical…". No \b
   // after "EXERCISE" alone: it would also require a boundary before a literal "S",
   // and "E"/"S" are both word characters, so "EXERCISES" would never match.
-  const EX = /^EXERCISES?\b/i;
+  // `(?:\b|(?=\d))` for the same reason as ACT above: "EXERCISE9" has no word boundary
+  // between the E and the 9, so a bare `\b` rejected the glued form that makeBox()'s own
+  // GLUE pattern names explicitly. The `\b` arm still refuses "Exercised".
+  const EX = /^EXERCISES?(?:\b|(?=\d))/i;
   // "END-OF-TOPIC ASSESSMENT", "TOPIC ASSESSMENT", "ASSESSMENT [N]" — nothing
   // (except an optional number/colon) may follow, so a "Assessment – …" glossary
   // line is excluded. Also accepts "(END OF) TOPIC EXERCISE" — a whole-topic wrap-up
@@ -583,6 +680,19 @@ function boxifyActivities(blocks, opts = {}) {
     // genuine box start, so the cap is waived for the "act" kind only. A boxHead is
     // an explicit per-book opt-in, so it is never length-capped.
     if (k && !bhKind && k !== "act" && st.length > 90) k = null;
+    // A SHORT sentence that merely opens with the word is not a heading either, and the
+    // cap above cannot see it. "Exercise helps us stay healthy and active." — the
+    // lead-in line of Topic 11 in the Grade 1 CTS Learner's Book — is 42 characters,
+    // matched the bare-word EXERCISE form, and framed an exercise box with nothing at
+    // all inside it: an empty panel titled with the sentence, and the sentence itself
+    // gone from the prose that needed it. isProseSentence() is the shared test (see
+    // import-docx.js), used by classifyPara's bare-word arm too so the importer and
+    // this pass cannot disagree about the same line. Only the UNNUMBERED exercise form
+    // is tested — "EXERCISE 3." is numbered and stays a heading whatever punctuation
+    // trails it, an answer-key heading ("Exercise – Expected Answers.") is explicitly
+    // spared, and the assessment pattern is anchored at both ends already, so no
+    // sentence ever reaches it.
+    if (k === "ex" && !bhKind && !EXPECT.test(st) && isProseSentence(st)) k = null;
     if (!k) { out.push(b); continue; }
     const body = [];
     let j = i + 1;
@@ -696,7 +806,40 @@ function boxifyActivities(blocks, opts = {}) {
         body.shift();
       }
     }
-    out.push({ t: "framedsection", kind: k, title, body });
+    // ---- a title the writer let RUN ON to a second paragraph ----------------
+    // The same repair makeBox() makes for a box built from a TABLE, for a box built
+    // here out of a loose heading. A long title typed in Word often ends up as two
+    // paragraphs — the author reached the end of the line, pressed Enter and carried
+    // on — and the tail then arrives as the box's FIRST BODY BLOCK, printing as a
+    // stray bold sub-heading under a title cut off mid-phrase. Six of the Grade 1 CTS
+    // Learner's Book's activity boxes read that way against fifty-three that do not:
+    // "…Identifying Different Types of Field and Track" over a lone "Events",
+    // "…Storing Small Needlework Tools in Suitable" over "Places", "…Using Free" over
+    // "Hand".
+    //
+    // The signal is the author's own: the trailing space they typed before pressing
+    // Enter, carried here as `openEnded` by classifyPara (`plain` is trimmed, so the
+    // flag has to travel with the block). Everything else is a guard — the tail must
+    // be short, unpunctuated, not itself a box label, and not ALL-CAPS, which is what
+    // keeps the house section heads ("LET'S LOOK", "LET'S DO") that normally open a
+    // box body from being swallowed into the title above them.
+    if (b.openEnded && body.length) {
+      const f = body[0];
+      const ft = blockPlain(f).trim();
+      if ((f.t === "head" || f.t === "h2" || f.t === "h3") && ft
+          && ft.split(/\s+/).length <= 5 && !/[.!?:]$/.test(ft)
+          && ft !== ft.toUpperCase() && !kindOf(ft)) {
+        title = `${title.trim()} ${ft}`;
+        body.shift();
+      }
+    }
+    // Every box title printed from the IMPORT side goes through normaliseBoxTitles(),
+    // which repairs the manuscript's misspelt labels ("EXERCSE 3", "ASSESMENT") and the
+    // number glued onto them ("LEARNING ACTIVITY1"). A box built HERE, out of a heading
+    // the manuscript left loose, never passed that way, so the one activity in a book
+    // that happens to be typed without its table printed its title raw while its
+    // fifty-eight boxed siblings printed theirs corrected.
+    out.push({ t: "framedsection", kind: k, title: fixBoxTitleSpelling(title), body });
     i = j - 1;
   }
   return out;

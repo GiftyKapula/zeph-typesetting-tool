@@ -1523,18 +1523,52 @@
   // edge. Without this, "SUB-TOPIC 2.2.2 PLANNING AND PREPARATION FOR FIELD / WORK"
   // put WORK hard against the margin, where it reads as a new entry of its own rather
   // than as the tail of the one above — the same hanging-indent rule a wrapped numbered
-  // item already follows in the body. 1.2em matches the outline's own indent step, so a
-  // continuation line sits exactly one level in from where its entry began.
-  set par(hanging-indent: 1.2em)
+  // item already follows in the body.
+  // …and that hanging indent has to be applied to a paragraph WE build, not set from
+  // out here. An outer `set par(hanging-indent: …)` does not reach an outline entry at
+  // all: Typst's own `outline.entry` show rule assembles the entry's paragraph in its
+  // own scope, so our setting never touches it — raising the value to 6em changes
+  // nothing, which is how this was finally pinned down after the rule had sat here
+  // looking correct while "TOPIC 11: HEALTH AND FITNESS / MANAGEMENT" still dropped
+  // MANAGEMENT hard against the left margin in the Grade 1 CTS Learner's Book.
+  // Setting it inside the show rule, before rendering `it`, fails for the same reason.
+  // So render the entry's own inner content from HERE instead, which puts its
+  // paragraph in this scope where the hanging indent does apply. 1.2em matches the
+  // outline's own indent step, so a continuation line sits exactly one level in from
+  // where its entry began.
+  // Entries are set off from one another by egap. A wrapped entry's own lines must sit
+  // CLOSER than that, so the two halves of one entry read as one entry — they were doing
+  // the opposite: an entry's second line fell a good deal further from its first than two
+  // separate entries do, so "TOPIC 11: HEALTH AND FITNESS / MANAGEMENT" read as two
+  // contents lines with a blank between them. Typst measures a wrapped line from the
+  // previous line's descender, so the entry's own leading is what governs that gap (block
+  // and paragraph spacing do not touch it); setting it to egap makes a continuation line
+  // sit exactly as far below its first line as the next entry does, and a level-1 entry,
+  // which is set off by the larger tocGap, then reads as one unit against its neighbours.
+  let egap = 5pt
+  let tocline(it) = {
+    set par(hanging-indent: 1.2em, leading: egap)
+    // it.inner() is the entry's OWN body + leader + page number, so the line breaks
+    // exactly where Typst would have broken it — the title wraps at a word boundary
+    // and the leader stays with the tail. Rebuilding those three parts by hand instead
+    // moved the break: the full title then fitted line one and only the leader and the
+    // page number dropped to line two, stranding a bare "77" under TOPIC 11. What we
+    // must NOT reuse is it.indented(), which lays the entry out in a block of its own
+    // and so takes the paragraph back out of this scope, losing the hanging indent
+    // again. That block is also what applied outline()'s own `indent`, so the per-level
+    // step is applied here instead, at the same 1.2em.
+    let line = upper(it.inner())
+    if it.level > 1 { pad(left: 1.2em * (it.level - 1), line) } else { line }
+  }
   let tgap = T.at("tocGap", default: 10pt)
-  show outline.entry: it => { v(5pt, weak: true); upper(it) }
+  show outline.entry: it => { v(egap, weak: true); tocline(it) }
   let tdepth = T.at("tocDepth", default: 2)
   if serieslike {
-    show outline.entry.where(level: 1): it => { v(tgap, weak: true); text(fill: iaccent, weight: "bold")[#upper(it)] }
-    outline(title: none, depth: tdepth, indent: 1.2em)
+    show outline.entry.where(level: 1): it => { v(tgap, weak: true); text(fill: iaccent, weight: "bold")[#tocline(it)] }
+    outline(title: none, depth: tdepth)
   } else {
-    show outline.entry.where(level: 1): it => { v(tgap, weak: true); strong(upper(it)) }
-    outline(title: none, depth: tdepth, indent: 1.2em)
+    show outline.entry.where(level: 1): it => { v(tgap, weak: true); strong(tocline(it)) }
+    outline(title: none, depth: tdepth)
   }
 }
 
@@ -1852,7 +1886,7 @@
   }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
-#let listitem(ss, marker) = {
+#let listitem(ss, marker, indent: 0) = {
   let isbullet = marker == "•"
   // A numbered/lettered marker used to be bold unconditionally — right for the
   // common case (a bold numbered step), but it left the marker visibly bolder
@@ -1875,8 +1909,11 @@
   context {
     let mw = measure(mk).width
     let colw = if isbullet { mw } else { calc.max(mw, measure(text(weight: wt)[88.]).width) }
-    grid(columns: (colw, 1fr), column-gutter: 7pt, align: (left + top, left + top),
-      mk, par[#segs(ss)])
+    // A sub-list (one that restarts its numbering under a numbered parent) is stepped in
+    // so it reads as belonging to that question rather than as a sibling of it — the same
+    // 18pt step, and for the same reason, as the list branch inside a box.
+    grid(columns: (indent * 18pt, colw, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
+      [], mk, par[#segs(ss)])
   }
 }
 // ---- a marker-led line INSIDE A TABLE CELL -------------------------------
@@ -1978,6 +2015,18 @@
 // indented block a learner can scan straight down, instead of every line hugging
 // the left margin. The left inset also narrows the width dispmath fits into.
 #let contmath(ss) = pad(left: 18pt, flowsegs(ss))
+// The answer surface for the numbered question above it — a row of lettered choices,
+// or a sentence with a blank to fill in — which the writer typed as a paragraph of its
+// own instead of gluing it onto the question. It belongs in the question's TEXT column,
+// not back at the left margin. Laid out through the SAME measured grid listitem() uses,
+// with the marker cell left empty, so the two line up exactly; contmath() above pads by
+// a fixed 18pt instead, which only approximates the column and drifts the moment the
+// marker column is sized by something wider than "88.".
+#let contline(ss) = context {
+  let colw = measure(text(weight: "regular")[88.]).width
+  grid(columns: (colw, 1fr), column-gutter: 7pt, align: (left + top, left + top),
+    [], par[#segs(ss)])
+}
 
 // ---- headings ------------------------------------------------------------
 // `nobrk` suppresses the fresh page, for the one case the emitter detects: a Topic
@@ -2745,7 +2794,14 @@
     let sg = c.at("seg", default: ())
     sg.len() == 0 or (sg.len() == 1 and not sg.at(0).at("m", default: false))
   }
-  let hdr = (not noHeader) and rows.at(0).all(c =>
+  // A table of ONE row has no body for that row to head, so it is not a header: it is a
+  // strip of content in its own right. Both tables in the Grade 1 CTS Learner's Book are
+  // word banks — a single row holding the words that fill the blanks in the exercise
+  // underneath ("Accidents | Turn") — and each was painted as a full-width header band,
+  // reading as the title of a table that never arrived and burying the fact that those
+  // two words were the answers on offer. Require a second row before treating the first
+  // as a header.
+  let hdr = rows.len() > 1 and (not noHeader) and rows.at(0).all(c =>
     c.imgs.len() == 0 and plainHeaderCell(c)
     and not c.text.contains("\n") and c.text.len() <= 40 and c.text != "")
   let hasimg = rows.any(r => r.any(c => c.imgs.len() > 0))
@@ -2985,6 +3041,22 @@
         // Procedure" ended seven pages of the Grade 1 CTS Teacher's Guide that way).
         block(breakable: false, sticky: true, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
         v(2pt)
+      }
+      else if it.k == "para" and it.at("cont", default: none) != none {
+        // The answer surface for the numbered question above (a row of lettered choices,
+        // or a sentence with a blank to fill in), which the writer typed as a paragraph
+        // of its own rather than glued onto the question. It belongs in the question's
+        // TEXT column, not at the box's left margin — see the pass that marks it in
+        // typeset-docx.js. Laid out through the same three-column grid the list branch
+        // below uses, with the marker cell left empty, so the two line up exactly
+        // instead of being nudged into approximate agreement by a hand-tuned pad.
+        let pad = it.cont * 18pt
+        context {
+          let colw = measure(text(weight: "regular")[88.]).width
+          grid(columns: (pad, colw, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
+            [], [], par[#segs(it.s)])
+        }
+        v(1.5pt)
       }
       else if it.k == "list" {
         // A sub-list (one that restarts its numbering under a numbered parent) is

@@ -127,13 +127,55 @@ function matchCase(seen, correct) {
   if (seen[0] === seen[0].toUpperCase()) return correct.charAt(0).toUpperCase() + correct.slice(1);
   return correct;
 }
+// A SENTENCE that merely opens with a box word is prose, not a heading. The loose
+// recognisers — the ones that accept a BARE "Activity"/"Exercise"/"Task"/"Project"
+// whose number the author dropped — cannot tell the two apart by the opening word
+// alone, and a short sentence slips past a length cap: "Exercise helps us stay
+// healthy and active." opens Topic 11 of the Grade 1 CTS Learner's Book and is 42
+// characters. Read as a label it framed an exercise box with nothing inside it, and
+// once that was stopped it still printed as a teal heading between two plain prose
+// sentences of the same topic introduction — the same element, two looks.
+//
+// Sentence shape is what separates them: a real bare heading is a word or two and
+// carries no terminal stop, while a sentence runs on and ends in one. A NUMBERED
+// form ("EXERCISE 3.") is a heading whatever punctuation trails it, so any digit
+// disqualifies a line from being read as prose here. Callers apply this only to
+// their loose arm — a title boxKindFromTitle() recognises has said what it is in
+// words and is never demoted by it.
+// An ANSWER-KEY heading is the one label that is shaped like a sentence — several
+// words, no number, and a Teacher's Guide often types a stop after it ("Exercise –
+// Expected Answers."). It is spared here rather than at each call site, so a caller
+// cannot forget it: boxifyActivities already refuses to demote one, and classifyPara
+// would otherwise have turned it into prose in a flat-layout Teacher's Guide.
+const ANSWER_KEY = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
+function isProseSentence(s) {
+  const t = String(s || "").trim();
+  if (ANSWER_KEY.test(t)) return false;
+  return !/\d/.test(t) && /[.!?]$/.test(t) && t.split(/\s+/).length > 2;
+}
 function fixBoxTitleSpelling(s) {
   if (typeof s !== "string" || !s) return s;
   return s
+    // The writer's stray double space, which the reader sees as a box title set
+    // differently from its siblings: six of the Grade 1 CTS Learner's Book's
+    // fifty-nine activity titles were typed "LEARNING ACTIVITY 6:  Performing…"
+    // and the other fifty-three with a single space. A title is a single line of
+    // display text, so no run of whitespace inside one is ever meaningful.
+    .replace(/\s+/g, " ").trim()
     .replace(/\bEX(?:ER|R|CER)CISE(S?)\b/gi, (m, pl) => matchCase(m, "exercise" + (pl ? "s" : "")))
     .replace(/\bASSESS?MENT(S?)\b/gi, (m, pl) => matchCase(m, "assessment" + (pl ? "s" : "")))
     .replace(/\bACT(?:IVI|IVT|VIT)T?(?:Y|IES)\b/gi, (m) =>
-      matchCase(m, /IES$/i.test(m) ? "activities" : "activity"));
+      matchCase(m, /IES$/i.test(m) ? "activities" : "activity"))
+    // …and the number the author glued onto the label ("LEARNING ACTIVITY1:",
+    // "EXERCISE9"). makeBox() has always repaired that for a box built from a TABLE, but
+    // a box built any other way — the paragraph run, or boxifyActivities() over a
+    // heading the manuscript left loose — never saw it, so the Grade 1 CTS Learner's
+    // Book printed "LEARNING ACTIVITY 1" fifty-eight times and "LEARNING ACTIVITY1"
+    // once, in Topic 9. Doing it here, in the one function every printed box title
+    // passes through, is what makes that impossible rather than merely unlikely. It runs
+    // after the spelling rules above, so a misspelt label is already normalised when the
+    // space goes in.
+    .replace(/\b(LEARNING\s+ACTIVITY|ACTIVITY|EXERCISE|ASSESSMENT|TASK|PROJECT)(\d)/gi, "$1 $2");
 }
 
 // Recognise a box by the TITLE TEXT in its first cell. This is book-agnostic:
@@ -1734,7 +1776,42 @@ function makeBox(kind, blocks) {
   const titleSegs = rawTitleSegs && !rawTitleSegs[0].m && GLUE.test(rawTitleSegs[0].t)
     ? [{ ...rawTitleSegs[0], t: rawTitleSegs[0].t.replace(GLUE, "$1 $2") }, ...rawTitleSegs.slice(1)]
     : rawTitleSegs;
-  const bodyFrom = (start) => blocks.filter((b, i) => !(i === start && b.t === "para"));
+  // ---- a title the writer let RUN ON to a second paragraph ----------------
+  // A long box title typed in Word often ends up as two paragraphs: the author reached
+  // the end of the line, pressed Enter, and carried on. The tail then arrives as a block
+  // of its own and prints as a stray sub-heading INSIDE the box, under a title that has
+  // been cut short — "LEARNING ACTIVITY 3: Making Different Pictures Using Collage" over
+  // a lone bold "Technique". Seven of the Grade 1 CTS Learner's Book's fifty-eight
+  // activity boxes read that way ("…Field and Track / Events", "…in Suitable / Places",
+  // "…Using Free / Hand"), against forty-eight that carry nothing but their title and
+  // picture — the same element, three shapes.
+  //
+  // The author's own evidence that the line continues is the TRAILING SPACE they typed
+  // before pressing Enter: every one of the seven ends "…Collage ", "…Suitable ", "…and
+  // Track ". A paragraph deliberately started as a new heading has no such space, so it
+  // is a far better signal than guessing from the words. `plain` is trimmed by
+  // cellBlocks(), so the space has to be read off the raw segs.
+  //
+  // Everything else here is a guard rather than a signal: the tail must be short, bold
+  // like the title, unpunctuated, not itself a box label, and not ALL-CAPS — which is
+  // what keeps the house section heads ("LET’S LOOK", "LET’S DO") that some cells carry
+  // on their own line from being swallowed into the title above them.
+  let joinIdx = -1;
+  if (titleIdx >= 0) {
+    const txt = (rawTitleSegs || []).filter((s) => s && !s.m && typeof s.t === "string");
+    const openEnded = txt.length > 0 && /\s$/.test(txt[txt.length - 1].t) && !/[.!?]$/.test(titleText);
+    const nxt = blocks[titleIdx + 1];
+    if (openEnded && nxt && nxt.t === "para") {
+      const tail = (nxt.plain || "").trim();
+      const bold = (nxt.segs || []).some((s) => s && !s.m && (s.t || "").trim() && s.b);
+      if (tail && bold && tail.split(/\s+/).length <= 5 && !/[.!?:]$/.test(tail)
+          && tail !== tail.toUpperCase() && !boxKindFromTitle(tail)) {
+        titleText = titleText + " " + tail;
+        joinIdx = titleIdx + 1;
+      }
+    }
+  }
+  const bodyFrom = (start) => blocks.filter((b, i) => i !== joinIdx && !(i === start && b.t === "para"));
   // body = everything after a clean title paragraph; or, when the title is glued
   // to an image / not a standalone para, everything except that title-only para.
   const after = titleIdx >= 0
@@ -1863,7 +1940,26 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   // Series layout: an Activity / Exercise / Task / Assessment line (English or a
   // local language) is always a heading, even if the source didn't bold the whole
   // line — so they style consistently. (Table-wrapped boxes are still kept.)
-  if (flat && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
+  // The bare-word arm is guarded by sentence shape: a line that merely OPENS with
+  // "Exercise" and then runs on to a full stop is a sentence of the topic's prose,
+  // not the title of anything. Without that, Topic 11 of the Grade 1 CTS Learner's
+  // Book set "Exercise helps us stay healthy and active." as a teal heading directly
+  // under "Our bodies need exercise every day." in plain italic — two consecutive
+  // sentences of one introduction, printed as two different kinds of thing. The
+  // boxKindFromTitle arm is deliberately left unguarded: it is anchored and accepts
+  // only a label that names itself, so a real title ending in a stop keeps its style.
+  // `openEnded` carries the author's own evidence that the line CONTINUES: the
+  // trailing space they typed before pressing Enter part-way through a long title.
+  // makeBox() reads that space straight off the raw segs for a box built from a
+  // table, but a box built from a loose heading (boxifyActivities) only ever sees
+  // this block, and `plain` has been trimmed by then — so the signal has to travel
+  // with the block or it is lost. Six activity boxes in the Grade 1 CTS Learner's
+  // Book depend on it: "…Field and Track " + "Events", "…in Suitable " + "Places",
+  // "…Using Free " + "Hand" and three more, each of which printed a title cut off
+  // mid-phrase above a stray bold sub-heading holding its last word.
+  if (flat && plain.length <= 80 && (boxKindFromTitle(plain)
+    || (/^(activity|exercise|task|project)\b/i.test(plain) && !isProseSentence(plain))))
+    return { t: "head", text: plain, openEnded: /\s$/.test(plainOf(segs)) && !/[.!?]$/.test(plain) };
   // Trust the manuscript's own Word heading style — EXCEPT when the "heading" reads as
   // body prose: a manuscript occasionally applies Heading1 to a whole paragraph by
   // mistake (a Foreword/Preface/bio paragraph, a body sentence under a topic), which
@@ -1900,6 +1996,18 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   const allBold = nonblank.length > 0 && nonblank.every((s) => s.b);
   const colored = nonblank.some((s) => s.c);
   const endsColon = /:\s*$/.test(plain);
+  // A box title the writer bolded only in PART — "LEARNING ACTIVITY 1:" set bold with
+  // the title after it left plain, or in italic — is still a box title, and every gate
+  // below asks for allBold. The Grade 1 CTS Learner's Book has one: "LEARNING ACTIVITY
+  // 1: Making simple patterns (finger print, scribble, line, splash, tear patterns…)",
+  // which printed as an ordinary sentence in the middle of a page while the other
+  // fifty-seven activities in the same book each sat in the teal activity box. What
+  // makes it a title is the label it opens with, not how far the writer's bold happened
+  // to run. boxKindFromTitle() is anchored at the start and accepts only the box words
+  // themselves (LEARNING ACTIVITY / EXERCISE / ASSESSMENT and their local-language
+  // equivalents), so requiring the label to be the bold part keeps ordinary prose with
+  // a bold lead-in ("Teacher's Role: Provide each learner with…") well clear of this.
+  if (!allBold && nonblank.length > 0 && nonblank[0].b && boxKindFromTitle(plain)) return { t: "head", text: plain };
   if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(plain)) return { t: "figcaption", text: plain };
   // The same caption with NO separator after the number — "Figure 1 Major map Symbols"
   // sitting in the same book as "Figure 4: Six Figure Grid References". Without this it
@@ -1963,7 +2071,18 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
     // of page. Field names are short and never run to a comma, so ask for that too.
     const fieldName = plain.split(/\s+/).length <= 6 && !plain.includes(",");
     if (allBold && endsColon && fieldName && plain.length <= 60) return { t: "label", text: plain };
-    if (allBold && (!endsColon || !fieldName) && plain.length <= 72) return { t: "head", text: plain }; // bold-black heading
+    // The length cap keeps a long bold PROSE paragraph from being read as a heading. A
+    // line boxKindFromTitle() recognises is not prose, though — it opens with "LEARNING
+    // ACTIVITY n:", "EXERCISE n", "End of Topic Assessment" — so its length says nothing
+    // about whether it is a title, only about how long the writer's title is. Capped
+    // alike, the Grade 1 CTS Learner's Book lost exactly one activity: "LEARNING ACTIVITY
+    // 2: Drawing Various Pictures of Objects Found at Home and School" is 81 characters,
+    // so it stayed a plain bold paragraph and never reached the box builder, printing as
+    // a bare black line between two activities that both sat in the teal box — the same
+    // element, three pages apart, looking like two different things. Word styles all
+    // three identically. The waiver mirrors the one the box builder already makes for an
+    // "act" box start (see typeset-docx.js), and for the same reason.
+    if (allBold && (!endsColon || !fieldName) && (plain.length <= 72 || boxKindFromTitle(plain))) return { t: "head", text: plain }; // bold-black heading
     if (allBold && plain.length <= 60) return { t: "label", text: plain };
   }
   if (hasListNumbering(pXml) || /^[••]/.test(plain)) return { t: "listitem", segs: stripBullet(segs) };
@@ -2656,9 +2775,31 @@ async function importDocx(docxPath, opts = {}) {
   {
     const flatten = (s) => String(s || "").replace(/\s+/g, " ").trim();
     const bannered = new Set();
-    parts.forEach((x) => { if (!isTbl(x)) { const t = flatten(textOf(x)); if (NUMTOPIC.test(t)) bannered.add(normTitle(t)); } });
+    // The same banners keyed by TITLE ALONE. A hand-typed contents list often numbers
+    // the topics differently from the body that follows it: this Grade 1 CTS Learner's
+    // Book lists "TOPIC 1.1 SAFETY … TOPIC 1.20 ENTREPRENEURSHIP" over a body that
+    // banners them "TOPIC 1: SAFETY … TOPIC 20: ENTREPRENEURSHIP", the contents having
+    // been left behind by an earlier draft that used the syllabus's two-level codes.
+    // Matching on the full spelling alone then fails for EVERY entry, so all twenty
+    // topics look missing and the restore scan below goes hunting for lines to promote.
+    // For nineteen it finds nothing and no harm is done — but TOPIC 7's sub-topic line
+    // is the bare word "Drama", the topic's own title, so it was promoted to a second
+    // banner and the book printed "TOPIC 7: DRAMA" followed immediately by an empty
+    // "TOPIC 1.7: DRAMA", both of them listed in the contents. A topic whose title is
+    // already bannered in the body is not missing, whatever number the contents gives
+    // it, so it must not be restored.
+    const banneredTitles = new Set();
+    parts.forEach((x) => {
+      if (isTbl(x)) return;
+      const t = flatten(textOf(x));
+      if (!NUMTOPIC.test(t)) return;
+      bannered.add(normTitle(t));
+      const m = t.match(TOC_TOPIC_RE);
+      if (m) banneredTitles.add(normTitle(m[3]));
+    });
     for (const tp of tocTopics) {
       if (bannered.has(normTitle(tp.full))) continue;            // typed properly already
+      if (banneredTitles.has(normTitle(tp.title))) continue;     // …or under a different number
       const key = normTitle(tp.title);
       if (key.replace(/ /g, "").length < 4) continue;            // too short to match safely
       const numbered = normTitle(tp.num + " " + tp.title);
@@ -2957,8 +3098,18 @@ async function importDocx(docxPath, opts = {}) {
       // paragraph — so look at the first block of ANY type that carries text.
       const firstBlks = cellBlocks(cells[0][0].xml);
       const lead = (firstBlks.find((b) => (b.plain || "").trim()) || {}).plain || "";
-      const kind = boxKindFromTitle(lead) || BOX_FILL[firstFill];
       const single = cells.length === 1 && cells[0].length === 1;
+      // A box is built from the FIRST CELL of the table, so the fill colour may only
+      // declare one when the table HAS one cell. A shaded row of several cells is not a
+      // box: it is content that happens to be tinted — and both word banks in the Grade 1
+      // CTS Learner's Book are exactly that, a 1x3 row of accent-tinted cells holding the
+      // words to fill the blanks with. Read as boxes, each printed as an empty box titled
+      // with its FIRST word ("paper mask", "Paper") and the other two words were dropped
+      // from the book altogether, leaving three fill-in sentences with a bank that named
+      // only one of their answers. A title that SAYS what it is ("EXERCISE 1", "LEARNING
+      // ACTIVITY 2") still opens a box at any shape, because then the manuscript has said
+      // so in words rather than in a cell colour.
+      const kind = boxKindFromTitle(lead) || (single ? BOX_FILL[firstFill] : null);
       if (kind === "assessment") blocks.push(makeAssessmentTable(cells));
       else if (kind) blocks.push(makeBox(kind, firstBlks));
       else if (single && firstFill && firstFill !== NAVY) blocks.push(makeBox("box", firstBlks));
@@ -3718,4 +3869,11 @@ function splitSegsAt(segs, budget) {
   return [first, rest];
 }
 
-module.exports = { importDocx };
+// fixBoxTitleSpelling is exported so the post-import pass that builds a box out of a
+// loose heading (boxifyActivities in typeset-docx.js) can print its title through the
+// same normaliser the importer's own boxes use, rather than keeping a second copy of
+// the rules that would drift from this one. isProseSentence is exported for the same
+// reason: both of the loose box recognisers — classifyPara's bare-word arm here, and
+// boxifyActivities' unnumbered EXERCISE form there — have to agree about when a line
+// is a sentence rather than a label, or the two will disagree about the same line.
+module.exports = { importDocx, fixBoxTitleSpelling, isProseSentence };
