@@ -114,6 +114,35 @@ function markSubLists(blks) {
     return null;
   };
   const isList = (b) => b && (b.t === "listitem" || (b.t === "para" && b.marker && b.isList));
+  // ---- the first option Word's autoformat ate ---------------------------------
+  // A two-choice question is typed as one line — "(a) Stove (b) Hummer" — inside a
+  // Word list item. Word's autoformat reads that leading "(a)" as a list marker,
+  // swallows it, and makes the paragraph the FIRST item of its own level; only the
+  // "(b)" the author typed survives in the text. What the page then shows depends on
+  // nothing but which numbering definition the author's list happened to use. The
+  // Grade 1 CTS Learner's Book has nine of these: five sit in lists whose sub-level
+  // is lowerLetter and print "(a) Stove (b) Hummer", the other four sit in decimal
+  // ones and print "1. Reeds (b) clay" — the same element, two looks, in one book,
+  // and in the decimal form the learner is offered a choice whose first option has
+  // no letter to name it by.
+  //
+  // Restore the letter the author typed. Deliberately narrow, like the importer's
+  // other glued-option passes: the item's own text must carry a bare "(b)" followed
+  // by real words and no "(a)" of its own (so prose that merely mentions "(b)" is
+  // left alone), and the item must be the first at its level — which is exactly what
+  // a swallowed "(a)" makes it, and what every genuine case is.
+  const OPT_B = /\(b\)\s*\S/i;
+  for (const b of blks) {
+    if (!isList(b)) continue;
+    const mk = ((b && b.marker) || "").trim();
+    if (!/^\(?1[.)]?$/.test(mk)) continue;                  // not the first item at its level
+    const t = (b.segs || []).map((s) => (s && !s.m && s.t) || "").join("")
+      || (typeof b.plain === "string" ? b.plain : "") || (typeof b.text === "string" ? b.text : "");
+    const at = t.search(/\(b\)/i);
+    if (at < 1 || !OPT_B.test(t) || /\(a\)/i.test(t)) continue;
+    if (!t.slice(0, at).trim()) continue;                   // nothing for option (a) to name
+    b.marker = "(a)";
+  }
   // only a heading or a fresh box resets the grouping; a plain paragraph, image or
   // table can sit between a question and its options ("Look at the picture" + image
   // + a/b/c) without ending the question.
@@ -164,7 +193,19 @@ function markSubLists(blks) {
       if (top > 0 || sub > 0) { b._sub = 1; sub = p.n; }
       continue;
     }
-    if (sub > 0 && p.n === sub + 1) { b._sub = 1; sub = p.n; continue; }   // continues a numeric sub-list
+    // Continues a numeric sub-list — UNLESS Word itself says this item belongs to the
+    // open TOP-level list, at that list's own level. A question set interleaves the two
+    // constantly: "1. ‘Thank you’ … are words that are ____" (the top list), its options
+    // "(a) Polite (b) harsh" (a sub-list of its own), then "2. Being kind to ____ makes
+    // them feel welcome" — which is the SAME numId and ilvl as question 1 and plainly its
+    // sibling, but whose number happens to be one past the option list's count, so it was
+    // read as more of the options and indented under them. Three exercises in the Grade 1
+    // CTS Learner's Book lost their second question that way, each landing a step to the
+    // right of the first with the options stacked above it. A genuine restarting sub-list
+    // ("1. … a) … 1. 2.") carries a different numId, or a deeper ilvl, so it still matches.
+    const ownTopList = b.numId != null && topId != null && b.numId === topId
+      && (b.lvl == null || topLvl == null || b.lvl === topLvl);
+    if (sub > 0 && p.n === sub + 1 && !ownTopList) { b._sub = 1; sub = p.n; continue; }
     if (top > 0 && p.n === 1 && !newList(b, topId, topLvl)) { b._sub = 1; sub = 1; continue; }   // numeric sub-list restarting at 1
     top = p.n; sub = 0;                                                    // a top-level item
     if (b.numId != null) { topId = b.numId; topLvl = b.lvl != null ? b.lvl : null; }
@@ -4739,6 +4780,21 @@ function columnizeLists(blocks) {
         run.push({ i: j, cols: c }); j++;
       }
       if (run.length < 2) continue;                       // a single line isn't a column block
+      // A run sitting INSIDE a longer ordinary list, between siblings of that same Word
+      // list which carry no wide gap at all, is the author's stray spacing rather than a
+      // column block. The Grade 1 CTS Learner's Book lists the seven cultures as one
+      // seven-item list — "Bemba culture", "Tonga   culture", "Lozi   culture", "Nyanja
+      // culture" … — and the two items the author happened to type three spaces into
+      // were lifted out as a two-column grid, so (b) and (c) printed in a different
+      // marker style, at a different indent, with the word "culture" flung into a second
+      // column, while their five siblings stayed ordinary list items: the same element,
+      // two looks, inside one list. A genuine grid is not bracketed this way — its own
+      // rows all split, so the items either side of it are a heading, a lead-in or
+      // another list entirely, never ungridded siblings of the very same list.
+      const sibling = (x) => x && isRow(x) && x.numId != null && b.numId != null
+        && x.numId === b.numId && (x.lvl == null || b.lvl == null || x.lvl === b.lvl)
+        && !splitCols(x);
+      if (sibling(arr[i - 1]) && sibling(arr[i + run.length])) continue;
       const hasMarker = run.some((r) => r.cols.marker);
       const ncol = first.cells.length + (hasMarker ? 1 : 0);
       const rows = run.map((r) => ({
