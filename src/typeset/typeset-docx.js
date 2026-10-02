@@ -15,6 +15,7 @@ const { importDocx, fixBoxTitleSpelling, isProseSentence } = require("./import-d
 const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng, toPrintJpeg } = require("./image-enhance.js");
 const { stripWatermark } = require("./dewatermark.js");
+const { proseIssues } = require("./british-english.js");
 const { writeManuscriptMarkdown } = require("./docx-to-markdown.js");
 
 const ROOT = path.join(__dirname, "..", "..");
@@ -7340,6 +7341,40 @@ function normaliseQuestionMarkBold(blocks) {
     const pinned = String(ov.coverColor).replace(/^#/, "");
     themeOverrides.covSignature = pinned;
     themeOverrides.covPrimary = pinned;
+  }
+  // ---- British English, and a report on the prose ---------------------------
+  // These books are written in British English and nothing enforced it, so a
+  // manuscript that spelt "colour" on one page and "color" on the next printed both.
+  // The spelling pass settles every word that has ONE right answer and names what it
+  // changed; the genuinely ambiguous pairs (program/programme, practice/practise,
+  // meter/metre …) are deliberately outside its table and left to a human.
+  //
+  // The prose check never edits. A missing word cannot be restored by rule — "tools we
+  // use make different things" could want "use to make" or just "make" — and a regex
+  // that guessed would rewrite an author's sentence silently, which is worse than
+  // printing it as typed. So it reports, quoting the line, and the correction goes in
+  // through `subtext` where it is reviewable and version-controlled.
+  // See src/typeset/british-english.js.
+  // The SPELLING half of this is not here: it runs inside import-docx.js, on the runs
+  // as they are read, so that every later pass which matches on wording sees the
+  // spelling that will print. Only the REPORT belongs this late, because it has to read
+  // the book as it finally stands — after the overrides a book applies to its own text.
+  if (ov.proseCheck !== false) {
+    const proseHits = [];
+    const seenProse = new Set();
+    for (const b of allTextBlocks(blocks)) {
+      const line = blockPlain(b).trim();
+      if (!line || seenProse.has(line)) continue;
+      seenProse.add(line);
+      for (const issue of proseIssues(line)) {
+        proseHits.push(`      ${issue.say}: ${line.length > 96 ? line.slice(0, 93) + "…" : line}`);
+      }
+    }
+    if (proseHits.length) {
+      console.log(`   prose check — ${proseHits.length} line(s) to look at (nothing was changed; correct with \`subtext\`):`);
+      for (const h of proseHits.slice(0, 40)) console.log(h);
+      if (proseHits.length > 40) console.log(`      …and ${proseHits.length - 40} more`);
+    }
   }
   // Last content pass: push every mark allocation flush against the text column's
   // right edge (house style — see splitMarksToFr). Must run after every pass that

@@ -12,6 +12,7 @@ const path = require("path");
 const os = require("os");
 const JSZip = require("jszip");
 const { ommlToTypst, convText } = require("./omml.js");
+const { toBritish } = require("./british-english.js");
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -700,18 +701,21 @@ function paraSegs(pXml) {
       .replace(/\bproblemsolving\b/gi, "problem-solving")
       .replace(/\bcompetencybased\b/gi, "Competency-Based")
       .replace(/\bendoftopic\b/gi, "End-of-Topic")
-      // House style is British spelling: convert the -ize/-ise verb family to -ise
-      // for a curated set of stems (so "size", "maize", "prize", "citizen" are never
-      // touched). Only the z is swapped, so the word's own casing is preserved.
-      .replace(/\b(summar|special|emphas|organ|recogn|visual|minim|stabil|crystall|synthes|immobil|fertil|general|categor|character|util|standard|maxim|coloni|memor)i(z)(e|es|ed|ing|ation|able|ably)\b/gi,
-        (_, stem, z, suf) => stem + "i" + (z === "Z" ? "S" : "s") + suf)
-      // "analyze"/"analyse" is the same US/UK split but a different shape — "analy" +
-      // z/s directly, no "i" glue (unlike "recogn-ize") — so it needs its own pattern
-      // rather than joining the stem list above (which would wrongly require "analyize").
-      .replace(/\b(analy)(z)(e|es|ed|ing|able|ably)\b/gi, (_, stem, z, suf) => stem + (z === "Z" ? "S" : "s") + suf)
-      // British -our for a curated set (colour, behaviour, flavour, odour, vapour,
-      // favour…). "labo(u)r" is left out so "laboratory" is never touched.
-      .replace(/\b(colo|behavio|flavo|odo|vapo|favo|humo|rigo|vigo)r([a-z]*)\b/gi, "$1ur$2");
+      // "analyze"/"analyse" — the same US/UK split as the -ize family but a different
+      // shape ("analy" + z/s directly, no "i" glue), so it stays here as its own rule.
+      .replace(/\b(analy)(z)(e|es|ed|ing|able|ably)\b/gi, (_, stem, z, suf) => stem + (z === "Z" ? "S" : "s") + suf);
+    // House style is British spelling, and this is the ONE place the book's words are
+    // put into it — early, so every later pass that matches on wording (box-title
+    // detection, the heading recognisers, a book's own `subtext`) sees the spelling
+    // that will actually print. The rules themselves live in british-english.js rather
+    // than as regexes here, because they were two curated lists that between them
+    // missed centre, fibre, litre, defence, travelled, modelled, grey, mould, jewellery,
+    // aluminium and the whole -ize family outside twenty hand-listed stems: this
+    // manuscript spells "favourite" nine times and "favorite" four, which the old -our
+    // list did happen to catch, but it would have printed "center" and "gray" as typed.
+    // Keeping one table, with its own stoplist and case handling, is what stops the two
+    // halves drifting apart again.
+    s.t = toBritish(s.t).text;
   }
   return merged;
 }
