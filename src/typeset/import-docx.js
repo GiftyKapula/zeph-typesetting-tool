@@ -3330,7 +3330,39 @@ async function importDocx(docxPath, opts = {}) {
       // imgs[0] AFTER the spread would be lost (an inline "Figure N:" caption that
       // shares the paragraph with the picture, common for OLE/pasted images).
       const mkImgBlock = () => (imgs.length === 1 ? { t: "image", ...imgs[0] } : { t: "imagerow", images: imgs });
-      if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(text)) {
+      // ---- a heading, its picture and the picture's caption ALL in one paragraph ----
+      // The author typed the sub-heading, dropped the picture in without pressing Enter,
+      // and typed "Figure N: …" after it — one Word paragraph carrying text on BOTH sides
+      // of the drawing. Flattened, textOf() concatenates the two with nothing between
+      // them, so the test below (anchored at the START of the text) never sees a caption:
+      // the page printed "Exploring Utensils for Serving SaucesFigure 26: picture
+      // illustration of utensils for serving sauces" as one run-on heading line, and the
+      // picture under it was the only figure in the Food and Nutrition Form 2 Learner's
+      // Book with no caption at all while its twenty-odd neighbours each carried a
+      // centred one. Split the paragraph where the picture sits: the text before it is
+      // its own block, classified as the heading it is, and the text after it becomes the
+      // caption it was always meant to be.
+      // Gated on the trailing text actually BEING a "Figure N:" caption, so an ordinary
+      // paragraph that merely wraps around an inline picture is untouched.
+      const drawAt = Math.min(...[x.search(/<w:drawing\b/), x.search(/<w:pict\b/)].filter((n) => n >= 0).concat([Infinity]));
+      let split = null;
+      if (drawAt < Infinity) {
+        const rs = Math.max(x.lastIndexOf("<w:r>", drawAt), x.lastIndexOf("<w:r ", drawAt));
+        const re = x.indexOf("</w:r>", drawAt);
+        if (rs > 0 && re > rs) {
+          const headXml = x.slice(0, rs) + "</w:p>";
+          const headSegs = paraSegs(headXml);
+          const headTxt = plainOf(headSegs).trim();
+          const tailTxt = plainOf(paraSegs(x.slice(re + 6))).trim();
+          if (headTxt && /^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(tailTxt)) split = { headXml, headSegs, tailTxt };
+        }
+      }
+      if (split) {
+        const caps = split.tailTxt.split(/(?=Fig(?:ure)?\.?\s*\d+\s*[:.])/i).map((s) => s.trim()).filter(Boolean);
+        imgs.forEach((im, k) => { im.caption = caps[k] || im.caption || ""; });
+        blocks.push(classifyPara(split.headXml, split.headSegs, ignoreStyles ? undefined : hmap[styleOf(x)], colorHeads, flat));
+        blocks.push(mkImgBlock());
+      } else if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(text)) {
         const caps = text.split(/(?=Fig(?:ure)?\.?\s*\d+\s*[:.])/i).map((s) => s.trim()).filter(Boolean);
         imgs.forEach((im, k) => { im.caption = caps[k] || im.caption || ""; });
         blocks.push(mkImgBlock());
@@ -3338,6 +3370,21 @@ async function importDocx(docxPath, opts = {}) {
         // (a lone "." or stray single letter that merely anchors the image is
         // dropped — only the image is kept)
         const textBlk = classifyPara(x, paraSegs(x), ignoreStyles ? undefined : hmap[styleOf(x)], colorHeads, flat);
+        // classifyPara returns a BARE listitem — no marker, no numId, no level — because
+        // it does not resolve Word numbering; the main loop's list branch below is what
+        // normally does that. A numbered step that happens to carry its picture in the
+        // SAME paragraph therefore came out of here stripped of its number and printed
+        // as a bullet, and because nothing consumed a count the step AFTER it took the
+        // number this one should have had. EXERCISE 1 of the Grade 1 CTS Learner's Book
+        // reads "1. Draw an adze. / • Identify and draw a knife… / 2. ……… is an example
+        // of a simple tool." — one list, three items, two of them numbered and the middle
+        // one a bullet, purely because the author left the picture in its paragraph.
+        // Resolve the marker here exactly as that branch does, so the item keeps its
+        // number and the list keeps its count.
+        if (textBlk.t === "listitem" && hasListNumbering(x)) {
+          const li = listResolve(x);
+          if (li) { textBlk.marker = li.marker; textBlk.numId = li.numId; textBlk.lvl = li.lvl; }
+        }
         // A heading always comes BEFORE its illustration (a topic image belongs
         // under the topic title, not above it), regardless of run order;
         // otherwise keep the paragraph's natural image/text order.

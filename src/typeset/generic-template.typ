@@ -98,6 +98,39 @@
 // book's cover. The same trap is waiting in PERFORMING ARTS, TRANSFORMATION, REFORM.
 #let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU)\\b")) != none
 
+// An "eyebrow" line states the EDUCATION LEVEL rather than the subject. Manuscripts
+// write it a dozen ways — the full house string ("Secondary Education Ordinary Level")
+// but just as often "SECONDARY EDUCATION LEVEL", a bare "SECONDARY LEVEL", "PRIMARY
+// LEVEL" or "SECONDARY SCHOOL". Matching the one literal house string (which is what
+// `titlepage` and `backcover` used to do) let every other spelling pass for a subject,
+// so the title page of the Food and Nutrition Form 2 Learner's Book — whose first cover
+// line is "SECONDARY EDUCATION LEVEL", without the "ORDINARY" — printed that level
+// across the page where "FOOD AND NUTRITION" belongs. Whole-line match: no real subject
+// is called "Secondary" or "Primary", so this can never swallow a subject.
+// The same shapes `typeset-docx.js` tests when it decides whether a cover needs
+// synthesising — the two must agree or a cover passes one check and fails the other.
+#let isEyebrowLine(s) = upper(s).trim().match(
+  regex("^(JUNIOR\\s+|SENIOR\\s+)?(SECONDARY|PRIMARY|BASIC)(\\s+(EDUCATION|SCHOOL))?(\\s+(ORDINARY|ADVANCED|HIGHER))?(\\s+LEVEL)?$")) != none
+
+// The subject title for a cover, title page or back cover, from the manuscript's own
+// cover lines. Normally the subject and the form sit on ONE line ("GEOGRAPHY FORM 2"),
+// so stripping the form/grade token off the grade line leaves the title. But a
+// manuscript just as often types the subject on its OWN line beneath the level eyebrow
+// — "SECONDARY EDUCATION LEVEL" / "FOOD AND NUTRITION" / "FORM 2" / "LEARNER'S BOOK",
+// which is how both the Food and Nutrition and the Accounting Form 2 manuscripts are
+// written. Stripping then leaves an EMPTY string, and the cover printed no title at all:
+// a bare FORM 2 tag over the photo with the subject nowhere on the front of the book.
+// So fall back to the first line that is none of the three things a title is not — a
+// grade line, a level eyebrow, or the book type.
+#let subjectName(lines, grade, booktype) = {
+  let stripped = if grade != none { grade.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { "" }
+  if stripped != "" { stripped } else {
+    let cand = lines.filter(l => l.trim() != "" and not hasGradeWord(l) and not isEyebrowLine(l)
+      and upper(l).trim() != upper(booktype).trim())
+    cand.at(0, default: lines.at(0, default: ""))
+  }
+}
+
 // CDC 2025 sets a larger body size for young readers (Grade 1 → 18pt, Grade 2-3 →
 // 16pt, Grade 4-6 → 14pt; Teacher's Guides and secondary stay 12pt). `fs()` scales a
 // pt value that was tuned around a 12pt body so the whole content hierarchy (headings,
@@ -322,12 +355,7 @@
   // The subject title: if the grade line is "SUBJECT FORM N" use the stripped
   // subject ("PHYSICS"); if the grade line is just "FORM N", the subject sits on
   // its OWN line ("BIOLOGY") — take the first non-eyebrow, non-grade line.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { "" }
-  let name = if gradeSubj != "" { gradeSubj } else {
-    let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
-      not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
-    cand.at(0, default: lines.at(0, default: ""))
-  }
+  let name = subjectName(lines, grade, booktype)
   // the eyebrow is the lead line, unless that line is itself the title (carries
   // FORM/GRADE, or equals the subject) — then fall back to the standard descriptor.
   let rawlead = lines.at(0, default: "")
@@ -809,7 +837,7 @@
     // FORM tag -> book type -> photo -> authors -> publisher. ----------
     let gl = grade
     let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let name = subjectName(lines, gl, booktype)
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -866,7 +894,7 @@
     // authors -> publisher. ----------
     let gl = grade
     let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let name = subjectName(lines, gl, booktype)
     let paper = rgb("#f4f1e6")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -922,7 +950,7 @@
     // from Grade 3's title-band + framed-photo-card look (no scallop/zigzag). ---------
     let gl = grade
     let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let name = subjectName(lines, gl, booktype)
     // The cover stays in FULL COLOUR even when the interior is greyscale (blackWhite/mono),
     // so use the cover-only colour fields (they equal the theme colours for normal books).
     let primary = T.at("covPrimary", default: T.primary)
@@ -986,7 +1014,7 @@
     // 3 and the Hero Wave. ----------
     let gl = grade
     let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let name = subjectName(lines, gl, booktype)
     let paper = rgb("#fffaf1")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.primary, width: 176mm, height: 250mm)[
@@ -1032,7 +1060,7 @@
     // book type -> photo -> authors -> publisher. ----------
     let gl = grade
     let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let name = subjectName(lines, gl, booktype)
     let paper = rgb("#eafafa")
     let deep = T.primary.darken(10%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -1086,7 +1114,7 @@
   } else if series {
     let gl = grade
     let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let name = subjectName(lines, gl, booktype)
     let deepteal = T.primary.darken(30%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -1411,12 +1439,7 @@
   // ("MATHEMATICS" + "Form 1") that leaves nothing, so fall back to the first line
   // that is neither a form/grade nor the standard eyebrow. Without this fallback the
   // name came out blank and the "·" separator was left orphaned. Mirrors `cover`.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { "" }
-  let name = if gradeSubj != "" { gradeSubj } else {
-    let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
-      not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
-    cand.at(0, default: lines.at(0, default: ""))
-  }
+  let name = subjectName(lines, grade, booktype)
   // The back cover stays in FULL COLOUR even when the interior is greyscale (mono), so use
   // the cover-only colour fields (they equal the theme colours for normal books).
   let primary = T.at("covPrimary", default: T.primary)
@@ -1618,7 +1641,15 @@
     #grid(columns: cols, column-gutter: 10pt, row-gutter: 6pt, align: left + top,
       ..headRow,
       ..rows.map(r => {
-        let mk = if hasMarker { (text(fill: T.primary, weight: "bold")[#r.marker],) } else { () }
+        // A bullet takes `iaccent2` and a number `T.primary`, the same as every other
+        // route draws them; and the weight follows the row's own text rather than being
+        // forced bold, which is the rule `listitem`, `para` and the box list branch all
+        // already keep. Forced bold here made a grid row's marker sit heavier than the
+        // identical marker on the plain list items either side of it.
+        let isbullet = r.marker == "•"
+        let rowBold = r.cells.len() > 0 and r.at("style", default: (:)).at("b", default: false)
+        let mk = if hasMarker { (text(fill: if isbullet { iaccent2 } else { T.primary },
+          weight: if rowBold { "bold" } else { "regular" })[#r.marker],) } else { () }
         mk + r.cells.map(c => cell(c))
       }).flatten())
   ]
@@ -1799,9 +1830,17 @@
 // break that ended the line before it ("⏎8. Use pair work…"); anchoring hard at the
 // number would miss every item that arrived that way, and they are exactly the ones
 // that look wrong next to their neighbours.
-#let PARA_NUM = regex("^[ \t\r\n]*([0-9]{1,2}[.)]|[ivxIVX]{1,4}[.)]|[a-zA-Z][.)])[ \t]+")
+// The BRACKETED form — "(a)", "(i)", "(3)" — counts too. It is how manuscripts write a
+// sub-part more often than the bare "a)" these patterns used to allow, and leaving it
+// out cost it everything the bare form gets: no marker column (so its second line ran
+// back under its own bracket), and no marker colour (so it printed plain black beside
+// the teal "1." of the Word-numbered list directly above it). The Grade 1 CTS Learner's
+// Book shows both forms three lines apart on printed page 10 — "1. 2. 3." hanging and
+// teal under LET'S TALK AND LEARN, then "(a) … (e) Listen for cars and cross if there
+// no cars / coming." flush, black, and wrapped back under its own "(e)".
+#let PARA_NUM = regex("^[ \t\r\n]*(\\(?[0-9]{1,2}[.)]|\\(?[ivxIVX]{1,4}[.)]|\\(?[a-zA-Z][.)])[ \t]+")
 // The same marker, but occupying a run entirely on its own.
-#let PARA_NUM_ONLY = regex("^[ \t\r\n]*([0-9]{1,2}[.)]|[ivxIVX]{1,4}[.)]|[a-zA-Z][.)])[ \t]*$")
+#let PARA_NUM_ONLY = regex("^[ \t\r\n]*(\\(?[0-9]{1,2}[.)]|\\(?[ivxIVX]{1,4}[.)]|\\(?[a-zA-Z][.)])[ \t]*$")
 // A fill-in blank ("________") carries no break opportunity, so a long one is a single
 // atomic token: it moves WHOLE to the next line rather than splitting across two. That
 // is deliberate and wanted (see zwspBlanks in typeset-docx.js). What is NOT wanted is
@@ -3093,7 +3132,15 @@
         let contentBold = firstseg != none and firstseg.at("b", default: false)
         let isbullet = it.marker == "•"
         let wt = if isbullet { "regular" } else if contentBold { "bold" } else { "regular" }
-        let mk = text(fill: if isbullet { T.primary2 } else { T.primary }, weight: wt)[#it.marker]
+        // `iaccent2`, exactly as `listitem` uses outside a box. This branch used to colour
+        // a bullet `T.primary2` instead, so the same bullet printed orange in the body and
+        // turquoise inside an activity or exercise — the only thing deciding which was
+        // whether the list happened to fall inside a box. Worse, `T.primary2` is a near
+        // neighbour of the `T.primary` used for a NUMBERED marker, so inside a box the
+        // engine's own bullet/number distinction all but disappeared, while outside it
+        // was plain. The Grade 1 CTS Learner's Book has it both ways: orange bullets in
+        // the foreword, turquoise ones in EXERCISE 3 on printed page 10.
+        let mk = text(fill: if isbullet { iaccent2 } else { T.primary }, weight: wt)[#it.marker]
         // Same fixed marker column as `listitem` above, and for the same reason: with an
         // `auto` column "1." and "10." size differently, so a facilitation procedure's
         // steps start indenting a millimetre further right the moment the list reaches
@@ -3196,7 +3243,39 @@
       i = j
     } else { i = i + 1 }
   }
+  let nbody = body.len()
+  // ---- a box body with nothing to group it ----------------------------------
+  // An EXERCISE is usually a flat run of questions: no heading, so none of the grouping
+  // above claims any of it, and every item is left to break on its own. Two kinds of
+  // widow come out of that, and a short box needs the stronger of the two remedies.
+  // Braced only at the tail, a THREE-item exercise keeps its first question on one page
+  // and sends the other two to the next, which is the same lone-box-on-a-blank-page the
+  // brace exists to prevent — just with two lines instead of one. So when the whole body
+  // is short enough that moving it costs little, move it whole; that is the `nb < 5` rule
+  // the grouped branch below already applies, decided by measurement rather than by a
+  // count because these items are a mix of lines, option rows and pictures.
+  //
+  // Both caps are the same 240pt the "qa" branch uses, and bounded for the reason
+  // recorded there: past it, content that is forced whole is pushed to the next page
+  // entire and wastes whatever was left of this one.
+  let loose = mark.all(v => v == -1)
+  if loose and nbody >= 2 {
+    let whole = body.map(g => one(g)).join()
+    let head = body.slice(0, nbody - 2).map(g => one(g)).join()
+    let pair = body.slice(nbody - 2).map(g => one(g)).join()
+    layout(size => {
+      let h = measure(box(width: size.width)[#whole]).height
+      if h < 240pt { block(breakable: false, width: 100%)[#whole] }
+      else {
+        head
+        let hp = measure(box(width: size.width)[#pair]).height
+        if hp < 240pt { block(breakable: false, width: 100%)[#pair] } else { pair }
+      }
+    })
+  } else {
+  let skipnext = false
   for (idx, it) in body.enumerate() {
+    if skipnext { skipnext = false; continue }
     let m = mark.at(idx)
     if m >= 0 {
       let items = body.slice(idx, m)
@@ -3241,7 +3320,29 @@
           block(breakable: false, width: 100%)[#items.slice(nb - 2).map(g => one(g)).join()]
         }
       }
+    } else if m == -1 and idx == nbody - 2 and mark.at(nbody - 1) == -1 {
+      // The SAME widow brace the grouped branch above puts on the last two items of a
+      // heading-and-list run, applied to the end of a box body that was never grouped at
+      // all. An EXERCISE is usually a flat run of questions with no heading to group them
+      // on, so nothing braced its tail: the box broke one item from the end and left that
+      // one question alone at the top of the next page, reading as a box of its own. Two
+      // pages of the Grade 1 CTS Learner's Book ended that way — "2. Draw your favourite
+      // ICT device." and "2. You can use a computer to learn how to ____ / (a) fight
+      // (b) count numbers" — each the sole line on an otherwise blank page.
+      //
+      // Bounded by measurement, exactly as the "qa" branch above is bounded and for the
+      // same reason: a tall pair forced whole is pushed to the next page entire and
+      // wastes whatever was left of this one, which is the waste a reviewer has already
+      // objected to. Past the cap the pair stays breakable and may still widow — rare,
+      // and cheaper than the alternative.
+      let pair = body.slice(nbody - 2).map(g => one(g)).join()
+      layout(size => {
+        let h = measure(box(width: size.width)[#pair]).height
+        if h < 240pt { block(breakable: false, width: 100%)[#pair] } else { pair }
+      })
+      skipnext = true
     } else if m == -1 { one(it) }
+  }
   }
 }
 // A framed Learning Activity / Exercise / Assessment (primary Teacher's Guide):
@@ -3293,6 +3394,16 @@
   // several books). The title stays `sticky` inside titledbox either way, so it still
   // can't be stranded alone at the foot of a page; letting the body break normally
   // trades a rare small widow for guaranteed no more multi-page blank gaps.
+  // NO opening reservation here, deliberately — keepwhole's 32mm guard was tried on this
+  // path and measured worse. Nearly every framedsection in an imported book opens with a
+  // full-width picture, which is unbreakable and tall; reserving ahead of it tipped box
+  // after box wholesale onto the next page and left the one before it mostly empty. On
+  // the Grade 1 CTS Learner's Book it cost seven pages and took the count of near-empty
+  // pages from 22 to 30 — Topic 3's opener, which had carried its title, its lead-in and
+  // its activity picture on one page, kept four lines and pushed the rest. That is the
+  // same waste the comment above records a reviewer flagging. The widow this would have
+  // guarded against is handled where it actually occurs instead: at the box's END, by
+  // renderbody binding the last item to the one before it.
   titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: true)
 }
 // The lesson-header metadata (LESSON N + Component / Topic / Sub-Topic / competences /
