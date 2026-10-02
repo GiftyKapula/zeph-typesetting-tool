@@ -173,4 +173,60 @@ function emfToPng(buf) {
   } catch (_) { return null; }
 }
 
-module.exports = { enhanceLineArt, cropImage, rotateImage, emfToPng };
+// ---- embedding a 300 DPI picture without embedding a 300 DPI PNG ------------
+//
+// Print artwork is STORED as PNG — CLAUDE.md requires it, because an upscale that
+// is re-encoded at every step accumulates compression artefacts in the file that
+// later work is done from. Embedding it in the PDF is a different question: that
+// is the last step, nothing is ever read back out of it, and a lossless PNG of a
+// photograph costs about fifteen times what the same picture costs as a
+// high-quality JPEG. The Grade 1 CTS Learner's Book made the difference concrete
+// — once its 81 pictures were upscaled to 300 DPI the book went from 9 MB to
+// 277 MB, which is not a file anyone can send to a proofreader.
+//
+// So: re-encode the STAGED COPY on its way into the workspace, never the stored
+// artwork, and only where the trade is clearly worth it.
+//
+// Quality 92 with chroma subsampling OFF (4:4:4). Subsampling is what actually
+// shows on paper — it halves the colour resolution, which smears exactly the
+// coloured edges a diagram's labels and a cover's lettering are made of — and
+// turning it off costs little once the luma quality is this high.
+//
+// Two guards decide whether a picture is converted at all:
+//
+//   TRANSPARENCY. JPEG has no alpha channel, so a cut-out graphic would come back
+//   with its transparent ground filled black. Any pixel that is not fully opaque
+//   rules the picture out.
+//
+//   THE SIZE TEST ITSELF. A photograph shrinks enormously; line art, flat colour
+//   and screenshots barely shrink at all, because PNG's lossless prediction is
+//   already the right coder for them — and those are precisely the pictures where
+//   JPEG ringing round a hard edge would show. Requiring a real saving therefore
+//   sorts the two cases apart on the evidence rather than on a guess about what
+//   kind of picture this is, and refuses the conversion exactly where it would be
+//   both pointless and harmful.
+//
+// Returns the JPEG's size in bytes when it wrote one worth keeping, else 0 (and
+// writes nothing, leaving the staged PNG in place).
+function toPrintJpeg(pngPath, jpegPath, fs, quality) {
+  if (!canvasLib || !/\.png$/i.test(pngPath)) return 0;
+  try {
+    const pngSize = fs.statSync(pngPath).size;
+    if (pngSize < 150 * 1024) return 0;              // too small for the trade to matter
+    const img = new canvasLib.Image();
+    img.src = fs.readFileSync(pngPath);
+    const w = img.width, h = img.height;
+    if (!w || !h) return 0;
+    const cv = canvasLib.createCanvas(w, h);
+    const ctx = cv.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    const data = ctx.getImageData(0, 0, w, h).data;
+    for (let i = 3; i < data.length; i += 4) if (data[i] !== 255) return 0;   // has alpha
+    const buf = cv.toBuffer("image/jpeg", { quality: (quality || 92) / 100, chromaSubsampling: false });
+    if (buf.length > pngSize * 0.6) return 0;        // not a photograph — keep the PNG
+    fs.writeFileSync(jpegPath, buf);
+    return buf.length;
+  } catch (_) { return 0; }
+}
+
+module.exports = { enhanceLineArt, cropImage, rotateImage, emfToPng, toPrintJpeg };

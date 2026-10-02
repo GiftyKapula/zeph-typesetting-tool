@@ -13,7 +13,7 @@ const os = require("os");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
 const { importDocx, fixBoxTitleSpelling, isProseSentence } = require("./import-docx.js");
 const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
-const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
+const { enhanceLineArt, cropImage, rotateImage, emfToPng, toPrintJpeg } = require("./image-enhance.js");
 const { stripWatermark } = require("./dewatermark.js");
 const { writeManuscriptMarkdown } = require("./docx-to-markdown.js");
 
@@ -7146,6 +7146,56 @@ function normaliseQuestionMarkBold(blocks) {
       }
     } catch (e) { /* skip missing */ }
   }
+  // ---- re-encode the staged copies for embedding ----------------------------
+  // The pictures the book is BUILT from stay exactly as they are on disk: print
+  // artwork is stored as PNG and nothing here touches it. What changes is the copy
+  // that goes into the PDF. A 300 DPI photograph costs about fifteen times as much
+  // embedded losslessly as it does at high-quality JPEG, and that is the whole
+  // difference between a book anyone can send to a proofreader and one nobody can:
+  // the Grade 1 CTS Learner's Book went from 9 MB to 277 MB the moment its 81
+  // pictures reached print resolution, with nothing visible to show for it.
+  //
+  // toPrintJpeg() refuses any picture with transparency, and refuses any picture
+  // that does not actually shrink — which is what keeps line art, flat-colour
+  // diagrams and screenshots as PNG, since those are both the ones PNG already
+  // codes well and the ones JPEG would ring on. See src/typeset/image-enhance.js.
+  //
+  // A book that must stay lossless end to end sets `"embedJpeg": false`.
+  const jpegRename = new Map();
+  let reJpeg = 0, savedBytes = 0;
+  if (ov.embedJpeg !== false) {
+    for (const m of media) {
+      if (!/\.png$/i.test(m.name) || m.name === "zeph_logo.png") continue;
+      const dest = path.join(mediaDir, m.name);
+      if (!fs.existsSync(dest)) continue;
+      const jname = m.name.replace(/\.png$/i, ".jpg");
+      const jdest = path.join(mediaDir, jname);
+      const before = fs.statSync(dest).size;
+      const after = toPrintJpeg(dest, jdest, fs, ov.embedJpegQuality || 92);
+      if (!after) continue;
+      try { fs.unlinkSync(dest); } catch (_) { /* leave it; only the name is referenced */ }
+      jpegRename.set(m.name, jname);
+      m.name = jname;
+      reJpeg++; savedBytes += before - after;
+    }
+  }
+  // The blocks still name the pictures by their .png filenames, and Typst resolves an
+  // image's format from its extension — a JPEG served as ".png" fails the whole build
+  // — so every reference has to follow the rename. Image names reach the template on a
+  // `file` property, whatever block carries it (a figure, a row of figures, the cover
+  // hero, the logo), so rewrite them wherever they occur rather than enumerating the
+  // shapes.
+  if (jpegRename.size) {
+    const seen = new Set();
+    (function renameRefs(x) {
+      if (!x || typeof x !== "object" || seen.has(x)) return;
+      seen.add(x);
+      if (Array.isArray(x)) { for (const v of x) renameRefs(v); return; }
+      if (typeof x.file === "string" && jpegRename.has(x.file)) x.file = jpegRename.get(x.file);
+      for (const k of Object.keys(x)) if (x[k] && typeof x[k] === "object") renameRefs(x[k]);
+    })(blocks);
+  }
+  if (reJpeg) console.log(`   embedded ${reJpeg} picture(s) as JPEG (${(savedBytes / 1048576).toFixed(0)} MB smaller; stored artwork unchanged)`);
   if (emfConv) console.log(`   recovered ${emfConv} EMF image(s) to PNG`);
   if (cropped) console.log(`   applied Word crop to ${cropped} image(s)`);
   if (rotated) console.log(`   applied Word rotation to ${rotated} image(s)`);
