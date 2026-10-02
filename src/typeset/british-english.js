@@ -145,12 +145,102 @@ const FUNCTION_AFTER = new Set(["and", "or", "as", "at", "in", "on", "of", "it",
 const SOUNDS_CONSONANT = /^(?:uni|use|user|usu|eu|ewe|one|once)/i;        // a university, a one-way
 const SOUNDS_VOWEL = /^(?:hour|honest|honour|honor|heir)/i;              // an hour, an honest
 
+// A DIRECT question — the only shape that can be corrected by rule, because English
+// marks it with INVERSION: a wh-word followed by an auxiliary or the copula ("what IS
+// a herb", "how DOES the package protect"), or an auxiliary opening the sentence
+// outright ("is the food safe"). Everything else that merely begins with a question
+// word is something else entirely, and the first version of question-no-mark flagged
+// all of it:
+//   "When planning a food budget, several factors determine…"  — a subordinate clause
+//   "How the package protects the food."                        — an indirect question
+//   "Do not overcrowd the refrigerator."                        — an imperative
+// Eighteen of the twenty-one hits on the Food and Nutrition Form 2 Learner's Book were
+// one of those three, which is the state this file's own header warns against: a report
+// whose hits are mostly false is a report nobody reads. Inversion separates them
+// cleanly, and `(?!not\b)` keeps the imperatives out of the yes/no arm.
+// The auxiliaries deliberately EXCLUDE may/might/must/shall/will/would/should. Those
+// invert for a wish or a heading just as readily as for a question, and every hit they
+// produced was one of those: "May this book inspire learners to build the essential
+// knowledge…" closing the acknowledgement, and the benefit heading "May Encourage Poor
+// Eating Habits:". Losing "should learners wash their hands" costs a report; keeping
+// the modals cost two sentences a question mark they must never have.
+const Q_WH = /^(?:who|what|whom|whose|where|when|why|which|how)\s+(?:is|are|was|were|do|does|did|can|could|has|have|had)\b/i;
+// The yes/no arm is split by auxiliary, because the two halves fail differently.
+// The COPULA can take a noun subject safely — "Is the food safe", "Are the learners
+// ready" — and an imperative never begins with it. The DOING auxiliaries cannot: in
+// these books "Do the following:", "Have fun as you learn new skills!" and "Have a
+// look at the picture" all open exactly like an inverted question and are imperatives,
+// so those require a PRONOUN subject, which an imperative never supplies. This matters
+// more than it would for a report, because this pass now writes the question mark into
+// the book: on the Grade 1 CTS Learner's Book the unrestricted form turned "Have fun
+// learning, making and creating!" into a question.
+const Q_AUX = /^(?:(?:is|are|was|were)\s+(?!not\b)[a-z]|(?:do|does|did|can|could|has|have|had)\s+(?!not\b)(?:you|we|they|he|she|it|i)\b)/i;
+// A question is often introduced by an adverbial phrase — "Based on this, what is a
+// 'herb'" — so the clause AFTER a leading comma counts too. That is how these exercise
+// books mostly write them, and testing only the sentence opening missed every one.
+//
+// That arm is narrower than the sentence-initial one in two ways, both learned from
+// what it got wrong. "which" is dropped: after a comma it introduces a RELATIVE clause
+// essentially always — "…seasonal foods, which may be more affordable", "…paperboard,
+// which is often coated with plastic", "Unlike condiments, which are usually served
+// separately" — and never a question. And the bare auxiliary arm is dropped with it,
+// because after a comma it lands on list imperatives: "…create a basic business plan,
+// do market research, financial projections…".
+const Q_WH_TAIL = /^(?:who|what|whom|whose|why|how)\s+(?:is|are|was|were|do|does|did|can|could|has|have|had)\b/i;
+// A CLEFT, not a question: "What is important is that your ambition should be
+// meaningful to you", "What is important is to save regularly and have a clear
+// purpose for the money". The wh-word opens a free relative that is the SUBJECT of a
+// second copula, so the line inverts exactly as a question does and reads as one to
+// any rule that stops at the opening. Four sentences in the Religious Education Form 2
+// Learner's Book are built this way and every one of them was handed a question mark.
+// The second copula is the tell, and a real question has nothing after its own:
+// "What is a herb", "Why is the soil fertile", "How is bread made". It costs the odd
+// genuine report — "What is the food that is served at a banquet" is excluded too —
+// which is the right side to err on when the alternative is punctuating a statement
+// as a question.
+const isCleft = (t) => {
+  const m = /^(?:who|what|whose|which)\s+(?:is|are|was|were)\b/i.exec(t);
+  return !!m && /\b(?:is|are|was|were)\b/i.test(t.slice(m[0].length));
+};
+const isDirectQuestion = (s) => {
+  const t = String(s || "").trim();
+  if (!t || t.includes("?")) return false;
+  if (isCleft(t)) return false;
+  if (Q_WH.test(t) || Q_AUX.test(t)) return true;
+  const after = t.includes(",") ? t.slice(t.indexOf(",") + 1).trim() : "";
+  return !!after && !isCleft(after) && Q_WH_TAIL.test(after);
+};
+// Split a line into sentences for the question test. Only a terminator FOLLOWED BY a
+// capital starts a new one, so "No. 3" and "Dr. Chirwa" don't split a sentence in two.
+const sentencesOf = (t) => String(t || "").split(/(?<=[.!?])\s+(?=[A-Z])/).map((s) => s.trim()).filter(Boolean);
+
 const CHECKS = [
+  // "clean" is deliberately NOT among the verbs that can follow: it is an adjective far
+  // more often than a verb in these books — "use clean equipment", "use clean spoons",
+  // "use clean and food-grade packaging materials" — and every one of its hits on the
+  // Food and Nutrition Form 2 Learner's Book was that adjective, correctly written.
   { id: "missing-to",
-    re: /\b(use|uses|used|want|wants|wanted|need|needs|needed|try|tries|tried|like|likes|liked|learn|learns|learnt|decide|decides|hope|hopes)\s+(make|do|go|see|keep|take|get|write|read|draw|play|work|learn|show|tell|find|build|put|give|use|cook|clean|cut|carry|hold|wash)\b/i,
+    re: /\b(use|uses|used|want|wants|wanted|need|needs|needed|try|tries|tried|like|likes|liked|learn|learns|learnt|decide|decides|hope|hopes)\s+(make|do|go|see|keep|take|get|write|read|draw|play|work|learn|show|tell|find|build|put|give|use|cook|cut|carry|hold|wash)\b/i,
     say: "looks like a missing \"to\"" },
   { id: "doubled-word",
     re: /\b([A-Za-z]{2,})\s+\1\b/i, say: "a word typed twice" },
+  // "go" takes a destination through a preposition — "go TO the playground" — so a bare
+  // noun phrase after it is a dropped word. The Grade 1 CTS Learner's Book writes "With
+  // your teacher go to the playground;" on printed page 7 and "With your teacher go the
+  // nearest road;" on page 10: the same instruction, four pages apart, one of them a word
+  // short. Only the go-family is tested, because it is the one whose bare-object form is
+  // always wrong; "return the tools" and "move our bodies" are ordinary transitive uses,
+  // which is why the verbs that have them are not here. The idioms English does allow
+  // ("go the distance", "go the extra mile") are excluded outright.
+  { id: "missing-preposition", fn: (t) => {
+      const m = t.match(/\b(go|goes|going|went)\s+(the|a|an|your|our|my|their|his|her)\s+([a-z]+)/i);
+      return !!m && !/^(distance|extra|way|rounds?|length)$/i.test(m[3]);
+    }, say: "\"go\" with no preposition — \"go to the …\"" },
+  // "there" as a subject needs its verb: "if there ARE no cars coming". A genuine
+  // question inverts it ("Is there no other way?"), so an auxiliary before it is spared.
+  { id: "there-missing-verb",
+    re: /(?<!\b(?:is|are|was|were|be|been)\s)\bthere\s+no\s+[a-z]+/i,
+    say: "\"there\" with no verb — \"there are no …\"" },
   // The mirror of missing-to: "make/let someone DO" takes a bare infinitive, so the
   // "to" in "makes them to feel welcome" is one word too many. `help` is absent for
   // the same reason it is absent from missing-to — "helps them to find" is correct.
@@ -180,7 +270,7 @@ const CHECKS = [
       if (t.endsWith(":") || t.includes("\n")) return false;
       if (t === t.toUpperCase()) return false;             // a heading, not a sentence
       if (t.includes("?")) return false;
-      return /^(?:who|what|where|when|why|which|how|do|does|did|is|are|can|should|would)\b/i.test(t);
+      return sentencesOf(t).some(isDirectQuestion);
     }, say: "reads as a question but does not end in \"?\"", min: 12 },
 ];
 
@@ -201,4 +291,64 @@ function proseIssues(line) {
   return out;
 }
 
-module.exports = { toBritish, britishWord, proseIssues, WORDS };
+// ---- the prose slips that ARE fixed ----------------------------------------
+// The header above draws the line at judgement: a missing word cannot be restored by
+// rule, so missing-to and a/an stay reports. But some of what the checks find has
+// exactly ONE right answer, the same standard the spelling table is held to, and
+// those are corrected rather than listed. A slip the house rules already settle is
+// not a question to put to a human.
+//
+//   A WORD TYPED TWICE. "…serving bowls that are used used when serving soup…",
+//   "…groups of 5 to 8 learners Learners including a learner with a physical
+//   disability." Both are paste residue, and collapsing the pair is the only reading.
+//   `had` and `that` are held back because English really does double them ("the food
+//   that that group prepared", "she had had"); nothing else in these books does.
+//
+//   A SPACE BEFORE PUNCTUATION. "…conserving trees ." printed exactly that way.
+//
+// A doubled pair may differ in case ("learners Learners"), in which case the FIRST
+// spelling wins — it is the one the sentence was running with.
+const DOUBLE_OK = new Set(["had", "that"]);
+function fixProse(text) {
+  const hits = [];
+  let out = String(text ?? "");
+  out = out.replace(/\b([A-Za-z]{2,})(\s+)(\1)\b/gi, (m, a, sp, b) => {
+    if (a.toLowerCase() !== b.toLowerCase()) return m;
+    if (DOUBLE_OK.has(a.toLowerCase())) return m;
+    hits.push(`"${a}${sp}${b}" -> "${a}"`);
+    return a;
+  });
+  out = out.replace(/([A-Za-z]) ([.,;:!?])(?= |$)/g, (m, c, p) => {
+    hits.push(`"${c} ${p}" -> "${c}${p}"`);
+    return c + p;
+  });
+  return { text: out, hits };
+}
+
+// A line whose final sentence is a DIRECT question but carries no question mark: the
+// mark is the one thing missing and there is no second reading, so supply it. Returns
+// the corrected line, or null when there is nothing to do. Kept separate from
+// fixProse() because it needs the whole line — a sentence runs across several Word
+// runs, and fixProse works a run at a time.
+function fixQuestionMark(line) {
+  const t = String(line ?? "");
+  if (!t.trim() || t.includes("?")) return null;
+  // The same guards the reporting check applies, which this path did not carry. A line
+  // already ending in "!" is punctuated — as an exclamation, deliberately — and is never
+  // an unmarked question; a line ending in ":" introduces its own list; a line carrying a
+  // newline is a stem plus that list, not a sentence; and an ALL-CAPS line is a heading.
+  // Without these, "Have fun as you learn new skills!" and the stem "Do the following:"
+  // both had a question mark written into them.
+  const trimmed = t.trim();
+  if (/[!:]$/.test(trimmed) || trimmed.includes("\n")) return null;
+  if (trimmed === trimmed.toUpperCase() && trimmed !== trimmed.toLowerCase()) return null;
+  const parts = sentencesOf(t);
+  if (!parts.length) return null;
+  const last = parts[parts.length - 1];
+  if (!isDirectQuestion(last)) return null;
+  // Replace a trailing full stop, or append when the author typed no terminator at all.
+  const fixed = /[.!]$/.test(t.trimEnd()) ? t.trimEnd().replace(/[.!]$/, "?") : t.trimEnd() + "?";
+  return fixed === t ? null : fixed;
+}
+
+module.exports = { toBritish, britishWord, proseIssues, fixProse, fixQuestionMark, isDirectQuestion, WORDS };
