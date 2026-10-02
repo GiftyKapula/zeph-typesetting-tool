@@ -133,6 +133,8 @@
       "to": "animals (b)"
     }
   ],
+  "//coverImage": "The cover hero. The picture the manuscript itself put on the cover showed four learners, none of them with a visible disability, which the house rule requires wherever human beings appear, covers included. This replacement shows six: three boys and three girls, so the gender count is even, and three of them carry a disability between them — an albino learner, a wheelchair user, and a girl wearing a hearing aid. What they are doing is the book’s own subject: drawing, colouring, building with blocks, and writing, in a classroom whose chalkboard and bookshelf say the same. The source picture is a full portrait cover graphic with its own decorative bands top and bottom and a row of topic vignettes below the table; the grade3 cover frames its hero in a 138x82mm landscape window with fit: \"cover\", so the whole portrait would have been cropped to a thin horizontal slice through the middle, cutting every head off. Only the photograph is used, cropped to exactly that window’s 138:82 so the frame trims nothing further, chosen to clear the Zambian flag above and to leave the standing girl’s hair whole. It is then taken through Real-ESRGAN to 1679px, which is 309 DPI at 138mm.",
+  "coverImage": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cover-hero.png",
   "images": {
     "image16.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image16.png"
