@@ -3,32 +3,379 @@
   "recolor": [
     {}
   ],
-
   "//retext": "Two whole-run fixes, kept as retext rather than subtext because the text they match also occurs elsewhere ALREADY CORRECT and must not be touched there. 'What are the learners doing' is asked twenty-four times in this book; twenty-three carry their question mark and one, in Topic 4, does not. 'Different cleaning items help us to keep rooms clean' ends Topic 4's opening prose with no full stop while the two sentences above it have one.",
   "retext": [
-    { "from": "What are the learners doing", "to": "What are the learners doing?" },
-    { "from": "Different cleaning items help us to keep rooms clean", "to": "Different cleaning items help us to keep rooms clean." }
+    {
+      "from": "What are the learners doing",
+      "to": "What are the learners doing?"
+    },
+    {
+      "from": "Different cleaning items help us to keep rooms clean",
+      "to": "Different cleaning items help us to keep rooms clean."
+    }
   ],
-
-  "//subtext": "Manuscript slips, each occurring exactly once in the book and each verified against the raw OOXML before being corrected here rather than guessed at from the rendered page. They divide into four kinds. QUESTIONS MISSING THEIR MARK: four questions in LET'S TALK AND LEARN lists end with nothing, or with a full stop, while every one of their siblings in the same list ends with a question mark. WORDS RUN TOGETHER: the manuscript breaks three phrases into separate Word runs with no space between them, so they print glued — 'Do'/'the'/'following:' prints as 'Dothe following:', the option 'c)' is welded to the end of the option before it, and item 5's number is welded to its first word. TYPOS: 'cplour' for 'colour', and 'devise' for 'device' twice in Topic 9 (the same two sentences name the thing correctly elsewhere on the page). A STRAY WORD: activity 3 of Topic 2 is titled '…Showing Various Activities Show', the last word left over from an earlier wording. A MISSING BOX LABEL: Topic 3's Kitchen Utensils section runs one activity in two parts, and the author typed the first as 'LEARNING ACTIVITY 2:  (i) Cleaning Kitchen Utensils' but the second as a bare '(ii) Storing Kitchen Utensils in Suitable Places'. Without the label the engine cannot see the second half as an activity at all, so (i) printed inside the teal activity box and (ii) as an ordinary black heading — the same element, two looks, three inches apart. Restoring the label the author dropped boxes it like its own first half; both halves keep the number 2, which is the manuscript's own scheme (one activity, parts i and ii) rather than a renumbering of the topic. AN INSTRUCTION LEFT IN THE TEXT: Topic 3's Learning Activity 2 heads its look-and-discuss section 'LET'S LOOK (swap the pictures)' — a note to whoever typesets the book, not words for a Grade 1 learner, and it printed as part of the heading. Only the parenthetical is removed here; the picture swap it asks for is a separate change to the artwork itself. A MISTYPED HOUSE HEADING: the book's recurring discuss-the-picture heading is 'LET'S TALK AND LEARN' fifty-six times and 'LET'S TALK AND TALK' twice, both of those followed by the same run of discussion questions as the other fifty-six — the same element, two spellings. Matched on 'TALK AND TALK' rather than on the whole heading because the apostrophe is normalised to a curly one before an override is applied, and that fragment occurs nowhere else in the book. Three further headings read a bare 'LET'S TALK' and are deliberately NOT corrected here: shortening a heading is an editorial choice about the author's wording rather than a typo, and it is left for a human to settle. TWO MIS-NUMBERED ACTIVITIES, each settled against the manuscript's OWN pattern rather than against a house rule. Topic 2 runs its four sections as Activity 1/Exercise 1, 2/2, 3/3 and then 3/4 — the exercises number straight through to four, so the fourth activity is a 4 and the repeated 3 is a slip. Topic 4 runs 1/1, 2/2, 1/3 and 4/4 — the LAST activity is already numbered 4, which only follows if the third is 3, so the stray 1 is the slip. Both are matched on a fragment carrying the number and the first word of the title, which is unique in each case; the second keeps the manuscript's double space after the colon because an override is applied before box titles are normalised. Topic 3 is NOT touched: its 1,2,3 then 1,2(i),2(ii) restarts the count at each sub-topic, which is that topic's own scheme and is internally consistent.",
+  "//subtext": "Manuscript slips, each occurring exactly once in the book and each verified against the raw OOXML before being corrected here rather than guessed at from the rendered page. They divide into four kinds. QUESTIONS MISSING THEIR MARK: four questions in LET'S TALK AND LEARN lists end with nothing, or with a full stop, while every one of their siblings in the same list ends with a question mark. WORDS RUN TOGETHER: the manuscript breaks three phrases into separate Word runs with no space between them, so they print glued — 'Do'/'the'/'following:' prints as 'Dothe following:', the option 'c)' is welded to the end of the option before it, and item 5's number is welded to its first word. TYPOS: 'cplour' for 'colour', and 'devise' for 'device' twice in Topic 9 (the same two sentences name the thing correctly elsewhere on the page). A STRAY WORD: activity 3 of Topic 2 is titled '…Showing Various Activities Show', the last word left over from an earlier wording. A MISSING BOX LABEL: Topic 3's Kitchen Utensils section runs one activity in two parts, and the author typed the first as 'LEARNING ACTIVITY 2:  (i) Cleaning Kitchen Utensils' but the second as a bare '(ii) Storing Kitchen Utensils in Suitable Places'. Without the label the engine cannot see the second half as an activity at all, so (i) printed inside the teal activity box and (ii) as an ordinary black heading — the same element, two looks, three inches apart. Restoring the label the author dropped boxes it like its own first half; both halves keep the number 2, which is the manuscript's own scheme (one activity, parts i and ii) rather than a renumbering of the topic. AN INSTRUCTION LEFT IN THE TEXT: Topic 3's Learning Activity 2 heads its look-and-discuss section 'LET'S LOOK (swap the pictures)' — a note to whoever typesets the book, not words for a Grade 1 learner, and it printed as part of the heading. Only the parenthetical is removed here; the picture swap it asks for is a separate change to the artwork itself. A MISTYPED HOUSE HEADING: the book's recurring discuss-the-picture heading is 'LET'S TALK AND LEARN' fifty-six times and 'LET'S TALK AND TALK' twice, both of those followed by the same run of discussion questions as the other fifty-six — the same element, two spellings. Matched on 'TALK AND TALK' rather than on the whole heading because the apostrophe is normalised to a curly one before an override is applied, and that fragment occurs nowhere else in the book. Three further headings read a bare 'LET'S TALK' and are deliberately NOT corrected here: shortening a heading is an editorial choice about the author's wording rather than a typo, and it is left for a human to settle. TWO MIS-NUMBERED ACTIVITIES, each settled against the manuscript's OWN pattern rather than against a house rule. Topic 2 runs its four sections as Activity 1/Exercise 1, 2/2, 3/3 and then 3/4 — the exercises number straight through to four, so the fourth activity is a 4 and the repeated 3 is a slip. Topic 4 runs 1/1, 2/2, 1/3 and 4/4 — the LAST activity is already numbered 4, which only follows if the third is 3, so the stray 1 is the slip. Both are matched on a fragment carrying the number and the first word of the title, which is unique in each case; the second keeps the manuscript's double space after the colon because an override is applied before box titles are normalised. Topic 3 is NOT touched: its 1,2,3 then 1,2(i),2(ii) restarts the count at each sub-topic, which is that topic's own scheme and is internally consistent. A SECOND ROUND of slips, found by reading the whole book rather than any one page, and each verified against the manuscript before being corrected here. MISSING WORDS: Topic 3's opening line reads \"tools we use make different things\" and Topic 3's third discussion question \"Which tools have used before and how did use them?\", both of which drop the word that makes the sentence grammatical; Topic 4's exercise asks the learner to \"Draw any item you am make from leather\", where \"am\" stands in for \"can\". MISSPELLINGS: Topic 3 offers \"Hummer\" as a simple tool (the book spells the action \"hammering\" elsewhere, and a hammer, not a stove, is the answer the question wants); Topic 4 offers \"A lay pot\" among things made from clay, two lines under \"what can be made from clay\"; and Topic 8 spells \"welcome\" as \"welome\" twice while spelling it correctly a third time on the same page — the entry carries the bare word so BOTH occurrences are corrected, since a spelling that is right in one line of a page and wrong in the next is exactly the kind of disagreement these corrections exist to remove. Topic 8 also lists the three polite phrases as \"please, than you, you are welome\", where \"than you\" is \"thank you\". SPACING: Topic 4's exercise ends \"one way of conserving trees .\", with a space before the full stop that no other sentence in the book has. Three more WORDS RUN TOGETHER, of the same kind as the three already listed above and found the same way: the second option of a two-choice question is welded to the end of the first, so the book prints \"Thieves(b) visitors\", \"Volume button(b) power button\" and \"animals(b) stories\" while its six other two-choice questions space the option marker off properly.",
   "subtext": [
-    { "from": "Why should we keep our classroom clean", "to": "Why should we keep our classroom clean?" },
-    { "from": "How are the learners in  the pictures", "to": "How are the learners in the pictures?" },
-    { "from": "Why should kitchen utensils be cleaned.", "to": "Why should kitchen utensils be cleaned?" },
-    { "from": "Which picture shows relay race.", "to": "Which picture shows a relay race?" },
-    { "from": "Dothe following", "to": "Do the following" },
-    { "from": "sellerc)", "to": "seller  c)" },
-    { "from": "5.My favourite", "to": "5. My favourite" },
-    { "from": "cplour", "to": "colour" },
-    { "from": "switch ICT devise on and off", "to": "switch ICT devices on and off" },
-    { "from": "Choose ICT devise that", "to": "Choose an ICT device that" },
-    { "from": "Showing Various Activities Show", "to": "Showing Various Activities" },
-    { "from": "(c) Arranging desks and chairs", "to": "(b) Arranging desks and chairs" },
-    { "from": "litter and Sweep the", "to": "litter and sweep the" },
-    { "from": "(ii) Storing Kitchen Utensils", "to": "LEARNING ACTIVITY 2: (ii) Storing Kitchen Utensils" },
-    { "from": " (swap the pictures)", "to": "" },
-    { "from": "TALK AND TALK", "to": "TALK AND LEARN" },
-    { "from": "ACTIVITY 3: Painting", "to": "ACTIVITY 4: Painting" },
-    { "from": "ACTIVITY 1:  Demonstrating Different Ways", "to": "ACTIVITY 3:  Demonstrating Different Ways" }
-  ]
+    {
+      "from": "Why should we keep our classroom clean",
+      "to": "Why should we keep our classroom clean?"
+    },
+    {
+      "from": "How are the learners in  the pictures",
+      "to": "How are the learners in the pictures?"
+    },
+    {
+      "from": "Why should kitchen utensils be cleaned.",
+      "to": "Why should kitchen utensils be cleaned?"
+    },
+    {
+      "from": "Which picture shows relay race.",
+      "to": "Which picture shows a relay race?"
+    },
+    {
+      "from": "Dothe following",
+      "to": "Do the following"
+    },
+    {
+      "from": "sellerc)",
+      "to": "seller  c)"
+    },
+    {
+      "from": "5.My favourite",
+      "to": "5. My favourite"
+    },
+    {
+      "from": "cplour",
+      "to": "colour"
+    },
+    {
+      "from": "switch ICT devise on and off",
+      "to": "switch ICT devices on and off"
+    },
+    {
+      "from": "Choose ICT devise that",
+      "to": "Choose an ICT device that"
+    },
+    {
+      "from": "Showing Various Activities Show",
+      "to": "Showing Various Activities"
+    },
+    {
+      "from": "(c) Arranging desks and chairs",
+      "to": "(b) Arranging desks and chairs"
+    },
+    {
+      "from": "litter and Sweep the",
+      "to": "litter and sweep the"
+    },
+    {
+      "from": "(ii) Storing Kitchen Utensils",
+      "to": "LEARNING ACTIVITY 2: (ii) Storing Kitchen Utensils"
+    },
+    {
+      "from": " (swap the pictures)",
+      "to": ""
+    },
+    {
+      "from": "TALK AND TALK",
+      "to": "TALK AND LEARN"
+    },
+    {
+      "from": "ACTIVITY 3: Painting",
+      "to": "ACTIVITY 4: Painting"
+    },
+    {
+      "from": "ACTIVITY 1:  Demonstrating Different Ways",
+      "to": "ACTIVITY 3:  Demonstrating Different Ways"
+    },
+    {
+      "from": "tools we use make different things",
+      "to": "tools we use to make different things"
+    },
+    {
+      "from": "Which tools have used before and how did use them",
+      "to": "Which tools have you used before and how did you use them"
+    },
+    {
+      "from": "Hummer",
+      "to": "Hammer"
+    },
+    {
+      "from": "A lay pot",
+      "to": "A clay pot"
+    },
+    {
+      "from": "any item you am make from leather",
+      "to": "any item you can make from leather"
+    },
+    {
+      "from": "please, than you,",
+      "to": "please, thank you,"
+    },
+    {
+      "from": "welome",
+      "to": "welcome"
+    },
+    {
+      "from": "conserving trees .",
+      "to": "conserving trees."
+    },
+    {
+      "from": "Thieves(b)",
+      "to": "Thieves (b)"
+    },
+    {
+      "from": "Volume button(b)",
+      "to": "Volume button (b)"
+    },
+    {
+      "from": "animals(b)",
+      "to": "animals (b)"
+    }
+  ],
+  "images": {
+    "image16.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image16.png"
+    },
+    "image28.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image28.png"
+    },
+    "image55.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image55.png"
+    },
+    "image10.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image10.png"
+    },
+    "image73.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image73.png"
+    },
+    "image20.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image20.png"
+    },
+    "image18.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image18.png"
+    },
+    "image5.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image5.png"
+    },
+    "image69.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image69.png"
+    },
+    "image2.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image2.png"
+    },
+    "image41.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image41.png"
+    },
+    "image39.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image39.png"
+    },
+    "image38.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image38.png"
+    },
+    "image26.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image26.png"
+    },
+    "image22.jpeg": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image22.png"
+    },
+    "image4.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image4.png"
+    },
+    "image60.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image60.png"
+    },
+    "image59.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image59.png"
+    },
+    "image43.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image43.png"
+    },
+    "image3.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image3.png"
+    },
+    "image6.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image6.png"
+    },
+    "image7.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image7.png"
+    },
+    "image8.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image8.png"
+    },
+    "image9.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image9.png"
+    },
+    "image11.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image11.png"
+    },
+    "image12.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image12.png"
+    },
+    "image13.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image13.png"
+    },
+    "image14.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image14.png"
+    },
+    "image15.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image15.png"
+    },
+    "image17.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image17.png"
+    },
+    "image21.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image21.png"
+    },
+    "image23.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image23.png"
+    },
+    "image24.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image24.png"
+    },
+    "image25.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image25.png"
+    },
+    "image27.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image27.png"
+    },
+    "image29.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image29.png"
+    },
+    "image30.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image30.png"
+    },
+    "image31.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image31.png"
+    },
+    "image32.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image32.png"
+    },
+    "image35.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image35.png"
+    },
+    "image37.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image37.png"
+    },
+    "image40.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image40.png"
+    },
+    "image42.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image42.png"
+    },
+    "image46.jpeg": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image46.png"
+    },
+    "image47.jpeg": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image47.png"
+    },
+    "image48.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image48.png"
+    },
+    "image49.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image49.png"
+    },
+    "image50.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image50.png"
+    },
+    "image52.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image52.png"
+    },
+    "image54.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image54.png"
+    },
+    "image56.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image56.png"
+    },
+    "image57.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image57.png"
+    },
+    "image58.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image58.png"
+    },
+    "image61.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image61.png"
+    },
+    "image62.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image62.png"
+    },
+    "image72.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image72.png"
+    },
+    "image74.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image74.png"
+    },
+    "image75.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image75.png"
+    },
+    "image76.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image76.png"
+    },
+    "image77.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image77.png"
+    },
+    "image78.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image78.png"
+    },
+    "image79.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image79.png"
+    },
+    "image80.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image80.png"
+    },
+    "image81.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image81.png"
+    },
+    "image82.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image82.png"
+    },
+    "image36.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image36.png"
+    },
+    "image64.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image64.png"
+    },
+    "image19.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image19.png"
+    },
+    "image33.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image33.png"
+    },
+    "image34.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image34.png"
+    },
+    "image44.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image44.png"
+    },
+    "image45.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image45.png"
+    },
+    "image51.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image51.png"
+    },
+    "image53.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image53.png"
+    },
+    "image63.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image63.png"
+    },
+    "image65.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image65.png"
+    },
+    "image66.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image66.png"
+    },
+    "image67.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image67.png"
+    },
+    "image68.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image68.png"
+    },
+    "image70.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image70.png"
+    },
+    "image71.png": {
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image71.png"
+    }
+  }
 }
