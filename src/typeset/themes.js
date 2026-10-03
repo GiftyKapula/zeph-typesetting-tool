@@ -247,7 +247,11 @@ const THEMES = {
   lunda:   zeph({ subject: "Lunda",      signature: "ef96ae", primary: "6a2342", primary2: "9e3a5e", accent: "c79a3b", cyan: "4a86b0", toctitle: "NYITACHI YAYIBALU", tocUnitsOnly: true, coverStyle: "form1" }),  // rose; Form 1 cover, units-only contents
   luvale:  zeph({ subject: "Luvale",     signature: "9d8be0", primary: "3a2a73", primary2: "6a5bb0", accent: "ef7a59", cyan: "2f9e8c" }),  // lavender
   bemba:   zeph({ subject: "Ichibemba",  signature: "62bfe8", primary: "1b5773", primary2: "2f7fa0", accent: "edab3a", cyan: "2f9e8c" }),  // sky blue
-  kaonde:  zeph({ subject: "Kiikaonde",  signature: "f6a37a", primary: "8a3d1f", primary2: "b8582f", accent: "2f8f7a", cyan: "2f9e8c" }),  // warm coral
+  // boxActivities: this family's Teacher's Guides type their exercises as plain
+  // paragraphs ("MWINGILO") rather than the shaded single-cell table other books use,
+  // so the title has to start the box itself — the same opt-in the primary themes
+  // (cts, mathsci, homeecon) carry. The wordings come from the Kaonde word list.
+  kaonde:  { ...zeph({ subject: "Kiikaonde",  signature: "f6a37a", primary: "8a3d1f", primary2: "b8582f", accent: "2f8f7a", cyan: "2f9e8c" }), boxActivities: true },  // warm coral
   silozi:  zeph({ subject: "Silozi",     signature: "bfe3c8", primary: "2e7d46", primary2: "45a066", accent: "e0a52e", cyan: "2f9e8c" }),  // forest green
   // Subject books (Form 4 / Grade 6): activity-heavy -> "science" (boxed)
   // Computing/IT (ICT, Computer Science): the "circuit" motif swaps the science

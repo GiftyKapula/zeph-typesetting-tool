@@ -68,7 +68,15 @@ function boxifyActivities(blocks, opts = {}) {
   // tolerating the dash type, plural/typo forms ("Exercises", "EXERCSE"), case and a
   // trailing period, so every answer key is boxed like the other exercises.
   const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
-  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : null);
+  // The patterns above are English plus a handful of local-language ACTIVITY labels
+  // typed out by hand; the exercise and assessment ones were never added, so a
+  // local-language exercise heading the word list already knows (Kaonde "MWINGILO")
+  // went unrecognised and its questions spilled out of the box. Fall back to the
+  // loaded word list, which carries every wording the authors themselves gave, and
+  // resolves "Mwingilo" (exercise) against "Mwingilo wakuuba" (activity) by longest
+  // match. It answers null when no language is loaded, so English books are untouched.
+  const LEXKIND = { activity: "act", exercise: "ex", assessment: "asmt" };
+  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : LEXKIND[LEXI.boxKind(t)] || null);
   const INTERNAL = /^(teaching and learning materials|teacher.?s?\s*facilitation procedure|facilitation procedure|teacher.?s?\s*notes?|take note of responses|expected responses?|possible answers?|materials?|answers?|procedure)\b/i;
   // The recurring teaching PHASES inside a single activity (the 3Ps / lesson-cycle
   // structure: Introduction, Presentation/Present, Practice, Production/Produce,
