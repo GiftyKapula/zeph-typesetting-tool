@@ -58,7 +58,10 @@ function reformatAcronyms(blocks) {
   // `para` every correctly-typed sibling entry becomes. Recognise a heading-like block
   // whose text is "SHORT-TOKEN: meaning" as an acronym ENTRY while inside the list — not a
   // new section — so it still gets split into a bold abbreviation + plain meaning below.
-  const ENTRY_RE = /^[A-Za-z][A-Za-z0-9./]{0,9}:\s*\S/;
+  // Also "ABBR  Meaning" with no colon ("ICT  Information and Communication Technology")
+  // when the whole list was typed as bold headings: a short all-caps token, a space, then
+  // a capitalised word.
+  const ENTRY_RE = /^(?:[A-Za-z][A-Za-z0-9./]{0,9}:\s*\S|[A-Z][A-Z0-9./]{1,7}\s+[A-Z][a-z])/;
   let inAcronyms = false;
   for (const b of blocks) {
     const asEntry = inAcronyms && isHeadingBlk(b) && ENTRY_RE.test((b.text || "").trim());

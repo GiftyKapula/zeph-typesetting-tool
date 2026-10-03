@@ -218,13 +218,17 @@ function emit(blocks) {
       // block must keep its own spacing) and reset to normal at the first unit.
       case "showpage": out += `#pagebreak(weak: true)\n#pgvisible.update(true)\n#set par(spacing: ${b.spacing || "1.9em"})\n`; break;
       case "bodystart": out += `#pagebreak(weak: true)\n#counter(page).update(1)\n#set page(numbering: "1")\n#set par(spacing: 0.86em)\n`; break;
-      case "sigspace": out += `#sigspace()\n`; break;
+      case "termpage": out += `#termpage(${S(b.text)})\n`; break;
+      case "sigspace": out += b.h ? `#v(${b.h}, weak: true)\n` : `#sigspace()\n`; break;
+      // paragraph gap for the blocks that follow (tightSection; see typeset-docx.js)
+      case "parspacing": out += `#set par(spacing: ${b.v})\n`; break;
       case "signature": out += `#signature(${arr(b.lines, (l) => `(text: ${S(l.text)}, bold: ${l.bold ? "true" : "false"})`)})\n`; break;
       case "backcover": out += `#backcover(${strArr(b.lines || [])}, ${b.logo ? `(file: ${S(b.logo.file)})` : "none"}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
       case "h1": {
         const m = b.text.match(TOPIC_RE);
         if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(b.text)})\n`;
-        else out += `#sectionhead(${S(b.text)})\n`;
+        else if (b.centre) out += `#{ set align(center); sectionhead(${S(b.text)}) }\n`;
+        else out += `#sectionhead(${S(b.text)}${b.brk === false ? ", brk: false" : ""}${b.sleek ? ", sleek: true" : ""})\n`;
         break;
       }
       case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
@@ -252,7 +256,7 @@ function emit(blocks) {
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
-      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")})\n`; break;
+      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")}${b.sylIndent ? ", indent: true" : ""}${b.nest ? `, lvl: ${b.nest}` : ""})\n`; break;
       case "figcaption": out += `#figcaption(${S(b.text)})\n`; break;
       case "loentry": out += `#loentry(${S(b.num)}, ${S(b.title)}, ${S(b.page)})\n`; break;
       case "image": {
@@ -278,7 +282,8 @@ function emit(blocks) {
       case "keypoints": out += `#keypoints(${b.title ? titleContent(b.title, b.titleSegs) : "none"}, ${strArr(b.points)})\n`; break;
       case "exercise": out += `#exercise(${titleContent(b.heading, b.headingSegs)}, ${partsArr(b.parts || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "assessment": out += `#assessment(${titleContent(b.title, b.titleSegs)}, ${strArr(b.intro || [])}, ${partsArr(b.parts || [])}, ${strArr(b.extra || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
-      case "box": out += `#genericbox(${bodyArr(b.body)})\n`; break;
+      // an empty shaded box (a blank shaded table cell in the manuscript) prints nothing
+      case "box": if ((b.body || []).length) out += `#genericbox(${bodyArr(b.body)})\n`; break;
       case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""})\n`; break;

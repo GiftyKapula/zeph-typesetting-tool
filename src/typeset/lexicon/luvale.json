@@ -1,0 +1,201 @@
+{
+  "language": "luvale",
+  "sources": [
+    {
+      "file": "Completed Language Form6 ZEPH Local Language Words Form.docx",
+      "author": "GILGES MUSUMALI",
+      "book": "Vyamwakulinangwila Luvale FWOMU 6 SETEKO ‘A’"
+    },
+    {
+      "file": "ZEPH Local Language Words  chitonga.docx",
+      "author": "Musanji kayombo",
+      "book": "Learner's book and Teacher's Book, Grade 1"
+    },
+    {
+      "file": "ZEPH Local Language Words Form - LUVALE.docx",
+      "author": "Gift Chilunda",
+      "book": "Luvale Learner’s Book and Teacher’s Guide Grade 1"
+    },
+    {
+      "file": "ZEPH Local Language Words FormN- LUVALE.docx",
+      "author": "KAYELU JACOB KAKOMA",
+      "book": "FORM 3 LANGUAGE & LITERATURE"
+    }
+  ],
+  "terms": {
+    "grade": [
+      "Guledi",
+      "Mango"
+    ],
+    "form": [
+      "Fwomu"
+    ],
+    "learners_book": [
+      "Mukanda walongi"
+    ],
+    "teachers_guide": [
+      "Mukanda wamulongeshi"
+    ],
+    "level_ordinary": [
+      "Seteko ya Sekondali yachenyembo"
+    ],
+    "level_advanced": [
+      "Seteko ya Sekondali yayikalu"
+    ],
+    "contents": [
+      "Vihande vilimo",
+      "Vilimo"
+    ],
+    "author_section": [
+      "Muka-kusoneka/Vaka-kusoneka",
+      "Vausonekele"
+    ],
+    "introduction": [
+      "Kujimbula"
+    ],
+    "unit": [
+      "Chihanda"
+    ],
+    "topic": [
+      "Chihande"
+    ],
+    "subtopic": [
+      "Mutwe wachihande"
+    ],
+    "lesson": [
+      "Chilongeselo"
+    ],
+    "specific_competences": [
+      "Uhashi wakunangakana chuma",
+      "Uhashi wakunangakana"
+    ],
+    "expected_standards": [
+      "Steteko yakunangakana",
+      "Seteko yakunangakana"
+    ],
+    "listening_speaking": [
+      "Kwivwilila na Kuhanjika",
+      "KWIVWILILA NAKUHANJIKA"
+    ],
+    "reading": [
+      "Kutanga"
+    ],
+    "writing": [
+      "Kusoneka",
+      "KOSONEKA"
+    ],
+    "language_structure": [
+      "Tungiso yahanjikiso",
+      "Mwaya lilimi"
+    ],
+    "reading_comprehension": [
+      "Kwivwishisa"
+    ],
+    "summary_writing": [
+      "Kukhukulula",
+      "Hihiso"
+    ],
+    "activity": [
+      "Vyakulinga"
+    ],
+    "exercise": [
+      "Mulimo"
+    ],
+    "assessment_topic": [
+      "Kweseka chakusongo ya Chihande",
+      "Esekelo yakusoka chihande"
+    ],
+    "assessment_unit": [
+      "Kweweka chakusongo ya Chihanda",
+      "Esekelo yakusoka chihanda",
+      "ESEKELO",
+      "ESEKELO YACHIHANDA"
+    ],
+    "note_teacher": [
+      "Kweulula Mulongeshi",
+      "Mazu amulongeshi"
+    ],
+    "example": [
+      "Chakutalilaho",
+      "Chitalilo"
+    ],
+    "glossary": [
+      "MAZU ALI MUMUKANDA AKUTAMBULA KU INGILISHI",
+      "Lisetela"
+    ],
+    "references": [
+      "Kunafumu vihande",
+      "Kuli unjiho",
+      "KWAFUMINE UNJIHO UKWAVO",
+      "KWAFUMU UNJIHO"
+    ],
+    "foreword": [
+      "Mazu amaputukishilo"
+    ],
+    "preface": [
+      "Kulumbununa"
+    ],
+    "acknowledgement": [
+      "Kavumbi",
+      "KUSAKWILILA"
+    ],
+    "key_competences": [
+      "Kunangangana chachilemu",
+      "Uhashi Wakunangakana"
+    ],
+    "did_you_know": [
+      "Wejivanga?"
+    ],
+    "key_points": [
+      "Mazu amalemu"
+    ],
+    "possible_answers": [
+      "Jikumbulwilo jahashiwa",
+      "Jikumbulwilo",
+      "KUMBULWILO"
+    ]
+  },
+  "extras": [
+    {
+      "word": "Tukasa lilimi",
+      "meaning": "Tongue twisters"
+    },
+    {
+      "word": "Utambukilo na kulivwasana",
+      "meaning": "Transport and communication"
+    },
+    {
+      "word": "Health and nutrition",
+      "meaning": "Kulikangula Mujimba"
+    },
+    {
+      "word": "MAZU",
+      "meaning": "Vocabulary"
+    },
+    {
+      "word": "Mwakunangwila",
+      "meaning": "Methodology"
+    },
+    {
+      "word": "Vinoma",
+      "meaning": "Teaching and Learning Aids"
+    },
+    {
+      "word": "VYAKUHAKILAKO",
+      "meaning": "Appendix"
+    },
+    {
+      "word": "Reading comprehension",
+      "meaning": "Kutanga nakwivwishisa"
+    },
+    {
+      "word": "Intensive reading",
+      "meaning": "Kutanga chakujimina"
+    },
+    {
+      "word": "Extensive Reading",
+      "meaning": "Kutanga chakutanduuka"
+    }
+  ],
+  "conflicts": []
+}

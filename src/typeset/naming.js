@@ -46,7 +46,11 @@ function titleCaseGrade(s) {
 // misses "_TG" because the underscore is a word char) — or the word "teacher".
 function isTeacherBookName(base) { return /(?:^|[^a-z])TG(?:[^a-z]|$)|teacher/i.test(base); }
 
+// Early Childhood Education books ("ECE", "Early Childhood", "… ECE LB LEVEL 1-2").
+const isECEName = (base) => /(?:^|[^a-z])ECE(?:[^a-z]|$)|early\s*childhood/i.test(base);
+
 function eduLevelFor(base) {
+  if (isECEName(base)) return "Early Childhood Education Level";
   // allow an underscore before the word ("Chitonga_Grade 2") — `_` is a word char,
   // so a plain `\bgrade` would miss it.
   const g = base.match(/(?:^|[^a-z])grade\s*(\d+)/i);
@@ -56,4 +60,4 @@ function eduLevelFor(base) {
   return null;
 }
 
-module.exports = { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor };
+module.exports = { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor, isECEName };

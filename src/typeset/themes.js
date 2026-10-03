@@ -247,6 +247,7 @@ const THEMES = {
   lunda:   zeph({ subject: "Lunda",      signature: "ef96ae", primary: "6a2342", primary2: "9e3a5e", accent: "c79a3b", cyan: "4a86b0", toctitle: "NYITACHI YAYIBALU", tocUnitsOnly: true, coverStyle: "form1" }),  // rose; Form 1 cover, units-only contents
   luvale:  zeph({ subject: "Luvale",     signature: "9d8be0", primary: "3a2a73", primary2: "6a5bb0", accent: "ef7a59", cyan: "2f9e8c" }),  // lavender
   bemba:   zeph({ subject: "Ichibemba",  signature: "62bfe8", primary: "1b5773", primary2: "2f7fa0", accent: "edab3a", cyan: "2f9e8c" }),  // sky blue
+  kaonde:  zeph({ subject: "Kiikaonde",  signature: "f6a37a", primary: "8a3d1f", primary2: "b8582f", accent: "2f8f7a", cyan: "2f9e8c" }),  // warm coral
   silozi:  zeph({ subject: "Silozi",     signature: "bfe3c8", primary: "2e7d46", primary2: "45a066", accent: "e0a52e", cyan: "2f9e8c" }),  // forest green
   // Subject books (Form 4 / Grade 6): activity-heavy -> "science" (boxed)
   // Computing/IT (ICT, Computer Science): the "circuit" motif swaps the science
@@ -287,6 +288,11 @@ const THEMES = {
   // Geography — an "atlas" palette: deep map-green land, ochre contour-line
   // accent, and map-water blue. Form 2 gets its own cartographic cover + header.
   geography: zeph({ subject: "Geography",          signature: "18704a", primary: "18704a", primary2: "2a9668", accent: "d98a2b", cyan: "2b7fb8", coverStyle: "form2" }),
+  // Agricultural Science (Form 1) — a "harvest" palette: olive-leaf green primary with
+  // a wheat-gold accent and a rain-blue third colour, kept clear of geography's deep map
+  // green and biology's emerald. Activity-heavy (real Learning Activity / Exercise /
+  // Assessment boxes on almost every page), so the boxed "science" layout.
+  agriculture: { ...zeph({ subject: "Agricultural Science", variant: "science", signature: "5f7f2a", primary: "3f5f1c", primary2: "6a8f35", accent: "d9962b", cyan: "2f8fa8" }), boxStripe: false },  // plain tinted boxes, no thick left stripe
   // Food and Nutrition (Form 1) — a warm "spice and herb" palette: toasted-cinnamon
   // brown primary with a fresh basil-green accent, distinct from art's orange-terracotta
   // and biology's emerald. Boxed activities/exercises (author uses real Learning
@@ -383,6 +389,7 @@ function autoTheme(name) {
   if (/art\s*(and|&|,)?\s*(design|crafts?)|art\s+and\s+design/i.test(name)) return "art";
   if (/geograph/i.test(name)) return "geography";
   if (/musical\s*arts?/i.test(name)) return "musicalarts";
+  if (/agricultur/i.test(name)) return "agriculture";
   if (/food\s*(and|&)?\s*nutrition|nutrition/i.test(name)) return "foodnutrition";
   // Physical Education and Sport at Ordinary Level (Form 1-4) gets its OWN "pesport"
   // theme; an Advanced Level (Form 5/6) PE title is left to the classic "navy" look —
@@ -395,6 +402,7 @@ function autoTheme(name) {
   if (/chitonga|tonga/i.test(name)) return "tonga";
   if (/ichibemba|bemba/i.test(name)) return "bemba";
   if (/luvale/i.test(name)) return "luvale";
+  if (/ki+kaonde|kaonde/i.test(name)) return "kaonde";
   if (/lunda/i.test(name)) return "lunda";
   if (/silozi|\blozi\b/i.test(name)) return "silozi";
   if (/literature|language/i.test(name)) return "lit";
@@ -411,7 +419,7 @@ function themeTypst(theme, overrides = {}) {
   font: "${t.font}", bodyFont: "${t.bodyFont || t.font}", displayFont: "${t.displayFont || t.font}", handFont: "${t.handFont || "Bradley Hand ITC"}", variant: "${t.variant}",
   paper: "${t.paper || "a4"}", landscape: ${t.landscape ? "true" : "false"}, bodySize: ${t.bodySize || "12pt"}, hMain: ${t.hMain || "none"}, hSub: ${t.hSub || "none"}, ink: ${c(t.ink)}, motif: ${q(t.motif || "atom")},
   year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
-  subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"},
+  subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"}, boxStripe: ${t.boxStripe === false ? "false" : "true"}, capSize: ${t.capSize || "none"},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
   covPrimary: ${c(t.covPrimary || t.primary)}, covPrimary2: ${c(t.covPrimary2 || t.primary2)}, covAccent: ${c(t.covAccent || t.accent)}, covSignature: ${c(t.covSignature || t.signature || t.primary)}, covCyan: ${c(t.covCyan || t.cyan || t.primary2)}, covInk: ${c(t.covInk || t.ink)}, covRulec: ${c(t.covRulec || t.rulec)},
