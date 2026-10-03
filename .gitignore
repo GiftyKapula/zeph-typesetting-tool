@@ -59,5 +59,6 @@ Thumbs.db
 .DS_Store
 *.tmp
 
-# local-language forms returned by authors (they carry phone numbers)
-admin/
+# local-language forms returned by authors (they carry phone numbers);
+# the blank form we send out is not secret, so only the returns are ignored
+admin/local-language-forms/Received Filled-in Forms/
