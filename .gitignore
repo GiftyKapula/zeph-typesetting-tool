@@ -58,3 +58,6 @@ src/typeset/_last-docx.typ
 Thumbs.db
 .DS_Store
 *.tmp
+
+# local-language forms returned by authors (they carry phone numbers)
+admin/

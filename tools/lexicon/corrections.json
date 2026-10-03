@@ -1,0 +1,10 @@
+{
+  "_note": "Wordings from the returned forms that we drop on import (clashes or slips). Each entry: language, concept id, word, reason. Remove an entry to bring the word back.",
+  "drop": [
+    { "language": "lunda", "id": "alt_activity", "word": "Mudimu", "reason": "Mudimu = Exercise in all three Lunda forms; Alternative Activity is 'Yuma yikwawu yakwila' / 'Zhakwila zhinafutilewi'" },
+    { "language": "lunda", "id": "key_competences", "word": "Mazu alema", "reason": "Same form also gives it for Key Points; other Lunda forms use 'Yuma yinakuhwelelewi ...' for Key Competences" },
+    { "language": "lunda", "id": "foreword", "word": "Mazy atachi", "reason": "Typo of 'Mazu Atachi'" },
+    { "language": "luvale", "id": "glossary", "word": "MAZU AMALEMU", "reason": "Another Luvale form gives 'Mazu amalemu' for Key Points; two forms give Glossary = 'Lisetela'" },
+    { "language": "luvale", "id": "key_points", "word": "Kweulula Mulongeshi", "reason": "Reads like 'note/reminder to the teacher', not Key Points; looks like a row slip" }
+  ]
+}

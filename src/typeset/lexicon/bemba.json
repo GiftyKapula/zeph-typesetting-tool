@@ -1,0 +1,170 @@
+{
+  "language": "bemba",
+  "sources": [
+    {
+      "file": "ZEPH Local Language Words FOMU 4 ICIBEMBA LANGUAGE.docx",
+      "author": "NAMPASA NORAH",
+      "book": "FOMU 4 ICIBEMBA LANGUAGE"
+    },
+    {
+      "file": "ZEPH Local Language Words FOMU 4 LITILICA MU CIBEMBA.docx",
+      "author": "NAMPASA NORAH",
+      "book": "FOMU 4 LITILICA MU CIBEMBA"
+    },
+    {
+      "file": "ZEPH Local Language Words FOMU 5 ICIBEMBA LANGUAGE.docx",
+      "author": "NAMPASA NORAH",
+      "book": "FOMU 5 ICIBEMBA LANGUAGE"
+    }
+  ],
+  "terms": {
+    "grade": [
+      "Giledi"
+    ],
+    "form": [
+      "Fomu"
+    ],
+    "learners_book": [
+      "Icitabo ca Musambi"
+    ],
+    "teachers_guide": [
+      "Icitabo ca kwa Kafundisha"
+    ],
+    "level_ece": [
+      "Ambasambililo ya ku"
+    ],
+    "level_primary": [
+      "Amasambililo ya kubalilapo"
+    ],
+    "level_ordinary": [
+      "Amasambililo ya kusekondale"
+    ],
+    "level_advanced": [
+      "Amasambililo ya pa muulu aya kubalilapo"
+    ],
+    "contents": [
+      "Ifili mu Citabo"
+    ],
+    "author_section": [
+      "Bakalemba"
+    ],
+    "foreword": [
+      "Ishiwi lyantanshi"
+    ],
+    "preface": [
+      "Umusapu"
+    ],
+    "acknowledgement": [
+      "Amashiwi Ukutotela"
+    ],
+    "introduction": [
+      "Ukutendeka"
+    ],
+    "key_competences": [
+      "Ifikomo filekabilwa"
+    ],
+    "acronyms": [
+      "Ifilembo fiminina amashiwi"
+    ],
+    "unit": [
+      "Icipande"
+    ],
+    "topic": [
+      "Umutwe"
+    ],
+    "subtopic": [
+      "Umutwe unoono"
+    ],
+    "lesson": [
+      "Isambililo"
+    ],
+    "specific_competences": [
+      "Ifilekabilwa muli ili isambililo"
+    ],
+    "expected_standards": [
+      "Imibombele ileenekelwa"
+    ],
+    "listening_speaking": [
+      "Ukumfwa na ukulanda"
+    ],
+    "reading": [
+      "Ukubelenga"
+    ],
+    "writing": [
+      "Ukulemba"
+    ],
+    "language_structure": [
+      "Ukusoboolola ululimi"
+    ],
+    "reading_comprehension": [
+      "Ukubelenga"
+    ],
+    "summary_writing": [
+      "Ukusupawila"
+    ],
+    "activity": [
+      "Ifyakucita"
+    ],
+    "alt_activity": [
+      "Ifyakucita na fimbi"
+    ],
+    "exercise": [
+      "Umulimo"
+    ],
+    "assessment_topic": [
+      "Ukwesha pa mpela ya mutwe",
+      "Ukweshiwa kwa pampela ya isambililo"
+    ],
+    "assessment_unit": [
+      "Ukwesha pa mpela ya cipande"
+    ],
+    "did_you_know": [
+      "Bushe na wishiba?"
+    ],
+    "key_points": [
+      "Ifikomo ifikankaala"
+    ],
+    "note_teacher": [
+      "Icishibisho kuli Kafundisha"
+    ],
+    "example": [
+      "Icilangililo"
+    ],
+    "possible_answers": [
+      "Amasuko yaleenekelwa"
+    ],
+    "glossary": [
+      "Ubupilibu bwa mashiwi yamo-yamo ayali mu citabo"
+    ],
+    "references": [
+      "Ifyabomfeshiwe pa kulemba ifili mu citabo"
+    ]
+  },
+  "extras": [
+    {
+      "word": "Ifyakuicitila cila muntu",
+      "meaning": "Individual work"
+    },
+    {
+      "word": "Imilandu ikumine umuntu onse",
+      "meaning": "Cross-cutting issues"
+    },
+    {
+      "word": "Ifyakuicitila cila muntu",
+      "meaning": "Individual work"
+    },
+    {
+      "word": "Imishikakulo",
+      "meaning": "Poetry"
+    },
+    {
+      "word": "Ifyakuicitila cila muntu",
+      "meaning": "Individual work"
+    },
+    {
+      "word": "Imilandu ikumine umuntu onse",
+      "meaning": "Cross-cutting issues"
+    }
+  ],
+  "conflicts": []
+}

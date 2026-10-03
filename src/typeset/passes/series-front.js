@@ -1,6 +1,7 @@
 // ZEPH series front matter (B5 house style) and front-matter ordering.
 // (Split out of typeset-docx.js — see docs/ARCHITECTURE.md.)
-
+const { arr } = require("../emit.js");
+const LEXI = require("../lexicon/index.js");   // the current local language's own wording
 
 // A reading-lesson activity ("Activity 2: Read the story") is followed in the
 // manuscript by the passage itself — a story TITLE (a `head`/h2/h3) plus its
@@ -82,7 +83,7 @@ function formatGrade3EngFrontMatter(blocks, detectName) {
 
 function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } = {}, detectName = "") {
   formatGrade3EngFrontMatter(blocks, detectName);
-  const isUnit = (x) => x.t === "h1" && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "");
+  const isUnit = (x) => x.t === "h1" && (/^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "") || LEXI.isTopSection(x.text));
   // Front-matter section names — English plus local-language equivalents
   // (e.g. Lunda: ANSONEKI=Authors, MAZU ATACHI=Foreword, KULEMA …WUNU=Preface,
   // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction). "HOW TO USE THIS
@@ -106,10 +107,19 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // the foot of that page instead of starting its own.
   const fmText = (x) => (x.segs ? x.segs.map((s) => s.t).join("") : (x.text || "")).trim();
   const firstUnit0 = blocks.findIndex(isUnit);
+  // Accept h2/h3 too: a front-matter section (e.g. FOREWORD) the manuscript styled as
+  // a Word Heading 2/3 imports as h2/h3, not head/label — without this it stays a plain
+  // sub-heading crammed under the previous section instead of opening its own page.
+  // A local-language front-matter word counts only when it appears ONCE: the same
+  // heading repeated through the book ("Kalambula bwalo" opening every chapter) is a
+  // chapter introduction, not the book's own Introduction page.
+  const lexCount = {};
+  for (const x of blocks) if (/^(label|head|h1|h2|h3)$/.test(x.t)) { const k = fmText(x).toLowerCase(); lexCount[k] = (lexCount[k] || 0) + 1; }
+  const lexFront = (x) => LEXI.isFrontSection(fmText(x)) && (lexCount[fmText(x).toLowerCase()] || 0) <= 1;
   let b = blocks.map((x, i) =>
     (firstUnit0 < 0 || i < firstUnit0) && !x.noPromote &&
-    (x.t === "label" || x.t === "head" || x.t === "listitem" || x.t === "para" || x.t === "h2" || x.t === "h3") &&
-    FM.test(fmText(x))
+    (x.t === "label" || x.t === "head" || x.t === "h2" || x.t === "h3" || x.t === "listitem" || x.t === "para") &&
+    (FM.test(fmText(x)) || lexFront(x))
       ? { t: "h1", text: fmText(x) } : x);
   // we place our own table of contents, so drop any auto/imported one
   b = b.filter((x) => x.t !== "toc");
@@ -130,7 +140,14 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // source glued into one paragraph, e.g. "Noriana Muneku (Ms.)Permanent
   // Secretary…MINISTRY OF EDUCATION").
   const SIGINLINE = /\(\s*(?:dr|ms|mr|mrs|prof|hon|ph\.?\s?d|ed\.?\s?d|m\.?\s?ed|phd)\.?\s*\)/i;
-  const plainOfBlk = (x) => (x.t === "head" || x.t === "label" ? (x.text || "") : (x.segs || []).map((s) => s.t).join("")).trim();
+  const plainOfBlk = (x) => (x.t === "head" || x.t === "label" || x.t === "h1" || x.t === "h2" ? (x.text || "") : (x.segs || []).map((s) => s.t).join("")).trim();
+  // A manuscript that hand-sizes its signatory lines as large as a heading reaches here with
+  // them as h1 ("Agness Mumba Wilkins (PhD)" / "Managing Director / …" / "ZAMBIA EDUCATIONAL
+  // PUBLISHING HOUSE"); read those as signature lines, not as new sections. A real section
+  // name (INTRODUCTION, PREFACE…) is never one.
+  const FRONTNAME = /^((THE\s+)?AUTHORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGE?MENTS?|INTRODUCTION|ACRONYMS|KEY COMPETENCES|TABLE OF CONTENTS|GLOSSARY|REFERENCES)\b/i;
+  // (h2 too: fixStrayBodyH1s has usually demoted such a stray h1 to h2 before this pass runs.)
+  const sigH1 = (x) => x && (x.t === "h1" || x.t === "h2") && (x.text || "").trim().length <= 60 && !FRONTNAME.test((x.text || "").trim());
   // An organisation line in a signatory block (e.g. "Ministry of Education",
   // "Zambia Educational Publishing House") is set BOLD and UPPERCASE — the house
   // style the all-caps orgs already follow. Build one signature line, marking the
@@ -147,7 +164,8 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
     let section = "", done = false, withSig = [];
     for (let i = 0; i < b.length; i++) {
       const x = b[i];
-      if (x.t === "h1") { section = x.text || ""; done = false; withSig.push(x); continue; }
+      const h1Sig = !done && SIGSEC.test(section) && sigH1(x) && SIGNAME.test((x.text || "").trim());
+      if (x.t === "h1" && !h1Sig) { section = x.text || ""; done = false; withSig.push(x); continue; }
       const plain = plainOfBlk(x);
       // A run-on signatory: one paragraph that carries the honorific inline and
       // has SEVERAL runs (bold name / plain role / bold organisation) glued with no
@@ -171,14 +189,14 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
       // A signatory NAME line is short ("Agness Mumba Wilkins (PhD)"); a prose sentence that
       // merely starts with an honorific ("Mr. Eustace Panga Museka wrote the book…") is not a
       // signature, so cap the length or it steals the block from the real signatory below it.
-      if (!done && SIGSEC.test(section) && isText(x) && SIGNAME.test(plain) && plain.length <= 60) {
+      if (!done && SIGSEC.test(section) && (isText(x) || h1Sig) && SIGNAME.test(plain) && plain.length <= 60) {
         // Leave room for a hand signature, then render the signatory block (name,
         // title, organisation) as a dedicated block whose lines are EVENLY spaced
         // — consistent across every book (the template controls the gap).
         withSig.push({ t: "sigspace" });
         let j = i;
         const lines = [];
-        while (j < b.length && isText(b[j])) {
+        while (j < b.length && (isText(b[j]) || (h1Sig && sigH1(b[j])))) {
           // The signatory's name (the first line) is always bold; an all-caps
           // organisation line (e.g. "ZAMBIA EDUCATIONAL PUBLISHING HOUSE") is bold
           // too; the title line (e.g. "Board Chairperson") is always regular weight.
@@ -207,9 +225,13 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
     // back-matter h2, continuing from that unit's own 1/2/3).
     const BACKMATTER = /^(GLOSSARY|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|ACRONYMS)\b/i;
     let n = 0, inUnit = false;
+    // Auto-numbering is the English house style: only units recognised by the English /
+    // long-standing words trigger it. A unit found only through a local-language word
+    // list (Cinyanja CAPAMUTU) keeps the author's own section numbers ("CIGAWO 1").
+    const isNumberedUnit = (x) => x.t === "h1" && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "");
     for (const x of b) {
-      if (isUnit(x)) { inUnit = true; n = 0; }
-      else if (inUnit && (x.t === "h1" || x.t === "head" || x.t === "label") && BACKMATTER.test((x.text || "").trim())) { inUnit = false; }
+      if (isUnit(x)) { inUnit = isNumberedUnit(x); n = 0; }
+      else if (inUnit && (x.t === "h1" || x.t === "head" || x.t === "label") && (BACKMATTER.test((x.text || "").trim()) || LEXI.isBackSection(x.text))) { inUnit = false; }
       // Skip sub-topics the manuscript already numbers ("SUB-TOPIC 3.1.1: …" or a
       // bare "3.1.1 …") — only auto-number named lessons (the English gospel).
       // No \b after TOPIC here: a manuscript sometimes glues the number straight onto the
@@ -301,4 +323,140 @@ function reorderFrontmatter(blocks) {
   console.log(`reorderFrontmatter: moved "${txt(cut[0]).trim()}" (${cut.length} blocks) to after ${txt(blocks[anchor - cut.length] || {}).trim() || "the acknowledgement"}`);
 }
 
-module.exports = { READINSTR, formatGrade3EngFrontMatter, applySeriesFront, reorderFrontmatter };
+// autoFrontRefs (opt-in per book): rebuild the List of Figures / List of Tables so
+// their page numbers are the REAL typeset pages (not the manuscript's stale Word TOC
+// cache), and move those reference lists + the Acronyms table to the END of the front
+// matter (just before the body). Two steps:
+//   1. drop an invisible page-marker (#lofmark/#lotmark) next to every captioned
+//      figure/table in the body — the template's #listof queries these to build the
+//      lists with counter(page) read at each marker's own location.
+//   2. replace the imported (flattened, mis-merged) List-of-Figures entries with a
+//      single #listof("fig"), synthesise a List of Tables, and shift both — plus the
+//      Acronyms section — to sit right before `bodystart`.
+function applyAutoFrontRefs(list) {
+  const FIG = /^\s*(?:figure|fig\.?)\s*(\d+)\s*[:.\-–—]?\s*(.*)$/i;
+  const TAB = /^\s*table\s*(\d+)\s*[:.\-–—]?\s*(.*)$/i;
+  // 1) inject invisible markers after each captioned figure image / table caption.
+  // Captions arrive in three shapes: an image's own caption, a centred/italic caption
+  // paragraph, or (inconsistently) a bold heading — accept all three, and dedupe by
+  // number so a figure/table never lands in the list twice.
+  const seen = new Set();
+  const push = (arr, kind, n, title) => {
+    const key = kind + ":" + n;
+    if (seen.has(key)) return;
+    seen.add(key);
+    arr.push({ t: "lofmark", kind, num: (kind === "tab" ? "Table " : "Figure ") + n, title: (title || "").trim() });
+  };
+  const withMarks = [];
+  for (const b of list) {
+    withMarks.push(b);
+    let m;
+    if (b.t === "image" && b.caption && (m = String(b.caption).match(FIG))) {
+      push(withMarks, "fig", m[1], m[2]);
+      continue;
+    }
+    const isText = b.t === "para" || b.t === "figcaption";
+    const isHeadish = b.t === "head" || b.t === "label" || b.t === "h2" || b.t === "h3";
+    if (!isText && !isHeadish) continue;
+    const txt = (b.t === "figcaption" || isHeadish) ? (b.text || "") : (b.segs || []).map((s) => s.t || "").join("");
+    // a caption paragraph must LOOK like a caption (centred or wholly italic) so a body
+    // sentence that merely starts "Table 3 shows…" is not mistaken for one; a heading
+    // ("Table 3: …") is already a distinct block and is accepted on the text match alone.
+    const capish = isHeadish || b.align === "center" || (b.segs && b.segs.length && b.segs.every((s) => s.it));
+    if (!capish) continue;
+    if ((m = txt.match(TAB))) push(withMarks, "tab", m[1], m[2]);
+    else if (isHeadish && (m = txt.match(FIG))) push(withMarks, "fig", m[1], m[2]);
+  }
+  list = withMarks;
+  // 2) locate the List of Figures + Acronyms sections and the body boundary.
+  const boundary = (x) => x && ["h1", "bodystart", "toc", "backcover", "cover", "titlestart", "titlepage"].includes(x.t);
+  const findH1 = (re) => list.findIndex((x) => x.t === "h1" && re.test((x.text || "").trim()));
+  const sectionEnd = (start) => { let e = start + 1; while (e < list.length && !boundary(list[e])) e++; return e; };
+  const lofI = findH1(/^LIST OF FIGURES$/i);
+  if (lofI < 0) return list;                         // no list to rebuild — leave as-is
+  const acrI = findH1(/^ACRONYMS\b/i);
+  const lofEnd = sectionEnd(lofI);                    // covers the stale loentry lines
+  const lofSection = [list[lofI], { t: "listof", kind: "fig" }];
+  const lotSection = [{ t: "h1", text: "LIST OF TABLES" }, { t: "listof", kind: "tab" }];
+  let acrSection = null, acrEnd = -1;
+  if (acrI >= 0) { acrEnd = sectionEnd(acrI); acrSection = list.slice(acrI, acrEnd); }
+  const moved = new Set();
+  for (let i = lofI; i < lofEnd; i++) moved.add(i);
+  if (acrI >= 0) for (let i = acrI; i < acrEnd; i++) moved.add(i);
+  const bundle = [...lofSection, ...lotSection, ...(acrSection || [])];
+  const res = [];
+  let placed = false;
+  for (let i = 0; i < list.length; i++) {
+    if (moved.has(i)) continue;
+    if (list[i].t === "bodystart" && !placed) { res.push(...bundle); placed = true; }
+    res.push(list[i]);
+  }
+  if (!placed) {                                      // no body boundary — put refs before the back cover
+    const bc = res.findIndex((x) => x.t === "backcover");
+    if (bc >= 0) res.splice(bc, 0, ...bundle); else res.push(...bundle);
+  }
+  return res;
+}
+
+// orderFrontMatter: put the prose front-matter sections into the house order that
+// most ZEPH books (e.g. Form 1 Art and Design) follow:
+//   Author(s) > Editor > Foreword > Preface > Acknowledgement > Introduction / How to
+//   use this book > Competences > List of Figures > List of Tables > Acronyms
+// Manuscripts vary (Acronyms first, Author after the Acknowledgement…). The front
+// matter is the run between the "showpage" marker and "bodystart"; a section starts at
+// each front-matter h1 (or a styled section head) and runs to the next one. A section
+// with an unrecognised title (local-language headings, "Vision"…) travels with the
+// section before it, so nothing unknown is reshuffled. Stable: equal ranks keep order.
+const FRONT_RANK = [
+  [/^(the\s+|about\s+the\s+)?authors?\b/i, 0],
+  [/^editors?\b/i, 1],
+  [/^foreword\b/i, 2],
+  [/^preface\b/i, 3],
+  [/^acknowledge?ments?\b/i, 4],
+  [/^(introduction|how to use this (book|guide))\b/i, 5],
+  [/competenc/i, 6],
+  [/^list of figures\b/i, 7],
+  [/^list of tables\b/i, 8],
+  [/^(list of )?(acronyms|abbreviations)\b/i, 9],
+];
+function orderFrontMatter(blocks) {
+  const s = blocks.findIndex((b) => b.t === "showpage");
+  // The front matter ends at the body-start marker, or earlier at the first topic /
+  // unit banner or sub-topic, so body content can never be pulled into it.
+  const BODY = /^(TOPIC|UNIT|CHAPTER|SUB[-\s]*TOPIC)\b/i;
+  const e = blocks.findIndex((b, i) => i > s && (b.t === "bodystart"
+    || ((b.t === "h1" || b.t === "h2") && (BODY.test((b.text || "").trim()) || LEXI.startsWith(["unit", "topic", "subtopic"], b.text)))
+    || (b.t === "h2" && /^\d+(\.\d+)*[.:]?\s/.test((b.text || "").trim()))));
+  if (s < 0 || e < 0) return blocks;
+  const isStart = (b) => b.t === "h1" || (b.t === "head" && b.styleSection);
+  const rankOf = (b) => { const t = (b.text || "").trim(); const r = FRONT_RANK.find(([re]) => re.test(t)); return r ? r[1] : LEXI.frontRank(t); };
+  const region = blocks.slice(s + 1, e);
+  const secs = [];
+  let lead = [];
+  for (const b of region) {
+    if (isStart(b)) secs.push({ rank: rankOf(b), blocks: [b] });
+    else if (secs.length) secs[secs.length - 1].blocks.push(b);
+    else lead.push(b);
+  }
+  if (secs.filter((x) => x.rank != null).length < 2) return blocks;
+  // unknown sections inherit the rank of the section before them (they travel with it);
+  // unknown ones at the very start travel with the first recognised section after them.
+  let prev = null;
+  for (const x of secs) { if (x.rank == null) x.rank = prev; else prev = x.rank; }
+  const firstKnown = secs.find((x) => x.rank != null).rank;
+  for (const x of secs) { if (x.rank == null) x.rank = firstKnown; else break; }
+  const sorted = secs.map((x, i) => ({ ...x, i })).sort((a, b) => a.rank - b.rank || a.i - b.i);
+  if (sorted.every((x, k) => x.i === k)) return blocks;
+  // A section that now opens the run must start its own page; keep each head's
+  // "share the page" flag otherwise (e.g. Acronyms sitting under the Competences table).
+  const out = [...lead];
+  sorted.forEach((x, k) => {
+    if (k === 0 && x.blocks[0].brk === false) delete x.blocks[0].brk;
+    out.push(...x.blocks);
+  });
+  console.log("   front matter reordered:", sorted.map((x) => (x.blocks[0].text || "").trim().slice(0, 20)).join(" > "));
+  return [...blocks.slice(0, s + 1), ...out, ...blocks.slice(e)];
+}
+
+
+module.exports = { READINSTR, formatGrade3EngFrontMatter, applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatter };

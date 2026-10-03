@@ -1,0 +1,139 @@
+{
+  "language": "kaonde",
+  "sources": [
+    {
+      "file": "KikaondeZEPH Local Language Grade 1.docx",
+      "author": "CHABINGA KIPANDE FLORENCE",
+      "book": "BUUKU WA KIKAONE GILEDI 1"
+    },
+    {
+      "file": "KIIKAONDE ECE LB LEVEL 1-2 (manuscript)",
+      "author": "(from manuscript)",
+      "book": "Kiikaonde ECE LB Level 1-2"
+    }
+  ],
+  "terms": {
+    "grade": [
+      "Giledi"
+    ],
+    "form": [
+      "Fomu"
+    ],
+    "learners_book": [
+      "Buuku wa ufunda"
+    ],
+    "teachers_guide": [
+      "Buuku wa kutangijila Mufunjishi"
+    ],
+    "level_primary": [
+      "Lufunjisho lwa Pulaimali"
+    ],
+    "level_ordinary": [
+      "Lufunjisho lwa Sekondali"
+    ],
+    "contents": [
+      "Bijimo",
+      "Biji mu kachi"
+    ],
+    "author_section": [
+      "Banembi",
+      "Nembi"
+    ],
+    "foreword": [
+      "Byambo bitanshi"
+    ],
+    "preface": [
+      "Kitendekesho kya buuku"
+    ],
+    "acknowledgement": [
+      "Lusanchilo"
+    ],
+    "introduction": [
+      "Ntendekelo"
+    ],
+    "key_competences": [
+      "Byambo bya kuyuka"
+    ],
+    "acronyms": [
+      "Ngipipishilo ya byambo"
+    ],
+    "unit": [
+      "Kishina"
+    ],
+    "topic": [
+      "Mutwe"
+    ],
+    "subtopic": [
+      "Mutwe-kache"
+    ],
+    "lesson": [
+      "Lufunjisho"
+    ],
+    "specific_competences": [
+      "Byaketekelwa kubiwa"
+    ],
+    "expected_standards": [
+      "Bipimo byañingijilo yaketekelwa"
+    ],
+    "listening_speaking": [
+      "Kuteleka ne kwamba"
+    ],
+    "reading": [
+      "Kutanga"
+    ],
+    "writing": [
+      "Kunemba"
+    ],
+    "language_structure": [
+      "Mulakazhilo"
+    ],
+    "reading_comprehension": [
+      "Kumvwisha"
+    ],
+    "summary_writing": [
+      "Ngipishilo"
+    ],
+    "activity": [
+      "Mwingilo wa lufunjisho",
+      "Mwingilo wakuuba"
+    ],
+    "alt_activity": [
+      "Mwingilo wapusanako"
+    ],
+    "exercise": [
+      "Mwingilo"
+    ],
+    "assessment_topic": [
+      "Lweseko lwa mpelo ya mutwe",
+      "Kupwa kwa mutwe"
+    ],
+    "assessment_unit": [
+      "Lweseko lwa mpelo ya kishina"
+    ],
+    "did_you_know": [
+      "Mwa kuyuka nyi?"
+    ],
+    "key_points": [
+      "Byambo byanema"
+    ],
+    "note_teacher": [
+      "Byakulondela Mufunjishi"
+    ],
+    "example": [
+      "Kimwesho"
+    ],
+    "possible_answers": [
+      "Mikumbu ya ketekelwa"
+    ],
+    "glossary": [
+      "Kulumbulula Byambo"
+    ]
+  },
+  "extras": [
+    {
+      "word": "Teaching aids",
+      "meaning": "Biñambañamba"
+    }
+  ],
+  "conflicts": []
+}

@@ -81,7 +81,8 @@
 // took the subject line of "Information and Communication Technology" for the form
 // line, found no "FORM <digit>" in it, and silently dropped the FORM 2 tag from that
 // book's cover. The same trap is waiting in PERFORMING ARTS, TRANSFORMATION, REFORM.
-#let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU)\\b")) != none
+// (ECE books carry "ECE" where other books carry "Form N" / "Grade N")
+#let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU|ECE)\\b")) != none
 
 // CDC 2025 sets a larger body size for young readers (Grade 1 → 18pt, Grade 2-3 →
 // 16pt, Grade 4-6 → 14pt; Teacher's Guides and secondary stay 12pt). `fs()` scales a
@@ -90,6 +91,9 @@
 // when the body is 12pt, so every non-primary book is byte-for-byte unchanged.
 #let bodySize = T.at("bodySize", default: 12pt)
 #let fs(x) = x * (bodySize / 12pt)
+// Caption size: a book may pin one size for every picture caption (overrides "captionSize"),
+// e.g. 12pt in the 16pt Grade 2 books; otherwise each caption keeps its scaled default.
+#let capsz(dflt) = { let c = T.at("capSize", default: none); if c != none { c } else { fs(dflt) } }
 // Primary books use a fixed, stepped heading hierarchy set by CDC-driven overrides
 // (e.g. Grade 2: body 16pt, sub-headings `hSub` 18pt, main headings `hMain` 20pt).
 // When unset (Teacher's Guides, secondary), headings fall back to the proportional
@@ -344,11 +348,11 @@
   set text(font: T.displayFont)
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
+  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
   // The subject title: if the grade line is "SUBJECT FORM N" use the stripped
   // subject ("PHYSICS"); if the grade line is just "FORM N", the subject sits on
   // its OWN line ("BIOLOGY") — take the first non-eyebrow, non-grade line.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { "" }
+  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
       not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
@@ -562,12 +566,12 @@
     // ---------- SCIENCE cover (Physics): deep-indigo signature field with
     // concentric "electron orbit" rings, white title, amber FORM tag ----------
     let gl = if hasGradeWord(subject) { subject } else { grade }
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
     // The subject title comes from the subject line with any form/grade token
     // stripped (e.g. "PHYSICS FORM 4" -> "PHYSICS"). When the subject and form
     // sit on SEPARATE lines (e.g. "BIOLOGY" + "FORM 4"), stripping leaves the
     // subject intact; fall back to the raw subject if stripping empties it.
-    let nm = subject.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim()
+    let nm = subject.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim()
     let name = if nm != "" { nm } else { subject }
     let amber = T.accent
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
@@ -842,8 +846,8 @@
     // thick-framed hero), but keeps the SAME word order: eyebrow -> subject ->
     // FORM tag -> book type -> photo -> authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -899,8 +903,8 @@
     // SAME word order: eyebrow -> subject -> FORM tag -> book type -> photo ->
     // authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
     let paper = rgb("#f4f1e6")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -955,8 +959,8 @@
     // bleed photo band, with authors + publisher on the colour footer. A clear break
     // from Grade 3's title-band + framed-photo-card look (no scallop/zigzag). ---------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
     // The cover stays in FULL COLOUR even when the interior is greyscale (blackWhite/mono),
     // so use the cover-only colour fields (they equal the theme colours for normal books).
     let primary = T.at("covPrimary", default: T.primary)
@@ -1019,8 +1023,8 @@
     // plate, with confetti on the field. Contained and warm — distinct from both Grade
     // 3 and the Hero Wave. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
     let paper = rgb("#fffaf1")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.primary, width: 176mm, height: 250mm)[
@@ -1065,8 +1069,8 @@
     // card. Same word order as every cover: eyebrow -> subject -> GRADE tag ->
     // book type -> photo -> authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
     let paper = rgb("#eafafa")
     let deep = T.primary.darken(10%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -1119,8 +1123,8 @@
     ]
   } else if series {
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
     let deepteal = T.primary.darken(30%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -1439,13 +1443,13 @@
   let subject = lines.at(0, default: "")
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
+  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
   // Subject title: strip the form/grade token off the grade line ("ENGLISH GRADE 2"
   // -> "ENGLISH"). When the subject and the form sit on SEPARATE lines
   // ("MATHEMATICS" + "Form 1") that leaves nothing, so fall back to the first line
   // that is neither a form/grade nor the standard eyebrow. Without this fallback the
   // name came out blank and the "·" separator was left orphaned. Mirrors `cover`.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*(form|grade)\\s+\\d+"), "").trim() } else { "" }
+  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
       not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
@@ -1797,6 +1801,9 @@
   }
   else if align == "center" { block(width: 100%)[#std.align(center, par[#segs(ss)])] }
   else if align == "right" { block(width: 100%)[#std.align(right, par[#segs(ss)])] }
+  // ragged-right (not justified): for a paragraph whose justified first line opens huge
+  // word gaps — large primary type with no hyphenation (Grade 2 CTS "To say measurements…")
+  else if align == "left" { block(width: 100%)[#par(justify: false)[#segs(ss)]] }
   else if syllabus and ss.len() > 0 and (ss.map(s => s.at("t", default: "")).join(default: "")).match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+")) != none {
     // SYLLABUS numbered item ("1. …", "2.1 …"): a HANGING item — the number in its own
     // column, the text aligned under itself, with a clear gap after the number.
@@ -1821,7 +1828,24 @@
   else { flowsegs(ss) }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
-#let listitem(ss, marker) = {
+// True when a seg run contains a TALL display element (a stacked fraction, matrix,
+// root or binomial). Such an element overflows an ordinary inline line box, so a list
+// item / answer line that holds one needs extra vertical breathing space or it collides
+// with the item above and below (reviewer flagged cramped fraction answer keys).
+#let hasTallMath(ss) = ss.any(s => s.at("m", default: false) and (
+  ("frac(" in s.at("t", default: "")) or ("mat(" in s.at("t", default: "")) or
+  ("sqrt(" in s.at("t", default: "")) or ("root(" in s.at("t", default: "")) or
+  ("binom(" in s.at("t", default: ""))))
+#let listitem(ss, marker, indent: false, lvl: 0) = {
+  // `indent` pushes a bullet in a numbered syllabus section under its heading text.
+  if indent { return pad(left: 7mm, listitem(ss, marker)) }
+  // `lvl` (lesson-plan lists): nest the item under its label (1) or under a numbered
+  // step (2), with a fixed-width marker column so every item's text starts in line.
+  if lvl > 0 {
+    let isb = marker == "•"
+    let mk = text(fill: if isb { iaccent2 } else { T.primary }, weight: if isb { "regular" } else { "bold" })[#marker]
+    return pad(left: (lvl - 1) * 8mm + 5mm, grid(columns: (8mm, 1fr), align: (left + top, left + top), mk, par[#segs(ss)]))
+  }
   let isbullet = marker == "•"
   // A numbered/lettered marker used to be bold unconditionally — right for the
   // common case (a bold numbered step), but it left the marker visibly bolder
@@ -1841,6 +1865,22 @@
 // indented block a learner can scan straight down, instead of every line hugging
 // the left margin. The left inset also narrows the width dispmath fits into.
 #let contmath(ss) = pad(left: 18pt, flowsegs(ss))
+
+// A full page carrying one large centred title ("TEMU 1" = Term 1 in an ECE book):
+// listed in the contents, page numbered as usual, nothing else on it.
+#let termpage(t) = {
+  pagebreak(weak: true)
+  mark(1, t)
+  block(width: 100%, height: 1fr)[
+    #align(center + horizon)[
+      #line(length: 40%, stroke: 2pt + T.accent)
+      #v(10mm)
+      #text(font: T.displayFont, size: hm(54pt), weight: "bold", fill: T.primary, tracking: 2pt)[#upper(t)]
+      #v(10mm)
+      #line(length: 40%, stroke: 2pt + T.accent)
+    ]]
+  pagebreak(weak: true)
+}
 
 // ---- headings ------------------------------------------------------------
 #let topicbanner(no, title, full) = {
@@ -2226,8 +2266,10 @@
       #block(width: 100%, breakable: breakable, fill: kind.fill, inset: (x: 14pt, y: 12pt))[#content]]
   } else if serieslike {
     // a light tinted panel with a coloured left stripe (used for any residual
-    // boxed content / key points / reference tables in the flowing series layout)
-    block(width: 100%, breakable: breakable, radius: 4pt, fill: kind.fill, stroke: (left: 4pt + kind.border), inset: (x: 11pt, y: 9pt))[
+    // boxed content / key points / reference tables in the flowing series layout).
+    // A theme with `boxStripe: false` drops the stripe: just the tinted panel.
+    block(width: 100%, breakable: breakable, radius: 4pt, fill: kind.fill,
+      stroke: if T.at("boxStripe", default: true) { (left: 4pt + kind.border) } else { none }, inset: (x: 11pt, y: 9pt))[
       #block(width: 100%, sticky: true, below: 7pt)[#text(fill: kind.title, weight: "bold", size: hs(14pt))[#title]]
       #content]
   } else if panel {
@@ -2263,8 +2305,12 @@
 #let figimg(pathstr, wpx, tall, cap, sticky: false, hmm: 0) = {
   v(2pt)
   let img = if hmm > 0 {
-    // author asked to enlarge/fit: force an explicit on-page height (mm)
-    image(pathstr, height: hmm * 1mm)
+    // author asked to enlarge/fit: an explicit on-page height (mm), never wider than
+    // the text block (a wide picture then fills the width instead)
+    layout(size => {
+      let m = measure(image(pathstr, height: hmm * 1mm))
+      if m.width > size.width { image(pathstr, width: size.width) } else { image(pathstr, height: hmm * 1mm) }
+    })
   } else if tall {
     image(pathstr, height: 95mm)
   } else {
@@ -2276,7 +2322,7 @@
   // `sticky` keeps the picture on the same page as the heading/title that follows it.
   align(center)[#block(breakable: false, sticky: sticky)[
     #img
-    #if cap != none [ #v(2pt) #text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
+    #if cap != none [ #v(2pt) #text(size: capsz(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
   ]]
   v(3pt)
 }
@@ -2294,7 +2340,7 @@
       #grid(columns: imgs.map(_ => auto), column-gutter: 10pt, align: top + center,
         ..imgs.map(im => block(width: auto)[
           #image(im.at("file"), height: h)
-          #if im.at("cap") != none [ #v(2pt) #text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
+          #if im.at("cap") != none [ #v(2pt) #text(size: capsz(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
         ]))]
     // At a uniform height, two landscape images (e.g. side-by-side formula
     // images) can be wider than the text block and bleed off the margins. If the
@@ -2314,12 +2360,12 @@
       #grid(columns: imgs.map(im => (im.at("w") / total) * 1fr), column-gutter: 6pt, align: top + center,
         ..imgs.map(im => [
           #image(im.at("file"), width: 100%)
-          #if im.at("cap") != none [ #v(2pt) #text(size: fs(7.5pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
+          #if im.at("cap") != none [ #v(2pt) #text(size: capsz(7.5pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
         ]))]
   }
   v(5pt)
 }
-#let figcaption(t) = { align(center)[#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#t]]; v(5pt) }
+#let figcaption(t) = { align(center)[#text(size: capsz(8.5pt), style: "italic", fill: rgb("#444"))[#t]]; v(5pt) }
 
 // ---- a List of Figures / List of Tables entry: a bold "Figure N"/"Table N"
 // label + caption on the left, a dotted leader, and a right-aligned page number
@@ -2779,7 +2825,7 @@
       image(im.at("file"), width: 100%)
       if im.at("cap", default: none) != none [
         #v(2pt)
-        #align(center)[#text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")]]
+        #align(center)[#text(size: capsz(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")]]
       ]
     }
   ]
@@ -2955,9 +3001,15 @@
       // the body column beside the second one. Widen the gutter for just this row
       // when the marker is longer than a plain single marker ever is.
       let mkw = if it.marker.len() > 3 { 36pt } else { 22pt }
-      grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, right + top, left + top),
+      // Numbers right-align so "9." and "10." line up; a single LETTER marker (A. B. C. D.,
+      // a) b)) left-aligns — right-aligned, a narrow "B" (Century Gothic) sat visibly
+      // indented and "smaller" than A/C/D (Grade 2 CTS reviewers flagged every one).
+      let letter = it.marker.trim().match(regex("^\\(?[A-Za-z][.)]$")) != none
+      grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, if letter { left + top } else { right + top }, left + top),
         [], [#it.marker], body)
-      v(T.at("qgap", default: 3pt))
+      // a fraction/matrix answer part needs extra room so its stacked numerator/denominator
+      // don't collide with the parts above and below (reviewer flagged cramped answer keys).
+      v(if hasTallMath(qseg) { 9pt } else { T.at("qgap", default: 3pt) })
     }
   }
 }

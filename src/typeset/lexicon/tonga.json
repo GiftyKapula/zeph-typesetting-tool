@@ -1,0 +1,131 @@
+{
+  "language": "tonga",
+  "sources": [
+    {
+      "file": "ZEPH Local Language Words Form Chitonga.docx",
+      "author": "Nzila Shaanga",
+      "book": "Chitonga Form 4"
+    },
+    {
+      "file": "ZEPH Local Language Words Form-1 luvale.docx",
+      "author": "Nzila Shaanga",
+      "book": "Chitonga Form 4"
+    }
+  ],
+  "terms": {
+    "form": [
+      "Foomu"
+    ],
+    "learners_book": [
+      "Bbuku lyasicikolo"
+    ],
+    "teachers_guide": [
+      "Bbuku lyabayi"
+    ],
+    "contents": [
+      "Zyili moomu"
+    ],
+    "author_section": [
+      "Balembi"
+    ],
+    "foreword": [
+      "Matalikilo",
+      "Cizyibyo"
+    ],
+    "acknowledgement": [
+      "Kulumba"
+    ],
+    "introduction": [
+      "Ntalisyo"
+    ],
+    "key_competences": [
+      "Buyale",
+      "Zyeelede kusumpulwa"
+    ],
+    "unit": [
+      "Cipati"
+    ],
+    "topic": [
+      "Mutwe"
+    ],
+    "subtopic": [
+      "Mutwe Musyoonto"
+    ],
+    "specific_competences": [
+      "Ceelede kucitwa"
+    ],
+    "expected_standards": [
+      "Bulangizi bweelede"
+    ],
+    "listening_speaking": [
+      "Kuswiilila akukanana"
+    ],
+    "reading": [
+      "Kubala"
+    ],
+    "writing": [
+      "Kulemba"
+    ],
+    "language_structure": [
+      "Mulaka",
+      "BByale Bwa Mulaka"
+    ],
+    "reading_comprehension": [
+      "Kumwisyisisya"
+    ],
+    "summary_writing": [
+      "Kufwiinsya"
+    ],
+    "activity": [
+      "Cakucita"
+    ],
+    "exercise": [
+      "Mulimo"
+    ],
+    "assessment_unit": [
+      "Mulimo wakumamanino acipati"
+    ],
+    "example": [
+      "Mukozyanyo"
+    ],
+    "possible_answers": [
+      "Bwiinguzi kumulimo"
+    ],
+    "glossary": [
+      "Mabala abelesegwa"
+    ],
+    "references": [
+      "Mabbuku abelesegwa"
+    ],
+    "preface": [
+      "Jwi lyakumatalikilo"
+    ],
+    "lesson": [
+      "Ciiyo"
+    ],
+    "alt_activity": [
+      "Cakucita cimbi"
+    ],
+    "assessment_topic": [
+      "Mulimo wakumamanino amutwe",
+      "Musunko"
+    ],
+    "key_points": [
+      "Twaambo tupati-pati"
+    ],
+    "note_teacher": [
+      "Kulailila kumwiiyi"
+    ]
+  },
+  "extras": [
+    {
+      "word": "Topic conclusion",
+      "meaning": "Kumanizya mutwe"
+    },
+    {
+      "word": "Topic conclusion",
+      "meaning": "Kumanizya mutwe"
+    }
+  ],
+  "conflicts": []
+}

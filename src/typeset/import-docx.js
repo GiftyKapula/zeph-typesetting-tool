@@ -12,6 +12,7 @@ const path = require("path");
 const os = require("os");
 const JSZip = require("jszip");
 const { ommlToTypst, convText } = require("./omml.js");
+const LEXI = require("./lexicon/index.js");   // the current local language's own wording
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -21,13 +22,27 @@ const { ommlToTypst, convText } = require("./omml.js");
 // side of the number its colon goes on. Kept as one shared pattern so every recognition
 // site treats the manuscript's inconsistent spelling identically instead of drifting out
 // of sync heading-by-heading.
-const SUBTOPIC_RE = /^SUB[-\s‐-―]*TOPIC\s*:?\s*[\d.]+\b/i;
+const SUBTOPIC_STRICT = /^SUB[-\s‐-―]*TOPIC\s*:?\s*[\d.]+\b/i;
 // A numbered SECTION heading of any kind — TOPIC / UNIT / CHAPTER / the hand-typed
 // sub-topic (any separator, see SUBTOPIC_RE) — followed by its number, with or without a
 // space before the digits (manuscripts sometimes glue them, "Topic1.1.2") and with or
 // without a colon before the number ("TOPIC: 1.3."). Used wherever a following block must
 // be recognised as "the next section starts here".
-const SECTION_RE = /^(TOPIC|UNIT|CHAPTER|SUB[-\s‐-―]*TOPIC)\s*:?\s*[\d.]/i;
+const SECTION_STRICT = /^(TOPIC|UNIT|CHAPTER|SUB[-\s‐-―]*TOPIC)\s*:?\s*[\d.]/i;
+// The colon is accepted by default (above). The per-book "colonHeadings" option now only
+// also MOVES a misplaced colon to its house position ("TOPIC: 1.5 X" -> "TOPIC 1.5: X").
+const SUBTOPIC_COLON = SUBTOPIC_STRICT;
+const SECTION_COLON = SECTION_STRICT;
+// Set at the start of each importDocx() call (one book at a time).
+let SUBTOPIC_RE = SUBTOPIC_STRICT;
+let SECTION_RE = SECTION_STRICT;
+let COLON_HEADINGS = false;
+// opts.exerciseBullets (per book): a Word bullet inside an exercise stays a bullet under the
+// current item. Off by default so books already proofread keep their a./b. rendering.
+let EXERCISE_BULLETS = false;
+// opts.answerListNumbered (per book): opening words of answer lists that must stay
+// numbered 1, 2, 3… (a real step-by-step process) rather than becoming bullets.
+let ANSWER_NUMBERED = [];
 
 const decode = (s) => s
   .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
@@ -130,7 +145,8 @@ function boxKindFromTitle(t) {
   // --- Key points / Did you know ---
   if (/^(KEY POINTS|Key Points to Remember|Mau ofunika kudziwa)/i.test(s)) return "keypoints";
   if (/^DID YOU KNOW/i.test(s)) return "fact";
-  return null;
+  // --- the current local language's own box titles (authors' word forms) ---
+  return LEXI.boxKind(s);
 }
 // Fallback fill -> kind for books that use the PE house style.
 const BOX_FILL = { DEEAF6: "activity", F3F8EE: "exercise", FFF6DA: "keypoints", E4F3F5: "fact" };
@@ -1111,6 +1127,9 @@ function buildQAParts(blocks) {
   let questionNumId = null, topNBeforeDivider = 0;
   const stripLit = (s) => s.replace(/^\(/, "");          // "(a)" -> "a)"
   const parts = [];
+  // questions typed by hand ("6. …", no Word numbering) — see the answer-line branch below
+  const literalTops = blocks.some((b) => b.t === "para" && !b.marker && LIT_TOP.test((b.plain || "").replace(/^\s+/, "")) && !LIT_SUB.test((b.plain || "").replace(/^\s+/, "")));
+  let ansRun = null;                                     // a numbered answer run in progress
   // When sub-parts (a, b, c…) appear with NO numbered question above them, the
   // question stem was left unnumbered — an implied Question 1. Promote the
   // preceding lead-in stem to "1." (or, if there is none, emit a bare "1.").
@@ -1344,6 +1363,25 @@ function buildQAParts(blocks) {
       subN += 1;
       const an = grabAnswer();
       parts.push({ kind: "q", q: sm[2].trim(), qseg: qsegOf(sm[2]), a: an.a, aseg: an.aseg, marker: markerFor(subN, subTpl), depth: 1 });
+    } else if (EXERCISE_BULLETS && b.marker && /^[•◦▪■●○·‣⁃–-]$/.test(b.marker.trim())) {
+      // A Word BULLET inside an exercise is a point under the current item (e.g. the
+      // list of questions under answer "(a)"), never a new numbered question: keep the
+      // bullet, nest it one level under whatever it follows, and leave the question /
+      // sub-part counters alone so the next "(b)" continues the letters.
+      const an = grabAnswer();
+      const content = tm ? tm[2] : b.plain;
+      parts.push({ kind: "q", q: content.trim(), qseg: qsegOf(content), a: an.a, aseg: an.aseg, marker: "•", depth: subN > 0 ? 2 : topN > 0 ? 1 : 0 });
+    } else if (EXERCISE_BULLETS && b.marker && !tm && literalTops && topN > 0 && /^\(?\d/.test(b.marker)) {
+      // The questions are typed by hand ("6. Demonstrate…") and this is a Word NUMBERED
+      // list item under one of them: it is an answer line, not another question. Keep it
+      // under its question as a bullet (and leave the question count alone), unless it
+      // starts a run the book asked to keep numbered (answerListNumbered) — then 1, 2, 3…
+      const startsNumbered = ANSWER_NUMBERED.some((f) => b.plain.startsWith(f));
+      if (startsNumbered) ansRun = { numId: b.numId, n: 0 };
+      else if (ansRun && ansRun.numId !== b.numId) ansRun = null;
+      const marker = ansRun ? `${++ansRun.n}.` : "•";
+      const an = grabAnswer();
+      parts.push({ kind: "q", q: b.plain.trim(), qseg: qsegOf(b.plain), a: an.a, aseg: an.aseg, marker, depth: 1 });
     } else if (b.marker) {               // a Word list item (no literal marker in text)
       if (primaryNum == null && elvl(b) === 0) primaryNum = b.numId;
       // Classify by MARKER FORMAT, the reliable signal: a DECIMAL marker heads a
@@ -1694,19 +1732,31 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, noBoxes, flat) {
   // would otherwise become a giant, blank-looking front-matter "section" with the real
   // text silently swallowed by the page-break-triggering heading machinery. A genuine
   // heading is always short AND never ends in terminal sentence punctuation.
-  const looksLikeProse = plain.length > 140 || (/[.!?]\s*$/.test(plain) && plain.length > 60);
-  if (hmapLevel && !looksLikeProse) return { t: "h" + hmapLevel, text: plain };
+  // …or a longish line holding TWO sentences ("…ready for you. We hope it helps you…") even
+  // when the author left off the closing full stop (a Grade 2 CTS acknowledgement line).
+  const looksLikeProse = plain.length > 140 || (/[.!?]\s*$/.test(plain) && plain.length > 60)
+    || (plain.length > 90 && /[.!?]\s+[A-Z]/.test(plain));
   // Numbered TOPIC / UNIT / Sub-Topic headings (some manuscripts hand-size these
-  // with no Word heading style, e.g. Physics "TOPIC 4.1: …" / "Sub-Topic 4.1.1: …";
-  // some instead plant the colon before the number, "TOPIC: 4.1 …").
-  if (plain.length <= 90 && SUBTOPIC_RE.test(plain)) return { t: "h2", text: plain };
-  if (plain.length <= 90 && /^(TOPIC|UNIT|CHAPTER)\s*:?\s*[\d.]+\b/i.test(plain)) return { t: "h1", text: plain };
+  // with no Word heading style, e.g. Physics "TOPIC 4.1: …" / "Sub-Topic 4.1.1: …").
+  // A misplaced colon ("TOPIC: 1.5 CROP PRODUCTION", "Subtopic: 1.5.1 Vegetable Production")
+  // is moved to its house position after the number, matching the book's other headings.
+  // (Only with the per-book colonHeadings option; see SECTION_COLON.)
+  const colonFix = (s) => COLON_HEADINGS
+    ? s.replace(/^(TOPIC|UNIT|CHAPTER|SUB[-\s‐-―]*TOPIC)\s*:\s*(\d+(?:\.\d+)*)[.:]?\s+(?![:\s])/i, "$1 $2: ") : s;
+  const TOPIC_HEAD = /^(TOPIC|UNIT|CHAPTER)\s*:?\s*[\d.]+\b/i;
+  // A line that READS "TOPIC 1.2: …" is a topic whatever size the author set it in — check
+  // it BEFORE the size→level map, which otherwise demotes a topic hand-set at the sub-topic
+  // size (the Agriculture TG: Topic 1.1 at 16pt but Topics 1.2–1.6 at 14pt) to a sub-topic.
+  if (plain.length <= 90 && !looksLikeProse && TOPIC_HEAD.test(plain)) return { t: "h1", text: colonFix(plain) };
+  if (hmapLevel && !looksLikeProse) return { t: "h" + hmapLevel, text: plain };
+  if (plain.length <= 90 && SUBTOPIC_RE.test(plain)) return { t: "h2", text: colonFix(plain) };
   // Local-language unit openers, hand-sized (no heading style), e.g. Lunda
   // "CHIBALU 1: …" or Tonga "CIPATI 1: …". Titles can be long, so allow more room.
   if (plain.length <= 120 && /^(CHIBALU|CIPATI)\s+\d+\b/i.test(plain)) return { t: "h1", text: plain };
   // Back-matter section names are section headings even when the manuscript left
   // them un-bold (so they get their own page and end any preceding box).
   if (plain.length <= 40 && /^(GLOSSARY|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX)$/i.test(plain)) return { t: "h1", text: plain };
+  if (plain.length <= 80 && LEXI.isBackSection(plain)) return { t: "h1", text: plain };
   const nonblank = segs.filter((s) => s.t.trim());
   const allBold = nonblank.length > 0 && nonblank.every((s) => s.b);
   const colored = nonblank.some((s) => s.c);
@@ -1821,6 +1871,11 @@ function groupAssessments(blocks) {
 }
 
 async function importDocx(docxPath, opts = {}) {
+  COLON_HEADINGS = !!opts.colonHeadings;
+  EXERCISE_BULLETS = !!opts.exerciseBullets;
+  ANSWER_NUMBERED = Array.isArray(opts.answerListNumbered) ? opts.answerListNumbered : [];
+  SECTION_RE = COLON_HEADINGS ? SECTION_COLON : SECTION_STRICT;
+  SUBTOPIC_RE = COLON_HEADINGS ? SUBTOPIC_COLON : SUBTOPIC_STRICT;
   // ZEPH house-style options (decoupled so different layouts can mix them):
   //   styled    – trust Word heading styles (don't infer headings from colour/size)
   //   flat      – no callout boxes; activities/exercises become headings (English)
@@ -2135,7 +2190,10 @@ async function importDocx(docxPath, opts = {}) {
       // A per-book override may replace a specific source image (e.g. swap a
       // stock photo for a contextualised one). The override file stands in for
       // the original everywhere — bytes copied AND aspect/size read from it.
-      const ovrEntry = imgOverrides[base];
+      // Keyed by the manuscript's media name ("image38.png") OR the name the typeset source
+      // shows ("imp_image38.png") — overrides are usually written from the latter, which was
+      // silently never matched before (a height/size override quietly did nothing).
+      const ovrEntry = imgOverrides[base] || imgOverrides["imp_" + base];
       const ovr = ovrEntry && ovrEntry.src;
       const useOvr = ovr && fs.existsSync(ovr);
       const src = useOvr ? ovr : path.join(tmp, "word", rels[rid]);
@@ -2236,7 +2294,8 @@ async function importDocx(docxPath, opts = {}) {
   // ---- front-matter detection (only when the book clearly has one) ----
   const hasTocStyle = parts.some((x) => /<w:pStyle\s+w:val="TOC\d/.test(x));
   const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso/i.test(textOf(x)));
-  const tocPartIdx = parts.findIndex((x) => !isTbl(x) && /^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(textOf(x)));
+  const isTocHead = (t) => /^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(t) || LEXI.isContents(t);
+  const tocPartIdx = parts.findIndex((x) => !isTbl(x) && isTocHead(textOf(x)));
   // The imprint (copyright/credits) page is centred plain text in the original.
   // It ends at the TOC, the next styled heading, or a safety cap — whichever is
   // first — so a book WITHOUT a TOC doesn't treat its whole body as imprint.
@@ -2264,7 +2323,7 @@ async function importDocx(docxPath, opts = {}) {
       // Heading like a real section would be. Don't let it end the imprint early.
       if (/Heading\d/.test(styleOf(parts[i])) && /^COPYRIGHT$/i.test(textOf(parts[i]).trim())) continue;
       // stop at the first styled heading OR the first front-matter section name
-      if (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i]))) { imprintEnd = i; break; }
+      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i])) || LEXI.isFrontSection(textOf(parts[i])))) { imprintEnd = i; break; }
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.
@@ -2525,6 +2584,20 @@ async function importDocx(docxPath, opts = {}) {
       const kind = boxKindFromTitle(lead) || BOX_FILL[firstFill];
       const single = cells.length === 1 && cells[0].length === 1;
       if (kind === "assessment") blocks.push(makeAssessmentTable(cells));
+      // A box authored as a ONE-COLUMN, multi-row table (title in row 1, body in row 2…)
+      // keeps every row: taking only the first cell silently dropped the whole body.
+      // A row that opens with its OWN box title ("EXERCISE 2 – POSSIBLE SOLUTIONS",
+      // "END-OF-TOPIC ASSESSMENT") starts a separate box rather than joining this one.
+      else if (kind && cells.length > 1 && cells.every((r) => r.length === 1)) {
+        const groups = [{ kind, rows: [cells[0]], blks: firstBlks }];
+        for (const r of cells.slice(1)) {
+          const rb = cellBlocks(r[0].xml);
+          const rk = boxKindFromTitle(((rb.find((b) => (b.plain || "").trim()) || {}).plain || "").trim());
+          if (rk) groups.push({ kind: rk, rows: [r], blks: rb });
+          else { const g = groups[groups.length - 1]; g.rows.push(r); g.blks = g.blks.concat(rb); }
+        }
+        for (const g of groups) blocks.push(g.kind === "assessment" ? makeAssessmentTable(g.rows) : makeBox(g.kind, g.blks));
+      }
       else if (kind) blocks.push(makeBox(kind, firstBlks));
       else if (single && firstFill && firstFill !== NAVY) blocks.push(makeBox("box", firstBlks));
       else {
@@ -2550,7 +2623,7 @@ async function importDocx(docxPath, opts = {}) {
     // "CHIBALU N: …" per line). Drop the contiguous run of short, heading-like
     // lines; stop at the first real section header — recognised because the line
     // that follows IT is a substantial body paragraph (the section's prose).
-    if (/^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(textOf(x))) {
+    if (isTocHead(textOf(x))) {
       blocks.push({ t: "toc" });
       let j = i + 1;
       const bodyLen = (k) => (k < parts.length && !isTbl(parts[k]) ? textOf(parts[k]).length : 0);
@@ -2583,6 +2656,10 @@ async function importDocx(docxPath, opts = {}) {
         }
         if (t === "") { j++; continue; }                                   // blank padding
         if (/[.…]{2,}\s*\[?\d+\]?\s*$/.test(t)) { j++; continue; }          // dot-leader entry
+        // A dot-leader entry whose page number was never filled in ("Subtopic 1.2
+        // Agricultural Activities in Zambia……………."). Safe to drop here: we are already
+        // inside the contents region (the global fill-in-blank guard doesn't apply).
+        if (/[.…]{4,}[.,;:]*\s*$/.test(t)) { j++; continue; }
         if (/^(CHIBALU|CIPATI)\s*\d+\b/i.test(t)) { j++; continue; }        // a unit entry (may be long)
         // The genuine first section heading ("UNIT 1: …") carries a real heading
         // STYLE (Heading1) or a large font — unlike its same-named contents entry,
@@ -2590,8 +2667,18 @@ async function importDocx(docxPath, opts = {}) {
         // real heading is kept, even when a short SUBTITLE line ("Children's
         // Rights") sits between it and the body prose (which would otherwise fail
         // the "next line is long body prose" test below and drop the heading).
-        if (SECTION_RE.test(t)
+        // …but a heading-styled line that ends in a PAGE NUMBER ("TOPIC 2: SOIL SCIENCE 24",
+        // or glued on: "Waste Disposal49") is a contents entry the author styled as a
+        // heading, not the real chapter — let it fall through to the "is it followed by
+        // body prose?" test below instead. (Digits after a "." — "TOPIC 3.1" — don't count.)
+        if (SECTION_RE.test(t) && !/(\s|[A-Za-z)])\d{1,3}\s*$/.test(t)
             && (/^heading\s*\d/i.test(styleOf(parts[j])) || sizeOf(parts[j]) >= 28)) break;
+        // A TOPIC/SUB-TOPIC line ending in a page number ("…TRAVEL AND TOURISM83") is a
+        // contents entry however long its title (the short-line test below caps at 60).
+        if (SECTION_RE.test(t) && /(\s|[A-Za-z)])\d{1,3}\s*$/.test(t)) { j++; continue; }
+        // A line in a real Word Heading style with no page number is the first real
+        // section after the contents ("LIST OF ACRONYMS" as Heading1): stop dropping.
+        if (/^heading\s*\d/i.test(styleOf(parts[j])) && !/[A-Za-z)\s]\d{1,3}\s*$/.test(t)) break;
         // A short heading-like line: a TOC entry to drop UNLESS it's the real
         // first section header (its next non-blank line is long body prose).
         if (t.length < 60) {
@@ -2664,6 +2751,9 @@ async function importDocx(docxPath, opts = {}) {
       continue;
     }
     if (tocJunk.has(i)) continue;  // a hand-typed TOC entry (we generate our own)
+    // A hand-typed page footer ("Page | 4", "P a g e | iv") on its own line: the typeset
+    // book prints its own page numbers, so the author's are dropped.
+    if (!isTbl(x) && /^P\s*a\s*g\s*e\s*\|\s*([ivxlc]+|\d+)\s*$/i.test(textOf(x))) continue;
     if (hasTocStyle && /^TOC/i.test(styleOf(x))) continue; // drop source TOC lines + "CONTENTS" heading
 
     // A paragraph may carry images plus heading or caption text. Don't drop the

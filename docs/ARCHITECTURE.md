@@ -119,8 +119,10 @@ typeset-docx.js        runner: load overrides → import → passes (in order) �
 │   ├── marks.js           "[N marks]" glue + flush-right
 │   ├── polish.js          list columns, spacing, answer labels, column maths, scaffold
 │   ├── backmatter.js      acronyms, glossary, references order, layout credit
-│   ├── series-front.js    ZEPH B5 front matter + front-matter ordering
+│   ├── series-front.js    ZEPH B5 front matter + front-matter ordering (orderFrontMatter: house order)
 │   └── syllabus.js        CDC landscape syllabus (variant "syllabus") — syllabusPostProcess()
+├── lexicon/           local-language word lists: <language>.json + index.js (see docs/LOCAL-LANGUAGE-GLOSSARY.md)
+├── png-check.js       corrupt pictures in a manuscript → labelled grey placeholder (the build no longer fails)
 ├── blocktext.js       read/replace a block's text or rich segments
 ├── naming.js          title / grade / teacher-book / education-level detection
 ├── emit.js            blocks → Typst markup

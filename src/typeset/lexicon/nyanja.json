@@ -1,0 +1,128 @@
+{
+  "language": "nyanja",
+  "sources": [
+    {
+      "file": "ZEPH Local Language Words Form Cinyanja.docx",
+      "author": "Madaliso Banda",
+      "book": "Fomu 6"
+    }
+  ],
+  "terms": {
+    "grade": [
+      "GILEDI"
+    ],
+    "form": [
+      "FOMU"
+    ],
+    "learners_book": [
+      "BUKU LA M'PHUNZI"
+    ],
+    "teachers_guide": [
+      "BUKU LA M'PHUNZITSI"
+    ],
+    "level_advanced": [
+      "MUYEZO WAPAMWAMBA"
+    ],
+    "contents": [
+      "ZAM'KATI"
+    ],
+    "author_section": [
+      "MLEMBI"
+    ],
+    "foreword": [
+      "MAU OYAMBILILA"
+    ],
+    "preface": [
+      "MAU A MLEMBI"
+    ],
+    "acknowledgement": [
+      "KUYAMIKILA"
+    ],
+    "introduction": [
+      "KALAMBULA BWALO"
+    ],
+    "key_competences": [
+      "MALUSO APAMWAMBA"
+    ],
+    "acronyms": [
+      "CIDULE CA MAU"
+    ],
+    "unit": [
+      "CIGAWO",
+      "Capamutu"
+    ],
+    "topic": [
+      "MUTU"
+    ],
+    "subtopic": [
+      "MUTU WAUNG'ONO"
+    ],
+    "lesson": [
+      "Phunzilo"
+    ],
+    "specific_competences": [
+      "MALUSO APADELA"
+    ],
+    "expected_standards": [
+      "MUYEZO oyembelezeleka"
+    ],
+    "listening_speaking": [
+      "KMVETSELA NDI KULANKHULA"
+    ],
+    "reading": [
+      "KUWELENGA"
+    ],
+    "writing": [
+      "KULEMBA"
+    ],
+    "language_structure": [
+      "CINENEDWE"
+    ],
+    "reading_comprehension": [
+      "MVETSO"
+    ],
+    "summary_writing": [
+      "CIFUPIKITSO"
+    ],
+    "activity": [
+      "Nchito"
+    ],
+    "alt_activity": [
+      "Nchito yowonjezela"
+    ],
+    "exercise": [
+      "Zocita"
+    ],
+    "assessment_topic": [
+      "Mayeso akutha kwa mutu",
+      "Mayeso a kutha kwa mutu"
+    ],
+    "assessment_unit": [
+      "Mayeso akutha kwa cigawo"
+    ],
+    "did_you_know": [
+      "Kodi mudziwa"
+    ],
+    "key_points": [
+      "MFUNDO ZAZIKULU",
+      "Mau ofunika kudziwa"
+    ],
+    "note_teacher": [
+      "Cidziwitso kwa Mphunzitsi"
+    ],
+    "example": [
+      "Citsanzo"
+    ],
+    "possible_answers": [
+      "Mayankho yoyembekezedwa"
+    ],
+    "glossary": [
+      "Mtanthauzila mau"
+    ],
+    "references": [
+      "Mabuku ofufuzila"
+    ]
+  },
+  "extras": [],
+  "conflicts": []
+}

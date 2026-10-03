@@ -171,6 +171,9 @@ function ensureOrIndividually(blocks) {
           if (sub && Array.isArray(sub.segs)) {
             for (let i = 0; i < sub.segs.length; i++) {
               const s = sub.segs[i];
+              // Skip a sentence that already offers "individually" anywhere (e.g. "Work
+              // individually or in pairs."), and keep the original separator so no space
+              // is left before a following full stop/comma.
               if (s && typeof s.t === "string") {
                 // The guard used to be `(\s*,?\s*)(?!or\s+individually)`: a GREEDY
                 // whitespace group sitting right before the negative lookahead. On

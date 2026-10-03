@@ -3,6 +3,7 @@
 const { arr } = require("../emit.js");
 const { blockPlain } = require("../blocktext.js");
 const { READINSTR } = require("./series-front.js");
+const LEXI = require("../lexicon/index.js");
 
 // For the ZEPH "series" layout, restructure the front matter to match the house
 // style: a repeated title page after the cover (where silent roman counting
@@ -264,7 +265,7 @@ function dedupeAdjacentHeadings(blocks) {
 // its text is kept but it stops polluting the TOC / forcing a page break.
 function fixStrayBodyH1s(blocks) {
   const UNIT = /^(TOPIC|UNIT|CHAPTER|CHIBALU|CIPATI)\b/i;
-  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
+  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|(KEY\s+|SUMMARY\s+OF\s+(GENERAL\s+)?)COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
   // FRONTBACK requires an EXACT match end-to-end, which is right for most of its
   // entries (a stray body h1 could otherwise dodge demotion by coincidentally
   // starting with "Introduction" or "Preface"). But ACRONYMS and (KEY/GENERAL)
@@ -282,7 +283,12 @@ function fixStrayBodyH1s(blocks) {
   // ACRONYMS/COMPETENCES above — match it by its trailing phrase rather than requiring
   // an exact whole-string match.
   const FRONTBACK_TRAIL = /SCHEME\s+OF\s+WORK$/i;
-  const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim()) && !FRONTBACK_LEAD.test((b.text || "").trim()) && !FRONTBACK_TRAIL.test((b.text || "").trim());
+  // (a local-language book's own Unit/Topic and section words count too)
+  const isStray = (b) => {
+    const t = (b.text || "").trim();
+    return b.t === "h1" && !UNIT.test(t) && !FRONTBACK.test(t) && !FRONTBACK_LEAD.test(t) && !FRONTBACK_TRAIL.test(t)
+      && !LEXI.isTopSection(t) && !LEXI.isFrontSection(t) && !LEXI.isBackSection(t) && !LEXI.isContents(t);
+  };
   const seen = new Set();
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
@@ -599,4 +605,31 @@ function uniformBoxLabelCase(blocks) {
   }
 }
 
-module.exports = { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase };
+
+// Per-book option `subtopicsOnly` (overrides): for a manuscript whose real sub-topics are all
+// numbered ("Sub-Topic 1.1.1: …") but whose author ALSO used Word's Heading 2 — or bold labels
+// that later passes promote — for ordinary in-body headings ("Agriculture as a Technology",
+// "Fixed-Wing Drones"): the Agriculture Form 1 LB. Left alone, every one takes the sub-topic
+// banner and a contents line. Keep only the numbered sub-topics at h2; demote the rest to an
+// in-body head, and a long one that is really a sentence ("1. Environmental Factors:
+// Environmental factors are natural conditions…") to a paragraph with a bold lead-in.
+// Runs AFTER fixStrayBodyH1s, which is what promotes stray headings to h2.
+function keepNumberedSubtopicsOnly(blocks) {
+  const SUBTOPIC = /^SUB[-\s‐-―]*TOPIC\s*:?\s*[\d.]/i;
+  let n = 0;
+  for (const b of blocks) {
+    if (b.t !== "h2") continue;
+    const t = (b.text || blockPlain(b) || "").trim();
+    if (SUBTOPIC.test(t)) continue;
+    const m = t.length > 70 && t.match(/^([^:]{3,60}:)\s+(\S.*)$/);
+    if (m) {
+      Object.assign(b, { t: "para", segs: [{ t: m[1] + " ", b: true, it: false, c: null }, { t: m[2], b: false, it: false, c: null }] });
+      delete b.text;
+    } else { b.t = "head"; b.text = t; }
+    n++;
+  }
+  if (!n) console.warn("!  subtopicsOnly changed nothing");
+}
+
+
+module.exports = { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };

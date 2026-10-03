@@ -1,0 +1,190 @@
+{
+  "language": "lunda",
+  "sources": [
+    {
+      "file": "ZEPH Local Language Words Form lunda secondary.docx",
+      "author": "Collins Kazhinga",
+      "book": "FOMU 5"
+    },
+    {
+      "file": "ZEPH Local Language Words Form Lunda words -Primary (Grades 1-6).docx",
+      "author": "Kabalakanya Charles",
+      "book": ""
+    },
+    {
+      "file": "ZEPH Local Language Words Form_Lunda.pdf",
+      "author": "Kasai Joshua",
+      "book": ""
+    }
+  ],
+  "terms": {
+    "grade": [
+      "Mañu"
+    ],
+    "form": [
+      "Fomu"
+    ],
+    "learners_book": [
+      "Mukanda wa Kadizi",
+      "Mukanda Wakadizi"
+    ],
+    "teachers_guide": [
+      "Mukanda wa Ntañishi",
+      "Mukanda Wantañishi",
+      "Mukanda wakulobola Ntañishi"
+    ],
+    "level_ece": [
+      "Shikola yakudiza kufuma hakusemuka nakushika yaaka yitanu nayiyedi",
+      "Shikola Yakudizila Anyanya"
+    ],
+    "level_primary": [
+      "Shikola yamañu yanyanya mañu 1 - 6",
+      "Shikola Yawanyanya Yamañu 1-6"
+    ],
+    "level_ordinary": [
+      "Shikola yeneni yakutachika Fomu 1 -4",
+      "Shikola Yeneni Ya Fomu 1-4"
+    ],
+    "level_advanced": [
+      "Shikola yeneni yakudizila nyidimu",
+      "Shikola Yeneni Ya Fomu 5-6"
+    ],
+    "contents": [
+      "Yuma yidi mukachi"
+    ],
+    "author_section": [
+      "Ansoneki"
+    ],
+    "foreword": [
+      "Mazu Atachi"
+    ],
+    "preface": [
+      "Kulema chamukanda",
+      "Kulema Chamukanda Wunu",
+      "Kulema kwamukanda wunu"
+    ],
+    "acknowledgement": [
+      "Kusakilila",
+      "Kasakilila",
+      "mazu akusakilila"
+    ],
+    "introduction": [
+      "Kulumbulula",
+      "Ntachikilu"
+    ],
+    "key_competences": [
+      "Yuma yinakuhwelelewi kwilukisha",
+      "Yuma Yinakuhweleli Atudizi Kwilukisha"
+    ],
+    "acronyms": [
+      "Kusoneka Mazu muwihi",
+      "Mazu Muwihi"
+    ],
+    "unit": [
+      "Chibalu",
+      "Chikunku"
+    ],
+    "topic": [
+      "Mutu wansañu weneni",
+      "Mutuwansañu",
+      "Mutu Wansañu"
+    ],
+    "subtopic": [
+      "Mutu wansañu wanyanya",
+      "Mutu Wansañu Wantanya"
+    ],
+    "lesson": [
+      "Kudiza",
+      "Ndizilu"
+    ],
+    "specific_competences": [
+      "Chuma chinakuhwelelewi",
+      "Chuma Chinakuhwelelewi Atudizi Kwilukisha",
+      "chuma chinakukuhwelelewa atudizi kwilukisha"
+    ],
+    "expected_standards": [
+      "Chipimu chanzatilu chinakuhwelelewi",
+      "Chipimu Chanakuhwelelewi Atudizi Kwilukisha",
+      "Chipimu chanzatilu chinakukuhwelelewa"
+    ],
+    "listening_speaking": [
+      "Kuhosha nakutiyilila",
+      "Kuhosha Na Kutiyilila",
+      "Kuhosha nakutiyilile"
+    ],
+    "reading": [
+      "Kutaña"
+    ],
+    "writing": [
+      "Kusoneka"
+    ],
+    "language_structure": [
+      "Mwaya idimi",
+      "Chituñi",
+      "Maya idimi"
+    ],
+    "reading_comprehension": [
+      "Kutaña",
+      "Kutaña Nakanañachima"
+    ],
+    "summary_writing": [
+      "Nsañu muwihi",
+      "Kwihihisha Nsañu"
+    ],
+    "activity": [
+      "Zhakwila",
+      "zhakwila hakutaña"
+    ],
+    "alt_activity": [
+      "Zhakwila zhinafutilewi",
+      "Yuma yikwawu yakwila"
+    ],
+    "exercise": [
+      "Mudimu"
+    ],
+    "assessment_topic": [
+      "Mweseka kwahakumana kwa mutu wansañu weneni",
+      "Kweseka Kwahachibalu",
+      "kweseka kwakukumish kwa mutu ansañu"
+    ],
+    "assessment_unit": [
+      "Kweseka kwahakumana kwachikunku",
+      "Kweseka Kwahachibalu",
+      "kweseka wakukumisha kwa chikunku"
+    ],
+    "did_you_know": [
+      "Wuneluki",
+      "Muneluki?",
+      "welukili neyi?"
+    ],
+    "key_points": [
+      "Yuma yakudiza yalema",
+      "Nsañu Yinalemimu",
+      "Mazu alema"
+    ],
+    "note_teacher": [
+      "Mwakutañishila",
+      "Chanukishu Kudi Ntañishi",
+      "Kwanukisa ntañishi"
+    ],
+    "example": [
+      "Chitalilu"
+    ],
+    "possible_answers": [
+      "Kwakula kwamudimu",
+      "Ñakwilu Yinafukulewi",
+      "ñakwilu yiafukulewi"
+    ],
+    "glossary": [
+      "Chikuñulwilu",
+      "Chikuñulwilu Chamazu"
+    ],
+    "references": [
+      "Reference",
+      "Kunafumi Nsañu",
+      "nyikanda yansulu yawunsahu"
+    ]
+  },
+  "extras": [],
+  "conflicts": []
+}

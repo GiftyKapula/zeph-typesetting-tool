@@ -4,6 +4,46 @@ const { S, arr } = require("./emit.js");
 const { segKey, blockPlain, setBlockText, setBlockSegs, editBlockText, editBlockAnswerText, allTextBlocks, mkSegs } = require("./blocktext.js");
 
 function applyOverrides(blocks, ov) {
+  // italicSections: ["Specific Competences", "Expected Standards", …] — every paragraph /
+  // list line under a heading with one of these names (up to the next heading or box)
+  // is set in italics. Case-insensitive; a trailing colon on the heading is ignored.
+  // Runs FIRST, while the manuscript's headings are all still in place (a heading
+  // deleted later, e.g. by replaceBlocks, must still end the italic run).
+  if (Array.isArray(ov.italicSections) && ov.italicSections.length) {
+    const names = new Set(ov.italicSections.map((s) => String(s).toLowerCase().replace(/[:\s]+$/, "")));
+    const isHeading = (b) => /^(h[123]|head|label|subhead)$/.test(b.t);
+    let on = false, n = 0;
+    for (const b of blocks) {
+      if (isHeading(b)) { on = names.has(String(b.text || "").trim().toLowerCase().replace(/[:\s]+$/, "")); continue; }
+      if (!on) continue;
+      if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) { for (const s of b.segs) s.it = true; n++; }
+      else if (b.t !== "vspace") on = false;
+    }
+    console.log(`   italicSections: ${n} line(s) set in italics`);
+  }
+  // unbox: ["box title", …] — undo a false exercise/assessment box: a front-matter section
+  // such as "3. Assessment Strategies" reads to the box-detector like an assessment and
+  // swallows everything after it. Replace the box with a plain heading followed by its
+  // contents as ordinary blocks (questions -> list items, leads -> paragraphs, tables ->
+  // tables). Runs first so later options (asHead, asPara, edit…) can target the freed blocks.
+  for (const title of ov.unbox || []) {
+    const i = blocks.findIndex((b) => (b.t === "assessment" && (b.title || "").trim() === title)
+      || (b.t === "exercise" && (b.heading || "").trim() === title));
+    if (i < 0) { console.warn("!  unbox not matched:", title); continue; }
+    const bx = blocks[i];
+    const out = [{ t: "head", text: title }];
+    const para = (segs) => ({ t: "para", segs });
+    for (const s of bx.intro || []) out.push(para([{ t: s, b: false, it: false, c: null }]));
+    for (const p of bx.parts || []) {
+      const segs = p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }];
+      if (p.kind === "q") out.push({ t: "listitem", segs, marker: p.marker || "•" });
+      else if (p.kind === "lead") out.push(para(segs));
+      else if (p.kind === "table") out.push({ t: "table", rows: p.rows });
+      else if (p.kind === "image") out.push({ t: "imagerow", images: p.images });
+    }
+    for (const s of bx.extra || []) out.push(para([{ t: s, b: false, it: false, c: null }]));
+    blocks.splice(i, 1, ...out);
+  }
   const flat = allTextBlocks(blocks);
   // textFix: [{ find, with }] — a blunt, whole-tree literal replacement applied to
   // EVERY text string anywhere in the block tree: segment runs, plain-text mirrors
@@ -233,14 +273,22 @@ function applyOverrides(blocks, ov) {
   const wsNorm = (s) => s.replace(/\s+/g, " ").trim();
   for (const rb of ov.replaceBlocks || []) {
     const news = (rb.with || []).map(mkBlock).filter(Boolean);
-    if (!news.length) { console.warn("!  replaceBlocks empty/unknown spec:", rb.find); continue; }
+    // `with: []` (explicitly empty) DELETES the matched block; any other empty result is a
+    // spec mistake. When the deleted block sat between two blank gaps (an imprint name line
+    // between blank paragraphs), one gap goes too, so no double gap is left behind.
+    const del = Array.isArray(rb.with) && rb.with.length === 0;
+    if (!news.length && !del) { console.warn("!  replaceBlocks empty/unknown spec:", rb.find); continue; }
     const want = wsNorm(rb.find);
     let done = false;
     const walk = (arr) => {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
-        if (wsNorm(blockPlain(b)) === want) { arr.splice(i, 1, ...news); done = true; return; }
+        if (wsNorm(blockPlain(b)) === want) {
+          arr.splice(i, 1, ...news);
+          if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
+          done = true; return;
+        }
         for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key]);
       }
     };
@@ -540,14 +588,23 @@ function applyOverrides(blocks, ov) {
   // "label" is force-uppercased by the series theme's lbl(), so recasing it to sentence
   // case is not enough on its own; it must stop being a label. Runs after recase so it
   // carries the corrected casing. Matches on the current (post-recase) trimmed text.
-  for (const ap of ov.asPara || []) {
+  // An entry may also be {find, italic: true} to render the demoted paragraph in italics
+  // (e.g. the specific-competence lines, set italic to match the general-competence text),
+  // and `bold` / `boldLead` (see below).
+  for (const apRaw of ov.asPara || []) {
+    const ap = typeof apRaw === "string" ? { find: apRaw } : apRaw;
     let n = 0;
     for (const b of flat) {
       if (!(b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)) || typeof b.text !== "string") continue;
       if (b.text.trim() !== ap) continue;
       const t = b.text.trim();
       b.t = "para"; delete b.text; delete b.marker;
-      b.segs = [{ t, b: false, it: false, c: null }];
+      // {bold: true} keeps the whole line bold (a key sentence the importer took for a
+      // heading); {boldLead: true} bolds only the "Label:" part up to the first colon.
+      const ci = ap.boldLead ? t.indexOf(":") : -1;
+      b.segs = ci > 0
+        ? [{ t: t.slice(0, ci + 1), b: true, it: !!ap.italic, c: null }, { t: t.slice(ci + 1), b: false, it: !!ap.italic, c: null }]
+        : [{ t, b: !!ap.bold, it: !!ap.italic, c: null }];
       n++;
     }
     if (!n) console.warn("!  asPara not matched:", ap);
@@ -647,6 +704,39 @@ function applyOverrides(blocks, ov) {
     if (s.rename) b.text = s.rename;
     b.t = "head"; b.styleSection = true; b.noPromote = true;
     delete b.segs; delete b.marker;
+  }
+  // unsideFigure: ["imp_image12"] — turn ONE side-by-side figure (pictures beside text) back
+  // into a plain picture row followed by its text, so the text can be moved on its own (a
+  // reviewer wanted the sentence under a later picture). `noSideFigures` does this for
+  // every figure in the book; this targets just the named one.
+  for (const f of ov.unsideFigure || []) {
+    const i = blocks.findIndex((b) => b.t === "sidefig" && (b.images || []).some((im) => (im.file || "").includes(f)));
+    if (i < 0) { console.warn("!  unsideFigure not matched:", f); continue; }
+    const sf = blocks[i];
+    blocks.splice(i, 1, { t: "imagerow", images: sf.images }, ...(sf.body || []));
+  }
+  // imageLabelCaptions: true — the author typed each picture's label as a short line of its
+  // own directly under it ("Things that can cause accidents", "Stunt activities"), which
+  // then prints at full body size (16pt in Grade 2) and reads like a heading. Attach such a
+  // line to the uncaptioned picture above it as that picture's caption instead. A label is
+  // short (≤ 40 chars) and not a sentence (no closing . ! ?). Opt-in per book.
+  if (ov.imageLabelCaptions) {
+    let n = 0;
+    const labels = [];
+    for (let i = 0; i + 1 < blocks.length; i++) {
+      const img = blocks[i], nx = blocks[i + 1];
+      if (img.t !== "image" || img.caption || nx.t !== "para") continue;
+      const t = (blockPlain(nx) || "").trim();
+      if (!t || t.length > 40 || /[.!?:]$/.test(t)) continue;
+      // …but not a heading that merely follows a picture: a bold line, or a section word.
+      if ((nx.segs || []).some((s) => s.b && (s.t || "").trim()) || /^(introduction|summary|activity|exercise)$/i.test(t)) continue;
+      img.caption = t;
+      blocks.splice(i + 1, 1);
+      n++;
+      labels.push(t);
+    }
+    if (!n) console.warn("!  imageLabelCaptions matched nothing");
+    else console.log(`   imageLabelCaptions: ${n} picture label(s) -> captions: ${labels.join(" | ")}`);
   }
   // numberedTopics: true — for a manuscript that opens its topics with a BARE number
   // ("2.1. SAFETY") instead of the house form ("TOPIC 2.1: SAFETY"), as the Grade 2 CTS
