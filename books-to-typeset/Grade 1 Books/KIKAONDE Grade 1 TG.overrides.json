@@ -1,0 +1,5 @@
+{
+  "_note": "Leftovers from the author's hand-typed contents list. The engine drops the dot-leader entries themselves; these three lines carry no leaders, so they survive: 'BIJIMO    PEEJI' is the list's own heading + page-column header (the engine prints its own Table of Contents), and this 'TEMU 1' is the term banner INSIDE the list, not the real one that opens the body.",
+  "remove": ["BIJIMO", "PEEJI"],
+  "removeWhereNext": [{ "find": "TEMU 1", "next": "BANEMBI" }]
+}
