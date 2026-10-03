@@ -605,6 +605,14 @@ async function typesetOne(docxPath, themeName) {
   // A book may also override the TOC depth directly. Depth 1 keeps top-level
   // sections only (front matter + units/topics) and excludes sub-topics.
   if (ov.tocDepth !== undefined) themeOverrides.tocDepth = ov.tocDepth;
+  // A local-language book titles its contents page in that language. The authors gave
+  // their own word for "Table of Contents" on the word form (Kaonde "Bijimo", Nyanja
+  // "Zam'kati"…), so take it from the loaded word list instead of printing the English
+  // default. A theme that names its own `toctitle` (Lunda) keeps it, and an English book
+  // loads no word list, so neither changes. A per-book `toctitle` still beats both.
+  const langToc = LEXI.words(["contents"])[0];
+  if (langToc && (THEMES[theme] || {}).toctitle === "Table of Contents") themeOverrides.toctitle = langToc;
+  if (ov.toctitle) themeOverrides.toctitle = ov.toctitle;
   if (ov.captionSize) themeOverrides.capSize = ov.captionSize;
   // "boxStripe": false — plain tinted activity/exercise/assessment boxes, no thick left border
   if (ov.boxStripe === false) themeOverrides.boxStripe = false;   // e.g. "12pt" (see capsz in the template)
