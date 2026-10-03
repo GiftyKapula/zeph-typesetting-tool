@@ -15,7 +15,7 @@ const { importDocx, fixBoxTitleSpelling, isProseSentence } = require("./import-d
 const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng, toPrintJpeg } = require("./image-enhance.js");
 const { stripWatermark } = require("./dewatermark.js");
-const { proseIssues } = require("./british-english.js");
+const { proseIssues, fixQuestionMark } = require("./british-english.js");
 const { writeManuscriptMarkdown } = require("./docx-to-markdown.js");
 
 const ROOT = path.join(__dirname, "..", "..");
@@ -463,7 +463,21 @@ function emit(blocks) {
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
-        out += (b.stickyNext || capOfTable(plain) || capOpener(plain) || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(p) : p;
+        // A TABLE caption has to drop the same invisible page marker a figure caption does.
+        // loentry() resolves each List-of-Figures / List-of-Tables line to a live page number
+        // by querying the label its caption left behind (capmark(), see generic-template.typ),
+        // and a figure caption gets one because it renders through figcaption(). A table
+        // caption is an ordinary sticky paragraph with a bold "Table N:" label - the house
+        // form - so it left no marker, every lookup missed, and each entry fell back to the
+        // page number typed in the manuscript. Authors type none, so the Food and Nutrition
+        // Form 2 Learner's Book printed its LIST OF TABLES with ten entries and not one page
+        // number against them, facing a LIST OF FIGURES whose thirty-two all had one: the same
+        // element set two ways, and half of it useless to a reader. The marker is metadata plus
+        // a label, which occupies no space (measured: the caption and the table around it sit
+        // at identical offsets with and without it), so this only ever adds the lookup.
+        const tblcap = capOfTable(plain);
+        const pm = tblcap ? `#capmark(${S(plain)})` + p : p;
+        out += (b.stickyNext || tblcap || capOpener(plain) || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(pm) : pm;
         break;
       }
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
@@ -2012,6 +2026,39 @@ function applyOverrides(blocks, ov) {
     walkT(blocks);
     if (!n) console.warn("!  editCell not matched:", ec.find);
   }
+  // tableNoHeader: ["cell text", …] — tell the renderer that the table holding this
+  // cell has NO header row, so its first row is drawn as ordinary data instead of the
+  // black header band.
+  //
+  // `dtable` promotes row 0 whenever every cell in it is short, single-line and
+  // non-empty, which is the right guess for the great majority of tables and must
+  // stay. It is wrong for a table that is a pure two-column LIST, where row 0 is the
+  // first entry and nothing more: the Accounting Form 2 Teacher's Guide's ACRONYMS
+  // table opens "CN | Credit Note", and that entry was painted as the column heading
+  // of the list it belongs to — so the printed book's acronym list silently lost its
+  // first acronym. Word knows the difference and the manuscript records it: the
+  // KEY COMPETENCES table three pages earlier bolds its header row, while every row
+  // of the ACRONYMS table is plain, unshaded and carries no `tblHeader`. That signal
+  // is not read automatically here on purpose — re-deciding the header of every table
+  // in every book is not something to change underneath books already proofread — so
+  // the manuscript's own answer is applied per table, by naming a cell in it.
+  //
+  // `noHeader` already exists on table blocks (`toTable`/`imageToTable` set it); this
+  // only lets an override reach a table the manuscript itself supplied.
+  for (const needle of ov.tableNoHeader || []) {
+    let n = 0;
+    (function walkNH(arr) {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")
+            && b.rows.some((r) => Array.isArray(r) && r.some((c) => c && typeof c.text === "string" && c.text.trim() === needle))) {
+          b.noHeader = true; n++;
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkNH(b[k]);
+      }
+    })(blocks);
+    if (!n) console.warn("!  tableNoHeader not matched:", needle);
+  }
   // deleteExact: ["exact trimmed text", …] — remove EVERY block (at any depth) whose
   // whole trimmed plain text equals the string, splicing it out of the tree entirely
   // (no empty paragraph left behind). Use for a redundant line the manuscript repeated
@@ -3558,7 +3605,7 @@ function normaliseCaptionLabels(blocks) {
     if (!seen.has(shape)) rec.first = seen.size;
     seen.set(shape, rec);
   }
-  if (seen.size < 2) return;  // nothing to reconcile: one shape, or no labels at all
+  if (seen.size < 2) { normaliseCaptionText(caps); return; }  // one shape, or no labels — the text still needs reconciling
 
   // Most used wins; a tie goes to whichever appeared first, so the result is stable.
   const [, best] = [...seen.entries()].sort((a, b) => (b[1].n - a[1].n) || (a[1].first - b[1].first))[0];
@@ -3576,6 +3623,60 @@ function normaliseCaptionLabels(blocks) {
     if (next !== text) { set(next); changed++; }
   }
   if (changed) console.log(`   caption labels: ${changed} normalised to "${word}${dot}${gap}N${pad}${sep}"`);
+  normaliseCaptionText(caps);
+}
+// The DESCRIPTION after the label is the same element on every picture too, and the
+// same argument applies to it as to the label itself: what is wrong is a book
+// disagreeing with itself. The Food and Nutrition Form 2 Learner's Book begins eight of
+// its thirty-two figure captions with a lower-case word ("Figure 25: picture
+// illustration of sauces") and the other twenty-four with a capital, and ends two of
+// them with a full stop and thirty without — so the reader meets the same line styled
+// four different ways, in the body and again in the LIST OF FIGURES.
+//
+// Two rules, and only these two. The opening letter is simply capitalised: a caption
+// begins a line of its own, so a lower-case opening is never a deliberate choice. The
+// terminator follows the book's OWN majority the way the label shape does, and only
+// when that majority is decisive (at least two-thirds), so a book that genuinely writes
+// sentence captions keeps its full stops and one that writes fragments keeps them off.
+// A stop after an abbreviation ("… etc.", "… Ltd.") is left alone, and so is a caption
+// whose description holds a "." anywhere but the end — that one is prose, not a label.
+function normaliseCaptionText(caps) {
+  const split = (text) => {
+    const m = text.match(CAP_LABEL);
+    return m ? [m[0], text.slice(m[0].length)] : ["", text];
+  };
+  let withStop = 0, withoutStop = 0;
+  for (const [text] of caps) {
+    const d = split(text)[1].trim();
+    if (!d || /\.\s*$/.test(d) === false) { if (d) withoutStop++; continue; }
+    if (/\b([A-Z][a-z]{0,3}|etc|no|vol|ed)\.\s*$/.test(d)) continue;   // an abbreviation, not a terminator
+    withStop++;
+  }
+  const total = withStop + withoutStop;
+  const dropStops = total >= 6 && withoutStop / total >= 2 / 3;
+  const addStops = total >= 6 && withStop / total >= 2 / 3;
+  let capped = 0, stopped = 0;
+  for (const [text, set] of caps) {
+    const [label, rest] = split(text);
+    let d = rest;
+    const lead = (d.match(/^\s*/) || [""])[0];
+    let body = d.slice(lead.length);
+    if (/^[a-z]/.test(body)) { body = body.charAt(0).toUpperCase() + body.slice(1); capped++; }
+    const isAbbrev = /\b([A-Z][a-z]{0,3}|etc|no|vol|ed)\.\s*$/.test(body.trim());
+    if (dropStops && !isAbbrev && /[^.]\.\s*$/.test(body) && (body.match(/\./g) || []).length === 1) {
+      body = body.replace(/\.(\s*)$/, "$1"); stopped++;
+    } else if (addStops && !isAbbrev && body.trim() && !/[.!?]\s*$/.test(body)) {
+      body = body.replace(/(\s*)$/, ".$1"); stopped++;
+    }
+    const next = label + lead + body;
+    if (next !== text) set(next);
+  }
+  if (capped || stopped) {
+    const bits = [];
+    if (capped) bits.push(`${capped} given a capital opening`);
+    if (stopped) bits.push(`${stopped} brought to the book's own ${dropStops ? "no-full-stop" : "full-stop"} ending`);
+    console.log(`   caption text: ${bits.join(", ")}`);
+  }
 }
 function reformatAcronyms(blocks) {
   // The ACRONYMS heading can arrive as any heading-like block (h1/h2/head/label)
@@ -3701,7 +3802,12 @@ function formatGlossary(blocks) {
   };
   let inGloss = false;
   const entries = [];
-  for (const b of blocks) {
+  // Where each entry sits in `blocks`, and whether the glossary groups itself under
+  // single-letter dividers — both needed by the alphabetising pass at the end.
+  const at = [];
+  let hasDividers = false;
+  for (let gi = 0; gi < blocks.length; gi++) {
+    const b = blocks[gi];
     const full = (b.segs ? b.segs.map((s) => s.t).join("") : b.text || "").trim();
     if (isHead(b)) {
       // The GLOSSARY section can open as any heading style (h1/h2/head/label),
@@ -3709,7 +3815,7 @@ function formatGlossary(blocks) {
       if (/^GLOSSARY\b/i.test(full)) { inGloss = true; b.t = "h1"; b.text = "GLOSSARY OF TERMS"; continue; }
       // A single-letter alphabetical divider ("A", "B", "C"…) inside the glossary
       // is just a section marker — keep it, but don't let it end the glossary.
-      if (inGloss && /^[A-Z]$/.test(full)) continue;
+      if (inGloss && /^[A-Z]$/.test(full)) { hasDividers = true; continue; }
       // Inside the glossary, a heading-styled line that is really an entry
       // ("Activity – A task…") — the manuscript bolded some terms so the importer
       // read them as heads — is converted to a normal entry and the glossary
@@ -3719,13 +3825,46 @@ function formatGlossary(blocks) {
       // shape fallback: a genuine top-level section (e.g. a back-matter "… – SAMPLE
       // SCHEME OF WORK" appendix) can easily match the "Term – meaning" shape by pure
       // accident of wording and must never be swallowed as a glossary entry.
-      if (inGloss && b.t !== "h1" && ENTRY.test(full) && full.length <= 200) { toEntry(b, full.match(ENTRY)); entries.push(b); continue; }
+      if (inGloss && b.t !== "h1" && ENTRY.test(full) && full.length <= 200) { toEntry(b, full.match(ENTRY)); entries.push(b); at.push(gi); continue; }
       inGloss = false;
       continue;
     }
     if (!inGloss) continue;
     const m = full.match(ENTRY);
-    if (m) { toEntry(b, m); entries.push(b); }
+    if (m) { toEntry(b, m); entries.push(b); at.push(gi); }
+  }
+  // A glossary nobody can look a word up in is not a glossary. Authors add terms as they
+  // write and the list comes out in the order they thought of them: the Food and Nutrition
+  // Form 2 Learner's Book runs Accompaniment, Additive, Baking, Budget … Stock in good
+  // alphabetical order for sixteen entries, drops "Contamination" after Stock, and then
+  // runs twelve more (Ready-to-eat, Practical planning, Labelling, Garnish, Consistency …)
+  // in no order at all. A reader looking for "Garnish" has to read all twenty-nine lines.
+  // So the entries are sorted here, by term, case- and accent-insensitively, ignoring a
+  // leading article and treating a hyphen as a space so "Ready-to-eat" files under R
+  // between "Recipe" and "Sauce" rather than by its punctuation.
+  //
+  // Two guards, because a wrongly reordered glossary is worse than an unsorted one:
+  //  - a glossary that groups its entries under single-letter dividers (A, B, C …) is left
+  //    alone. It is already sorted, and moving entries without regrouping them under the
+  //    right letter would put words beneath the wrong heading.
+  //  - the entries must form ONE unbroken run of blocks. Anything sitting between two of
+  //    them (a picture, a note, a table) belongs where the author put it, and sorting
+  //    around it would carry entries across it.
+  // Already-sorted glossaries come out of this untouched, so it is a no-op for every book
+  // whose author kept the list in order.
+  if (entries.length >= 3 && !hasDividers
+      && at.every((v, k) => k === 0 || v === at[k - 1] + 1)) {
+    const termOf = (b) => String((b.segs && b.segs[0] && b.segs[0].t) || "")
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase().replace(/^(a|an|the)\s+/, "")
+      .replace(/[-\u2010-\u2015_/]+/g, " ").replace(/[^a-z0-9 ]+/g, "").replace(/\s+/g, " ").trim();
+    const sorted = entries.slice().sort((x, y) => termOf(x).localeCompare(termOf(y), "en"));
+    const moved = sorted.some((b, k) => b !== entries[k]);
+    if (moved) {
+      for (let k = 0; k < sorted.length; k++) blocks[at[k]] = sorted[k];
+      entries.length = 0; entries.push(...sorted);
+      console.log(`   glossary: ${sorted.length} entries put in alphabetical order`);
+    }
   }
   // The LAST definition must never stand alone on a page. A glossary is one long run of
   // short paragraphs, so only its final entry can be orphaned — and it was: the Musical
@@ -3735,7 +3874,8 @@ function formatGlossary(blocks) {
   // break falls there, which is the same one-bullet-deep sticky qaparts() uses on a run
   // of sibling answers, and for the same reason: anything wider would push a healthy
   // chunk of the glossary onto a fresh page to avoid a fault that only ever affects the
-  // tail. Runs for every book.
+  // tail. Runs for every book, and AFTER the sort above, so it binds the pair that
+  // actually ends up last rather than the pair the manuscript happened to end with.
   if (entries.length >= 2) entries[entries.length - 2].stickyNext = true;
 }
 
@@ -4118,9 +4258,31 @@ function applySplitBoxTitle(blocks, list) {
             // segment here would hand it that segment's formatting instead and print
             // the title in body weight next to its bold siblings.
             if (Array.isArray(b[sk]) && b[sk].length) b[sk] = [{ ...b[sk][0], t: head }];
-            // The tail takes the formatting the box's own body already uses (italic, in
-            // every theme that boxes activities), not a fresh roman run.
-            const model = (b.t === "activity"
+            // A tail shaped like one of the box's OWN SUB-LABELS is formatted like them,
+            // not like the box's body text. An activity box is a stack of label/paragraph
+            // pairs — "Teaching and Learning Resources", "Procedure", "Teacher Tips",
+            // "Conclusion" — each a short bold line over its prose, and the label the
+            // author glued onto the title is one of those, not a sentence of body. Taking
+            // the body's formatting put it on the page in body weight, so four of the
+            // Accounting Form 2 Teacher's Guide's twenty-six boxes printed "Teaching and
+            // Learning Resources" unbolded while the other twenty-two printed it bold —
+            // trading a title that was too big for a label that was too light, when the
+            // whole point of the split is that every box should look the same.
+            //
+            // "Shaped like a label" is read off the box itself rather than from a list of
+            // known words: short, no sentence punctuation, and matching a paragraph the
+            // box already draws that way. A box with no such paragraph (an exercise, an
+            // assessment, an activity whose tail really is a sentence) falls through to
+            // the body model exactly as before.
+            const labelShaped = (s) => s.length <= 60 && !/[.!?;,:]$/.test(s);
+            const labelModel = b.t === "activity" && labelShaped(tail)
+              ? (b.body || []).find((x) => Array.isArray(x.segs) && x.segs.length
+                  && x.segs.every((s) => s.b)
+                  && labelShaped(x.segs.map((s) => s.t || "").join("").trim()))?.segs[0]
+              : null;
+            // Otherwise the tail takes the formatting the box's own body already uses
+            // (italic, in every theme that boxes activities), not a fresh roman run.
+            const model = labelModel || (b.t === "activity"
               ? (b.body || []).find((x) => Array.isArray(x.segs) && x.segs.length)?.segs[0]
               : (b.parts || []).find((p) => Array.isArray(p.qseg) && p.qseg.length)?.qseg[0])
               || { b: false, it: b.t === "activity", c: null };
@@ -5907,15 +6069,33 @@ function unifyStrayLabels(blocks) {
 // touched: it must carry both an "(a)" and a "(b)" marker, which ordinary prose with a
 // bracketed letter — or a "learner(s)" plural — never does.
 function spaceOptionMarkers(blocks) {
-  const GLUED = /([^\s(])\((?=[a-e]\)\s)/g;
+  // A marker can be glued on EITHER side, and the two faults turn up in the same list.
+  // The Food and Nutrition Form 2 Learner's Book's EXERCISE 2 on printed page 34 runs
+  // "… served as a dessert. (f)Identify four advantages …": the space before "(f)" is
+  // there, the one after it is not. Only the left-hand fault was repaired here, and the
+  // lookahead that drove it (`[a-e]\)\s`) demanded a space AFTER the marker to fire at
+  // all — so a marker glued on the right was not merely left alone, it also suppressed
+  // the repair on its left. Both sides are now handled independently.
+  //
+  // The letter range runs to j rather than e because option lists do: this book's own
+  // exercise reaches (f). A roman "(i)" falls inside that range too, which is harmless —
+  // the repair only ever inserts a space, and a roman marker glued to its text wants
+  // exactly the same spacing a lettered one does.
+  const GLUED = /([^\s(])\((?=[a-j]\))/g;                 // "…dessert.(e)" -> "…dessert. (e)"
+  const GLUED_AFTER = /\(([a-j])\)(?=[A-Za-z0-9])/g;      // "(e)Give"      -> "(e) Give"
   const walk = (arr) => {
     if (!Array.isArray(arr)) return;
     for (const b of arr) {
       if (!b || typeof b !== "object") continue;
       const full = (b.text || "") + (Array.isArray(b.segs) ? b.segs.map((s) => s.t).join("") : "");
-      if (/\(a\)\s/.test(full) && /\(b\)/.test(full)) {
-        if (typeof b.text === "string") b.text = b.text.replace(GLUED, "$1 (");
-        if (Array.isArray(b.segs)) for (const s of b.segs) if (typeof s.t === "string") s.t = s.t.replace(GLUED, "$1 (");
+      // The guard still demands a real option RUN in this block — an "(a)" and a "(b)" —
+      // so an isolated "(s)" in "food(s)" is never touched. It no longer demands a space
+      // after the "(a)", because a list whose very first marker is glued is precisely one
+      // of the cases needing repair.
+      if (/\(a\)/.test(full) && /\(b\)/.test(full)) {
+        const fix = (s) => s.replace(GLUED, "$1 (").replace(GLUED_AFTER, "($1) ");
+        if (typeof b.text === "string") b.text = fix(b.text);
+        if (Array.isArray(b.segs)) for (const s of b.segs) if (typeof s.t === "string") s.t = fix(s.t);
       }
       for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs" && k !== "rows") walk(b[k]);
     }
@@ -6175,9 +6355,32 @@ function normaliseCompetenceLabels(blocks) {
     (_, w1, w2) => `${w1.charAt(0).toUpperCase()}${w1.slice(1).toLowerCase()} ${w2.charAt(0).toUpperCase()}${w2.slice(1).toLowerCase()}`);
   const STANDALONE = /^(General|Specific)\s+Competences?\s*:?\s*$/i;   // "General Competences" / "…:" alone, value on the next block(s)
   const INLINE = /^(General|Specific)\s+Competences?\s*:\s*\S/i;       // "General Competences: Analytical Thinking…" on one line
+  // The one sentence that introduces a sub-topic's competence codes gets typed several
+  // different ways inside a SINGLE manuscript: the Food and Nutrition Form 2 Learner's
+  // Book ends "In this subtopic, you will learn to" with a colon five times, a
+  // semicolon fourteen times, and nothing at all twice — so a reader meets the same
+  // line, in the same position under the same heading, set three different ways in one
+  // book. The line introduces the numbered competence codes printed directly beneath
+  // it, so the colon is the terminator that is actually right; the stragglers are
+  // brought over to it. Only this exact sentence is touched, and only its final
+  // punctuation.
+  const LEARN_INTRO = /^in this (?:section|sub-?topic|topic|unit),?\s+(?:you|learners?)\s+will\s+learn\s+to\s*[;:.,]?\s*$/i;
+  const endColon = (s) => s.replace(/\s*[;:.,]?\s*$/, ":");
   for (const b of blocks) {
     const t = (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "") || "").trim();
     if (!t) continue;
+    if ((b.t === "para" || b.t === "listitem") && LEARN_INTRO.test(t)) {
+      // Only the LAST non-empty run is rewritten, so the rest of the line keeps the
+      // formatting the manuscript gave it.
+      let done = false;
+      for (let k = (b.segs || []).length - 1; k >= 0; k--) {
+        const s = b.segs[k];
+        if (s.m || !s.t || !s.t.trim()) continue;
+        s.t = endColon(s.t); done = true; break;
+      }
+      if (!done && typeof b.text === "string") b.text = endColon(b.text);
+      continue;
+    }
     if ((b.t === "label" || b.t === "head") && STANDALONE.test(t)) {
       b.t = "head"; b.text = fixCase(t); delete b.segs; delete b.marker; delete b.labelColor;
     } else if ((b.t === "label" || b.t === "head") && INLINE.test(t)) {
@@ -6457,10 +6660,34 @@ async function typesetOne(docxPath, themeName) {
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
   importOpts.textboxCaptions = ov.textboxCaptions;
-  let { blocks, media, tmp } = await importDocx(docxPath, importOpts);
+  let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
     return;
+  }
+  // Name what the prose pass corrected while reading the runs. It edits the author's
+  // own words, so it does not get to do that quietly — the same reason the watermark,
+  // crop and JPEG passes each print what they touched.
+  // DISTINCT corrections, never a running count: paraSegs() re-reads a paragraph from
+  // the XML each time a pass asks for its runs, so one "used used" in the manuscript
+  // raises the same hit seven times over a build. The correction is idempotent — every
+  // call starts from the original runs — but the tally is not, and printing "8 slips"
+  // for the two this book actually has would be a worse report than none.
+  if (proseFixes && proseFixes.length) {
+    const shown = [...new Set(proseFixes)];
+    console.log(`   prose: corrected ${shown.length} slip(s): ${shown.slice(0, 8).join("; ")}${shown.length > 8 ? `; …and ${shown.length - 8} more` : ""}`);
+  }
+  // A text box the importer could not name, and so emitted nothing for. Almost always a
+  // typo in the box's label ("EXER1CISE 1") or a box that is genuinely not a box at all
+  // (the Food and Nutrition Form 2 Learner's Book has an "END OF TOPIC EXERCISE" pasted
+  // into its PREFACE, draft residue that is right to drop). Either way the decision
+  // belongs to a human looking at the list, not to a silent `continue` - a dropped box
+  // leaves no trace on the page, which is exactly why it goes unnoticed.
+  if (droppedBoxes && droppedBoxes.length) {
+    const shown = [...new Set(droppedBoxes)];
+    console.warn(`!  ${shown.length} text box(es) carried text under a label this engine does not`
+      + ` recognise, so nothing was emitted for them: ${shown.map((t) => JSON.stringify(t)).join(", ")}`
+      + ` — check each is really not a box (a typo'd EXERCISE/ACTIVITY label loses the whole box)`);
   }
 
   // replaceUnitDocx: [{ heading, until?, docx, rename? }] — swap a whole unit/
@@ -6529,7 +6756,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base));
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
@@ -6670,6 +6897,104 @@ function markSpreadsheetTables(blocks) {
   walk(blocks);
 }
 
+// A hand-typed LIST OF FIGURES / LIST OF TABLES drifts away from the captions it names.
+// Authors type these lists by hand, and when a figure or table is added or dropped during
+// editing the list is rarely renumbered to match: the Food and Nutrition Form 2 Learner's
+// Book lists ELEVEN tables for the ten its body actually carries, so from the second entry
+// on every number was one too high — the list called "Differences between Herbs and
+// Spices" Table 6 while its own caption printed Table 5.
+//
+// That is not cosmetic. loentry() resolves each entry's PAGE NUMBER by querying the label
+// of the table or figure it names (see generic-template.typ), so a number that is one out
+// sends the reader to a DIFFERENT table's page, and an entry that names nothing in the
+// book at all falls back to the typed page number — which is usually empty, printing a
+// contents line with no page against it.
+//
+// The body is authoritative: its captions carry the labels and are what the reader sees.
+// Both sequences are written in the same order, so walk them together and give each
+// surviving entry the number its caption actually bears, dropping an entry that matches no
+// caption anywhere in the book. TITLES are left exactly as the author wrote them — the
+// wording of a contents line is the author's to choose, and only the number is
+// load-bearing. If the two cannot be aligned with confidence (more than a third of the
+// entries would have to be dropped) the list is left untouched and the mismatch reported,
+// because a wrongly pruned contents page is worse than a stale one.
+function reconcileCaptionLists(blocks) {
+  const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
+  const toks = (s) => new Set(norm(s).split(" ").filter(Boolean));
+  const similar = (a, b) => {
+    const na = norm(a), nb = norm(b);
+    if (!na || !nb) return false;
+    if (na === nb || na.includes(nb) || nb.includes(na)) return true;
+    const ta = toks(a), tb = toks(b);
+    let inter = 0;
+    for (const t of ta) if (tb.has(t)) inter++;
+    const union = ta.size + tb.size - inter;
+    return union > 0 && inter / union >= 0.5;
+  };
+  // The runs of loentry blocks that make up each list section, so the caption sweep below
+  // can skip them — an entry reads exactly like the caption it names, and counting it as
+  // one would have the list reconciled against itself.
+  const runs = [];
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    const m = b && typeof b.text === "string" && b.text.match(/^\s*LIST OF\s+(FIGURE|TABLE)S?\s*$/i);
+    if (!m) continue;
+    let j = i + 1;
+    const from = j;
+    while (j < blocks.length && blocks[j] && blocks[j].t === "loentry") j++;
+    if (j > from) runs.push({ kind: m[1].toUpperCase(), from, to: j });
+    i = j - 1;
+  }
+  if (!runs.length) return;
+  const inRun = (idx) => runs.some((r) => idx >= r.from && idx < r.to);
+  // The real captions, in document order. The colon is required: it is what separates a
+  // caption ("Table 5: Differences…") from ordinary prose that merely mentions a table
+  // ("Table 2 below shows…"), which must never be mistaken for one.
+  const caps = { FIGURE: [], TABLE: [] };
+  for (let i = 0; i < blocks.length; i++) {
+    if (inRun(i)) continue;
+    const plain = blockPlain(blocks[i]);
+    if (!plain) continue;
+    const cm = plain.trim().match(/^(Figure|Table)\s+(\d+)\s*:\s*(.+)$/i);
+    if (!cm) continue;
+    caps[cm[1].toUpperCase()].push({ num: cm[2], title: cm[3].trim() });
+  }
+  for (const r of runs) {
+    const list = caps[r.kind];
+    if (!list || !list.length) continue;
+    const entries = blocks.slice(r.from, r.to);
+    const keep = [];
+    const changed = [];
+    let dropped = 0, ci = 0;
+    for (const e of entries) {
+      let found = -1;
+      for (let k = ci; k < list.length; k++) if (similar(e.title, list[k].title)) { found = k; break; }
+      if (found < 0) { dropped++; continue; }
+      const want = list[found].num;
+      // Compare the NUMBER itself rather than matching it inside the label: "Table 1" and
+      // "Table 11" both contain "1", so a substring test would call a wrong number right.
+      const cur = typeof e.num === "string" ? (e.num.match(/[0-9]+/) || [])[0] : undefined;
+      if (cur !== undefined && cur !== want) {
+        changed.push(`${e.num} -> ${e.num.replace(/\d+/, want)}`);
+        e.num = e.num.replace(/\d+/, want);
+      }
+      ci = found + 1;
+      keep.push(e);
+    }
+    if (dropped > Math.max(1, Math.floor(entries.length / 3))) {
+      console.warn(`!  LIST OF ${r.kind}S does not line up with the book's ${r.kind.toLowerCase()} captions `
+        + `(${entries.length} entries, ${list.length} captions) — left as the author typed it`);
+      continue;
+    }
+    if (!dropped && !changed.length) continue;
+    blocks.splice(r.from, r.to - r.from, ...keep);
+    const shift = keep.length - (r.to - r.from);
+    for (const o of runs) if (o.from > r.from) { o.from += shift; o.to += shift; }
+    console.log(`   LIST OF ${r.kind}S: ${dropped ? `dropped ${dropped} entry/entries naming no ${r.kind.toLowerCase()} in the book; ` : ""}`
+      + `${changed.length ? `renumbered ${changed.length} to match the captions (${changed.slice(0, 3).join(", ")}${changed.length > 3 ? ", …" : ""})` : "numbers already matched"}`);
+  }
+}
+
 function normaliseQuestionMarkBold(blocks) {
   const fixSegs = (segs) => {
     if (!Array.isArray(segs) || segs.length === 0) return;
@@ -6791,6 +7116,10 @@ function normaliseQuestionMarkBold(blocks) {
   if (ov.polish) blocks = groupLessonMeta(blocks);
   reorderFrontmatter(blocks);   // house-style front-matter order (see the function)
   reorderBackmatter(blocks);
+  // The author's hand-typed LIST OF FIGURES/TABLES, reconciled against the captions the
+  // book actually carries. Runs here, after reorderBackmatter has put the back matter into
+  // its final order, so the entries are matched against the finished block list.
+  reconcileCaptionLists(blocks);
 
   // Primary Learner's Books drop the teacher/curriculum scaffolding (Sub-Topics,
   // Specific Competences, Acronyms, Glossary, List of Figures, References). Gated on the
@@ -7359,6 +7688,43 @@ function normaliseQuestionMarkBold(blocks) {
   // as they are read, so that every later pass which matches on wording sees the
   // spelling that will print. Only the REPORT belongs this late, because it has to read
   // the book as it finally stands — after the overrides a book applies to its own text.
+  // A direct question the author left without its question mark. Unlike a missing word
+  // this has one reading and one correction — the mark — so it is supplied rather than
+  // listed, the same standard the spelling pass is held to. Detection is deliberately
+  // narrow (inversion only: "what IS a herb", "how DOES the package protect"), so a
+  // subordinate clause, an indirect question or an imperative never reaches here.
+  // It runs over whole blocks, not runs, because a sentence crosses several Word runs;
+  // only the last non-empty run is touched, so the rest of the line keeps its
+  // formatting.
+  if (ov.proseCheck !== false) {
+    const qFixed = [];
+    for (const b of allTextBlocks(blocks)) {
+      const line = blockPlain(b).trim();
+      if (!fixQuestionMark(line)) continue;
+      // Only a full stop gives way to the question mark — never an exclamation. An
+      // author who typed "!" chose it, and overwriting that changes what the sentence
+      // says. fixQuestionMark() refuses an exclamation outright, so this would only
+      // ever bite where the block's last run ends in "!" while the line as a whole does
+      // not; the two must not disagree about the same decision.
+      const mark = (s) => (/\.[ \t]*$/.test(s) ? s.replace(/\.([ \t]*)$/, "?$1") : s.replace(/[ \t]*$/, "?$&"));
+      const k = segKey(b);
+      let done = false;
+      if (k && Array.isArray(b[k])) {
+        for (let i = b[k].length - 1; i >= 0; i--) {
+          const s = b[k][i];
+          if (s.m || !s.t || !s.t.trim()) continue;
+          s.t = mark(s.t); done = true; break;
+        }
+      }
+      if (!done && typeof b.text === "string" && b.text.trim()) { b.text = mark(b.text); done = true; }
+      if (done) qFixed.push(line.length > 88 ? line.slice(0, 85) + "…" : line);
+    }
+    if (qFixed.length) {
+      console.log(`   prose: supplied a missing question mark on ${qFixed.length} line(s):`);
+      for (const l of qFixed.slice(0, 10)) console.log(`      ${l}`);
+      if (qFixed.length > 10) console.log(`      …and ${qFixed.length - 10} more`);
+    }
+  }
   if (ov.proseCheck !== false) {
     const proseHits = [];
     const seenProse = new Set();

@@ -33,19 +33,37 @@
 //                          too, and these books are full of them (Topic 10 is Computer
 //                          Software).
 //   practice / practise  — noun vs verb; the American spelling is the British NOUN.
+//                          Only the BARE pair is ambiguous, though: the noun has no
+//                          "-ing" or "-ed" form, so "practicing" and "practiced" are
+//                          always the verb and always "practising"/"practised" in
+//                          British English. Those two are in the table below; the bare
+//                          pair stays out. The Food and Nutrition Form 2 Learner's Book
+//                          printed "Practicing Food Purchasing using Different Models"
+//                          as a heading, its figure caption, and an activity title.
 //   licence / license    — the same split.
 //   meter / metre        — a metre is a length, a meter is an instrument; both occur.
+//                          Only the BARE word is ambiguous: an instrument is never a
+//                          millimeter or a kilometer, so the SI-prefixed forms are
+//                          always the length, and always "-metre" in British English.
+//                          Those are in the table below; the bare pair stays out. The
+//                          Food and Nutrition Form 2 Learner's Book writes "measurement
+//                          units such as millimeters" in its AutoCAD label-design steps.
 //   tire / tyre          — "tire" is also the ordinary verb.
 //   draft / draught      — different senses, both current.
 // Leaving these to a human is the point: this table exists to settle what has one
 // right answer, not to make a judgement call invisible inside a build.
 const WORDS = {
   color: "colour", colors: "colours", colored: "coloured", coloring: "colouring", colorful: "colourful",
-  flavor: "flavour", flavors: "flavours", flavored: "flavoured",
+  flavor: "flavour", flavors: "flavours", flavored: "flavoured", flavorful: "flavourful",
   favor: "favour", favors: "favours", favored: "favoured", favorite: "favourite", favorites: "favourites",
   neighbor: "neighbour", neighbors: "neighbours", neighborhood: "neighbourhood",
   labor: "labour", labors: "labours", labored: "laboured",
-  behavior: "behaviour", behaviors: "behaviours",
+  behavior: "behaviour", behaviors: "behaviours", behavioral: "behavioural",
+  // The pepper: "chilli"/"chillies" in British English, "chili"/"chilies" in American.
+  // The Food and Nutrition Form 2 Learner's Book writes it both ways — "chili" ten
+  // times, "chilies" once, "chilli" twice — in recipes facing each other.
+  chili: "chilli", chilies: "chillies", chilis: "chillies",
+  practicing: "practising", practiced: "practised",
   honor: "honour", honors: "honours", honored: "honoured",
   humor: "humour", humored: "humoured",
   harbor: "harbour", harbors: "harbours",
@@ -56,6 +74,9 @@ const WORDS = {
   center: "centre", centers: "centres", centered: "centred",
   fiber: "fibre", fibers: "fibres",
   liter: "litre", liters: "litres",
+  millimeter: "millimetre", millimeters: "millimetres",
+  centimeter: "centimetre", centimeters: "centimetres",
+  kilometer: "kilometre", kilometers: "kilometres",
   theater: "theatre", theaters: "theatres",
   defense: "defence", defenses: "defences",
   offense: "offence", offenses: "offences",

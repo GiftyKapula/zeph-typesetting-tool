@@ -1,0 +1,321 @@
+{
+  "//removeRange": "The author pasted a block of Sub-Topic 2.3.2 twice. The engine's own duplicate pass caught the repeated LEARNING ACTIVITY 3 box and its scenario, but not the plain paragraph that followed them: 'For diabetes, meals should provide balanced portions of high-fibre carbohydrate foods…' stands twice in a row on printed page 44, word for word, with nothing between the two copies. This is this manuscript's own slip, not an engine fault, so it is taken out here rather than in src/typeset. `after` is the first copy itself — the search for `from` starts past it, so it is the SECOND copy that is removed and the first is left standing.",
+  "removeRange": [
+    {
+      "after": "For diabetes, meals should provide balanced portions of high-fibre",
+      "from": "For diabetes, meals should provide balanced portions of high-fibre",
+      "to": "EXERCISE 3"
+    }
+  ],
+  "//subtext": "Prose slips with exactly one correct reading, each verified against the manuscript runs before being written here. The PREFACE opening sentence on printed page vii gives the singular subject \"Book\" the plural verb \"have been developed\"; the foreword on the facing page writes the same sentence correctly, so the agreement is settled rather than a matter of taste. The anchor deliberately starts at \"have\", not at \"Book have\": Word holds the book title in its own italic run, so a phrase spanning the title and the verb spans two runs and subtext only ever replaces WITHIN one run. It is carried as far as \"...to provide learners\" because the verb phrase alone also occurs in Topic 2.6 (\"a wide variety of additives have been developed\"), where the plural is correct and must not be touched. NOTE: two further entries once sat here, repairing sentences that appeared to stop mid-clause on printed pages 126 and 129 (\"...because it enables\", \"...suitable for home and commercial\"). They were WRONG. The author had written both sentences whole; the engine was splitting the host paragraph at a LEARNING ACTIVITY box anchored mid-paragraph, and the apparent truncation was that split. Checked in the raw XML, no </w:p> separates the text before the box from the text after it, so with the mid-paragraph anchor fixed in extractTextboxBoxes() the two halves rejoin on their own and any repair here would land inside a complete sentence.",
+  "subtext": [
+    {
+      "from": "because helps",
+      "to": "because it helps"
+    },
+    {
+      "from": "work collectively to",
+      "to": "work collectively to:"
+    },
+    {
+      "from": "2.3.2.2",
+      "to": "2.3.3.1"
+    },
+    {
+      "from": "Prepare different types of beverages",
+      "to": "Prepare different types of beverages."
+    },
+    {
+      "from": "2.9.1.2",
+      "to": "2.9.2.1"
+    },
+    {
+      "from": "Selected suitable additives",
+      "to": "Select suitable additives"
+    },
+    {
+      "from": "Practice table settings",
+      "to": "Practise table settings"
+    },
+    {
+      "from": "have been developed to provide learners",
+      "to": "has been developed to provide learners"
+    },
+    {
+      "from": "some for utensils",
+      "to": "some of the utensils"
+    },
+    {
+      "from": "state one-way",
+      "to": "state one way"
+    },
+    {
+      "from": "different dietary need.",
+      "to": "different dietary needs."
+    },
+    {
+      "from": "Example includeYogurt",
+      "to": "Examples include Yoghurt"
+    },
+    {
+      "from": "yogurt",
+      "to": "yoghurt"
+    },
+    {
+      "from": "A Form 4 Food and Nutrition",
+      "to": "A Form 2 Food and Nutrition"
+    },
+    {
+      "from": "Herbs andCanned foods",
+      "to": "Herbs and Canned foods"
+    },
+    {
+      "from": "must always practice good hygiene",
+      "to": "must always practise good hygiene"
+    },
+    {
+      "from": "6, learners, prepare",
+      "to": "6 learners, prepare"
+    },
+    {
+      "from": "Explain the important to include",
+      "to": "Explain the importance of including"
+    },
+    {
+      "from": "selected each packaging materials",
+      "to": "selected each packaging material"
+    },
+    {
+      "from": "meal pattern and (ii) Explain how",
+      "to": "meal pattern and explain how"
+    },
+    {
+      "from": "“Identify",
+      "to": "Identify"
+    },
+    {
+      "from": "I) Freshly baked bread",
+      "to": "i) Freshly baked bread"
+    },
+    {
+      "from": "Group leasders should",
+      "to": "Group leaders should"
+    },
+    {
+      "from": "item a \"non-perishable food\"",
+      "to": "item a \"non-perishable food\"."
+    },
+    {
+      "from": "Rebecca Piyo Kayumba",
+      "to": "Dr. Rebecca Kayumba-Piyo"
+    },
+    {
+      "from": "Dr Rebecca Kayumba-Piyo",
+      "to": "Dr. Rebecca Kayumba-Piyo"
+    }
+  ],
+  "//asPara": "The caption of Table 9 is the only one in the book the author styled as a Word Heading, so it came through as a section head (#head) while every one of its nine siblings renders as a sticky paragraph with a bold \"Table N:\" label. Same element, different look. Demoting it to a paragraph and bolding its label puts it back in line with the rest; the emitter then keeps it with its table the way it does for the others.",
+  "asPara": [
+    "Table 9: Differences between three Food Industries",
+    "Convenience foods provide several benefits. Among them are;"
+  ],
+  "boldFind": [
+    {
+      "find": "Table 9:"
+    }
+  ],
+  "images": {
+    "image11.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image11.png"
+    },
+    "image28.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image28.png"
+    },
+    "image30.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image30.png"
+    },
+    "image37.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image37.png"
+    },
+    "image1.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image1.png"
+    },
+    "image9.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image9.png"
+    },
+    "image4.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image4.png"
+    },
+    "image18.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image18.png"
+    },
+    "image21.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image21.png"
+    },
+    "image12.jpeg": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image12.png"
+    },
+    "image13.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image13.png"
+    },
+    "image19.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image19.png"
+    },
+    "image25.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image25.png"
+    },
+    "image16.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image16.png"
+    },
+    "image40.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image40.png"
+    },
+    "image3.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image3.png"
+    },
+    "image5.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image5.png"
+    },
+    "image6.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image6.png"
+    },
+    "image7.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image7.png"
+    },
+    "image8.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image8.png"
+    },
+    "image10.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image10.png"
+    },
+    "image2.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image2.png"
+    },
+    "image15.png": {
+      "src": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026-hires/image15.png"
+    }
+  },
+  "//subtext2": "Four more slips in the Specific Competence lines, each settled by the book own pattern rather than by a judgement: every other sub-topic N.M.K carries competence code N.M.K.1, so SUB-TOPIC 2.3.3 cannot carry 2.3.2.2 and SUB-TOPIC 2.9.2 cannot carry 2.9.1.2; every other competence is an imperative verb, so Selected suitable additives is Select; and every other competence ends in a full stop, so the beverages one does too. Practice there is the verb (the whole list is imperative verbs), and the verb is spelt Practise in British English - the spelling table deliberately leaves the bare practice/practise pair to a human because it is noun-vs-verb ambiguous, which is exactly the call being made here.",
+  "//recolor": "The imprint page prints COPYRIGHT in pure Word blue (0000FF) while every other label on that same page - Edited by, Illustrated by, Cover and Book Layout, First Published by, Printed by - is black bold. One word in bright blue on an otherwise black page is the same element set two ways, so it is brought back to the page ink. This is the manuscript own hard-coded colour, not a theme choice, which is why it is corrected here rather than in the engine; the blue hyperlink runs in REFERENCES were a different matter and are fixed in the engine.",
+  "recolor": [
+    {
+      "from": "0000FF",
+      "text": "COPYRIGHT",
+      "to": ""
+    }
+  ],
+  "//subtext3": "The Figure 28 caption reads \"a pictorial illustration of some for utensils for serving gravy\" - \"some for utensils\" is a slip for \"some of the utensils\", and it prints twice, under the picture on printed page 141 and again in the LIST OF FIGURES. One subtext entry reaches both, because subtext walks captions as well as body prose.",
+  "//subtext4": "Exercise 3 on printed page 14 asks learners to \"state one-way responsible food purchasing can help to reduce food waste\". The hyphen makes it the compound adjective (a one-way street); the sentence needs the noun phrase \"one way\". The book itself gets this right four lines earlier on printed page 12 - \"explain one way their purchases can...\" - so its own usage settles the correction.",
+  "//subtext5": "Exercise 1 on printed page 21 ends \"inclusive for learners with different dietary need.\" - singular after \"different\". The book writes \"dietary needs\" in all eight other places it uses the phrase, so its own usage settles the plural.",
+  "//mergePara": "Under \"Interpreting Recipe Instruction\" on printed page 23 the author split ONE sentence across three Word paragraphs - \"...a recipe correctly before starting\" / \"to cook. This ensures ... This makes preparation\" / \"easier and reduces mistakes.\" The engine renders three paragraphs because that is what the manuscript contains, so printed page 23 shows two stranded part-lines in the middle of a justified block. Checked in the OOXML: these are separate <w:p> elements, not soft line breaks, so this is the manuscript own structure rather than an engine fault, and it is repaired here. A sweep of the whole book found no other paragraph broken this way.",
+  "mergePara": [
+    {
+      "find": "correctly before starting",
+      "count": 2
+    }
+  ],
+  "//subtext6": "Three more a reading turned up. (1) Printed page 131, Dip Sauce: \"Example includeYogurt Herb Dip\" - two words run together, and \"Example include\" disagrees in number; every sibling entry in that same section reads \"The ingredients include ...\", so it becomes \"Examples include Yoghurt\". (2) The book spells the food \"yoghurt\" nine times and \"yogurt\" four, so it disagrees with itself; its own majority settles it. Both spellings are current British English, which is why this is corrected per-book rather than added to the engine spelling table - that table is reserved for mappings with one right answer. (3) Printed page 147 splits \"Convenience foods provide several benefits. Among them are;\" across two Word paragraphs, leaving \"are;\" stranded on a line of its own, the same fault as the printed page 23 one above.",
+  "//subtext7": "LEARNING ACTIVITY 1 on printed page 55 opens \"A Form 4 Food and Nutrition class has been asked to prepare tables...\" in a Form 2 book. The other thirteen activity scenarios all say \"A Form 2 Food and Nutrition class\", so the book own pattern settles it.",
+  "//fixExercise": "The second exercise in SUB-TOPIC 2.9.2, on printed page 167, is headed just \"EXERCISE\" with no number. It is the only one of the 59 exercise boxes in the book without one - the other 58 run EXERCISE 1 to EXERCISE 5 - and the exercise before it in that same sub-topic is EXERCISE 1, so it is EXERCISE 2. fixExercise matches the heading exactly, so \"EXERCISE\" reaches only the unnumbered box and never EXERCISE 1.",
+  "fixExercise": [
+    {
+      "match": "EXERCISE",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXER1CISE 1",
+      "near": "two advantages and two disadvantages of using convenience foods in a family meal",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXER1CISE 1",
+      "near": "proper food storage can reduce food waste and prevent food-borne illnesses",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXER1CISE 2",
+      "near": "sit in a school store cupboard for months",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXER1CISE 3",
+      "near": "poor food-storage practices at home and in the food industry",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "Discuss the term meal pattern",
+      "heading": "EXERCISE 4"
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "selecting suitable packaging materials for fresh vegetables",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "choice of accompaniment can affect the nutritional value",
+      "heading": "EXERCISE 4"
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "changing the amount of pumpkin",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "only 30 minutes to prepare lunch",
+      "heading": "EXERCISE 1"
+    }
+  ],
+  "//images": "23 of the 28 pictures that print below 300 DPI are swapped for upscaled twins (Real-ESRGAN 4x, then resampled down to exactly the pixels 300 DPI needs at the size each one actually prints at - measured from the built PDF, so each is judged at its real printed size rather than an assumed width). STILL TO DO: image17.png, image22.png, image26.png, image27.png, image35.png - these print at 275 DPI (image35.png at 297). Finish them with: node tools/upscale-images.js \"<the .docx>\" \"<the built PDF>\" --tile 128 — it skips every picture already in the -hires folder, and writes the remaining entries into this file itself. Then re-typeset. Nothing else needs re-checking: an override swap only changes the bytes, never the layout.",
+  "//subtext8": "Eleven more slips, each settled by the book's own usage rather than by a judgement. (1) Printed page 118, serving utensils for soup: 'Ladles and serving bowls that are used used when serving soup' - the word typed twice. (2) LEARNING ACTIVITY 3 of Sub-Topic 2.2.1 reads 'groups of 5 to 8 learners Learners including a learner with a physical disability' - 'Learners' is the same word again with a capital, and the book writes this phrase fourteen other times as ', including a learner with ...', so its own pattern settles the comma. (3) Printed page 161, foods stored in a pantry: 'Spices, Herbs andCanned foods' - two words run together. (4) Printed page 100: 'smart learners must always practice good hygiene' - here 'practice' is the VERB, which is 'practise' in British English. The spelling table deliberately leaves the bare practice/practise pair to a human because it is noun-vs-verb ambiguous; the book's other bare use ('This practice promotes a balanced diet') is the noun and is already right, so only this one moves. (5) LEARNING ACTIVITY 2 of Sub-Topic 2.1.3: 'In small groups of 4 - 6, learners, prepare a shopping list' - the comma after 'learners' cuts the subject out of its own sentence. The book's own form, in the activity on printed page 24, is 'in groups of 4 - 7 learners, identify one variable', so the comma belongs after the count, not after the noun. (6) EXERCISE 4 of Sub-Topic 2.3.1: 'Explain the important to include a variety of foods'. The book writes 'Explain the importance of measuring ingredients accurately' twice, so 'the importance of <-ing>' is its own construction. (7) LEARNING ACTIVITY 4 of Sub-Topic 2.5.1: 'explains why they selected each packaging materials' - 'each' takes the singular, and the exercise on the facing page writes 'packaging material would be most suitable for each food'. (8) EXERCISE 3 of Sub-Topic 2.3.1 ends '...when developing the meal pattern and (ii) Explain how each factor may influence their choice.' There is no '(i)' anywhere in the box, and every other item in it is a single unlabelled instruction, so the stray label goes and the sentence reads as one instruction with two verbs. (9) The same box opens an item with a left double quote and never closes it anywhere in the book - a stray keystroke, so it goes. (10) EXERCISE 4 of Sub-Topic 2.5.1 lists its sub-parts 'I) ... ii) iii) iv)': the first roman numeral is capitalised and its three siblings are not. (11) LEARNING ACTIVITY 5 of Sub-Topic 2.2.2: 'Group leasders should also consider'. (12) The second question of EXERCISE 2 in Sub-Topic 2.9.1 - one of the four boxes the EXER1CISE typo had been hiding - ends 'Explain what makes an item a \"non-perishable food\"' with no full stop, where its three siblings in the same box all carry one.",
+  "//authors": "The author's name prints three ways in this book: 'Rebecca Kayumba Piyo' on the cover and title page, 'Rebecca Piyo Kayumba' against 'Illustrated by' and 'Cover and Book Layout' on the imprint, and 'Dr. Rebecca Kayumba-Piyo' in the AUTHOR biography - the middle pair also reversing the two surnames. The user settled it: the bio's form, 'Dr. Rebecca Kayumba-Piyo', is the one name, carried through every place the name appears. So `authors` sets the cover and title-page byline, and the two subtext entries below reach the imprint credit and the ACKNOWLEDGEMENT's 'Dr' (which was missing its full stop). The 'Cover and Book Layout' line needs nothing: the engine replaces whoever the manuscript named there with our own credit on every book (LAYOUT_CREDIT in typeset-docx.js), so it never prints the author's name whatever it says here.",
+  "authors": [
+    "Dr. Rebecca Kayumba-Piyo"
+  ],
+  "//setHeading": "The author's own CONTENTS page lists 23 sub-topics; the body marks only 21 of them as headings. The two it misses are real sections sitting exactly where the contents says they are - 'Experimenting on the Formulated Recipes.' (contents: Sub-Topic 2.2.2, page 24, where the typed contents mis-numbers it 2.2.1 for the second time) and 'Preparing Meals using Convenience Foods' (contents: Sub-Topic 2.8.2, page 126) - but each was typed as an ordinary bold line, so neither banners as a sub-topic and neither reaches the generated table of contents. Promoted here to h2, in the book's own heading form ('Sub-Topic N.M.K: Title') and the contents page's own wording, which drops the 'the' and the full stop. The engine replaces the author's typed contents with a real outline, so the slips IN that typed list (2.2.1 twice, 2.5.1 twice, 2.7.3 listed as 2.7.4 and 2.7.3 missing altogether, 2.9.1 with no title at all) need no correction - they never print. NOTE for the author: these are the only two sub-topics in the book with no 'Specific Competence' block and no competence code (the other 21 each carry N.M.K.1). Nothing here invents one - that is the author's to supply, and until it arrives these two sub-topics open without the line all their siblings have.",
+  "setHeading": [
+    {
+      "find": "Experimenting on the Formulated Recipes.",
+      "text": "Sub-Topic 2.2.2: Experimenting on Formulated Recipes",
+      "as": "h2"
+    },
+    {
+      "find": "Preparing Meals using Convenience Foods",
+      "text": "Sub-Topic 2.8.2: Preparing Meals Using Convenience Foods",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 2.6.2: Classification of Food Additives",
+      "text": "Sub-Topic 2.6.2: Condiments"
+    }
+  ],
+  "//tocDepth": "The foodnutrition theme sets tocDepth 1, so the generated contents lists front/back matter and the nine TOPICS and stops there - a 175-page book whose 23 sub-topics are the unit a learner actually looks up. The author's own typed contents page lists every sub-topic, and the sibling Geography Form 2 Learner's Book prints its sub-topics in its contents, so this book is the odd one out in its own family. Raised to 2 here, per book, rather than in themes.js: the theme's choice was made with the Form 1 Food and Nutrition book in hand and the Form 4 Teacher's Guide shares it, so flipping the theme would change two other books nobody has looked at. If the user wants sub-topics listed in every Food and Nutrition book, this belongs in themes.js instead.",
+  "tocDepth": 2,
+  "//renameNear": "With 2.2.2 and 2.8.2 standing as sub-topics, their activities have to count from 1: every one of the book's other 21 sub-topics restarts its LEARNING ACTIVITY and EXERCISE numbering at 1, and these two ran on from the sub-topic before them only because the heading dividing them was missing. So 2.2.2's LEARNING ACTIVITY 4 and 5 become 1 and 2 (its EXERCISE 4 becomes EXERCISE 1, below), and 2.8.2's LEARNING ACTIVITY 2 and 3 become 1 and 2 (its EXERCISE 2 becomes EXERCISE 1). `near` is a phrase from inside each box, so each rename lands on one box and not on its namesakes elsewhere in the book. NOTE on the anchors: `near` is matched with blockPlain(), which on a box returns the box's TITLE only - never its body - so a phrase from inside the activity can never be found. Each anchor here is therefore the body paragraph that follows the box; renameNear scans backwards from it to the box.",
+  "renameNear": [
+    {
+      "find": "LEARNING ACTIVITY 4",
+      "near": "Learners then conduct the experiment",
+      "to": "LEARNING ACTIVITY 1: Experimenting on the Formulated Recipes"
+    },
+    {
+      "find": "LEARNING ACTIVITY 5",
+      "near": "For example, when documenting a recipe for Vegetable and Bean Stew",
+      "to": "LEARNING ACTIVITY 2: Documenting the formulated recipes"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2",
+      "near": "Convenience foods play an important role in modern meal preparation",
+      "to": "LEARNING ACTIVITY 1: Preparing meals using convenience foods"
+    },
+    {
+      "find": "LEARNING ACTIVITY 3",
+      "near": "Preparing convenience foods from locally available ingredients has several advantages",
+      "to": "LEARNING ACTIVITY 2: Making convenience foods using locally available foods"
+    }
+  ],
+  "//fixExercise2": "Nine more exercise headings. The book pairs each EXERCISE with the LEARNING ACTIVITY of the same number, right through all of them, and that pairing settles every one of these. (1) to (4) FOUR boxes are headed 'EXER1CISE' - the '1' of the number struck one keystroke early, inside the word: EXER1CISE 1 in Sub-Topic 2.8.1, and EXER1CISE 1, 2 and 3 in Sub-Topic 2.9.1. The typo cost the book all four boxes, thirteen questions in all: an unrecognised label failed the box-kind guard in extractTextboxBoxes(), so nothing was emitted for any of them and no build said a word about it. It also explains what looked like a numbering gap - Sub-Topic 2.9.1 appeared to carry four learning activities and a single exercise numbered 4, when in fact it carries EXERCISE 1 to 4 and three of them were invisible. The engine now ignores a digit typed between two letters when it classifies a box label (boxKindFromTitle(), the same tolerance EXRCISE and EXCERCISE already had) and warns when it drops a text box carrying text, which is how these were found; the heading still PRINTS as typed, which is what these four entries correct. No other label in the book has the fault. (5) Sub-Topic 2.3.1 runs EXERCISE 1, 2, 3 and then a second EXERCISE 3 after LEARNING ACTIVITY 4 - it is EXERCISE 4. (6) Sub-Topic 2.5.1 numbers the exercise after LEARNING ACTIVITY 3 'EXERCISE 4', and the one after LEARNING ACTIVITY 4 'EXERCISE 4' as well - the first is EXERCISE 3. (7) Sub-Topic 2.7.2 repeats EXERCISE 3 after LEARNING ACTIVITY 4 - it is EXERCISE 4. (8) and (9) renumber the first exercise of each newly marked sub-topic to 1, along with its activities. `near` is a phrase from the box's own questions, so each entry reaches exactly one of the book's many identically headed exercises.",
+  "//asPara2": "Under Sub-Topic 2.8.1 the author's lead-in to the list of benefits, 'Convenience foods provide several benefits. Among them are;', is styled as a heading in the manuscript and so printed in heading weight - a whole sentence, ending in a semicolon, set as a head above the bullets it introduces. Every other lead-in of its kind in the book is ordinary prose, so it is demoted to a paragraph."
+}

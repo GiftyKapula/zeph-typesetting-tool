@@ -2936,7 +2936,32 @@
   let uniformgrid = not fillin and not hasimg and ncols >= 2 and rows.all(r => r.all(c =>
     c.text != "" and not c.text.contains(" ") and c.text.len() <= 10
     and c.at("seg", default: ()).len() == 0 and c.imgs.len() == 0))
-  let cols = if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) { auto } else { colweight(ci) * 1fr }) }
+  // A COMPACT VALUE column: every body cell a short two-or-three-word value that is
+  // meant to be read as one token — a date ("Nov 2", "Dec 10"), a code, a short
+  // amount. `narrowNum` already rescues the digits-only case; this is the same defect
+  // one step along, where the value carries a space and so CAN be broken, and gets
+  // broken as soon as the column sits next to a paragraph column.
+  //
+  // Content-proportional `fr` weights are relative, so the same date column is wide
+  // enough beside two columns and too narrow beside three: in the Accounting Form 2
+  // Teacher's Guide, EXERCISE 1's source-document table printed "Dec 1"…"Dec 15" each
+  // on one line while the books-of-prime-entry table directly above it — same dates,
+  // one more column — broke every one of them over two lines, doubling the height of
+  // every row. The same element must not look different on two halves of one page, so
+  // such a column is sized to its content instead of to a share of the width.
+  //
+  // Guarded tightly: real body rows, every body cell short, non-empty and single-line,
+  // at least one of them actually breakable (a one-word column cannot wrap, so it has
+  // nothing to fix and is left alone), and at least one column NOT compact — without
+  // that last guard a table made only of short cells would have every column `auto`
+  // and collapse to the left of the page instead of filling the measure.
+  let compactCol(ci) = (rows.len() >= 2 and not fillin and not hasimg
+    and rows.at(0).at(ci).text.len() <= 12
+    and rows.slice(1).all(r => { let t = r.at(ci).text.trim()
+      t != "" and t.len() <= 10 and not t.contains("\n") and r.at(ci).imgs.len() == 0 })
+    and rows.slice(1).any(r => r.at(ci).text.trim().contains(" ")))
+  let anyWide = range(ncols).any(ci => not compactCol(ci) and not narrowNum(ci))
+  let cols = if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
   // ---- CDC SYLLABUS matrix look: a GREY header row that REPEATS on every page, a black
   // inner grid + thicker outer frame, no zebra, the TOPIC column bold, the activities
   // column bulleted, and the TOPIC/SUB-TOPIC row-span merge (empty left cells continue the

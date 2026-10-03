@@ -12,7 +12,22 @@ const path = require("path");
 const os = require("os");
 const JSZip = require("jszip");
 const { ommlToTypst, convText } = require("./omml.js");
-const { toBritish } = require("./british-english.js");
+const { toBritish, fixProse } = require("./british-english.js");
+// What fixProse() corrected while reading this book's runs. paraSegs() is module-level
+// and runs far below importDocx, so the tally is collected here and drained by
+// importDocx once the parse is done — a silent correction is not acceptable in a pass
+// that edits the author's words, and this is the same "name what you changed" the
+// watermark, crop and JPEG passes already print.
+const proseFixes = [];
+// Titles of text boxes whose CONTENT this import threw away, drained by importDocx the
+// same way. extractTextboxBoxes() only emits a box it can name - an activity, an
+// exercise or an assessment - and walks past anything else, which is right for a
+// decorative shape but silent when the thing it walked past was a real box with a
+// typo in its label. The Food and Nutrition Form 2 Learner's Book lost a whole
+// exercise that way ("EXER1CISE 1", three questions, never on the page) and nothing
+// in the build said so. Naming each one costs a line and makes the next such box
+// findable instead of invisible.
+const droppedBoxes = [];
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -193,7 +208,18 @@ function isSectionDivider(t) {
 }
 
 function boxKindFromTitle(t) {
-  const s = t.replace(/^\s+/, "");
+  // A digit typed INSIDE the label word is a keystroke slip, not a different label:
+  // the Food and Nutrition Form 2 Learner's Book heads the first exercise of
+  // Sub-Topic 2.8.1 "EXER1CISE 1" — the "1" of "EXERCISE 1" struck one keystroke too
+  // early. Unrecognised, the title failed the `kind` guard below, the whole text box
+  // was left where it stood, and its three questions never reached the page at all.
+  // No English word carries a digit between two letters, and every test below is
+  // anchored to the label itself, so dropping such a digit before classifying can
+  // only ever rescue a typo'd label — the same tolerance the EXRCISE / EXCERCISE and
+  // ACTIVTY / ACTVITY spellings already get, for the same reason. The title still
+  // PRINTS as the author typed it, so the book's own sidecar corrects the visible
+  // text (`fixExercise`); the engine's job here is only to stop losing the box.
+  const s = t.replace(/^\s+/, "").replace(/([A-Za-z])\d(?=[A-Za-z])/g, "$1");
   // Labels in English + Zambian local languages (see local-language-glossary).
   // Order matters: multi-word/specific labels before bare ones (e.g. Kaonde
   // "Mwingilo wakuuba" = activity must beat "Mwingilo" = exercise).
@@ -214,6 +240,22 @@ function boxKindFromTitle(t) {
   // criteria to measure learner progress." as an assessment box (title = the whole
   // sentence) whenever they happened to contain the word.
   if (/^((END[\s-]*(OF[\s-]*)?)?(TOPIC|UNIT)[\s-]*)?(\d+\s*[-–—]?\s*)?ASSESS?MENTS?(\s*[-–—]?\s*\d+)?\s*:?\s*$/i.test(s)) return "assessment";
+  // …and the same label with the TOPIC'S OWN TITLE after it: "END OF TOPIC 1 ASSESSMENT
+  // – PRACTICAL PLANNING". Anchored at both ends, the pattern above allowed only a
+  // trailing NUMBER, so every such heading failed it, fell through the `kind` guard in
+  // extractTextboxBoxes(), and took its whole text box with it. The Food and Nutrition
+  // Form 2 Learner's Book heads five of its nine end-of-topic assessments this way and
+  // printed NONE of them — five complete assessments, every question in them, absent
+  // from the book while the four bare ones printed normally. Nothing reported it,
+  // because a box that fails the guard leaves no mark on the page.
+  //
+  // Kept narrow so the old trap stays shut. An unanchored /ASSESSMENT/i once matched the
+  // word anywhere in a paragraph and boxed ordinary prose like "Assess learning: Apply
+  // the assessment methods and criteria…" as an assessment. So a title tail is accepted
+  // ONLY with the full "(END OF) TOPIC/UNIT" lead-in present — which that prose has not —
+  // and only when the tail is title-shaped: separated by a dash or colon, 60 characters
+  // or fewer, and carrying no full stop, so a sentence can never qualify.
+  if (/^(?:END[\s-]*(?:OF[\s-]*)?)?(?:TOPIC|UNIT)[\s-]*(?:\d+\s*[-–—]?\s*)?ASSESS?MENTS?(?:\s*[-–—]?\s*\d+)?\s*[-–—:]\s*[^.]{1,60}$/i.test(s)) return "assessment";
   // --- Exercise --- (tolerate the common "EXRCISE"/"EXCERCISE" misspellings so a
   // typo'd title still gets the styled, numbered exercise box instead of a raw table)
   // "EXERCISE 9" (number, possibly glued) OR a bare "EXERCISE" whose number the author
@@ -274,6 +316,34 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       } else if (depth++ === 0) start = tm.index;
     }
   }
+  // A box's drawing can be anchored in the MIDDLE of a host paragraph, with the
+  // author's own prose running on BOTH sides of it inside the one <w:p>. Splitting the
+  // paragraph at the drawing — right when the box sits at a paragraph boundary — then
+  // cuts a sentence in half. The Food and Nutrition Form 2 Learner's Book anchors
+  // LEARNING ACTIVITY 1 inside the word "air-tight", so printed page 162 ended
+  // "…include refrigerators, humidity-controlled storage, air-" with a third of the
+  // page blank, and the tail "tight containers, temperature-controlled storage, and dry
+  // storage facilities." resumed after the box on the page after it. Where prose runs
+  // on both sides, keep the host paragraph whole and emit the box AFTER it.
+  //
+  // Paragraph boundaries are read off a copy with every drawing span blanked out, so
+  // the <w:p> elements nested inside a text box's own content can never be mistaken for
+  // the host's.
+  const maskedDoc = (() => {
+    let m = rawDoc;
+    for (const [a, b] of drawingSpans) m = m.slice(0, a) + " ".repeat(b - a) + m.slice(b);
+    return m;
+  })();
+  const textIn = (a, b) =>
+    [...maskedDoc.slice(a, b).matchAll(/<w:t[^>]*>([\s\S]*?)<\/w:t>/g)].map((m) => m[1]).join("").trim();
+  const hostBounds = (spanStart, spanEnd) => {
+    const open = [...maskedDoc.slice(0, spanStart).matchAll(/<w:p\b[^>]*>/g)]
+      .filter((m) => !m[0].endsWith("/>")).pop();
+    if (!open) return null;
+    const closeAt = maskedDoc.indexOf("</w:p>", spanEnd);
+    if (closeAt < 0) return null;
+    return { textStart: open.index + open[0].length, end: closeAt + "</w:p>".length };
+  };
   for (const [spanStart, spanEnd] of drawingSpans) {
     const d = rawDoc.slice(spanStart, spanEnd);
     const tbm = d.match(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/);
@@ -306,7 +376,13 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     if (!paras.length || paras[0].isTable) continue;   // a title-less box (table first) — leave it
     const title = plainOf(paras[0].segs).trim();
     const kind = boxKindFromTitle(title);
-    if (kind !== "activity" && kind !== "exercise" && kind !== "assessment") continue;   // some other shape/graphic — leave it
+    if (kind !== "activity" && kind !== "exercise" && kind !== "assessment") {
+      // A shape carrying several paragraphs of real prose is not decoration. One line of
+      // text is a label on a diagram; a title plus a body is a box whose label was not
+      // recognised, and that is worth saying out loud.
+      if (paras.length > 1 && title) droppedBoxes.push(title.replace(/\s+/g, " ").slice(0, 70));
+      continue;                                            // some other shape/graphic — leave it
+    }
     // Number the box's own questions/steps from the manuscript's REAL Word-list format
     // (roman / letter / decimal — whatever the author actually chose), not a hard-coded
     // "top=decimal, sub=letter" guess: some exercises number their top level with roman
@@ -355,12 +431,59 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       // every text-box-authored box and swaps each placeholder for the real image.
       if (kind === "activity" && /<w:drawing\b[\s\S]*?<a:blip\b/.test(p.xml)) body.push({ t: "pendingimg", xml: p.xml });
       if (!plain) continue;
+      // A marker the writer TYPED at the head of the paragraph, shared by both branches
+      // below — `litSegs()` returns the runs with that marker taken off, so the renderer
+      // can draw it in the gutter instead of leaving it inline as body text.
+      const litAll = numbered(p) ? null : plainOf(p.segs).match(/^\s*\(?(\d{1,2})[.)]\s+(?=\S)/);
+      const litSegs = () => {
+        let left = litAll[0].length;
+        const outSegs = [];
+        for (const s of p.segs) {
+          if (left <= 0 || s.m || !s.t) { outSegs.push(s); continue; }
+          if (s.t.length <= left) { left -= s.t.length; continue; }   // this run is all marker
+          outSegs.push({ ...s, t: s.t.slice(left) }); left = 0;
+        }
+        return outSegs;
+      };
       if (kind === "activity") {
         if (numbered(p)) { const { marker } = nextMarker(p); body.push({ t: "listitem", segs: p.segs, marker }); }
+        // An activity's steps are typed as literal numbers just as often as an
+        // exercise's questions are, and were landing here as plain paragraphs for the
+        // same reason — LEARNING ACTIVITY 4 on printed page 16 of the Food and
+        // Nutrition Form 2 Learner's Book printed seven such steps with no hanging
+        // indent while the activity three pages earlier hung properly.
+        else if (litAll) {
+          body.push({ t: "listitem", segs: litSegs(),
+            marker: `${body.filter((x) => x.t === "listitem").length + 1}.` });
+        }
         else body.push({ t: "para", segs: p.segs });
       } else {
         const q = plainOf(p.segs);
+        // A marker the writer TYPED into the text ("1. ", "2) ", "(3) ") is as much a
+        // numbered question as one Word auto-numbered, and the main paragraph path has
+        // always read it that way (see LIT_TOP below). This text-box path asked only
+        // `numbered(p)`, so a typed number fell through to the `lead` branch, kept the
+        // digits inside the question text and got no marker gutter — the item printed
+        // as a plain paragraph whose wrapped lines ran back under its own number while
+        // its siblings elsewhere hung correctly. One book showed both: the Food and
+        // Nutrition Form 2 Learner's Book renders EXERCISE 3 on printed page 14 with a
+        // hanging indent and EXERCISE 1 on printed page 3 without, 62 items across 17
+        // pages flat in all. House style is that the same element looks the same
+        // everywhere, so a typed decimal marker is now recognised here too: stripped
+        // from the text and handed over as a real marker.
+        //
+        // Decimals only, deliberately. Letters and romans inside a text box are
+        // ambiguous in ways the main path needs a whole block of context to settle
+        // (a sub-part vs. a bare "(i)"), and no manuscript has shown that defect here;
+        // widening it would risk turning prose like "(b) above" into a marker.
         if (numbered(p)) { const { marker, depth } = nextMarker(p); parts.push({ kind: "q", q, qseg: p.segs, a: "", aseg: [], marker, depth }); }
+        else if (litAll) {
+          // Renumbered sequentially from the questions already in THIS box, the same
+          // normalisation the main path applies, so a block always reads 1..N even
+          // where the writer's own numbers skip or restart.
+          parts.push({ kind: "q", q: q.slice(litAll[0].length), qseg: litSegs(), a: "", aseg: [],
+            marker: `${parts.filter((x) => x.kind === "q").length + 1}.`, depth: 0 });
+        }
         // An unnumbered line that FOLLOWS a numbered question is a continuation of it
         // (the next line of a worked solution, "= 250 × 12", or a lettered sub-part the
         // author left unnumbered) — indent it to the marker gutter so it aligns under
@@ -384,6 +507,19 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     // helps…"); leaving the sentinel run in that same paragraph risks it being merged
     // with the next run's text by paraSegs' run-joining pass. A dedicated paragraph
     // sidesteps that entirely — no run-merge, no dependence on differing styles.
+    // Mid-paragraph anchor (prose on both sides): the host paragraph is emitted whole
+    // and the box follows it, so the author's sentence is never cut. A second box
+    // anchored in the same paragraph falls back to the split — moving one box past the
+    // host would swallow the other.
+    const hb = hostBounds(spanStart, spanEnd);
+    if (hb
+        && !drawingSpans.some(([a]) => a > spanEnd && a < hb.end)
+        && textIn(hb.textStart, spanStart) && textIn(spanEnd, hb.end)) {
+      result += rawDoc.slice(last, spanStart) + rawDoc.slice(spanEnd, hb.end)
+        + `<w:p><w:r><w:t>@@BOX${idx}@@</w:t></w:r></w:p>`;
+      last = hb.end;
+      continue;
+    }
     result += rawDoc.slice(last, spanStart) + `</w:p><w:p><w:r><w:t>@@BOX${idx}@@</w:t></w:r></w:p><w:p>`;
     last = spanEnd;
   }
@@ -550,9 +686,23 @@ function paraSegs(pXml) {
   // An <m:oMath> (inline) / <m:oMathPara> (display) becomes a math segment whose
   // text is Typst math source; everything else is a normal <w:r> text run.
   const tokRe = /<m:oMathPara\b[\s\S]*?<\/m:oMathPara>|<m:oMath\b[\s\S]*?<\/m:oMath>|<w:r\b[^>]*>[\s\S]*?<\/w:r>/g;
+  // True while the walk is inside a field-code HYPERLINK — between the `fldChar begin`
+  // whose instruction text says HYPERLINK and the matching `fldChar end`. The display
+  // runs in that span are link text, whatever formatting Word hard-coded onto them.
+  let inHyperlinkField = false, inField = 0, fieldIsLink = false;
   let r;
   while ((r = tokRe.exec(pXml))) {
     const chunk = r[0];
+    if (/<w:fldChar\b[^>]*w:fldCharType="begin"/.test(chunk)) { inField++; fieldIsLink = false; continue; }
+    if (/<w:fldChar\b[^>]*w:fldCharType="end"/.test(chunk)) {
+      if (inField > 0 && --inField === 0) { inHyperlinkField = false; fieldIsLink = false; }
+      continue;
+    }
+    if (inField > 0 && /<w:instrText\b/.test(chunk)) {
+      if (/\bHYPERLINK\b/i.test(chunk)) fieldIsLink = true;
+      continue;                                  // the instruction itself never prints
+    }
+    if (/<w:fldChar\b[^>]*w:fldCharType="separate"/.test(chunk)) { if (fieldIsLink) inHyperlinkField = true; continue; }
     if (chunk.startsWith("<m:oMath")) {
       const display = chunk.startsWith("<m:oMathPara");
       if (display) {
@@ -646,7 +796,7 @@ function paraSegs(pXml) {
     // headings/banners/box-titles emit as plain strings (S(b.text)/S(b.title)), so a
     // structural label the author underlined in Word (e.g. "Exercise") never carries
     // the decoration, while an underlined target word/grapheme in a word list does.
-    const u = /<w:u\b/.test(rpr) && !/<w:u\b[^>]*w:val="none"/.test(rpr);
+    let u = /<w:u\b/.test(rpr) && !/<w:u\b[^>]*w:val="none"/.test(rpr);
     let c = (rpr.match(/<w:color\s+w:val="([0-9A-Fa-f]{6})"/) || [])[1] || null;
     if (c) c = c.toUpperCase();
     if (c === "auto" || c === "000000") c = null;
@@ -658,6 +808,18 @@ function paraSegs(pXml) {
     // on how each URL was pasted in), so the style check must override any inline
     // colour rather than only filling in when one is absent.
     if (/<w:rStyle\s+w:val="(?:Hyperlink|FollowedHyperlink|InternetLink)"/i.test(rpr)) c = null;
+    // …and the same house rule for a link Word stored as a FIELD CODE rather than as a
+    // <w:hyperlink> element. Pasting a URL into Word often produces
+    // `fldChar begin` + `instrText HYPERLINK "…"` + `fldChar separate` + the display
+    // run + `fldChar end`, and that display run carries NO rStyle at all — only a
+    // hard-coded <w:color w:val="0000FF"/> and <w:u w:val="single"/>. The check above
+    // therefore never fired on it, and the Food and Nutrition Form 2 Learner's Book
+    // printed "FAOHome" three times and "Farm Service Agency" once as live-link blue
+    // underlined text in its REFERENCES list, on printed page 172 of a paper book.
+    // `inHyperlinkField` is maintained by the run walk above; it strips the underline
+    // as well as the colour, because both are Word's link decoration rather than
+    // anything the author chose.
+    if (inHyperlinkField) { c = null; u = false; }
     // Super/subscript runs (<w:vertAlign>). Word sets these for exponents (2n²),
     // chemical formulas (H₂O, CaCO₃) and ionic charges (Ca²⁺). The importer would
     // otherwise flatten them to inline text ("2n2") — wrong in any science book.
@@ -716,6 +878,13 @@ function paraSegs(pXml) {
     // Keeping one table, with its own stoplist and case handling, is what stops the two
     // halves drifting apart again.
     s.t = toBritish(s.t).text;
+    // The prose slips that have exactly one right answer — a word typed twice, a space
+    // before a full stop — are corrected here too, for the same reason the spelling is:
+    // early, so every later pass sees the text that will actually print. Only those; the
+    // slips that need a judgement about meaning are still reported and never touched
+    // (see british-english.js).
+    const pf = fixProse(s.t);
+    if (pf.hits.length) { proseFixes.push(...pf.hits); s.t = pf.text; }
   }
   return merged;
 }
@@ -1577,7 +1746,30 @@ function buildQAParts(blocks) {
       // bullets through the plain bodyArr path instead of the styled qaparts row.
       const sub = b.marker === "•" || (!decimal && (elvl(b) > 0 || hasDecimalTop));
       let marker;
-      if (sub) {
+      if (sub && b.marker === "•") {
+        // A bullet draws as a bullet and takes NO position in the lettered run it
+        // sits inside. markerFor() already refuses to reletter a bullet, but only
+        // when "•" is the running template — which it is only when the bullets
+        // OPEN the sub-run. Bullets that answer a letter already in progress
+        // inherited that letter's template and were relettered into it, and worse,
+        // each one advanced the count, so the author's own next letter skipped by
+        // as many bullets as came before it. The Accounting Form 2 Teacher's Guide
+        // showed both halves in Topic 2.4's END OF TOPIC ASSESSMENT: "b) Two main
+        // financial statements…" was answered with two bullets, which printed as
+        // "c) Statement of Profit or Loss" and "d) Statement of Financial
+        // Position" — reading as two further questions — and pushed the author's
+        // real "c)" out to "e)", so the answer key no longer matched the letters
+        // of the Learner's Book questions it answers.
+        //
+        // The sub-counter is therefore left alone. A block that OPENS on bullets
+        // still needs its parent question, so ensureTopBeforeSub() keeps firing;
+        // leaving subN at 0 also means a genuine lettered sub-part arriving after
+        // such bullets starts its own run at "a)" instead of inheriting "•" and
+        // drawing as one more bullet.
+        if (subN === 0) ensureTopBeforeSub();
+        marker = "•";
+      }
+      else if (sub) {
         if (subN === 0) {
           if (resumesSubRun(b.marker)) { subN = lastSubN; subTpl = lastSubTpl; }
           else { subTpl = b.marker; ensureTopBeforeSub(); }
@@ -2212,6 +2404,8 @@ function groupAssessments(blocks) {
 }
 
 async function importDocx(docxPath, opts = {}) {
+  proseFixes.length = 0;            // per-book tally (see the declaration at the top)
+  droppedBoxes.length = 0;          // ditto
   // ZEPH house-style options (decoupled so different layouts can mix them):
   //   styled    – trust Word heading styles (don't infer headings from colour/size)
   //   flat      – no callout boxes; activities/exercises become headings (English)
@@ -3625,7 +3819,8 @@ async function importDocx(docxPath, opts = {}) {
   out = groupSideFigures(out, textWidthPx);
   out = autoToc(out);
   normaliseBoxTitles(out);
-  return { blocks: out, media: mediaOut, tmp };
+  return { blocks: out, media: mediaOut, tmp, proseFixes: proseFixes.slice(),
+    droppedBoxes: droppedBoxes.slice() };
 }
 
 // Walk the finished block tree and correct misspelt box titles wherever they are
@@ -3633,6 +3828,20 @@ async function importDocx(docxPath, opts = {}) {
 // a box (paragraph run, table, text box, grouped assessment), so no path can miss it.
 // The heading's rich segments carry the same text for math-bearing titles, so fix
 // those too — otherwise the segment copy would print the misspelling right back.
+// An end-of-topic assessment label that repeats the topic's own title — "END OF TOPIC 1
+// ASSESSMENT – PRACTICAL PLANNING" — loses the tail. The topic's banner states that title
+// at the head of the topic and the generated contents lists it again, so the tail adds
+// nothing; what it does do is make the same element print two ways in one book, which is
+// exactly what the Food and Nutrition Form 2 Learner's Book does: four of its nine
+// assessments are headed "END OF TOPIC N ASSESSMENT" and five carry a title after a dash.
+// Only the tail goes, never the label, and only when the label is a complete
+// "(END OF) TOPIC/UNIT … ASSESSMENT" — a box titled just "ASSESSMENT: something" is left
+// alone, since there is no topic banner above it saying the same thing.
+function bareAssessmentLabel(t) {
+  const m = String(t || "").match(
+    /^((?:END[\s-]*(?:OF[\s-]*)?)?(?:TOPIC|UNIT)[\s-]*(?:\d+\s*)?ASSESS?MENTS?(?:\s*\d+)?)\s*[-–—:]\s*[^.]{1,60}$/i);
+  return m ? m[1].replace(/\s+/g, " ").trim() : t;
+}
 function normaliseBoxTitles(blocks) {
   const fixSegs = (segs) => {
     if (!Array.isArray(segs)) return;
@@ -3643,6 +3852,7 @@ function normaliseBoxTitles(blocks) {
     for (const b of list) {
       if (!b || typeof b !== "object") continue;
       if (b.t === "activity" || b.t === "assessment") { b.title = fixBoxTitleSpelling(b.title); fixSegs(b.titleSegs); }
+      if (b.t === "assessment") b.title = bareAssessmentLabel(b.title);
       else if (b.t === "exercise") { b.heading = fixBoxTitleSpelling(b.heading); fixSegs(b.headingSegs); }
       for (const k of ["body", "blocks", "parts", "left", "right", "items"]) if (Array.isArray(b[k])) walk(b[k]);
     }

@@ -1,0 +1,158 @@
+{
+  "//coverImage": "The cover hero. The source was a portrait 853x1280 desk scene (Downloads/9.jpeg) framed with decorative purple swooshes across its top and bottom corners. It could not be handed to the engine as it was: the hero window is 144x78mm and the template fits a hero with `cover`, so a 0.666-aspect picture in a 1.846 box would have been clipped to a narrow central band, slicing the composition and cutting the swooshes mid-curve — the house rule is that nothing on a cover may appear cut off. So the frame was cut here instead, to the window's exact 144:78: 853x462 taken at y=390, which clears both swooshes completely and holds the whole ledger-book stack, the complete calculator, the reading glasses and the pen cup, with the notebook and chart edge closing the bottom. The engine therefore crops nothing. Upscaled 4x with Real-ESRGAN (realesrgan-x4plus, -t 128) and resampled to 2400x1300 = 423 DPI at the 144mm printed width; the raw cut is 150 DPI, half the 300 DPI floor. Saved as PNG, not JPEG, so no compression artefacts reach the plate. No people appear in the picture, so the disability-representation and gender-balance rules do not engage here — they will if this hero is ever replaced with one showing learners.",
+  "coverImage": "accounting-form2-tg-cover.png",
+  "//tableNoHeader": "The ACRONYMS table is a plain two-column list — CN, CR, DN, DR, F, K, ROCE against their meanings — with no heading row of any kind. The renderer promotes a table's first row to the black header band whenever every cell in it is short, single-line and non-empty, which is right nearly everywhere but wrong here: \"CN | Credit Note\" was painted as the column heading of the list it is the first entry of, so the printed acronym list lost CN altogether. Verified in the raw OOXML before correcting — not one row of this table carries tblHeader, bold or shading, while the KEY COMPETENCES table two pages earlier bolds its header row. The manuscript does distinguish the two, and this override says so for this table.",
+  "tableNoHeader": [
+    "ROCE"
+  ],
+  "//subtext": "Author slips, each settled by the book's own usage or by the rest of the family, and each verified in the manuscript before being corrected here. (1) DESCRIPTERS and 'Problem Saving' are the KEY COMPETENCES table's own header and a competence name — the CDC syllabus and every other book in the family spell them DESCRIPTORS and Problem Solving. Both were verified in the raw OOXML (one occurrence each) and both are the same slips the sibling Learner's Book already corrects. (2) The imprint page prints the editor as 'Phyllis Simasiku........' — eight ASCII full stops trailing a name. Every other book writes the editor bare (the ICT Form 2 Learner's Book and Teacher's Guide both print 'Phyllis Simasiku'), and unlike the ISBN line above it — whose dot leader is a real placeholder for a number not yet assigned — a name needs no leader. (3) The ACKNOWLEDGEMENT spells the same editor 'Phylis', one l, so the book disagrees with its own imprint page; the two ICT books settle it at 'Phyllis'. Only the spelling is touched: the acknowledgement deliberately writes surname-first throughout ('Mr. Banda Francis C.'), so the order stays as the author set it. (4) The ACKNOWLEDGEMENT calls this 'the Form Four Accounting Learner's Book' in a FORM TWO book whose own FOREWORD and PREFACE say 'Form Two' two paragraphs earlier. (5) '…….for independent review' has no space after the reviewer placeholder, and that sentence ends with no full stop while every other sentence on the page has one. The placeholder itself is left standing: the independent reviewer has not been named, and a name is not something to invent. (6) 'lay out of the Statement of Profit or Loss' — the noun, written as two words in the section heading and the activity title that mirrors it, and as one word ('layout') the ten other times the book uses it. (7) 'learner-center approach' reached the page as 'learner-centre approach' because the engine's British-English pass correctly turned center into centre; the author's slip was the missing -ed, and the adjective is 'learner-centred' (as the ICT books write it). (8) 'Calculating capitals' is LEARNING ACTIVITY 8's title; the section heading directly above it reads 'Calculating Capital', every sibling activity title mirrors its section heading exactly, and 'capitals' occurs nowhere else in the book. (9) The twenty-six activity boxes label their answer section three different ways: 'Learners’ Expected Responses' twenty times, 'Expected Learner Responses' four times (Topic 2.1's Activities 1–4) and 'Expected Learners’ Responses' twice (Activities 5 and 6). It is one element with one job, so the six outliers are brought to the form the other twenty use. The two orders are replaced in this order because neither string contains the other.",
+  "subtext": [
+    {
+      "from": "DESCRIPTERS",
+      "to": "DESCRIPTORS"
+    },
+    {
+      "from": "Problem Saving",
+      "to": "Problem Solving"
+    },
+    {
+      "from": "Phyllis Simasiku........",
+      "to": "Phyllis Simasiku"
+    },
+    {
+      "from": "Simasiku Phylis",
+      "to": "Simasiku Phyllis"
+    },
+    {
+      "from": "Form Four Accounting",
+      "to": "Form Two Accounting"
+    },
+    {
+      "from": "…….for independent review",
+      "to": "……. for independent review"
+    },
+    {
+      "from": "strengthened its content and quality",
+      "to": "strengthened its content and quality."
+    },
+    {
+      "from": "lay out of the",
+      "to": "layout of the"
+    },
+    {
+      "from": "learner-centre approach",
+      "to": "learner-centred approach"
+    },
+    {
+      "from": "Calculating capitals",
+      "to": "Calculating Capital"
+    },
+    {
+      "from": "Expected Learners’ Responses",
+      "to": "Learners’ Expected Responses"
+    },
+    {
+      "from": "Expected Learner Responses",
+      "to": "Learners’ Expected Responses"
+    },
+    {
+      "from": "Assets=Capital+Liabilities",
+      "to": "Assets = Capital + Liabilities"
+    },
+    {
+      "from": "=K275,000",
+      "to": "= K275,000"
+    },
+    {
+      "from": "Net Sales=Sales−Returns Inward",
+      "to": "Net Sales = Sales − Returns Inward"
+    },
+    {
+      "from": "Net Purchases=Purchases−Returns Outward",
+      "to": "Net Purchases = Purchases − Returns Outward"
+    },
+    {
+      "from": "Cost of Sales=K115,000",
+      "to": "Cost of Sales = K115,000"
+    },
+    {
+      "from": "Cost of Sales=K212,000",
+      "to": "Cost of Sales = K212,000"
+    },
+    {
+      "from": "Net Profit=141,000−39,000",
+      "to": "Net Profit = 141,000 − 39,000"
+    },
+    {
+      "from": "Net Profit=K102,000",
+      "to": "Net Profit = K102,000"
+    },
+    {
+      "from": "K161,000−K157,000=K4,000K161,000-K157,000=\\boxed{K4,000}",
+      "to": "K161,000 − K157,000 = K4,000"
+    },
+    {
+      "from": "Gross Profit Margin=Gross ProfitRevenue×100",
+      "to": "Gross Profit Margin = Gross Profit/Revenue × 100"
+    },
+    {
+      "from": "Net Profit Margin=Net ProfitRevenue×100",
+      "to": "Net Profit Margin = Net Profit/Revenue × 100"
+    },
+    {
+      "from": "Total non-current assets=K105,000\\boxed{\\text{Total non-current assets}=K105,000}",
+      "to": "Total non-current assets = K105,000"
+    },
+    {
+      "from": "Total current assets=K75,000\\boxed{\\text{Total current assets}=K75,000}",
+      "to": "Total current assets = K75,000"
+    },
+    {
+      "from": "Gross Profit Margin=Gross Profit/Sales × 100",
+      "to": "Gross Profit Margin = Gross Profit/Sales × 100"
+    }
+  ],
+  "//editCell": "Three slips inside the KEY COMPETENCES table, which `subtext` cannot express because they are about which BULLETS a cell holds, not about a word inside one. The first two are the copy-paste repeats the sibling Learner's Book already collapses: 'Draw up the Statement of Financial Position…' is listed three times in the Analytical Thinking row and 'Prepare the Statement of Profit or Loss' twice in Financial Education. Each find string opens with the newline-and-bullet separator the cell text uses, so only a CONSECUTIVE repeat inside one cell matches — the single legitimate 'Prepare the Statement of Profit or Loss' under Entrepreneurship is a different competence's descriptor and is left alone. The third is new to both books: the Communication row holds two descriptors in ONE bulleted paragraph. The OOXML confirms it — a single <w:p> with one numPr binding, its whole run reading 'Identify Users of accounting information Outline accounting information', so the engine drew the one bullet it was given and the second descriptor ran on as part of the first. Every other row in the table carries one descriptor per bullet, so the separator is restored.",
+  "editCell": [
+    {
+      "find": "\n• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities)\n• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities)",
+      "with": ""
+    },
+    {
+      "find": "\n• Prepare the Statement of Profit or Loss\n• Prepare the Statement of Profit or Loss",
+      "with": "\n• Prepare the Statement of Profit or Loss"
+    },
+    {
+      "find": "Identify Users of accounting information Outline accounting information",
+      "with": "Identify Users of accounting information\n• Outline accounting information"
+    }
+  ],
+  "//splitBoxTitle": "Four of the book's twenty-six activity boxes swallowed their first sub-label into the title. They were found by font size, not by eye: a box title is set at 21pt and the sub-label at 18pt, so pulling every text run out of the PDF with its size shows exactly which 'Teaching and Learning Resources' lines are drawn at title weight — Activities 2, 5, 6 and 8, and no others. LEARNING ACTIVITY 8 is the clearest to read: it printed as 'LEARNING ACTIVITY 8: Calculating Capital Teaching and Learning Resources', two lines of large bold heading, where the eight boxes around it print one bold title line and then 'Teaching and Learning Resources' as a smaller bold sub-label (LEARNING ACTIVITY 7 on the facing spread is the straight comparison). The author typed the title and the sub-label as one paragraph in each of the four. House style is that the same element looks the same everywhere, so the tail is cut back off and returned to the box body, where the box's own styling draws it like its siblings. Activity numbers repeat from 1 in every topic, so the other three name their full title; Activity 8's entry matches on the number alone, which is unique, and so still binds after `subtext` has corrected 'capitals' to 'Capital'. A `find` that matches a box with no such tail is a no-op, so nothing else is touched.",
+  "splitBoxTitle": [
+    {
+      "find": "LEARNING ACTIVITY 2: Explaining Books of Prime Entry",
+      "at": "Teaching and Learning Resources"
+    },
+    {
+      "find": "LEARNING ACTIVITY 5: Preparing the Statement of Profit or Loss",
+      "at": "Teaching and Learning Resources"
+    },
+    {
+      "find": "LEARNING ACTIVITY 6: Explaining the Statement of Financial Position",
+      "at": "Teaching and Learning Resources"
+    },
+    {
+      "find": "LEARNING ACTIVITY 8",
+      "at": "Teaching and Learning Resources"
+    }
+  ],
+  "//subtextMaths": "A second group of corrections, all in the worked answers, all verified in the manuscript before being made here. (a) RAW LaTeX reached three printed pages. The author pasted a boxed result out of a tool that writes LaTeX, so printed page 52 reads \"K161,000 − K157,000 = K4,000K161,000-K157,000=\boxed{K4,000}\" and printed page 135 twice reads \"Total non-current assets=K105,000\boxed{\text{Total non-current assets}=K105,000}\". In each the markup wraps a second copy of the result the line has already given in plain text, so the tail is dropped and the plain statement kept; nothing is invented and nothing is lost. The raw OOXML holds no equation object here at all — it is literal typed text — so this is the manuscript's slip, not the maths importer's. (b) Two of the eight formulas under '5. Examples of Ratios' lost the bar of their fraction and printed the numerator glued to the denominator: \"Gross Profit Margin=Gross ProfitRevenue×100\" and \"Net Profit Margin=Net ProfitRevenue×100\". The six beside them are written \"Current Ratio = Current Assets/Current Liabilities\", and the book writes this very formula that way elsewhere (\"Gross Profit Margin=Gross Profit/Sales × 100\"), so the slash and the spacing are restored. 'Revenue' is left as the author wrote it — it is the term he chose here, and only the missing operator is the defect. (c) Nine equations have no space round the '=' while the book sets every other one spaced: 'Assets = Capital + Liabilities' appears six times spaced and once glued, 'Net Profit = …' six times spaced and twice glued, and a lone '=K275,000' stands against 122 '= K…' lines. The minus sign used is the author's own U+2212, matching the spaced siblings exactly. Six of these find strings carry NON-BREAKING spaces (U+00A0) inside the label — \"Cost of Sales\", \"Net Profit\" — because that is what the author typed; written with ordinary spaces they matched nothing and the build said so. The replacements put ordinary spaces back, so the line can break normally.",
+  "//renameNear": "SUB-TOPIC 2.3.1 is headed 'CAPITAL AND REVENUE RECEIPTS AND EXPENDITURE' and then, after the competences block, the lesson under it is headed 'Capital and Revenue Receipts and Expenditure' — the same words again. House style is that a sub-heading never just repeats the unit heading above it (the engine's dropUnitTitleEcho enforces it where the two are adjacent; here the competences block sits between them, which is outside that rule's deliberately narrow reach). Deleting it is not the answer: all five other sub-topics give this slot a real lesson heading, so removing this one would leave 2.3.1 the only lesson with none. It is renamed instead, to the form three of the five already use — the title of the sub-topic's own LEARNING ACTIVITY 1 ('Explaining Capital and Revenue Receipts and Expenditure'), exactly as 2.4.2 is headed 'Explaining the Statement of Financial Position' and 2.5.1 'Explaining the Accounting Ratios'. The string occurs exactly once in the book as a whole line, so `retext`'s whole-run match can only land on this heading. `retext` was tried first and silently did nothing: it rewrites RUNS, and this heading is emitted as a plain head() with no run of its own, so `renameNear` — which rewrites a heading's whole text, found by scanning back from the paragraph beneath it — is the right key.",
+  "renameNear": [
+    {
+      "find": "Capital and Revenue Receipts and Expenditure",
+      "near": "Capital and revenue receipts and expenditure are categories used to classify",
+      "to": "Explaining Capital and Revenue Receipts and Expenditure"
+    }
+  ]
+}
