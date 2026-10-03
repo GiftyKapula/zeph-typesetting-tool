@@ -2354,10 +2354,41 @@ function reflowBreaks(segs) {
   }
   return segs.filter((s) => s.t.length);
 }
+// Take off the bullet an author TYPED at the head of a list line, so the engine's
+// own marker is the only one that prints.
+//
+// The typed bullet is not always the first character of the first run. Word splits
+// a hand-typed list line wherever the writer's formatting changed, and the marker
+// regularly arrives as a run of its own holding nothing but padding and the bullet
+// ("       •"), with the text in the run after it. Matching segs[0]'s first
+// character alone left that bullet in the text and the engine then drew its own
+// marker in front of it, printing "• • Artist's signature" — six lines on one page
+// of the Geography Form 2 Learner's Book, and the same fault at four separate
+// places in that book, every one of them a line the author padded before the
+// bullet (the lines where the bullet opens its run, "•Plateau, Railway, …", were
+// already handled and printed correctly, which is what made the book inconsistent
+// with itself). So: skip the blank runs in front of the bullet, strip it wherever
+// it actually sits, and drop the runs it leaves empty along with the space that
+// separated it from its text. A math run is never blank and never a bullet, so it
+// stops the scan.
 function stripBullet(segs) {
   const c = segs.map((s) => ({ ...s }));
-  if (c[0]) c[0].t = c[0].t.replace(/^[••]\s*/, "");
-  return c;
+  const txt = (s) => String(s.t || "");
+  const blank = (s) => !s.m && !txt(s).trim();
+  let i = 0;
+  while (i < c.length && blank(c[i])) i++;
+  if (i >= c.length || c[i].m || !/^\s*[••]/.test(txt(c[i]))) return c;
+  for (let j = 0; j < i; j++) c[j].t = "";          // the padding in front of the bullet
+  c[i].t = txt(c[i]).replace(/^\s*[••]\s*/, "");
+  // the bullet and the text it labels are regularly separated by runs of their own
+  // (" •" / " " / "Artist's signature" is one real paragraph of this book), so the
+  // gap can run several runs past the bullet before the text starts
+  for (let j = i; j < c.length && !c[j].m; j++) {
+    if (!txt(c[j]).trim()) { c[j].t = ""; continue; }
+    c[j].t = txt(c[j]).replace(/^\s+/, "");
+    break;
+  }
+  return c.filter((s) => s.m || txt(s) !== "");      // drop the runs that held only the marker
 }
 
 // Group an assessmentTitle block + the question/answer lines that follow it

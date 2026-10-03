@@ -47,10 +47,10 @@
       "kind": "LB",
       "author": null,
       "theme": "literature",
-      "state": "typesetting",
+      "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-27 12:20:55",
-      "updated_at": "2026-09-27 12:21:52"
+      "updated_at": "2026-10-03 13:48:53"
     },
     {
       "id": "form-1-literature-in-english-tg",
@@ -66,6 +66,32 @@
       "updated_at": "2026-09-28 06:54:40"
     },
     {
+      "id": "form-2-accounting-lb",
+      "title": "Form 2 Accounting LB",
+      "grade": "Form 2",
+      "subject": "Accounting",
+      "kind": "LB",
+      "author": null,
+      "theme": "accounting",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-10-01 18:29:19",
+      "updated_at": "2026-10-02 09:36:54"
+    },
+    {
+      "id": "form-2-accounting-tg",
+      "title": "Form 2 Accounting TG",
+      "grade": "Form 2",
+      "subject": "Accounting",
+      "kind": "TG",
+      "author": null,
+      "theme": "accounting",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-10-01 18:29:19",
+      "updated_at": "2026-10-02 09:36:54"
+    },
+    {
       "id": "form-2-computer-science-lb",
       "title": "Form 2 Computer Science LB",
       "grade": "Form 2",
@@ -79,17 +105,30 @@
       "updated_at": "2026-09-26 04:29:03"
     },
     {
+      "id": "form-2-food-and-nutrition-lb",
+      "title": "Form 2 Food and Nutrition LB",
+      "grade": "Form 2",
+      "subject": "Food and Nutrition",
+      "kind": "LB",
+      "author": null,
+      "theme": "foodnutrition",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-10-02 09:36:54",
+      "updated_at": "2026-10-02 09:37:14"
+    },
+    {
       "id": "form-2-geography-lb",
       "title": "Form 2 Geography LB",
       "grade": "Form 2",
       "subject": "Geography",
       "kind": "LB",
-      "author": null,
+      "author": "Njira Mtonga, Nzila O. Siabalima",
       "theme": "geography",
-      "state": "sent-for-proofread",
+      "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-28 09:02:33",
-      "updated_at": "2026-09-30 12:33:24"
+      "updated_at": "2026-10-03 13:48:24"
     },
     {
       "id": "form-2-information-and-communication-technology-lb",
@@ -102,7 +141,7 @@
       "state": "typesetting",
       "page_cap": null,
       "created_at": "2026-09-26 10:21:30",
-      "updated_at": "2026-09-28 09:02:33"
+      "updated_at": "2026-10-02 09:36:55"
     },
     {
       "id": "form-2-information-and-communication-technology-tg",
@@ -115,7 +154,7 @@
       "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-25 13:22:26",
-      "updated_at": "2026-09-28 09:02:34"
+      "updated_at": "2026-10-02 09:36:55"
     },
     {
       "id": "form-2-religious-education-lb",
@@ -128,7 +167,7 @@
       "state": "approved",
       "page_cap": null,
       "created_at": "2026-09-27 08:24:03",
-      "updated_at": "2026-09-29 05:06:07"
+      "updated_at": "2026-10-02 09:36:55"
     },
     {
       "id": "form-2-religious-education-tg",
@@ -141,7 +180,7 @@
       "state": "sent-for-proofread",
       "page_cap": null,
       "created_at": "2026-09-27 08:24:02",
-      "updated_at": "2026-09-28 09:02:33"
+      "updated_at": "2026-10-02 09:36:55"
     },
     {
       "id": "form-4-food-and-nutrition-tg",
@@ -209,6 +248,19 @@
       "updated_at": "2026-09-28 06:53:32"
     },
     {
+      "id": "grade-1-creative-and-technology-studies-lb",
+      "title": "Grade 1 Creative and Technology Studies LB",
+      "grade": "Grade 1",
+      "subject": "Creative and Technology Studies",
+      "kind": "LB",
+      "author": null,
+      "theme": "cts",
+      "state": "typesetting",
+      "page_cap": null,
+      "created_at": "2026-09-30 17:37:05",
+      "updated_at": "2026-09-30 17:37:38"
+    },
+    {
       "id": "grade-1-creative-and-technology-studies-tg",
       "title": "Grade 1 Creative and Technology Studies TG",
       "grade": "Grade 1",
@@ -219,7 +271,7 @@
       "state": "applying-corrections",
       "page_cap": null,
       "created_at": "2026-09-28 16:53:43",
-      "updated_at": "2026-09-30 13:45:54"
+      "updated_at": "2026-09-30 17:37:05"
     },
     {
       "id": "grade-6-expressive-arts-tg",
@@ -336,7 +388,7 @@
       "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-16 10:29:24",
-      "updated_at": "2026-09-28 09:02:35"
+      "updated_at": "2026-10-02 09:36:55"
     },
     {
       "id": "physics-form2-zeph-lb-1-1-docx",
@@ -349,7 +401,7 @@
       "state": "returned",
       "page_cap": null,
       "created_at": "2026-09-14 10:38:52",
-      "updated_at": "2026-09-28 09:02:35"
+      "updated_at": "2026-10-02 09:36:55"
     },
     {
       "id": "physics-form2-zeph-lb-1-1-docx-latest",
@@ -362,7 +414,7 @@
       "state": "typesetting",
       "page_cap": null,
       "created_at": "2026-09-25 13:22:26",
-      "updated_at": "2026-09-30 07:15:19"
+      "updated_at": "2026-10-02 09:36:55"
     },
     {
       "id": "religious-education-form-2-learners-book-ready-for-ind-rev-2026",
@@ -1687,6 +1739,276 @@
       "hash": "5861fd8aaad6d6c3",
       "note": null,
       "ingested_at": "2026-09-30 17:11:51"
+    },
+    {
+      "id": 128,
+      "book_id": "grade-1-creative-and-technology-studies-lb",
+      "kind": "manuscript",
+      "original_name": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Grade 1 Books\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26.docx",
+      "hash": "70c92a2e4d43d077",
+      "note": null,
+      "ingested_at": "2026-09-30 17:37:05"
+    },
+    {
+      "id": 129,
+      "book_id": "grade-1-creative-and-technology-studies-tg",
+      "kind": "overrides",
+      "original_name": "Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Grade 1 Books\\Grade 1 CTS Teachers Guide_ready for Ind. Rev. 26 09 2026.overrides.json",
+      "hash": "f9dad855f2c86646",
+      "note": null,
+      "ingested_at": "2026-09-30 17:37:05"
+    },
+    {
+      "id": 130,
+      "book_id": "form-2-accounting-lb",
+      "kind": "manuscript",
+      "original_name": "Accounting F2 28 Sept.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Accounting F2 28 Sept.docx",
+      "hash": "967e3afb0ca8d33e",
+      "note": null,
+      "ingested_at": "2026-10-01 18:11:35"
+    },
+    {
+      "id": 131,
+      "book_id": "form-2-geography-lb",
+      "kind": "overrides",
+      "original_name": "Geography_Form 2_Learners Book_ready for typesetting.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Geography_Form 2_Learners Book_ready for typesetting.overrides.json",
+      "hash": "578c1c88e4a1d995",
+      "note": null,
+      "ingested_at": "2026-10-01 18:11:35"
+    },
+    {
+      "id": 132,
+      "book_id": "form-2-religious-education-lb",
+      "kind": "overrides",
+      "original_name": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026.overrides.json",
+      "hash": "cf01859d1b5ac897",
+      "note": null,
+      "ingested_at": "2026-10-01 18:11:38"
+    },
+    {
+      "id": 133,
+      "book_id": "form-2-accounting-lb",
+      "kind": "manuscript",
+      "original_name": "Accounting F2 28 Sept.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Accounting F2 28 Sept.docx",
+      "hash": "967e3afb0ca8d33e",
+      "note": null,
+      "ingested_at": "2026-10-01 18:29:19"
+    },
+    {
+      "id": 134,
+      "book_id": "form-2-accounting-tg",
+      "kind": "manuscript",
+      "original_name": "Accounting F2 TG 28 Sept.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Accounting F2 TG 28 Sept.docx",
+      "hash": "b8ce299d0f6b7fac",
+      "note": null,
+      "ingested_at": "2026-10-01 18:29:19"
+    },
+    {
+      "id": 135,
+      "book_id": "form-2-accounting-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Accounting F2 TG 28 Sept - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Accounting F2 TG 28 Sept\\Accounting F2 TG 28 Sept - typeset.pdf",
+      "hash": "99ddec18f77bc3b1",
+      "note": null,
+      "ingested_at": "2026-10-01 20:57:56"
+    },
+    {
+      "id": 136,
+      "book_id": "form-2-accounting-lb",
+      "kind": "overrides",
+      "original_name": "Accounting F2 28 Sept.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Accounting F2 28 Sept.overrides.json",
+      "hash": "6b894787b8f07801",
+      "note": null,
+      "ingested_at": "2026-10-01 21:51:09"
+    },
+    {
+      "id": 137,
+      "book_id": "form-2-accounting-tg",
+      "kind": "overrides",
+      "original_name": "Accounting F2 TG 28 Sept.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Accounting F2 TG 28 Sept.overrides.json",
+      "hash": "7ebd3fb3d5f76baf",
+      "note": null,
+      "ingested_at": "2026-10-01 21:51:09"
+    },
+    {
+      "id": 138,
+      "book_id": "form-2-accounting-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Accounting F2 TG 28 Sept - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Accounting F2 TG 28 Sept\\Accounting F2 TG 28 Sept - typeset.pdf",
+      "hash": "411600caac5324f6",
+      "note": null,
+      "ingested_at": "2026-10-01 21:57:07"
+    },
+    {
+      "id": 139,
+      "book_id": "form-2-accounting-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Accounting F2 TG 28 Sept - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Accounting F2 TG 28 Sept\\Accounting F2 TG 28 Sept - typeset.pdf",
+      "hash": "49d2a2ecb88cc1ce",
+      "note": null,
+      "ingested_at": "2026-10-01 22:26:42"
+    },
+    {
+      "id": 140,
+      "book_id": "form-2-accounting-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Accounting F2 28 Sept - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Accounting F2 28 Sept\\Accounting F2 28 Sept - typeset.pdf",
+      "hash": "7bfc572eba4bd77d",
+      "note": null,
+      "ingested_at": "2026-10-01 22:29:48"
+    },
+    {
+      "id": 141,
+      "book_id": "grade-1-creative-and-technology-studies-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "hash": "7c8e8d91281a06a5",
+      "note": null,
+      "ingested_at": "2026-10-02 08:01:28"
+    },
+    {
+      "id": 142,
+      "book_id": "grade-1-creative-and-technology-studies-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "hash": "b484f1f31c9597cf",
+      "note": null,
+      "ingested_at": "2026-10-02 08:29:35"
+    },
+    {
+      "id": 143,
+      "book_id": "grade-1-creative-and-technology-studies-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "hash": "69c1fd508a430658",
+      "note": null,
+      "ingested_at": "2026-10-02 08:50:29"
+    },
+    {
+      "id": 144,
+      "book_id": "form-2-accounting-lb",
+      "kind": "overrides",
+      "original_name": "Accounting F2 28 Sept.overrides.json",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Accounting F2 28 Sept.overrides.json",
+      "hash": "b349efdfde4172b6",
+      "note": null,
+      "ingested_at": "2026-10-02 09:36:54"
+    },
+    {
+      "id": 145,
+      "book_id": "form-2-food-and-nutrition-lb",
+      "kind": "manuscript",
+      "original_name": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\books-to-typeset\\Form 2 Books\\Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026.docx",
+      "hash": "ce947ba085191fc5",
+      "note": null,
+      "ingested_at": "2026-10-02 09:36:55"
+    },
+    {
+      "id": 146,
+      "book_id": "grade-1-creative-and-technology-studies-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "hash": "397f5ec5de71fd11",
+      "note": null,
+      "ingested_at": "2026-10-02 10:03:11"
+    },
+    {
+      "id": 147,
+      "book_id": "grade-1-creative-and-technology-studies-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "hash": "b693fec4a29d3e81",
+      "note": null,
+      "ingested_at": "2026-10-02 11:04:39"
+    },
+    {
+      "id": 148,
+      "book_id": "grade-1-creative-and-technology-studies-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "hash": "001dfd510965e968",
+      "note": null,
+      "ingested_at": "2026-10-02 12:12:02"
+    },
+    {
+      "id": 149,
+      "book_id": "grade-1-creative-and-technology-studies-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Grade 1\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26\\Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26 - typeset.pdf",
+      "hash": "accece3b2f738dce",
+      "note": null,
+      "ingested_at": "2026-10-02 12:47:57"
+    },
+    {
+      "id": 150,
+      "book_id": "form-2-food-and-nutrition-lb",
+      "kind": "typeset_pdf",
+      "original_name": "Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026 - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026\\Food and Nutrition Form 2 Learner's Book_ready for Ind.Rev_02 10 2026 - typeset.pdf",
+      "hash": "15ce8b3fe4c412ba",
+      "note": null,
+      "ingested_at": "2026-10-03 13:20:42"
+    },
+    {
+      "id": 151,
+      "book_id": "form-2-accounting-tg",
+      "kind": "typeset_pdf",
+      "original_name": "Accounting F2 TG 28 Sept - typeset.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\output\\Form 2\\Accounting F2 TG 28 Sept\\Accounting F2 TG 28 Sept - typeset.pdf",
+      "hash": "1e4d7443826b2ee8",
+      "note": null,
+      "ingested_at": "2026-10-03 13:32:44"
+    },
+    {
+      "id": 152,
+      "book_id": "form-2-geography-lb",
+      "kind": "annotated_pdf",
+      "original_name": "Geography Form 2 LB Revised as of 2nd October 2026.pdf",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\proofread-books\\Geography Form 2 LB Revised as of 2nd October 2026.pdf",
+      "hash": "23324003210cae94",
+      "note": "returned from proofread",
+      "ingested_at": "2026-10-03 13:48:20"
+    },
+    {
+      "id": 153,
+      "book_id": "form-2-geography-lb",
+      "kind": "manuscript",
+      "original_name": "Geography Form 2 Learner Book Corrections as of 6th August 2026.docx",
+      "stored_path": "C:\\Users\\biine stores\\zeph-typesetting-tool\\proofread-books\\Geography Form 2 Learner Book Corrections as of 6th August 2026.docx",
+      "hash": "3745758d359ff13f",
+      "note": null,
+      "ingested_at": "2026-10-03 13:48:34"
+    },
+    {
+      "id": 154,
+      "book_id": "form-1-literature-in-english-lb",
+      "kind": "annotated_pdf",
+      "original_name": "Literature in English Form 1 Learners Book For Proofreading COMMENTED.pdf",
+      "stored_path": "C:\\Users\\biine stores\\Downloads\\Literature in English Form 1 Learners Book For Proofreading COMMENTED.pdf",
+      "hash": "69d2b3268f406236",
+      "note": "returned from proofread",
+      "ingested_at": "2026-10-03 13:48:51"
     }
   ],
   "rounds": [
@@ -1835,9 +2157,19 @@
       "book_id": "form-2-geography-lb",
       "number": 1,
       "sent_version": 124,
-      "returned_version": null,
+      "returned_version": 152,
       "sent_at": "2026-09-30 12:33:24",
-      "returned_at": null,
+      "returned_at": "2026-10-03 13:48:20",
+      "status": "open"
+    },
+    {
+      "id": 17,
+      "book_id": "form-1-literature-in-english-lb",
+      "number": 1,
+      "sent_version": null,
+      "returned_version": 154,
+      "sent_at": "2026-10-03 13:48:51",
+      "returned_at": "2026-10-03 13:48:51",
       "status": "open"
     }
   ],
@@ -9761,6 +10093,501 @@
       "note": "ON THE NEXT PAGE ADD THIS\n\n\n# GLOSSARY\n\n**Analytical Thinking:** The ability to examine information carefully, break problems into smaller parts and find possible solutions.\n\n**Assessment:** The process of checking what learners know, understand and can do.\n\n**Collaboration:** Working together with others to achieve a common goal.\n\n**Colouring:** Filling a drawing or picture with colour to make it clear and attractive.\n\n**Communication:** The process of sharing information, ideas, thoughts and feelings with others.\n\n**Computer:** An electronic device used to process, store and display information.\n\n**Computer Software:** Programmes that give instructions to a computer and help it perform different tasks.\n\n**Creativity:** The ability to use imagination and ideas to create or do something new.\n\n**Critical Thinking:** The ability to think carefully, ask questions, examine information and make simple decisions.\n\n**Digital Device:** An electronic device that can receive, process, store or communicate information.\n\n**Digital Literacy:** The ability to use digital devices safely, appropriately and effectively.\n\n**Drama:** An activity in which people act out characters, situations or stories.\n\n**Emotional Intelligence:** The ability to recognise and manage one's emotions and understand the feelings of others.\n\n**Entrepreneur:** A person who starts and manages a business.\n\n**Entrepreneurship:** The knowledge, skills and attitudes involved in starting and managing a business.\n\n**Environmental Sustainability:** The responsible use and protection of the environment and natural resources.\n\n**Equipment:** Items used to carry out a particular activity or task.\n\n**Financial Literacy:** Knowledge and skills needed to earn, save, spend and manage money responsibly.\n\n**Fitness:** The ability of the body to perform physical activities effectively and remain healthy.\n\n**Freehand Drawing:** Drawing without using a ruler or another instrument to guide the lines.\n\n**Hand Tool:** A simple tool operated by hand to perform a particular task.\n\n**Hardware:** The physical parts of a computer or digital device that can be seen and touched.\n\n**Health:** A state of physical, mental and social well-being.\n\n**Hospitality:** The act of welcoming, helping and caring for guests or visitors.\n\n**ICT:** Information and Communication Technology; the use of technology to create, process, store and communicate information.\n\n**ICT Device:** An electronic device used to create, process, store or communicate information.\n\n**Innovation:** The introduction or use of a new idea, method or way of doing something.\n\n**Internet:** A worldwide network that connects computers and other digital devices for communication and sharing information.\n\n**Lettering:** The art of writing or designing letters in a clear and attractive way.\n\n**Materials:** Substances or items used to make or create something.\n\n**Modelling:** The process of making a three-dimensional object by shaping materials such as clay or plasticine.\n\n**Needlework:** The making or decorating of items using a needle, thread and fabric.\n\n**Online Safety:** Safe and responsible behaviour when using the internet and digital devices.\n\n**Pattern:** A repeated arrangement of lines, shapes, colours, sounds or objects.\n\n**Posture:** The way a person holds or positions the body when sitting, standing, walking or performing an activity.\n\n**Problem Solving:** The process of finding ways to deal with a problem or challenge.\n\n**Protective Clothing:** Clothing worn to protect the body from injury, dirt or other dangers.\n\n**Recycling:** The process of using materials again instead of throwing them away.\n\n**Role-Play:** Acting out a situation, character or role to help learners understand an idea or situation.\n\n**Safety:** Being protected from danger, injury or harm.\n\n**Sketching:** Making a simple drawing using lines and shapes.\n\n**Software:** Programmes or instructions that tell a computer or digital device what to do.\n\n**Sound:** Something that can be heard by the ears.\n\n**Specialised Room:** A room designed or equipped for a particular activity or purpose.\n\n**Sports Skills:** Abilities used when taking part in sports and games.\n\n**Structure:** Something that is built or formed and has a particular shape or purpose.\n\n**Swimming:** The activity of moving through water using the body.\n\n**Tourism:** The activity of travelling to places for enjoyment, learning or other purposes.\n\n**Tourist:** A person who travels to another place for a visit.\n\n**Utensil:** A tool or object used for a particular task, especially in cooking.\n\n**Visual Information:** Information that is communicated through pictures, signs, symbols, diagrams or objects.\n\n**Waste:** Materials or things that are no longer wanted or needed.",
       "action": "Added. The glossary now runs on printed pages 167-169, with all 52 entries set in the book's usual glossary style.",
       "status": "done"
+    },
+    {
+      "id": 944,
+      "round_id": 16,
+      "page_ref": "p14",
+      "anchor": "KEY COMPETENCES TO BE DEVELOPED",
+      "note": "General Competences",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 945,
+      "round_id": 16,
+      "page_ref": "p17",
+      "anchor": "LIST OF FIGURES Figure 1: Major map Symbols 8 Figure 2: Four Figure and Six Figure Grid References 12 Figure 3: Four Figure Grid References 14 Figure 4: Six Figure Grid References 15 Figure 5: Cross Section 21 Figure 6: Contour Lines and River Features 28 Figure 7: Measuring Straight line and Curved Distance Using Paper 46 Method Figure 8: Calculating Area by Square Method 48 Figure 9: Zambia’s Ec",
+      "note": "Move to the Annex page",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 946,
+      "round_id": 16,
+      "page_ref": "p20",
+      "anchor": "2.1.1.1.",
+      "note": "Indent",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 947,
+      "round_id": 16,
+      "page_ref": "p23",
+      "anchor": "• Artist’s signature• • North Arrow• • Real-life colours• • Map Scale• • Grid references• • Title•",
+      "note": "Remove additional bullet points",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 948,
+      "round_id": 16,
+      "page_ref": "p25",
+      "anchor": "areas.,",
+      "note": "Remove the full stop and replace with a semi colony",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 949,
+      "round_id": 16,
+      "page_ref": "p31",
+      "anchor": "•Feature A: Market at 342781• •Feature B: Cattle Dip at 342789•",
+      "note": "Remove the additional dots",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 950,
+      "round_id": 16,
+      "page_ref": "p34",
+      "anchor": "SUB-TOPIC 2.1.4 RELIEF",
+      "note": "Remove the line below the Sub-Topic",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 951,
+      "round_id": 16,
+      "page_ref": "p40",
+      "anchor": "• Contour Lines: These connect points of equal height. • Steep Gradient: Contour lines are closely packed together. • Gentle Gradient: Contour lines are widely spaced. • Calculating Gradient: Use the \"Rise over Run\" formula:",
+      "note": "Remove the bullet points and leave the first words in bold",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 952,
+      "round_id": 16,
+      "page_ref": "p93",
+      "anchor": "•The water speed (measured with a flow meter/float) decreases.• •The width (measured with a tape measure) increases.• •The stones on the bed (measured with a ruler) become smaller and• rounder.",
+      "note": "Remove additional bullets",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 953,
+      "round_id": 16,
+      "page_ref": "p107",
+      "anchor": "protect the environment through sustainable management practices.",
+      "note": "Add Learning Activity 2 followed by and exercise and notes as follows. After carrying out observations, fieldwork or research, it is important to share what you have found out in the field in class. It is important to present your findings clearly so that others can understand them easily. You can use maps, tables, charts, drawings, photographs or short reports to show your information. Presenting your findings helps you to:\n1. Share your ideas with others\n2. Build self confidence\n3. Learn from your classmates\n4. Improve your understanding of geography\n\nLEARNING ACTIVITY 2: Presenting findings in class\nWork in groups. Use information you have collected from field studies, classroom observations or research activities.\nOrganise your information and prepare a presentation. Present your findings to the class and discuss what you have learned from the findings shared by other groups.\n\n\nEXERCISE 2\n1. Why is it important to present findings in class?\n2. What are some ways of presenting findings?\n3. What should be included in a good presentation?\n4. What skills can you develop through presentations?\n5. Why is it important to ask questions after a presentation?\n\nPresenting findings is an important part of geographical studies. It allows you to share information collected through observations, fieldwork and research. You can present your findings in different ways, such as charts, tables, maps, diagrams and oral presentations. A clear presentation helps others understand the information and encourages discussion. Presenting findings also helps you develop communication, teamwork and public speaking skills.\nPresentations can be assessed by looking at how clearly information is presented, the accuracy of the findings, the use of supporting evidence including your ability to answer questions. Good presentations are organised, clear and educative.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 954,
+      "round_id": 16,
+      "page_ref": "p110",
+      "anchor": "SUB-TOPIC 2.3.3 ENVIRONMENT HAZARDS AND",
+      "note": "Environmental Hazards and Disasters",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 955,
+      "round_id": 16,
+      "page_ref": "p113",
+      "anchor": "to environmental hazards and disasters in groups,",
+      "note": "Add full stop after disasters. Start new sentence with Capital \"I\" for in groups,..",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 956,
+      "round_id": 16,
+      "page_ref": "p114",
+      "anchor": "In groups or individually, choose one hazard or disaster such and act out",
+      "note": "delete he word \"such\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 957,
+      "round_id": 16,
+      "page_ref": "p121",
+      "anchor": "Re-",
+      "note": "Create a bit more of space for column 1 by balancing column 2-5",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 958,
+      "round_id": 16,
+      "page_ref": "p123",
+      "anchor": "EXERCISE 3 Name the three Agro‑ecological regions of Zambia.1. State one crop grown in each region.2. Explain how rainfall influences farming in Region II.3. Analyse why Region III is more suitable for cassava than maize.4.",
+      "note": "Replace this Exercise with the one below and add notes to conclude Topic 2.4\n3.\tTOPIC 2.4: AGRO-ECOLOGICAL REGIONS IN ZAMBIA\n\nEXERCISE 3\n1.\tWhich agro-ecological region in Zambia receives the least amount of rainfall each year?\n2.\tWhat is the chemical characteristic of the soils in Region III that have been heavily washed by high rainfall?\n3.\tBesides millet, which drought-resistant cereal crop is commonly recommended for farming in Region I?\n4.\tThe Luangwa and Zambezi valleys are found in which agro-ecological region?\n5.\tWhich root crop is the main staple food in Region III because it can grow well in poor soils?\n6.\tRegion II is divided into two sub-regions, IIa and IIb. Which sub-region includes the western semi-arid plains?\n7.\tWhat geographical term is used to describe the broad, flat, elevated area that covers much of Region II?\n8.\tWhich agro-ecological region is known as Zambia's main agricultural breadbasket for commercial crop production?\n9.\tExplain why different crops are grown in different agro-ecological regions of Zambia.\n10.\tName one crop that grows well in each of the three agro-ecological regions.\n\nZambia is divided into three agro-ecological regions based mainly on the amount of rainfall they receive and the types of soils found there. These regions influence the crops that farmers can grow successfully.\nRegion I receives the lowest rainfall (less than 800 mm per year). It includes the Luangwa and Zambezi valleys and is prone to drought. Farmers in this region grow drought-resistant crops such as sorghum, millet, and cotton.\nRegion II receives moderate rainfall (800-1,000 mm per year). It covers much of the Central African Plateau and is divided into Region IIa and Region IIb. This region is Zambia's main agricultural breadbasket, where crops such as maize, tobacco, soybeans, and groundnuts are widely grown.\nRegion III receives the highest rainfall (more than 1,000 mm per year). The soil is often heavily leached and acidic due to the high rainfall. Crops such as cassava, rice, and beans grow well in",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 959,
+      "round_id": 16,
+      "page_ref": "p132",
+      "anchor": "EXERCISE 9 Explain why sorghum is suitable for Region I.1. Describe one soil management practice used in Region II.2. Analyse how water management supports rice farming in Region3. III. Suggest one way farmers can protect soils in Region I from4. degradation.",
+      "note": "Add End of Topic Assessment Questions",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 960,
+      "round_id": 16,
+      "page_ref": "p132",
+      "anchor": "EXERCISE 9 Explain why sorghum is suitable for Region I.1. Describe one soil management practice used in Region II.2.",
+      "note": "Section A: Short Answer Questions\n\n1.\tDefine an environmental hazard in your own words.\n2.\tExplain how a hazard becomes a disaster.\n3.\tList three examples of environmental hazards.\n4.\tWrite down two impacts of floods on people and the environment.\n5.\tSuggest one-way communities can respond to droughts.\n\nSection B: Matching\nMatch the hazard in Column A with its correct impact in Column B.\n\nColumn A (Hazard)\t\tColumn B (Impact)\nFloods\tShortage of water and food\nDroughts\tLoss of crops and homes\nPollution\tLoss of fertile land\nSoil erosion\tDirty air and water\n\nSection C: Practical/Creative Task\n1.. Draw a simple picture showing people responding to a disaster safely.\n2. Write two sentences explaining why reporting hazards to teachers or local leaders is important.\n \nSection D: Extended Question\n1.\tWhat are the common effects of hazards?",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 961,
+      "round_id": 17,
+      "page_ref": "p17",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"The functions of Literature\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 962,
+      "round_id": 17,
+      "page_ref": "p18",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Entertainment\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 963,
+      "round_id": 17,
+      "page_ref": "p19",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Unity\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 964,
+      "round_id": 17,
+      "page_ref": "p20",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Reading a short story during free time\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 965,
+      "round_id": 17,
+      "page_ref": "p27",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"The various forms of Oral Literature\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 966,
+      "round_id": 17,
+      "page_ref": "p29",
+      "anchor": "Forms of Oral Literature",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nFolktales are traditional stories passed down from one generation to another by word of mouth. They entertain listeners and teach moral lessons, values and beliefs.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 967,
+      "round_id": 17,
+      "page_ref": "p35",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"A grandfather presenting folktales to his grandchildren\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 968,
+      "round_id": 17,
+      "page_ref": "p37",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"A grandfather taking his grandchildren through folktales\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 969,
+      "round_id": 17,
+      "page_ref": "p39",
+      "anchor": "self-expression. In pairs tell the following folktales:",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nActivity 4: Analysing Folktales",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 970,
+      "round_id": 17,
+      "page_ref": "p39",
+      "anchor": "behaviour, and explain how events are connected in a story.",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nIn groups, choose a folktale you know or one provided by your teacher and analyse it in terms of the following:\na) Themes\nb) Moral lessons\nc) Characters\ne) Plot structure (beginning, middle and end)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 971,
+      "round_id": 17,
+      "page_ref": "p49",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"An elder sharing a proverb with children at the community garden\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 972,
+      "round_id": 17,
+      "page_ref": "p50",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"A grandmother sharing a proverb with her granddaughter\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 973,
+      "round_id": 17,
+      "page_ref": "p57",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Types of proverbs\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 974,
+      "round_id": 17,
+      "page_ref": "p62",
+      "anchor": "Activity 1: Using Proverbs in different contexts",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nStudy the following proverbs and their meanings:",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 975,
+      "round_id": 17,
+      "page_ref": "p63",
+      "anchor": "mean.",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nIn your groups, read the scenario below and prepare a discussion to address the challenge.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 976,
+      "round_id": 17,
+      "page_ref": "p63",
+      "anchor": "Communities.\"",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nYour group should:",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 977,
+      "round_id": 17,
+      "page_ref": "p65",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Learners discussing songs under a tree\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 978,
+      "round_id": 17,
+      "page_ref": "p73",
+      "anchor": "c) Use actions or dance",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nActivity 8: Making presentations of composed songs.\nIn your group, present to the class the song you have composed",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 979,
+      "round_id": 17,
+      "page_ref": "p74",
+      "anchor": "Learners composing songs",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nPraises are expressions of admiration, approval or gratitude directed to a person or thing, such as God, chiefs, heroes, politicians, parents, beauty, nature or oneself (self-praises). A praise shows strong approval or admiration using beautiful, artistic words.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 980,
+      "round_id": 17,
+      "page_ref": "p74",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Learners composing songs\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 981,
+      "round_id": 17,
+      "page_ref": "p75",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"A learner reciting praises before her classmates and teachers\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 982,
+      "round_id": 17,
+      "page_ref": "p79",
+      "anchor": "around us. It is not empty flattery it is truth, made beautiful.",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nPraising family members and a chief",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 983,
+      "round_id": 17,
+      "page_ref": "p86",
+      "anchor": "Activity 2: Discussing Recited Praises",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nIn groups, discuss the praises recited in Activity 2. Pick any of your choice.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 984,
+      "round_id": 17,
+      "page_ref": "p89",
+      "anchor": "Activity 2: Presentation of composed Praises Guidelines:",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nIn your group, present your composed praise to the class using the guidelines below:",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 985,
+      "round_id": 17,
+      "page_ref": "p91",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Common idioms and their meanings\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 986,
+      "round_id": 17,
+      "page_ref": "p108",
+      "anchor": "Written literature comes in three main forms. These are prose, poetry and drama.",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nProse: written text organised in paragraphs and chapters, for example novels and short stories.\nDrama: a script meant to be performed on stage, for example plays.\nPoetry: a piece of writing that uses aesthetic (beautiful) language, arranged in lines and stanzas, for example poems.\nIn groups, distinguish the three forms of written literature (prose, drama and poetry) and answer the questions below.\nBriefly describe each of the three forms of written literature.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 987,
+      "round_id": 17,
+      "page_ref": "p109",
+      "anchor": "Activity 1: Discussing prose and its structure",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nIn pairs, study the prose structure diagram above and discuss prose and its structure by answering the questions below.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 988,
+      "round_id": 17,
+      "page_ref": "p110",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"The structure of a plot in prose\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 989,
+      "round_id": 17,
+      "page_ref": "p114",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Learners reading short stories in the library\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 990,
+      "round_id": 17,
+      "page_ref": "p115",
+      "anchor": "Activity 4: Composing Short Stories",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nYour short story should:\na) have a suitable title;\nb) introduce the characters and the setting in the exposition;\nc) build up the conflict through the rising action to a climax;\nd) show how the conflict is resolved (falling action and resolution);\ne) bring out a clear lesson on the theme you have chosen.\nWhen you have finished, read your story to the class.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 991,
+      "round_id": 17,
+      "page_ref": "p123",
+      "anchor": "1. Group Discussion:",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nb)Think about characters, setting, and staging.\nc)Who are the characters? What are they doing?\ne)What do you think the play is about? (Theme)",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 992,
+      "round_id": 17,
+      "page_ref": "p123",
+      "anchor": "your group to identify the key elements of drama within it.",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\na)What is the plot?\nb)Who are the main characters?\nc)What is the main conflict or problem?\nd)What do you think the theme (main message) of the story is?",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 993,
+      "round_id": 17,
+      "page_ref": "p124",
+      "anchor": "1. Group Formation and Theme Selection:",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nc)Create the Setting: Where and when does your play take place?",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 994,
+      "round_id": 17,
+      "page_ref": "p124",
+      "anchor": "3. Rehearsal and Staging:",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\na)After you have your script, it's time to rehearse.\nb)Decide which group member will play which character.\nc)Practice saying your lines with expression.\nd)Think about where everyone will stand on stage.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 995,
+      "round_id": 17,
+      "page_ref": "p129",
+      "anchor": null,
+      "note": "CAPTION FOR THIS PICTURE: please place the following caption directly below this picture (replace any existing caption):\n\n\"Children reciting poems\"",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 996,
+      "round_id": 17,
+      "page_ref": "p134",
+      "anchor": "Activity 3: Performing poems",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nIn groups, perform Poem Three or Poem Four above, or any other poem on a cross-cutting issue such as drug abuse, climate change, corruption, human rights or teenage pregnancy.\nRead the poem several times and discuss its meaning before you perform it.\nShare the lines or stanzas among the members of your group.\nUse a clear voice and suitable volume, pace and tone to bring out the message of the poem.\nUse gestures and facial expressions to show the feelings in the poem.\nPerform the poem before the class.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 997,
+      "round_id": 17,
+      "page_ref": "p139",
+      "anchor": "Activity 4: Reviewing performed poems",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nIn groups, perform \"A Shattered Dream\" before the class. Then review the performed poem by answering the questions below.",
+      "action": null,
+      "status": "pending"
+    },
+    {
+      "id": 998,
+      "round_id": 17,
+      "page_ref": "p139",
+      "anchor": "one in the poem above and explain why you think the expression",
+      "note": "MISSING CONTENT: please insert the following immediately after this highlighted line:\n\nHow is the poem organised? Comment on the number of stanzas and the number of lines in each stanza.",
+      "action": null,
+      "status": "pending"
     }
   ]
 }
