@@ -14,7 +14,7 @@
 //   add <book> <file>       attach any file (pdf/docx/log) as a version
 //   build <book>            typeset the latest manuscript (runs the engine)
 //   deliver <book> [--to d] copy the typeset PDF out, named for its round:
-//                          "For Proofreading" before the comments come back, "For Printing" after
+//                          "Final" before the comments come back, "For Printing" after
 //                          (default destination: your Downloads folder)
 //   send <book> [pdf]       open a proofread round; mark sent-for-proofread
 //   return <book> <file>    ingest annotated file, extract comments into the round
@@ -200,11 +200,16 @@ function cmdBuild(id) {
 }
 
 // A delivered PDF is named for the round it belongs to, never by hand. A book on its
-// way out to a reviewer is delivered "For Proofreading"; once the proofreader's
+// way out to a reviewer is delivered "Final"; once the proofreader's
 // annotated copy has come back and its comments have been extracted (`return`), what
 // goes out is "For Printing". Driving the name off the book's own state means the two can
 // never drift apart, and a book sent out for a SECOND proofread (state back to
-// sent-for-proofread) correctly goes out as "For Proofreading" again.
+// sent-for-proofread) correctly goes out as "Final" again.
+//
+// "Final" replaced "For Proofreading" here on the user's instruction ("when
+// downloading add Final instead of for proofreading"). It reads oddly against the
+// state it tracks — the book has not been proofread yet — but it is the name they
+// want on the file they open. The post-extraction name is unchanged.
 const PROOF_STATES = new Set(["drafting", "typesetting", "sent-for-proofread"]);
 const KIND_WORD = { LB: "Learner's Book", TG: "Teacher's Guide", SYL: "Syllabus" };
 // Built from what the book IS — subject, grade, kind — not from the manuscript's
@@ -212,7 +217,7 @@ const KIND_WORD = { LB: "Learner's Book", TG: "Teacher's Guide", SYL: "Syllabus"
 // ("…Learners Book_ready for Ind. Rev. 5 Sept 2026"). Falls back to the stored title
 // when a book has no subject/grade recorded.
 function deliveryName(b) {
-  const round = PROOF_STATES.has(b.state) ? "For Proofreading" : "For Printing";
+  const round = PROOF_STATES.has(b.state) ? "Final" : "For Printing";
   const stem = b.subject
     ? [b.subject, b.grade, KIND_WORD[b.kind] || b.kind].filter(Boolean).join(" ")
     // No subject recorded (an older row, or one imported before subjects were parsed):
