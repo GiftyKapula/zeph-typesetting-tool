@@ -1873,11 +1873,23 @@
   mark(1, t)
   block(width: 100%, height: 1fr)[
     #align(center + horizon)[
-      #line(length: 40%, stroke: 2pt + T.accent)
-      #v(10mm)
-      #text(font: T.displayFont, size: hm(54pt), weight: "bold", fill: T.primary, tracking: 2pt)[#upper(t)]
-      #v(10mm)
-      #line(length: 40%, stroke: 2pt + T.accent)
+      // The rules are sized from the WORD, not from the page: measure the set title and
+      // overhang it a little at each end. A fixed 40% of the measure bore no relation to
+      // the text — short terms sat under a rule twice their length, and a longer one could
+      // outrun it entirely. Capped at the text width so a very long term can't push the
+      // rules into the margins.
+      // `layout` hands us the container's real width as a LENGTH, so the cap is a
+      // length-to-length comparison (calc.min cannot compare a length with a ratio).
+      #layout(size => {
+        let word = text(font: T.displayFont, size: hm(54pt), weight: "bold",
+                        fill: T.primary, tracking: 2pt)[#upper(t)]
+        let rule = calc.min(measure(word).width + 24mm, size.width)
+        line(length: rule, stroke: 2pt + T.accent)
+        v(10mm)
+        word
+        v(10mm)
+        line(length: rule, stroke: 2pt + T.accent)
+      })
     ]]
   pagebreak(weak: true)
 }
