@@ -146,6 +146,11 @@ function normaliseSpacing(blocks) {
     for (const s of segs) {
       if (!s || typeof s.t !== "string") continue;
       s.t = glueMarkTail(s.t.replace(/[ \t]{3,}/g, " ").replace(/\t/g, " "));
+      // A section number run typed straight onto its title, with the space missed:
+      // "1.10.1.1Kukwata buuku" -> "1.10.1.1 Kukwata buuku". Requires at least one
+      // inner dot, so an ordinary decimal ("2.5kg", "1.5x") is never split, and a
+      // lower-case start so a unit glued to a plain number is left alone.
+      s.t = s.t.replace(/(\b\d+(?:\.\d+){1,})([A-ZÑ][a-zñ]{2,})/g, "$1 $2");
     }
     if (typeof segs[0].t === "string") segs[0].t = segs[0].t.replace(/^[ \t]+/, "");
     const last = segs[segs.length - 1];

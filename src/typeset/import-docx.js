@@ -2338,13 +2338,30 @@ async function importDocx(docxPath, opts = {}) {
   // end in dots with no page number — is NOT mistaken for a contents list and dropped.
   const tocJunk = new Set();
   {
-    let run = [];
-    const flush = () => { if (run.length >= 3) run.forEach((k) => tocJunk.add(k)); run = []; };
+    // A page reference is a single number ("Foreword …… 3") or a RANGE ("KISHINA 1
+    // …… 21 - 29") — the form books that list each unit's page span use throughout.
+    const PAGEREF = /[.…]{4,}\s*\[?\d+\]?(?:\s*[-–—]\s*\d+)?\s*$/;
+    // Sub-entries are routinely typed with leaders but NO page reference at all
+    // ("MUTWE: 1.1 MASHIMIKILA ………"). They belong to the run too: a contents list
+    // that indents its sub-topics never has three NUMBERED lines in a row, so
+    // requiring a page reference on every line left the whole list in the book.
+    const LEADER = /[.…]{4,}\s*$/;
+    let run = [], refs = 0;
+    // A run of bare leaders on its own would also match a page of fill-in exercise
+    // blanks ("b + e + n + d = ………", "c + a + t = ………"), so a run only counts as a
+    // contents list when at least one of its lines carries a real page reference —
+    // which a page of blanks never does.
+    const flush = () => {
+      if (run.length >= 3 && refs > 0) run.forEach((k) => tocJunk.add(k));
+      run = []; refs = 0;
+    };
     for (let i = 0; i < parts.length; i++) {
       if (isTbl(parts[i])) { flush(); continue; }
       const t = textOf(parts[i]);
       if (t === "") continue;                          // blanks don't break the run
-      if (/[.…]{4,}\s*\[?\d+\]?\s*$/.test(t)) run.push(i); else flush();
+      if (PAGEREF.test(t)) { run.push(i); refs++; }
+      else if (LEADER.test(t)) run.push(i);
+      else flush();
     }
     flush();
   }

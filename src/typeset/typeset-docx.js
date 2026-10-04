@@ -150,7 +150,13 @@ async function typesetOne(docxPath, themeName) {
     for (const b of blocks) {
       if (b.t !== "para") continue;
       const t = paraText(b);
-      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^${LEXI.altSrc([w])}\\s+\\d`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": "); delete b.segs; }
+      // The unit word followed by a NUMBER ("KISHINA 1: KUTONGAULA MAZHINA"), or by a
+      // COLON where the author dropped the number ("KISHINA: MITEETO NE MISANGO…") — an
+      // unnumbered unit left as body text was promoted by neither rule, so its whole
+      // unit folded into the one before it and never opened a page of its own.
+      // `^\s*` because such a line often carries a leading em space (U+2003) the author
+      // used to indent it, which `^` alone would not get past.
+      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^\\s*${LEXI.altSrc([w])}\\s*(?::|\\s\\d)`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": ").trim(); delete b.segs; }
     }
     const isCand = (b) => /^(head|label|h1|h2|h3)$/.test(b.t) && (b.text || "").trim().length <= 60;
     const byWord = new Map();
@@ -605,6 +611,14 @@ async function typesetOne(docxPath, themeName) {
   // A book may also override the TOC depth directly. Depth 1 keeps top-level
   // sections only (front matter + units/topics) and excludes sub-topics.
   if (ov.tocDepth !== undefined) themeOverrides.tocDepth = ov.tocDepth;
+  // A local-language book titles its contents page in that language. The authors gave
+  // their own word for "Table of Contents" on the word form (Kaonde "Bijimo", Nyanja
+  // "Zam'kati"…), so take it from the loaded word list instead of printing the English
+  // default. A theme that names its own `toctitle` (Lunda) keeps it, and an English book
+  // loads no word list, so neither changes. A per-book `toctitle` still beats both.
+  const langToc = LEXI.words(["contents"])[0];
+  if (langToc && (THEMES[theme] || {}).toctitle === "Table of Contents") themeOverrides.toctitle = langToc;
+  if (ov.toctitle) themeOverrides.toctitle = ov.toctitle;
   if (ov.captionSize) themeOverrides.capSize = ov.captionSize;
   // "boxStripe": false — plain tinted activity/exercise/assessment boxes, no thick left border
   if (ov.boxStripe === false) themeOverrides.boxStripe = false;   // e.g. "12pt" (see capsz in the template)
@@ -723,6 +737,18 @@ async function typesetOne(docxPath, themeName) {
         else if (/^\(?([ivx]+|[a-z])[.)]$/i.test(mk)) b.nest = k ? 2 : 1;
         else b.nest = k ? 2 : 1;                      // a bullet under a step nests under it
       } else if (b.t !== "vspace") k = 0;
+    }
+    // A lettered marker's PUNCTUATION says which level it is: "a)" at the first level,
+    // "a." once nested under a numbered step. The manuscripts keep that distinction
+    // almost perfectly — in the Kiikaonde Grade 1 TG, 86 of 88 first-level letters are
+    // "a)" and 10 of 11 nested ones are "a." — so the handful that disagree are slips,
+    // and the two shapes must NOT be levelled to one: that would throw the distinction
+    // away. Point each stray marker at the shape its own level already uses.
+    for (const b of blocks) {
+      if (b.t !== "listitem" || !b.nest) continue;
+      const m = String(b.marker || "").match(/^\(?([a-z])[.)]$/i);
+      if (!m) continue;
+      b.marker = b.nest >= 2 ? `${m[1]}.` : `${m[1]})`;
     }
     console.log(`   lessonLabels: ${n} lesson label line(s) set`);
   }

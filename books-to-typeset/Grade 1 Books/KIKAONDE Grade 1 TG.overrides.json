@@ -1,0 +1,56 @@
+{
+  "_note": "Leftovers from the author's hand-typed contents list. The engine drops the dot-leader entries themselves; these three lines carry no leaders, so they survive: 'BIJIMO    PEEJI' is the list's own heading + page-column header (the engine prints its own Table of Contents), and this 'TEMU 1' is the term banner INSIDE the list, not the real one that opens the body.",
+  "remove": [
+    "BIJIMO",
+    "PEEJI"
+  ],
+  "removeWhereNext": [
+    {
+      "find": "TEMU 1",
+      "next": "BANEMBI"
+    }
+  ],
+  "_note_units": "The author numbered every unit in the contents list but dropped the number from most of the body headings, and spaced two colons wrongly. The numbers are the author's own, read off that contents list. `find` is a substring that matches exactly one block; `with` must be the WHOLE new heading, since replace swaps the entire block. Unit 10's number is right in the body - it is the CONTENTS that had 'KISHINA 1O' with a letter O, and that list is removed.",
+  "replace": [
+    {
+      "find": "KISHINA: BUKAÑENDA",
+      "with": "KISHINA 5: BUKAÑENDA"
+    },
+    {
+      "find": "KISHINA: BUSULU",
+      "with": "KISHINA 7: BUSULU"
+    },
+    {
+      "find": "KISHINA: ÑENDELO",
+      "with": "KISHINA 8: ÑENDELO NE MASAWAKYA"
+    },
+    {
+      "find": "KISHINA : KWINGIJISHA",
+      "with": "KISHINA 9: KWINGIJISHA MICHI NE BIZHIMA MWATAMA"
+    },
+    {
+      "find": "KISHINA 10 : MFUNJILO",
+      "with": "KISHINA 10: MFUNJILO YA PA MAALI"
+    },
+    {
+      "find": "KISHINA: MITEETO NE MISANGO",
+      "with": "KISHINA 11: MITEETO NE MISANGO YA NGINKELO MU NTANDA."
+    },
+    {
+      "find": "KISHINA: MAZHIKAKANWA",
+      "with": "KISHINA 12: MAZHIKAKANWA"
+    },
+    {
+      "find": "KISHINA: BUNJIMI",
+      "with": "KISHINA 13: BUNJIMI"
+    },
+    {
+      "find": "KISHINA: MITETO YA KYALO",
+      "with": "KISHINA 14: MITETO YA KYALO."
+    }
+  ],
+  "_note_lessons": "A lesson-plan Teacher's Guide (LUFUNJISHO / KIBESE / MUTWE / BYAKUUBA MUFUNJISHI). lessonLabels nests a lettered sub-item under the numbered step above it, so a. and b. stop starting at the same margin as 1. and 2. It nests only while a numbered item is open, so a lettered list with no numbers above it stays top-level.",
+  "lessonLabels": true,
+  "_note_cover": "PLACEHOLDER cover. The manuscript ships none ('[Please, put suitable cover page ]'). This supplied illustration meets the representation rules generously - a wheelchair user, a girl with a hearing aid who is signing, an albino girl, two boys and two girls - but it breaks two standing house rules: it is cartoon rather than the semi-realistic register HOUSE-STYLE section 5 requires, and its setting (autumn foliage, rolling hills) does not read as Zambian. It arrived portrait 912x1168 at 157 DPI as a JPEG; the sky above the figures was trimmed and the sides padded with the picture's own border orange to reach the hero card's 1.846:1 without clipping any child, then taken through Real-ESRGAN to print resolution and saved as PNG. Replace before printing.",
+  "coverImage": "kikaonde-g1-cover.png"
+}

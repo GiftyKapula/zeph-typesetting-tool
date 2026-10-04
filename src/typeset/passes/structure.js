@@ -68,7 +68,15 @@ function boxifyActivities(blocks, opts = {}) {
   // tolerating the dash type, plural/typo forms ("Exercises", "EXERCSE"), case and a
   // trailing period, so every answer key is boxed like the other exercises.
   const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
-  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : null);
+  // The patterns above are English plus a handful of local-language ACTIVITY labels
+  // typed out by hand; the exercise and assessment ones were never added, so a
+  // local-language exercise heading the word list already knows (Kaonde "MWINGILO")
+  // went unrecognised and its questions spilled out of the box. Fall back to the
+  // loaded word list, which carries every wording the authors themselves gave, and
+  // resolves "Mwingilo" (exercise) against "Mwingilo wakuuba" (activity) by longest
+  // match. It answers null when no language is loaded, so English books are untouched.
+  const LEXKIND = { activity: "act", exercise: "ex", assessment: "asmt" };
+  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : LEXKIND[LEXI.boxKind(t)] || null);
   const INTERNAL = /^(teaching and learning materials|teacher.?s?\s*facilitation procedure|facilitation procedure|teacher.?s?\s*notes?|take note of responses|expected responses?|possible answers?|materials?|answers?|procedure)\b/i;
   // The recurring teaching PHASES inside a single activity (the 3Ps / lesson-cycle
   // structure: Introduction, Presentation/Present, Practice, Production/Produce,
@@ -548,6 +556,25 @@ const BOX_LABEL_SMALL = /^(of|the|and|to|in|for)$/i;
 // The label is everything before the first colon. A title with NO colon qualifies only
 // when it is nothing but label words and numbers ("End of Topic Assessment"), so a
 // colon-less descriptive title is left alone rather than half-recased.
+// BOX_LABEL_WORD is English. A local-language book titles its boxes with the authors'
+// own wording ("MWINGILO", "Mwingilo 3:"), which the loaded word list already carries \u2014
+// without it boxLabelOf answered null for every one of them, so they were neither
+// counted in the caps-vs-mixed vote nor recased, and one book printed MWINGILO,
+// MWINGILO:, Mwingilo: and Mwingilo 2: on different pages. Memoised per language, since
+// one book is typeset at a time.
+let lexLabelCache = { lang: undefined, set: new Set() };
+function lexLabelTokens() {
+  const lang = LEXI.getLang();
+  if (lexLabelCache.lang !== lang) {
+    const set = new Set();
+    for (const w of LEXI.words(["activity", "alt_activity", "exercise", "assessment_topic", "assessment_unit"])) {
+      for (const tok of w.replace(/[-\u2013\u2014().]/g, " ").split(/\s+/)) if (tok) set.add(tok.toLowerCase());
+    }
+    lexLabelCache = { lang, set };
+  }
+  return lexLabelCache.set;
+}
+
 function boxLabelOf(title) {
   const t = (title || "").trim();
   if (!t) return null;
@@ -555,7 +582,8 @@ function boxLabelOf(title) {
   const label = ci >= 0 ? t.slice(0, ci) : t;
   if (!/[A-Za-z]/.test(label)) return null;
   const toks = label.replace(/[-\u2013\u2014().]/g, " ").split(/\s+/).filter(Boolean);
-  if (!toks.length || !toks.every((w) => /^\d+$/.test(w) || BOX_LABEL_WORD.test(w))) return null;
+  const lex = lexLabelTokens();
+  if (!toks.length || !toks.every((w) => /^\d+$/.test(w) || BOX_LABEL_WORD.test(w) || lex.has(w.toLowerCase()))) return null;
   return label;
 }
 
@@ -571,6 +599,11 @@ function uniformBoxLabelCase(blocks) {
       if (!b || typeof b !== "object") continue;
       if (b.t === "activity" || b.t === "assessment") boxes.push({ b, k: "title", s: "titleSegs" });
       else if (b.t === "exercise") boxes.push({ b, k: "heading", s: "headingSegs" });
+      // A box this pass built itself (boxifyActivities, from a loose heading) is a
+      // `framedsection`, and it was missing from this walk — so the titles most likely
+      // to be inconsistent, the ones the author typed by hand rather than as a shaded
+      // table, were the ones never levelled. It carries a plain `title` and no segs.
+      else if (b.t === "framedsection") boxes.push({ b, k: "title", s: "titleSegs" });
       if (Array.isArray(b.body)) walk(b.body);
       if (Array.isArray(b.blocks)) walk(b.blocks);
     }

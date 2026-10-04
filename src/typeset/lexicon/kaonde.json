@@ -10,6 +10,11 @@
       "file": "KIIKAONDE ECE LB LEVEL 1-2 (manuscript)",
       "author": "(from manuscript)",
       "book": "Kiikaonde ECE LB Level 1-2"
+    },
+    {
+      "file": "KIKAONDE Grade 1 TG (manuscript)",
+      "author": "(from manuscript)",
+      "book": "Kiikaonde Grade 1 Teachers Guide"
     }
   ],
   "terms": {
@@ -43,10 +48,12 @@
       "Byambo bitanshi"
     ],
     "preface": [
-      "Kitendekesho kya buuku"
+      "Kitendekesho kya buuku",
+      "Ntatwilo"
     ],
     "acknowledgement": [
-      "Lusanchilo"
+      "Lusanchilo",
+      "Lusanshijilo"
     ],
     "introduction": [
       "Ntendekelo"
