@@ -42,6 +42,10 @@ books-to-typeset/*
 !books-to-typeset/*.overrides.json
 !books-to-typeset/**/*.overrides.json
 
+# plain-text rendering of a manuscript (regenerated on every build, and the
+# manuscript itself is not committed either)
+*.manuscript.md
+
 # --- regression-check worktrees ---
 .regress-base/
 
