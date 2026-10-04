@@ -11,7 +11,8 @@
     "pdf:render": "node tools/dev/pdf-render.mjs",
     "pdf:size": "node tools/dev/pdf-size.mjs",
     "lexicon:form": "node tools/lexicon/make-word-form.js",
-    "lexicon:import": "node tools/lexicon/import-forms.js"
+    "lexicon:import": "node tools/lexicon/import-forms.js",
+    "art:gen": "node tools/genimage.js"
   },
   "keywords": [
     "typesetting",
