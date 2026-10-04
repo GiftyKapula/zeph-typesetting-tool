@@ -47,10 +47,15 @@
     {
       "find": "KISHINA: MITETO YA KYALO",
       "with": "KISHINA 14: MITETO YA KYALO."
+    },
+    {
+      "find": "MWAIYAYI KU MULAKA",
+      "with": "Mwaiyayi ku mulaka wa Kiikaonde Giledi 1 – buuku wakutangijila mufunjishi"
     }
   ],
   "_note_lessons": "A lesson-plan Teacher's Guide (LUFUNJISHO / KIBESE / MUTWE / BYAKUUBA MUFUNJISHI). lessonLabels nests a lettered sub-item under the numbered step above it, so a. and b. stop starting at the same margin as 1. and 2. It nests only while a numbered item is open, so a lettered list with no numbers above it stays top-level.",
   "lessonLabels": true,
   "_note_cover": "PLACEHOLDER cover. The manuscript ships none ('[Please, put suitable cover page ]'). This supplied illustration meets the representation rules generously - a wheelchair user, a girl with a hearing aid who is signing, an albino girl, two boys and two girls - but it breaks two standing house rules: it is cartoon rather than the semi-realistic register HOUSE-STYLE section 5 requires, and its setting (autumn foliage, rolling hills) does not read as Zambian. It arrived portrait 912x1168 at 157 DPI as a JPEG; the sky above the figures was trimmed and the sides padded with the picture's own border orange to reach the hero card's 1.846:1 without clipping any child, then taken through Real-ESRGAN to print resolution and saved as PNG. Replace before printing.",
-  "coverImage": "kikaonde-g1-cover.png"
+  "coverImage": "kikaonde-g1-cover.png",
+  "_note_case": "The Foreword's opening line was typed in full caps. Set in sentence case with only the proper nouns capitalised - Kiikaonde and Giledi 1. The opening word keeps its capital as the start of the sentence. Spelt Kiikaonde, matching the cover, title page and running header, where the manuscript line had KIKAONDE."
 }
