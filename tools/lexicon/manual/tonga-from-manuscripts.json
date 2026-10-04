@@ -1,0 +1,11 @@
+{
+  "_note": "Chitonga wordings found in the manuscripts themselves (not on the author's form). Added as extra variants. The ECE Learner's Book spells its unit word CIBEELA (the Form 4 author's form gave CIPATI), and titles its front matter MAJWI AANTALISYO / MATALIKILO A BBUKU.",
+  "source": "ECE 3-4 YEARS CHITONGA LB (manuscript)",
+  "header": { "language": "Chitonga", "your name": "(from manuscript)", "book and grade": "Chitonga ECE LB 3-4 Years" },
+  "rows": [
+    ["Unit", "Cibeela"],
+    ["Preface", "Majwi aantalisyo"],
+    ["Introduction", "Matalikilo a Bbuku"],
+    ["Listening and Speaking", "Kuswiilila akwaambaula"]
+  ]
+}

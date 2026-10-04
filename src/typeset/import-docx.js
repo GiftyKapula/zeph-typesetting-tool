@@ -187,6 +187,65 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       } else if (depth++ === 0) start = tm.index;
     }
   }
+  // --- the author's own banner shapes -------------------------------------------------
+  // A shape holding nothing but a short label is not a box: it is a banner the author
+  // drew. The ECE Chitonga Learner's Book draws EVERY activity badge that way — a
+  // numbered circle ("1") beside a rectangle ("MULIMO") — and every front-matter heading
+  // as a green right-arrow ("MATALIKILO", "KULUMBA"). Stripped as ordinary text-box
+  // decoration, all 63 activity labels, all 63 of their numbers and all four front-matter
+  // headings vanished from the printed book, and the handful the box path did catch came
+  // out as an empty titled panel with nothing in it.
+  //
+  // Recover them as headings. Only a label the book's own vocabulary recognises is taken
+  // (a box title, or a front/back-matter section name from the language's word list), so
+  // the on-diagram labels this stripping exists for — "Stem", "Root" positioned over a
+  // drawing — are still dropped: their positions cannot be reproduced in the flow.
+  const labelTexts = [];
+  for (const [s, e] of drawingSpans) {
+    const d = rawDoc.slice(s, e);
+    const tb = d.match(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/);
+    if (!tb) continue;
+    const outside = d.slice(0, tb.index) + d.slice(tb.index + tb[0].length);
+    if (/<a:blip\b/.test(outside)) continue;
+    const ps = tb[1].match(/<w:p\b[\s\S]*?<\/w:p>/g) || [];
+    const texts = ps.map((p) => plainOf(paraSegs(p)).trim()).filter(Boolean);
+    if (texts.length === 1 && texts[0].length <= 60 && !/^[0-9]{1,2}$/.test(texts[0])) labelTexts.push(texts[0]);
+  }
+  // The same label is typed several ways across a long manuscript — this book writes
+  // "MULIMO" 48 times but also "MULIMOO" 7 times, "MULIMOCHITO" 6 and "MILIMO" twice,
+  // because the author copied the shape and retyped over it. House style is that one
+  // element looks the same on every page, so fold each rare spelling onto the dominant
+  // one it is plainly a slip of: a three-to-one frequency gap, and either one letter's
+  // difference or one being the other with something typed onto the end.
+  // (a badge's bare NUMBER is not a label spelling — "2" is not a slip of "1")
+  const labelCount = new Map();
+  for (const t of labelTexts) labelCount.set(t, (labelCount.get(t) || 0) + 1);
+  const dist1 = (a, b) => {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    let i = 0, j = 0, edits = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j]) { i++; j++; continue; }
+      if (++edits > 1) return false;
+      if (a.length > b.length) i++; else if (b.length > a.length) j++; else { i++; j++; }
+    }
+    return edits + (a.length - i) + (b.length - j) <= 1;
+  };
+  const labelFold = new Map();
+  for (const [rare, n] of labelCount) {
+    let best = null;
+    for (const [common, m] of labelCount) {
+      if (common === rare || m < n * 3) continue;
+      if (!dist1(rare.toUpperCase(), common.toUpperCase()) && rare.toUpperCase().indexOf(common.toUpperCase()) !== 0) continue;
+      if (!best || m > labelCount.get(best)) best = common;
+    }
+    if (best) labelFold.set(rare, best);
+  }
+  if (labelFold.size) {
+    const says = [...labelFold].map(([a, b]) => JSON.stringify(a) + " -> " + JSON.stringify(b)).join(", ");
+    console.log("   banner labels levelled to the book's own spelling: " + says);
+  }
+  const xmlEsc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let pendingNum = null;
   for (const [spanStart, spanEnd] of drawingSpans) {
     const d = rawDoc.slice(spanStart, spanEnd);
     const tbm = d.match(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/);
@@ -218,6 +277,27 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       .filter((p) => p.isTable || p.segs.some((s) => (s.t || "").trim()) || /<w:drawing\b/.test(p.xml));
     if (!paras.length || paras[0].isTable) continue;   // a title-less box (table first) — leave it
     const title = plainOf(paras[0].segs).trim();
+    // A shape with nothing in it but a short label is the author's own banner, not a
+    // box: emit it as a heading (see the note above). A bare number is the badge's
+    // circle, which belongs to the label shape that follows it.
+    if (paras.length === 1 && title.length <= 60) {
+      if (/^\d{1,2}$/.test(title)) {
+        pendingNum = title;
+        result += rawDoc.slice(last, spanStart);
+        last = spanEnd;
+        continue;
+      }
+      const label = labelFold.get(title) || title;
+      if (boxKindFromTitle(label) || LEXI.frontRank(label) != null || LEXI.isBackSection(label)) {
+        const text = pendingNum ? label + " " + pendingNum : label;
+        pendingNum = null;
+        result += rawDoc.slice(last, spanStart)
+          + "</w:p><w:p><w:r><w:rPr><w:b/></w:rPr><w:t>" + xmlEsc(text) + "</w:t></w:r></w:p><w:p>";
+        last = spanEnd;
+        continue;
+      }
+      pendingNum = null;
+    }
     const kind = boxKindFromTitle(title);
     if (kind !== "activity" && kind !== "exercise" && kind !== "assessment") continue;   // some other shape/graphic — leave it
     // Number the box's own questions/steps from the manuscript's REAL Word-list format
@@ -2315,6 +2395,28 @@ async function importDocx(docxPath, opts = {}) {
   const BACKMATTER_NAME = /^GLOSSARY\b|^REFERENCES?$|^BIBLIOGRAPHY$|^APPENDI(X|CES)\b|^INDEX$|SCHEME\s+OF\s+WORK$/i;
   let imprintEnd = tocPartIdx >= 0 ? tocPartIdx : parts.length;
   if (copyrightIdx >= 0) {
+    // A credit line INSIDE the imprint is not the start of a section. Many books set
+    // the author/editor/illustrator credits on the imprint page itself, between the
+    // copyright notice and the ISBN: the ECE Chitonga Learner's Book names "Balembi"
+    // (Authors), then the editor, the publisher, the ISBN, the illustrator and the
+    // cover designer, and closes with the publisher's address again. Ending the
+    // imprint at that first credit name handed the whole block to the body as a
+    // three-page "BALEMBI" section, and listed it in the table of contents.
+    // So a bare section NAME only ends the imprint when the imprint page has nothing
+    // left to say RIGHT AFTER it — an ISBN or a post-office box within the next few
+    // lines. Looking any further ahead is wrong: a book whose ISBN sits further down
+    // the page (Religious Education Form 2) would swallow its own typed contents list
+    // into the imprint's centred styling.
+    const IMPRINT_MARK = /\bISBN\b|P\.?\s?O\.?\s+BOX\b/i;
+    const markNear = (i) => {
+      for (let j = i + 1, seen = 0; j < imprintEnd && seen < 8; j++) {
+        if (isTbl(parts[j])) continue;
+        if (!textOf(parts[j]).trim()) continue;
+        seen++;
+        if (IMPRINT_MARK.test(textOf(parts[j]))) return true;
+      }
+      return false;
+    };
     for (let i = copyrightIdx + 1; i < imprintEnd; i++) {
       if (isTbl(parts[i])) continue;
       // A "COPYRIGHT" heading is some manuscripts' own label for the imprint content
@@ -2322,8 +2424,11 @@ async function importDocx(docxPath, opts = {}) {
       // not the start of a new front-matter section, even though it's Word-styled as a
       // Heading like a real section would be. Don't let it end the imprint early.
       if (/Heading\d/.test(styleOf(parts[i])) && /^COPYRIGHT$/i.test(textOf(parts[i]).trim())) continue;
-      // stop at the first styled heading OR the first front-matter section name
-      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i])) || LEXI.isFrontSection(textOf(parts[i])))) { imprintEnd = i; break; }
+      // A real Word Heading still ends the imprint outright; a bare section NAME only
+      // does so once the imprint page has nothing left to say.
+      const isHead = /Heading\d/.test(styleOf(parts[i]));
+      const isName = FM_SECTION.test(textOf(parts[i])) || LEXI.isFrontSection(textOf(parts[i]));
+      if (!isTbl(parts[i]) && (isHead || (isName && !markNear(i)))) { imprintEnd = i; break; }
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.
@@ -2575,6 +2680,19 @@ async function importDocx(docxPath, opts = {}) {
     if (isTbl(x)) {
       const cells = cellsOf(tables[parseInt(x.match(/\d+/)[0], 10)]);
       if (!cells.length) continue;
+      // A table ON THE IMPRINT PAGE is not a table: the author used Word's table tool to
+      // position a line. The ECE Chitonga Learner's Book sets the publisher's name and
+      // city that way, in the middle of an otherwise centred imprint. Left as a table it
+      // printed flush-left at heading size, breaking the centred column it sits inside.
+      // Emit its lines as the same centred imprint text as the paragraphs around them.
+      if (inImprint(i)) {
+        for (const row of cells) for (const c of row) for (const cb of cellBlocks(c.xml)) {
+          if (cb.t === "img") { blocks.push({ t: "image", ...cb.images[0] }); continue; }
+          if (!(cb.plain || "").trim()) continue;
+          blocks.push({ t: "para", segs: cb.segs, align: "center", hyphenate: false, noPromote: true });
+        }
+        continue;
+      }
       const firstFill = cells[0][0].fill;
       // The box label ("EXERCISE 1", "LEARNING ACTIVITY 2"…) is usually the first
       // paragraph, but a disorganised manuscript may glue it onto an image
@@ -2583,6 +2701,15 @@ async function importDocx(docxPath, opts = {}) {
       const lead = (firstBlks.find((b) => (b.plain || "").trim()) || {}).plain || "";
       const kind = boxKindFromTitle(lead) || BOX_FILL[firstFill];
       const single = cells.length === 1 && cells[0].length === 1;
+      // A one-column table the engine does NOT recognise by title, parsed ONCE and
+      // reusing the title row already parsed above: cellBlocks advances the
+      // manuscript's own list counters, so asking it twice about the same cell
+      // numbered a box's items from where the first pass had left off ("3) 4)" for a
+      // box the author wrote "1) 2)").
+      const oneCol = !kind && !single && cells.length > 1 && cells.every((r) => r.length === 1)
+        ? [firstBlks, ...cells.slice(1).map((r) => cellBlocks(r[0].xml))] : null;
+      const filledBox = !!oneCol && !!firstFill && firstFill !== NAVY
+        && oneCol.slice(1).some((bs) => bs.some((b) => (b.plain || "").trim()));
       if (kind === "assessment") blocks.push(makeAssessmentTable(cells));
       // A box authored as a ONE-COLUMN, multi-row table (title in row 1, body in row 2…)
       // keeps every row: taking only the first cell silently dropped the whole body.
@@ -2600,6 +2727,19 @@ async function importDocx(docxPath, opts = {}) {
       }
       else if (kind) blocks.push(makeBox(kind, firstBlks));
       else if (single && firstFill && firstFill !== NAVY) blocks.push(makeBox("box", firstBlks));
+      // The author coloured the title row of a one-column table and wrote the box's
+      // lines in the rows under it: that is a box, whatever colour was used and
+      // whatever the title says. Only a title the engine already KNOWS ("EXERCISE 1")
+      // took that path before, so a book with its own box word fell through to a raw
+      // table — the ECE Chitonga Learner's Book titles every one of its objective
+      // boxes "BUPANDULUZI:" on a blue fill, and they printed as bare grid tables,
+      // each looking different from the Exercise boxes beside them.
+      // The rows under the title must actually SAY something: the same author also
+      // puts a term banner ("Teemu 2") in a filled one-column table whose only other
+      // row is empty, and that is a banner, not a box with no content.
+      else if (filledBox) {
+        blocks.push(makeBox("box", [].concat(...oneCol)));
+      }
       else {
         const rows = cells.map((row) => row.map((c) => cellRich(c.xml)));
         // A 1×1 "table" holding only picture(s) — no text — is just an image the
@@ -2768,7 +2908,10 @@ async function importDocx(docxPath, opts = {}) {
       // single-image block spreads `imgs[0]` into a new object, so a caption set on
       // imgs[0] AFTER the spread would be lost (an inline "Figure N:" caption that
       // shares the paragraph with the picture, common for OLE/pasted images).
-      const mkImgBlock = () => (imgs.length === 1 ? { t: "image", ...imgs[0] } : { t: "imagerow", images: imgs });
+      // `imprint`: a picture on the imprint page is the publisher's mark, not an
+      // illustration — typeset-docx.js swaps it for the official logo asset.
+      const impm = inImprint(i) ? { imprint: true } : null;
+      const mkImgBlock = () => (imgs.length === 1 ? { t: "image", ...imgs[0], ...impm } : { t: "imagerow", images: imgs });
       if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(text)) {
         const caps = text.split(/(?=Fig(?:ure)?\.?\s*\d+\s*[:.])/i).map((s) => s.trim()).filter(Boolean);
         imgs.forEach((im, k) => { im.caption = caps[k] || im.caption || ""; });
@@ -2838,7 +2981,13 @@ async function importDocx(docxPath, opts = {}) {
       // never long justified prose, so there is no line-fitting reason to hyphenate,
       // and a dictionary match on an ordinary-word name (e.g. "Precious" ->
       // "Pre-cious") reads as a typo on a formal credits page.
-      blocks.push({ t: "para", segs: segs2, align: "center", hyphenate: false });
+      // noPromote: a credit label on the imprint page is NOT a front-matter section.
+      // "Balembi" (Authors), "Lyakalondolwa aba" (Edited by) and the like are the
+      // imprint's own wording, and series-front.js promotes any pre-body paragraph whose
+      // text is a known section name to an h1 — which gave the ECE Chitonga Learner's
+      // Book a spurious three-page "BALEMBI" section (and a Table of Contents entry)
+      // built out of the credits that belong on the imprint page itself.
+      blocks.push({ t: "para", segs: segs2, align: "center", hyphenate: false, noPromote: true });
       continue;
     }
     // size-inferred heading (books that style headings by hand)

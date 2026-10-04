@@ -155,12 +155,24 @@ async function typesetOne(docxPath, themeName) {
     // (h1 included: a Unit word whose headings are ALREADY top-level still counts, so a
     // more frequent word below it is not mistaken for the top level)
     // a plain paragraph counts too when it is short and the unit word is followed by a
-    // NUMBER ("KISHINA 1: KUTONGAULA MAZHINA"); "KISHINA-KACHE 7" (a sub-unit) does not
+    // NUMBER ("KISHINA 1: KUTONGAULA MAZHINA"); "KISHINA-KACHE 7" (a sub-unit) does not.
+    //
+    // A book may not number its units with digits at all: the ECE Chitonga Learner's
+    // Book spells every one of its twelve out in Chitonga — "CIBEELA CAKUSAANGUNA"
+    // (Part One), "CIBEELA CABILI", … "CIBEELA CA KKUMI AKOMWE" — so neither a digit
+    // nor a colon ever follows the unit word, and the whole book folded into one
+    // section behind an empty contents page. Accept a spelt-out ordinal too, but only
+    // when the author typed the line in CAPITALS: the capitals are the author's own
+    // signal that the line is a banner, and requiring them keeps the rule from
+    // swallowing ordinary prose that opens with the unit word — this book's foreword
+    // begins "Mwatambulwa mu chitonga cibeela cakusaanguna!".
     const paraText = (b) => (b.segs || []).map((s) => s.t).join("").trim();
     for (const b of blocks) {
       if (b.t !== "para") continue;
       const t = paraText(b);
-      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^${LEXI.altSrc([w])}\\s+\\d`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": "); delete b.segs; }
+      const caps = t === t.toUpperCase() && /[A-Z]/.test(t);
+      const after = caps ? "(?:\\s+\\d|\\s*:|\\s+[A-Z\\u00C0-\\u024F])" : "\\s+\\d";
+      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^\\s*${LEXI.altSrc([w])}${after}`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": ").trim(); delete b.segs; }
     }
     const isCand = (b) => /^(head|label|h1|h2|h3)$/.test(b.t) && (b.text || "").trim().length <= 60;
     const byWord = new Map();
@@ -317,6 +329,13 @@ async function typesetOne(docxPath, themeName) {
       media.push({ src: zeph, name: "zeph_logo.png" });
       const cov = blocks.find((b) => b.t === "cover");
       if (cov) cov.logo = { file: "zeph_logo.png" };
+      // The IMPRINT page's publisher mark is ours too, for exactly the reason above.
+      // A manuscript's own pasted copy is routinely a screenshot of the transparent
+      // logo — checkerboard and all: the ECE Chitonga Learner's Book embeds one 214px
+      // wide whose "transparent" background is opaque #FFF/#EFEFEF squares, so the
+      // grey-and-white chequer printed as a panel behind the mark. Keep the author's
+      // placement and size (b.w), swap only the bitmap.
+      for (const b of blocks) if (b.t === "image" && b.imprint) b.file = "zeph_logo.png";
     }
   }
   // A per-book cover photo, for a book whose manuscript ships no cover image
@@ -766,7 +785,17 @@ async function typesetOne(docxPath, themeName) {
     const h = Number(ov.uniformImages);
     // a picture the author made extra wide (a 2x2 grid of photos in one image) is
     // given the full text width instead of the common height, so its parts stay legible
-    for (const b of blocks) {
+    //
+    // ONLY the body. "Every picture the same height" is a statement about the lesson
+    // pictures a picture book sets one to a page — it was never meant for the front
+    // matter, whose images are furniture: the publisher's logo on the imprint page, the
+    // arrow a front-matter heading is drawn on. Blown up to the body's common height
+    // (78mm in the ECE Chitonga Learner's Book) the imprint logo filled half the page
+    // and pushed the credits onto a second one, splitting "Lyakalondolwa aba" from the
+    // editor it names.
+    const bodyAt = blocks.findIndex((b) => b.t === "bodystart");
+    for (let i = bodyAt < 0 ? 0 : bodyAt; i < blocks.length; i++) {
+      const b = blocks[i];
       if (b.t === "image") b.hmm = b.w && b.w > 560 && !b.tall ? 0 : h;
       else if (b.t === "imagerow") for (const im of b.images || []) im.hmm = h;
     }

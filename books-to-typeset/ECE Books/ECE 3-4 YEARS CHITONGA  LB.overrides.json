@@ -1,0 +1,6 @@
+{
+  "untableImages": true,
+  "uniformImages": 78,
+  "termPages": "^TE+MU\\s*\\d",
+  "keepHeadsWithUnit": true
+}

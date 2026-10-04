@@ -10,6 +10,11 @@
       "file": "ZEPH Local Language Words Form-1 luvale.docx",
       "author": "Nzila Shaanga",
       "book": "Chitonga Form 4"
+    },
+    {
+      "file": "ECE 3-4 YEARS CHITONGA LB (manuscript)",
+      "author": "(from manuscript)",
+      "book": "Chitonga ECE LB 3-4 Years"
     }
   ],
   "terms": {
@@ -36,14 +41,16 @@
       "Kulumba"
     ],
     "introduction": [
-      "Ntalisyo"
+      "Ntalisyo",
+      "Matalikilo a Bbuku"
     ],
     "key_competences": [
       "Buyale",
       "Zyeelede kusumpulwa"
     ],
     "unit": [
-      "Cipati"
+      "Cipati",
+      "Cibeela"
     ],
     "topic": [
       "Mutwe"
@@ -58,7 +65,8 @@
       "Bulangizi bweelede"
     ],
     "listening_speaking": [
-      "Kuswiilila akukanana"
+      "Kuswiilila akukanana",
+      "Kuswiilila akwaambaula"
     ],
     "reading": [
       "Kubala"
@@ -98,7 +106,8 @@
       "Mabbuku abelesegwa"
     ],
     "preface": [
-      "Jwi lyakumatalikilo"
+      "Jwi lyakumatalikilo",
+      "Majwi aantalisyo"
     ],
     "lesson": [
       "Ciiyo"
