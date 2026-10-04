@@ -33,7 +33,7 @@ const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatt
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
-const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold } = require("./passes/polish.js");
+const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
 
 async function typesetOne(docxPath, themeName) {
@@ -751,6 +751,19 @@ async function typesetOne(docxPath, themeName) {
       b.marker = b.nest >= 2 ? `${m[1]}.` : `${m[1]})`;
     }
     console.log(`   lessonLabels: ${n} lesson label line(s) set`);
+  }
+  // House style: a section's number belongs BEFORE the colon ("MUTWE 1.1: MASHIMIKILA",
+  // not "MUTWE: 1.1 MASHIMIKILA"). Local-language authors routinely type it the other way
+  // round throughout a book, so this runs for every book that loads a word list rather
+  // than being opted into per book the way English's `colonHeadings` is.
+  //
+  // Runs HERE, after lessonLabels, not with the other polish passes: until lessonLabels
+  // has settled these lines into headings they are still paragraphs whose runs split the
+  // label from its number ("MUTWE:" bold, " 1.1 MASHIMIKILA" plain), and a pass reading
+  // only the first run cannot see the number to move the colon past.
+  {
+    const nColon = fixSectionColon(blocks);
+    if (nColon) console.log(`   section colon moved after the number: ${nColon}`);
   }
   // keepHeadsWithUnit: true — short headings that sit directly before a unit heading
   // ("Kuteleka ne Kwamba / Mutwe: Mazhina" then "KISHINA 3") open the unit's page with

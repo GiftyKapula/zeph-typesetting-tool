@@ -2,6 +2,52 @@
 // (Split out of typeset-docx.js — see docs/ARCHITECTURE.md.)
 const { S, arr, TOPIC_RE } = require("../emit.js");
 const { MARK_BRACKET, glueMarkTail } = require("./marks.js");
+const LEXI = require("../lexicon/index.js");   // the current local language's own wording
+
+// House style puts a section's NUMBER before the colon — "MUTWE 1.1: MASHIMIKILA", never
+// "MUTWE: 1.1 MASHIMIKILA". Local-language manuscripts routinely type it the other way
+// round, and consistently enough through a whole book that it is the author's habit
+// rather than a slip worth fixing one heading at a time. English books already have the
+// per-book `colonHeadings` option for this; it was never extended to any other language,
+// so those books simply printed the colon wherever the author put it.
+//
+// The pattern is built from the language's own topic / sub-topic / unit wordings, with
+// hyphen and space interchangeable: the Kaonde sub-topic is given as "Mutwe-kache" on
+// the author form but written "MUTWE KACHE" in places in the manuscript, and both must
+// be recognised. Longest wording first, so "Mutwe-kache" wins over "Mutwe".
+function fixSectionColon(blocks) {
+  const words = LEXI.words(["topic", "subtopic", "unit"]);
+  if (!words.length) return 0;                       // English book: nothing to do
+  const alt = [...words].sort((a, b) => b.length - a.length)
+    .map((w) => w.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[-\s]+/g, "[-\\s]+"))
+    .join("|");
+  // "<word>: <number> <title>" -> "<word> <number>: <title>". A trailing dot on the
+  // number ("MUTWE: 1.6. BUYUKE") is dropped, since the colon now carries the break.
+  // The space before the title is optional: the same authors who misplace the colon
+  // also run the number straight into the title ("MUTWE: 1.11Bintu"), and that form
+  // has to be caught here too or it is the one heading left behind.
+  // A second colon AFTER the number is swallowed: some headings carry both
+  // ("MUTWE : 1.8 : Bilulumo"), and leaving it produces "MUTWE 1.8: : Bilulumo".
+  const re = new RegExp(`^(\\s*)(${alt})\\s*:\\s*(\\d+(?:\\.\\d+)*)\\.?\\s*:?\\s*(?=[A-Za-z\\u00C0-\\u024F])`, "i");
+  const fix = (s) => s.replace(re, (_m, lead, word, num) => `${lead}${word} ${num}: `);
+  let n = 0;
+  const walk = (list) => {
+    for (const b of list || []) {
+      if (!b || typeof b !== "object") continue;
+      if (typeof b.text === "string") {
+        const t = fix(b.text);
+        if (t !== b.text) { b.text = t; n++; }
+      } else if (Array.isArray(b.segs) && b.segs.length && typeof b.segs[0].t === "string") {
+        const t = fix(b.segs[0].t);
+        if (t !== b.segs[0].t) { b.segs[0].t = t; n++; }
+      }
+      // only real container keys — never b.segs, whose members are runs, not blocks
+      for (const k of ["body", "parts", "blocks", "intro", "extra"]) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+  return n;
+}
 
 // between the columns ("bug          6. hobby"). Typst — like HTML — collapses runs
 // of spaces to one, so those columns can never render from spaces; they collapse to
@@ -723,4 +769,4 @@ function normaliseQuestionMarkBold(blocks) {
   walk(blocks);
 }
 
-module.exports = { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold };
+module.exports = { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon };
