@@ -2687,7 +2687,7 @@ async function importDocx(docxPath, opts = {}) {
       // Emit its lines as the same centred imprint text as the paragraphs around them.
       if (inImprint(i)) {
         for (const row of cells) for (const c of row) for (const cb of cellBlocks(c.xml)) {
-          if (cb.t === "img") { blocks.push({ t: "image", ...cb.images[0] }); continue; }
+          if (cb.t === "img") { blocks.push({ t: "image", ...cb.images[0], imprint: true }); continue; }
           if (!(cb.plain || "").trim()) continue;
           blocks.push({ t: "para", segs: cb.segs, align: "center", hyphenate: false, noPromote: true });
         }
@@ -2976,7 +2976,11 @@ async function importDocx(docxPath, opts = {}) {
       // so each credit reads as its own group rather than a squeezed list.
       if (/^ISBN\b/i.test(plain)) blocks.push({ t: "vspace", h: "8mm" });
       else if (boldFirstRun(x)) blocks.push({ t: "vspace", h: "5mm" });
-      const segs2 = segs.map((s) => ({ ...s, t: s.t.replace(/\s{5,}/g, "\n").replace(/ {2,}/g, " ") }));
+      // "@COPYRIGHT" is the author reaching for © and landing on the key beside it
+      // (the ECE Chitonga Learner's Book opens its imprint "@COPYRIGHT: All rights
+      // reserved"). A copyright notice carries the © mark, so correct it in place.
+      const segsC = segs.map((s) => ({ ...s, t: s.t.replace(/@\s*(?=COPYRIGHT\b)/gi, "\u00A9 ") }));
+      const segs2 = segsC.map((s) => ({ ...s, t: s.t.replace(/\s{5,}/g, "\n").replace(/ {2,}/g, " ") }));
       // hyphenate: false — this is a short centred line (names, addresses, ISBN),
       // never long justified prose, so there is no line-fitting reason to hyphenate,
       // and a dictionary match on an ordinary-word name (e.g. "Precious" ->

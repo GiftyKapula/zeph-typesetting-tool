@@ -2,5 +2,119 @@
   "untableImages": true,
   "uniformImages": 78,
   "termPages": "^TE+MU\\s*\\d",
-  "keepHeadsWithUnit": true
+  "keepHeadsWithUnit": true,
+  "images": {
+    "image62.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image62.png"
+    },
+    "image25.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image25.png"
+    },
+    "image60.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image60.png"
+    },
+    "image6.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image6.png"
+    },
+    "image14.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image14.png"
+    },
+    "image53.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image53.png"
+    },
+    "image58.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image58.png"
+    },
+    "image10.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image10.png"
+    },
+    "image69.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image69.png"
+    },
+    "image45.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image45.png"
+    },
+    "image66.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image66.png"
+    }
+  },
+  "replaceExact": [
+    {
+      "find": "MUSUNKO WAKUCITA KUMAMANINO AACIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MULIMO WAKUCITA KUMAMANINO AACIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WA KUMAMANINO ACIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO ACIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO ACIIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO ACHIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO AACIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO AACI IYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "Mutu: Mbokulembwa",
+      "with": "Mutwe: Mbokulembwa",
+      "all": true
+    },
+    {
+      "find": "Mutu : Twaano",
+      "with": "Mutwe: Twaano",
+      "all": true
+    },
+    {
+      "find": "Katana bala",
+      "with": "Kotana bala",
+      "all": true
+    },
+    {
+      "find": "Katanalemba",
+      "with": "Kotana lemba",
+      "all": true
+    },
+    {
+      "find": "Chakucita",
+      "with": "Cakucita",
+      "all": true
+    }
+  ],
+  "editCell": [
+    {
+      "find": "Muwe: Mbotweelede kumvwa",
+      "with": "Mutwe: Mbotweelede kumvwa"
+    }
+  ],
+  "subtext": [
+    {
+      "from": "balikKede",
+      "to": "balikkede"
+    }
+  ]
 }

@@ -588,6 +588,14 @@ async function typesetOne(docxPath, themeName) {
   // the house default (Arial body / Times New Roman header / Segoe UI display). The
   // LB and TG of a subject share one theme, so the distinction is made per-book by
   // filename (a TG is named "… TG …" or "… Teacher's …").
+  // A book written in a Zambian language titles its contents page in that language
+  // too — every other heading on the page is Chitonga, so an English "Table of
+  // Contents" over a list of CIBEELA banners is the one line that does not belong.
+  // The wording comes from the authors' own word form (Chitonga: "Zyili moomu").
+  if (getLang()) {
+    const w = LEXI.words(["contents"])[0];
+    if (w) themeOverrides.toctitle = w.charAt(0).toUpperCase() + w.slice(1);
+  }
   const primaryTheme = theme === "primaryeng" || theme === "cts" || theme === "mathsci";
   const isTeacherBook = isTeacherBookName(base);
   // ECE learner's books follow the same rule: Avant Garde (Century Gothic) for young readers.

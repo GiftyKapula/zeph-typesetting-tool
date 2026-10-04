@@ -340,7 +340,21 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
             if (!cell || typeof cell.text !== "string") continue;
-            if (cell.text.trim() === ec.find) { cell.text = ec.with; n++; continue; }
+            // A WHOLE-cell match has to rewrite `segs` too. Rendering prefers the
+            // styled runs over the plain `text`, so setting `text` alone changed
+            // nothing in the PDF while the override reported a match — the fix looked
+            // applied and was not. Rewrite each run that carries the text, and if the
+            // cell's runs are split so that none holds it whole, fold them into one
+            // run keeping the first run's styling.
+            if (cell.text.trim() === ec.find) {
+              cell.text = ec.with;
+              if (Array.isArray(cell.segs) && cell.segs.length) {
+                let hit = false;
+                for (const s of cell.segs) if (typeof s.t === "string" && s.t.includes(ec.find)) { s.t = s.t.split(ec.find).join(ec.with); hit = true; }
+                if (!hit) cell.segs = [{ ...cell.segs[0], t: ec.with }];
+              }
+              n++; continue;
+            }
             if (cell.text.includes(ec.find)) {
               cell.text = cell.text.split(ec.find).join(ec.with);
               if (Array.isArray(cell.segs)) {
