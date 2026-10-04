@@ -16,7 +16,12 @@ const LEXI = require("../lexicon/index.js");   // the current local language's o
 // the author form but written "MUTWE KACHE" in places in the manuscript, and both must
 // be recognised. Longest wording first, so "Mutwe-kache" wins over "Mutwe".
 function fixSectionColon(blocks) {
-  const words = LEXI.words(["topic", "subtopic", "unit"]);
+  // The competence labels take the same treatment: "BYAKETEKELWA KUBIWA: 1.10.1.1 Kukwata"
+  // is the same fault as "MUTWE: 1.10 Byambo" — the number belongs before the colon. A
+  // label with no number after it ("BYAKETEKELWA KUBIWA MU BYONSE: Misambo, …") simply
+  // does not match, so adding these concepts moves nothing that is already right.
+  const words = LEXI.words(["topic", "subtopic", "unit",
+                            "specific_competences", "key_competences", "expected_standards"]);
   if (!words.length) return 0;                       // English book: nothing to do
   const alt = [...words].sort((a, b) => b.length - a.length)
     .map((w) => w.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[-\s]+/g, "[-\\s]+"))
@@ -30,6 +35,13 @@ function fixSectionColon(blocks) {
   // ("MUTWE : 1.8 : Bilulumo"), and leaving it produces "MUTWE 1.8: : Bilulumo".
   const re = new RegExp(`^(\\s*)(${alt})\\s*:\\s*(\\d+(?:\\.\\d+)*)\\.?\\s*:?\\s*(?=[A-Za-z\\u00C0-\\u024F])`, "i");
   const fix = (s) => s.replace(re, (_m, lead, word, num) => `${lead}${word} ${num}: `);
+  // The competence labels are not headings — they are a BOLD run carrying the label and
+  // its colon, followed by a plain run carrying the number and the text ("BYAKETEKELWA
+  // KUBIWA:" + " 1.10.1.1 Kukwata buuku"). Read run by run neither half matches: the
+  // first has no number, the second has no label. Match the pair instead, and move the
+  // number back into the bold run so the label still reads as one unit.
+  const labelOnly = new RegExp(`^(\\s*)(${alt})\\s*:\\s*$`, "i");
+  const numFirst = /^\s*(\d+(?:\.\d+)*)\.?\s*:?\s*(?=\S)/;
   let n = 0;
   const walk = (list) => {
     for (const b of list || []) {
@@ -40,6 +52,15 @@ function fixSectionColon(blocks) {
       } else if (Array.isArray(b.segs) && b.segs.length && typeof b.segs[0].t === "string") {
         const t = fix(b.segs[0].t);
         if (t !== b.segs[0].t) { b.segs[0].t = t; n++; }
+        else if (b.segs.length >= 2 && typeof b.segs[1].t === "string") {
+          const m0 = b.segs[0].t.match(labelOnly);
+          const m1 = b.segs[1].t.match(numFirst);
+          if (m0 && m1) {
+            b.segs[0].t = `${m0[1]}${m0[2]} ${m1[1]}:`;
+            b.segs[1].t = " " + b.segs[1].t.slice(m1[0].length);
+            n++;
+          }
+        }
       }
       // only real container keys — never b.segs, whose members are runs, not blocks
       for (const k of ["body", "parts", "blocks", "intro", "extra"]) if (Array.isArray(b[k])) walk(b[k]);
