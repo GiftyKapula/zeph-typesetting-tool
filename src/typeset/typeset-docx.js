@@ -419,7 +419,12 @@ async function typesetOne(docxPath, themeName) {
     // (including `[]` to hide the byline) still wins below.
     if (cov && (!cov.byline || !cov.byline.length) && !Array.isArray(ov.authors)) {
       const isHeadType = (b) => b && (b.t === "h1" || b.t === "h2" || b.t === "h3" || b.t === "head");
-      const authHeadIdx = blocks.findIndex((b) => isHeadType(b) && /^(THE\s+)?AUTHORS?$/i.test((b.text || "").trim()));
+      // English, plus the language's own word for the section (Kaonde BANEMBI, Lunda
+      // ANSONEKI…). Without it a local-language book's cover came out byline-less even
+      // though its bio section was sitting right there, correctly formatted — the
+      // section simply was not called "AUTHORS".
+      const isAuthHead = (t) => /^(THE\s+)?AUTHORS?$/i.test(t) || LEXI.startsWith(["author_section"], t);
+      const authHeadIdx = blocks.findIndex((b) => isHeadType(b) && isAuthHead((b.text || "").trim()));
       if (authHeadIdx >= 0) {
         const names = [];
         for (let i = authHeadIdx + 1; i < blocks.length; i++) {
@@ -427,7 +432,10 @@ async function typesetOne(docxPath, themeName) {
           if (isHeadType(b)) break;                                  // next section ends the bios
           const seg0 = Array.isArray(b.segs) && b.segs[0];
           if (!seg0 || !seg0.b) continue;                            // bio opens with a bold name
-          const name = (seg0.t || "").trim();
+          // Trim a trailing separator: the bio is often typed "Chabinga Kipande Florence-
+          // Assistant DRCC, Kikombe Primary School", with the dash inside the bold run, and
+          // the dash is punctuation between the name and the role, not part of the name.
+          const name = (seg0.t || "").trim().replace(/[\s,:;–—-]+$/, "");
           if (name.length >= 3 && name.length <= 40 && /^[A-Z][A-Za-z'`.\- ]+$/.test(name)) names.push(name);
         }
         if (names.length) {
