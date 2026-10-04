@@ -150,7 +150,13 @@ async function typesetOne(docxPath, themeName) {
     for (const b of blocks) {
       if (b.t !== "para") continue;
       const t = paraText(b);
-      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^${LEXI.altSrc([w])}\\s+\\d`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": "); delete b.segs; }
+      // The unit word followed by a NUMBER ("KISHINA 1: KUTONGAULA MAZHINA"), or by a
+      // COLON where the author dropped the number ("KISHINA: MITEETO NE MISANGO…") — an
+      // unnumbered unit left as body text was promoted by neither rule, so its whole
+      // unit folded into the one before it and never opened a page of its own.
+      // `^\s*` because such a line often carries a leading em space (U+2003) the author
+      // used to indent it, which `^` alone would not get past.
+      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^\\s*${LEXI.altSrc([w])}\\s*(?::|\\s\\d)`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": ").trim(); delete b.segs; }
     }
     const isCand = (b) => /^(head|label|h1|h2|h3)$/.test(b.t) && (b.text || "").trim().length <= 60;
     const byWord = new Map();
