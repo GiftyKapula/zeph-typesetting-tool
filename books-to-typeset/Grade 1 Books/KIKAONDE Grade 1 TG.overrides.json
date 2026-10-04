@@ -51,6 +51,14 @@
     {
       "find": "MWAIYAYI KU MULAKA",
       "with": "Mwaiyayi ku mulaka wa Kiikaonde Giledi 1 – buuku wakutangijila mufunjishi"
+    },
+    {
+      "find": "BUYUKE BWA NKWACHILO",
+      "with": "MUTWE 1.6: BUYUKE BWA NKWACHILO YA BUUKU"
+    },
+    {
+      "find": "Nkwachilo ya Buuku.",
+      "with": "MUTWE-KACHE 1.6.1: Nkwachilo ya Buuku."
     }
   ],
   "_note_lessons": "A lesson-plan Teacher's Guide (LUFUNJISHO / KIBESE / MUTWE / BYAKUUBA MUFUNJISHI). lessonLabels nests a lettered sub-item under the numbered step above it, so a. and b. stop starting at the same margin as 1. and 2. It nests only while a numbered item is open, so a lettered list with no numbers above it stays top-level.",
@@ -59,5 +67,6 @@
   "coverImage": "kikaonde-g1-cover.png",
   "_note_case": "The Foreword's opening line was typed in full caps. Set in sentence case with only the proper nouns capitalised - Kiikaonde and Giledi 1. The opening word keeps its capital as the start of the sentence. Spelt Kiikaonde, matching the cover, title page and running header, where the manuscript line had KIKAONDE.",
   "termPages": "^TEMU[ ]*[0-9]+$",
-  "_note_terms": "TEMU N is the term divider. It gets a page of its own. This manuscript has only one - the other TEMU 1 was inside the hand-typed contents list, which is removed."
+  "_note_terms": "TEMU N is the term divider. It gets a page of its own. This manuscript has only one - the other TEMU 1 was inside the hand-typed contents list, which is removed.",
+  "_note_numbering": "AUTHOR NUMBERING CORRECTED, one lesson. Everywhere else the book runs MUTWE 1.6 -> MUTWE-KACHE 1.6.1 -> competence 1.6.1.1. In the KUTANGA lesson of KISHINA 2 the author pushed both a level deeper: MUTWE: 1.6.1 and MUTWE-KACHE: 1.6.1.1, which made a sub-topic code serve as a topic and left the competence sharing its sub-topic's number. Set to 1.6 and 1.6.1; the competence line 1.6.1.1 was already right and is untouched. The rest of the book's numbering is NOT sequential and is not a fault: the numbers are syllabus strand codes (about 1.1-1.5 speaking and listening, 1.6-1.9 reading, 1.10-1.11 vocabulary, 1.12 comprehension, 1.14-1.16 writing) which repeat in every unit by design."
 }
