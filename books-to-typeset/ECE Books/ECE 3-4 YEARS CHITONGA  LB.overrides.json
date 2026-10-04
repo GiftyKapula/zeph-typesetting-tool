@@ -50,36 +50,6 @@
       "all": true
     },
     {
-      "find": "MUSUNKO WA KUMAMANINO ACIIYO",
-      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
-      "all": true
-    },
-    {
-      "find": "MUSUNKO WAKUMAMANINO ACIIYO",
-      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
-      "all": true
-    },
-    {
-      "find": "MUSUNKO WAKUMAMANINO ACIIIYO",
-      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
-      "all": true
-    },
-    {
-      "find": "MUSUNKO WAKUMAMANINO ACHIIYO",
-      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
-      "all": true
-    },
-    {
-      "find": "MUSUNKO WAKUMAMANINO AACIYO",
-      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
-      "all": true
-    },
-    {
-      "find": "MUSUNKO WAKUMAMANINO AACI IYO",
-      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
-      "all": true
-    },
-    {
       "find": "Mutu: Mbokulembwa",
       "with": "Mutwe: Mbokulembwa",
       "all": true
@@ -107,6 +77,26 @@
     {
       "find": "Muwe: Mbotweelede kumvwa",
       "with": "Mutwe: Mbotweelede kumvwa",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WA KUMAMANINO ACIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO AACI IYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "Kuswiilila a kwaambaula",
+      "with": "Kuswiilila akwaambaula",
+      "all": true
+    },
+    {
+      "find": "Kuswiilila a Kwaambaula",
+      "with": "Kuswiilila akwaambaula",
       "all": true
     }
   ],

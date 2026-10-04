@@ -632,4 +632,107 @@ function keepNumberedSubtopicsOnly(blocks) {
 }
 
 
-module.exports = { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };
+
+
+// HOUSE RULE: the same element looks the same on every page. An author retyping a
+// recurring heading rarely types it the same way twice — the ECE Chitonga Learner's
+// Book writes its end-of-lesson assessment heading nine times and never once
+// identically: "MUSUNKO WAKUMAMANINO AACIIYO", "… ACIIYO", "… ACIIIYO", "… ACHIIYO",
+// "… AACIYO". A reader meets what looks like five different headings for one thing.
+//
+// Level only what is demonstrably the SAME WORD spelt two ways. In these languages
+// the spelling wobbles in exactly two places: a long vowel (or consonant) written
+// once or twice, and the affricate written "c" or "ch". So headings are grouped by a
+// skeleton that lowercases, reads "ch" as "c", and counts a run of one repeated
+// letter once — and changes NOTHING else.
+//
+// Everything else is left alone on purpose, because an earlier attempt that ignored
+// punctuation, spacing and case did real damage to the Kiikaonde Grade 1 Teacher's
+// Guide: it levelled the LENGTH of the dot leaders in a typed contents list, it
+// decided a mangled "MUTWE : 1.8  : Bilulumo" was the house form and spread it over
+// the correct "MUTWE: 1.8 Bilulumo", and it fought uniformBoxLabelCase for ownership
+// of heading case. Hence:
+//   - punctuation and spacing are part of the skeleton, so two spellings that differ
+//     in a colon, a space or a row of dots are different headings;
+//   - a group whose members differ ONLY in case is skipped entirely — case is
+//     uniformBoxLabelCase's business, and two passes must not disagree about it.
+//
+// Within a group the spelling the author used most often wins; on a tie the fullest
+// one does, since a dropped letter is the commoner slip. A heading with no variants
+// is never touched. Local-language books only: that is where the evidence is.
+function levelHeadingVariants(blocks) {
+  if (!LEXI.getLang()) return 0;
+  const isHead = (b) => b && /^(head|label|h1|h2|h3)$/.test(b.t) && typeof b.text === "string";
+  // Collapse a run of one repeated letter to a single letter, and read "ch" as "c".
+  const fold = (t) => {
+    const s = t.replace(/ch/g, "c").replace(/CH/g, "C").replace(/Ch/g, "C");
+    let out = "";
+    for (const ch of s) {
+      if (/[A-Za-z\u00C0-\u024F]/.test(ch) && out && out[out.length - 1].toLowerCase() === ch.toLowerCase()) continue;
+      out += ch;
+    }
+    return out;
+  };
+  // Grouping key: the WORD, ignoring case, punctuation and spacing — so every
+  // spelling of one heading lands in one group and the pass cannot pick two
+  // different winners for the same word.
+  const word = (t) => fold(t.toLowerCase()).replace(/[^a-z\u00C0-\u024F0-9]/g, "");
+  // Applying key: the same fold WITH case and punctuation kept. A heading is only
+  // rewritten when it already matches the winner in everything but the doubled
+  // letters — so this pass changes spelling and nothing else, and never argues with
+  // uniformBoxLabelCase about case or adds a colon the author did not type.
+  const shape = (t) => fold(t);
+  // Which spelling the author really prefers is counted over the WHOLE book, not just
+  // over its headings. The Kiikaonde Grade 1 Teacher's Guide writes "Byakuuba bafunda"
+  // 62 times in its lesson tables and "Byakuba Bafunda" 17 times as a heading: counting
+  // headings alone picked the minority spelling and spread it, making the book less
+  // consistent with itself, not more.
+  const everyText = [];
+  (function walk(arr) {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      const t = (b.text != null ? b.text : (b.segs || []).map((s) => s.t || "").join("")).trim();
+      if (t) everyText.push(t);
+      if (Array.isArray(b.rows)) for (const r of b.rows) if (Array.isArray(r)) for (const c of r) {
+        if (c && typeof c.text === "string" && c.text.trim()) everyText.push(c.text.trim());
+        if (c && Array.isArray(c.subs)) for (const sub of c.subs) walk([].concat(...sub));
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows" && k !== "segs") walk(b[k]);
+    }
+  })(blocks);
+  const groups = new Map();
+  for (const t of everyText) {
+    if (t.length < 8 || t.length > 60) continue;
+    const k = word(t);
+    if (!k) continue;
+    if (!groups.has(k)) groups.set(k, new Map());
+    const g = groups.get(k);
+    g.set(t, (g.get(t) || 0) + 1);
+  }
+  const winner = new Map();
+  for (const [k, g] of groups) {
+    if (g.size < 2) continue;                                     // no variants to level
+    let best = null, bestN = -1;
+    for (const [t, n] of g) if (n > bestN || (n === bestN && t.length > best.length)) { best = t; bestN = n; }
+    winner.set(k, best);
+  }
+  if (!winner.size) return 0;
+  let n = 0;
+  const changed = new Map();
+  for (const b of blocks) {
+    if (!isHead(b)) continue;
+    const t = b.text.trim();
+    const w = winner.get(word(t));
+    if (!w || w === t || shape(t) !== shape(w)) continue;
+    b.text = w;
+    if (b.segs) delete b.segs;
+    changed.set(t, w);
+    n++;
+  }
+  if (changed.size) {
+    const says = [...changed].map(([a, b]) => JSON.stringify(a) + " -> " + JSON.stringify(b)).join(", ");
+    console.log("   headings levelled to the book's own spelling: " + says);
+  }
+  return n;
+}
+module.exports = { levelHeadingVariants, boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };
