@@ -1,5 +1,18 @@
 {
   "_note": "Leftovers from the author's hand-typed contents list. The engine drops the dot-leader entries themselves; these three lines carry no leaders, so they survive: 'BIJIMO    PEEJI' is the list's own heading + page-column header (the engine prints its own Table of Contents), and this 'TEMU 1' is the term banner INSIDE the list, not the real one that opens the body.",
   "remove": ["BIJIMO", "PEEJI"],
-  "removeWhereNext": [{ "find": "TEMU 1", "next": "BANEMBI" }]
+  "removeWhereNext": [{ "find": "TEMU 1", "next": "BANEMBI" }],
+
+  "_note_units": "The author numbered every unit in the contents list but dropped the number from most of the body headings, and spaced two colons wrongly. The numbers are the author's own, read off that contents list. `find` is a substring that matches exactly one block; `with` must be the WHOLE new heading, since replace swaps the entire block. Unit 10's number is right in the body - it is the CONTENTS that had 'KISHINA 1O' with a letter O, and that list is removed.",
+  "replace": [
+    { "find": "KISHINA: BUKAÑENDA",          "with": "KISHINA 5: BUKAÑENDA" },
+    { "find": "KISHINA: BUSULU",             "with": "KISHINA 7: BUSULU" },
+    { "find": "KISHINA: ÑENDELO",            "with": "KISHINA 8: ÑENDELO NE MASAWAKYA" },
+    { "find": "KISHINA : KWINGIJISHA",       "with": "KISHINA 9: KWINGIJISHA MICHI NE BIZHIMA MWATAMA" },
+    { "find": "KISHINA 10 : MFUNJILO",       "with": "KISHINA 10: MFUNJILO YA PA MAALI" },
+    { "find": "KISHINA: MITEETO NE MISANGO", "with": "KISHINA 11: MITEETO NE MISANGO YA NGINKELO MU NTANDA." },
+    { "find": "KISHINA: MAZHIKAKANWA",       "with": "KISHINA 12: MAZHIKAKANWA" },
+    { "find": "KISHINA: BUNJIMI",            "with": "KISHINA 13: BUNJIMI" },
+    { "find": "KISHINA: MITETO YA KYALO",    "with": "KISHINA 14: MITETO YA KYALO." }
+  ]
 }
