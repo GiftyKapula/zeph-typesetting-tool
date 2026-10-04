@@ -229,6 +229,14 @@ const DOTTED = /^(?:jpe?g|png|gif|webp|svg|tiff?|pdf|docx?|xlsx?|pptx?|txt|csv|z
 function tidyPunctuation(t) {
   t = t.replace(/ {2,}/g, " ");                             // a doubled space is the same slip
   t = t.replace(/[ \t]+([,;:.?!)\]])/g, "$1");              // space before a closing mark
+  // The mark typed TWICE is the same keyboard slip ("Kimwesho::", "BYAKETEKELWA KUBIWA
+  // MU BYONSE: :"). It has to be collapsed here, after the rule above, because that rule
+  // is what closes "<mark> <mark>" up into the doubled pair in the first place — before
+  // it runs, the two marks are still separated by the space the author typed. Only the
+  // colon, semicolon and comma are collapsed: a repeated full stop is an ellipsis the
+  // author means ("Bufuku …..") and a repeated question or exclamation mark is emphasis,
+  // so neither is touched.
+  t = t.replace(/([,;:])(?:[ \t]*\1)+/g, "$1");             // the same mark typed twice
   t = t.replace(/([(\[\u201C\u2018\u201E])[ \t]+/g, "$1");  // space just inside an opening bracket/quote
   t = t.replace(/[ \t]+([\u201D\u2019])/g, "$1");           // space just inside a closing quote
   // Word by word, so a web address is never touched: a token carrying "://", a slash, an

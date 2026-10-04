@@ -706,11 +706,34 @@ async function typesetOne(docxPath, themeName) {
   // Hand-typed page footers that ended up inside table cells are cleared.
   if (ov.lessonLabels) {
     const plain = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).replace(/\s+/g, " ").trim();
-    const LABEL = /^([A-ZÑŇŊ][A-ZÑŇŊ'’\- ]{1,45}?(?:\s+\d+)?)\s*:\s*(.*)$/;
+    // The label is matched in ANY casing; which of those lines is really a label is
+    // decided below, from the book's own evidence, not from the capitals.
+    const LABEL = /^([A-Za-zÀ-ɏ][A-Za-zÀ-ɏ'’\- ]{1,45}?(?:\s+\d+)?)\s*:\s*(.*)$/;
     const isCaps = (t) => t === t.toUpperCase() && /[A-Z]/.test(t);
     // "MUTWE:", "MUTWE-KACHE:", "MUTWE- KACHE:", "MUTWE –KACHE 0.1.9.2 …" (colon optional
     // when a topic number follows)
     const HEADLINE = /^MUTWE(\s*[-–]?\s*KACHE)?\s*(:|(?=\s*[0-9O]\.\d))/i;
+    // Whether a lesson label is set as a label used to depend on the author having typed
+    // it in capitals, so the SAME label printed bold on one page and as ordinary prose on
+    // the next — the Kiikaonde Grade 1 Teacher's Guide wrote "MUFUNJISHI:" 12 times and
+    // "Mufunjishi:" 85 times, "KIMWESHO:" 4 times and "Kimwesho:" 22 times, and twelve
+    // labels in all came through the book in both casings. Capitalisation is a typing
+    // habit, not a distinction the reader is meant to see.
+    //
+    // So read the labels off the manuscript first: a wording the author capitalised ANY-
+    // WHERE is a structural label of this book, and every line that opens with the same
+    // wording is the same label whatever case it was typed in. Taking the evidence from
+    // the book's own capitals keeps the rule self-limiting — an ordinary sentence that
+    // happens to open "Bintu-zhina: Zambia, Kitwe, …" is only ever promoted if that same
+    // wording is used as a capitalised label elsewhere, so no prose is swept up.
+    const labelled = new Set();
+    for (const b of blocks) {
+      if (!b || !/^(para|listitem|label|head|h3)$/.test(b.t)) continue;
+      const t = plain(b);
+      if (!t || HEADLINE.test(t)) continue;
+      const m = t.match(LABEL);
+      if (m && isCaps(m[1])) labelled.add(m[1].trim().toUpperCase().replace(/\s+/g, " "));
+    }
     let n = 0;
     for (const b of blocks) {
       if (b.t === "table" && Array.isArray(b.rows)) {
@@ -725,9 +748,12 @@ async function typesetOne(docxPath, themeName) {
         b.t = "head"; b.text = t; delete b.segs; delete b.marker; n++; continue;
       }
       const m = t.match(LABEL);
-      if (m && isCaps(m[1])) {
+      // Printed in the capitalised house form whichever way it was typed, so the label
+      // reads the same on every page.
+      const label = m && m[1].trim().toUpperCase().replace(/\s+/g, " ");
+      if (m && labelled.has(label)) {
         b.t = "para"; delete b.marker; delete b.text;
-        b.segs = [{ t: m[1].trim() + ":", b: true, it: false, c: null }];
+        b.segs = [{ t: label + ":", b: true, it: false, c: null }];
         if (m[2]) b.segs.push({ t: " " + m[2], b: false, it: false, c: null });
         n++;
       }
