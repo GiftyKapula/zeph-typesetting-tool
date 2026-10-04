@@ -738,6 +738,18 @@ async function typesetOne(docxPath, themeName) {
         else b.nest = k ? 2 : 1;                      // a bullet under a step nests under it
       } else if (b.t !== "vspace") k = 0;
     }
+    // A lettered marker's PUNCTUATION says which level it is: "a)" at the first level,
+    // "a." once nested under a numbered step. The manuscripts keep that distinction
+    // almost perfectly — in the Kiikaonde Grade 1 TG, 86 of 88 first-level letters are
+    // "a)" and 10 of 11 nested ones are "a." — so the handful that disagree are slips,
+    // and the two shapes must NOT be levelled to one: that would throw the distinction
+    // away. Point each stray marker at the shape its own level already uses.
+    for (const b of blocks) {
+      if (b.t !== "listitem" || !b.nest) continue;
+      const m = String(b.marker || "").match(/^\(?([a-z])[.)]$/i);
+      if (!m) continue;
+      b.marker = b.nest >= 2 ? `${m[1]}.` : `${m[1]})`;
+    }
     console.log(`   lessonLabels: ${n} lesson label line(s) set`);
   }
   // keepHeadsWithUnit: true — short headings that sit directly before a unit heading
