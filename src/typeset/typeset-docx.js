@@ -33,7 +33,7 @@ const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatt
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
-const { columnizeLists, normaliseSpacing, normaliseLocalOrthography, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon } = require("./passes/polish.js");
+const { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
 const { writeManuscriptMd } = require("./manuscript-md.js");
 
@@ -783,6 +783,17 @@ async function typesetOne(docxPath, themeName) {
   {
     const nColon = fixSectionColon(blocks);
     if (nColon) console.log(`   section colon moved after the number: ${nColon}`);
+  }
+  // Same place, same reason: these lines are only headings once lessonLabels has run, and
+  // the colon has to be in its final position before a trailing full stop can be read off
+  // the end of the title.
+  {
+    const nHead = tidyHeadings(blocks);
+    if (nHead) console.log(`   headings tidied (trailing stop / section-word spelling): ${nHead}`);
+  }
+  {
+    const nRuns = tidyRuns(blocks);
+    if (nRuns) console.log(`   stray spaces round punctuation closed up: ${nRuns}`);
   }
   // A lead-in line that introduces a list — "Mikumbu yaketekelwa:" (expected answers),
   // "Byakuuba bafunda:" (what the learners do) — belongs at its list's level. Left at the
