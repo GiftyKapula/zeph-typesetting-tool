@@ -33,10 +33,20 @@ const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatt
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
-const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon } = require("./passes/polish.js");
+const { columnizeLists, normaliseSpacing, normaliseLocalOrthography, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
+const { writeManuscriptMd } = require("./manuscript-md.js");
 
 async function typesetOne(docxPath, themeName) {
+  // Before anything else, drop a plain-text rendering of the manuscript next to the
+  // .docx. Nothing downstream reads it — the pipeline still parses the .docx — but
+  // CLAUDE.md's rule is to check what the manuscript actually SAYS before "fixing"
+  // how it renders, and a searchable markdown copy of the whole book is a far better
+  // place to do that than raw OOXML read in 2000-character slices. Writing it here
+  // means it is always present and always matches the manuscript being built.
+  const mdPath = await writeManuscriptMd(docxPath);
+  if (mdPath) console.log("   plain text:", path.basename(mdPath));
+
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
   // Expand a standalone "G 2"/"G2" abbreviation to "Grade 2" for all grade/level/theme
   // detection (kept separate from `base` so the output file keeps its original name).
@@ -246,6 +256,7 @@ async function typesetOne(docxPath, themeName) {
   displayifyColumnMath(blocks);
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
   normaliseSpacing(blocks);
+  { const nOrth = normaliseLocalOrthography(blocks); if (nOrth) console.log(`   orthography: ${nOrth} run(s) folded onto the language's own ñ`); }
   unboldLeadProse(blocks);
   ensureOrIndividually(blocks);
   normaliseQuestionMarkBold(blocks);
