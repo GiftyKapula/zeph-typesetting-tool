@@ -126,6 +126,43 @@ async function typesetOne(docxPath, themeName) {
         const inner = r.flatMap((c) => (c && c.subs) || []);
         return [r, ...inner.flatMap((rows) => flatRows(rows || []))];
       }));
+      // A pre-reading / pre-writing card: a one-column table of short labels whose
+      // last row holds the lesson's objectives as a NESTED table ("Kotana bala" over
+      // "Mutwe: …" over a BUPANDULUZI box). The generic rule below unpacks one only
+      // when EVERY cell is short, so the same card printed two ways in this book —
+      // flat headings where the nested objectives were brief, a bordered grid where
+      // they ran long — and in neither case as the box it is everywhere else.
+      // Always the same: the labels as headings, the nested table as a box.
+      const nested = b.t === "table" && Array.isArray(b.rows)
+        ? b.rows.flatMap((r) => r.flatMap((c) => (c && c.subs) || [])) : [];
+      const labelRows = b.t === "table" && Array.isArray(b.rows)
+        ? b.rows.filter((r) => r.every((c) => !c || !(c.subs || []).length)) : [];
+      const isCard = nested.length === 1
+        && labelRows.every((r) => r.every((c) => !c || ((c.text || "").trim().length <= 80 && !(c.imgs || []).length)))
+        && labelRows.some((r) => r.some((c) => (c && c.text || "").trim()));
+      if (isCard) {
+        n++;
+        for (const r of labelRows) for (const c of r) {
+          for (const t of String(c && c.text || "").split(/\n/).map((s) => s.trim()).filter(Boolean)) out.push({ t: "head", text: t });
+        }
+        const body = [];
+        for (const r of nested[0]) for (const c of r) {
+          // One paragraph per CELL, keeping the cell's own runs. Splitting a cell on
+          // its line breaks and re-matching the runs line by line emitted every run
+          // once per line it spanned, so a two-line cell printed its text twice.
+          if (!String(c && c.text || "").trim()) continue;
+          // The author's nested cell sometimes carries no run styling at all, which
+          // left the box's own title ("BUPANDULUZI:") set in plain text while the
+          // identical box elsewhere in the book printed it bold.
+          const label = /:\s*$/.test(String(c.text).trim()) && !body.length;
+          const segs = (c && c.seg && c.seg.length)
+            ? (label ? c.seg.map((s) => ({ ...s, b: true })) : c.seg)
+            : [{ t: String(c.text), b: label, it: false, c: null }];
+          body.push({ t: "para", segs });
+        }
+        if (body.length) out.push({ t: "box", kind: "box", body });
+        continue;
+      }
       const rows = b.t === "table" && Array.isArray(b.rows) ? flatRows(b.rows) : null;
       const cells = rows ? rows.flat() : [];
       // a picture table, or a table of short labels only (headings the author boxed in
