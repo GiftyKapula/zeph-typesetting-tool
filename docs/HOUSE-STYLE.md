@@ -161,6 +161,31 @@ file extension and a like-for-like aspect ratio.
   ever does carry a ChatGPT (or any other) watermark, don't ship it:
   regenerate it cleanly rather than trying to paint over or crop out the
   mark.
+- **Don't hand-roll the generation.** `npm run art:gen -- "<book.docx>"`
+  (`node tools/genimage.js`) reads a `<book>.artprompts.json` sidecar (one
+  prompt per figure, plus an optional `cover` entry), calls the model, takes
+  each result through Real-ESRGAN to print resolution, and writes the
+  `images` / `coverImage` entries into the book's overrides itself. It
+  appends the standing requirements below to every prompt, so a spec file
+  carries only what its picture must *depict*. Needs `OPENAI_API_KEY` in the
+  environment. `--dry-run` prints the plan and the full prompts without
+  calling anything; `--only`, `--force` and `--no-upscale` narrow it.
+  Budget the time: Real-ESRGAN splits each frame into pieces on this hardware
+  and takes minutes per picture, not seconds — a 1536x1024 frame taken to
+  1800px wide measured **893s (~15 min)** at the default `--tile 128`, in six
+  pieces, with no tile-grid or seam artefacts in the result. `--tile` sets the
+  per-pass working set; 256 and above will not allocate here. Note that tile
+  size does NOT change how many pieces a frame is cut into — that is
+  `MAX_PIECE_PX` in `tools/lib/esrgan.js` — so it makes each piece's passes
+  cheaper, not fewer.
+- **Name each figure the way the manuscript spells it in `word/media/`** —
+  `image8.jpeg`, not `image8.png`. The spec key becomes the key of the
+  book's `images` override, and an override keyed to a picture the manuscript
+  does not contain is read by nothing: the book re-typesets with its old
+  artwork while the log says every figure was generated. The generated file
+  itself is always written as PNG whatever the original was. `genimage.js`
+  checks the spec against the .docx and refuses to run on a name the
+  manuscript has not got.
 - **Replace any picture or illustration that isn't clear** with a sharper one
   of the same subject (via the `images` override) — don't leave a blurry
   scan, a low-res clip-art, or a muddy photo in a finished book.
