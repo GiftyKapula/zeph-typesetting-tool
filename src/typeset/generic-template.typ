@@ -2029,6 +2029,11 @@
 }
 
 #let sectionhead(t, brk: true, outlined: true) = {
+  // A heading never justifies. The body sets justify:true, so a title that wraps had
+  // its word gaps stretched to the full measure — "KISHINA  11:  MITEETO  NE  MISANGO
+  // YA" across one line and two words on the next. Box titles were already exempted
+  // (see `title` further down); section headings never were.
+  set par(justify: false)
   if brk { pagebreak(weak: true) }
   // Outline units always; outline front-matter sections only when the TOC is not
   // restricted to units (some books want a units-only contents page).
@@ -2112,6 +2117,7 @@
   }
 }
 #let subhead(t, nobrk: false) = {
+  set par(justify: false)          // same rule as sectionhead: a sub-topic title never stretches
   // Every Sub-Topic starts its own fresh page, same house-style rule as Topics
   // (topicbanner above) — a Sub-Topic heading must never land as a widow at the
   // foot of the page its parent Topic's overview text happened to fill. In a
@@ -2184,6 +2190,7 @@
   v(5pt)
 }
 #let head(t, al: none, black: false, col: none) = {
+  set par(justify: false)          // a wrapped sub-heading stays ragged, never stretched
   if serieslike { v(13pt, weak: true) } else { v(5pt) }
   let body = if serieslike {
     // activities/exercises in teal, other bold sub-subheads in ink (like the ref);
