@@ -1777,12 +1777,20 @@
 // syllabus themes), because every body paragraph and run-in heading goes through para().
 // That is how a syllabus year heading came out as "...SECONDARY TEACH-ERS' DIPLOMA" even
 // though the theme had asked for no hyphenation anywhere in the book.
-#let para(ss, align: none, drop: false, hyphenate: auto, indent: false) = {
+#let para(ss, align: none, drop: false, hyphenate: auto, indent: false, lvl: 0) = {
   let hyphenate = if hyphenate == auto { T.at("hyphenate", default: true) } else { hyphenate }
   set text(hyphenate: hyphenate)
   // A syllabus body paragraph that sits UNDER a numbered item is indented to align with
   // the heading text (past the number), for a clean outline look.
   if indent { return pad(left: 7mm, para(ss, align: align, drop: drop, hyphenate: hyphenate)) }
+  // `lvl`: a lead-in line that introduces a list ("Mikumbu yaketekelwa:") steps in to sit
+  // at its list's own level, instead of staying flush at the body margin while everything
+  // it introduces is indented away from it. Deliberately the SAME arithmetic listitem
+  // uses, not the 7mm `indent` above — a lead-in two millimetres out of line with the
+  // very list it heads reads as a mistake rather than as a level.
+  if lvl > 0 {
+    return pad(left: (lvl - 1) * 8mm + 5mm, para(ss, align: align, drop: drop, hyphenate: hyphenate))
+  }
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
     // Drop capital: lift the first letter of the first run to ~3-line height in the
     // theme primary colour, then flow the rest of the paragraph. Used for the

@@ -765,6 +765,29 @@ async function typesetOne(docxPath, themeName) {
     const nColon = fixSectionColon(blocks);
     if (nColon) console.log(`   section colon moved after the number: ${nColon}`);
   }
+  // A lead-in line that introduces a list — "Mikumbu yaketekelwa:" (expected answers),
+  // "Byakuuba bafunda:" (what the learners do) — belongs at its list's level. Left at the
+  // body margin it sits level with the activity label above it while everything it
+  // introduces is indented away, so the page gives no sign which list it heads.
+  //
+  // Only a paragraph that ENDS in a colon and is immediately followed by a nested list
+  // item counts: a colon mid-sentence, or one trailing a paragraph that happens to sit
+  // above an unrelated list, is prose and stays where the author put it. Runs after the
+  // nesting pass above, since the level it copies is the one that pass assigned.
+  {
+    let nLead = 0;
+    for (let i = 0; i < blocks.length - 1; i++) {
+      const b = blocks[i];
+      if (!b || b.t !== "para" || !Array.isArray(b.segs) || b.leadLvl) continue;
+      const txt = b.segs.map((s) => s.t || "").join("").trim();
+      if (!txt.endsWith(":") || txt.length > 60) continue;
+      const nx = blocks[i + 1];
+      if (!nx || nx.t !== "listitem" || !nx.nest) continue;
+      b.leadLvl = nx.nest;
+      nLead++;
+    }
+    if (nLead) console.log(`   lead-in lines indented to their list: ${nLead}`);
+  }
   // keepHeadsWithUnit: true — short headings that sit directly before a unit heading
   // ("Kuteleka ne Kwamba / Mutwe: Mazhina" then "KISHINA 3") open the unit's page with
   // it, above the unit title, instead of being stranded alone on the page before.
