@@ -238,6 +238,11 @@ function tidyPunctuation(t) {
   // so neither is touched.
   t = t.replace(/([,;:])(?:[ \t]*\1)+/g, "$1");             // the same mark typed twice
   t = t.replace(/([(\[\u201C\u2018\u201E])[ \t]+/g, "$1");  // space just inside an opening bracket/quote
+  // A colon or semicolon run straight into the next word (“nabiji:baya, keepa”) is a
+  // typing slip, not a notation. Guarded so real notations survive: at least three
+  // letters in front of the mark, letters on both sides, which leaves ratios (“a:b”),
+  // times and scripture references (digits) and URLs (“://”) untouched.
+  t = t.replace(/([A-Za-z\u00C0-\u024F]{3})([:;])([A-Za-z\u00C0-\u024F])/g, "$1$2 $3");
   t = t.replace(/[ \t]+([\u201D\u2019])/g, "$1");           // space just inside a closing quote
   // Word by word, so a web address is never touched: a token carrying "://", a slash, an
   // "@" or more than one dot is a URL, an email or a file name, and every dot in it is
@@ -260,6 +265,56 @@ function tidyPunctuation(t) {
 // inside the pieces. This pass also catches what a single run cannot see: a space at the
 // end of one run with the punctuation at the start of the next ("mukumbu " + ": Mateyo"),
 // which reads as a gap before the colon exactly like the one-run case.
+// EMOJI. A manuscript typed in Word arrives with them - the Kiikaonde Grade 1
+// Teacher's Guide carried fourteen clapping hands after “Bafunda bapopwele:”
+// (“the learners clap:”) - and a printed textbook has no use for one: the
+// sentence already says what the picture would. They do not merely look wrong,
+// they BREAK THE PAGE. No house font carries them, so Typst falls back to the
+// system colour-emoji face, whose glyphs measured 66pt tall against an 11pt line
+// and overhung the text column into the left margin.
+//
+// Extended_Pictographic is the right net, but it also catches characters that are
+// ordinary typography and must stay - the copyright sign on every imprint page
+// above all - so those are kept by name. A whole emoji cluster goes at once
+// (variation selector, skin tone, zero-width-joined sequence), never half of one.
+const EMOJI_KEEP = new Set([
+  "©", "®", "™",                    // (c) (R) (TM)
+  "‼", "⁉",                                // !! !?
+  "✓", "✔", "✗", "✘",            // tick / cross, used in checklists
+  "★", "☆", "☐", "☑", "☒",  // star, ballot box
+]);
+const EMOJI_RE = /\p{Extended_Pictographic}[\uFE0E\uFE0F]?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u200D\p{Extended_Pictographic}[\uFE0E\uFE0F]?(?:[\u{1F3FB}-\u{1F3FF}])?)*/gu;
+
+function stripEmojiText(s) {
+  if (!EMOJI_RE.test(s)) { EMOJI_RE.lastIndex = 0; return s; }
+  EMOJI_RE.lastIndex = 0;
+  let out = s.replace(EMOJI_RE, (m) => (EMOJI_KEEP.has(m) ? m : ""));
+  // close up what the removal left: doubled spaces, and a space pushed up against
+  // the punctuation that followed the emoji.
+  out = out.replace(/[ \t]{2,}/g, " ").replace(/[ \t]+([,;:.?!)\]])/g, "$1");
+  return out.trim() === "" ? "" : out;
+}
+
+// Walks every string the renderer will print, the same shapes tidyRuns walks.
+// A list item or paragraph whose ENTIRE content was emoji is left empty here and
+// dropped by the caller - printing an empty numbered item would be worse than the
+// emoji was.
+function stripEmoji(blocks) {
+  let n = 0;
+  const walk = (v) => {
+    if (Array.isArray(v)) { for (const x of v) walk(x); return; }
+    if (!v || typeof v !== "object") return;
+    for (const k of ["text", "t", "title", "q", "a", "marker"]) {
+      if (typeof v[k] !== "string") continue;
+      const out = stripEmojiText(v[k]);
+      if (out !== v[k]) { v[k] = out; n++; }
+    }
+    for (const k of Object.keys(v)) if (v[k] && typeof v[k] === "object") walk(v[k]);
+  };
+  walk(blocks);
+  return n;
+}
+
 function tidyRuns(blocks) {
   let n = 0;
   const isRuns = (a) => Array.isArray(a) && a.length && a.every((x) => x && typeof x === "object" && typeof x.t === "string");
@@ -277,6 +332,13 @@ function tidyRuns(blocks) {
         for (let i = 0; i < runs.length - 1; i++) {
           if (/[ \t]$/.test(runs[i].t) && /^[,;:.?!)\]]/.test(runs[i + 1].t)) {
             runs[i].t = runs[i].t.replace(/[ \t]+$/, ""); n++;
+          }
+          // ...and the mirror of it. tidyPunctuation already closes up a space just
+          // inside an opening bracket or quote, but only when both characters sit in
+          // ONE run; Word splits a line into a run per formatting change, so the
+          // bracket and the space after it routinely land in different runs.
+          if (/[(\[\u201C\u2018\u201E]$/.test(runs[i].t) && /^[ \t]/.test(runs[i + 1].t)) {
+            runs[i + 1].t = runs[i + 1].t.replace(/^[ \t]+/, ""); n++;
           }
         }
       }
@@ -974,4 +1036,4 @@ function normaliseQuestionMarkBold(blocks) {
   walk(blocks);
 }
 
-module.exports = { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon };
+module.exports = { stripEmoji, columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon };
