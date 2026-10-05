@@ -107,6 +107,74 @@
     {
       "from": "ne kupopwela.Syllable",
       "to": "ne kupopwela."
+    },
+    {
+      "from": ":(",
+      "to": ": ("
+    },
+    {
+      "from": "☹",
+      "to": ": ("
+    },
+    {
+      "from": "MFUNJISHI",
+      "to": "MUFUNJISHI"
+    },
+    {
+      "from": "Lufunjiso",
+      "to": "Lufunjisho"
+    },
+    {
+      "from": "ñgingijilo",
+      "to": "ñingijilo"
+    },
+    {
+      "from": "ya ketekelwa",
+      "to": "yaketekelwa"
+    },
+    {
+      "from": "Yalufunjisho",
+      "to": "ya Lufunjisho"
+    },
+    {
+      "from": "ŃGINGIJILO",
+      "to": "ÑINGIJILO"
+    },
+    {
+      "from": "BYA GINGIJILO",
+      "to": "BYA ÑINGIJILO"
+    },
+    {
+      "from": "LUFNJISHO",
+      "to": "LUFUNJISHO"
+    },
+    {
+      "from": "LUFUNJISHI",
+      "to": "LUFUNJISHO"
+    },
+    {
+      "from": "BYAKETELWA KUBIWA",
+      "to": "BYAKETEKELWA KUBIWA"
+    },
+    {
+      "from": "BYAKUBA BAFUNDA",
+      "to": "BYAKUUBA BAFUNDA"
+    },
+    {
+      "from": "Byakuba Bafunda",
+      "to": "Byakuuba Bafunda"
+    },
+    {
+      "from": "Byakuba bafunda",
+      "to": "Byakuuba bafunda"
+    },
+    {
+      "from": "Mwingil ",
+      "to": "Mwingilo "
+    },
+    {
+      "from": "Explain that learners should:",
+      "to": ""
     }
   ],
   "_note_merge": "The author broke one sentence across two paragraphs mid-list (\"...kumvwisha, kwamba, kutala\" / \"na kupesa-pesa, kusobolola...\"). Rejoined.",
@@ -114,5 +182,9 @@
     {
       "find": "Mingilo ya mfunjilo yafwainwa kufikizha mu byonse apo paji"
     }
-  ]
+  ],
+  "_note_bracket": "AUTHOR SLIP CORRECTED, three places. The author writes \"nabiji:\" (\"such as:\") and follows it with a bracketed example, but typed the bracket hard against the colon - \"nabiji:(amiwampamampila)\", \"nabiji:( kuswa ne kukana...)\". Word then autocorrected one of those \":(\" pairs into a Segoe UI Symbol frowning face, leaving \"nabiji☹ kuswa ne kukana, mwesha ne amba...)\" - a sentence closing a bracket it never opened. All three are set to \": (\": the colon is the author's, the bracket is the one the closing \")\" is waiting for, and the emoji was never meant to be a face at all.",
+  "_note_labelspelling": "AUTHOR SPELLING CORRECTED, the recurring section labels. The book names the same few things on nearly every page, and a handful of instances are mistyped against the author's own overwhelming usage: MUFUNJISHI appears 92 times and MFUNJISHI twice; Lufunjisho throughout and Lufunjiso three times; and the “expected standard” label is spelt byañingijilo except where it came out byañgingijilo, BYA ÑGINGIJILO or BYA GINGIJILO (the n-tilde lost altogether), and once “ya ketekelwa” split in two. Each is set to the form the author uses everywhere else. The remaining variation in these labels is CASE, not spelling, and is left alone here - that is an engine matter, not a per-book one.",
+  "_note_structurallabels": "AUTHOR SPELLING CORRECTED, the structural labels. These few words are the book's furniture - they open a lesson, a competence, an activity - and the author types each one the same way hundreds of times, so an instance missing a letter is a slip and nothing else. LUFUNJISHO (142 times) came out LUFUNJISHI twice and LUFNJISHO once; BYAKETEKELWA KUBIWA (156) came out BYAKETELWA KUBIWA sixteen times, dropping the KE; the Byakuuba bafunda label (79) came out Byakuba bafunda thirty-five times, dropping a u; and Mwingilo (103) was once cut to Mwingil. Only the LABEL is corrected: the bare word byakuba also occurs three times in ordinary prose (\"byakuba kwingijisha\", \"byakuba kabiji saka\") and is left exactly as written, as is kishinka, which reads as a word of its own seventeen times and is NOT a mistyped KISHINA.",
+  "_note_english": "AUTHOR LEFTOVER REMOVED, three places. The line \"Lumbulwila bafunda amba bafwainwa:\" is followed on the same line by its own English translation, \"Explain that learners should:\" - a working note the author never took out. The Kiikaonde already says it, so the English is dropped and the list that follows now runs straight on from the Kiikaonde. FOUR OTHER English passages remain in the book and are NOT touched here, because each one says something the Kiikaonde beside it does not, and only a Kiikaonde speaker can supply the replacement: p40 \"The teacher gives incomplete oral sentences and guides learners to complete them.\", p59 \"Explain that summarising means telling the important points in a short way using one's own words.\", p92 \"Change the bold part:\", and the sub-topic title on p109, MUTWE-KACHE 1.7.3: WORD AWARENESS, which is the only sub-topic heading in the book not in Kiikaonde."
 }
