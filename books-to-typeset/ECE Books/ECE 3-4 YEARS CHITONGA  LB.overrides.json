@@ -70,11 +70,6 @@
       "all": true
     },
     {
-      "find": "Chakucita",
-      "with": "Cakucita",
-      "all": true
-    },
-    {
       "find": "Muwe: Mbotweelede kumvwa",
       "with": "Mutwe: Mbotweelede kumvwa",
       "all": true
@@ -97,6 +92,16 @@
     {
       "find": "Kuswiilila a Kwaambaula",
       "with": "Kuswiilila akwaambaula",
+      "all": true
+    },
+    {
+      "find": "Chakucita",
+      "with": "Cakuchita",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO ACHIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
       "all": true
     }
   ],

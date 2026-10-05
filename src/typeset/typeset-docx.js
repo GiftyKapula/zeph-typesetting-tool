@@ -642,6 +642,13 @@ async function typesetOne(docxPath, themeName) {
     themeOverrides.font = "Century Gothic";
     themeOverrides.bodyFont = "Century Gothic";
     themeOverrides.displayFont = "Century Gothic";
+    // …and no hyphenation. Every other young-reader theme (primaryeng, cts, mathsci,
+    // homeecon) already sets this; the local-language themes did not, so the ECE
+    // Chitonga Learner's Book broke Chitonga words across lines — "mbociton-dezya",
+    // "zyilem-bedwe", "ak-waamba" — in a book whose whole purpose is teaching a
+    // three-year-old to blend the syllables of those same words. Deciding it here,
+    // from the book's level rather than from its theme, covers every language at once.
+    themeOverrides.hyphenate = false;
   }
   // CDC 2025 body-text size for LEARNER'S Books — young readers need larger text:
   //   Grade 1 → 18pt, Grade 2-3 → 16pt, Grade 4-6 → 14pt (Avant Garde / Century Gothic).

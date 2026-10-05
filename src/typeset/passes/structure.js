@@ -663,11 +663,19 @@ function keepNumberedSubtopicsOnly(blocks) {
 function levelHeadingVariants(blocks) {
   if (!LEXI.getLang()) return 0;
   const isHead = (b) => b && /^(head|label|h1|h2|h3)$/.test(b.t) && typeof b.text === "string";
-  // Collapse a run of one repeated letter to a single letter, and read "ch" as "c".
+  // Collapse a run of one repeated letter to a single letter. A doubled vowel is a
+  // genuine typing wobble in these languages and is safe to fold.
+  //
+  // "c" and "ch" are NOT folded together. They are different letters in Chitonga —
+  // the verb stem is -chita, so "Cakuchita" and "Cakucita" are a right spelling and a
+  // wrong one, not two spellings of equal standing. An earlier version read "ch" as
+  // "c" and so was willing to level a correct spelling onto a wrong one, picking the
+  // winner by nothing better than which the author typed more often. Where two
+  // headings differ by c/ch the word list decides (see lexiconForm below); if the
+  // word list is silent, they are left alone for a person to settle.
   const fold = (t) => {
-    const s = t.replace(/ch/g, "c").replace(/CH/g, "C").replace(/Ch/g, "C");
     let out = "";
-    for (const ch of s) {
+    for (const ch of t) {
       if (/[A-Za-z\u00C0-\u024F]/.test(ch) && out && out[out.length - 1].toLowerCase() === ch.toLowerCase()) continue;
       out += ch;
     }
@@ -682,6 +690,76 @@ function levelHeadingVariants(blocks) {
   // letters — so this pass changes spelling and nothing else, and never argues with
   // uniformBoxLabelCase about case or adds a colon the author did not type.
   const shape = (t) => fold(t);
+  // FIRST, the house spelling. Each concept in the language's word list is written
+  // house-spelling-FIRST, with the other wordings authors have used kept after it so
+  // the engine still RECOGNISES them. A heading that is one of those other wordings is
+  // rewritten to the first one — the house form — whatever the manuscript does most
+  // often. The ECE Chitonga Learner's Book writes "Cakucita" ten times and "Chakucita"
+  // once; neither is right, because Chitonga writes the verb stem with ch, so the word
+  // list's "Cakuchita" is what prints. This runs before the levelling below, which only
+  // ever decides between spellings the word list has no opinion about.
+  const LEX_CONCEPTS = ["activity", "alt_activity", "exercise", "assessment_topic", "assessment_unit",
+    "key_points", "note_teacher", "example", "possible_answers", "topic", "subtopic", "lesson", "unit"];
+  const houseOf = new Map();
+  for (const id of LEX_CONCEPTS) {
+    const ws = LEXI.words([id]);
+    if (ws.length < 2) continue;                       // no alternative spellings recorded
+    for (const w of ws.slice(1)) houseOf.set(w.toLowerCase(), ws[0]);
+  }
+  let houseN = 0;
+  const houseChanged = new Map();
+  if (houseOf.size) {
+    // Anywhere the term stands ALONE — a heading, a box title, a question line the
+    // importer absorbed into a box — carries the house spelling. Matched on the whole
+    // trimmed text, never as a substring, so running prose is never touched.
+    const setText = (o, h) => {
+      if (typeof o.text === "string") o.text = h;
+      if (typeof o.q === "string") o.q = h;
+      if (typeof o.title === "string") o.title = h;
+      if (typeof o.plain === "string") o.plain = h;
+      for (const k of ["segs", "qseg", "aseg", "seg"]) {
+        if (Array.isArray(o[k]) && o[k].length) o[k] = [{ ...o[k][0], t: h }];
+      }
+    };
+    const textOfNode = (o) => {
+      if (typeof o.text === "string" && o.text.trim()) return o.text;
+      if (typeof o.q === "string" && o.q.trim()) return o.q;
+      if (typeof o.title === "string" && o.title.trim()) return o.title;
+      for (const k of ["segs", "qseg", "seg"]) {
+        if (Array.isArray(o[k]) && o[k].length) {
+          const j = o[k].map((s) => s.t || "").join("");
+          if (j.trim()) return j;
+        }
+      }
+      return "";
+    };
+    (function walk(arr) {
+      for (const o of arr) {
+        if (!o || typeof o !== "object") continue;
+        const t = textOfNode(o).trim();
+        const h = t && houseOf.get(t.toLowerCase());
+        if (h && h !== t) { setText(o, h); houseChanged.set(t, h); houseN++; }
+        if (Array.isArray(o.rows)) for (const r of o.rows) if (Array.isArray(r)) {
+          for (const c of r) {
+            if (!c || typeof c !== "object") continue;
+            const ct = (c.text || "").trim();
+            const ch2 = ct && houseOf.get(ct.toLowerCase());
+            if (ch2 && ch2 !== ct) { setText(c, ch2); houseChanged.set(ct, ch2); houseN++; }
+            if (Array.isArray(c.subs)) for (const sub of c.subs) walk([].concat(...sub));
+          }
+        }
+        for (const k of Object.keys(o)) {
+          if (!Array.isArray(o[k])) continue;
+          if (["segs", "qseg", "aseg", "seg", "rows", "images"].includes(k)) continue;
+          walk(o[k]);
+        }
+      }
+    })(blocks);
+  }
+  if (houseChanged.size) {
+    const says = [...houseChanged].map(([a, b]) => JSON.stringify(a) + " -> " + JSON.stringify(b)).join(", ");
+    console.log("   headings set to the house spelling from the " + LEXI.getLang() + " word list: " + says);
+  }
   // Which spelling the author really prefers is counted over the WHOLE book, not just
   // over its headings. The Kiikaonde Grade 1 Teacher's Guide writes "Byakuuba bafunda"
   // 62 times in its lesson tables and "Byakuba Bafunda" 17 times as a heading: counting
@@ -713,10 +791,11 @@ function levelHeadingVariants(blocks) {
   for (const [k, g] of groups) {
     if (g.size < 2) continue;                                     // no variants to level
     let best = null, bestN = -1;
+
     for (const [t, n] of g) if (n > bestN || (n === bestN && t.length > best.length)) { best = t; bestN = n; }
     winner.set(k, best);
   }
-  if (!winner.size) return 0;
+  if (!winner.size) return houseN;
   let n = 0;
   const changed = new Map();
   for (const b of blocks) {
@@ -733,6 +812,6 @@ function levelHeadingVariants(blocks) {
     const says = [...changed].map(([a, b]) => JSON.stringify(a) + " -> " + JSON.stringify(b)).join(", ");
     console.log("   headings levelled to the book's own spelling: " + says);
   }
-  return n;
+  return n + houseN;
 }
 module.exports = { levelHeadingVariants, boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };
