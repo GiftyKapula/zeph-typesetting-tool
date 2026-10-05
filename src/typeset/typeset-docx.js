@@ -119,33 +119,51 @@ async function typesetOne(docxPath, themeName) {
   if (ov.untableImages) {
     const out = [];
     let n = 0;
-    for (const b of blocks) {
-      // a box with a nested table holds the rest of its lines in that inner table: flatten
-      // inner tables' rows into the outer list so nothing inside is lost
-      const flatRows = (rs) => [].concat(...rs.map((r) => {
-        const inner = r.flatMap((c) => (c && c.subs) || []);
-        return [r, ...inner.flatMap((rows) => flatRows(rows || []))];
-      }));
-      // A pre-reading / pre-writing card: a one-column table of short labels whose
-      // last row holds the lesson's objectives as a NESTED table ("Kotana bala" over
-      // "Mutwe: …" over a BUPANDULUZI box). The generic rule below unpacks one only
-      // when EVERY cell is short, so the same card printed two ways in this book —
-      // flat headings where the nested objectives were brief, a bordered grid where
-      // they ran long — and in neither case as the box it is everywhere else.
-      // Always the same: the labels as headings, the nested table as a box.
-      const nested = b.t === "table" && Array.isArray(b.rows)
-        ? b.rows.flatMap((r) => r.flatMap((c) => (c && c.subs) || [])) : [];
-      const labelRows = b.t === "table" && Array.isArray(b.rows)
-        ? b.rows.filter((r) => r.every((c) => !c || !(c.subs || []).length)) : [];
+    // a box with a nested table holds the rest of its lines in that inner table: flatten
+    // inner tables' rows into the outer list so nothing inside is lost
+    const flatRows = (rs) => [].concat(...rs.map((r) => {
+      const inner = r.flatMap((c) => (c && c.subs) || []);
+      return [r, ...inner.flatMap((rows) => flatRows(rows || []))];
+    }));
+    // A pre-reading / pre-writing card: a one-column table of short labels whose
+    // last row holds the lesson's objectives as a NESTED table ("Kotana bala" over
+    // "Mutwe: …" over a BUPANDULUZI box). The generic rule below unpacks one only
+    // when EVERY cell is short, so the same card printed two ways in this book —
+    // flat headings where the nested objectives were brief, a bordered grid where
+    // they ran long — and in neither case as the box it is everywhere else.
+    // Always the same: the labels as headings, the nested table as a box.
+    //
+    // Returns the card's blocks (its labels as headings, its objectives as a box),
+    // or null when the table is not a card. It is a function, and not inline in the
+    // loop below, because a card does not always reach this pass as a top-level
+    // block: where the author left one inside the preceding activity's own table,
+    // it arrives buried in that box's BODY, and a card rendered there keeps the
+    // author's raw cyan and red run colours and the box's tint — nothing like the
+    // eleven cards that print at the top level. Same element, so same treatment
+    // wherever it is found.
+    const cardOf = (b) => {
+      const rows = b && b.t === "table" && Array.isArray(b.rows) ? b.rows : [];
+      const cells = rows.flat().filter(Boolean);
+      const nested = cells.flatMap((c) => c.subs || []);
+      const lineOf = (c) => String((c && c.text) || "").split(/\n/).map((s) => s.trim()).filter(Boolean);
+      // One nested table (the objectives box) and nothing around it but short label
+      // lines and pictures. The labels do not always sit in their own row: where the
+      // author left the card inside the preceding activity, every label line lives in
+      // the SAME cell as the nested table, and a picture follows in a row of its own.
       const isCard = nested.length === 1
-        && labelRows.every((r) => r.every((c) => !c || ((c.text || "").trim().length <= 80 && !(c.imgs || []).length)))
-        && labelRows.some((r) => r.some((c) => (c && c.text || "").trim()));
-      if (isCard) {
-        n++;
-        for (const r of labelRows) for (const c of r) {
-          for (const t of String(c && c.text || "").split(/\n/).map((s) => s.trim()).filter(Boolean)) out.push({ t: "head", text: t });
-        }
-        const body = [];
+        && cells.every((c) => lineOf(c).every((t) => t.length <= 80))
+        && cells.some((c) => lineOf(c).length);
+      if (!isCard) return null;
+      const made = [];
+      const trailing = [];
+      for (const r of rows) for (const c of r) {
+        if (!c) continue;
+        for (const t of lineOf(c)) made.push({ t: "head", text: t });
+        const imgs = c.imgs || [];
+        if (imgs.length === 1) trailing.push({ t: "image", ...imgs[0] });
+        else if (imgs.length) trailing.push({ t: "imagerow", images: imgs });
+      }
+      const body = [];
         for (const r of nested[0]) for (const c of r) {
           // One paragraph per CELL, keeping the cell's own runs. Splitting a cell on
           // its line breaks and re-matching the runs line by line emitted every run
@@ -158,9 +176,46 @@ async function typesetOne(docxPath, themeName) {
           const segs = (c && c.seg && c.seg.length)
             ? (label ? c.seg.map((s) => ({ ...s, b: true })) : c.seg)
             : [{ t: String(c.text), b: label, it: false, c: null }];
+          // The objectives cell is a LIST, and the author rarely marks every line as
+          // one: typically the first line is a real Word bullet and the rest are
+          // plain lines under it. Kept as a single paragraph, that box printed one
+          // bulleted objective followed by unbulleted orphan lines, while the same
+          // box elsewhere in the book — where every line happened to be a list item —
+          // printed them all as bullets. Same element, two appearances.
+          // Split only when the cell carries NO run styling of its own (a single
+          // plain seg): that is the case this fixes, and splitting a cell with real
+          // runs would re-emit each run once per line it spans (see above).
+          const plain = !(c && c.seg && c.seg.length);
+          const lines = plain ? String(c.text).split(/\n/).map((s) => s.trim()).filter(Boolean) : [];
+          if (!label && plain && lines.length > 1 && /^[••·*-]\s/.test(lines[0])) {
+            for (const ln of lines) {
+              body.push({ t: "listitem", marker: "•", segs: [{ t: ln.replace(/^[••·*-]\s*/, ""), b: false, it: false, c: null }] });
+            }
+            continue;
+          }
           body.push({ t: "para", segs });
         }
-        if (body.length) out.push({ t: "box", kind: "box", body });
+        if (body.length) made.push({ t: "box", kind: "box", body });
+        return made;
+      };
+
+    for (const b of blocks) {
+      const card = cardOf(b);
+      if (card) { n++; out.push(...card); continue; }
+      // A card the author left inside the preceding box's table: lift it out, so the
+      // box keeps only what belongs to it and the card renders as every other does.
+      if ((b.t === "framedsection" || b.t === "box") && Array.isArray(b.body)
+          && b.body.some((x) => cardOf(x))) {
+        const keep = [];
+        const after = [];
+        for (const x of b.body) {
+          const c = cardOf(x);
+          if (c) { n++; after.push(...c); }
+          else if (after.length) after.push(x);
+          else keep.push(x);
+        }
+        if (keep.length) out.push({ ...b, body: keep });
+        out.push(...after);
         continue;
       }
       const rows = b.t === "table" && Array.isArray(b.rows) ? flatRows(b.rows) : null;

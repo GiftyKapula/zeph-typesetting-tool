@@ -392,9 +392,24 @@ function resolveTextboxBoxes(blocks, tbBoxes) {
   const SENT = /^@@BOX(\d+)@@$/;
   const boxBlock = (idx) => {
     const box = tbBoxes[idx];
-    return box.kind === "activity" ? { t: "activity", title: box.title, body: box.body }
+    // A box whose content is nothing but PICTURES frames nothing. The ECE Chitonga
+    // Learner's Book labels every picture "MULIMO n"; exactly one of those labels
+    // happened to be drawn as a shape the box path recovers, so that single picture
+    // printed inside a titled panel while the other fifty-nine stood under a plain
+    // heading — the same element, two appearances. Emit it the way the rest of the
+    // book does: the label as a heading, then the pictures.
+    const content = box.kind === "activity" ? (box.body || []) : (box.parts || []);
+    // A label whose content OPENS with a picture is labelling that picture, whatever
+    // the author went on to put inside the same shape - this one shape also holds a
+    // whole "Cakuchita" activity, which belongs outside the picture label as its own
+    // box, exactly as the other ten do.
+    const first = content.find((x) => x && (x.t || x.kind));
+    const picFirst = !!first && /^(img|image|imagerow|pendingimg)$/.test(first.t || first.kind || "");
+    const framable = !picFirst && content.some((x) => x && !/^(img|image|imagerow|pendingimg)$/.test(x.t || x.kind || ""));
+    if (!framable) return [{ t: "head", text: box.title }, ...content.map((x) => (x.t === "img" ? { t: "imagerow", images: x.images } : x))];
+    return [box.kind === "activity" ? { t: "activity", title: box.title, body: box.body }
       : box.kind === "exercise" ? { t: "exercise", heading: box.title, parts: box.parts }
-      : { t: "assessment", title: box.title, intro: [], parts: box.parts, extra: [] };
+      : { t: "assessment", title: box.title, intro: [], parts: box.parts, extra: [] }];
   };
   const out = [];
   for (const b of blocks) {
@@ -403,14 +418,14 @@ function resolveTextboxBoxes(blocks, tbBoxes) {
     const whole = (b.t === "head" || b.t === "label") ? (b.text || "").trim()
       : Array.isArray(b.segs) ? plainOf(b.segs).trim() : null;
     const wm = whole != null && whole.match(SENT);
-    if (wm) { out.push(boxBlock(+wm[1])); continue; }
+    if (wm) { out.push(...boxBlock(+wm[1])); continue; }
     // partial: a sentinel seg sharing a paragraph with real text — pull each sentinel seg
     // out (in order), emitting its box, and keep the remaining segs as the same paragraph.
     if (Array.isArray(b.segs) && b.segs.some((s) => !s.m && SENT.test((s.t || "").trim()))) {
       let rest = [];
       for (const s of b.segs) {
         const sm = !s.m && SENT.test((s.t || "").trim());
-        if (sm) { if (rest.length) { out.push({ ...b, segs: rest }); rest = []; } out.push(boxBlock(+(s.t.trim().match(SENT)[1]))); }
+        if (sm) { if (rest.length) { out.push({ ...b, segs: rest }); rest = []; } out.push(...boxBlock(+(s.t.trim().match(SENT)[1]))); }
         else rest.push(s);
       }
       if (rest.length) out.push({ ...b, segs: rest });

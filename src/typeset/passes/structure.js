@@ -68,7 +68,20 @@ function boxifyActivities(blocks, opts = {}) {
   // tolerating the dash type, plural/typo forms ("Exercises", "EXERCSE"), case and a
   // trailing period, so every answer key is boxed like the other exercises.
   const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
-  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : null);
+  // The local language's OWN words for these sections, from its word list, so a book
+  // does not depend on its wording having been hard-coded into the regexes above.
+  // Those lists require a NUMBER after the word ("Cakucita 1"); a book that numbers
+  // none of its activities matched nothing and left every one of them unboxed, against
+  // the house style that activities and assessments are boxes.
+  //
+  // The exercise concept is read too, but a section whose whole body is PICTURES is
+  // left as a heading (see below): this book's "MULIMO n" labels a picture rather than
+  // a set of questions, and a border drawn round a picture frames nothing.
+  const lexKind = (t) => {
+    const k = LEXI.boxKind(t);
+    return k === "activity" ? "act" : k === "exercise" ? "ex" : k === "assessment" ? "asmt" : null;
+  };
+  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : lexKind(t));
   const INTERNAL = /^(teaching and learning materials|teacher.?s?\s*facilitation procedure|facilitation procedure|teacher.?s?\s*notes?|take note of responses|expected responses?|possible answers?|materials?|answers?|procedure)\b/i;
   // The recurring teaching PHASES inside a single activity (the 3Ps / lesson-cycle
   // structure: Introduction, Presentation/Present, Practice, Production/Produce,
@@ -212,6 +225,14 @@ function boxifyActivities(blocks, opts = {}) {
         body.shift();
       }
     }
+    // A border drawn round a picture frames nothing. When everything the box would
+    // hold is images (and their captions), the heading and the pictures are emitted
+    // as they stand instead — this book labels every picture "MULIMO n", and boxing
+    // those would put a frame round all sixty of them while the sections that really
+    // are activities ("Cakuchita") and assessments ("MUSUNKO …") carry the lists that
+    // a box exists to frame: a list of things to do, a table, a nested box.
+    const framable = body.some((x) => x && /^(listitem|table|box|qa|exercise|assessment)$/.test(x.t));
+    if (!framable) { out.push(b, ...body); i = j - 1; continue; }
     out.push({ t: "framedsection", kind: k, title, body });
     i = j - 1;
   }
