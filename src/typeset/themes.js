@@ -414,6 +414,13 @@ function autoTheme(name) {
 }
 
 // Emit the Typst `#let T = (…)` block for a theme.
+//
+// Two of the emitted keys exist for LOCAL-LANGUAGE books, and are empty everywhere
+// else (an English book then keeps the English built into the template):
+//   gradeword   — the language’s word for Grade/Form, so the cover, title page and
+//                 running header split the grade line on "Giledi 1", not "Grade 1";
+//   authorlabel — its word for the byline caption, "BANEMBI" rather than "AUTHOR".
+// typeset-docx.js fills both from the book’s word list (src/typeset/lexicon/).
 function themeTypst(theme, overrides = {}) {
   const t = { ...(THEMES[theme] || THEMES.navy), ...overrides };
   const c = (h) => `rgb("#${h}")`;
@@ -425,6 +432,7 @@ function themeTypst(theme, overrides = {}) {
   year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
   subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"}, boxStripe: ${t.boxStripe === false ? "false" : "true"}, capSize: ${t.capSize || "none"},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
+  gradeword: ${q(t.gradeword || "")}, authorlabel: ${q(t.authorlabel || "")},
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
   covPrimary: ${c(t.covPrimary || t.primary)}, covPrimary2: ${c(t.covPrimary2 || t.primary2)}, covAccent: ${c(t.covAccent || t.accent)}, covSignature: ${c(t.covSignature || t.signature || t.primary)}, covCyan: ${c(t.covCyan || t.cyan || t.primary2)}, covInk: ${c(t.covInk || t.ink)}, covRulec: ${c(t.covRulec || t.rulec)},
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},

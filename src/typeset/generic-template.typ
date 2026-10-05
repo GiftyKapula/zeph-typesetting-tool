@@ -39,6 +39,25 @@
 // topic chip, bullets) = electric cyan. Every other theme uses its amber/gold.
 #let iaccent = if T.variant == "science" { T.primary } else { T.accent }
 #let iaccent2 = if T.variant == "science" { T.cyan } else { T.accent }
+// COVER / TITLE-PAGE / HEADER FURNITURE WORDING.
+// A cover line reads "<subject> <grade>" ("KIIKAONDE GRADE 1"), and every place that
+// draws it splits the grade off the subject with the same pattern. A local-language
+// book says that word in its own language — Kiikaonde "GILEDI 1" — so the word comes
+// from the theme (T.gradeword, filled from the book’s word list; empty for an English
+// book) and is matched ALONGSIDE the English, never instead of it. Defined once here
+// because nine places used to carry their own copy: the cover, the title page, the
+// back cover and the running header must split the line identically or the same
+// book shows its grade one way on the cover and another in the header.
+#let gradealt = "form|grade" + if T.at("gradeword", default: "") != "" { "|" + T.gradeword } else { "" }
+#let gradeRe = regex("(?i)(" + gradealt + ")\\s+\\d+|\\bECE\\b")
+#let gradeStrip = regex("(?i)\\s*((" + gradealt + ")\\s+\\d+|\\bECE\\b)")
+// The small caption over the cover/title-page byline. A local-language book uses its
+// own word (T.authorlabel — Kiikaonde "BANEMBI"); the word lists carry ONE form, which
+// serves one author and several alike, so only English splits AUTHOR from AUTHORS.
+#let bylinelabel(names) = {
+  let w = T.at("authorlabel", default: "")
+  if w != "" { upper(w) } else if names.len() == 1 { "AUTHOR" } else { "AUTHORS" }
+}
 // "series" page numbering is driven by the page's NATIVE numbering pattern (set
 // to roman for the front matter, arabic for the body, none on cover/title/
 // copyright) so the generated outline formats its page numbers to match. This
@@ -82,7 +101,11 @@
 // line, found no "FORM <digit>" in it, and silently dropped the FORM 2 tag from that
 // book's cover. The same trap is waiting in PERFORMING ARTS, TRANSFORMATION, REFORM.
 // (ECE books carry "ECE" where other books carry "Form N" / "Grade N")
-#let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU|ECE)\\b")) != none
+// Built from the same `gradealt` the splitting patterns use, so the test that FINDS
+// the grade line and the patterns that SPLIT it always know the same words. ("FOMU"
+// stays spelt out: it is how this list first grew a local-language word, and a book
+// whose word list is missing can still be read.)
+#let hasGradeWord(s) = upper(s).match(regex("\\b(" + upper(gradealt) + "|FOMU|ECE)\\b")) != none
 
 // CDC 2025 sets a larger body size for young readers (Grade 1 → 18pt, Grade 2-3 →
 // 16pt, Grade 4-6 → 14pt; Teacher's Guides and secondary stay 12pt). `fs()` scales a
@@ -348,11 +371,11 @@
   set text(font: T.displayFont)
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+  let formtxt = if grade != none { let m = grade.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
   // The subject title: if the grade line is "SUBJECT FORM N" use the stripped
   // subject ("PHYSICS"); if the grade line is just "FORM N", the subject sits on
   // its OWN line ("BIOLOGY") — take the first non-eyebrow, non-grade line.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { "" }
+  let gradeSubj = if grade != none { grade.replace(gradeStrip, "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
       not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
@@ -427,7 +450,7 @@
   if byline.len() > 0 {
     v(20mm)
     align(center)[
-      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
       #v(3mm)
       #if byline.len() > 2 {
         text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
@@ -566,12 +589,12 @@
     // ---------- SCIENCE cover (Physics): deep-indigo signature field with
     // concentric "electron orbit" rings, white title, amber FORM tag ----------
     let gl = if hasGradeWord(subject) { subject } else { grade }
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let formtxt = if gl != none { let m = gl.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
     // The subject title comes from the subject line with any form/grade token
     // stripped (e.g. "PHYSICS FORM 4" -> "PHYSICS"). When the subject and form
     // sit on SEPARATE lines (e.g. "BIOLOGY" + "FORM 4"), stripping leaves the
     // subject intact; fall back to the raw subject if stripping empties it.
-    let nm = subject.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim()
+    let nm = subject.replace(gradeStrip, "").trim()
     let name = if nm != "" { nm } else { subject }
     let amber = T.accent
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
@@ -798,7 +821,7 @@
         // pale, hard-to-read grey-green on a lighter/more saturated field like
         // Grade 6 Science's green, so this is no longer transparentized at all.
         let bylineBlock = block(width: 152mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#bylinelabel(byline)]
           #v(2mm)
           #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]]
         if earthCard {
@@ -846,8 +869,8 @@
     // thick-framed hero), but keeps the SAME word order: eyebrow -> subject ->
     // FORM tag -> book type -> photo -> authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(gradeStrip, "").trim() } else { subject }
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -885,7 +908,7 @@
       // authors
       #if byline.len() > 0 [
         #place(top + center, dy: 197mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
@@ -903,8 +926,8 @@
     // SAME word order: eyebrow -> subject -> FORM tag -> book type -> photo ->
     // authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(gradeStrip, "").trim() } else { subject }
     let paper = rgb("#f4f1e6")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -943,7 +966,7 @@
       // authors
       #if byline.len() > 0 [
         #place(top + center, dy: 202mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#bylinelabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
@@ -959,8 +982,8 @@
     // bleed photo band, with authors + publisher on the colour footer. A clear break
     // from Grade 3's title-band + framed-photo-card look (no scallop/zigzag). ---------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(gradeStrip, "").trim() } else { subject }
     // The cover stays in FULL COLOUR even when the interior is greyscale (blackWhite/mono),
     // so use the cover-only colour fields (they equal the theme colours for normal books).
     let primary = T.at("covPrimary", default: T.primary)
@@ -1008,7 +1031,7 @@
       // authors + publisher are BOTTOM-anchored so they never collide with a tall masthead
       #if byline.len() > 0 [
         #place(bottom + center, dy: -33mm, block(width: 162mm)[#align(center)[
-          #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#bylinelabel(byline)]
           #v(1.5mm)
           #text(size: 10pt, weight: "bold", fill: white.transparentize(24%))[#byline.join("   •   ")]]])
       ]
@@ -1023,8 +1046,8 @@
     // plate, with confetti on the field. Contained and warm — distinct from both Grade
     // 3 and the Hero Wave. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(gradeStrip, "").trim() } else { subject }
     let paper = rgb("#fffaf1")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.primary, width: 176mm, height: 250mm)[
@@ -1053,7 +1076,7 @@
       ])
       #if byline.len() > 0 [
         #place(top + center, dy: 211mm, block(width: 160mm)[#align(center)[
-          #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#bylinelabel(byline)]
           #v(1mm)
           #text(size: 9.5pt, weight: "bold", fill: white)[#byline.join("   •   ")]]])
       ]
@@ -1069,8 +1092,8 @@
     // card. Same word order as every cover: eyebrow -> subject -> GRADE tag ->
     // book type -> photo -> authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(gradeStrip, "").trim() } else { subject }
     let paper = rgb("#eafafa")
     let deep = T.primary.darken(10%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -1111,7 +1134,7 @@
       // authors ("AUTHOR" when there is only one)
       #if byline.len() > 0 [
         #place(top + center, dy: 203mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
           #v(2mm)
           #text(size: 10pt, weight: "bold", fill: deep)[#byline.join("   •   ")]]])
       ]
@@ -1123,8 +1146,8 @@
     ]
   } else if series {
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(gradeStrip, "").trim() } else { subject }
     let deepteal = T.primary.darken(30%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -1166,7 +1189,7 @@
       // --- authors: an "AUTHORS" label tab sitting on the names tag (tilted) ---
       #if byline.len() > 0 [
         #place(top + center, dy: 196mm, align(center)[
-          #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]])
+          #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#bylinelabel(byline)]])
         #place(top + center, dy: 201mm, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt)[
           #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#byline.join("   •   ")]]))
       ]
@@ -1202,7 +1225,7 @@
         #set text(fill: white)
         #align(center)[
           #if byline.len() > 0 [
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]]
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#bylinelabel(byline)]]
             \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#byline.join(", ")]
           ]
           #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
@@ -1230,7 +1253,7 @@
       #place(bottom + center, dy: -15mm, align(center)[
         #if byline.len() > 0 [
           #block(width: 170mm)[#align(center)[
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]] \ #v(1pt)
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#bylinelabel(byline)]] \ #v(1pt)
             #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.join(", ")]]]
         ]
         #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
@@ -1401,7 +1424,7 @@
       #v(6mm)
       #if byline.len() > 0 [
         #block(width: 170mm)[#align(center)[
-          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#bylinelabel(byline)]
           \ #v(1pt) #text(size: 14pt, weight: "bold")[#byline.join(", ")]]]
       ]
       #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 12mm) ]
@@ -1415,6 +1438,51 @@
 // ---- back cover (series): the last page, echoing the front cover's geometry.
 // The ISBN/barcode are added by the press later, so we only RESERVE a clean
 // box for them and otherwise carry the book identity + publisher branding. ----
+// ---------------------------------------------------------------------------
+// SPINE. A book thick enough to stand on a shelf is identified edge-on, so one
+// over 112 pages gets a printed spine, which the engine appends to the PDF as a
+// cover spread (back cover | spine | front cover). It repeats what the front
+// cover already says, in the same words and the same language: the education
+// level, the subject with its grade, the book type, the author under its own
+// caption, and the ZEPH logo at the foot. `w` is the spine width the engine
+// measured from the finished book's page count.
+//
+// The line is rotated anticlockwise, so it reads bottom-to-top: the education
+// level sits at the foot just above the logo and the author's name at the head.
+// Type is scaled by how wide the spine actually is - a 120-page book gives only
+// 6mm to set in - so a thin spine stays inside its own width.
+#let spinepage(lines, byline, logo, w) = {
+  // The spine belongs to the COVER, so like cover() it keeps the full-colour palette
+  // even when the interior is printed black-and-white (every Teacher’s Guide is).
+  // Without this the spine came out a black strip with its own dark text on it.
+  let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
+  let lvl = lines.at(0, default: "")
+  let mid = lines.at(1, default: "")
+  let booktype = if lines.len() > 2 { lines.at(lines.len() - 1) } else { "" }
+  let deep = T.primary.darken(30%)
+  let s = calc.min(1.0, w / 9mm)          // 9mm is the size the type was drawn at
+  let foot = if logo != none { 18mm } else { 6mm }
+  page(width: w, height: 250mm, margin: 0pt, header: none, footer: none, fill: T.signature)[
+    #set text(font: T.displayFont, fill: deep)
+    #if logo != none [
+      #place(bottom + center, dy: -5mm, image("_media/" + logo.file, width: calc.min(w * 0.72, 11mm)))
+    ]
+    #place(center + horizon, dy: -foot / 2,
+      rotate(-90deg, reflow: false, box(width: 250mm - foot - 12mm, height: w)[
+        #set par(spacing: 0pt, justify: false)
+        #align(left + horizon)[
+          #text(size: 6.5pt * s, weight: "bold", tracking: 1.6pt * s)[#upper(lvl)]
+          #h(5mm)
+          #text(size: 11pt * s, weight: "bold")[#upper(mid)]
+          #if booktype != "" [ #h(4mm) #text(size: 7.5pt * s, weight: "bold")[#upper(booktype)] ]
+          #if byline.len() > 0 [ #h(5mm)
+            #text(size: 6pt * s, weight: "bold", tracking: 1.4pt * s)[#bylinelabel(byline)]
+            #h(1.5mm)
+            #text(size: 7.5pt * s)[#byline.join("   •   ")] ]
+        ]
+      ]))
+  ]
+}
 #let backcover(lines, logo, isbn) = {
   // keep the cover palette even in a black-and-white interior (see cover()).
   let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
@@ -1443,13 +1511,13 @@
   let subject = lines.at(0, default: "")
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+  let formtxt = if grade != none { let m = grade.match(gradeRe); if m != none { m.text } else { "" } } else { "" }
   // Subject title: strip the form/grade token off the grade line ("ENGLISH GRADE 2"
   // -> "ENGLISH"). When the subject and the form sit on SEPARATE lines
   // ("MATHEMATICS" + "Form 1") that leaves nothing, so fall back to the first line
   // that is neither a form/grade nor the standard eyebrow. Without this fallback the
   // name came out blank and the "·" separator was left orphaned. Mirrors `cover`.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { "" }
+  let gradeSubj = if grade != none { grade.replace(gradeStrip, "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
       not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")

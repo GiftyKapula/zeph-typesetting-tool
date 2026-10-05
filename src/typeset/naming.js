@@ -1,15 +1,34 @@
 // Book naming helpers: title derivation, title-casing, teacher-book and education-level detection.
 // (Split out of typeset-docx.js — see docs/ARCHITECTURE.md.)
 
+const { term } = require("./lexicon/index.js");
+
 
 // A clean running-header title. Prefer the cover's subject line(s); otherwise
 // clean the file name (drop anything after " - " and trailing codes/dates).
+// The two cover layouts put the subject in different places: a "science" cover
+// lists [SUBJECT, GRADE, BOOK TYPE], a "series" cover [EDUCATION LEVEL, SUBJECT
+// GRADE, BOOK TYPE]. Taking line 0 as the subject therefore titled every series
+// book after its EDUCATION LEVEL - the PDF of this Kiikaonde Teacher's Guide
+// opened in a reader called "Primary Education Level". Read the subject off the
+// GRADE line instead ("KIIKAONDE GILEDI 1" -> "Kiikaonde"), and fall back to line
+// 0 only when stripping the grade leaves nothing, which is exactly the science
+// case where the grade sits on a line of its own.
+// "Grade 4", "Form 2" - and the same thing in the book's own language ("Giledi 1").
+// The words come from the book's word list, so this agrees with the cover, the
+// title page, the back cover, the spine and the running header.
+function gradeTokenRe() {
+  const own = ["grade", "form"].map((id) => term(id)).filter(Boolean);
+  return new RegExp(`(?:form|grade${own.length ? "|" + own.join("|") : ""})\\s+\\d+`, "i");
+}
+
 function deriveTitle(blocks, fallback) {
   const cover = blocks.find((b) => b.t === "cover");
   if (cover && cover.lines && cover.lines.length) {
-    // e.g. ["TECHNOLOGY STUDIES", "GRADE 4", "LEARNER'S BOOK"] -> "Grade 4 Technology Studies"
-    const subject = cover.lines[0];
-    const grade = cover.lines.find((l) => /\bgrade\s+\d/i.test(l));
+    const re = gradeTokenRe();
+    const gl = cover.lines.find((l) => re.test(l));
+    const grade = gl ? gl.match(re)[0] : "";
+    const subject = (gl ? gl.replace(re, "").trim() : "") || cover.lines[0];
     const t = grade ? `${grade} ${subject}` : subject;
     return titleCase(t);
   }

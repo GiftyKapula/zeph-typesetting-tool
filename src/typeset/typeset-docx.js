@@ -16,15 +16,68 @@ const { THEMES, autoTheme, themeTypst, tgCoverSignature } = require("./themes.js
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 const { pngDamaged, placeholderPng } = require("./png-check.js");
 const LEXI = require("./lexicon/index.js");
-const { langFor, setLang, getLang } = LEXI;
+const { langFor, setLang, getLang, term } = LEXI;
 
+// COVER FURNITURE IN THE BOOK'S OWN LANGUAGE.
+// A local-language book's cover, title page, back cover and running header carried
+// their four labels in English - PRIMARY EDUCATION LEVEL, GRADE 1, TEACHER'S GUIDE,
+// AUTHOR - on a book whose every other word is Kiikaonde. The words come from the
+// book's own word list (src/typeset/lexicon/<language>.json), so each language says
+// them one way in every book of that language; a concept the list has no word for
+// keeps the English rather than having one invented for it here.
+const LEVEL_TERM = {
+  "Primary Education Level": "level_primary",
+  "Secondary Education Ordinary Level": "level_ordinary",
+  "Secondary Education Advanced Level": "level_advanced",
+  "Early Childhood Education Level": "level_ece",
+};
+const sayLevel = (level) => (level && term(LEVEL_TERM[level])) || level;
+const sayBookType = (isTG) => term(isTG ? "teachers_guide" : "learners_book") || (isTG ? "Teacher's Guide" : "Learner's Book");
+// A book is a Grade book or a Form book, and a language has its own word for each
+// ("Giledi", "Fomu"). sayGradeWord translates the one the file name used; gradeWords
+// lists both, because the places that READ a grade line back off the cover must
+// recognise either without caring which kind of book this is.
+const sayGradeWord = (english) => term(/^f/i.test(english || "grade") ? "form" : "grade");
+const gradeWords = () => ["grade", "form"].map(term).filter(Boolean);
+
+// SPINE / COVER SPREAD.
+// A book thick enough to stand on a shelf has to be identifiable edge-on, so any
+// book over SPINE_MIN_PAGES gets a printed spine. It is appended to the PDF as the
+// cover spread a printer actually wraps round the block - back cover | spine | front
+// cover - rather than as a loose strip they would have to assemble themselves.
+//
+// The spread REUSES the rendered cover pages rather than redrawing them: page 1 and
+// the last page are embedded into the spread exactly as they were typeset, so the
+// spread can never drift from the cover it is supposed to match.
+//
+// Spine width is the book's own thickness: 80gsm text stock is 0.10mm per LEAF, and
+// a page count is twice the leaves, hence pages / 2 * 0.10mm. A printer who quotes a
+// real figure for a particular stock overrides it per book with `spineWidth`.
+const SPINE_MIN_PAGES = 112;
+const MM = 2.834645669291339;            // PostScript points per millimetre
+const spineMm = (pages) => (pages / 2) * 0.10;
+
+async function appendCoverSpread(pdfBytes, spineBytes) {
+  const { PDFDocument } = require("pdf-lib");
+  // keep Typst's own title/dates rather than stamping pdf-lib's over them
+  const book = await PDFDocument.load(pdfBytes, { updateMetadata: false });
+  const last = book.getPageCount() - 1;
+  const [frontEmb, backEmb] = await book.embedPdf(pdfBytes, [0, last]);
+  const [spineEmb] = await book.embedPdf(spineBytes, [0]);
+  const cw = frontEmb.width, ch = frontEmb.height, sw = spineEmb.width;
+  const page = book.addPage([cw * 2 + sw, ch]);
+  page.drawPage(backEmb,  { x: 0,       y: 0, width: cw, height: ch });
+  page.drawPage(spineEmb, { x: cw,      y: 0, width: sw, height: ch });
+  page.drawPage(frontEmb, { x: cw + sw, y: 0, width: cw, height: ch });
+  return Buffer.from(await book.save());
+}
 const { ROOT, resolveBookPath } = require("./paths.js");
 const INPUT_DIRS = [path.join(ROOT, "input"), path.join(ROOT, "books-to-typeset")];
 // ZEPH_OUTPUT_DIR lets a test/regression run build somewhere other than the real output/.
 const OUTPUT_DIR = process.env.ZEPH_OUTPUT_DIR ? path.resolve(process.env.ZEPH_OUTPUT_DIR) : path.join(ROOT, "output");
 
 // The engine, one concern per module (see docs/ARCHITECTURE.md).
-const { S, emit } = require("./emit.js");
+const { S, strArr, emit } = require("./emit.js");
 const { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor } = require("./naming.js");
 const { blockPlain, setBlockText } = require("./blocktext.js");
 const { applyOverrides } = require("./overrides.js");
@@ -33,7 +86,7 @@ const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatt
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
-const { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon } = require("./passes/polish.js");
+const { stripEmoji, columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
 const { writeManuscriptMd } = require("./manuscript-md.js");
 
@@ -390,7 +443,7 @@ async function typesetOne(docxPath, themeName) {
       const subj = (ov.subject || T.subject || (T.hdrleft || base)
         .replace(/^(Secondary Education Ordinary Level|Primary School)\s*/i, "").trim() || base).toUpperCase();
       // the grade/form in the file name wins over the theme's default level
-      const eyebrow = eduLevel ? eduLevel.toUpperCase() : (T.eyebrow || "SECONDARY EDUCATION ORDINARY LEVEL");
+      const eyebrow = eduLevel ? sayLevel(eduLevel).toUpperCase() : (T.eyebrow || "SECONDARY EDUCATION ORDINARY LEVEL");
       const gm = detectName.match(/(form|grade)\s*\d+/i);           // no \b: "_Form 1_" too
       // The manuscript file is occasionally saved without the form/grade digit in its own
       // name ("…Form Learners Book…" — missing the "1"). Fall back to the manuscript's OWN
@@ -401,8 +454,12 @@ async function typesetOne(docxPath, themeName) {
       const gm2 = gm || linesArr.map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
       // An explicit `grade` override wins (a roman-numeral "form II" filename); ECE books
       // carry "ECE" where other books carry "Form N" / "Grade N".
-      const grade = ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
-      const booktype = isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book";
+      let grade = ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
+      // "Grade 1" -> "Giledi 1" (the digit is the digit in any language). The template
+      // splits this same line back apart using T.gradeword, set below from the same
+      // word, so what is written here and what is matched there cannot diverge.
+      grade = grade.replace(/^(form|grade)\b/i, (w) => sayGradeWord(w) || w);
+      const booktype = sayBookType(isTeacherBookName(base));
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -561,8 +618,12 @@ async function typesetOne(docxPath, themeName) {
   // same local-language theme reads correctly at primary vs secondary level.
   if (eduLevel) {
     const subj = ov.subject || (THEMES[theme] || {}).subject;
-    if (subj) { themeOverrides.hdrleft = eduLevel + " " + subj; themeOverrides.eyebrow = eduLevel.toUpperCase(); }
+    if (subj) { themeOverrides.hdrleft = sayLevel(eduLevel) + " " + subj; themeOverrides.eyebrow = sayLevel(eduLevel).toUpperCase(); }
   }
+  // The template needs the same two words - to split the grade line, and to caption the
+  // byline. Left unset for an English book, which keeps the English built into it.
+  if (gradeWords().length) themeOverrides.gradeword = gradeWords().join("|");
+  if (term("author_section")) themeOverrides.authorlabel = term("author_section");
   // Grade 2 primary books get their OWN cover style, visually distinct from Grade 3 —
   // applied to every Grade 2 primary Learner's/Teacher's book regardless of theme
   // (mathsci/cts share the "grade3" cover; primaryeng/local-language use the default).
@@ -572,10 +633,18 @@ async function typesetOne(docxPath, themeName) {
   if (ov.coverStyle) themeOverrides.coverStyle = ov.coverStyle;
   const coverB = blocks.find((b) => b.t === "cover");
   if (coverB && coverB.lines && coverB.lines.length) {
-    const gl = coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
-    const grade = gl ? (gl.match(/(?:form|grade)\s+\d+/i) || [""])[0] : "";
+    // read with the same grade word the cover was written with, so the header pill says
+    // "Giledi 1 Buuku wa Mufunjishi" on a Kiikaonde book and "Grade 1 Teacher's Guide"
+    // on an English one - never the cover in one language and the header in the other.
+    const gw = gradeWords().join("|");
+    const gre = new RegExp("(?:form|grade" + (gw ? "|" + gw : "") + ")\\s+\\d+", "i");
+    const gl = coverB.lines.find((l) => gre.test(l));
+    const grade = gl ? (gl.match(gre) || [""])[0] : "";
     const booktype = coverB.lines[coverB.lines.length - 1] || "";
-    if (grade && booktype) themeOverrides.hdrtab = titleCase(`${grade} ${booktype}`);
+    // titleCase tidies an English pill typed any-old-how; a word-list wording already
+    // carries its house casing (Kiikaonde 'Buuku wa Mufunjishi' keeps its lower-case
+    // 'wa'), so it is used as written rather than re-capitalised word by word.
+    if (grade && booktype) themeOverrides.hdrtab = gw ? `${titleCase(grade)} ${booktype}` : titleCase(`${grade} ${booktype}`);
     // ECE books have no grade: the pill just names the book type ("Teacher's Guide")
     else if (booktype && eduLevel === "Early Childhood Education Level") themeOverrides.hdrtab = booktype;
   }
@@ -821,6 +890,18 @@ async function typesetOne(docxPath, themeName) {
     const nRuns = tidyRuns(blocks);
     if (nRuns) console.log(`   stray spaces round punctuation closed up: ${nRuns}`);
   }
+  // Emoji out, and with them any list item or paragraph that was nothing else.
+  {
+    const nEmoji = stripEmoji(blocks);
+    if (nEmoji) {
+      const before = blocks.length;
+      blocks = blocks.filter((b) => !(/^(para|listitem|label|head)$/.test(b.t)
+        && !(b.text || "").trim()
+        && !((b.segs || []).some((s) => (s.t || "").trim()))
+        && !(b.imgs && b.imgs.length)));
+      console.log(`   emoji removed: ${nEmoji} run(s)` + (before - blocks.length ? `, ${before - blocks.length} now-empty line(s) dropped` : ""));
+    }
+  }
   // A lead-in line that introduces a list — "Mikumbu yaketekelwa:" (expected answers),
   // "Byakuuba bafunda:" (what the learners do) — belongs at its list's level. Left at the
   // body margin it sits level with the activity label above it while everything it
@@ -929,7 +1010,33 @@ async function typesetOne(docxPath, themeName) {
   const bookDir = path.join(OUTPUT_DIR, gradeFolder, base);
   fs.mkdirSync(bookDir, { recursive: true });
   const outPath = path.join(bookDir, `${base} - typeset.pdf`);
-  fs.writeFileSync(outPath, Buffer.from(pdf));
+  let outBytes = Buffer.from(pdf);
+
+  // The spine can only be measured once the book exists, so this is a second pass:
+  // count the finished pages, render a spine of that width, append the spread.
+  {
+    const { PDFDocument } = require("pdf-lib");
+    const pages = (await PDFDocument.load(outBytes)).getPageCount();
+    const wMm = ov.spineWidth != null ? parseFloat(String(ov.spineWidth)) : spineMm(pages);
+    const cov = blocks.find((b) => b.t === "cover") || {};
+    if (pages > SPINE_MIN_PAGES && wMm > 0 && cov.lines && !process.env.ZEPH_NO_SPINE) {
+      const logoArg = cov.logo ? `(file: ${S(cov.logo.file)})` : "none";
+      const spineDoc = `${themeTypst(theme, themeOverrides)}${tmpl}
+#show: doc.with(title: ${S(title)})
+`
+        + `#spinepage(${strArr(cov.lines)}, ${strArr(cov.byline || [])}, ${logoArg}, ${wMm.toFixed(2)}mm)
+`;
+      try {
+        outBytes = await appendCoverSpread(outBytes, Buffer.from(compiler.pdf({ mainFileContent: spineDoc })));
+        console.log(`   cover spread: ${pages} pages -> ${wMm.toFixed(1)}mm spine (back | spine | front) appended as the last page`);
+      } catch (e) {
+        console.warn("!  cover spread not built:", e.message);
+      }
+    } else if (pages <= SPINE_MIN_PAGES) {
+      console.log(`   no spine: ${pages} pages is at or under the ${SPINE_MIN_PAGES}-page threshold`);
+    }
+  }
+  fs.writeFileSync(outPath, outBytes);
   // keep the generated .typ alongside the PDF (and by the runner) for inspection
   fs.writeFileSync(path.join(bookDir, "_source.typ"), doc);
   fs.writeFileSync(path.join(__dirname, "_last-docx.typ"), doc);
