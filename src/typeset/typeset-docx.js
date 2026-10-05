@@ -16,7 +16,23 @@ const { THEMES, autoTheme, themeTypst, tgCoverSignature } = require("./themes.js
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 const { pngDamaged, placeholderPng } = require("./png-check.js");
 const LEXI = require("./lexicon/index.js");
-const { langFor, setLang, getLang } = LEXI;
+const { langFor, setLang, getLang, term } = LEXI;
+
+// COVER FURNITURE IN THE BOOK'S OWN LANGUAGE.
+// A local-language book's cover, title page, back cover and running header carried
+// their labels in English - EARLY CHILDHOOD EDUCATION LEVEL, LEARNER'S BOOK, AUTHOR
+// - on a book whose every other word is Chitonga. The words come from the book's own
+// word list (src/typeset/lexicon/<language>.json), so each language says them one way
+// in every book of that language; a concept the list has no word for keeps the
+// English rather than having one invented for it here.
+const LEVEL_TERM = {
+  "Primary Education Level": "level_primary",
+  "Secondary Education Ordinary Level": "level_ordinary",
+  "Secondary Education Advanced Level": "level_advanced",
+  "Early Childhood Education Level": "level_ece",
+};
+const sayLevel = (level) => (level && term(LEVEL_TERM[level])) || level;
+const sayBookType = (isTG) => term(isTG ? "teachers_guide" : "learners_book") || (isTG ? "Teacher's Guide" : "Learner's Book");
 
 const { ROOT, resolveBookPath } = require("./paths.js");
 const INPUT_DIRS = [path.join(ROOT, "input"), path.join(ROOT, "books-to-typeset")];
@@ -518,7 +534,7 @@ async function typesetOne(docxPath, themeName) {
       const subj = (ov.subject || T.subject || (T.hdrleft || base)
         .replace(/^(Secondary Education Ordinary Level|Primary School)\s*/i, "").trim() || base).toUpperCase();
       // the grade/form in the file name wins over the theme's default level
-      const eyebrow = eduLevel ? eduLevel.toUpperCase() : (T.eyebrow || "SECONDARY EDUCATION ORDINARY LEVEL");
+      const eyebrow = eduLevel ? sayLevel(eduLevel).toUpperCase() : (T.eyebrow || "SECONDARY EDUCATION ORDINARY LEVEL");
       const gm = detectName.match(/(form|grade)\s*\d+/i);           // no \b: "_Form 1_" too
       // The manuscript file is occasionally saved without the form/grade digit in its own
       // name ("…Form Learners Book…" — missing the "1"). Fall back to the manuscript's OWN
@@ -530,7 +546,7 @@ async function typesetOne(docxPath, themeName) {
       // An explicit `grade` override wins (a roman-numeral "form II" filename); ECE books
       // carry "ECE" where other books carry "Form N" / "Grade N".
       const grade = ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
-      const booktype = isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book";
+      const booktype = sayBookType(isTeacherBookName(base));
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -711,8 +727,11 @@ async function typesetOne(docxPath, themeName) {
   // same local-language theme reads correctly at primary vs secondary level.
   if (eduLevel) {
     const subj = ov.subject || (THEMES[theme] || {}).subject;
-    if (subj) { themeOverrides.hdrleft = eduLevel + " " + subj; themeOverrides.eyebrow = eduLevel.toUpperCase(); }
+    if (subj) { themeOverrides.hdrleft = sayLevel(eduLevel) + " " + subj; themeOverrides.eyebrow = sayLevel(eduLevel).toUpperCase(); }
   }
+  // the same word the cover byline is captioned with; unset for an English book,
+  // which keeps the AUTHOR/AUTHORS built into the template.
+  if (term("author_section")) themeOverrides.authorlabel = term("author_section");
   // Grade 2 primary books get their OWN cover style, visually distinct from Grade 3 —
   // applied to every Grade 2 primary Learner's/Teacher's book regardless of theme
   // (mathsci/cts share the "grade3" cover; primaryeng/local-language use the default).

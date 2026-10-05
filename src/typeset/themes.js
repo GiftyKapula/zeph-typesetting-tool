@@ -410,6 +410,11 @@ function autoTheme(name) {
 }
 
 // Emit the Typst `#let T = (…)` block for a theme.
+//
+// `authorlabel` exists for LOCAL-LANGUAGE books and is empty everywhere else (an
+// English book then keeps the AUTHOR/AUTHORS built into the template): it is the
+// language’s own word for the byline caption, Chitonga “BALEMBI”. typeset-docx.js
+// fills it from the book’s word list (src/typeset/lexicon/).
 function themeTypst(theme, overrides = {}) {
   const t = { ...(THEMES[theme] || THEMES.navy), ...overrides };
   const c = (h) => `rgb("#${h}")`;
@@ -421,6 +426,7 @@ function themeTypst(theme, overrides = {}) {
   year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
   subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"}, boxStripe: ${t.boxStripe === false ? "false" : "true"}, capSize: ${t.capSize || "none"},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
+  authorlabel: ${q(t.authorlabel || "")},
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
   covPrimary: ${c(t.covPrimary || t.primary)}, covPrimary2: ${c(t.covPrimary2 || t.primary2)}, covAccent: ${c(t.covAccent || t.accent)}, covSignature: ${c(t.covSignature || t.signature || t.primary)}, covCyan: ${c(t.covCyan || t.cyan || t.primary2)}, covInk: ${c(t.covInk || t.ink)}, covRulec: ${c(t.covRulec || t.rulec)},
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},

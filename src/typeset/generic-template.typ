@@ -39,6 +39,14 @@
 // topic chip, bullets) = electric cyan. Every other theme uses its amber/gold.
 #let iaccent = if T.variant == "science" { T.primary } else { T.accent }
 #let iaccent2 = if T.variant == "science" { T.cyan } else { T.accent }
+// The small caption over the cover/title-page byline. A local-language book uses its
+// own word (T.authorlabel - Chitonga “BALEMBI”); the word lists carry ONE form, which
+// serves one author and several alike, so only English splits AUTHOR from AUTHORS.
+// Defined once because eleven places carried their own copy of the English.
+#let bylinelabel(names) = {
+  let w = T.at("authorlabel", default: "")
+  if w != "" { upper(w) } else if names.len() == 1 { "AUTHOR" } else { "AUTHORS" }
+}
 // "series" page numbering is driven by the page's NATIVE numbering pattern (set
 // to roman for the front matter, arabic for the body, none on cover/title/
 // copyright) so the generated outline formats its page numbers to match. This
@@ -427,7 +435,7 @@
   if byline.len() > 0 {
     v(20mm)
     align(center)[
-      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
       #v(3mm)
       #if byline.len() > 2 {
         text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
@@ -798,7 +806,7 @@
         // pale, hard-to-read grey-green on a lighter/more saturated field like
         // Grade 6 Science's green, so this is no longer transparentized at all.
         let bylineBlock = block(width: 152mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#bylinelabel(byline)]
           #v(2mm)
           #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]]
         if earthCard {
@@ -885,7 +893,7 @@
       // authors
       #if byline.len() > 0 [
         #place(top + center, dy: 197mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
@@ -943,7 +951,7 @@
       // authors
       #if byline.len() > 0 [
         #place(top + center, dy: 202mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#bylinelabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
@@ -1008,7 +1016,7 @@
       // authors + publisher are BOTTOM-anchored so they never collide with a tall masthead
       #if byline.len() > 0 [
         #place(bottom + center, dy: -33mm, block(width: 162mm)[#align(center)[
-          #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#bylinelabel(byline)]
           #v(1.5mm)
           #text(size: 10pt, weight: "bold", fill: white.transparentize(24%))[#byline.join("   •   ")]]])
       ]
@@ -1053,7 +1061,7 @@
       ])
       #if byline.len() > 0 [
         #place(top + center, dy: 211mm, block(width: 160mm)[#align(center)[
-          #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#bylinelabel(byline)]
           #v(1mm)
           #text(size: 9.5pt, weight: "bold", fill: white)[#byline.join("   •   ")]]])
       ]
@@ -1111,7 +1119,7 @@
       // authors ("AUTHOR" when there is only one)
       #if byline.len() > 0 [
         #place(top + center, dy: 203mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
           #v(2mm)
           #text(size: 10pt, weight: "bold", fill: deep)[#byline.join("   •   ")]]])
       ]
@@ -1166,7 +1174,7 @@
       // --- authors: an "AUTHORS" label tab sitting on the names tag (tilted) ---
       #if byline.len() > 0 [
         #place(top + center, dy: 196mm, align(center)[
-          #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]])
+          #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#bylinelabel(byline)]])
         #place(top + center, dy: 201mm, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt)[
           #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#byline.join("   •   ")]]))
       ]
@@ -1202,7 +1210,7 @@
         #set text(fill: white)
         #align(center)[
           #if byline.len() > 0 [
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]]
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#bylinelabel(byline)]]
             \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#byline.join(", ")]
           ]
           #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
@@ -1230,7 +1238,7 @@
       #place(bottom + center, dy: -15mm, align(center)[
         #if byline.len() > 0 [
           #block(width: 170mm)[#align(center)[
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]] \ #v(1pt)
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#bylinelabel(byline)]] \ #v(1pt)
             #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.join(", ")]]]
         ]
         #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
@@ -1401,7 +1409,7 @@
       #v(6mm)
       #if byline.len() > 0 [
         #block(width: 170mm)[#align(center)[
-          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#bylinelabel(byline)]
           \ #v(1pt) #text(size: 14pt, weight: "bold")[#byline.join(", ")]]]
       ]
       #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 12mm) ]
