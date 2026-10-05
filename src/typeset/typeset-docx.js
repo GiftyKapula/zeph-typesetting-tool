@@ -28,7 +28,7 @@ const { S, emit } = require("./emit.js");
 const { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor } = require("./naming.js");
 const { blockPlain, setBlockText } = require("./blocktext.js");
 const { applyOverrides } = require("./overrides.js");
-const { levelHeadingVariants, boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly } = require("./passes/structure.js");
+const { unboxPictureOnly, levelHeadingVariants, boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly } = require("./passes/structure.js");
 const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatter } = require("./passes/series-front.js");
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
@@ -116,6 +116,8 @@ async function typesetOne(docxPath, themeName) {
   // only to place pictures side by side, with at most a short label in a cell. Rendered as
   // a table those pictures shrink to thumbnails; unpack each such table into its short
   // labels (as headings) and its pictures (one full-width row per table row).
+  // A box that encloses nothing but pictures is not a box (see unboxPictureOnly).
+  blocks = unboxPictureOnly(blocks);
   if (ov.untableImages) {
     const out = [];
     let n = 0;
@@ -385,6 +387,26 @@ async function typesetOne(docxPath, themeName) {
   // Competence(s)" case is a house-style rule for every book, not just the boxActivities
   // ones — see normaliseCompetenceLabels() above.
   normaliseCompetenceLabels(blocks);
+  // termPages: "regex" — a heading/line matching it ("TEMU 1" = Term 1 in a Kiikaonde ECE
+  // book) gets a page of its own in large type. One that would land just before the body
+  // start is moved after it, so the term page opens the arabic-numbered body.
+  if (ov.termPages) {
+    const re = new RegExp(ov.termPages, "i");
+    let n = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t)) continue;
+      const t = (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
+      if (!re.test(t)) continue;
+      blocks[i] = { t: "termpage", text: t }; n++;
+      const nx = blocks.findIndex((x, k) => k > i && x.t !== "vspace");
+      if (nx > 0 && blocks[nx].t === "bodystart") { const [bs] = blocks.splice(nx, 1); blocks.splice(i, 0, bs); i++; }
+    }
+    if (n) console.log(`   termPages: ${n} term page(s)`);
+  }
+  // (a term banner is resolved BEFORE boxing: an assessment box that ran to the end
+  //  of its section would otherwise swallow the banner, and termPages - which used to
+  //  run later - would never see it again.)
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   // after boxing, so the assessment bodies exist to scan
@@ -786,23 +808,6 @@ async function typesetOne(docxPath, themeName) {
   // Front-matter sections into the house order (Author … Acronyms); opt out per book.
   // Runs last, once the body-start marker and every heading are final.
   if (!ov.keepFrontOrder && variant !== "syllabus") blocks = orderFrontMatter(blocks);
-  // termPages: "regex" — a heading/line matching it ("TEMU 1" = Term 1 in a Kiikaonde ECE
-  // book) gets a page of its own in large type. One that would land just before the body
-  // start is moved after it, so the term page opens the arabic-numbered body.
-  if (ov.termPages) {
-    const re = new RegExp(ov.termPages, "i");
-    let n = 0;
-    for (let i = 0; i < blocks.length; i++) {
-      const b = blocks[i];
-      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t)) continue;
-      const t = (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
-      if (!re.test(t)) continue;
-      blocks[i] = { t: "termpage", text: t }; n++;
-      const nx = blocks.findIndex((x, k) => k > i && x.t !== "vspace");
-      if (nx > 0 && blocks[nx].t === "bodystart") { const [bs] = blocks.splice(nx, 1); blocks.splice(i, 0, bs); i++; }
-    }
-    if (n) console.log(`   termPages: ${n} term page(s)`);
-  }
   // lessonLabels: true — a lesson-plan Teacher's Guide written as "LABEL: text" lines
   // (MUFUNJISHI:, BAFUNDA:, LWESEKO: …). The ALL-CAPS label is set bold; a label line the
   // author put inside a numbered list stops being a list item (so it neither takes a

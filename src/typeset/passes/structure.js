@@ -56,6 +56,91 @@ function renumberBoxItems(body) {
   }
 }
 
+// A box frames the thing it encloses, so a box that encloses nothing but PICTURES is
+// not a box — the border frames the pictures, which already have their own edges, and
+// says nothing the heading above them does not.
+//
+// This is the one rule, applied once, after import. A picture label can reach the page
+// as a box by several routes — the author put it in a table with its pictures, or drew
+// it as a Word shape the box recovery picks up — and the ECE Chitonga Learner's Book
+// hit one of them exactly once: it labels every picture "MULIMO n", and fifty-nine of
+// those printed as a plain heading while the sixtieth printed inside a titled panel.
+// One element, two appearances, decided by nothing the reader can see.
+//
+// Un-boxed to match: the title becomes the heading it is everywhere else, and the
+// pictures follow it. A box with any real content - a question, a list, a table, a
+// paragraph of instructions - is left exactly as it was.
+function unboxPictureOnly(blocks) {
+  const PIC = /^(img|image|imagerow|pendingimg)$/;
+  const isPic = (x) => !!x && PIC.test(x.t || x.kind || "");
+  const titleOf = (b) => (b.t === "exercise" ? b.heading : b.title) || "";
+  const contentOf = (b) => (b.t === "activity" ? (b.body || []) : (b.parts || []));
+  const out = [];
+  let n = 0, nSplit = 0;
+  for (const b of blocks) {
+    if (!b || !/^(exercise|activity|assessment)$/.test(b.t)) { out.push(b); continue; }
+    const content = contentOf(b);
+    if (!content.length || !content.every(isPic)) { out.push(b); continue; }
+    const title = String(titleOf(b)).trim();
+    if (title) out.push({ t: "head", text: title });
+    for (const x of content) {
+      const imgs = x.images || (x.file ? [x] : []);
+      if (!imgs.length) continue;
+      out.push(imgs.length === 1 ? { t: "image", ...imgs[0] } : { t: "imagerow", images: imgs });
+    }
+    n++;
+  }
+  if (n) console.log(`   ${n} picture-only box(es) set as a heading and its pictures`);
+  // A box that contains ANOTHER box's title is really two things the author typed into
+  // one container. The ECE Chitonga Learner's Book drew "MULIMO 2" as a picture label
+  // and then, inside the same shape, wrote a whole "Cakuchita" activity with its
+  // question — so that one picture printed inside a titled panel while the other
+  // fifty-nine stood under a plain heading, and the activity was buried in it. Split
+  // at the inner title: what comes before it is the picture label, what follows is the
+  // activity, and each is then judged on its own by the picture-only rule above.
+  const innerTitle = (x) => {
+    const t = String((x && (x.q || x.text || x.title)) || "").trim();
+    if (!t || t.length > 60) return null;
+    return LEXI.boxKind(t);
+  };
+  const split = [];
+  for (const b of out) {
+    if (!b || !/^(exercise|activity|assessment)$/.test(b.t)) { split.push(b); continue; }
+    const content = contentOf(b);
+    const at = content.findIndex((x, i) => i > 0 && innerTitle(x));
+    if (at < 0) { split.push(b); continue; }
+    const headPart = content.slice(0, at);
+    const tailPart = content.slice(at);
+    const innerK = innerTitle(tailPart[0]);
+    const title = String(titleOf(b)).trim();
+    if (title) split.push({ t: "head", text: title });
+    for (const x of headPart) {
+      const imgs = x.images || (x.file ? [x] : []);
+      if (imgs.length) split.push(imgs.length === 1 ? { t: "image", ...imgs[0] } : { t: "imagerow", images: imgs });
+      else split.push({ t: "para", segs: x.qseg || x.segs || [{ t: String(x.q || x.text || ""), b: false, it: false, c: null }] });
+    }
+    const innerName = String((tailPart[0].q || tailPart[0].text || "")).trim();
+    const rest = tailPart.slice(1);
+    // An activity box carries BODY BLOCKS; an exercise/assessment carries QA PARTS.
+    // The content being split out came from the outer box and is already in parts
+    // shape, so convert it when the inner title asks for an activity - handing parts
+    // to an activity block fails the Typst compile outright.
+    const kindT = innerK === "activity" ? "activity" : innerK === "assessment" ? "assessment" : "exercise";
+    const asBody = (ps) => ps.map((x) => (x.kind === "image"
+      ? { t: "imagerow", images: x.images }
+      : x.marker
+        ? { t: "listitem", marker: x.marker, segs: x.qseg || [{ t: String(x.q || ""), b: false, it: false, c: null }] }
+        : { t: "para", segs: x.qseg || [{ t: String(x.q || ""), b: false, it: false, c: null }] }));
+    if (!rest.length) { split.push({ t: "head", text: innerName }); nSplit++; continue; }
+    split.push(kindT === "activity" ? { t: "activity", title: innerName, body: asBody(rest) }
+      : kindT === "exercise" ? { t: "exercise", heading: innerName, parts: rest }
+      : { t: "assessment", title: innerName, intro: [], parts: rest, extra: [] });
+    nSplit++;
+  }
+  if (nSplit) console.log(`   ${nSplit} box(es) split where the author nested another box's title inside`);
+  return split;
+}
+
 function boxifyActivities(blocks, opts = {}) {
   // `looseStarts` (per-book): also treat a `para`/`listitem`/`h2` block as an
   // activity/exercise/assessment box START (not just a real head/label) and absorb a
@@ -139,7 +224,7 @@ function boxifyActivities(blocks, opts = {}) {
   // A pre-built box / already-framed block (from the importer or an earlier pass): its
   // presence always ENDS an open box — the orphan content before it belongs to the box,
   // but the box itself is a sibling, never absorbed.
-  const BOXBLOCK = new Set(["exercise", "activity", "assessment", "framedsection", "keypoints", "fact", "box"]);
+  const BOXBLOCK = new Set(["exercise", "activity", "assessment", "framedsection", "keypoints", "fact", "box", "termpage"]);
   // The text used to test whether a block STARTS a box. Real heads/labels use their
   // .text; with looseStarts a paragraph/list-item/sub-head uses its plain text so an
   // activity the author typed as body text ("Activity 1: …") or a coloured sub-head
@@ -875,4 +960,4 @@ function levelHeadingVariants(blocks) {
   }
   return n + houseN;
 }
-module.exports = { levelHeadingVariants, boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };
+module.exports = { unboxPictureOnly, levelHeadingVariants, boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };
