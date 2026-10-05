@@ -34,5 +34,12 @@
       "from": "Cinyanja",
       "to": "Cibemba"
     }
+  ],
+  "replaceExact": [
+    {
+      "find": "ABELEMBELE UMUKU WAKUBALILAPO NIBA:",
+      "with": "ABALEMBELE UMUKU WAKUBALILAPO NIBA:",
+      "all": true
+    }
   ]
 }

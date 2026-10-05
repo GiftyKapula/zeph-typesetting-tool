@@ -596,7 +596,10 @@ function applyOverrides(blocks, ov) {
     let n = 0;
     for (const b of flat) {
       if (!(b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)) || typeof b.text !== "string") continue;
-      if (b.text.trim() !== ap) continue;
+      // `ap` is always the OPTIONS OBJECT by here (a bare string was wrapped into
+      // one above), so comparing the heading's text against it never matched and
+      // every asPara entry silently did nothing but print "asPara not matched".
+      if (b.text.trim() !== ap.find) continue;
       const t = b.text.trim();
       b.t = "para"; delete b.text; delete b.marker;
       // {bold: true} keeps the whole line bold (a key sentence the importer took for a
@@ -1509,7 +1512,15 @@ function applyOverrides(blocks, ov) {
   // (e.g. trimming a paragraph so a front-matter section fits on one page).
   for (const sub of ov.remove || []) {
     for (let i = blocks.length - 1; i >= 0; i--) {
-      if (blockPlain(blocks[i]).includes(sub)) blocks.splice(i, 1);
+      if (blockPlain(blocks[i]).includes(sub)) { blocks.splice(i, 1); continue; }
+      // A line INSIDE a box was out of reach: blockPlain reports a box's own text,
+      // not its body, so `remove` could not touch one and the line stayed put. Take
+      // out just the offending body line rather than the whole box — a box left with
+      // nothing in it already prints nothing (see emit.js).
+      const body = blocks[i] && blocks[i].body;
+      if (Array.isArray(body)) {
+        for (let k = body.length - 1; k >= 0; k--) if (blockPlain(body[k]).includes(sub)) body.splice(k, 1);
+      }
     }
   }
   // removeWhereNext: [{ find, next }] — delete the FIRST block containing `find`, but
