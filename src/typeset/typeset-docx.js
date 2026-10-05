@@ -333,8 +333,20 @@ async function typesetOne(docxPath, themeName) {
     if (fs.existsSync(p)) {
       const nm = "cover_hero" + path.extname(p);
       media.push({ src: p, name: nm });
-      const cov = blocks.find((b) => b.t === "cover");
-      if (cov) cov.hero = { file: nm, w: 0, tall: false };
+      let cov = blocks.find((b) => b.t === "cover");
+      // No cover block at all: the importer did not recognise this manuscript's
+      // first page as a cover, so the override was accepted and then silently
+      // dropped — the book printed the author's own cover graphic inline as an
+      // ordinary little figure and had no cover of its own. Naming a cover image
+      // IS saying the book has a cover, so make one for the hero to sit on; the
+      // synthesis below then fills in the title, grade and book type exactly as
+      // it does for every other book.
+      if (!cov) {
+        cov = { t: "cover", lines: [], byline: [], hero: null, logo: null };
+        blocks.unshift(cov);
+        console.log("   coverImage given but the manuscript had no cover page — one was created");
+      }
+      cov.hero = { file: nm, w: 0, tall: false };
     } else console.warn("!  coverImage not found:", p);
   }
 

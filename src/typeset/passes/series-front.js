@@ -204,10 +204,20 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
         let j = i;
         const lines = [];
         while (j < b.length && (isText(b[j]) || (h1Sig && sigH1(b[j])))) {
+          const t = plainOfBlk(b[j]);
+          // A signatory block is at most three SHORT lines — name, title,
+          // organisation. Without a stop condition this loop ran on through every
+          // text block that followed, so one signatory swallowed the whole of the
+          // next section: its heading and all its prose were re-laid as signature
+          // lines in the signature's narrow centred column, piling up on top of
+          // one another and running off the foot of the page as unreadable text.
+          // A line of prose (longer than a signatory line ever is) ends the block,
+          // and so does the third line.
+          if (!t || t.length > 60 || lines.length >= 3) break;
           // The signatory's name (the first line) is always bold; an all-caps
           // organisation line (e.g. "ZAMBIA EDUCATIONAL PUBLISHING HOUSE") is bold
           // too; the title line (e.g. "Board Chairperson") is always regular weight.
-          lines.push(sigLine(plainOfBlk(b[j]), j === i));
+          lines.push(sigLine(t, j === i));
           j++;
         }
         withSig.push({ t: "signature", lines });
