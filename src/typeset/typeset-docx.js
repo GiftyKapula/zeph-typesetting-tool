@@ -414,7 +414,16 @@ async function typesetOne(docxPath, themeName) {
       // An explicit `grade` override wins (a roman-numeral "form II" filename); ECE books
       // carry "ECE" where other books carry "Form N" / "Grade N".
       const grade = ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
-      const booktype = isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book";
+      // A local-language book says what kind of book it is in ITS OWN language.
+      // The authors gave the words on the ZEPH word form (Bemba "Icitabo ca
+      // Musambi", Tonga "Bbuku lyasicikolo", Nyanja "BUKU LA M'PHUNZI"…), so take
+      // the wording from the loaded word list rather than printing the English
+      // default on the cover of a Bemba book. An English book loads no word list
+      // and is unchanged. This line also feeds the running header's pill (see
+      // hdrtab below), so the two always agree.
+      const isTG = isTeacherBookName(base);
+      const langType = LEXI.words([isTG ? "teachers_guide" : "learners_book"])[0];
+      const booktype = langType || (isTG ? "Teacher's Guide" : "Learner's Book");
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -650,6 +659,15 @@ async function typesetOne(docxPath, themeName) {
   const langToc = LEXI.words(["contents"])[0];
   if (langToc && (THEMES[theme] || {}).toctitle === "Table of Contents") themeOverrides.toctitle = langToc;
   if (ov.toctitle) themeOverrides.toctitle = ov.toctitle;
+  // The cover captions its byline "AUTHOR"/"AUTHORS". A local-language book says
+  // that in its own language too — the word form carries it (Bemba "Bakalemba",
+  // Lunda "Akwakusoneka"…). A book whose own front matter uses a different word
+  // for its authors should say what the book says, so `authorLabel` overrides it:
+  // the Icibemba Learner's Book credits "ABALEMBELE" on its imprint page, and the
+  // cover must not caption the same people with a different word.
+  const langAuth = LEXI.words(["author_section"])[0];
+  if (langAuth) themeOverrides.authorLabel = langAuth;
+  if (ov.authorLabel) themeOverrides.authorLabel = ov.authorLabel;
   if (ov.captionSize) themeOverrides.capSize = ov.captionSize;
   // "boxStripe": false — plain tinted activity/exercise/assessment boxes, no thick left border
   if (ov.boxStripe === false) themeOverrides.boxStripe = false;   // e.g. "12pt" (see capsz in the template)
