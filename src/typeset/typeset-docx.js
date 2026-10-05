@@ -575,6 +575,36 @@ async function typesetOne(docxPath, themeName) {
         }
       }
     }
+    // Still no byline, and the book has no AUTHORS bio section either: look on the
+    // IMPRINT page, where many books put the credit instead. A local-language book
+    // names it in its own word — the ECE Chitonga Learner's Book heads the credit
+    // "Balembi" and sets "Chriscent Simunkombwe" bold on the line below — so the word
+    // comes from the language's own list rather than an English heading, and the
+    // credit is read from the centred imprint paragraphs rather than from a heading,
+    // because on the imprint page that is all it ever is.
+    if (cov && (!cov.byline || !cov.byline.length) && !Array.isArray(ov.authors)) {
+      const words = LEXI.words(["author_section"]).concat(["AUTHOR", "AUTHORS"]);
+      const plain = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t || "").join("")).replace(/\s+/g, " ").trim();
+      const isCredit = (t) => { const src = LEXI.altSrc(words); return !!src && new RegExp("^(?:" + src + ")\\s*:?\\s*$", "i").test(t); };
+      const names = [];
+      for (let i = 0; i < blocks.length; i++) {
+        if (!isCredit(plain(blocks[i]))) continue;
+        for (let j = i + 1; j < Math.min(i + 4, blocks.length); j++) {
+          const nb = blocks[j];
+          const t = plain(nb);
+          if (!t) continue;
+          const bold = Array.isArray(nb.segs) ? nb.segs.some((s) => s.b && (s.t || "").trim()) : nb.t === "label";
+          if (!bold) break;                                  // the name is set bold under the credit
+          if (t.length >= 3 && t.length <= 40 && /^[A-Z][A-Za-z'`.\- ]+$/.test(t)) names.push(t);
+          break;
+        }
+        if (names.length) break;
+      }
+      if (names.length) {
+        cov.byline = names;
+        console.log("   author taken from the imprint credit:", names.join(", "));
+      }
+    }
     // Explicit author list from overrides wins (restores names the manuscript
     // buried in a long bio line, which the name-filter drops). An empty array is a
     // deliberate "hide the author byline" — the client didn't want names credited

@@ -1,8 +1,10 @@
 {
+  "coverImage": "ECE 3-4 YEARS CHITONGA  LB-hires/cover-chitonga-scene.png",
   "untableImages": true,
   "uniformImages": 78,
   "termPages": "^TE+MU\\s*\\d",
   "keepHeadsWithUnit": true,
+  "boxActivities": true,
   "images": {
     "image62.png": {
       "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image62.png"
@@ -110,6 +112,5 @@
       "from": "balikKede",
       "to": "balikkede"
     }
-  ],
-  "boxActivities": true
+  ]
 }
