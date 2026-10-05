@@ -17,6 +17,45 @@ const LEXI = require("../lexicon/index.js");
 // assessment heading and runs until the next such heading, the next topic/
 // sub-topic, or a fresh content heading — internal labels (Teaching and Learning
 // Materials, Teacher Facilitation Procedure, Teacher Notes, …) stay inside it.
+// HOUSE STYLE (docs/HOUSE-STYLE.md s.4): a box's top items always renumber 1..N, and
+// sub-parts a/b/c reset under each parent. That rule was only ever applied by the
+// import-time question builder, which runs for a box the manuscript authored as a
+// table or under a recognised heading. A box built HERE — by wrapping blocks that were
+// already parsed as ordinary list items — never passed through it, so those boxes kept
+// whatever Word counter the author's list happened to be on. The ECE Chitonga Learner's
+// Book runs ONE continuous Word list through the whole book, so its boxes opened at
+// "3.", "5." and "2." instead of at 1, and the book needed seven hand-written setMarker
+// overrides to say what the house style already promised.
+//
+// Renumber the box's own items: decimal tops count 1..N, letters and roman numerals
+// reset under the top they follow. The author's marker FORMAT is kept — "1." stays
+// "1.", "1)" stays "1)" — and a bullet is never touched, because a bullet is not a
+// numbered item.
+function renumberBoxItems(body) {
+  const DEC = /^\(?(\d+)([.)])?$/;
+  const LET = /^\(?([a-z])([.)])?$/i;
+  const ROM = /^\(?([ivx]+)([.)])?$/i;
+  const fmt = (m, n, kind) => {
+    const open = /^\(/.test(m) ? "(" : "";
+    const close = /[.)]$/.test(m) ? m.slice(-1) : "";
+    const body2 = kind === "dec" ? String(n)
+      : kind === "let" ? String.fromCharCode(96 + ((n - 1) % 26) + 1)
+      : ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"][n - 1] || String(n);
+    const cased = kind === "let" && /^[(]?[A-Z]/.test(m) ? body2.toUpperCase() : body2;
+    return open + cased + close;
+  };
+  let top = 0, sub = 0;
+  for (const b of body) {
+    if (!b || b.t !== "listitem" || typeof b.marker !== "string") continue;
+    const m = b.marker.trim();
+    if (!m || m === "\u2022") continue;                 // a bullet is not a numbered item
+    const isSub = !!b.nest || !!b._sub;
+    if (DEC.test(m) && !isSub) { b.marker = fmt(m, ++top, "dec"); sub = 0; continue; }
+    if (LET.test(m) && !ROM.test(m)) { b.marker = fmt(m, ++sub, "let"); continue; }
+    if (ROM.test(m)) { b.marker = fmt(m, isSub ? ++sub : ++top, "rom"); continue; }
+  }
+}
+
 function boxifyActivities(blocks, opts = {}) {
   // `looseStarts` (per-book): also treat a `para`/`listitem`/`h2` block as an
   // activity/exercise/assessment box START (not just a real head/label) and absorb a
@@ -233,6 +272,7 @@ function boxifyActivities(blocks, opts = {}) {
     // a box exists to frame: a list of things to do, a table, a nested box.
     const framable = body.some((x) => x && /^(listitem|table|box|qa|exercise|assessment)$/.test(x.t));
     if (!framable) { out.push(b, ...body); i = j - 1; continue; }
+    renumberBoxItems(body);
     out.push({ t: "framedsection", kind: k, title, body });
     i = j - 1;
   }

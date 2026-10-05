@@ -111,35 +111,5 @@
       "to": "balikkede"
     }
   ],
-  "setMarker": [
-    {
-      "find": "Jata pensele na chilembyo mbokweelede.",
-      "marker": "1."
-    },
-    {
-      "find": "Amba mboimvwika ibbala lyakusaanguna",
-      "marker": "2."
-    },
-    {
-      "find": "Kwiinda mukasobano amutondezye milawo ya kucikolo.",
-      "marker": "1."
-    },
-    {
-      "find": "Zyina lya bataata bako mbaani",
-      "marker": "1."
-    },
-    {
-      "find": "Kosala kkaadi ilijisi kana kamabala",
-      "marker": "2."
-    },
-    {
-      "find": "Kotondezya kukkala kuyandika naa kulikabotu nolemba.",
-      "marker": "3."
-    },
-    {
-      "find": "Kwaamba zyintu zyijisi tuvwuumina twa /k/ a /m/ kumatalikilo.",
-      "marker": "1."
-    }
-  ],
   "boxActivities": true
 }

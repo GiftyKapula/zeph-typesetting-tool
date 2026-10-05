@@ -187,7 +187,7 @@ async function typesetOne(docxPath, themeName) {
           // runs would re-emit each run once per line it spans (see above).
           const plain = !(c && c.seg && c.seg.length);
           const lines = plain ? String(c.text).split(/\n/).map((s) => s.trim()).filter(Boolean) : [];
-          if (!label && plain && lines.length > 1 && /^[••·*-]\s/.test(lines[0])) {
+          if (!label && plain && lines.length && /^[••·*-]\s/.test(lines[0])) {
             for (const ln of lines) {
               body.push({ t: "listitem", marker: "•", segs: [{ t: ln.replace(/^[••·*-]\s*/, ""), b: false, it: false, c: null }] });
             }
@@ -196,6 +196,7 @@ async function typesetOne(docxPath, themeName) {
           body.push({ t: "para", segs });
         }
         if (body.length) made.push({ t: "box", kind: "box", body });
+        made.push(...trailing);
         return made;
       };
 
