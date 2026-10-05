@@ -976,10 +976,21 @@ function applyOverrides(blocks, ov) {
   // flattens the replacement to roman) this keeps formatting, so it is safe on text
   // that may fall inside italic/bold runs — e.g. a manuscript typo like "fourfigure"
   // that must become "four figure" both in body prose and inside an italic activity.
+  //
+  // A HEADING carries no runs - its words live in `b.text` - so for a long time
+  // subtext silently skipped every heading, and a misspelling that appeared both in
+  // prose and in the section label above it was only half corrected. The Kiikaonde
+  // Grade 1 Teacher's Guide spells one label "Lufunjiso" for "Lufunjisho" three
+  // times, every one of them in a heading. Both shapes are now walked.
   for (const st of ov.subtext || []) {
     let n = 0;
-    for (const b of flat) for (const s of b.segs || []) {
-      if (!s.m && s.t && s.t.includes(st.from)) { s.t = s.t.split(st.from).join(st.to); n++; }
+    for (const b of flat) {
+      for (const s of b.segs || []) {
+        if (!s.m && s.t && s.t.includes(st.from)) { s.t = s.t.split(st.from).join(st.to); n++; }
+      }
+      if (typeof b.text === "string" && b.text.includes(st.from)) {
+        b.text = b.text.split(st.from).join(st.to); n++;
+      }
     }
     if (!n) console.warn("!  subtext not matched:", st.from);
   }
