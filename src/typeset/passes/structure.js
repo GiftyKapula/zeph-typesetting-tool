@@ -665,4 +665,50 @@ function keepNumberedSubtopicsOnly(blocks) {
 }
 
 
-module.exports = { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };
+// The "what you need to know" box — the specific-competences list a manuscript opens each
+// sub-topic with — is written for the teacher, not the child: it is the lesson's
+// objectives, phrased as instructions to whoever runs the lesson ("Langeni ifyakwikala
+// bwino pakulemba" — show them how to sit properly to write). In a Teacher's Guide that
+// is exactly the point. In a Learner's Book it is a page the reader cannot use, and the
+// Icibemba ECE Learner's Book's proofreader struck out every one of them.
+//
+// Opt in per book with `dropCompetenceBoxes: true` — a Learner's Book may well print a
+// competences box by design, so this is never automatic — and it needs the language's own
+// wording for the box in its word list to recognise one at all.
+//
+// Must run EARLY, while the box is still the table the author drew: a picture book's
+// `untableImages` unpacks short tables into loose headings, and once that has happened
+// nothing says where the competence list stops and the page's own content starts.
+function dropCompetenceBoxes(blocks) {
+  const isLabel = (rows) => {
+    const c = rows && rows[0] && rows[0][0];
+    return !!c && LEXI.startsWith(["specific_competences", "key_competences"], (c.text || "").trim());
+  };
+  const emptyCell = (c) => !c || (!(c.text || "").trim() && !(c.imgs || []).length && !(c.subs || []).length);
+  let n = 0;
+  const visit = (list) => {
+    for (let i = 0; i < list.length; i++) {
+      const b = list[i];
+      if (!b || typeof b !== "object") continue;
+      if (b.t === "table" && Array.isArray(b.rows)) {
+        if (isLabel(b.rows)) { list.splice(i, 1); i--; n++; continue; }
+        // a box nested inside the sub-topic banner the author wrapped it in
+        for (const row of b.rows) for (const c of row) {
+          if (!c || !Array.isArray(c.subs)) continue;
+          const kept = c.subs.filter((rows) => !isLabel(rows));
+          if (kept.length !== c.subs.length) { n += c.subs.length - kept.length; c.subs = kept; }
+        }
+        // the banner would otherwise keep an empty band where the box used to be
+        b.rows = b.rows.filter((row) => !row.every(emptyCell));
+        if (!b.rows.length) { list.splice(i, 1); i--; continue; }
+      }
+      for (const k of Object.keys(b)) {
+        if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) visit(b[k]);
+      }
+    }
+  };
+  visit(blocks);
+  return n;
+}
+
+module.exports = { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly, dropCompetenceBoxes };

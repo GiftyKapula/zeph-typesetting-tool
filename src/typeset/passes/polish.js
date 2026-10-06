@@ -319,6 +319,78 @@ function normaliseLocalOrthography(blocks) {
   return n;
 }
 
+// A section label with nothing to label: "Umutwe: Amashina".
+//
+// House style puts the section CODE in the heading — "MUTWE 1.1: MASHIMIKILA" — and there
+// the label earns its place: it says which level of the book you are at, and the number
+// after it is the address. Plenty of manuscripts also write the label with no number at
+// all, and then it is pure throat-clearing: every sub-topic in the book opens "Umutwe:",
+// so the word distinguishes nothing, and the reader meets it once per spread. The
+// Icibemba ECE Learner's Book's proofreader marked it on the first one and wrote the rule
+// out — "the word 'umutwe' should be deleted in all the text" — and then marked it on
+// every sub-topic after that.
+//
+// So: drop a leading topic / sub-topic / unit / lesson word that is followed by a colon
+// and then a TITLE. A number after the colon means the heading carries a section code and
+// the whole thing stays ("Mutwe: 1.1 Byambo" has by now been rewritten to "Mutwe 1.1:
+// Byambo" by fixSectionColon above, which also leaves nothing for this pass to match).
+// Built from the language's own wordings, so an English book — which loads no word list —
+// is untouched, and a heading that is only the bare word with nothing after it (a box
+// title) keeps it, there being no title to promote in its place.
+//
+// A sub-topic line is not always a heading block: some of these authors box the strand and
+// its sub-topic in a little table instead of typing two headings, and the label sits in a
+// cell. Those are stripped too — same line, same rule, and leaving them turns one
+// proofreading note into two different-looking answers. Which is also why this runs TWICE
+// (see typeset-docx.js): once early, so a banner whose cell is only over the length limit
+// because of the label still unpacks into ordinary headings like its neighbours, and once
+// late, after the lesson-label pass has settled the remaining lines into headings.
+function dropBareSectionLabels(blocks) {
+  const words = LEXI.words(["topic", "subtopic", "unit", "lesson"]);
+  if (!words.length) return 0;
+  const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  // longest first, so Kaonde "Mutwe-kache" is not read as the "Mutwe" it starts with and
+  // left printing a stray "-kache"
+  const alt = [...words].sort((a, b) => b.length - a.length)
+    .map((w) => esc(w.trim()).replace(/[-\s]+/g, "[-\\s]+")).join("|");
+  const re = new RegExp(`^\\s*(?:${alt})\\s*:\\s*(?=[^\\s\\d])(.+)$`, "i");
+  let n = 0;
+  const isHead = (b) => b.t === "head" || b.t === "h1" || b.t === "h2" || b.t === "h3";
+  // a cell carries its text twice — the plain string the layout measures and the runs it
+  // renders — and both have to lose the label or the line comes back on the page
+  const stripCell = (c) => {
+    if (!c || typeof c.text !== "string") return;
+    const m = c.text.match(re);
+    if (!m) return;
+    c.text = m[1].trim();
+    const s0 = (c.segs || c.seg || [])[0];
+    if (s0 && typeof s0.t === "string") {
+      const sm = s0.t.match(re);
+      if (sm) s0.t = sm[1];
+      else s0.t = s0.t.replace(new RegExp(`^\\s*(?:${alt})\\s*:\\s*`, "i"), "");
+    }
+    n++;
+  };
+  const walk = (list) => {
+    for (const b of list || []) {
+      if (!b || typeof b !== "object") continue;
+      if (isHead(b) && typeof b.text === "string") {
+        const m = b.text.match(re);
+        if (m) { b.text = m[1].trim(); n++; }
+      }
+      if (b.t === "table" && Array.isArray(b.rows)) {
+        for (const row of b.rows) for (const c of row) {
+          stripCell(c);
+          for (const sub of (c && c.subs) || []) for (const r of sub) for (const sc of r) stripCell(sc);
+        }
+      }
+      for (const k of ["body", "parts", "blocks", "intro", "extra"]) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+  return n;
+}
+
 // Two habits that make one heading look unlike the next one down the page.
 //
 // A heading is a label, not a sentence, so it does not end in a full stop — but authors
@@ -974,4 +1046,4 @@ function normaliseQuestionMarkBold(blocks) {
   walk(blocks);
 }
 
-module.exports = { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon };
+module.exports = { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon, dropBareSectionLabels };

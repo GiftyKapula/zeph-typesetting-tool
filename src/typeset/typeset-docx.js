@@ -28,12 +28,12 @@ const { S, emit } = require("./emit.js");
 const { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor } = require("./naming.js");
 const { blockPlain, setBlockText } = require("./blocktext.js");
 const { applyOverrides } = require("./overrides.js");
-const { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly } = require("./passes/structure.js");
+const { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly, dropCompetenceBoxes } = require("./passes/structure.js");
 const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatter } = require("./passes/series-front.js");
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
-const { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon } = require("./passes/polish.js");
+const { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon, dropBareSectionLabels } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
 const { writeManuscriptMd } = require("./manuscript-md.js");
 
@@ -111,6 +111,24 @@ async function typesetOne(docxPath, themeName) {
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
     return;
+  }
+  // dropCompetenceBoxes: true — this Learner's Book does not print the teacher-facing
+  // "what you need to know" box. Before untableImages, which would unpack it into loose
+  // headings and leave nothing to recognise.
+  if (ov.dropCompetenceBoxes) {
+    const nComp = dropCompetenceBoxes(blocks);
+    console.log(`   dropCompetenceBoxes: ${nComp} competence box(es) removed`);
+    if (!nComp) console.warn("!  dropCompetenceBoxes matched nothing");
+  }
+  // A sub-topic line the author boxed in a table rather than typing as a heading loses its
+  // bare section label here, before untableImages measures the cell — "Umutwe: Ukwishiba
+  // ukuti amashiwi ayalembwa yalikwata ubupilibulo" is three characters over the limit
+  // only because of the label, and would otherwise be the one banner left looking unlike
+  // every other sub-topic in the book. Headings get the same treatment later, once the
+  // lesson-label pass has settled which lines are headings at all.
+  {
+    const nBareEarly = dropBareSectionLabels(blocks);
+    if (nBareEarly) console.log(`   bare section label dropped from banner: ${nBareEarly}`);
   }
   // untableImages: true — a picture book (ECE) lays its pages out with Word tables used
   // only to place pictures side by side, with at most a short label in a cell. Rendered as
@@ -840,6 +858,14 @@ async function typesetOne(docxPath, themeName) {
     const nColon = fixSectionColon(blocks);
     if (nColon) console.log(`   section colon moved after the number: ${nColon}`);
   }
+  // Straight after, and for the same reason: once the colon is where it belongs, a
+  // section label still sitting in front of a bare title is labelling nothing and comes
+  // off ("Umutwe: Amashina" -> "Amashina"). A numbered heading has a code to carry and
+  // is left alone.
+  {
+    const nBare = dropBareSectionLabels(blocks);
+    if (nBare) console.log(`   bare section label dropped from heading: ${nBare}`);
+  }
   // Same place, same reason: these lines are only headings once lessonLabels has run, and
   // the colon has to be in its final position before a trailing full stop can be read off
   // the end of the title.
@@ -955,7 +981,11 @@ async function typesetOne(docxPath, themeName) {
   // Book…") — fall back to the manuscript's own (already-synthesised) cover lines.
   const gm = detectName.match(/(form|grade)\s*\d+/i)
     || ((blocks.find((b) => b.t === "cover") || {}).lines || []).map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
-  const gradeFolder = ov.grade ? titleCaseGrade(ov.grade) : (gm ? titleCaseGrade(gm[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "Other");
+  // Early-years books file together under "ECE" whatever level each one names ("ECE Levo 1",
+  // "ECE Level 2"), so the folder stays the level's shelf rather than splitting into one
+  // folder per book the moment a book spells its level out on the cover.
+  const gradeFolder = eduLevel === "Early Childhood Education Level" ? "ECE"
+    : ov.grade ? titleCaseGrade(ov.grade) : (gm ? titleCaseGrade(gm[0]) : "Other");
   const bookDir = path.join(OUTPUT_DIR, gradeFolder, base);
   fs.mkdirSync(bookDir, { recursive: true });
   const outPath = path.join(bookDir, `${base} - typeset.pdf`);
