@@ -1,5 +1,7 @@
 {
   "coverImage": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/cover.png",
+  "grade": "ECE Levo 1",
+  "dropCompetenceBoxes": true,
   "untableImages": true,
   "uniformImages": 78,
   "keepHeadsWithUnit": true,
@@ -42,5 +44,11 @@
       "all": true
     }
   ],
-  "authorLabel": "Abalembele"
+  "authorLabel": "Abalembele",
+  "asPara": [
+    {
+      "find": "Sambilileni Icibemba Nensansa!",
+      "italic": true
+    }
+  ]
 }
