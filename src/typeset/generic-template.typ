@@ -1540,7 +1540,14 @@
     #v(3pt)
     #box(fill: iaccent, width: 60pt, height: 3pt, radius: 1.5pt)]
   v(8pt)
-  set par(leading: 0.9em)
+  // Leading here governs ONLY the second and later lines of an entry whose title is too
+  // long for one line — the gap BETWEEN entries is the weak `v()`s below, not leading.
+  // So it has to be TIGHTER than that inter-entry gap, or a wrapped title reads as an
+  // entry of its own: "UNIT 7: ENTREPRENEURSHIP AND" on one line and "EDUCATION ..... 50"
+  // on the next, with the leaders and page number apparently belonging to "EDUCATION".
+  // At the old 0.9em the wrap was LOOSER than the gap between entries, which is exactly
+  // backwards. Single-line entries have no within-paragraph gap, so they are unaffected.
+  set par(leading: 0.45em)
   let tgap = T.at("tocGap", default: 10pt)
   show outline.entry: it => { v(5pt, weak: true); upper(it) }
   let tdepth = T.at("tocDepth", default: 2)
@@ -2325,6 +2332,34 @@
     #if cap != none [ #v(2pt) #text(size: capsz(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
   ]]
   v(3pt)
+}
+// A picture the manuscript ASKS for but nobody has drawn yet (see `artSlots` in
+// overrides.js). The slot prints the room the picture will take, not a picture: a framed
+// gap of the right height carrying the author's own instruction, so a proof shows every
+// missing picture, where it falls and how much space it has — instead of printing the
+// instruction as a paragraph the learner would try to read.
+//
+// This is scaffolding for the drawing stage, never part of a finished book: when the
+// artwork arrives its `artSlots` entry goes and the image takes the slot's place.
+#let artslot(no, note, hmm) = {
+  let box-h = if hmm > 0 { hmm * 1mm } else { 55mm }
+  v(4pt)
+  block(breakable: false, width: 100%, height: box-h, radius: 2pt,
+        fill: rgb("#fcfbf7"), inset: 7pt,
+        stroke: (paint: T.primary2, thickness: 0.9pt, dash: "dashed"))[
+    #place(top + left, text(font: T.bodyFont, size: fs(7.5pt), weight: "bold",
+      fill: T.primary2, tracking: 0.4pt)[PICTURE NEEDED#if no != "" [ #h(5pt) · #h(5pt) PIC #no ]])
+    // `justify: false` is load-bearing: the document justifies body text, and a note just
+    // long enough to fill the first line came out word-spaced to the full width while the
+    // slot above and below it sat centred — the same element printing two different ways
+    // on one page. Centred and unjustified, every slot looks the same.
+    #place(center + horizon, block(width: 84%)[
+      #set par(justify: false)
+      #align(center)[#text(font: T.bodyFont, size: fs(10.5pt), weight: "bold", fill: T.primary)[#note]]])
+    #place(bottom + right, layout(size => text(font: T.bodyFont, size: fs(7pt), fill: rgb("#9a9a9a"))[
+      #calc.round(size.width / 1mm) × #calc.round(box-h / 1mm) mm]))
+  ]
+  v(4pt)
 }
 // Side-by-side images, aspect preserved (no stretching), one caption each.
 // 2-3 images: a UNIFORM height so they line up and their labels align.
