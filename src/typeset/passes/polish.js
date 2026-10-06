@@ -2,6 +2,73 @@
 // (Split out of typeset-docx.js — see docs/ARCHITECTURE.md.)
 const { S, arr, TOPIC_RE } = require("../emit.js");
 const { MARK_BRACKET, glueMarkTail } = require("./marks.js");
+const LEXI = require("../lexicon/index.js");   // the current local language's own wording
+
+// House style puts a section's NUMBER before the colon — "MUTWE 1.1: MASHIMIKILA", never
+// "MUTWE: 1.1 MASHIMIKILA". Local-language manuscripts routinely type it the other way
+// round, and consistently enough through a whole book that it is the author's habit
+// rather than a slip worth fixing one heading at a time. English books already have the
+// per-book `colonHeadings` option for this; it was never extended to any other language,
+// so those books simply printed the colon wherever the author put it.
+//
+// The pattern is built from the language's own topic / sub-topic / unit wordings, with
+// hyphen and space interchangeable: the Kaonde sub-topic is given as "Mutwe-kache" on
+// the author form but written "MUTWE KACHE" in places in the manuscript, and both must
+// be recognised. Longest wording first, so "Mutwe-kache" wins over "Mutwe".
+function fixSectionColon(blocks) {
+  // The competence labels take the same treatment: "BYAKETEKELWA KUBIWA: 1.10.1.1 Kukwata"
+  // is the same fault as "MUTWE: 1.10 Byambo" — the number belongs before the colon. A
+  // label with no number after it ("BYAKETEKELWA KUBIWA MU BYONSE: Misambo, …") simply
+  // does not match, so adding these concepts moves nothing that is already right.
+  const words = LEXI.words(["topic", "subtopic", "unit",
+                            "specific_competences", "key_competences", "expected_standards"]);
+  if (!words.length) return 0;                       // English book: nothing to do
+  const alt = [...words].sort((a, b) => b.length - a.length)
+    .map((w) => w.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[-\s]+/g, "[-\\s]+"))
+    .join("|");
+  // "<word>: <number> <title>" -> "<word> <number>: <title>". A trailing dot on the
+  // number ("MUTWE: 1.6. BUYUKE") is dropped, since the colon now carries the break.
+  // The space before the title is optional: the same authors who misplace the colon
+  // also run the number straight into the title ("MUTWE: 1.11Bintu"), and that form
+  // has to be caught here too or it is the one heading left behind.
+  // A second colon AFTER the number is swallowed: some headings carry both
+  // ("MUTWE : 1.8 : Bilulumo"), and leaving it produces "MUTWE 1.8: : Bilulumo".
+  const re = new RegExp(`^(\\s*)(${alt})\\s*:\\s*(\\d+(?:\\.\\d+)*)\\.?\\s*:?\\s*(?=[A-Za-z\\u00C0-\\u024F])`, "i");
+  const fix = (s) => s.replace(re, (_m, lead, word, num) => `${lead}${word} ${num}: `);
+  // The competence labels are not headings — they are a BOLD run carrying the label and
+  // its colon, followed by a plain run carrying the number and the text ("BYAKETEKELWA
+  // KUBIWA:" + " 1.10.1.1 Kukwata buuku"). Read run by run neither half matches: the
+  // first has no number, the second has no label. Match the pair instead, and move the
+  // number back into the bold run so the label still reads as one unit.
+  const labelOnly = new RegExp(`^(\\s*)(${alt})\\s*:\\s*$`, "i");
+  const numFirst = /^\s*(\d+(?:\.\d+)*)\.?\s*:?\s*(?=\S)/;
+  let n = 0;
+  const walk = (list) => {
+    for (const b of list || []) {
+      if (!b || typeof b !== "object") continue;
+      if (typeof b.text === "string") {
+        const t = fix(b.text);
+        if (t !== b.text) { b.text = t; n++; }
+      } else if (Array.isArray(b.segs) && b.segs.length && typeof b.segs[0].t === "string") {
+        const t = fix(b.segs[0].t);
+        if (t !== b.segs[0].t) { b.segs[0].t = t; n++; }
+        else if (b.segs.length >= 2 && typeof b.segs[1].t === "string") {
+          const m0 = b.segs[0].t.match(labelOnly);
+          const m1 = b.segs[1].t.match(numFirst);
+          if (m0 && m1) {
+            b.segs[0].t = `${m0[1]}${m0[2]} ${m1[1]}:`;
+            b.segs[1].t = " " + b.segs[1].t.slice(m1[0].length);
+            n++;
+          }
+        }
+      }
+      // only real container keys — never b.segs, whose members are runs, not blocks
+      for (const k of ["body", "parts", "blocks", "intro", "extra"]) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+  return n;
+}
 
 // between the columns ("bug          6. hobby"). Typst — like HTML — collapses runs
 // of spaces to one, so those columns can never render from spaces; they collapse to
@@ -138,6 +205,261 @@ function columnizeLists(blocks) {
 // glued space this function leaves before each bracket into a `{fr: true}` filler
 // segment the template renders as `h(1fr)`, consuming the rest of the current
 // line so the bracket lands at its edge and whatever follows wraps to a new line.
+
+// A space typed BEFORE a comma, full stop, colon, semicolon, question or exclamation
+// mark is a keyboard slip, not a style — it leaves the mark floating away from the word
+// it belongs to and, in justified text, lets the line break between them so a comma can
+// start the next line. The same goes for a space typed just INSIDE a bracket or a
+// quotation mark (“ Mpotesha bishu .”) — the space belongs outside the quotation, not
+// between the quote and the word it opens.
+//
+// Authors do this often enough to be worth doing for every book rather than listing it
+// book by book: the Kiikaonde Grade 1 Teacher's Guide alone had 58 of them. Nothing here
+// moves text — only whitespace that is already in the wrong place, whatever the language
+// the book is written in.
+//
+// The last rule is the same slip the other way round: a sentence's full stop with no
+// space after it ("bafunda.kino" -> "bafunda. Kino"). It is kept deliberately narrow —
+// both sides must be real words of three letters or more — so a decimal, a numbered
+// code, a file name and an abbreviation ("e.g.", "etc.") are all left alone.
+const ABBREV = /(?:^|[^A-Za-z])(?:[A-Za-z]|etc|eg|ie|vs|Mr|Mrs|Ms|Dr|Prof|No|Fig|Vol|Rev|Jr|Sr)$/;
+// what follows the dot in a bare file name or domain ("teachoo.jpg", "example.com"),
+// which a reference list carries without the http:// that would otherwise give it away
+const DOTTED = /^(?:jpe?g|png|gif|webp|svg|tiff?|pdf|docx?|xlsx?|pptx?|txt|csv|zip|mp[34]|html?|com|org|net|edu|gov|int|info|biz|co|ac|zm|uk)$/i;
+function tidyPunctuation(t) {
+  t = t.replace(/ {2,}/g, " ");                             // a doubled space is the same slip
+  t = t.replace(/[ \t]+([,;:.?!)\]])/g, "$1");              // space before a closing mark
+  // The mark typed TWICE is the same keyboard slip ("Kimwesho::", "BYAKETEKELWA KUBIWA
+  // MU BYONSE: :"). It has to be collapsed here, after the rule above, because that rule
+  // is what closes "<mark> <mark>" up into the doubled pair in the first place — before
+  // it runs, the two marks are still separated by the space the author typed. Only the
+  // colon, semicolon and comma are collapsed: a repeated full stop is an ellipsis the
+  // author means ("Bufuku …..") and a repeated question or exclamation mark is emphasis,
+  // so neither is touched.
+  t = t.replace(/([,;:])(?:[ \t]*\1)+/g, "$1");             // the same mark typed twice
+  t = t.replace(/([(\[\u201C\u2018\u201E])[ \t]+/g, "$1");  // space just inside an opening bracket/quote
+  t = t.replace(/[ \t]+([\u201D\u2019])/g, "$1");           // space just inside a closing quote
+  // Word by word, so a web address is never touched: a token carrying "://", a slash, an
+  // "@" or more than one dot is a URL, an email or a file name, and every dot in it is
+  // part of the address. Only a plain word with a single stop inside it is a run-on
+  // sentence.
+  t = t.split(/(\s+)/).map((tok) => {
+    if (/\s/.test(tok) || !/[.?!]/.test(tok)) return tok;
+    if (/[:/@]/.test(tok) || (tok.match(/[.?!]/g) || []).length > 1) return tok;
+    return tok.replace(/^([^A-Za-z\u00C0-\u024F]*)([A-Za-z\u00C0-\u024F]{3,})([.?!])([A-Za-z\u00C0-\u024F]{3,})([^A-Za-z\u00C0-\u024F]*)$/,
+      (m, pre, left, mark, right, post) => (ABBREV.test(left) || DOTTED.test(right) ? m
+        : `${pre}${left}${mark} ${right.charAt(0).toUpperCase()}${right.slice(1)}${post}`));
+  }).join("");
+  return t;
+}
+
+// The same tidy-up, run once more at the very END of the pipeline. normaliseSpacing does
+// it early, but several later passes BUILD new runs out of a manuscript line — a lesson
+// label split from its value ("BYAMBO BYA KULABIJILA:" + " bikope , bisopelo"), a section
+// number moved past its colon — and whatever was wrong inside that line is still wrong
+// inside the pieces. This pass also catches what a single run cannot see: a space at the
+// end of one run with the punctuation at the start of the next ("mukumbu " + ": Mateyo"),
+// which reads as a gap before the colon exactly like the one-run case.
+function tidyRuns(blocks) {
+  let n = 0;
+  const isRuns = (a) => Array.isArray(a) && a.length && a.every((x) => x && typeof x === "object" && typeof x.t === "string");
+  const walk = (v) => {
+    if (Array.isArray(v)) { for (const x of v) walk(x); return; }
+    if (!v || typeof v !== "object") return;
+    for (const k of ["text", "t", "title", "q", "a"]) {
+      if (typeof v[k] !== "string") continue;
+      const out = tidyPunctuation(v[k]);
+      if (out !== v[k]) { v[k] = out; n++; }
+    }
+    for (const k of Object.keys(v)) {
+      if (isRuns(v[k])) {
+        const runs = v[k];
+        for (let i = 0; i < runs.length - 1; i++) {
+          if (/[ \t]$/.test(runs[i].t) && /^[,;:.?!)\]]/.test(runs[i + 1].t)) {
+            runs[i].t = runs[i].t.replace(/[ \t]+$/, ""); n++;
+          }
+        }
+      }
+      if (v[k] && typeof v[k] === "object") walk(v[k]);
+    }
+  };
+  walk(blocks);
+  return n;
+}
+
+// One letter, one character. Zambian local-language orthographies write the velar nasal
+// as "ñ" (U+00F1), and that is the form the authors' own returned word lists use. A Word
+// keyboard, though, produces the look-alikes "ń" (U+0144, the Polish acute) and "ň"
+// (U+0148, the Czech caron) with equal ease, so a manuscript arrives with all three mixed
+// together: the Kiikaonde Grade 1 Teacher's Guide spelt the one word "lumvwañano" as
+// "lumvwañano", "lumvwańano" and "lumvwaňano" across the same book, and set its own unit
+// title as "ÑENDELO" in the contents and "ŃENDELO" in the body.
+//
+// To a reader these are three different letters in three slightly different shapes, which
+// is exactly the kind of same-thing-looking-different the house style does not allow; they
+// also sort and search differently, and some of them fall back to a different font. Fold
+// them onto ñ for any language whose own word list uses ñ — an English book, and a local
+// language that does not use the letter at all, are untouched.
+function normaliseLocalOrthography(blocks) {
+  if (!LEXI.usesTilde()) return 0;
+  let n = 0;
+  const fix = (t) => {
+    const out = t.replace(/[\u0144\u0148]/g, "\u00F1").replace(/[\u0143\u0147]/g, "\u00D1");
+    if (out !== t) n++;
+    return out;
+  };
+  const TEXTKEYS = ["text", "t", "title", "q", "a", "label", "caption", "cap"];
+  const walk = (v) => {
+    if (Array.isArray(v)) { for (const x of v) walk(x); return; }
+    if (!v || typeof v !== "object") return;
+    for (const k of TEXTKEYS) if (typeof v[k] === "string") v[k] = fix(v[k]);
+    for (const k of Object.keys(v)) if (v[k] && typeof v[k] === "object") walk(v[k]);
+  };
+  walk(blocks);
+  return n;
+}
+
+// A section label with nothing to label: "Umutwe: Amashina".
+//
+// House style puts the section CODE in the heading — "MUTWE 1.1: MASHIMIKILA" — and there
+// the label earns its place: it says which level of the book you are at, and the number
+// after it is the address. Plenty of manuscripts also write the label with no number at
+// all, and then it is pure throat-clearing: every sub-topic in the book opens "Umutwe:",
+// so the word distinguishes nothing, and the reader meets it once per spread. The
+// Icibemba ECE Learner's Book's proofreader marked it on the first one and wrote the rule
+// out — "the word 'umutwe' should be deleted in all the text" — and then marked it on
+// every sub-topic after that.
+//
+// So: drop a leading topic / sub-topic / unit / lesson word that is followed by a colon
+// and then a TITLE. A number after the colon means the heading carries a section code and
+// the whole thing stays ("Mutwe: 1.1 Byambo" has by now been rewritten to "Mutwe 1.1:
+// Byambo" by fixSectionColon above, which also leaves nothing for this pass to match).
+// Built from the language's own wordings, so an English book — which loads no word list —
+// is untouched, and a heading that is only the bare word with nothing after it (a box
+// title) keeps it, there being no title to promote in its place.
+//
+// A sub-topic line is not always a heading block: some of these authors box the strand and
+// its sub-topic in a little table instead of typing two headings, and the label sits in a
+// cell. Those are stripped too — same line, same rule, and leaving them turns one
+// proofreading note into two different-looking answers. Which is also why this runs TWICE
+// (see typeset-docx.js): once early, so a banner whose cell is only over the length limit
+// because of the label still unpacks into ordinary headings like its neighbours, and once
+// late, after the lesson-label pass has settled the remaining lines into headings.
+function dropBareSectionLabels(blocks) {
+  const words = LEXI.words(["topic", "subtopic", "unit", "lesson"]);
+  if (!words.length) return 0;
+  const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  // longest first, so Kaonde "Mutwe-kache" is not read as the "Mutwe" it starts with and
+  // left printing a stray "-kache"
+  const alt = [...words].sort((a, b) => b.length - a.length)
+    .map((w) => esc(w.trim()).replace(/[-\s]+/g, "[-\\s]+")).join("|");
+  const re = new RegExp(`^\\s*(?:${alt})\\s*:\\s*(?=[^\\s\\d])(.+)$`, "i");
+  let n = 0;
+  const isHead = (b) => b.t === "head" || b.t === "h1" || b.t === "h2" || b.t === "h3";
+  // a cell carries its text twice — the plain string the layout measures and the runs it
+  // renders — and both have to lose the label or the line comes back on the page
+  const stripCell = (c) => {
+    if (!c || typeof c.text !== "string") return;
+    const m = c.text.match(re);
+    if (!m) return;
+    c.text = m[1].trim();
+    const s0 = (c.segs || c.seg || [])[0];
+    if (s0 && typeof s0.t === "string") {
+      const sm = s0.t.match(re);
+      if (sm) s0.t = sm[1];
+      else s0.t = s0.t.replace(new RegExp(`^\\s*(?:${alt})\\s*:\\s*`, "i"), "");
+    }
+    n++;
+  };
+  const walk = (list) => {
+    for (const b of list || []) {
+      if (!b || typeof b !== "object") continue;
+      if (isHead(b) && typeof b.text === "string") {
+        const m = b.text.match(re);
+        if (m) { b.text = m[1].trim(); n++; }
+      }
+      if (b.t === "table" && Array.isArray(b.rows)) {
+        for (const row of b.rows) for (const c of row) {
+          stripCell(c);
+          for (const sub of (c && c.subs) || []) for (const r of sub) for (const sc of r) stripCell(sc);
+        }
+      }
+      for (const k of ["body", "parts", "blocks", "intro", "extra"]) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+  return n;
+}
+
+// Two habits that make one heading look unlike the next one down the page.
+//
+// A heading is a label, not a sentence, so it does not end in a full stop — but authors
+// type one on some headings and not others, and the result is a contents page reading
+// "KISHINA 11: MITEETO NE MISANGO YA NGINKELO MU NTANDA. . . . 120" with the stray stop
+// sitting in front of the dot leaders. Drop a single trailing full stop. An ellipsis is
+// left alone (it is doing work), and so are "?" and "!", which a heading may legitimately
+// carry.
+//
+// Only a heading that is unmistakably a TITLE, though. The engine promotes a great many
+// ordinary sentences to bold sub-heads — a safety note ("Safety should be part of every
+// CTS lesson."), an instruction to the class ("Work in pairs."), an answer line ("Expected
+// Answer: Knife."), a numbered exercise question inside a box ("1. Complete the
+// sentence.") — and a sentence keeps its full stop wherever it is set. So the stop comes
+// off only at the top level of the document (never inside a box body, where the exercise
+// questions live) and only when the heading carries a section code before its colon
+// ("MUTWE-KACHE 1.5.1: Bishimpi.") or is set wholly in capitals ("KISHINA 14: MITETO YA
+// KYALO."). Anything else keeps what the author typed.
+//
+// The second is the separator inside a two-word section term. The language's own word
+// list gives the Kaonde sub-topic as "Mutwe-kache"; the manuscript writes it "MUTWE-KACHE"
+// in some headings and "MUTWE KACHE" in others, so the same structural label renders two
+// different ways in one book. Rewrite the separator to the form the word list uses,
+// keeping the author's letter case — the headings are set in capitals and that is the
+// author's choice, the hyphen is not.
+function tidyHeadings(blocks) {
+  const terms = LEXI.words(["topic", "subtopic", "unit", "lesson", "component"])
+    .map((w) => w.trim()).filter((w) => /[-\s]/.test(w));
+  const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const rules = [...terms].sort((a, b) => b.length - a.length).map((w) => ({
+    re: new RegExp(`^(\\s*)${w.split(/[-\s]+/).map(esc).join("[-\\s]+")}(?=[\\s:]|$)`, "i"),
+    parts: w.split(/[-\s]+/), seps: w.match(/[-\s]+/g) || [],
+  }));
+  const canon = (t) => {
+    for (const r of rules) {
+      const m = t.match(r.re);
+      if (!m) continue;
+      // keep the author's own capitalisation, letter for letter; swap only the separators
+      const letters = m[0].slice(m[1].length).split(/[-\s]+/);
+      if (letters.length !== r.parts.length) continue;
+      const rebuilt = letters.map((p, i) => p + (r.seps[i] || "")).join("");
+      return m[1] + rebuilt + t.slice(m[0].length);
+    }
+    return t;
+  };
+  let n = 0;
+  const isHead = (b) => b.t === "head" || b.t === "h1" || b.t === "h2" || b.t === "h3";
+  const isTitle = (t) => {
+    const body = t.replace(/\.\s*$/, "").trim();
+    if (/^\d+[.)]\s/.test(body)) return false;                 // a numbered question, not a title
+    if (/[.?!]\s+\S/.test(body)) return false;                 // more than one sentence
+    if (/^[^:]*\d+(?:\.\d+)*\s*:/.test(body)) return true;     // carries a section code: "MUTWE 1.5: …"
+    return /[A-Za-z]/.test(body) && body === body.toUpperCase();   // or set wholly in capitals
+  };
+  const walk = (list, top) => {
+    for (const b of list || []) {
+      if (!b || typeof b !== "object") continue;
+      if (isHead(b) && typeof b.text === "string") {
+        let t = canon(b.text);
+        if (top && isTitle(t)) t = t.replace(/(?<![.\u2026])\.\s*$/, "");
+        if (t !== b.text) { b.text = t; n++; }
+      }
+      for (const k of ["body", "parts", "blocks", "intro", "extra"]) if (Array.isArray(b[k])) walk(b[k], false);
+    }
+  };
+  walk(blocks, true);
+  return n;
+}
+
 function normaliseSpacing(blocks) {
   const fix = (segs) => {
     if (!Array.isArray(segs) || !segs.length) return;
@@ -146,6 +468,12 @@ function normaliseSpacing(blocks) {
     for (const s of segs) {
       if (!s || typeof s.t !== "string") continue;
       s.t = glueMarkTail(s.t.replace(/[ \t]{3,}/g, " ").replace(/\t/g, " "));
+      s.t = tidyPunctuation(s.t);
+      // A section number run typed straight onto its title, with the space missed:
+      // "1.10.1.1Kukwata buuku" -> "1.10.1.1 Kukwata buuku". Requires at least one
+      // inner dot, so an ordinary decimal ("2.5kg", "1.5x") is never split, and a
+      // lower-case start so a unit glued to a plain number is left alone.
+      s.t = s.t.replace(/(\b\d+(?:\.\d+){1,})([A-ZÑ][a-zñ]{2,})/g, "$1 $2");
     }
     if (typeof segs[0].t === "string") segs[0].t = segs[0].t.replace(/^[ \t]+/, "");
     const last = segs[segs.length - 1];
@@ -718,4 +1046,4 @@ function normaliseQuestionMarkBold(blocks) {
   walk(blocks);
 }
 
-module.exports = { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold };
+module.exports = { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon, dropBareSectionLabels };

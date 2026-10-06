@@ -138,6 +138,7 @@ off, so a change only touches the books that opt in. Keys:
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |
 | `tocDepth` | how many heading levels the table of contents lists (default 2: top-level + one sub-level) |
 | `tocUnitsOnly` | `false` also lists front/back matter (Authors, Foreword, References, …) in the TOC, not just units/topics |
+| `dropCompetenceBoxes` | delete the "what you need to know" specific-competences box wherever it opens a sub-topic. It is the lesson's objectives, written as instructions to the teacher, so a Learner's Book that is not meant to carry them loses the lot in one key instead of thirty `remove` entries. Needs the language's own wording for the box in its word list (`src/typeset/lexicon/`); a Teacher's Guide, and any book that prints the box by design, simply doesn't set it |
 
 **Lists / questions / tables**
 

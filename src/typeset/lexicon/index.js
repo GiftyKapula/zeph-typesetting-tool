@@ -105,4 +105,12 @@ const isFrontSection = (text) => frontRank(text) != null;
 const isBackSection = (text) => isExactly(["glossary", "references", "index", "appendix"], text);
 const isContents = (text) => isExactly(["contents"], text);
 
-module.exports = { LEX, langFor, setLang, getLang, words, altSrc, startsWith, isExactly, boxKind, isTopSection, frontRank, isFrontSection, isBackSection, isContents };
+// Zambian orthographies write the velar nasal as "ñ" (U+00F1). A Word keyboard produces
+// the look-alikes "ń" (U+0144, the Polish acute) and "ň" (U+0148, the Czech caron) just
+// as easily, and manuscripts come in with all three mixed together — the Kiikaonde
+// Grade 1 Teacher's Guide spelt "lumvwañano" three different ways. Answer from the
+// language's OWN word list rather than a hard-coded list of languages: if the authors'
+// returned forms use ñ, the other two are slips in that language and nothing else.
+const usesTilde = () => !!current && /\u00F1/i.test(JSON.stringify(LEX[current].terms || {}));
+
+module.exports = { LEX, langFor, setLang, getLang, words, altSrc, startsWith, isExactly, boxKind, isTopSection, frontRank, isFrontSection, isBackSection, isContents, usesTilde };

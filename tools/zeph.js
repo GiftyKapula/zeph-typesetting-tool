@@ -95,7 +95,11 @@ function versionKindFor(file) {
   const ext = path.extname(file).toLowerCase();
   const name = path.basename(file).toLowerCase();
   if (ext === ".pdf") return /comment|review|annotat|markup|edited/.test(name) ? "annotated_pdf" : "typeset_pdf";
-  if (ext === ".docx") return "manuscript";
+  // A corrections log is a .docx too, and `build` typesets the latest MANUSCRIPT — so
+  // filing one as a manuscript quietly arms the engine to typeset the report about the
+  // book instead of the book. `npm run report` names it "… - corrections log.docx", which
+  // is what this matches.
+  if (ext === ".docx") return /corrections?[ _-]*log/.test(name) ? "corrections_log" : "manuscript";
   if (ext === ".json") return "overrides";
   return "attachment";
 }

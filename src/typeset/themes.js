@@ -246,8 +246,12 @@ const THEMES = {
   tonga:   zeph({ subject: "Chitonga",   signature: "f5a04e", primary: "1f6b6b", primary2: "2f9090", accent: "c4452d", cyan: "2f9e8c" }),  // warm amber
   lunda:   zeph({ subject: "Lunda",      signature: "ef96ae", primary: "6a2342", primary2: "9e3a5e", accent: "c79a3b", cyan: "4a86b0", toctitle: "NYITACHI YAYIBALU", tocUnitsOnly: true, coverStyle: "form1" }),  // rose; Form 1 cover, units-only contents
   luvale:  zeph({ subject: "Luvale",     signature: "9d8be0", primary: "3a2a73", primary2: "6a5bb0", accent: "ef7a59", cyan: "2f9e8c" }),  // lavender
-  bemba:   zeph({ subject: "Ichibemba",  signature: "62bfe8", primary: "1b5773", primary2: "2f7fa0", accent: "edab3a", cyan: "2f9e8c" }),  // sky blue
-  kaonde:  zeph({ subject: "Kiikaonde",  signature: "f6a37a", primary: "8a3d1f", primary2: "b8582f", accent: "2f8f7a", cyan: "2f9e8c" }),  // warm coral
+  bemba:   zeph({ subject: "Icibemba",  signature: "62bfe8", primary: "1b5773", primary2: "2f7fa0", accent: "edab3a", cyan: "2f9e8c" }),  // sky blue
+  // boxActivities: this family's Teacher's Guides type their exercises as plain
+  // paragraphs ("MWINGILO") rather than the shaded single-cell table other books use,
+  // so the title has to start the box itself — the same opt-in the primary themes
+  // (cts, mathsci, homeecon) carry. The wordings come from the Kaonde word list.
+  kaonde:  { ...zeph({ subject: "Kiikaonde",  signature: "f6a37a", primary: "8a3d1f", primary2: "b8582f", accent: "2f8f7a", cyan: "2f9e8c" }), boxActivities: true },  // warm coral
   silozi:  zeph({ subject: "Silozi",     signature: "bfe3c8", primary: "2e7d46", primary2: "45a066", accent: "e0a52e", cyan: "2f9e8c" }),  // forest green
   // Subject books (Form 4 / Grade 6): activity-heavy -> "science" (boxed)
   // Computing/IT (ICT, Computer Science): the "circuit" motif swaps the science
@@ -420,6 +424,7 @@ function themeTypst(theme, overrides = {}) {
   paper: "${t.paper || "a4"}", landscape: ${t.landscape ? "true" : "false"}, bodySize: ${t.bodySize || "12pt"}, hMain: ${t.hMain || "none"}, hSub: ${t.hSub || "none"}, ink: ${c(t.ink)}, motif: ${q(t.motif || "atom")},
   year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
   subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"}, boxStripe: ${t.boxStripe === false ? "false" : "true"}, capSize: ${t.capSize || "none"},
+  authorLabel: ${q(t.authorLabel || "")},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
   covPrimary: ${c(t.covPrimary || t.primary)}, covPrimary2: ${c(t.covPrimary2 || t.primary2)}, covAccent: ${c(t.covAccent || t.accent)}, covSignature: ${c(t.covSignature || t.signature || t.primary)}, covCyan: ${c(t.covCyan || t.cyan || t.primary2)}, covInk: ${c(t.covInk || t.ink)}, covRulec: ${c(t.covRulec || t.rulec)},

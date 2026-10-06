@@ -28,15 +28,25 @@ const { S, emit } = require("./emit.js");
 const { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor } = require("./naming.js");
 const { blockPlain, setBlockText } = require("./blocktext.js");
 const { applyOverrides } = require("./overrides.js");
-const { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly } = require("./passes/structure.js");
+const { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly, dropCompetenceBoxes } = require("./passes/structure.js");
 const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatter } = require("./passes/series-front.js");
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
-const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold } = require("./passes/polish.js");
+const { columnizeLists, normaliseSpacing, normaliseLocalOrthography, tidyHeadings, tidyRuns, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, fixSectionColon, dropBareSectionLabels } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
+const { writeManuscriptMd } = require("./manuscript-md.js");
 
 async function typesetOne(docxPath, themeName) {
+  // Before anything else, drop a plain-text rendering of the manuscript next to the
+  // .docx. Nothing downstream reads it — the pipeline still parses the .docx — but
+  // CLAUDE.md's rule is to check what the manuscript actually SAYS before "fixing"
+  // how it renders, and a searchable markdown copy of the whole book is a far better
+  // place to do that than raw OOXML read in 2000-character slices. Writing it here
+  // means it is always present and always matches the manuscript being built.
+  const mdPath = await writeManuscriptMd(docxPath);
+  if (mdPath) console.log("   plain text:", path.basename(mdPath));
+
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
   // Expand a standalone "G 2"/"G2" abbreviation to "Grade 2" for all grade/level/theme
   // detection (kept separate from `base` so the output file keeps its original name).
@@ -102,6 +112,24 @@ async function typesetOne(docxPath, themeName) {
     console.warn("!  No content extracted from", docxPath);
     return;
   }
+  // dropCompetenceBoxes: true — this Learner's Book does not print the teacher-facing
+  // "what you need to know" box. Before untableImages, which would unpack it into loose
+  // headings and leave nothing to recognise.
+  if (ov.dropCompetenceBoxes) {
+    const nComp = dropCompetenceBoxes(blocks);
+    console.log(`   dropCompetenceBoxes: ${nComp} competence box(es) removed`);
+    if (!nComp) console.warn("!  dropCompetenceBoxes matched nothing");
+  }
+  // A sub-topic line the author boxed in a table rather than typing as a heading loses its
+  // bare section label here, before untableImages measures the cell — "Umutwe: Ukwishiba
+  // ukuti amashiwi ayalembwa yalikwata ubupilibulo" is three characters over the limit
+  // only because of the label, and would otherwise be the one banner left looking unlike
+  // every other sub-topic in the book. Headings get the same treatment later, once the
+  // lesson-label pass has settled which lines are headings at all.
+  {
+    const nBareEarly = dropBareSectionLabels(blocks);
+    if (nBareEarly) console.log(`   bare section label dropped from banner: ${nBareEarly}`);
+  }
   // untableImages: true — a picture book (ECE) lays its pages out with Word tables used
   // only to place pictures side by side, with at most a short label in a cell. Rendered as
   // a table those pictures shrink to thumbnails; unpack each such table into its short
@@ -150,7 +178,13 @@ async function typesetOne(docxPath, themeName) {
     for (const b of blocks) {
       if (b.t !== "para") continue;
       const t = paraText(b);
-      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^${LEXI.altSrc([w])}\\s+\\d`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": "); delete b.segs; }
+      // The unit word followed by a NUMBER ("KISHINA 1: KUTONGAULA MAZHINA"), or by a
+      // COLON where the author dropped the number ("KISHINA: MITEETO NE MISANGO…") — an
+      // unnumbered unit left as body text was promoted by neither rule, so its whole
+      // unit folded into the one before it and never opened a page of its own.
+      // `^\s*` because such a line often carries a leading em space (U+2003) the author
+      // used to indent it, which `^` alone would not get past.
+      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^\\s*${LEXI.altSrc([w])}\\s*(?::|\\s\\d)`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": ").trim(); delete b.segs; }
     }
     const isCand = (b) => /^(head|label|h1|h2|h3)$/.test(b.t) && (b.text || "").trim().length <= 60;
     const byWord = new Map();
@@ -240,6 +274,7 @@ async function typesetOne(docxPath, themeName) {
   displayifyColumnMath(blocks);
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
   normaliseSpacing(blocks);
+  { const nOrth = normaliseLocalOrthography(blocks); if (nOrth) console.log(`   orthography: ${nOrth} run(s) folded onto the language's own ñ`); }
   unboldLeadProse(blocks);
   ensureOrIndividually(blocks);
   normaliseQuestionMarkBold(blocks);
@@ -316,8 +351,20 @@ async function typesetOne(docxPath, themeName) {
     if (fs.existsSync(p)) {
       const nm = "cover_hero" + path.extname(p);
       media.push({ src: p, name: nm });
-      const cov = blocks.find((b) => b.t === "cover");
-      if (cov) cov.hero = { file: nm, w: 0, tall: false };
+      let cov = blocks.find((b) => b.t === "cover");
+      // No cover block at all: the importer did not recognise this manuscript's
+      // first page as a cover, so the override was accepted and then silently
+      // dropped — the book printed the author's own cover graphic inline as an
+      // ordinary little figure and had no cover of its own. Naming a cover image
+      // IS saying the book has a cover, so make one for the hero to sit on; the
+      // synthesis below then fills in the title, grade and book type exactly as
+      // it does for every other book.
+      if (!cov) {
+        cov = { t: "cover", lines: [], byline: [], hero: null, logo: null };
+        blocks.unshift(cov);
+        console.log("   coverImage given but the manuscript had no cover page — one was created");
+      }
+      cov.hero = { file: nm, w: 0, tall: false };
     } else console.warn("!  coverImage not found:", p);
   }
 
@@ -385,7 +432,16 @@ async function typesetOne(docxPath, themeName) {
       // An explicit `grade` override wins (a roman-numeral "form II" filename); ECE books
       // carry "ECE" where other books carry "Form N" / "Grade N".
       const grade = ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
-      const booktype = isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book";
+      // A local-language book says what kind of book it is in ITS OWN language.
+      // The authors gave the words on the ZEPH word form (Bemba "Icitabo ca
+      // Musambi", Tonga "Bbuku lyasicikolo", Nyanja "BUKU LA M'PHUNZI"…), so take
+      // the wording from the loaded word list rather than printing the English
+      // default on the cover of a Bemba book. An English book loads no word list
+      // and is unchanged. This line also feeds the running header's pill (see
+      // hdrtab below), so the two always agree.
+      const isTG = isTeacherBookName(base);
+      const langType = LEXI.words([isTG ? "teachers_guide" : "learners_book"])[0];
+      const booktype = langType || (isTG ? "Teacher's Guide" : "Learner's Book");
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -413,7 +469,12 @@ async function typesetOne(docxPath, themeName) {
     // (including `[]` to hide the byline) still wins below.
     if (cov && (!cov.byline || !cov.byline.length) && !Array.isArray(ov.authors)) {
       const isHeadType = (b) => b && (b.t === "h1" || b.t === "h2" || b.t === "h3" || b.t === "head");
-      const authHeadIdx = blocks.findIndex((b) => isHeadType(b) && /^(THE\s+)?AUTHORS?$/i.test((b.text || "").trim()));
+      // English, plus the language's own word for the section (Kaonde BANEMBI, Lunda
+      // ANSONEKI…). Without it a local-language book's cover came out byline-less even
+      // though its bio section was sitting right there, correctly formatted — the
+      // section simply was not called "AUTHORS".
+      const isAuthHead = (t) => /^(THE\s+)?AUTHORS?$/i.test(t) || LEXI.startsWith(["author_section"], t);
+      const authHeadIdx = blocks.findIndex((b) => isHeadType(b) && isAuthHead((b.text || "").trim()));
       if (authHeadIdx >= 0) {
         const names = [];
         for (let i = authHeadIdx + 1; i < blocks.length; i++) {
@@ -421,7 +482,10 @@ async function typesetOne(docxPath, themeName) {
           if (isHeadType(b)) break;                                  // next section ends the bios
           const seg0 = Array.isArray(b.segs) && b.segs[0];
           if (!seg0 || !seg0.b) continue;                            // bio opens with a bold name
-          const name = (seg0.t || "").trim();
+          // Trim a trailing separator: the bio is often typed "Chabinga Kipande Florence-
+          // Assistant DRCC, Kikombe Primary School", with the dash inside the bold run, and
+          // the dash is punctuation between the name and the role, not part of the name.
+          const name = (seg0.t || "").trim().replace(/[\s,:;–—-]+$/, "");
           if (name.length >= 3 && name.length <= 40 && /^[A-Z][A-Za-z'`.\- ]+$/.test(name)) names.push(name);
         }
         if (names.length) {
@@ -605,6 +669,23 @@ async function typesetOne(docxPath, themeName) {
   // A book may also override the TOC depth directly. Depth 1 keeps top-level
   // sections only (front matter + units/topics) and excludes sub-topics.
   if (ov.tocDepth !== undefined) themeOverrides.tocDepth = ov.tocDepth;
+  // A local-language book titles its contents page in that language. The authors gave
+  // their own word for "Table of Contents" on the word form (Kaonde "Bijimo", Nyanja
+  // "Zam'kati"…), so take it from the loaded word list instead of printing the English
+  // default. A theme that names its own `toctitle` (Lunda) keeps it, and an English book
+  // loads no word list, so neither changes. A per-book `toctitle` still beats both.
+  const langToc = LEXI.words(["contents"])[0];
+  if (langToc && (THEMES[theme] || {}).toctitle === "Table of Contents") themeOverrides.toctitle = langToc;
+  if (ov.toctitle) themeOverrides.toctitle = ov.toctitle;
+  // The cover captions its byline "AUTHOR"/"AUTHORS". A local-language book says
+  // that in its own language too — the word form carries it (Bemba "Bakalemba",
+  // Lunda "Akwakusoneka"…). A book whose own front matter uses a different word
+  // for its authors should say what the book says, so `authorLabel` overrides it:
+  // the Icibemba Learner's Book credits "ABALEMBELE" on its imprint page, and the
+  // cover must not caption the same people with a different word.
+  const langAuth = LEXI.words(["author_section"])[0];
+  if (langAuth) themeOverrides.authorLabel = langAuth;
+  if (ov.authorLabel) themeOverrides.authorLabel = ov.authorLabel;
   if (ov.captionSize) themeOverrides.capSize = ov.captionSize;
   // "boxStripe": false — plain tinted activity/exercise/assessment boxes, no thick left border
   if (ov.boxStripe === false) themeOverrides.boxStripe = false;   // e.g. "12pt" (see capsz in the template)
@@ -673,11 +754,34 @@ async function typesetOne(docxPath, themeName) {
   // Hand-typed page footers that ended up inside table cells are cleared.
   if (ov.lessonLabels) {
     const plain = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).replace(/\s+/g, " ").trim();
-    const LABEL = /^([A-ZÑŇŊ][A-ZÑŇŊ'’\- ]{1,45}?(?:\s+\d+)?)\s*:\s*(.*)$/;
+    // The label is matched in ANY casing; which of those lines is really a label is
+    // decided below, from the book's own evidence, not from the capitals.
+    const LABEL = /^([A-Za-zÀ-ɏ][A-Za-zÀ-ɏ'’\- ]{1,45}?(?:\s+\d+)?)\s*:\s*(.*)$/;
     const isCaps = (t) => t === t.toUpperCase() && /[A-Z]/.test(t);
     // "MUTWE:", "MUTWE-KACHE:", "MUTWE- KACHE:", "MUTWE –KACHE 0.1.9.2 …" (colon optional
     // when a topic number follows)
     const HEADLINE = /^MUTWE(\s*[-–]?\s*KACHE)?\s*(:|(?=\s*[0-9O]\.\d))/i;
+    // Whether a lesson label is set as a label used to depend on the author having typed
+    // it in capitals, so the SAME label printed bold on one page and as ordinary prose on
+    // the next — the Kiikaonde Grade 1 Teacher's Guide wrote "MUFUNJISHI:" 12 times and
+    // "Mufunjishi:" 85 times, "KIMWESHO:" 4 times and "Kimwesho:" 22 times, and twelve
+    // labels in all came through the book in both casings. Capitalisation is a typing
+    // habit, not a distinction the reader is meant to see.
+    //
+    // So read the labels off the manuscript first: a wording the author capitalised ANY-
+    // WHERE is a structural label of this book, and every line that opens with the same
+    // wording is the same label whatever case it was typed in. Taking the evidence from
+    // the book's own capitals keeps the rule self-limiting — an ordinary sentence that
+    // happens to open "Bintu-zhina: Zambia, Kitwe, …" is only ever promoted if that same
+    // wording is used as a capitalised label elsewhere, so no prose is swept up.
+    const labelled = new Set();
+    for (const b of blocks) {
+      if (!b || !/^(para|listitem|label|head|h3)$/.test(b.t)) continue;
+      const t = plain(b);
+      if (!t || HEADLINE.test(t)) continue;
+      const m = t.match(LABEL);
+      if (m && isCaps(m[1])) labelled.add(m[1].trim().toUpperCase().replace(/\s+/g, " "));
+    }
     let n = 0;
     for (const b of blocks) {
       if (b.t === "table" && Array.isArray(b.rows)) {
@@ -692,9 +796,12 @@ async function typesetOne(docxPath, themeName) {
         b.t = "head"; b.text = t; delete b.segs; delete b.marker; n++; continue;
       }
       const m = t.match(LABEL);
-      if (m && isCaps(m[1])) {
+      // Printed in the capitalised house form whichever way it was typed, so the label
+      // reads the same on every page.
+      const label = m && m[1].trim().toUpperCase().replace(/\s+/g, " ");
+      if (m && labelled.has(label)) {
         b.t = "para"; delete b.marker; delete b.text;
-        b.segs = [{ t: m[1].trim() + ":", b: true, it: false, c: null }];
+        b.segs = [{ t: label + ":", b: true, it: false, c: null }];
         if (m[2]) b.segs.push({ t: " " + m[2], b: false, it: false, c: null });
         n++;
       }
@@ -724,7 +831,74 @@ async function typesetOne(docxPath, themeName) {
         else b.nest = k ? 2 : 1;                      // a bullet under a step nests under it
       } else if (b.t !== "vspace") k = 0;
     }
+    // A lettered marker's PUNCTUATION says which level it is: "a)" at the first level,
+    // "a." once nested under a numbered step. The manuscripts keep that distinction
+    // almost perfectly — in the Kiikaonde Grade 1 TG, 86 of 88 first-level letters are
+    // "a)" and 10 of 11 nested ones are "a." — so the handful that disagree are slips,
+    // and the two shapes must NOT be levelled to one: that would throw the distinction
+    // away. Point each stray marker at the shape its own level already uses.
+    for (const b of blocks) {
+      if (b.t !== "listitem" || !b.nest) continue;
+      const m = String(b.marker || "").match(/^\(?([a-z])[.)]$/i);
+      if (!m) continue;
+      b.marker = b.nest >= 2 ? `${m[1]}.` : `${m[1]})`;
+    }
     console.log(`   lessonLabels: ${n} lesson label line(s) set`);
+  }
+  // House style: a section's number belongs BEFORE the colon ("MUTWE 1.1: MASHIMIKILA",
+  // not "MUTWE: 1.1 MASHIMIKILA"). Local-language authors routinely type it the other way
+  // round throughout a book, so this runs for every book that loads a word list rather
+  // than being opted into per book the way English's `colonHeadings` is.
+  //
+  // Runs HERE, after lessonLabels, not with the other polish passes: until lessonLabels
+  // has settled these lines into headings they are still paragraphs whose runs split the
+  // label from its number ("MUTWE:" bold, " 1.1 MASHIMIKILA" plain), and a pass reading
+  // only the first run cannot see the number to move the colon past.
+  {
+    const nColon = fixSectionColon(blocks);
+    if (nColon) console.log(`   section colon moved after the number: ${nColon}`);
+  }
+  // Straight after, and for the same reason: once the colon is where it belongs, a
+  // section label still sitting in front of a bare title is labelling nothing and comes
+  // off ("Umutwe: Amashina" -> "Amashina"). A numbered heading has a code to carry and
+  // is left alone.
+  {
+    const nBare = dropBareSectionLabels(blocks);
+    if (nBare) console.log(`   bare section label dropped from heading: ${nBare}`);
+  }
+  // Same place, same reason: these lines are only headings once lessonLabels has run, and
+  // the colon has to be in its final position before a trailing full stop can be read off
+  // the end of the title.
+  {
+    const nHead = tidyHeadings(blocks);
+    if (nHead) console.log(`   headings tidied (trailing stop / section-word spelling): ${nHead}`);
+  }
+  {
+    const nRuns = tidyRuns(blocks);
+    if (nRuns) console.log(`   stray spaces round punctuation closed up: ${nRuns}`);
+  }
+  // A lead-in line that introduces a list — "Mikumbu yaketekelwa:" (expected answers),
+  // "Byakuuba bafunda:" (what the learners do) — belongs at its list's level. Left at the
+  // body margin it sits level with the activity label above it while everything it
+  // introduces is indented away, so the page gives no sign which list it heads.
+  //
+  // Only a paragraph that ENDS in a colon and is immediately followed by a nested list
+  // item counts: a colon mid-sentence, or one trailing a paragraph that happens to sit
+  // above an unrelated list, is prose and stays where the author put it. Runs after the
+  // nesting pass above, since the level it copies is the one that pass assigned.
+  {
+    let nLead = 0;
+    for (let i = 0; i < blocks.length - 1; i++) {
+      const b = blocks[i];
+      if (!b || b.t !== "para" || !Array.isArray(b.segs) || b.leadLvl) continue;
+      const txt = b.segs.map((s) => s.t || "").join("").trim();
+      if (!txt.endsWith(":") || txt.length > 60) continue;
+      const nx = blocks[i + 1];
+      if (!nx || nx.t !== "listitem" || !nx.nest) continue;
+      b.leadLvl = nx.nest;
+      nLead++;
+    }
+    if (nLead) console.log(`   lead-in lines indented to their list: ${nLead}`);
   }
   // keepHeadsWithUnit: true — short headings that sit directly before a unit heading
   // ("Kuteleka ne Kwamba / Mutwe: Mazhina" then "KISHINA 3") open the unit's page with
@@ -807,7 +981,11 @@ async function typesetOne(docxPath, themeName) {
   // Book…") — fall back to the manuscript's own (already-synthesised) cover lines.
   const gm = detectName.match(/(form|grade)\s*\d+/i)
     || ((blocks.find((b) => b.t === "cover") || {}).lines || []).map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
-  const gradeFolder = ov.grade ? titleCaseGrade(ov.grade) : (gm ? titleCaseGrade(gm[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "Other");
+  // Early-years books file together under "ECE" whatever level each one names ("ECE Levo 1",
+  // "ECE Level 2"), so the folder stays the level's shelf rather than splitting into one
+  // folder per book the moment a book spells its level out on the cover.
+  const gradeFolder = eduLevel === "Early Childhood Education Level" ? "ECE"
+    : ov.grade ? titleCaseGrade(ov.grade) : (gm ? titleCaseGrade(gm[0]) : "Other");
   const bookDir = path.join(OUTPUT_DIR, gradeFolder, base);
   fs.mkdirSync(bookDir, { recursive: true });
   const outPath = path.join(bookDir, `${base} - typeset.pdf`);

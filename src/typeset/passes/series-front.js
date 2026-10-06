@@ -131,6 +131,13 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // equivalents (Lunda: MAZU ATACHI=Foreword, KULEMA…WUNU=Preface,
   // KUSAKILILA=Acknowledgement) so every book's signatory groups identically.
   const SIGSEC = /FOREW|PREFACE|ACKNOWLEDG|MAZU ATACHI|KULEMA\b.*\bWUNU|KUSAKILILA/i;
+  // The names above are English plus LUNDA's three, hand-added when that book arrived.
+  // Every other language's were never added, so the whole signatory block — the bold
+  // name, the signature space above it, the bold+uppercased organisation line — simply
+  // never ran for them. The word list already holds all three concepts for each
+  // language, so ask it rather than growing this regex a book at a time. It answers
+  // false when no language is loaded, leaving English books on the regex alone.
+  const isSigSection = (s) => SIGSEC.test(s) || LEXI.startsWith(["foreword", "preface", "acknowledgement"], s);
   // a signatory's name: a trailing honorific "… (Dr)" / "… (Ms.)", OR a leading
   // one "Dr. Name" / "Prof. Name" / "Dr Name" (the period is optional).
   // Trailing parenthetical honorific — allow internal dots/spaces so "(Ph.D.)",
@@ -164,7 +171,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
     let section = "", done = false, withSig = [];
     for (let i = 0; i < b.length; i++) {
       const x = b[i];
-      const h1Sig = !done && SIGSEC.test(section) && sigH1(x) && SIGNAME.test((x.text || "").trim());
+      const h1Sig = !done && isSigSection(section) && sigH1(x) && SIGNAME.test((x.text || "").trim());
       if (x.t === "h1" && !h1Sig) { section = x.text || ""; done = false; withSig.push(x); continue; }
       const plain = plainOfBlk(x);
       // A run-on signatory: one paragraph that carries the honorific inline and
@@ -176,7 +183,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
       // leading "Dr./Prof./…" prefix both count — SIGNAME alone would wrongly
       // exclude the leading-honorific style ("Dr. Beatrice Chirwa…") since it reads
       // as a plausible standalone name line even though it is not one here.
-      const runonSig = !done && SIGSEC.test(section) && x.t === "para" && Array.isArray(x.segs)
+      const runonSig = !done && isSigSection(section) && x.t === "para" && Array.isArray(x.segs)
         && (SIGINLINE.test(plain) || /^(?:dr|prof|mr|mrs|ms|hon)\.?\s+[A-Z]/i.test(plain))
         && x.segs.filter((s) => s.t.trim()).length >= 2;
       if (runonSig) {
@@ -189,7 +196,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
       // A signatory NAME line is short ("Agness Mumba Wilkins (PhD)"); a prose sentence that
       // merely starts with an honorific ("Mr. Eustace Panga Museka wrote the book…") is not a
       // signature, so cap the length or it steals the block from the real signatory below it.
-      if (!done && SIGSEC.test(section) && (isText(x) || h1Sig) && SIGNAME.test(plain) && plain.length <= 60) {
+      if (!done && isSigSection(section) && (isText(x) || h1Sig) && SIGNAME.test(plain) && plain.length <= 60) {
         // Leave room for a hand signature, then render the signatory block (name,
         // title, organisation) as a dedicated block whose lines are EVENLY spaced
         // — consistent across every book (the template controls the gap).
@@ -197,10 +204,20 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
         let j = i;
         const lines = [];
         while (j < b.length && (isText(b[j]) || (h1Sig && sigH1(b[j])))) {
+          const t = plainOfBlk(b[j]);
+          // A signatory block is at most three SHORT lines — name, title,
+          // organisation. Without a stop condition this loop ran on through every
+          // text block that followed, so one signatory swallowed the whole of the
+          // next section: its heading and all its prose were re-laid as signature
+          // lines in the signature's narrow centred column, piling up on top of
+          // one another and running off the foot of the page as unreadable text.
+          // A line of prose (longer than a signatory line ever is) ends the block,
+          // and so does the third line.
+          if (!t || t.length > 60 || lines.length >= 3) break;
           // The signatory's name (the first line) is always bold; an all-caps
           // organisation line (e.g. "ZAMBIA EDUCATIONAL PUBLISHING HOUSE") is bold
           // too; the title line (e.g. "Board Chairperson") is always regular weight.
-          lines.push(sigLine(plainOfBlk(b[j]), j === i));
+          lines.push(sigLine(t, j === i));
           j++;
         }
         withSig.push({ t: "signature", lines });

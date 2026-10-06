@@ -1,0 +1,118 @@
+{
+  "_note": "Leftovers from the author's hand-typed contents list. The engine drops the dot-leader entries themselves; these three lines carry no leaders, so they survive: 'BIJIMO    PEEJI' is the list's own heading + page-column header (the engine prints its own Table of Contents), and this 'TEMU 1' is the term banner INSIDE the list, not the real one that opens the body.",
+  "remove": [
+    "BIJIMO",
+    "PEEJI",
+    "MWAIYAYI KU MULAKA WA KIKAONDE GILEDI 1"
+  ],
+  "removeWhereNext": [
+    {
+      "find": "TEMU 1",
+      "next": "BANEMBI"
+    }
+  ],
+  "_note_units": "The author numbered every unit in the contents list but dropped the number from most of the body headings, and spaced two colons wrongly. The numbers are the author's own, read off that contents list. `find` is a substring that matches exactly one block; `with` must be the WHOLE new heading, since replace swaps the entire block. Unit 10's number is right in the body - it is the CONTENTS that had 'KISHINA 1O' with a letter O, and that list is removed.",
+  "replace": [
+    {
+      "find": "KISHINA: BUKAÑENDA",
+      "with": "KISHINA 5: BUKAÑENDA"
+    },
+    {
+      "find": "KISHINA: BUSULU",
+      "with": "KISHINA 7: BUSULU"
+    },
+    {
+      "find": "KISHINA: ÑENDELO",
+      "with": "KISHINA 8: ÑENDELO NE MASAWAKYA"
+    },
+    {
+      "find": "KISHINA : KWINGIJISHA",
+      "with": "KISHINA 9: KWINGIJISHA MICHI NE BIZHIMA MWATAMA"
+    },
+    {
+      "find": "KISHINA 10 : MFUNJILO",
+      "with": "KISHINA 10: MFUNJILO YA PA MAALI"
+    },
+    {
+      "find": "KISHINA: MITEETO NE MISANGO",
+      "with": "KISHINA 11: MITEETO NE MISANGO YA NGINKELO MU NTANDA"
+    },
+    {
+      "find": "KISHINA: MAZHIKAKANWA",
+      "with": "KISHINA 12: MAZHIKAKANWA"
+    },
+    {
+      "find": "KISHINA: BUNJIMI",
+      "with": "KISHINA 13: BUNJIMI"
+    },
+    {
+      "find": "KISHINA: MITETO YA KYALO",
+      "with": "KISHINA 14: MITETO YA KYALO"
+    },
+    {
+      "find": "BUYUKE BWA NKWACHILO",
+      "with": "MUTWE 1.6: BUYUKE BWA NKWACHILO YA BUUKU"
+    },
+    {
+      "find": "Nkwachilo ya Buuku.",
+      "with": "MUTWE-KACHE 1.6.1: Nkwachilo ya Buuku"
+    }
+  ],
+  "_note_lessons": "A lesson-plan Teacher's Guide (LUFUNJISHO / KIBESE / MUTWE / BYAKUUBA MUFUNJISHI). lessonLabels nests a lettered sub-item under the numbered step above it, so a. and b. stop starting at the same margin as 1. and 2. It nests only while a numbered item is open, so a lettered list with no numbers above it stays top-level.",
+  "lessonLabels": true,
+  "_note_cover": "PLACEHOLDER cover. The manuscript ships none ('[Please, put suitable cover page ]'). This supplied illustration meets the representation rules generously - a wheelchair user, a girl with a hearing aid who is signing, an albino girl, two boys and two girls - but it breaks two standing house rules: it is cartoon rather than the semi-realistic register HOUSE-STYLE section 5 requires, and its setting (autumn foliage, rolling hills) does not read as Zambian. It arrived portrait 912x1168 at 157 DPI as a JPEG; the sky above the figures was trimmed and the sides padded with the picture's own border orange to reach the hero card's 1.846:1 without clipping any child, then taken through Real-ESRGAN to print resolution and saved as PNG. Replace before printing.",
+  "coverImage": "kikaonde-g1-cover.png",
+  "termPages": "^TEMU[ ]*[0-9]+$",
+  "_note_terms": "TEMU N is the term divider. It gets a page of its own. This manuscript has only one - the other TEMU 1 was inside the hand-typed contents list, which is removed.",
+  "_note_numbering": "AUTHOR NUMBERING CORRECTED, one lesson. Everywhere else the book runs MUTWE 1.6 -> MUTWE-KACHE 1.6.1 -> competence 1.6.1.1. In the KUTANGA lesson of KISHINA 2 the author pushed both a level deeper: MUTWE: 1.6.1 and MUTWE-KACHE: 1.6.1.1, which made a sub-topic code serve as a topic and left the competence sharing its sub-topic's number. Set to 1.6 and 1.6.1; the competence line 1.6.1.1 was already right and is untouched. The rest of the book's numbering is NOT sequential and is not a fault: the numbers are syllabus strand codes (about 1.1-1.5 speaking and listening, 1.6-1.9 reading, 1.10-1.11 vocabulary, 1.12 comprehension, 1.14-1.16 writing) which repeat in every unit by design.",
+  "_note_foreword": "The Foreword opened with its own first sentence typed twice: once in full caps as a standalone line, then again at the head of the paragraph below it. The caps line is removed; the paragraph carries the sentence.",
+  "_note_spelling": "AUTHOR SPELLING CORRECTED. The manuscript spells the language four ways in its prose - Kikaonde, kikaonde, kiikaonde, Kiikaonde - while the cover, title page and running header all read Kiikaonde. One name, one spelling: every prose mention is set to Kiikaonde, capitalised as the proper noun it is. In the Acknowledgements three organisation names were typed in lower case and one Kaonde word (KULUMBULULA) in full caps mid-sentence; each is set the way the book writes it everywhere else. The author's bio ran the name straight into a hyphen (\"Florence- Assistant DRCC\"); the hyphen is now a spaced dash between the name and the role.",
+  "subtext": [
+    {
+      "from": "Florence-",
+      "to": "Florence –"
+    },
+    {
+      "from": "Mulaka wa kikaonde",
+      "to": "Mulaka wa Kiikaonde"
+    },
+    {
+      "from": "mulaka wa kikaonde",
+      "to": "mulaka wa Kiikaonde"
+    },
+    {
+      "from": "mulaka wa Kikaonde",
+      "to": "mulaka wa Kiikaonde"
+    },
+    {
+      "from": "mulaka wa kiikaonde",
+      "to": "mulaka wa Kiikaonde"
+    },
+    {
+      "from": "ba ministry of education",
+      "to": "ba Ministry of Education"
+    },
+    {
+      "from": "ba curriculum development centre",
+      "to": "ba Curriculum Development Centre"
+    },
+    {
+      "from": "ba Zambia publishing house (ZEPH)",
+      "to": "ba Zambia Educational Publishing House (ZEPH)"
+    },
+    {
+      "from": "maana ne KULUMBULULA bwa",
+      "to": "maana ne kulumbulula bwa"
+    },
+    {
+      "from": "ne kupopwela.Syllable",
+      "to": "ne kupopwela."
+    }
+  ],
+  "_note_merge": "The author broke one sentence across two paragraphs mid-list (\"...kumvwisha, kwamba, kutala\" / \"na kupesa-pesa, kusobolola...\"). Rejoined.",
+  "mergePara": [
+    {
+      "find": "Mingilo ya mfunjilo yafwainwa kufikizha mu byonse apo paji"
+    }
+  ]
+}

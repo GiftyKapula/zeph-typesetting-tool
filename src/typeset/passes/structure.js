@@ -68,7 +68,15 @@ function boxifyActivities(blocks, opts = {}) {
   // tolerating the dash type, plural/typo forms ("Exercises", "EXERCSE"), case and a
   // trailing period, so every answer key is boxed like the other exercises.
   const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
-  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : null);
+  // The patterns above are English plus a handful of local-language ACTIVITY labels
+  // typed out by hand; the exercise and assessment ones were never added, so a
+  // local-language exercise heading the word list already knows (Kaonde "MWINGILO")
+  // went unrecognised and its questions spilled out of the box. Fall back to the
+  // loaded word list, which carries every wording the authors themselves gave, and
+  // resolves "Mwingilo" (exercise) against "Mwingilo wakuuba" (activity) by longest
+  // match. It answers null when no language is loaded, so English books are untouched.
+  const LEXKIND = { activity: "act", exercise: "ex", assessment: "asmt" };
+  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : LEXKIND[LEXI.boxKind(t)] || null);
   const INTERNAL = /^(teaching and learning materials|teacher.?s?\s*facilitation procedure|facilitation procedure|teacher.?s?\s*notes?|take note of responses|expected responses?|possible answers?|materials?|answers?|procedure)\b/i;
   // The recurring teaching PHASES inside a single activity (the 3Ps / lesson-cycle
   // structure: Introduction, Presentation/Present, Practice, Production/Produce,
@@ -548,6 +556,25 @@ const BOX_LABEL_SMALL = /^(of|the|and|to|in|for)$/i;
 // The label is everything before the first colon. A title with NO colon qualifies only
 // when it is nothing but label words and numbers ("End of Topic Assessment"), so a
 // colon-less descriptive title is left alone rather than half-recased.
+// BOX_LABEL_WORD is English. A local-language book titles its boxes with the authors'
+// own wording ("MWINGILO", "Mwingilo 3:"), which the loaded word list already carries \u2014
+// without it boxLabelOf answered null for every one of them, so they were neither
+// counted in the caps-vs-mixed vote nor recased, and one book printed MWINGILO,
+// MWINGILO:, Mwingilo: and Mwingilo 2: on different pages. Memoised per language, since
+// one book is typeset at a time.
+let lexLabelCache = { lang: undefined, set: new Set() };
+function lexLabelTokens() {
+  const lang = LEXI.getLang();
+  if (lexLabelCache.lang !== lang) {
+    const set = new Set();
+    for (const w of LEXI.words(["activity", "alt_activity", "exercise", "assessment_topic", "assessment_unit"])) {
+      for (const tok of w.replace(/[-\u2013\u2014().]/g, " ").split(/\s+/)) if (tok) set.add(tok.toLowerCase());
+    }
+    lexLabelCache = { lang, set };
+  }
+  return lexLabelCache.set;
+}
+
 function boxLabelOf(title) {
   const t = (title || "").trim();
   if (!t) return null;
@@ -555,7 +582,8 @@ function boxLabelOf(title) {
   const label = ci >= 0 ? t.slice(0, ci) : t;
   if (!/[A-Za-z]/.test(label)) return null;
   const toks = label.replace(/[-\u2013\u2014().]/g, " ").split(/\s+/).filter(Boolean);
-  if (!toks.length || !toks.every((w) => /^\d+$/.test(w) || BOX_LABEL_WORD.test(w))) return null;
+  const lex = lexLabelTokens();
+  if (!toks.length || !toks.every((w) => /^\d+$/.test(w) || BOX_LABEL_WORD.test(w) || lex.has(w.toLowerCase()))) return null;
   return label;
 }
 
@@ -571,6 +599,11 @@ function uniformBoxLabelCase(blocks) {
       if (!b || typeof b !== "object") continue;
       if (b.t === "activity" || b.t === "assessment") boxes.push({ b, k: "title", s: "titleSegs" });
       else if (b.t === "exercise") boxes.push({ b, k: "heading", s: "headingSegs" });
+      // A box this pass built itself (boxifyActivities, from a loose heading) is a
+      // `framedsection`, and it was missing from this walk — so the titles most likely
+      // to be inconsistent, the ones the author typed by hand rather than as a shaded
+      // table, were the ones never levelled. It carries a plain `title` and no segs.
+      else if (b.t === "framedsection") boxes.push({ b, k: "title", s: "titleSegs" });
       if (Array.isArray(b.body)) walk(b.body);
       if (Array.isArray(b.blocks)) walk(b.blocks);
     }
@@ -632,4 +665,50 @@ function keepNumberedSubtopicsOnly(blocks) {
 }
 
 
-module.exports = { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };
+// The "what you need to know" box — the specific-competences list a manuscript opens each
+// sub-topic with — is written for the teacher, not the child: it is the lesson's
+// objectives, phrased as instructions to whoever runs the lesson ("Langeni ifyakwikala
+// bwino pakulemba" — show them how to sit properly to write). In a Teacher's Guide that
+// is exactly the point. In a Learner's Book it is a page the reader cannot use, and the
+// Icibemba ECE Learner's Book's proofreader struck out every one of them.
+//
+// Opt in per book with `dropCompetenceBoxes: true` — a Learner's Book may well print a
+// competences box by design, so this is never automatic — and it needs the language's own
+// wording for the box in its word list to recognise one at all.
+//
+// Must run EARLY, while the box is still the table the author drew: a picture book's
+// `untableImages` unpacks short tables into loose headings, and once that has happened
+// nothing says where the competence list stops and the page's own content starts.
+function dropCompetenceBoxes(blocks) {
+  const isLabel = (rows) => {
+    const c = rows && rows[0] && rows[0][0];
+    return !!c && LEXI.startsWith(["specific_competences", "key_competences"], (c.text || "").trim());
+  };
+  const emptyCell = (c) => !c || (!(c.text || "").trim() && !(c.imgs || []).length && !(c.subs || []).length);
+  let n = 0;
+  const visit = (list) => {
+    for (let i = 0; i < list.length; i++) {
+      const b = list[i];
+      if (!b || typeof b !== "object") continue;
+      if (b.t === "table" && Array.isArray(b.rows)) {
+        if (isLabel(b.rows)) { list.splice(i, 1); i--; n++; continue; }
+        // a box nested inside the sub-topic banner the author wrapped it in
+        for (const row of b.rows) for (const c of row) {
+          if (!c || !Array.isArray(c.subs)) continue;
+          const kept = c.subs.filter((rows) => !isLabel(rows));
+          if (kept.length !== c.subs.length) { n += c.subs.length - kept.length; c.subs = kept; }
+        }
+        // the banner would otherwise keep an empty band where the box used to be
+        b.rows = b.rows.filter((row) => !row.every(emptyCell));
+        if (!b.rows.length) { list.splice(i, 1); i--; continue; }
+      }
+      for (const k of Object.keys(b)) {
+        if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) visit(b[k]);
+      }
+    }
+  };
+  visit(blocks);
+  return n;
+}
+
+module.exports = { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly, dropCompetenceBoxes };

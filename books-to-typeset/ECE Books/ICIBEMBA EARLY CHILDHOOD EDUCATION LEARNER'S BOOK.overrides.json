@@ -1,0 +1,54 @@
+{
+  "coverImage": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/cover.png",
+  "grade": "ECE Levo 1",
+  "dropCompetenceBoxes": true,
+  "untableImages": true,
+  "uniformImages": 78,
+  "keepHeadsWithUnit": true,
+  "images": {
+    "image2.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image2.png"
+    },
+    "image53.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image53.png"
+    },
+    "image57.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image57.png"
+    },
+    "image63.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image63.png"
+    },
+    "image79.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image79.png"
+    }
+  },
+  "removeImages": [
+    "image1.png"
+  ],
+  "remove": [
+    "Early Childhood Education"
+  ],
+  "authors": [
+    "Dr. Margaret Nambao (PhD)"
+  ],
+  "subtext": [
+    {
+      "from": "Cinyanja",
+      "to": "Cibemba"
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "ABELEMBELE UMUKU WAKUBALILAPO NIBA:",
+      "with": "ABALEMBELE UMUKU WAKUBALILAPO NIBA:",
+      "all": true
+    }
+  ],
+  "authorLabel": "Abalembele",
+  "asPara": [
+    {
+      "find": "Sambilileni Icibemba Nensansa!",
+      "italic": true
+    }
+  ]
+}

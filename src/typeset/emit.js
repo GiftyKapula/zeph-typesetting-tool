@@ -246,7 +246,7 @@ function emit(blocks) {
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
       case "label": out += `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`; break;
       case "para": {
-        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""})\n`;
+        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""}${b.leadLvl ? `, lvl: ${b.leadLvl}` : ""})\n`;
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
