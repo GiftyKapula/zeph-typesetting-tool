@@ -1773,7 +1773,14 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, noBoxes, flat) {
   // Series layout: an Activity / Exercise / Task / Assessment line (English or a
   // local language) is always a heading, even if the source didn't bold the whole
   // line — so they style consistently. (Table-wrapped boxes are still kept.)
-  if (noBoxes && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
+  // ...but a DOT LEADER says the line is a contents or glossary entry, not a title:
+  // the word is the thing being listed, not a heading over what follows. The Lunda
+  // Grade 1 Learner's Book's English-to-Lunda glossary set "Activity......... Zhakwila"
+  // and "Exercise......... Mudimu" as maroon sub-headings while its thirty neighbouring
+  // entries stayed body text. Four or more dots followed by more text is unmistakably a
+  // leader; a heading that merely trails off in an ellipsis is untouched.
+  const dotLeader = /\.{4,}\s*\S/.test(plain);
+  if (noBoxes && !dotLeader && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
   // Trust the manuscript's own Word heading style — EXCEPT when the "heading" reads as
   // body prose: a manuscript occasionally applies Heading1 to a whole paragraph by
   // mistake (a Foreword/Preface/bio paragraph, a body sentence under a topic), which
@@ -3203,7 +3210,16 @@ async function importDocx(docxPath, opts = {}) {
       const a = blocks[i], b = blocks[i + 1];
       if (!isHeadBlk(a) || !isHeadBlk(b)) continue;
       const at = headText(a).trim();
-      if (!/\b(IN|OF|AND|THE|TO|FOR|ON|OR|AN?|WITH|&)$/i.test(at)) continue;
+      // The connector must be a WORD of its own, not the tail of a longer one. `\b`
+      // cannot tell the difference once the heading is written in a local language:
+      // JavaScript's word boundary counts only [A-Za-z0-9_], so it sees one between
+      // "Ñ" and "A" and reads the Lunda heading "KUTAÑA" as ending in the English
+      // article "A" — gluing it to whatever heading came next. The Lunda Grade 1
+      // Learner's Book lost 14 heading stacks that way ("KUTAÑA" + "NSONEKELU
+      // YAMUKANDA" printed as one line while every neighbouring stack printed as
+      // two). A Unicode-aware lookbehind asks the real question: is the character
+      // before the connector a letter or a digit in ANY script?
+      if (!/(?<![\p{L}\p{N}])(IN|OF|AND|THE|TO|FOR|ON|OR|AN?|WITH|&)$/iu.test(at)) continue;
       const bt = headText(b).trim();
       if (!bt || bt.length > 40) continue;     // the tail should be a short fragment
       a.text = (at + " " + bt).replace(/\s+/g, " ");
