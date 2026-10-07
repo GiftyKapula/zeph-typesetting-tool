@@ -1,6 +1,12 @@
 {
   "_note": "Replacement artwork for pictures that did not read as Zambian, or that carried another language's writing. House requirements (semi-realistic, Zambian, gender balance, a visibly disabled learner, no lettering) are appended to every prompt by tools/genimage.js.",
   "figures": {
+    "image62.png": {
+      "_why": "Round-1 proofread, p.67: the old card spelt cola / kapu / bola / moto into the picture. The author wants cibbeeke (bag), Kkiyola (a sachet of drink powder, not a cup), Bbola (ball), Mulilo (fire), with the b tile as Bb. The words and letter tiles are to be set as typeset text with the picture (not drawn by the model), so the spelling is exact.",
+      "prompt": "Four separate objects arranged in a clean two-by-two grid on a plain white background, each object centred in its own rounded panel with a thick coloured border: top-left panel with a blue border holds a child's school backpack; top-right panel with a green border holds a small foil sachet of powdered fruit-drink mix of the kind sold in Zambian shops, plain and unbranded; bottom-left panel with a yellow border holds a colourful football; bottom-right panel with a red border holds a small outdoor cooking fire burning on a ring of stones. No people. Each object large and clear, as on an early-reading picture card.",
+      "aspect": "square",
+      "targetWidthPx": 1800
+    },
     "image4.png": {
       "prompt": "A Zambian boy of about four years old standing in a bright pre-school classroom, smiling and pointing at his own chest as he introduces himself and says his name. Full-length single figure facing the viewer, tall narrow upright composition with the child filling the frame.",
       "aspect": "portrait",

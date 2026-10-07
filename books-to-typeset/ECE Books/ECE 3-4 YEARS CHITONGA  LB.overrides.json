@@ -7,7 +7,7 @@
   "boxActivities": true,
   "images": {
     "image62.png": {
-      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image62.png"
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image62-chitonga-words.png"
     },
     "image25.png": {
       "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image25.png"
@@ -98,7 +98,7 @@
     },
     {
       "find": "Chakucita",
-      "with": "Cakuchita",
+      "with": "Cakucita",
       "all": true
     },
     {
@@ -111,6 +111,38 @@
     {
       "from": "balikKede",
       "to": "balikkede"
+    },
+    {
+      "from": "BUPANDULUZI",
+      "to": "Bupanduluzi"
+    },
+    {
+      "from": "CiTonga",
+      "to": "ciTonga"
+    },
+    {
+      "from": "balikomene",
+      "to": "balikkomene"
+    }
+  ],
+  "coverGrade": "ECE LEVO 1",
+  "numberBoxBullets": "1)",
+  "unbold": [
+    "CiTonga Cibeela cakusaanguna"
+  ],
+  "editAll": [
+    { "find": "Mutwe: tuvwuumina", "with": "Tuvwuumina" },
+    { "find": "Mutwe : kupaila", "with": "Kupaila" },
+    { "find": "Mutwe: ", "with": "" },
+    { "find": "Mutwe : ", "with": "" },
+    { "find": "MAJWI AANTALISYO", "with": "KWAAMBILIZYA" },
+    { "find": "Balembi", "with": "Mulembi" },
+    { "find": "Zocita", "with": "Mulimo" }
+  ],
+  "insertText": [
+    {
+      "after": "batajani mapenzi mukwiiya kwabo",
+      "text": "Ikumwi kulumba kuya kubayi bapati kuzwa kucikolo cipati ca Yunivesiti yamu Zambia, Ba Vision Milimo ibaka gwashya kubambulula alubikka mizeezo antoomwe kuti isuumane mbuli mboikkede obu."
     }
   ]
 }
