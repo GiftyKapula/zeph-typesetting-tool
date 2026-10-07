@@ -135,6 +135,20 @@
     "  PIC 76 is the Simon says picture with the children's hands on their heads; a second",
     "  Simon says picture (children with arms out) was supplied too and kept as a spare.",
     "",
+    "  A third batch (1280 px JPEGs, saved as PNG, all ESRGAN to 1800 wide) filled 7 more:",
+    "",
+    "           PIC 43 pic43-cup-cups                1280x640 -> ESRGAN 1800x900",
+    "           PIC 44 pic44-bottle-bottles          1280x853 -> ESRGAN 1800x1200",
+    "           PIC 45 pic45-chair-chairs            1280x640 -> ESRGAN 1800x900",
+    "           PIC 46 pic46-ball-balls              1280x640 -> ESRGAN 1800x900",
+    "           PIC 47 pic47-pot-pots                1280x640 -> ESRGAN 1800x900",
+    "           PIC 70 pic70-tongue-twisters         1280x853 -> ESRGAN 1800x1200",
+    "           PIC 73 pic73-language-games          1280x853 -> ESRGAN 1800x1200",
+    "  Two more were supplied but NOT placed, because they do not show what the note asks:",
+    "  PIC 48 drew a hotplate coil where the note (and the /oi/ activity) needs a coin, and",
+    "  PIC 75 drew a car, hat, mat and ant, then a tree, where it needs cat-hat-mat and",
+    "  cat-ant-tree.",
+    "",
     "  The 'Letter word picture' table below does NOT need its own picture after all:",
     "  the author pasted an egg / elephant / envelope / aeroplane picture directly above it.",
     "",
@@ -336,27 +350,32 @@
     {
       "no": 43,
       "find": "Picture of one cup and a word cup on it picture of two cups and a dash",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic43-cup-cups.png"
     },
     {
       "no": 44,
       "find": "Picture of one bottle and a word bottle on it picture of two bottles and a dash",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic44-bottle-bottles.png"
     },
     {
       "no": 45,
       "find": "Picture of one chair and a word Chair on it picture of three chairs and a dash",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic45-chair-chairs.png"
     },
     {
       "no": 46,
       "find": "Picture of a ball and a word on it picture of three balls",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic46-ball-balls.png"
     },
     {
       "no": 47,
       "find": "Picture of one pot and a dash on it picture of two pots",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic47-pot-pots.png"
     },
     {
       "no": 48,
@@ -474,7 +493,8 @@
     {
       "no": 70,
       "find": "Picture of poems 1on mutomboko ceremony with tongue twister 2 peter piper peppers, 3 she sells seashells red 4 lorry, yellow lorry",
-      "hmm": 80
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic70-tongue-twisters.png"
     },
     {
       "no": 71,
@@ -487,7 +507,8 @@
       "no": 73,
       "find": "Picture",
       "hmm": 62,
-      "note": "Three language games in one picture: Simon says; I spy; word bingo"
+      "note": "Three language games in one picture: Simon says; I spy; word bingo",
+      "art": "ENGLISH GRADE 1 LB-art/pic73-language-games.png"
     },
     {
       "no": 75,

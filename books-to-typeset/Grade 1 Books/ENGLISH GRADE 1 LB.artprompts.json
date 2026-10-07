@@ -96,26 +96,6 @@
       "aspect": "landscape",
       "prompt": "On the left, one book. In the middle, a big bold arrow pointing right. On the right, a pile of many books. Plain white background."
     },
-    "pic43-cup-cups": {
-      "aspect": "landscape",
-      "prompt": "On the left, one cup. On the right, two cups. Plain white background, clear space between the two groups."
-    },
-    "pic44-bottle-bottles": {
-      "aspect": "landscape",
-      "prompt": "On the left, one bottle. On the right, two bottles. Plain white background, clear space between the two groups."
-    },
-    "pic45-chair-chairs": {
-      "aspect": "landscape",
-      "prompt": "On the left, one chair. On the right, three chairs. Plain white background, clear space between the two groups."
-    },
-    "pic46-ball-balls": {
-      "aspect": "landscape",
-      "prompt": "On the left, one ball. On the right, three balls. Plain white background, clear space between the two groups."
-    },
-    "pic47-pot-pots": {
-      "aspect": "landscape",
-      "prompt": "On the left, one cooking pot. On the right, two cooking pots. Plain white background, clear space between the two groups."
-    },
     "pic48-oi-words": {
       "aspect": "landscape",
       "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a shiny coin, a bottle of cooking oil, a pot of water boiling on a stove, a clean toilet."
@@ -127,14 +107,6 @@
     "pic58-girl-crying": {
       "aspect": "landscape",
       "prompt": "A six-year-old Zambian girl crying at the side of a road while her mother crosses the road."
-    },
-    "pic70-tongue-twisters": {
-      "aspect": "landscape",
-      "prompt": "Four panels in a row: 1. the Mutomboko ceremony of the Lunda people, a chief in traditional dress dancing while people watch; 2. a man picking red peppers into a basket; 3. a woman selling seashells on a lakeshore; 4. a red lorry and a yellow lorry side by side."
-    },
-    "pic73-language-games": {
-      "aspect": "landscape",
-      "prompt": "Three panels in a row showing six-year-old Zambian children playing language games: 1. Simon says, children touching their heads as the teacher leads; 2. I spy, two children looking through magnifying glasses; 3. word bingo, children with picture cards on their desks."
     },
     "pic75-which-game": {
       "aspect": "landscape",
