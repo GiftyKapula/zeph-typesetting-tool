@@ -112,9 +112,11 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // sub-heading crammed under the previous section instead of opening its own page.
   // A local-language front-matter word counts only when it appears ONCE: the same
   // heading repeated through the book ("Kalambula bwalo" opening every chapter) is a
-  // chapter introduction, not the book's own Introduction page.
+  // chapter introduction, not the book's own Introduction page. Count only the front
+  // matter when the first unit is known: Chitonga heads its Introduction NTALISYO and
+  // also opens chapters with NTALISYO sub-heads, which must not block the front one.
   const lexCount = {};
-  for (const x of blocks) if (/^(label|head|h1|h2|h3)$/.test(x.t)) { const k = fmText(x).toLowerCase(); lexCount[k] = (lexCount[k] || 0) + 1; }
+  for (const x of (firstUnit0 < 0 ? blocks : blocks.slice(0, firstUnit0))) if (/^(label|head|h1|h2|h3)$/.test(x.t)) { const k = fmText(x).toLowerCase(); lexCount[k] = (lexCount[k] || 0) + 1; }
   const lexFront = (x) => LEXI.isFrontSection(fmText(x)) && (lexCount[fmText(x).toLowerCase()] || 0) <= 1;
   let b = blocks.map((x, i) =>
     (firstUnit0 < 0 || i < firstUnit0) && !x.noPromote &&
@@ -130,7 +132,10 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // Section headings that carry a signatory — English plus local-language
   // equivalents (Lunda: MAZU ATACHI=Foreword, KULEMA…WUNU=Preface,
   // KUSAKILILA=Acknowledgement) so every book's signatory groups identically.
-  const SIGSEC = /FOREW|PREFACE|ACKNOWLEDG|MAZU ATACHI|KULEMA\b.*\bWUNU|KUSAKILILA/i;
+  // Plus any front-matter section the current language's word list names, except
+  // Authors/Editors (Chitonga MATALIKILO, KULUMBA and BUYALE each carry a signatory).
+  const SIGSEC_RE = /FOREW|PREFACE|ACKNOWLEDG|MAZU ATACHI|KULEMA\b.*\bWUNU|KUSAKILILA/i;
+  const SIGSEC = { test: (t) => SIGSEC_RE.test(t) || (LEXI.frontRank(t) ?? 0) >= 2 };
   // a signatory's name: a trailing honorific "… (Dr)" / "… (Ms.)", OR a leading
   // one "Dr. Name" / "Prof. Name" / "Dr Name" (the period is optional).
   // Trailing parenthetical honorific — allow internal dots/spaces so "(Ph.D.)",
