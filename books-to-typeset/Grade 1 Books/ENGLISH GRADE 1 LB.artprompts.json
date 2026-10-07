@@ -31,6 +31,10 @@
     "pic75-which-game": {
       "aspect": "landscape",
       "prompt": "Four panels in a row showing six-year-old Zambian children playing: 1. two children looking through magnifying glasses; 2. children touching their heads as the teacher leads; 3. a cat, a hat and a mat side by side; 4. a cat, an ant and a tree side by side."
+    },
+    "pic77-circle-commands": {
+      "aspect": "landscape",
+      "prompt": "Three rows, two small panels side by side in each row, each panel showing one six-year-old Zambian child in school uniform doing one action, on a plain light background: row 1: a child standing still with a hand up saying stop | a child standing up straight; row 2: a child running | a child jumping; row 3: a child walking | a child sitting on a chair."
     }
   }
 }

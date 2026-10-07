@@ -178,7 +178,8 @@
     "  the /er/ list needs a duster; PIC 75 is the same car-for-cat picture as before.",
     "  PIC 58 shows a girl crying indoors; the lesson's reading has her crying as her mother",
     "  crosses a road, so a road scene would fit better if one is drawn later.",
-    "  4 slots remain open.",
+    "  5 slots remain open: PIC 36, 37, 49, 75, and PIC 77, added after this batch for the",
+    "  p.17 \"circle the right picture\" activity, whose note had been missed (see replaceBlocks).",
     "",
     "  The 'Letter word picture' table below does NOT need its own picture after all:",
     "  the author pasted an egg / elephant / envelope / aeroplane picture directly above it.",
@@ -571,6 +572,12 @@
       "find": "picture",
       "hmm": 48,
       "art": "ENGLISH GRADE 1 LB-art/pic76-simon-says.png"
+    },
+    {
+      "no": 77,
+      "find": "(3 sets of 2 pictures for learners to circle: stop, stand, run, jump, walk, sit)",
+      "hmm": 62,
+      "note": "Three sets of two pictures for learners to circle the one that matches the command: stop / stand, run / jump, walk / sit"
     }
   ],
   "_comment_editAll": [
@@ -714,5 +721,22 @@
     "Different people at the market, a fat mother selling bananas tall and short people, young and old, happy and sad people",
     "Different panels of pictures",
     "Three types of songs on one picture."
+  ],
+  "_comment_replaceBlocks": [
+    "The p.17 activity sentence and the author's note to the illustrator are one paragraph in",
+    "the manuscript. Split so the instruction prints and the note becomes picture slot PIC 77."
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Listen to the commands, circle the picture that shows it.(3 sets of 2 pictures for learners to circle: stop, stand, run, jump, walk, sit)",
+      "with": [
+        {
+          "para": "Listen to the commands, circle the picture that shows it."
+        },
+        {
+          "para": "(3 sets of 2 pictures for learners to circle: stop, stand, run, jump, walk, sit)"
+        }
+      ]
+    }
   ]
 }
