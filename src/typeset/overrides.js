@@ -638,6 +638,27 @@ function applyOverrides(blocks, ov) {
     for (const b of flat) if (blockPlain(b).includes(e.find)) { editBlockText(b, e.find, e.with || ""); n++; }
     if (!n) console.warn("!  editAll not matched:", e.find);
   }
+  // numberBoxBullets: true | "1)" — number the bulleted items inside every shaded box
+  // ("box" blocks) 1..N, in the given marker format ("1." when true). For a book whose
+  // reviewer wants a box's objectives numbered rather than bulleted — the ECE Chitonga
+  // Learner's Book bullets 31 of its 32 BUPANDULUZI boxes and numbers the other "1)".
+  // Only plain bullets change; an already-numbered box is left to renumberBoxItems.
+  if (ov.numberBoxBullets) {
+    const fmt = typeof ov.numberBoxBullets === "string" ? ov.numberBoxBullets : "1.";
+    const isBullet = (x) => x && (x.t === "listitem" || (x.t === "para" && x.isList)) && (x.marker || "•").trim() === "•";
+    let n = 0;
+    (function walk(arr) {
+      for (const b of arr || []) {
+        if (!b || typeof b !== "object") continue;
+        if (b.t === "box" && Array.isArray(b.body)) {
+          let k = 0;
+          for (const x of b.body) if (isBullet(x) && !x._sub && !x.nest) { x.marker = fmt.replace(/\d+/, String(++k)); n++; }
+        }
+        for (const v of Object.values(b)) if (Array.isArray(v)) walk(v);
+      }
+    })(blocks);
+    if (!n) console.warn("!  numberBoxBullets: no bulleted box items found");
+  }
   // editAnswer: [{ find, with }] — like editAll, but rewrites every qa part's ANSWER
   // text (`.a`/`.aseg`) rather than its question — see editBlockAnswerText().
   for (const e of ov.editAnswer || []) {

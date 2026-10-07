@@ -84,6 +84,7 @@ off, so a change only touches the books that opt in. Keys:
 | | To lift a whole book to print resolution, don't hand-write these: `node tools/upscale-images.js "<book.docx>" "<typeset.pdf>"` measures every picture's *effective* DPI in the built PDF (the template decides the printed size, so the PDF is the only honest measure), runs Real-ESRGAN on the ones under 300, resamples each back down to exactly what 300 DPI needs, and writes the `images` entries itself. `--dry-run` reports the plan first. A picture Word cropped can't be matched by size and must be named with `--map pN=imageN.png`, which upscales the already-cropped bitmap so the author's crop survives. |
 | `imageToText` | replace a pasted equation-editor screenshot with plain typeset text, by media filename (`{ "image20.png": "15° × 111 km = 1665 km" }`) — for manuscripts where the working is a raster image instead of typed text (the screenshot's baked-in ClearType fringing shows as a visible colour halo once enlarged for print) |
 | `setCaption` | set an image's caption, matched by `near` (existing caption) or `file` (media name) |
+| `coverGrade` | the grade/level text the cover, title page and back cover print (e.g. `"ECE LEVO 1"`), without touching the output folder that `grade` also drives. An ECE tag may carry a level after "ECE" in the book's own word; the whole phrase sits on the tag |
 | `theme` | force a theme by name, bypassing `autoTheme()`'s file-name guess (a TG whose title doesn't match its sibling LB's pattern, say) |
 | `synthesiseCover` | force the engine to build a fresh cover from title/subject/booktype/author even when a cover-ish page was detected (its line shapes didn't match what the theme expects) |
 | `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey. This is now the **default for any TG** (filename carries "TG" or "teacher"), so most books never need to set it; use `blackWhite: false` for the rare TG that must stay in colour, or `blackWhite: true` to force it on a Learner's Book (which otherwise keeps its colour) |
@@ -144,6 +145,7 @@ off, so a change only touches the books that opt in. Keys:
 | Key | What it does |
 |---|---|
 | `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off) |
+| `numberBoxBullets` | number the bulleted items inside every shaded box 1..N; `true` for "1.", or a format string such as `"1)"` — for a reviewer who wants a box's objectives numbered, not bulleted |
 | `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph |
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |

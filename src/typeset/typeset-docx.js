@@ -366,7 +366,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.numberBoxBullets) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -544,8 +544,9 @@ async function typesetOne(docxPath, themeName) {
       // with no form/grade line, `name` defaults to `subject` = lines[0] = the eyebrow).
       const gm2 = gm || linesArr.map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
       // An explicit `grade` override wins (a roman-numeral "form II" filename); ECE books
-      // carry "ECE" where other books carry "Form N" / "Grade N".
-      const grade = ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
+      // carry "ECE" where other books carry "Form N" / "Grade N". `coverGrade` changes
+      // only what the cover prints ("ECE LEVO 1"), not the output folder `grade` drives.
+      const grade = ov.coverGrade ? String(ov.coverGrade) : ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
       const booktype = sayBookType(isTeacherBookName(base));
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
@@ -599,7 +600,7 @@ async function typesetOne(docxPath, themeName) {
     // credit is read from the centred imprint paragraphs rather than from a heading,
     // because on the imprint page that is all it ever is.
     if (cov && (!cov.byline || !cov.byline.length) && !Array.isArray(ov.authors)) {
-      const words = LEXI.words(["author_section"]).concat(["AUTHOR", "AUTHORS"]);
+      const words = LEXI.words(["author_section", "author_one"]).concat(["AUTHOR", "AUTHORS"]);
       const plain = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t || "").join("")).replace(/\s+/g, " ").trim();
       const isCredit = (t) => { const src = LEXI.altSrc(words); return !!src && new RegExp("^(?:" + src + ")\\s*:?\\s*$", "i").test(t); };
       const names = [];
@@ -732,6 +733,8 @@ async function typesetOne(docxPath, themeName) {
   // the same word the cover byline is captioned with; unset for an English book,
   // which keeps the AUTHOR/AUTHORS built into the template.
   if (term("author_section")) themeOverrides.authorlabel = term("author_section");
+  // a language that words ONE author differently (Chitonga Mulembi, several Balembi)
+  if (term("author_one")) themeOverrides.authorlabel1 = term("author_one");
   // Grade 2 primary books get their OWN cover style, visually distinct from Grade 3 —
   // applied to every Grade 2 primary Learner's/Teacher's book regardless of theme
   // (mathsci/cts share the "grade3" cover; primaryeng/local-language use the default).
