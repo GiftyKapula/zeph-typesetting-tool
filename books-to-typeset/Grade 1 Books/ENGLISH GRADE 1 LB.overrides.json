@@ -181,15 +181,14 @@
     "  5 slots remain open: PIC 36, 37, 49, 75, and PIC 77, added after this batch for the",
     "  p.17 \"circle the right picture\" activity, whose note had been missed (see replaceBlocks).",
     "",
-    "  The 'Letter word picture' table below does NOT need its own picture after all:",
-    "  the author pasted an egg / elephant / envelope / aeroplane picture directly above it.",
+    "  The 'Letter word picture' table is deleted (see deleteRun): the author pasted an",
+    "  egg / elephant / envelope / aeroplane picture directly above it.",
     "",
     "Three picture notes are deliberately NOT slots, because each is a COLUMN of a table",
     "rather than a picture of its own, and a full-width slot broke the table apart:",
     "",
-    "  \"Letter   word   picture\"            — the header of a three-column table whose",
-    "                                          picture column needs one small picture per",
-    "                                          row (e, egg; e, elephant; e, envelop)",
+    "  \"Letter   word   picture\"            — DELETED 2026-10-07 (see deleteRun): the picture",
+    "                                          above it already shows egg / elephant / envelope",
     "  \"Birthday  picture of a cake\"         — a row of a match-the-event table, whose right",
     "  \"Christmas  church/ tree picture\"       column needs one small picture per row",
     "",
@@ -737,6 +736,19 @@
           "para": "(3 sets of 2 pictures for learners to circle: stop, stand, run, jump, walk, sit)"
         }
       ]
+    }
+  ],
+  "_comment_deleteRun": [
+    "The p.13 \"Letter / word / picture\" table (e egg, e elephant, e envelop) was typed with spaces,",
+    "not as a Word table, so it printed as loose text split over two pages with its picture",
+    "column empty. The egg / elephant / envelope / aeroplane picture just above it already",
+    "shows the words, so the table is deleted (decided 2026-10-07)."
+  ],
+  "deleteRun": [
+    {
+      "from": "Letter word picture",
+      "to": "e envelop",
+      "maxSpan": 4
     }
   ]
 }
