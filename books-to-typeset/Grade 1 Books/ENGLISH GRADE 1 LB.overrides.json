@@ -149,6 +149,37 @@
     "  PIC 75 drew a car, hat, mat and ant, then a tree, where it needs cat-hat-mat and",
     "  cat-ant-tree.",
     "",
+    "  A fourth batch (1280 px JPEGs, saved as PNG, all ESRGAN to 1800 wide) filled 20 more,",
+    "  PIC 48 among them (a coin this time):",
+    "",
+    "           PIC 18 pic18-school                 1280x853 -> ESRGAN 1800x1200",
+    "           PIC 19 pic19-school-sentences       1280x853 -> ESRGAN 1800x1200",
+    "           PIC 20 pic20-road-coat-soap         1280x853 -> ESRGAN 1800x1200",
+    "           PIC 21 pic21-teeth-sheep-tree       1280x590 -> ESRGAN 1800x830",
+    "           PIC 22 pic22-domestic-and-wild      1280x853 -> ESRGAN 1800x1200",
+    "           PIC 23 pic23-domestic-animals       1280x853 -> ESRGAN 1800x1200",
+    "           PIC 24 pic24-market                 1280x640 -> ESRGAN 1800x900",
+    "           PIC 26 pic26-shopkeeper             1280x853 -> ESRGAN 1800x1200",
+    "           PIC 27 pic27-chain                  1280x853 -> ESRGAN 1800x1200",
+    "           PIC 30 pic30-plant-water            1280x853 -> ESRGAN 1800x1200",
+    "           PIC 32 pic32-greet-elders           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 33 pic33-sh-words               1280x853 -> ESRGAN 1800x1200",
+    "           PIC 35 pic35-th-words               1280x853 -> ESRGAN 1800x1200",
+    "           PIC 38 pic38-house-mouse-mouth      1280x572 -> ESRGAN 1800x804",
+    "           PIC 39 pic39-prepositions           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 40 pic40-ball-on-under-chair    1280x480 -> ESRGAN 1800x675",
+    "           PIC 41 pic41-bird-over-house        1280x853 -> ESRGAN 1800x1200",
+    "           PIC 42 pic42-singular-plural        1280x572 -> ESRGAN 1800x804",
+    "           PIC 48 pic48-oi-words               1280x853 -> ESRGAN 1800x1200",
+    "           PIC 58 pic58-girl-crying            1280x853 -> ESRGAN 1800x1200",
+    "  Four more were supplied but NOT placed, because they do not show what the note asks:",
+    "  PIC 36 drew tooth / three / thumb / four (the note asks thin, tooth, three, thumb);",
+    "  PIC 37 has the duck and the two bottles but no queen; PIC 49 drew a wall chart where",
+    "  the /er/ list needs a duster; PIC 75 is the same car-for-cat picture as before.",
+    "  PIC 58 shows a girl crying indoors; the lesson's reading has her crying as her mother",
+    "  crosses a road, so a road scene would fit better if one is drawn later.",
+    "  4 slots remain open.",
+    "",
     "  The 'Letter word picture' table below does NOT need its own picture after all:",
     "  the author pasted an egg / elephant / envelope / aeroplane picture directly above it.",
     "",
@@ -229,47 +260,56 @@
     {
       "no": 18,
       "find": "A picture showing a school area: classroom with what is found in it, playground and an office AND ALSO LEARNERS SAVING MONEY",
-      "hmm": 80
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic18-school.png"
     },
     {
       "no": 19,
       "find": "Pictures on each sentence to describe it.",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic19-school-sentences.png"
     },
     {
       "no": 20,
       "find": "Picture of a road, coat, soap",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic20-road-coat-soap.png"
     },
     {
       "no": 21,
       "find": "A picture of teeth, sheep, tree seeds",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic21-teeth-sheep-tree.png"
     },
     {
       "no": 22,
       "find": "Picture of domestic animals and wild animals",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic22-domestic-and-wild.png"
     },
     {
       "no": 23,
       "find": "Picture of domestic animals only",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic23-domestic-animals.png"
     },
     {
       "no": 24,
       "find": "PICTURE OF THE MARKET WITH PEOPLE SELLING DIFFERENT ITEMS E.G TOMATOES, ONIONS, FISH, EGGS, BREAD, MILK, MAIZE. ETC",
-      "hmm": 80
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic24-market.png"
     },
     {
       "no": 26,
       "find": "Picture of a shop keeper exchanging money with goods",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic26-shopkeeper.png"
     },
     {
       "no": 27,
       "find": "Picture of a chain",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic27-chain.png"
     },
     {
       "no": 28,
@@ -286,7 +326,8 @@
     {
       "no": 30,
       "find": "We plant and water plants. Picture",
-      "hmm": 80
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic30-plant-water.png"
     },
     {
       "no": 31,
@@ -297,18 +338,21 @@
     {
       "no": 32,
       "find": "We greet our elder’s picture",
-      "hmm": 80
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic32-greet-elders.png"
     },
     {
       "no": 33,
       "find": "Activity 1: picture study",
       "hmm": 62,
-      "note": "A village woman washing shorts and a shirt, a shop, sheep, fish and shoes (the /sh/ words)"
+      "note": "A village woman washing shorts and a shirt, a shop, sheep, fish and shoes (the /sh/ words)",
+      "art": "ENGLISH GRADE 1 LB-art/pic33-sh-words.png"
     },
     {
       "no": 35,
       "find": "ACTIVITY 1: study the picture and say the word three and tooth or teeth. Also call out names Ruth, Cathrine or Keith",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic35-th-words.png"
     },
     {
       "no": 36,
@@ -323,29 +367,34 @@
     {
       "no": 38,
       "find": "Picture of a house, mouse, mouth",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic38-house-mouse-mouth.png"
     },
     {
       "no": 39,
       "find": "Picture illustrations",
       "hmm": 48,
-      "note": "Six panels: 1. a cat on the table; 2. a ball under the chair; 3. a book in the bag; 4. a boy beside a girl; 5. a bird over the house; 6. an apple inside the box"
+      "note": "Six panels: 1. a cat on the table; 2. a ball under the chair; 3. a book in the bag; 4. a boy beside a girl; 5. a bird over the house; 6. an apple inside the box",
+      "art": "ENGLISH GRADE 1 LB-art/pic39-prepositions.png"
     },
     {
       "no": 40,
       "find": "Situation: Ball picture",
-      "hmm": 80
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic40-ball-on-under-chair.png"
     },
     {
       "no": 41,
       "find": "Situation: Bird Picture",
-      "hmm": 80
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic41-bird-over-house.png"
     },
     {
       "no": 42,
       "find": "Picture illustration",
       "hmm": 48,
-      "note": "One object on the left, many of the same object on the right, an arrow between them showing the change: book → books"
+      "note": "One object on the left, many of the same object on the right, an arrow between them showing the change: book → books",
+      "art": "ENGLISH GRADE 1 LB-art/pic42-singular-plural.png"
     },
     {
       "no": 43,
@@ -380,7 +429,8 @@
     {
       "no": 48,
       "find": "Picture. Coin, oil, boiling, toilet",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic48-oi-words.png"
     },
     {
       "no": 49,
@@ -429,7 +479,8 @@
     {
       "no": 58,
       "find": "Picture of a girl crying",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic58-girl-crying.png"
     },
     {
       "no": 61,

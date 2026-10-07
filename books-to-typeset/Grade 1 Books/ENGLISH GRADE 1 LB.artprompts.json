@@ -16,58 +16,6 @@
     "words, and the model mis-spells lettering."
   ],
   "figures": {
-    "pic18-school": {
-      "aspect": "landscape",
-      "prompt": "A Zambian primary school in one wide scene: on the left, an open classroom with desks, chairs, a chalkboard and books; in the middle, a playground with six-year-old children playing; on the right, a small school office with a teacher at a desk. In front, two learners drop coins into a clay money box, saving money."
-    },
-    "pic19-school-sentences": {
-      "aspect": "landscape",
-      "prompt": "Four panels in a row, each a small classroom scene with six-year-old Zambian learners: 1. a girl writing in a book at her desk; 2. a boy sitting on a chair, ready to learn; 3. a teacher writing on the chalkboard; 4. two children reading story books together."
-    },
-    "pic20-road-coat-soap": {
-      "aspect": "landscape",
-      "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a tarred road curving into the distance, a warm coat on a hanger, a bar of soap."
-    },
-    "pic21-teeth-sheep-tree": {
-      "aspect": "landscape",
-      "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a smiling child's clean white teeth, a woolly sheep, a tree with seeds falling from it."
-    },
-    "pic22-domestic-and-wild": {
-      "aspect": "landscape",
-      "prompt": "Two halves of one picture. Left half: domestic animals at a Zambian homestead: a cow, a goat, a dog and chickens near a house. Right half: wild animals in the bush: an elephant, a lion, a zebra and a giraffe. A clear gap between the two halves."
-    },
-    "pic23-domestic-animals": {
-      "aspect": "landscape",
-      "prompt": "Domestic animals at a Zambian village homestead: a cow, a goat, a sheep, a dog, a cat, chickens and a duck, all clearly visible, near a house with a thatched roof."
-    },
-    "pic24-market": {
-      "aspect": "landscape",
-      "prompt": "A busy Zambian open-air market. Traders at wooden stalls sell tomatoes, onions, dried fish, eggs, bread, milk, bananas, potatoes and maize. Shoppers of all ages, men and women, carry baskets and bags."
-    },
-    "pic26-shopkeeper": {
-      "aspect": "landscape",
-      "prompt": "A shopkeeper behind the counter of a small Zambian grocery shop hands a loaf of bread to a customer, who hands over money in return."
-    },
-    "pic27-chain": {
-      "aspect": "landscape",
-      "prompt": "A single clear illustration of a metal chain with large round links, centred on a plain white background, large and easy for a six-year-old to name."
-    },
-    "pic30-plant-water": {
-      "aspect": "landscape",
-      "prompt": "Six-year-old Zambian children planting young trees and watering plants with watering cans in a school garden."
-    },
-    "pic32-greet-elders": {
-      "aspect": "landscape",
-      "prompt": "A six-year-old Zambian boy and girl greeting an elderly man and woman politely, the boy bowing slightly and the girl curtseying, as is the custom."
-    },
-    "pic33-sh-words": {
-      "aspect": "landscape",
-      "prompt": "A village scene: a woman washing shorts and a shirt in a basin outside her house, a small village shop behind her, sheep grazing nearby, fish drying on a rack, and a pair of shoes by the door."
-    },
-    "pic35-th-words": {
-      "aspect": "landscape",
-      "prompt": "A six-year-old Zambian girl smiling to show her teeth and holding up three fingers."
-    },
     "pic36-thin-tooth-three-thumb": {
       "aspect": "landscape",
       "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a very thin stick, a single tooth, three oranges, a hand giving a thumbs-up."
@@ -76,37 +24,9 @@
       "aspect": "landscape",
       "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a duck with its beak open, quacking; a queen wearing a crown; two bottles of liquid."
     },
-    "pic38-house-mouse-mouth": {
-      "aspect": "landscape",
-      "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a small house, a grey mouse, an open mouth."
-    },
-    "pic39-prepositions": {
-      "aspect": "landscape",
-      "prompt": "Six small panels in two rows of three, each showing one position clearly: 1. a cat on a table; 2. a ball under a chair; 3. a book in a school bag; 4. a boy standing beside a girl; 5. a bird flying over a house; 6. an apple inside an open box."
-    },
-    "pic40-ball-under-chair": {
-      "aspect": "landscape",
-      "prompt": "A classroom chair with a football on the floor under it, between its legs."
-    },
-    "pic41-bird-over-house": {
-      "aspect": "landscape",
-      "prompt": "A bird flying high over the roof of a small Zambian house."
-    },
-    "pic42-singular-plural": {
-      "aspect": "landscape",
-      "prompt": "On the left, one book. In the middle, a big bold arrow pointing right. On the right, a pile of many books. Plain white background."
-    },
-    "pic48-oi-words": {
-      "aspect": "landscape",
-      "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a shiny coin, a bottle of cooking oil, a pot of water boiling on a stove, a clean toilet."
-    },
     "pic49-er-words": {
       "aspect": "landscape",
       "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a chalkboard duster, a sheet of paper, a pair of slippers, a block of butter."
-    },
-    "pic58-girl-crying": {
-      "aspect": "landscape",
-      "prompt": "A six-year-old Zambian girl crying at the side of a road while her mother crosses the road."
     },
     "pic75-which-game": {
       "aspect": "landscape",
