@@ -401,7 +401,7 @@ function resolveTextboxBoxes(blocks, tbBoxes) {
     const content = box.kind === "activity" ? (box.body || []) : (box.parts || []);
     // A label whose content OPENS with a picture is labelling that picture, whatever
     // the author went on to put inside the same shape - this one shape also holds a
-    // whole "Cakuchita" activity, which belongs outside the picture label as its own
+    // whole "Cakucita" activity, which belongs outside the picture label as its own
     // box, exactly as the other ten do.
     const first = content.find((x) => x && (x.t || x.kind));
     const picFirst = !!first && /^(img|image|imagerow|pendingimg)$/.test(first.t || first.kind || "");

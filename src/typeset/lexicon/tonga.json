@@ -36,6 +36,9 @@
     "author_section": [
       "Balembi"
     ],
+    "author_one": [
+      "Mulembi"
+    ],
     "foreword": [
       "Matalikilo",
       "Cizyibyo"
@@ -88,8 +91,8 @@
       "Kufwiinsya"
     ],
     "activity": [
-      "Cakuchita",
-      "Cakucita"
+      "Cakucita",
+      "Cakuchita"
     ],
     "exercise": [
       "Mulimo"
@@ -110,6 +113,7 @@
       "Mabbuku abelesegwa"
     ],
     "preface": [
+      "Kwaambilizya",
       "Jwi lyakumatalikilo",
       "Majwi aantalisyo"
     ],
@@ -117,8 +121,8 @@
       "Ciiyo"
     ],
     "alt_activity": [
-      "Cakuchita cimbi",
-      "Cakucita cimbi"
+      "Cakucita cimbi",
+      "Cakuchita cimbi"
     ],
     "assessment_topic": [
       "Mulimo wakumamanino amutwe",

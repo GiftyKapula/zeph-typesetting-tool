@@ -93,7 +93,7 @@ function unboxPictureOnly(blocks) {
   if (n) console.log(`   ${n} picture-only box(es) set as a heading and its pictures`);
   // A box that contains ANOTHER box's title is really two things the author typed into
   // one container. The ECE Chitonga Learner's Book drew "MULIMO 2" as a picture label
-  // and then, inside the same shape, wrote a whole "Cakuchita" activity with its
+  // and then, inside the same shape, wrote a whole "Cakucita" activity with its
   // question — so that one picture printed inside a titled panel while the other
   // fifty-nine stood under a plain heading, and the activity was buried in it. Split
   // at the inner title: what comes before it is the picture label, what follows is the
@@ -353,7 +353,7 @@ function boxifyActivities(blocks, opts = {}) {
     // hold is images (and their captions), the heading and the pictures are emitted
     // as they stand instead — this book labels every picture "MULIMO n", and boxing
     // those would put a frame round all sixty of them while the sections that really
-    // are activities ("Cakuchita") and assessments ("MUSUNKO …") carry the lists that
+    // are activities ("Cakucita") and assessments ("MUSUNKO …") carry the lists that
     // a box exists to frame: a list of things to do, a table, a nested box.
     const framable = body.some((x) => x && /^(listitem|table|box|qa|exercise|assessment)$/.test(x.t));
     if (!framable) { out.push(b, ...body); i = j - 1; continue; }
@@ -812,9 +812,10 @@ function levelHeadingVariants(blocks) {
   // Collapse a run of one repeated letter to a single letter. A doubled vowel is a
   // genuine typing wobble in these languages and is safe to fold.
   //
-  // "c" and "ch" are NOT folded together. They are different letters in Chitonga —
-  // the verb stem is -chita, so "Cakuchita" and "Cakucita" are a right spelling and a
-  // wrong one, not two spellings of equal standing. An earlier version read "ch" as
+  // "c" and "ch" are NOT folded together. Which one is right is a fact about the
+  // language, not a typing wobble — Chitonga writes "Cakucita" with c, Cinyanja writes
+  // "ch" — so they are a right spelling and a wrong one, not two spellings of equal
+  // standing. An earlier version read "ch" as
   // "c" and so was willing to level a correct spelling onto a wrong one, picking the
   // winner by nothing better than which the author typed more often. Where two
   // headings differ by c/ch the word list decides (see lexiconForm below); if the
@@ -841,8 +842,9 @@ function levelHeadingVariants(blocks) {
   // the engine still RECOGNISES them. A heading that is one of those other wordings is
   // rewritten to the first one — the house form — whatever the manuscript does most
   // often. The ECE Chitonga Learner's Book writes "Cakucita" ten times and "Chakucita"
-  // once; neither is right, because Chitonga writes the verb stem with ch, so the word
-  // list's "Cakuchita" is what prints. This runs before the levelling below, which only
+  // once; Chitonga writes the sound with plain c, so the word list's "Cakucita" is
+  // what prints, and a stray "Cakuchita" is corrected to it (the author's own
+  // proofread asked for exactly that). This runs before the levelling below, which only
   // ever decides between spellings the word list has no opinion about.
   const LEX_CONCEPTS = ["activity", "alt_activity", "exercise", "assessment_topic", "assessment_unit",
     "key_points", "note_teacher", "example", "possible_answers", "topic", "subtopic", "lesson", "unit"];
