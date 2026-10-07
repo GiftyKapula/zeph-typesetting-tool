@@ -84,6 +84,24 @@
 // (ECE books carry "ECE" where other books carry "Form N" / "Grade N")
 #let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU|ECE)\\b")) != none
 
+// Printed cover / title-page labels in the book's own language (T.labels, filled from a
+// local-language book's word list in typeset-docx.js; empty for English books, which
+// print exactly as before). Only the printed text changes: the cover lines stay
+// English so hasGradeWord / the form-tag regex still find the grade line.
+#let lbl(s) = {
+  let L = T.at("labels", default: (:))
+  let s = s
+  if L.at("grade", default: "") != "" { s = s.replace(regex("(?i)\bgrade\b"), L.grade) }
+  if L.at("form", default: "") != "" { s = s.replace(regex("(?i)\bform\b"), L.form) }
+  if L.at("tg", default: "") != "" { s = s.replace(regex("(?i)teacher['’]?s\s+guide"), L.tg) }
+  if L.at("lb", default: "") != "" { s = s.replace(regex("(?i)learner['’]?s\s+book"), L.lb) }
+  s
+}
+#let authlabel(byline) = {
+  let a = T.at("labels", default: (:)).at("authors", default: "")
+  if a != "" { upper(a) } else if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }
+}
+
 // CDC 2025 sets a larger body size for young readers (Grade 1 → 18pt, Grade 2-3 →
 // 16pt, Grade 4-6 → 14pt; Teacher's Guides and secondary stay 12pt). `fs()` scales a
 // pt value that was tuned around a 12pt body so the whole content hierarchy (headings,
@@ -409,9 +427,9 @@
     #text(size: if name.len() > 22 { 30pt } else if name.len() > 13 { 38pt } else { 44pt }, weight: "bold", fill: deepteal, hyphenate: false)[#name]
     #if formtxt != "" [ #v(9mm)
       #box(fill: formfill, inset: (x: 13pt, y: 6pt), radius: 4pt)[
-        #text(size: 22pt, weight: "bold", fill: formtext, tracking: 1pt)[#upper(formtxt)]] ]
+        #text(size: 22pt, weight: "bold", fill: formtext, tracking: 1pt)[#upper(lbl(formtxt))]] ]
     #v(7mm)
-    #text(size: 20pt, weight: "bold", fill: T.primary)[#upper(booktype)]
+    #text(size: 20pt, weight: "bold", fill: T.primary)[#upper(lbl(booktype))]
   ]
   // The author byline flows a FIXED gap below the booktype line rather than sitting at
   // an absolute page offset — a long subject name (e.g. "Food and Nutrition") wraps the
@@ -427,7 +445,7 @@
   if byline.len() > 0 {
     v(20mm)
     align(center)[
-      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
       #v(3mm)
       #if byline.len() > 2 {
         text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
@@ -715,9 +733,9 @@
         #box(fill: amber, width: 46mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(7mm)
           #box(fill: amber, inset: (x: 13pt, y: 6pt), radius: 4pt)[
-            #text(size: 28pt, weight: "bold", fill: T.primary.darken(8%), tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 28pt, weight: "bold", fill: T.primary.darken(8%), tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(5mm)
-        #text(size: 18pt, weight: "bold", fill: white)[#upper(booktype)]
+        #text(size: 18pt, weight: "bold", fill: white)[#upper(lbl(booktype))]
       ]]
       #place(top + center, dy: 22mm, mastheadBlock)
       // hero photo (straight, white frame) when present; otherwise a central
@@ -798,7 +816,7 @@
         // pale, hard-to-read grey-green on a lighter/more saturated field like
         // Grade 6 Science's green, so this is no longer transparentized at all.
         let bylineBlock = block(width: 152mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]]
         if earthCard {
@@ -867,9 +885,9 @@
           #box(fill: T.accent, width: 42mm, height: 3pt, radius: 1.5pt)
           #if formtxt != "" [ #v(6mm)
             #box(fill: T.accent, inset: (x: 14pt, y: 6pt), radius: 20pt)[
-              #text(size: 24pt, weight: "bold", fill: white, tracking: 1pt)[#upper(formtxt)]] ]
+              #text(size: 24pt, weight: "bold", fill: white, tracking: 1pt)[#upper(lbl(formtxt))]] ]
           #v(4mm)
-          #text(size: 16pt, weight: "bold", fill: white.transparentize(8%))[#upper(booktype)]
+          #text(size: 16pt, weight: "bold", fill: white.transparentize(8%))[#upper(lbl(booktype))]
         ]])
       ])
       // straight, thick-framed hero (soft drop plate behind for depth)
@@ -885,7 +903,7 @@
       // authors
       #if byline.len() > 0 [
         #place(top + center, dy: 197mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
@@ -926,9 +944,9 @@
         #box(fill: T.accent, width: 44mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(6mm)
           #box(fill: T.accent, inset: (x: 14pt, y: 6pt), radius: 4pt)[
-            #text(size: 24pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 24pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(4mm)
-        #text(size: 16pt, weight: "bold", fill: white.transparentize(6%))[#upper(booktype)]
+        #text(size: 16pt, weight: "bold", fill: white.transparentize(6%))[#upper(lbl(booktype))]
       ]])
       // straight, double-framed hero (ochre plate behind + white inner frame)
       #if hero != none [
@@ -943,7 +961,7 @@
       // authors
       #if byline.len() > 0 [
         #place(top + center, dy: 202mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
@@ -1001,14 +1019,14 @@
         #box(fill: accent, width: 44mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(5mm)
           #box(fill: accent, inset: (x: 15pt, y: 6pt), radius: 40pt)[
-            #text(size: 21pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 21pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(4mm)
-        #text(size: 14pt, weight: "bold", fill: white.transparentize(8%))[#upper(booktype)]
+        #text(size: 14pt, weight: "bold", fill: white.transparentize(8%))[#upper(lbl(booktype))]
       ]])
       // authors + publisher are BOTTOM-anchored so they never collide with a tall masthead
       #if byline.len() > 0 [
         #place(bottom + center, dy: -33mm, block(width: 162mm)[#align(center)[
-          #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#authlabel(byline)]
           #v(1.5mm)
           #text(size: 10pt, weight: "bold", fill: white.transparentize(24%))[#byline.join("   •   ")]]])
       ]
@@ -1046,14 +1064,14 @@
           #box(fill: T.accent, width: 40mm, height: 3pt, radius: 1.5pt)
           #if formtxt != "" [ #v(4mm)
             #box(fill: T.accent, inset: (x: 13pt, y: 5pt), radius: 40pt)[
-              #text(size: 19pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(formtxt)]] ]
+              #text(size: 19pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(lbl(formtxt))]] ]
           #v(3mm)
-          #text(size: 13pt, weight: "bold", fill: T.primary)[#upper(booktype)]
+          #text(size: 13pt, weight: "bold", fill: T.primary)[#upper(lbl(booktype))]
         ]]
       ])
       #if byline.len() > 0 [
         #place(top + center, dy: 211mm, block(width: 160mm)[#align(center)[
-          #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#authlabel(byline)]
           #v(1mm)
           #text(size: 9.5pt, weight: "bold", fill: white)[#byline.join("   •   ")]]])
       ]
@@ -1094,9 +1112,9 @@
         #box(fill: T.accent, width: 40mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(5mm)
           #box(fill: T.accent, inset: (x: 14pt, y: 6pt), radius: 20pt)[
-            #text(size: 22pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 22pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(4mm)
-        #text(size: 15pt, weight: "bold", fill: white.transparentize(6%))[#upper(booktype)]
+        #text(size: 15pt, weight: "bold", fill: white.transparentize(6%))[#upper(lbl(booktype))]
       ]])
       // chunky rounded photo card (accent drop-plate behind, thick white frame)
       #if hero != none [
@@ -1111,7 +1129,7 @@
       // authors ("AUTHOR" when there is only one)
       #if byline.len() > 0 [
         #place(top + center, dy: 203mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 10pt, weight: "bold", fill: deep)[#byline.join("   •   ")]]])
       ]
@@ -1143,9 +1161,9 @@
         #box(fill: T.primary, width: 46mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(7mm)
           #box(fill: T.primary, inset: (x: 13pt, y: 6pt), radius: 4pt)[
-            #text(size: 28pt, weight: "bold", fill: white, tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 28pt, weight: "bold", fill: white, tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(5mm)
-        #text(size: 18pt, weight: "bold", fill: deepteal)[#upper(booktype)]
+        #text(size: 18pt, weight: "bold", fill: deepteal)[#upper(lbl(booktype))]
       ]])
       // --- tilted photo panel (a teal plate behind for depth) ---
       #if hero != none [
@@ -1166,7 +1184,7 @@
       // --- authors: an "AUTHORS" label tab sitting on the names tag (tilted) ---
       #if byline.len() > 0 [
         #place(top + center, dy: 196mm, align(center)[
-          #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]])
+          #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#authlabel(byline)]])
         #place(top + center, dy: 201mm, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt)[
           #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#byline.join("   •   ")]]))
       ]
@@ -1195,14 +1213,14 @@
       #place(top + center, dy: 182mm, align(center)[
         #box(stroke: (top: 0.6pt + T.accent, bottom: 0.6pt + T.accent), inset: (x: 10pt, y: 5pt))[
           #text(fill: T.primary, size: 15pt, weight: "bold", tracking: 1pt)[
-            #if grade != none [#upper(grade)#h(5pt)·#h(5pt)]#upper(booktype)]]
+            #if grade != none [#upper(lbl(grade))#h(5pt)·#h(5pt)]#upper(lbl(booktype))]]
       ])
       // authors + publisher anchored in a bottom burgundy band
       #place(bottom + left, block(width: 100%, fill: T.primary, inset: (x: 16mm, y: 8mm))[
         #set text(fill: white)
         #align(center)[
           #if byline.len() > 0 [
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]]
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#authlabel(byline)]]
             \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#byline.join(", ")]
           ]
           #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
@@ -1224,13 +1242,13 @@
           #text(fill: T.primary, size: 30pt, weight: "bold")[#subject]
           #if grade != none [ #v(4mm)
             #box(fill: T.primary, inset: (x: 15pt, y: 6pt), radius: 20pt)[
-              #text(fill: white, weight: "bold", size: 13pt, tracking: 1pt)[#upper(grade)#h(5pt)·#h(5pt)#upper(booktype)]] ]
+              #text(fill: white, weight: "bold", size: 13pt, tracking: 1pt)[#upper(lbl(grade))#h(5pt)·#h(5pt)#upper(lbl(booktype))]] ]
         ]
       ])
       #place(bottom + center, dy: -15mm, align(center)[
         #if byline.len() > 0 [
           #block(width: 170mm)[#align(center)[
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]] \ #v(1pt)
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#authlabel(byline)]] \ #v(1pt)
             #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.join(", ")]]]
         ]
         #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
@@ -1397,11 +1415,11 @@
     // ---------- footer: book type, author, logo, publisher ----------
     #place(bottom + center, dy: -16mm, align(center)[
       #box(fill: white, inset: (x: 20pt, y: 7pt), radius: 22pt)[
-        #text(size: 13pt, weight: "bold", fill: T.primary, tracking: 1pt)[#upper(booktype)]]
+        #text(size: 13pt, weight: "bold", fill: T.primary, tracking: 1pt)[#upper(lbl(booktype))]]
       #v(6mm)
       #if byline.len() > 0 [
         #block(width: 170mm)[#align(center)[
-          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
+          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#authlabel(byline)]
           \ #v(1pt) #text(size: 14pt, weight: "bold")[#byline.join(", ")]]]
       ]
       #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 12mm) ]
@@ -1503,10 +1521,10 @@
       // Form/grade on its OWN line, between the subject and the book type.
       #if formtxt != "" [
         #v(2mm)
-        #text(size: 16pt, weight: "bold", fill: accentc)[#upper(formtxt)]
+        #text(size: 16pt, weight: "bold", fill: accentc)[#upper(lbl(formtxt))]
       ]
       #v(1mm)
-      #text(size: 13pt, weight: "bold", fill: onfield)[#upper(booktype)]
+      #text(size: 13pt, weight: "bold", fill: onfield)[#upper(lbl(booktype))]
       #v(3mm)
       #box(fill: accentc, width: 34mm, height: 2.5pt, radius: 1.5pt)
     ]])

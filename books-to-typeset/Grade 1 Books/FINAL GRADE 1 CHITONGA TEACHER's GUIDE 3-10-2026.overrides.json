@@ -1,5 +1,6 @@
 {
   "keepFrontOrder": true,
+  "localLabels": true,
   "coverImage": "chitonga-g1-tg-cover-hires.png",
   "remove": ["Zyili Moomu"],
   "insertText": [

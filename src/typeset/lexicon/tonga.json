@@ -10,6 +10,11 @@
       "file": "ZEPH Local Language Words Form-1 luvale.docx",
       "author": "Nzila Shaanga",
       "book": "Chitonga Form 4"
+    },
+    {
+      "file": "FINAL GRADE 1 CHITONGA TEACHER's GUIDE 3-10-2026 (manuscript)",
+      "author": "(from manuscript)",
+      "book": "Chitonga Grade 1 TG"
     }
   ],
   "terms": {
@@ -115,6 +120,15 @@
     ],
     "note_teacher": [
       "Kulailila kumwiiyi"
+    ],
+    "grade": [
+      "Giledi"
+    ],
+    "level_primary": [
+      "Lwiiyo lwa Pulaimali"
+    ],
+    "authors_label": [
+      "Balembi"
     ]
   },
   "extras": [

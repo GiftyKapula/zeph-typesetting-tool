@@ -73,6 +73,7 @@ them changes.
 | `keepHeadsWithUnit` | `true` | Headings just before a unit heading open the unit's page with it. |
 | `lessonLabels` | `true` | Lesson-plan Teacher's Guides: bold "LABEL:" lines, MUTWE lines as headings, numbered steps restart under each label and nest (i., ii. one level further). |
 | `boxStripe` | `false` | No thick left border on activity / exercise / assessment boxes (house preference). |
+| `localLabels` | `true` | Cover, title page and running header in the book's language, from its word list: level (`level_primary`…), `grade` / `form`, `teachers_guide` / `learners_book`, `authors_label` (Chitonga: LWIIYO LWA PULAIMALI · GILEDI 1 · BBUKU LYABAYI · BALEMBI). A label missing from the list stays English. Check the words first: a level phrase that contains the Form word (Lunda's "…Fomu 1 -4") breaks the cover. |
 
 Every Teacher's Guide is black and white inside with a colour cover (the engine's
 default for TG file names).
