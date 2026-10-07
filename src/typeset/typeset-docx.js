@@ -233,8 +233,18 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.artSlots) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
+  // artSlots filled with their artwork (see `artSlots` in overrides.js): stage each
+  // picture for the compiler, resolved relative to the .docx like `coverImage`. A
+  // missing file puts the open slot back rather than failing the whole compile.
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!b || b.t !== "image" || !b.artSrc) continue;
+    const p = resolveBookPath(docxPath, b.artSrc);
+    if (fs.existsSync(p)) { media.push({ src: p, name: b.file }); delete b.artSrc; delete b._slot; }
+    else { console.warn("!  artSlots art not found:", p); blocks[i] = b._slot; }
+  }
   reformatAcronyms(blocks);
   formatGlossary(blocks);
   displayifyColumnMath(blocks);

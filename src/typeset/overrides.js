@@ -1655,6 +1655,54 @@ function applyOverrides(blocks, ov) {
     });
     blocks.splice(h + 1, e - (h + 1), ...nb);
   }
+
+  // artSlots: [{ find, no?, note?, hmm?, all? }] — an author's note to the illustrator
+  // ("Picture of a snake", "We help the elderly (picture here)") is not learner text: it
+  // is a picture nobody has drawn yet. Printed as an ordinary paragraph it reads as if a
+  // Grade 1 child were meant to read it, and the page it needs is nowhere to be seen.
+  //
+  // Each entry turns the matching paragraph into a PICTURE SLOT — a framed gap of the
+  // height the picture will need, carrying the author's own words — so a proof shows
+  // every missing picture, where it goes and how much room it has. `no` is the slot's
+  // number in the book's picture brief, so a slot in the PDF and an entry in the brief
+  // name the same picture; `note` overrides the printed wording (default: the matched
+  // paragraph's own text); `hmm` is the slot height in mm (default 55).
+  //
+  // Once a picture exists, give its entry `art` (a path resolved like `coverImage`) and
+  // the slot prints that picture instead of the frame — the brief's numbering stays on
+  // the entry, and `images` can't do this job since it only swaps pictures the manuscript
+  // already holds. `artHmm` sets the picture's on-page height in mm; without it the art
+  // is sized like any other manuscript picture (the slot's `hmm` is the room a drawing was
+  // budgeted, not the size the finished one should print). The book is finished when
+  // every entry has its `art`; then the entries can go into the manuscript for good.
+  if (Array.isArray(ov.artSlots) && ov.artSlots.length) {
+    let n = 0, filled = 0;
+    for (const sl of ov.artSlots) {
+      const want = String(sl.find || "").trim();
+      if (!want) continue;
+      let hit = 0;
+      for (let i = 0; i < blocks.length; i++) {
+        const b = blocks[i];
+        if (!b || b.t === "artslot") continue;
+        // Matched on the words, not on the spacing: these notes are often typed across a
+        // line with runs of spaces holding columns apart ("Letter    word    picture"),
+        // and the run-squashing polish passes only run later.
+        if (!wsEq(blockPlain(b), want)) continue;
+        const slot = { t: "artslot", no: sl.no != null ? String(sl.no) : "", note: sl.note || want, hmm: sl.hmm || 55 };
+        if (sl.art) {
+          // `artSrc` is resolved and staged by typeset-docx.js, which knows the book's
+          // folder; `_slot` is what it falls back to if the file is missing.
+          const ext = (String(sl.art).match(/\.[A-Za-z0-9]+$/) || [".png"])[0];
+          blocks[i] = { t: "image", file: `artslot_${slot.no || i}${ext}`, w: 0, tall: false, caption: "", hmm: sl.artHmm || 0, artSrc: String(sl.art), _slot: slot };
+          filled++;
+        } else blocks[i] = slot;
+        n++; hit++;
+        if (!sl.all) break;
+      }
+      if (!hit) console.warn("!  artSlots not matched:", want);
+    }
+    console.log(`   artSlots: ${n - filled} picture slot(s) left open for artwork, ${filled} filled with art`);
+  }
 }
 
 // Find a table (top-level, inside a box/activity body, or as an exercise/

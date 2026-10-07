@@ -4,7 +4,9 @@
 // Reads a per-book art spec (`<book>.artprompts.json`, sitting next to the .docx
 // like the overrides sidecar does), calls OpenAI's image model once per figure,
 // writes the results into `<book>-art/`, and adds the `images` entries to the
-// book's `.overrides.json` so the next typeset run picks them up. Nothing about
+// book's `.overrides.json` so the next typeset run picks them up. A spec key named
+// `picNN-<what>` instead fills picture slot NN (an `artSlots` entry: a picture the
+// author asked for but never drew) by setting that entry's `art`. Nothing about
 // the typesetting pipeline changes — this is a one-time content step that runs
 // outside it, exactly like the PE Form 5 illustrations were done.
 //
@@ -122,8 +124,17 @@ async function generate(prompt, size, quality, key) {
   // overrides map is keyed by that name, so a key the manuscript does not have
   // writes an entry nothing ever reads: the book would re-typeset unchanged and
   // look, from the log, as though it had worked.
+  // A key of the form `picNN-…` is not a manuscript picture at all: it fills the
+  // `artSlots` entry numbered NN (a picture the author asked for but never drew), so
+  // it is checked against the overrides' slots instead of the .docx's media.
+  const slotNo = (n) => { const m = /^pic0*(\d+)(?:-|$)/i.exec(n); return m ? Number(m[1]) : null; };
+  let slots = [];
+  if (fs.existsSync(ovPath)) { try { slots = JSON.parse(fs.readFileSync(ovPath, "utf8")).artSlots || []; } catch (_) { /* reported when written */ } }
+  const badSlots = Object.keys(figures).filter((n) => slotNo(n) != null && !slots.some((s) => Number(s.no) === slotNo(n)));
+  if (badSlots.length) die("art spec names picture slots the overrides have no artSlots entry for: " + badSlots.join(", "));
+
   const media = await mediaNames(docx);
-  const strayKeys = Object.keys(figures).filter((n) => n !== "cover" && !media.has(n));
+  const strayKeys = Object.keys(figures).filter((n) => n !== "cover" && slotNo(n) == null && !media.has(n));
   if (strayKeys.length) {
     const sameStem = (n) => [...media].filter((m) => m.replace(/.[^.]+$/, "") === n.replace(/.[^.]+$/, ""));
     for (const n of strayKeys) {
@@ -193,6 +204,11 @@ async function generate(prompt, size, quality, key) {
     const rel = path.basename(artDir);
     for (const [name, outName, isCover] of written) {
       if (isCover) { ov.coverImage = `${rel}/${outName}`; continue; }
+      if (slotNo(name) != null) {
+        const sl = (ov.artSlots || []).find((s) => Number(s.no) === slotNo(name));
+        if (sl) sl.art = `${rel}/${outName}`;
+        continue;
+      }
       ov.images = ov.images || {};
       const entry = ov.images[name] && typeof ov.images[name] === "object" ? ov.images[name] : {};
       ov.images[name] = { ...entry, src: `${rel}/${outName}` };

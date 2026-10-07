@@ -1,0 +1,718 @@
+{
+  "_comment": [
+    "English Grade 1 Learner's Book — per-book overrides.",
+    "",
+    "Every entry here corrects this manuscript's own slips or sizes this manuscript's",
+    "own pictures. None of it is an engine fault, so none of it belongs in src/typeset/.",
+    "",
+    "DELIBERATELY NOT CHANGED — the handwriting-practice rows. The /e/ lesson's practice",
+    "block reads 'C C C C C' over 'e e e e e', which looks like a typo for 'E'. It is not:",
+    "the book's first practice block sets out C, I, a and A together, and later lessons use",
+    "'I I I I I' and 'Th th th...'. C and I are the curve and the line — the STROKES a child",
+    "traces — not the letter the lesson happens to be teaching. Leave them alone."
+  ],
+  "_comment_authors": [
+    "The manuscript names its author twice: the title page has 'Author / Yvonne",
+    "Kasongo', and the bio page gives her surname-first as 'Kasongo, Yvonne is an",
+    "experienced Zambian educator...'. House style is one form per person, the fullest",
+    "one, so the cover and title-page byline carry 'Yvonne Kasongo'. The engine found",
+    "no byline of its own (the manuscript's title page is a picture, not text), so it",
+    "is given here."
+  ],
+  "authors": [
+    "Yvonne Kasongo"
+  ],
+  "_comment_cover": [
+    "COVER PICTURE. The manuscript opens with a finished cover PAGE, not a photo: it",
+    "carries its own 'LOWER PRIMARY EDUCATION LEVEL / ENGLISH Literacy and Language /",
+    "Grade 1 / LEARNER'S BOOK' lettering, the author's name, the ZEPH logo and a",
+    "decorative border — all of which the template draws itself. Dropped into the hero",
+    "card whole, the card printed a second title inside the cover's own title.",
+    "",
+    "So only the classroom scene is used, cropped to the hero card's own 122x78mm",
+    "(1.564:1) so `fit: \"cover\"` has nothing left to trim. The crop keeps all four",
+    "learners — a girl with albinism and a boy using a wheelchair alongside two other",
+    "learners, two girls and two boys — the wheelchair and its wheel, and the reading",
+    "table, and stops short of the cover's own lettering at the top and its wave and",
+    "logo at the foot.",
+    "",
+    "  supplied   1024x1536  whole cover page",
+    "  cropped    1024x655   the classroom scene alone, at the card's aspect",
+    "  upscaled   1500x959   Real-ESRGAN x4 resampled down, 312 DPI at 122x78mm",
+    "",
+    "english-g1-lb-cover-src.png is the crop before upscaling, kept because the upscale",
+    "cannot be reproduced from the supplied file alone if the card geometry ever changes."
+  ],
+  "coverImage": "english-g1-lb-cover.png",
+  "_comment_artSlots": [
+    "PICTURE SLOTS. The author wrote her pictures as instructions in the text rather than",
+    "drawing them — \"Picture of a snake\", \"We help the elderly (picture here)\". Typeset as",
+    "ordinary paragraphs they read as if a Grade 1 child were meant to read them, and the",
+    "page each picture needs is nowhere to be seen.",
+    "",
+    "So each one becomes an open picture slot: a framed gap of the height the picture will",
+    "need, carrying the author's own words for whoever draws it. The numbers are the same",
+    "ones the picture brief uses (output/Grade 1/ENGLISH GRADE 1 LB/…Picture Brief.pdf), so",
+    "PIC 12 in the proof and PIC 12 in the brief are the same picture.",
+    "",
+    "Heights are a judgement from what each note has to show: 80mm for a whole scene (a",
+    "market, a school area, people doing several things), 62mm for a set of small spot",
+    "drawings, 48mm for a single object.",
+    "",
+    "60 slots are listed here. 4 more picture notes are NOT slots because the author",
+    "already pasted a picture at that spot — PIC 1, 7, 11, 15;",
+    "those notes are stray lines to delete once the pasted picture is confirmed as the one",
+    "the note asks for.",
+    "",
+    "Nine numbers are deliberately missing from the list. They were slots once, but a",
+    "look at the proof showed none of them is a missing picture:",
+    "",
+    "  PIC 5, 8, 9, 54   the author's picture is already pasted directly above (the family,",
+    "                    the umbrella, the four chores photos, the five song panels); the",
+    "                    'note' is the learner's instruction about it ('Look at the",
+    "                    picture. Name the people and their chores') and prints as text",
+    "  PIC 25, 34, 72    the same: an activity instruction about the picture just before",
+    "                    it (the market, the /sh/ picture, the market people)",
+    "  PIC 52, 74        a description of the picture just before it, so it is folded",
+    "                    into PIC 51's and PIC 73's note and deleted (see deleteExact)",
+    "",
+    "The numbers are kept, not closed up, so the picture brief still lines up.",
+    "PIC 4, 33, 39, 42 and 71 carry a `note` for the same reason PIC 62 does: the author",
+    "wrote the picture's description on the lines after the note, and those lines printed",
+    "as learner text. Each description now lives in the note and the lines are deleted.",
+    "",
+    "This whole block is scaffolding for the drawing stage. As each picture arrives, give",
+    "its entry an `art` path (in ENGLISH GRADE 1 LB-art/, named picNN-...) and the slot",
+    "prints the picture instead; the book is finished when every entry has its art.",
+    "",
+    "  filled   PIC 2  pic02-greetings.png   1700x1209  (How are you? / I am fine.)",
+    "           PIC 3  pic03-how-is-home.png 1700x1209  (How is home? / Home is fine.)",
+    "  Both print at the house picture width, 85% of the text block, which is about",
+    "  350 DPI at 1700 px, so no upscale is needed.",
+    "",
+    "  Ten more came from a batch of supplied pictures (WhatsApp JPEGs, 1280 px), each",
+    "  matched to the author's note and saved as PNG:",
+    "",
+    "           PIC 4  pic04-left-to-right   right column of a 1280x910 sheet, cropped",
+    "                                        523x910 (boy, bird, duck, each with an arrow;",
+    "                                        the sheet's left half repeats the sitting-",
+    "                                        posture picture already on the page), ESRGAN",
+    "                                        -> 1200x2088, printed 100mm tall (~530 DPI)",
+    "           PIC 10 pic10-snake           1280x853, printed 48mm tall (~450 DPI)",
+    "           PIC 13 pic13-what-do-we-use  1280x853 -> ESRGAN 1800x1200 (mother with a",
+    "                                        broom, boy with a towel: the page's dialogue)",
+    "           PIC 14 pic14-vest            1280x1066, printed 48mm tall (~560 DPI)",
+    "           PIC 16 pic16-yellow          1280x1066, printed 70mm tall (~390 DPI)",
+    "           PIC 17 pic17-six-box         1280x853 (six boxes), 55mm tall (~390 DPI)",
+    "           PIC 28 pic28-community       1280x853 -> ESRGAN 1800x1200 (litter,",
+    "                                        sweeping, planting, watering, farming)",
+    "           PIC 29 pic29-help-elderly    1280x853 -> ESRGAN 1800x1200",
+    "           PIC 31 pic31-clean-environment 1280x853 -> ESRGAN 1800x1200",
+    "           PIC 53 pic53-sharing         1280x853 -> ESRGAN 1800x1200 (one of the",
+    "                                        four manners the slot lists: sharing)",
+    "  The ESRGAN ones print at the house width, about 390 DPI at 1800 px.",
+    "",
+    "  A second batch (the same 1280 px WhatsApp JPEGs, saved as PNG) filled 17 more:",
+    "",
+    "           PIC 12 pic12-cat-cup-duck            1280x853 -> ESRGAN 1800x1200",
+    "           PIC 50 pic50-ladder-cooker-dinner    1280x853 -> ESRGAN 1800x1200",
+    "           PIC 51 pic51-table-manners           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 55 pic55-snake-on-stones         1280x853 -> ESRGAN 1800x1200",
+    "           PIC 56 pic56-girl-frog               1280x1169, printed 70mm tall (~424 DPI)",
+    "           PIC 57 pic57-brown-bread             1280x853, printed 48mm tall (~451 DPI)",
+    "           PIC 61 pic61-grandfather-drum        1280x1169, printed 70mm tall (~424 DPI)",
+    "           PIC 62 pic62-classroom-art           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 63 pic63-ball-sentences          1280x853 -> ESRGAN 1800x1200",
+    "           PIC 64 pic64-word-wheel              1280x1200, printed 80mm tall (~381 DPI)",
+    "           PIC 65 pic65-cat-hat-mat             1280x853 -> ESRGAN 1800x1200",
+    "           PIC 66 pic66-sun-fun-run             1280x853 -> ESRGAN 1800x1200",
+    "           PIC 67 pic67-big-pig-dig             1280x853 -> ESRGAN 1800x1200",
+    "           PIC 68 pic68-insect                  1280x853, printed 48mm tall (~451 DPI)",
+    "           PIC 69 pic69-desk                    1280x853, printed 48mm tall (~451 DPI)",
+    "           PIC 71 pic71-market-people           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 76 pic76-simon-says              1280x853 -> ESRGAN 1800x1200",
+    "  PIC 64's centre read 'Word wheel'; it was repainted to read '-all', as the note asks.",
+    "  PIC 76 is the Simon says picture with the children's hands on their heads; a second",
+    "  Simon says picture (children with arms out) was supplied too and kept as a spare.",
+    "",
+    "  A third batch (1280 px JPEGs, saved as PNG, all ESRGAN to 1800 wide) filled 7 more:",
+    "",
+    "           PIC 43 pic43-cup-cups                1280x640 -> ESRGAN 1800x900",
+    "           PIC 44 pic44-bottle-bottles          1280x853 -> ESRGAN 1800x1200",
+    "           PIC 45 pic45-chair-chairs            1280x640 -> ESRGAN 1800x900",
+    "           PIC 46 pic46-ball-balls              1280x640 -> ESRGAN 1800x900",
+    "           PIC 47 pic47-pot-pots                1280x640 -> ESRGAN 1800x900",
+    "           PIC 70 pic70-tongue-twisters         1280x853 -> ESRGAN 1800x1200",
+    "           PIC 73 pic73-language-games          1280x853 -> ESRGAN 1800x1200",
+    "  Two more were supplied but NOT placed, because they do not show what the note asks:",
+    "  PIC 48 drew a hotplate coil where the note (and the /oi/ activity) needs a coin, and",
+    "  PIC 75 drew a car, hat, mat and ant, then a tree, where it needs cat-hat-mat and",
+    "  cat-ant-tree.",
+    "",
+    "  A fourth batch (1280 px JPEGs, saved as PNG, all ESRGAN to 1800 wide) filled 20 more,",
+    "  PIC 48 among them (a coin this time):",
+    "",
+    "           PIC 18 pic18-school                 1280x853 -> ESRGAN 1800x1200",
+    "           PIC 19 pic19-school-sentences       1280x853 -> ESRGAN 1800x1200",
+    "           PIC 20 pic20-road-coat-soap         1280x853 -> ESRGAN 1800x1200",
+    "           PIC 21 pic21-teeth-sheep-tree       1280x590 -> ESRGAN 1800x830",
+    "           PIC 22 pic22-domestic-and-wild      1280x853 -> ESRGAN 1800x1200",
+    "           PIC 23 pic23-domestic-animals       1280x853 -> ESRGAN 1800x1200",
+    "           PIC 24 pic24-market                 1280x640 -> ESRGAN 1800x900",
+    "           PIC 26 pic26-shopkeeper             1280x853 -> ESRGAN 1800x1200",
+    "           PIC 27 pic27-chain                  1280x853 -> ESRGAN 1800x1200",
+    "           PIC 30 pic30-plant-water            1280x853 -> ESRGAN 1800x1200",
+    "           PIC 32 pic32-greet-elders           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 33 pic33-sh-words               1280x853 -> ESRGAN 1800x1200",
+    "           PIC 35 pic35-th-words               1280x853 -> ESRGAN 1800x1200",
+    "           PIC 38 pic38-house-mouse-mouth      1280x572 -> ESRGAN 1800x804",
+    "           PIC 39 pic39-prepositions           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 40 pic40-ball-on-under-chair    1280x480 -> ESRGAN 1800x675",
+    "           PIC 41 pic41-bird-over-house        1280x853 -> ESRGAN 1800x1200",
+    "           PIC 42 pic42-singular-plural        1280x572 -> ESRGAN 1800x804",
+    "           PIC 48 pic48-oi-words               1280x853 -> ESRGAN 1800x1200",
+    "           PIC 58 pic58-girl-crying            1280x853 -> ESRGAN 1800x1200",
+    "  Four more were supplied but NOT placed, because they do not show what the note asks:",
+    "  PIC 36 drew tooth / three / thumb / four (the note asks thin, tooth, three, thumb);",
+    "  PIC 37 has the duck and the two bottles but no queen; PIC 49 drew a wall chart where",
+    "  the /er/ list needs a duster; PIC 75 is the same car-for-cat picture as before.",
+    "  PIC 58 shows a girl crying indoors; the lesson's reading has her crying as her mother",
+    "  crosses a road, so a road scene would fit better if one is drawn later.",
+    "  4 slots remain open.",
+    "",
+    "  The 'Letter word picture' table below does NOT need its own picture after all:",
+    "  the author pasted an egg / elephant / envelope / aeroplane picture directly above it.",
+    "",
+    "Three picture notes are deliberately NOT slots, because each is a COLUMN of a table",
+    "rather than a picture of its own, and a full-width slot broke the table apart:",
+    "",
+    "  \"Letter   word   picture\"            — the header of a three-column table whose",
+    "                                          picture column needs one small picture per",
+    "                                          row (e, egg; e, elephant; e, envelop)",
+    "  \"Birthday  picture of a cake\"         — a row of a match-the-event table, whose right",
+    "  \"Christmas  church/ tree picture\"       column needs one small picture per row",
+    "",
+    "They stay as text so their tables survive. The picture brief still lists them, so the",
+    "pictures are not forgotten — they need a picture COLUMN, which is a different job from",
+    "dropping one picture into a gap."
+  ],
+  "artSlots": [
+    {
+      "no": 2,
+      "find": "How are you? Put a picture",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic02-greetings.png"
+    },
+    {
+      "no": 3,
+      "find": "How is home? Picture",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic03-how-is-home.png"
+    },
+    {
+      "no": 4,
+      "find": "PAGE 4: PICTURES FOR LEFT TO WRITE EYE MOVEMENT",
+      "hmm": 48,
+      "note": "Three left-to-right pictures for eye movement: a boy moving from left to right; a bird flying to its nest from left to right; a duck moving from left to the pond",
+      "art": "ENGLISH GRADE 1 LB-art/pic04-left-to-right.png",
+      "artHmm": 100
+    },
+    {
+      "no": 10,
+      "find": "Picture of a snake",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic10-snake.png",
+      "artHmm": 48
+    },
+    {
+      "no": 12,
+      "find": "Exercise 2: Match word to picture",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic12-cat-cup-duck.png"
+    },
+    {
+      "no": 13,
+      "find": "picture of two people discussing create a picture",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic13-what-do-we-use.png"
+    },
+    {
+      "no": 14,
+      "find": "Picture of a vest",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic14-vest.png",
+      "artHmm": 48
+    },
+    {
+      "no": 16,
+      "find": "Picture of anything with colour yellow",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic16-yellow.png",
+      "artHmm": 70
+    },
+    {
+      "no": 17,
+      "find": "PICTURES OF Six box",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic17-six-box.png",
+      "artHmm": 55
+    },
+    {
+      "no": 18,
+      "find": "A picture showing a school area: classroom with what is found in it, playground and an office AND ALSO LEARNERS SAVING MONEY",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic18-school.png"
+    },
+    {
+      "no": 19,
+      "find": "Pictures on each sentence to describe it.",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic19-school-sentences.png"
+    },
+    {
+      "no": 20,
+      "find": "Picture of a road, coat, soap",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic20-road-coat-soap.png"
+    },
+    {
+      "no": 21,
+      "find": "A picture of teeth, sheep, tree seeds",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic21-teeth-sheep-tree.png"
+    },
+    {
+      "no": 22,
+      "find": "Picture of domestic animals and wild animals",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic22-domestic-and-wild.png"
+    },
+    {
+      "no": 23,
+      "find": "Picture of domestic animals only",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic23-domestic-animals.png"
+    },
+    {
+      "no": 24,
+      "find": "PICTURE OF THE MARKET WITH PEOPLE SELLING DIFFERENT ITEMS E.G TOMATOES, ONIONS, FISH, EGGS, BREAD, MILK, MAIZE. ETC",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic24-market.png"
+    },
+    {
+      "no": 26,
+      "find": "Picture of a shop keeper exchanging money with goods",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic26-shopkeeper.png"
+    },
+    {
+      "no": 27,
+      "find": "Picture of a chain",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic27-chain.png"
+    },
+    {
+      "no": 28,
+      "find": "Picture of different places with people doing different activities e.g picking litter, sweeping, planting trees, watering a garden and farming",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic28-community.png"
+    },
+    {
+      "no": 29,
+      "find": "We help the elderly (picture here)",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic29-help-elderly.png"
+    },
+    {
+      "no": 30,
+      "find": "We plant and water plants. Picture",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic30-plant-water.png"
+    },
+    {
+      "no": 31,
+      "find": "We keep our environment clean picture",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic31-clean-environment.png"
+    },
+    {
+      "no": 32,
+      "find": "We greet our elder’s picture",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic32-greet-elders.png"
+    },
+    {
+      "no": 33,
+      "find": "Activity 1: picture study",
+      "hmm": 62,
+      "note": "A village woman washing shorts and a shirt, a shop, sheep, fish and shoes (the /sh/ words)",
+      "art": "ENGLISH GRADE 1 LB-art/pic33-sh-words.png"
+    },
+    {
+      "no": 35,
+      "find": "ACTIVITY 1: study the picture and say the word three and tooth or teeth. Also call out names Ruth, Cathrine or Keith",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic35-th-words.png"
+    },
+    {
+      "no": 36,
+      "find": "Pictures of the following",
+      "hmm": 62
+    },
+    {
+      "no": 37,
+      "find": "Picture of a duck with its mouth open, queen, liquids in two bottles quacks",
+      "hmm": 62
+    },
+    {
+      "no": 38,
+      "find": "Picture of a house, mouse, mouth",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic38-house-mouse-mouth.png"
+    },
+    {
+      "no": 39,
+      "find": "Picture illustrations",
+      "hmm": 48,
+      "note": "Six panels: 1. a cat on the table; 2. a ball under the chair; 3. a book in the bag; 4. a boy beside a girl; 5. a bird over the house; 6. an apple inside the box",
+      "art": "ENGLISH GRADE 1 LB-art/pic39-prepositions.png"
+    },
+    {
+      "no": 40,
+      "find": "Situation: Ball picture",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic40-ball-on-under-chair.png"
+    },
+    {
+      "no": 41,
+      "find": "Situation: Bird Picture",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic41-bird-over-house.png"
+    },
+    {
+      "no": 42,
+      "find": "Picture illustration",
+      "hmm": 48,
+      "note": "One object on the left, many of the same object on the right, an arrow between them showing the change: book → books",
+      "art": "ENGLISH GRADE 1 LB-art/pic42-singular-plural.png"
+    },
+    {
+      "no": 43,
+      "find": "Picture of one cup and a word cup on it picture of two cups and a dash",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic43-cup-cups.png"
+    },
+    {
+      "no": 44,
+      "find": "Picture of one bottle and a word bottle on it picture of two bottles and a dash",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic44-bottle-bottles.png"
+    },
+    {
+      "no": 45,
+      "find": "Picture of one chair and a word Chair on it picture of three chairs and a dash",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic45-chair-chairs.png"
+    },
+    {
+      "no": 46,
+      "find": "Picture of a ball and a word on it picture of three balls",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic46-ball-balls.png"
+    },
+    {
+      "no": 47,
+      "find": "Picture of one pot and a dash on it picture of two pots",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic47-pot-pots.png"
+    },
+    {
+      "no": 48,
+      "find": "Picture. Coin, oil, boiling, toilet",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic48-oi-words.png"
+    },
+    {
+      "no": 49,
+      "find": "Real objects or pictures",
+      "hmm": 48
+    },
+    {
+      "no": 50,
+      "find": "Picture of a cooker ladder and a dinner meal",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic50-ladder-cooker-dinner.png"
+    },
+    {
+      "no": 51,
+      "find": "Picture illustration",
+      "hmm": 80,
+      "note": "Panels of table manners: wash hands before eating; sit properly; say a prayer before eating; eat quietly, no talking with your mouth full",
+      "art": "ENGLISH GRADE 1 LB-art/pic51-table-manners.png"
+    },
+    {
+      "no": 53,
+      "find": "Picture illustration",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic53-sharing.png"
+    },
+    {
+      "no": 55,
+      "find": "Picture. 2 boys standing, looking at a snake sleeping on stones",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic55-snake-on-stones.png"
+    },
+    {
+      "no": 56,
+      "find": "picture of a girl holding a frog and feeding it",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic56-girl-frog.png",
+      "artHmm": 70
+    },
+    {
+      "no": 57,
+      "find": "Picture with brown bread",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic57-brown-bread.png",
+      "artHmm": 48
+    },
+    {
+      "no": 58,
+      "find": "Picture of a girl crying",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic58-girl-crying.png"
+    },
+    {
+      "no": 61,
+      "find": "Picture of a grandfather playing a drum",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic61-grandfather-drum.png",
+      "artHmm": 70
+    },
+    {
+      "no": 62,
+      "find": "pictures of a teacher standing",
+      "note": "A classroom scene: a teacher standing, learners around a table (3 or 4 at the table) with glue, paint and a brush, learners sitting on the floor, an open door, and a cloth hanging",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic62-classroom-art.png"
+    },
+    {
+      "no": 63,
+      "find": "Picture illustration to show the sentences above each picture to have a sentence",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic63-ball-sentences.png"
+    },
+    {
+      "no": 64,
+      "find": "Picture of -all inside a circle and the following letters around it. B, c, w, f sm t",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic64-word-wheel.png",
+      "artHmm": 80
+    },
+    {
+      "no": 65,
+      "find": "Picture of cat hat mat",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic65-cat-hat-mat.png"
+    },
+    {
+      "no": 66,
+      "find": "Picture of sun fun run",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic66-sun-fun-run.png"
+    },
+    {
+      "no": 67,
+      "find": "Picture of big, pig dig",
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic67-big-pig-dig.png"
+    },
+    {
+      "no": 68,
+      "find": "Picture of an insect",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic68-insect.png",
+      "artHmm": 48
+    },
+    {
+      "no": 69,
+      "find": "Picture of a desk",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic69-desk.png",
+      "artHmm": 48
+    },
+    {
+      "no": 70,
+      "find": "Picture of poems 1on mutomboko ceremony with tongue twister 2 peter piper peppers, 3 she sells seashells red 4 lorry, yellow lorry",
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic70-tongue-twisters.png"
+    },
+    {
+      "no": 71,
+      "find": "Picture illustration",
+      "hmm": 80,
+      "note": "Different people at the market: a fat mother selling bananas; tall and short people; young and old; happy and sad people",
+      "art": "ENGLISH GRADE 1 LB-art/pic71-market-people.png"
+    },
+    {
+      "no": 73,
+      "find": "Picture",
+      "hmm": 62,
+      "note": "Three language games in one picture: Simon says; I spy; word bingo",
+      "art": "ENGLISH GRADE 1 LB-art/pic73-language-games.png"
+    },
+    {
+      "no": 75,
+      "find": "Which game is it? Look at the picture and name it.",
+      "hmm": 62
+    },
+    {
+      "no": 76,
+      "find": "picture",
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic76-simon-says.png"
+    }
+  ],
+  "_comment_editAll": [
+    "AUTHOR SLIPS in the front matter, each settled by the manuscript itself or by plain",
+    "fact — nothing here is a judgement call:",
+    "",
+    "  AKNOWLEDGEMENT                       -> ACKNOWLEDGEMENT",
+    "  Zambia Educational Publish House     -> ...Publishing House (the imprint page three",
+    "                                          lines above spells it in full)",
+    "  Lusaka, Zambi                        -> Lusaka, Zambia",
+    "  Chisango Road                        -> Chishango Road (ZEPH is on Chishango Road)",
+    "  Permanent Secretary –Adminitration   -> Permanent Secretary – Administration",
+    "  ENTERPRENUARSHIP                     -> ENTREPRENEURSHIP (Unit 7; the book spells it",
+    "                                          a third way at Unit 16 — one spelling, the",
+    "                                          correct one, for both)",
+    "  FARMIMG                              -> FARMING (Unit 13)",
+    "  UNIT 5 TOURISM                       -> UNIT 5: TOURISM (every other unit heading in",
+    "                                          the book puts a colon after the number)",
+    "  UNIT:14 NATIONAL VALUES              -> UNIT 14: NATIONAL VALUES (same, with the",
+    "                                          colon on the wrong side of the number)",
+    "  How are you? Put picture             -> How are you? (the greeting exchange reads",
+    "                                          'How are you?' / 'I am fine'; 'Put picture'",
+    "                                          is the author's note to the illustrator, and",
+    "                                          the picture it asks for is PIC 2 right below)",
+    "  envelop                              -> envelope (the /e/ word list: egg, elephant,",
+    "                                          envelope)",
+    "  cI                                   -> cl (the consonant-blend list reads",
+    "                                          'cI bl fl gl pl' — a capital I for a",
+    "                                          lowercase l; every other blend in the line",
+    "                                          is consonant + l. 'cI' occurs exactly once",
+    "                                          in the manuscript, so the find is safe)",
+    "  managing glasses                     -> magnifying glasses (the I-spy game: two",
+    "                                          children looking through them, saying",
+    "                                          'I spy green')",
+    "  LESSSON                              -> LESSON (once, the /e/ lesson heading)",
+    "  Sheepshop                            -> Sheep shop (the /sh/ word list, which the",
+    "                                          author typed with no spaces at all)",
+    "",
+    "The unit headings feed the contents page, so fixing the heading fixes both.",
+    "",
+    "ACKNOWLEDGEMENT also has to be spelled right for the engine to see it as a section at",
+    "all: mis-spelled, it was not recognised as a heading and the whole acknowledgement ran",
+    "into the preface signature block above it."
+  ],
+  "editAll": [
+    {
+      "find": "AKNOWLEDGEMENT",
+      "with": "ACKNOWLEDGEMENT"
+    },
+    {
+      "find": "Zambia Educational Publish House",
+      "with": "Zambia Educational Publishing House"
+    },
+    {
+      "find": "Lusaka, Zambi",
+      "with": "Lusaka, Zambia"
+    },
+    {
+      "find": "Chisango Road",
+      "with": "Chishango Road"
+    },
+    {
+      "find": "Permanent Secretary –Adminitration",
+      "with": "Permanent Secretary – Administration"
+    },
+    {
+      "find": "ENTERPRENUARSHIP",
+      "with": "ENTREPRENEURSHIP"
+    },
+    {
+      "find": "FARMIMG",
+      "with": "FARMING"
+    },
+    {
+      "find": "ENTERPRENEURSHIP",
+      "with": "ENTREPRENEURSHIP"
+    },
+    {
+      "find": "UNIT 5 TOURISM",
+      "with": "UNIT 5: TOURISM"
+    },
+    {
+      "find": "UNIT:14 NATIONAL VALUES",
+      "with": "UNIT 14: NATIONAL VALUES"
+    },
+    {
+      "find": "How are you? Put picture",
+      "with": "How are you?"
+    },
+    {
+      "find": "envelop",
+      "with": "envelope"
+    },
+    {
+      "find": "cI",
+      "with": "cl"
+    },
+    {
+      "find": "managing glasses",
+      "with": "magnifying glasses"
+    },
+    {
+      "find": "LESSSON",
+      "with": "LESSON"
+    },
+    {
+      "find": "Sheepshop",
+      "with": "Sheep shop"
+    }
+  ],
+  "_comment_deleteExact": [
+    "PIC 62's picture note runs over THREE manuscript paragraphs. Only the first line",
+    "(\"pictures of a teacher standing\") became the slot, so the other two printed below it",
+    "as if a Grade 1 learner were meant to read them. The slot's `note` now carries the",
+    "whole description — and its height goes 48mm -> 80mm, because it turns out to be a",
+    "whole classroom scene rather than the single figure the first line suggested. The two",
+    "run-on lines are deleted here. (Their 'flour' and 'clothe' are corrected to 'floor'",
+    "and 'cloth' inside the note; 'Sit on the floor' two lines further down the page settles",
+    "the first, and nothing is hanging on flour.)",
+    "",
+    "The manuscript heads its imprint page \"Author / Yvonne Kasongo\" and then heads the",
+    "bio page \"AUTHOR\" as well, so the book opened with two AUTHOR sections one page apart.",
+    "The imprint page needs neither: the cover and the title page both carry the byline, and",
+    "the bio page is the real author section. Both lines go; the imprint keeps its address.",
+    "",
+    "The rest are picture descriptions written as run-on lines after a picture note (PIC 4,",
+    "33, 39, 42, 52, 71, 74 — see _comment_artSlots). The description now lives in the",
+    "slot's `note`; 'short and shirt' is read as 'shorts and a shirt' there."
+  ],
+  "deleteExact": [
+    "Author",
+    "Yvonne Kasongo",
+    "learners around the table 3 or 4 on the table glue, paint, brush",
+    "sitting on the flour, an open door, a clothe hanging",
+    "A boy moving from left to right",
+    "A bird flying to the nest from left to right",
+    "A duck moving from left going to the pond",
+    "Village woman washing a short and shirt, a shop, sheep",
+    "Create 6 panels. 1. cat on the table 2. Ball under the chair. 3. The book is in the bag. 4. The boy beside a girl. 5. The bird over the house. The apple inside the box.",
+    "Left side show one object right side show many plural objects; arrow show change book------------- books",
+    "Different people at the market, a fat mother selling bananas tall and short people, young and old, happy and sad people",
+    "Different panels of pictures",
+    "Three types of songs on one picture."
+  ]
+}

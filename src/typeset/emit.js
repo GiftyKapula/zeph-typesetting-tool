@@ -275,6 +275,10 @@ function emit(blocks) {
         const sticky = !big && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
         out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
+      // a picture the author asked for but nobody has drawn yet (see `artSlots` in
+      // overrides.js): a framed gap of the height the picture needs, carrying the
+      // author's own instruction for whoever draws it.
+      case "artslot": out += `#artslot(${S(b.no || "")}, ${S(b.note || "")}, ${b.hmm || 55})\n`; break;
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
       case "activity": out += `#activity(${titleContent(b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;

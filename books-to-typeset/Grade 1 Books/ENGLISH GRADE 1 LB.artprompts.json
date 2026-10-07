@@ -1,0 +1,36 @@
+{
+  "_comment": [
+    "English Grade 1 Learner's Book — art spec for tools/genimage.js.",
+    "",
+    "Keys are picNN-<what>: each fills picture slot NN (an artSlots entry in the",
+    "overrides), numbered as in the picture brief. genimage.js appends the house style",
+    "to every prompt, so each prompt says only what the picture must show.",
+    "",
+    "A slot that already has its `art` (supplied pictures: see _comment_artSlots in the",
+    "overrides) has no prompt here, so a generation run can never overwrite it.",
+    "",
+    "PIC 64 (the -all word wheel) was supplied, with its centre lettering corrected.",
+    "",
+    "Where the author wanted a word printed on a picture (PIC 43-47: 'one cup and the",
+    "word cup on it'), the picture is drawn without it: the book's own text carries the",
+    "words, and the model mis-spells lettering."
+  ],
+  "figures": {
+    "pic36-thin-tooth-three-thumb": {
+      "aspect": "landscape",
+      "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a very thin stick, a single tooth, three oranges, a hand giving a thumbs-up."
+    },
+    "pic37-qu-words": {
+      "aspect": "landscape",
+      "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a duck with its beak open, quacking; a queen wearing a crown; two bottles of liquid."
+    },
+    "pic49-er-words": {
+      "aspect": "landscape",
+      "prompt": "A set of separate spot illustrations on a plain white background, side by side in one row with clear space between them, each one simple and easy for a six-year-old to name: a chalkboard duster, a sheet of paper, a pair of slippers, a block of butter."
+    },
+    "pic75-which-game": {
+      "aspect": "landscape",
+      "prompt": "Four panels in a row showing six-year-old Zambian children playing: 1. two children looking through magnifying glasses; 2. children touching their heads as the teacher leads; 3. a cat, a hat and a mat side by side; 4. a cat, an ant and a tree side by side."
+    }
+  }
+}
