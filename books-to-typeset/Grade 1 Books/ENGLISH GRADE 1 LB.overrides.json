@@ -112,6 +112,29 @@
     "                                        four manners the slot lists: sharing)",
     "  The ESRGAN ones print at the house width, about 390 DPI at 1800 px.",
     "",
+    "  A second batch (the same 1280 px WhatsApp JPEGs, saved as PNG) filled 17 more:",
+    "",
+    "           PIC 12 pic12-cat-cup-duck            1280x853 -> ESRGAN 1800x1200",
+    "           PIC 50 pic50-ladder-cooker-dinner    1280x853 -> ESRGAN 1800x1200",
+    "           PIC 51 pic51-table-manners           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 55 pic55-snake-on-stones         1280x853 -> ESRGAN 1800x1200",
+    "           PIC 56 pic56-girl-frog               1280x1169, printed 70mm tall (~424 DPI)",
+    "           PIC 57 pic57-brown-bread             1280x853, printed 48mm tall (~451 DPI)",
+    "           PIC 61 pic61-grandfather-drum        1280x1169, printed 70mm tall (~424 DPI)",
+    "           PIC 62 pic62-classroom-art           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 63 pic63-ball-sentences          1280x853 -> ESRGAN 1800x1200",
+    "           PIC 64 pic64-word-wheel              1280x1200, printed 80mm tall (~381 DPI)",
+    "           PIC 65 pic65-cat-hat-mat             1280x853 -> ESRGAN 1800x1200",
+    "           PIC 66 pic66-sun-fun-run             1280x853 -> ESRGAN 1800x1200",
+    "           PIC 67 pic67-big-pig-dig             1280x853 -> ESRGAN 1800x1200",
+    "           PIC 68 pic68-insect                  1280x853, printed 48mm tall (~451 DPI)",
+    "           PIC 69 pic69-desk                    1280x853, printed 48mm tall (~451 DPI)",
+    "           PIC 71 pic71-market-people           1280x853 -> ESRGAN 1800x1200",
+    "           PIC 76 pic76-simon-says              1280x853 -> ESRGAN 1800x1200",
+    "  PIC 64's centre read 'Word wheel'; it was repainted to read '-all', as the note asks.",
+    "  PIC 76 is the Simon says picture with the children's hands on their heads; a second",
+    "  Simon says picture (children with arms out) was supplied too and kept as a spare.",
+    "",
     "  The 'Letter word picture' table below does NOT need its own picture after all:",
     "  the author pasted an egg / elephant / envelope / aeroplane picture directly above it.",
     "",
@@ -159,7 +182,8 @@
     {
       "no": 12,
       "find": "Exercise 2: Match word to picture",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic12-cat-cup-duck.png"
     },
     {
       "no": 13,
@@ -347,13 +371,15 @@
     {
       "no": 50,
       "find": "Picture of a cooker ladder and a dinner meal",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic50-ladder-cooker-dinner.png"
     },
     {
       "no": 51,
       "find": "Picture illustration",
       "hmm": 80,
-      "note": "Panels of table manners: wash hands before eating; sit properly; say a prayer before eating; eat quietly, no talking with your mouth full"
+      "note": "Panels of table manners: wash hands before eating; sit properly; say a prayer before eating; eat quietly, no talking with your mouth full",
+      "art": "ENGLISH GRADE 1 LB-art/pic51-table-manners.png"
     },
     {
       "no": 53,
@@ -364,17 +390,22 @@
     {
       "no": 55,
       "find": "Picture. 2 boys standing, looking at a snake sleeping on stones",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic55-snake-on-stones.png"
     },
     {
       "no": 56,
       "find": "picture of a girl holding a frog and feeding it",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic56-girl-frog.png",
+      "artHmm": 70
     },
     {
       "no": 57,
       "find": "Picture with brown bread",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic57-brown-bread.png",
+      "artHmm": 48
     },
     {
       "no": 58,
@@ -384,48 +415,61 @@
     {
       "no": 61,
       "find": "Picture of a grandfather playing a drum",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic61-grandfather-drum.png",
+      "artHmm": 70
     },
     {
       "no": 62,
       "find": "pictures of a teacher standing",
       "note": "A classroom scene: a teacher standing, learners around a table (3 or 4 at the table) with glue, paint and a brush, learners sitting on the floor, an open door, and a cloth hanging",
-      "hmm": 80
+      "hmm": 80,
+      "art": "ENGLISH GRADE 1 LB-art/pic62-classroom-art.png"
     },
     {
       "no": 63,
       "find": "Picture illustration to show the sentences above each picture to have a sentence",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic63-ball-sentences.png"
     },
     {
       "no": 64,
       "find": "Picture of -all inside a circle and the following letters around it. B, c, w, f sm t",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic64-word-wheel.png",
+      "artHmm": 80
     },
     {
       "no": 65,
       "find": "Picture of cat hat mat",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic65-cat-hat-mat.png"
     },
     {
       "no": 66,
       "find": "Picture of sun fun run",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic66-sun-fun-run.png"
     },
     {
       "no": 67,
       "find": "Picture of big, pig dig",
-      "hmm": 62
+      "hmm": 62,
+      "art": "ENGLISH GRADE 1 LB-art/pic67-big-pig-dig.png"
     },
     {
       "no": 68,
       "find": "Picture of an insect",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic68-insect.png",
+      "artHmm": 48
     },
     {
       "no": 69,
       "find": "Picture of a desk",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic69-desk.png",
+      "artHmm": 48
     },
     {
       "no": 70,
@@ -436,7 +480,8 @@
       "no": 71,
       "find": "Picture illustration",
       "hmm": 80,
-      "note": "Different people at the market: a fat mother selling bananas; tall and short people; young and old; happy and sad people"
+      "note": "Different people at the market: a fat mother selling bananas; tall and short people; young and old; happy and sad people",
+      "art": "ENGLISH GRADE 1 LB-art/pic71-market-people.png"
     },
     {
       "no": 73,
@@ -452,7 +497,8 @@
     {
       "no": 76,
       "find": "picture",
-      "hmm": 48
+      "hmm": 48,
+      "art": "ENGLISH GRADE 1 LB-art/pic76-simon-says.png"
     }
   ],
   "_comment_editAll": [
