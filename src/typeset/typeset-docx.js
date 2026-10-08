@@ -640,6 +640,9 @@ async function typesetOne(docxPath, themeName) {
   // A book may also override the TOC depth directly. Depth 1 keeps top-level
   // sections only (front matter + units/topics) and excludes sub-topics.
   if (ov.tocDepth !== undefined) themeOverrides.tocDepth = ov.tocDepth;
+  // tocTitle: the contents page's heading in the book's own words (a local-language
+  // book's "BIJI MU KACHI" rather than the theme's "Table of Contents").
+  if (ov.tocTitle) themeOverrides.toctitle = ov.tocTitle;
   if (ov.captionSize) themeOverrides.capSize = ov.captionSize;
   // "boxStripe": false — plain tinted activity/exercise/assessment boxes, no thick left border
   if (ov.boxStripe === false) themeOverrides.boxStripe = false;   // e.g. "12pt" (see capsz in the template)
