@@ -1,0 +1,19 @@
+{
+  "_note_cover": "The manuscript's only picture is a finished cover mock-up (Ministry crest, title, ZEPH logo baked in; its footer icons are labelled in Cinyanja, not Kiikaonde), so it is not used as-is. House rule: from such a mock-up, use only a part of the picture with no lettering in it, and never paint lettering out. The word-free band lies between the pink banner and the footer; cut at the series cover card's own 122:78 shape so the card does not crop it further: x 230-774, y 505-853 of the 847x1024 original - the teacher and the four children around her. Real-ESRGAN x4: 544x348 -> 2176x1392, ~453 DPI at 122mm. The engine draws the title, book type, byline and logo itself; the mock-up itself is dropped from the inside.",
+  "coverImage": "KIKAONDE ECE TG LEVEL 1_021220-hires/cover.png",
+  "removeImages": [
+    "image1.png"
+  ],
+  "localLabels": true,
+  "keepFrontOrder": true,
+  "_note_authors": "The cover-page leftovers ('Musoyo Racheal', 'KIKAONDE', 'Curriculum Development Centre, 2025') were read as three authors. The imprint names one author, spelt Racheal both times.",
+  "authors": [
+    "Musoyo Racheal"
+  ],
+  "_note_remove": "BIJI MU BUUKU is the heading of the author's hand-typed contents list (the entries themselves are dropped by the engine); the engine prints its own Table of Contents.",
+  "remove": [
+    "BIJI MU BUUKU"
+  ],
+  "_note_lessons": "A lesson-plan Teacher's Guide (MUTWE / BYAKETEKELWA KUBIWA / MUFUNJISHI / BAFUNDA ...): lessonLabels bolds the labels and restarts numbered steps under each one, as in the Kiikaonde Grade 1 TG.",
+  "lessonLabels": true
+}
