@@ -16,7 +16,25 @@ const { THEMES, autoTheme, themeTypst, tgCoverSignature } = require("./themes.js
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 const { pngDamaged, placeholderPng } = require("./png-check.js");
 const LEXI = require("./lexicon/index.js");
-const { langFor, setLang, getLang } = LEXI;
+const { langFor, setLang, getLang, term } = LEXI;
+
+// COVER FURNITURE IN THE BOOK'S OWN LANGUAGE.
+// A local-language book's cover, title page, back cover and running header carried
+// their labels in English - EARLY CHILDHOOD EDUCATION LEVEL, LEARNER'S BOOK, AUTHOR
+// - on a book whose every other word is Chitonga. The words come from the book's own
+// word list (src/typeset/lexicon/<language>.json), so each language says them one way
+// in every book of that language; a concept the list has no word for keeps the
+// English rather than having one invented for it here.
+const LEVEL_TERM = {
+  "Primary Education Level": "level_primary",
+  "Secondary Education Ordinary Level": "level_ordinary",
+  "Secondary Education Advanced Level": "level_advanced",
+  "Early Childhood Education Level": "level_ece",
+};
+// Opt-in per book with "localLabels": true, like the labels further down: a book
+// without it keeps the English words.
+const sayLevel = (level, on) => (on && level && term(LEVEL_TERM[level])) || level;
+const sayBookType = (isTG, on) => (on && term(isTG ? "teachers_guide" : "learners_book")) || (isTG ? "Teacher's Guide" : "Learner's Book");
 
 const { ROOT, resolveBookPath } = require("./paths.js");
 const INPUT_DIRS = [path.join(ROOT, "input"), path.join(ROOT, "books-to-typeset")];
@@ -28,15 +46,25 @@ const { S, emit } = require("./emit.js");
 const { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor } = require("./naming.js");
 const { blockPlain, setBlockText } = require("./blocktext.js");
 const { applyOverrides } = require("./overrides.js");
-const { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly } = require("./passes/structure.js");
+const { unboxPictureOnly, levelHeadingVariants, boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly } = require("./passes/structure.js");
 const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatter } = require("./passes/series-front.js");
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
 const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
+const { writeManuscriptMd } = require("./manuscript-md.js");
 
 async function typesetOne(docxPath, themeName) {
+  // Before anything else, drop a plain-text rendering of the manuscript next to the
+  // .docx. Nothing downstream reads it — the pipeline still parses the .docx — but
+  // CLAUDE.md's rule is to check what the manuscript actually SAYS before "fixing"
+  // how it renders, and a searchable markdown copy of the whole book is a far better
+  // place to do that than raw OOXML read in 2000-character slices. Writing it here
+  // means it is always present and always matches the manuscript being built.
+  const mdPath = await writeManuscriptMd(docxPath);
+  if (mdPath) console.log("   plain text:", path.basename(mdPath));
+
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
   // Expand a standalone "G 2"/"G2" abbreviation to "Grade 2" for all grade/level/theme
   // detection (kept separate from `base` so the output file keeps its original name).
@@ -106,16 +134,111 @@ async function typesetOne(docxPath, themeName) {
   // only to place pictures side by side, with at most a short label in a cell. Rendered as
   // a table those pictures shrink to thumbnails; unpack each such table into its short
   // labels (as headings) and its pictures (one full-width row per table row).
+  // A box that encloses nothing but pictures is not a box (see unboxPictureOnly).
+  blocks = unboxPictureOnly(blocks);
   if (ov.untableImages) {
     const out = [];
     let n = 0;
+    // a box with a nested table holds the rest of its lines in that inner table: flatten
+    // inner tables' rows into the outer list so nothing inside is lost
+    const flatRows = (rs) => [].concat(...rs.map((r) => {
+      const inner = r.flatMap((c) => (c && c.subs) || []);
+      return [r, ...inner.flatMap((rows) => flatRows(rows || []))];
+    }));
+    // A pre-reading / pre-writing card: a one-column table of short labels whose
+    // last row holds the lesson's objectives as a NESTED table ("Kotana bala" over
+    // "Mutwe: …" over a BUPANDULUZI box). The generic rule below unpacks one only
+    // when EVERY cell is short, so the same card printed two ways in this book —
+    // flat headings where the nested objectives were brief, a bordered grid where
+    // they ran long — and in neither case as the box it is everywhere else.
+    // Always the same: the labels as headings, the nested table as a box.
+    //
+    // Returns the card's blocks (its labels as headings, its objectives as a box),
+    // or null when the table is not a card. It is a function, and not inline in the
+    // loop below, because a card does not always reach this pass as a top-level
+    // block: where the author left one inside the preceding activity's own table,
+    // it arrives buried in that box's BODY, and a card rendered there keeps the
+    // author's raw cyan and red run colours and the box's tint — nothing like the
+    // eleven cards that print at the top level. Same element, so same treatment
+    // wherever it is found.
+    const cardOf = (b) => {
+      const rows = b && b.t === "table" && Array.isArray(b.rows) ? b.rows : [];
+      const cells = rows.flat().filter(Boolean);
+      const nested = cells.flatMap((c) => c.subs || []);
+      const lineOf = (c) => String((c && c.text) || "").split(/\n/).map((s) => s.trim()).filter(Boolean);
+      // One nested table (the objectives box) and nothing around it but short label
+      // lines and pictures. The labels do not always sit in their own row: where the
+      // author left the card inside the preceding activity, every label line lives in
+      // the SAME cell as the nested table, and a picture follows in a row of its own.
+      const isCard = nested.length === 1
+        && cells.every((c) => lineOf(c).every((t) => t.length <= 80))
+        && cells.some((c) => lineOf(c).length);
+      if (!isCard) return null;
+      const made = [];
+      const trailing = [];
+      for (const r of rows) for (const c of r) {
+        if (!c) continue;
+        for (const t of lineOf(c)) made.push({ t: "head", text: t });
+        const imgs = c.imgs || [];
+        if (imgs.length === 1) trailing.push({ t: "image", ...imgs[0] });
+        else if (imgs.length) trailing.push({ t: "imagerow", images: imgs });
+      }
+      const body = [];
+        for (const r of nested[0]) for (const c of r) {
+          // One paragraph per CELL, keeping the cell's own runs. Splitting a cell on
+          // its line breaks and re-matching the runs line by line emitted every run
+          // once per line it spanned, so a two-line cell printed its text twice.
+          if (!String(c && c.text || "").trim()) continue;
+          // The author's nested cell sometimes carries no run styling at all, which
+          // left the box's own title ("BUPANDULUZI:") set in plain text while the
+          // identical box elsewhere in the book printed it bold.
+          const label = /:\s*$/.test(String(c.text).trim()) && !body.length;
+          const segs = (c && c.seg && c.seg.length)
+            ? (label ? c.seg.map((s) => ({ ...s, b: true })) : c.seg)
+            : [{ t: String(c.text), b: label, it: false, c: null }];
+          // The objectives cell is a LIST, and the author rarely marks every line as
+          // one: typically the first line is a real Word bullet and the rest are
+          // plain lines under it. Kept as a single paragraph, that box printed one
+          // bulleted objective followed by unbulleted orphan lines, while the same
+          // box elsewhere in the book — where every line happened to be a list item —
+          // printed them all as bullets. Same element, two appearances.
+          // Split only when the cell carries NO run styling of its own (a single
+          // plain seg): that is the case this fixes, and splitting a cell with real
+          // runs would re-emit each run once per line it spans (see above).
+          const plain = !(c && c.seg && c.seg.length);
+          const lines = plain ? String(c.text).split(/\n/).map((s) => s.trim()).filter(Boolean) : [];
+          if (!label && plain && lines.length && /^[••·*-]\s/.test(lines[0])) {
+            for (const ln of lines) {
+              body.push({ t: "listitem", marker: "•", segs: [{ t: ln.replace(/^[••·*-]\s*/, ""), b: false, it: false, c: null }] });
+            }
+            continue;
+          }
+          body.push({ t: "para", segs });
+        }
+        if (body.length) made.push({ t: "box", kind: "box", body });
+        made.push(...trailing);
+        return made;
+      };
+
     for (const b of blocks) {
-      // a box with a nested table holds the rest of its lines in that inner table: flatten
-      // inner tables' rows into the outer list so nothing inside is lost
-      const flatRows = (rs) => [].concat(...rs.map((r) => {
-        const inner = r.flatMap((c) => (c && c.subs) || []);
-        return [r, ...inner.flatMap((rows) => flatRows(rows || []))];
-      }));
+      const card = cardOf(b);
+      if (card) { n++; out.push(...card); continue; }
+      // A card the author left inside the preceding box's table: lift it out, so the
+      // box keeps only what belongs to it and the card renders as every other does.
+      if ((b.t === "framedsection" || b.t === "box") && Array.isArray(b.body)
+          && b.body.some((x) => cardOf(x))) {
+        const keep = [];
+        const after = [];
+        for (const x of b.body) {
+          const c = cardOf(x);
+          if (c) { n++; after.push(...c); }
+          else if (after.length) after.push(x);
+          else keep.push(x);
+        }
+        if (keep.length) out.push({ ...b, body: keep });
+        out.push(...after);
+        continue;
+      }
       const rows = b.t === "table" && Array.isArray(b.rows) ? flatRows(b.rows) : null;
       const cells = rows ? rows.flat() : [];
       // a picture table, or a table of short labels only (headings the author boxed in
@@ -145,12 +268,24 @@ async function typesetOne(docxPath, themeName) {
     // (h1 included: a Unit word whose headings are ALREADY top-level still counts, so a
     // more frequent word below it is not mistaken for the top level)
     // a plain paragraph counts too when it is short and the unit word is followed by a
-    // NUMBER ("KISHINA 1: KUTONGAULA MAZHINA"); "KISHINA-KACHE 7" (a sub-unit) does not
+    // NUMBER ("KISHINA 1: KUTONGAULA MAZHINA"); "KISHINA-KACHE 7" (a sub-unit) does not.
+    //
+    // A book may not number its units with digits at all: the ECE Chitonga Learner's
+    // Book spells every one of its twelve out in Chitonga — "CIBEELA CAKUSAANGUNA"
+    // (Part One), "CIBEELA CABILI", … "CIBEELA CA KKUMI AKOMWE" — so neither a digit
+    // nor a colon ever follows the unit word, and the whole book folded into one
+    // section behind an empty contents page. Accept a spelt-out ordinal too, but only
+    // when the author typed the line in CAPITALS: the capitals are the author's own
+    // signal that the line is a banner, and requiring them keeps the rule from
+    // swallowing ordinary prose that opens with the unit word — this book's foreword
+    // begins "Mwatambulwa mu chitonga cibeela cakusaanguna!".
     const paraText = (b) => (b.segs || []).map((s) => s.t).join("").trim();
     for (const b of blocks) {
       if (b.t !== "para") continue;
       const t = paraText(b);
-      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^${LEXI.altSrc([w])}\\s+\\d`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": "); delete b.segs; }
+      const caps = t === t.toUpperCase() && /[A-Z]/.test(t);
+      const after = caps ? "(?:\\s+\\d|\\s*:|\\s+[A-Z\\u00C0-\\u024F])" : "\\s+\\d";
+      if (t.length <= 60 && LEXI.words(["unit"]).some((w) => new RegExp(`^\\s*${LEXI.altSrc([w])}${after}`, "i").test(t))) { b.t = "head"; b.text = t.replace(/\s+/g, " ").replace(/\s*:\s*/, ": ").trim(); delete b.segs; }
     }
     const isCand = (b) => /^(head|label|h1|h2|h3)$/.test(b.t) && (b.text || "").trim().length <= 60;
     const byWord = new Map();
@@ -233,7 +368,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.numberBoxBullets) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -270,6 +405,26 @@ async function typesetOne(docxPath, themeName) {
   // Competence(s)" case is a house-style rule for every book, not just the boxActivities
   // ones — see normaliseCompetenceLabels() above.
   normaliseCompetenceLabels(blocks);
+  // termPages: "regex" — a heading/line matching it ("TEMU 1" = Term 1 in a Kiikaonde ECE
+  // book) gets a page of its own in large type. One that would land just before the body
+  // start is moved after it, so the term page opens the arabic-numbered body.
+  if (ov.termPages) {
+    const re = new RegExp(ov.termPages, "i");
+    let n = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t)) continue;
+      const t = (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
+      if (!re.test(t)) continue;
+      blocks[i] = { t: "termpage", text: t }; n++;
+      const nx = blocks.findIndex((x, k) => k > i && x.t !== "vspace");
+      if (nx > 0 && blocks[nx].t === "bodystart") { const [bs] = blocks.splice(nx, 1); blocks.splice(i, 0, bs); i++; }
+    }
+    if (n) console.log(`   termPages: ${n} term page(s)`);
+  }
+  // (a term banner is resolved BEFORE boxing: an assessment box that ran to the end
+  //  of its section would otherwise swallow the banner, and termPages - which used to
+  //  run later - would never see it again.)
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   // after boxing, so the assessment bodies exist to scan
@@ -279,6 +434,7 @@ async function typesetOne(docxPath, themeName) {
   splitAnswerLabels(blocks);
   // House style: make every structural box label read in one case across the book.
   uniformBoxLabelCase(blocks);
+  levelHeadingVariants(blocks);   // the same heading, spelt the same way on every page
   // Group each lesson's header metadata into one distinct 14pt panel (Teacher's Guide).
   if (ov.polish) blocks = groupLessonMeta(blocks);
   reorderFrontmatter(blocks);   // house-style front-matter order (see the function)
@@ -307,6 +463,13 @@ async function typesetOne(docxPath, themeName) {
       media.push({ src: zeph, name: "zeph_logo.png" });
       const cov = blocks.find((b) => b.t === "cover");
       if (cov) cov.logo = { file: "zeph_logo.png" };
+      // The IMPRINT page's publisher mark is ours too, for exactly the reason above.
+      // A manuscript's own pasted copy is routinely a screenshot of the transparent
+      // logo — checkerboard and all: the ECE Chitonga Learner's Book embeds one 214px
+      // wide whose "transparent" background is opaque #FFF/#EFEFEF squares, so the
+      // grey-and-white chequer printed as a panel behind the mark. Keep the author's
+      // placement and size (b.w), swap only the bitmap.
+      for (const b of blocks) if (b.t === "image" && b.imprint) b.file = "zeph_logo.png";
     }
   }
   // A per-book cover photo, for a book whose manuscript ships no cover image
@@ -373,7 +536,7 @@ async function typesetOne(docxPath, themeName) {
       const subj = (ov.subject || T.subject || (T.hdrleft || base)
         .replace(/^(Secondary Education Ordinary Level|Primary School)\s*/i, "").trim() || base).toUpperCase();
       // the grade/form in the file name wins over the theme's default level
-      const eyebrow = eduLevel ? eduLevel.toUpperCase() : (T.eyebrow || "SECONDARY EDUCATION ORDINARY LEVEL");
+      const eyebrow = eduLevel ? sayLevel(eduLevel, ov.localLabels).toUpperCase() : (T.eyebrow || "SECONDARY EDUCATION ORDINARY LEVEL");
       const gm = detectName.match(/(form|grade)\s*\d+/i);           // no \b: "_Form 1_" too
       // The manuscript file is occasionally saved without the form/grade digit in its own
       // name ("…Form Learners Book…" — missing the "1"). Fall back to the manuscript's OWN
@@ -383,9 +546,10 @@ async function typesetOne(docxPath, themeName) {
       // with no form/grade line, `name` defaults to `subject` = lines[0] = the eyebrow).
       const gm2 = gm || linesArr.map((l) => l.match(/(form|grade)\s*\d+/i)).find(Boolean);
       // An explicit `grade` override wins (a roman-numeral "form II" filename); ECE books
-      // carry "ECE" where other books carry "Form N" / "Grade N".
-      const grade = ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
-      const booktype = isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book";
+      // carry "ECE" where other books carry "Form N" / "Grade N". `coverGrade` changes
+      // only what the cover prints ("ECE LEVO 1"), not the output folder `grade` drives.
+      const grade = ov.coverGrade ? String(ov.coverGrade) : ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
+      const booktype = sayBookType(isTeacherBookName(base), ov.localLabels);
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -428,6 +592,36 @@ async function typesetOne(docxPath, themeName) {
           cov.byline = names;
           console.log("   authors pulled from manuscript's AUTHORS section:", names.join(", "));
         }
+      }
+    }
+    // Still no byline, and the book has no AUTHORS bio section either: look on the
+    // IMPRINT page, where many books put the credit instead. A local-language book
+    // names it in its own word — the ECE Chitonga Learner's Book heads the credit
+    // "Balembi" and sets "Chriscent Simunkombwe" bold on the line below — so the word
+    // comes from the language's own list rather than an English heading, and the
+    // credit is read from the centred imprint paragraphs rather than from a heading,
+    // because on the imprint page that is all it ever is.
+    if (cov && (!cov.byline || !cov.byline.length) && !Array.isArray(ov.authors)) {
+      const words = LEXI.words(["author_section", "author_one"]).concat(["AUTHOR", "AUTHORS"]);
+      const plain = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t || "").join("")).replace(/\s+/g, " ").trim();
+      const isCredit = (t) => { const src = LEXI.altSrc(words); return !!src && new RegExp("^(?:" + src + ")\\s*:?\\s*$", "i").test(t); };
+      const names = [];
+      for (let i = 0; i < blocks.length; i++) {
+        if (!isCredit(plain(blocks[i]))) continue;
+        for (let j = i + 1; j < Math.min(i + 4, blocks.length); j++) {
+          const nb = blocks[j];
+          const t = plain(nb);
+          if (!t) continue;
+          const bold = Array.isArray(nb.segs) ? nb.segs.some((s) => s.b && (s.t || "").trim()) : nb.t === "label";
+          if (!bold) break;                                  // the name is set bold under the credit
+          if (t.length >= 3 && t.length <= 40 && /^[A-Z][A-Za-z'`.\- ]+$/.test(t)) names.push(t);
+          break;
+        }
+        if (names.length) break;
+      }
+      if (names.length) {
+        cov.byline = names;
+        console.log("   author taken from the imprint credit:", names.join(", "));
       }
     }
     // Explicit author list from overrides wins (restores names the manuscript
@@ -564,7 +758,7 @@ async function typesetOne(docxPath, themeName) {
   // then read as the form line), so this is not switched on for every language at once.
   if (getLang() && ov.localLabels) {
     const labels = {};
-    for (const [k, id] of [["grade", "grade"], ["form", "form"], ["tg", "teachers_guide"], ["lb", "learners_book"], ["authors", "authors_label"]]) {
+    for (const [k, id] of [["grade", "grade"], ["form", "form"], ["tg", "teachers_guide"], ["lb", "learners_book"], ["authors", "authors_label"], ["author1", "author_one"]]) {
       const w = LEXI.label(id);
       if (w) labels[k] = w;
     }
@@ -590,6 +784,14 @@ async function typesetOne(docxPath, themeName) {
   // the house default (Arial body / Times New Roman header / Segoe UI display). The
   // LB and TG of a subject share one theme, so the distinction is made per-book by
   // filename (a TG is named "… TG …" or "… Teacher's …").
+  // A book written in a Zambian language titles its contents page in that language
+  // too — every other heading on the page is Chitonga, so an English "Table of
+  // Contents" over a list of CIBEELA banners is the one line that does not belong.
+  // The wording comes from the authors' own word form (Chitonga: "Zyili moomu").
+  if (getLang()) {
+    const w = LEXI.words(["contents"])[0];
+    if (w) themeOverrides.toctitle = w.charAt(0).toUpperCase() + w.slice(1);
+  }
   const primaryTheme = theme === "primaryeng" || theme === "cts" || theme === "mathsci";
   const isTeacherBook = isTeacherBookName(base);
   // ECE learner's books follow the same rule: Avant Garde (Century Gothic) for young readers.
@@ -598,6 +800,13 @@ async function typesetOne(docxPath, themeName) {
     themeOverrides.font = "Century Gothic";
     themeOverrides.bodyFont = "Century Gothic";
     themeOverrides.displayFont = "Century Gothic";
+    // …and no hyphenation. Every other young-reader theme (primaryeng, cts, mathsci,
+    // homeecon) already sets this; the local-language themes did not, so the ECE
+    // Chitonga Learner's Book broke Chitonga words across lines — "mbociton-dezya",
+    // "zyilem-bedwe", "ak-waamba" — in a book whose whole purpose is teaching a
+    // three-year-old to blend the syllables of those same words. Deciding it here,
+    // from the book's level rather than from its theme, covers every language at once.
+    themeOverrides.hyphenate = false;
   }
   // CDC 2025 body-text size for LEARNER'S Books — young readers need larger text:
   //   Grade 1 → 18pt, Grade 2-3 → 16pt, Grade 4-6 → 14pt (Avant Garde / Century Gothic).
@@ -679,23 +888,6 @@ async function typesetOne(docxPath, themeName) {
   // Front-matter sections into the house order (Author … Acronyms); opt out per book.
   // Runs last, once the body-start marker and every heading are final.
   if (!ov.keepFrontOrder && variant !== "syllabus") blocks = orderFrontMatter(blocks);
-  // termPages: "regex" — a heading/line matching it ("TEMU 1" = Term 1 in a Kiikaonde ECE
-  // book) gets a page of its own in large type. One that would land just before the body
-  // start is moved after it, so the term page opens the arabic-numbered body.
-  if (ov.termPages) {
-    const re = new RegExp(ov.termPages, "i");
-    let n = 0;
-    for (let i = 0; i < blocks.length; i++) {
-      const b = blocks[i];
-      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t)) continue;
-      const t = (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
-      if (!re.test(t)) continue;
-      blocks[i] = { t: "termpage", text: t }; n++;
-      const nx = blocks.findIndex((x, k) => k > i && x.t !== "vspace");
-      if (nx > 0 && blocks[nx].t === "bodystart") { const [bs] = blocks.splice(nx, 1); blocks.splice(i, 0, bs); i++; }
-    }
-    if (n) console.log(`   termPages: ${n} term page(s)`);
-  }
   // lessonLabels: true — a lesson-plan Teacher's Guide written as "LABEL: text" lines
   // (MUFUNJISHI:, BAFUNDA:, LWESEKO: …). The ALL-CAPS label is set bold; a label line the
   // author put inside a numbered list stops being a list item (so it neither takes a
@@ -787,7 +979,17 @@ async function typesetOne(docxPath, themeName) {
     const h = Number(ov.uniformImages);
     // a picture the author made extra wide (a 2x2 grid of photos in one image) is
     // given the full text width instead of the common height, so its parts stay legible
-    for (const b of blocks) {
+    //
+    // ONLY the body. "Every picture the same height" is a statement about the lesson
+    // pictures a picture book sets one to a page — it was never meant for the front
+    // matter, whose images are furniture: the publisher's logo on the imprint page, the
+    // arrow a front-matter heading is drawn on. Blown up to the body's common height
+    // (78mm in the ECE Chitonga Learner's Book) the imprint logo filled half the page
+    // and pushed the credits onto a second one, splitting "Lyakalondolwa aba" from the
+    // editor it names.
+    const bodyAt = blocks.findIndex((b) => b.t === "bodystart");
+    for (let i = bodyAt < 0 ? 0 : bodyAt; i < blocks.length; i++) {
+      const b = blocks[i];
       if (b.t === "image") b.hmm = b.w && b.w > 560 && !b.tall ? 0 : h;
       else if (b.t === "imagerow") for (const im of b.images || []) im.hmm = h;
     }

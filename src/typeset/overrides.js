@@ -340,7 +340,21 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
             if (!cell || typeof cell.text !== "string") continue;
-            if (cell.text.trim() === ec.find) { cell.text = ec.with; n++; continue; }
+            // A WHOLE-cell match has to rewrite `segs` too. Rendering prefers the
+            // styled runs over the plain `text`, so setting `text` alone changed
+            // nothing in the PDF while the override reported a match — the fix looked
+            // applied and was not. Rewrite each run that carries the text, and if the
+            // cell's runs are split so that none holds it whole, fold them into one
+            // run keeping the first run's styling.
+            if (cell.text.trim() === ec.find) {
+              cell.text = ec.with;
+              if (Array.isArray(cell.segs) && cell.segs.length) {
+                let hit = false;
+                for (const s of cell.segs) if (typeof s.t === "string" && s.t.includes(ec.find)) { s.t = s.t.split(ec.find).join(ec.with); hit = true; }
+                if (!hit) cell.segs = [{ ...cell.segs[0], t: ec.with }];
+              }
+              n++; continue;
+            }
             if (cell.text.includes(ec.find)) {
               cell.text = cell.text.split(ec.find).join(ec.with);
               if (Array.isArray(cell.segs)) {
@@ -623,6 +637,27 @@ function applyOverrides(blocks, ov) {
     let n = 0;
     for (const b of flat) if (blockPlain(b).includes(e.find)) { editBlockText(b, e.find, e.with || ""); n++; }
     if (!n) console.warn("!  editAll not matched:", e.find);
+  }
+  // numberBoxBullets: true | "1)" — number the bulleted items inside every shaded box
+  // ("box" blocks) 1..N, in the given marker format ("1." when true). For a book whose
+  // reviewer wants a box's objectives numbered rather than bulleted — the ECE Chitonga
+  // Learner's Book bullets 31 of its 32 BUPANDULUZI boxes and numbers the other "1)".
+  // Only plain bullets change; an already-numbered box is left to renumberBoxItems.
+  if (ov.numberBoxBullets) {
+    const fmt = typeof ov.numberBoxBullets === "string" ? ov.numberBoxBullets : "1.";
+    const isBullet = (x) => x && (x.t === "listitem" || (x.t === "para" && x.isList)) && (x.marker || "•").trim() === "•";
+    let n = 0;
+    (function walk(arr) {
+      for (const b of arr || []) {
+        if (!b || typeof b !== "object") continue;
+        if (b.t === "box" && Array.isArray(b.body)) {
+          let k = 0;
+          for (const x of b.body) if (isBullet(x) && !x._sub && !x.nest) { x.marker = fmt.replace(/\d+/, String(++k)); n++; }
+        }
+        for (const v of Object.values(b)) if (Array.isArray(v)) walk(v);
+      }
+    })(blocks);
+    if (!n) console.warn("!  numberBoxBullets: no bulleted box items found");
   }
   // editAnswer: [{ find, with }] — like editAll, but rewrites every qa part's ANSWER
   // text (`.a`/`.aseg`) rather than its question — see editBlockAnswerText().

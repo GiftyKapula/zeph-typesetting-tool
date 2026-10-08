@@ -17,6 +17,130 @@ const LEXI = require("../lexicon/index.js");
 // assessment heading and runs until the next such heading, the next topic/
 // sub-topic, or a fresh content heading — internal labels (Teaching and Learning
 // Materials, Teacher Facilitation Procedure, Teacher Notes, …) stay inside it.
+// HOUSE STYLE (docs/HOUSE-STYLE.md s.4): a box's top items always renumber 1..N, and
+// sub-parts a/b/c reset under each parent. That rule was only ever applied by the
+// import-time question builder, which runs for a box the manuscript authored as a
+// table or under a recognised heading. A box built HERE — by wrapping blocks that were
+// already parsed as ordinary list items — never passed through it, so those boxes kept
+// whatever Word counter the author's list happened to be on. The ECE Chitonga Learner's
+// Book runs ONE continuous Word list through the whole book, so its boxes opened at
+// "3.", "5." and "2." instead of at 1, and the book needed seven hand-written setMarker
+// overrides to say what the house style already promised.
+//
+// Renumber the box's own items: decimal tops count 1..N, letters and roman numerals
+// reset under the top they follow. The author's marker FORMAT is kept — "1." stays
+// "1.", "1)" stays "1)" — and a bullet is never touched, because a bullet is not a
+// numbered item.
+function renumberBoxItems(body) {
+  const DEC = /^\(?(\d+)([.)])?$/;
+  const LET = /^\(?([a-z])([.)])?$/i;
+  const ROM = /^\(?([ivx]+)([.)])?$/i;
+  const fmt = (m, n, kind) => {
+    const open = /^\(/.test(m) ? "(" : "";
+    const close = /[.)]$/.test(m) ? m.slice(-1) : "";
+    const body2 = kind === "dec" ? String(n)
+      : kind === "let" ? String.fromCharCode(96 + ((n - 1) % 26) + 1)
+      : ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"][n - 1] || String(n);
+    const cased = kind === "let" && /^[(]?[A-Z]/.test(m) ? body2.toUpperCase() : body2;
+    return open + cased + close;
+  };
+  let top = 0, sub = 0;
+  for (const b of body) {
+    if (!b || b.t !== "listitem" || typeof b.marker !== "string") continue;
+    const m = b.marker.trim();
+    if (!m || m === "\u2022") continue;                 // a bullet is not a numbered item
+    const isSub = !!b.nest || !!b._sub;
+    if (DEC.test(m) && !isSub) { b.marker = fmt(m, ++top, "dec"); sub = 0; continue; }
+    if (LET.test(m) && !ROM.test(m)) { b.marker = fmt(m, ++sub, "let"); continue; }
+    if (ROM.test(m)) { b.marker = fmt(m, isSub ? ++sub : ++top, "rom"); continue; }
+  }
+}
+
+// A box frames the thing it encloses, so a box that encloses nothing but PICTURES is
+// not a box — the border frames the pictures, which already have their own edges, and
+// says nothing the heading above them does not.
+//
+// This is the one rule, applied once, after import. A picture label can reach the page
+// as a box by several routes — the author put it in a table with its pictures, or drew
+// it as a Word shape the box recovery picks up — and the ECE Chitonga Learner's Book
+// hit one of them exactly once: it labels every picture "MULIMO n", and fifty-nine of
+// those printed as a plain heading while the sixtieth printed inside a titled panel.
+// One element, two appearances, decided by nothing the reader can see.
+//
+// Un-boxed to match: the title becomes the heading it is everywhere else, and the
+// pictures follow it. A box with any real content - a question, a list, a table, a
+// paragraph of instructions - is left exactly as it was.
+function unboxPictureOnly(blocks) {
+  const PIC = /^(img|image|imagerow|pendingimg)$/;
+  const isPic = (x) => !!x && PIC.test(x.t || x.kind || "");
+  const titleOf = (b) => (b.t === "exercise" ? b.heading : b.title) || "";
+  const contentOf = (b) => (b.t === "activity" ? (b.body || []) : (b.parts || []));
+  const out = [];
+  let n = 0, nSplit = 0;
+  for (const b of blocks) {
+    if (!b || !/^(exercise|activity|assessment)$/.test(b.t)) { out.push(b); continue; }
+    const content = contentOf(b);
+    if (!content.length || !content.every(isPic)) { out.push(b); continue; }
+    const title = String(titleOf(b)).trim();
+    if (title) out.push({ t: "head", text: title });
+    for (const x of content) {
+      const imgs = x.images || (x.file ? [x] : []);
+      if (!imgs.length) continue;
+      out.push(imgs.length === 1 ? { t: "image", ...imgs[0] } : { t: "imagerow", images: imgs });
+    }
+    n++;
+  }
+  if (n) console.log(`   ${n} picture-only box(es) set as a heading and its pictures`);
+  // A box that contains ANOTHER box's title is really two things the author typed into
+  // one container. The ECE Chitonga Learner's Book drew "MULIMO 2" as a picture label
+  // and then, inside the same shape, wrote a whole "Cakucita" activity with its
+  // question — so that one picture printed inside a titled panel while the other
+  // fifty-nine stood under a plain heading, and the activity was buried in it. Split
+  // at the inner title: what comes before it is the picture label, what follows is the
+  // activity, and each is then judged on its own by the picture-only rule above.
+  const innerTitle = (x) => {
+    const t = String((x && (x.q || x.text || x.title)) || "").trim();
+    if (!t || t.length > 60) return null;
+    return LEXI.boxKind(t);
+  };
+  const split = [];
+  for (const b of out) {
+    if (!b || !/^(exercise|activity|assessment)$/.test(b.t)) { split.push(b); continue; }
+    const content = contentOf(b);
+    const at = content.findIndex((x, i) => i > 0 && innerTitle(x));
+    if (at < 0) { split.push(b); continue; }
+    const headPart = content.slice(0, at);
+    const tailPart = content.slice(at);
+    const innerK = innerTitle(tailPart[0]);
+    const title = String(titleOf(b)).trim();
+    if (title) split.push({ t: "head", text: title });
+    for (const x of headPart) {
+      const imgs = x.images || (x.file ? [x] : []);
+      if (imgs.length) split.push(imgs.length === 1 ? { t: "image", ...imgs[0] } : { t: "imagerow", images: imgs });
+      else split.push({ t: "para", segs: x.qseg || x.segs || [{ t: String(x.q || x.text || ""), b: false, it: false, c: null }] });
+    }
+    const innerName = String((tailPart[0].q || tailPart[0].text || "")).trim();
+    const rest = tailPart.slice(1);
+    // An activity box carries BODY BLOCKS; an exercise/assessment carries QA PARTS.
+    // The content being split out came from the outer box and is already in parts
+    // shape, so convert it when the inner title asks for an activity - handing parts
+    // to an activity block fails the Typst compile outright.
+    const kindT = innerK === "activity" ? "activity" : innerK === "assessment" ? "assessment" : "exercise";
+    const asBody = (ps) => ps.map((x) => (x.kind === "image"
+      ? { t: "imagerow", images: x.images }
+      : x.marker
+        ? { t: "listitem", marker: x.marker, segs: x.qseg || [{ t: String(x.q || ""), b: false, it: false, c: null }] }
+        : { t: "para", segs: x.qseg || [{ t: String(x.q || ""), b: false, it: false, c: null }] }));
+    if (!rest.length) { split.push({ t: "head", text: innerName }); nSplit++; continue; }
+    split.push(kindT === "activity" ? { t: "activity", title: innerName, body: asBody(rest) }
+      : kindT === "exercise" ? { t: "exercise", heading: innerName, parts: rest }
+      : { t: "assessment", title: innerName, intro: [], parts: rest, extra: [] });
+    nSplit++;
+  }
+  if (nSplit) console.log(`   ${nSplit} box(es) split where the author nested another box's title inside`);
+  return split;
+}
+
 function boxifyActivities(blocks, opts = {}) {
   // `looseStarts` (per-book): also treat a `para`/`listitem`/`h2` block as an
   // activity/exercise/assessment box START (not just a real head/label) and absorb a
@@ -68,7 +192,20 @@ function boxifyActivities(blocks, opts = {}) {
   // tolerating the dash type, plural/typo forms ("Exercises", "EXERCSE"), case and a
   // trailing period, so every answer key is boxed like the other exercises.
   const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
-  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : null);
+  // The local language's OWN words for these sections, from its word list, so a book
+  // does not depend on its wording having been hard-coded into the regexes above.
+  // Those lists require a NUMBER after the word ("Cakucita 1"); a book that numbers
+  // none of its activities matched nothing and left every one of them unboxed, against
+  // the house style that activities and assessments are boxes.
+  //
+  // The exercise concept is read too, but a section whose whole body is PICTURES is
+  // left as a heading (see below): this book's "MULIMO n" labels a picture rather than
+  // a set of questions, and a border drawn round a picture frames nothing.
+  const lexKind = (t) => {
+    const k = LEXI.boxKind(t);
+    return k === "activity" ? "act" : k === "exercise" ? "ex" : k === "assessment" ? "asmt" : null;
+  };
+  const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : lexKind(t));
   const INTERNAL = /^(teaching and learning materials|teacher.?s?\s*facilitation procedure|facilitation procedure|teacher.?s?\s*notes?|take note of responses|expected responses?|possible answers?|materials?|answers?|procedure)\b/i;
   // The recurring teaching PHASES inside a single activity (the 3Ps / lesson-cycle
   // structure: Introduction, Presentation/Present, Practice, Production/Produce,
@@ -87,7 +224,7 @@ function boxifyActivities(blocks, opts = {}) {
   // A pre-built box / already-framed block (from the importer or an earlier pass): its
   // presence always ENDS an open box — the orphan content before it belongs to the box,
   // but the box itself is a sibling, never absorbed.
-  const BOXBLOCK = new Set(["exercise", "activity", "assessment", "framedsection", "keypoints", "fact", "box"]);
+  const BOXBLOCK = new Set(["exercise", "activity", "assessment", "framedsection", "keypoints", "fact", "box", "termpage"]);
   // The text used to test whether a block STARTS a box. Real heads/labels use their
   // .text; with looseStarts a paragraph/list-item/sub-head uses its plain text so an
   // activity the author typed as body text ("Activity 1: …") or a coloured sub-head
@@ -212,6 +349,15 @@ function boxifyActivities(blocks, opts = {}) {
         body.shift();
       }
     }
+    // A border drawn round a picture frames nothing. When everything the box would
+    // hold is images (and their captions), the heading and the pictures are emitted
+    // as they stand instead — this book labels every picture "MULIMO n", and boxing
+    // those would put a frame round all sixty of them while the sections that really
+    // are activities ("Cakucita") and assessments ("MUSUNKO …") carry the lists that
+    // a box exists to frame: a list of things to do, a table, a nested box.
+    const framable = body.some((x) => x && /^(listitem|table|box|qa|exercise|assessment)$/.test(x.t));
+    if (!framable) { out.push(b, ...body); i = j - 1; continue; }
+    renumberBoxItems(body);
     out.push({ t: "framedsection", kind: k, title, body });
     i = j - 1;
   }
@@ -632,4 +778,188 @@ function keepNumberedSubtopicsOnly(blocks) {
 }
 
 
-module.exports = { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };
+
+
+// HOUSE RULE: the same element looks the same on every page. An author retyping a
+// recurring heading rarely types it the same way twice — the ECE Chitonga Learner's
+// Book writes its end-of-lesson assessment heading nine times and never once
+// identically: "MUSUNKO WAKUMAMANINO AACIIYO", "… ACIIYO", "… ACIIIYO", "… ACHIIYO",
+// "… AACIYO". A reader meets what looks like five different headings for one thing.
+//
+// Level only what is demonstrably the SAME WORD spelt two ways. In these languages
+// the spelling wobbles in exactly two places: a long vowel (or consonant) written
+// once or twice, and the affricate written "c" or "ch". So headings are grouped by a
+// skeleton that lowercases, reads "ch" as "c", and counts a run of one repeated
+// letter once — and changes NOTHING else.
+//
+// Everything else is left alone on purpose, because an earlier attempt that ignored
+// punctuation, spacing and case did real damage to the Kiikaonde Grade 1 Teacher's
+// Guide: it levelled the LENGTH of the dot leaders in a typed contents list, it
+// decided a mangled "MUTWE : 1.8  : Bilulumo" was the house form and spread it over
+// the correct "MUTWE: 1.8 Bilulumo", and it fought uniformBoxLabelCase for ownership
+// of heading case. Hence:
+//   - punctuation and spacing are part of the skeleton, so two spellings that differ
+//     in a colon, a space or a row of dots are different headings;
+//   - a group whose members differ ONLY in case is skipped entirely — case is
+//     uniformBoxLabelCase's business, and two passes must not disagree about it.
+//
+// Within a group the spelling the author used most often wins; on a tie the fullest
+// one does, since a dropped letter is the commoner slip. A heading with no variants
+// is never touched. Local-language books only: that is where the evidence is.
+function levelHeadingVariants(blocks) {
+  if (!LEXI.getLang()) return 0;
+  const isHead = (b) => b && /^(head|label|h1|h2|h3)$/.test(b.t) && typeof b.text === "string";
+  // Collapse a run of one repeated letter to a single letter. A doubled vowel is a
+  // genuine typing wobble in these languages and is safe to fold.
+  //
+  // "c" and "ch" are NOT folded together. Which one is right is a fact about the
+  // language, not a typing wobble — Chitonga writes "Cakucita" with c, Cinyanja writes
+  // "ch" — so they are a right spelling and a wrong one, not two spellings of equal
+  // standing. An earlier version read "ch" as
+  // "c" and so was willing to level a correct spelling onto a wrong one, picking the
+  // winner by nothing better than which the author typed more often. Where two
+  // headings differ by c/ch the word list decides (see lexiconForm below); if the
+  // word list is silent, they are left alone for a person to settle.
+  const fold = (t) => {
+    let out = "";
+    for (const ch of t) {
+      if (/[A-Za-z\u00C0-\u024F]/.test(ch) && out && out[out.length - 1].toLowerCase() === ch.toLowerCase()) continue;
+      out += ch;
+    }
+    return out;
+  };
+  // Grouping key: the WORD, ignoring case, punctuation and spacing — so every
+  // spelling of one heading lands in one group and the pass cannot pick two
+  // different winners for the same word.
+  const word = (t) => fold(t.toLowerCase()).replace(/[^a-z\u00C0-\u024F0-9]/g, "");
+  // Applying key: the same fold WITH case and punctuation kept. A heading is only
+  // rewritten when it already matches the winner in everything but the doubled
+  // letters — so this pass changes spelling and nothing else, and never argues with
+  // uniformBoxLabelCase about case or adds a colon the author did not type.
+  const shape = (t) => fold(t);
+  // FIRST, the house spelling. Each concept in the language's word list is written
+  // house-spelling-FIRST, with the other wordings authors have used kept after it so
+  // the engine still RECOGNISES them. A heading that is one of those other wordings is
+  // rewritten to the first one — the house form — whatever the manuscript does most
+  // often. The ECE Chitonga Learner's Book writes "Cakucita" ten times and "Chakucita"
+  // once; Chitonga writes the sound with plain c, so the word list's "Cakucita" is
+  // what prints, and a stray "Cakuchita" is corrected to it (the author's own
+  // proofread asked for exactly that). This runs before the levelling below, which only
+  // ever decides between spellings the word list has no opinion about.
+  const LEX_CONCEPTS = ["activity", "alt_activity", "exercise", "assessment_topic", "assessment_unit",
+    "key_points", "note_teacher", "example", "possible_answers", "topic", "subtopic", "lesson", "unit"];
+  const houseOf = new Map();
+  for (const id of LEX_CONCEPTS) {
+    const ws = LEXI.words([id]);
+    if (ws.length < 2) continue;                       // no alternative spellings recorded
+    for (const w of ws.slice(1)) houseOf.set(w.toLowerCase(), ws[0]);
+  }
+  let houseN = 0;
+  const houseChanged = new Map();
+  if (houseOf.size) {
+    // Anywhere the term stands ALONE — a heading, a box title, a question line the
+    // importer absorbed into a box — carries the house spelling. Matched on the whole
+    // trimmed text, never as a substring, so running prose is never touched.
+    const setText = (o, h) => {
+      if (typeof o.text === "string") o.text = h;
+      if (typeof o.q === "string") o.q = h;
+      if (typeof o.title === "string") o.title = h;
+      if (typeof o.plain === "string") o.plain = h;
+      for (const k of ["segs", "qseg", "aseg", "seg"]) {
+        if (Array.isArray(o[k]) && o[k].length) o[k] = [{ ...o[k][0], t: h }];
+      }
+    };
+    const textOfNode = (o) => {
+      if (typeof o.text === "string" && o.text.trim()) return o.text;
+      if (typeof o.q === "string" && o.q.trim()) return o.q;
+      if (typeof o.title === "string" && o.title.trim()) return o.title;
+      for (const k of ["segs", "qseg", "seg"]) {
+        if (Array.isArray(o[k]) && o[k].length) {
+          const j = o[k].map((s) => s.t || "").join("");
+          if (j.trim()) return j;
+        }
+      }
+      return "";
+    };
+    (function walk(arr) {
+      for (const o of arr) {
+        if (!o || typeof o !== "object") continue;
+        const t = textOfNode(o).trim();
+        const h = t && houseOf.get(t.toLowerCase());
+        if (h && h !== t) { setText(o, h); houseChanged.set(t, h); houseN++; }
+        if (Array.isArray(o.rows)) for (const r of o.rows) if (Array.isArray(r)) {
+          for (const c of r) {
+            if (!c || typeof c !== "object") continue;
+            const ct = (c.text || "").trim();
+            const ch2 = ct && houseOf.get(ct.toLowerCase());
+            if (ch2 && ch2 !== ct) { setText(c, ch2); houseChanged.set(ct, ch2); houseN++; }
+            if (Array.isArray(c.subs)) for (const sub of c.subs) walk([].concat(...sub));
+          }
+        }
+        for (const k of Object.keys(o)) {
+          if (!Array.isArray(o[k])) continue;
+          if (["segs", "qseg", "aseg", "seg", "rows", "images"].includes(k)) continue;
+          walk(o[k]);
+        }
+      }
+    })(blocks);
+  }
+  if (houseChanged.size) {
+    const says = [...houseChanged].map(([a, b]) => JSON.stringify(a) + " -> " + JSON.stringify(b)).join(", ");
+    console.log("   headings set to the house spelling from the " + LEXI.getLang() + " word list: " + says);
+  }
+  // Which spelling the author really prefers is counted over the WHOLE book, not just
+  // over its headings. The Kiikaonde Grade 1 Teacher's Guide writes "Byakuuba bafunda"
+  // 62 times in its lesson tables and "Byakuba Bafunda" 17 times as a heading: counting
+  // headings alone picked the minority spelling and spread it, making the book less
+  // consistent with itself, not more.
+  const everyText = [];
+  (function walk(arr) {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      const t = (b.text != null ? b.text : (b.segs || []).map((s) => s.t || "").join("")).trim();
+      if (t) everyText.push(t);
+      if (Array.isArray(b.rows)) for (const r of b.rows) if (Array.isArray(r)) for (const c of r) {
+        if (c && typeof c.text === "string" && c.text.trim()) everyText.push(c.text.trim());
+        if (c && Array.isArray(c.subs)) for (const sub of c.subs) walk([].concat(...sub));
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows" && k !== "segs") walk(b[k]);
+    }
+  })(blocks);
+  const groups = new Map();
+  for (const t of everyText) {
+    if (t.length < 8 || t.length > 60) continue;
+    const k = word(t);
+    if (!k) continue;
+    if (!groups.has(k)) groups.set(k, new Map());
+    const g = groups.get(k);
+    g.set(t, (g.get(t) || 0) + 1);
+  }
+  const winner = new Map();
+  for (const [k, g] of groups) {
+    if (g.size < 2) continue;                                     // no variants to level
+    let best = null, bestN = -1;
+
+    for (const [t, n] of g) if (n > bestN || (n === bestN && t.length > best.length)) { best = t; bestN = n; }
+    winner.set(k, best);
+  }
+  if (!winner.size) return houseN;
+  let n = 0;
+  const changed = new Map();
+  for (const b of blocks) {
+    if (!isHead(b)) continue;
+    const t = b.text.trim();
+    const w = winner.get(word(t));
+    if (!w || w === t || shape(t) !== shape(w)) continue;
+    b.text = w;
+    if (b.segs) delete b.segs;
+    changed.set(t, w);
+    n++;
+  }
+  if (changed.size) {
+    const says = [...changed].map(([a, b]) => JSON.stringify(a) + " -> " + JSON.stringify(b)).join(", ");
+    console.log("   headings levelled to the book's own spelling: " + says);
+  }
+  return n + houseN;
+}
+module.exports = { unboxPictureOnly, levelHeadingVariants, boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, BOX_LABEL_WORD, BOX_LABEL_SMALL, boxLabelOf, isAllCapsLabel, toTitleCaseLabel, uniformBoxLabelCase, keepNumberedSubtopicsOnly };

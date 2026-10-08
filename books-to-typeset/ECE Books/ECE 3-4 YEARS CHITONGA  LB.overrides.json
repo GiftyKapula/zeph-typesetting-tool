@@ -1,0 +1,170 @@
+{
+  "coverImage": "ECE 3-4 YEARS CHITONGA  LB-hires/cover.png",
+  "localLabels": true,
+  "untableImages": true,
+  "uniformImages": 78,
+  "termPages": "^TE+MU\\s*\\d",
+  "keepHeadsWithUnit": true,
+  "boxActivities": true,
+  "images": {
+    "image62.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image62-chitonga-words.png"
+    },
+    "image25.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image25.png"
+    },
+    "image60.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image60.png"
+    },
+    "image6.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image6.png"
+    },
+    "image14.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image14.png"
+    },
+    "image53.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image53.png"
+    },
+    "image58.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image58.png"
+    },
+    "image10.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image10.png"
+    },
+    "image69.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image69.png"
+    },
+    "image45.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image45.png"
+    },
+    "image66.png": {
+      "src": "ECE 3-4 YEARS CHITONGA  LB-hires/image66.png"
+    }
+  },
+  "replaceExact": [
+    {
+      "find": "MUSUNKO WAKUCITA KUMAMANINO AACIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MULIMO WAKUCITA KUMAMANINO AACIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "Mutu: Mbokulembwa",
+      "with": "Mutwe: Mbokulembwa",
+      "all": true
+    },
+    {
+      "find": "Mutu : Twaano",
+      "with": "Mutwe: Twaano",
+      "all": true
+    },
+    {
+      "find": "Katana bala",
+      "with": "Kotana bala",
+      "all": true
+    },
+    {
+      "find": "Katanalemba",
+      "with": "Kotana lemba",
+      "all": true
+    },
+    {
+      "find": "Muwe: Mbotweelede kumvwa",
+      "with": "Mutwe: Mbotweelede kumvwa",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WA KUMAMANINO ACIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO AACI IYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    },
+    {
+      "find": "Kuswiilila a kwaambaula",
+      "with": "Kuswiilila akwaambaula",
+      "all": true
+    },
+    {
+      "find": "Kuswiilila a Kwaambaula",
+      "with": "Kuswiilila akwaambaula",
+      "all": true
+    },
+    {
+      "find": "Chakucita",
+      "with": "Cakucita",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO ACHIIYO",
+      "with": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "all": true
+    }
+  ],
+  "subtext": [
+    {
+      "from": "balikKede",
+      "to": "balikkede"
+    },
+    {
+      "from": "BUPANDULUZI",
+      "to": "Bupanduluzi"
+    },
+    {
+      "from": "CiTonga",
+      "to": "ciTonga"
+    },
+    {
+      "from": "balikomene",
+      "to": "balikkomene"
+    }
+  ],
+  "coverGrade": "ECE LEVO 1",
+  "numberBoxBullets": "1)",
+  "unbold": [
+    "CiTonga Cibeela cakusaanguna"
+  ],
+  "editAll": [
+    {
+      "find": "Mutwe: tuvwuumina",
+      "with": "Tuvwuumina"
+    },
+    {
+      "find": "Mutwe : kupaila",
+      "with": "Kupaila"
+    },
+    {
+      "find": "Mutwe: ",
+      "with": ""
+    },
+    {
+      "find": "Mutwe : ",
+      "with": ""
+    },
+    {
+      "find": "MAJWI AANTALISYO",
+      "with": "KWAAMBILIZYA"
+    },
+    {
+      "find": "Balembi",
+      "with": "Mulembi"
+    },
+    {
+      "find": "Zocita",
+      "with": "Mulimo"
+    }
+  ],
+  "insertText": [
+    {
+      "after": "batajani mapenzi mukwiiya kwabo",
+      "text": "Ikumwi kulumba kuya kubayi bapati kuzwa kucikolo cipati ca Yunivesiti yamu Zambia, Ba Vision Milimo ibaka gwashya kubambulula alubikka mizeezo antoomwe kuti isuumane mbuli mboikkede obu."
+    }
+  ]
+}

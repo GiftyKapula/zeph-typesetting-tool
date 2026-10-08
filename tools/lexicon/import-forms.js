@@ -24,6 +24,7 @@ const LABEL = new Map(TERMS.map((t) => [norm(t.en), t.id]));
 for (const [label, id] of Object.entries({
   "authors": "author_section",
   "author s": "author_section",
+  "author one": "author_one",          // a singular the cover uses for one name (Chitonga Mulembi)
   "acronyms": "acronyms",
   "ordinary level secondary": "level_ordinary",
   "advanced secondary education level": "level_advanced",

@@ -40,6 +40,13 @@ function words(ids) {
   return [...new Set([].concat(...ids.map((id) => t[id] || [])))];
 }
 
+// The ONE wording to PRINT for a concept. The lists above hold every wording the
+// authors returned, which is what RECOGNITION needs; display needs a single house
+// form, so the FIRST entry of a list is it - put the agreed spelling first in the
+// .json. Returns null when this language has no word for the concept, which lets the
+// caller keep the English rather than invent one.
+function term(id) { const w = words([id]); return w.length ? w[0] : null; }
+
 // regex source matching any of the wordings: spaces flexible, any apostrophe style,
 // longest first so "Mutu wansañu wanyanya" beats "Mutu wansañu".
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -109,4 +116,4 @@ const isContents = (text) => isExactly(["contents"], text);
 // the FIRST wording given, which is the author form's, ahead of words added later.
 const label = (id) => words([id])[0] || null;
 
-module.exports = { LEX, langFor, setLang, getLang, words, altSrc, startsWith, isExactly, boxKind, isTopSection, frontRank, isFrontSection, isBackSection, isContents, label };
+module.exports = { LEX, langFor, setLang, getLang, words, term, altSrc, startsWith, isExactly, boxKind, isTopSection, frontRank, isFrontSection, isBackSection, isContents, label };

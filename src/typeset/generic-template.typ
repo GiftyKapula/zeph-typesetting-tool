@@ -81,7 +81,9 @@
 // took the subject line of "Information and Communication Technology" for the form
 // line, found no "FORM <digit>" in it, and silently dropped the FORM 2 tag from that
 // book's cover. The same trap is waiting in PERFORMING ARTS, TRANSFORMATION, REFORM.
-// (ECE books carry "ECE" where other books carry "Form N" / "Grade N")
+// (ECE books carry "ECE" where other books carry "Form N" / "Grade N"; the tag also
+// takes a level after it in the book's own word — Chitonga "ECE LEVO 1" — so the
+// whole phrase sits on the tag rather than "LEVO 1" landing on the subject title)
 #let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU|ECE)\\b")) != none
 
 // Printed cover / title-page labels in the book's own language (T.labels, filled from a
@@ -98,8 +100,11 @@
   s
 }
 #let authlabel(byline) = {
-  let a = T.at("labels", default: (:)).at("authors", default: "")
-  if a != "" { upper(a) } else if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }
+  let L = T.at("labels", default: (:))
+  let a = L.at("authors", default: "")
+  let a1 = L.at("author1", default: "")
+  // a language that words ONE author differently (Chitonga Mulembi, several Balembi)
+  if byline.len() == 1 and a1 != "" { upper(a1) } else if a != "" { upper(a) } else if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }
 }
 
 // CDC 2025 sets a larger body size for young readers (Grade 1 → 18pt, Grade 2-3 →
@@ -366,11 +371,11 @@
   set text(font: T.displayFont)
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
   // The subject title: if the grade line is "SUBJECT FORM N" use the stripped
   // subject ("PHYSICS"); if the grade line is just "FORM N", the subject sits on
   // its OWN line ("BIOLOGY") — take the first non-eyebrow, non-grade line.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { "" }
+  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
       not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
@@ -584,12 +589,12 @@
     // ---------- SCIENCE cover (Physics): deep-indigo signature field with
     // concentric "electron orbit" rings, white title, amber FORM tag ----------
     let gl = if hasGradeWord(subject) { subject } else { grade }
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
     // The subject title comes from the subject line with any form/grade token
     // stripped (e.g. "PHYSICS FORM 4" -> "PHYSICS"). When the subject and form
     // sit on SEPARATE lines (e.g. "BIOLOGY" + "FORM 4"), stripping leaves the
     // subject intact; fall back to the raw subject if stripping empties it.
-    let nm = subject.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim()
+    let nm = subject.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim()
     let name = if nm != "" { nm } else { subject }
     let amber = T.accent
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
@@ -864,8 +869,8 @@
     // thick-framed hero), but keeps the SAME word order: eyebrow -> subject ->
     // FORM tag -> book type -> photo -> authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim() } else { subject }
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -921,8 +926,8 @@
     // SAME word order: eyebrow -> subject -> FORM tag -> book type -> photo ->
     // authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim() } else { subject }
     let paper = rgb("#f4f1e6")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -977,8 +982,8 @@
     // bleed photo band, with authors + publisher on the colour footer. A clear break
     // from Grade 3's title-band + framed-photo-card look (no scallop/zigzag). ---------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim() } else { subject }
     // The cover stays in FULL COLOUR even when the interior is greyscale (blackWhite/mono),
     // so use the cover-only colour fields (they equal the theme colours for normal books).
     let primary = T.at("covPrimary", default: T.primary)
@@ -1041,8 +1046,8 @@
     // plate, with confetti on the field. Contained and warm — distinct from both Grade
     // 3 and the Hero Wave. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim() } else { subject }
     let paper = rgb("#fffaf1")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.primary, width: 176mm, height: 250mm)[
@@ -1087,8 +1092,8 @@
     // card. Same word order as every cover: eyebrow -> subject -> GRADE tag ->
     // book type -> photo -> authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim() } else { subject }
     let paper = rgb("#eafafa")
     let deep = T.primary.darken(10%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -1141,8 +1146,8 @@
     ]
   } else if series {
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim() } else { subject }
     let deepteal = T.primary.darken(30%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -1167,9 +1172,27 @@
       ]])
       // --- tilted photo panel (a teal plate behind for depth) ---
       #if hero != none [
-        #place(top + center, dy: 113mm, rotate(5deg, reflow: false, box(width: 122mm, height: 78mm, radius: 3pt, fill: T.primary)))
-        #place(top + center, dy: 113mm, rotate(-4deg, reflow: false, box(width: 122mm, height: 78mm, clip: true, radius: 3pt, stroke: 5pt + white)[
-          #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")]))
+        // The card follows the ARTWORK's shape rather than forcing every picture
+        // into one landscape box. `fit: "cover"` fills the box by cropping whatever
+        // does not fit, so a portrait illustration in a 122x78mm slot lost its top
+        // and bottom — a cover must never show artwork with part of it cut off.
+        // Matching the box to the picture's own aspect keeps the card completely
+        // filled (no empty ground inside it) AND shows the picture whole.
+        // A landscape hero keeps exactly the card it had; only a portrait one
+        // changes, to the tallest card that clears the byline below.
+        #context {
+          let nat = measure(image("_media/" + hero.file))
+          let ar = nat.width / nat.height
+          let ch = if ar >= 1 { 78mm } else { 98mm }
+          let cw = if ar >= 1 { 122mm } else { ch * ar }
+          // A taller card has to start higher or it runs into the byline and logo
+          // below it; a portrait one takes up the empty ground the landscape card
+          // leaves between the masthead and itself.
+          let cy = if ar >= 1 { 113mm } else { 90mm }
+          place(top + center, dy: cy, rotate(5deg, reflow: false, box(width: cw, height: ch, radius: 3pt, fill: T.primary)))
+          place(top + center, dy: cy, rotate(-4deg, reflow: false, box(width: cw, height: ch, clip: true, radius: 3pt, stroke: 5pt + white)[
+            #image("_media/" + hero.file, width: 100%, height: ch, fit: "cover")]))
+        }
         #if T.motif == "food" [
           #berrycluster(18mm, 96mm, T.accent, T.primary2, T.cyan)
           #berrycluster(148mm, 96mm, T.primary2, T.accent, T.cyan)
@@ -1461,13 +1484,13 @@
   let subject = lines.at(0, default: "")
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
   // Subject title: strip the form/grade token off the grade line ("ENGLISH GRADE 2"
   // -> "ENGLISH"). When the subject and the form sit on SEPARATE lines
   // ("MATHEMATICS" + "Form 1") that leaves nothing, so fall back to the first line
   // that is neither a form/grade nor the standard eyebrow. Without this fallback the
   // name came out blank and the "·" separator was left orphaned. Mirrors `cover`.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { "" }
+  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE(\\s+\\w+\\s+\\d+)?\\b)"), "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
       not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")

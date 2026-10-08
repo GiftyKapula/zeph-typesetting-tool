@@ -15,6 +15,11 @@
       "file": "FINAL GRADE 1 CHITONGA TEACHER's GUIDE 3-10-2026 (manuscript)",
       "author": "(from manuscript)",
       "book": "Chitonga Grade 1 TG"
+    },
+    {
+      "file": "ECE 3-4 YEARS CHITONGA LB (manuscript)",
+      "author": "(from manuscript)",
+      "book": "Chitonga ECE LB 3-4 Years"
     }
   ],
   "terms": {
@@ -41,14 +46,16 @@
       "Kulumba"
     ],
     "introduction": [
-      "Ntalisyo"
+      "Ntalisyo",
+      "Matalikilo a Bbuku"
     ],
     "key_competences": [
       "Buyale",
       "Zyeelede kusumpulwa"
     ],
     "unit": [
-      "Cipati"
+      "Cipati",
+      "Cibeela"
     ],
     "topic": [
       "Mutwe"
@@ -63,7 +70,8 @@
       "Bulangizi bweelede"
     ],
     "listening_speaking": [
-      "Kuswiilila akukanana"
+      "Kuswiilila akukanana",
+      "Kuswiilila akwaambaula"
     ],
     "reading": [
       "Kubala"
@@ -82,7 +90,8 @@
       "Kufwiinsya"
     ],
     "activity": [
-      "Cakucita"
+      "Cakucita",
+      "Cakuchita"
     ],
     "exercise": [
       "Mulimo"
@@ -103,13 +112,16 @@
       "Mabbuku abelesegwa"
     ],
     "preface": [
-      "Jwi lyakumatalikilo"
+      "Jwi lyakumatalikilo",
+      "Kwaambilizya",
+      "Majwi aantalisyo"
     ],
     "lesson": [
       "Ciiyo"
     ],
     "alt_activity": [
-      "Cakucita cimbi"
+      "Cakucita cimbi",
+      "Cakuchita cimbi"
     ],
     "assessment_topic": [
       "Mulimo wakumamanino amutwe",
@@ -129,6 +141,12 @@
     ],
     "authors_label": [
       "Balembi"
+    ],
+    "level_ece": [
+      "Lwiiyo Lwabana Basyoonto"
+    ],
+    "author_one": [
+      "Mulembi"
     ]
   },
   "extras": [

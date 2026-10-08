@@ -1,0 +1,173 @@
+{
+  "_note": "Replacement artwork for pictures that did not read as Zambian, or that carried another language's writing. House requirements (semi-realistic, Zambian, gender balance, a visibly disabled learner, no lettering) are appended to every prompt by tools/genimage.js.",
+  "figures": {
+    "image62.png": {
+      "_why": "Round-1 proofread, p.67: the old card spelt cola / kapu / bola / moto into the picture. The author wants cibbeeke (bag), Kkiyola (a sachet of drink powder, not a cup), Bbola (ball), Mulilo (fire), with the b tile as Bb. The words and letter tiles are to be set as typeset text with the picture (not drawn by the model), so the spelling is exact.",
+      "prompt": "Four separate objects arranged in a clean two-by-two grid on a plain white background, each object centred in its own rounded panel with a thick coloured border: top-left panel with a blue border holds a child's school backpack; top-right panel with a green border holds a small foil sachet of powdered fruit-drink mix of the kind sold in Zambian shops, plain and unbranded; bottom-left panel with a yellow border holds a colourful football; bottom-right panel with a red border holds a small outdoor cooking fire burning on a ring of stones. No people. Each object large and clear, as on an early-reading picture card.",
+      "aspect": "square",
+      "targetWidthPx": 1800
+    },
+    "image4.png": {
+      "prompt": "A Zambian boy of about four years old standing in a bright pre-school classroom, smiling and pointing at his own chest as he introduces himself and says his name. Full-length single figure facing the viewer, tall narrow upright composition with the child filling the frame.",
+      "aspect": "portrait",
+      "targetWidthPx": 700,
+      "cropTo": {
+        "w": 472,
+        "h": 1050
+      }
+    },
+    "image5.png": {
+      "prompt": "A Zambian girl of about four years old standing in a bright pre-school classroom, smiling and pointing at her own chest as she introduces herself and says her name. Full-length single figure facing the viewer, tall narrow upright composition with the child filling the frame.",
+      "aspect": "portrait",
+      "targetWidthPx": 700,
+      "cropTo": {
+        "w": 494,
+        "h": 1050
+      }
+    },
+    "image6.png": {
+      "prompt": "Four Zambian pre-school children of about three and four years old standing in a line in their classroom, happy and animated, each turning to a neighbour and naming their friend. They gesture towards one another as they speak.",
+      "aspect": "landscape",
+      "targetWidthPx": 1950,
+      "cropTo": {
+        "w": 1950,
+        "h": 1060
+      }
+    },
+    "image7.png": {
+      "prompt": "A Zambian pre-school boy of about four sitting upright on a chair at a low classroom table, holding an open picture book correctly with both hands, not slouching, looking at the pictures. A tidy, well-lit classroom corner with a bookshelf behind him.",
+      "aspect": "landscape",
+      "targetWidthPx": 1400,
+      "cropTo": {
+        "w": 1231,
+        "h": 933
+      }
+    },
+    "image8.png": {
+      "prompt": "A Zambian pre-school girl of about four sitting upright on a chair at a low classroom table, holding an open picture book correctly with both hands, looking at the pictures and naming them. A tidy, well-lit classroom corner with a bookshelf behind her.",
+      "aspect": "landscape",
+      "targetWidthPx": 1550,
+      "cropTo": {
+        "w": 1470,
+        "h": 1033
+      }
+    },
+    "image9.png": {
+      "prompt": "A group of Zambian pre-school children of about three and four years old sitting on chairs around a low round table in their classroom, each holding an open picture book the right way up, looking at the pictures and naming them.",
+      "aspect": "landscape",
+      "targetWidthPx": 1650,
+      "cropTo": {
+        "w": 1650,
+        "h": 1084
+      }
+    },
+    "image10.png": {
+      "prompt": "Two Zambian pre-school children of about four standing side by side, each holding an open picture book, taking turns to tell the other what they can see on their page. Plain simple background.",
+      "aspect": "square",
+      "targetWidthPx": 1050,
+      "cropTo": {
+        "w": 1021,
+        "h": 1050
+      }
+    },
+    "image13.png": {
+      "prompt": "Two side-by-side panels showing the same Zambian pre-school child at a low classroom desk, writing. In the left panel the child sits correctly: back straight, feet on the floor, one hand steadying the paper. In the right panel the same child sits badly: slumped over the desk with the head down on the arm. No tick, cross or any other mark.",
+      "aspect": "landscape",
+      "targetWidthPx": 1750,
+      "cropTo": {
+        "w": 1750,
+        "h": 1088
+      }
+    },
+    "image14.png": {
+      "prompt": "A Zambian pre-school girl of about four showing a set of picture cards to her teacher in the classroom, naming the members of her family as she points at each card. Both are smiling.",
+      "aspect": "landscape",
+      "targetWidthPx": 1900,
+      "cropTo": {
+        "w": 1900,
+        "h": 1071
+      }
+    },
+    "image15.png": {
+      "prompt": "A simple family tree drawn as a green tree with photograph frames hanging from its branches. Each frame holds the portrait of a Zambian family member: grandfather and grandmother at the top, mother and father in the middle, three young children at the bottom. Warm, friendly, upright composition.",
+      "aspect": "portrait",
+      "targetWidthPx": 850,
+      "cropTo": {
+        "w": 850,
+        "h": 1125
+      }
+    },
+    "image16.png": {
+      "prompt": "A Zambian pre-school girl of about four sitting at her classroom desk in school uniform, smiling, following the lines in a large open picture book with her finger as she reads. The book's pages show pictures of fruit and vegetables only, with no writing of any kind anywhere in the scene.",
+      "aspect": "landscape",
+      "targetWidthPx": 1950,
+      "cropTo": {
+        "w": 1950,
+        "h": 1064
+      }
+    },
+    "image19.png": {
+      "prompt": "A labelling diagram of the parts of the body for very young children: a full-length drawing of a Zambian child of about four standing facing the viewer in shorts and a vest, beside a neat column of the same child's separate body parts drawn individually - head, arm, hand, torso, leg, foot - as simple cut-out shapes. No writing, no letters, no labels.",
+      "aspect": "portrait",
+      "targetWidthPx": 900,
+      "cropTo": {
+        "w": 900,
+        "h": 1120
+      }
+    },
+    "image33.png": {
+      "prompt": "A group of Zambian pre-school children of about four sitting cross-legged in a circle on a classroom mat, each holding up a drawing to show the others and talking about it. A bright nursery classroom. The walls, boards and floor carry no writing of any kind.",
+      "aspect": "landscape",
+      "targetWidthPx": 1950,
+      "cropTo": {
+        "w": 1950,
+        "h": 1073
+      }
+    },
+    "image34.png": {
+      "prompt": "A friendly Zambian man shown from the chest up, smiling warmly and giving a clear thumbs-up with one hand. Simple plain background.",
+      "aspect": "landscape",
+      "targetWidthPx": 1350,
+      "cropTo": {
+        "w": 1118,
+        "h": 900
+      }
+    },
+    "image35.png": {
+      "prompt": "A friendly Zambian woman shown from the chest up, smiling warmly and giving a clear thumbs-up with both hands. Simple plain background.",
+      "aspect": "square",
+      "targetWidthPx": 1300,
+      "cropTo": {
+        "w": 1300,
+        "h": 1095
+      }
+    },
+    "image36.png": {
+      "prompt": "A Zambian woman shown from the chest up, frowning and unhappy, giving a clear thumbs-down with both hands. Simple plain background.",
+      "aspect": "square",
+      "targetWidthPx": 1250,
+      "cropTo": {
+        "w": 1250,
+        "h": 1079
+      }
+    },
+    "image37.png": {
+      "prompt": "A Zambian man shown from the chest up, frowning and unhappy, giving a clear thumbs-down with one hand. Simple plain background.",
+      "aspect": "square",
+      "targetWidthPx": 1250,
+      "cropTo": {
+        "w": 1250,
+        "h": 1067
+      }
+    },
+    "image73.png": {
+      "prompt": "A Zambian pre-school teacher standing beside a classroom blackboard, reading aloud to a group of young children who sit on a mat in front of her looking up at her. The blackboard is completely blank - no writing, letters or marks of any kind on it or anywhere else in the scene.",
+      "aspect": "landscape",
+      "targetWidthPx": 1350,
+      "cropTo": {
+        "w": 1131,
+        "h": 900
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "typeset:docx": "node src/typeset/typeset-docx.js",
+    "manuscript:md": "node src/typeset/manuscript-md.js",
     "zeph": "node --experimental-sqlite tools/zeph.js",
     "report": "node --experimental-sqlite tools/gen-corrections-log.js",
     "regress": "node tools/dev/regress.js",
