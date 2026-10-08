@@ -1,0 +1,120 @@
+{
+  "_note_cover": "The manuscript's cover picture (image1.png, 1226x1283, no lettering) is byte-identical to the TG's, so the cover reuses the TG's word-free 122:78 crop, Real-ESRGAN upscaled to 2452x1568 (~510 DPI at 122mm).",
+  "coverImage": "lunda-ece-level1-tg-cover-hires.png",
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "authors": [
+    "Kapiteni Edah Samutamu",
+    "Kakoma Mushitala"
+  ],
+  "_note_ansoneki": "As in the TG, the ANSONEKI heading right after the hand-typed contents list is dropped with it (its one-line bios are too short to read as a real section). Put it back above the bios.",
+  "insertHead": [
+    {
+      "before": "Kapiteni Edah Samutamu:",
+      "head": "ANSONEKI",
+      "as": "h1"
+    },
+    {
+      "before": "Mutu Wansañu Wanyanya:  Tuheka Twapela.",
+      "head": "Mutu Wansañu: Kutiyilila Nakanañachima."
+    },
+    {
+      "before": "Kwataku mukanda.",
+      "head": "Mudimu:"
+    }
+  ],
+  "_note_toc": "The contents page lists only headings it knows as units, not KAPETULU, so it came out empty: list every section heading (ANSONEKI + the 11 chapters), as in the TG.",
+  "tocUnitsOnly": false,
+  "_note_strands": "The A./B./C. strand lines (KUHOSHA NAKUTIYILILA / KUTACHIKA KUDIZA KUTAÑA / KUTACHIKA KUDIZA KUSONEKA) come in as Word auto-lettered list items or as typed-letter paragraphs, so they printed as list lines and stranded at page feet. Make every one a heading, lettered as the manuscript letters them (KUHOSHA is always A, KUTAÑA B, KUSONEKA C - Chapter 6 auto-lettered its KUSONEKA line B). Two headings Word glued onto the next line are split back apart (Chapter 1's 'Zhakwila 1 ... Mudimu:', Chapter 11's 'B. KUTACHIKA KUDIZA KUTAÑA Mutu WANSAÑU: ...').",
+  "setHeading": [
+    {
+      "find": "KUHOSHA NAKUTIYILILA",
+      "text": "A. KUHOSHA NAKUTIYILILA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "A. KUHOSHA NAKUTIYILILA",
+      "text": "A. KUHOSHA NAKUTIYILILA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "KUTACHIKA KUDIZA KUTAÑA",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "B.KUTACHIKA KUDIZA KUTAÑA",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "KUTACHIKA KUDIZA KUSONEKA",
+      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "C.   KUTACHIKA KUDIZA KUSONEKA",
+      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "B. KUTACHIKA KUDIZA KUTAÑA Mutu WANSAÑU: Kutiyilila Nakanañachima.",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila 1: Mwakukwatila mukanda mwaloña Mudimu:",
+      "text": "Zhakwila 1: Mwakukwatila mukanda mwaloña.",
+      "as": "head"
+    }
+  ],
+  "_note_cyan": "The manuscript sets every 'Mutu Wansañu' line in bright blue 00B0F0. The fully bold ones already print as black headings; the rest printed as blue body text. Print them all bold black, like the rest.",
+  "recolor": [
+    {
+      "from": "00B0F0",
+      "to": "",
+      "bold": true
+    }
+  ],
+  "_note_artnotes": "English notes to the illustrator left in the text; every one has its picture right after it. Two sit inside a nested block that remove does not reach, so they go by deleteExact.",
+  "remove": [
+    "A picture of a hand holding a pencil",
+    "ART/W pictures showing learners greeting",
+    "ART/W A picture showing different items",
+    "A picture showing simple words nona",
+    "Pictures of people in church praying."
+  ],
+  "_note_typo": "One 'Wansañu' typed with ṅ (n with a dot above) instead of ñ.",
+  "edit": [
+    {
+      "find": "Mutu Wansaṅu Wanyanaya 1",
+      "with": "Mutu Wansañu Wanyanaya 1"
+    }
+  ],
+  "_note_dup": "p21 printed the same pencil picture twice on one page: image19 after the Zhakwila (where every other activity puts its picture) and image20, the same picture again under the illustrator note. Keep the first.",
+  "removeImages": [
+    "image20.jpeg"
+  ],
+  "deleteExact": [
+    "ART/W A picture of print words accompanied by pictures (mango, house, tree, car).",
+    "ART/W pictures of domestic animals producing different sounds cow, goat, chicken (3)"
+  ]
+}
