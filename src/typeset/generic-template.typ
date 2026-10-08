@@ -1558,8 +1558,17 @@
     #v(3pt)
     #box(fill: iaccent, width: 60pt, height: 3pt, radius: 1.5pt)]
   v(8pt)
-  set par(leading: 0.9em)
+  // Leading here governs ONLY the second and later lines of an entry whose title is too
+  // long for one line — the gap BETWEEN entries is the weak `v()`s below, not leading.
+  // So it has to be TIGHTER than that inter-entry gap, or a wrapped title reads as an
+  // entry of its own: "UNIT 7: ENTREPRENEURSHIP AND" on one line and "EDUCATION ..... 50"
+  // on the next, with the leaders and page number apparently belonging to "EDUCATION".
+  // At the old 0.9em the wrap was LOOSER than the gap between entries, which is exactly
+  // backwards. Single-line entries have no within-paragraph gap, so they are unaffected.
+  set par(leading: 0.45em)
   let tgap = T.at("tocGap", default: 10pt)
+  // and a wrapped title breaks between words, never mid-word ("BU- / TEELEDE")
+  set text(hyphenate: false)
   show outline.entry: it => { v(5pt, weak: true); upper(it) }
   let tdepth = T.at("tocDepth", default: 2)
   if serieslike {
@@ -1817,8 +1826,10 @@
       #segs(restSegs)
     ]
   }
-  else if align == "center" { block(width: 100%)[#std.align(center, par[#segs(ss)])] }
-  else if align == "right" { block(width: 100%)[#std.align(right, par[#segs(ss)])] }
+  // centred / right-aligned text is never justified: a centred line that wraps would
+  // otherwise have its first line stretched edge to edge ("Lyakasimbwa   aba:   Zambia")
+  else if align == "center" { block(width: 100%)[#set par(justify: false); #std.align(center, par[#segs(ss)])] }
+  else if align == "right" { block(width: 100%)[#set par(justify: false); #std.align(right, par[#segs(ss)])] }
   // ragged-right (not justified): for a paragraph whose justified first line opens huge
   // word gaps — large primary type with no hyphenation (Grade 2 CTS "To say measurements…")
   else if align == "left" { block(width: 100%)[#par(justify: false)[#segs(ss)]] }
@@ -2083,8 +2094,11 @@
     if isunit {
       // body unit: a solid teal banner with white caps
       v(2pt)
+      // never justified or hyphenated: a long unit name that wraps would otherwise
+      // be stretched across the banner and split mid-word ("LWAKUSWAAN-GANA")
       block(width: 100%, breakable: false, radius: 6pt, fill: T.primary, inset: (x: 13pt, y: 11pt))[
-        #text(fill: white, size: hm(16pt), weight: "bold")[#upper(t)]]
+        #set par(justify: false)
+        #text(fill: white, size: hm(16pt), weight: "bold", hyphenate: false)[#upper(t)]]
       v(9pt)
     } else {
       // front matter (Authors / Foreword / ...): accent heading + thin rule
