@@ -1,0 +1,84 @@
+{
+  "localLabels": true,
+  "remove": [
+    "Zyili Moomu",
+    "picture showing morning, afternoon, evening, night."
+  ],
+  "images": {
+    "image1.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image1.png"
+    },
+    "image3.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image3.png"
+    },
+    "image18.png": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image18.png"
+    },
+    "image22.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image22.png"
+    },
+    "image23.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image23.png"
+    },
+    "image24.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image24.png"
+    },
+    "image25.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image25.png"
+    },
+    "image30.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image30.png"
+    },
+    "image43.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image43.png"
+    },
+    "image46.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image46.png"
+    },
+    "image48.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image48.png"
+    },
+    "image50.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image50.png"
+    },
+    "image51.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image51.png"
+    },
+    "image53.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image53.png"
+    },
+    "image54.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image54.png"
+    },
+    "image55.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image55.png"
+    },
+    "image56.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image56.png"
+    },
+    "image57.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image57.png"
+    },
+    "image60.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image60.png"
+    },
+    "image61.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image61.png"
+    },
+    "image62.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image62.png"
+    },
+    "image63.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image63.png"
+    },
+    "image64.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image64.png"
+    },
+    "image67.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image67.png"
+    },
+    "image71.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image71.png"
+    }
+  }
+}
