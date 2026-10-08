@@ -2931,7 +2931,12 @@
     titledbox(title, T.at(kind), content, breakable: true)
   }
 }
-#let activity(title, body, force: false) = keepwhole("act", title, renderbody(body), force: force)
+// An activity whose body came through empty (its text follows as ordinary paragraphs) is
+// only a title bar, so it must keep with what follows like any heading — otherwise it can
+// be stranded alone at the foot of a page.
+#let activity(title, body, force: false) = if body.len() == 0 {
+  block(sticky: true, breakable: false, titledbox(title, T.at("act"), renderbody(body), breakable: false))
+} else { keepwhole("act", title, renderbody(body), force: force) }
 #let fact(body) = titledbox("Did You Know?", T.fact, renderbody(body))
 #let keypoints(title, items) = titledbox(if title == none { "Key Points to Remember" } else { title }, T.kp,
   { for it in items [#grid(columns: (10pt, 1fr), text(fill: T.kp.border)[•], par[#it]); #v(1.5pt)] })

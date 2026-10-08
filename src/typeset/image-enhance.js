@@ -122,9 +122,13 @@ function emfToPng(buf) {
       const type = buf.readUInt32LE(o);
       const size = buf.readUInt32LE(o + 4);
       if (size < 8 || o + size > buf.length) break;
-      if (type === 81 /*STRETCHDIBITS*/ || type === 80 /*SETDIBITSTODEVICE*/) {
-        const offBmi = buf.readUInt32LE(o + 48), cbBmi = buf.readUInt32LE(o + 52);
-        const offBits = buf.readUInt32LE(o + 56), cbBits = buf.readUInt32LE(o + 60);
+      // The *BLT records (BITBLT, STRETCHBLT, ALPHABLEND — a picture with real transparency
+      // is stored as ALPHABLEND) keep the bitmap header/bits offsets further along the record.
+      const blt = type === 76 /*BITBLT*/ || type === 77 /*STRETCHBLT*/ || type === 114 /*ALPHABLEND*/;
+      if (type === 81 /*STRETCHDIBITS*/ || type === 80 /*SETDIBITSTODEVICE*/ || (blt && size >= 100)) {
+        const at = blt ? 84 : 48;
+        const offBmi = buf.readUInt32LE(o + at), cbBmi = buf.readUInt32LE(o + at + 4);
+        const offBits = buf.readUInt32LE(o + at + 8), cbBits = buf.readUInt32LE(o + at + 12);
         if (cbBmi >= 40 && offBmi > 0 && cbBits > 0 && o + offBits + cbBits <= buf.length) {
           const bmi = o + offBmi;
           const w = buf.readInt32LE(bmi + 4), h = buf.readInt32LE(bmi + 8), bpp = buf.readUInt16LE(bmi + 14);
