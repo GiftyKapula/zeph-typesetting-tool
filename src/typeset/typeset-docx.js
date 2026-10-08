@@ -585,10 +585,6 @@ async function typesetOne(docxPath, themeName) {
       if (coverB && coverB.lines && coverB.lines[0] === eduLevel.toUpperCase()) coverB.lines[0] = lvl.toUpperCase();
     }
   }
-  // House rule: the first proof of every book goes out with a faint diagonal
-  // "FOR PROOFREADING" across every page. Once the book comes back with the
-  // proofreaders' comments, "proofMark": false in its overrides takes it off.
-  themeOverrides.proofMark = ov.proofMark !== false;
   // Primary-school (Grade 3) books: the LEARNER'S books are set in Century Gothic —
   // a friendlier, rounded face for young readers — while the TEACHER'S guides keep
   // the house default (Arial body / Times New Roman header / Segoe UI display). The
