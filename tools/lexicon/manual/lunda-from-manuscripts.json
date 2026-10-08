@@ -1,6 +1,6 @@
 {
-  "_note": "Lunda wordings found in the manuscripts themselves (not on an author's form). ECE Lunda LEVEL 1 TG: chapters are headed 'KAPETULU 1: ...' (Unit), and the authors' section is headed 'ANSONEKI' (also on Kasai Joshua's form as 'Authors'), used for the cover's author label. The cover's book type 'MUKANDA WAKULOMBOLA NTAÑISHI' is the manuscript's own cover line, chosen by the typesetter 2026-10-08 over the word list's 'Mukanda wa Ntañishi'. For the ECE level the typesetter chose the word list's shorter 'Shikola Yakudizila Anyanya' (2026-10-08), so it goes first.",
-  "source": "ECE Lunda LEVEL 1 TG (manuscript)",
+  "_note": "Lunda wordings found in the manuscripts themselves (not on an author's form). ECE Lunda LEVEL 1 TG: chapters are headed 'KAPETULU 1: ...' (Unit), and the authors' section is headed 'ANSONEKI' (also on Kasai Joshua's form as 'Authors'), used for the cover's author label. The cover's book type 'MUKANDA WAKULOMBOLA NTAÑISHI' is the manuscript's own cover line, chosen by the typesetter 2026-10-08 over the word list's 'Mukanda wa Ntañishi'. For the ECE level the typesetter chose the word list's shorter 'Shikola Yakudizila Anyanya' (2026-10-08), so it goes first. ECE Lunda LEVEL 1 LB: its cover line 'MUKANDA WAKADIZI' (one word) is the manuscript's own, chosen over 'Mukanda wa Kadizi' (2026-10-08), so it goes first.",
+  "source": "ECE Lunda LEVEL 1 TG and LB (manuscripts)",
   "header": {
     "language": "Lunda",
     "your name": "(from manuscript)",
@@ -18,6 +18,10 @@
     [
       "Teacher's Guide",
       "Mukanda Wakulombola Ntañishi"
+    ],
+    [
+      "Learner's Book",
+      "Mukanda Wakadizi"
     ]
   ]
 }

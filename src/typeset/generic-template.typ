@@ -2057,6 +2057,17 @@
   ]
 }
 
+// A front-matter / chapter heading that wraps is set ragged, never justified (as the
+// unit banner): "KAPETULU 1: WUMI WAWUWAHI NAKUDA KWATELELA" was stretched across the
+// measure. But a heading that only just overflows ONE line ("GENERAL COMPETENCES TO BE
+// DEVELOPED") is squeezed onto it by justification shrinking its word spaces, so keep
+// justification exactly when it yields a single line.
+#let raggedhead(body) = layout(size => {
+  let one = measure(body).height
+  let jus = measure(block(width: size.width, { set par(justify: true); body })).height
+  set par(justify: jus <= one * 1.01)
+  body
+})
 #let sectionhead(t, brk: true, outlined: true) = {
   if brk { pagebreak(weak: true) }
   // Outline units always; outline front-matter sections only when the TOC is not
@@ -2083,7 +2094,7 @@
       v(8pt)
       block(breakable: false, width: 100%)[
         #set par(spacing: 0pt)
-        #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
+        #raggedhead(text(fill: T.primary, size: hm(18pt), weight: "bold", hyphenate: false)[#upper(t)])
         #v(9pt)
         #line(length: 100%, stroke: 0.7pt + T.rulec)]
       v(12pt)
@@ -2111,7 +2122,7 @@
         // spacing (1.9em) can't leak between the title and its rule — otherwise the
         // line floats far below the heading. The v(3pt) alone sets the gap.
         #set par(spacing: 0pt)
-        #text(fill: iaccent, size: hm(18pt), weight: "bold")[#upper(t)]
+        #raggedhead(text(fill: iaccent, size: hm(18pt), weight: "bold", hyphenate: false)[#upper(t)])
         #v(8pt)
         #line(length: 100%, stroke: 0.6pt + T.rulec)]
       v(7pt)
