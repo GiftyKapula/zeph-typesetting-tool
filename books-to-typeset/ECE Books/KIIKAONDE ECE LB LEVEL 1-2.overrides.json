@@ -1,0 +1,165 @@
+{
+  "_note_cover": "The manuscript's cover is a finished mock-up (Ministry crest, title, banner 'Buuku wa Ufunda', footer icons labelled in Cinyanja, ZEPH logo baked in). House rule: use only a part with no lettering. The word-free band between the pink banner and the footer, cut at the series card's 122:78 shape: x 392-1316, y 850-1441 of the 1440x1712 original (the teacher and four children, as on the Kiikaonde ECE TG). Real-ESRGAN x4: 924x591 -> 3696x2364, resampled to 2200x1407 (~458 DPI at 122mm). The engine draws the title, book type, byline and logo itself.",
+  "coverImage": "KIIKAONDE ECE LB LEVEL 1-2-hires/cover.png",
+  "removeImages": [
+    "image1.jpeg"
+  ],
+  "localLabels": true,
+  "keepFrontOrder": true,
+  "_note_authors": "The cover-page leftovers 'MUSOYO RACHEAL' and 'KIKAONDE' were read as two authors. The NEMBI page names one author.",
+  "authors": [
+    "Musoyo Racheal"
+  ],
+  "_note_layout": "A picture book laid out with Word tables used only to place pictures (Chitonga ECE LB precedent): untableImages unpacks them so the pictures print full size; TEMU 1/2/3 get a page of their own; the lesson heads before each KISHINA open the unit's page with it.",
+  "untableImages": true,
+  "termPages": "^TE+MU\\s*\\d",
+  "keepHeadsWithUnit": true,
+  "_note_unit2": "The body heads Unit 2 'KISHINA 3'; the author's own contents list (BIJI MU KACHI) calls it KISHINA KYA BUBIJI, between KITANSHI and KYA BUSATU.",
+  "replaceExact": [
+    {
+      "find": "KISHINA 3",
+      "with": "KISHINA KYA BUBIJI"
+    }
+  ],
+  "_note_front": "The contents page takes the author's own heading BIJI MU KACHI (from the manuscript's contents list, which the engine replaces with its own). The NEMBI page (Musoyo Racheal, then WAPITULUKAMO MU BYONSE over Evelyn Kahanji) is centred as one block.",
+  "tocTitle": "Biji mu Kachi",
+  "centreSection": [
+    "NEMBI"
+  ],
+  "_note_kuulu": "KUULU (leg) is the label of the leg picture that follows it; keep the two on one page.",
+  "pageBreakBefore": [
+    "KUULU"
+  ],
+  "_note_images": "Print resolution: pictures under 300 DPI at their printed size were run through Real-ESRGAN x4 and resampled to ~309 DPI (tools/upscale-images.js); 43 are swapped in. Still under 300 DPI, left as the manuscript has them: image6 and image88 (263 DPI; their upscales came out with missing tiles when the run was stopped for low memory), image47 (104 DPI; the upscale showed tile seams and a halo on its flat background), image44, image45, image85 (289-298 DPI; not reached), image58 and image69 (91/106 DPI; Word-cropped, need a separate pass), image76 (254px, ~180 DPI even after 4x). image24/image35 are corrupt in the .docx (bad CRC) and print as 'please resupply' placeholders.",
+  "images": {
+    "image2.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image2.png"
+    },
+    "image3.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image3.png"
+    },
+    "image13.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image13.png"
+    },
+    "image14.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image14.png"
+    },
+    "image16.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image16.png"
+    },
+    "image18.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image18.png"
+    },
+    "image19.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image19.png"
+    },
+    "image20.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image20.png"
+    },
+    "image21.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image21.png"
+    },
+    "image26.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image26.png"
+    },
+    "image31.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image31.png"
+    },
+    "image34.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image34.png"
+    },
+    "image37.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image37.png"
+    },
+    "image42.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image42.png"
+    },
+    "image49.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image49.png"
+    },
+    "image50.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image50.png"
+    },
+    "image51.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image51.png"
+    },
+    "image52.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image52.png"
+    },
+    "image54.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image54.png"
+    },
+    "image56.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image56.png"
+    },
+    "image59.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image59.png"
+    },
+    "image60.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image60.png"
+    },
+    "image61.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image61.png"
+    },
+    "image62.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image62.png"
+    },
+    "image63.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image63.png"
+    },
+    "image64.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image64.png"
+    },
+    "image65.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image65.png"
+    },
+    "image66.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image66.png"
+    },
+    "image68.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image68.png"
+    },
+    "image70.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image70.png"
+    },
+    "image71.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image71.png"
+    },
+    "image72.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image72.png"
+    },
+    "image73.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image73.png"
+    },
+    "image74.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image74.png"
+    },
+    "image75.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image75.png"
+    },
+    "image76.jpeg": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image76.png"
+    },
+    "image78.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image78.png"
+    },
+    "image81.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image81.png"
+    },
+    "image82.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image82.png"
+    },
+    "image89.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image89.png"
+    },
+    "image90.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image90.png"
+    },
+    "image91.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image91.png"
+    },
+    "image92.png": {
+      "src": "KIIKAONDE ECE LB LEVEL 1-2-hires/image92.png"
+    }
+  }
+}
