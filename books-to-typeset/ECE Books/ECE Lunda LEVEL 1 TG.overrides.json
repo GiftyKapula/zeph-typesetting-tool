@@ -27,5 +27,31 @@
       "find": "KAPETULU 10:  KUTAÑA",
       "with": "KAPETULU 10: KUTAÑA"
     }
+  ],
+  "_note_strands": "From Chapter 3 on, the B./C. strand lines (KUTACHIKA KUDIZA KUTAÑA / KUSONEKA) are Word auto-lettered list items, not headings as in Chapters 1-2, so they printed as list lines and stranded at page feet. Make every one a heading, lettered as the manuscript letters them (KUTAÑA is always B, KUSONEKA always C).",
+  "setHeading": [
+    {
+      "find": "KUTACHIKA KUDIZA KUTAÑA",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "KUTACHIKA KUDIZA KUSONEKA",
+      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "as": "head",
+      "all": true
+    }
+  ],
+  "_note_breaks": "Two CHUMA CHINAKUKUHWELELEWA labels fell alone at a page foot, their line on the next page (labels are not kept with what follows): start them on the next page.",
+  "pageBreakBefore": [
+    {
+      "find": "Chuma Chinakukuhwelelewa Atudizi Kwilukisha",
+      "near": "0.1.14.5.3 Kufundulula zhinsona"
+    },
+    {
+      "find": "Chuma Chinakukuhwelelewa Atudizi Kwilukisha",
+      "near": "0.1.14.6.2 Kukopolola mashepu apela"
+    }
   ]
 }
