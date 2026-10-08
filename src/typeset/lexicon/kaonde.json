@@ -25,6 +25,9 @@
     "teachers_guide": [
       "Buuku wa kutangijila Mufunjishi"
     ],
+    "level_ece": [
+      "Lufunjisho lwa Bana Babacheche"
+    ],
     "level_primary": [
       "Lufunjisho lwa Pulaimali"
     ],
@@ -127,6 +130,9 @@
     ],
     "glossary": [
       "Kulumbulula Byambo"
+    ],
+    "authors_label": [
+      "Nembi"
     ]
   },
   "extras": [
