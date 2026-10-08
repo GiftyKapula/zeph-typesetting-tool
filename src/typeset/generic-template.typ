@@ -2095,10 +2095,13 @@
       // body unit: a solid teal banner with white caps
       v(2pt)
       // never justified or hyphenated: a long unit name that wraps would otherwise
-      // be stretched across the banner and split mid-word ("LWAKUSWAAN-GANA")
+      // be stretched across the banner and split mid-word ("LWAKUSWAAN-GANA"). The label
+      // and its number are tied with a no-break space, so a ragged wrap can't strand the
+      // number on the next line ("CHIBALU / 2: KUDIHEMBA ...").
+      let ub = u.replace(regex("^(\S+) (\d)"), m => m.captures.at(0) + "\u{a0}" + m.captures.at(1))
       block(width: 100%, breakable: false, radius: 6pt, fill: T.primary, inset: (x: 13pt, y: 11pt))[
         #set par(justify: false)
-        #text(fill: white, size: hm(16pt), weight: "bold", hyphenate: false)[#upper(t)]]
+        #text(fill: white, size: hm(16pt), weight: "bold", hyphenate: false)[#ub]]
       v(9pt)
     } else {
       // front matter (Authors / Foreword / ...): accent heading + thin rule
