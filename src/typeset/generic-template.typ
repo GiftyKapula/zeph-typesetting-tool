@@ -39,16 +39,6 @@
 // topic chip, bullets) = electric cyan. Every other theme uses its amber/gold.
 #let iaccent = if T.variant == "science" { T.primary } else { T.accent }
 #let iaccent2 = if T.variant == "science" { T.cyan } else { T.accent }
-// The small caption over the cover/title-page byline. A local-language book uses its
-// own word (T.authorlabel - Chitonga “BALEMBI”). A language whose word list also
-// gives a singular (T.authorlabel1 - Chitonga “MULEMBI”) uses it for a single name,
-// as English splits AUTHOR from AUTHORS; otherwise the one word serves both.
-// Defined once because eleven places carried their own copy of the English.
-#let bylinelabel(names) = {
-  let w = T.at("authorlabel", default: "")
-  let w1 = T.at("authorlabel1", default: "")
-  if names.len() == 1 and w1 != "" { upper(w1) } else if w != "" { upper(w) } else if names.len() == 1 { "AUTHOR" } else { "AUTHORS" }
-}
 // "series" page numbering is driven by the page's NATIVE numbering pattern (set
 // to roman for the front matter, arabic for the body, none on cover/title/
 // copyright) so the generated outline formats its page numbers to match. This
@@ -95,6 +85,27 @@
 // takes a level after it in the book's own word — Chitonga "ECE LEVO 1" — so the
 // whole phrase sits on the tag rather than "LEVO 1" landing on the subject title)
 #let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU|ECE)\\b")) != none
+
+// Printed cover / title-page labels in the book's own language (T.labels, filled from a
+// local-language book's word list in typeset-docx.js; empty for English books, which
+// print exactly as before). Only the printed text changes: the cover lines stay
+// English so hasGradeWord / the form-tag regex still find the grade line.
+#let lbl(s) = {
+  let L = T.at("labels", default: (:))
+  let s = s
+  if L.at("grade", default: "") != "" { s = s.replace(regex("(?i)\bgrade\b"), L.grade) }
+  if L.at("form", default: "") != "" { s = s.replace(regex("(?i)\bform\b"), L.form) }
+  if L.at("tg", default: "") != "" { s = s.replace(regex("(?i)teacher['’]?s\s+guide"), L.tg) }
+  if L.at("lb", default: "") != "" { s = s.replace(regex("(?i)learner['’]?s\s+book"), L.lb) }
+  s
+}
+#let authlabel(byline) = {
+  let L = T.at("labels", default: (:))
+  let a = L.at("authors", default: "")
+  let a1 = L.at("author1", default: "")
+  // a language that words ONE author differently (Chitonga Mulembi, several Balembi)
+  if byline.len() == 1 and a1 != "" { upper(a1) } else if a != "" { upper(a) } else if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }
+}
 
 // CDC 2025 sets a larger body size for young readers (Grade 1 → 18pt, Grade 2-3 →
 // 16pt, Grade 4-6 → 14pt; Teacher's Guides and secondary stay 12pt). `fs()` scales a
@@ -421,9 +432,9 @@
     #text(size: if name.len() > 22 { 30pt } else if name.len() > 13 { 38pt } else { 44pt }, weight: "bold", fill: deepteal, hyphenate: false)[#name]
     #if formtxt != "" [ #v(9mm)
       #box(fill: formfill, inset: (x: 13pt, y: 6pt), radius: 4pt)[
-        #text(size: 22pt, weight: "bold", fill: formtext, tracking: 1pt)[#upper(formtxt)]] ]
+        #text(size: 22pt, weight: "bold", fill: formtext, tracking: 1pt)[#upper(lbl(formtxt))]] ]
     #v(7mm)
-    #text(size: 20pt, weight: "bold", fill: T.primary)[#upper(booktype)]
+    #text(size: 20pt, weight: "bold", fill: T.primary)[#upper(lbl(booktype))]
   ]
   // The author byline flows a FIXED gap below the booktype line rather than sitting at
   // an absolute page offset — a long subject name (e.g. "Food and Nutrition") wraps the
@@ -439,7 +450,7 @@
   if byline.len() > 0 {
     v(20mm)
     align(center)[
-      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
+      #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
       #v(3mm)
       #if byline.len() > 2 {
         text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
@@ -727,9 +738,9 @@
         #box(fill: amber, width: 46mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(7mm)
           #box(fill: amber, inset: (x: 13pt, y: 6pt), radius: 4pt)[
-            #text(size: 28pt, weight: "bold", fill: T.primary.darken(8%), tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 28pt, weight: "bold", fill: T.primary.darken(8%), tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(5mm)
-        #text(size: 18pt, weight: "bold", fill: white)[#upper(booktype)]
+        #text(size: 18pt, weight: "bold", fill: white)[#upper(lbl(booktype))]
       ]]
       #place(top + center, dy: 22mm, mastheadBlock)
       // hero photo (straight, white frame) when present; otherwise a central
@@ -810,7 +821,7 @@
         // pale, hard-to-read grey-green on a lighter/more saturated field like
         // Grade 6 Science's green, so this is no longer transparentized at all.
         let bylineBlock = block(width: 152mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#bylinelabel(byline)]
+          #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]]
         if earthCard {
@@ -879,9 +890,9 @@
           #box(fill: T.accent, width: 42mm, height: 3pt, radius: 1.5pt)
           #if formtxt != "" [ #v(6mm)
             #box(fill: T.accent, inset: (x: 14pt, y: 6pt), radius: 20pt)[
-              #text(size: 24pt, weight: "bold", fill: white, tracking: 1pt)[#upper(formtxt)]] ]
+              #text(size: 24pt, weight: "bold", fill: white, tracking: 1pt)[#upper(lbl(formtxt))]] ]
           #v(4mm)
-          #text(size: 16pt, weight: "bold", fill: white.transparentize(8%))[#upper(booktype)]
+          #text(size: 16pt, weight: "bold", fill: white.transparentize(8%))[#upper(lbl(booktype))]
         ]])
       ])
       // straight, thick-framed hero (soft drop plate behind for depth)
@@ -897,7 +908,7 @@
       // authors
       #if byline.len() > 0 [
         #place(top + center, dy: 197mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
+          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
@@ -938,9 +949,9 @@
         #box(fill: T.accent, width: 44mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(6mm)
           #box(fill: T.accent, inset: (x: 14pt, y: 6pt), radius: 4pt)[
-            #text(size: 24pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 24pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(4mm)
-        #text(size: 16pt, weight: "bold", fill: white.transparentize(6%))[#upper(booktype)]
+        #text(size: 16pt, weight: "bold", fill: white.transparentize(6%))[#upper(lbl(booktype))]
       ]])
       // straight, double-framed hero (ochre plate behind + white inner frame)
       #if hero != none [
@@ -955,7 +966,7 @@
       // authors
       #if byline.len() > 0 [
         #place(top + center, dy: 202mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#bylinelabel(byline)]
+          #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
@@ -1013,14 +1024,14 @@
         #box(fill: accent, width: 44mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(5mm)
           #box(fill: accent, inset: (x: 15pt, y: 6pt), radius: 40pt)[
-            #text(size: 21pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 21pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(4mm)
-        #text(size: 14pt, weight: "bold", fill: white.transparentize(8%))[#upper(booktype)]
+        #text(size: 14pt, weight: "bold", fill: white.transparentize(8%))[#upper(lbl(booktype))]
       ]])
       // authors + publisher are BOTTOM-anchored so they never collide with a tall masthead
       #if byline.len() > 0 [
         #place(bottom + center, dy: -33mm, block(width: 162mm)[#align(center)[
-          #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#bylinelabel(byline)]
+          #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#authlabel(byline)]
           #v(1.5mm)
           #text(size: 10pt, weight: "bold", fill: white.transparentize(24%))[#byline.join("   •   ")]]])
       ]
@@ -1058,14 +1069,14 @@
           #box(fill: T.accent, width: 40mm, height: 3pt, radius: 1.5pt)
           #if formtxt != "" [ #v(4mm)
             #box(fill: T.accent, inset: (x: 13pt, y: 5pt), radius: 40pt)[
-              #text(size: 19pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(formtxt)]] ]
+              #text(size: 19pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(lbl(formtxt))]] ]
           #v(3mm)
-          #text(size: 13pt, weight: "bold", fill: T.primary)[#upper(booktype)]
+          #text(size: 13pt, weight: "bold", fill: T.primary)[#upper(lbl(booktype))]
         ]]
       ])
       #if byline.len() > 0 [
         #place(top + center, dy: 211mm, block(width: 160mm)[#align(center)[
-          #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#bylinelabel(byline)]
+          #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#authlabel(byline)]
           #v(1mm)
           #text(size: 9.5pt, weight: "bold", fill: white)[#byline.join("   •   ")]]])
       ]
@@ -1106,9 +1117,9 @@
         #box(fill: T.accent, width: 40mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(5mm)
           #box(fill: T.accent, inset: (x: 14pt, y: 6pt), radius: 20pt)[
-            #text(size: 22pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 22pt, weight: "bold", fill: deep, tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(4mm)
-        #text(size: 15pt, weight: "bold", fill: white.transparentize(6%))[#upper(booktype)]
+        #text(size: 15pt, weight: "bold", fill: white.transparentize(6%))[#upper(lbl(booktype))]
       ]])
       // chunky rounded photo card (accent drop-plate behind, thick white frame)
       #if hero != none [
@@ -1123,7 +1134,7 @@
       // authors ("AUTHOR" when there is only one)
       #if byline.len() > 0 [
         #place(top + center, dy: 203mm, block(width: 160mm)[#align(center)[
-          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#bylinelabel(byline)]
+          #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 10pt, weight: "bold", fill: deep)[#byline.join("   •   ")]]])
       ]
@@ -1155,9 +1166,9 @@
         #box(fill: T.primary, width: 46mm, height: 3pt, radius: 1.5pt)
         #if formtxt != "" [ #v(7mm)
           #box(fill: T.primary, inset: (x: 13pt, y: 6pt), radius: 4pt)[
-            #text(size: 28pt, weight: "bold", fill: white, tracking: 1pt)[#upper(formtxt)]] ]
+            #text(size: 28pt, weight: "bold", fill: white, tracking: 1pt)[#upper(lbl(formtxt))]] ]
         #v(5mm)
-        #text(size: 18pt, weight: "bold", fill: deepteal)[#upper(booktype)]
+        #text(size: 18pt, weight: "bold", fill: deepteal)[#upper(lbl(booktype))]
       ]])
       // --- tilted photo panel (a teal plate behind for depth) ---
       #if hero != none [
@@ -1196,7 +1207,7 @@
       // --- authors: an "AUTHORS" label tab sitting on the names tag (tilted) ---
       #if byline.len() > 0 [
         #place(top + center, dy: 196mm, align(center)[
-          #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#bylinelabel(byline)]])
+          #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#authlabel(byline)]])
         #place(top + center, dy: 201mm, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt)[
           #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#byline.join("   •   ")]]))
       ]
@@ -1225,14 +1236,14 @@
       #place(top + center, dy: 182mm, align(center)[
         #box(stroke: (top: 0.6pt + T.accent, bottom: 0.6pt + T.accent), inset: (x: 10pt, y: 5pt))[
           #text(fill: T.primary, size: 15pt, weight: "bold", tracking: 1pt)[
-            #if grade != none [#upper(grade)#h(5pt)·#h(5pt)]#upper(booktype)]]
+            #if grade != none [#upper(lbl(grade))#h(5pt)·#h(5pt)]#upper(lbl(booktype))]]
       ])
       // authors + publisher anchored in a bottom burgundy band
       #place(bottom + left, block(width: 100%, fill: T.primary, inset: (x: 16mm, y: 8mm))[
         #set text(fill: white)
         #align(center)[
           #if byline.len() > 0 [
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#bylinelabel(byline)]]
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#authlabel(byline)]]
             \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#byline.join(", ")]
           ]
           #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
@@ -1254,13 +1265,13 @@
           #text(fill: T.primary, size: 30pt, weight: "bold")[#subject]
           #if grade != none [ #v(4mm)
             #box(fill: T.primary, inset: (x: 15pt, y: 6pt), radius: 20pt)[
-              #text(fill: white, weight: "bold", size: 13pt, tracking: 1pt)[#upper(grade)#h(5pt)·#h(5pt)#upper(booktype)]] ]
+              #text(fill: white, weight: "bold", size: 13pt, tracking: 1pt)[#upper(lbl(grade))#h(5pt)·#h(5pt)#upper(lbl(booktype))]] ]
         ]
       ])
       #place(bottom + center, dy: -15mm, align(center)[
         #if byline.len() > 0 [
           #block(width: 170mm)[#align(center)[
-            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#bylinelabel(byline)]] \ #v(1pt)
+            #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#authlabel(byline)]] \ #v(1pt)
             #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.join(", ")]]]
         ]
         #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
@@ -1427,11 +1438,11 @@
     // ---------- footer: book type, author, logo, publisher ----------
     #place(bottom + center, dy: -16mm, align(center)[
       #box(fill: white, inset: (x: 20pt, y: 7pt), radius: 22pt)[
-        #text(size: 13pt, weight: "bold", fill: T.primary, tracking: 1pt)[#upper(booktype)]]
+        #text(size: 13pt, weight: "bold", fill: T.primary, tracking: 1pt)[#upper(lbl(booktype))]]
       #v(6mm)
       #if byline.len() > 0 [
         #block(width: 170mm)[#align(center)[
-          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#bylinelabel(byline)]
+          #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#authlabel(byline)]
           \ #v(1pt) #text(size: 14pt, weight: "bold")[#byline.join(", ")]]]
       ]
       #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 12mm) ]
@@ -1533,10 +1544,10 @@
       // Form/grade on its OWN line, between the subject and the book type.
       #if formtxt != "" [
         #v(2mm)
-        #text(size: 16pt, weight: "bold", fill: accentc)[#upper(formtxt)]
+        #text(size: 16pt, weight: "bold", fill: accentc)[#upper(lbl(formtxt))]
       ]
       #v(1mm)
-      #text(size: 13pt, weight: "bold", fill: onfield)[#upper(booktype)]
+      #text(size: 13pt, weight: "bold", fill: onfield)[#upper(lbl(booktype))]
       #v(3mm)
       #box(fill: accentc, width: 34mm, height: 2.5pt, radius: 1.5pt)
     ]])
@@ -1570,8 +1581,17 @@
     #v(3pt)
     #box(fill: iaccent, width: 60pt, height: 3pt, radius: 1.5pt)]
   v(8pt)
-  set par(leading: 0.9em)
+  // Leading here governs ONLY the second and later lines of an entry whose title is too
+  // long for one line — the gap BETWEEN entries is the weak `v()`s below, not leading.
+  // So it has to be TIGHTER than that inter-entry gap, or a wrapped title reads as an
+  // entry of its own: "UNIT 7: ENTREPRENEURSHIP AND" on one line and "EDUCATION ..... 50"
+  // on the next, with the leaders and page number apparently belonging to "EDUCATION".
+  // At the old 0.9em the wrap was LOOSER than the gap between entries, which is exactly
+  // backwards. Single-line entries have no within-paragraph gap, so they are unaffected.
+  set par(leading: 0.45em)
   let tgap = T.at("tocGap", default: 10pt)
+  // and a wrapped title breaks between words, never mid-word ("BU- / TEELEDE")
+  set text(hyphenate: false)
   show outline.entry: it => { v(5pt, weak: true); upper(it) }
   let tdepth = T.at("tocDepth", default: 2)
   if serieslike {
@@ -1829,8 +1849,10 @@
       #segs(restSegs)
     ]
   }
-  else if align == "center" { block(width: 100%)[#std.align(center, par[#segs(ss)])] }
-  else if align == "right" { block(width: 100%)[#std.align(right, par[#segs(ss)])] }
+  // centred / right-aligned text is never justified: a centred line that wraps would
+  // otherwise have its first line stretched edge to edge ("Lyakasimbwa   aba:   Zambia")
+  else if align == "center" { block(width: 100%)[#set par(justify: false); #std.align(center, par[#segs(ss)])] }
+  else if align == "right" { block(width: 100%)[#set par(justify: false); #std.align(right, par[#segs(ss)])] }
   // ragged-right (not justified): for a paragraph whose justified first line opens huge
   // word gaps — large primary type with no hyphenation (Grade 2 CTS "To say measurements…")
   else if align == "left" { block(width: 100%)[#par(justify: false)[#segs(ss)]] }
@@ -2095,8 +2117,14 @@
     if isunit {
       // body unit: a solid teal banner with white caps
       v(2pt)
+      // never justified or hyphenated: a long unit name that wraps would otherwise
+      // be stretched across the banner and split mid-word ("LWAKUSWAAN-GANA"). The label
+      // and its number are tied with a no-break space, so a ragged wrap can't strand the
+      // number on the next line ("CHIBALU / 2: KUDIHEMBA ...").
+      let ub = u.replace(regex("^(\S+) (\d)"), m => m.captures.at(0) + "\u{a0}" + m.captures.at(1))
       block(width: 100%, breakable: false, radius: 6pt, fill: T.primary, inset: (x: 13pt, y: 11pt))[
-        #text(fill: white, size: hm(16pt), weight: "bold")[#upper(t)]]
+        #set par(justify: false)
+        #text(fill: white, size: hm(16pt), weight: "bold", hyphenate: false)[#ub]]
       v(9pt)
     } else {
       // front matter (Authors / Foreword / ...): accent heading + thin rule
@@ -2926,7 +2954,12 @@
     titledbox(title, T.at(kind), content, breakable: true)
   }
 }
-#let activity(title, body, force: false) = keepwhole("act", title, renderbody(body), force: force)
+// An activity whose body came through empty (its text follows as ordinary paragraphs) is
+// only a title bar, so it must keep with what follows like any heading — otherwise it can
+// be stranded alone at the foot of a page.
+#let activity(title, body, force: false) = if body.len() == 0 {
+  block(sticky: true, breakable: false, titledbox(title, T.at("act"), renderbody(body), breakable: false))
+} else { keepwhole("act", title, renderbody(body), force: force) }
 #let fact(body) = titledbox("Did You Know?", T.fact, renderbody(body))
 #let keypoints(title, items) = titledbox(if title == none { "Key Points to Remember" } else { title }, T.kp,
   { for it in items [#grid(columns: (10pt, 1fr), text(fill: T.kp.border)[•], par[#it]); #v(1.5pt)] })

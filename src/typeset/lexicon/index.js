@@ -112,4 +112,8 @@ const isFrontSection = (text) => frontRank(text) != null;
 const isBackSection = (text) => isExactly(["glossary", "references", "index", "appendix"], text);
 const isContents = (text) => isExactly(["contents"], text);
 
-module.exports = { LEX, langFor, setLang, getLang, words, term, altSrc, startsWith, isExactly, boxKind, isTopSection, frontRank, isFrontSection, isBackSection, isContents };
+// The book's own wording for a printed label (cover line, running header), or null:
+// the FIRST wording given, which is the author form's, ahead of words added later.
+const label = (id) => words([id])[0] || null;
+
+module.exports = { LEX, langFor, setLang, getLang, words, term, altSrc, startsWith, isExactly, boxKind, isTopSection, frontRank, isFrontSection, isBackSection, isContents, label };

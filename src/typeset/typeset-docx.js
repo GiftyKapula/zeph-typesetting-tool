@@ -31,8 +31,10 @@ const LEVEL_TERM = {
   "Secondary Education Advanced Level": "level_advanced",
   "Early Childhood Education Level": "level_ece",
 };
-const sayLevel = (level) => (level && term(LEVEL_TERM[level])) || level;
-const sayBookType = (isTG) => term(isTG ? "teachers_guide" : "learners_book") || (isTG ? "Teacher's Guide" : "Learner's Book");
+// Opt-in per book with "localLabels": true, like the labels further down: a book
+// without it keeps the English words.
+const sayLevel = (level, on) => (on && level && term(LEVEL_TERM[level])) || level;
+const sayBookType = (isTG, on) => (on && term(isTG ? "teachers_guide" : "learners_book")) || (isTG ? "Teacher's Guide" : "Learner's Book");
 
 const { ROOT, resolveBookPath } = require("./paths.js");
 const INPUT_DIRS = [path.join(ROOT, "input"), path.join(ROOT, "books-to-typeset")];
@@ -534,7 +536,7 @@ async function typesetOne(docxPath, themeName) {
       const subj = (ov.subject || T.subject || (T.hdrleft || base)
         .replace(/^(Secondary Education Ordinary Level|Primary School)\s*/i, "").trim() || base).toUpperCase();
       // the grade/form in the file name wins over the theme's default level
-      const eyebrow = eduLevel ? sayLevel(eduLevel).toUpperCase() : (T.eyebrow || "SECONDARY EDUCATION ORDINARY LEVEL");
+      const eyebrow = eduLevel ? sayLevel(eduLevel, ov.localLabels).toUpperCase() : (T.eyebrow || "SECONDARY EDUCATION ORDINARY LEVEL");
       const gm = detectName.match(/(form|grade)\s*\d+/i);           // no \b: "_Form 1_" too
       // The manuscript file is occasionally saved without the form/grade digit in its own
       // name ("…Form Learners Book…" — missing the "1"). Fall back to the manuscript's OWN
@@ -547,7 +549,7 @@ async function typesetOne(docxPath, themeName) {
       // carry "ECE" where other books carry "Form N" / "Grade N". `coverGrade` changes
       // only what the cover prints ("ECE LEVO 1"), not the output folder `grade` drives.
       const grade = ov.coverGrade ? String(ov.coverGrade) : ov.grade ? titleCaseGrade(ov.grade) : (gm2 ? titleCaseGrade(gm2[0]) : eduLevel === "Early Childhood Education Level" ? "ECE" : "");
-      const booktype = sayBookType(isTeacherBookName(base));
+      const booktype = sayBookType(isTeacherBookName(base), ov.localLabels);
       // The two cover layouts read `lines` differently: the science cover takes
       // the subject from line 0; the series cover takes the eyebrow from line 0
       // and the subject (+form) from the next line.
@@ -728,13 +730,8 @@ async function typesetOne(docxPath, themeName) {
   // same local-language theme reads correctly at primary vs secondary level.
   if (eduLevel) {
     const subj = ov.subject || (THEMES[theme] || {}).subject;
-    if (subj) { themeOverrides.hdrleft = sayLevel(eduLevel) + " " + subj; themeOverrides.eyebrow = sayLevel(eduLevel).toUpperCase(); }
+    if (subj) { themeOverrides.hdrleft = eduLevel + " " + subj; themeOverrides.eyebrow = eduLevel.toUpperCase(); }
   }
-  // the same word the cover byline is captioned with; unset for an English book,
-  // which keeps the AUTHOR/AUTHORS built into the template.
-  if (term("author_section")) themeOverrides.authorlabel = term("author_section");
-  // a language that words ONE author differently (Chitonga Mulembi, several Balembi)
-  if (term("author_one")) themeOverrides.authorlabel1 = term("author_one");
   // Grade 2 primary books get their OWN cover style, visually distinct from Grade 3 —
   // applied to every Grade 2 primary Learner's/Teacher's book regardless of theme
   // (mathsci/cts share the "grade3" cover; primaryeng/local-language use the default).
@@ -750,6 +747,37 @@ async function typesetOne(docxPath, themeName) {
     if (grade && booktype) themeOverrides.hdrtab = titleCase(`${grade} ${booktype}`);
     // ECE books have no grade: the pill just names the book type ("Teacher's Guide")
     else if (booktype && eduLevel === "Early Childhood Education Level") themeOverrides.hdrtab = booktype;
+  }
+  // Local-language books print the cover, title-page and running-header labels in the
+  // book's own language when its word list has them (Chitonga "LWIIYO LWA PULAIMALI",
+  // "GILEDI 1", "BBUKU LYABAYI", "BALEMBI"). A label the list lacks stays English. The
+  // cover lines themselves stay English (the template finds the grade line by the word
+  // GRADE/FORM) and are translated where they are printed, via T.labels.
+  // Opt-in per book ("localLabels": true) once its words are checked: some word lists
+  // give a long phrase for the level (Lunda's carries "Fomu 1 -4", which the cover would
+  // then read as the form line), so this is not switched on for every language at once.
+  if (getLang() && ov.localLabels) {
+    const labels = {};
+    for (const [k, id] of [["grade", "grade"], ["form", "form"], ["tg", "teachers_guide"], ["lb", "learners_book"], ["authors", "authors_label"], ["author1", "author_one"]]) {
+      const w = LEXI.label(id);
+      if (w) labels[k] = w;
+    }
+    themeOverrides.labels = labels;
+    const tr = (s) => s
+      .replace(/\bgrade\b/i, (m) => labels.grade || m)
+      .replace(/\bform\b/i, (m) => labels.form || m)
+      .replace(/teacher['’]?s\s+guide/i, (m) => labels.tg || m)
+      .replace(/learner['’]?s\s+book/i, (m) => labels.lb || m);
+    if (themeOverrides.hdrtab) themeOverrides.hdrtab = titleCase(tr(themeOverrides.hdrtab));
+    const lvlId = { "Early Childhood Education Level": "level_ece", "Primary Education Level": "level_primary",
+      "Secondary Education Ordinary Level": "level_ordinary", "Secondary Education Advanced Level": "level_advanced" }[eduLevel];
+    const lvl = lvlId && LEXI.label(lvlId);
+    if (lvl) {
+      const subj = ov.subject || (THEMES[theme] || {}).subject;
+      if (subj) themeOverrides.hdrleft = lvl + " " + subj;
+      themeOverrides.eyebrow = lvl.toUpperCase();
+      if (coverB && coverB.lines && coverB.lines[0] === eduLevel.toUpperCase()) coverB.lines[0] = lvl.toUpperCase();
+    }
   }
   // Primary-school (Grade 3) books: the LEARNER'S books are set in Century Gothic —
   // a friendlier, rounded face for young readers — while the TEACHER'S guides keep

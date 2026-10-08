@@ -1,39 +1,12 @@
 {
-  "_note": "Chitonga wordings found in the manuscripts themselves (not on the author's form). Added as extra variants. The ECE Learner's Book spells its unit word CIBEELA (the Form 4 author's form gave CIPATI), and titles its front matter MAJWI AANTALISYO / MATALIKILO A BBUKU. The activity word is Cakucita: Chitonga, like Ichibemba, writes the sound with plain c (cita, cibeela, cifwanikiso) — ch is the Cinyanja spelling. An earlier version printed Cakuchita; the author's round-1 proofread (Oct 2026) corrected it back to Cakucita throughout, and the user confirmed. Cakuchita stays recognised so a stray one is corrected.",
-  "source": "ECE 3-4 YEARS CHITONGA LB (manuscript)",
-  "header": {
-    "language": "Chitonga",
-    "your name": "(from manuscript)",
-    "book and grade": "Chitonga ECE LB 3-4 Years"
-  },
+  "_note": "Chitonga wordings found in the manuscripts themselves (not on the author's form). FINAL GRADE 1 CHITONGA TEACHER's GUIDE: 'Bbuku lyamulaka wa Chitonga lya Giledi 1', 'mulwiiyo lwa pulaimali', 'Eeli Bbuku Lyabayi', 'bbuku lyasicikolo', author page headed BALEMBI.",
+  "source": "FINAL GRADE 1 CHITONGA TEACHER's GUIDE 3-10-2026 (manuscript)",
+  "header": { "language": "Chitonga", "your name": "(from manuscript)", "book and grade": "Chitonga Grade 1 TG" },
   "rows": [
-    [
-      "Unit",
-      "Cibeela"
-    ],
-    [
-      "Preface",
-      "Majwi aantalisyo"
-    ],
-    [
-      "Introduction",
-      "Matalikilo a Bbuku"
-    ],
-    [
-      "Listening and Speaking",
-      "Kuswiilila akwaambaula"
-    ],
-    [
-      "Learning Activity",
-      "Cakucita"
-    ],
-    [
-      "Preface",
-      "Kwaambilizya"
-    ],
-    [
-      "Author (one)",
-      "Mulembi"
-    ]
+    ["Grade", "Giledi"],
+    ["Primary Education Level", "Lwiiyo lwa Pulaimali"],
+    ["Teacher's Guide", "Bbuku Lyabayi"],
+    ["Learner's Book", "Bbuku Lyasicikolo"],
+    ["Authors / Written by", "Balembi"]
   ]
 }

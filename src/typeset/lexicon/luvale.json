@@ -20,9 +20,17 @@
       "file": "ZEPH Local Language Words FormN- LUVALE.docx",
       "author": "KAYELU JACOB KAKOMA",
       "book": "FORM 3 LANGUAGE & LITERATURE"
+    },
+    {
+      "file": "LUVALE ECE 3-4 TG (manuscript)",
+      "author": "(from manuscript)",
+      "book": "Luvale ECE 3-4 TG"
     }
   ],
   "terms": {
+    "level_ece": [
+      "Seteko ya Chinangwilo Chavanyike"
+    ],
     "grade": [
       "Guledi",
       "Mango"
@@ -153,6 +161,9 @@
       "Jikumbulwilo jahashiwa",
       "Jikumbulwilo",
       "KUMBULWILO"
+    ],
+    "authors_label": [
+      "Ausonekele"
     ]
   },
   "extras": [

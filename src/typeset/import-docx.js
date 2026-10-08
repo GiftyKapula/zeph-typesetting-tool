@@ -1809,6 +1809,11 @@ function makeAssessmentTable(cells) {
 //   When it doesn't (e.g. headings are bold black), a short bold line is treated
 //   as a heading unless it ends with a colon (then it's a label like
 //   "Specific Competence:").
+// A numbered unit opener in the book's own language: the word list's Unit word, then a
+// number ("KAPETULU 4: …", "KAPETULU: 3 …"). Lunda ECE guides head chapters KAPETULU,
+// which none of the fixed patterns knew. A dot-leadered line ("KISHINA 1: …………21 - 29",
+// a hand-typed contents entry in the Kiikaonde Grade 1 TG) is never the heading itself.
+const isLocalUnitLine = (t) => /^[^\d:]*:?\s*\d/.test(t || "") && !/[.…]{3,}/.test(t) && LEXI.startsWith(["unit"], t);
 function classifyPara(pXml, segs, hmapLevel, colorHeads, noBoxes, flat) {
   const plain = plainOf(segs).trim();
   // A short box label that wasn't boxed (its content was in a following table or
@@ -1847,7 +1852,7 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, noBoxes, flat) {
   if (plain.length <= 90 && SUBTOPIC_RE.test(plain)) return { t: "h2", text: colonFix(plain) };
   // Local-language unit openers, hand-sized (no heading style), e.g. Lunda
   // "CHIBALU 1: …" or Tonga "CIPATI 1: …". Titles can be long, so allow more room.
-  if (plain.length <= 120 && /^(CHIBALU|CIPATI)\s+\d+\b/i.test(plain)) return { t: "h1", text: plain };
+  if (plain.length <= 120 && (/^(CHIBALU|CIPATI)\s+\d+\b/i.test(plain) || isLocalUnitLine(plain))) return { t: "h1", text: plain };
   // Back-matter section names are section headings even when the manuscript left
   // them un-bold (so they get their own page and end any preceding box).
   if (plain.length <= 40 && /^(GLOSSARY|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX)$/i.test(plain)) return { t: "h1", text: plain };
@@ -2563,11 +2568,17 @@ async function importDocx(docxPath, opts = {}) {
     coverEnd = -1;              // consumes no source block; part[0] stays as the imprint
     gluedCover = true;
   }
-  if (copyrightIdx > 0) {
+  // A manuscript with no copyright line at all (some local-language ECE guides go
+  // straight from the title block to the author's contents list) still has a cover:
+  // everything before an early contents heading. Without this it got no cover, so the
+  // title lines and picture fell onto the first body page.
+  const coverStop = copyrightIdx > 0 ? copyrightIdx
+    : (copyrightIdx < 0 && textCover && tocPartIdx > 0 && tocPartIdx <= 12 ? tocPartIdx : -1);
+  if (coverStop > 0) {
     // hero = largest image before the copyright line; everything before the
     // copyright belongs on the cover (title at top, author + logo at the bottom).
     let heroIdx = -1, heroArea = 0;
-    for (let i = 0; i < copyrightIdx; i++) {
+    for (let i = 0; i < coverStop; i++) {
       if (isTbl(parts[i])) continue;
       for (const im of imagesOf(parts[i])) {
         if (im.w >= 200 && im.w * im.h > heroArea) { heroArea = im.w * im.h; cover = { hero: im }; heroIdx = i; }
@@ -2578,10 +2589,10 @@ async function importDocx(docxPath, opts = {}) {
     if (cover) {
       // Title lines are the large-font cover text (subject / grade / book type);
       // the byline is the smaller text (authors). A section heading ends the cover.
-      const big = parts.slice(0, copyrightIdx).filter((p) => !isTbl(p) && sizeOf(p) >= 36).length >= 2;
+      const big = parts.slice(0, coverStop).filter((p) => !isTbl(p) && sizeOf(p) >= 36).length >= 2;
       const lines = [], byline = [];
       let logo = null;
-      for (let i = 0; i < copyrightIdx; i++) {
+      for (let i = 0; i < coverStop; i++) {
         if (isTbl(parts[i])) continue;
         for (const im of imagesOf(parts[i])) if (im.w < 200 && !logo) logo = im; // small publisher logo
         const t = textOf(parts[i]); if (!t) continue;
@@ -2603,7 +2614,7 @@ async function importDocx(docxPath, opts = {}) {
         return true;
       });
       cover.logo = logo;
-      coverEnd = copyrightIdx - 1;
+      coverEnd = coverStop - 1;
     }
   }
 
@@ -2815,7 +2826,7 @@ async function importDocx(docxPath, opts = {}) {
         // Agricultural Activities in Zambia……………."). Safe to drop here: we are already
         // inside the contents region (the global fill-in-blank guard doesn't apply).
         if (/[.…]{4,}[.,;:]*\s*$/.test(t)) { j++; continue; }
-        if (/^(CHIBALU|CIPATI)\s*\d+\b/i.test(t)) { j++; continue; }        // a unit entry (may be long)
+        if (/^(CHIBALU|CIPATI)\s*\d+\b/i.test(t) || isLocalUnitLine(t)) { j++; continue; }  // a unit entry (may be long)
         // The genuine first section heading ("UNIT 1: …") carries a real heading
         // STYLE (Heading1) or a large font — unlike its same-named contents entry,
         // which is styled TOC1/TOC2 at a smaller size. Stop dropping here so the
@@ -2842,7 +2853,7 @@ async function importDocx(docxPath, opts = {}) {
           // bare section name sitting just above the dotted topic list (e.g. a
           // stray "HOW TO USE THIS BOOK") would be mistaken for a real header.
           const isTocEntry = (s) => s === "" || /[.…]{2,}\s*\[?\d+\]?\s*$/.test(s)
-            || SECTION_RE.test(s) || /^(CHIBALU|CIPATI)\s+[\d.]/i.test(s) || /^GLOSSARY\b/i.test(s);
+            || SECTION_RE.test(s) || /^(CHIBALU|CIPATI)\s+[\d.]/i.test(s) || isLocalUnitLine(s) || /^GLOSSARY\b/i.test(s);
           let n = j + 1;
           while (n < parts.length && !isTbl(parts[n]) && isTocEntry(textOf(parts[n]))) n++;
           if (bodyLen(n) >= 90) break;     // real section header — keep it (stop dropping)

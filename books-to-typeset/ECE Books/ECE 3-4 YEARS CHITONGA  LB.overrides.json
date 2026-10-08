@@ -1,5 +1,6 @@
 {
   "coverImage": "ECE 3-4 YEARS CHITONGA  LB-hires/cover.png",
+  "localLabels": true,
   "untableImages": true,
   "uniformImages": 78,
   "termPages": "^TE+MU\\s*\\d",
@@ -131,13 +132,34 @@
     "CiTonga Cibeela cakusaanguna"
   ],
   "editAll": [
-    { "find": "Mutwe: tuvwuumina", "with": "Tuvwuumina" },
-    { "find": "Mutwe : kupaila", "with": "Kupaila" },
-    { "find": "Mutwe: ", "with": "" },
-    { "find": "Mutwe : ", "with": "" },
-    { "find": "MAJWI AANTALISYO", "with": "KWAAMBILIZYA" },
-    { "find": "Balembi", "with": "Mulembi" },
-    { "find": "Zocita", "with": "Mulimo" }
+    {
+      "find": "Mutwe: tuvwuumina",
+      "with": "Tuvwuumina"
+    },
+    {
+      "find": "Mutwe : kupaila",
+      "with": "Kupaila"
+    },
+    {
+      "find": "Mutwe: ",
+      "with": ""
+    },
+    {
+      "find": "Mutwe : ",
+      "with": ""
+    },
+    {
+      "find": "MAJWI AANTALISYO",
+      "with": "KWAAMBILIZYA"
+    },
+    {
+      "find": "Balembi",
+      "with": "Mulembi"
+    },
+    {
+      "find": "Zocita",
+      "with": "Mulimo"
+    }
   ],
   "insertText": [
     {

@@ -1,0 +1,18 @@
+{
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "coverImage": "luvale-ece-tg-cover-hires.png",
+  "authors": [
+    "Kayelu Kakoma Jacob"
+  ],
+  "images": {
+    "image2.emf": {
+      "src": "luvale-ece-tg-vowels-ioaue.png",
+      "w": 360
+    }
+  },
+  "dropDupImages": true,
+  "remove": [
+    "IUEAO"
+  ]
+}

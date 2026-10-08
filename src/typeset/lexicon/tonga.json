@@ -12,6 +12,11 @@
       "book": "Chitonga Form 4"
     },
     {
+      "file": "FINAL GRADE 1 CHITONGA TEACHER's GUIDE 3-10-2026 (manuscript)",
+      "author": "(from manuscript)",
+      "book": "Chitonga Grade 1 TG"
+    },
+    {
       "file": "ECE 3-4 YEARS CHITONGA LB (manuscript)",
       "author": "(from manuscript)",
       "book": "Chitonga ECE LB 3-4 Years"
@@ -20,9 +25,6 @@
   "terms": {
     "form": [
       "Foomu"
-    ],
-    "level_ece": [
-      "Lwiiyo Lwabana Basyoonto"
     ],
     "learners_book": [
       "Bbuku lyasicikolo"
@@ -35,9 +37,6 @@
     ],
     "author_section": [
       "Balembi"
-    ],
-    "author_one": [
-      "Mulembi"
     ],
     "foreword": [
       "Matalikilo",
@@ -113,8 +112,8 @@
       "Mabbuku abelesegwa"
     ],
     "preface": [
-      "Kwaambilizya",
       "Jwi lyakumatalikilo",
+      "Kwaambilizya",
       "Majwi aantalisyo"
     ],
     "lesson": [
@@ -133,6 +132,21 @@
     ],
     "note_teacher": [
       "Kulailila kumwiiyi"
+    ],
+    "grade": [
+      "Giledi"
+    ],
+    "level_primary": [
+      "Lwiiyo lwa Pulaimali"
+    ],
+    "authors_label": [
+      "Balembi"
+    ],
+    "level_ece": [
+      "Lwiiyo Lwabana Basyoonto"
+    ],
+    "author_one": [
+      "Mulembi"
     ]
   },
   "extras": [
