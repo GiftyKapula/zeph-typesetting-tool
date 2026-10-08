@@ -554,6 +554,37 @@ async function typesetOne(docxPath, themeName) {
     // ECE books have no grade: the pill just names the book type ("Teacher's Guide")
     else if (booktype && eduLevel === "Early Childhood Education Level") themeOverrides.hdrtab = booktype;
   }
+  // Local-language books print the cover, title-page and running-header labels in the
+  // book's own language when its word list has them (Chitonga "LWIIYO LWA PULAIMALI",
+  // "GILEDI 1", "BBUKU LYABAYI", "BALEMBI"). A label the list lacks stays English. The
+  // cover lines themselves stay English (the template finds the grade line by the word
+  // GRADE/FORM) and are translated where they are printed, via T.labels.
+  // Opt-in per book ("localLabels": true) once its words are checked: some word lists
+  // give a long phrase for the level (Lunda's carries "Fomu 1 -4", which the cover would
+  // then read as the form line), so this is not switched on for every language at once.
+  if (getLang() && ov.localLabels) {
+    const labels = {};
+    for (const [k, id] of [["grade", "grade"], ["form", "form"], ["tg", "teachers_guide"], ["lb", "learners_book"], ["authors", "authors_label"]]) {
+      const w = LEXI.label(id);
+      if (w) labels[k] = w;
+    }
+    themeOverrides.labels = labels;
+    const tr = (s) => s
+      .replace(/\bgrade\b/i, (m) => labels.grade || m)
+      .replace(/\bform\b/i, (m) => labels.form || m)
+      .replace(/teacher['’]?s\s+guide/i, (m) => labels.tg || m)
+      .replace(/learner['’]?s\s+book/i, (m) => labels.lb || m);
+    if (themeOverrides.hdrtab) themeOverrides.hdrtab = titleCase(tr(themeOverrides.hdrtab));
+    const lvlId = { "Early Childhood Education Level": "level_ece", "Primary Education Level": "level_primary",
+      "Secondary Education Ordinary Level": "level_ordinary", "Secondary Education Advanced Level": "level_advanced" }[eduLevel];
+    const lvl = lvlId && LEXI.label(lvlId);
+    if (lvl) {
+      const subj = ov.subject || (THEMES[theme] || {}).subject;
+      if (subj) themeOverrides.hdrleft = lvl + " " + subj;
+      themeOverrides.eyebrow = lvl.toUpperCase();
+      if (coverB && coverB.lines && coverB.lines[0] === eduLevel.toUpperCase()) coverB.lines[0] = lvl.toUpperCase();
+    }
+  }
   // Primary-school (Grade 3) books: the LEARNER'S books are set in Century Gothic —
   // a friendlier, rounded face for young readers — while the TEACHER'S guides keep
   // the house default (Arial body / Times New Roman header / Segoe UI display). The

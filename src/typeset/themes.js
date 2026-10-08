@@ -243,7 +243,7 @@ const THEMES = {
   // complementary medium colour for the title/accents (the English yellow+teal
   // recipe), each distinct. Translations of English, but with their own identity.
   nyanja:  zeph({ subject: "Chinyanja",  signature: "7ac74f", primary: "1f7a44", primary2: "2f9e5e", accent: "ef8b2c", cyan: "1aa6a0" }),  // leaf green
-  tonga:   zeph({ subject: "Chitonga",   signature: "f5a04e", primary: "1f6b6b", primary2: "2f9090", accent: "c4452d", cyan: "2f9e8c" }),  // warm amber
+  tonga:   zeph({ subject: "Chitonga",   signature: "f5a04e", primary: "1f6b6b", primary2: "2f9090", accent: "c4452d", cyan: "2f9e8c", toctitle: "Zyili Moomu" }),  // warm amber; Chitonga contents title
   lunda:   zeph({ subject: "Lunda",      signature: "ef96ae", primary: "6a2342", primary2: "9e3a5e", accent: "c79a3b", cyan: "4a86b0", toctitle: "NYITACHI YAYIBALU", tocUnitsOnly: true, coverStyle: "form1" }),  // rose; Form 1 cover, units-only contents
   luvale:  zeph({ subject: "Luvale",     signature: "9d8be0", primary: "3a2a73", primary2: "6a5bb0", accent: "ef7a59", cyan: "2f9e8c" }),  // lavender
   bemba:   zeph({ subject: "Ichibemba",  signature: "62bfe8", primary: "1b5773", primary2: "2f7fa0", accent: "edab3a", cyan: "2f9e8c" }),  // sky blue
@@ -421,6 +421,7 @@ function themeTypst(theme, overrides = {}) {
   year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
   subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"}, boxStripe: ${t.boxStripe === false ? "false" : "true"}, capSize: ${t.capSize || "none"},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
+  labels: (${Object.entries(t.labels || {}).map(([k, v]) => `${k}: ${q(v)}`).join(", ")}${Object.keys(t.labels || {}).length ? "" : ":"}),
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
   covPrimary: ${c(t.covPrimary || t.primary)}, covPrimary2: ${c(t.covPrimary2 || t.primary2)}, covAccent: ${c(t.covAccent || t.accent)}, covSignature: ${c(t.covSignature || t.signature || t.primary)}, covCyan: ${c(t.covCyan || t.cyan || t.primary2)}, covInk: ${c(t.covInk || t.ink)}, covRulec: ${c(t.covRulec || t.rulec)},
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},

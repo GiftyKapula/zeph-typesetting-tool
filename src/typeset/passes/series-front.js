@@ -112,9 +112,11 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // sub-heading crammed under the previous section instead of opening its own page.
   // A local-language front-matter word counts only when it appears ONCE: the same
   // heading repeated through the book ("Kalambula bwalo" opening every chapter) is a
-  // chapter introduction, not the book's own Introduction page.
+  // chapter introduction, not the book's own Introduction page. Count only the front
+  // matter when the first unit is known: Chitonga heads its Introduction NTALISYO and
+  // also opens chapters with NTALISYO sub-heads, which must not block the front one.
   const lexCount = {};
-  for (const x of blocks) if (/^(label|head|h1|h2|h3)$/.test(x.t)) { const k = fmText(x).toLowerCase(); lexCount[k] = (lexCount[k] || 0) + 1; }
+  for (const x of (firstUnit0 < 0 ? blocks : blocks.slice(0, firstUnit0))) if (/^(label|head|h1|h2|h3)$/.test(x.t)) { const k = fmText(x).toLowerCase(); lexCount[k] = (lexCount[k] || 0) + 1; }
   const lexFront = (x) => LEXI.isFrontSection(fmText(x)) && (lexCount[fmText(x).toLowerCase()] || 0) <= 1;
   let b = blocks.map((x, i) =>
     (firstUnit0 < 0 || i < firstUnit0) && !x.noPromote &&
@@ -130,7 +132,10 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // Section headings that carry a signatory — English plus local-language
   // equivalents (Lunda: MAZU ATACHI=Foreword, KULEMA…WUNU=Preface,
   // KUSAKILILA=Acknowledgement) so every book's signatory groups identically.
-  const SIGSEC = /FOREW|PREFACE|ACKNOWLEDG|MAZU ATACHI|KULEMA\b.*\bWUNU|KUSAKILILA/i;
+  // Plus any front-matter section the current language's word list names, except
+  // Authors/Editors (Chitonga MATALIKILO, KULUMBA and BUYALE each carry a signatory).
+  const SIGSEC_RE = /FOREW|PREFACE|ACKNOWLEDG|MAZU ATACHI|KULEMA\b.*\bWUNU|KUSAKILILA/i;
+  const SIGSEC = { test: (t) => SIGSEC_RE.test(t) || (LEXI.frontRank(t) ?? 0) >= 2 };
   // a signatory's name: a trailing honorific "… (Dr)" / "… (Ms.)", OR a leading
   // one "Dr. Name" / "Prof. Name" / "Dr Name" (the period is optional).
   // Trailing parenthetical honorific — allow internal dots/spaces so "(Ph.D.)",
@@ -217,6 +222,29 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // unit, by baking the number into the heading text — so it shows in BOTH the
   // body and the generated table of contents. (Skipped when the manuscript's
   // sub-topics are already numbered, e.g. Physics "Sub-Topic 4.1.1: …".)
+  // A lesson heading (h2) that DIRECTLY follows another heading — a unit banner, a strand
+  // heading (Chitonga KUSWIILILA AKWAAMBAULA / KUBALA / KULEMBA), or another h2 — with no
+  // text between does not page-break: it flows under that heading. Breaking there left the
+  // heading above alone on a near-empty page (or stranded at the foot of the previous
+  // one). The headings are sticky, so when little room is left at the foot of a page the
+  // whole stack still moves on to the next page together. A strand heading that is a
+  // plain head (no page break of its own) takes the lesson's page break instead, so the
+  // lesson still opens a fresh page, with its strand heading above it. An h2 directly
+  // followed by another h2 is a group heading over the lessons, not a lesson: unnumbered.
+  // Only a real heading counts: a bold line that is a sentence ("Expected Answer: (b)
+  // Visitors.", CTS Grade 1 TG) is the previous lesson's content and stays with it.
+  {
+    const isHeading = (x) => x && /^(h1|h2|h3|head|label)$/.test(x.t) && !/[.?!:;)]\s*$/.test((x.text || "").trim());
+    const withBreaks = [];
+    for (let i = 0; i < b.length; i++) {
+      const x = b[i], next = b[i + 1], prev = b[i - 1];
+      if (next && next.t === "h2" && /^(h3|head|label)$/.test(x.t) && isHeading(x) && !isHeading(prev)) withBreaks.push({ t: "pagebreak" });
+      if (x.t === "h2" && isHeading(prev)) { x.nobreak = true; if (prev.t === "h2") prev.group = true; }
+      withBreaks.push(x);
+    }
+    b = withBreaks;
+  }
+
   if (numberLessons) {
     // A back-matter section (APPENDICES, GLOSSARY, REFERENCES…) after the last unit
     // is not itself a unit and its own h2 sub-headings are not lesson components —
@@ -244,7 +272,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
       // (not just unlabelled), so a later sibling doesn't skip a number.
       else if (inUnit && x.t === "h2" && /^(introduction|tumbling activities)$/i.test((x.text || "").trim())) {
         // no-op: leave unnumbered, don't advance n
-      } else if (inUnit && x.t === "h2" && !/^(SUB[-\s‐-―]*TOPIC|TOPIC)\s*:?\s*[\d.]/i.test(x.text) && !/^\d+(\.\d+)+\b/.test(x.text)) {
+      } else if (inUnit && x.t === "h2" && !x.group && !/^(SUB[-\s‐-―]*TOPIC|TOPIC)\s*:?\s*[\d.]/i.test(x.text) && !/^\d+(\.\d+)+\b/.test(x.text)) {
         n += 1; x.text = `${n}. ${x.text}`;
       }
     }

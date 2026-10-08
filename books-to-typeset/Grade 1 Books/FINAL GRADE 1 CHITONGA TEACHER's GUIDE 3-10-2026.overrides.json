@@ -1,0 +1,19 @@
+{
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "coverImage": "chitonga-g1-tg-cover-hires.png",
+  "remove": ["Zyili Moomu"],
+  "insertText": [
+    {
+      "before": "© Ministry of Education, 2026",
+      "align": "center",
+      "text": [
+        "Lyakabambwa akulembwa aba Zambia Educational Publishing House",
+        "Light Industrial Area",
+        "Chishango Road",
+        "P.O. Box 32708",
+        "Lusaka, Zambia"
+      ]
+    }
+  ]
+}

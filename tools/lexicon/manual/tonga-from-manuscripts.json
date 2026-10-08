@@ -1,0 +1,12 @@
+{
+  "_note": "Chitonga wordings found in the manuscripts themselves (not on the author's form). FINAL GRADE 1 CHITONGA TEACHER's GUIDE: 'Bbuku lyamulaka wa Chitonga lya Giledi 1', 'mulwiiyo lwa pulaimali', 'Eeli Bbuku Lyabayi', 'bbuku lyasicikolo', author page headed BALEMBI.",
+  "source": "FINAL GRADE 1 CHITONGA TEACHER's GUIDE 3-10-2026 (manuscript)",
+  "header": { "language": "Chitonga", "your name": "(from manuscript)", "book and grade": "Chitonga Grade 1 TG" },
+  "rows": [
+    ["Grade", "Giledi"],
+    ["Primary Education Level", "Lwiiyo lwa Pulaimali"],
+    ["Teacher's Guide", "Bbuku Lyabayi"],
+    ["Learner's Book", "Bbuku Lyasicikolo"],
+    ["Authors / Written by", "Balembi"]
+  ]
+}
