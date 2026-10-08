@@ -166,6 +166,16 @@
   set page(
     paper: T.paper,
     flipped: T.at("landscape", default: false),
+    // FOR PROOFREADING watermark on the first proof (off with "proofMark": false once
+    // the book comes back with comments). In the foreground so a full-bleed cover
+    // picture can't hide it; faint enough to read the page through.
+    foreground: if T.at("proofMark", default: false) {
+      // A wide box keeps it on one line: rotation happens after layout, so the
+      // text would otherwise wrap at the page width ("FOR PROOF- / READING").
+      place(center + horizon, rotate(if T.at("landscape", default: false) { -32deg } else { -52deg },
+        box(width: 400mm, align(center, text(font: T.font, size: 54pt, weight: "bold", hyphenate: false,
+          tracking: 3pt, fill: luma(40%).transparentize(80%))[FOR PROOFREADING]))))
+    },
     // 20mm frame all round: the footer/page number lives in the bottom margin, so the
     // bottom margin is enlarged just enough that the footer itself sits 20mm from the edge.
     margin: if syllabus { (top: 20mm, bottom: 32mm, x: 20mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
