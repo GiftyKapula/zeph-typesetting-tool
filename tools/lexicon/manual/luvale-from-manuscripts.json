@@ -1,0 +1,9 @@
+{
+  "_note": "Luvale wordings found in the manuscripts themselves (not on an author's form). LUVALE ECE 3-4 TG cover: 'EARLY CHILDHOOD EDUCATION (ECE)', 'VAMYAKA 3 – 4', 'MUKANDA WAMULONGESHI', author label 'Ausonekele'. The authors keep 'Early Childhood Education' in English throughout, so no Luvale level_ece is recorded.",
+  "source": "LUVALE ECE 3-4 TG (manuscript)",
+  "header": { "language": "Luvale", "your name": "(from manuscript)", "book and grade": "Luvale ECE 3-4 TG" },
+  "rows": [
+    ["Teacher's Guide", "Mukanda wamulongeshi"],
+    ["Authors / Written by", "Ausonekele"]
+  ]
+}
