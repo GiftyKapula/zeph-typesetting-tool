@@ -15,6 +15,11 @@
       "file": "ZEPH Local Language Words Form_Lunda.pdf",
       "author": "Kasai Joshua",
       "book": ""
+    },
+    {
+      "file": "ECE Lunda LEVEL 1 TG.docx",
+      "author": "(from manuscript)",
+      "book": "Lunda ECE Level 1 TG"
     }
   ],
   "terms": {
@@ -29,13 +34,14 @@
       "Mukanda Wakadizi"
     ],
     "teachers_guide": [
+      "Mukanda Wakulombola Ntañishi",
       "Mukanda wa Ntañishi",
       "Mukanda Wantañishi",
       "Mukanda wakulobola Ntañishi"
     ],
     "level_ece": [
-      "Shikola yakudiza kufuma hakusemuka nakushika yaaka yitanu nayiyedi",
-      "Shikola Yakudizila Anyanya"
+      "Shikola Yakudizila Anyanya",
+      "Shikola yakudiza kufuma hakusemuka nakushika yaaka yitanu nayiyedi"
     ],
     "level_primary": [
       "Shikola yamañu yanyanya mañu 1 - 6",
@@ -82,7 +88,8 @@
     ],
     "unit": [
       "Chibalu",
-      "Chikunku"
+      "Chikunku",
+      "Kapetulu"
     ],
     "topic": [
       "Mutu wansañu weneni",
@@ -183,6 +190,9 @@
       "Reference",
       "Kunafumi Nsañu",
       "nyikanda yansulu yawunsahu"
+    ],
+    "authors_label": [
+      "Ansoneki"
     ]
   },
   "extras": [],

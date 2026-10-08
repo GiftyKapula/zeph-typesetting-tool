@@ -1,0 +1,31 @@
+{
+  "_note_cover": "The manuscript's cover picture (image1.png, 1226x1283) has no lettering in it. Cut to the series cover card's 122:78 shape across its full width (y 250-1034: the teacher, the tyre-hopping and wheelchair children, the top of the sandpit), Real-ESRGAN x4 then scaled to 2452x1568, ~510 DPI at 122mm.",
+  "coverImage": "lunda-ece-level1-tg-cover-hires.png",
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "authors": [
+    "Kapiteni Edah Samutamu",
+    "Kakoma Mushitala"
+  ],
+  "_note_ansoneki": "The ANSONEKI heading sits right after the author's hand-typed contents list, and its one-line bios are too short for the contents-list dropper to see it as a real section, so it is dropped with the list. Put it back above the bios.",
+  "insertHead": [
+    {
+      "before": "Kapiteni Edah Samutamu:",
+      "head": "ANSONEKI",
+      "as": "h1"
+    }
+  ],
+  "_note_toc": "The contents page lists only headings it knows as units (UNIT/TOPIC/CHAPTER/CHIBALU/CIPATI), not KAPETULU, so it came out empty: list every section heading (ANSONEKI + the 11 chapters), as in the Kiikaonde ECE TG.",
+  "tocUnitsOnly": false,
+  "_note_edit": "Chapter-heading slips in the manuscript: the colon of Chapter 3 sits before its number (every other chapter is \"KAPETULU N: ...\"), and Chapter 10 has a double space.",
+  "edit": [
+    {
+      "find": "KAPETULU: 3 CHIYUULU",
+      "with": "KAPETULU 3: CHIYUULU"
+    },
+    {
+      "find": "KAPETULU 10:  KUTAÑA",
+      "with": "KAPETULU 10: KUTAÑA"
+    }
+  ]
+}
