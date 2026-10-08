@@ -239,7 +239,14 @@ async function main() {
       continue;
     }
     const names = (byDims.get(p.w + "x" + p.h) || []).filter((n) => !taken.has(n));
-    if (!names.length) { unresolved.push(p); continue; }
+    if (!names.length) {
+      // The same media placed a second time (a picture repeated in an exercise): the
+      // one override already covers every use, so fold it into that job — keeping the
+      // lower ppi, since the larger placement decides how many pixels are needed.
+      const again = jobs.find((j) => !j.cropped && j.w === p.w && byDims.get(p.w + "x" + p.h)?.includes(j.name));
+      if (again) { again.ppi = Math.min(again.ppi, p.ppi); continue; }
+      unresolved.push(p); continue;
+    }
     taken.add(names[0]);
     jobs.push({ name: names[0], from: path.join(srcDir, names[0]), w: p.w, ppi: p.ppi, page: p.page, cropped: false });
   }
