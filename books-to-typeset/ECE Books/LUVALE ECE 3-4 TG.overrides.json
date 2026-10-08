@@ -1,0 +1,10 @@
+{
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "authors": ["Kayelu Kakoma Jacob"],
+  "images": {
+    "image2.emf": { "src": "luvale-ece-tg-vowels-ioaue.png", "w": 360 }
+  },
+  "dropDupImages": true,
+  "remove": ["IUEAO"]
+}
