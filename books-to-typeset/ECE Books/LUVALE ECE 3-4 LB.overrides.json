@@ -1,0 +1,192 @@
+{
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "coverImage": "luvale-ece-lb-cover-hires.png",
+  "authors": [
+    "Kayelu Kakoma Jacob"
+  ],
+  "dropDupImages": true,
+  "images": {
+    "image50.emf": {
+      "src": "luvale-ece-lb-vowels-iueao.png",
+      "w": 360
+    },
+    "image53.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image53.png"
+    },
+    "image25.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image25.png"
+    },
+    "image54.png": {
+      "src": "LUVALE ECE 3-4 LB-hires/image54.png"
+    },
+    "image55.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image55.png"
+    },
+    "image56.png": {
+      "src": "LUVALE ECE 3-4 LB-hires/image56.png"
+    },
+    "image21.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image21.png"
+    },
+    "image19.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image19.png"
+    },
+    "image17.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image17.png"
+    },
+    "image43.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image43.png"
+    },
+    "image42.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image42.png"
+    },
+    "image31.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image31.png"
+    },
+    "image38.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image38.png"
+    },
+    "image37.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image37.png"
+    },
+    "image45.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image45.png"
+    },
+    "image47.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image47.png"
+    },
+    "image36.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image36.png"
+    },
+    "image49.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image49.png"
+    },
+    "image35.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image35.png"
+    },
+    "image52.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image52.png"
+    },
+    "image33.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image33.png"
+    },
+    "image32.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image32.png"
+    },
+    "image7.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image7.png"
+    },
+    "image8.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image8.png"
+    },
+    "image10.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image10.png"
+    },
+    "image11.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image11.png"
+    },
+    "image2.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image2.png"
+    },
+    "image48.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image48.png"
+    },
+    "image34.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image34.png"
+    },
+    "image24.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image24.png"
+    },
+    "image51.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image51.png"
+    },
+    "image65.png": {
+      "src": "LUVALE ECE 3-4 LB-hires/image65.png"
+    },
+    "image40.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image40.png"
+    },
+    "image39.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image39.png"
+    },
+    "image5.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image5.png"
+    },
+    "image58.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image58.png"
+    },
+    "image62.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image62.png"
+    },
+    "image63.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image63.png"
+    },
+    "image64.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image64.png"
+    },
+    "image29.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image29.png"
+    },
+    "image16.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image16.png"
+    },
+    "image4.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image4.png"
+    },
+    "image3.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image3.png"
+    },
+    "image44.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image44.png"
+    },
+    "image46.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image46.png"
+    },
+    "image41.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image41.png"
+    },
+    "image6.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image6.png"
+    },
+    "image12.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image12.png"
+    },
+    "image14.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image14.png"
+    },
+    "image30.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image30.png"
+    },
+    "image13.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image13.png"
+    },
+    "image27.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image27.png"
+    },
+    "image9.png": {
+      "src": "LUVALE ECE 3-4 LB-hires/image9.png"
+    },
+    "image57.png": {
+      "src": "LUVALE ECE 3-4 LB-hires/image57.png"
+    },
+    "image59.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image59.png"
+    },
+    "image15.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image15.png"
+    },
+    "image23.jpeg": {
+      "src": "LUVALE ECE 3-4 LB-hires/image23.png"
+    }
+  },
+  "remove": [
+    "IUEAO"
+  ],
+  "replaceExact": [
+    {
+      "find": "A  E   I   O   U",
+      "with": "A E I O U"
+    }
+  ]
+}
