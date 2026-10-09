@@ -49,6 +49,41 @@
       "find": "UMUTWE 6: UKUMFWA NA UKULANDA NA UKUBELENGA",
       "text": "UMUTWE: UKUMFWA NA UKULANDA NA UKUBELENGA",
       "as": "head"
+    },
+    {
+      "find": "ISAMBILILO 3: ukwikata icitabo elyo na ukusambilila ukuleemba.",
+      "text": "ISAMBILILO 3: ukwikata icitabo elyo na ukusambilila ukuleemba",
+      "as": "h2"
+    },
+    {
+      "find": "ISAMBILILO 2: ukulanshanya – Abana basuma na itontonkayo ilikulu.",
+      "text": "ISAMBILILO 2: ukulanshanya – Abana basuma na itontonkayo ilikulu",
+      "as": "h2"
+    },
+    {
+      "find": "ISAMBILILO 2: Ilyashi – Ulwendo lwa ku sukulu elyo na ikwishiba ifikembo na ifikope.",
+      "text": "ISAMBILILO 2: Ilyashi – Ulwendo lwa ku sukulu elyo na ikwishiba ifikembo na ifikope",
+      "as": "h2"
+    },
+    {
+      "find": "ISAMBILILO 2: Ilyashi – ibala lya kwa maayo na meepusho yakuipangila.",
+      "text": "ISAMBILILO 2: Ilyashi – ibala lya kwa maayo na meepusho yakuipangila",
+      "as": "h2"
+    },
+    {
+      "find": "ISAMBILILO 2: ILYASHI – TWATEMWA ZAMBIA, AMASHIWI YA KUFUMYAKO ELYO NA ILYASHI ILYA ANGUKA.",
+      "text": "ISAMBILILO 2: ILYASHI – TWATEMWA ZAMBIA, AMASHIWI YA KUFUMYAKO ELYO NA ILYASHI ILYA ANGUKA",
+      "as": "h2"
+    },
+    {
+      "find": "UBULONDOLOSHI BWA UMUTWE UNOONO:",
+      "near": "Bana bakumfwa, papa amukono",
+      "as": "label"
+    },
+    {
+      "find": "IFILEKABILWA UKWISHIBA:",
+      "near": "Bana bakumfwa, papa amukono",
+      "as": "label"
     }
   ],
   "tocUnitsOnly": false,
