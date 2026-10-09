@@ -26,6 +26,10 @@ const DB_PATH = process.env.ZEPH_DB || path.join(ROOT, "data", "zeph.db");
   }
 }
 const db = new DatabaseSync(DB_PATH);
+// (busy_timeout FIRST: several builds run in parallel (tools/qa/batch.mjs) and each opens
+// this database — without a timeout the second one fails at once with "database is locked"
+// instead of waiting its turn)
+db.exec("PRAGMA busy_timeout = 20000;");
 db.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;");
 
 db.exec(`

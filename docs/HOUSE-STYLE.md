@@ -231,3 +231,22 @@ file extension and a like-for-like aspect ratio.
 
 Old binary `.doc` files won't parse — convert with LibreOffice first:
 `soffice --headless -env:UserInstallation=file:///C:/temp/loconv --convert-to docx --outdir <dir> "<file>.doc"`.
+
+## Covers: back cover and spine (publisher rule, October 2026)
+
+- **Back cover** is plain: the cover colour, a white box for the ISBN and barcode,
+  and at the foot the ZEPH logo over "Printed by Zambia Educational Publishing House".
+  It never repeats the front cover's level / title / book type.
+- **Spine**: a book of more than 112 pages gets a spine. The engine writes a second
+  PDF next to the book, `<book> - cover spread.pdf` (back cover | spine | front cover
+  on one sheet, for the printer). The spine shows the book name and the level, the
+  book type when the spine is long enough, and the ZEPH logo at the foot. Its width is
+  pages × 0.055 mm + 1 mm (80 gsm paper); set `"spineMmPerPage"` in a book's
+  overrides for other paper. Landscape syllabus books are not included.
+- **Trim allowance**: the printer trims covers by 2 mm on every side, so the cover spread is 2 mm larger
+  all round: each cover is scaled up evenly (about 1.6%) from its spine edge so its own artwork fills the margin (no spliced strips, so no joins inside a cover). Change
+  with `"coverTrimMm"` per book.
+- **Covers inside the book** (`"coversInBook": true`, on trial with the Kiikaonde Form 1
+  TG): the spread (back | spine | front, with the trim allowance) becomes page 1 of the
+  book PDF, as with the syllabuses, instead of a separate front page, back page and
+  "cover spread" file.

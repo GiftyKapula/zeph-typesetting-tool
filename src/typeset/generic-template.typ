@@ -82,7 +82,7 @@
 // line, found no "FORM <digit>" in it, and silently dropped the FORM 2 tag from that
 // book's cover. The same trap is waiting in PERFORMING ARTS, TRANSFORMATION, REFORM.
 // (ECE books carry "ECE" where other books carry "Form N" / "Grade N")
-#let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FOMU|ECE)\\b")) != none
+#let hasGradeWord(s) = upper(s).match(regex("\\b(FORM|GRADE|FO+MU|FWOMU|ECE)\\b|\\b(LEVEL|LEVO|ZAKA|IMYAKA|YAAKA|MYAKA)\\s+\\d")) != none
 
 // Printed cover / title-page labels in the book's own language (T.labels, filled from a
 // local-language book's word list in typeset-docx.js; empty for English books, which
@@ -99,6 +99,7 @@
 }
 #let authlabel(byline) = {
   let a = T.at("labels", default: (:)).at("authors", default: "")
+  if a == "" { a = T.at("authorsWord", default: "") }
   if a != "" { upper(a) } else if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }
 }
 
@@ -366,11 +367,11 @@
   set text(font: T.displayFont)
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
   // The subject title: if the grade line is "SUBJECT FORM N" use the stripped
   // subject ("PHYSICS"); if the grade line is just "FORM N", the subject sits on
   // its OWN line ("BIOLOGY") — take the first non-eyebrow, non-grade line.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { "" }
+  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
       not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
@@ -443,11 +444,15 @@
   // silently overlapped. Past 2 names, wrap them into one centred paragraph
   // instead (matching how the cover's own byline already handles a long list).
   if byline.len() > 0 {
-    v(20mm)
+    v(if byline.len() > 3 { 9mm } else { 20mm })
     align(center)[
       #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
       #v(3mm)
-      #if byline.len() > 2 {
+      #if byline.len() > 4 {
+        // (five or more names: two centred columns, so the list stays clear of the publisher rule)
+        grid(columns: (auto, auto), column-gutter: 12mm, row-gutter: 3mm, align: center,
+          ..byline.map(a => text(size: 12.5pt, weight: "medium", fill: T.ink)[#a]))
+      } else if byline.len() > 2 {
         text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
       } else {
         for a in byline [ #text(size: 13pt, weight: "medium", fill: T.ink)[#a] #v(3.5mm) ]
@@ -584,12 +589,12 @@
     // ---------- SCIENCE cover (Physics): deep-indigo signature field with
     // concentric "electron orbit" rings, white title, amber FORM tag ----------
     let gl = if hasGradeWord(subject) { subject } else { grade }
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|fo+mu|fwomu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
     // The subject title comes from the subject line with any form/grade token
     // stripped (e.g. "PHYSICS FORM 4" -> "PHYSICS"). When the subject and form
     // sit on SEPARATE lines (e.g. "BIOLOGY" + "FORM 4"), stripping leaves the
     // subject intact; fall back to the raw subject if stripping empties it.
-    let nm = subject.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim()
+    let nm = subject.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim()
     let name = if nm != "" { nm } else { subject }
     let amber = T.accent
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
@@ -864,8 +869,8 @@
     // thick-framed hero), but keeps the SAME word order: eyebrow -> subject ->
     // FORM tag -> book type -> photo -> authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim() } else { subject }
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -921,8 +926,8 @@
     // SAME word order: eyebrow -> subject -> FORM tag -> book type -> photo ->
     // authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim() } else { subject }
     let paper = rgb("#f4f1e6")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -977,8 +982,8 @@
     // bleed photo band, with authors + publisher on the colour footer. A clear break
     // from Grade 3's title-band + framed-photo-card look (no scallop/zigzag). ---------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim() } else { subject }
     // The cover stays in FULL COLOUR even when the interior is greyscale (blackWhite/mono),
     // so use the cover-only colour fields (they equal the theme colours for normal books).
     let primary = T.at("covPrimary", default: T.primary)
@@ -1041,8 +1046,8 @@
     // plate, with confetti on the field. Contained and warm — distinct from both Grade
     // 3 and the Hero Wave. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim() } else { subject }
     let paper = rgb("#fffaf1")
     let deep = T.primary.darken(12%)
     page(margin: 0pt, header: none, footer: none, fill: T.primary, width: 176mm, height: 250mm)[
@@ -1087,8 +1092,8 @@
     // card. Same word order as every cover: eyebrow -> subject -> GRADE tag ->
     // book type -> photo -> authors -> publisher. ----------
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim() } else { subject }
     let paper = rgb("#eafafa")
     let deep = T.primary.darken(10%)
     page(margin: 0pt, header: none, footer: none, fill: paper, width: 176mm, height: 250mm)[
@@ -1141,8 +1146,8 @@
     ]
   } else if series {
     let gl = grade
-    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
-    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { subject }
+    let formtxt = if gl != none { let m = gl.match(regex("(?i)(form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+    let name = if gl != none { gl.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim() } else { subject }
     let deepteal = T.primary.darken(30%)
     page(margin: 0pt, header: none, footer: none, fill: T.signature, width: 176mm, height: 250mm)[
       #set text(font: T.displayFont)
@@ -1183,10 +1188,15 @@
       ]
       // --- authors: an "AUTHORS" label tab sitting on the names tag (tilted) ---
       #if byline.len() > 0 [
-        #place(top + center, dy: 196mm, align(center)[
+        #place(top + center, dy: if byline.len() > 3 { 193.5mm } else { 196mm }, align(center)[
           #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#authlabel(byline)]])
-        #place(top + center, dy: 201mm, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt)[
-          #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#byline.join("   •   ")]]))
+        // (more than three names: two balanced lines in a smaller size, band lifted a
+        // little — one long line ran off the band and under the ZEPH logo)
+        #let many = byline.len() > 3
+        #let half = calc.ceil(byline.len() / 2)
+        #place(top + center, dy: if many { 199mm } else { 201mm }, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: if many { 5pt } else { 8pt }), radius: 4pt)[
+          #set par(leading: 0.45em)
+          #align(center)[#text(fill: white, weight: "bold", size: if many { 10pt } else { 12pt }, tracking: 0.3pt)[#if many [#byline.slice(0, half).join("   •   ") \ #byline.slice(half).join("   •   ")] else [#byline.join("   •   ")]]]]))
       ]
       // --- publisher + logo, bottom centre ---
       #place(bottom + center, dy: -13mm, align(center)[
@@ -1461,13 +1471,13 @@
   let subject = lines.at(0, default: "")
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
+  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b")); if m != none { m.text } else { "" } } else { "" }
   // Subject title: strip the form/grade token off the grade line ("ENGLISH GRADE 2"
   // -> "ENGLISH"). When the subject and the form sit on SEPARATE lines
   // ("MATHEMATICS" + "Form 1") that leaves nothing, so fall back to the first line
   // that is neither a form/grade nor the standard eyebrow. Without this fallback the
   // name came out blank and the "·" separator was left orphaned. Mirrors `cover`.
-  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|grade)\\s+\\d+|\\bECE\\b)"), "").trim() } else { "" }
+  let gradeSubj = if grade != none { grade.replace(regex("(?i)\\s*((form|fo+mu|grade|level|levo|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE\\b)"), "").trim() } else { "" }
   let name = if gradeSubj != "" { gradeSubj } else {
     let cand = lines.slice(0, calc.max(1, lines.len() - 1)).filter(l =>
       not hasGradeWord(l) and upper(l).trim() != "SECONDARY EDUCATION ORDINARY LEVEL")
@@ -1490,62 +1500,57 @@
   // would otherwise be printed twice — once small and once as the title. Fall back
   // to the education level in that case, as the front cover does.
   let eyebrow = if hasGradeWord(rawsub) or (rawsub == name) { T.eyebrow } else { rawsub }
-  // signature-colour dominant, mirroring the front.
+  // signature-colour dominant, mirroring the front. Publisher rule: the back cover does
+  // NOT repeat the front's title — it is plain, with only the ISBN / barcode space, and
+  // the ZEPH logo over "Printed by Zambia Educational Publishing House" at the foot.
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
     // corner wedges
     #place(top + left, polygon(fill: accentc, (0mm, 250mm), (0mm, 197mm), (59mm, 250mm)))
     #place(top + left, polygon(fill: accentc, (176mm, 250mm), (176mm, 215mm), (137mm, 250mm)))
-    // MUSICAL ARTS (notes): the same scattered colourful note glyphs as the front
-    // cover, echoed here in the open field so front and back read as one set.
-    #if T.motif == "notes" [
-      #place(top + left, dx: 20mm, dy: 60mm, rotate(-10deg, text(size: 22pt, fill: onfield.transparentize(20%))[♪]))
-      #place(top + right, dx: -22mm, dy: 62mm, rotate(10deg, text(size: 20pt, fill: accentc.transparentize(10%))[♬]))
-      #place(bottom + left, dx: 24mm, dy: -70mm, rotate(8deg, text(size: 20pt, fill: onfield.transparentize(25%))[♫]))
-      #place(bottom + right, dx: -26mm, dy: -70mm, rotate(-8deg, text(size: 22pt, fill: accentc.transparentize(10%))[♪]))
-    ]
-    // book identity — CENTRED (every element on the back cover reads centred,
-    // matching the publisher branding block below it).
-    #place(top + center, dy: 20mm, block(width: 144mm)[#align(center)[
-      #text(size: 11pt, weight: "bold", fill: onfield, tracking: 1.5pt)[#upper(eyebrow)]
-      #v(3mm)
-      // Subject on its own line — scaled down to fit if a long subject name
-      // would otherwise overflow the block.
-      #layout(sz => {
-        let ttl = box(text(size: 26pt, weight: "bold", fill: onfield)[#name])
-        let m = measure(ttl)
-        if m.width > sz.width and m.width > 0pt {
-          scale(x: sz.width / m.width * 100%, y: sz.width / m.width * 100%, reflow: true, origin: left + horizon, ttl)
-        } else { ttl }
-      })
-      // Form/grade on its OWN line, between the subject and the book type.
-      #if formtxt != "" [
-        #v(2mm)
-        #text(size: 16pt, weight: "bold", fill: accentc)[#upper(lbl(formtxt))]
-      ]
-      #v(1mm)
-      #text(size: 13pt, weight: "bold", fill: onfield)[#upper(lbl(booktype))]
-      #v(3mm)
-      #box(fill: accentc, width: 34mm, height: 2.5pt, radius: 1.5pt)
-    ]])
-    // publisher branding, centred
-    #place(top + center, dy: 120mm, align(center)[
-      #if logo != none [ #image("_media/" + logo.file, height: 20mm) #v(4mm) ]
-      #text(size: 14pt, weight: "bold", fill: onfield)[Zambia Educational Publishing House]
-      #v(1mm)
-      #text(size: 11pt, fill: pubsub)[Lusaka, Zambia]
+    // ISBN: if known, print it in the box; otherwise reserve the clean box for the
+    // press to add the ISBN + barcode at print time.
+    #place(top + center, dy: 150mm, box(width: 60mm, height: 30mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
+      #align(center + horizon)[#if isbn != none { text(size: 11pt, weight: "bold", fill: black)[ISBN #isbn] } else { text(size: 8pt, fill: luma(55%))[ISBN & barcode] }]])
+    #place(bottom + center, dy: -12mm, align(center)[
+      #if logo != none [ #image("_media/" + logo.file, height: 10mm) #v(2mm) ]
+      #text(size: 8.5pt, fill: onfield)[#if T.printedBy != "" { T.printedBy } else [Printed by]] #linebreak()
+      #text(size: 8.5pt, fill: onfield)[Zambia Educational Publishing House]
     ])
-    // ISBN: if known, print it (no barcode); otherwise reserve a clean box for
-    // the press to add the ISBN + barcode at print time. CENTRED, like every
-    // other element on the back cover — sitting on the page's centre line also
-    // keeps it well clear of both bottom corner wedges (see "corner wedges"
-    // above: triangles from (0,197mm)-(0,250mm)-(59,250mm) and the mirrored one
-    // on the right), which only reach in from the left/right edges.
-    #if isbn != none [
-      #place(bottom + center, dy: -43mm, text(size: 11pt, weight: "bold", fill: onfield)[ISBN #isbn])
-    ] else [
-      #place(bottom + center, dy: -45mm, box(width: 52mm, height: 26mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
-        #align(center + horizon)[#text(size: 8pt, fill: luma(55%))[ISBN & barcode]]])
+  ]
+}
+
+// ---- spine (books over 112 pages): one page as wide as the spine, in the cover's
+// signature colour, compiled on its own and set between the back and front covers in
+// the cover-spread PDF. The title reads top to bottom (book-spine convention); the
+// book type and the level are added only when the spine is long enough for them;
+// the ZEPH logo sits at the foot. ----
+#let spine(name, level, booktype, logo, width) = {
+  let signature = T.at("covSignature", default: T.signature)
+  let primary = T.at("covPrimary", default: T.primary)
+  let accent = T.at("covAccent", default: T.accent)
+  let onfield = if science { white } else { primary.darken(30%) }
+  let accentc = if science { accent } else { primary }
+  let H = 250mm
+  let logoH = calc.min(width * 0.6, 8mm)
+  // the title starts level with the front cover's eyebrow line (19 mm down + its ascent)
+  let startY = 20mm
+  let room = H - startY - logoH - 16mm             // length left for the title run
+  let size = calc.min(width * 0.42, 15pt)
+  page(margin: 0pt, header: none, footer: none, fill: signature, width: width, height: H)[
+    #set text(font: T.displayFont, size: size, weight: "bold", fill: onfield)
+    // clear space either side of the dot between the name, the level and the book type
+    #let sep = [#h(1.4em)#text(fill: accentc)[#sym.dot.c]#h(1.4em)]
+    #let full = [#upper(name)#if level != "" [#sep#upper(level)]#if booktype != "" [#sep#text(weight: "regular")[#upper(booktype)]]]
+    #let short = [#upper(name)#if level != "" [#sep#upper(level)]]
+    #context {
+      let run = if measure(full).width <= room { full } else if measure(short).width <= room { short } else { upper(name) }
+      let w = measure(run).width
+      let s = if w > room { room / w * 100% } else { 100% }
+      place(top + center, dy: startY, rotate(90deg, reflow: true, scale(x: s, y: s, reflow: true, run)))
+    }
+    #if logo != none [
+      #place(bottom + center, dy: -9mm, image("_media/" + logo.file, height: logoH))
     ]
   ]
 }
@@ -1605,13 +1610,22 @@
 // A multi-column word list (e.g. "bug | 6. hobby") the author laid out with spaces.
 // Rendered as an aligned grid so the columns line up, which spaces cannot do (Typst
 // collapses them). An optional row marker ("1.", "2."…) is a bold left column.
-#let colgrid(rows: (), ncol: 2, hasMarker: false, header: none) = {
+#let colgrid(rows: (), ncol: 2, hasMarker: false, header: none, plain: false, ruled: false) = {
   let bodycols = if rows.len() > 0 { rows.at(0).cells.len() } else { ncol }
-  let cols = if hasMarker { (auto,) + range(bodycols).map(_ => 1fr) } else { range(bodycols).map(_ => 1fr) }
+  // a cell holding one long word (wider than an equal share of the line) would spill into
+  // the next column: then the columns size to their content instead of equal shares
+  let longword = rows.any(r => r.cells.any(c => c.split(" ").any(w => w.len() > 11 and w.match(regex("^[_​]+$")) == none)))
+  // (each column then gets a share in proportion to the longest word it must hold)
+  let wlen(c) = c.split(" ").filter(w => w.match(regex("^[_​]+$")) == none).fold(6, (a, w) => calc.max(a, w.clusters().len()))
+  let body = range(bodycols).map(i => if longword and bodycols >= 3 { rows.fold(6, (a, r) => calc.max(a, wlen(r.cells.at(i, default: "")))) * 1fr } else { 1fr })
+  let cols = if hasMarker { (auto,) + body } else { body }
   // A cell often begins with its own number ("6. hobby"). Colour that leading number
   // the SAME primary/bold as the row marker so every number in the grid matches —
   // the rest of the cell stays in body ink.
   let cell(c) = {
+    // an answer blank typed as underscores is drawn as a rule as wide as its column (a long
+    // unbreakable run of "_" overflowed into the next column and covered its text)
+    if c.trim().match(regex("^[_\u{200B}]{3,}$")) != none { return block(width: 100%, inset: (top: 9pt))[#line(length: 100%, stroke: 0.6pt)] }
     let m = c.match(regex("^(\\(?\\d+[.)])\\s+(.*)$"))
     if m != none [#text(fill: T.primary, weight: "bold")[#m.captures.at(0)] #m.captures.at(1)] else [#c]
   }
@@ -1622,7 +1636,19 @@
     let mk = if hasMarker { ([],) } else { () }
     (mk + header.map(h => text(weight: "bold")[#h])).flatten()
   } else { () }
+  // `ruled` (a two-language glossary): a real table — tinted header row, a rule under
+  // every entry and between the two columns — so each word sits clearly beside its meaning
+  if ruled { return block(above: 6pt, below: 6pt, width: 100%)[
+    #set par(justify: false, leading: 0.5em)
+    #table(columns: cols, inset: (x: 6pt, y: 4pt), align: left + top,
+      stroke: (x, y) => (bottom: 0.5pt + T.rulec, left: if x > 0 { 0.5pt + T.rulec } else { none }, top: if y == 0 { 0.8pt + T.primary } else { none }),
+      fill: (x, y) => if y == 0 and header != none { T.primary.lighten(85%) } else { none },
+      table.header(..headRow),
+      ..rows.map(r => r.cells.map(c => cell(c))).flatten())
+  ] }
+  // `plain` (a glossary word list): ragged-right cells, so a wrapped entry is not stretched
   block(above: 6pt, below: 6pt, width: 100%)[
+    #set par(justify: false, leading: 0.5em) if plain
     #grid(columns: cols, column-gutter: 10pt, row-gutter: 6pt, align: left + top,
       ..headRow,
       ..rows.map(r => {
@@ -1729,7 +1755,20 @@
     // before the run's last character — so s.t already carries the right break points.
     let src = s.t
     // honour soft line breaks (encoded as "\n")
-    let body = src.split("\n").map(p => nohyph(p)).join(linebreak())
+    // a long dotted answer line arrives as one U+2063 marker (see zwspBlanks in emit.js):
+    // draw it as a leader that fills to the end of the line, never past the margin
+    let leader = box(width: 1fr, repeat(gap: 0.12em)[.])
+    // …and a long underscore answer line arrives as U+2064: a rule to the end of the line
+    // (min 25 mm, so a blank after a long prompt drops to its own full line, never two)
+    let rule = box(width: 1fr, inset: (bottom: -0.15em))[#box(width: 100%, height: 0.6em)[#place(bottom, line(length: 100%, stroke: 0.6pt))] #h(0pt)]
+    let fill(p) = {
+      let parts = p.split("\u{2064}")
+      parts.enumerate().map(((k, x)) => {
+        let dotted = x.split("\u{2063}").map(y => [#y]).join([ #leader])
+        if k < parts.len() - 1 [#dotted#box(width: 25mm)[]#h(-25mm, weak: false)#rule] else [#dotted]
+      }).join()
+    }
+    let body = src.split("\n").map(p => if p.contains("\u{2063}") or p.contains("\u{2064}") { fill(p) } else { nohyph(p) }).join(linebreak())
     // a run marked monospace (ASCII-art diagrams the author laid out with literal spaces
     // in Word — a proportional font can't hold the columns the manuscript relied on)
     // renders through raw() so every space keeps its exact fixed-width position.
@@ -1873,7 +1912,9 @@
   if lvl > 0 {
     let isb = marker == "•"
     let mk = text(fill: if isb { iaccent2 } else { T.primary }, weight: if isb { "regular" } else { "bold" })[#marker]
-    return pad(left: (lvl - 1) * 8mm + 5mm, grid(columns: (8mm, 1fr), align: (left + top, left + top), mk, par[#segs(ss)]))
+    // (a long decimal marker such as "2.1.1.1.1" takes the width it needs: in the fixed 8 mm
+    // column it ran into the text)
+    return pad(left: (lvl - 1) * 8mm + 5mm, grid(columns: (if marker.len() > 4 { auto } else { 8mm }, 1fr), column-gutter: if marker.len() > 4 { 2.5mm } else { 0pt }, align: (left + top, left + top), mk, par[#segs(ss)]))
   }
   let isbullet = marker == "•"
   // A numbered/lettered marker used to be bold unconditionally — right for the
@@ -2009,7 +2050,7 @@
 #let tocUnitsOnly = T.at("tocUnitsOnly", default: false)
 #let isUnitTitle(t) = {
   let u = upper(t)
-  u.starts-with("UNIT") or u.starts-with("TOPIC") or u.starts-with("CHAPTER") or u.starts-with("CHIBALU") or u.starts-with("CIPATI")
+  u.starts-with("UNIT") or u.starts-with("TOPIC") or u.starts-with("CHAPTER") or u.starts-with("CHIBALU") or u.starts-with("CIPATI") or u.starts-with("KAPETULU") or u.starts-with("CIBEELA") or u.starts-with("CHIBEELA") or u.starts-with("GAWO") or u.starts-with("ICIPANDE") or u.starts-with("CHIHANDA") or u.starts-with("TEMU")
 }
 // `brk` (default true) starts the section on a fresh page. Pass brk: false for a
 // section that must SHARE a page with what precedes it (e.g. an ACRONYMS list that
@@ -2057,11 +2098,14 @@
   ]
 }
 
-#let sectionhead(t, brk: true, outlined: true) = {
+#let sectionhead(t, brk: true, outlined: true, sleek: false, unit: false) = {
   if brk { pagebreak(weak: true) }
+  set par(justify: false)
   // Outline units always; outline front-matter sections only when the TOC is not
   // restricted to units (some books want a units-only contents page).
-  if outlined and (isUnitTitle(t) or not tocUnitsOnly) { mark(1, t) }
+  // (`unit`: the engine knows this heading opens a top-level section — a local-language
+  // topic title such as "MUTU WANSAÑU 1.1: …" that the English word test above misses)
+  if outlined and (unit or isUnitTitle(t) or not tocUnitsOnly) { mark(1, t) }
   curtopic.update(t)
   if boxstyle == "labcard" {
     let u = upper(t)
@@ -2146,7 +2190,10 @@
     v(6pt)
   }
 }
-#let subhead(t, nobrk: false) = {
+#let subhead(t, nobrk: false, nobar: false) = {
+  // a heading is never justified: a two-line heading stretched to the full width
+  // opens huge gaps between its few words ("MUTWE      WACHIHANDE      1.2.4.1:")
+  set par(justify: false)
   // Every Sub-Topic starts its own fresh page, same house-style rule as Topics
   // (topicbanner above) — a Sub-Topic heading must never land as a widow at the
   // foot of the page its parent Topic's overview text happened to fill. In a
@@ -2184,8 +2231,8 @@
     v(22pt, weak: true)
     block(width: 100%, breakable: false, sticky: true)[
       #text(fill: T.primary, size: hs(14pt), weight: "bold")[#upper(t)]
-      #v(2pt)
-      #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt)]
+      // (`nobar`: a heading stacked straight under another one — only the upper one is underlined)
+      #if not nobar [ #v(2pt) #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt) ]]
   } else if literary {
     // small diamond + italic serif title, with a thin gold rule under it
     block(width: 100%, breakable: false)[
@@ -2269,7 +2316,13 @@
   if al == "center" { std.align(center)[#body] } else { body }
   v(2pt)
 }
-#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
+// `keepcase` skips the serieslike house-style ALL-CAPS rendering, for a label
+// the author already wrote in sentence case and wants read that way — e.g. a
+// Teacher's Guide's "Expected Standard:" lesson-metadata field, meant to read
+// like its sibling "Specific Competence" heading, not shout in small caps.
+// plain: a book that wants its labels as ordinary bold body-size words ("Kweulula mulongeshi:")
+// instead of small tracked capitals (labelStyle: "sentence")
+#let lbl(t, col: none, keepcase: false, indent: false, plain: false) = { if indent { return pad(left: 7mm, lbl(t, col: col, keepcase: keepcase, plain: plain)) }; if plain { return context block(sticky: true, above: 1.5em, below: par.spacing)[#text(weight: "bold")[#t]] }; v(2pt); let c = if col != none { rgb("#" + col) } else { none }; /* sticky: a label never sits alone at the foot of a page, away from what it labels */ block(sticky: true, above: 0.65em, below: 0.65em)[#if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#if keepcase { t } else { upper(t) }] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }]; v(1pt) }
 
 // ---- boxes ---------------------------------------------------------------
 // modern:   light fill + thick accent LEFT stripe.
@@ -2349,10 +2402,30 @@
   } else if tall {
     image(pathstr, height: 95mm)
   } else {
-    // Keep illustrations large enough to read (accessibility): a generous floor
-    // so small source diagrams aren't shrunk, and reach full width sooner.
-    let f = if wpx <= 0 { 0.85 } else { calc.max(0.55, calc.min(1.0, wpx / 480)) }
-    image(pathstr, width: f * 100%)
+    v(2pt)
+    let img = if hmm > 0 {
+      // author asked to enlarge/fit: an explicit on-page height (mm), never wider than
+      // the text block (a wide picture then fills the width instead)
+      layout(size => {
+        let m = measure(image(pathstr, height: hmm * 1mm))
+        if m.width > size.width { image(pathstr, width: size.width) } else { image(pathstr, height: hmm * 1mm) }
+      })
+    } else if tall {
+      image(pathstr, height: 95mm)
+    } else {
+      // Keep illustrations large enough to read (accessibility): a generous floor
+      // so small source diagrams aren't shrunk, and reach full width sooner.
+      let f = if wpx <= 0 { 0.85 } else { calc.max(0.55, calc.min(1.0, wpx / 480)) }
+      image(pathstr, width: f * 100%)
+    }
+    // `sticky` keeps the picture on the same page as the heading/title that follows it.
+    // (the OUTER element is a full-width block, so a sticky heading just above — "NCHITO"
+    // over its picture — has a block to hold on to; a bare align() let it strand)
+    block(width: 100%, breakable: false, sticky: sticky)[#align(center)[
+      #img
+      #if cap != none [ #v(2pt) #text(size: capsz(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
+    ]]
+    v(3pt)
   }
   // `sticky` keeps the picture on the same page as the heading/title that follows it.
   align(center)[#block(breakable: false, sticky: sticky)[
@@ -2415,7 +2488,7 @@
 ]
 
 // ---- data table (rich cells: each cell is (text, img)) -------------------
-#let dtable(rows, noHeader: false) = if rows.len() > 0 and rows.at(0).len() > 0 {
+#let dtable(rows, noHeader: false, widths: none) = if rows.len() > 0 and rows.at(0).len() > 0 {
   v(2pt)
   // table text matches the body size (12pt) for readability; very wide tables
   // (5+ columns) step down so they still fit the page width. A theme may set a larger
@@ -2595,7 +2668,8 @@
   let uniformgrid = not fillin and not hasimg and ncols >= 2 and rows.all(r => r.all(c =>
     c.text != "" and not c.text.contains(" ") and c.text.len() <= 10
     and c.at("seg", default: ()).len() == 0 and c.imgs.len() == 0))
-  let cols = if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) { auto } else { colweight(ci) * 1fr }) }
+  // a book override may fix the column proportions outright (widths: (1.4, 2, 1))
+  let cols = if widths != none { widths.map(w => w * 1fr) } else if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) { auto } else { colweight(ci) * 1fr }) }
   // ---- CDC SYLLABUS matrix look: a GREY header row that REPEATS on every page, a black
   // inner grid + thicker outer frame, no zebra, the TOPIC column bold, the activities
   // column bulleted, and the TOPIC/SUB-TOPIC row-span merge (empty left cells continue the
@@ -2738,7 +2812,7 @@
   // the next page whole and leaving a near-empty page behind it.
   layout(size => {
     let h = measure(box(width: size.width)[#tbl]).height
-    if not hasimg and h < 400pt { block(breakable: false, width: 100%)[#tbl] } else { tbl }
+    if not hasimg and h < T.at("keepTableMm", default: 141) * 1mm { block(breakable: false, width: 100%)[#tbl] } else { tbl }
   })
   v(4pt)
 }
@@ -2919,7 +2993,7 @@
 #let boxfits = state("boxfits", true)
 #let keepwhole(kind, title, content, force: false) = {
   if force {
-    layout(sz => boxfits.update(measure(box(width: sz.width, content)).height < 180mm))
+    layout(sz => boxfits.update(measure(box(width: sz.width, content)).height < T.at("keepBoxMm", default: 180) * 1mm))
     context (if not boxfits.get() { pagebreak(weak: true) })
     context titledbox(title, T.at(kind), content, breakable: not boxfits.get())
   } else {

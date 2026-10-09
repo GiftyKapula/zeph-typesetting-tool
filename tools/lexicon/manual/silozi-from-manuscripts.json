@@ -1,0 +1,47 @@
+{
+  "_note": "Silozi wordings found in the manuscripts themselves. Added as extra variants.",
+  "source": "Silozi Form 1 LB (manuscript, 2026-10-08)",
+  "header": {
+    "language": "Silozi",
+    "your name": "(from manuscript)",
+    "book and grade": "Silozi Form 1 LB"
+  },
+  "rows": [
+    [
+      "Unit / Chapter",
+      "Mukanga"
+    ],
+    [
+      "Foreword",
+      "Linzwi la Makalelo"
+    ],
+    [
+      "Preface",
+      "Tahiso"
+    ],
+    [
+      "Acknowledgement(s)",
+      "Buitumelo"
+    ],
+    [
+      "Introduction",
+      "Makalelo"
+    ],
+    [
+      "Author(s) (about the authors)",
+      "Bañoli"
+    ],
+    [
+      "Table of Contents",
+      "Mukoloko wa Lituto"
+    ],
+    [
+      "How to use this book / guide",
+      "Mwa Kuitusiseza Buka Ye"
+    ],
+    [
+      "Glossary",
+      "Litaluso za Manzwi ni Lipulelo"
+    ]
+  ]
+}

@@ -83,7 +83,7 @@ function formatGrade3EngFrontMatter(blocks, detectName) {
 
 function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } = {}, detectName = "") {
   formatGrade3EngFrontMatter(blocks, detectName);
-  const isUnit = (x) => x.t === "h1" && (/^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "") || LEXI.isTopSection(x.text));
+  const isUnit = (x) => x.t === "h1" && (x.top || /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "") || LEXI.isTopSection(x.text));
   // Front-matter section names — English plus local-language equivalents
   // (e.g. Lunda: ANSONEKI=Authors, MAZU ATACHI=Foreword, KULEMA …WUNU=Preface,
   // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction). "HOW TO USE THIS
@@ -117,7 +117,9 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // also opens chapters with NTALISYO sub-heads, which must not block the front one.
   const lexCount = {};
   for (const x of (firstUnit0 < 0 ? blocks : blocks.slice(0, firstUnit0))) if (/^(label|head|h1|h2|h3)$/.test(x.t)) { const k = fmText(x).toLowerCase(); lexCount[k] = (lexCount[k] || 0) + 1; }
-  const lexFront = (x) => LEXI.isFrontSection(fmText(x)) && (lexCount[fmText(x).toLowerCase()] || 0) <= 1;
+  // (a credit LABEL on the copyright page — "ALEMBI:" = Authors: — is not the section)
+  const lexFront = (x) => LEXI.isFrontSection(fmText(x)) && (lexCount[fmText(x).toLowerCase()] || 0) <= 1
+    && !(x.t === "label" && /:\s*$/.test(fmText(x)));
   let b = blocks.map((x, i) =>
     (firstUnit0 < 0 || i < firstUnit0) && !x.noPromote &&
     (x.t === "label" || x.t === "head" || x.t === "h2" || x.t === "h3" || x.t === "listitem" || x.t === "para") &&
@@ -136,6 +138,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // Authors/Editors (Chitonga MATALIKILO, KULUMBA and BUYALE each carry a signatory).
   const SIGSEC_RE = /FOREW|PREFACE|ACKNOWLEDG|MAZU ATACHI|KULEMA\b.*\bWUNU|KUSAKILILA/i;
   const SIGSEC = { test: (t) => SIGSEC_RE.test(t) || (LEXI.frontRank(t) ?? 0) >= 2 };
+  const sigSec = (s) => SIGSEC.test(s);
   // a signatory's name: a trailing honorific "… (Dr)" / "… (Ms.)", OR a leading
   // one "Dr. Name" / "Prof. Name" / "Dr Name" (the period is optional).
   // Trailing parenthetical honorific — allow internal dots/spaces so "(Ph.D.)",
@@ -164,12 +167,20 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
     return { text: isOrg ? txt.toUpperCase() : txt, bold: isName || isAllCaps || isOrg };
   };
   const isText = (x) => x && (x.t === "para" || x.t === "head" || x.t === "label");
+  // A hand-signature line of dots the author typed above the signatory ("……………") —
+  // the signature block leaves its own room, so drop it.
+  const DOTS = /^[.…‥\s_]{5,}$/;
+  const dropDots = (out) => {
+    let k = out.length - 1;
+    while (k >= 0 && out[k].t === "vspace") k--;
+    if (k >= 0 && /^(para|head|label)$/.test(out[k].t) && DOTS.test(plainOfBlk(out[k]))) out.splice(k, 1);
+  };
   const isBold = (x) => x.t === "head" || x.t === "label" || (x.segs ? x.segs.some((s) => s.b) : false);
   {
     let section = "", done = false, withSig = [];
     for (let i = 0; i < b.length; i++) {
       const x = b[i];
-      const h1Sig = !done && SIGSEC.test(section) && sigH1(x) && SIGNAME.test((x.text || "").trim());
+      const h1Sig = !done && sigSec(section) && sigH1(x) && SIGNAME.test((x.text || "").trim());
       if (x.t === "h1" && !h1Sig) { section = x.text || ""; done = false; withSig.push(x); continue; }
       const plain = plainOfBlk(x);
       // A run-on signatory: one paragraph that carries the honorific inline and
@@ -181,12 +192,17 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
       // leading "Dr./Prof./…" prefix both count — SIGNAME alone would wrongly
       // exclude the leading-honorific style ("Dr. Beatrice Chirwa…") since it reads
       // as a plausible standalone name line even though it is not one here.
-      const runonSig = !done && SIGSEC.test(section) && x.t === "para" && Array.isArray(x.segs)
+      const runonSig = !done && sigSec(section) && x.t === "para" && Array.isArray(x.segs)
         && (SIGINLINE.test(plain) || /^(?:dr|prof|mr|mrs|ms|hon)\.?\s+[A-Z]/i.test(plain))
         && x.segs.filter((s) => s.t.trim()).length >= 2;
       if (runonSig) {
-        withSig.push({ t: "sigspace" });
-        const lines = x.segs.filter((s) => s.t.trim()).map((s, k) => sigLine(s.t.trim(), k === 0));
+        dropDots(withSig); withSig.push({ t: "sigspace" });
+        // a run can hold several lines glued together (a soft break lost, or the role run-on
+        // into the ALL-CAPS organisation: "…Chief Executive OfficerZAMBIA EDUCATIONAL…") —
+        // split them so only the real organisation line is set bold/uppercase.
+        const lines = x.segs.filter((s) => s.t.trim())
+          .flatMap((s, k) => s.t.split("\n").flatMap((p) => p.split(/(?<=[a-z])(?=[A-Z]{3,})/)).filter((p) => p.trim()).map((p, m) => [p.trim(), k === 0 && m === 0]))
+          .map(([t, isName]) => sigLine(t, isName));
         withSig.push({ t: "signature", lines });
         done = true;
         continue;
@@ -194,11 +210,11 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
       // A signatory NAME line is short ("Agness Mumba Wilkins (PhD)"); a prose sentence that
       // merely starts with an honorific ("Mr. Eustace Panga Museka wrote the book…") is not a
       // signature, so cap the length or it steals the block from the real signatory below it.
-      if (!done && SIGSEC.test(section) && (isText(x) || h1Sig) && SIGNAME.test(plain) && plain.length <= 60) {
+      if (!done && sigSec(section) && (isText(x) || h1Sig) && SIGNAME.test(plain) && plain.length <= 60) {
         // Leave room for a hand signature, then render the signatory block (name,
         // title, organisation) as a dedicated block whose lines are EVENLY spaced
         // — consistent across every book (the template controls the gap).
-        withSig.push({ t: "sigspace" });
+        dropDots(withSig); withSig.push({ t: "sigspace" });
         let j = i;
         const lines = [];
         while (j < b.length && (isText(b[j]) || (h1Sig && sigH1(b[j])))) {
@@ -207,6 +223,9 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
           // too; the title line (e.g. "Board Chairperson") is always regular weight.
           lines.push(sigLine(plainOfBlk(b[j]), j === i));
           j++;
+          // the organisation line closes the block (a heading right after it is the next
+          // section, not part of the signature)
+          if (j - i > 1 && SIGORG.test(plainOfBlk(b[j - 1]))) break;
         }
         withSig.push({ t: "signature", lines });
         done = true;

@@ -15,11 +15,37 @@
       "Zakueza"
     ],
     "assessment_topic": [
-      "Tatubo ya mafelelezo ya tuto",
-      "Mukanga"
+      "Tatubo ya mafelelezo ya tuto"
     ],
     "learners_book": [
       "Buka ya Mwana Sikolo"
+    ],
+    "unit": [
+      "Mukanga"
+    ],
+    "foreword": [
+      "Linzwi la Makalelo"
+    ],
+    "preface": [
+      "Tahiso"
+    ],
+    "acknowledgement": [
+      "Buitumelo"
+    ],
+    "introduction": [
+      "Makalelo"
+    ],
+    "author_section": [
+      "Bañoli"
+    ],
+    "contents": [
+      "Mukoloko wa Lituto"
+    ],
+    "how_to_use": [
+      "Mwa Kuitusiseza Buka Ye"
+    ],
+    "glossary": [
+      "Litaluso za Manzwi ni Lipulelo"
     ]
   },
   "extras": [],

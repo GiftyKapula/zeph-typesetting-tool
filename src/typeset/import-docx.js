@@ -40,6 +40,9 @@ let COLON_HEADINGS = false;
 // opts.exerciseBullets (per book): a Word bullet inside an exercise stays a bullet under the
 // current item. Off by default so books already proofread keep their a./b. rendering.
 let EXERCISE_BULLETS = false;
+// opts.tabGap (per book, set by glossaryColumns): a Word tab always leaves a gap of at least
+// two spaces, so a word list separated by ONE tab still splits into its two columns.
+let TAB_GAP = false;
 // opts.answerListNumbered (per book): opening words of answer lists that must stay
 // numbered 1, 2, 3… (a real step-by-step process) rather than becoming bullets.
 let ANSWER_NUMBERED = [];
@@ -526,7 +529,7 @@ function paraSegs(pXml) {
     let t = decode(tm)
       .replace(/[​-‍﻿]/g, "")   // drop zero-width junk (breaks ^label matching)
       .replace(/ *— */g, " - ");     // em dash -> spaced hyphen (house style)
-    if (tabs) t = t + " ".repeat(tabs);                // tabs -> spaces (no column artefacts)
+    if (tabs) t = t + " ".repeat(TAB_GAP ? Math.max(2, tabs) : tabs);                // tabs -> spaces (no column artefacts)
     const rpr = (run.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     // Hidden text (<w:vanish/>) — Word itself never displays or prints this run.
     // The recurring case in these manuscripts is "Top of Form"/"Bottom of Form",
@@ -745,7 +748,8 @@ function cellBlocks(tcXml) {
     const plain = plainOf(segs).trim();
     const li = listResolve(part);
     const paraOf = () => ({ t: "para", segs, plain, isList: !!li || /^[••]/.test(plain),
-      numId: li ? li.numId : null, lvl: li ? li.lvl : null, marker: li ? li.marker : null });
+      numId: li ? li.numId : null, lvl: li ? li.lvl : null, marker: li ? li.marker : null,
+      heading: /<w:pStyle w:val="Heading\d"/.test(part) });
     if (images.length) {
       const imgBlk = { t: "img", images, plain };
       // A paragraph may carry an image PLUS real text (e.g. a numbered question
@@ -844,6 +848,10 @@ function cellRich(tcXml) {
   const rich = segs.some((s) => s.m || s.b || s.it || s.c) ? segs : null;
   const out = { text, imgs, segs: rich };
   if (subs.length) out.subs = subs;
+  // lines the author styled as a Word Heading inside the cell (a section title typed
+  // into the same cell as the lines above it)
+  const heads = bl.filter((b) => b.t === "para" && b.segs && b.heading && b.plain).map((b) => b.plain);
+  if (heads.length) out.heads = heads;
   return out;
 }
 
@@ -1878,6 +1886,7 @@ function groupAssessments(blocks) {
 async function importDocx(docxPath, opts = {}) {
   COLON_HEADINGS = !!opts.colonHeadings;
   EXERCISE_BULLETS = !!opts.exerciseBullets;
+  TAB_GAP = !!opts.tabGap;
   ANSWER_NUMBERED = Array.isArray(opts.answerListNumbered) ? opts.answerListNumbered : [];
   SECTION_RE = COLON_HEADINGS ? SECTION_COLON : SECTION_STRICT;
   SUBTOPIC_RE = COLON_HEADINGS ? SUBTOPIC_COLON : SUBTOPIC_STRICT;
@@ -1934,6 +1943,15 @@ async function importDocx(docxPath, opts = {}) {
   // the modern <mc:Choice>); otherwise a floating image encoded both ways is
   // imported twice.
   let rawDoc = read("word/document.xml").replace(/<mc:Fallback>[\s\S]*?<\/mc:Fallback>/g, "");
+  // opts.sourceFix: [["find", "with"], …] — correct the manuscript's text BEFORE anything is
+  // recognised from it (a box title typed "ZHAKWALI 2:" instead of "ZHAKWILA 2:" is then
+  // boxed like every other activity). Applied inside each Word text run.
+  for (const [find, repl] of opts.sourceFix || []) {
+    const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    let n = 0;
+    rawDoc = rawDoc.replace(/(<w:t(?:\s[^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => t.includes(esc(find)) ? (n++, a + t.split(esc(find)).join(esc(repl)) + b) : m);
+    if (!n) console.warn("!  sourceFix not matched:", find);
+  }
   // Recover a Learning Activity / Exercise / Assessment the author placed ENTIRELY
   // inside a floating text box (a drawing canvas with no picture) rather than the
   // document flow — otherwise the whole box (title + every question) is silently
@@ -2009,6 +2027,63 @@ async function importDocx(docxPath, opts = {}) {
         claimed.add(pic.rel);
       }
     }
+  }
+  // opts.textboxHeadings: the author drew a section title as a SHAPE with text (an arrow
+  // or banner text box: "MAU OYAMBA", "ZOTHOKOZA"…). Text boxes are stripped below, which
+  // dropped every such title. A text box holding just one short line becomes a bold run in
+  // its host paragraph instead, so the title reads as a heading where it was placed.
+  if (opts.textboxHeadings) {
+    let n = 0;
+    rawDoc = rawDoc.replace(/<mc:AlternateContent>(?:(?!<\/mc:AlternateContent>)[\s\S])*?<w:txbxContent>([\s\S]*?)<\/w:txbxContent>[\s\S]*?<\/mc:AlternateContent>/g, (m, inner) => {
+      if (/<a:blip\b/.test(m)) return m;
+      const paras = inner.split("</w:p>").map((p) => [...p.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("").trim()).filter(Boolean);
+      const t = paras.join(" ").replace(/\s+/g, " ").trim();
+      if (paras.length > 2 || t.length < 3 || t.length > 70) return m;
+      n++;
+      return `</w:r><w:r><w:rPr><w:b/><w:sz w:val="32"/></w:rPr><w:t xml:space="preserve">${t}</w:t></w:r><w:r>`;
+    });
+    if (n) console.log(`   textboxHeadings: ${n} title(s) recovered from text boxes`);
+  }
+  // opts.flattenBorderless: a table that prints with NO lines in Word (the author used it
+  // only to lay text out — no table style and no borders, or every border set to none, no
+  // cell borders, no shading) is ordinary text on the page: replace it with its own
+  // paragraphs so we don't draw a ruled table the book never had. Innermost tables only.
+  if (opts.flattenBorderless) {
+    let n = 0, before;
+    // (repeat: once an inner layout table is flattened, the table around it may be one too)
+    do { before = n;
+    rawDoc = rawDoc.replace(/<w:tbl>((?:(?!<w:tbl>)[\s\S])*?)<\/w:tbl>/g, (tx, inner) => {
+      const tblPr = (inner.match(/^\s*<w:tblPr>([\s\S]*?)<\/w:tblPr>/) || [])[1] || "";
+      const bd = (tblPr.match(/<w:tblBorders>([\s\S]*?)<\/w:tblBorders>/) || [])[1];
+      const tblNoLines = bd != null ? !/w:val="(?!none|nil)[a-zA-Z]+"/.test(bd) : !/<w:tblStyle\b/.test(tblPr);
+      const cellLines = /<w:tcBorders>(?:(?!<\/w:tcBorders>)[\s\S])*w:val="(?!none|nil)[a-zA-Z]+"/.test(inner);
+      // (or every cell switches all four of its own borders off — that wins over the table's)
+      const tcs = inner.match(/<w:tcPr>[\s\S]*?<\/w:tcPr>/g) || [];
+      const allCellsOff = tcs.length > 0 && tcs.every((pr) => ["top", "left", "bottom", "right"].every((e) =>
+        new RegExp(`<w:tcBorders>[\\s\\S]*?<w:${e} w:val="(nil|none)"`).test(pr)));
+      // A line-less ONE-COLUMN table whose rows differ — some rows boxed (all four cell
+      // borders: a "Musebezi" box), others plain text — is split row by row: each boxed row
+      // becomes its own one-cell table, each plain row goes back to the text flow.
+      const rows = inner.match(/<w:tr[ >][\s\S]*?<\/w:tr>/g) || [];
+      if (tblNoLines && rows.length > 1 && rows.every((r) => (r.match(/<w:tc>/g) || []).length === 1)) {
+        const boxed = (r) => ["top", "left", "bottom", "right"].every((e) => new RegExp(`<w:tcBorders>[\\s\\S]*?<w:${e} w:val="(?!none|nil)[a-zA-Z]+"`).test(r));
+        const kinds = rows.map(boxed);
+        if (kinds.some(Boolean) && !kinds.every(Boolean)) {
+          n++;
+          const pr = (inner.match(/^\s*<w:tblPr>[\s\S]*?<\/w:tblPr>/) || [""])[0];
+          const grid = (inner.match(/<w:tblGrid>[\s\S]*?<\/w:tblGrid>/) || [""])[0];
+          return rows.map((r, k) => kinds[k] ? `<w:tbl>${pr}${grid}${r}</w:tbl>`
+            : (r.match(/<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || []).join("")).join("");
+        }
+      }
+      const noLines = (tblNoLines && !cellLines) || allCellsOff;
+      const shaded = /<w:shd\b[^>]*w:fill="(?!auto|FFFFFF|ffffff)[0-9A-Fa-f]{6}"/.test(inner);
+      if (!noLines || shaded) return tx;
+      n++;
+      return (inner.match(/<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || []).join("");
+    });
+    } while (n > before);
+    if (n) console.log(`   flattenBorderless: ${n} borderless layout table(s) set as text`);
   }
   const docXml = rawDoc.replace(/<w:txbxContent>[\s\S]*?<\/w:txbxContent>/g,
     (m) => (/<a:blip\b/.test(m) ? m : ""));
@@ -2298,7 +2373,13 @@ async function importDocx(docxPath, opts = {}) {
 
   // ---- front-matter detection (only when the book clearly has one) ----
   const hasTocStyle = parts.some((x) => /<w:pStyle\s+w:val="TOC\d/.test(x));
-  const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso/i.test(textOf(x)));
+  // (the language's own "All rights reserved", or a bare "@COPYRIGHT" heading line)
+  const allRights = LEXI.altSrc(LEXI.words(["all_rights"]));
+  // ("All rights reserved" in the local languages: Cinyanja "Ufulu wonse ndi wotetezedwa",
+  // Chitonga "Bwaange boonse bulikwabilidwe", Lunda "Ñovu zhezhima …", Luvale "Lusesa lwose
+  // lwalamiwa", Icibemba "Uluusa shonse shasungwa" — without one, no cover/imprint is found)
+  const copyrightIdx = parts.findIndex((x) => !isTbl(x) && (/all rights reserved|©|umwini wonse|osalembanso|ufulu wonse|bwaange boonse|[ñn]ovu zhezhima|lusesa lwose|uluusa shonse|^\W*@?copyright\W*$/i.test(textOf(x).trim())
+    || (allRights && new RegExp(allRights, "i").test(textOf(x)))));
   const isTocHead = (t) => /^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(t) || LEXI.isContents(t);
   const tocPartIdx = parts.findIndex((x) => !isTbl(x) && isTocHead(textOf(x)));
   // The imprint (copyright/credits) page is centred plain text in the original.
@@ -2328,7 +2409,10 @@ async function importDocx(docxPath, opts = {}) {
       // Heading like a real section would be. Don't let it end the imprint early.
       if (/Heading\d/.test(styleOf(parts[i])) && /^COPYRIGHT$/i.test(textOf(parts[i]).trim())) continue;
       // stop at the first styled heading OR the first front-matter section name
-      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i])) || LEXI.isFrontSection(textOf(parts[i])))) { imprintEnd = i; break; }
+      // (a local word followed by a colon — "ALEMBI:" = Authors: — is a credit line
+      // inside the imprint, not the Authors section)
+      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i]))
+        || (LEXI.isFrontSection(textOf(parts[i])) && !/:\s*$/.test(textOf(parts[i]))))) { imprintEnd = i; break; }
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.

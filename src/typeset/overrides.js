@@ -171,23 +171,6 @@ function applyOverrides(blocks, ov) {
   // appeared earlier in the SAME row (a manuscript that pasted the identical picture
   // twice, e.g. Grade 2 p107 feelings comic laid out as image31,image32,image31). Keeps
   // the first occurrence; a row left with one image collapses to a lone centred image.
-  if (ov.dropDupImages) {
-    let n = 0;
-    for (const b of flat) {
-      if (b.t !== "imagerow" || !Array.isArray(b.images)) continue;
-      const seen = new Set();
-      const kept = [];
-      for (const im of b.images) {
-        const k = im.file || JSON.stringify(im);
-        if (seen.has(k)) { n++; continue; }
-        seen.add(k); kept.push(im);
-      }
-      if (kept.length === b.images.length) continue;
-      if (kept.length === 1) { b.t = "image"; Object.assign(b, kept[0]); delete b.images; }
-      else b.images = kept;
-    }
-    if (!n) console.warn("!  dropDupImages matched nothing");
-  }
   // stripCaptionLabels: true — remove a leading "Figure N:" / "Table N:" numbering prefix from
   // every figure/table caption, leaving only the description ("Figure 2: Squares in real objects"
   // -> "Squares in real objects"). For an author who numbered figures/tables in the manuscript but
@@ -710,10 +693,40 @@ function applyOverrides(blocks, ov) {
   // reviewer wanted the sentence under a later picture). `noSideFigures` does this for
   // every figure in the book; this targets just the named one.
   for (const f of ov.unsideFigure || []) {
-    const i = blocks.findIndex((b) => b.t === "sidefig" && (b.images || []).some((im) => (im.file || "").includes(f)));
-    if (i < 0) { console.warn("!  unsideFigure not matched:", f); continue; }
+    // (every side-figure holding that picture — the manuscript may anchor it in two places)
+    const find = () => blocks.findIndex((b) => b.t === "sidefig" && (b.images || []).some((im) => (im.file || "").includes(f)));
+    if (find() < 0) { console.warn("!  unsideFigure not matched:", f); continue; }
+    for (let i = find(); i >= 0; i = find()) {
     const sf = blocks[i];
-    blocks.splice(i, 1, { t: "imagerow", images: sf.images }, ...(sf.body || []));
+    // (the same picture twice in a side-figure — the manuscript anchors it twice — is shown once)
+    const one = [...new Map((sf.images || []).map((im) => [String(im.file || "").replace(/.[a-z]+$/i, ""), im])).values()];
+    blocks.splice(i, 1, one.length === 1 ? { t: "image", ...one[0], tall: false } : { t: "imagerow", images: one }, ...(sf.body || []));
+    }
+  }
+  // (after unsideFigure, so the pictures it lays out are de-duplicated too)
+  if (ov.dropDupImages) {
+    let n = 0;
+    for (const b of flat) {
+      if (b.t !== "imagerow" || !Array.isArray(b.images)) continue;
+      const seen = new Set();
+      const kept = [];
+      for (const im of b.images) {
+        const k = im.file ? String(im.file).replace(/.[a-z]+$/i, "") : JSON.stringify(im);   // (same picture, any extension)
+        if (seen.has(k)) { n++; continue; }
+        seen.add(k); kept.push(im);
+      }
+      if (kept.length === b.images.length) continue;
+      if (kept.length === 1) { b.t = "image"; Object.assign(b, kept[0]); delete b.images; }
+      else b.images = kept;
+    }
+    // ...and the same picture placed again a few blocks later (a cropped copy anchored twice)
+    for (let i = 0; i < blocks.length; i++) {
+      if (blocks[i].t !== "image") continue;
+      for (let j = i + 1; j < Math.min(blocks.length, i + 8); j++) {
+        if (blocks[j].t === "image" && blocks[j].file === blocks[i].file) { blocks.splice(j, 1); n++; j--; }
+      }
+    }
+    if (!n) console.warn("!  dropDupImages matched nothing");
   }
   // imageLabelCaptions: true — the author typed each picture's label as a short line of its
   // own directly under it ("Things that can cause accidents", "Stunt activities"), which
@@ -839,7 +852,10 @@ function applyOverrides(blocks, ov) {
     // `it.bold`/`it.italic` (the whole-block flags this took before markdown support was
     // added) still force every seg, so existing plain-string callers render unchanged.
     const segsFor = (tx) => mkSegs(tx).map((s) => ({ ...s, ...(it.bold ? { b: true } : {}), ...(it.italic ? { it: true } : {}) }));
-    const mkBlks = () => texts.map((tx, idx) => it.as === "section"
+    // (as: "unit" — a unit banner the import lost, e.g. one glued to the typed contents list)
+    const mkBlks = () => texts.map((tx, idx) => it.as === "unit"
+      ? { t: "h1", text: tx, top: true }
+      : it.as === "section"
       ? { t: "head", text: tx, styleSection: true, noPromote: true }
       : it.as === "head"
       ? { t: "head", text: tx, black: true, noPromote: true }

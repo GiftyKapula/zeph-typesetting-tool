@@ -17,10 +17,16 @@ const arr = (xs, el) => (xs.length ? "(" + xs.map(el).join(", ") + ",)" : "()");
 // could be wider than the whole column and shoot off the page margin with nowhere to
 // wrap to, so beyond that length we fall back to a zero-width space (U+200B, no
 // width) after every underscore, letting it wrap internally rather than overflow.
-const zwspBlanks = (t) => t.replace(/_+/g, (run) => {
+// A dotted answer line ("Kutambasana \u2026\u2026\u2026\u2026\u2026") behaves the same way \u2014 dots and "\u2026"
+// carry no break opportunity either; a long run becomes one U+2063 marker that the
+// template draws as a dotted leader filling exactly to the end of the line.
+// An underscore answer line that ENDS the run (25+ underscores, only spaces/punctuation
+// after it) becomes U+2064: a rule drawn to the end of the line, so "Toloko ______…" is one
+// line instead of a line plus a stub wrapped onto the next.
+const zwspBlanks = (t) => t.replace(/\s*_{25,}[\s.,;:]*$/, "⁤").replace(/_+/g, (run) => {
   const SAFE_ATOMIC_MAX = 50;
   return run.length <= SAFE_ATOMIC_MAX ? run : Array.from(run).join("\u200B");
-});
+}).replace(/\s*[.\u2026]{25,}/g, "\u2063");
 
 // segments [{t,b,it,c}] -> Typst array of dicts. A math segment carries Typst
 // math source (m: true) rendered via eval(mode: "math"); display: true is a
@@ -43,7 +49,7 @@ const titleContent = (text, segs) => (segs && segs.length) ? `segs(${segArr(segs
 
 // A multi-column word-list grid built from space-separated columns (see columnizeLists).
 // rows: [{ marker, cells:[...], style }]. Emits marker + cells for the Typst colgrid.
-const colgridArg = (b) => `rows: ${arr(b.rows, (r) => `(marker: ${S(r.marker || "")}, cells: ${strArr(r.cells)})`)}, ncol: ${b.ncol}, hasMarker: ${b.hasMarker ? "true" : "false"}${b.header ? `, header: ${strArr(b.header)}` : ""}`;
+const colgridArg = (b) => `rows: ${arr(b.rows, (r) => `(marker: ${S(r.marker || "")}, cells: ${strArr(r.cells)})`)}, ncol: ${b.ncol}, hasMarker: ${b.hasMarker ? "true" : "false"}${b.header ? `, header: ${strArr(b.header)}` : ""}${b.ragged ? ", plain: true" : ""}${b.ruled ? ", ruled: true" : ""}`;
 
 const EMPTY_CELL = { text: "", imgs: [] };
 
@@ -228,10 +234,10 @@ function emit(blocks) {
         const m = b.text.match(TOPIC_RE);
         if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(b.text)})\n`;
         else if (b.centre) out += `#{ set align(center); sectionhead(${S(b.text)}) }\n`;
-        else out += `#sectionhead(${S(b.text)}${b.brk === false ? ", brk: false" : ""}${b.sleek ? ", sleek: true" : ""})\n`;
+        else out += `#sectionhead(${S(b.text)}${b.brk === false ? ", brk: false" : ""}${b.sleek ? ", sleek: true" : ""}${b.top ? ", unit: true" : ""})\n`;
         break;
       }
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""}${blocks[bi - 1] && blocks[bi - 1].t === "h2" ? ", nobar: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
@@ -244,19 +250,31 @@ function emit(blocks) {
         break;
       }
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
-      case "label": out += `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`; break;
+      case "label": out += `#lbl(${S(b.text)}${b.plainLabel ? ", plain: true" : ""}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""}${b.keepCase ? `, keepcase: true` : ""})\n`; break;
       case "para": {
-        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""})\n`;
+        let p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""})`;
+        // (gapAbove: breathing space over a bold lead-in line — see labelStyle)
+        p = (b.gapAbove ? `#block(above: ${b.gapAbove})[${p}]` : p) + "\n";
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
-        out += (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60) ? stickyWrap(p) : p;
+        // (`sticky`: a pass asked for this line to stay with the next, e.g. a label over its lines)
+        // (a short lead-in ending in a colon — "Litaelo:", "Instructions:" — stays with what follows)
+        const leadIn = plain.length > 0 && plain.length <= 40 && /:\s*$/.test(plain) && blocks[bi + 1] && /^(para|listitem|table)$/.test(blocks[bi + 1].t);
+        out += (b.sticky || leadIn || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(p) : p;
         break;
       }
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
-      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")}${b.sylIndent ? ", indent: true" : ""}${b.nest ? `, lvl: ${b.nest}` : ""})\n`; break;
+      case "listitem": {
+        const li = `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")}${b.sylIndent ? ", indent: true" : ""}${b.nest ? `, lvl: ${b.nest}` : ""})\n`;
+        // an item that OPENS a deeper list ("(i) Kafundisha" over its bullets) stays with
+        // its first sub-item instead of being left alone at the foot of a page
+        const nx = blocks[bi + 1];
+        out += nx && nx.t === "listitem" && (nx.nest || 1) > (b.nest || 1) ? stickyWrap(li) : li;
+        break;
+      }
       case "figcaption": out += `#figcaption(${S(b.text)})\n`; break;
       case "loentry": out += `#loentry(${S(b.num)}, ${S(b.title)}, ${S(b.page)})\n`; break;
       case "image": {
@@ -286,7 +304,7 @@ function emit(blocks) {
       case "box": if ((b.body || []).length) out += `#genericbox(${bodyArr(b.body)})\n`; break;
       case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
-      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""})\n`; break;
+      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""}${b.widths ? `, widths: (${b.widths.join(", ")},)` : ""})\n`; break;
       case "colgrid": out += `#colgrid(${colgridArg(b)})\n`; break;
       default: break;
     }
