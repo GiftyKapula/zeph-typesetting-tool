@@ -596,7 +596,7 @@ function applyOverrides(blocks, ov) {
     let n = 0;
     for (const b of flat) {
       if (!(b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)) || typeof b.text !== "string") continue;
-      if (b.text.trim() !== ap) continue;
+      if (b.text.trim() !== ap.find) continue;
       const t = b.text.trim();
       b.t = "para"; delete b.text; delete b.marker;
       // {bold: true} keeps the whole line bold (a key sentence the importer took for a
