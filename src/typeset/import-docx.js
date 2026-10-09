@@ -227,13 +227,24 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     const kind = boxKindFromTitle(title);
     if (kind !== "activity" && kind !== "exercise" && kind !== "assessment") continue;   // some other shape/graphic — leave it
     // A badge-style heading: a label-only box ("ZHAKWILA") with its number in a SEPARATE
-    // shape right beside it (a circle holding "1"), both anchored in the same paragraph.
+    // shape beside it (a circle holding "1"), both anchored in the same paragraph — after
+    // the label or before it, sometimes with empty decoration shapes in between.
     // The number box is text-only, so the general stripping would drop it and every
     // activity would print unnumbered — take its number into the title instead.
-    if (paras.length === 1 && !/\d/.test(title) && si + 1 < drawingSpans.length) {
-      const [nStart, nEnd] = drawingSpans[si + 1];
-      const num = spanText(nStart, nEnd);
-      if (/^\d{1,2}$/.test(num) && !/<\/w:p>/.test(rawDoc.slice(spanEnd, nStart))) title = `${title} ${num}`;
+    if (paras.length === 1 && !/\d/.test(title)) {
+      const badgeNum = (step) => {
+        for (let k = si + step; k >= 0 && k < drawingSpans.length; k += step) {
+          const [a, b] = drawingSpans[k];
+          const gap = step > 0 ? rawDoc.slice(drawingSpans[k - 1][1], a) : rawDoc.slice(b, drawingSpans[k + 1][0]);
+          if (/<\/w:p>/.test(gap)) return null;          // left the paragraph
+          const t = spanText(a, b);
+          if (/^\d{1,2}$/.test(t)) return t;
+          if (t) return null;                           // some other text box — not a badge
+        }
+        return null;
+      };
+      const num = badgeNum(1) || badgeNum(-1);
+      if (num) title = `${title} ${num}`;
     }
     // Number the box's own questions/steps from the manuscript's REAL Word-list format
     // (roman / letter / decimal — whatever the author actually chose), not a hard-coded
