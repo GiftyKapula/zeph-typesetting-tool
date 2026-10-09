@@ -2280,7 +2280,9 @@
   if al == "center" { std.align(center)[#body] } else { body }
   v(2pt)
 }
-#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
+// sticky (spacing = the paragraph spacing it replaces) so a label never strands at the
+// foot of a page with its text on the next (Icibemba G1 TG: "IMIFUNDILE :" pp. 2, 5, 7)
+#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; context block(sticky: true, above: par.spacing, below: par.spacing)[#if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }]; v(1pt) }
 
 // ---- boxes ---------------------------------------------------------------
 // modern:   light fill + thick accent LEFT stripe.
