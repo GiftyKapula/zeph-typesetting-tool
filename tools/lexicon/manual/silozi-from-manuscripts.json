@@ -1,0 +1,67 @@
+{
+  "_note": "Silozi wordings found in the manuscript itself (not on an author's form). Silozi Grade 4 LB (sent for typesetting 6 March 2026): cover lines 'SILOZI GILEDI 4' (Grade) and 'Buka Ya Mwanaa Sikolo' (Learner's Book, the manuscript's spelling, put ahead of the word list's 'Buka ya Mwana Sikolo'); contents heading 'MUKOLOKO WA LITABA'; front-matter headings 'BAÑOLI' (authors), 'LINZWI LA MAKALELO' (foreword), 'TAHISO' (preface), 'BUITUMELO' (acknowledgement); chapters 'MUKANGA N:' (Unit); skill headings 'KUBULELA NI KUTEELEZA', 'KUBALA', 'KUÑOLA', 'PUPO YA PUWO'; back-matter 'LITALUSO ZA MANZWI NI LIPULELO' (glossary). The cover's level line is English in the manuscript ('ZAMBIA PRIMARY EDUCATION'), so no Silozi level phrase is attested. Primary level: no Silozi phrase is attested, so 'Tuto ya Pulaimali' was built from words both Grade 4 manuscripts use (tuto = education, as in 'liluko la tuto' = Ministry of Education; pulaimali = primary, TG: 'sikolo sa Malabo pulaimali') and chosen by the typesetter on 2026-10-09.",
+  "source": "Silozi Grade 4 LB (manuscript)",
+  "header": {
+    "language": "Silozi",
+    "your name": "(from manuscript)",
+    "book and grade": "Silozi Grade 4 LB"
+  },
+  "rows": [
+    [
+      "Grade",
+      "Giledi"
+    ],
+    [
+      "Learner's Book",
+      "Buka ya Mwanaa Sikolo"
+    ],
+    [
+      "Contents",
+      "Mukoloko wa Litaba"
+    ],
+    [
+      "Authors / Written by",
+      "Bañoli"
+    ],
+    [
+      "Foreword",
+      "Linzwi la Makalelo"
+    ],
+    [
+      "Preface",
+      "Tahiso"
+    ],
+    [
+      "Acknowledgement",
+      "Buitumelo"
+    ],
+    [
+      "Unit",
+      "Mukanga"
+    ],
+    [
+      "Listening and Speaking",
+      "Kubulela ni Kuteeleza"
+    ],
+    [
+      "Reading",
+      "Kubala"
+    ],
+    [
+      "Writing",
+      "Kuñola"
+    ],
+    [
+      "Language Structure",
+      "Pupo ya Puwo"
+    ],
+    [
+      "Glossary",
+      "Litaluso za Manzwi ni Lipulelo"
+    ],
+    [
+      "Primary Education Level",
+      "Tuto ya Pulaimali"
+    ]
+  ]
+}
