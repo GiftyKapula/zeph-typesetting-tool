@@ -38,6 +38,10 @@
  *     --dry-run     report the plan and write nothing
  *     --limit <n>   process only the n worst images (useful to sample first)
  *     --tile <n>    Real-ESRGAN tile size (default 64)
+ *     --gpu <id>    Real-ESRGAN GPU id (default: its own pick). A laptop's discrete
+ *                   GPU can reset mid-pass on battery ("vkQueueSubmit failed -4",
+ *                   device lost) and then every pass comes back see-through;
+ *                   `--gpu 0` (the integrated one) is slower but steady.
  *
  * Memory: this is the binding constraint, not speed. A 4x pass over a ~1.4MP
  * picture produces a ~22MP intermediate, and decoding that to resample it costs
@@ -61,6 +65,48 @@ const cp = require("child_process");
 
 const ESRGAN = process.env.REALESRGAN
   || "C:\\Users\\biine stores\\Desktop\\REAL-\\realesrgan-ncnn-vulkan.exe";
+
+// ---- where each picture is placed, and at what effective ppi ---------------
+// Poppler's `pdfimages -list` when it is installed; otherwise the same numbers from
+// pdfjs-dist (already a dependency), by walking each page's operator list and
+// tracking the transform in force when an image is painted. ppi is taken on the
+// tighter axis, as pdfimages does.
+function havePdfimages() {
+  try { cp.execSync("pdfimages -v", { stdio: "ignore" }); return true; } catch { return false; }
+}
+function placedByPdfimages(pdf) {
+  const listing = cp.execSync(`pdfimages -list "${pdf}"`, { encoding: "utf8", maxBuffer: 1 << 28 });
+  return listing.split("\n").slice(2)
+    .map((l) => l.trim().split(/\s+/))
+    .filter((r) => r[2] === "image")
+    .map((r) => ({ page: +r[0], w: +r[3], h: +r[4], ppi: +r[12] }));
+}
+async function placedByPdfjs(pdf) {
+  const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  const { OPS } = pdfjs;
+  const doc = await pdfjs.getDocument({ data: new Uint8Array(fs.readFileSync(pdf)), verbosity: 0 }).promise;
+  const mul = (a, b) => [a[0] * b[0] + a[2] * b[1], a[1] * b[0] + a[3] * b[1], a[0] * b[2] + a[2] * b[3],
+    a[1] * b[2] + a[3] * b[3], a[0] * b[4] + a[2] * b[5] + a[4], a[1] * b[4] + a[3] * b[5] + a[5]];
+  const out = [];
+  for (let page = 1; page <= doc.numPages; page++) {
+    const ol = await (await doc.getPage(page)).getOperatorList();
+    let ctm = [1, 0, 0, 1, 0, 0];
+    const stack = [];
+    for (let i = 0; i < ol.fnArray.length; i++) {
+      const f = ol.fnArray[i], a = ol.argsArray[i];
+      if (f === OPS.save) stack.push(ctm);
+      else if (f === OPS.restore) ctm = stack.pop() || ctm;
+      else if (f === OPS.transform) ctm = mul(ctm, a);
+      else if (f === OPS.paintImageXObject || f === OPS.paintInlineImageXObject) {
+        const [, w, h] = a;
+        const win = Math.hypot(ctm[0], ctm[1]) / 72, hin = Math.hypot(ctm[2], ctm[3]) / 72;
+        if (!win || !hin) continue;
+        out.push({ page, w, h, ppi: Math.round(Math.min(w / win, h / hin)) });
+      }
+    }
+  }
+  return out;
+}
 
 // ---- tiny image helpers (dimensions straight from the file header) ----------
 function dims(buf) {
@@ -88,6 +134,11 @@ function imgop(args) {
   if (r.status !== 0) throw new Error((r.stderr || "image op failed").trim());
 }
 const resample = (src, dst, width) => imgop(["resize", src, dst, width]);
+const clearShare = (src) => {
+  const r = cp.spawnSync(process.execPath, [IMGOP, "clear", src], { encoding: "utf8" });
+  if (r.status !== 0) throw new Error((r.stderr || "image op failed").trim());
+  return +r.stdout;
+};
 
 // The largest source area we will hand Real-ESRGAN in one go. It allocates per
 // whole frame, so on a small machine the run is killed above a certain size —
@@ -99,7 +150,7 @@ const MAX_PIECE_PX = 400000;
 // pass. Pieces are cut with an overlap and the overlap is trimmed back off when
 // they are stitched, so the ESRGAN edge effect at each cut never reaches the
 // visible part of the picture and the seams don't show.
-function esrganUpscale(src, dst, scale, tile, work, tag) {
+function esrganUpscale(src, dst, scale, tile, work, tag, gpu) {
   const d = dims(fs.readFileSync(src));
   // ALWAYS the model's native 4x, and resample down afterwards ourselves.
   //
@@ -110,9 +161,26 @@ function esrganUpscale(src, dst, scale, tile, work, tag) {
   // 64 and 192, both bad; 256 and above will not allocate at all). The native 4x
   // path over the same picture is clean. So the scale is not a knob to tune —
   // memory is controlled by splitting the picture instead (see MAX_PIECE_PX).
-  const run = (i, o) => cp.execFileSync(ESRGAN,
-    ["-i", i, "-o", o, "-n", "realesrgan-x4plus", "-s", "4", "-t", String(tile)],
-    { stdio: "ignore" });
+  //
+  // Every pass is also checked for see-through pixels its input did not have. Now
+  // and then the GPU hands a frame back fully transparent with exit code 0 (seen
+  // three times on the Luvale and Lunda ECE LBs: a whole third of a JPEG photo gone,
+  // most likely while two upscales shared the card). Unchecked, the hole goes
+  // straight into the book. A rerun comes back clean, so retry before giving up.
+  // If every pass fails, the GPU itself is resetting (device lost) — see --gpu.
+  const run = (i, o) => {
+    const before = clearShare(i);
+    for (let attempt = 1; ; attempt++) {
+      cp.execFileSync(ESRGAN,
+        ["-i", i, "-o", o, "-n", "realesrgan-x4plus", "-s", "4", "-t", String(tile),
+          ...(gpu != null ? ["-g", String(gpu)] : [])],
+        { stdio: "ignore" });
+      const after = clearShare(o);
+      if (after <= before + 0.02) return;
+      if (attempt === 3) throw new Error(`came back ${(after * 100).toFixed(0)}% see-through three times`);
+      console.warn(`\n      ${tag}: Real-ESRGAN pass came back ${(after * 100).toFixed(0)}% see-through - rerunning`);
+    }
+  };
   scale = 4;
 
   if (!d || d.w * d.h <= MAX_PIECE_PX) { run(src, dst); return 1; }
@@ -158,7 +226,7 @@ function esrganUpscale(src, dst, scale, tile, work, tag) {
 }
 
 function parseArgs(argv) {
-  const o = { dpi: 300, map: {}, dryRun: false, limit: 0, tile: 64 };
+  const o = { dpi: 300, map: {}, dryRun: false, limit: 0, tile: 64, gpu: null };
   const pos = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -167,6 +235,7 @@ function parseArgs(argv) {
     else if (a === "--dry-run") o.dryRun = true;
     else if (a === "--limit") o.limit = +argv[++i];
     else if (a === "--tile") o.tile = +argv[++i];
+    else if (a === "--gpu") o.gpu = argv[++i];
     else if (a === "--map") {
       for (const pair of argv[++i].split(",")) {
         const [k, v] = pair.split("=");
@@ -196,11 +265,18 @@ async function main() {
   const work = fs.mkdtempSync(path.join(require("os").tmpdir(), "upscale-"));
 
   // ---- 1. the manuscript's own pictures -------------------------------------
+  // A picture the overrides remove never reaches the PDF, so it must not compete
+  // for a placement: on the Lunda ECE L1 LB the removed image20 has the same size
+  // as image74, took image74's placement, and image74 stayed at 247 DPI.
+  const ovFile = path.join(path.dirname(opt.docx), base + ".overrides.json");
+  const removed = new Set(fs.existsSync(ovFile)
+    ? JSON.parse(fs.readFileSync(ovFile, "utf8")).removeImages || [] : []);
   let zip = await JSZip.loadAsync(fs.readFileSync(opt.docx));
   const byDims = new Map();           // "WxH" -> [media name]
   const srcDir = path.join(work, "src");
   fs.mkdirSync(srcDir, { recursive: true });
   for (const name of Object.keys(zip.files).filter((n) => n.startsWith("word/media/"))) {
+    if (removed.has(path.basename(name))) continue;
     const buf = await zip.file(name).async("nodebuffer");
     const d = dims(buf);
     if (!d) continue;
@@ -213,11 +289,7 @@ async function main() {
   zip = null;                      // the whole .docx is held in here; let it go
 
   // ---- 2. how big each one actually PRINTS ----------------------------------
-  const listing = cp.execSync(`pdfimages -list "${opt.pdf}"`, { encoding: "utf8", maxBuffer: 1 << 28 });
-  const placed = listing.split("\n").slice(2)
-    .map((l) => l.trim().split(/\s+/))
-    .filter((r) => r[2] === "image")
-    .map((r) => ({ page: +r[0], w: +r[3], h: +r[4], ppi: +r[12] }));
+  const placed = havePdfimages() ? placedByPdfimages(opt.pdf) : await placedByPdfjs(opt.pdf);
 
   const taken = new Set();
   const jobs = [];
@@ -239,7 +311,14 @@ async function main() {
       continue;
     }
     const names = (byDims.get(p.w + "x" + p.h) || []).filter((n) => !taken.has(n));
-    if (!names.length) { unresolved.push(p); continue; }
+    if (!names.length) {
+      // The same media placed a second time (a picture repeated in an exercise): the
+      // one override already covers every use, so fold it into that job — keeping the
+      // lower ppi, since the larger placement decides how many pixels are needed.
+      const again = jobs.find((j) => !j.cropped && j.w === p.w && byDims.get(p.w + "x" + p.h)?.includes(j.name));
+      if (again) { again.ppi = Math.min(again.ppi, p.ppi); continue; }
+      unresolved.push(p); continue;
+    }
     taken.add(names[0]);
     jobs.push({ name: names[0], from: path.join(srcDir, names[0]), w: p.w, ppi: p.ppi, page: p.page, cropped: false });
   }
@@ -274,7 +353,7 @@ async function main() {
     const t0 = Date.now();
     let nPieces = 1;
     try {
-      nPieces = esrganUpscale(j.from, big, 4, opt.tile, work, j.name);
+      nPieces = esrganUpscale(j.from, big, 4, opt.tile, work, j.name, opt.gpu);
     } catch (e) {
       console.warn(`${tag}: Real-ESRGAN failed (${e.message.split("\n")[0]}) — left as is`);
       continue;

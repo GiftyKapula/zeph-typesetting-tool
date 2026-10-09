@@ -1,9 +1,27 @@
 {
-  "_note": "Kaonde wordings found in the manuscripts themselves (not on the author's form). Added as extra variants.",
+  "_note": "Kaonde wordings found in the manuscripts themselves (not on the author's form). Added as extra variants. Cover labels for the KIKAONDE ECE TG LEVEL 1 (2026-10-08, chosen by the ZEPH typesetter, not yet checked by a Kiikaonde speaker): 'Early Childhood Education Level' = 'Lufunjisho lwa Bana Babacheche', built from the author's form's 'Lufunjisho lwa Pulaimali' and the manuscript's 'bana babacheche' (young children); 'Authors / Written by' = 'Nembi', the singular the Kiikaonde ECE LB manuscript uses, for a book with one author.",
   "source": "KIIKAONDE ECE LB LEVEL 1-2 (manuscript)",
-  "header": { "language": "Kaonde", "your name": "(from manuscript)", "book and grade": "Kiikaonde ECE LB Level 1-2" },
+  "header": {
+    "language": "Kaonde",
+    "your name": "(from manuscript)",
+    "book and grade": "Kiikaonde ECE LB Level 1-2"
+  },
   "rows": [
-    ["Table of Contents", "Biji mu kachi"],
-    ["Authors", "Nembi"]
+    [
+      "Table of Contents",
+      "Biji mu kachi"
+    ],
+    [
+      "Authors",
+      "Nembi"
+    ],
+    [
+      "Early Childhood Education Level",
+      "Lufunjisho lwa Bana Babacheche"
+    ],
+    [
+      "Authors / Written by",
+      "Nembi"
+    ]
   ]
 }
