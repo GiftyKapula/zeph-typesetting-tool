@@ -11,6 +11,7 @@
  *   node tools/_imgop.js crop   <src> <dst> <x> <y> <w> <h>
  *   node tools/_imgop.js resize <src> <dst> <width>
  *   node tools/_imgop.js stitch <spec.json>
+ *   node tools/_imgop.js clear  <src>       prints the share of see-through pixels (0-1)
  *
  * The stitch spec is { out, w, h, pieces: [{ file, dx, dy, sx, sy, sw, sh }] } —
  * each piece is drawn from its own (sx,sy,sw,sh) region to (dx,dy), which is how
@@ -52,6 +53,16 @@ async function main() {
       ctx.drawImage(img, p.sx, p.sy, p.sw, p.sh, p.dx, p.dy, p.sw, p.sh);
     }
     fs.writeFileSync(spec.out, cv.toBuffer("image/png"));
+  } else if (op === "clear") {
+    // Sampled, not exhaustive: a dropped Real-ESRGAN pass is see-through over most
+    // of its area, so every 7th pixel finds it just as surely.
+    const img = await loadImage(a[0]);
+    const { cv, ctx } = ctxOf(img.width, img.height);
+    ctx.drawImage(img, 0, 0);
+    const px = ctx.getImageData(0, 0, img.width, img.height).data;
+    let clear = 0, n = 0;
+    for (let i = 3; i < px.length; i += 4 * 7, n++) if (px[i] < 16) clear++;
+    process.stdout.write(String(clear / n));
   } else {
     console.error("unknown op: " + op);
     process.exit(2);
