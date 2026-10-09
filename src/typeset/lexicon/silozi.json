@@ -22,6 +22,9 @@
       "Buka ya Mwanaa Sikolo",
       "Buka ya Mwana Sikolo"
     ],
+    "teachers_guide": [
+      "Buka ya Muluti"
+    ],
     "grade": [
       "Giledi"
     ],
@@ -61,6 +64,9 @@
     ],
     "glossary": [
       "Litaluso za Manzwi ni Lipulelo"
+    ],
+    "introduction": [
+      "Makalelo"
     ]
   },
   "extras": [],

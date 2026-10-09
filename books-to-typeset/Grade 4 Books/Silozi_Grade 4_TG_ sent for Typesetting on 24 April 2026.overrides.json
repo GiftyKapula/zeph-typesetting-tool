@@ -1,0 +1,119 @@
+{
+  "localLabels": true,
+  "tocTitle": "Mukoloko wa Litaba",
+  "authors": [
+    "C. Naipelekela",
+    "M. Mwila",
+    "M. Kamuya",
+    "M. Mwangala",
+    "F. Nkomesha"
+  ],
+  "asHead": [
+    "Buikoneli Kabutungi",
+    "Buikoneli ka butungi",
+    "Musebezi 1: Kulukisa likandenyana ka mukwa wa kutatamana kubupa likandenyana le lilukile",
+    "Kutosa lindalo (locatives) mwa mibamba.",
+    "Kuñola Lindalo(locatives)mwa mibamba kakuitusisa puwo yeswanela",
+    "Kubala ka kutumusa",
+    "Kubala ka nako yefilwe",
+    "Kukandekulula makande/Kukandeka sinca makande",
+    "Kunuha zekaezahala mwa likande.",
+    "Kutosa litaba za butokwa mwa likande",
+    "Kutosa manzwi ashutana-shutana ka libawelu",
+    "Kukandekulula/kukandeka hape makande"
+  ],
+  "tocDepth": 1,
+  "replaceBlocks": [
+    {
+      "find": "Mabizo a lika zekonakubalwa Countable nouns",
+      "with": [
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "Mabizo a lika zekonakubalwa",
+                  "Countable nouns"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Mabizo a lika zesakonwikubalwa",
+                  "Uncountable Nouns"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Mabizo a lika zesakonwikubalwa Uncountable Nouns",
+      "with": []
+    },
+    {
+      "find": "Kubala kusina kukakatela Reading Fluency",
+      "with": [
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "Kubala kusina kukakatela",
+                  "Reading Fluency"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Kuteeleza kakutwisiso",
+                  "Listening comprehension"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Kuteeleza ni kubulela",
+                  "Listening and Speaking"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Sika luli sesi lukela kukoniwa",
+                  "Specific Competence"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Kuteeleza kakutwisiso Listening comprehension",
+      "with": []
+    },
+    {
+      "find": "Kuteeleza ni kubulela Listening and Speaking",
+      "with": []
+    },
+    {
+      "find": "Sika luli sesi lukela kukoniwa Specific Competence",
+      "with": []
+    }
+  ],
+  "images": {
+    "image1.png": {
+      "src": "Silozi_Grade 4_TG_ sent for Typesetting on 24 April 2026-hires/image1.png"
+    }
+  }
+}
