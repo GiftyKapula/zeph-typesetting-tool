@@ -2,6 +2,8 @@
   "_note_cover": "The manuscript's cover picture (image1.jpeg, 980x1176) has no lettering. Cut to the series cover card's 122:78 shape across its full width (y 285-912: sandpit, water table, blocks, book corner, painting table), Real-ESRGAN x4 then scaled to 2452x1568, ~510 DPI at 122mm. The hand-set title block above and below it (Early Childhood Education / LUNDA / MUKANDA WAKADIZI WA KUTAÑA NAKUSONEKA (YAAKA 4-5) / publisher) is the cover's own lettering: dropped, the cover is built from the word list as in Level 1.",
   "coverImage": "lunda-ece-level2-lb-cover-hires.png",
   "synthesiseCover": true,
+  "_note_coverColor": "Level 1 LB is rose (the Lunda theme colour, ef96ae) and the Level 1 TG a deeper rose (d62151); Level 2 takes gold so the two Learner's Books are told apart at a glance, keeping clear of the other ECE languages (Luvale lavender, Bemba sky blue, Kiikaonde coral, Silozi green).",
+  "coverColor": "e3a32e",
   "removeImages": [
     "image1.jpeg"
   ],
