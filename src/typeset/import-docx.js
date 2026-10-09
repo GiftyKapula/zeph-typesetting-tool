@@ -2483,7 +2483,14 @@ async function importDocx(docxPath, opts = {}) {
   // title lines and picture fell onto the first body page.
   // A contents list ahead of the copyright line ends the cover there too, or every
   // contents entry is read as an author name in the byline.
-  const coverStop = copyrightIdx > 0 ? (tocFirst ? tocPartIdx : copyrightIdx)
+  // A bare draft with neither a copyright line nor a contents list gives these rules
+  // nothing to stop at: `coverEndsBefore` (override) names the first paragraph AFTER
+  // the cover by its opening text.
+  const coverOpt = (opts.coverEndsBefore || "").trim().toLowerCase();
+  const coverOptIdx = coverOpt ? parts.findIndex((x) => !isTbl(x) && textOf(x).trim().toLowerCase().startsWith(coverOpt)) : -1;
+  if (coverOpt && coverOptIdx <= 0) console.warn("!  coverEndsBefore not found:", opts.coverEndsBefore);
+  const coverStop = coverOptIdx > 0 ? coverOptIdx
+    : copyrightIdx > 0 ? (tocFirst ? tocPartIdx : copyrightIdx)
     : (copyrightIdx < 0 && textCover && tocPartIdx > 0 && tocPartIdx <= 12 ? tocPartIdx : -1);
   if (coverStop > 0) {
     // hero = largest image before the copyright line; everything before the

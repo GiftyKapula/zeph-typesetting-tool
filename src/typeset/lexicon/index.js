@@ -30,7 +30,10 @@ function langFor(theme, ov = {}) {
 }
 
 let current = null;
-const setLang = (lang) => { current = lang && LEX[lang] ? lang : null; };
+// topicIsUnit (per-book override): the book never uses its language's Unit word and opens
+// each top-level section with the Topic word instead (Icibemba Grade 1 TG: "UMUTWE 1").
+let topicTop = false;
+const setLang = (lang, opts = {}) => { current = lang && LEX[lang] ? lang : null; topicTop = !!opts.topicIsUnit; };
 const getLang = () => current;
 
 // all wordings for these concepts in the current language
@@ -65,7 +68,7 @@ const isExactly = (ids, text) => { const r = re("exact", ids, (s) => `^\\s*(?:${
 // The concept(s) that open a TOP-LEVEL section (a unit banner) in this language: the
 // Unit word when the language has one (Chitonga CIPATI holds several MUTWE topics),
 // otherwise the Topic word.
-const topIds = () => (current && (LEX[current].terms.unit || []).length ? ["unit"] : ["topic"]);
+const topIds = () => (current && !topicTop && (LEX[current].terms.unit || []).length ? ["unit"] : ["topic"]);
 const isTopSection = (text) => startsWith(topIds(), text);
 
 // Box kind from a box title, or null. A wording given for two box kinds (Lunda

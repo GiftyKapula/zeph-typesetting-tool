@@ -58,7 +58,7 @@ async function typesetOne(docxPath, themeName) {
   const variant = (THEMES[theme] || {}).variant;
   // Local-language book? Load its word list (box titles, front-matter headings…) so the
   // passes recognise the author's own wording; English books get no language (no-op).
-  setLang(langFor(theme, ov));
+  setLang(langFor(theme, ov), { topicIsUnit: ov.topicIsUnit });
   if (getLang()) console.log(`   language: ${getLang()} (local-language word list loaded)`);
   const eduLevel = eduLevelFor(detectName);
   // The ZEPH B5 house style is shared by the "series" (flat, English) and
@@ -97,6 +97,7 @@ async function typesetOne(docxPath, themeName) {
   importOpts.colonHeadings = !!ov.colonHeadings;   // "TOPIC: 1.5 …" headings (see import-docx.js)
   importOpts.exerciseBullets = !!ov.exerciseBullets; // keep Word bullets inside exercises as bullets
   importOpts.answerListNumbered = ov.answerListNumbered || [];
+  importOpts.coverEndsBefore = ov.coverEndsBefore;   // cover ends here (no copyright/contents to stop it)
   let { blocks, media, tmp } = await importDocx(docxPath, importOpts);
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
