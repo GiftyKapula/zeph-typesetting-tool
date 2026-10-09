@@ -66,6 +66,48 @@ const cp = require("child_process");
 const ESRGAN = process.env.REALESRGAN
   || "C:\\Users\\biine stores\\Desktop\\REAL-\\realesrgan-ncnn-vulkan.exe";
 
+// ---- where each picture is placed, and at what effective ppi ---------------
+// Poppler's `pdfimages -list` when it is installed; otherwise the same numbers from
+// pdfjs-dist (already a dependency), by walking each page's operator list and
+// tracking the transform in force when an image is painted. ppi is taken on the
+// tighter axis, as pdfimages does.
+function havePdfimages() {
+  try { cp.execSync("pdfimages -v", { stdio: "ignore" }); return true; } catch { return false; }
+}
+function placedByPdfimages(pdf) {
+  const listing = cp.execSync(`pdfimages -list "${pdf}"`, { encoding: "utf8", maxBuffer: 1 << 28 });
+  return listing.split("\n").slice(2)
+    .map((l) => l.trim().split(/\s+/))
+    .filter((r) => r[2] === "image")
+    .map((r) => ({ page: +r[0], w: +r[3], h: +r[4], ppi: +r[12] }));
+}
+async function placedByPdfjs(pdf) {
+  const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  const { OPS } = pdfjs;
+  const doc = await pdfjs.getDocument({ data: new Uint8Array(fs.readFileSync(pdf)), verbosity: 0 }).promise;
+  const mul = (a, b) => [a[0] * b[0] + a[2] * b[1], a[1] * b[0] + a[3] * b[1], a[0] * b[2] + a[2] * b[3],
+    a[1] * b[2] + a[3] * b[3], a[0] * b[4] + a[2] * b[5] + a[4], a[1] * b[4] + a[3] * b[5] + a[5]];
+  const out = [];
+  for (let page = 1; page <= doc.numPages; page++) {
+    const ol = await (await doc.getPage(page)).getOperatorList();
+    let ctm = [1, 0, 0, 1, 0, 0];
+    const stack = [];
+    for (let i = 0; i < ol.fnArray.length; i++) {
+      const f = ol.fnArray[i], a = ol.argsArray[i];
+      if (f === OPS.save) stack.push(ctm);
+      else if (f === OPS.restore) ctm = stack.pop() || ctm;
+      else if (f === OPS.transform) ctm = mul(ctm, a);
+      else if (f === OPS.paintImageXObject || f === OPS.paintInlineImageXObject) {
+        const [, w, h] = a;
+        const win = Math.hypot(ctm[0], ctm[1]) / 72, hin = Math.hypot(ctm[2], ctm[3]) / 72;
+        if (!win || !hin) continue;
+        out.push({ page, w, h, ppi: Math.round(Math.min(w / win, h / hin)) });
+      }
+    }
+  }
+  return out;
+}
+
 // ---- tiny image helpers (dimensions straight from the file header) ----------
 function dims(buf) {
   if (buf[0] === 0x89 && buf[1] === 0x50) return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
@@ -247,11 +289,7 @@ async function main() {
   zip = null;                      // the whole .docx is held in here; let it go
 
   // ---- 2. how big each one actually PRINTS ----------------------------------
-  const listing = cp.execSync(`pdfimages -list "${opt.pdf}"`, { encoding: "utf8", maxBuffer: 1 << 28 });
-  const placed = listing.split("\n").slice(2)
-    .map((l) => l.trim().split(/\s+/))
-    .filter((r) => r[2] === "image")
-    .map((r) => ({ page: +r[0], w: +r[3], h: +r[4], ppi: +r[12] }));
+  const placed = havePdfimages() ? placedByPdfimages(opt.pdf) : await placedByPdfjs(opt.pdf);
 
   const taken = new Set();
   const jobs = [];
