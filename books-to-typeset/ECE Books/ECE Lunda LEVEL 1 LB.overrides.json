@@ -1,0 +1,410 @@
+{
+  "_note_cover": "The manuscript's cover picture (image1.png, 1226x1283, no lettering) is byte-identical to the TG's, so the cover reuses the TG's word-free 122:78 crop, Real-ESRGAN upscaled to 2452x1568 (~510 DPI at 122mm).",
+  "coverImage": "lunda-ece-level1-tg-cover-hires.png",
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "authors": [
+    "Kapiteni Edah Samutamu",
+    "Kakoma Mushitala"
+  ],
+  "_note_ansoneki": "As in the TG, the ANSONEKI heading right after the hand-typed contents list is dropped with it (its one-line bios are too short to read as a real section). Put it back above the bios.",
+  "insertHead": [
+    {
+      "before": "Kapiteni Edah Samutamu:",
+      "head": "ANSONEKI",
+      "as": "h1"
+    },
+    {
+      "before": "Mutu Wansañu Wanyanya:  Tuheka Twapela.",
+      "head": "Mutu Wansañu: Kutiyilila Nakanañachima."
+    },
+    {
+      "before": "Kwataku mukanda.",
+      "head": "Mudimu:"
+    }
+  ],
+  "_note_toc": "The contents page lists only headings it knows as units, not KAPETULU, so it came out empty: list every section heading (ANSONEKI + the 11 chapters), as in the TG.",
+  "tocUnitsOnly": false,
+  "_note_strands": "The A./B./C. strand lines (KUHOSHA NAKUTIYILILA / KUTACHIKA KUDIZA KUTAÑA / KUTACHIKA KUDIZA KUSONEKA) come in as Word auto-lettered list items or as typed-letter paragraphs, so they printed as list lines and stranded at page feet. Make every one a heading, lettered as the manuscript letters them (KUHOSHA is always A, KUTAÑA B, KUSONEKA C - Chapter 6 auto-lettered its KUSONEKA line B). Two headings Word glued onto the next line are split back apart (Chapter 1's 'Zhakwila 1 ... Mudimu:', Chapter 11's 'B. KUTACHIKA KUDIZA KUTAÑA Mutu WANSAÑU: ...').",
+  "setHeading": [
+    {
+      "find": "KUHOSHA NAKUTIYILILA",
+      "text": "A. KUHOSHA NAKUTIYILILA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "A. KUHOSHA NAKUTIYILILA",
+      "text": "A. KUHOSHA NAKUTIYILILA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "KUTACHIKA KUDIZA KUTAÑA",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "B.KUTACHIKA KUDIZA KUTAÑA",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "KUTACHIKA KUDIZA KUSONEKA",
+      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "C.   KUTACHIKA KUDIZA KUSONEKA",
+      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "B. KUTACHIKA KUDIZA KUTAÑA Mutu WANSAÑU: Kutiyilila Nakanañachima.",
+      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila 1: Mwakukwatila mukanda mwaloña Mudimu:",
+      "text": "Zhakwila 1: Mwakukwatila mukanda mwaloña.",
+      "as": "head"
+    }
+  ],
+  "_note_cyan": "The manuscript sets every 'Mutu Wansañu' line in bright blue 00B0F0. The fully bold ones already print as black headings; the rest printed as blue body text. Print them all bold black, like the rest.",
+  "recolor": [
+    {
+      "from": "00B0F0",
+      "to": "",
+      "bold": true
+    }
+  ],
+  "_note_artnotes": "English notes to the illustrator left in the text; every one has its picture right after it. Two sit inside a nested block that remove does not reach, so they go by deleteExact.",
+  "remove": [
+    "A picture of a hand holding a pencil",
+    "ART/W pictures showing learners greeting",
+    "ART/W A picture showing different items",
+    "A picture showing simple words nona",
+    "Pictures of people in church praying."
+  ],
+  "_note_typo": "One 'Wansañu' typed with ṅ (n with a dot above) instead of ñ.",
+  "edit": [
+    {
+      "find": "Mutu Wansaṅu Wanyanaya 1",
+      "with": "Mutu Wansañu Wanyanaya 1"
+    }
+  ],
+  "_note_dup": "p21 printed the same pencil picture twice on one page: image19 after the Zhakwila (where every other activity puts its picture) and image20, the same picture again under the illustrator note. Keep the first.",
+  "removeImages": [
+    "image20.jpeg"
+  ],
+  "deleteExact": [
+    "ART/W A picture of print words accompanied by pictures (mango, house, tree, car).",
+    "ART/W pictures of domestic animals producing different sounds cow, goat, chicken (3)"
+  ],
+  "images": {
+    "image72.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image72.png"
+    },
+    "image92.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image92.png"
+    },
+    "image55.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image55.png"
+    },
+    "image61.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image61.png"
+    },
+    "image47.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image47.png"
+    },
+    "image64.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image64.png"
+    },
+    "image28.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image28.png"
+    },
+    "image51.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image51.png"
+    },
+    "image67.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image67.png"
+    },
+    "image29.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image29.png"
+    },
+    "image63.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image63.png"
+    },
+    "image70.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image70.png"
+    },
+    "image56.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image56.png"
+    },
+    "image5.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image5.png"
+    },
+    "image95.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image95.png"
+    },
+    "image77.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image77.png"
+    },
+    "image88.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image88.png"
+    },
+    "image49.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image49.png"
+    },
+    "image17.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image17.png"
+    },
+    "image62.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image62.png"
+    },
+    "image71.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image71.png"
+    },
+    "image44.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image44.png"
+    },
+    "image9.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image9.png"
+    },
+    "image10.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image10.png"
+    },
+    "image40.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image40.png"
+    },
+    "image90.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image90.png"
+    },
+    "image43.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image43.png"
+    },
+    "image22.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image22.png"
+    },
+    "image41.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image41.png"
+    },
+    "image42.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image42.png"
+    },
+    "image4.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image4.png"
+    },
+    "image23.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image23.png"
+    },
+    "image38.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image38.png"
+    },
+    "image66.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image66.png"
+    },
+    "image54.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image54.png"
+    },
+    "image50.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image50.png"
+    },
+    "image65.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image65.png"
+    },
+    "image93.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image93.png"
+    },
+    "image14.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image14.png"
+    },
+    "image98.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image98.png"
+    },
+    "image33.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image33.png"
+    },
+    "image57.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image57.png"
+    },
+    "image89.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image89.png"
+    },
+    "image3.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image3.png"
+    },
+    "image15.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image15.png"
+    },
+    "image27.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image27.png"
+    },
+    "image86.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image86.png"
+    },
+    "image11.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image11.png"
+    },
+    "image26.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image26.png"
+    },
+    "image53.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image53.png"
+    },
+    "image60.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image60.png"
+    },
+    "image34.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image34.png"
+    },
+    "image73.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image73.png"
+    },
+    "image6.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image6.png"
+    },
+    "image39.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image39.png"
+    },
+    "image81.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image81.png"
+    },
+    "image13.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image13.png"
+    },
+    "image24.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image24.png"
+    },
+    "image35.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image35.png"
+    },
+    "image7.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image7.png"
+    },
+    "image8.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image8.png"
+    },
+    "image78.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image78.png"
+    },
+    "image82.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image82.png"
+    },
+    "image96.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image96.png"
+    },
+    "image91.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image91.png"
+    },
+    "image21.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image21.png"
+    },
+    "image25.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image25.png"
+    },
+    "image52.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image52.png"
+    },
+    "image30.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image30.png"
+    },
+    "image37.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image37.png"
+    },
+    "image46.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image46.png"
+    },
+    "image16.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image16.png"
+    },
+    "image45.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image45.png"
+    },
+    "image68.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image68.png"
+    },
+    "image94.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image94.png"
+    },
+    "image75.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image75.png"
+    },
+    "image87.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image87.png"
+    },
+    "image97.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image97.png"
+    },
+    "image12.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image12.png"
+    },
+    "image19.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image19.png"
+    },
+    "image79.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image79.png"
+    },
+    "image18.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image18.png"
+    },
+    "image32.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image32.png"
+    },
+    "image36.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image36.png"
+    },
+    "image58.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image58.png"
+    },
+    "image48.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image48.png"
+    },
+    "image31.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image31.png"
+    },
+    "image83.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image83.png"
+    },
+    "image84.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image84.png"
+    },
+    "image59.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image59.png"
+    },
+    "image80.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image80.png"
+    },
+    "image76.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image76.png"
+    },
+    "image2.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image2.png"
+    },
+    "image69.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image69.png"
+    },
+    "image85.png": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image85.png"
+    },
+    "image74.jpeg": {
+      "src": "ECE Lunda LEVEL 1 LB-hires/image74.png"
+    }
+  }
+}
