@@ -1,0 +1,60 @@
+{
+  "localLabels": true,
+  "subject": "Icibemba",
+  "tocTitle": "Ifili mu Citabo",
+  "topicIsUnit": true,
+  "coverEndsBefore": "1. UBULONDOLOSHI BWANTANSHI",
+  "setHeading": [
+    {
+      "find": "1. UBULONDOLOSHI BWANTANSHI",
+      "text": "UBULONDOLOSHI BWANTANSHI",
+      "as": "h1"
+    },
+    {
+      "find": "1.1 Inshila ya Kusambilila ya GRM (GRM)",
+      "as": "head"
+    },
+    {
+      "find": "1.2 ifisanshiwemo (Ifintu Ifyakwishiba)",
+      "text": "1.2 Ifisanshiwemo (Ifintu Ifyakwishiba)",
+      "as": "head"
+    },
+    {
+      "find": "1.3 ukulangilila ifyakucita ku basambi (Ifyakulanga)",
+      "text": "1.3 Ukulangilila ifyakucita ku basambi (Ifyakulanga)",
+      "as": "head"
+    },
+    {
+      "find": "1.4 Ifyakubomfya",
+      "as": "head"
+    },
+    {
+      "find": "UNIT 8: UKULANSHANYA NA IMYENDELE",
+      "text": "UMUTWE 8: UKULANSHANYA NA IMYENDELE"
+    },
+    {
+      "find": "UMUTW 11: INDANGAGUCINDIKWA SHA CALO (NATIONAL VALUES AND PRINCIPLES)",
+      "text": "UMUTWE 11: INDANGAGUCINDIKWA SHA CALO (NATIONAL VALUES AND PRINCIPLES)"
+    },
+    {
+      "find": "UMUTWE 7: UKUSEFYA INTAMBI SHA CIKAYA",
+      "text": "UMUTWE 6: UKUSEFYA INTAMBI SHA CIKAYA"
+    },
+    {
+      "find": "UMUTWE 3: UKUMFWA NA UKULANDA / UKUBELENGA",
+      "text": "UMUTWE: UKUMFWA NA UKULANDA / UKUBELENGA",
+      "as": "head"
+    },
+    {
+      "find": "UMUTWE 6: UKUMFWA NA UKULANDA NA UKUBELENGA",
+      "text": "UMUTWE: UKUMFWA NA UKULANDA NA UKUBELENGA",
+      "as": "head"
+    }
+  ],
+  "tocUnitsOnly": false,
+  "images": {
+    "image1.jpeg": {
+      "src": "Ichibemba_Grade 1_ TG_sent for Typesetting-hires/image1.png"
+    }
+  }
+}

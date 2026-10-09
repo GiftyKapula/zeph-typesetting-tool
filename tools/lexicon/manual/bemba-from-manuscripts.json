@@ -1,0 +1,14 @@
+{
+  "_note": "Icibemba wordings found in the manuscript itself (not on an author's form). Icibemba Grade 1 TG (sent for typesetting, received 2026-10-09): cover line 'ICIBEMBA GELEDI 1' (Grade; put ahead of the word list's 'Giledi'); 'ICITABO CAKWA KAFUNDISHA' (Teacher's Guide; the word list's 'Icitabo ca kwa Kafundisha' is kept, as it is shared with the Form books); contents heading 'Ifili Muchitabo' (recognised; the printed title stays the word list's 'Ifili mu Citabo'); introduction heading '1. UBULONDOLOSHI BWANTANSHI'.",
+  "source": "Icibemba Grade 1 TG (manuscript)",
+  "header": {
+    "language": "Icibemba",
+    "your name": "(from manuscript)",
+    "book and grade": "Icibemba Grade 1 TG"
+  },
+  "rows": [
+    ["Grade", "Geledi"],
+    ["Contents", "Ifili Muchitabo"],
+    ["Introduction", "Ubulondoloshi bwantanshi"]
+  ]
+}
