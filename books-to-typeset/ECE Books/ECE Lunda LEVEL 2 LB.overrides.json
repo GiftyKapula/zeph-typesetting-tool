@@ -1,0 +1,347 @@
+{
+  "_note_cover": "The manuscript's cover picture (image1.jpeg, 980x1176) has no lettering. Cut to the series cover card's 122:78 shape across its full width (y 285-912: sandpit, water table, blocks, book corner, painting table), Real-ESRGAN x4 then scaled to 2452x1568, ~510 DPI at 122mm. The hand-set title block above and below it (Early Childhood Education / LUNDA / MUKANDA WAKADIZI WA KUTAÑA NAKUSONEKA (YAAKA 4-5) / publisher) is the cover's own lettering: dropped, the cover is built from the word list as in Level 1.",
+  "coverImage": "lunda-ece-level2-lb-cover-hires.png",
+  "synthesiseCover": true,
+  "removeImages": [
+    "image1.jpeg"
+  ],
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "authors": [
+    "Kapiteni Edah Samutamu",
+    "Kakoma Mushitala"
+  ],
+  "_note_tables": "The author boxed the term lines (Temu 1-3), the strand lines and a few pictures in Word tables. Unpack them into headings and full-width pictures.",
+  "untableImages": true,
+  "tocUnitsOnly": false,
+  "_note_authorNotes": "Two notes to the typesetter were left in the text. \"Remove g on the picture of a dog and replace it with k\": done on the upscaled picture (image35, kawa = dog), the note dropped. \"Replace the words on the chart in the picture with these lunda words. (watu, wetu, ...)\": the chart picture (image38) already shows exactly those words, so both note lines are dropped.",
+  "deleteExact": [
+    "Remove g on the picture of a dog and replace it with k",
+    "Replace the words on the chart in the picture with these lunda words.",
+    "(watu, wetu, mutu, itu, ketu, yetu, etu)",
+    "Temu 1",
+    "Temu 2",
+    "Temu 3",
+    "Kutachikakudiza kutaṅa"
+  ],
+  "_note_terms": "The Temu 1-3 lines sat just before a KAPETULU heading, which always opens a fresh page, so each was stranded alone at the foot of the page before. Set each one under its chapter heading instead, above the strand line. The duplicated, misspelt strand line \"Kutachikakudiza kutaṅa\" above Chapter 11 \"Kutachika Kudiza Kutaña\" is dropped.",
+  "insertHead": [
+    {
+      "before": "Kuhosha Nakutiyilila",
+      "near": "Wansañu  : Mazhina",
+      "head": "Temu 1"
+    },
+    {
+      "before": "Kuhosha Nakutiyilila",
+      "near": "Mazu adifwana kukukumisha",
+      "head": "Temu 2"
+    },
+    {
+      "before": "Kuhosha Nakutiyilila",
+      "near": "Kuhanjika",
+      "head": "Temu 3"
+    }
+  ],
+  "_note_typos": "Manuscript slips in repeated labels, set right: Wansazhñ/Wansaña/MutWansañu -> Wansañu, Nakutoiyilila -> Nakutiyilila, Atidizi -> Atudizi, a stray letter before Chuma (huma / LChuma / LUChuma), lower-case zhakwila.",
+  "editAll": [
+    {
+      "find": "Mutu Wansazhñ",
+      "with": "Mutu Wansañu"
+    },
+    {
+      "find": "Mutu Wansaña:",
+      "with": "Mutu Wansañu:"
+    },
+    {
+      "find": "Nakutoiyilila",
+      "with": "Nakutiyilila"
+    },
+    {
+      "find": "Atidizi",
+      "with": "Atudizi"
+    },
+    {
+      "find": "LUChuma Chinakuhwelelewi",
+      "with": "Chuma Chinakuhwelelewi"
+    },
+    {
+      "find": "zhakwila 1",
+      "with": "ZHAKWILA 1"
+    },
+    {
+      "find": "ZHAKWILA 5",
+      "with": "ZHAKWILA 4"
+    }
+  ],
+  "_note_cells": "The same slips inside the objectives boxes (Word tables) need editCell. \"huma\" is a substring of every correct \"Chuma\", so it is fixed in two steps: huma -> Chuma everywhere (the good ones briefly become CChuma), then CChuma -> Chuma.",
+  "editCell": [
+    {
+      "find": "huma Chinakuhwelelewi",
+      "with": "Chuma Chinakuhwelelewi"
+    },
+    {
+      "find": "CChuma Chinakuhwelelewi",
+      "with": "Chuma Chinakuhwelelewi"
+    },
+    {
+      "find": "LChuma Chinakuhwelelewi",
+      "with": "Chuma Chinakuhwelelewi"
+    },
+    {
+      "find": "MutWansañu",
+      "with": "Mutu Wansañu"
+    }
+  ],
+  "_note_ch9": "Chapter 9 opens with its objectives table unpacked into a run of keep-with-next headings that ends on the tall road-signs picture: too tall for one page, so KAPETULU 9 was left alone on its page. The activity line under ZHAKWILA 1 is a plain sentence, so set it as one (bold kept); that ends the chain. Likewise the copy-words list (nona, ona, aka, ana, momu, mama, imu) in the Kukopolola mazu apela activity came in as seven headings, which chained the whole activity together and pushed the v-syllable picture onto a page of its own: set them as bold lines.",
+  "asPara": [
+    {
+      "find": "Kulumbulula yinjikizhilu.",
+      "bold": true
+    },
+    {
+      "find": "nona",
+      "bold": true
+    },
+    {
+      "find": "ona",
+      "bold": true
+    },
+    {
+      "find": "aka",
+      "bold": true
+    },
+    {
+      "find": "ana",
+      "bold": true
+    },
+    {
+      "find": "momu",
+      "bold": true
+    },
+    {
+      "find": "mama",
+      "bold": true
+    },
+    {
+      "find": "imu",
+      "bold": true
+    }
+  ],
+  "images": {
+    "image32.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image32.png"
+    },
+    "image34.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image34.png"
+    },
+    "image50.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image50.png"
+    },
+    "image74.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image74.png"
+    },
+    "image45.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image45.png"
+    },
+    "image62.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image62.png"
+    },
+    "image2.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image2.png"
+    },
+    "image26.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image26.png"
+    },
+    "image72.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image72.png"
+    },
+    "image42.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image42.png"
+    },
+    "image7.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image7.png"
+    },
+    "image14.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image14.png"
+    },
+    "image22.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image22.png"
+    },
+    "image69.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image69.png"
+    },
+    "image73.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image73.png"
+    },
+    "image24.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image24.png"
+    },
+    "image25.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image25.png"
+    },
+    "image3.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image3.png"
+    },
+    "image6.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image6.png"
+    },
+    "image21.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image21.png"
+    },
+    "image31.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image31.png"
+    },
+    "image37.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image37.png"
+    },
+    "image44.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image44.png"
+    },
+    "image61.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image61.png"
+    },
+    "image64.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image64.png"
+    },
+    "image4.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image4.png"
+    },
+    "image5.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image5.png"
+    },
+    "image15.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image15.png"
+    },
+    "image16.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image16.png"
+    },
+    "image23.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image23.png"
+    },
+    "image29.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image29.png"
+    },
+    "image36.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image36.png"
+    },
+    "image59.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image59.png"
+    },
+    "image60.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image60.png"
+    },
+    "image35.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image35.png"
+    },
+    "image33.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image33.png"
+    },
+    "image13.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image13.png"
+    },
+    "image55.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image55.png"
+    },
+    "image56.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image56.png"
+    },
+    "image10.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image10.png"
+    },
+    "image8.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image8.png"
+    },
+    "image53.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image53.png"
+    },
+    "image63.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image63.png"
+    },
+    "image70.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image70.png"
+    },
+    "image11.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image11.png"
+    },
+    "image51.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image51.png"
+    },
+    "image40.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image40.png"
+    },
+    "image41.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image41.png"
+    },
+    "image54.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image54.png"
+    },
+    "image66.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image66.png"
+    },
+    "image67.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image67.png"
+    },
+    "image28.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image28.png"
+    },
+    "image49.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image49.png"
+    },
+    "image12.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image12.png"
+    },
+    "image48.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image48.png"
+    },
+    "image65.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image65.png"
+    },
+    "image9.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image9.png"
+    },
+    "image27.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image27.png"
+    },
+    "image43.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image43.png"
+    },
+    "image47.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image47.png"
+    },
+    "image52.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image52.png"
+    },
+    "image30.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image30.png"
+    },
+    "image58.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image58.png"
+    },
+    "image71.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image71.png"
+    },
+    "image68.jpeg": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image68.png"
+    },
+    "image46.jpeg": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image46.png"
+    },
+    "image39.jpeg": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image39.png"
+    },
+    "image38.jpeg": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image38.png"
+    },
+    "image57.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image57.png"
+    }
+  },
+  "renameNear": [
+    {
+      "find": "ZHAKWILA",
+      "near": "Kutena yivumina yamazu yidi kukutachika kwamazu amukuhosha.",
+      "to": "ZHAKWILA 1"
+    }
+  ],
+  "_note_activities": "Activity badges: the label box and its number circle are separate shapes; the engine joins them when they share a paragraph. One badge (Kutena yivumina yamazu...) has its \"1\" circle in the next paragraph, so it is numbered here with renameNear. The manuscript skips ZHAKWILA 4 in Kapetulu 3 (1, 2, 3, 5): set as 4. One label typed in lower case (zhakwila 1) set in capitals like the rest."
+}

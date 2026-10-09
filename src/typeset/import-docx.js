@@ -187,7 +187,13 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       } else if (depth++ === 0) start = tm.index;
     }
   }
-  for (const [spanStart, spanEnd] of drawingSpans) {
+  // Plain text of a drawing span's text box ("" when it has none).
+  const spanText = (s, e) => {
+    const m = rawDoc.slice(s, e).match(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/);
+    return m ? [...m[1].matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((t) => t[1]).join("").trim() : "";
+  };
+  for (let si = 0; si < drawingSpans.length; si++) {
+    const [spanStart, spanEnd] = drawingSpans[si];
     const d = rawDoc.slice(spanStart, spanEnd);
     const tbm = d.match(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/);
     if (!tbm) continue;
@@ -217,9 +223,29 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       // to recover it later, since paraSegs never captures <w:drawing> content.
       .filter((p) => p.isTable || p.segs.some((s) => (s.t || "").trim()) || /<w:drawing\b/.test(p.xml));
     if (!paras.length || paras[0].isTable) continue;   // a title-less box (table first) — leave it
-    const title = plainOf(paras[0].segs).trim();
+    let title = plainOf(paras[0].segs).trim();
     const kind = boxKindFromTitle(title);
     if (kind !== "activity" && kind !== "exercise" && kind !== "assessment") continue;   // some other shape/graphic — leave it
+    // A badge-style heading: a label-only box ("ZHAKWILA") with its number in a SEPARATE
+    // shape beside it (a circle holding "1"), both anchored in the same paragraph — after
+    // the label or before it, sometimes with empty decoration shapes in between.
+    // The number box is text-only, so the general stripping would drop it and every
+    // activity would print unnumbered — take its number into the title instead.
+    if (paras.length === 1 && !/\d/.test(title)) {
+      const badgeNum = (step) => {
+        for (let k = si + step; k >= 0 && k < drawingSpans.length; k += step) {
+          const [a, b] = drawingSpans[k];
+          const gap = step > 0 ? rawDoc.slice(drawingSpans[k - 1][1], a) : rawDoc.slice(b, drawingSpans[k + 1][0]);
+          if (/<\/w:p>/.test(gap)) return null;          // left the paragraph
+          const t = spanText(a, b);
+          if (/^\d{1,2}$/.test(t)) return t;
+          if (t) return null;                           // some other text box — not a badge
+        }
+        return null;
+      };
+      const num = badgeNum(1) || badgeNum(-1);
+      if (num) title = `${title} ${num}`;
+    }
     // Number the box's own questions/steps from the manuscript's REAL Word-list format
     // (roman / letter / decimal — whatever the author actually chose), not a hard-coded
     // "top=decimal, sub=letter" guess: some exercises number their top level with roman
@@ -2298,7 +2324,7 @@ async function importDocx(docxPath, opts = {}) {
 
   // ---- front-matter detection (only when the book clearly has one) ----
   const hasTocStyle = parts.some((x) => /<w:pStyle\s+w:val="TOC\d/.test(x));
-  const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso/i.test(textOf(x)));
+  const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso|ñovu zhezhima/i.test(textOf(x)));
   const isTocHead = (t) => /^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(t) || LEXI.isContents(t);
   const tocPartIdx = parts.findIndex((x) => !isTbl(x) && isTocHead(textOf(x)));
   // The imprint (copyright/credits) page is centred plain text in the original.

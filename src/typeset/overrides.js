@@ -1,7 +1,7 @@
 // Per-book editorial overrides (the <book>.overrides.json sidecar) applied to the block list.
 // (Split out of typeset-docx.js — see docs/ARCHITECTURE.md.)
 const { S, arr } = require("./emit.js");
-const { segKey, blockPlain, setBlockText, setBlockSegs, editBlockText, editBlockAnswerText, allTextBlocks, mkSegs } = require("./blocktext.js");
+const { segKey, titleKey, blockPlain, setBlockText, setBlockSegs, editBlockText, editBlockAnswerText, allTextBlocks, mkSegs } = require("./blocktext.js");
 
 function applyOverrides(blocks, ov) {
   // italicSections: ["Specific Competences", "Expected Standards", …] — every paragraph /
@@ -596,7 +596,7 @@ function applyOverrides(blocks, ov) {
     let n = 0;
     for (const b of flat) {
       if (!(b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t)) || typeof b.text !== "string") continue;
-      if (b.text.trim() !== ap) continue;
+      if (b.text.trim() !== ap.find) continue;
       const t = b.text.trim();
       b.t = "para"; delete b.text; delete b.marker;
       // {bold: true} keeps the whole line bold (a key sentence the importer took for a
@@ -1094,6 +1094,9 @@ function applyOverrides(blocks, ov) {
       if (blockPlain(blocks[k]).trim().startsWith(rn.find)) { i = k; break; }
     }
     if (i < 0) { console.warn("!  renameNear not matched:", `${rn.find} near ${rn.near}`); continue; }
+    // A box (activity/exercise/assessment) prints its own title, not .text — rename that.
+    const tk = titleKey(blocks[i]);
+    if (tk) { blocks[i][tk] = rn.to; delete blocks[i].titleSegs; continue; }
     blocks[i].text = rn.to;
     delete blocks[i].segs;
   }
