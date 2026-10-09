@@ -63,6 +63,14 @@
     {
       "find": "LUChuma Chinakuhwelelewi",
       "with": "Chuma Chinakuhwelelewi"
+    },
+    {
+      "find": "zhakwila 1",
+      "with": "ZHAKWILA 1"
+    },
+    {
+      "find": "ZHAKWILA 5",
+      "with": "ZHAKWILA 4"
     }
   ],
   "_note_cells": "The same slips inside the objectives boxes (Word tables) need editCell. \"huma\" is a substring of every correct \"Chuma\", so it is fixed in two steps: huma -> Chuma everywhere (the good ones briefly become CChuma), then CChuma -> Chuma.",
@@ -323,6 +331,17 @@
     },
     "image38.jpeg": {
       "src": "ECE Lunda LEVEL 2 LB-hires/image38.png"
+    },
+    "image57.png": {
+      "src": "ECE Lunda LEVEL 2 LB-hires/image57.png"
     }
-  }
+  },
+  "renameNear": [
+    {
+      "find": "ZHAKWILA",
+      "near": "Kutena yivumina yamazu yidi kukutachika kwamazu amukuhosha.",
+      "to": "ZHAKWILA 1"
+    }
+  ],
+  "_note_activities": "Activity badges: the label box and its number circle are separate shapes; the engine joins them when they share a paragraph. One badge (Kutena yivumina yamazu...) has its \"1\" circle in the next paragraph, so it is numbered here with renameNear. The manuscript skips ZHAKWILA 4 in Kapetulu 3 (1, 2, 3, 5): set as 4. One label typed in lower case (zhakwila 1) set in capitals like the rest."
 }
