@@ -22,6 +22,9 @@
       "Buka ya Mwanaa Sikolo",
       "Buka ya Mwana Sikolo"
     ],
+    "teachers_guide": [
+      "Buka ya Muluti"
+    ],
     "grade": [
       "Giledi"
     ],
@@ -64,6 +67,9 @@
     ],
     "level_primary": [
       "Tuto ya Pulaimali"
+    ],
+    "introduction": [
+      "Makalelo"
     ]
   },
   "extras": [],

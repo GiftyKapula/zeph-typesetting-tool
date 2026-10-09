@@ -275,7 +275,8 @@ async function main() {
   const byDims = new Map();           // "WxH" -> [media name]
   const srcDir = path.join(work, "src");
   fs.mkdirSync(srcDir, { recursive: true });
-  for (const name of Object.keys(zip.files).filter((n) => n.startsWith("word/media/"))) {
+  // skip folder entries: some .docx files carry a bare "word/media/" entry (Silozi G4 TG)
+  for (const name of Object.keys(zip.files).filter((n) => n.startsWith("word/media/") && !zip.files[n].dir)) {
     if (removed.has(path.basename(name))) continue;
     const buf = await zip.file(name).async("nodebuffer");
     const d = dims(buf);
