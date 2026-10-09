@@ -2802,7 +2802,9 @@
   // callout. Group the run and keep it whole, so the whole checklist travels together
   // and stays attached to the activity that owns it.
   let txt(it) = if it.at("s", default: none) == none { "" } else {
-    it.s.map(g => { let x = g.at("t", default: ""); if x == none { "" } else { x } }).join()
+    // an empty run list joins to none, not ""
+    let j = it.s.map(g => { let x = g.at("t", default: ""); if x == none { "" } else { x } }).join()
+    if j == none { "" } else { j }
   }
   let isHead(it) = it.k != "table" and it.k != "img" and it.k != "colgrid" and it.k != "colsum" and {
     let t = upper(txt(it).trim())

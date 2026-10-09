@@ -397,7 +397,7 @@ async function typesetOne(docxPath, themeName) {
       const isAuthor = (t) => {
         const s = (t || "").trim();
         if (s.length < 3 || s.length > 40) return false;
-        return !/publish|lusaka|p\.?o\.? box|industrial|\broad\b|mukanda|buku|icitabo|fomu|\bform\b|\bgrade\b|ordinary level|teacher|learner|musambi|walongi|wakadizi/i.test(s);
+        return !/publish|lusaka|p\.?o\.? box|industrial|\broad\b|mukanda|buku|\bbuka\b|icitabo|fomu|\bform\b|\bgrade\b|ordinary level|teacher|learner|musambi|walongi|wakadizi/i.test(s);
       };
       cov.byline = (cov.byline || []).filter(isAuthor);
       console.log("   synthesised cover:", cov.lines.join(" / "), "| authors:", cov.byline.length);

@@ -2344,7 +2344,10 @@ async function importDocx(docxPath, opts = {}) {
   // own name prefixed ("FORM 1 FOOD AND NUTRITION – SAMPLE SCHEME OF WORK"), so
   // match it by its trailing phrase rather than requiring an exact whole match.
   const BACKMATTER_NAME = /^GLOSSARY\b|^REFERENCES?$|^BIBLIOGRAPHY$|^APPENDI(X|CES)\b|^INDEX$|SCHEME\s+OF\s+WORK$/i;
-  let imprintEnd = tocPartIdx >= 0 ? tocPartIdx : parts.length;
+  // Some manuscripts put the contents list on page 2, BEFORE the copyright page
+  // (Silozi Grade 4 LB); then the TOC does not end the imprint.
+  const tocFirst = tocPartIdx > 0 && copyrightIdx > tocPartIdx;
+  let imprintEnd = tocPartIdx >= 0 && !tocFirst ? tocPartIdx : parts.length;
   if (copyrightIdx >= 0) {
     for (let i = copyrightIdx + 1; i < imprintEnd; i++) {
       if (isTbl(parts[i])) continue;
@@ -2358,7 +2361,7 @@ async function importDocx(docxPath, opts = {}) {
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.
-    if (tocPartIdx < 0) imprintEnd = Math.min(imprintEnd, copyrightIdx + 40);
+    if (tocPartIdx < 0 || tocFirst) imprintEnd = Math.min(imprintEnd, copyrightIdx + 40);
   }
   const inImprint = (i) => copyrightIdx >= 0 && i >= copyrightIdx && i < imprintEnd;
 
@@ -2478,7 +2481,9 @@ async function importDocx(docxPath, opts = {}) {
   // straight from the title block to the author's contents list) still has a cover:
   // everything before an early contents heading. Without this it got no cover, so the
   // title lines and picture fell onto the first body page.
-  const coverStop = copyrightIdx > 0 ? copyrightIdx
+  // A contents list ahead of the copyright line ends the cover there too, or every
+  // contents entry is read as an author name in the byline.
+  const coverStop = copyrightIdx > 0 ? (tocFirst ? tocPartIdx : copyrightIdx)
     : (copyrightIdx < 0 && textCover && tocPartIdx > 0 && tocPartIdx <= 12 ? tocPartIdx : -1);
   if (coverStop > 0) {
     // hero = largest image before the copyright line; everything before the
