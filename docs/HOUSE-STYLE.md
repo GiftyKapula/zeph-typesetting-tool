@@ -133,8 +133,9 @@ off, so a change only touches the books that opt in. Keys:
 | `pageBreakBefore` | insert a page break before the first block containing the text |
 | `replaceSection` | swap a whole section body (heading → next section) for supplied `items` (markdown-ish: `**bold**`, `*italic*`, `$math$`, `## sub-head`); optional `rename`/`until` |
 | `recase` | change a block's case (`{ startsWith, to: "sentence" \| "title" \| "upper" }`, default `"title"`) — e.g. an ALL-CAPS label the house style wants in sentence case, or a Learning Activity/Exercise/Assessment box title a manuscript left inconsistently cased (`to: "upper"`) next to sibling boxes that are ALL-CAPS |
-| `setHeading` | force a block to render as a specific heading kind (`as: "label"`, etc.) — for a heading the importer classified wrong |
+| `setHeading` | force a block to render as a specific heading kind (`as: "label"`, etc.) — for a heading the importer classified wrong — `unit: true` also marks an h1 as a unit (body start, contents level 1) when its wording is not a recognised Unit word |
 | `centrePara` | centre a paragraph (and, inside an exercise, its "lead" part) rather than justify/left-align it — matches a manuscript's own centred diagram or ASCII layout |
+| `justifySection` | undo the imprint's auto-centring for one front-matter section (its title up to the next section) — for a section whose title the importer could not see (typed in a floating text box), so its justified text was swept into the centred imprint |
 | `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |
 | `tocDepth` | how many heading levels the table of contents lists (default 2: top-level + one sub-level) |

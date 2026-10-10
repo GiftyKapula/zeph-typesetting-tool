@@ -9,6 +9,7 @@
   ],
   "terms": {
     "grade": [
+      "GIREDI",
       "GILEDI"
     ],
     "form": [
@@ -30,16 +31,20 @@
       "MLEMBI"
     ],
     "foreword": [
-      "MAU OYAMBILILA"
+      "MAU OYAMBILILA",
+      "MAU OYAMBA"
     ],
     "preface": [
-      "MAU A MLEMBI"
+      "MAU A MLEMBI",
+      "MAU OTSOGOLELA"
     ],
     "acknowledgement": [
-      "KUYAMIKILA"
+      "KUYAMIKILA",
+      "ZOTHOKOZA"
     ],
     "introduction": [
-      "KALAMBULA BWALO"
+      "KALAMBULA BWALO",
+      "MAU OYAMBA A BUKU"
     ],
     "key_competences": [
       "MALUSO APAMWAMBA"
@@ -121,6 +126,9 @@
     ],
     "references": [
       "Mabuku ofufuzila"
+    ],
+    "authors_label": [
+      "ALEMBI"
     ]
   },
   "extras": [],

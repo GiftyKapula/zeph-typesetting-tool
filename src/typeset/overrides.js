@@ -406,6 +406,9 @@ function applyOverrides(blocks, ov) {
       const blk = blocks[i];
       blk.text = sh.text != null ? sh.text : blockPlain(blk).trim();
       blk.t = sh.as || blk.t;
+      // `unit: true` — this h1 opens a unit (body start, contents level 1) even though its
+      // wording is not a recognised Unit word (Cinyanja "GAWO LOYAMBA: …")
+      if (sh.unit) blk.unit = true;
       delete blk.segs; delete blk.marker; delete blk.isList; delete blk.numId; delete blk.lvl;
       n++;
       if (!sh.all) break;
@@ -1078,6 +1081,17 @@ function applyOverrides(blocks, ov) {
     if (ih.unlist) { blocks[i].t = "para"; delete blocks[i].marker; delete blocks[i].isList; delete blocks[i].numId; delete blocks[i].lvl; }
     blocks.splice(i, 0, ih.as ? { t: ih.as, text: ih.head } : { t: "head", text: ih.head, black: true });
   }
+  // justifySection: ["SECTION TITLE", …] — undo the imprint's auto-centring for the
+  // paragraphs of one front-matter section (its h1 up to the next h1). The importer
+  // centres everything from the copyright line to the first section heading it can see;
+  // when that heading sits in a floating text box (Cinyanja G1 LB "MAU OYAMBA") the
+  // section's own justified text is caught in the centred run. Runs after insertHead,
+  // so it can target a section title that override restored.
+  for (const title of ov.justifySection || []) {
+    const i = blocks.findIndex((b) => b.t === "h1" && (b.text || "").trim().toUpperCase() === String(title).trim().toUpperCase());
+    if (i < 0) { console.warn("!  justifySection not matched:", title); continue; }
+    for (let k = i + 1; k < blocks.length && blocks[k].t !== "h1"; k++) if (blocks[k].t === "para" && blocks[k].align === "center") delete blocks[k].align;
+  }
   // renameNear: [{ find, near, to, orEmpty? }] — rename ONE specific occurrence of a
   // heading among several IDENTICAL ones (e.g. a manuscript with a dozen bare
   // "Activity 1:" headings each missing its name) by disambiguating with nearby
@@ -1565,8 +1579,12 @@ function applyOverrides(blocks, ov) {
   // so a floating image the importer anchored out of reading order — placed before its
   // activity instead of after it, next to its caption — can be moved back to the
   // manuscript's visual order. Anchors are matched against the CURRENT order, so list
-  // moves front-to-back.
-  const mbMatch = (b, needle) => blockPlain(b).includes(needle) || (b.t === "image" && (b.file || "").includes(needle));
+  // moves front-to-back. `find` also matches a one-column banner table by its whole
+  // cell text (a "Temu 3" term banner the manuscript placed after the unit it opens).
+  const bannerText = (b) => (b.t === "table" && Array.isArray(b.rows) && b.rows.every((r) => Array.isArray(r) && r.length === 1))
+    ? b.rows.map((r) => String((r[0] && r[0].text) || "").trim()).filter(Boolean).join(" ") : "";
+  const mbMatch = (b, needle) => blockPlain(b).includes(needle) || (b.t === "image" && (b.file || "").includes(needle))
+    || (b.t === "table" && bannerText(b) === needle);
   for (const mv of ov.moveBefore || []) {
     // `near`: disambiguate a `find` that recurs throughout the book (e.g. a generic
     // "Reading Passage" heading repeated every lesson) — locate the UNIQUE `near` text

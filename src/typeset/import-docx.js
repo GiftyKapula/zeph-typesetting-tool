@@ -2324,7 +2324,8 @@ async function importDocx(docxPath, opts = {}) {
 
   // ---- front-matter detection (only when the book clearly has one) ----
   const hasTocStyle = parts.some((x) => /<w:pStyle\s+w:val="TOC\d/.test(x));
-  const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso|ñovu zhezhima/i.test(textOf(x)));
+  // (Cinyanja: "Ufulu wonse ndi wotetezedwa" = all rights reserved.)
+  const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso|ñovu zhezhima|ufulu wonse ndi wotetezedwa/i.test(textOf(x)));
   const isTocHead = (t) => /^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(t) || LEXI.isContents(t);
   const tocPartIdx = parts.findIndex((x) => !isTbl(x) && isTocHead(textOf(x)));
   // The imprint (copyright/credits) page is centred plain text in the original.
