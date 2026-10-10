@@ -1,0 +1,84 @@
+{
+  "_comment": [
+    "Curriculum, Instructional Strategies and Assessment for Special Education - Secondary",
+    "Teachers' Diploma syllabus. First typeset 2026-10-10. Layout and spelling repairs only:",
+    "NONE of these rewrites a competence, an activity or an expected standard.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * Competencies table: the DIGITAL row has no S/N (the manuscript numbers 1-5, a",
+    "    blank, then 6-8). Whether Digital is a ninth competence (renumber 6-8 to 7-9) or",
+    "    belongs under Critical Thinking is a content question; left exactly as written."
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "The YEAR 1 heading that introduces the matrix landed alone at the foot of the competencies page, with the matrix starting overleaf. It now opens the matrix page.",
+      "find": "YEAR 1: CURRICULUM INSTRUCTIONAL STRATEGIES"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "The five weighting lines are tab-aligned in the manuscript (number + item | percentage). The engine set the first three as paragraphs, where the deeper numbers 6.1.1./6.1.2. overprinted the word after them, and the last two as a two-column grid, so the percentages sat in two different places. Rebuilt as ONE two-column grid with the manuscript's own numbers, wording and percentages.",
+      "find": "6.1. Continuous Assessment 40%",
+      "with": [
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "6.1. Continuous Assessment",
+                  "40%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "6.1.1. Assignment (two)",
+                  "10%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "6.1.2. Presentation/Projects",
+                  "15%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "6.1.3. Test (three)",
+                  "15%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "6.2. Final Examination",
+                  "60%"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "subtext": [
+    {
+      "_why": "Spelling, in the YEAR 1 heading only; the word is spelt ASSESSMENT everywhere else, including the title.",
+      "from": "ASSESSEMENT",
+      "to": "ASSESSMENT"
+    }
+  ],
+  "remove": [
+    "(two)",
+    "Presentation/Projects",
+    "(three)",
+    "Final Examination"
+  ],
+  "_remove_why": "The other four weighting lines, now rows of the rebuilt grid above (each substring occurs once in the manuscript)."
+}
