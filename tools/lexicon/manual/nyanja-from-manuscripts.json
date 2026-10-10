@@ -1,0 +1,39 @@
+{
+  "_note": "Cinyanja wordings found in the manuscripts themselves (not on an author's form). Cinyanja Grade 1 LB (received 2026-10-10): 'Giredi 1' on the cover and throughout the text (the TG's first line also reads 'CINYANJA GIREDI 1'), put ahead of the word list's 'GILEDI'; units headed 'GAWO LOYAMBA:', 'GAWO LA CIWIRI:' … — NOT added as a Unit word: GAWO also opens every skill strand ('GAWO LA KUWERENGA') and the TG repeats 'GAWO LOYAMBA' in every unit, so the LB marks its units in its own sidecar; front-matter headings (in text boxes) 'MAU OYAMBA' (foreword, signed by the Permanent Secretary), 'MAU OTSOGOLELA' (preface, signed by the ZEPH Board Chairperson), 'ZOTHOKOZA' (acknowledgement), 'MAU OYAMBA A BUKU' (introduction); the imprint's author heading 'ALEMBI:' (Authors). No Cinyanja phrase for the primary level is attested (the manuscript's own cover keeps it in English, 'Primary Education'), so 'Maphunziro a Pulayimale' was built from 'maphunziro' (education; the manuscript's 'Maphunziro ndi ofunika') plus the loanword for primary, as the sibling languages do (Chitonga 'Lwiiyo lwa Pulaimali'), and chosen by the typesetter on 2026-10-10.",
+  "source": "Cinyanja Grade 1 LB (manuscript); Cinyanja Grade 1 TG (manuscript)",
+  "header": {
+    "language": "Cinyanja",
+    "your name": "(from manuscript)",
+    "book and grade": "Cinyanja Grade 1 LB"
+  },
+  "rows": [
+    [
+      "Grade",
+      "Giredi"
+    ],
+    [
+      "Authors / Written by",
+      "Alembi"
+    ],
+    [
+      "Foreword",
+      "Mau Oyamba"
+    ],
+    [
+      "Preface",
+      "Mau Otsogolela"
+    ],
+    [
+      "Acknowledgement",
+      "Zothokoza"
+    ],
+    [
+      "Introduction",
+      "Mau Oyamba a Buku"
+    ],
+    [
+      "Primary Education Level",
+      "Maphunziro a Pulayimale"
+    ]
+  ]
+}

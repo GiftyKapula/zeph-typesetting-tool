@@ -233,7 +233,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.justifySection) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -685,13 +685,21 @@ async function typesetOne(docxPath, themeName) {
   // termPages: "regex" — a heading/line matching it ("TEMU 1" = Term 1 in a Kiikaonde ECE
   // book) gets a page of its own in large type. One that would land just before the body
   // start is moved after it, so the term page opens the arabic-numbered body.
+  // The term line can also be a one-column banner table (Cinyanja G1 LB: a "Temu 1"
+  // cell over an empty cell); it matches on its only non-empty cell.
   if (ov.termPages) {
     const re = new RegExp(ov.termPages, "i");
+    const tableText = (b) => {
+      if (b.t !== "table" || !Array.isArray(b.rows) || b.rows.some((r) => r.length !== 1)) return null;
+      const cells = b.rows.map((r) => String((r[0] && r[0].text) || "").trim()).filter(Boolean);
+      return cells.length === 1 ? cells[0] : null;
+    };
     let n = 0;
     for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
-      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t)) continue;
-      const t = (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
+      const tt = tableText(b);
+      if (tt == null && !/^(head|label|para|h1|h2|h3)$/.test(b.t)) continue;
+      const t = tt != null ? tt : (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
       if (!re.test(t)) continue;
       blocks[i] = { t: "termpage", text: t }; n++;
       const nx = blocks.findIndex((x, k) => k > i && x.t !== "vspace");
