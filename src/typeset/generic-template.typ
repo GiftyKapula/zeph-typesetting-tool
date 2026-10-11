@@ -2199,11 +2199,50 @@
   // Render a cell that STARTS with a number ("1.1.4.1 …", "1. …") as a HANGING item: the
   // number in its own column, the wrapped text ALIGNED under itself (not under the number),
   // with a clear gap after the number. Preserves the cell's rich formatting (segs).
+  // One way of writing a clause number down the whole matrix: "1.2", never "1.2." —
+  // manuscripts mix the two, sometimes in adjacent rows.
+  let tidyNum(n) = n.trim(".", at: end)
+  // The number column is a FIXED width per depth (wide enough for "1.10", "1.10.1",
+  // "1.10.1.1"), so the text beside it starts at the same place in every row instead of
+  // shifting with each number's width.
+  // (Call inside `context` — it measures.)
+  let numCol(num, bold) = {
+    let depth = num.split(".").len()
+    let std = "1.10" + ".1" * calc.max(depth - 2, 0)
+    let w(s) = measure(if bold { text(weight: "bold")[#s] } else { text[#s] }).width
+    calc.max(w(num), w(std))
+  }
+  let hang(num, bold, rest) = context grid(
+    columns: (numCol(num, bold), 1fr), column-gutter: 6pt, align: (left + top, left + top),
+    if bold { text(weight: "bold")[#num] } else { num }, rest)
+  let numRe1 = regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+")
   let numcell(c) = {
     let ct = plainlabel(c)
-    let m = ct.match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+"))
+    let m = ct.match(numRe1)
+    let lines = ct.split("\n").filter(l => l.trim() != "")
+    if m != none and c.imgs.len() == 0 and lines.len() > 1 and lines.all(l => l.trim().match(numRe1) != none) {
+      // Several numbered clauses stacked in ONE cell ("1.6.2 Sign Language…" /
+      // "1.6.3 Multimedia…"): split the runs at each line break and hang every clause
+      // on its own, so the second number lines up under the first.
+      let sg = c.at("seg", default: ())
+      let per = ()
+      if sg.len() > 0 {
+        let cur = ()
+        for s in sg {
+          let parts = s.at("t", default: "").split("\n")
+          for (i, p) in parts.enumerate() {
+            if i > 0 { per.push(cur); cur = () }
+            if p != "" { cur.push((..s, t: p)) }
+          }
+        }
+        per.push(cur)
+        per = per.filter(l => l.map(s => s.t).join().trim() != "")
+        per = per.map(l => { let x = l; x.at(0) = (..x.at(0), t: x.at(0).t.trim(at: start)); x })
+      } else { per = lines.map(l => ((t: l.trim(), b: false, it: false, c: none),)) }
+      return stack(spacing: 5pt, ..per.map(l => numcell((text: l.map(s => s.t).join(), seg: l, imgs: ()))))
+    }
     if m == none { cell(c) } else {
-      let num = m.captures.at(0)
+      let num = tidyNum(m.captures.at(0))
       let cut = m.text.len()
       let sg = c.at("seg", default: ())
       let firstBold = sg.len() > 0 and sg.at(0).at("b", default: false)
@@ -2219,8 +2258,7 @@
         }
         segs(out)
       } else { c.text.slice(cut) }
-      grid(columns: (auto, 1fr), column-gutter: 6pt, align: (left + top, left + top),
-        if firstBold { text(weight: "bold")[#num] } else { num }, restContent)
+      hang(num, firstBold, restContent)
     }
   }
   let sylbody(ci, c, row) = if actCol != none and ci == actCol {
@@ -2232,7 +2270,22 @@
     // its early topics in caps and its later ones in title case — so normalise here
     // rather than leaving the column looking like two different styles down the page.
     let tt = upper(stripLead(plainlabel(c)).trim())
-    let body = text(weight: "bold")[#tt]
+    // Each title line hangs like the other columns: its number (tidied) in a fixed-width
+    // column, the title wrapping under ITSELF rather than back under the number.
+    let numRe = regex("^(\\d+(?:\\.\\d+)+\\.?|\\d+\\.)\\s+")
+    let tline(s) = {
+      let m = s.match(numRe)
+      if m == none { text(weight: "bold")[#s] }
+      else { hang(tidyNum(m.captures.at(0)), true, text(weight: "bold")[#s.slice(m.text.len()).trim()]) }
+    }
+    let tlines = tt.split("\n").map(s => s.trim()).filter(s => s != "")
+    // First-fit line breaking: the optimiser "balances" a narrow ragged column into
+    // short stubby lines ("PRODUCTION / OF LEARNING / …"), making the topic taller than
+    // its row and spilling it onto the next page.
+    let body = if tlines.len() == 0 { [] } else {
+      set par(linebreaks: "simple")
+      stack(spacing: 4pt, ..tlines.map(tline))
+    }
     if tt != "" and sylhdr and actCol != none {
       let num = topicNum(row)
       // ONE entry per line. A topic cell usually holds a single title, but authors do
@@ -2240,9 +2293,11 @@
       // together). Filed as one entry, the stack became a single multi-line contents
       // line whose dot leaders and page number appeared only after the LAST title, so
       // the ones above it read as headings with no page reference at all.
-      let titles = tt.split("\n").map(s => s.trim()).filter(s => s != "")
+      // Contents labels carry the same tidied number and single space ("1.2 EDUCATIONAL…",
+      // not "1.2.  EDUCATIONAL…").
+      let titles = tlines.map(s => s.replace(numRe, m => tidyNum(m.captures.at(0)) + " "))
       let entry(s, first) = {
-        let label = if num == "" or not first or s.match(regex("^\\d+\\.\\d")) != none { s } else { num + "  " + s }
+        let label = if num == "" or not first or s.match(regex("^\\d+\\.\\d")) != none { s } else { num + " " + s }
         tocentry(2, label)
       }
       [#titles.enumerate().map(((i, s)) => entry(s, i == 0)).join()#body]
@@ -2252,7 +2307,12 @@
     table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt),
       fill: (col, row) => if row == 0 { T.at("matHeader", default: rgb("#d9d9d9")) } else { white },
       table.header(..rows.at(0).map(c => align(center)[#text(fill: T.ink, weight: "bold")[#plainlabel(c)]])),
-      ..rows.slice(1).map(r => r.enumerate().map(((ci, c)) => sylbody(ci, c, r))).flatten())
+      // A row that OPENS a topic never splits across a page: the topic title is often
+      // taller than that first row's own content, and a split strands the end of the
+      // title ("PHYSICAL DISABILITIES") in an otherwise empty row overleaf.
+      ..rows.slice(1).map(r => r.enumerate().map(((ci, c)) =>
+        if ci == 0 and plainlabel(c).trim() != "" { table.cell(breakable: false, sylbody(ci, c, r)) }
+        else { sylbody(ci, c, r) })).flatten())
   } else if syl {
     table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt), fill: white,
       ..rows.map(r => r.enumerate().map(((ci, c)) => sylbody(ci, c, r))).flatten())
