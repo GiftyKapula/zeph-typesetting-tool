@@ -1471,6 +1471,11 @@
       #grid(columns: (7mm, 1fr), column-gutter: 0pt, align: (left + top, left + top),
         if firstBold { text(weight: "bold")[#num] } else { num }, par[#segs(out)])]
   }
+  else if syllabus and (ss.map(s => s.at("t", default: "")).join(default: "")).trim().ends-with(":") {
+    // A syllabus lead-in ("By the end of the programme, the trainee should be able to:")
+    // stays with the list it introduces instead of ending a page on its own.
+    block(width: 100%, sticky: true)[#flowsegs(ss)]
+  }
   else { flowsegs(ss) }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
@@ -1800,13 +1805,15 @@
       #text(fill: T.primary, size: hs(14pt), weight: "bold")[#t]]
   } else if syllabus and isyear {
     // YEAR banner — a solid section divider, kept prominent (it opens a whole year).
-    block(width: 100%, breakable: false, radius: 3pt, fill: T.primary, inset: (x: 12pt, y: 8pt))[
+    // sticky: never left alone at the foot of a page with its matrix starting overleaf.
+    block(width: 100%, breakable: false, sticky: true, radius: 3pt, fill: T.primary, inset: (x: 12pt, y: 8pt))[
       #text(fill: white, size: hs(14pt), weight: "bold")[#t]]
   } else if syllabus {
     // Front-matter sub-section (Methodologies, Assessment, Time Allocation…): a sleek,
     // understated label — tracked bold caps in the ink colour, no rule and no banner, so
     // it doesn't shout under Introduction. Clear space above it (set on the leading v()).
-    block(width: 100%, breakable: false)[
+    // sticky so it never strands at the foot of a page, away from its first paragraph.
+    block(width: 100%, breakable: false, sticky: true)[
       #text(fill: T.ink, size: hs(12pt), weight: "bold", tracking: 1pt)[#upper(t)]]
   } else {
     block(width: 100%, breakable: false, clip: true, radius: 3pt, stroke: (left: 5pt + T.accent), fill: T.primary, inset: (x: 11pt, y: 8pt))[

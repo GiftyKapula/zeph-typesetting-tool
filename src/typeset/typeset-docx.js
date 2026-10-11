@@ -1352,14 +1352,21 @@ function applyOverrides(blocks, ov) {
   // and are NOT reached by the paragraph/heading overrides (allTextBlocks skips them),
   // so a header typo inside a table — e.g. a stray capital in a fill-in header ("O"->"o",
   // "Oe"->"oe") — needs this. Rewrites every matching cell at any depth. Preserves imgs.
+  // With `row` + `col` instead of `find`, it rewrites column `col` (0-based) of the row
+  // holding a cell whose trimmed text === `row` — the only way to reach an EMPTY cell
+  // (e.g. fill a blank TOPIC cell, or blank a repeated one with "with": "").
   for (const ec of ov.editCell || []) {
     let n = 0;
+    const byRow = ec.row != null && ec.col != null;
     const walkT = (arr) => {
       for (const b of arr) {
         if (!b || typeof b !== "object") continue;
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
-          for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
-            if (cell && typeof cell.text === "string" && cell.text.trim() === ec.find) {
+          for (const row of b.rows) if (Array.isArray(row)) for (const [ci, cell] of row.entries()) {
+            const isHit = byRow
+              ? ci === ec.col && row.some((c) => c && typeof c.text === "string" && c.text.trim() === ec.row)
+              : cell && typeof cell.text === "string" && cell.text.trim() === ec.find;
+            if (cell && typeof cell.text === "string" && isHit) {
               cell.text = ec.with;
               // Rewrite the rich runs too. A syllabus matrix cell renders its number
               // from `text` but its BODY from `segs`, slicing the segs by the length of
@@ -1367,7 +1374,11 @@ function applyOverrides(blocks, ov) {
               // the body ("1.8.4.Produce multi-sensory…" edited to "1.8.3.1 Produce…"
               // rendered as "oduce multi-sensory…"). Collapse to a single run carrying
               // the first run's styling, which is what these cells actually use.
-              if (Array.isArray(cell.segs) && cell.segs.length) {
+              // `bold: true|false` sets the weight outright — for a cell whose first run is
+              // an unbolded auto-number, or an empty cell that has no runs to copy.
+              if (ec.bold != null) {
+                cell.segs = ec.with ? [{ t: ec.with, b: !!ec.bold, it: false, c: null }] : null;
+              } else if (Array.isArray(cell.segs) && cell.segs.length) {
                 cell.segs = [{ ...cell.segs[0], t: ec.with }];
               }
               n++;
@@ -1378,7 +1389,7 @@ function applyOverrides(blocks, ov) {
       }
     };
     walkT(blocks);
-    if (!n) console.warn("!  editCell not matched:", ec.find);
+    if (!n) console.warn("!  editCell not matched:", byRow ? `row ${ec.row} col ${ec.col}` : ec.find);
   }
   // removeRow: [{ find }] — delete a whole TABLE ROW, matched by any one of its cells
   // whose trimmed text equals `find` (or starts with it, with `startsWith` instead).
