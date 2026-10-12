@@ -69,6 +69,15 @@ ways:
 |---|---|---|
 | **top-level** (`h1`) | **BOLD CAPS + short rule, own page**, level-1 contents entry | Vision, Preface, Acknowledgement, Background/Introduction; and at the back Appendices, Glossary, References, Prescribed Textbooks |
 | **sub-section** (`h2`) | **tracked BOLD CAPS**, flows, level-2 contents entry | Rationale, Aim, Outcomes, Admission Requirements, Assessment, Course Description, Competences and Descriptors, Time Allocation … |
+
+**Breathing space above every heading** (publisher, 2026-10-12: "there should always be some
+breathing space on top of each heading, especially the ones in the front matter"). A heading
+sits clearly nearer the text it opens than the text above it: 28pt above a sub-section head,
+20pt above a numbered/bold head ("1. College-Based Assessment"), 10pt above a bold label —
+all weak, so none at the head of a page. Every one of them, and a short all-bold lettered
+item ("b) Academic Qualifications"), is kept with the text that follows: none is left alone at
+the foot of a page. A sidecar `pageBreakBefore` set to dodge a page-end under the old, tighter
+spacing may now misfire — re-look at the page after any spacing change.
 | year / form / grade line (`h2`, matched by name) | a **divider page** of its own (it was a filled banner over the matrix until 2026-10-12), level-1 entry | `YEAR 1` / `FIRST YEAR` / `FORM 1` / `GRADE 1` |
 | data line (`label`) | plain bold, not a heading, not in contents | `Total 40%`, `CA + EXAM = 100%` |
 

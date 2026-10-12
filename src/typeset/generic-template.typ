@@ -1489,9 +1489,18 @@
   // instead of forcing bold, so it always agrees with its text.
   let firstseg = ss.find(s => s.t.trim() != "")
   let contentBold = firstseg != none and firstseg.at("b", default: false)
-  grid(columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top),
+  let item = grid(columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top),
     text(fill: if isbullet { iaccent2 } else { T.primary }, weight: if isbullet { "regular" } else if contentBold { "bold" } else { "regular" })[#marker],
     par[#segs(ss)])
+  // In a syllabus a short, all-bold lettered/numbered item ("b) Academic Qualifications")
+  // is a run-in heading for the text under it: keep it with that text, never alone at the
+  // foot of a page (Physical Education and Sport, once headings took more room above).
+  let txts = ss.map(s => { let t = s.at("t", default: ""); if type(t) == str { t } else { "x" } })
+  let alltxt = txts.join("").trim()
+  let allBold = ss.all(s => { let t = s.at("t", default: ""); (type(t) == str and t.trim() == "") or s.at("b", default: false) })
+  if syllabus and not isbullet and allBold and alltxt.len() <= 60 and not alltxt.ends-with(".") {
+    block(sticky: true, breakable: false, item)
+  } else { item }
 }
 // A worked-solution CONTINUATION line: a stand-alone equation that carries on the
 // numbered step above it (e.g. under "1. 2A = …" the next line "2A + D = …"). The
@@ -1772,7 +1781,9 @@
   }
   // Clear space ABOVE a heading — a syllabus front-matter sub-section needs real
   // separation from the paragraph before it (the weak 7pt collapsed to almost nothing).
-  v(if syllabus and not isyear { 18pt } else { 7pt }, weak: true)
+  // (a syllabus heading takes clearly more room above it than below, so it reads with the
+  // text it opens rather than floating between two paragraphs; weak, so none at a page top)
+  v(if syllabus and not isyear { 28pt } else { 7pt }, weak: true)
   if boxstyle == "labcard" {
     // CHEMISTRY sub-topic: a small amber label+number eyebrow, the name below in
     // amethyst bold, over a single thin rule. Split on the first colon.
@@ -1831,7 +1842,9 @@
   v(5pt)
 }
 #let head(t, al: none, black: false, col: none) = {
-  if serieslike { v(13pt, weak: true) } else { v(5pt) }
+  // a syllabus front-matter head ("1. College-Based Assessment") gets breathing space above
+  // it, like the sub-section heads; weak, so none at the head of a page
+  if serieslike { v(13pt, weak: true) } else if syllabus { v(20pt, weak: true) } else { v(5pt) }
   let body = if serieslike {
     // activities/exercises in teal, other bold sub-subheads in ink (like the ref);
     // sticky so the heading stays with the content that follows it. `black` forces the
@@ -1863,13 +1876,14 @@
     // Learning") hangs its number in a fixed 7mm column so the title lines up with the
     // indented body paragraph beneath it.
     let m = t.match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+"))
+    // sticky: kept with its first paragraph, never left alone at the foot of a page
     if m != none {
-      block(breakable: false)[
+      block(breakable: false, sticky: true)[
         #grid(columns: (7mm, 1fr), column-gutter: 0pt, align: (left + top, left + top),
           text(fill: T.ink, size: hs(13pt), weight: "bold")[#m.captures.at(0)],
           text(fill: T.ink, size: hs(13pt), weight: "bold")[#t.slice(m.text.len())])]
     } else {
-      block(breakable: false)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
+      block(breakable: false, sticky: true)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
     }
   } else {
     block(breakable: false)[
@@ -1881,7 +1895,7 @@
   if al == "center" { std.align(center)[#body] } else { body }
   v(2pt)
 }
-#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
+#let lbl(t, col: none) = { if syllabus { v(10pt, weak: true) } else { v(2pt) }; let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
 
 // ---- boxes ---------------------------------------------------------------
 // modern:   light fill + thick accent LEFT stripe.
