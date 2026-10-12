@@ -4380,8 +4380,54 @@ function normaliseQuestionMarkBold(blocks) {
   }
 
   // ---- CDC SYLLABUS post-processing (landscape matrix book) ----------------------
+  // The year the manuscript's own title page carries (see below); the generic syllabus
+  // theme has none of its own, so the copyright page takes it from here.
+  let sylMsYear = "";
   if (variant === "syllabus") {
+    // The manuscript's own TITLE PAGE, typed inside a one-cell bordered table (crest,
+    // "REPUBLIC OF ZAMBIA", "THE MINISTRY OF EDUCATION", the course, the CDC badge, the
+    // year). The family's cover and title page are drawn by the template, and the cover
+    // search below only clears loose pictures, so the framed one came through as a box
+    // and its lines printed as bold paragraphs after the contents page. It is recognised
+    // strictly: the book's opening box, nothing in it but pictures and short lines, one
+    // of them naming the Republic or the Ministry. Its year is kept for the imprint.
+    {
+      let k = 0;
+      while (k < blocks.length && blocks[k].t === "para" && !(blockPlain(blocks[k]) || "").trim()) k++;
+      const tp = blocks[k];
+      const body = tp && tp.t === "box" && Array.isArray(tp.body) ? tp.body : null;
+      const lineOf = (x) => (x.t === "para" ? (blockPlain(x) || x.plain || "") : "").trim();
+      if (body && body.every((x) => x.t === "img" || x.t === "image" || (x.t === "para" && lineOf(x).length <= 90))
+        && body.some((x) => /^(?:the\s+)?(?:republic of zambia|ministry of education)\b/i.test(lineOf(x)))) {
+        const yr = body.map(lineOf).find((t) => /^(?:19|20)\d{2}$/.test(t));
+        if (yr) sylMsYear = yr;
+        blocks.splice(0, k + 1);
+        console.log("   dropped the manuscript's framed title page" + (yr ? ` (year ${yr})` : ""));
+      }
+    }
     blocks = flattenSyllabusBoxes(blocks);
+    // A list typed with hand-made dashes ("- Lectures, case studies, seminars" on each
+    // line) rather than Word's bullets: two or more such lines running together are a
+    // bulleted list, set with the family's bullet like every other list in the book.
+    for (let i = 0; i < blocks.length; i++) {
+      const isDash = (b) => b && b.t === "para" && Array.isArray(b.segs) && b.segs.length
+        && !b.segs.some((s) => s.m) && /^\s*[-–]\s+\S/.test(blockPlain(b) || "");
+      if (!isDash(blocks[i])) continue;
+      let j = i; while (isDash(blocks[j + 1])) j++;
+      if (j > i) for (let k = i; k <= j; k++) {
+        const segs = blocks[k].segs.map((s) => ({ ...s }));
+        let cut = (blockPlain(blocks[k]).match(/^\s*[-–]\s+/) || [""])[0].length;
+        while (cut > 0 && segs.length) {
+          const n = Math.min(cut, segs[0].t.length);
+          segs[0].t = segs[0].t.slice(n); cut -= n;
+          if (!segs[0].t) segs.shift();
+        }
+        const last = segs[segs.length - 1];
+        if (last) last.t = last.t.replace(/\s+$/, "");
+        blocks[k] = { t: "listitem", segs, marker: "•", lvl: 0 };
+      }
+      i = j;
+    }
     // The importer may KEEP the manuscript's list bullets inside matrix cells; the matrix
     // renders its own bullets, so strip the source ones (from cell text + segs) to avoid
     // a doubled "• •" in the activities column and a stray bullet on numbered topics.
@@ -4633,7 +4679,9 @@ function normaliseQuestionMarkBold(blocks) {
     const YEARLINE = /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
     for (const b of blocks) {
       const t = (b.t === "label" ? b.text : blockPlain(b) || "").trim();
-      if ((b.t === "para" || b.t === "label") && YEARLINE.test(t)) {
+      // (…or as a Word heading: "YEAR 1" in a heading style set as a ruled section head
+      // on a page of its own, where "YEAR 2", lifted from a merged matrix row, got the banner.)
+      if ((b.t === "para" || b.t === "label" || b.t === "head" || /^h[13]$/.test(b.t)) && YEARLINE.test(t)) {
         b.t = "h2"; b.text = t.toUpperCase(); delete b.segs;
       }
     }
@@ -4676,7 +4724,10 @@ function normaliseQuestionMarkBold(blocks) {
     const TOPSECTION = /^(vision|mission|foreword|preface|acknowledge?ments?|background|introduction)\b\.?$/i;
     // The BACK-matter divisions are top-level too: the reference opens REFERENCES on
     // its own page with the same ruled section head its front matter uses.
-    const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|prescribed\s+(text\s*books?|reading)|recommended\s+(references?|reading)s?)\b[\s.:]*$/i;
+    // ("Readings" as well as "Reading", and the two kinds named together: a book that heads
+    // its lists "Prescribed and Recommended Readings" / "PRESCRIBED READINGS" /
+    // "RECOMMENDED READINGS" had only the last recognised, so it alone opened a page.)
+    const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|(prescribed|recommended|prescribed\s+(and|&)\s+recommended)\s+(text\s*books?|references?|readings?))\b[\s.:]*$/i;
     const isCaps = (s) => s === s.toUpperCase() && /[A-Z]{3}/.test(s);
     const frontLabels = [];
     for (let i = 0; i < frontEnd; i++) if (isSectionLabel(blocks[i])) frontLabels.push((blocks[i].text || "").trim());
@@ -4728,12 +4779,26 @@ function normaliseQuestionMarkBold(blocks) {
     // flowing sub-section stranded at the foot of a page with its list overleaf, and
     // "Recommended References" as a plain bold line that reached neither the contents
     // nor a page of its own — where the reference gives REFERENCES a page and a rule.
-    for (let i = frontEnd; i < blocks.length; i++) {
-      const b = blocks[i];
-      if (!(b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t))) continue;
-      const t = (b.text || "").trim();
+    // A back-matter head with another one directly under it ("Prescribed and Recommended
+    // Readings", then "PRESCRIBED READINGS") is the PARENT of the lists that follow: it
+    // takes the page and the rule, and they flow beneath it as its sub-sections — each
+    // opening a page of its own left the parent alone on an otherwise empty page.
+    {
+      const isHeadB = (b) => b && (b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t));
       // ("REFERENCES/PRESCRIBED READING": two of them sharing one heading.)
-      if (t && t.split(/\s*\/\s*/).every((p) => BACKSECTION.test(p))) blocks[i] = { t: "h1", text: t };
+      const isBack = (b) => { const t = isHeadB(b) ? (b.text || "").trim() : ""; return !!t && t.split(/\s*\/\s*/).every((p) => BACKSECTION.test(p)); };
+      let underParent = false;
+      for (let i = frontEnd; i < blocks.length; i++) {
+        const b = blocks[i];
+        if (!isHeadB(b)) continue;
+        const t = (b.text || "").trim();
+        if (!isBack(b)) { if (b.t === "h1") underParent = false; continue; }
+        if (underParent) { blocks[i] = { t: "h2", text: t }; continue; }
+        blocks[i] = { t: "h1", text: t };
+        let n = i + 1;
+        while (n < blocks.length && blocks[n].t === "para" && !(blockPlain(blocks[n]) || "").trim()) n++;
+        if (isBack(blocks[n])) underParent = true;
+      }
     }
     // COMPETENCES AND DESCRIPTORS table: the competence NAMES set in UPPERCASE, as the
     // reference book sets them ("ANALYTICAL THINKING", "COLLABORATION", …) against
@@ -4767,7 +4832,9 @@ function normaliseQuestionMarkBold(blocks) {
     // title. Resets at the next heading. (The numbered heading itself keeps its hanging
     // number, so it is NOT indented.)
     {
-      const numbered = (s) => /^\d+(?:\.\d+)*\.?\s/.test((s || "").trim());
+      // (Not a bare figure running into a lower-case word — "2 hours per week" is a
+      // quantity, and the lines after it are not its body.)
+      const numbered = (s) => /^\d+(?:\.\d+)*\.?\s/.test((s || "").trim()) && !/^\d+\s+[a-z]/.test((s || "").trim());
       let inNumbered = false;
       for (const b of blocks) {
         const plain = (blockPlain(b) || b.text || "").trim();
@@ -4840,7 +4907,7 @@ function normaliseQuestionMarkBold(blocks) {
       if (fs.existsSync(cdcG)) { media.push({ name: "syl_cdc_grey.png", src: cdcG }); cov.logoGrey = { file: "syl_cdc_grey.png" }; }
     }
     const Tsyl = THEMES[theme] || {};
-    blocks = applySyllabusFront(blocks, { year: Tsyl.year || "",
+    blocks = applySyllabusFront(blocks, { year: Tsyl.year || sylMsYear || "",
       level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null });
   }
 
