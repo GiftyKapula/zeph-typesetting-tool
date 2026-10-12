@@ -2982,14 +2982,72 @@ function unifyFullStops(blocks) {
 //     and a matrix number left at the head of an activities / standard cell;
 //   * every run of numbered list items (1. 2. 3. / a) b) c)): counts on by one from 1/a;
 //   * every S/N column: 1, 2, 3 … in one form.
+// A level written in words ("YEAR ONE", "YEAR TWO": Civic Education Content) is the same
+// level as "YEAR 1" / "YEAR 2" to every rule that reads one. NUMWORD_RE is the words'
+// alternation for those rules' patterns; numOrWord turns either form into its number.
+const NUMWORD = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+const NUMWORD_RE = "\\d+|" + NUMWORD.join("|");
+const numOrWord = (s) => +s || NUMWORD.indexOf(String(s).toLowerCase()) + 1;
+
+// One level page per level. A manuscript that names the year over its Key Competences as
+// well as over its matrix -- or twice running over the matrix -- printed a level page for
+// each (Civic Education Content: three YEAR ONE pages, two YEAR TWO). For each level, the
+// heading that OPENS its matrix (a TOPIC / SUB-TOPIC table follows before any other level
+// heading) is kept, and set as the level's divider page even when the manuscript styled
+// it Heading 1 (a plain section title over the matrix otherwise). Repeats before it go;
+// a line of the same name after the matrix -- Inclusive Education's bold "YEAR ONE" over
+// its Year 1 assessment weightings -- goes back to the bold line it was. A level with no
+// heading over a matrix is left alone. "YEAR ONE" and "YEAR 1" are the same level. Runs
+// on the finished blocks, when every year line has become a heading.
+function dedupeLevelHeadings(blocks) {
+  const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
+  const levelKey = (b) => {
+    if (!b || !["h1", "h2"].includes(b.t)) return null;
+    const t = String(b.text || "").replace(/\s+/g, " ").trim();
+    const m = t.match(new RegExp(`^(year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?$`, "i"));
+    if (m) return m[1].toLowerCase() + " " + numOrWord(m[2]);
+    const o = t.match(/^(first|second|third|fourth|fifth|sixth)\s+year$/i);
+    return o ? "year " + (ORD.indexOf(o[1].toLowerCase()) + 1) : null;
+  };
+  const isMatrix = (b) => b && b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0]) &&
+    b.rows[0].some((c) => /^TOPIC/i.test(String((c && c.text) || "").trim())) &&
+    b.rows[0].some((c) => /^SUB[\s-]*TOPIC/i.test(String((c && c.text) || "").trim()));
+  const opens = (i) => {
+    for (let j = i + 1; j < blocks.length; j++) {
+      if (levelKey(blocks[j])) return false;
+      if (isMatrix(blocks[j])) return true;
+    }
+    return false;
+  };
+  const keep = new Map();
+  blocks.forEach((b, i) => { const k = levelKey(b); if (k && opens(i)) keep.set(k, i); });
+  let dropped = 0, demoted = 0;
+  for (let i = blocks.length - 1; i >= 0; i--) {
+    const b = blocks[i], k = levelKey(b);
+    if (!k || !keep.has(k)) continue;
+    const at = keep.get(k);
+    if (i === at) {
+      if (b.t === "h1") {
+        b.t = "h2"; b.text = String(b.text).trim().toUpperCase();
+        // a section head just above it ("Course Content") goes under the divider, over
+        // the matrix, as the YEAR-banner rule does for a year that was an h2 all along
+        if (i > 0 && blocks[i - 1].t === "h2" && !levelKey(blocks[i - 1])) { const h = blocks[i - 1]; blocks[i - 1] = b; blocks[i] = h; i--; }
+      }
+    }
+    else if (i < at) { blocks.splice(i, 1); dropped++; }
+    else { blocks[i] = { t: "para", segs: [{ t: String(b.text).trim(), b: true, it: false, c: null }] }; demoted++; }
+  }
+  if (dropped || demoted) console.log(`   level headings: one page per level (${dropped} repeat(s) dropped${demoted ? `, ${demoted} after the matrix set as a plain line` : ""})`);
+}
+
 function auditSyllabusNumbering(blocks) {
   const issues = [];
   const say = (where, msg) => issues.push(`${where}: ${msg}`);
   const clip = (s) => { s = String(s || "").replace(/\s+/g, " ").trim(); return s.length > 48 ? s.slice(0, 45) + "…" : s; };
   const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
   const yearOf = (t) => {
-    const m = String(t || "").replace(/\s+/g, " ").trim().match(/^(?:(?:year|form|grade)\s+(\d+)|(first|second|third|fourth|fifth|sixth)\s+year)$/i);
-    return m ? (m[1] ? +m[1] : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
+    const m = String(t || "").replace(/\s+/g, " ").trim().match(new RegExp(`^(?:(?:year|form|grade)\\s+(${NUMWORD_RE})|(first|second|third|fourth|fifth|sixth)\\s+year)$`, "i"));
+    return m ? (m[1] ? numOrWord(m[1]) : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
   };
   // A line's leading number: the raw token as typed, and its parts when well formed.
   // (a space standing in for a dot -- "1.5 1.2" -- is read as part of the number, to be
@@ -4257,7 +4315,7 @@ function syllabusIdentityFromName(name) {
     .replace(/\.docx$/i, "")
     .replace(/\s*[-–—]\s*[A-Za-z'`.\s]+$/, "")   // trailing " - Author Name"
     .replace(/\s*\(\d+\)/g, "")                  // a download's copy counter, "(5)"
-    .replace(/\bvalidated\b/gi, "")
+    .replace(/\bvalidat(?:ed|ion)\b/gi, "")
     .replace(/\bfinal\b|\bdraft\b/gi, "")
     .replace(/\bsyllabus(es)?\b/gi, "")
     .replace(/\bTED\b/g, "");
@@ -4289,12 +4347,21 @@ function flattenSyllabusBoxes(blocks) {
     segs: (seg && seg.length) ? seg : [{ t: text, b: false, it: false, c: null }], isList: !!isList });
   const out = [];
   const isEnum = (t) => /^\s*(\d+|[a-z])[.)]\s/i.test(t || "");
+  // A box keyword typed as an ordinary line on its own -- "Project" in Civic Education
+  // Content's list of teaching methods (Field, Project, Problem Solving …) -- is a line of
+  // that list, not a section. The importer heads every such line in a box-less book (right
+  // for a series book's "Activity 3"), so set a bare one back as the plain line it was. A
+  // keyword in capitals ("PROJECT") still reads as the heading it is.
+  const BAREWORD = /^(?:activity|exercise|task|project|discussion)s?$/i;
+  const isBare = (t) => BAREWORD.test(t || "") && t !== t.toUpperCase();
   const pushTitle = (title) => {
     if (!title) return;
-    if (isEnum(title)) out.push(para(title, [{ t: title, b: true, it: false, c: null }]));
+    if (isBare(title)) out.push(para(title));
+    else if (isEnum(title)) out.push(para(title, [{ t: title, b: true, it: false, c: null }]));
     else out.push({ t: "h2", text: title });
   };
   for (const b of blocks) {
+    if (b.t === "head" && isBare(String(b.text || "").trim())) { out.push(para(String(b.text).trim())); continue; }
     if (b.t === "assessment" || b.t === "exercise") {
       pushTitle((b.title || b.heading || "").trim());
       for (const s of b.intro || []) out.push(para(s));
@@ -4967,7 +5034,7 @@ function normaliseQuestionMarkBold(blocks) {
     // family has, with the matrix (its header repeated) carrying on beneath; any other
     // merged line closes the stretch of matrix above it as a centred bold line.
     {
-      const YEARROW = /^(?:(?:year|form|grade)\s+\d+(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+      const YEARROW = new RegExp(`^(?:(?:year|form|grade)\\s+(?:${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?|(?:first|second|third|fourth|fifth|sixth)\\s+year)$`, "i");
       const out = [];
       for (const b of blocks) {
         const ncol = Array.isArray(b.rows) && b.rows.length ? (b.rows[0] || []).length : 0;
@@ -5148,8 +5215,8 @@ function normaliseQuestionMarkBold(blocks) {
       const NUM = /^\s*(?:\d+(?:\.\d+)+\.*|\d+\.+)(?=\s|$)\s*/;
       const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
       const yearOf = (t) => {
-        const m = String(t || "").replace(/\s+/g, " ").trim().match(/^(?:(?:year|form|grade)\s+(\d+)(?:\s*\([a-z]+\))?|(first|second|third|fourth|fifth|sixth)\s+year)$/i);
-        return m ? (m[1] ? +m[1] : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
+        const m = String(t || "").replace(/\s+/g, " ").trim().match(new RegExp(`^(?:(?:year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$`, "i"));
+        return m ? (m[1] ? numOrWord(m[1]) : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
       };
       const txt = (l) => l.map((s) => s.t).join("");
       const toLines = (c) => {
@@ -5313,7 +5380,7 @@ function normaliseQuestionMarkBold(blocks) {
     // a level-2 contents entry, so a year set as a bare paragraph looked nothing like
     // the year above it. Ordinal wording counts too ("FIRST YEAR"): Devices and
     // Materials Production labels its only year that way.
-    const YEARLINE = /^(?:(?:year|form|grade)\s+\d+(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+    const YEARLINE = new RegExp(`^(?:(?:year|form|grade)\\s+(?:${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?|(?:first|second|third|fourth|fifth|sixth)\\s+year)$`, "i");
     for (const b of blocks) {
       const t = (b.t === "label" ? b.text : blockPlain(b) || "").trim();
       if ((b.t === "para" || b.t === "label") && YEARLINE.test(t)) {
@@ -5507,6 +5574,11 @@ function normaliseQuestionMarkBold(blocks) {
     for (let i = 1; i < blocks.length; i++) {
       const isYear = (b) => b && b.t === "h2" && YEARLINE.test((b.text || "").trim());
       if (!isYear(blocks[i]) || blocks[i - 1].t !== "h2" || isYear(blocks[i - 1])) continue;
+      // only a banner that opens the matrix: Inclusive Education's "YEAR ONE" under
+      // "Assessment methods and weightings" labels the weightings, and stays under its head
+      const nx = blocks[i + 1];
+      if (!(nx && nx.t === "table" && Array.isArray(nx.rows) && Array.isArray(nx.rows[0]) &&
+        nx.rows[0].some((c) => /^TOPIC/i.test(String((c && c.text) || "").trim())))) continue;
       // (Since the level has a divider PAGE of its own, the head goes over the matrix,
       // after the divider: left before it, it stood alone at the foot of a page.)
       const head = blocks[i - 1]; blocks[i - 1] = blocks[i]; blocks[i] = head;
@@ -5746,6 +5818,7 @@ function normaliseQuestionMarkBold(blocks) {
   // auditSyllabusNumbering): a clean build log says nothing about a "1.10.1.1." or a
   // competence numbered under the wrong topic.
   if (variant === "syllabus") {
+    dedupeLevelHeadings(blocks);
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
     // finished blocks -- after every heading, cell and list has taken its final form.
     unifyFullStops(blocks);

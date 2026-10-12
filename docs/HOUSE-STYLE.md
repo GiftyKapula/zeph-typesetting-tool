@@ -59,7 +59,7 @@ family** (page numbering in brackets):
 | next | Vision / Preface / Acknowledgement / Introduction — **each on its own page** | roman, visible |
 | then | Level divider page (e.g. "SECONDARY TEACHER'S DIPLOMA") | **arabic 1** |
 | then | Competences & Descriptors | arabic |
-| then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix. Standard from 2026-10-12 | arabic |
+| then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix — and only one: a manuscript that names the year over its competences as well, or twice over the matrix, keeps just the heading that opens the matrix (a same-named line after the matrix, labelling that year's weightings, stays a plain bold line). Standard from 2026-10-12 | arabic |
 
 **Heading levels**, also enforced — a manuscript's own styling is normalised to
 these, because two books in the family were heading their pages three different
@@ -69,7 +69,7 @@ ways:
 |---|---|---|
 | **top-level** (`h1`) | **BOLD CAPS + short rule, own page**, level-1 contents entry | Vision, Preface, Acknowledgement, Background/Introduction; and at the back Appendices, Glossary, References, Prescribed Textbooks |
 | **sub-section** (`h2`) | **tracked BOLD CAPS**, flows, level-2 contents entry | Rationale, Aim, Outcomes, Admission Requirements, Assessment, Course Description, Competences and Descriptors, Time Allocation … |
-| year / form / grade line (`h2`, matched by name) | a **divider page** of its own (it was a filled banner over the matrix until 2026-10-12), level-1 entry | `YEAR 1` / `FIRST YEAR` / `FORM 1` / `GRADE 1` |
+| year / form / grade line (`h2`, matched by name) | a **divider page** of its own (it was a filled banner over the matrix until 2026-10-12), level-1 entry; a Word Heading 1 over the matrix is set the same way | `YEAR 1` / `YEAR ONE` / `FIRST YEAR` / `FORM 1` / `GRADE 1` |
 | data line (`label`) | plain bold, not a heading, not in contents | `Total 40%`, `CA + EXAM = 100%` |
 
 Past the matrix a section title is only recognised when it carries **no digit** —
@@ -213,6 +213,9 @@ Four more, from the Music Methods syllabus:
 - **A file named `… TED` is a syllabus** even with the word "syllabus" left out
   (`MUSIC METHODS VALIDATED TED (5)`); it used to typeset as a portrait
   learner's book. A download's copy counter (`(5)`) is dropped from the subject.
+  So is one carrying only `VALIDATED` / `VALIDATION`, CDC's validation tag
+  (`CIVIC EDUCATION CONTENT  VALIDATED`); no learner's book is filed so. A file
+  with neither (`CIVIC EDUCATION METHODS`) needs `"theme": "gensyl"` in its sidecar.
 - **When the file name gives no level or year**, the sidecar's `level` and
   `year` supply them (with `subject`, they also feed the footer masthead). Take
   them from the manuscript's own cover and copyright line.

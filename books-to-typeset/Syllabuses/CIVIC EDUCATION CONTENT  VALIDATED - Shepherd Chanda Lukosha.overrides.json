@@ -1,0 +1,37 @@
+{
+  "_comment": [
+    "Civic Education Content -- Secondary Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-12.",
+    "",
+    "MATRIX NUMBERS. The manuscript's numbers run on and slip: '1.3 1.4.' on Legal Systems,",
+    "topics 1.4-1.5 numbered one ahead of their sub-topics, a competence numbered 1.7.2,",
+    "Gender and Development's sub-topics running 1.13.3 after 1.12.3, and in Year 2 the",
+    "topics numbered 2.1, 2.3, 2.4 (no 2.2) with Globalisation's sub-topic as 3.4.1 and",
+    "competence 3.1.1.2. renumberMatrix counts them afresh from the table's structure:",
+    "Year 1 has 16 topics (1.1 Introduction to Civic Education ... 1.16 Trade), Year 2 three",
+    "(2.1 Regional and International Organizations, 2.2 Globalisation, 2.3 International",
+    "Relations). The manuscript's typed contents list agrees for Year 1; for Year 2 it",
+    "lists 2.1, 2.3, 2.4 -- the same slip as the matrix.",
+    "",
+    "YEAR HEADINGS. 'YEAR ONE' is typed three times and 'YEAR TWO' twice; the engine keeps",
+    "the one over each matrix (one level page per year).",
+    "",
+    "ISBN: none given; the imprint shows a blank ISBN line, as in the other syllabuses.",
+    "",
+    "AUTHOR QUERIES (left as typed): Year 2 Key Competences -- Emotional Intelligence's",
+    "third descriptor repeats Financial Literacy's ('Understanding the financial",
+    "implications of international relationships ...'); Year 1 lists one descriptor each",
+    "for Collaboration, Creativity and Innovation, Financial Literacy and Emotional",
+    "Intelligence and none for Digital Literacy, Entrepreneurship or Environmental",
+    "Sustainability."
+  ],
+  "level": "Secondary Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "pageBreakBefore": [
+    {
+      "_why": "The Year 2 Key Competences ran on under the last rows of the Year 1 matrix; it opens Year 2 on a fresh page, as the Year 1 table opens Year 1. Anchored on the 'YEAR TWO' line typed above it (that line itself is then dropped as a repeat of the YEAR TWO page over the matrix).",
+      "find": "YEAR TWO"
+    }
+  ]
+}

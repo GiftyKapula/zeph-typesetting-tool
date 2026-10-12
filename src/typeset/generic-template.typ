@@ -1757,8 +1757,9 @@
   // headings under their parent section (Introduction), so they don't page-break.
   // "FIRST YEAR" as well as "YEAR 1" — CDC manuscripts write the year either way, and
   // the book keeps whichever wording its own manuscript used.
-  // …and "FORM 1" / "GRADE 1", the levels of a school syllabus.
-  let isyear = syllabus and t.trim().match(regex("(?i)^((year|form|grade)\\s+\\d+(\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
+  // …and "FORM 1" / "GRADE 1", the levels of a school syllabus; and the number in words,
+  // "YEAR ONE" (Civic Education Content).
+  let isyear = syllabus and t.trim().match(regex("(?i)^((year|form|grade)\\s+(\\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)(\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
   // The level a matrix belongs to has a PAGE of its own (standard from 2026-10-12): a
   // divider like the one that opens the body, after the competences chart and before
   // each year's matrix, so the book says in large type which level the pages that
