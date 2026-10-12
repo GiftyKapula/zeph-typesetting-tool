@@ -200,6 +200,7 @@ looks the same at a given text size, book-wide):
   (Bullets were the theme's grey, numbers a shade off the text, and a number went bold
   whenever its item opened in bold.) The item text keeps its own bold.
 - A run of numbers that reaches 10 takes one marker width, so items 10+ line up with 1-9.
+- S/N columns are bare numbers, 1, 2, 3, in every book (no "1.").
 - Each SUB-TOPIC and COMPETENCE column takes one weight across the book, the one most of
   its cells already have.
 - A sub-topic whose title the manuscript lost still gets its **number** in the empty

@@ -5257,13 +5257,14 @@ function normaliseQuestionMarkBold(blocks) {
       const body = b.rows.slice(1);
       if (!body.every((r) => /^\d+\.?$/.test(((r[0] || {}).text || "").trim()))) continue;
       const now = body.map((r) => (r[0].text || "").trim());
-      // Compare the VALUES, not the strings: a column already running 1..N is left
-      // exactly as the author typed it. Matching on the string rewrote a correct
-      // "1., 2., 3., 4." to "1, 2, 3, 4" purely to drop the trailing dots.
-      if (now.every((s, i) => parseInt(s, 10) === i + 1)) continue;
-      const dotted = now.every((s) => s.endsWith("."));      // keep the author's style
-      const want = body.map((_, i) => String(i + 1) + (dotted ? "." : ""));
-      console.log(`   resequenced "${hdr}" column: ${now.join(",")} -> ${want.join(",")}`);
+      // A serial number is set bare -- 1, 2, 3 -- in every S/N column of every book (the
+      // publisher's rule of uniformity, 2026-10-12): Curriculum Instruction Strategies
+      // typed its Authors table "1., 2., 3., 4." where every other S/N column in the
+      // family reads "1, 2, 3". (Until then an author's dots were kept.)
+      const want = body.map((_, i) => String(i + 1));
+      if (now.every((s, i) => s === want[i])) continue;
+      const gaps = !now.every((s, i) => parseInt(s, 10) === i + 1);
+      console.log(`   ${gaps ? "resequenced" : "dots dropped from"} "${hdr}" column: ${now.join(",")} -> ${want.join(",")}`);
       body.forEach((r, i) => {
         r[0].text = want[i];
         if (Array.isArray(r[0].segs)) r[0].segs = [{ ...(r[0].segs[0] || {}), t: want[i] }];
