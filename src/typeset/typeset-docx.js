@@ -5120,6 +5120,25 @@ function normaliseQuestionMarkBold(blocks) {
     themeOverrides.level = sylId.level;
     themeOverrides.eyebrow = sylId.level.toUpperCase();
   }
+  // The cover and back-cover field. The generic theme's own colour is one grey, so every
+  // syllabus without a named theme came off the press with the same cover and could not
+  // be told from the next on a shelf. Each now takes a colour of its own: the sidecar's
+  // `coverColour` (a hex value), or else one picked from SYL_COVER_COLOURS by the
+  // subject in the file name — the same book always gets the same colour. All are deep
+  // enough for the white cover text, and none repeats a named theme's orange, teal or
+  // indigo. Two subjects can land on one colour; give one of them a `coverColour`.
+  if (variant === "syllabus" && (sylId || ov.coverColour)) {
+    const SYL_COVER_COLOURS = ["7a1f3d", "1f5c3a", "1d4e89", "5b2a6e", "7a4a1e", "9b1c1c",
+      "16284f", "8a1c5c", "4f5d1e", "2f4858", "8a5a0f", "3d3d7a"];
+    const key = ((sylId && sylId.subject) || base).toLowerCase();
+    let h = 0;
+    for (const ch of key) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    const want = String(ov.coverColour || "").replace(/^#/, "");
+    const col = /^[0-9a-f]{6}$/i.test(want) ? want.toLowerCase() : SYL_COVER_COLOURS[h % SYL_COVER_COLOURS.length];
+    if (ov.coverColour && col !== want.toLowerCase()) console.warn("!  coverColour is not a 6-digit hex value:", ov.coverColour);
+    for (const k of ["signature", "covSignature", "covPrimary", "covPrimary2", "covAccent"]) themeOverrides[k] = col;
+    console.log("   syllabus cover colour: #" + col + (ov.coverColour ? " (sidecar)" : " (from the subject)"));
+  }
   if (ov.subject) themeOverrides.subject = ov.subject;
   // Align the running-header left text with the grade/form-derived education level
   // (the cover eyebrow already uses it), overriding the theme's fixed default so the

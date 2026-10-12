@@ -60,6 +60,8 @@
     "    in search results', 'Year of Publication')."
   ],
   "isbn": "978-9982-54-066-7",
+  "coverColour": "1f5c3a",
+  "_coverColour_why": "Cover and back-cover field: a deep playing-field green. Left to the engine's pick from the subject name it came out blue, close to Guidance and Counselling's navy and Devices and Materials Production's indigo.",
   "renumberMatrix": true,
   "deleteExact": [
     "ISBN: 978-9982-54-066-7",
