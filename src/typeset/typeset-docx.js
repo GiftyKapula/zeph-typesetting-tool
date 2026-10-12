@@ -523,7 +523,12 @@ function dedupeAdjacentHeadings(blocks) {
 //    occurrence and remove the repeats.
 // Anything else (no exact match either way) is demoted to h2 rather than removed, so
 // its text is kept but it stops polluting the TOC / forcing a page break.
-function fixStrayBodyH1s(blocks) {
+// `keepRepeats` (the CDC syllabus family): a section title that comes round a second
+// time is a second section, not a slip — the Autism Spectrum Disorder syllabus has
+// "Time Allocation" in its front matter and "TIME ALLOCATION" again after the matrix,
+// and dropping the repeat ran that section's lines straight on under the assessment
+// weightings with no heading at all. The repeat is demoted like any other, not removed.
+function fixStrayBodyH1s(blocks, { keepRepeats = false } = {}) {
   const UNIT = /^(TOPIC|UNIT|CHAPTER|CHIBALU|CIPATI)\b/i;
   const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+BOOK)?|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
   const isStray = (b) => b.t === "h1" && !UNIT.test((b.text || "").trim()) && !FRONTBACK.test((b.text || "").trim());
@@ -537,7 +542,7 @@ function fixStrayBodyH1s(blocks) {
       if (blocks[j].t === "h1" || blocks[j].t === "h2" || blocks[j].t === "h3") { nextH = blocks[j]; break; }
     }
     const dupOfNext = nextH && (nextH.t === "h2" || nextH.t === "h3") && (nextH.text || "").trim().toLowerCase() === t;
-    const dupOfEarlier = seen.has(t);
+    const dupOfEarlier = !keepRepeats && seen.has(t);
     if (dupOfNext || dupOfEarlier) { blocks.splice(i, 1); i--; continue; }
     seen.add(t);
     b.t = "h2";
@@ -2149,7 +2154,15 @@ function applyOverrides(blocks, ov) {
   const allTables = [];
   (function tv(arr) { for (const b of arr) { if (!b || typeof b !== "object") continue; if (b.rows && (b.t === "table" || b.kind === "table")) allTables.push(b); for (const k of Object.keys(b)) if (Array.isArray(b[k])) tv(b[k]); } })(blocks);
   for (const sm of ov.setMarker || []) {
-    const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
+    // `after`: only look past the block containing this text — for a line that also
+    // occurs, word for word, earlier in the book (a list a manuscript gives twice).
+    let from = 0;
+    if (sm.after) {
+      const a = flat.findIndex((x) => blockPlain(x).includes(sm.after));
+      if (a < 0) { console.warn("!  setMarker 'after' not matched:", sm.after); continue; }
+      from = a + 1;
+    }
+    const b = flat.find((x, i) => i >= from && blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
     if (!b) { console.warn("!  setMarker not matched:", sm.find); continue; }
     b.marker = sm.marker;
     // Promote an unlabelled lead line to a real answer so the marker renders, and
@@ -2708,7 +2721,10 @@ function reorderBackmatter(blocks) {
   // Case 1: Standalone References heading block
   let refIdx = blocks.findIndex((b) => b && (b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para") && /^references\b/i.test(getText(b).trim()));
   if (refIdx >= 0) {
-    refHeader = { t: "h1", text: "REFERENCES" };
+    // A title naming two things at once ("REFERENCES/PRESCRIBED READING") keeps its own
+    // wording — cut back to "REFERENCES" it dropped half of what the section is.
+    const own = getText(blocks[refIdx]).trim();
+    refHeader = { t: "h1", text: /^references\s*\/\s*\S/i.test(own) ? own : "REFERENCES" };
     let j = refIdx + 1;
     while (j < blocks.length && blocks[j].t !== "h1" && !/^GLOSSARY\b/i.test(getText(blocks[j]).trim())) {
       refItems.push(blocks[j]);
@@ -4185,7 +4201,7 @@ function normaliseQuestionMarkBold(blocks) {
   convertTableActivities(blocks);
   normaliseLessonBanners(blocks);
   blocks = dedupeAdjacentHeadings(blocks);
-  fixStrayBodyH1s(blocks);
+  fixStrayBodyH1s(blocks, { keepRepeats: variant === "syllabus" });
   stripEditorialComments(blocks);
   clearStrayRed(blocks);
   // Every Teacher's Guide is black-and-white inside by default (see the fuller note
@@ -4798,8 +4814,10 @@ function normaliseQuestionMarkBold(blocks) {
     if (!blocks.some((b) => b.t === "cover")) {
       // Drop the manuscript's own cover artwork. Left in place it printed as a
       // full-page figure where the title page belongs.
+      // (`imagerow` too: a cover carrying its crest more than once, side by side,
+      // imports as one row of pictures, which sat at the head of the first page.)
       let k = 0;
-      while (k < blocks.length && (blocks[k].t === "image"
+      while (k < blocks.length && (blocks[k].t === "image" || blocks[k].t === "imagerow"
         || (blocks[k].t === "para" && !(blockPlain(blocks[k]) || "").trim()))) k++;
       blocks.splice(0, k);
       blocks.unshift({ t: "cover", lines: [], byline: [], hero: null, logo: null });

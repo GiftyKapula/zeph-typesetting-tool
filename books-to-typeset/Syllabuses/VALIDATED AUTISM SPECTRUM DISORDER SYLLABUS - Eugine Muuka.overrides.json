@@ -1,0 +1,115 @@
+{
+  "_comment": [
+    "Autism Spectrum Disorder -- Teachers' Diploma syllabus. First typeset 2026-10-12.",
+    "Layout and spelling repairs only: NONE of these rewrites a competence, an activity or",
+    "an expected standard.",
+    "",
+    "THE MANUSCRIPT HOLDS THE WHOLE SYLLABUS TWICE, one copy pasted after the other. The",
+    "two copies are word for word the same EXCEPT for the numbers typed in the matrix:",
+    "  first copy  -- topic 1.1.1, sub-topic 1.1.1.1, competence 1.1.1.1.1 (year.term.topic",
+    "                 ...), every topic numbered, Term 3 running 1.3.x;",
+    "  second copy -- topics unnumbered (but for a stray '1.1.1.1.1.4 NEUROBIOLOGY ...'),",
+    "                 sub-topic 1.1.1, competence 1.1.1.1 (term.topic ...), Term 3 running 3.x.",
+    "The FIRST copy is the one typeset: it reads as the corrected version of the second (the",
+    "stray number put right, every topic numbered). This is a typesetter's reading, not",
+    "something the manuscript states -- see STILL OUTSTANDING.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * Confirm which of the two copies is the validated one (above). To switch, the",
+    "    removeRange below has to drop the first copy instead of the second.",
+    "  * The course outline before the matrix numbers its topics 1.1, 1.2 ... (term.topic),",
+    "    the matrix 1.1.1, 1.1.2 ... (year.term.topic). Both set as written.",
+    "  * ADMISSION REQUIREMENTS still carries the template's own prompt, '(Specify entry",
+    "    qualifications)'. Set as written.",
+    "  * TIME ALLOCATION is given twice (front matter, and again after the weightings).",
+    "  * The weightings are numbered 4.1, 4.1.1 ... 4.2 by Word's list, although the",
+    "    manuscript's own contents list calls that section 5. Set as Word shows them.",
+    "  * The level on the cover and divider is 'Teachers' Diploma' (the file name gives no",
+    "    level). The manuscript's course name says 'Early Childhood Education, Primary and",
+    "    Secondary Teachers' Diploma'.",
+    "  * No year and no ISBN yet."
+  ],
+  "removeRange": [
+    {
+      "_why": "The second copy of the syllabus (see _comment). Removes everything from the last line of the first copy up to the identical last line of the second, which then closes the book in its place.",
+      "from": "Yule W. and Rutter M. (1987)",
+      "to": "Yule W. and Rutter M. (1987)"
+    },
+    {
+      "_why": "The cover's text boxes import as one run-together paragraph (it also carries left-over lines from other syllabuses: 'DESIGN & TECHNOLOGY SENIOR SECONDARY SCHOOL SYLLABUS'), and the contents list is typed by hand with the author's Word page numbers. The engine draws the cover and generates the contents with real page numbers.",
+      "from": "Republic of Zambia MINISTRY OF EDUCATION",
+      "to": "Preface"
+    }
+  ],
+  "setHeading": [
+    {
+      "_why": "Typed as item I of a one-item roman list; it is the section that opens the body (level divider, arabic page 1) in every book of the family.",
+      "find": "General Competences and Descriptors",
+      "as": "label"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "The Acknowledgement's signatory: two bold lines, which set as section headings and were listed in the contents. Set like the Preface's signatory (name bold, office plain). Spelling: 'Curriclum Development Center' -> 'Curriculum Development Centre', as the paragraph above it spells it.",
+      "find": "Charles Ndakala (Dr.)",
+      "with": [
+        { "raw": { "t": "sigspace" } },
+        { "para": "**Charles Ndakala (Dr.)**" },
+        { "para": "Director – Curriculum Development Centre" }
+      ]
+    },
+    {
+      "_why": "A lead-in with its value after the colon, styled as a heading in Word: it set in tracked capitals and ran to two lines in the contents. Set as a run-in line, as COURSE NAME is in the other books of the family.",
+      "find": "Course Syllabus Name: Autism Spectrum Disorder Education (Early Childhood Education, Primary and Secondary Teachers’ Diploma)",
+      "with": [
+        { "para": "**Course Syllabus Name:** Autism Spectrum Disorder Education (Early Childhood Education, Primary and Secondary Teachers’ Diploma)" }
+      ]
+    },
+    {
+      "_why": "The line opens with a figure, which the engine hung out as a list number ('2    Years, ...'). (It now opens with a zero-width space.)",
+      "find": "2 Years, First Year Theory and Second Year Practice and Final Examinations",
+      "with": [
+        { "para": "​2 Years, First Year Theory and Second Year Practice and Final Examinations" }
+      ]
+    }
+  ],
+  "deleteExact": [
+    "5. ASSESSMENT METHODS AND WEIGHTINGS 19"
+  ],
+  "_deleteExact_why": "A line of the hand-typed contents list (removed whole by removeRange below, but only after pageBreakBefore has looked for its anchor -- which this line would otherwise catch).",
+  "pageBreakBefore": [
+    {
+      "_why": "The last line of TIME ALLOCATION ('99 hours for Year One (1)') fell alone on a page of its own. The two closing sections now share a page.",
+      "find": "ASSESSMENT METHODS AND WEIGHTINGS"
+    }
+  ],
+  "remove": [
+    "Director – Curriclum Development Center"
+  ],
+  "_remove_why": "The signatory's office line, re-set by the replaceBlocks entry above.",
+  "setMarker": [
+    { "_why": "TIME ALLOCATION after the weightings: Word carries the weightings' list on into these six lines (4.3, 4.3.1, 4.3.2, 4.4, 4.5, 4.6 -- '4.4. 3 Hours per Week'). Set with bullets, exactly as the same six lines are in the front matter.", "after": "Workshop participation", "find": "Two Year Course", "marker": "•" },
+    { "after": "Workshop participation", "find": "First Year Theory and Practice", "marker": "•" },
+    { "after": "Workshop participation", "find": "Second Year Teaching Practice and Examinations", "marker": "•" },
+    { "after": "Workshop participation", "find": "3 Hours per Week", "marker": "•" },
+    { "after": "Workshop participation", "find": "33 hours Per Term", "marker": "•" },
+    { "after": "Workshop participation", "find": "99 hours for Year One (1)", "marker": "•" }
+  ],
+  "editCell": [
+    {
+      "_why": "The topic's number comes from a Word list whose first level is a roman numeral, so it read 'I.1.2' between 1.1.1 and 1.1.3.",
+      "find": "I.1.2 AUTISM ACROSS CULTURES",
+      "with": "1.1.2 AUTISM ACROSS CULTURES"
+    },
+    {
+      "_why": "A space typed inside the number ('1. 1.3.3.1'); it follows 1.1.3.2.1 under sub-topic 1.1.3.3.",
+      "find": "1. 1.3.3.1 Address institutional challenges affecting autism services.",
+      "with": "1.1.3.3.1 Address institutional challenges affecting autism services."
+    },
+    {
+      "_why": "Spelling: the first letter of IDENTIFICATION typed over by the number's full stop ('1.1.5.DENTIFICATION').",
+      "find": "1.1.5.DENTIFICATION, SCREENING AND ASSESSMENT",
+      "with": "1.1.5 IDENTIFICATION, SCREENING AND ASSESSMENT"
+    }
+  ]
+}

@@ -118,6 +118,23 @@ from the full syllabuses in four ways, all handled by the engine:
   and a number glued to its text (`1.1.2.1Differentiate`) gets its space. A
   real list stacked under a clause keeps its lines.
 
+Three more, from the Autism Spectrum Disorder syllabus:
+
+- **A short matrix row never splits across a page** (every cell 160 characters
+  or fewer). A row with a long cell still breaks, as does nothing that opens a
+  topic.
+- **A section title that comes round twice is two sections** (`Time Allocation`
+  in the front matter, `TIME ALLOCATION` again after the weightings). The
+  portrait books' rule that drops a repeated heading is off for this family.
+- A back-matter title naming two things (`REFERENCES/PRESCRIBED READING`) keeps
+  its own wording, and a cover whose artwork imports as a *row* of pictures is
+  dropped like any other cover artwork.
+
+A manuscript that holds the whole syllabus twice (one copy pasted after the
+other) is a per-book repair, not an engine rule: compare the two copies cell by
+cell before choosing — in the Autism syllabus they differed in the matrix
+numbering — and drop one with `removeRange`, recording the choice in the sidecar.
+
 The level on the cover comes from the file name's closing clause, which may
 list several (`ECE - PRIMARY - SEC.` → "Early Childhood, Primary and Secondary
 Teachers' Diploma").
@@ -232,7 +249,7 @@ off, so a change only touches the books that opt in. Keys:
 
 | Key | What it does |
 |---|---|
-| `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off) |
+| `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off); `after` limits the search to past the block containing that text, for a line the book gives twice |
 | `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph |
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |

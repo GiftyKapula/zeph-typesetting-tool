@@ -2322,9 +2322,17 @@
       // A row that OPENS a topic never splits across a page: the topic title is often
       // taller than that first row's own content, and a split strands the end of the
       // title ("PHYSICAL DISABILITIES") in an otherwise empty row overleaf.
-      ..rows.slice(1).map(r => r.enumerate().map(((ci, c)) =>
-        if ci == tc and plainlabel(c).trim() != "" { table.cell(breakable: false, sylbody(ci, c, r)) }
-        else { sylbody(ci, c, r) })).flatten())
+      // Nor does a SHORT row — every cell a clause or two. Split, it left the last two
+      // lines of a competence ("…self-advocacy among autistic individuals.") alone in a
+      // row at the head of the next page, to save two lines at the foot of this one. A
+      // row with a long cell (a sub-topic carrying a column of competences) still breaks,
+      // or it would leave half a page empty.
+      ..rows.slice(1).map(r => {
+        let short = r.all(c => plainlabel(c).len() <= 160)
+        r.enumerate().map(((ci, c)) =>
+          if (ci == tc and plainlabel(c).trim() != "") or (short and ci == 0) { table.cell(breakable: false, sylbody(ci, c, r)) }
+          else { sylbody(ci, c, r) })
+      }).flatten())
   } else if syl {
     table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt), fill: white,
       ..rows.map(r => r.enumerate().map(((ci, c)) => sylbody(ci, c, r))).flatten())
