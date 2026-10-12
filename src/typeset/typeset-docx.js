@@ -5434,11 +5434,11 @@ function normaliseQuestionMarkBold(blocks) {
       // hard under the last row of the matrix and was filed in the contents under YEAR 2.
       if (t && (t.split(/\s*\/\s*/).every((p) => BACKSECTION.test(p)) || /^scope\s+and\s+sequence\b/i.test(t))) blocks[i] = { t: "h1", text: t };
     }
-    // COMPETENCES AND DESCRIPTORS table: the competence NAMES set with a capital on each
-    // word and the rest small ("Analytical Thinking", "Creativity and Innovation"),
-    // against sentence-case descriptors beside them. The family standard since
-    // 2026-10-12; before that they were set in full capitals, as the reference book has
-    // them. Only this column: the matrix TOPIC column stays in capitals.
+    // COMPETENCES AND DESCRIPTORS table: the competence NAMES set in full capitals
+    // ("ANALYTICAL THINKING", "CREATIVITY AND INNOVATION"), against sentence-case
+    // descriptors beside them -- as the reference book has them, and the publisher's
+    // standard (2026-10-12, later the same day reversing "Analytical Thinking", a capital
+    // on each word, asked for that morning). Only this column.
     // Find the competence column BY ITS HEADER wherever it sits, rather than assuming
     // it is column 0 with descriptors in column 1: that assumption held for the
     // reference's two-column table but not for a book that numbers its rows, where the
@@ -5446,10 +5446,8 @@ function normaliseQuestionMarkBold(blocks) {
     // the casing came out however the author had typed it.
     const uc = (c) => {
       if (!c) return;
-      const SMALL = new Set(["and", "of", "the", "in", "to", "for", "a", "an", "on", "or"]);
       // Case only, so every run keeps its length and its formatting.
-      const tc = (t) => t.toLowerCase().replace(/[a-z][a-z’']*/g, (w, at, all) =>
-        (SMALL.has(w) && all.slice(0, at).trim()) ? w : w.charAt(0).toUpperCase() + w.slice(1));
+      const tc = (t) => t.toUpperCase();
       const segs = Array.isArray(c.segs) ? c.segs.filter((x) => typeof x.t === "string" && !x.m) : [];
       if (segs.length) {
         const whole = tc(segs.map((x) => x.t).join(""));
