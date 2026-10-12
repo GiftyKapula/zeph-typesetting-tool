@@ -61,6 +61,10 @@ family** (page numbering in brackets):
 | then | Competences & Descriptors | arabic |
 | then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix. Standard from 2026-10-12 | arabic |
 
+**Matrix column heads:** the sub-topic column is always headed **`SUB-TOPIC`**, with the hyphen
+(publisher, 2026-10-12), whatever the manuscript typed (`SUBTOPIC`, `SUB TOPIC`, `Sub-topic`);
+a `Topic` beside it is set `TOPIC` to match. Enforced by `hyphenateSubTopicHeader`.
+
 **Heading levels**, also enforced — a manuscript's own styling is normalised to
 these, because two books in the family were heading their pages three different
 ways:
