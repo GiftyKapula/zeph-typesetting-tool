@@ -32,8 +32,6 @@
   "subject": "Musical Arts Education Teaching Methods",
   "level": "Secondary Teachers' Diploma",
   "year": 2025,
-  "competenceCase": "sentence",
-  "_competenceCase_why": "Requested 2026-10-12: in the Key Competences table the competence names are set with a capital first letter and the rest small, not in capitals. That table only.",
   "levelPageAfterCompetences": true,
   "_levelPageAfterCompetences_why": "Requested 2026-10-12: the page that names the level of the book (Secondary Teachers’ Diploma) comes after the Key Competences table, before the YEAR 1 matrix.",
   "removeRange": [

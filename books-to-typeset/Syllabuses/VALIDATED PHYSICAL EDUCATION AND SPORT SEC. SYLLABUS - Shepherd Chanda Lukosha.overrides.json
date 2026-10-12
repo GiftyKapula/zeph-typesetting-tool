@@ -1,0 +1,101 @@
+{
+  "_comment": [
+    "Physical Education and Sport -- Secondary Teachers' Diploma syllabus. First typeset",
+    "2026-10-12. Layout, numbering and spelling repairs only: NONE of these rewrites a",
+    "competence, an activity or an expected standard.",
+    "",
+    "FILE NAME. Received as 'PHYSICAL EDUCATION AND SPORT VALIDATED CONTENT TED FINALISED",
+    "2026 - Shepherd Chanda Lukosha.docx'. The working copy is named in the family's pattern",
+    "(VALIDATED <SUBJECT> <LEVEL> SYLLABUS - <Author>), which is what the engine reads the",
+    "subject and level from. The level, 'Secondary Teachers' Diploma', is the manuscript's",
+    "own cover wording.",
+    "",
+    "NUMBERING (renumberMatrix). Not one number in the matrix or in the scope and sequence",
+    "chart is typed: all are Word list numbers, and the lists are broken -- they restart,",
+    "change list mid-topic and go on counting inside the merged cells under a topic. As it",
+    "stood the Year 1 topic column read 1.1, 1.2, (1.3 in an empty cell), 1.4, 1.5, 1.5,",
+    "1.6, 1.12 SWIMMING, 1.7 FITNESS AND HEALTH, 1.9, 1.10 beside sub-topics 1.1.x ...",
+    "1.10.x; Year 2 read 2.1, 2.2, 2.3, 2.10 SPORTS MANAGEMENT, 2.11, 2.12 beside sub-topics",
+    "2.1.x, 2.2.1, 2.3.1, 2.4.1, 2.3.x, 2.4.x, 2.11.x, 2.12.1, with '1.1.5.' in an empty",
+    "cell; the chart ran its Year 1 topics up to 1.28. The matrix and the chart are numbered",
+    "from their structure instead, in the family's format: topic Y.k, sub-topic Y.k.j,",
+    "competence Y.k.j.m. Result: Year 1 topics 1.1-1.10, Year 2 topics 2.1-2.6, and the",
+    "chart's topic numbers agree with the matrix. Titles and wording are untouched.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * Confirm the numbering (above).",
+    "  * The year headings: the manuscript heads the first matrix 'FORM 1 (ONE)' and the",
+    "    second 'YEAR 2', and its cover says 'FORM 1 - 2'. Set as YEAR 1 / YEAR 2, as the",
+    "    manuscript's own scope and sequence chart has them.",
+    "  * The scope and sequence chart does not match the matrix in its sub-topics. Year 1:",
+    "    Anatomy lists 'Energy production' and 'Body Recovery after exercise' (in the matrix",
+    "    these are under Year 2, Sports Nutrition); Swimming lists Pool orientation / pool",
+    "    hygiene / Basic water safety / Water games / Coaching and officiating roles (matrix:",
+    "    Pool orientation and hygiene / Strokes / Survival skills in the pool / Basic water",
+    "    safety and survival skills in the pool / Coaching and officiating roles);",
+    "    Biomechanics lists five sub-topics (Types of levers ... Projectile motion) where the",
+    "    matrix has eight (Introduction to Biomechanics ... Application of Biomechanics in",
+    "    Teaching and Coaching); Recreational games has 'Dance and movement' (matrix:",
+    "    'Movement'); Physical Education and Health has three sub-topics, the matrix a fourth",
+    "    with no title. Year 2: Psychology of sport lists 'Theories of psychology of sport'",
+    "    twice; Sports nutrition lists one sub-topic where the matrix has three. The chart's",
+    "    topic 1.2 is titled 'Anatomy and Physiology of Physical Education and Sport', the",
+    "    matrix's 'Anatomy and Physiology'.",
+    "  * Year 1, Anatomy and Physiology: the matrix has ten empty lines under 'The human",
+    "    Body systems' where the chart lists the six systems.",
+    "  * Year 1, Physical Education and Health: the competence 'Discuss management of",
+    "    financial resources in Physical Education and Sport' sits under the sub-topic",
+    "    Environmental Protection (the sub-topic cell is merged over both rows).",
+    "  * Year 1, Athletics events: its second and third competences shared the merged",
+    "    sub-topic cell; they are numbered 1.6.2.2 and 1.6.2.3.",
+    "  * Year 1, Biomechanics 'Levers and Mechanical Advantage': the expected standard",
+    "    reads 'Speed in sporting activities illustrated correctly'. Two further standards",
+    "    are unfinished sentences: 'Factors affecting balance and stability in sport' and",
+    "    'Biomechanical principles into Physical integrated accordingly'.",
+    "  * Year: the cover says 2023, the copyright line 2025. The copyright line is set as",
+    "    written; the cover carries no year.",
+    "  * RECOMMENDED REFERENCES: the last entry stops mid-word ('Jones and Bartlett P'), and",
+    "    the entries mix bold, bold-italic and plain titles. Set as written. Several",
+    "    PRESCRIBED REFERENCES carry notes to self ('Authors not specified in search', 'not",
+    "    in search results', 'Year of Publication')."
+  ],
+  "isbn": "978-9982-54-066-7",
+  "coverColour": "1f5c3a",
+  "_coverColour_why": "Cover and back-cover field: a deep playing-field green. Left to the engine's pick from the subject name it came out blue, close to Guidance and Counselling's navy and Devices and Materials Production's indigo.",
+  "renumberMatrix": true,
+  "deleteExact": [
+    "ISBN: 978-9982-54-066-7",
+    "Table of contents:"
+  ],
+  "_deleteExact_why": "The ISBN is printed by the engine's imprint (from `isbn` above); the manuscript's own line, and the heading of its empty hand-made contents, were left standing under the generated contents.",
+  "setHeading": [
+    {
+      "_why": "The first year's banner. The manuscript calls it 'FORM 1 (ONE)' and the next one 'YEAR 2'; its scope and sequence chart says YEAR 1 / YEAR 2 (see _comment).",
+      "find": "FORM 1 (ONE)",
+      "as": "label",
+      "text": "YEAR 1"
+    },
+    {
+      "_why": "Spelling in the title ('PROPSED').",
+      "find": "SCOPE AND SEQUENCE CHART (PROPSED FRAME-WORK)",
+      "text": "SCOPE AND SEQUENCE CHART (PROPOSED FRAME-WORK)"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "The last two lines of SUGGESTED TEACHING METHODOLOGIES fell alone on the page before the level divider. Its two closing paragraphs now go over together.",
+      "find": "The teacher should have reasons for choosing a particular teaching method"
+    },
+    {
+      "_why": "The last entry of RECOMMENDED REFERENCES fell alone on the last page of the book. The list is two alphabetical runs typed one after the other (Burke ... Sommer, then Beashel ... Pfeiffer); the second run now opens the last page.",
+      "find": "Beashel, P; Sibson, A. and Taylor, J. (1984)"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "The first letter of the header is missing in the manuscript.",
+      "find": "OPIC",
+      "with": "TOPIC"
+    }
+  ]
+}

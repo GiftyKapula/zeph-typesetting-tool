@@ -58,7 +58,8 @@ family** (page numbering in brackets):
 | 4– | **Table of Contents** — generated, real page numbers + dot leaders | roman, hidden |
 | next | Vision / Preface / Acknowledgement / Introduction — **each on its own page** | roman, visible |
 | then | Level divider page (e.g. "SECONDARY TEACHER'S DIPLOMA") | **arabic 1** |
-| then | Competences & Descriptors, then the year matrices | arabic |
+| then | Competences & Descriptors | arabic |
+| then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix. Standard from 2026-10-12 | arabic |
 
 **Heading levels**, also enforced — a manuscript's own styling is normalised to
 these, because two books in the family were heading their pages three different
@@ -68,7 +69,7 @@ ways:
 |---|---|---|
 | **top-level** (`h1`) | **BOLD CAPS + short rule, own page**, level-1 contents entry | Vision, Preface, Acknowledgement, Background/Introduction; and at the back Appendices, Glossary, References, Prescribed Textbooks |
 | **sub-section** (`h2`) | **tracked BOLD CAPS**, flows, level-2 contents entry | Rationale, Aim, Outcomes, Admission Requirements, Assessment, Course Description, Competences and Descriptors, Time Allocation … |
-| year banner (`h2`, matched by name) | solid filled banner, own page, level-1 entry | `YEAR 1` / `FIRST YEAR` |
+| year / form / grade line (`h2`, matched by name) | a **divider page** of its own (it was a filled banner over the matrix until 2026-10-12), level-1 entry | `YEAR 1` / `FIRST YEAR` / `FORM 1` / `GRADE 1` |
 | data line (`label`) | plain bold, not a heading, not in contents | `Total 40%`, `CA + EXAM = 100%` |
 
 Past the matrix a section title is only recognised when it carries **no digit** —
@@ -95,7 +96,7 @@ later ones in title case; another typed its competences in title case):
 | matrix **TOPIC** | **BOLD UPPERCASE** |
 | matrix **SUB-TOPIC** | bold title case — *not* uppercase |
 | matrix SPECIFIC COMPETENCE / ACTIVITIES / EXPECTED STANDARD | sentence case |
-| competences table **COMPETENCE** | **UPPERCASE** |
+| competences table **COMPETENCE** | a capital on each word, the rest small ("Analytical Thinking", "Creativity and Innovation") — *not* uppercase. Standard from 2026-10-12; this column only |
 | competences table DESCRIPTORS | sentence case |
 
 The competence column is found by its own header wherever it sits, so a table
@@ -129,6 +130,38 @@ Three more, from the Autism Spectrum Disorder syllabus:
 - A back-matter title naming two things (`REFERENCES/PRESCRIBED READING`) keeps
   its own wording, and a cover whose artwork imports as a *row* of pictures is
   dropped like any other cover artwork.
+
+Six more, from the Physical Education and Sport syllabus:
+
+- **A matrix header typed over two lines** (`EXPECTED⏎STANDARD`) is one line. With
+  the break in it the first row was not taken for the header at all: no grey row,
+  no repeat on each page, no topics in the contents.
+- **One year's matrix typed as two Word tables** with the same header row and
+  nothing between them is one matrix.
+- **The activities column keeps the manuscript's own structure when a cell mixes
+  bulleted and unbulleted lines.** A bulleted line is an activity. An unbulleted
+  bold line is the teaching *method* the activities under it belong to
+  (`Discussion method`) and sets flush left with no bullet. Any other unbulleted
+  line runs on from the activity above it when it opens with a bracket, an
+  ellipsis or a small letter, or is in italics (`(Bandages, scissors, GV paint…)`);
+  otherwise it is an activity whose bullet was left off. A cell with no bullets
+  at all, or with one on every line, is bulleted line by line as before.
+- **The competences section is found by what it heads** when its title names no
+  "descriptors" (`KEY COMPETENCES`): the heading over the COMPETENCES |
+  DESCRIPTORS table opens the body (level divider, arabic page 1).
+- **A SCOPE AND SEQUENCE CHART is a top-level division** (own page, level-1
+  contents entry), like the reference lists; `PRESCRIBED REFERENCES` is one too.
+- A signatory typed as one paragraph with line breaks (name / office / MINISTRY OF
+  EDUCATION) is set like one typed as three; a topic column whose titles are all
+  short is still wide enough for its longest word (`ENTREPRENEURSHIP`).
+
+**Matrix numbers that are all Word list numbers** (none typed) are often wrong on
+the page: the lists restart, change list mid-topic and go on counting in the
+merged cells under a topic (topics `1.5, 1.5, 1.6, 1.12, 1.7`; a bare `1.3` in an
+empty cell). Check the raw OOXML (`<w:numPr>` in the cell, no digits in its
+`<w:t>`) and, if that is what the manuscript has, set `renumberMatrix` in the
+sidecar (§5) and record it there for the author. Where the numbers are typed,
+they stay exactly as written.
 
 A manuscript that holds the whole syllabus twice (one copy pasted after the
 other) is a per-book repair, not an engine rule: compare the two copies cell by
@@ -282,9 +315,10 @@ off, so a change only touches the books that opt in. Keys:
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
 | `removeRow` | delete a whole table row, matched by any one cell's exact text (`find`) or its opening text (`startsWith`) — for a row the author duplicated, or a clause withdrawn after validation. Never matches the header row. `remove` deletes a whole block and `editCell` only rewrites text, so this is the way to drop one row of a syllabus matrix |
-| `competenceCase` | `"sentence"` sets the competence names of a syllabus’s Competences/Descriptors table with a capital first letter and the rest small ("Analytical thinking") instead of the family’s capitals — that table only |
 | `levelPageAfterCompetences` | `true` moves a syllabus’s level page ("SECONDARY TEACHERS’ DIPLOMA") from ahead of the competences section to after its table, in front of the first YEAR matrix; arabic page 1 then opens on the competences |
 | `insertRow` | put a row merged across the table, holding `text`, before the first body row with a cell matching `find` (whole text) or `startsWith` — a `YEAR 2` row in a syllabus matrix that runs both years as one table; the family lifts it out as the YEAR banner |
+| `coverColour` | a 6-digit hex value (`"1f5c3a"`) — syllabus family only. The colour of the cover and back-cover field. A syllabus on the generic theme otherwise takes one from a fixed set of twelve deep colours, picked by its subject name (the same book always gets the same one; none repeats a named theme's orange, teal or indigo). Set this when two subjects land on the same or a near colour |
+| `renumberMatrix` | `true` — syllabus family only. Drops every number in the TOPIC, SUB-TOPIC and COMPETENCE columns of the matrix (and of a YEARS | TOPIC | SUB-TOPIC scope-and-sequence chart) and counts them afresh from the table's structure: topic `Y.k`, sub-topic `Y.k.j`, competence `Y.k.j.m`, the year taken from the YEAR heading above the matrix or the chart's YEARS column. A cell holding a number and nothing else is emptied. For a manuscript whose matrix numbers are all broken Word list numbers (see §2a) — never for numbers the author typed |
 | `editCell` | rewrite a table cell whose whole trimmed text equals `find`. Rewrites the cell's rich runs alongside its plain text, so a syllabus matrix cell (which renders its clause number from the text but its body from the runs) stays intact. With `pattern` (a regular expression) instead of `find`, every matching body cell has the match replaced — one rule for a slip repeated down a whole matrix (a year prefix typed before every number) |
 
 **Images:** generate with **gpt-image-2, `quality: "high"`** (raised from the

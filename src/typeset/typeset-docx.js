@@ -54,7 +54,7 @@ const EMPTY_CELL = { text: "", imgs: [] };
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 // Rich table cell: text plus any images it contains (and rich segments with
 // math when the cell holds an equation).
-const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keepcase ? ", keepcase: true" : ""})`;
+const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""})`;
 const normRows = (rows) => { const n = Math.max(0, ...rows.map((r) => r.length)); return rows.map((r) => r.concat(Array(n - r.length).fill(EMPTY_CELL))); };
 const rowArr = (rows) => arr(normRows(rows), (r) => arr(r, cellArr));
 const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0}, tall: ${im.tall ? "true" : "false"}, cap: ${im.caption ? S(im.caption) : "none"}, hmm: ${im.hmm || 0})`);
@@ -3963,6 +3963,16 @@ function fixSyllabusSignatures(blocks) {
   const prevNonEmpty = (from) => { let j = from; while (j >= 0 && txtOf(blocks[j]) === "") j--; return j; };
   const bold = (t) => ({ t: "para", plain: t, segs: [{ t, b: true, it: false, c: null }] });
   const plain = (t) => ({ t: "para", plain: t, segs: [{ t, b: false, it: false, c: null }] });
+  // The same three lines typed as ONE paragraph with line breaks (name / office /
+  // MINISTRY OF EDUCATION under Shift+Enter): it set as a solid bold block hard under
+  // the last line of the Preface. Split it, so the pass below finds its three lines.
+  for (let i = 0; i < blocks.length; i++) {
+    if (blocks[i].t !== "para") continue;
+    const lines = (blockPlain(blocks[i]) || "").split("\n").map((s) => s.trim()).filter(Boolean);
+    if (lines.length !== 3 || !/^ministry of education$/i.test(lines[2]) || lines.some((l) => l.length > 80)) continue;
+    blocks.splice(i, 1, ...lines.map(plain));
+    i += 2;
+  }
   for (let i = 0; i < blocks.length; i++) {
     if (!/^ministry of education$/i.test(txtOf(blocks[i]))) continue;
     blocks[i] = bold(txtOf(blocks[i]).toUpperCase());
@@ -4051,9 +4061,19 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
   // …and the Music Methods syllabus heads it "KEY COMPETENCES" and nothing more, so the
   // body never started there either. A heading that is only a qualifier and the word
   // counts as well.
-  const compIdx = blocks.findIndex((b) => isHead(b)
+  let compIdx = blocks.findIndex((b) => isHead(b)
     && (/\bcompeten[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim())
       || /^(?:key|general|core)\s+competen[ct](?:e|ie)s$/i.test((b.text || "").trim())));
+  // …or by what it HEADS, whatever it is called: the Physical Education and Sport
+  // syllabus titles the section "KEY COMPETENCES", and with no title to match the body
+  // never started -- no level divider, and roman folios to the last page. The section is
+  // the heading that stands over the COMPETENCES | DESCRIPTORS table.
+  if (compIdx < 0) {
+    const hdrHas = (b, re) => b.rows[0].some((c) => re.test(((c && c.text) || "").trim()));
+    const ct = blocks.findIndex((b) => b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0])
+      && hdrHas(b, /^competen/i) && hdrHas(b, /descriptor/i));
+    for (let k = ct - 1; k > crIdx && k >= ct - 4; k--) if (isHead(blocks[k])) { compIdx = k; break; }
+  }
   // Where a late level page goes: in front of the first YEAR heading, or the first
   // matrix, past the competences section. -1 = the usual place, ahead of that section.
   const lateAt = (levelAfterCompetences && compIdx >= 0) ? blocks.findIndex((b, i) => i > compIdx
@@ -4460,12 +4480,69 @@ function normaliseQuestionMarkBold(blocks) {
     // The importer may KEEP the manuscript's list bullets inside matrix cells; the matrix
     // renders its own bullets, so strip the source ones (from cell text + segs) to avoid
     // a doubled "• •" in the activities column and a stray bullet on numbered topics.
+    // …EXCEPT in an activities cell that mixes bulleted and unbulleted lines. There the
+    // bullets carry the structure: the unbulleted lines are the teaching METHOD each
+    // group of activities falls under ("Discussion method", bold) or the run-on of the
+    // activity above ("(Bandages, scissors, GV paint…)"), and with every bullet stripped
+    // and every line bulleted afresh, methods, activities and run-ons came out as one
+    // flat list. Such a cell keeps its bullets and the template sets it line by line.
+    const BUL = /^\s*[•▪◦●·‣∙]/;
+    for (const b of blocks) {
+      if (!Array.isArray(b.rows) || b.rows.length < 2 || !Array.isArray(b.rows[0]) || b.rows[0].length < 5) continue;
+      const actCol = b.rows[0].findIndex((c) => /ACT.?VIT/i.test((c && c.text) || ""));
+      if (actCol < 0) continue;
+      for (const row of b.rows.slice(1)) {
+        const c = Array.isArray(row) ? row[actCol] : null;
+        if (!c || typeof c.text !== "string") continue;
+        const lines = c.text.split("\n").filter((l) => l.trim());
+        if (!lines.some((l) => BUL.test(l)) || lines.every((l) => BUL.test(l))) continue;
+        c.keepBullets = true;
+        // (a run of spaces typed inside an activity: "Explaining    the personality")
+        c.text = c.text.replace(/ {2,}/g, " ");
+        if (Array.isArray(c.segs)) for (const s of c.segs) if (typeof s.t === "string") s.t = s.t.replace(/ {2,}/g, " ");
+      }
+    }
     for (const b of blocks) {
       if (!Array.isArray(b.rows)) continue;
       for (const row of b.rows) for (const c of (Array.isArray(row) ? row : [])) {
-        if (!c) continue;
+        if (!c || c.keepBullets) continue;
         if (typeof c.text === "string") c.text = c.text.replace(/[•▪◦●·‣∙]\s?/g, "");
         if (Array.isArray(c.segs)) for (const s of c.segs) if (typeof s.t === "string") s.t = s.t.replace(/[•▪◦●·‣∙]\s?/g, "");
+      }
+    }
+    // A matrix header typed over two lines ("EXPECTED⏎STANDARD", to fit the author's
+    // narrow Word column). The template only takes a first row for the header when no
+    // cell of it holds a line break, so with one the whole matrix lost its grey header,
+    // the header repeated on no page and the topics filed no contents entries.
+    for (const b of blocks) {
+      if (b.t !== "table" || !Array.isArray(b.rows) || !b.rows.length) continue;
+      const hdr = b.rows[0];
+      if (!Array.isArray(hdr) || hdr.length < 3) continue;
+      const label = (c) => ((c && c.text) || "").replace(/\s+/g, " ").trim();
+      if (!hdr.some((c) => /^(?:sub[\s-]*)?topic/i.test(label(c)))) continue;
+      if (!hdr.every((c) => c && !(c.imgs || []).length && label(c).length <= 44)) continue;
+      for (const c of hdr) {
+        if (!/\n/.test(c.text || "")) continue;
+        c.text = label(c);
+        if (Array.isArray(c.segs)) for (const s of c.segs) if (typeof s.t === "string") s.t = s.t.replace(/\s*\n\s*/g, " ");
+      }
+    }
+    // One year's matrix typed as two Word tables, the second with its own copy of the
+    // header row (a table that broke at a page end in the manuscript). Set as two, the
+    // last topic stood in a small table of its own under a second header. Tables with
+    // the same header and nothing between them are one matrix.
+    {
+      const isMx = (b) => b && b.t === "table" && Array.isArray(b.rows) && b.rows.length > 1 && (b.rows[0] || []).length >= 5;
+      const hdrKey = (b) => b.rows[0].map((c) => ((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase()).join("|");
+      for (let i = 0; i < blocks.length; i++) {
+        if (!isMx(blocks[i])) continue;
+        let j = i + 1;
+        while (j < blocks.length && blocks[j].t === "para" && !(blockPlain(blocks[j]) || "").trim()) j++;
+        if (!isMx(blocks[j]) || hdrKey(blocks[j]) !== hdrKey(blocks[i])) continue;
+        blocks[i].rows.push(...blocks[j].rows.slice(1));
+        blocks.splice(i + 1, j - i);
+        console.log("   joined a matrix typed as two tables");
+        i--;
       }
     }
     // A syllabus written as a COURSE OUTLINE numbers its sections as one Word list
@@ -4500,7 +4577,7 @@ function normaliseQuestionMarkBold(blocks) {
     // family has, with the matrix (its header repeated) carrying on beneath; any other
     // merged line closes the stretch of matrix above it as a centred bold line.
     {
-      const YEARROW = /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+      const YEARROW = /^(?:(?:year|form|grade)\s+\d+(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
       const out = [];
       for (const b of blocks) {
         const ncol = Array.isArray(b.rows) && b.rows.length ? (b.rows[0] || []).length : 0;
@@ -4663,6 +4740,101 @@ function normaliseQuestionMarkBold(blocks) {
         b.rows = keep;
       }
     }
+    // renumberMatrix: true (sidecar, per book) — number the matrix from its STRUCTURE.
+    // For a manuscript whose matrix numbers are all Word list numbers, none typed: the
+    // lists restart, change list id mid-topic and go on counting in the merged-away
+    // cells under a topic, so the page shows topics "1.5, 1.5, 1.6, 1.12, 1.7" beside
+    // sub-topics 1.5.x … 1.8.x, and a bare "1.3" in a cell with no topic in it. With
+    // this on, every number in the TOPIC, SUB-TOPIC and COMPETENCE columns is dropped
+    // and counted afresh in the family's format: a topic cell with a title is the
+    // year's next topic (Y.k), a sub-topic line its next sub-topic (Y.k.j), a
+    // competence that sub-topic's next competence (Y.k.j.m). A cell holding a number
+    // and nothing else is emptied, so it merges into the cell above as it does in
+    // Word. The year is the YEAR heading above the matrix, or the YEARS column of a
+    // scope-and-sequence chart. Never on by default: a matrix whose numbers the author
+    // TYPED is kept exactly as written.
+    if (ov.renumberMatrix) {
+      const NUM = /^\s*(?:\d+(?:\.\d+)+\.?|\d+\.)(?=\s|$)\s*/;
+      const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
+      const yearOf = (t) => {
+        const m = String(t || "").replace(/\s+/g, " ").trim().match(/^(?:(?:year|form|grade)\s+(\d+)(?:\s*\([a-z]+\))?|(first|second|third|fourth|fifth|sixth)\s+year)$/i);
+        return m ? (m[1] ? +m[1] : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
+      };
+      const txt = (l) => l.map((s) => s.t).join("");
+      const toLines = (c) => {
+        const src = Array.isArray(c.segs) && c.segs.length ? c.segs : [{ t: c.text || "", b: false, it: false, c: null }];
+        if (src.some((s) => s.m || typeof s.t !== "string")) return null;      // a cell with maths: leave alone
+        const lines = [[]];
+        for (const s of src) s.t.split("\n").forEach((p, i) => {
+          if (i) lines.push([]);
+          if (p !== "") lines[lines.length - 1].push({ ...s, t: p });
+        });
+        return lines.filter((l) => txt(l).trim());
+      };
+      const setLines = (c, lines) => {
+        c.text = lines.map(txt).join("\n");
+        if (!lines.length) { c.segs = null; return; }
+        if (Array.isArray(c.segs) && c.segs.length) {
+          const j = [];
+          lines.forEach((l, i) => { if (i) j.push({ t: "\n", b: false, it: false, c: null }); j.push(...l); });
+          c.segs = j;
+        }
+      };
+      // a line minus its number: { had, rest }
+      const strip = (line) => {
+        const m = txt(line).match(NUM);
+        if (!m) return { had: false, rest: line };
+        let cut = m[0].length; const rest = [];
+        for (const s of line) {
+          if (cut >= s.t.length) { cut -= s.t.length; continue; }
+          rest.push(cut ? { ...s, t: s.t.slice(cut) } : s); cut = 0;
+        }
+        while (rest.length && !rest[0].t.trim()) rest.shift();
+        if (rest.length) rest[0] = { ...rest[0], t: rest[0].t.replace(/^\s+/, "") };
+        return { had: true, rest };
+      };
+      const withNum = (num, rest) => [{ t: num + " ", b: !!rest[0].b, it: false, c: null }, ...rest];
+      // Renumber one cell's lines; `next()` hands out the number for each item.
+      const renum = (c, next) => {
+        const lines = c && toLines(c);
+        if (!lines || !lines.length) return 0;
+        const parts = lines.map(strip);
+        const anyNum = parts.some((p) => p.had);
+        const out = []; let n = 0;
+        parts.forEach((p, i) => {
+          if (!p.rest.length) return;                                         // a number and nothing else
+          if (p.had || (!anyNum && i === 0)) { out.push(withNum(next(), p.rest)); n++; }
+          else out.push(p.rest);
+        });
+        setLines(c, out);
+        return n;
+      };
+      let year = 0, k = 0, j = 0, m = 0;
+      const tally = {};
+      for (const b of blocks) {
+        if (b.t !== "table") {
+          const y = yearOf(b.text || blockPlain(b));
+          if (y) { year = y; k = j = m = 0; }
+          continue;
+        }
+        if (!Array.isArray(b.rows) || b.rows.length < 2 || !Array.isArray(b.rows[0])) continue;
+        const H = b.rows[0].map((c) => ((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase());
+        const tc = H.findIndex((h) => /^TOPIC/.test(h)), sc = H.findIndex((h) => /^SUB[\s-]*TOPIC/.test(h));
+        if (tc < 0 || sc < 0) continue;
+        const cc = H.findIndex((h) => /COMPETEN/.test(h)), yc = H.findIndex((h) => /^YEARS?$/.test(h));
+        if (yc < 0 && !year) year = 1;
+        for (const row of b.rows.slice(1)) {
+          if (!Array.isArray(row)) continue;
+          if (yc >= 0 && row[yc]) { const y = yearOf(row[yc].text); if (y) { year = y; k = j = m = 0; } }
+          if (renum(row[tc], () => { k++; j = m = 0; return `${year}.${k}`; })) tally[year] = k;
+          const subs = renum(row[sc], () => { j++; m = 0; return `${year}.${k}.${j}`; });
+          const comps = cc >= 0 ? renum(row[cc], () => { m++; return `${year}.${k}.${j}.${m}`; }) : 0;
+          if (subs > 1 && comps) console.warn(`!  renumberMatrix: ${subs} sub-topics share a row with competences (numbered under ${year}.${k}.${j})`);
+          if (comps && (!k || !j)) console.warn(`!  renumberMatrix: a competence with no ${k ? "sub-topic" : "topic"} above it (${year}.${k}.${j}.${m})`);
+        }
+      }
+      console.log("   renumbered the matrix from its structure:", Object.keys(tally).map((y) => `year ${y}: ${tally[y]} topics`).join("; ") || "nothing found");
+    }
     // Resequence a serial-number column that has gaps. The competences table is headed
     // "S/N" — a plain 1..N counter, not a clause reference — and this manuscript's runs
     // 1, 2, 3, 5, 6, 7, so the printed table appears to be missing a competence. Only a
@@ -4705,7 +4877,7 @@ function normaliseQuestionMarkBold(blocks) {
     // a level-2 contents entry, so a year set as a bare paragraph looked nothing like
     // the year above it. Ordinal wording counts too ("FIRST YEAR"): Devices and
     // Materials Production labels its only year that way.
-    const YEARLINE = /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+    const YEARLINE = /^(?:(?:year|form|grade)\s+\d+(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
     for (const b of blocks) {
       const t = (b.t === "label" ? b.text : blockPlain(b) || "").trim();
       if ((b.t === "para" || b.t === "label") && YEARLINE.test(t)) {
@@ -4751,7 +4923,7 @@ function normaliseQuestionMarkBold(blocks) {
     const TOPSECTION = /^(vision|mission|foreword|preface|acknowledge?ments?|background|introduction)\b\.?$/i;
     // The BACK-matter divisions are top-level too: the reference opens REFERENCES on
     // its own page with the same ruled section head its front matter uses.
-    const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|prescribed\s+(text\s*books?|reading)|recommended\s+(references?|reading)s?)\b[\s.:]*$/i;
+    const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|prescribed\s+(text\s*books?|reading|references?)|recommended\s+(references?|reading)s?)\b[\s.:]*$/i;
     const isCaps = (s) => s === s.toUpperCase() && /[A-Z]{3}/.test(s);
     const frontLabels = [];
     for (let i = 0; i < frontEnd; i++) if (isSectionLabel(blocks[i])) frontLabels.push((blocks[i].text || "").trim());
@@ -4782,6 +4954,19 @@ function normaliseQuestionMarkBold(blocks) {
       if (/\d/.test(t)) continue;
       blocks[i] = { t: "h2", text: t };
     }
+    // Numbered items of one list set two ways: "1. College-Based Assessment" reached
+    // here as a `head` (hung on its number, filed in the contents) and "2. Written Final
+    // Examinations" beneath it as a `label`. Where a numbered head has a numbered label
+    // for a sibling before the next heading, it is set as its sibling is.
+    {
+      const NUMD = /^\d+\.\s/;
+      for (let i = 0; i < blocks.length; i++) {
+        if (blocks[i].t !== "head" || !NUMD.test((blocks[i].text || "").trim())) continue;
+        for (let k = i + 1; k < blocks.length && !/^h[123]$|^head$/.test(blocks[k].t); k++) {
+          if (blocks[k].t === "label" && NUMD.test((blocks[k].text || "").trim())) { blocks[i].t = "label"; break; }
+        }
+      }
+    }
     // A top-level section the manuscript typed as a bold LINE rather than a heading:
     // the Special Education syllabus writes its Vision as a centred bold paragraph, so
     // it reached the page as ordinary body text — no section head, no page of its own
@@ -4808,33 +4993,34 @@ function normaliseQuestionMarkBold(blocks) {
       if (!(b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t))) continue;
       const t = (b.text || "").trim();
       // ("REFERENCES/PRESCRIBED READING": two of them sharing one heading.)
-      if (t && t.split(/\s*\/\s*/).every((p) => BACKSECTION.test(p))) blocks[i] = { t: "h1", text: t };
+      // …and the SCOPE AND SEQUENCE CHART that closes some syllabuses, whatever follows
+      // the words ("… CHART (PROPOSED FRAME-WORK)"): set as a sub-section it started
+      // hard under the last row of the matrix and was filed in the contents under YEAR 2.
+      if (t && (t.split(/\s*\/\s*/).every((p) => BACKSECTION.test(p)) || /^scope\s+and\s+sequence\b/i.test(t))) blocks[i] = { t: "h1", text: t };
     }
-    // COMPETENCES AND DESCRIPTORS table: the competence NAMES set in UPPERCASE, as the
-    // reference book sets them ("ANALYTICAL THINKING", "COLLABORATION", …) against
-    // sentence-case descriptors beside them.
+    // COMPETENCES AND DESCRIPTORS table: the competence NAMES set with a capital on each
+    // word and the rest small ("Analytical Thinking", "Creativity and Innovation"),
+    // against sentence-case descriptors beside them. The family standard since
+    // 2026-10-12; before that they were set in full capitals, as the reference book has
+    // them. Only this column: the matrix TOPIC column stays in capitals.
     // Find the competence column BY ITS HEADER wherever it sits, rather than assuming
     // it is column 0 with descriptors in column 1: that assumption held for the
     // reference's two-column table but not for a book that numbers its rows, where the
     // columns run S/N | COMPETENCE | DESCRIPTORS — so the rule silently did nothing and
     // the casing came out however the author had typed it.
-    // A book may ask for them in sentence case instead ("Analytical thinking"): sidecar
-    // `competenceCase: "sentence"`. That table only — nothing else in the book changes.
-    const sentenceComp = ov.competenceCase === "sentence";
     const uc = (c) => {
       if (!c) return;
-      if (sentenceComp) {
-        c.keepcase = true;      // the template uppercases a table's first column; not this cell
-        const sc = (t, first) => { const l = t.toLowerCase(); return first ? l.replace(/[a-z]/, (m) => m.toUpperCase()) : l; };
-        if (c.text) c.text = sc(c.text, true);
-        if (Array.isArray(c.segs)) {
-          let first = true;
-          for (const s of c.segs) if (typeof s.t === "string" && s.t) { s.t = sc(s.t, first); if (/[a-z]/i.test(s.t)) first = false; }
-        }
-        return;
+      const SMALL = new Set(["and", "of", "the", "in", "to", "for", "a", "an", "on", "or"]);
+      // Case only, so every run keeps its length and its formatting.
+      const tc = (t) => t.toLowerCase().replace(/[a-z][a-z’']*/g, (w, at, all) =>
+        (SMALL.has(w) && all.slice(0, at).trim()) ? w : w.charAt(0).toUpperCase() + w.slice(1));
+      const segs = Array.isArray(c.segs) ? c.segs.filter((x) => typeof x.t === "string" && !x.m) : [];
+      if (segs.length) {
+        const whole = tc(segs.map((x) => x.t).join(""));
+        let at = 0;
+        for (const x of segs) { x.t = whole.slice(at, at + x.t.length); at += x.t.length; }
       }
-      if (c.text) c.text = c.text.toUpperCase();
-      if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
+      if (c.text) c.text = tc(c.text);
     };
     for (const b of blocks) {
       if (!Array.isArray(b.rows)) continue;
@@ -4843,7 +5029,8 @@ function normaliseQuestionMarkBold(blocks) {
       for (let ri = 0; ri < b.rows.length && hi < 0; ri++) {
         const r = b.rows[ri];
         if (!Array.isArray(r) || r.length < 2) continue;
-        const comp = r.findIndex((_, i) => /^competen/i.test(cellText(r, i)));
+        // ("GENERAL COMPETENCES" too: anchored to the start of the cell, that header was missed.)
+        const comp = r.findIndex((_, i) => /\bcompeten/i.test(cellText(r, i)) && !/descriptor/i.test(cellText(r, i)));
         const desc = r.findIndex((_, i) => /descriptor/i.test(cellText(r, i)));
         if (comp >= 0 && desc >= 0 && comp !== desc) { hi = ri; ci = comp; }
       }
@@ -4884,9 +5071,9 @@ function normaliseQuestionMarkBold(blocks) {
     for (let i = 1; i < blocks.length; i++) {
       const isYear = (b) => b && b.t === "h2" && YEARLINE.test((b.text || "").trim());
       if (!isYear(blocks[i]) || blocks[i - 1].t !== "h2" || isYear(blocks[i - 1])) continue;
-      blocks[i].nobreak = true;
-      blocks.splice(i - 1, 0, { t: "pagebreak" });
-      i++;
+      // (Since the level has a divider PAGE of its own, the head goes over the matrix,
+      // after the divider: left before it, it stood alone at the foot of a page.)
+      const head = blocks[i - 1]; blocks[i - 1] = blocks[i]; blocks[i] = head;
     }
     // A CDC syllabus's cover spread and title page are drawn by the template from the
     // THEME (subject, level, year) over bundled crest/badge assets — the manuscript

@@ -1629,8 +1629,11 @@
 // body numbering BEGINS (so it prints "1"). Styled as a centred band framed by a double
 // rule top AND bottom (echoing the footer's double-rule motif) — a distinct treatment.
 // It keeps the document footer (so the page number shows), only dropping the header.
-#let divider(txt) = {
+// toc: a contents label to file at this page (a YEAR / FORM / GRADE divider is the
+// top-level contents entry its topics nest under).
+#let divider(txt, toc: none) = {
   page(paper: "a4", flipped: true, header: none)[
+    #if toc != none { tocentry(1, toc) }
     #place(center + horizon, block(width: 205mm)[
       #set align(center)
       #line(length: 100%, stroke: 2.4pt + T.ink)
@@ -1754,8 +1757,14 @@
   // headings under their parent section (Introduction), so they don't page-break.
   // "FIRST YEAR" as well as "YEAR 1" — CDC manuscripts write the year either way, and
   // the book keeps whichever wording its own manuscript used.
-  let isyear = syllabus and t.trim().match(regex("(?i)^(year\\s+\\d+|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
-  if isyear and not nobrk { pagebreak(weak: true) }
+  // …and "FORM 1" / "GRADE 1", the levels of a school syllabus.
+  let isyear = syllabus and t.trim().match(regex("(?i)^((year|form|grade)\\s+\\d+(\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
+  // The level a matrix belongs to has a PAGE of its own (standard from 2026-10-12): a
+  // divider like the one that opens the body, after the competences chart and before
+  // each year's matrix, so the book says in large type which level the pages that
+  // follow are for. It replaces the banner that used to sit over the matrix's first
+  // page; the matrix starts at the head of the next page.
+  if isyear { divider(t, toc: if tocUnitsOnly { none } else { t }); return }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
   // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them.
   if not tocUnitsOnly {
@@ -2096,8 +2105,16 @@
   // `fr` weight alone can't guarantee that, so we raise the column's floor to it.
   let longword(s) = s.split(regex("\s+")).fold(0, (a, w) => calc.max(a, w.len()))
   let colword(ci) = { let m = 0; for r in rows { let l = longword(r.at(ci).text); if l > m { m = l } }; m }
+  // A syllabus matrix sets its TOPIC column in bold capitals beside a hanging number,
+  // so its longest word needs more room than its letter count allows for: "2.2
+  // ENTREPRENEURSHIP" ran out of its column and across the sub-topic's number, in a
+  // matrix whose topic titles are all short (so the column weighed less than its
+  // neighbours). Such a column is brought up to the weight a full column has (45), at
+  // which the same word fits in the other books of the family. Only for a word of 15
+  // letters or more: shorter ones fit at the ordinary floor.
+  let syltopic(ci) = T.variant == "syllabus" and ncols >= 5 and colword(ci) >= 15 and upper(rows.at(0).at(ci).text).trim().starts-with("TOPIC")
   let colweight(ci) = {
-    let floor = calc.max(6, colword(ci) * 2)   // fit the column's longest (unbreakable) word
+    let floor = if syltopic(ci) { calc.min(45, colword(ci) * 2.6 + 8) } else { calc.max(6, colword(ci) * 2) }   // fit the column's longest (unbreakable) word
     if fillin and not bigcontent {
       let bodyEmpty = rows.slice(calc.min(1, rows.len())).all(r => celllen(r.at(ci)) == 0)
       if bodyEmpty { calc.max(20, floor) } else { calc.max(floor, calc.min(collen(ci), 45)) }
@@ -2177,7 +2194,39 @@
       lines = c.text.split("\n").filter(t => t.trim() != "")
     }
     let clean(l) = if type(l) == array { let m = l; if m.len() > 0 { m.at(0) = (..m.at(0), t: stripLead(m.at(0).t)) }; m } else { stripLead(l) }
-    if lines.len() == 0 { cell(c) } else {
+    // A cell that arrives WITH its bullets mixes bulleted and unbulleted lines (the
+    // engine strips them from every other cell). Its bullets carry the structure: a
+    // bulleted line is an activity; an unbulleted bold line is the teaching METHOD the
+    // activities under it belong to, set flush left without a bullet; any other
+    // unbulleted line runs on from the activity above it ("(Bandages, scissors…)"), or
+    // is an activity whose bullet was left off when nothing stands above it to run on from.
+    let ltext(l) = if type(l) == array { let j = l.map(s => s.t).join(); if j == none { "" } else { j } } else { l }
+    let isBul(l) = ltext(l).trim(at: start).match(regex("^[•▪◦●·‣∙]")) != none
+    // (bold but for its punctuation: the full stop after a method's name is often plain)
+    let allBold(l) = type(l) == array and l.filter(s => s.t.match(regex("[A-Za-z0-9]")) != none).all(s => s.at("b", default: false))
+    // A run-on opens with a bracket, an ellipsis or a small letter, or is set in
+    // italics; an unbulleted line that opens like a sentence is an activity whose
+    // bullet was left off ("Showing leadership ability in sports").
+    let runsOn(l) = {
+      let first = if type(l) == array { l.find(s => s.t.trim() != "") } else { none }
+      ltext(l).trim(at: start).match(regex("^[(\\[…a-z]")) != none or (first != none and first.at("it", default: false))
+    }
+    if lines.any(isBul) {
+      let items = ()
+      for l in lines {
+        if isBul(l) { items.push(("b", clean(l))) }
+        else if allBold(l) { items.push(("h", l)) }
+        else if items.len() == 0 or items.last().at(0) == "h" or not runsOn(l) { items.push(("b", l)) }
+        else {
+          let prev = items.pop()
+          let joined = if type(l) == array { prev.at(1) + ((..l.at(0), t: " " + l.at(0).t),) + l.slice(1) } else { prev.at(1) + " " + l }
+          items.push((prev.at(0), joined))
+        }
+      }
+      let lineOut(x) = if type(x) == array { segs(x) } else { x }
+      grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
+        ..items.map(it => if it.at(0) == "h" { (grid.cell(colspan: 2, lineOut(it.at(1))),) } else { (text[•], lineOut(it.at(1))) }).flatten())
+    } else if lines.len() == 0 { cell(c) } else {
       grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
         ..lines.map(l => { let cl = clean(l); (text[•], if type(cl) == array { segs(cl) } else { cl }) }).flatten())
     }
@@ -2250,6 +2299,20 @@
       } else { per = lines.map(l => ((t: l.trim(), b: false, it: false, c: none),)) }
       return stack(spacing: 5pt, ..per.map(l => numcell((text: l.map(s => s.t).join(), seg: l, imgs: ()))))
     }
+    if m != none and c.imgs.len() == 0 and c.at("seg", default: ()).len() == 0 and lines.slice(1).any(l => l.trim().match(numRe1) != none) {
+      // A second clause further down a cell whose first clause has plain lines stacked
+      // under it (a scope-and-sequence chart: "1.3.2 Anatomical Planes in the human
+      // body / Sagittal plane … / 1.3.3 Perceptual motor learning"). Each clause hangs
+      // on its own number with its lines beneath it; set as one clause, the second
+      // number sat in the middle of the first one's text.
+      let groups = ()
+      for l in lines.map(l => l.trim()) {
+        let lm = l.match(numRe1)
+        if lm != none { groups.push((tidyNum(lm.captures.at(0)), l.slice(lm.text.len()))) }
+        else { let g = groups.pop(); groups.push((g.at(0), g.at(1) + "\n" + l)) }
+      }
+      return stack(spacing: 5pt, ..groups.map(g => hang(g.at(0), false, g.at(1))))
+    }
     if m == none { cell(c) } else {
       let num = tidyNum(m.captures.at(0))
       let cut = m.text.len()
@@ -2281,10 +2344,11 @@
     // stays bold title case. Manuscripts are inconsistent about this — one book typed
     // its early topics in caps and its later ones in title case — so normalise here
     // rather than leaving the column looking like two different styles down the page.
-    // (A cell flagged `keepcase` keeps the case it arrives in: a book that asked for
-    // its competence names in sentence case — sidecar `competenceCase`.)
-    let tt0 = stripLead(plainlabel(c)).trim()
-    let tt = if c.at("keepcase", default: false) { tt0 } else { upper(tt0) }
+    // …except in the COMPETENCES | DESCRIPTORS table, whose first column lands here too
+    // (it has no TOPIC header, so it is column 0): competence names are set with a
+    // capital on each word and the rest small — the engine has already cased them.
+    let compTable = sylhdr and rows.at(0).any(h => upper(plainlabel(h)).contains("DESCRIPTOR"))
+    let tt = if compTable { stripLead(plainlabel(c)).trim() } else { upper(stripLead(plainlabel(c)).trim()) }
     // Each title line hangs like the other columns: its number (tidied) in a fixed-width
     // column, the title wrapping under ITSELF rather than back under the number.
     let numRe = regex("^(\\d+(?:\\.\\d+)+\\.?|\\d+\\.)\\s+")
