@@ -16,17 +16,36 @@
     "the competences, over its matrix. Year 2's competences had YEAR 2 merged across the top of the",
     "table and no heading: KEY COMPETENCES is added and the table opens a fresh page, as in Year 1.",
     "",
-    "AUTHOR QUERIES (left as typed), Year 2 Key Competences:",
-    " - 'Creativity and Innovation' and 'Critical Thinking' each appear twice. The second Creativity and",
-    "   Innovation row reads like Entrepreneurship / Environmental Sustainability; the second Critical",
-    "   Thinking row (gender stereotypes, child abuse, institutions of gender, development policies)",
-    "   matches Civic Education CONTENT topics, not Methods.",
-    " - Financial Literacy ends in a cut-off line: 'Developing s'."
+    "YEAR 2 KEY COMPETENCES (publisher's request, 2026-10-12, as for Civic Content):",
+    " - 'Creativity and Innovation' and 'Critical Thinking' each appeared twice. The second of each is",
+    "   removed: both repeat a competence that already has its row, and their wording comes from Civic",
+    "   Education CONTENT (business challenges, environmental activism; gender stereotypes, child abuse,",
+    "   institutions of gender, development policies), not from this syllabus's Year 2 topics.",
+    " - Financial Literacy ended in a cut-off line, 'Developing s'; it is dropped (the cell's first line",
+    "   already begins 'Developing students' understanding of financial concepts').",
+    "No other descriptor is changed. CDC to confirm."
   ],
   "theme": "gensyl",
   "level": "Secondary Teachers' Diploma",
   "year": 2025,
   "renumberMatrix": true,
+  "removeRow": [
+    {
+      "_why": "YEAR 2 KEY COMPETENCES (see _comment): the second 'Creativity and Innovation' row, wording from Civic Education Content.",
+      "startsWith": "• Develop innovative solutions to business challenges"
+    },
+    {
+      "_why": "The second 'Critical thinking' row, wording from Civic Education Content.",
+      "startsWith": "• Evaluate the impact of gender stereotypes"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "Year 2 Financial Literacy: a cut-off last line, 'Developing s'.",
+      "pattern": "\\n•\\s*Developing s\\s*$",
+      "with": ""
+    }
+  ],
   "insertHead": [
     {
       "_why": "Year 2 competences carry no KEY COMPETENCES heading (Year 1 does); the manuscript only merged YEAR 2 across the top of the table.",
