@@ -2335,7 +2335,11 @@
     // stays bold title case. Manuscripts are inconsistent about this — one book typed
     // its early topics in caps and its later ones in title case — so normalise here
     // rather than leaving the column looking like two different styles down the page.
-    let tt = upper(stripLead(plainlabel(c)).trim())
+    // …except in the COMPETENCES | DESCRIPTORS table, whose first column lands here too
+    // (it has no TOPIC header, so it is column 0): competence names are set with a
+    // capital on each word and the rest small — the engine has already cased them.
+    let compTable = sylhdr and rows.at(0).any(h => upper(plainlabel(h)).contains("DESCRIPTOR"))
+    let tt = if compTable { stripLead(plainlabel(c)).trim() } else { upper(stripLead(plainlabel(c)).trim()) }
     // Each title line hangs like the other columns: its number (tidied) in a fixed-width
     // column, the title wrapping under ITSELF rather than back under the number.
     let numRe = regex("^(\\d+(?:\\.\\d+)+\\.?|\\d+\\.)\\s+")

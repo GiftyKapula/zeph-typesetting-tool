@@ -95,7 +95,7 @@ later ones in title case; another typed its competences in title case):
 | matrix **TOPIC** | **BOLD UPPERCASE** |
 | matrix **SUB-TOPIC** | bold title case — *not* uppercase |
 | matrix SPECIFIC COMPETENCE / ACTIVITIES / EXPECTED STANDARD | sentence case |
-| competences table **COMPETENCE** | **UPPERCASE** |
+| competences table **COMPETENCE** | a capital on each word, the rest small ("Analytical Thinking", "Creativity and Innovation") — *not* uppercase. Standard from 2026-10-12; this column only |
 | competences table DESCRIPTORS | sentence case |
 
 The competence column is found by its own header wherever it sits, so a table
