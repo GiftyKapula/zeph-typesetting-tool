@@ -1,0 +1,94 @@
+{
+  "_comment": [
+    "History Teaching Methods -- Secondary Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-12. Layout and numbering repairs only: NONE of these rewrites a",
+    "competence, an activity or an expected standard.",
+    "",
+    "THE FILE NAME ('HISTORY METHODS VALIDATED TED') names neither the level nor the year.",
+    "The cover is set from the manuscript's own cover page instead: 'HISTORY SYLLABUS /",
+    "TEACHING METHODS / SECONDARY TEACHERS' DIPLOMA', and 'Curriculum Development Centre,",
+    "2025'.",
+    "",
+    "NUMBERING (renumberMatrix). Not one number in the matrix is typed except three",
+    "competences (1.2.3.1, 1.2.4.1, 2.8.1.1) and topic '2.1 PREPARATION TO TEACH': the rest",
+    "are Word list numbers, and the Year 1 topics carry none at all. The matrix is numbered",
+    "from its structure: topic Y.k, sub-topic Y.k.j, competence Y.k.j.m -- Year 1 topics",
+    "1.1-1.9, Year 2 topics 2.1-2.8, which is how the manuscript's own contents list numbers",
+    "them. Titles and wording are untouched.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * Confirm the numbering (above).",
+    "  * Competences tables: the S/N column skipped numbers (Year 1: 1-8, 10, 12; Year 2:",
+    "    1, 3-10). The engine counts them afresh, 1-10 and 1-9.",
+    "  * Competences tables: 'Digital' is the competence name in both years, where the",
+    "    family's tables have 'Digital Literacy'. Set as written.",
+    "  * Year 2 Competences: under Communication, 'Identify the different levels of each",
+    "    domain' and 'Apply levels of Bloom's Taxonomy in education' are Year 1 matrix",
+    "    competences (topic 1.7); under Critical Thinking, 'Interpret Bloom's Taxonomy' and",
+    "    'Analyse roles of AI in teaching history' likewise. Set as written.",
+    "  * ISBN: none in the manuscript; the imprint shows a blank ISBN line.",
+    "  * 1.4.1.1: the method 'Question and answer' is typed in the same paragraph as the",
+    "    activity above it ('...during the scenario.'), so it sets at the end of that bullet",
+    "    rather than as a method line of its own. No override can split one paragraph in a",
+    "    matrix cell without losing the cell's bold runs; correct it in the manuscript."
+  ],
+  "subject": "History Teaching Methods",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "pageBreakBefore": [
+    {
+      "_why": "'Aims:' fell alone at the foot of the Background page, its list overleaf.",
+      "find": "Aims:"
+    },
+    {
+      "_why": "TIME ALLOCATION fell at the foot of page x with one of its two lines, leaving '1 Tutorial hour per week' alone on page xi. ASSESSMENT goes over instead, and TIME ALLOCATION with it, so neither page is near empty.",
+      "find": "Assessment",
+      "near": "The programme shall use two types of assessments"
+    }
+  ],
+  "setHeading": [
+    {
+      "_why": "The two kinds of assessment are numbered items under ASSESSMENT, not sections: the second was listed in the contents and set larger than the first.",
+      "find": "1. College-Based Assessment",
+      "as": "label"
+    },
+    {
+      "find": "2. Written Final Examinations",
+      "as": "label"
+    }
+  ],
+  "insertText": [
+    {
+      "_why": "The copyright line. The manuscript types it as a Heading 1 ('Curriculum Development Centre, 2025', no (c) sign), the importer drops it as a heading in the imprint, and the imprint page went without it.",
+      "before": "All rights reserved",
+      "text": "© Curriculum Development Centre, 2025",
+      "align": "center"
+    },
+    {
+      "_why": "The Vision statement, word for word. The manuscript styles it 'TOC Heading 1', and the importer drops every TOC-styled paragraph as hand-typed contents, so the VISION page came out empty.",
+      "after": "Vision",
+      "text": "Quality, lifelong education for all which is accessible, inclusive and relevant to individual, national and global needs and value systems."
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "The two section headings carry a colon ('Background:', 'Rationale:'). Without it Background is recognised as the top-level section it is in the family (its own page, after the Acknowledgement's signatory), as in the Physical Education and Sport syllabus.",
+      "find": "Background:",
+      "with": [{ "h1": "Background" }]
+    },
+    {
+      "find": "Rationale:",
+      "with": [{ "h1": "Rationale" }]
+    },
+    {
+      "_why": "The year headings above the two matrices, in the family's wording, so that each sets as the YEAR divider page.",
+      "find": "YEAR ONE",
+      "with": [{ "label": "YEAR 1" }]
+    },
+    {
+      "find": "Year two",
+      "with": [{ "label": "YEAR 2" }]
+    }
+  ]
+}

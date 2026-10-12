@@ -2211,11 +2211,19 @@
       let first = if type(l) == array { l.find(s => s.t.trim() != "") } else { none }
       ltext(l).trim(at: start).match(regex("^[(\\[…a-z]")) != none or (first != none and first.at("it", default: false))
     }
+    // A method line is set flush left, so the spaces some manuscripts type before it
+    // ("     Research") are dropped; otherwise it stood indented against its siblings.
+    let trimL(l) = if type(l) == array { let m = l; if m.len() > 0 { m.at(0) = (..m.at(0), t: m.at(0).t.trim(at: start)) }; m } else { l.trim(at: start) }
+    let lineOut(x) = if type(x) == array { segs(x) } else { x }
+    // Lay out ("h", method) / ("b", activity) items: a method flush left across both
+    // columns, an activity behind its bullet.
+    let actGrid(items) = grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
+      ..items.map(it => if it.at(0) == "h" { (grid.cell(colspan: 2, lineOut(it.at(1))),) } else { (text[•], lineOut(it.at(1))) }).flatten())
     if lines.any(isBul) {
       let items = ()
       for l in lines {
         if isBul(l) { items.push(("b", clean(l))) }
-        else if allBold(l) { items.push(("h", l)) }
+        else if allBold(l) { items.push(("h", trimL(l))) }
         else if items.len() == 0 or items.last().at(0) == "h" or not runsOn(l) { items.push(("b", l)) }
         else {
           let prev = items.pop()
@@ -2223,12 +2231,21 @@
           items.push((prev.at(0), joined))
         }
       }
-      let lineOut(x) = if type(x) == array { segs(x) } else { x }
-      grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
-        ..items.map(it => if it.at(0) == "h" { (grid.cell(colspan: 2, lineOut(it.at(1))),) } else { (text[•], lineOut(it.at(1))) }).flatten())
+      actGrid(items)
     } else if lines.len() == 0 { cell(c) } else {
-      grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
-        ..lines.map(l => { let cl = clean(l); (text[•], if type(cl) == array { segs(cl) } else { cl }) }).flatten())
+      // No bullets in the source either: every line is an activity — unless the cell is
+      // laid out as METHOD / activities, METHOD / activities … ("Research" / "Researching
+      // on …"): it opens on a line wholly in bold, ends on a plain one, every line is
+      // either wholly bold or wholly plain, and no two bold lines stand together. Then the
+      // bold lines are the teaching methods, set flush left without a bullet as in a
+      // bulleted cell. (The History Methods syllabus types method and activity alike as
+      // plain paragraphs in some cells.) A cell whose author bolded some ACTIVITIES —
+      // two bold lines running, a bold line last, a half-bold line — keeps every bullet.
+      let noBold(l) = type(l) != array or l.all(s => not s.at("b", default: false) or s.t.match(regex("[A-Za-z0-9]")) == none)
+      let methods = (lines.len() >= 2 and allBold(lines.first()) and noBold(lines.last())
+        and lines.all(l => allBold(l) or noBold(l))
+        and range(1, lines.len()).all(i => not (allBold(lines.at(i)) and allBold(lines.at(i - 1)))))
+      actGrid(lines.map(l => { let cl = clean(l); if methods and allBold(l) { ("h", trimL(cl)) } else { ("b", cl) } }))
     }
   }
   let isEmptyCell(x, y) = {
