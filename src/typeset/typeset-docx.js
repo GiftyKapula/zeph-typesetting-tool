@@ -1396,6 +1396,49 @@ function applyOverrides(blocks, ov) {
     walkT(blocks);
     if (!n) console.warn("!  editCell not matched:", byRow ? `row ${ec.row} col ${ec.col}` : ec.find);
   }
+  // cellSubtext: [{ from, to }] — replace a substring INSIDE a table cell, keeping the
+  // cell's runs (and so its bold/italic) as they are. `editCell` rewrites a whole cell
+  // into one run, which is wrong for renumbering a clause: a sub-topic cell is a number,
+  // a title and an italic gloss, and several clauses may share one cell. Give enough of
+  // the text after the number to single the clause out ("1.3.1. Developmental domains"
+  // -> "1.4.1. Developmental domains"); whitespace is matched loosely and the match may
+  // run across runs — the replacement takes the styling of the run it starts in. Warns
+  // when nothing matches, and when more than one cell does (unless `all`).
+  for (const cs of ov.cellSubtext || []) {
+    if (!cs || typeof cs.from !== "string" || !cs.from.trim()) continue;
+    const re = new RegExp(cs.from.trim().split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("\\s+"));
+    const to = cs.to != null ? String(cs.to) : "";
+    let n = 0;
+    const walkT = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
+            if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
+            cell.text = cell.text.replace(re, () => to);
+            if (Array.isArray(cell.segs) && cell.segs.length && !cell.segs.some((s) => s.m || typeof s.t !== "string")) {
+              const m = cell.segs.map((s) => s.t).join("").match(re);
+              if (m) {
+                const start = m.index, end = m.index + m[0].length;
+                let pos = 0, put = false;
+                cell.segs = cell.segs.map((s) => {
+                  const a = pos, z = pos + s.t.length; pos = z;
+                  if (z <= start || a >= end) return s;
+                  const mid = put ? "" : to; put = true;
+                  return { ...s, t: s.t.slice(0, Math.max(0, start - a)) + mid + s.t.slice(Math.min(s.t.length, end - a)) };
+                }).filter((s) => s.t !== "");
+              }
+            }
+            n++;
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
+      }
+    };
+    walkT(blocks);
+    if (!n) console.warn("!  cellSubtext not matched:", cs.from);
+    else if (n > 1 && !cs.all) console.warn(`!  cellSubtext matched ${n} cells:`, cs.from);
+  }
   // removeRow: [{ find }] — delete a whole TABLE ROW, matched by any one of its cells
   // whose trimmed text equals `find` (or starts with it, with `startsWith` instead).
   // For a row the author duplicated or a clause withdrawn after validation: `remove`
@@ -4140,7 +4183,7 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.cellSubtext ||ov.removeRow || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
