@@ -102,6 +102,11 @@
   ],
   "editCell": [
     {
+      "_why": "NUMBERING (found by the numbering check, 2026-10-12). Second competence of 1.15.1 Triads, under 1.15.1.1 in the same cell, typed 1.1.5.1.2.",
+      "pattern": "1\\.1\\.5\\.1\\.2(?=\\s*Differentiate)",
+      "with": "1.15.1.2"
+    },
+    {
       "_why": "NUMBERING. Stray full stop after the topic number.",
       "pattern": "^1\\.12\\.(?=\\s*HISTORICAL)",
       "with": "1.12"

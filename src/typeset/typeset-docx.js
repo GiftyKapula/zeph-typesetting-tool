@@ -1388,10 +1388,17 @@ function applyOverrides(blocks, ov) {
       continue;
     }
     const byRow = ec.row != null && ec.col != null;
+    // `under`: only the table(s) whose nearest preceding heading/paragraph contains this
+    // text — for two tables built alike, e.g. a syllabus's Year 1 and Year 2 Key
+    // Competences tables, whose rows carry the same competence names.
+    let lastText = "";
     const walkT = (arr) => {
       for (const b of arr) {
         if (!b || typeof b !== "object") continue;
-        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+        const isTable = Array.isArray(b.rows) && (b.t === "table" || b.kind === "table");
+        if (!isTable) { const t = (blockPlain(b) || "").trim(); if (t) lastText = t; }
+        if (isTable && ec.under != null && !lastText.toLowerCase().includes(String(ec.under).toLowerCase())) continue;
+        if (isTable) {
           for (const row of b.rows) if (Array.isArray(row)) for (const [ci, cell] of row.entries()) {
             const isHit = byRow
               ? ci === ec.col && row.some((c) => c && typeof c.text === "string" && c.text.trim() === ec.row)
@@ -2761,6 +2768,381 @@ function formatGlossary(blocks) {
   }
 }
 
+// FULL STOPS, ONE WAY PER KIND OF TEXT (syllabus family). Text of one kind -- the topic
+// titles, the sub-topic titles, the competences, the activities, the expected standards,
+// the Key Competences descriptors, the items of one list -- ends the same way throughout
+// the book: if most of a column's lines end in a full stop, all of them do; if most do
+// not, none does. Manuscripts mix the two freely (History Content: "The League of
+// Nations." among sub-topics with none; "Demonstrate respect for human dignity." among
+// competences with none). Titles (topic, sub-topic, headings) never take one; a tie takes it.
+// Lines are judged only where they END a clause: a line followed by one
+// that opens with a small letter or a bracket is a hand-wrapped clause ("Meets" /
+// "accessibility requirements.") and is left alone, as is a line ending in : ; ? ! or …,
+// and an activities line set wholly in bold (the method it falls under: "Class
+// discussion"). Each change is made in the cell's text AND its runs, at the same place.
+//
+// stopUnits(blocks) -> [{ group, label, end: "dot"|"none", fix(want) }]
+function stopUnits(blocks) {
+  const units = [];
+  const lineEnds = (c) => {
+    // per line: text, whether wholly bold, and (when the runs carry the same lines) the
+    // position of its last visible character in the joined runs
+    // What prints is the runs (the cell body), so lines are judged from them; the plain
+    // text follows along only where it breaks into the same lines.
+    const segsOk = Array.isArray(c.segs) && c.segs.length && c.segs.every((s) => typeof s.t === "string" && !s.m);
+    if (Array.isArray(c.segs) && c.segs.length && !segsOk) return null;     // maths: leave alone
+    const joined = segsOk ? c.segs.map((s) => s.t).join("") : null;
+    const sl = joined != null ? joined.split("\n") : null;
+    const tl = sl || String((c && c.text) || "").split("\n");
+    const out = [];
+    out.textAligned = !sl || String(c.text || "").split("\n").length === sl.length;
+    let off = 0;
+    tl.forEach((t, i) => {
+      const sline = sl ? sl[i] : null;
+      const lastIdx = sline != null ? off + sline.replace(/\s+$/, "").length - 1 : -1;
+      let bold = false;
+      if (sline != null && sline.trim()) {
+        // wholly bold: every non-space character of the line sits in a bold run
+        let pos = 0; bold = true;
+        for (const s of c.segs) {
+          const a = pos, b = pos + s.t.length; pos = b;
+          const from = Math.max(a, off), to = Math.min(b, off + sline.length);
+          if (to > from && s.t.slice(from - a, to - a).trim() && !s.b) { bold = false; break; }
+        }
+      }
+      out.push({ t, lastIdx, bold });
+      if (sline != null) off += sline.length + 1;
+    });
+    return out;
+  };
+  const editEnd = (c, info, li, want) => {
+    const lines = String(c.text || "").split("\n");
+    // the plain text: the same line when it breaks the same way, else the line whose
+    // trimmed text is this one's
+    const ti = info.textAligned ? li : lines.findIndex((l) => l.trim() === info[li].t.trim());
+    // Whatever closes the line -- a full stop, a doubled one, or a comma typed for one --
+    // is replaced by the group's ending.
+    const TAIL = /(?:,|\.{1,2})$/;
+    if (ti >= 0) {
+      const t = lines[ti].replace(/\s+$/, "");
+      const base = t.replace(TAIL, "");
+      lines[ti] = want === "dot" ? base + "." : base;
+      c.text = lines.join("\n");
+    }
+    if (!Array.isArray(c.segs) || !c.segs.length || info[li].lastIdx < 0) return;
+    const st = info[li].t.replace(/\s+$/, "");
+    const k = st.length - st.replace(TAIL, "").length;               // chars to take off
+    // delete positions lastIdx-k+1 … lastIdx (right to left, across runs if need be)
+    for (let p = info[li].lastIdx; p > info[li].lastIdx - k; p--) {
+      let pos = 0;
+      for (const s of c.segs) {
+        if (p >= pos && p < pos + s.t.length) { s.t = s.t.slice(0, p - pos) + s.t.slice(p - pos + 1); break; }
+        pos += s.t.length;
+      }
+    }
+    if (want !== "dot") return;
+    // add the full stop straight after the last remaining character
+    const after = info[li].lastIdx - k;
+    let pos = 0;
+    for (const s of c.segs) {
+      if (after >= pos && after < pos + s.t.length) { s.t = s.t.slice(0, after - pos + 1) + "." + s.t.slice(after - pos + 1); return; }
+      pos += s.t.length;
+    }
+  };
+  const judge = (raw) => {
+    const t = String(raw).trim().replace(/^[•▪◦●·‣∙–-]\s*/, "").replace(/^\d+(?:\.\d+)*\.?\s*/, "");
+    if (!t || !/[A-Za-z]/.test(t)) return null;
+    if (/[:;?!…]$/.test(t) || /\.\.\.$/.test(t) || /\betc\.$/i.test(t)) return null;
+    // a doubled full stop or a closing comma is a slip, fixed whichever way the group goes
+    if (/[^.]\.\.$/.test(t)) return "double";
+    if (/,$/.test(t)) return "comma";
+    return /\.$/.test(t) ? "dot" : "none";
+  };
+  // FIRST LETTER of a cell, the same way: a column whose cells mostly open with a capital
+  // ("Analyse…", "Strategies to sustain…") opens every one with it. Only the first line
+  // -- a later line opening small is usually a wrapped clause. After any number/bullet.
+  const LEADIN = /^[\s•▪◦●·‣∙–-]*(?:\d+(?:\.\d+)*\.?\s*)?[(“"‘']*/;
+  const addCap = (group, c, info) => {
+    if (/titles$/.test(group)) return;                               // set by the casing rule
+    const li = info.findIndex((x) => x.t.trim());
+    if (li < 0) return;
+    const line = info[li].t, at = (line.match(LEADIN) || [""])[0].length;
+    const ch = line[at];
+    if (!ch || !/[A-Za-z]/.test(ch)) return;
+    units.push({ group: `${group}, first letter`, label: line.trim(), end: ch === ch.toUpperCase() ? "upper" : "lower", li: -1,
+      fix: (want) => {
+        const sw = (s, i) => s.slice(0, i) + (want === "upper" ? s[i].toUpperCase() : s[i].toLowerCase()) + s.slice(i + 1);
+        const tlines = String(c.text || "").split("\n");
+        const ti = tlines.findIndex((l) => l.trim());
+        if (ti >= 0) { const a = (tlines[ti].match(LEADIN) || [""])[0].length; if (/[A-Za-z]/.test(tlines[ti][a] || "")) { tlines[ti] = sw(tlines[ti], a); c.text = tlines.join("\n"); } }
+        if (Array.isArray(c.segs) && c.segs.length && c.segs.every((s) => typeof s.t === "string")) {
+          const joined = c.segs.map((s) => s.t).join("");
+          const pos = (joined.match(LEADIN) || [""])[0].length;
+          let off = 0;
+          for (const s of c.segs) { if (pos < off + s.t.length) { if (/[A-Za-z]/.test(s.t[pos - off])) s.t = sw(s.t, pos - off); break; } off += s.t.length; }
+        }
+      } });
+  };
+  const addCell = (group, c) => {
+    if (!c || typeof c.text !== "string" || !c.text.trim()) return;
+    const info = lineEnds(c);
+    if (!info) return;
+    addCap(group, c, info);
+    info.forEach((ln, li) => {
+      const next = info.slice(li + 1).find((x) => x.t.trim());
+      if (next && /^[a-z(]/.test(next.t.trim())) return;              // wrapped mid-clause
+      if (group === "activities" && ln.bold) return;                   // a method heading
+      const end = judge(ln.t);
+      if (!end) return;
+      units.push({ group, label: ln.t.trim(), end, li, fix: (want) => editEnd(c, info, li, want) });
+    });
+  };
+  let listRun = 0, inList = false;
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.rows) && Array.isArray(b.rows[0])) {
+        inList = false;
+        const H = b.rows[0].map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase());
+        const col = (re) => H.findIndex((h) => re.test(h));
+        const tc = col(/^TOPIC/), sc = col(/^SUB[\s-]*TOPIC/), cc = col(/COMPETEN/);
+        if (tc >= 0 && sc >= 0 && cc >= 0 && H.length >= 5) {
+          const groups = [[tc, "topic titles"], [sc, "sub-topic titles"], [cc, "competences"],
+            [col(/ACTIVIT|PEDAGOG/), "activities"], [col(/STANDARD/), "expected standards"]];
+          for (const row of b.rows.slice(1)) if (Array.isArray(row)) for (const [ci, g] of groups) if (ci >= 0) addCell(g, row[ci]);
+        } else if (cc >= 0 && col(/DESCRIPT/) >= 0) {
+          const dc = col(/DESCRIPT/);
+          for (const row of b.rows.slice(1)) if (Array.isArray(row)) addCell("Key Competences descriptors", row[dc]);
+        }
+        continue;
+      }
+      if (b.t === "listitem" && Array.isArray(b.segs)) {
+        if (!inList) { listRun++; inList = true; }
+        const c = { text: b.segs.map((s) => s.t || "").join(""), segs: b.segs };
+        // a list item's runs ARE its text: keep both in step through one shared object
+        const before = units.length;
+        addCell(`list ${listRun}`, c);
+        for (const u of units.slice(before)) { const f = u.fix; u.fix = (want) => { f(want); b.segs = c.segs; }; }
+        continue;
+      }
+      if (/^h[123]$/.test(b.t) || b.t === "para" || b.t === "label" || b.t === "divider") inList = false;
+      // Headings are titles too: never a full stop ("TEACHING AND LEARNING METHODS.").
+      if (/^h[123]$/.test(b.t) && typeof b.text === "string" && b.text.trim()) {
+        const end = judge(b.text);
+        if (end) units.push({ group: "heading titles", label: b.text.trim(), end, li: 0,
+          fix: (want) => { if (want === "none") b.text = b.text.replace(/\.\s*$/, ""); } });
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows" && k !== "segs") walk(b[k]);
+    }
+  };
+  walk(blocks);
+  return units;
+}
+// The way each group ends: titles never take a full stop; any other group goes the way
+// most of its lines already go, and on a tie takes the full stop (these are sentences
+// and clauses) -- uniformity always, a group is never left mixed.
+// (A "first letter" group goes the same way: the majority, a capital on a tie.)
+function stopTarget(group, units) {
+  if (/first letter$/.test(group)) {
+    const up = units.filter((u) => u.end === "upper").length;
+    return units.length - up > up ? "lower" : "upper";
+  }
+  if (/titles$/.test(group)) return "none";
+  const dot = units.filter((u) => u.end === "dot" || u.end === "double").length, none = units.length - dot;
+  return none > dot ? "none" : "dot";
+}
+function unifyFullStops(blocks) {
+  const units = stopUnits(blocks);
+  const byGroup = {};
+  for (const u of units) (byGroup[u.group] = byGroup[u.group] || []).push(u);
+  const done = [], todo = [];
+  for (const [g, us] of Object.entries(byGroup)) {
+    const want = stopTarget(g, us);
+    if (!want) continue;
+    const odd = us.filter((u) => u.end !== want);
+    for (const u of odd) todo.push([u, want]);
+    if (odd.length) done.push(`${g} ${odd.length} (${{ dot: "given a full stop", none: "full stop dropped", upper: "capitalised", lower: "made small" }[want]})`);
+  }
+  // Within a cell, last line first: each edit moves every position after it by one, and
+  // the positions were all measured before any edit ("supportive device.s").
+  todo.sort((a, b) => b[0].li - a[0].li);
+  for (const [u, want] of todo) u.fix(want);
+  if (done.length) console.log("   full stops made consistent: " + done.join("; "));
+}
+
+// Numbering check for a CDC syllabus, run on the finished blocks just before they are
+// written out. Numbers are where these manuscripts go wrong most (Word lists that run on
+// across topics, a number typed twice, "1.10.1.1." with a dot after it, a competence filed
+// under the wrong sub-topic), and none of it stops a build. Read-only: it changes nothing,
+// it prints one "!  numbering:" line per problem, then a count.
+//   * the MATRIX — TOPIC Y.k, SUB-TOPIC Y.k.j, COMPETENCE Y.k.j.m: the form of each
+//     number (digits and single dots, no dot after it, one space before the text, no
+//     stray punctuation), its depth, its year, its parent, and that each level counts
+//     on by one with no gap, repeat or restart; a numbered column cell with no number;
+//     and a matrix number left at the head of an activities / standard cell;
+//   * every run of numbered list items (1. 2. 3. / a) b) c)): counts on by one from 1/a;
+//   * every S/N column: 1, 2, 3 … in one form.
+function auditSyllabusNumbering(blocks) {
+  const issues = [];
+  const say = (where, msg) => issues.push(`${where}: ${msg}`);
+  const clip = (s) => { s = String(s || "").replace(/\s+/g, " ").trim(); return s.length > 48 ? s.slice(0, 45) + "…" : s; };
+  const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
+  const yearOf = (t) => {
+    const m = String(t || "").replace(/\s+/g, " ").trim().match(/^(?:(?:year|form|grade)\s+(\d+)|(first|second|third|fourth|fifth|sixth)\s+year)$/i);
+    return m ? (m[1] ? +m[1] : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
+  };
+  // A line's leading number: the raw token as typed, and its parts when well formed.
+  // (a space standing in for a dot -- "1.5 1.2" -- is read as part of the number, to be
+  // reported, not taken for the text)
+  const LEAD = /^\s*[•▪◦●·‣∙]?\s*(\d+(?:(?:\s*\.\s*|[ \t ]+)\d+(?=[\s.]|$))*\s*\.*)(?=\s*[^\d\s.]|\s*$)/;
+  const lead = (line) => {
+    const m = String(line).match(LEAD);
+    if (!m) return null;
+    const raw = m[1].replace(/\s+$/, "");
+    const after = String(line).slice(m[0].length - m[1].length + raw.length);
+    const problems = [];
+    if (/\s/.test(raw.trim())) problems.push("a space inside the number");
+    if (/\.\s*$/.test(raw.trim()) && raw.trim().includes(".") && /\d\.\d/.test(raw)) problems.push("a dot after the number");
+    if (/\.\./.test(raw.replace(/\s+/g, ""))) problems.push("two dots in a row");
+    if (after && !/^\s/.test(after)) problems.push("no space before the text");
+    if (/^\s*[.,:;)]/.test(after)) problems.push("stray punctuation before the text");
+    return { raw: raw.trim(), parts: raw.replace(/[\s.]+$/g, "").split(/\s*\.\s*|\s+/).map(Number), problems };
+  };
+  const lines = (c) => String((c && c.text) || "").split("\n").map((l) => l.trim()).filter(Boolean);
+
+  let year = 0, tables = 0;
+  const seen = { topic: null, sub: null, comp: null };
+  for (const b of blocks) {
+    if (!b || typeof b !== "object") continue;
+    if (!Array.isArray(b.rows)) {
+      const y = yearOf(b.text || blockPlain(b));
+      if (y && y !== year) { year = y; seen.topic = seen.sub = seen.comp = null; }
+      continue;
+    }
+    if (!Array.isArray(b.rows[0])) continue;
+    const H = b.rows[0].map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase());
+    // S/N column of any table.
+    const sn = H.findIndex((h) => /^(S\s*\/\s*N|NO\.?|S\.?\s*NO\.?)$/.test(h));
+    if (sn >= 0) {
+      const vals = b.rows.slice(1).map((r) => String((r[sn] && r[sn].text) || "").trim()).filter(Boolean);
+      const forms = new Set(vals.map((v) => v.replace(/\d+/g, "9")));
+      if (forms.size > 1) say(`S/N column (${clip(H.join(" | "))})`, `numbers in mixed forms (${[...forms].join(", ")})`);
+      vals.forEach((v, i) => { const n = parseInt(v, 10); if (n !== i + 1) say(`S/N column (${clip(H.join(" | "))})`, `row ${i + 1} numbered "${v}"`); });
+    }
+    const tc = H.findIndex((h) => /^TOPIC/.test(h)), sc = H.findIndex((h) => /^SUB[\s-]*TOPIC/.test(h));
+    const cc = H.findIndex((h) => /COMPETEN/.test(h));
+    if (tc < 0 || sc < 0 || cc < 0 || H.length < 5) continue;
+    tables++;
+    // A course outline that leads with a TERM column numbers by term (1.x, 2.x, 3.x under
+    // one YEAR heading), so its first number is not the year.
+    const byTerm = H.some((h) => /^TERMS?$/.test(h));
+    const cols = [[tc, "topic", 2], [sc, "sub-topic", 3], [cc, "competence", 4]];
+    for (const row of b.rows.slice(1)) {
+      if (!Array.isArray(row)) continue;
+      // a YEAR row merged across the matrix (one text, however many cells it spans)
+      const texts = [...new Set(row.map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim()).filter(Boolean))];
+      if (texts.length === 1 && yearOf(texts[0])) {
+        const y = yearOf(texts[0]);
+        if (y !== year) { year = y; seen.topic = seen.sub = seen.comp = null; }
+        continue;
+      }
+      // Sub-topics stacked in one cell ("1.6.2 Sign Language … / 1.6.3 Multimedia …"):
+      // the competences beside them may belong to any of them.
+      const rowSubs = [];
+      for (const [ci, kind, depth] of cols) {
+        const cell = row[ci];
+        const ls = lines(cell);
+        if (!ls.length) continue;
+        const nums = ls.map(lead);
+        if (!nums.some(Boolean)) { say(`${kind} "${clip(ls[0])}"`, "no number"); continue; }
+        nums.forEach((n, li) => {
+          if (!n) return;
+          const where = `${kind} ${n.raw} "${clip(ls[li].slice(ls[li].indexOf(n.raw) + n.raw.length))}"`;
+          for (const p of n.problems) say(where, p);
+          if (n.parts.length !== depth) { say(where, `${n.parts.length} parts, a ${kind} number has ${depth}`); return; }
+          if (n.parts.some((x) => !Number.isFinite(x))) return;
+          if (year && !byTerm && n.parts[0] !== year) say(where, `year ${n.parts[0]}, but this is the Year ${year} matrix`);
+          const key = (arr) => arr.join(".");
+          if (kind === "topic") {
+            const prev = seen.topic;
+            const want = prev && prev[0] === n.parts[0] ? prev[1] + 1 : 1;
+            if (n.parts[1] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${n.parts[0]}.${want})` : `the first topic is numbered ${n.parts[1]}`);
+            seen.topic = n.parts; seen.sub = seen.comp = null;
+          } else if (kind === "sub-topic") {
+            if (seen.topic && key(n.parts.slice(0, 2)) !== key(seen.topic)) say(where, `filed under topic ${key(seen.topic)}`);
+            const prev = seen.sub;
+            const want = prev && key(prev.slice(0, 2)) === key(n.parts.slice(0, 2)) ? prev[2] + 1 : 1;
+            if (n.parts[2] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${key(n.parts.slice(0, 2))}.${want})` : `the first sub-topic is numbered ${n.parts[2]}`);
+            seen.sub = n.parts; seen.comp = null; rowSubs.push(key(n.parts));
+          } else {
+            const parent = key(n.parts.slice(0, 3));
+            if (seen.sub && parent !== key(seen.sub) && !rowSubs.includes(parent)) say(where, `filed under sub-topic ${key(seen.sub)}`);
+            const prev = seen.comp;
+            const want = prev && key(prev.slice(0, 3)) === key(n.parts.slice(0, 3)) ? prev[3] + 1 : 1;
+            if (n.parts[3] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${key(n.parts.slice(0, 3))}.${want})` : `the first competence is numbered ${n.parts[3]}`);
+            seen.comp = n.parts;
+          }
+        });
+      }
+      // A matrix number at the head of an activities / expected-standard cell.
+      row.forEach((cell, ci) => {
+        if (ci === tc || ci === sc || ci === cc) return;
+        const l0 = lines(cell)[0];
+        const n = l0 && lead(l0);
+        if (n && n.parts.length >= 2) say(`${H[ci] ? H[ci].toLowerCase() : "column " + ci} "${clip(l0)}"`, `starts with a matrix number ${n.raw}`);
+      });
+    }
+  }
+  // Numbered list runs (1. 2. 3. / a) b) c)), at any depth. A run goes on across the
+  // paragraphs under its items ("a) Age limit", its text, "b) Academic Qualifications")
+  // and ends at a heading or a table; a "1." or "a)" starts a new one. Numbers and
+  // letters are counted separately, so "1." items with "a)" items under them are fine.
+  const isNum = (v) => /^\d+$/.test(v);
+  const runs = (arr) => {
+    const last = { num: null, alpha: null };
+    const check = (v, mk, text) => {
+      const kind = isNum(v) ? "num" : "alpha";
+      const val = isNum(v) ? +v : v.toLowerCase().charCodeAt(0) - 96;
+      if (val !== 1) {
+        const want = last[kind] == null ? 1 : last[kind] + 1;
+        if (val !== want) say(`list item ${mk} "${clip(text)}"`, `expected ${kind === "num" ? want : String.fromCharCode(96 + want)}${mk.replace(/^\(?[0-9a-z]+/i, "")}`);
+      }
+      last[kind] = val;
+      if (kind === "num") last.alpha = null;
+    };
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.rows) || /^h[123]$/.test(b.t) || b.t === "divider") { last.num = last.alpha = null; continue; }
+      // list items, and the numbered items of an assessment/exercise box
+      const m = (b.t === "listitem" || b.kind === "q") && typeof b.marker === "string" && b.marker.trim().match(/^\(?([0-9]+|[a-z])[.)]$/i);
+      if (m) check(m[1], b.marker.trim(), blockPlain(b) || b.q || "");
+      else {
+        // "a) Age limit" typed as a plain paragraph counts too
+        const t = (b.t === "para" || b.t === "label") ? String(blockPlain(b) || "").trim() : "";
+        const pm = t.match(/^\(?([a-z])\)\s+\S/);
+        if (pm) check(pm[1], pm[0].trim().split(/\s/)[0], t);
+      }
+      if (!m) for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows" && k !== "segs") runs(b[k]);
+    }
+  };
+  runs(blocks);
+  // Full stops and first letters: any kind of text still done both ways (unifyFullStops
+  // should leave none -- this catches a line it could not reach).
+  {
+    const byGroup = {};
+    for (const u of stopUnits(blocks)) (byGroup[u.group] = byGroup[u.group] || []).push(u);
+    for (const [g, us] of Object.entries(byGroup)) {
+      const kinds = [...new Set(us.map((u) => u.end))];
+      if (kinds.length < 2) continue;
+      const ex = kinds.map((k) => `${k}: "${clip(us.find((u) => u.end === k).label)}"`).join(" / ");
+      say(`consistency in ${g}`, `${kinds.map((k) => `${us.filter((u) => u.end === k).length} ${k}`).join(", ")} (e.g. ${ex})`);
+    }
+  }
+  for (const s of issues) console.warn("!  numbering: " + s);
+  console.log(`   numbering check: ${tables} matrix table(s), ${issues.length ? issues.length + " issue(s)" : "clean"}`);
+  return issues;
+}
+
 function reorderBackmatter(blocks) {
   const getText = (b) => {
     if (!b) return "";
@@ -2782,7 +3164,13 @@ function reorderBackmatter(blocks) {
     const own = getText(blocks[refIdx]).trim();
     refHeader = { t: "h1", text: /^references\s*\/\s*\S/i.test(own) ? own : "REFERENCES" };
     let j = refIdx + 1;
-    while (j < blocks.length && blocks[j].t !== "h1" && !/^GLOSSARY\b/i.test(getText(blocks[j]).trim())) {
+    // The list ends at the next heading of ANY level, not only at an h1. A syllabus that
+    // types its reading list in the front matter (History Content: just before Year 1)
+    // has only h2s after it by now -- the YEAR and competences headings -- so stopping
+    // at h1 alone swept the whole body (both competence tables and both matrices) into
+    // "references" and moved it with them, leaving the list in front. (Not at a table:
+    // an AUTHORS line and its table that follow the list travel together, as before.)
+    while (j < blocks.length && !/^h[123]$/.test(blocks[j].t) && !/^GLOSSARY\b/i.test(getText(blocks[j]).trim())) {
       refItems.push(blocks[j]);
       j++;
     }
@@ -4530,10 +4918,12 @@ function normaliseQuestionMarkBold(blocks) {
     // One year's matrix typed as two Word tables, the second with its own copy of the
     // header row (a table that broke at a page end in the manuscript). Set as two, the
     // last topic stood in a small table of its own under a second header. Tables with
-    // the same header and nothing between them are one matrix.
+    // the same header and nothing between them are one matrix. "Same" allows a column
+    // named in the singular in one and the plural in the other (History Content: SPECIFIC
+    // COMPETENCES over the first table, SPECIFIC COMPETENCE over the second).
     {
       const isMx = (b) => b && b.t === "table" && Array.isArray(b.rows) && b.rows.length > 1 && (b.rows[0] || []).length >= 5;
-      const hdrKey = (b) => b.rows[0].map((c) => ((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase()).join("|");
+      const hdrKey = (b) => b.rows[0].map((c) => ((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase().replace(/S$/, "")).join("|");
       for (let i = 0; i < blocks.length; i++) {
         if (!isMx(blocks[i])) continue;
         let j = i + 1;
@@ -4754,7 +5144,8 @@ function normaliseQuestionMarkBold(blocks) {
     // scope-and-sequence chart. Never on by default: a matrix whose numbers the author
     // TYPED is kept exactly as written.
     if (ov.renumberMatrix) {
-      const NUM = /^\s*(?:\d+(?:\.\d+)+\.?|\d+\.)(?=\s|$)\s*/;
+      // (any run of dots after it: "1.1.2.. Reasons for learning history")
+      const NUM = /^\s*(?:\d+(?:\.\d+)+\.*|\d+\.+)(?=\s|$)\s*/;
       const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
       const yearOf = (t) => {
         const m = String(t || "").replace(/\s+/g, " ").trim().match(/^(?:(?:year|form|grade)\s+(\d+)(?:\s*\([a-z]+\))?|(first|second|third|fourth|fifth|sixth)\s+year)$/i);
@@ -4780,11 +5171,17 @@ function normaliseQuestionMarkBold(blocks) {
           c.segs = j;
         }
       };
-      // a line minus its number: { had, rest }
+      // a line minus its number: { had, rest }. Takes off whatever else leads the line
+      // once a number has gone: a second, typed copy of it ("1.1.2 1.1.2. Reasons for
+      // learning history" -- a list number in front of a typed one) and the stray dots
+      // an author types after a list number (".Meaning of History", "..Communicate").
+      const LEADJUNK = /^\s*(?:(?:\d+(?:\.\d+)+\.?|\d+\.)(?=[\s.]|$)\s*|[.:;,]+\s*)/;
       const strip = (line) => {
         const m = txt(line).match(NUM);
         if (!m) return { had: false, rest: line };
-        let cut = m[0].length; const rest = [];
+        let cut = m[0].length;
+        for (let more; (more = txt(line).slice(cut).match(LEADJUNK)) && more[0].length; ) cut += more[0].length;
+        const rest = [];
         for (const s of line) {
           if (cut >= s.t.length) { cut -= s.t.length; continue; }
           rest.push(cut ? { ...s, t: s.t.slice(cut) } : s); cut = 0;
@@ -4834,6 +5231,45 @@ function normaliseQuestionMarkBold(blocks) {
         }
       }
       console.log("   renumbered the matrix from its structure:", Object.keys(tally).map((y) => `year ${y}: ${tally[y]} topics`).join("; ") || "nothing found");
+    }
+    // Matrix numbers take NO dot after them: "1.5.1.1 Produce…", never "1.5.1.1. Produce…"
+    // (the demo book, and every syllabus but the two that typed them so -- Devices and
+    // Materials Production, Music Methods). Only a multi-part number in the TOPIC,
+    // SUB-TOPIC and COMPETENCE columns, at the head of a line, and only a single dot
+    // followed by a space. The dot goes from the cell's text AND from its runs at the
+    // same place: the template takes the number from one and the body from the other.
+    {
+      const TRAIL = /^(\s*[•▪◦●·‣∙]?\s*\d+(?:\.\d+)+)\.(?=[ \t ])/gm;
+      let n = 0;
+      for (const b of blocks) {
+        if (b.t !== "table" || !Array.isArray(b.rows) || !Array.isArray(b.rows[0]) || b.rows[0].length < 5) continue;
+        const H = b.rows[0].map((c) => ((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase());
+        const cols = [H.findIndex((h) => /^TOPIC/.test(h)), H.findIndex((h) => /^SUB[\s-]*TOPIC/.test(h)), H.findIndex((h) => /COMPETEN/.test(h))];
+        if (cols.some((c) => c < 0)) continue;
+        for (const row of b.rows.slice(1)) {
+          if (!Array.isArray(row)) continue;
+          for (const ci of cols) {
+            const c = row[ci];
+            if (!c || typeof c.text !== "string" || !TRAIL.test(c.text)) { TRAIL.lastIndex = 0; continue; }
+            TRAIL.lastIndex = 0;
+            c.text = c.text.replace(TRAIL, "$1");
+            if (Array.isArray(c.segs) && c.segs.every((s) => typeof s.t === "string")) {
+              const all = c.segs.map((s) => s.t).join("");
+              const at = [];
+              for (let m; (m = TRAIL.exec(all)); ) at.push(m.index + m[1].length);
+              for (const pos of at.reverse()) {
+                let off = 0;
+                for (const s of c.segs) {
+                  if (pos < off + s.t.length) { s.t = s.t.slice(0, pos - off) + s.t.slice(pos - off + 1); break; }
+                  off += s.t.length;
+                }
+              }
+            }
+            n++;
+          }
+        }
+      }
+      if (n) console.log(`   matrix numbers: dot after the number dropped in ${n} cell(s)`);
     }
     // Resequence a serial-number column that has gaps. The competences table is headed
     // "S/N" — a plain 1..N counter, not a clause reference — and this manuscript's runs
@@ -5305,6 +5741,16 @@ function normaliseQuestionMarkBold(blocks) {
       covSignature: orig.signature || orig.primary, covCyan: orig.cyan || orig.primary2,
       covInk: orig.ink, covRulec: orig.rulec,
     });
+  }
+  // Every syllabus gets its numbering checked on what is about to print (see
+  // auditSyllabusNumbering): a clean build log says nothing about a "1.10.1.1." or a
+  // competence numbered under the wrong topic.
+  if (variant === "syllabus") {
+    // Full stops and first letters one way per kind of text (see unifyFullStops), on the
+    // finished blocks -- after every heading, cell and list has taken its final form.
+    unifyFullStops(blocks);
+    try { auditSyllabusNumbering(blocks); }
+    catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }
   const tmpl = fs.readFileSync(path.join(__dirname, "generic-template.typ"), "utf8");
   // Inject the theme dict ABOVE the template so its functions capture it.

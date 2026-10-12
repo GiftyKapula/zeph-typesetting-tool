@@ -155,6 +155,42 @@ Six more, from the Physical Education and Sport syllabus:
   EDUCATION) is set like one typed as three; a topic column whose titles are all
   short is still wide enough for its longest word (`ENTREPRENEURSHIP`).
 
+Three more, from the History Content syllabus:
+
+- **A reading list typed in the front matter goes to the back** on its own. It used
+  to run on to the next h1, and in a syllabus the YEAR and competences headings are
+  h2s, so the whole body travelled with it and the list stayed in front.
+- **Two matrix tables join when their headers differ only by a plural**
+  (`SPECIFIC COMPETENCES` over one, `SPECIFIC COMPETENCE` over the next).
+- **`renumberMatrix` also clears what an old number leaves behind**: a second, typed
+  copy of it after a list number (`1.1.2 1.1.2. Reasons…`), a run of dots after it
+  (`1.1.2..`), and stray dots before the text (`.Meaning of History`, `..Communicate`).
+
+**Numbering is checked on every build — read the check.** Numbers are where these
+manuscripts go wrong most, and none of it stops a build, so every syllabus build ends
+with a line `numbering check: N matrix table(s), clean` or `… K issue(s)`, each issue
+on its own `!  numbering:` line above it. It reads what is about to print and changes
+nothing. It checks:
+
+- **the matrix** — TOPIC `Y.k`, SUB-TOPIC `Y.k.j`, COMPETENCE `Y.k.j.m`: the form of each
+  number (digits and single dots, one space before the text, no space or stray
+  punctuation inside), its depth, its year (not for a TERM-numbered course outline),
+  its parent (a competence beside sub-topics stacked in one cell may belong to any of
+  them), and that each level counts on by one — no gap, repeat or restart; a numbered
+  column cell with no number; a matrix number at the head of an activities or
+  standard cell;
+- **numbered lists** — `1. 2. 3.` / `a) b) c)` count on by one (the paragraphs under an
+  item don't break the run; a heading or table does);
+- **S/N columns** — `1, 2, 3 …`, all in one form.
+
+A build is not finished until that line says `clean`, or every remaining issue is
+either fixed in the sidecar (where the right number is plain from the rows around it)
+or written into the sidecar's `_comment` as an author query. Matrix numbers also take
+**no dot after them** (`1.5.1.1 Produce…`, not `1.5.1.1. Produce…`): the engine drops a
+single trailing dot from TOPIC / SUB-TOPIC / COMPETENCE numbers, as the demo book sets
+them. A section number outside the matrix (`6.1. Continuous Assessment`) is the
+author's style and is left alone.
+
 **Matrix numbers that are all Word list numbers** (none typed) are often wrong on
 the page: the lists restart, change list mid-topic and go on counting in the
 merged cells under a topic (topics `1.5, 1.5, 1.6, 1.12, 1.7`; a bare `1.3` in an
@@ -319,7 +355,7 @@ off, so a change only touches the books that opt in. Keys:
 | `insertRow` | put a row merged across the table, holding `text`, before the first body row with a cell matching `find` (whole text) or `startsWith` — a `YEAR 2` row in a syllabus matrix that runs both years as one table; the family lifts it out as the YEAR banner |
 | `coverColour` | a 6-digit hex value (`"1f5c3a"`) — syllabus family only. The colour of the cover and back-cover field. A syllabus on the generic theme otherwise takes one from a fixed set of twelve deep colours, picked by its subject name (the same book always gets the same one; none repeats a named theme's orange, teal or indigo). Set this when two subjects land on the same or a near colour |
 | `renumberMatrix` | `true` — syllabus family only. Drops every number in the TOPIC, SUB-TOPIC and COMPETENCE columns of the matrix (and of a YEARS | TOPIC | SUB-TOPIC scope-and-sequence chart) and counts them afresh from the table's structure: topic `Y.k`, sub-topic `Y.k.j`, competence `Y.k.j.m`, the year taken from the YEAR heading above the matrix or the chart's YEARS column. A cell holding a number and nothing else is emptied. For a manuscript whose matrix numbers are all broken Word list numbers (see §2a) — never for numbers the author typed |
-| `editCell` | rewrite a table cell whose whole trimmed text equals `find`. Rewrites the cell's rich runs alongside its plain text, so a syllabus matrix cell (which renders its clause number from the text but its body from the runs) stays intact. With `pattern` (a regular expression) instead of `find`, every matching body cell has the match replaced — one rule for a slip repeated down a whole matrix (a year prefix typed before every number) |
+| `editCell` | rewrite a table cell whose whole trimmed text equals `find`. Rewrites the cell's rich runs alongside its plain text, so a syllabus matrix cell (which renders its clause number from the text but its body from the runs) stays intact. With `pattern` (a regular expression) instead of `find`, every matching body cell has the match replaced — one rule for a slip repeated down a whole matrix (a year prefix typed before every number). With `row` + `col`, it rewrites that column of the row holding a cell whose text is `row`; add `under` to touch only the table(s) whose nearest preceding heading contains that text — a Year 1 and a Year 2 Key Competences table share their row names |
 
 **Images:** generate with **gpt-image-2, `quality: "high"`** (raised from the
 old `"low"` cost-saving default — print sharpness now wins over the small
