@@ -1300,9 +1300,14 @@
   // A cell often begins with its own number ("6. hobby"). Colour that leading number
   // the SAME primary/bold as the row marker so every number in the grid matches —
   // the rest of the cell stays in body ink.
+  // In a syllabus every list number is set one way, text colour and regular (see
+  // listitem): a grid's numbers follow it, or Autism's "5.1 Continuous Assessment" stood
+  // bold where Curriculum Instruction Strategies' identical weightings were regular.
+  let numFill = if syllabus { T.ink } else { T.primary }
+  let numWeight = if syllabus { "regular" } else { "bold" }
   let cell(c) = {
     let m = c.match(regex("^(\\(?\\d+[.)])\\s+(.*)$"))
-    if m != none [#text(fill: T.primary, weight: "bold")[#m.captures.at(0)] #m.captures.at(1)] else [#c]
+    if m != none [#text(fill: numFill, weight: numWeight)[#m.captures.at(0)] #m.captures.at(1)] else [#c]
   }
   // An optional header row (e.g. "Hundreds Tens Ones" over a place-value chart): one
   // bold label per body column, sitting over the marker-column with a blank so each
@@ -1318,7 +1323,7 @@
     #grid(columns: cols, column-gutter: 10pt, row-gutter: 6pt, align: left + top,
       ..headRow,
       ..rows.map(r => {
-        let mk = if hasMarker { (text(fill: T.primary, weight: "bold")[#r.marker],) } else { () }
+        let mk = if hasMarker { (text(fill: numFill, weight: numWeight)[#r.marker],) } else { () }
         mk + r.cells.map(c => cell(c))
       }).flatten())
   ]

@@ -5214,6 +5214,12 @@ function normaliseQuestionMarkBold(blocks) {
       let n = 0;
       const walk = (arr) => {
         for (const b of arr) {
+          // a list turned into a column grid keeps its numbers as row markers (Autism's
+          // "5.1. Continuous Assessment 60%" weightings)
+          if (b && (b.t === "colgrid" || b.k === "colgrid") && Array.isArray(b.rows)) {
+            for (const r of b.rows) if (r && typeof r.marker === "string" && MARK.test(r.marker.trim())) { r.marker = r.marker.trim().replace(MARK, "$1"); n++; }
+            continue;
+          }
           if (!b || typeof b !== "object" || b.t === "table" || Array.isArray(b.rows)) continue;
           if (typeof b.marker === "string" && MARK.test(b.marker.trim())) { b.marker = b.marker.trim().replace(MARK, "$1"); n++; }
           else if (["para", "head", "label", "listitem"].includes(b.t)) {
