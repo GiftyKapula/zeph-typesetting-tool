@@ -2298,6 +2298,17 @@ async function importDocx(docxPath, opts = {}) {
     }
     if (tocJunk.has(i)) continue;  // a hand-typed TOC entry (we generate our own)
     if (hasTocStyle && /^TOC/i.test(styleOf(x))) continue; // drop source TOC lines + "CONTENTS" heading
+    // A contents entry Word GENERATED itself carries a PAGEREF field to a _Toc bookmark,
+    // whatever its paragraph style is called. A manuscript saved from WPS Office numbers
+    // its style ids ("26" for TOC 1), so the TOC-style test above never fires and every
+    // entry printed as body text carrying the author's own page numbers ("Preface i").
+    // The title typed above such a run ("Table of Content") goes with it.
+    if (/PAGEREF\s+_Toc/.test(x) && /<w:tab\/>/.test(x)) continue;
+    if (!hasTocStyle && /^table of contents?$/i.test(textOf(x).trim())) {
+      let n = i + 1;
+      while (n < parts.length && !isTbl(parts[n]) && textOf(parts[n]) === "") n++;
+      if (n < parts.length && !isTbl(parts[n]) && /PAGEREF\s+_Toc/.test(parts[n]) && /<w:tab\/>/.test(parts[n])) continue;
+    }
 
     // A paragraph may carry images plus heading or caption text. Don't drop the
     // text: an inline "Figure N:" caption attaches to the images; otherwise the

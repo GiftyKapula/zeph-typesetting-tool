@@ -1428,6 +1428,49 @@ function applyOverrides(blocks, ov) {
     walkT(blocks);
     if (!n) console.warn("!  editCell not matched:", byRow ? `row ${ec.row} col ${ec.col}` : ec.find);
   }
+  // cellSubtext: [{ from, to }] — replace a substring INSIDE a table cell, keeping the
+  // cell's runs (and so its bold/italic) as they are. `editCell` rewrites a whole cell
+  // into one run, which is wrong for renumbering a clause: a sub-topic cell is a number,
+  // a title and an italic gloss, and several clauses may share one cell. Give enough of
+  // the text after the number to single the clause out ("1.3.1. Developmental domains"
+  // -> "1.4.1. Developmental domains"); whitespace is matched loosely and the match may
+  // run across runs — the replacement takes the styling of the run it starts in. Warns
+  // when nothing matches, and when more than one cell does (unless `all`).
+  for (const cs of ov.cellSubtext || []) {
+    if (!cs || typeof cs.from !== "string" || !cs.from.trim()) continue;
+    const re = new RegExp(cs.from.trim().split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("\\s+"));
+    const to = cs.to != null ? String(cs.to) : "";
+    let n = 0;
+    const walkT = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
+            if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
+            cell.text = cell.text.replace(re, () => to);
+            if (Array.isArray(cell.segs) && cell.segs.length && !cell.segs.some((s) => s.m || typeof s.t !== "string")) {
+              const m = cell.segs.map((s) => s.t).join("").match(re);
+              if (m) {
+                const start = m.index, end = m.index + m[0].length;
+                let pos = 0, put = false;
+                cell.segs = cell.segs.map((s) => {
+                  const a = pos, z = pos + s.t.length; pos = z;
+                  if (z <= start || a >= end) return s;
+                  const mid = put ? "" : to; put = true;
+                  return { ...s, t: s.t.slice(0, Math.max(0, start - a)) + mid + s.t.slice(Math.min(s.t.length, end - a)) };
+                }).filter((s) => s.t !== "");
+              }
+            }
+            n++;
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
+      }
+    };
+    walkT(blocks);
+    if (!n) console.warn("!  cellSubtext not matched:", cs.from);
+    else if (n > 1 && !cs.all) console.warn(`!  cellSubtext matched ${n} cells:`, cs.from);
+  }
   // removeRow: [{ find }] — delete a whole TABLE ROW, matched by any one of its cells
   // whose trimmed text equals `find` (or starts with it, with `startsWith` instead).
   // For a row the author duplicated or a clause withdrawn after validation: `remove`
@@ -4409,7 +4452,7 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.cellSubtext || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -4649,8 +4692,54 @@ function normaliseQuestionMarkBold(blocks) {
   }
 
   // ---- CDC SYLLABUS post-processing (landscape matrix book) ----------------------
+  // The year the manuscript's own title page carries (see below); the generic syllabus
+  // theme has none of its own, so the copyright page takes it from here.
+  let sylMsYear = "";
   if (variant === "syllabus") {
+    // The manuscript's own TITLE PAGE, typed inside a one-cell bordered table (crest,
+    // "REPUBLIC OF ZAMBIA", "THE MINISTRY OF EDUCATION", the course, the CDC badge, the
+    // year). The family's cover and title page are drawn by the template, and the cover
+    // search below only clears loose pictures, so the framed one came through as a box
+    // and its lines printed as bold paragraphs after the contents page. It is recognised
+    // strictly: the book's opening box, nothing in it but pictures and short lines, one
+    // of them naming the Republic or the Ministry. Its year is kept for the imprint.
+    {
+      let k = 0;
+      while (k < blocks.length && blocks[k].t === "para" && !(blockPlain(blocks[k]) || "").trim()) k++;
+      const tp = blocks[k];
+      const body = tp && tp.t === "box" && Array.isArray(tp.body) ? tp.body : null;
+      const lineOf = (x) => (x.t === "para" ? (blockPlain(x) || x.plain || "") : "").trim();
+      if (body && body.every((x) => x.t === "img" || x.t === "image" || (x.t === "para" && lineOf(x).length <= 90))
+        && body.some((x) => /^(?:the\s+)?(?:republic of zambia|ministry of education)\b/i.test(lineOf(x)))) {
+        const yr = body.map(lineOf).find((t) => /^(?:19|20)\d{2}$/.test(t));
+        if (yr) sylMsYear = yr;
+        blocks.splice(0, k + 1);
+        console.log("   dropped the manuscript's framed title page" + (yr ? ` (year ${yr})` : ""));
+      }
+    }
     blocks = flattenSyllabusBoxes(blocks);
+    // A list typed with hand-made dashes ("- Lectures, case studies, seminars" on each
+    // line) rather than Word's bullets: two or more such lines running together are a
+    // bulleted list, set with the family's bullet like every other list in the book.
+    for (let i = 0; i < blocks.length; i++) {
+      const isDash = (b) => b && b.t === "para" && Array.isArray(b.segs) && b.segs.length
+        && !b.segs.some((s) => s.m) && /^\s*[-–]\s+\S/.test(blockPlain(b) || "");
+      if (!isDash(blocks[i])) continue;
+      let j = i; while (isDash(blocks[j + 1])) j++;
+      if (j > i) for (let k = i; k <= j; k++) {
+        const segs = blocks[k].segs.map((s) => ({ ...s }));
+        let cut = (blockPlain(blocks[k]).match(/^\s*[-–]\s+/) || [""])[0].length;
+        while (cut > 0 && segs.length) {
+          const n = Math.min(cut, segs[0].t.length);
+          segs[0].t = segs[0].t.slice(n); cut -= n;
+          if (!segs[0].t) segs.shift();
+        }
+        const last = segs[segs.length - 1];
+        if (last) last.t = last.t.replace(/\s+$/, "");
+        blocks[k] = { t: "listitem", segs, marker: "•", lvl: 0 };
+      }
+      i = j;
+    }
     // The importer may KEEP the manuscript's list bullets inside matrix cells; the matrix
     // renders its own bullets, so strip the source ones (from cell text + segs) to avoid
     // a doubled "• •" in the activities column and a stray bullet on numbered topics.
@@ -5102,7 +5191,9 @@ function normaliseQuestionMarkBold(blocks) {
     const YEARLINE = /^(?:(?:year|form|grade)\s+\d+(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
     for (const b of blocks) {
       const t = (b.t === "label" ? b.text : blockPlain(b) || "").trim();
-      if ((b.t === "para" || b.t === "label") && YEARLINE.test(t)) {
+      // (…or as a Word heading: "YEAR 1" in a heading style set as a ruled section head
+      // on a page of its own, where "YEAR 2", lifted from a merged matrix row, got the banner.)
+      if ((b.t === "para" || b.t === "label" || b.t === "head" || /^h[13]$/.test(b.t)) && YEARLINE.test(t)) {
         b.t = "h2"; b.text = t.toUpperCase(); delete b.segs;
       }
     }
@@ -5145,7 +5236,10 @@ function normaliseQuestionMarkBold(blocks) {
     const TOPSECTION = /^(vision|mission|foreword|preface|acknowledge?ments?|background|introduction)\b\.?$/i;
     // The BACK-matter divisions are top-level too: the reference opens REFERENCES on
     // its own page with the same ruled section head its front matter uses.
-    const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|prescribed\s+(text\s*books?|reading|references?)|recommended\s+(references?|reading)s?)\b[\s.:]*$/i;
+    // ("Readings" as well as "Reading", and the two kinds named together: a book that heads
+    // its lists "Prescribed and Recommended Readings" / "PRESCRIBED READINGS" /
+    // "RECOMMENDED READINGS" had only the last recognised, so it alone opened a page.)
+    const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|(prescribed|recommended|prescribed\s+(and|&)\s+recommended)\s+(text\s*books?|references?|readings?))\b[\s.:]*$/i;
     const isCaps = (s) => s === s.toUpperCase() && /[A-Z]{3}/.test(s);
     const frontLabels = [];
     for (let i = 0; i < frontEnd; i++) if (isSectionLabel(blocks[i])) frontLabels.push((blocks[i].text || "").trim());
@@ -5210,15 +5304,29 @@ function normaliseQuestionMarkBold(blocks) {
     // flowing sub-section stranded at the foot of a page with its list overleaf, and
     // "Recommended References" as a plain bold line that reached neither the contents
     // nor a page of its own — where the reference gives REFERENCES a page and a rule.
-    for (let i = frontEnd; i < blocks.length; i++) {
-      const b = blocks[i];
-      if (!(b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t))) continue;
-      const t = (b.text || "").trim();
+    // A back-matter head with another one directly under it ("Prescribed and Recommended
+    // Readings", then "PRESCRIBED READINGS") is the PARENT of the lists that follow: it
+    // takes the page and the rule, and they flow beneath it as its sub-sections — each
+    // opening a page of its own left the parent alone on an otherwise empty page.
+    {
+      const isHeadB = (b) => b && (b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t));
       // ("REFERENCES/PRESCRIBED READING": two of them sharing one heading.)
       // …and the SCOPE AND SEQUENCE CHART that closes some syllabuses, whatever follows
       // the words ("… CHART (PROPOSED FRAME-WORK)"): set as a sub-section it started
       // hard under the last row of the matrix and was filed in the contents under YEAR 2.
-      if (t && (t.split(/\s*\/\s*/).every((p) => BACKSECTION.test(p)) || /^scope\s+and\s+sequence\b/i.test(t))) blocks[i] = { t: "h1", text: t };
+      const isBack = (b) => { const t = isHeadB(b) ? (b.text || "").trim() : ""; return !!t && (t.split(/\s*\/\s*/).every((p) => BACKSECTION.test(p)) || /^scope\s+and\s+sequence\b/i.test(t)); };
+      let underParent = false;
+      for (let i = frontEnd; i < blocks.length; i++) {
+        const b = blocks[i];
+        if (!isHeadB(b)) continue;
+        const t = (b.text || "").trim();
+        if (!isBack(b)) { if (b.t === "h1") underParent = false; continue; }
+        if (underParent) { blocks[i] = { t: "h2", text: t }; continue; }
+        blocks[i] = { t: "h1", text: t };
+        let n = i + 1;
+        while (n < blocks.length && blocks[n].t === "para" && !(blockPlain(blocks[n]) || "").trim()) n++;
+        if (isBack(blocks[n])) underParent = true;
+      }
     }
     // COMPETENCES AND DESCRIPTORS table: the competence NAMES set with a capital on each
     // word and the rest small ("Analytical Thinking", "Creativity and Innovation"),
@@ -5264,7 +5372,9 @@ function normaliseQuestionMarkBold(blocks) {
     // title. Resets at the next heading. (The numbered heading itself keeps its hanging
     // number, so it is NOT indented.)
     {
-      const numbered = (s) => /^\d+(?:\.\d+)*\.?\s/.test((s || "").trim());
+      // (Not a bare figure running into a lower-case word — "2 hours per week" is a
+      // quantity, and the lines after it are not its body.)
+      const numbered = (s) => /^\d+(?:\.\d+)*\.?\s/.test((s || "").trim()) && !/^\d+\s+[a-z]/.test((s || "").trim());
       let inNumbered = false;
       for (const b of blocks) {
         const plain = (blockPlain(b) || b.text || "").trim();
@@ -5337,7 +5447,7 @@ function normaliseQuestionMarkBold(blocks) {
       if (fs.existsSync(cdcG)) { media.push({ name: "syl_cdc_grey.png", src: cdcG }); cov.logoGrey = { file: "syl_cdc_grey.png" }; }
     }
     const Tsyl = THEMES[theme] || {};
-    blocks = applySyllabusFront(blocks, { year: sylYear,
+    blocks = applySyllabusFront(blocks, { year: sylYear || sylMsYear || "",
       level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null,
       levelAfterCompetences: !!ov.levelPageAfterCompetences });
   }
