@@ -2281,7 +2281,10 @@
     // stays bold title case. Manuscripts are inconsistent about this — one book typed
     // its early topics in caps and its later ones in title case — so normalise here
     // rather than leaving the column looking like two different styles down the page.
-    let tt = upper(stripLead(plainlabel(c)).trim())
+    // (A cell flagged `keepcase` keeps the case it arrives in: a book that asked for
+    // its competence names in sentence case — sidecar `competenceCase`.)
+    let tt0 = stripLead(plainlabel(c)).trim()
+    let tt = if c.at("keepcase", default: false) { tt0 } else { upper(tt0) }
     // Each title line hangs like the other columns: its number (tidied) in a fixed-width
     // column, the title wrapping under ITSELF rather than back under the number.
     let numRe = regex("^(\\d+(?:\\.\\d+)+\\.?|\\d+\\.)\\s+")

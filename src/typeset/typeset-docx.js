@@ -54,7 +54,7 @@ const EMPTY_CELL = { text: "", imgs: [] };
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 // Rich table cell: text plus any images it contains (and rich segments with
 // math when the cell holds an equation).
-const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""})`;
+const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keepcase ? ", keepcase: true" : ""})`;
 const normRows = (rows) => { const n = Math.max(0, ...rows.map((r) => r.length)); return rows.map((r) => r.concat(Array(n - r.length).fill(EMPTY_CELL))); };
 const rowArr = (rows) => arr(normRows(rows), (r) => arr(r, cellArr));
 const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0}, tall: ${im.tall ? "true" : "false"}, cap: ${im.caption ? S(im.caption) : "none"}, hmm: ${im.hmm || 0})`);
@@ -4809,8 +4809,21 @@ function normaliseQuestionMarkBold(blocks) {
     // reference's two-column table but not for a book that numbers its rows, where the
     // columns run S/N | COMPETENCE | DESCRIPTORS — so the rule silently did nothing and
     // the casing came out however the author had typed it.
+    // A book may ask for them in sentence case instead ("Analytical thinking"): sidecar
+    // `competenceCase: "sentence"`. That table only — nothing else in the book changes.
+    const sentenceComp = ov.competenceCase === "sentence";
     const uc = (c) => {
       if (!c) return;
+      if (sentenceComp) {
+        c.keepcase = true;      // the template uppercases a table's first column; not this cell
+        const sc = (t, first) => { const l = t.toLowerCase(); return first ? l.replace(/[a-z]/, (m) => m.toUpperCase()) : l; };
+        if (c.text) c.text = sc(c.text, true);
+        if (Array.isArray(c.segs)) {
+          let first = true;
+          for (const s of c.segs) if (typeof s.t === "string" && s.t) { s.t = sc(s.t, first); if (/[a-z]/i.test(s.t)) first = false; }
+        }
+        return;
+      }
       if (c.text) c.text = c.text.toUpperCase();
       if (Array.isArray(c.segs)) for (const s of c.segs) if (s.t) s.t = s.t.toUpperCase();
     };
