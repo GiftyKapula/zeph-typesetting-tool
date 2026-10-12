@@ -1362,6 +1362,31 @@ function applyOverrides(blocks, ov) {
   // (e.g. fill a blank TOPIC cell, or blank a repeated one with "with": "").
   for (const ec of ov.editCell || []) {
     let n = 0;
+    // With `pattern` (a regular expression) instead of `find`, EVERY cell matching it has
+    // the match replaced by `with` ($1… allowed) — one rule for a slip repeated down a
+    // whole table, e.g. a year prefix typed in front of every number of a syllabus
+    // matrix. Header rows are never touched.
+    if (ec.pattern != null) {
+      const re = new RegExp(ec.pattern);
+      const walkP = (arr) => {
+        for (const b of arr) {
+          if (!b || typeof b !== "object") continue;
+          if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+            for (const row of b.rows.slice(1)) if (Array.isArray(row)) for (const cell of row) {
+              if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
+              cell.text = cell.text.replace(re, ec.with || "");
+              if (Array.isArray(cell.segs) && cell.segs.length) cell.segs = [{ ...cell.segs[0], t: cell.text }];
+              n++;
+            }
+          }
+          for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkP(b[k]);
+        }
+      };
+      walkP(blocks);
+      if (!n) console.warn("!  editCell pattern not matched:", ec.pattern);
+      else console.log(`   editCell pattern ${ec.pattern}: ${n} cell(s)`);
+      continue;
+    }
     const byRow = ec.row != null && ec.col != null;
     const walkT = (arr) => {
       for (const b of arr) {
