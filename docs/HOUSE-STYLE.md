@@ -156,6 +156,16 @@ A matrix that runs both years as one unbroken table gets its second YEAR banner
 from the sidecar: `insertRow` puts a merged `YEAR 2` row before the second
 year's first topic, and the merged-row rule above lifts it out as the banner.
 
+**Cover colour — no two syllabuses share one.** The three named themes have
+their own (Travel and Tourism orange, Special Education teal, Devices indigo).
+Every other syllabus used to print on the generic theme's single grey; it now
+takes a colour picked from a fixed palette by the subject in its file name, so
+the same book always gets the same colour. Only the cover spread carries it —
+the title page and interior stay black and white. Two subjects can land on the
+same or a near colour: lay the covers side by side when a new syllabus comes in,
+and give one of them a `coverColour` (hex) in its sidecar, as Guidance and
+Counselling has.
+
 Cover geometry: the white title band is fixed (it has to line up across the
 spread), so it divides each panel into an above-band and a below-band zone, and
 each zone's content is centred in it both ways. Don't reintroduce hand-tuned
