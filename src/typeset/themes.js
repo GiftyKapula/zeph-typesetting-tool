@@ -343,7 +343,11 @@ function autoTheme(name) {
   // a bare "Science"; subjects before the generic "literature/language").
   // CDC SYLLABUSES are landscape and must take a syllabus() theme, NOT the B5 subject
   // theme of the same name. Match "syllabus" FIRST and route by subject.
-  if (/syllabus/i.test(name)) {
+  // …or "TED" in capitals: CDC's tag for a Teacher Education Diploma syllabus, which is
+  // how some of them are filed, with the word "syllabus" left out altogether ("MUSIC
+  // METHODS VALIDATED TED"). That one fell through to `navy` and typeset as a portrait
+  // B5 learner's book — the same wrong-family trap described below.
+  if (/syllabus/i.test(name) || /\bTED\b/.test(name)) {
     if (/travel|tourism/i.test(name)) return "travelsyl";
     // Devices and Materials Production. Checked BEFORE Special Education: this
     // syllabus is itself *for* learners with special educational needs, so its

@@ -2394,10 +2394,15 @@
       // row at the head of the next page, to save two lines at the foot of this one. A
       // row with a long cell (a sub-topic carrying a column of competences) still breaks,
       // or it would leave half a page empty.
+      // …unless the row is taller than a page can hold. A topic whose first row carries
+      // some 900 characters of activities or more does not fit a page whole: held
+      // unbreakable it ran on over the footer and off the sheet, losing its last lines
+      // (Music Methods 1.21, a 1,200-character list). Such a row breaks like any other.
       ..rows.slice(1).map(r => {
         let short = r.all(c => plainlabel(c).len() <= 160)
+        let huge = r.any(c => plainlabel(c).len() >= 900)
         r.enumerate().map(((ci, c)) =>
-          if (ci == tc and plainlabel(c).trim() != "") or (short and ci == 0) { table.cell(breakable: false, sylbody(ci, c, r)) }
+          if (ci == tc and plainlabel(c).trim() != "" and not huge) or (short and ci == 0) { table.cell(breakable: false, sylbody(ci, c, r)) }
           else { sylbody(ci, c, r) })
       }).flatten())
   } else if syl {

@@ -1,0 +1,210 @@
+{
+  "_comment": [
+    "Musical Arts Education: Teaching Methods -- Secondary Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-12. Layout, numbering and spelling repairs only: NONE of these",
+    "rewrites a competence, an activity or an expected standard.",
+    "",
+    "THE FILE NAME ('MUSIC METHODS VALIDATED TED (5)') names neither the level nor the year,",
+    "and calls the subject 'Music Methods'. The cover is set from the manuscript's own cover",
+    "page instead: 'MUSICAL ARTS EDUCATION SYLLABUS / TEACHING METHODS / SECONDARY TEACHERS'",
+    "DIPLOMA', and '(c) Curriculum Development Centre, 2025'.",
+    "",
+    "MATRIX NUMBERING put right where the slip is plain from the rows around it (each is",
+    "listed under editCell below). The topic, sub-topic and competence WORDING is untouched.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * ISBN. The manuscript prints 978-9982-54-066-7, which is the SAME number printed in",
+    "    the Physical Education and Sport syllabus from the same desk -- a template's number,",
+    "    not this book's. It is left off; the imprint shows a blank ISBN line.",
+    "  * Sub-topic 2.2.3 is missing. After 2.2.2 (Dalcroze) the matrix goes straight to",
+    "    competence '2.2.3.2 Practice holistic music approach in lesson planning', with no",
+    "    sub-topic 2.2.3 and no competence 2.2.3.1. Set as written.",
+    "  * Topics 1.11 and 1.12 carry the same title, sub-topic and competence ('Embracing",
+    "    Technology in Music Teaching Methods'), with near-identical activities; so do 2.1",
+    "    and 2.8. The manuscript's own contents list repeats them too. Set as written.",
+    "  * No expected standard is given for 1.18.1.2 (pair/group work) or 2.7.1.1",
+    "    (composition techniques).",
+    "  * Key Competences: the descriptor against ENTREPRENEURSHIP is about emotional",
+    "    intelligence (it nearly repeats EMOTIONAL INTELLIGENCE's own). Set as written.",
+    "  * 1.7.1 Resource selection: the competence had no number; set as 1.7.1.1.",
+    "  * Cover subject wording (see `subject`) -- confirm against CDC's title for the course."
+  ],
+  "subject": "Musical Arts Education Teaching Methods",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2025,
+  "levelPageAfterCompetences": true,
+  "_levelPageAfterCompetences_why": "Requested 2026-10-12: the page that names the level of the book (Secondary Teachers’ Diploma) comes after the Key Competences table, before the YEAR 1 matrix.",
+  "removeRange": [
+    {
+      "_why": "The template's ISBN line (see _comment) and, after it, the hand-typed contents (three tables of dot leaders with the author's Word page numbers, and its own 'Year One (1)' / 'Year Two (2)' headings, which set as two extra sections). The engine generates the contents with real page numbers.",
+      "from": "ISBN: 978-9982-54-066-7",
+      "to": "Preface"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "The year heading above the matrix, in the family's wording, so that it draws the YEAR banner and files a top-level contents entry.",
+      "find": "YEAR ONE (1)",
+      "with": [
+        {
+          "label": "YEAR 1"
+        }
+      ]
+    }
+  ],
+  "insertRow": [
+    {
+      "_why": "The matrix is one unbroken table for both years. The manuscript's own contents list starts Year Two at 'Embracing Technology in Music Teaching Methods' (topic 2.1); the YEAR 2 banner goes there.",
+      "startsWith": "2.1  EMBRACING",
+      "text": "YEAR 2"
+    }
+  ],
+  "setHeading": [
+    {
+      "_why": "The two kinds of assessment are numbered items under ASSESSMENT, not sections: they were listed in the contents.",
+      "find": "1. College-Based Assessment",
+      "as": "label"
+    },
+    {
+      "find": "2. Written Final Examinations",
+      "as": "label"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "The Preface ran one line over its page, leaving 'MINISTRY OF EDUCATION' alone on the next. Its last paragraph now goes over with the signatory.",
+      "find": "Ultimately, the goal is for trainee teachers"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "Dash as in the Acknowledgement's 'Director – Curriculum Development'.",
+      "find": "Permanent Secretary- Educational Services",
+      "with": "Permanent Secretary – Educational Services"
+    }
+  ],
+  "unbold": [
+    "The content focuses on equipping trainee music teachers with effective pedagogical content knowledge and teaching methods to deliver inclusive, context-responsive Musical Arts. Through structured activities such as ensemble work, composition tasks, and community-based music projects, trainees engage in practical experiences that promote critical thinking, active participation, and responsible citizenship.",
+    "Cross-cutting themes and emerging issues - including National Values and Principles, Life Skills and Health Education, Climate Change Education, Financial Education, Digital Literacy, and Social and Emotional Learning are integrated into music pedagogy. This equips trainee teachers with diverse teaching strategies to design and deliver engaging music lessons that empower learners to acquire essential life skills, adapt to their environment, make informed decisions, and contribute meaningfully to national development.",
+    "Ultimately, the goal is for trainee teachers to master innovative and learner-centered music teaching methods that inspire and nurture responsible, active citizens through the transformative power of music education.",
+    "Demonstrate knowledge, practical skills, values, and positive attitudes in Musical Arts.",
+    "Plan, prepare, and effectively deliver competence-based Musical Arts lessons.",
+    "Design and develop appropriate teaching and learning materials for Musical Arts.",
+    "Apply entrepreneurial knowledge and skills in music-related activities and ventures.",
+    "Demonstrate performance, creativity, coordination, observation, and self-expression through vocal, instrumental, and other musical activities."
+  ],
+  "_unbold_why": "Three Preface paragraphs and the five Outcomes are bold from end to end in the manuscript (pasted formatting), beside plain ones.",
+  "editCell": [
+    {
+      "_why": "Topic 1.14's title sits in a one-cell table nested inside the topic cell, so the cell imported empty and the topic vanished from the matrix and the contents.",
+      "row": "1.14.1 Audio-Visual Resources",
+      "col": 0,
+      "with": "1.14 MULTIMEDIA INTEGRATION",
+      "bold": true
+    },
+    {
+      "_why": "NUMBERING. A stray '1' typed after the automatic number.",
+      "find": "1.1.2 1Philosophical perspectives of music education",
+      "with": "1.1.2 Philosophical perspectives of music education",
+      "bold": true
+    },
+    {
+      "_why": "Competence of sub-topic 1.3.2, numbered 1.4.2.1.",
+      "pattern": "^1\\.4\\.2\\.1(?=\\s*Identify developmental)",
+      "with": "1.3.2.1 "
+    },
+    {
+      "_why": "Competence of sub-topic 1.3.3, numbered 1.4.2.1.",
+      "pattern": "^1\\.4\\.2\\.1(?=\\s*Develop strategies)",
+      "with": "1.3.3.1 "
+    },
+    {
+      "_why": "Competence of 1.7.1, typed without a number.",
+      "find": "Adapt materials to meet diverse learner needs (simplified scores, alternative instruments, visual aids).",
+      "with": "1.7.1.1 Adapt materials to meet diverse learner needs (simplified scores, alternative instruments, visual aids).",
+      "bold": false
+    },
+    {
+      "_why": "Fifth competence of 1.8.1 (between 1.8.1.4 and 1.8.1.6), numbered 1.9.1.5.",
+      "pattern": "^1\\.9\\.1\\.5(?=\\s*Use voice)",
+      "with": "1.8.1.5"
+    },
+    {
+      "_why": "Second competence of 2.2.1 (after 2.2.1.1), numbered 2.2.1.3.",
+      "pattern": "^2\\.2\\.1\\.3(?=\\s*Formulate)",
+      "with": "2.2.1.2"
+    },
+    {
+      "_why": "Second sub-topic of 2.4, numbered 2.4.1 like the first.",
+      "pattern": "^2\\.4\\.1(?=\\s+Improvisation)",
+      "with": "2.4.2"
+    },
+    {
+      "_why": "…and its competence.",
+      "pattern": "^2\\.4\\.1\\.1(?=\\s*Implement improvisation)",
+      "with": "2.4.2.1"
+    },
+    {
+      "_why": "Second competence of 2.5.1, numbered 2.5.1.1 like the first.",
+      "pattern": "^2\\.5\\.1\\.1(?=\\s*Apply principles of Kodaly)",
+      "with": "2.5.1.2"
+    },
+    {
+      "_why": "Competence of sub-topic 2.6.2, numbered 2.6.1.2.",
+      "pattern": "^2\\.6\\.1\\.2(?=\\s*Facilitate)",
+      "with": "2.6.2.1"
+    },
+    {
+      "_why": "Fourth sub-topic of 2.6 (its competence is 2.6.4.1), numbered 2.6.1.4.",
+      "pattern": "^2\\.6\\.1\\.4(?=\\s*Performance pedagogy)",
+      "with": "2.6.4"
+    },
+    {
+      "_why": "Competence of sub-topic 2.9.3, numbered 2.9.2.3.",
+      "pattern": "^2\\.9\\.2\\.3(?=\\s*Demonstrate)",
+      "with": "2.9.3.1"
+    },
+    {
+      "_why": "DAMAGED CELLS. 'formulat' and 'ed accordingly' stand some 2,000 spaces apart with 'improvisation tasks in teaching' (a fragment of 2.4.2.1) pasted between.",
+      "pattern": "formulat\\s+improvisation tasks in teaching\\s+ed accordingly",
+      "with": "formulated accordingly"
+    },
+    {
+      "_why": "The cell stops mid-word; every other standard in the column ends 'accordingly'.",
+      "pattern": "practiced accord$",
+      "with": "practiced accordingly"
+    },
+    {
+      "_why": "SPELLING. First letter missing.",
+      "pattern": "\\beaching documents related",
+      "with": "Teaching documents related"
+    },
+    {
+      "pattern": "succssefully",
+      "with": "successfully"
+    },
+    {
+      "_why": "As the manuscript's own contents list spells it.",
+      "pattern": "ENTREPRINEURSHIP",
+      "with": "ENTREPRENEURSHIP"
+    },
+    {
+      "pattern": "Perfuming a trio",
+      "with": "Performing a trio"
+    },
+    {
+      "_why": "A stray hyphen after the full stop.",
+      "pattern": "applied effectively\\.-$",
+      "with": "applied effectively."
+    },
+    {
+      "_why": "KEY COMPETENCES table: five descriptors end in a closing quotation mark that nothing opens.",
+      "pattern": "development\\.[\"”]$",
+      "with": "development."
+    },
+    {
+      "pattern": "music education\\.[\"”]$",
+      "with": "music education."
+    }
+  ]
+}

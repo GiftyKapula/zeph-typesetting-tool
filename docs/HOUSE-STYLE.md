@@ -172,6 +172,33 @@ The level on the cover comes from the file name's closing clause, which may
 list several (`ECE - PRIMARY - SEC.` → "Early Childhood, Primary and Secondary
 Teachers' Diploma").
 
+Four more, from the Music Methods syllabus:
+
+- **A file named `… TED` is a syllabus** even with the word "syllabus" left out
+  (`MUSIC METHODS VALIDATED TED (5)`); it used to typeset as a portrait
+  learner's book. A download's copy counter (`(5)`) is dropped from the subject.
+- **When the file name gives no level or year**, the sidecar's `level` and
+  `year` supply them (with `subject`, they also feed the footer masthead). Take
+  them from the manuscript's own cover and copyright line.
+- **A section headed only `KEY COMPETENCES`** (or General / Core) opens the body
+  — level divider, arabic page 1 — like `Competences and Descriptors`.
+- **A topic's opening row that is taller than a page breaks** (a cell of about
+  900 characters or more). Held whole it ran off the foot of the sheet.
+
+A matrix that runs both years as one unbroken table gets its second YEAR banner
+from the sidecar: `insertRow` puts a merged `YEAR 2` row before the second
+year's first topic, and the merged-row rule above lifts it out as the banner.
+
+**Cover colour — no two syllabuses share one.** The three named themes have
+their own (Travel and Tourism orange, Special Education teal, Devices indigo).
+Every other syllabus used to print on the generic theme's single grey; it now
+takes a colour picked from a fixed palette by the subject in its file name, so
+the same book always gets the same colour. Only the cover spread carries it —
+the title page and interior stay black and white. Two subjects can land on the
+same or a near colour: lay the covers side by side when a new syllabus comes in,
+and give one of them a `coverColour` (hex) in its sidecar, as Guidance and
+Counselling has.
+
 Cover geometry: the white title band is fixed (it has to line up across the
 spread), so it divides each panel into an above-band and a below-band zone, and
 each zone's content is centred in it both ways. Don't reintroduce hand-tuned
@@ -224,6 +251,7 @@ off, so a change only touches the books that opt in. Keys:
 | `authors` | override the author list (e.g. split "A and B" into two so the cover reads "AUTHORS"); an empty array (`[]`) hides the author byline on the cover entirely — when omitted, the engine already falls back to the names it finds in the manuscript's own front-matter "AUTHORS" bio section (each bio's opening bold name run) if the cover page itself carried no byline, so this override is only needed to fix names the fallback got wrong or to hide the byline |
 | `images` | swap a source image by media filename (`{ "image12.png": { src, w } }`) |
 | `setCaption` | set an image's caption, matched by `near` (existing caption) or `file` (media name) |
+| `level` / `year` | CDC syllabus on the generic theme only: the level line ("Secondary Teachers’ Diploma") and the year, when the file name carries neither |
 | `theme` | force a theme by name, bypassing `autoTheme()`'s file-name guess (a TG whose title doesn't match its sibling LB's pattern, say) |
 | `synthesiseCover` | force the engine to build a fresh cover from title/subject/booktype/author even when a cover-ish page was detected (its line shapes didn't match what the theme expects) |
 | `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey. This is now the **default for any TG** (filename carries "TG" or "teacher"), so most books never need to set it; use `blackWhite: false` for the rare TG that must stay in colour, or `blackWhite: true` to force it on a Learner's Book (which otherwise keeps its colour) |
@@ -287,6 +315,8 @@ off, so a change only touches the books that opt in. Keys:
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
 | `removeRow` | delete a whole table row, matched by any one cell's exact text (`find`) or its opening text (`startsWith`) — for a row the author duplicated, or a clause withdrawn after validation. Never matches the header row. `remove` deletes a whole block and `editCell` only rewrites text, so this is the way to drop one row of a syllabus matrix |
+| `levelPageAfterCompetences` | `true` moves a syllabus’s level page ("SECONDARY TEACHERS’ DIPLOMA") from ahead of the competences section to after its table, in front of the first YEAR matrix; arabic page 1 then opens on the competences |
+| `insertRow` | put a row merged across the table, holding `text`, before the first body row with a cell matching `find` (whole text) or `startsWith` — a `YEAR 2` row in a syllabus matrix that runs both years as one table; the family lifts it out as the YEAR banner |
 | `coverColour` | a 6-digit hex value (`"1f5c3a"`) — syllabus family only. The colour of the cover and back-cover field. A syllabus on the generic theme otherwise takes one from a fixed set of twelve deep colours, picked by its subject name (the same book always gets the same one; none repeats a named theme's orange, teal or indigo). Set this when two subjects land on the same or a near colour |
 | `renumberMatrix` | `true` — syllabus family only. Drops every number in the TOPIC, SUB-TOPIC and COMPETENCE columns of the matrix (and of a YEARS | TOPIC | SUB-TOPIC scope-and-sequence chart) and counts them afresh from the table's structure: topic `Y.k`, sub-topic `Y.k.j`, competence `Y.k.j.m`, the year taken from the YEAR heading above the matrix or the chart's YEARS column. A cell holding a number and nothing else is emptied. For a manuscript whose matrix numbers are all broken Word list numbers (see §2a) — never for numbers the author typed |
 | `editCell` | rewrite a table cell whose whole trimmed text equals `find`. Rewrites the cell's rich runs alongside its plain text, so a syllabus matrix cell (which renders its clause number from the text but its body from the runs) stays intact. With `pattern` (a regular expression) instead of `find`, every matching body cell has the match replaced — one rule for a slip repeated down a whole matrix (a year prefix typed before every number) |

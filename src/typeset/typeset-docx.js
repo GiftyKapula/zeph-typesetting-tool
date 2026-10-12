@@ -1451,6 +1451,37 @@ function applyOverrides(blocks, ov) {
     walkR(blocks);
     if (!n) console.warn("!  removeRow not matched:", want || pre);
   }
+  // insertRow: [{ find | startsWith, text }] — put a row MERGED ACROSS THE TABLE, holding
+  // `text`, in front of the first body row that has a cell matching `find` (whole trimmed
+  // text) or `startsWith`. For a syllabus matrix that runs both years in one unbroken
+  // table: a merged "YEAR 2" row before the second year's first topic is lifted out as
+  // the YEAR banner by the family's own merged-row rule, the matrix carrying on beneath.
+  for (const ir of ov.insertRow || []) {
+    const want = ir.find != null ? String(ir.find) : null;
+    const pre = ir.startsWith != null ? String(ir.startsWith) : null;
+    let done = false;
+    const hit = (cell) => {
+      const t = ((cell && cell.text) || "").trim();
+      if (!t) return false;
+      return want != null ? t === want : (pre != null && t.startsWith(pre));
+    };
+    const walkI = (arr) => {
+      for (const b of arr) {
+        if (done || !b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          const at = b.rows.findIndex((row, ri) => ri > 0 && Array.isArray(row) && row.some(hit));
+          if (at > 0) {
+            b.rows.splice(at, 0, [{ text: String(ir.text || ""), imgs: [], segs: null }]);
+            done = true;
+            continue;
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkI(b[k]);
+      }
+    };
+    walkI(blocks);
+    if (!done) console.warn("!  insertRow not matched:", want || pre);
+  }
   // deleteExact: ["exact trimmed text", …] — remove EVERY block (at any depth) whose
   // whole trimmed plain text equals the string, splicing it out of the tree entirely
   // (no empty paragraph left behind). Use for a redundant line the manuscript repeated
@@ -3837,6 +3868,7 @@ function syllabusIdentityFromName(name) {
   let s = String(name || "")
     .replace(/\.docx$/i, "")
     .replace(/\s*[-–—]\s*[A-Za-z'`.\s]+$/, "")   // trailing " - Author Name"
+    .replace(/\s*\(\d+\)/g, "")                  // a download's copy counter, "(5)"
     .replace(/\bvalidated\b/gi, "")
     .replace(/\bfinal\b|\bdraft\b/gi, "")
     .replace(/\bsyllabus(es)?\b/gi, "")
@@ -3960,7 +3992,7 @@ function fixSyllabusSignatures(blocks) {
 // → [roman i] copyright + imprint → TOC → [roman visible] Vision … front matter → level
 // divider page → [arabic 1] Competences & Descriptors → body → back cover. The counter
 // resets/visibility ride on the marker blocks (titlestart/showpage/bodystart).
-function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {}) {
+function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelAfterCompetences = false } = {}) {
   const coverIdx = blocks.findIndex((b) => b.t === "cover");
   const cov = coverIdx >= 0 ? blocks[coverIdx] : null;
   // Where the VISIBLE roman numbering starts: the first prose front-matter section.
@@ -4026,8 +4058,12 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
   // "Competences and Descriptors" in one book, "Competencies to be developed" in the
   // next and "General Competences and Descriptors" in the third, so a `^competen…`
   // anchor missed the one with a leading qualifier and the body never started.
+  // …and the Music Methods syllabus heads it "KEY COMPETENCES" and nothing more, so the
+  // body never started there either. A heading that is only a qualifier and the word
+  // counts as well.
   let compIdx = blocks.findIndex((b) => isHead(b)
-    && /\bcompeten[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim()));
+    && (/\bcompeten[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim())
+      || /^(?:key|general|core)\s+competen[ct](?:e|ie)s$/i.test((b.text || "").trim())));
   // …or by what it HEADS, whatever it is called: the Physical Education and Sport
   // syllabus titles the section "KEY COMPETENCES", and with no title to match the body
   // never started -- no level divider, and roman folios to the last page. The section is
@@ -4038,6 +4074,11 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
       && hdrHas(b, /^competen/i) && hdrHas(b, /descriptor/i));
     for (let k = ct - 1; k > crIdx && k >= ct - 4; k--) if (isHead(blocks[k])) { compIdx = k; break; }
   }
+  // Where a late level page goes: in front of the first YEAR heading, or the first
+  // matrix, past the competences section. -1 = the usual place, ahead of that section.
+  const lateAt = (levelAfterCompetences && compIdx >= 0) ? blocks.findIndex((b, i) => i > compIdx
+    && ((b.t === "h2" && /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i.test((b.text || "").trim()))
+      || (Array.isArray(b.rows) && b.rows.length && (b.rows[0] || []).length >= 5))) : -1;
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     if (cov && i === coverIdx + 1) {
@@ -4048,7 +4089,11 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
     }
     if (i === visionIdx && visionIdx >= 0) out.push({ t: "showpage", spacing: "0.95em" });
     // Arabic 1 begins on the LEVEL DIVIDER page (the "Secondary Teacher's Diploma" page).
-    if (i === compIdx && compIdx >= 0) { out.push({ t: "bodystart" }); out.push({ t: "divider", text: level }); }
+    // A book may ask for the level page AFTER the competences table instead, between it
+    // and the first year's matrix (sidecar `levelPageAfterCompetences`). Arabic 1 then
+    // begins on the competences page and the level page takes the next number.
+    if (i === compIdx && compIdx >= 0) { out.push({ t: "bodystart" }); if (lateAt < 0) out.push({ t: "divider", text: level }); }
+    if (i === lateAt) out.push({ t: "divider", text: level });
     out.push(blocks[i]);
     if (i === crEnd && crIdx >= 0) {
       out.push({ t: "imprint", year, isbn });
@@ -4190,7 +4235,7 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -5071,7 +5116,8 @@ function normaliseQuestionMarkBold(blocks) {
     }
     const Tsyl = THEMES[theme] || {};
     blocks = applySyllabusFront(blocks, { year: sylYear,
-      level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null });
+      level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null,
+      levelAfterCompetences: !!ov.levelPageAfterCompetences });
   }
 
   // Restructure the front matter (title page, roman/arabic numbering, etc.).
