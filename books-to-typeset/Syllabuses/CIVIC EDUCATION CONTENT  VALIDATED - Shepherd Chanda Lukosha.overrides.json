@@ -16,14 +16,14 @@
     "YEAR HEADINGS. 'YEAR ONE' is typed three times and 'YEAR TWO' twice; the engine keeps",
     "the one over each matrix (one level page per year).",
     "",
-    "ISBN: none given; the imprint shows a blank ISBN line, as in the other syllabuses.",
+    "KEY COMPETENCES (publisher's request, 2026-10-12, as for History Content). Year 1 had",
+    "no Digital Literacy, Entrepreneurship or Environmental Sustainability rows; each is",
+    "added in Year 2's order, drawn from the Year 1 matrix (see each _why). Year 2's",
+    "Emotional Intelligence repeated Financial Literacy's descriptor as its third line; it",
+    "is replaced from matrix 2.3.4. No competence, activity or expected standard in the",
+    "matrix is rewritten. The new wording should be confirmed by CDC.",
     "",
-    "AUTHOR QUERIES (left as typed): Year 2 Key Competences -- Emotional Intelligence's",
-    "third descriptor repeats Financial Literacy's ('Understanding the financial",
-    "implications of international relationships ...'); Year 1 lists one descriptor each",
-    "for Collaboration, Creativity and Innovation, Financial Literacy and Emotional",
-    "Intelligence and none for Digital Literacy, Entrepreneurship or Environmental",
-    "Sustainability."
+    "ISBN: none given; the imprint shows a blank ISBN line, as in the other syllabuses."
   ],
   "level": "Secondary Teachers' Diploma",
   "year": 2025,
@@ -32,6 +32,39 @@
     {
       "_why": "The Year 2 Key Competences ran on under the last rows of the Year 1 matrix; it opens Year 2 on a fresh page, as the Year 1 table opens Year 1. Anchored on the 'YEAR TWO' line typed above it (that line itself is then dropped as a repeat of the YEAR TWO page over the matrix).",
       "find": "YEAR TWO"
+    }
+  ],
+  "insertRow": [
+    {
+      "_why": "YEAR 1 KEY COMPETENCES (see _comment). From the digital campaign activities of 1.1.1 (Digital Civic Engagement Campaign) and 1.13.1 (Digital Campaign Project). The first match of each anchor is the Year 1 table.",
+      "find": "Problem solving",
+      "cells": [
+        "Digital literacy",
+        "• Use digital tools to design campaigns that promote civic engagement and raise awareness of civic issues."
+      ]
+    },
+    {
+      "_why": "From Trade, matrix 1.16.1-1.16.3.",
+      "find": "Financial literacy",
+      "cells": [
+        "Entrepreneurship",
+        "• Identify business opportunities in domestic, import and export trade."
+      ]
+    },
+    {
+      "_why": "From matrix 1.15.3.1 (types of development: economic, human, sustainable).",
+      "find": "Emotional intelligence",
+      "cells": [
+        "Environmental sustainability",
+        "• Describe sustainable development and its importance to national development."
+      ]
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "YEAR 2 KEY COMPETENCES (see _comment): Emotional Intelligence's third line repeated Financial Literacy's descriptor. Only that cell has the sentence after a line break. From matrix 2.3.4.1 (UN peacekeeping).",
+      "pattern": "\\n•\\s*Understanding the financial implications of international relationships[^\\n]*$",
+      "with": "\n• Show empathy for people affected by conflict, valuing Zambia’s contribution to UN peacekeeping."
     }
   ]
 }

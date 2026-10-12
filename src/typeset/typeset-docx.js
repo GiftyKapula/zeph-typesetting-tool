@@ -1478,7 +1478,11 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           const at = b.rows.findIndex((row, ri) => ri > 0 && Array.isArray(row) && row.some(hit));
           if (at > 0) {
-            b.rows.splice(at, 0, [{ text: String(ir.text || ""), imgs: [], segs: null }]);
+            // `cells`: an ordinary row, one cell each (a Key Competences row the manuscript
+            // left out); otherwise one cell merged across the table
+            const row = Array.isArray(ir.cells) ? ir.cells.map((t) => ({ text: String(t), imgs: [], segs: null }))
+              : [{ text: String(ir.text || ""), imgs: [], segs: null }];
+            b.rows.splice(at, 0, row);
             done = true;
             continue;
           }
