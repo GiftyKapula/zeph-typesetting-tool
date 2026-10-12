@@ -3804,15 +3804,19 @@ function syllabusIdentityFromName(name) {
   // clause at the END, after the subject. Match the whole clause in one go and strip
   // it entire — picking the words off individually would leave the clause's own "AND"
   // behind and glue it to the subject ("Devices And Material Production And").
-  const lvl = s.match(/\s((?:pri(?:mary)?|sec(?:ondary)?)\.?)(?:\s+and\s+((?:pri(?:mary)?|sec(?:ondary)?)\.?))?\s*$/i);
-  const words = lvl ? [lvl[1], lvl[2]].filter(Boolean).join(" ") : "";
-  const hasPri = /pri/i.test(words), hasSec = /sec/i.test(words);
+  // …and a syllabus serving three levels names all three, dash-separated: "GUIDANCE AND
+  // COUNSELLING ECE - PRIMARY - SEC." Reading only the last word made that book a
+  // "Secondary Teachers' Diploma" in a subject called "Guidance And Counselling Ece -
+  // Primary". So the clause is a LIST of level words joined by and / & / , / - .
+  const LV = "(?:ece|early\\s+childhood(?:\\s+education)?|pri(?:mary)?|sec(?:ondary)?)\\.?";
+  const lvl = s.match(new RegExp("\\s(" + LV + "(?:\\s*(?:,|&|-|–|\\band\\b)?\\s*" + LV + ")*)\\s*$", "i"));
+  const words = lvl ? lvl[1] : "";
+  const hasEce = /ece|early/i.test(words), hasPri = /pri/i.test(words), hasSec = /sec/i.test(words);
   if (lvl) s = s.slice(0, lvl.index);
   s = s.replace(/\s{2,}/g, " ").replace(/^[\s.,&-]+|[\s.,&-]+$/g, "");
-  const level = hasPri && hasSec ? "Primary and Secondary Teachers' Diploma"
-    : hasPri ? "Primary Teachers' Diploma"
-    : hasSec ? "Secondary Teachers' Diploma"
-    : "Teachers' Diploma";
+  const names = [hasEce && "Early Childhood", hasPri && "Primary", hasSec && "Secondary"].filter(Boolean);
+  const level = (names.length > 1 ? names.slice(0, -1).join(", ") + " and " + names[names.length - 1] + " "
+    : names.length ? names[0] + " " : "") + "Teachers' Diploma";
   return { subject: titleCase(s), level };
 }
 
@@ -4373,6 +4377,155 @@ function normaliseQuestionMarkBold(blocks) {
         if (Array.isArray(c.segs)) for (const s of c.segs) if (typeof s.t === "string") s.t = s.t.replace(/[•▪◦●·‣∙]\s?/g, "");
       }
     }
+    // A syllabus written as a COURSE OUTLINE numbers its sections as one Word list
+    // ("1. COURSE NAME: …", "3. GENERAL COMPETENCES AND DESCRIPTORS", "6. ASSESSMENT
+    // METHODS AND WEIGHTING"), so every section title imports as a numbered list item
+    // and the book has no headings at all — nothing for the contents, the folios or the
+    // level divider to key on. A top-level item of such a list whose text is BOLD CAPS
+    // is a section title: hand it on as a `label`, which the promotion below turns into
+    // the family's section head (unnumbered, like every other book in the family). A
+    // bold-caps lead-in with its value after a colon ("COURSE NAME: Guidance and
+    // Counselling") stays a run-in line, minus the list number.
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b.t !== "listitem" || (b.lvl || 0) !== 0 || !/^\d+\.?$/.test(b.marker || "")) continue;
+      const segs = (b.segs || []).filter((s) => typeof s.t === "string" && s.t.trim());
+      if (!segs.length || segs.some((s) => s.m)) continue;
+      let k = 0; while (k < segs.length && segs[k].b) k++;
+      // (The shared label pass has by now re-cased a leading "GENERAL COMPETENCES" to
+      // "General competences"; read it as the caps it was typed in.)
+      const lead = segs.slice(0, k).map((s) => s.t).join("").trim()
+        .replace(/^(general|specific)\s+competences?\b/i, (m) => m.toUpperCase());
+      const rest = segs.slice(k).map((s) => s.t).join("").trim();
+      if (!lead || lead.length > 80 || lead !== lead.toUpperCase() || !/[A-Z]{3}/.test(lead) || /\d/.test(lead)) continue;
+      if (!rest || rest === ":") blocks[i] = { t: "label", text: lead.replace(/\s*:$/, "") };
+      else if (/^:/.test(rest) && !/[.…]{4,}/.test(rest)) blocks[i] = { t: "para", segs: b.segs };
+    }
+    // Some manuscripts carry a leading TERM column and put the year in the matrix
+    // itself, as a row merged across every column ("YEAR 1" before the first topic, "END
+    // OF YEAR 1 FINAL EXAMINATIONS" and "YEAR 2" after the last). The importer reads a
+    // merged row as ONE cell, which then set in the first column as if it were a topic.
+    // Lift such a row out: a year line becomes the YEAR banner every other book in the
+    // family has, with the matrix (its header repeated) carrying on beneath; any other
+    // merged line closes the stretch of matrix above it as a centred bold line.
+    {
+      const YEARROW = /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+      const out = [];
+      for (const b of blocks) {
+        const ncol = Array.isArray(b.rows) && b.rows.length ? (b.rows[0] || []).length : 0;
+        if (b.t !== "table" || ncol < 5) { out.push(b); continue; }
+        const lone = (row) => {
+          if (!Array.isArray(row) || row.length >= ncol) return null;      // merged rows only
+          const full = row.filter((c) => c && ((c.text || "").trim() || (c.imgs || []).length));
+          if (full.length !== 1 || (full[0].imgs || []).length) return null;
+          const t = (full[0].text || "").replace(/\s+/g, " ").trim();
+          return /^\d+(\.\d+)+/.test(t) ? null : t;
+        };
+        if (!b.rows.slice(1).some(lone)) { out.push(b); continue; }
+        let cur = [];
+        const flush = () => { if (cur.length) out.push({ ...b, rows: [b.rows[0], ...cur] }); cur = []; };
+        for (const row of b.rows.slice(1)) {
+          const t = lone(row);
+          if (t == null) { cur.push(row); continue; }
+          flush();
+          if (YEARROW.test(t)) out.push({ t: "h2", text: t.toUpperCase() });
+          else out.push({ t: "para", plain: t, segs: [{ t, b: true, it: false, c: null }], align: "center" });
+        }
+        flush();
+      }
+      blocks = out;
+    }
+    // Matrix cells typed with hand-made line breaks. Authors wrap a clause inside its
+    // narrow Word column by pressing Enter and padding with spaces ("1.1.4.1 Distinguish
+    // / ␣␣␣Types of / ␣␣␣counselling."), which set as a ragged staircase in a column of
+    // a different width; they also glue a number to its text ("1.1.2.1Differentiate",
+    // "3.2ENTREPRENEURSHIP") and bold some clause numbers but not others. For a cell that
+    // opens with a clause number: a line that does NOT open with one is the wrapped tail
+    // of the clause above and is rejoined to it, space runs collapse, the number gets
+    // one space after it and takes the weight of the text it numbers. Several clauses
+    // stacked in one cell stay one per line. The activities column (a bulleted list,
+    // one activity per line) is never touched.
+    {
+      const CL = /^(\d+(?:\.\d+)+\.?)(?:\s+|(?=[A-Za-z]))/;
+      const LISTY = /^(?:\(?[a-z]\)|[ivx]+[.)]|[-–•])\s/i;
+      for (const b of blocks) {
+        if (b.t !== "table" || !Array.isArray(b.rows) || b.rows.length < 2 || (b.rows[0] || []).length < 5) continue;
+        const actCol = b.rows[0].findIndex((c) => /ACT.?VIT/i.test((c && c.text) || ""));
+        for (const row of b.rows.slice(1)) row.forEach((c, ci) => {
+          if (!c || ci === actCol || !CL.test((c.text || "").trim())) return;
+          const src = Array.isArray(c.segs) && c.segs.length ? c.segs : [{ t: c.text, b: false, it: false, c: null }];
+          if (src.some((s) => s.m || typeof s.t !== "string")) return;
+          // segs -> lines
+          let lines = [[]];
+          for (const s of src) s.t.split("\n").forEach((p, i) => {
+            if (i > 0) lines.push([]);
+            if (p !== "") lines[lines.length - 1].push({ ...s, t: p.replace(/[ \t ]+/g, " ") });
+          });
+          const txt = (l) => l.map((s) => s.t).join("");
+          // Tidy each line to { segs, t, pad, trail }: its text trimmed, remembering whether
+          // it was space-padded on the left or had a space typed before the break.
+          lines = lines.filter((l) => txt(l).trim()).map((l) => {
+            const raw = txt(l), lead = raw.length - raw.replace(/^ +/, "").length;
+            let segs = [], skip = lead;
+            for (const s of l) {
+              if (skip >= s.t.length) { skip -= s.t.length; continue; }
+              segs.push(skip ? { ...s, t: s.t.slice(skip) } : s); skip = 0;
+            }
+            while (segs.length && !segs[segs.length - 1].t.trim()) segs.pop();
+            const last = segs[segs.length - 1];
+            segs[segs.length - 1] = { ...last, t: last.t.replace(/ +$/, "") };
+            return { segs, t: raw.trim(), pad: lead >= 1, trail: / $/.test(raw) };
+          });
+          // lines -> clauses
+          // A line is a wrapped TAIL -- not an item of a list the author stacked under
+          // the clause ("1.7.1 Types of Curriculum Development Models / The Rational Model /
+          // The Cyclical Model"), which keeps its own line -- when it was space-padded,
+          // opens in lower case, or follows a line that stops mid-phrase (a joining word,
+          // or a short line with a space typed before the break); and once a cell shows
+          // any of those, its other short lines are taken as wrapped too.
+          const MIDPHRASE = /(?:\b(?:a|an|the|of|in|on|to|for|and|or|by|with|between|from)|[,(\/-])$/i;
+          const isTail = (l, prev) => l.pad || /^[a-z(]/.test(l.t) || MIDPHRASE.test(prev.t) || (prev.trail && prev.t.length <= 24);
+          const handWrapped = lines.every((l) => l.t.length <= 30)
+            && lines.some((l, k) => k > 0 && !CL.test(l.t) && isTail(l, lines[k - 1]));
+          const clauses = [];
+          let prevLine = null;
+          for (const l of lines) {
+            const tail = prevLine && (isTail(l, prevLine) || (handWrapped && l.t.length <= 30));
+            const prevL = prevLine; prevLine = l;
+            if (!clauses.length || CL.test(l.t) || LISTY.test(l.t) || !tail) { clauses.push(l.segs); continue; }
+            const prev = clauses[clauses.length - 1];
+            const glue = /[A-Za-z]-$/.test(prevL.t) && /^[a-z]/.test(l.t);    // "self-" / "motivated"
+            clauses[clauses.length - 1] = glue ? [...prev, ...l.segs] : [...prev, { ...l.segs[0], t: " " + l.segs[0].t }, ...l.segs.slice(1)];
+          }
+          // the number: one space after it, weighted like the text it numbers
+          const fixed = clauses.map((cl) => {
+            const m = txt(cl).match(CL);
+            if (!m) return cl;
+            let cut = m[0].length; const rest = [];
+            for (const s of cl) {
+              if (cut >= s.t.length) { cut -= s.t.length; continue; }
+              rest.push(cut ? { ...s, t: s.t.slice(cut) } : s); cut = 0;
+            }
+            const first = rest.find((s) => s.t.trim());
+            if (!first) return cl;
+            return [{ t: m[1] + " ", b: !!first.b, it: false, c: null }, ...rest];
+          }).map((cl) => {
+            // one space, not two, where a run ending in a space meets one starting with one
+            const o = [];
+            for (const s of cl) {
+              const t = o.length && / $/.test(o[o.length - 1].t) ? s.t.replace(/^ +/, "") : s.t;
+              if (t) o.push({ ...s, t });
+            }
+            return o;
+          });
+          const joined = [];
+          fixed.forEach((cl, i) => { if (i) joined.push({ t: "\n", b: false, it: false, c: null }); joined.push(...cl); });
+          const tidy = (s) => s.replace(/ {2,}/g, " ");
+          c.text = tidy(fixed.map(txt).join("\n"));
+          if (Array.isArray(c.segs) && c.segs.length) c.segs = joined.map((s) => ({ ...s, t: tidy(s.t) }));
+        });
+      }
+    }
     // The manuscript's own "TABLE OF CONTENT" heading is left over after its TOC1 lines
     // became the generated outline; relabel it VISION (the section that follows it) so the
     // duplicate banner disappears and the outline shows VISION, not a self-referential TOC.
@@ -4545,6 +4698,9 @@ function normaliseQuestionMarkBold(blocks) {
     // Guarded hard: wholly bold, short, and one of the named divisions.
     for (let i = 0; i < frontEnd; i++) {
       const b = blocks[i];
+      // …or styled it with some lower-level Word style: "VISION" set in the TOC Heading
+      // style imports as an h3, a run-in bold line where the reference opens a page.
+      if (/^h[23]$/.test(b.t) && TOPSECTION.test((b.text || "").trim())) { blocks[i] = { t: "h1", text: b.text.trim() }; continue; }
       if (b.t !== "para") continue;
       const t = (blockPlain(b) || "").trim();
       if (!t || t.length > 40 || !TOPSECTION.test(t)) continue;
@@ -4560,7 +4716,8 @@ function normaliseQuestionMarkBold(blocks) {
       const b = blocks[i];
       if (!(b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t))) continue;
       const t = (b.text || "").trim();
-      if (t && BACKSECTION.test(t)) blocks[i] = { t: "h1", text: t };
+      // ("REFERENCES/PRESCRIBED READING": two of them sharing one heading.)
+      if (t && t.split(/\s*\/\s*/).every((p) => BACKSECTION.test(p))) blocks[i] = { t: "h1", text: t };
     }
     // COMPETENCES AND DESCRIPTORS table: the competence NAMES set in UPPERCASE, as the
     // reference book sets them ("ANALYTICAL THINKING", "COLLABORATION", …) against
@@ -4615,6 +4772,17 @@ function normaliseQuestionMarkBold(blocks) {
       let j = i - 1;
       while (j >= 0 && blocks[j].t === "para" && !(blockPlain(blocks[j]) || "").trim()) j--;
       if (j >= 0 && blocks[j].t === "h1") blocks[i].nobreak = true;
+    }
+    // A section head with nothing under it but a YEAR banner ("COURSE CONTENT", then
+    // "YEAR 1" and the matrix): the banner opens a page, which left the head alone at
+    // the foot of the page before. The head takes the page break and the banner stays
+    // beneath it.
+    for (let i = 1; i < blocks.length; i++) {
+      const isYear = (b) => b && b.t === "h2" && YEARLINE.test((b.text || "").trim());
+      if (!isYear(blocks[i]) || blocks[i - 1].t !== "h2" || isYear(blocks[i - 1])) continue;
+      blocks[i].nobreak = true;
+      blocks.splice(i - 1, 0, { t: "pagebreak" });
+      i++;
     }
     // A CDC syllabus's cover spread and title page are drawn by the template from the
     // THEME (subject, level, year) over bundled crest/badge assets — the manuscript

@@ -1895,11 +1895,18 @@ async function importDocx(docxPath, opts = {}) {
   // Word heading (many don't). This stops the imprint's centred styling from
   // bleeding into the Authors/Foreword text.
   const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^KEY COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  // A CDC syllabus written as a bare course outline has none of those sections: after
+  // the copyright notice it goes straight to VISION, then "COURSE NAME:" / "COURSE
+  // DESCRIPTION:". With nothing to stop at, the imprint ran on to the safety cap, and
+  // the Vision, the course description and every section title down to the first table
+  // were set as centred imprint text — no headings, so no contents and no folios.
+  const SYL_FM_SECTION = /^(VISION|MISSION|BACKGROUND|RATIONALE)$|^COURSE\s+(NAME|TITLE|DESCRIPTION|SYLLABUS)\b/i;
   let imprintEnd = tocPartIdx >= 0 ? tocPartIdx : parts.length;
   if (copyrightIdx >= 0) {
     for (let i = copyrightIdx + 1; i < imprintEnd; i++) {
       // stop at the first styled heading OR the first front-matter section name
-      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i])))) { imprintEnd = i; break; }
+      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i]))
+        || (opts.syllabus && SYL_FM_SECTION.test(textOf(parts[i]).trim())))) { imprintEnd = i; break; }
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.

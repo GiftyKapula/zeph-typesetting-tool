@@ -2150,6 +2150,15 @@
     and plainlabel(c).len() <= 44 and plainlabel(c).trim() != "")
   // The SUGGESTED/LEARNING ACTIVITIES column (ACT…VIT — tolerates the "ACTVITIES" typo).
   let actCol = if sylhdr { rows.at(0).position(c => upper(plainlabel(c)).contains(regex("ACT.?VIT"))) } else { none }
+  // Where the TOPIC column sits. It is the first column in the reference, but a
+  // manuscript may lead with a TERM column ("TERM | TOPIC | SUB TOPIC | …"); everything
+  // keyed to "the topic column" below (bold caps, contents entries, the row-span merge,
+  // the unsplittable opening row) follows the header rather than assuming column 0, or
+  // the term numbers were set as topics and the topics as sub-topics.
+  let tc = if sylhdr {
+    let p = rows.at(0).position(c => upper(plainlabel(c)).trim().starts-with("TOPIC"))
+    if p == none { 0 } else { p }
+  } else { 0 }
   let sylbullets(c) = {
     let sg = c.at("seg", default: ())
     let lines = ()
@@ -2180,7 +2189,7 @@
       c.text.trim() == "" and c.at("seg", default: ()).len() == 0 and c.imgs.len() == 0
     }
   }
-  let mergeTop(x, y) = x <= 1 and y >= 1 and isEmptyCell(x, y)
+  let mergeTop(x, y) = x <= tc + 1 and y >= 1 and isEmptyCell(x, y)
   let sylStroke = (x, y) => {
     let lastr = rows.len() - 1
     let lastc = rows.at(0).len() - 1
@@ -2192,7 +2201,7 @@
     )
   }
   let topicNum(row) = {
-    let st = if row.len() > 1 { let x = row.at(1).at("text", default: ""); if x == none { "" } else { x } } else { "" }
+    let st = if row.len() > tc + 1 { let x = row.at(tc + 1).at("text", default: ""); if x == none { "" } else { x } } else { "" }
     let m = st.match(regex("^\\s*(\\d+)\\.(\\d+)"))
     if m != none { m.captures.at(0) + "." + m.captures.at(1) } else { "" }
   }
@@ -2263,7 +2272,10 @@
   }
   let sylbody(ci, c, row) = if actCol != none and ci == actCol {
     sylbullets(c)
-  } else if ci == 0 {
+  } else if ci < tc {
+    // A column ahead of the topics (TERM): its short value centred and bold.
+    align(center)[#text(weight: "bold")[#plainlabel(c).trim()]]
+  } else if ci == tc {
     // The TOPIC column is set in BOLD UPPERCASE, as the reference book sets it
     // ("INTRODUCTION TO TRAVEL AND TOURISM"), while the SUB-TOPIC column beside it
     // stays bold title case. Manuscripts are inconsistent about this — one book typed
@@ -2311,7 +2323,7 @@
       // taller than that first row's own content, and a split strands the end of the
       // title ("PHYSICAL DISABILITIES") in an otherwise empty row overleaf.
       ..rows.slice(1).map(r => r.enumerate().map(((ci, c)) =>
-        if ci == 0 and plainlabel(c).trim() != "" { table.cell(breakable: false, sylbody(ci, c, r)) }
+        if ci == tc and plainlabel(c).trim() != "" { table.cell(breakable: false, sylbody(ci, c, r)) }
         else { sylbody(ci, c, r) })).flatten())
   } else if syl {
     table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt), fill: white,

@@ -1,0 +1,231 @@
+{
+  "_comment": [
+    "Guidance and Counselling -- Early Childhood, Primary and Secondary Teachers' Diploma",
+    "syllabus. First typeset 2026-10-12. Layout and spelling repairs only: NONE of these",
+    "rewrites a competence, an activity or an expected standard.",
+    "",
+    "The manuscript numbers its sections 1-8 as one Word list (1. COURSE NAME ... 8.",
+    "REFERENCES/PRESCRIBED READING). As in the other books of the family the section heads",
+    "are set unnumbered; the weightings keep the manuscript's own 6.1 / 6.1.1 numbers.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * Sub-topics 1.1.1 and 1.1.2 share one row with competences 1.1.1.1 and 1.1.2.1-3.",
+    "  * 2.2.2.2 and 2.2.3.1 are the same competence ('Describe the typical stages of the",
+    "    counselling process') under two sub-topics.",
+    "  * Topic 2.3 has no sub-topic of its own for the record-management competences",
+    "    2.3.3.2-2.3.3.4, which topic 2.5 then covers again.",
+    "  * Year 2 is a three-column table (TERM | TOPIC / COMPONENT | DESCRIPTION), not the",
+    "    matrix; set exactly as written.",
+    "  * No ISBN yet."
+  ],
+  "asPara": [
+    "Quality, lifelong education for all which is accessible, inclusive and relevant to individual, national and global needs and value systems"
+  ],
+  "_asPara_why": "The Vision statement carries the same Word style as its VISION heading, so it imported as a second heading.",
+  "setHeading": [
+    {
+      "_why": "Section 4 of the manuscript's numbered list, typed in title case where its siblings are in caps.",
+      "find": "Course Content",
+      "as": "label",
+      "text": "COURSE CONTENT"
+    }
+  ],
+  "subtext": [
+    {
+      "_why": "Spelling, in the section title.",
+      "from": "DESRCIPTORS",
+      "to": "DESCRIPTORS"
+    },
+    {
+      "_why": "Spelling.",
+      "from": "learner-cantered",
+      "to": "learner-centred"
+    },
+    {
+      "_why": "Doubled full stop.",
+      "from": ". .Lusaka",
+      "to": ". Lusaka"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "Spelling, in the topic title.",
+      "find": "3.3  DIGITAL\nTECHNLOGIES\nIN GUIDANCE\nAND\nCOUNSELLING",
+      "with": "3.3 DIGITAL TECHNOLOGIES IN GUIDANCE AND COUNSELLING"
+    },
+    {
+      "_why": "All four sub-topics of topic 1.1 were typed in the first row's SUB TOPIC cell, so 1.1.3 and 1.1.4 sat beside the competences of 1.1.1/1.1.2 and the rows of 1.1.3.1 and 1.1.4.1-4 had no sub-topic. Each sub-topic now heads its own competences. Wording and numbers unchanged.",
+      "find": "1.1.1 Basic Concepts\nin Guidance\n1.1.2 Categorisation\nof Guidance\n1.1.3 Basic Concepts\nin Counselling\n1.1.4 Types of\ncounselling",
+      "with": "1.1.1 Basic Concepts in Guidance\n1.1.2 Categorisation of Guidance",
+      "bold": true
+    },
+    {
+      "row": "1.1.3.1 Define Counselling",
+      "col": 2,
+      "with": "1.1.3 Basic Concepts in Counselling",
+      "bold": true
+    },
+    {
+      "row": "1.1.4.1 Distinguish\nTypes of\ncounselling.",
+      "col": 2,
+      "with": "1.1.4 Types of counselling",
+      "bold": true
+    },
+    {
+      "_why": "Hand-wrapped inside its Word column with line breaks; set as one clause.",
+      "find": "2.1.1.3 Discuss the selected\nCounselling\nTheories.",
+      "with": "2.1.1.3 Discuss the selected Counselling Theories.",
+      "bold": false
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "The five weighting lines are dot-leadered by hand in the manuscript, so the percentages sat wherever each run of dots ended. Rebuilt as one aligned two-column grid with the manuscript's own numbers (section 6 of its list), wording and percentages.",
+      "find": "Continuous Assessment ………………………………………..40%",
+      "with": [
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "6.1 Continuous Assessment",
+                  "40%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "6.1.1 Assignments",
+                  "10%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "6.1.2 Presentations/ Projects/ Practicum",
+                  "15%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "6.1.3 Tests",
+                  "15%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "6.2 Final examination",
+                  "60%"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "_why": "Section title and its value were one dot-leadered line. \"2 Hour\" -> \"2 hours\". (The value opens with a zero-width space so the engine does not hang the 2 as a list number.)",
+      "find": "TIME ALLOCATION ………………………………………2 Hour per week",
+      "with": [
+        {
+          "label": "TIME ALLOCATION"
+        },
+        {
+          "para": "​2 hours per week"
+        }
+      ]
+    },
+    {
+      "_why": "The Gibson & Mitchell reference was broken across two paragraphs: its first author sat on the end of the Corey (2009) entry (taken off there by the edit below).",
+      "find": "Mitchell, M. H. (2008). Introduction to Counselling and Guidance (7th ed.). Pearson.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Gibson, R. L., & Mitchell, M. H. (2008). ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Introduction to Counselling and Guidance",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " (7th ed.). Pearson.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "_why": "Two entries ran together in one paragraph.",
+      "find": "UNESCO. (2000). Guidance and Counselling Programme Development. UNESCO. Zambian Professional Teaching Ethics and Regulations Documents.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "UNESCO. (2000). ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Guidance and Counselling Programme Development",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": ". UNESCO.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "para": "Zambian Professional Teaching Ethics and Regulations Documents."
+        }
+      ]
+    }
+  ],
+  "remove": [
+    "Assignments………",
+    "Presentations/ Projects/ Practicum",
+    "Tests……",
+    "Final examination……",
+    "`"
+  ],
+  "_remove_why": "The other four weighting lines (now rows of the grid above), and a stray backtick typed under the References heading.",
+  "edit": [
+    {
+      "_why": "First author of the next reference, stranded on the end of this one.",
+      "find": " Gibson, R. L., &",
+      "with": ""
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "The weightings grid split across a page, its last row (6.2 Final examination) alone overleaf with Time Allocation. The section now opens the page and stays whole.",
+      "find": "ASSESSMENT METHODS AND WEIGHTING"
+    }
+  ]
+}

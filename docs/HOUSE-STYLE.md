@@ -102,6 +102,26 @@ The competence column is found by its own header wherever it sits, so a table
 that numbers its rows (`S/N | COMPETENCE | DESCRIPTORS`) is handled as well as
 the reference's two-column one.
 
+**Course-outline manuscripts** (Guidance and Counselling is the first) differ
+from the full syllabuses in four ways, all handled by the engine:
+
+- Sections are one numbered Word list (`1. COURSE NAME: …`, `3. GENERAL
+  COMPETENCES AND DESCRIPTORS`, `6. ASSESSMENT METHODS AND WEIGHTING`). A
+  bold-caps top-level item becomes the usual unnumbered section head; the
+  weightings keep their own `6.1` / `6.1.1` numbers.
+- The matrix may lead with a **TERM** column. The topic column is found by its
+  header, so TERM sets narrow, bold and centred and merges down like TOPIC.
+- A row merged across the matrix is lifted out of it: `YEAR 1` / `YEAR 2`
+  become the YEAR banner, any other (`END OF YEAR 1 FINAL EXAMINATIONS`) a
+  centred bold line under the stretch of matrix it closes.
+- Clauses hand-wrapped inside a cell with line breaks and spaces are rejoined,
+  and a number glued to its text (`1.1.2.1Differentiate`) gets its space. A
+  real list stacked under a clause keeps its lines.
+
+The level on the cover comes from the file name's closing clause, which may
+list several (`ECE - PRIMARY - SEC.` → "Early Childhood, Primary and Secondary
+Teachers' Diploma").
+
 Cover geometry: the white title band is fixed (it has to line up across the
 spread), so it divides each panel into an above-band and a below-band zone, and
 each zone's content is centred in it both ways. Don't reintroduce hand-tuned
