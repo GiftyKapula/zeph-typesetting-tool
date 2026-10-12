@@ -130,6 +130,38 @@ Three more, from the Autism Spectrum Disorder syllabus:
   its own wording, and a cover whose artwork imports as a *row* of pictures is
   dropped like any other cover artwork.
 
+Six more, from the Physical Education and Sport syllabus:
+
+- **A matrix header typed over two lines** (`EXPECTED⏎STANDARD`) is one line. With
+  the break in it the first row was not taken for the header at all: no grey row,
+  no repeat on each page, no topics in the contents.
+- **One year's matrix typed as two Word tables** with the same header row and
+  nothing between them is one matrix.
+- **The activities column keeps the manuscript's own structure when a cell mixes
+  bulleted and unbulleted lines.** A bulleted line is an activity. An unbulleted
+  bold line is the teaching *method* the activities under it belong to
+  (`Discussion method`) and sets flush left with no bullet. Any other unbulleted
+  line runs on from the activity above it when it opens with a bracket, an
+  ellipsis or a small letter, or is in italics (`(Bandages, scissors, GV paint…)`);
+  otherwise it is an activity whose bullet was left off. A cell with no bullets
+  at all, or with one on every line, is bulleted line by line as before.
+- **The competences section is found by what it heads** when its title names no
+  "descriptors" (`KEY COMPETENCES`): the heading over the COMPETENCES |
+  DESCRIPTORS table opens the body (level divider, arabic page 1).
+- **A SCOPE AND SEQUENCE CHART is a top-level division** (own page, level-1
+  contents entry), like the reference lists; `PRESCRIBED REFERENCES` is one too.
+- A signatory typed as one paragraph with line breaks (name / office / MINISTRY OF
+  EDUCATION) is set like one typed as three; a topic column whose titles are all
+  short is still wide enough for its longest word (`ENTREPRENEURSHIP`).
+
+**Matrix numbers that are all Word list numbers** (none typed) are often wrong on
+the page: the lists restart, change list mid-topic and go on counting in the
+merged cells under a topic (topics `1.5, 1.5, 1.6, 1.12, 1.7`; a bare `1.3` in an
+empty cell). Check the raw OOXML (`<w:numPr>` in the cell, no digits in its
+`<w:t>`) and, if that is what the manuscript has, set `renumberMatrix` in the
+sidecar (§5) and record it there for the author. Where the numbers are typed,
+they stay exactly as written.
+
 A manuscript that holds the whole syllabus twice (one copy pasted after the
 other) is a per-book repair, not an engine rule: compare the two copies cell by
 cell before choosing — in the Autism syllabus they differed in the matrix
@@ -254,6 +286,7 @@ off, so a change only touches the books that opt in. Keys:
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
 | `removeRow` | delete a whole table row, matched by any one cell's exact text (`find`) or its opening text (`startsWith`) — for a row the author duplicated, or a clause withdrawn after validation. Never matches the header row. `remove` deletes a whole block and `editCell` only rewrites text, so this is the way to drop one row of a syllabus matrix |
+| `renumberMatrix` | `true` — syllabus family only. Drops every number in the TOPIC, SUB-TOPIC and COMPETENCE columns of the matrix (and of a YEARS | TOPIC | SUB-TOPIC scope-and-sequence chart) and counts them afresh from the table's structure: topic `Y.k`, sub-topic `Y.k.j`, competence `Y.k.j.m`, the year taken from the YEAR heading above the matrix or the chart's YEARS column. A cell holding a number and nothing else is emptied. For a manuscript whose matrix numbers are all broken Word list numbers (see §2a) — never for numbers the author typed |
 | `editCell` | rewrite a table cell whose whole trimmed text equals `find`. Rewrites the cell's rich runs alongside its plain text, so a syllabus matrix cell (which renders its clause number from the text but its body from the runs) stays intact. With `pattern` (a regular expression) instead of `find`, every matching body cell has the match replaced — one rule for a slip repeated down a whole matrix (a year prefix typed before every number) |
 
 **Images:** generate with **gpt-image-2, `quality: "high"`** (raised from the
