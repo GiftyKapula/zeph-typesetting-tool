@@ -4527,7 +4527,7 @@ function normaliseQuestionMarkBold(blocks) {
     // family has, with the matrix (its header repeated) carrying on beneath; any other
     // merged line closes the stretch of matrix above it as a centred bold line.
     {
-      const YEARROW = /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+      const YEARROW = /^(?:(?:year|form|grade)\s+\d+(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
       const out = [];
       for (const b of blocks) {
         const ncol = Array.isArray(b.rows) && b.rows.length ? (b.rows[0] || []).length : 0;
@@ -4707,7 +4707,7 @@ function normaliseQuestionMarkBold(blocks) {
       const NUM = /^\s*(?:\d+(?:\.\d+)+\.?|\d+\.)(?=\s|$)\s*/;
       const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
       const yearOf = (t) => {
-        const m = String(t || "").replace(/\s+/g, " ").trim().match(/^(?:year\s+(\d+)|(first|second|third|fourth|fifth|sixth)\s+year)$/i);
+        const m = String(t || "").replace(/\s+/g, " ").trim().match(/^(?:(?:year|form|grade)\s+(\d+)(?:\s*\([a-z]+\))?|(first|second|third|fourth|fifth|sixth)\s+year)$/i);
         return m ? (m[1] ? +m[1] : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
       };
       const txt = (l) => l.map((s) => s.t).join("");
@@ -4827,7 +4827,7 @@ function normaliseQuestionMarkBold(blocks) {
     // a level-2 contents entry, so a year set as a bare paragraph looked nothing like
     // the year above it. Ordinal wording counts too ("FIRST YEAR"): Devices and
     // Materials Production labels its only year that way.
-    const YEARLINE = /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+    const YEARLINE = /^(?:(?:year|form|grade)\s+\d+(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
     for (const b of blocks) {
       const t = (b.t === "label" ? b.text : blockPlain(b) || "").trim();
       if ((b.t === "para" || b.t === "label") && YEARLINE.test(t)) {
@@ -5021,9 +5021,9 @@ function normaliseQuestionMarkBold(blocks) {
     for (let i = 1; i < blocks.length; i++) {
       const isYear = (b) => b && b.t === "h2" && YEARLINE.test((b.text || "").trim());
       if (!isYear(blocks[i]) || blocks[i - 1].t !== "h2" || isYear(blocks[i - 1])) continue;
-      blocks[i].nobreak = true;
-      blocks.splice(i - 1, 0, { t: "pagebreak" });
-      i++;
+      // (Since the level has a divider PAGE of its own, the head goes over the matrix,
+      // after the divider: left before it, it stood alone at the foot of a page.)
+      const head = blocks[i - 1]; blocks[i - 1] = blocks[i]; blocks[i] = head;
     }
     // A CDC syllabus's cover spread and title page are drawn by the template from the
     // THEME (subject, level, year) over bundled crest/badge assets — the manuscript

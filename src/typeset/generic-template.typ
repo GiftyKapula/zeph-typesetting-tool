@@ -1629,8 +1629,11 @@
 // body numbering BEGINS (so it prints "1"). Styled as a centred band framed by a double
 // rule top AND bottom (echoing the footer's double-rule motif) — a distinct treatment.
 // It keeps the document footer (so the page number shows), only dropping the header.
-#let divider(txt) = {
+// toc: a contents label to file at this page (a YEAR / FORM / GRADE divider is the
+// top-level contents entry its topics nest under).
+#let divider(txt, toc: none) = {
   page(paper: "a4", flipped: true, header: none)[
+    #if toc != none { tocentry(1, toc) }
     #place(center + horizon, block(width: 205mm)[
       #set align(center)
       #line(length: 100%, stroke: 2.4pt + T.ink)
@@ -1754,8 +1757,14 @@
   // headings under their parent section (Introduction), so they don't page-break.
   // "FIRST YEAR" as well as "YEAR 1" — CDC manuscripts write the year either way, and
   // the book keeps whichever wording its own manuscript used.
-  let isyear = syllabus and t.trim().match(regex("(?i)^(year\\s+\\d+|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
-  if isyear and not nobrk { pagebreak(weak: true) }
+  // …and "FORM 1" / "GRADE 1", the levels of a school syllabus.
+  let isyear = syllabus and t.trim().match(regex("(?i)^((year|form|grade)\\s+\\d+(\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
+  // The level a matrix belongs to has a PAGE of its own (standard from 2026-10-12): a
+  // divider like the one that opens the body, after the competences chart and before
+  // each year's matrix, so the book says in large type which level the pages that
+  // follow are for. It replaces the banner that used to sit over the matrix's first
+  // page; the matrix starts at the head of the next page.
+  if isyear { divider(t, toc: if tocUnitsOnly { none } else { t }); return }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
   // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them.
   if not tocUnitsOnly {

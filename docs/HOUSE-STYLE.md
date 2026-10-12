@@ -58,7 +58,8 @@ family** (page numbering in brackets):
 | 4– | **Table of Contents** — generated, real page numbers + dot leaders | roman, hidden |
 | next | Vision / Preface / Acknowledgement / Introduction — **each on its own page** | roman, visible |
 | then | Level divider page (e.g. "SECONDARY TEACHER'S DIPLOMA") | **arabic 1** |
-| then | Competences & Descriptors, then the year matrices | arabic |
+| then | Competences & Descriptors | arabic |
+| then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix. Standard from 2026-10-12 | arabic |
 
 **Heading levels**, also enforced — a manuscript's own styling is normalised to
 these, because two books in the family were heading their pages three different
@@ -68,7 +69,7 @@ ways:
 |---|---|---|
 | **top-level** (`h1`) | **BOLD CAPS + short rule, own page**, level-1 contents entry | Vision, Preface, Acknowledgement, Background/Introduction; and at the back Appendices, Glossary, References, Prescribed Textbooks |
 | **sub-section** (`h2`) | **tracked BOLD CAPS**, flows, level-2 contents entry | Rationale, Aim, Outcomes, Admission Requirements, Assessment, Course Description, Competences and Descriptors, Time Allocation … |
-| year banner (`h2`, matched by name) | solid filled banner, own page, level-1 entry | `YEAR 1` / `FIRST YEAR` |
+| year / form / grade line (`h2`, matched by name) | a **divider page** of its own (it was a filled banner over the matrix until 2026-10-12), level-1 entry | `YEAR 1` / `FIRST YEAR` / `FORM 1` / `GRADE 1` |
 | data line (`label`) | plain bold, not a heading, not in contents | `Total 40%`, `CA + EXAM = 100%` |
 
 Past the matrix a section title is only recognised when it carries **no digit** —
