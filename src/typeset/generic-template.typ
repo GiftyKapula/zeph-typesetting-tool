@@ -1751,7 +1751,7 @@
     v(6pt)
   }
 }
-#let subhead(t, nobrk: false) = {
+#let subhead(t, nobrk: false, top: false) = {
   // In a SYLLABUS only the YEAR banners start on their own page; the front-matter
   // sub-sections (Methodologies, Assessment, CBA, Time Allocation…) FLOW as normal
   // headings under their parent section (Introduction), so they don't page-break.
@@ -1767,9 +1767,11 @@
   // page; the matrix starts at the head of the next page.
   if isyear { divider(t, toc: if tocUnitsOnly { none } else { t }); return }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
-  // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them.
+  // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them;
+  // so is a year's Key Competences heading (`top`, set at build time), which comes just
+  // before its YEAR page and was otherwise filed under the previous year's last topic.
   if not tocUnitsOnly {
-    if isyear { mark(1, t) } else { mark(2, t) }
+    if isyear or top { mark(1, t) } else { mark(2, t) }
   }
   // Clear space ABOVE a heading — a syllabus front-matter sub-section needs real
   // separation from the paragraph before it (the weak 7pt collapsed to almost nothing).

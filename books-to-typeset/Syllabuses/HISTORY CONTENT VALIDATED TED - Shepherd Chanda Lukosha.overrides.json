@@ -69,6 +69,11 @@
       "_why": "Publisher's decision: the Director's name as printed in the Music syllabuses.",
       "find": "Charles Makala (Dr.)",
       "with": "Charles Ndakala (Dr.)"
+    },
+    {
+      "_why": "Year 2's competences heading worded as Year 1's ('Key Competences to be developed at Year one'). Keeps 'at year two', which the editCell `under` rules below look for.",
+      "find": "Competences to be developed at year two",
+      "with": "Key Competences to be developed at year two"
     }
   ],
   "editCell": [
