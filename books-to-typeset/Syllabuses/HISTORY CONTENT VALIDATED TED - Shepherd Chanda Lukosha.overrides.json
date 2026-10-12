@@ -1,8 +1,10 @@
 {
   "_comment": [
     "History Content -- Secondary Teachers' Diploma syllabus, Years 1-2.",
-    "First typeset 2026-10-12. Layout, numbering and spelling repairs only: NONE of these",
-    "rewrites a competence, an activity or an expected standard.",
+    "First typeset 2026-10-12. Layout, numbering and spelling repairs; and, AT THE",
+    "PUBLISHER'S REQUEST (2026-10-12), new Key Competences descriptors where the manuscript's",
+    "repeated or belonged to the other year (see editCell `under`). No competence, activity",
+    "or expected standard in the matrix is rewritten.",
     "",
     "MATRIX NUMBERS. In Year 1 the topic and most sub-topic cells carry no number, and the",
     "competence numbers are Word list numbers that run on across topics (1.1.1.4, 1.1.1.5",
@@ -13,16 +15,20 @@
     "typed contents list (1.1 Concept of History, 1.4 The Origins of Man, 1.13.2 African",
     "reaction to colonial rule ...).",
     "",
-    "STILL OUTSTANDING -- needs the author, not the typesetter:",
-    "  * ISBN: none given; the imprint shows a blank ISBN line.",
-    "  * The Director's name is 'Charles Makala (Dr.)' here, 'Charles Ndakala (Dr.)' in the",
-    "    Music Content and Music Methods syllabuses. Set as written.",
-    "  * Year 2 Key Competences: several descriptors repeat or belong to Year 1 topics",
-    "    (Collaboration and Communication both 'Promote collaboration among former",
-    "    federation members'; Entrepreneurship and Financial Education both 'Relate Black",
-    "    Friday to modern day commerce'). Set as written.",
-    "  * Year 1 Key Competences: 'Citizenship' and 'Emotional Intelligence' share one",
-    "    descriptor, as do 'Entrepreneurship' and 'Financial Education'. Set as written."
+    "KEY COMPETENCES DESCRIPTORS (publisher's request, 2026-10-12). Year 1: three rows",
+    "repeated another row's descriptor (Emotional Intelligence = Citizenship; Financial",
+    "Education = Entrepreneurship; Problem Solving = Environmental Sustainability); each now",
+    "takes a Year 1 competence of its own from the matrix. Year 2: every descriptor was",
+    "repeated or drawn from Year 1 (federation, missionaries, Black Friday, colonial",
+    "governance) or from the Industrial Revolution, which is in neither year; all twelve are",
+    "replaced with descriptors drawn from the Year 2 topics (Second World War, United",
+    "Nations, Cold War, liberation struggle, Pan-Africanism, African Union) -- matrix",
+    "competence wording where one fits. The new wording should be confirmed by CDC.",
+    "",
+    "DIRECTOR'S NAME: 'Charles Makala (Dr.)' in this manuscript; set as 'Charles Ndakala",
+    "(Dr.)', as in the Music Content and Music Methods syllabuses (publisher's decision).",
+    "",
+    "ISBN: none given; the imprint shows a blank ISBN line (publisher's decision)."
   ],
   "level": "Secondary Teachers' Diploma",
   "year": 2025,
@@ -58,6 +64,11 @@
       "_why": "Dash as in the Acknowledgement's 'Director – Directorate of Curriculum Development'.",
       "find": "Permanent Secretary- Educational Services",
       "with": "Permanent Secretary – Educational Services"
+    },
+    {
+      "_why": "Publisher's decision: the Director's name as printed in the Music syllabuses.",
+      "find": "Charles Makala (Dr.)",
+      "with": "Charles Ndakala (Dr.)"
     }
   ],
   "editCell": [
@@ -65,6 +76,75 @@
       "_why": "A Word list number (the run-on 1.1.1.x list, see _comment) printed at the head of an Expected Standard cell.",
       "pattern": "^1\\.1\\.1\\.12\\s*",
       "with": ""
+    },
+    {
+      "_why": "YEAR 1 KEY COMPETENCES (see _comment). Was Citizenship's descriptor; now matrix 1.10.1.1.",
+      "under": "at Year one", "row": "Emotional Intelligence", "col": 2,
+      "with": "Demonstrate respect for human dignity"
+    },
+    {
+      "_why": "Was Entrepreneurship's descriptor; now matrix 1.10.3.1.",
+      "under": "at Year one", "row": "Financial Education", "col": 2,
+      "with": "Relate Black Friday to modern day commerce in Zambia"
+    },
+    {
+      "_why": "Was Environmental Sustainability's descriptor; now matrix 1.15.1.1.",
+      "under": "at Year one", "row": "Problem Solving", "col": 2,
+      "with": "Promote peaceful methods of conflict resolution"
+    },
+    {
+      "_why": "YEAR 2 KEY COMPETENCES (see _comment): all twelve from the Year 2 topics. Matrix 2.1.1.1.",
+      "under": "at year two", "row": "Analytical Thinking", "col": 2,
+      "with": "Analyse causes of the Second World War"
+    },
+    {
+      "_why": "Matrix 2.3.1.1.",
+      "under": "at year two", "row": "Citizenship", "col": 2,
+      "with": "Promote unity in Africa through Pan-Africanism"
+    },
+    {
+      "_why": "Matrix 2.3.2.1.",
+      "under": "at year two", "row": "Collaboration", "col": 2,
+      "with": "Facilitate continental economic integration and conflict resolution"
+    },
+    {
+      "under": "at year two", "row": "Communication", "col": 2,
+      "with": "Communicate Zambia’s role in the liberation struggle of Southern Africa"
+    },
+    {
+      "under": "at year two", "row": "Creativity and Innovation", "col": 2,
+      "with": "Illustrate Zambia’s liberation struggle for independence through charts, drama and timelines"
+    },
+    {
+      "_why": "Matrix 2.1.4.1.",
+      "under": "at year two", "row": "Critical Thinking", "col": 2,
+      "with": "Examine ideologies of Capitalism and Communism since 1945"
+    },
+    {
+      "_why": "From the 2.2.2 activities ('Using digital resources …').",
+      "under": "at year two", "row": "Digital", "col": 2,
+      "with": "Use digital resources to evaluate Zambia’s role in the liberation of Southern Africa"
+    },
+    {
+      "under": "at year two", "row": "Emotional Intelligence", "col": 2,
+      "with": "Show empathy for people affected by the Second World War and the liberation struggles"
+    },
+    {
+      "under": "at year two", "row": "Entrepreneurship", "col": 2,
+      "with": "Identify business opportunities created by continental economic integration"
+    },
+    {
+      "under": "at year two", "row": "Environmental Sustainability", "col": 2,
+      "with": "Assess the effects of war on the environment"
+    },
+    {
+      "under": "at year two", "row": "Financial Education", "col": 2,
+      "with": "Assess the economic effects of the Second World War on Zambia"
+    },
+    {
+      "_why": "Matrix 2.1.3.1.",
+      "under": "at year two", "row": "Problem Solving", "col": 2,
+      "with": "Assess the work of the UN in maintaining world peace"
     }
   ]
 }

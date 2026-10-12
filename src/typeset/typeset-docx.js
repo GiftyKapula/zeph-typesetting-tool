@@ -1388,10 +1388,17 @@ function applyOverrides(blocks, ov) {
       continue;
     }
     const byRow = ec.row != null && ec.col != null;
+    // `under`: only the table(s) whose nearest preceding heading/paragraph contains this
+    // text — for two tables built alike, e.g. a syllabus's Year 1 and Year 2 Key
+    // Competences tables, whose rows carry the same competence names.
+    let lastText = "";
     const walkT = (arr) => {
       for (const b of arr) {
         if (!b || typeof b !== "object") continue;
-        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+        const isTable = Array.isArray(b.rows) && (b.t === "table" || b.kind === "table");
+        if (!isTable) { const t = (blockPlain(b) || "").trim(); if (t) lastText = t; }
+        if (isTable && ec.under != null && !lastText.toLowerCase().includes(String(ec.under).toLowerCase())) continue;
+        if (isTable) {
           for (const row of b.rows) if (Array.isArray(row)) for (const [ci, cell] of row.entries()) {
             const isHit = byRow
               ? ci === ec.col && row.some((c) => c && typeof c.text === "string" && c.text.trim() === ec.row)
