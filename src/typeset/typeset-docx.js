@@ -2825,6 +2825,208 @@ function formatGlossary(blocks) {
   }
 }
 
+// FULL STOPS, ONE WAY PER KIND OF TEXT (syllabus family). Text of one kind -- the topic
+// titles, the sub-topic titles, the competences, the activities, the expected standards,
+// the Key Competences descriptors, the items of one list -- ends the same way throughout
+// the book: if most of a column's lines end in a full stop, all of them do; if most do
+// not, none does. Manuscripts mix the two freely (History Content: "The League of
+// Nations." among sub-topics with none; "Demonstrate respect for human dignity." among
+// competences with none). Titles (topic, sub-topic, headings) never take one; a tie takes it.
+// Lines are judged only where they END a clause: a line followed by one
+// that opens with a small letter or a bracket is a hand-wrapped clause ("Meets" /
+// "accessibility requirements.") and is left alone, as is a line ending in : ; ? ! or …,
+// and an activities line set wholly in bold (the method it falls under: "Class
+// discussion"). Each change is made in the cell's text AND its runs, at the same place.
+//
+// stopUnits(blocks) -> [{ group, label, end: "dot"|"none", fix(want) }]
+function stopUnits(blocks) {
+  const units = [];
+  const lineEnds = (c) => {
+    // per line: text, whether wholly bold, and (when the runs carry the same lines) the
+    // position of its last visible character in the joined runs
+    // What prints is the runs (the cell body), so lines are judged from them; the plain
+    // text follows along only where it breaks into the same lines.
+    const segsOk = Array.isArray(c.segs) && c.segs.length && c.segs.every((s) => typeof s.t === "string" && !s.m);
+    if (Array.isArray(c.segs) && c.segs.length && !segsOk) return null;     // maths: leave alone
+    const joined = segsOk ? c.segs.map((s) => s.t).join("") : null;
+    const sl = joined != null ? joined.split("\n") : null;
+    const tl = sl || String((c && c.text) || "").split("\n");
+    const out = [];
+    out.textAligned = !sl || String(c.text || "").split("\n").length === sl.length;
+    let off = 0;
+    tl.forEach((t, i) => {
+      const sline = sl ? sl[i] : null;
+      const lastIdx = sline != null ? off + sline.replace(/\s+$/, "").length - 1 : -1;
+      let bold = false;
+      if (sline != null && sline.trim()) {
+        // wholly bold: every non-space character of the line sits in a bold run
+        let pos = 0; bold = true;
+        for (const s of c.segs) {
+          const a = pos, b = pos + s.t.length; pos = b;
+          const from = Math.max(a, off), to = Math.min(b, off + sline.length);
+          if (to > from && s.t.slice(from - a, to - a).trim() && !s.b) { bold = false; break; }
+        }
+      }
+      out.push({ t, lastIdx, bold });
+      if (sline != null) off += sline.length + 1;
+    });
+    return out;
+  };
+  const editEnd = (c, info, li, want) => {
+    const lines = String(c.text || "").split("\n");
+    // the plain text: the same line when it breaks the same way, else the line whose
+    // trimmed text is this one's
+    const ti = info.textAligned ? li : lines.findIndex((l) => l.trim() === info[li].t.trim());
+    // Whatever closes the line -- a full stop, a doubled one, or a comma typed for one --
+    // is replaced by the group's ending.
+    const TAIL = /(?:,|\.{1,2})$/;
+    if (ti >= 0) {
+      const t = lines[ti].replace(/\s+$/, "");
+      const base = t.replace(TAIL, "");
+      lines[ti] = want === "dot" ? base + "." : base;
+      c.text = lines.join("\n");
+    }
+    if (!Array.isArray(c.segs) || !c.segs.length || info[li].lastIdx < 0) return;
+    const st = info[li].t.replace(/\s+$/, "");
+    const k = st.length - st.replace(TAIL, "").length;               // chars to take off
+    // delete positions lastIdx-k+1 … lastIdx (right to left, across runs if need be)
+    for (let p = info[li].lastIdx; p > info[li].lastIdx - k; p--) {
+      let pos = 0;
+      for (const s of c.segs) {
+        if (p >= pos && p < pos + s.t.length) { s.t = s.t.slice(0, p - pos) + s.t.slice(p - pos + 1); break; }
+        pos += s.t.length;
+      }
+    }
+    if (want !== "dot") return;
+    // add the full stop straight after the last remaining character
+    const after = info[li].lastIdx - k;
+    let pos = 0;
+    for (const s of c.segs) {
+      if (after >= pos && after < pos + s.t.length) { s.t = s.t.slice(0, after - pos + 1) + "." + s.t.slice(after - pos + 1); return; }
+      pos += s.t.length;
+    }
+  };
+  const judge = (raw) => {
+    const t = String(raw).trim().replace(/^[•▪◦●·‣∙–-]\s*/, "").replace(/^\d+(?:\.\d+)*\.?\s*/, "");
+    if (!t || !/[A-Za-z]/.test(t)) return null;
+    if (/[:;?!…]$/.test(t) || /\.\.\.$/.test(t) || /\betc\.$/i.test(t)) return null;
+    // a doubled full stop or a closing comma is a slip, fixed whichever way the group goes
+    if (/[^.]\.\.$/.test(t)) return "double";
+    if (/,$/.test(t)) return "comma";
+    return /\.$/.test(t) ? "dot" : "none";
+  };
+  // FIRST LETTER of a cell, the same way: a column whose cells mostly open with a capital
+  // ("Analyse…", "Strategies to sustain…") opens every one with it. Only the first line
+  // -- a later line opening small is usually a wrapped clause. After any number/bullet.
+  const LEADIN = /^[\s•▪◦●·‣∙–-]*(?:\d+(?:\.\d+)*\.?\s*)?[(“"‘']*/;
+  const addCap = (group, c, info) => {
+    if (/titles$/.test(group)) return;                               // set by the casing rule
+    const li = info.findIndex((x) => x.t.trim());
+    if (li < 0) return;
+    const line = info[li].t, at = (line.match(LEADIN) || [""])[0].length;
+    const ch = line[at];
+    if (!ch || !/[A-Za-z]/.test(ch)) return;
+    units.push({ group: `${group}, first letter`, label: line.trim(), end: ch === ch.toUpperCase() ? "upper" : "lower", li: -1,
+      fix: (want) => {
+        const sw = (s, i) => s.slice(0, i) + (want === "upper" ? s[i].toUpperCase() : s[i].toLowerCase()) + s.slice(i + 1);
+        const tlines = String(c.text || "").split("\n");
+        const ti = tlines.findIndex((l) => l.trim());
+        if (ti >= 0) { const a = (tlines[ti].match(LEADIN) || [""])[0].length; if (/[A-Za-z]/.test(tlines[ti][a] || "")) { tlines[ti] = sw(tlines[ti], a); c.text = tlines.join("\n"); } }
+        if (Array.isArray(c.segs) && c.segs.length && c.segs.every((s) => typeof s.t === "string")) {
+          const joined = c.segs.map((s) => s.t).join("");
+          const pos = (joined.match(LEADIN) || [""])[0].length;
+          let off = 0;
+          for (const s of c.segs) { if (pos < off + s.t.length) { if (/[A-Za-z]/.test(s.t[pos - off])) s.t = sw(s.t, pos - off); break; } off += s.t.length; }
+        }
+      } });
+  };
+  const addCell = (group, c) => {
+    if (!c || typeof c.text !== "string" || !c.text.trim()) return;
+    const info = lineEnds(c);
+    if (!info) return;
+    addCap(group, c, info);
+    info.forEach((ln, li) => {
+      const next = info.slice(li + 1).find((x) => x.t.trim());
+      if (next && /^[a-z(]/.test(next.t.trim())) return;              // wrapped mid-clause
+      if (group === "activities" && ln.bold) return;                   // a method heading
+      const end = judge(ln.t);
+      if (!end) return;
+      units.push({ group, label: ln.t.trim(), end, li, fix: (want) => editEnd(c, info, li, want) });
+    });
+  };
+  let listRun = 0, inList = false;
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.rows) && Array.isArray(b.rows[0])) {
+        inList = false;
+        const H = b.rows[0].map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase());
+        const col = (re) => H.findIndex((h) => re.test(h));
+        const tc = col(/^TOPIC/), sc = col(/^SUB[\s-]*TOPIC/), cc = col(/COMPETEN/);
+        if (tc >= 0 && sc >= 0 && cc >= 0 && H.length >= 5) {
+          const groups = [[tc, "topic titles"], [sc, "sub-topic titles"], [cc, "competences"],
+            [col(/ACTIVIT|PEDAGOG/), "activities"], [col(/STANDARD/), "expected standards"]];
+          for (const row of b.rows.slice(1)) if (Array.isArray(row)) for (const [ci, g] of groups) if (ci >= 0) addCell(g, row[ci]);
+        } else if (cc >= 0 && col(/DESCRIPT/) >= 0) {
+          const dc = col(/DESCRIPT/);
+          for (const row of b.rows.slice(1)) if (Array.isArray(row)) addCell("Key Competences descriptors", row[dc]);
+        }
+        continue;
+      }
+      if (b.t === "listitem" && Array.isArray(b.segs)) {
+        if (!inList) { listRun++; inList = true; }
+        const c = { text: b.segs.map((s) => s.t || "").join(""), segs: b.segs };
+        // a list item's runs ARE its text: keep both in step through one shared object
+        const before = units.length;
+        addCell(`list ${listRun}`, c);
+        for (const u of units.slice(before)) { const f = u.fix; u.fix = (want) => { f(want); b.segs = c.segs; }; }
+        continue;
+      }
+      if (/^h[123]$/.test(b.t) || b.t === "para" || b.t === "label" || b.t === "divider") inList = false;
+      // Headings are titles too: never a full stop ("TEACHING AND LEARNING METHODS.").
+      if (/^h[123]$/.test(b.t) && typeof b.text === "string" && b.text.trim()) {
+        const end = judge(b.text);
+        if (end) units.push({ group: "heading titles", label: b.text.trim(), end, li: 0,
+          fix: (want) => { if (want === "none") b.text = b.text.replace(/\.\s*$/, ""); } });
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows" && k !== "segs") walk(b[k]);
+    }
+  };
+  walk(blocks);
+  return units;
+}
+// The way each group ends: titles never take a full stop; any other group goes the way
+// most of its lines already go, and on a tie takes the full stop (these are sentences
+// and clauses) -- uniformity always, a group is never left mixed.
+// (A "first letter" group goes the same way: the majority, a capital on a tie.)
+function stopTarget(group, units) {
+  if (/first letter$/.test(group)) {
+    const up = units.filter((u) => u.end === "upper").length;
+    return units.length - up > up ? "lower" : "upper";
+  }
+  if (/titles$/.test(group)) return "none";
+  const dot = units.filter((u) => u.end === "dot" || u.end === "double").length, none = units.length - dot;
+  return none > dot ? "none" : "dot";
+}
+function unifyFullStops(blocks) {
+  const units = stopUnits(blocks);
+  const byGroup = {};
+  for (const u of units) (byGroup[u.group] = byGroup[u.group] || []).push(u);
+  const done = [], todo = [];
+  for (const [g, us] of Object.entries(byGroup)) {
+    const want = stopTarget(g, us);
+    if (!want) continue;
+    const odd = us.filter((u) => u.end !== want);
+    for (const u of odd) todo.push([u, want]);
+    if (odd.length) done.push(`${g} ${odd.length} (${{ dot: "given a full stop", none: "full stop dropped", upper: "capitalised", lower: "made small" }[want]})`);
+  }
+  // Within a cell, last line first: each edit moves every position after it by one, and
+  // the positions were all measured before any edit ("supportive device.s").
+  todo.sort((a, b) => b[0].li - a[0].li);
+  for (const [u, want] of todo) u.fix(want);
+  if (done.length) console.log("   full stops made consistent: " + done.join("; "));
+}
+
 // Numbering check for a CDC syllabus, run on the finished blocks just before they are
 // written out. Numbers are where these manuscripts go wrong most (Word lists that run on
 // across topics, a number typed twice, "1.10.1.1." with a dot after it, a competence filed
@@ -2981,6 +3183,18 @@ function auditSyllabusNumbering(blocks) {
     }
   };
   runs(blocks);
+  // Full stops and first letters: any kind of text still done both ways (unifyFullStops
+  // should leave none -- this catches a line it could not reach).
+  {
+    const byGroup = {};
+    for (const u of stopUnits(blocks)) (byGroup[u.group] = byGroup[u.group] || []).push(u);
+    for (const [g, us] of Object.entries(byGroup)) {
+      const kinds = [...new Set(us.map((u) => u.end))];
+      if (kinds.length < 2) continue;
+      const ex = kinds.map((k) => `${k}: "${clip(us.find((u) => u.end === k).label)}"`).join(" / ");
+      say(`consistency in ${g}`, `${kinds.map((k) => `${us.filter((u) => u.end === k).length} ${k}`).join(", ")} (e.g. ${ex})`);
+    }
+  }
   for (const s of issues) console.warn("!  numbering: " + s);
   console.log(`   numbering check: ${tables} matrix table(s), ${issues.length ? issues.length + " issue(s)" : "clean"}`);
   return issues;
@@ -5741,6 +5955,9 @@ function normaliseQuestionMarkBold(blocks) {
   // auditSyllabusNumbering): a clean build log says nothing about a "1.10.1.1." or a
   // competence numbered under the wrong topic.
   if (variant === "syllabus") {
+    // Full stops and first letters one way per kind of text (see unifyFullStops), on the
+    // finished blocks -- after every heading, cell and list has taken its final form.
+    unifyFullStops(blocks);
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }

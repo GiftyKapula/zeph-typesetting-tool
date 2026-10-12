@@ -38,6 +38,12 @@
       "find": "1.9.2. Life Skills Teaching Aids"
     }
   ],
+  "pageBreakBefore": [
+    {
+      "_why": "2026-10-12: with the matrix's full stops made consistent the matrix runs a little longer, and the assessment section broke with only 'CA + EXAM = 100%' and Time Allocation on a page of their own. The assessment section now opens its own page and stays whole.",
+      "find": "Assessment methods and weighting"
+    }
+  ],
   "editCell": [
     {
       "_why": "One topic cell held all three titles (1.5, 1.6, 1.7). Each now heads its own rows: Visual over Braille/Tactile/Adapted Books, Hearing over Sign Language/Multimedia, Physical over Adaptive Seating onwards.",
