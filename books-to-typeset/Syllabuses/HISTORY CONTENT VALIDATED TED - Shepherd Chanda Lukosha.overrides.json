@@ -1,0 +1,70 @@
+{
+  "_comment": [
+    "History Content -- Secondary Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-12. Layout, numbering and spelling repairs only: NONE of these",
+    "rewrites a competence, an activity or an expected standard.",
+    "",
+    "MATRIX NUMBERS. In Year 1 the topic and most sub-topic cells carry no number, and the",
+    "competence numbers are Word list numbers that run on across topics (1.1.1.4, 1.1.1.5",
+    "... 1.1.1.11 under Missionary Activities, Imperialism, Colonial Rule, the First World War",
+    "and World Peace; one more, 1.1.1.12, printed in the Expected Standard column in Year 2).",
+    "Year 2 numbers topic 2.1's sub-topics 2.1.1, 2.2.2, 2.2.3, 2.2.4. renumberMatrix counts",
+    "them all afresh from the table's structure. The result agrees with the manuscript's own",
+    "typed contents list (1.1 Concept of History, 1.4 The Origins of Man, 1.13.2 African",
+    "reaction to colonial rule ...).",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * ISBN: none given; the imprint shows a blank ISBN line.",
+    "  * The Director's name is 'Charles Makala (Dr.)' here, 'Charles Ndakala (Dr.)' in the",
+    "    Music Content and Music Methods syllabuses. Set as written.",
+    "  * Year 2 Key Competences: several descriptors repeat or belong to Year 1 topics",
+    "    (Collaboration and Communication both 'Promote collaboration among former",
+    "    federation members'; Entrepreneurship and Financial Education both 'Relate Black",
+    "    Friday to modern day commerce'). Set as written.",
+    "  * Year 1 Key Competences: 'Citizenship' and 'Emotional Intelligence' share one",
+    "    descriptor, as do 'Entrepreneurship' and 'Financial Education'. Set as written."
+  ],
+  "level": "Secondary Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "insertText": [
+    {
+      "_why": "The copyright line 'Curriculum Development Centre, 2025' is styled as a heading straight after the cover headings (its (c) sign lost), and went with the cover. Set back above the rights notice, as in the other syllabuses.",
+      "before": "All rights reserved. No part of this publication",
+      "text": "© Curriculum Development Centre, 2025",
+      "align": "center"
+    }
+  ],
+  "setHeading": [
+    {
+      "_why": "Section titles typed with a colon; without it Background opens its own page like the other top-level divisions, and none carries the colon into the contents.",
+      "find": "Background:",
+      "text": "Background",
+      "as": "label"
+    },
+    { "find": "Rationale:", "text": "Rationale", "as": "label" },
+    { "find": "Aims:", "text": "Aims", "as": "label" }
+  ],
+  "deleteExact": ["Year 1"],
+  "_deleteExact_why": "A 'Year 1' heading over the Year 1 Key Competences table, and the manuscript's own 'YEAR 1' again over the matrix: two YEAR 1 pages. The one over the matrix stays, as in Year 2 (competences, then the YEAR 2 page, then the matrix).",
+  "pageBreakBefore": [
+    {
+      "_why": "The Year 2 competences table ran on half-way down the page under the last Year 1 row; it opens Year 2, as the Year 1 table opens Year 1.",
+      "find": "Competences to be developed at year two"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "Dash as in the Acknowledgement's 'Director – Directorate of Curriculum Development'.",
+      "find": "Permanent Secretary- Educational Services",
+      "with": "Permanent Secretary – Educational Services"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "A Word list number (the run-on 1.1.1.x list, see _comment) printed at the head of an Expected Standard cell.",
+      "pattern": "^1\\.1\\.1\\.12\\s*",
+      "with": ""
+    }
+  ]
+}

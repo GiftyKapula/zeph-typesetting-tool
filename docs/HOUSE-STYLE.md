@@ -155,6 +155,17 @@ Six more, from the Physical Education and Sport syllabus:
   EDUCATION) is set like one typed as three; a topic column whose titles are all
   short is still wide enough for its longest word (`ENTREPRENEURSHIP`).
 
+Three more, from the History Content syllabus:
+
+- **A reading list typed in the front matter goes to the back** on its own. It used
+  to run on to the next h1, and in a syllabus the YEAR and competences headings are
+  h2s, so the whole body travelled with it and the list stayed in front.
+- **Two matrix tables join when their headers differ only by a plural**
+  (`SPECIFIC COMPETENCES` over one, `SPECIFIC COMPETENCE` over the next).
+- **`renumberMatrix` also clears what an old number leaves behind**: a second, typed
+  copy of it after a list number (`1.1.2 1.1.2. Reasons…`), a run of dots after it
+  (`1.1.2..`), and stray dots before the text (`.Meaning of History`, `..Communicate`).
+
 **Matrix numbers that are all Word list numbers** (none typed) are often wrong on
 the page: the lists restart, change list mid-topic and go on counting in the
 merged cells under a topic (topics `1.5, 1.5, 1.6, 1.12, 1.7`; a bare `1.3` in an

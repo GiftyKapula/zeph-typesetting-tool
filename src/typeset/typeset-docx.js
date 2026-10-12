@@ -2782,7 +2782,13 @@ function reorderBackmatter(blocks) {
     const own = getText(blocks[refIdx]).trim();
     refHeader = { t: "h1", text: /^references\s*\/\s*\S/i.test(own) ? own : "REFERENCES" };
     let j = refIdx + 1;
-    while (j < blocks.length && blocks[j].t !== "h1" && !/^GLOSSARY\b/i.test(getText(blocks[j]).trim())) {
+    // The list ends at the next heading of ANY level, not only at an h1. A syllabus that
+    // types its reading list in the front matter (History Content: just before Year 1)
+    // has only h2s after it by now -- the YEAR and competences headings -- so stopping
+    // at h1 alone swept the whole body (both competence tables and both matrices) into
+    // "references" and moved it with them, leaving the list in front. (Not at a table:
+    // an AUTHORS line and its table that follow the list travel together, as before.)
+    while (j < blocks.length && !/^h[123]$/.test(blocks[j].t) && !/^GLOSSARY\b/i.test(getText(blocks[j]).trim())) {
       refItems.push(blocks[j]);
       j++;
     }
@@ -4530,10 +4536,12 @@ function normaliseQuestionMarkBold(blocks) {
     // One year's matrix typed as two Word tables, the second with its own copy of the
     // header row (a table that broke at a page end in the manuscript). Set as two, the
     // last topic stood in a small table of its own under a second header. Tables with
-    // the same header and nothing between them are one matrix.
+    // the same header and nothing between them are one matrix. "Same" allows a column
+    // named in the singular in one and the plural in the other (History Content: SPECIFIC
+    // COMPETENCES over the first table, SPECIFIC COMPETENCE over the second).
     {
       const isMx = (b) => b && b.t === "table" && Array.isArray(b.rows) && b.rows.length > 1 && (b.rows[0] || []).length >= 5;
-      const hdrKey = (b) => b.rows[0].map((c) => ((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase()).join("|");
+      const hdrKey = (b) => b.rows[0].map((c) => ((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase().replace(/S$/, "")).join("|");
       for (let i = 0; i < blocks.length; i++) {
         if (!isMx(blocks[i])) continue;
         let j = i + 1;
@@ -4754,7 +4762,8 @@ function normaliseQuestionMarkBold(blocks) {
     // scope-and-sequence chart. Never on by default: a matrix whose numbers the author
     // TYPED is kept exactly as written.
     if (ov.renumberMatrix) {
-      const NUM = /^\s*(?:\d+(?:\.\d+)+\.?|\d+\.)(?=\s|$)\s*/;
+      // (any run of dots after it: "1.1.2.. Reasons for learning history")
+      const NUM = /^\s*(?:\d+(?:\.\d+)+\.*|\d+\.+)(?=\s|$)\s*/;
       const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
       const yearOf = (t) => {
         const m = String(t || "").replace(/\s+/g, " ").trim().match(/^(?:(?:year|form|grade)\s+(\d+)(?:\s*\([a-z]+\))?|(first|second|third|fourth|fifth|sixth)\s+year)$/i);
@@ -4780,11 +4789,17 @@ function normaliseQuestionMarkBold(blocks) {
           c.segs = j;
         }
       };
-      // a line minus its number: { had, rest }
+      // a line minus its number: { had, rest }. Takes off whatever else leads the line
+      // once a number has gone: a second, typed copy of it ("1.1.2 1.1.2. Reasons for
+      // learning history" -- a list number in front of a typed one) and the stray dots
+      // an author types after a list number (".Meaning of History", "..Communicate").
+      const LEADJUNK = /^\s*(?:(?:\d+(?:\.\d+)+\.?|\d+\.)(?=[\s.]|$)\s*|[.:;,]+\s*)/;
       const strip = (line) => {
         const m = txt(line).match(NUM);
         if (!m) return { had: false, rest: line };
-        let cut = m[0].length; const rest = [];
+        let cut = m[0].length;
+        for (let more; (more = txt(line).slice(cut).match(LEADJUNK)) && more[0].length; ) cut += more[0].length;
+        const rest = [];
         for (const s of line) {
           if (cut >= s.t.length) { cut -= s.t.length; continue; }
           rest.push(cut ? { ...s, t: s.t.slice(cut) } : s); cut = 0;
