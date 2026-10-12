@@ -34,6 +34,8 @@
   "year": 2025,
   "competenceCase": "sentence",
   "_competenceCase_why": "Requested 2026-10-12: in the Key Competences table the competence names are set with a capital first letter and the rest small, not in capitals. That table only.",
+  "levelPageAfterCompetences": true,
+  "_levelPageAfterCompetences_why": "Requested 2026-10-12: the page that names the level of the book (Secondary Teachers’ Diploma) comes after the Key Competences table, before the YEAR 1 matrix.",
   "removeRange": [
     {
       "_why": "The template's ISBN line (see _comment) and, after it, the hand-typed contents (three tables of dot leaders with the author's Word page numbers, and its own 'Year One (1)' / 'Year Two (2)' headings, which set as two extra sections). The engine generates the contents with real page numbers.",

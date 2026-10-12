@@ -3982,7 +3982,7 @@ function fixSyllabusSignatures(blocks) {
 // → [roman i] copyright + imprint → TOC → [roman visible] Vision … front matter → level
 // divider page → [arabic 1] Competences & Descriptors → body → back cover. The counter
 // resets/visibility ride on the marker blocks (titlestart/showpage/bodystart).
-function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {}) {
+function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelAfterCompetences = false } = {}) {
   const coverIdx = blocks.findIndex((b) => b.t === "cover");
   const cov = coverIdx >= 0 ? blocks[coverIdx] : null;
   // Where the VISIBLE roman numbering starts: the first prose front-matter section.
@@ -4054,6 +4054,11 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
   const compIdx = blocks.findIndex((b) => isHead(b)
     && (/\bcompeten[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim())
       || /^(?:key|general|core)\s+competen[ct](?:e|ie)s$/i.test((b.text || "").trim())));
+  // Where a late level page goes: in front of the first YEAR heading, or the first
+  // matrix, past the competences section. -1 = the usual place, ahead of that section.
+  const lateAt = (levelAfterCompetences && compIdx >= 0) ? blocks.findIndex((b, i) => i > compIdx
+    && ((b.t === "h2" && /^(?:year\s+\d+|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i.test((b.text || "").trim()))
+      || (Array.isArray(b.rows) && b.rows.length && (b.rows[0] || []).length >= 5))) : -1;
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     if (cov && i === coverIdx + 1) {
@@ -4064,7 +4069,11 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
     }
     if (i === visionIdx && visionIdx >= 0) out.push({ t: "showpage", spacing: "0.95em" });
     // Arabic 1 begins on the LEVEL DIVIDER page (the "Secondary Teacher's Diploma" page).
-    if (i === compIdx && compIdx >= 0) { out.push({ t: "bodystart" }); out.push({ t: "divider", text: level }); }
+    // A book may ask for the level page AFTER the competences table instead, between it
+    // and the first year's matrix (sidecar `levelPageAfterCompetences`). Arabic 1 then
+    // begins on the competences page and the level page takes the next number.
+    if (i === compIdx && compIdx >= 0) { out.push({ t: "bodystart" }); if (lateAt < 0) out.push({ t: "divider", text: level }); }
+    if (i === lateAt) out.push({ t: "divider", text: level });
     out.push(blocks[i]);
     if (i === crEnd && crIdx >= 0) {
       out.push({ t: "imprint", year, isbn });
@@ -4920,7 +4929,8 @@ function normaliseQuestionMarkBold(blocks) {
     }
     const Tsyl = THEMES[theme] || {};
     blocks = applySyllabusFront(blocks, { year: sylYear,
-      level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null });
+      level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null,
+      levelAfterCompetences: !!ov.levelPageAfterCompetences });
   }
 
   // Restructure the front matter (title page, roman/arabic numbering, etc.).
