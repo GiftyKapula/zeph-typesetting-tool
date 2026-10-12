@@ -4089,6 +4089,11 @@ async function typesetOne(docxPath, themeName) {
   // first — reading it from THEMES[theme] there would print gensyl's placeholder on
   // the level-divider page.
   const sylId = theme === "gensyl" ? syllabusIdentityFromName(base) : null;
+  // A file name that names no level, or no year, leaves the cover saying only "Teachers'
+  // Diploma" and the copyright page undated. The sidecar supplies what the manuscript's
+  // own cover says (`level`: "Secondary Teachers' Diploma", `year`: 2025).
+  if (sylId && ov.level) sylId.level = String(ov.level);
+  const sylYear = variant === "syllabus" ? (ov.year || (THEMES[theme] || {}).year || "") : "";
   // The ZEPH B5 house style is shared by the "series" (flat, English) and
   // "science" (boxed, Physics) layouts.
   const seriesLike = variant === "series" || variant === "science";
@@ -5065,7 +5070,7 @@ function normaliseQuestionMarkBold(blocks) {
       if (fs.existsSync(cdcG)) { media.push({ name: "syl_cdc_grey.png", src: cdcG }); cov.logoGrey = { file: "syl_cdc_grey.png" }; }
     }
     const Tsyl = THEMES[theme] || {};
-    blocks = applySyllabusFront(blocks, { year: Tsyl.year || "",
+    blocks = applySyllabusFront(blocks, { year: sylYear,
       level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null });
   }
 
@@ -5152,6 +5157,13 @@ function normaliseQuestionMarkBold(blocks) {
     console.log("   syllabus cover colour: #" + col + (ov.coverColour ? " (sidecar)" : " (from the subject)"));
   }
   if (ov.subject) themeOverrides.subject = ov.subject;
+  // …and on a generic-theme syllabus the footer masthead follows the sidecar's subject
+  // and year, as a named syllabus theme's does ("<Subject> Syllabus <year>").
+  if (sylId && (ov.subject || ov.year)) {
+    const subj = ov.subject || sylId.subject;
+    if (subj) themeOverrides.hdrleft = (subj + " Syllabus " + (ov.year || "")).trim();
+    if (ov.year) themeOverrides.year = ov.year;
+  }
   // Align the running-header left text with the grade/form-derived education level
   // (the cover eyebrow already uses it), overriding the theme's fixed default so the
   // same local-language theme reads correctly at primary vs secondary level.
