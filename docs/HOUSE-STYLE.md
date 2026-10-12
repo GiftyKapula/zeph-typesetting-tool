@@ -59,7 +59,7 @@ family** (page numbering in brackets):
 | next | Vision / Preface / Acknowledgement / Introduction — **each on its own page** | roman, visible |
 | then | Level divider page (e.g. "SECONDARY TEACHER'S DIPLOMA") | **arabic 1** |
 | then | Competences & Descriptors | arabic |
-| then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix — and only one: a manuscript that names the year over its competences as well, or twice over the matrix, keeps just the heading that opens the matrix (a same-named line after the matrix, labelling that year's weightings, stays a plain bold line). Standard from 2026-10-12 | arabic |
+| then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix — and only one: a manuscript that names the year over its competences as well, or twice over the matrix, keeps just the heading that opens the matrix (a same-named line after the matrix, labelling that year's weightings, stays a plain bold line). A year typed only OVER its competences moves below them, to open the matrix; a year merged across the top of the competences table comes out of it. Standard from 2026-10-12 | arabic |
 
 **Heading levels**, also enforced — a manuscript's own styling is normalised to
 these, because two books in the family were heading their pages three different

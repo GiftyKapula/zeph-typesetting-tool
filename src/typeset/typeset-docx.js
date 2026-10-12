@@ -3041,7 +3041,23 @@ function dedupeLevelHeadings(blocks) {
     else if (i < at) { blocks.splice(i, 1); dropped++; }
     else { blocks[i] = { t: "para", segs: [{ t: String(b.text).trim(), b: true, it: false, c: null }] }; demoted++; }
   }
-  if (dropped || demoted) console.log(`   level headings: one page per level (${dropped} repeat(s) dropped${demoted ? `, ${demoted} after the matrix set as a plain line` : ""})`);
+  // The level page goes AFTER its year's competences, just before the matrix (competences,
+  // YEAR 2, matrix). Civic Education Methods types "YEAR 1" / "YEAR 2" over its Key
+  // Competences instead, which set the YEAR 1 page ahead of the body's opening divider
+  // and the competences. A level heading with a table (the competences) between it and
+  // its matrix moves down to sit over the matrix.
+  let moved = 0;
+  for (let i = 0; i < blocks.length; i++) {
+    if (!levelKey(blocks[i])) continue;
+    let m = i + 1, between = false;
+    for (; m < blocks.length && !levelKey(blocks[m]) && !isMatrix(blocks[m]); m++) if (blocks[m].t === "table") between = true;
+    if (!between || m >= blocks.length || !isMatrix(blocks[m])) continue;
+    const [h] = blocks.splice(i, 1);
+    blocks.splice(m - 1, 0, h);
+    moved++;
+    i = m - 1;
+  }
+  if (dropped || demoted || moved) console.log(`   level headings: one page per level (${dropped} repeat(s) dropped${demoted ? `, ${demoted} after the matrix set as a plain line` : ""}${moved ? `, ${moved} moved below the competences to open the matrix` : ""})`);
 }
 
 // A year's Key Competences table comes before that year's level page (competences, then
@@ -5059,6 +5075,19 @@ function normaliseQuestionMarkBold(blocks) {
       const out = [];
       for (const b of blocks) {
         const ncol = Array.isArray(b.rows) && b.rows.length ? (b.rows[0] || []).length : 0;
+        // …and a Key Competences table that opens with the year merged across it ("YEAR 2"
+        // over COMPETENCES | DESCRIPTORS, Civic Education Methods): the year comes out as
+        // its heading and the COMPETENCES row becomes the table's header again.
+        if (b.t === "table" && b.rows.length > 2) {
+          const r0 = (b.rows[0] || []).filter((c) => c && (c.text || "").trim());
+          const t0 = r0.length === 1 ? r0[0].text.replace(/\s+/g, " ").trim() : "";
+          const h1 = (b.rows[1] || []).map((c) => ((c && c.text) || "").toUpperCase()).join(" ");
+          if (t0 && YEARROW.test(t0) && /COMPETEN/.test(h1) && /DESCRIPTOR/.test(h1)) {
+            out.push({ t: "h2", text: t0.toUpperCase() });
+            out.push({ ...b, rows: b.rows.slice(1) });
+            continue;
+          }
+        }
         if (b.t !== "table" || ncol < 5) { out.push(b); continue; }
         const lone = (row) => {
           if (!Array.isArray(row) || row.length >= ncol) return null;      // merged rows only
