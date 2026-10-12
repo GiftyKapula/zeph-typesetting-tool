@@ -67,6 +67,23 @@
       ]
     }
   ],
+  "editCell": [
+    {
+      "_why": "NUMBERING (found by the numbering check, 2026-10-12). The second competence of 1.5.1 (after 1.5.1.1), typed '1.5. 1.2'.",
+      "pattern": "^1\\.5\\. 1\\.2(?=\\s*Analyse)",
+      "with": "1.5.1.2"
+    },
+    {
+      "_why": "A competence in the 1.9.5 (Characteristics of assessment) row, before sub-topic 1.9.6 begins, numbered 1.9.6.1 -- a number 1.9.6 Evaluation then uses for its own first competence. It is 1.9.5's second.",
+      "pattern": "^1\\.9\\.6\\.1(?=\\s*Compose marking)",
+      "with": "1.9.5.2"
+    },
+    {
+      "_why": "A competence number typed at the head of an Expected Standard cell (the 1.3.2 row); standards carry none.",
+      "pattern": "^1\\.3\\.1\\.2\\s+(?=Factors affects)",
+      "with": ""
+    }
+  ],
   "subtext": [
     {
       "_why": "Spelling, in the YEAR 1 heading only; the word is spelt ASSESSMENT everywhere else, including the title.",

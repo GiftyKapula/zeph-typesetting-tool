@@ -166,6 +166,31 @@ Three more, from the History Content syllabus:
   copy of it after a list number (`1.1.2 1.1.2. Reasons…`), a run of dots after it
   (`1.1.2..`), and stray dots before the text (`.Meaning of History`, `..Communicate`).
 
+**Numbering is checked on every build — read the check.** Numbers are where these
+manuscripts go wrong most, and none of it stops a build, so every syllabus build ends
+with a line `numbering check: N matrix table(s), clean` or `… K issue(s)`, each issue
+on its own `!  numbering:` line above it. It reads what is about to print and changes
+nothing. It checks:
+
+- **the matrix** — TOPIC `Y.k`, SUB-TOPIC `Y.k.j`, COMPETENCE `Y.k.j.m`: the form of each
+  number (digits and single dots, one space before the text, no space or stray
+  punctuation inside), its depth, its year (not for a TERM-numbered course outline),
+  its parent (a competence beside sub-topics stacked in one cell may belong to any of
+  them), and that each level counts on by one — no gap, repeat or restart; a numbered
+  column cell with no number; a matrix number at the head of an activities or
+  standard cell;
+- **numbered lists** — `1. 2. 3.` / `a) b) c)` count on by one (the paragraphs under an
+  item don't break the run; a heading or table does);
+- **S/N columns** — `1, 2, 3 …`, all in one form.
+
+A build is not finished until that line says `clean`, or every remaining issue is
+either fixed in the sidecar (where the right number is plain from the rows around it)
+or written into the sidecar's `_comment` as an author query. Matrix numbers also take
+**no dot after them** (`1.5.1.1 Produce…`, not `1.5.1.1. Produce…`): the engine drops a
+single trailing dot from TOPIC / SUB-TOPIC / COMPETENCE numbers, as the demo book sets
+them. A section number outside the matrix (`6.1. Continuous Assessment`) is the
+author's style and is left alone.
+
 **Matrix numbers that are all Word list numbers** (none typed) are often wrong on
 the page: the lists restart, change list mid-topic and go on counting in the
 merged cells under a topic (topics `1.5, 1.5, 1.6, 1.12, 1.7`; a bare `1.3` in an
