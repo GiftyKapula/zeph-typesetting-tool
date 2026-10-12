@@ -139,6 +139,20 @@ function emit(blocks) {
   // the left margin. A numeric/lettered marker opens the run; a pure-math paragraph
   // continues it; anything else closes it.
   let underStep = false;
+  // A run of numbered list items that counts into two figures ("1." … "14.") takes one
+  // marker width for the whole run, wide enough for "00.": with each marker only as wide
+  // as itself, items 10-14 stood further right than 1-9 and the list no longer read
+  // straight down (Curriculum Instruction Strategies' teaching methods). Shorter lists
+  // are untouched.
+  const NUMMARK = /^\d{1,2}[.)]$/;
+  const wideAt = new Set();
+  for (let i = 0; i < blocks.length; ) {
+    if (!(blocks[i] && blocks[i].t === "listitem" && NUMMARK.test(String(blocks[i].marker || "").trim()))) { i++; continue; }
+    let j = i;
+    while (j < blocks.length && blocks[j] && blocks[j].t === "listitem" && NUMMARK.test(String(blocks[j].marker || "").trim())) j++;
+    if (blocks.slice(i, j).some((x) => String(x.marker).trim().length >= 3)) for (let k = i; k < j; k++) wideAt.add(k);
+    i = j;
+  }
   for (let bi = 0; bi < blocks.length; bi++) {
     const b = blocks[bi];
     const nextB = blocks[bi + 1];
@@ -213,7 +227,7 @@ function emit(blocks) {
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
-      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")})\n`; break;
+      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")}${wideAt.has(bi) ? ", wide: true" : ""})\n`; break;
       case "figcaption": out += `#figcaption(${S(b.text)})\n`; break;
       case "loentry": out += `#loentry(${S(b.num)}, ${S(b.title)}, ${S(b.page)})\n`; break;
       case "image": {
@@ -5145,6 +5159,84 @@ function normaliseQuestionMarkBold(blocks) {
         }
       }
       if (n) console.log(`   matrix numbers: dot after the number dropped in ${n} cell(s)`);
+    }
+    // One weight per numbered column, book-wide (the publisher's rule of uniformity). The
+    // manuscripts mix them: Devices sets "1.4.1 Play materials" bold and "1.4.2 Occupational
+    // materials" regular one row down; Music Methods bolds some competences, half-bolds one
+    // ("**Apply** Orff strategies…") and leaves the rest regular. Each SUB-TOPIC and
+    // COMPETENCE column now takes the weight most of its cells already have, across every
+    // matrix in the book -- so a book that bolds its sub-topics keeps them bold, all of them.
+    // (TOPIC is bold by the template; activities and standards keep their own runs, where
+    // a bold line can mean something -- a teaching method.)
+    {
+      const letters = (s) => (String(s || "").match(/[A-Za-z]/g) || []).length;
+      const isBold = (c) => {
+        if (!Array.isArray(c.segs) || !c.segs.length) return false;
+        const all = c.segs.reduce((n, s) => n + letters(s.t), 0), b = c.segs.reduce((n, s) => n + (s.b ? letters(s.t) : 0), 0);
+        return all > 0 && b / all > 0.5;
+      };
+      const matrices = blocks.filter((b) => b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0]) && b.rows[0].length >= 5);
+      for (const [label, re] of [["sub-topic", /^SUB[\s-]*TOPIC/], ["competence", /COMPETEN/]]) {
+        const cells = [];
+        for (const b of matrices) {
+          const H = b.rows[0].map((c) => ((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase());
+          const ci = H.findIndex((h) => re.test(h));
+          if (ci < 0 || H.findIndex((h) => /^TOPIC/.test(h)) < 0) continue;
+          for (const row of b.rows.slice(1)) {
+            const c = Array.isArray(row) && row[ci];
+            if (c && typeof c.text === "string" && letters(c.text)) cells.push(c);
+          }
+        }
+        if (!cells.length) continue;
+        const nBold = cells.filter(isBold).length;
+        const want = nBold * 2 > cells.length;
+        let changed = 0;
+        for (const c of cells) {
+          const segs = Array.isArray(c.segs) && c.segs.length ? c.segs : null;
+          const uniform = segs ? segs.every((s) => !letters(s.t) || !!s.b === want) : !want;
+          if (uniform) continue;
+          if (segs) for (const s of segs) s.b = want;
+          else c.segs = [{ t: c.text, b: want, it: false, c: null }];
+          changed++;
+        }
+        if (changed) console.log(`   matrix ${label} column: ${changed} of ${cells.length} cell(s) set ${want ? "bold" : "regular"}, as the rest are`);
+      }
+    }
+    // …and the same outside the matrix: a multi-part number heading a list item or a
+    // paragraph takes no dot after it either. Autism's course outline is a Word list
+    // whose format prints "1.1." / "1.1.1." against the matrix's "1.1" / "1.1.1", and
+    // Curriculum Instruction Strategies types "6.1. Continuous Assessment 40%" where
+    // Guidance and Counselling has "6.1 Continuous Assessment". A single number ("1.
+    // TERM ONE") keeps its dot; tables are left to the rule above.
+    {
+      const MARK = /^(\d+(?:\.\d+)+)\.$/;
+      const LEAD = /^(\s*\d+(?:\.\d+)+)\.(?=[ \t ])/;
+      let n = 0;
+      const walk = (arr) => {
+        for (const b of arr) {
+          if (!b || typeof b !== "object" || b.t === "table" || Array.isArray(b.rows)) continue;
+          if (typeof b.marker === "string" && MARK.test(b.marker.trim())) { b.marker = b.marker.trim().replace(MARK, "$1"); n++; }
+          else if (["para", "head", "label", "listitem"].includes(b.t)) {
+            const segs = Array.isArray(b.segs) ? b.segs : null;
+            const first = segs && segs.find((s) => typeof s.t === "string" && s.t.trim() !== "");
+            if (first && !first.m && LEAD.test(first.t)) {
+              first.t = first.t.replace(LEAD, "$1");
+              if (typeof b.text === "string") b.text = b.text.replace(LEAD, "$1");
+              if (typeof b.plain === "string") b.plain = b.plain.replace(LEAD, "$1");
+              n++;
+            } else if (!segs && typeof b.text === "string" && LEAD.test(b.text)) { b.text = b.text.replace(LEAD, "$1"); n++; }
+          } else if (typeof b.q === "string" && LEAD.test(b.q)) {
+            // a line inside a box (Curriculum Instruction Strategies' Assessment box)
+            b.q = b.q.replace(LEAD, "$1");
+            const first = Array.isArray(b.qseg) && b.qseg.find((s) => typeof s.t === "string" && s.t.trim() !== "");
+            if (first && !first.m) first.t = first.t.replace(LEAD, "$1");
+            n++;
+          }
+          for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs") walk(b[k]);
+        }
+      };
+      walk(blocks);
+      if (n) console.log(`   numbers outside the matrix: dot after the number dropped in ${n} line(s)`);
     }
     // Resequence a serial-number column that has gaps. The competences table is headed
     // "S/N" — a plain 1..N counter, not a clause reference — and this manuscript's runs

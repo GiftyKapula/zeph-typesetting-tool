@@ -1484,7 +1484,7 @@
   else { flowsegs(ss) }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
-#let listitem(ss, marker) = {
+#let listitem(ss, marker, wide: false) = {
   let isbullet = marker == "•"
   // A numbered/lettered marker used to be bold unconditionally — right for the
   // common case (a bold numbered step), but it left the marker visibly bolder
@@ -1494,9 +1494,23 @@
   // instead of forcing bold, so it always agrees with its text.
   let firstseg = ss.find(s => s.t.trim() != "")
   let contentBold = firstseg != none and firstseg.at("b", default: false)
-  grid(columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top),
-    text(fill: if isbullet { iaccent2 } else { T.primary }, weight: if isbullet { "regular" } else if contentBold { "bold" } else { "regular" })[#marker],
-    par[#segs(ss)])
+  // A syllabus sets every list mark one way, book-wide (the publisher's rule of uniformity:
+  // a mark beside text of one size looks the same everywhere). The theme's grey accent left
+  // the front-matter bullets paler than the matrix bullets; the numbers took the theme's
+  // primary, a shade off the text; and a number went bold whenever its item opened in bold,
+  // so "a)" was bold in one list and regular in the next. Now: the text's own colour,
+  // regular weight, for bullets, numbers and letters alike. The item text keeps its bold.
+  let syl = T.variant == "syllabus"
+  let mkFill = if syl { T.ink } else if isbullet { iaccent2 } else { T.primary }
+  let mkWeight = if syl or isbullet { "regular" } else if contentBold { "bold" } else { "regular" }
+  let mk = text(fill: mkFill, weight: mkWeight)[#marker]
+  // `wide`: one item of a numbered run that counts into two figures — every item's
+  // marker column is the width of "00." in the marker's weight, so the item texts line up.
+  if wide {
+    context grid(columns: (measure(text(weight: mkWeight)[00.]).width, 1fr), column-gutter: 7pt, align: (left + top, left + top), mk, par[#segs(ss)])
+  } else {
+    grid(columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top), mk, par[#segs(ss)])
+  }
 }
 // A worked-solution CONTINUATION line: a stand-alone equation that carries on the
 // numbered step above it (e.g. under "1. 2A = …" the next line "2A + D = …"). The

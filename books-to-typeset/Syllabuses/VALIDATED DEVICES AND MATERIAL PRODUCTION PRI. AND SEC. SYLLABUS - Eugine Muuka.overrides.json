@@ -10,15 +10,17 @@
     "author's and CDC's.",
     "",
     "STILL OUTSTANDING -- needs the author, not the typesetter:",
-    "  * Row 16 has NO subtopic at all. Its specific competence (renumbered 1.4.3.1",
-    "    below) hangs under topic 1.4 with an empty SUBTOPIC cell. The missing subtopic",
-    "    name cannot be recovered from the manuscript.",
+    "  * Row 16 has NO subtopic title: its SUBTOPIC cell is empty in the manuscript. The row",
+    "    is set as sub-topic 1.4.3 (number only) with its competence 1.4.3.1 ('Use different",
+    "    Supportive devices...', 2.1.1.3 in the manuscript). The missing title cannot be",
+    "    recovered from the manuscript -- the author must supply it.",
     "  * 1.8.3 'Multi-Sensory Resources' duplicates 1.7.4 'Multi-Sensory Resources'",
     "    verbatim -- same competence, activities and standard -- under a different topic.",
     "    Possibly deliberate, possibly a paste; left exactly as written.",
-    "  * Topic 1.6 (Hearing Impairments) has no subtopic 1.6.1: it starts at 1.6.2, and 1.6.2",
-    "    and 1.6.3 share ONE row (their activities and standards run together in the same",
-    "    cells). Left as written -- splitting them means deciding which bullet belongs to which.",
+    "  * Topic 1.6 (Hearing Impairments): its two sub-topics were numbered 1.6.2 and 1.6.3, with",
+    "    no 1.6.1. Renumbered 1.6.1 / 1.6.2 (competences 1.6.1.1 / 1.6.2.1) on 2026-10-12 -- confirm.",
+    "    The two still share ONE row (activities and standards run together in the same cells);",
+    "    splitting them means deciding which bullet belongs to which, so that is left as written.",
     "  * 1.9.2 'Introduction to Physiotherapy' (1.10.2 in the manuscript) sits under Assistive",
     "    Technology and Digital Accessibility, though the next topic is Physiotherapy. Left as written.",
     "",
@@ -110,7 +112,7 @@
       "with": "1.3.2.1 Use Ergonomics consideration in product realisation"
     },
     {
-      "_why": "Same year-2 slip. Third competence under topic 1.4, after 1.4.1.1 and 1.4.2.1 -- but see the outstanding note above: its subtopic cell is empty in the manuscript.",
+      "_why": "Same year-2 slip. Third competence under topic 1.4, after 1.4.1.1 and 1.4.2.1; its sub-topic's title is missing (see the outstanding note above), so it is 1.4.3.1 under a sub-topic numbered 1.4.3.",
       "find": "2.1.1.3 Use different Supportive devices in different situations",
       "with": "1.4.3.1 Use different Supportive devices in different situations"
     },
@@ -191,6 +193,25 @@
     {
       "find": "1.11.2.1. Fabricate simple rehabilitation equipment",
       "with": "1.10.2.1. Fabricate simple rehabilitation equipment"
+    },
+    {
+      "_why": "Topic 1.6 has two sub-topics and the manuscript numbers them 1.6.2 and 1.6.3, with no 1.6.1. A topic's sub-topics count from 1, as every other topic in the matrix does: 1.6.1 and 1.6.2. Titles untouched.",
+      "find": "1.6.2. Sign Language Instructional Materials.\n1.6.3. Multimedia and Captioned Resources",
+      "with": "1.6.1 Sign Language Instructional Materials.\n1.6.2 Multimedia and Captioned Resources",
+      "bold": true
+    },
+    {
+      "_why": "Their competences follow: 1.6.2.1 / 1.6.3.1 -> 1.6.1.1 / 1.6.2.1.",
+      "find": "1.6.2.1. Produce sign language learning resources.\n1.6.3.1. Adapt multimedia learning resources",
+      "with": "1.6.1.1 Produce sign language learning resources.\n1.6.2.1 Adapt multimedia learning resources",
+      "bold": true
+    },
+    {
+      "_why": "The sub-topic cell of that row is empty in the manuscript. Its NUMBER goes in, 1.4.3, so the competence 1.4.3.1 stands under a 1.4.3 instead of reading as a third competence of 1.4.2 Occupational materials. No title is invented.",
+      "row": "1.4.3.1 Use different Supportive devices in different situations",
+      "col": 1,
+      "with": "1.4.3",
+      "bold": true
     }
   ],
   "edit": [

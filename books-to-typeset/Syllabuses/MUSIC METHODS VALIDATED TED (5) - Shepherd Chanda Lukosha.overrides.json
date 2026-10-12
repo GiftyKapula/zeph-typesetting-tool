@@ -16,9 +16,11 @@
     "  * ISBN. The manuscript prints 978-9982-54-066-7, which is the SAME number printed in",
     "    the Physical Education and Sport syllabus from the same desk -- a template's number,",
     "    not this book's. It is left off; the imprint shows a blank ISBN line.",
-    "  * Sub-topic 2.2.3 is missing. After 2.2.2 (Dalcroze) the matrix goes straight to",
-    "    competence '2.2.3.2 Practice holistic music approach in lesson planning', with no",
-    "    sub-topic 2.2.3 and no competence 2.2.3.1. Set as written.",
+    "  * Sub-topic 2.2.3 has no title: after 2.2.2 (Dalcroze) the matrix goes straight to the",
+    "    competence 'Practice holistic music approach in lesson planning', typed 2.2.3.2, with an",
+    "    empty sub-topic cell and no 2.2.3.1. Set (2026-10-12) as sub-topic 2.2.3 (number only)",
+    "    with that competence as 2.2.3.1. The author must supply the sub-topic title, and say",
+    "    whether a competence 2.2.3.1 was lost.",
     "  * Topics 1.11 and 1.12 carry the same title, sub-topic and competence ('Embracing",
     "    Technology in Music Teaching Methods'), with near-identical activities; so do 2.1",
     "    and 2.8. The manuscript's own contents list repeats them too. Set as written.",
@@ -205,6 +207,18 @@
     {
       "pattern": "music education\\.[\"”]$",
       "with": "music education."
+    },
+    {
+      "_why": "Sub-topic 2.2.3 is missing from the matrix: its competence (typed 2.2.3.2) follows 2.2.2 Dalcroze with an empty sub-topic cell, so it read as a third Dalcroze competence. The sub-topic's NUMBER goes in the empty cell; no title is invented.",
+      "row": "2.2.3.2 Practice  holistic music approach in lesson planning",
+      "col": 1,
+      "with": "2.2.3",
+      "bold": true
+    },
+    {
+      "_why": "...and its only competence counts from 1 beneath it: 2.2.3.2 -> 2.2.3.1 (the manuscript has no 2.2.3.1).",
+      "find": "2.2.3.2 Practice  holistic music approach in lesson planning",
+      "with": "2.2.3.1 Practice holistic music approach in lesson planning"
     }
   ]
 }
