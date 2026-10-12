@@ -1451,6 +1451,37 @@ function applyOverrides(blocks, ov) {
     walkR(blocks);
     if (!n) console.warn("!  removeRow not matched:", want || pre);
   }
+  // insertRow: [{ find | startsWith, text }] — put a row MERGED ACROSS THE TABLE, holding
+  // `text`, in front of the first body row that has a cell matching `find` (whole trimmed
+  // text) or `startsWith`. For a syllabus matrix that runs both years in one unbroken
+  // table: a merged "YEAR 2" row before the second year's first topic is lifted out as
+  // the YEAR banner by the family's own merged-row rule, the matrix carrying on beneath.
+  for (const ir of ov.insertRow || []) {
+    const want = ir.find != null ? String(ir.find) : null;
+    const pre = ir.startsWith != null ? String(ir.startsWith) : null;
+    let done = false;
+    const hit = (cell) => {
+      const t = ((cell && cell.text) || "").trim();
+      if (!t) return false;
+      return want != null ? t === want : (pre != null && t.startsWith(pre));
+    };
+    const walkI = (arr) => {
+      for (const b of arr) {
+        if (done || !b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          const at = b.rows.findIndex((row, ri) => ri > 0 && Array.isArray(row) && row.some(hit));
+          if (at > 0) {
+            b.rows.splice(at, 0, [{ text: String(ir.text || ""), imgs: [], segs: null }]);
+            done = true;
+            continue;
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkI(b[k]);
+      }
+    };
+    walkI(blocks);
+    if (!done) console.warn("!  insertRow not matched:", want || pre);
+  }
   // deleteExact: ["exact trimmed text", …] — remove EVERY block (at any depth) whose
   // whole trimmed plain text equals the string, splicing it out of the tree entirely
   // (no empty paragraph left behind). Use for a redundant line the manuscript repeated
@@ -3837,6 +3868,7 @@ function syllabusIdentityFromName(name) {
   let s = String(name || "")
     .replace(/\.docx$/i, "")
     .replace(/\s*[-–—]\s*[A-Za-z'`.\s]+$/, "")   // trailing " - Author Name"
+    .replace(/\s*\(\d+\)/g, "")                  // a download's copy counter, "(5)"
     .replace(/\bvalidated\b/gi, "")
     .replace(/\bfinal\b|\bdraft\b/gi, "")
     .replace(/\bsyllabus(es)?\b/gi, "")
@@ -4016,8 +4048,12 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null } = {})
   // "Competences and Descriptors" in one book, "Competencies to be developed" in the
   // next and "General Competences and Descriptors" in the third, so a `^competen…`
   // anchor missed the one with a leading qualifier and the body never started.
+  // …and the Music Methods syllabus heads it "KEY COMPETENCES" and nothing more, so the
+  // body never started there either. A heading that is only a qualifier and the word
+  // counts as well.
   const compIdx = blocks.findIndex((b) => isHead(b)
-    && /\bcompeten[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim()));
+    && (/\bcompeten[ct](?:e|ie)s\b.*\b(descriptors|developed)\b/i.test((b.text || "").trim())
+      || /^(?:key|general|core)\s+competen[ct](?:e|ie)s$/i.test((b.text || "").trim())));
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     if (cov && i === coverIdx + 1) {
@@ -4069,6 +4105,11 @@ async function typesetOne(docxPath, themeName) {
   // first — reading it from THEMES[theme] there would print gensyl's placeholder on
   // the level-divider page.
   const sylId = theme === "gensyl" ? syllabusIdentityFromName(base) : null;
+  // A file name that names no level, or no year, leaves the cover saying only "Teachers'
+  // Diploma" and the copyright page undated. The sidecar supplies what the manuscript's
+  // own cover says (`level`: "Secondary Teachers' Diploma", `year`: 2025).
+  if (sylId && ov.level) sylId.level = String(ov.level);
+  const sylYear = variant === "syllabus" ? (ov.year || (THEMES[theme] || {}).year || "") : "";
   // The ZEPH B5 house style is shared by the "series" (flat, English) and
   // "science" (boxed, Physics) layouts.
   const seriesLike = variant === "series" || variant === "science";
@@ -4165,7 +4206,7 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -4865,7 +4906,7 @@ function normaliseQuestionMarkBold(blocks) {
       if (fs.existsSync(cdcG)) { media.push({ name: "syl_cdc_grey.png", src: cdcG }); cov.logoGrey = { file: "syl_cdc_grey.png" }; }
     }
     const Tsyl = THEMES[theme] || {};
-    blocks = applySyllabusFront(blocks, { year: Tsyl.year || "",
+    blocks = applySyllabusFront(blocks, { year: sylYear,
       level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null });
   }
 
@@ -4933,6 +4974,13 @@ function normaliseQuestionMarkBold(blocks) {
     themeOverrides.eyebrow = sylId.level.toUpperCase();
   }
   if (ov.subject) themeOverrides.subject = ov.subject;
+  // …and on a generic-theme syllabus the footer masthead follows the sidecar's subject
+  // and year, as a named syllabus theme's does ("<Subject> Syllabus <year>").
+  if (sylId && (ov.subject || ov.year)) {
+    const subj = ov.subject || sylId.subject;
+    if (subj) themeOverrides.hdrleft = (subj + " Syllabus " + (ov.year || "")).trim();
+    if (ov.year) themeOverrides.year = ov.year;
+  }
   // Align the running-header left text with the grade/form-derived education level
   // (the cover eyebrow already uses it), overriding the theme's fixed default so the
   // same local-language theme reads correctly at primary vs secondary level.
