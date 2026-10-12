@@ -188,7 +188,7 @@ function emit(blocks) {
         else out += `#sectionhead(${S(b.text)})\n`;
         break;
       }
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""}${b.top ? ", top: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
@@ -2982,6 +2982,23 @@ function unifyFullStops(blocks) {
 //     and a matrix number left at the head of an activities / standard cell;
 //   * every run of numbered list items (1. 2. 3. / a) b) c)): counts on by one from 1/a;
 //   * every S/N column: 1, 2, 3 … in one form.
+// A year's Key Competences table comes before that year's level page (competences, then
+// YEAR 2, then the matrix), so its heading was filed in the contents as a sub-entry of
+// whatever came before it: History Content's Year 2 competences sat under "1.15 Attempts
+// at World Peace", inside Year 1, and Year 1's under Background. A competences heading
+// whose next heading is a level line is a top-level contents entry, beside the YEARs.
+function topCompetenceHeadings(blocks) {
+  const LEVEL = /^(?:(?:year|form|grade)\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+  const isHead = (b) => b && ["h1", "h2", "head", "h3"].includes(b.t);
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!(b && b.t === "h2" && /competen/i.test(b.text || "") && !LEVEL.test(String(b.text || "").trim()))) continue;
+    let j = i + 1;
+    while (j < blocks.length && !isHead(blocks[j])) j++;
+    if (j < blocks.length && LEVEL.test(String(blocks[j].text || "").replace(/\s+/g, " ").trim())) b.top = true;
+  }
+}
+
 function auditSyllabusNumbering(blocks) {
   const issues = [];
   const say = (where, msg) => issues.push(`${where}: ${msg}`);
@@ -5749,6 +5766,7 @@ function normaliseQuestionMarkBold(blocks) {
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
     // finished blocks -- after every heading, cell and list has taken its final form.
     unifyFullStops(blocks);
+    topCompetenceHeadings(blocks);
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }

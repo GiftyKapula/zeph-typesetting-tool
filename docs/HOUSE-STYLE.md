@@ -70,6 +70,7 @@ ways:
 | **top-level** (`h1`) | **BOLD CAPS + short rule, own page**, level-1 contents entry | Vision, Preface, Acknowledgement, Background/Introduction; and at the back Appendices, Glossary, References, Prescribed Textbooks |
 | **sub-section** (`h2`) | **tracked BOLD CAPS**, flows, level-2 contents entry | Rationale, Aim, Outcomes, Admission Requirements, Assessment, Course Description, Competences and Descriptors, Time Allocation … |
 | year / form / grade line (`h2`, matched by name) | a **divider page** of its own (it was a filled banner over the matrix until 2026-10-12), level-1 entry | `YEAR 1` / `FIRST YEAR` / `FORM 1` / `GRADE 1` |
+| a year's competences heading (`h2` whose next heading is a year/form/grade line) | tracked BOLD CAPS like a sub-section, but a **level-1** contents entry, just above its YEAR: it was filed under the previous year's last topic | `Key Competences to be developed at Year Two`, `KEY COMPETENCES`, `General Competences and Descriptors` |
 | data line (`label`) | plain bold, not a heading, not in contents | `Total 40%`, `CA + EXAM = 100%` |
 
 Past the matrix a section title is only recognised when it carries **no digit** —
