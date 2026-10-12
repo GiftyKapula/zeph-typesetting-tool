@@ -1,0 +1,144 @@
+{
+  "_comment": [
+    "Musical Arts Education: Content -- Secondary Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-12. Layout, numbering and spelling repairs only: NONE of these",
+    "rewrites a competence, an activity or an expected standard.",
+    "",
+    "THE FILE NAME ('MUSIC CONTENT VALIDATED SYLLABUS TED (1)') names neither the level nor",
+    "the year. The cover is set from the manuscript's own cover page instead: 'MUSICAL ARTS",
+    "EDUCATION SYLLABUS / CONTENT / SECONDARY TEACHERS' DIPLOMA', matching the sister book",
+    "(Music Methods, set as 'Musical Arts Education Teaching Methods').",
+    "",
+    "MATRIX NUMBERING put right where the slip is plain from the rows around it (each is",
+    "listed under editCell below). The topic, sub-topic and competence WORDING is untouched.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * ISBN. The manuscript prints 978-9982-54-066-7, the template number also printed in",
+    "    the Music Methods and the Physical Education and Sport syllabuses. Left off; the",
+    "    imprint shows a blank ISBN line.",
+    "  * Year. The copyright line says 2024; the sister Music Methods syllabus says 2025.",
+    "    Set as written (2024).",
+    "  * Sub-topic 2.4.3 reads 'whole-tone scale fragments)' -- its opening words are lost",
+    "    (its competence is 'Compose melodies using modal scales and whole-tone scale",
+    "    fragments'). Set as written.",
+    "  * Year 2 has no topic 2.1 and no 2.15: the matrix goes 1.26 -> YEAR TWO -> 2.2, and",
+    "    2.14 -> 2.16. The scope and sequence chart has 2.1 School Experience 1 and 2.15",
+    "    School Experience 2 there. Set as written.",
+    "  * The scope and sequence chart's numbers and titles do not match the matrix in Year 1",
+    "    (chart 1.15 Conducting / 1.16 Harmony 1 / 1.21 Harmony 2 ...; matrix 1.14 CONDUCTING,",
+    "    1.15 HARMONY, 1.21 HARMONY 2 ...). Both set as written.",
+    "  * The chart's title was 'SCOPE AND SEQUENCE CHART - MUSICAL ARTS EDUCATION TEACHING",
+    "    METHODS' (the Methods book's title); its topics are this book's. Set as 'SCOPE AND",
+    "    SEQUENCE CHART' only.",
+    "  * Topic titles repeat: 1.4, 1.5 and 1.6 are all 'PITCH AND SCALES'; 1.18 and 2.18 are",
+    "    both 'WORLD MUSIC 2'. Set as written.",
+    "  * Key Competences: the descriptor against ENTREPRENEURSHIP is about emotional",
+    "    intelligence (as in the Methods syllabus). Set as written."
+  ],
+  "subject": "Musical Arts Education Content",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2024,
+  "remove": [
+    "ISBN: 978-9982-54-066-7"
+  ],
+  "_remove_why": "The template's ISBN line (see _comment).",
+  "setHeading": [
+    {
+      "_why": "The front-matter section titles are plain paragraphs in the manuscript, so they set as body text and reached neither a page of their own nor the contents. '(CONTENT)' is the author's note telling this Preface from the Methods book's.",
+      "find": "PREFACE (CONTENT)",
+      "text": "PREFACE",
+      "as": "label"
+    },
+    {
+      "_why": "SPELLING. Letter missing.",
+      "find": "ACKNOWLEDMENT",
+      "text": "ACKNOWLEDGEMENT",
+      "as": "label"
+    },
+    { "find": "BACKGROUND", "as": "label" },
+    { "find": "RATIONALE", "as": "label" },
+    {
+      "_why": "Sections typed as numbered list items (1. Outcomes, 2. Admission Requirements), not as headings like their siblings Aims / Duration / Graduation Requirements.",
+      "find": "Outcomes of the programme",
+      "as": "label"
+    },
+    { "find": "Admission Requirements", "as": "label" }
+  ],
+  "deleteExact": ["Duration of the Programme"],
+  "_deleteExact_why": "List item '3. Duration of the Programme' sits directly above the section's own heading 'DURATION OF THE PROGRAMME' -- the same title twice.",
+  "replaceBlocks": [
+    {
+      "_why": "The year heading above the matrix, in the family's wording, so it sets the YEAR divider page and files a top-level contents entry.",
+      "find": "YEAR ONE (1)",
+      "with": [{ "label": "YEAR 1" }]
+    },
+    {
+      "find": "YEAR TWO (2)",
+      "with": [{ "label": "YEAR 2" }]
+    },
+    {
+      "_why": "See _comment: the title named the Methods book.",
+      "find": "SCOPE AND SEQUENCE CHART - MUSICAL ARTS EDUCATION TEACHING METHODS",
+      "with": [{ "h1": "SCOPE AND SEQUENCE CHART" }]
+    },
+    {
+      "_why": "A sentence typed as a bold line, not a section: it introduces the qualification below it.",
+      "find": "The programme is for the Secondary School Teaching",
+      "with": [{ "para": "The programme is for Secondary School teaching." }]
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "The heading '2. Written Final Examinations' was left alone at the foot of a page, its paragraph overleaf.",
+      "find": "2. Written Final Examinations"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "Dash as in the Acknowledgement's 'Director – Curriculum Development'.",
+      "find": "Permanent Secretary- Educational Services",
+      "with": "Permanent Secretary – Educational Services"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "NUMBERING. Stray full stop after the topic number.",
+      "pattern": "^1\\.12\\.(?=\\s*HISTORICAL)",
+      "with": "1.12"
+    },
+    {
+      "_why": "Sub-topic of 1.9 (its competence is 1.9.1.1), numbered 9.1.",
+      "pattern": "^9\\.1(?=\\s*Singing)",
+      "with": "1.9.1"
+    },
+    {
+      "_why": "Competence of sub-topic 1.12.1, numbered 2.14.1.2.",
+      "pattern": "^2\\.14\\.1\\.2(?=\\s*Identify\\s)",
+      "with": "1.12.1.1"
+    },
+    {
+      "_why": "A space typed inside the number.",
+      "pattern": "^2\\. 7\\.1\\.2",
+      "with": "2.7.1.2"
+    },
+    {
+      "_why": "A stray comma after the sub-topic title.",
+      "pattern": "^(2\\.5\\.2 Percussion),$",
+      "with": "$1"
+    },
+    {
+      "_why": "SPELLING.",
+      "pattern": "accodingly",
+      "with": "accordingly"
+    },
+    {
+      "_why": "KEY COMPETENCES table: five descriptors end in a closing quotation mark that nothing opens.",
+      "pattern": "education\\.[\"”]$",
+      "with": "education."
+    },
+    {
+      "pattern": "development\\.[\"”]$",
+      "with": "development."
+    }
+  ]
+}
