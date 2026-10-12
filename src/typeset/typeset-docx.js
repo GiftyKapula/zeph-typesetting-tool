@@ -5455,6 +5455,11 @@ function normaliseQuestionMarkBold(blocks) {
         for (const x of segs) { x.t = whole.slice(at, at + x.t.length); at += x.t.length; }
       }
       if (c.text) c.text = tc(c.text);
+      // …and bold, in every book (publisher, 2026-10-12): a table that numbers its rows
+      // (S/N | COMPETENCE | DESCRIPTORS, the History syllabuses) set them in regular weight
+      // where the two-column tables set them bold.
+      if (segs.length) for (const x of segs) x.b = true;
+      else if (c.text && c.text.trim()) c.segs = [{ t: c.text, b: true, it: false, c: null }];
     };
     for (const b of blocks) {
       if (!Array.isArray(b.rows)) continue;
