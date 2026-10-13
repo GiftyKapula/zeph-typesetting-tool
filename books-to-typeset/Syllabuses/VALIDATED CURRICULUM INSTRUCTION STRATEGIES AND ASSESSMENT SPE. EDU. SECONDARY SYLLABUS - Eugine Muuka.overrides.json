@@ -17,7 +17,7 @@
   ],
   "replaceBlocks": [
     {
-      "_why": "The five weighting lines are tab-aligned in the manuscript (number + item | percentage). The engine set the first three as paragraphs, where the deeper numbers 6.1.1./6.1.2. overprinted the word after them, and the last two as a two-column grid, so the percentages sat in two different places. Rebuilt as ONE two-column grid with the manuscript's own numbers, wording and percentages.",
+      "_why": "Numbers set as 6.1, 6.1.1 … with no dot after them, as the family sets every multi-part number. The five weighting lines are tab-aligned in the manuscript (number + item | percentage). The engine set the first three as paragraphs, where the deeper numbers 6.1.1./6.1.2. overprinted the word after them, and the last two as a two-column grid, so the percentages sat in two different places. Rebuilt as ONE two-column grid with the manuscript's own numbers, wording and percentages.",
       "find": "6.1. Continuous Assessment 40%",
       "with": [
         {
@@ -29,35 +29,35 @@
               {
                 "marker": "",
                 "cells": [
-                  "6.1. Continuous Assessment",
+                  "6.1 Continuous Assessment",
                   "40%"
                 ]
               },
               {
                 "marker": "",
                 "cells": [
-                  "6.1.1. Assignment (two)",
+                  "6.1.1 Assignment (two)",
                   "10%"
                 ]
               },
               {
                 "marker": "",
                 "cells": [
-                  "6.1.2. Presentation/Projects",
+                  "6.1.2 Presentation/Projects",
                   "15%"
                 ]
               },
               {
                 "marker": "",
                 "cells": [
-                  "6.1.3. Test (three)",
+                  "6.1.3 Test (three)",
                   "15%"
                 ]
               },
               {
                 "marker": "",
                 "cells": [
-                  "6.2. Final Examination",
+                  "6.2 Final Examination",
                   "60%"
                 ]
               }

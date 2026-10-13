@@ -59,7 +59,11 @@ family** (page numbering in brackets):
 | next | Vision / Preface / Acknowledgement / Introduction — **each on its own page** | roman, visible |
 | then | Level divider page (e.g. "SECONDARY TEACHER'S DIPLOMA") | **arabic 1** |
 | then | Competences & Descriptors | arabic |
-| then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix. Standard from 2026-10-12 | arabic |
+| then | **A divider page for the level of the matrix that follows** (`YEAR 1`, `FORM 1`, `GRADE 1`) — a full page, set like the level divider — then that level's matrix from the head of the next page. One before each year's matrix — and only one: a manuscript that names the year over its competences as well, or twice over the matrix, keeps just the heading that opens the matrix (a same-named line after the matrix, labelling that year's weightings, stays a plain bold line). A year typed only OVER its competences moves below them, to open the matrix; a year merged across the top of the competences table comes out of it. Standard from 2026-10-12 | arabic |
+
+**Matrix column heads:** the sub-topic column is always headed **`SUB-TOPIC`**, with the hyphen
+(publisher, 2026-10-12), whatever the manuscript typed (`SUBTOPIC`, `SUB TOPIC`, `Sub-topic`);
+a `Topic` beside it is set `TOPIC` to match. Enforced by `hyphenateSubTopicHeader`.
 
 **Heading levels**, also enforced — a manuscript's own styling is normalised to
 these, because two books in the family were heading their pages three different
@@ -69,8 +73,20 @@ ways:
 |---|---|---|
 | **top-level** (`h1`) | **BOLD CAPS + short rule, own page**, level-1 contents entry | Vision, Preface, Acknowledgement, Background/Introduction; and at the back Appendices, Glossary, References, Prescribed Textbooks |
 | **sub-section** (`h2`) | **tracked BOLD CAPS**, flows, level-2 contents entry | Rationale, Aim, Outcomes, Admission Requirements, Assessment, Course Description, Competences and Descriptors, Time Allocation … |
-| year / form / grade line (`h2`, matched by name) | a **divider page** of its own (it was a filled banner over the matrix until 2026-10-12), level-1 entry | `YEAR 1` / `FIRST YEAR` / `FORM 1` / `GRADE 1` |
+| year / form / grade line (`h2`, matched by name) | a **divider page** of its own (it was a filled banner over the matrix until 2026-10-12), level-1 entry; a Word Heading 1 over the matrix is set the same way | `YEAR 1` / `YEAR ONE` / `FIRST YEAR` / `FORM 1` / `GRADE 1` |
+| a year's competences heading (`h2` whose next heading is a year/form/grade line) | tracked BOLD CAPS like a sub-section, but a **level-1** contents entry, just above its YEAR: it was filed under the previous year's last topic | `Key Competences to be developed at Year Two`, `KEY COMPETENCES`, `General Competences and Descriptors` |
 | data line (`label`) | plain bold, not a heading, not in contents | `Total 40%`, `CA + EXAM = 100%` |
+
+**Breathing space above every heading** (publisher, 2026-10-12: "there should always be some
+breathing space on top of each heading, especially the ones in the front matter"). A heading
+sits clearly nearer the text it opens than the text above it: 28pt above a sub-section head,
+20pt above a numbered/bold head ("1. College-Based Assessment"), 10pt above a bold label —
+all weak, so none at the head of a page. Every one of them, and a short all-bold lettered
+item ("b) Academic Qualifications"), is kept with the text that follows: none is left alone at
+the foot of a page. A sidecar `pageBreakBefore` set to dodge a page-end under the old, tighter
+spacing may now misfire — re-look at the page after any spacing change.
+
+**Spaces around punctuation, as typed, are closed up** (2026-10-13): "group work , debate" → "group work, debate", "play ,Brain storm" → "play, Brain storm", "one year ." → "one year.", "( keyboard" → "(keyboard", "Deficits )" → "Deficits)". Dot leaders, ellipses and a colon between figures are left alone (`tidyPunctuationSpaces`, syllabus family).
 
 Past the matrix a section title is only recognised when it carries **no digit** —
 that is what keeps the assessment weightings out of the heading stream.
@@ -96,7 +112,7 @@ later ones in title case; another typed its competences in title case):
 | matrix **TOPIC** | **BOLD UPPERCASE** |
 | matrix **SUB-TOPIC** | bold title case — *not* uppercase |
 | matrix SPECIFIC COMPETENCE / ACTIVITIES / EXPECTED STANDARD | sentence case |
-| competences table **COMPETENCE** | a capital on each word, the rest small ("Analytical Thinking", "Creativity and Innovation") — *not* uppercase. Standard from 2026-10-12; this column only |
+| competences table **COMPETENCE** | **bold, full capitals** ("ANALYTICAL THINKING", "CREATIVITY AND INNOVATION"), whatever the manuscript typed. Standard from 2026-10-12 (later that day it replaced "a capital on each word", asked for that morning); this column only — the descriptors beside it stay in sentence case |
 | competences table DESCRIPTORS | sentence case |
 
 The competence column is found by its own header wherever it sits, so a table
@@ -145,7 +161,13 @@ Six more, from the Physical Education and Sport syllabus:
   line runs on from the activity above it when it opens with a bracket, an
   ellipsis or a small letter, or is in italics (`(Bandages, scissors, GV paint…)`);
   otherwise it is an activity whose bullet was left off. A cell with no bullets
-  at all, or with one on every line, is bulleted line by line as before.
+  at all, or with one on every line, is bulleted line by line as before — except
+  a cell with no bullets laid out as method / activities (History Methods types
+  `Research` / `Researching on …` as plain paragraphs alike): it opens on a line
+  wholly in bold, ends on a plain one, every line is wholly bold or wholly plain,
+  and no two bold lines stand together. Its bold lines are methods. A cell where
+  the author bolded some activities (two bold lines running, a half-bold line)
+  keeps every bullet. A method line drops the spaces typed in front of it.
 - **The competences section is found by what it heads** when its title names no
   "descriptors" (`KEY COMPETENCES`): the heading over the COMPETENCES |
   DESCRIPTORS table opens the body (level divider, arabic page 1).
@@ -188,8 +210,24 @@ either fixed in the sidecar (where the right number is plain from the rows aroun
 or written into the sidecar's `_comment` as an author query. Matrix numbers also take
 **no dot after them** (`1.5.1.1 Produce…`, not `1.5.1.1. Produce…`): the engine drops a
 single trailing dot from TOPIC / SUB-TOPIC / COMPETENCE numbers, as the demo book sets
-them. A section number outside the matrix (`6.1. Continuous Assessment`) is the
-author's style and is left alone.
+them. The same holds **outside the matrix**: a multi-part number heading a list item, a
+line, a box line or a weightings grid row (`6.1. Continuous Assessment`, a Word list's
+`1.1.1.`) loses its trailing dot too, so one book never sets `1.1` in the matrix and
+`1.1.` in its course outline. A single number (`1. TERM ONE`) keeps its dot.
+
+**Uniformity of marks** (the publisher's standing rule, 2026-10-12: every mark of one kind
+looks the same at a given text size, book-wide):
+- List bullets, numbers and letters (`•`, `1.`, `a)`), and the numbers of a weightings
+  grid, are set in the text colour and regular weight, whatever the item's own weight.
+  (Bullets were the theme's grey, numbers a shade off the text, and a number went bold
+  whenever its item opened in bold.) The item text keeps its own bold.
+- A run of numbers that reaches 10 takes one marker width, so items 10+ line up with 1-9.
+- S/N columns are bare numbers, 1, 2, 3, in every book (no "1.").
+- Each SUB-TOPIC and COMPETENCE column takes one weight across the book, the one most of
+  its cells already have.
+- A sub-topic whose title the manuscript lost still gets its **number** in the empty
+  sub-topic cell (`1.4.3`, no title invented), and its competences count from 1 under it;
+  the title goes to the author as a query.
 
 **Matrix numbers that are all Word list numbers** (none typed) are often wrong on
 the page: the lists restart, change list mid-topic and go on counting in the
@@ -213,6 +251,9 @@ Four more, from the Music Methods syllabus:
 - **A file named `… TED` is a syllabus** even with the word "syllabus" left out
   (`MUSIC METHODS VALIDATED TED (5)`); it used to typeset as a portrait
   learner's book. A download's copy counter (`(5)`) is dropped from the subject.
+  So is one carrying only `VALIDATED` / `VALIDATION`, CDC's validation tag
+  (`CIVIC EDUCATION CONTENT  VALIDATED`); no learner's book is filed so. A file
+  with neither (`CIVIC EDUCATION METHODS`) needs `"theme": "gensyl"` in its sidecar.
 - **When the file name gives no level or year**, the sidecar's `level` and
   `year` supply them (with `subject`, they also feed the footer masthead). Take
   them from the manuscript's own cover and copyright line.
@@ -351,8 +392,9 @@ off, so a change only touches the books that opt in. Keys:
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
 | `removeRow` | delete a whole table row, matched by any one cell's exact text (`find`) or its opening text (`startsWith`) — for a row the author duplicated, or a clause withdrawn after validation. Never matches the header row. `remove` deletes a whole block and `editCell` only rewrites text, so this is the way to drop one row of a syllabus matrix |
+| `keepRowWhole` | never split one TABLE ROW across a page, matched like `removeRow` (`find` = a cell's whole text, or `startsWith`) — for a long matrix row whose page break carries one bullet into an otherwise empty row overleaf |
 | `levelPageAfterCompetences` | `true` moves a syllabus’s level page ("SECONDARY TEACHERS’ DIPLOMA") from ahead of the competences section to after its table, in front of the first YEAR matrix; arabic page 1 then opens on the competences |
-| `insertRow` | put a row merged across the table, holding `text`, before the first body row with a cell matching `find` (whole text) or `startsWith` — a `YEAR 2` row in a syllabus matrix that runs both years as one table; the family lifts it out as the YEAR banner |
+| `insertRow` | put a row merged across the table, holding `text`, before the first body row with a cell matching `find` (whole text) or `startsWith` — a `YEAR 2` row in a syllabus matrix that runs both years as one table; the family lifts it out as the YEAR banner. With `cells: [...]` instead of `text`, an ordinary row of those cells (a Key Competences row the manuscript left out) |
 | `coverColour` | a 6-digit hex value (`"1f5c3a"`) — syllabus family only. The colour of the cover and back-cover field. A syllabus on the generic theme otherwise takes one from a fixed set of twelve deep colours, picked by its subject name (the same book always gets the same one; none repeats a named theme's orange, teal or indigo). Set this when two subjects land on the same or a near colour |
 | `renumberMatrix` | `true` — syllabus family only. Drops every number in the TOPIC, SUB-TOPIC and COMPETENCE columns of the matrix (and of a YEARS | TOPIC | SUB-TOPIC scope-and-sequence chart) and counts them afresh from the table's structure: topic `Y.k`, sub-topic `Y.k.j`, competence `Y.k.j.m`, the year taken from the YEAR heading above the matrix or the chart's YEARS column. A cell holding a number and nothing else is emptied. For a manuscript whose matrix numbers are all broken Word list numbers (see §2a) — never for numbers the author typed |
 | `editCell` | rewrite a table cell whose whole trimmed text equals `find`. Rewrites the cell's rich runs alongside its plain text, so a syllabus matrix cell (which renders its clause number from the text but its body from the runs) stays intact. With `pattern` (a regular expression) instead of `find`, every matching body cell has the match replaced — one rule for a slip repeated down a whole matrix (a year prefix typed before every number). With `row` + `col`, it rewrites that column of the row holding a cell whose text is `row`; add `under` to touch only the table(s) whose nearest preceding heading contains that text — a Year 1 and a Year 2 Key Competences table share their row names |

@@ -347,7 +347,10 @@ function autoTheme(name) {
   // how some of them are filed, with the word "syllabus" left out altogether ("MUSIC
   // METHODS VALIDATED TED"). That one fell through to `navy` and typeset as a portrait
   // B5 learner's book — the same wrong-family trap described below.
-  if (/syllabus/i.test(name) || /\bTED\b/.test(name)) {
+  // …or "VALIDATED" / "VALIDATION": CDC's tag on a syllabus that has been through
+  // validation, and the only marker some carry ("CIVIC EDUCATION CONTENT  VALIDATED"
+  // went to `navy` too). No learner's book or teacher's guide is filed so.
+  if (/syllabus/i.test(name) || /\bTED\b/.test(name) || /\bvalidat(?:ed|ion)\b/i.test(name)) {
     if (/travel|tourism/i.test(name)) return "travelsyl";
     // Devices and Materials Production. Checked BEFORE Special Education: this
     // syllabus is itself *for* learners with special educational needs, so its

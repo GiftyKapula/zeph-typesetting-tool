@@ -83,10 +83,6 @@
   ],
   "pageBreakBefore": [
     {
-      "_why": "The last two lines of SUGGESTED TEACHING METHODOLOGIES fell alone on the page before the level divider. Its two closing paragraphs now go over together.",
-      "find": "The teacher should have reasons for choosing a particular teaching method"
-    },
-    {
       "_why": "The last entry of RECOMMENDED REFERENCES fell alone on the last page of the book. The list is two alphabetical runs typed one after the other (Burke ... Sommer, then Beashel ... Pfeiffer); the second run now opens the last page.",
       "find": "Beashel, P; Sibson, A. and Taylor, J. (1984)"
     }

@@ -1,0 +1,338 @@
+{
+  "_comment": [
+    "Inclusive Education -- Early Childhood Education Teachers' Diploma syllabus. First",
+    "typeset 2026-10-12. Layout, spelling and NUMBERING repairs only: none of these rewrites",
+    "a competence, an activity or an expected standard.",
+    "",
+    "NUMBERING (2026-10-12, at the typesetter's request). The Year 1 matrix numbered two",
+    "topics 1.3, so every topic after Legal Frameworks was one behind -- behind the",
+    "manuscript's own Scope and Sequence Chart, and behind its own competences, most of",
+    "which already carried the right topic number (1.4.x.x under Learning in Diversity,",
+    "1.5.x.x under Differentiated Communication, 1.6.3 under Teaching Methodologies). The",
+    "second 1.3 and the six topics after it move up one (1.4 ... 1.10), which also closes",
+    "the gap before 1.11 Action Research; their sub-topics follow, and each competence takes",
+    "the number of the sub-topic it sits beside. See cellSubtext below for every change.",
+    "Two of those are a judgement, not arithmetic:",
+    "  * 'Examine strategies that assist in managing different behaviours' (typed 1.7.2.1)",
+    "    is 1.8.1.1, under 1.8.1 Managing Inclusive Classroom;",
+    "  * 'Evaluate existing assigned inclusive schools' (typed 1.8.1.2) is 1.8.2.1, under",
+    "    1.8.2 Inclusive School and classroom administrative practices.",
+    "",
+    "STILL OUTSTANDING -- needs the author, not the typesetter:",
+    "  * Action Research is topic 1.11 in the matrix but sub-topic 1.10.3 (under Assistive",
+    "    Technology) in the Scope and Sequence Chart. The chart is left as written.",
+    "  * The chart's sub-topic lists are a shorter summary and do not match the matrix one",
+    "    for one (e.g. it has no Developmental domains, so its 1.4.1 is the matrix's 1.4.2).",
+    "  * Sub-topics with no competence of their own: 1.2.2 (it shares a row with 1.2.1, whose",
+    "    one competence is numbered 1.2.1.1), 1.4.2 (the Learning in Diversity row runs",
+    "    1.4.1.1-1.4.1.4, 1.4.3.1, 1.4.4.1) and 1.11.2.",
+    "  * Learning in Diversity is ONE matrix row holding four sub-topics, six competences and all",
+    "    their activities and standards, so it runs over a page break; splitting it means",
+    "    deciding which activity belongs to which competence.",
+    "  * 1.8.3 Facilitators and Barriers: the first two activities are the same sentence",
+    "    ('Discussing in groups to Identify barriers to Inclusive Education'); the first was",
+    "    presumably meant to read 'facilitators'. Left as written.",
+    "  * Possible slips left as written: 'Apply specify strategies' (1.6.1.1), 'budding system'",
+    "    (twice, 1.6.1), 'Human Rights Mode of Disability' (1.1.4), 'Describing the effects of",
+    "    Inclusive Education' under climate change (2.2.5).",
+    "  * Assessment: TOTAL 100% and PASS MARK 40% are typed once, after Year Two.",
+    "  * Time Allocation reads '2 hours per week / Year 1: - (36 weeks) / Year 2: - (12 weeks)'.",
+    "  * No ISBN yet."
+  ],
+  "textFix": [
+    {
+      "_why": "Spelling, in competence 1.1.2.3.",
+      "find": "Analyase",
+      "with": "Analyse"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "The topic title was broken into two lines inside its Word column, so the second line set as a separate, unnumbered topic (and as its own contents entry).",
+      "find": "1.3. Inclusive Education\nLegal Frameworks and Policies (Global & National)",
+      "with": "1.3. Inclusive Education Legal Frameworks and Policies (Global & National)",
+      "bold": true
+    },
+    {
+      "_why": "A stray full stop on a line of its own between the two competences. Both are renumbered to their sub-topics (see _comment): typed 1.7.2.1 and 1.8.1.2.",
+      "find": "1.7.2.1. Examine strategies that assist in managing different behaviours\n.\n1.8.1.2 Evaluate existing assigned inclusive schools",
+      "with": "1.8.1.1 Examine strategies that assist in managing different behaviours\n1.8.2.1 Evaluate existing assigned inclusive schools",
+      "bold": false
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "TOPICS. The second topic numbered 1.3; it and the six after it move up one.",
+      "from": "1.3. Learning in Diversity",
+      "to": "1.4 Learning in Diversity"
+    },
+    {
+      "from": "1.4. Differentiated Communication",
+      "to": "1.5 Differentiated Communication"
+    },
+    {
+      "from": "1.5. Inclusive Teaching methodologies",
+      "to": "1.6 Inclusive Teaching methodologies"
+    },
+    {
+      "from": "1.6. Inclusive Learner Assessment",
+      "to": "1.7 Inclusive Learner Assessment"
+    },
+    {
+      "from": "1.7. Inclusive Classroom Management",
+      "to": "1.8 Inclusive Classroom Management"
+    },
+    {
+      "from": "1.8. Production of inclusive",
+      "to": "1.9 Production of inclusive"
+    },
+    {
+      "from": "1.9. Assistive Technology",
+      "to": "1.10 Assistive Technology"
+    },
+    {
+      "_why": "SUB-TOPICS follow their topic. (1.4.4 Traditional Disabilities and 1.6.3 Teacher qualities were already typed with the right number.)",
+      "from": "1.3.1. Developmental domains",
+      "to": "1.4.1 Developmental domains"
+    },
+    {
+      "from": "1.3.2. Emerging disability groups",
+      "to": "1.4.2 Emerging disability groups"
+    },
+    {
+      "from": "1.3.3. Specific Learning Disabilities",
+      "to": "1.4.3 Specific Learning Disabilities"
+    },
+    {
+      "from": "1.4.1. Inclusive communication systems",
+      "to": "1.5.1 Inclusive communication systems"
+    },
+    {
+      "from": "1.4.2. Braille Education",
+      "to": "1.5.2 Braille Education"
+    },
+    {
+      "from": "1.5.1. Inclusive Strategies",
+      "to": "1.6.1 Inclusive Strategies"
+    },
+    {
+      "from": "1.5.2. Inclusive Pedagogies",
+      "to": "1.6.2 Inclusive Pedagogies"
+    },
+    {
+      "from": "1.6.1. Approaches in Inclusive Learner",
+      "to": "1.7.1 Approaches in Inclusive Learner"
+    },
+    {
+      "from": "1.6.2. Learners",
+      "to": "1.7.2 Learners"
+    },
+    {
+      "from": "1.7.1. Managing Inclusive Classroom",
+      "to": "1.8.1 Managing Inclusive Classroom"
+    },
+    {
+      "from": "1.7.2. Inclusive School and classroom",
+      "to": "1.8.2 Inclusive School and classroom"
+    },
+    {
+      "from": "1.7.3. Facilitators and Barriers",
+      "to": "1.8.3 Facilitators and Barriers"
+    },
+    {
+      "from": "1.8.1. Material production",
+      "to": "1.9.1 Material production"
+    },
+    {
+      "from": "1.9.1. Education technology",
+      "to": "1.10.1 Education technology"
+    },
+    {
+      "from": "1.9.2. Assistive Devices EduTech",
+      "to": "1.10.2 Assistive Devices EduTech"
+    },
+    {
+      "_why": "COMPETENCES take the number of the sub-topic they sit beside. (1.4.x.x, 1.5.1.1 Use different communication skills, 1.5.2.1 Use Braille and 1.6.3.1 were already right.)",
+      "from": "1.5.1.1. Apply specify",
+      "to": "1.6.1.1 Apply specify"
+    },
+    {
+      "from": "1.5.2.1. Demonstrate skills in applying",
+      "to": "1.6.2.1 Demonstrate skills in applying"
+    },
+    {
+      "from": "1.6.1.1. Use different forms",
+      "to": "1.7.1.1 Use different forms"
+    },
+    {
+      "from": "1.6.2.1. Provide feedback",
+      "to": "1.7.2.1 Provide feedback"
+    },
+    {
+      "from": "1.10.1.1 Identify facilitators",
+      "to": "1.8.3.1 Identify facilitators"
+    },
+    {
+      "from": "1.10.1.2 Identify barriers",
+      "to": "1.8.3.2 Identify barriers"
+    },
+    {
+      "from": "1.7.1.1 Develop appropriate",
+      "to": "1.9.1.1 Develop appropriate"
+    },
+    {
+      "from": "1.9.1.1. Demonstrate skills in the use of Assistive Technologies",
+      "to": "1.10.1.1 Demonstrate skills in the use of Assistive Technologies"
+    },
+    {
+      "from": "1.9.2.1. Demonstrate skills in the use of Assistive devices",
+      "to": "1.10.2.1 Demonstrate skills in the use of Assistive devices"
+    },
+    {
+      "_why": "Year 2: third competence under sub-topic 2.1.2, after 2.1.2.1 and 2.1.2.2.",
+      "from": "2.1.1.3. Design and implement",
+      "to": "2.1.2.3 Design and implement"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "The weightings are tab-aligned in the manuscript and half of them are Word list items, so they set as a heading, three bullets, loose bold lines and a part-grid, with the percentages in four different places. Rebuilt as one two-column grid per year with the manuscript's own wording, order and figures ('1 test 10' given its % sign). The last line is a marker for removeRange below, which takes out the manuscript's own copy.",
+      "find": "- Reflective practice (journals, research, portfolios)",
+      "with": [
+        {
+          "para": "- Reflective practice (journals, research, portfolios)"
+        },
+        {
+          "label": "Assessment methods and weightings"
+        },
+        {
+          "para": "**YEAR ONE**"
+        },
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "Continuous Assessment",
+                  "40%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "2 Assignments (5% Each) - (Seminar presentations / fieldwork)",
+                  "10%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "3 Tests (5% Each)",
+                  "15%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Practical – Peer Teaching & Production of T/L Aids, Braille & Sign Language skills",
+                  "15%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Promotion Examination",
+                  "60%"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**YEAR TWO (2 terms of school experience)**"
+        },
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "Continuous Assessment",
+                  "40%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "1 Action Research Report Project",
+                  "20%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "1 Assignment",
+                  "10%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "1 test",
+                  "10%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Final Examination",
+                  "60%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "TOTAL",
+                  "100%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "PASS MARK",
+                  "40%"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "para": "[[manuscript weightings follow]]"
+        }
+      ]
+    }
+  ],
+  "removeRange": [
+    {
+      "_why": "The manuscript's own weighting lines, rebuilt above.",
+      "from": "[[manuscript weightings follow]]",
+      "to": "Time Allocation"
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Split at the page foot, row 2.2.5 (Disability, Education and Climate Change Awareness) carried its last bullet ('Discussing prevention strategies when faced with climatic disaster') onto a page of its own. Kept whole, the row opens the next page.",
+      "startsWith": "2.2.5.1"
+    }
+  ]
+}

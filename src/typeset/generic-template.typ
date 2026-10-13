@@ -1300,9 +1300,14 @@
   // A cell often begins with its own number ("6. hobby"). Colour that leading number
   // the SAME primary/bold as the row marker so every number in the grid matches —
   // the rest of the cell stays in body ink.
+  // In a syllabus every list number is set one way, text colour and regular (see
+  // listitem): a grid's numbers follow it, or Autism's "5.1 Continuous Assessment" stood
+  // bold where Curriculum Instruction Strategies' identical weightings were regular.
+  let numFill = if syllabus { T.ink } else { T.primary }
+  let numWeight = if syllabus { "regular" } else { "bold" }
   let cell(c) = {
     let m = c.match(regex("^(\\(?\\d+[.)])\\s+(.*)$"))
-    if m != none [#text(fill: T.primary, weight: "bold")[#m.captures.at(0)] #m.captures.at(1)] else [#c]
+    if m != none [#text(fill: numFill, weight: numWeight)[#m.captures.at(0)] #m.captures.at(1)] else [#c]
   }
   // An optional header row (e.g. "Hundreds Tens Ones" over a place-value chart): one
   // bold label per body column, sitting over the marker-column with a blank so each
@@ -1312,10 +1317,13 @@
     (mk + header.map(h => text(weight: "bold")[#h])).flatten()
   } else { () }
   block(above: 6pt, below: 6pt, width: 100%)[
+    // (Ragged: a cell that wraps is a short label, and justifying it across half a
+    // landscape page opened rivers between its words.)
+    #set par(justify: not syllabus)
     #grid(columns: cols, column-gutter: 10pt, row-gutter: 6pt, align: left + top,
       ..headRow,
       ..rows.map(r => {
-        let mk = if hasMarker { (text(fill: T.primary, weight: "bold")[#r.marker],) } else { () }
+        let mk = if hasMarker { (text(fill: numFill, weight: numWeight)[#r.marker],) } else { () }
         mk + r.cells.map(c => cell(c))
       }).flatten())
   ]
@@ -1450,9 +1458,11 @@
   }
   else if align == "center" { block(width: 100%)[#std.align(center, par[#segs(ss)])] }
   else if align == "right" { block(width: 100%)[#std.align(right, par[#segs(ss)])] }
-  else if syllabus and ss.len() > 0 and (ss.map(s => s.at("t", default: "")).join(default: "")).match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+")) != none {
+  else if syllabus and ss.len() > 0 and (ss.map(s => s.at("t", default: "")).join(default: "")).match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+")) != none and (ss.map(s => s.at("t", default: "")).join(default: "")).match(regex("^\\d+\\s+[a-z]")) == none {
     // SYLLABUS numbered item ("1. …", "2.1 …"): a HANGING item — the number in its own
     // column, the text aligned under itself, with a clear gap after the number.
+    // (A bare figure running into a lower-case word is a quantity, not an item number:
+    // "2 hours per week" under Time Allocation was set with its 2 hung out as a number.)
     let p = ss.map(s => s.at("t", default: "")).join(default: "")
     let m = p.match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+"))
     let num = m.captures.at(0)
@@ -1479,7 +1489,7 @@
   else { flowsegs(ss) }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
-#let listitem(ss, marker) = {
+#let listitem(ss, marker, wide: false) = {
   let isbullet = marker == "•"
   // A numbered/lettered marker used to be bold unconditionally — right for the
   // common case (a bold numbered step), but it left the marker visibly bolder
@@ -1489,9 +1499,32 @@
   // instead of forcing bold, so it always agrees with its text.
   let firstseg = ss.find(s => s.t.trim() != "")
   let contentBold = firstseg != none and firstseg.at("b", default: false)
-  grid(columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top),
-    text(fill: if isbullet { iaccent2 } else { T.primary }, weight: if isbullet { "regular" } else if contentBold { "bold" } else { "regular" })[#marker],
-    par[#segs(ss)])
+  // A syllabus sets every list mark one way, book-wide (the publisher's rule of uniformity:
+  // a mark beside text of one size looks the same everywhere). The theme's grey accent left
+  // the front-matter bullets paler than the matrix bullets; the numbers took the theme's
+  // primary, a shade off the text; and a number went bold whenever its item opened in bold,
+  // so "a)" was bold in one list and regular in the next. Now: the text's own colour,
+  // regular weight, for bullets, numbers and letters alike. The item text keeps its bold.
+  let syl = T.variant == "syllabus"
+  let mkFill = if syl { T.ink } else if isbullet { iaccent2 } else { T.primary }
+  let mkWeight = if syl or isbullet { "regular" } else if contentBold { "bold" } else { "regular" }
+  let mk = text(fill: mkFill, weight: mkWeight)[#marker]
+  // `wide`: one item of a numbered run that counts into two figures — every item's
+  // marker column is the width of "00." in the marker's weight, so the item texts line up.
+  let item = if wide {
+    context grid(columns: (measure(text(weight: mkWeight)[00.]).width, 1fr), column-gutter: 7pt, align: (left + top, left + top), mk, par[#segs(ss)])
+  } else {
+    grid(columns: (auto, 1fr), column-gutter: 7pt, align: (left + top, left + top), mk, par[#segs(ss)])
+  }
+  // In a syllabus a short, all-bold lettered/numbered item ("b) Academic Qualifications")
+  // is a run-in heading for the text under it: keep it with that text, never alone at the
+  // foot of a page (Physical Education and Sport, once headings took more room above).
+  let txts = ss.map(s => { let t = s.at("t", default: ""); if type(t) == str { t } else { "x" } })
+  let alltxt = txts.join("").trim()
+  let allBold = ss.all(s => { let t = s.at("t", default: ""); (type(t) == str and t.trim() == "") or s.at("b", default: false) })
+  if syllabus and not isbullet and allBold and alltxt.len() <= 60 and not alltxt.ends-with(".") {
+    block(sticky: true, breakable: false, item)
+  } else { item }
 }
 // A worked-solution CONTINUATION line: a stand-alone equation that carries on the
 // numbered step above it (e.g. under "1. 2A = …" the next line "2A + D = …"). The
@@ -1751,14 +1784,15 @@
     v(6pt)
   }
 }
-#let subhead(t, nobrk: false) = {
+#let subhead(t, nobrk: false, top: false) = {
   // In a SYLLABUS only the YEAR banners start on their own page; the front-matter
   // sub-sections (Methodologies, Assessment, CBA, Time Allocation…) FLOW as normal
   // headings under their parent section (Introduction), so they don't page-break.
   // "FIRST YEAR" as well as "YEAR 1" — CDC manuscripts write the year either way, and
   // the book keeps whichever wording its own manuscript used.
-  // …and "FORM 1" / "GRADE 1", the levels of a school syllabus.
-  let isyear = syllabus and t.trim().match(regex("(?i)^((year|form|grade)\\s+\\d+(\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
+  // …and "FORM 1" / "GRADE 1", the levels of a school syllabus; and the number in words,
+  // "YEAR ONE" (Civic Education Content).
+  let isyear = syllabus and t.trim().match(regex("(?i)^((year|form|grade)\\s+(\\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)(\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$")) != none
   // The level a matrix belongs to has a PAGE of its own (standard from 2026-10-12): a
   // divider like the one that opens the body, after the competences chart and before
   // each year's matrix, so the book says in large type which level the pages that
@@ -1766,13 +1800,17 @@
   // page; the matrix starts at the head of the next page.
   if isyear { divider(t, toc: if tocUnitsOnly { none } else { t }); return }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
-  // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them.
+  // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them;
+  // so is a year's Key Competences heading (`top`, set at build time), which comes just
+  // before its YEAR page and was otherwise filed under the previous year's last topic.
   if not tocUnitsOnly {
-    if isyear { mark(1, t) } else { mark(2, t) }
+    if isyear or top { mark(1, t) } else { mark(2, t) }
   }
   // Clear space ABOVE a heading — a syllabus front-matter sub-section needs real
   // separation from the paragraph before it (the weak 7pt collapsed to almost nothing).
-  v(if syllabus and not isyear { 18pt } else { 7pt }, weak: true)
+  // (a syllabus heading takes clearly more room above it than below, so it reads with the
+  // text it opens rather than floating between two paragraphs; weak, so none at a page top)
+  v(if syllabus and not isyear { 28pt } else { 7pt }, weak: true)
   if boxstyle == "labcard" {
     // CHEMISTRY sub-topic: a small amber label+number eyebrow, the name below in
     // amethyst bold, over a single thin rule. Split on the first colon.
@@ -1831,7 +1869,9 @@
   v(5pt)
 }
 #let head(t, al: none, black: false, col: none) = {
-  if serieslike { v(13pt, weak: true) } else { v(5pt) }
+  // a syllabus front-matter head ("1. College-Based Assessment") gets breathing space above
+  // it, like the sub-section heads; weak, so none at the head of a page
+  if serieslike { v(13pt, weak: true) } else if syllabus { v(20pt, weak: true) } else { v(5pt) }
   let body = if serieslike {
     // activities/exercises in teal, other bold sub-subheads in ink (like the ref);
     // sticky so the heading stays with the content that follows it. `black` forces the
@@ -1863,13 +1903,14 @@
     // Learning") hangs its number in a fixed 7mm column so the title lines up with the
     // indented body paragraph beneath it.
     let m = t.match(regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+"))
+    // sticky: kept with its first paragraph, never left alone at the foot of a page
     if m != none {
-      block(breakable: false)[
+      block(breakable: false, sticky: true)[
         #grid(columns: (7mm, 1fr), column-gutter: 0pt, align: (left + top, left + top),
           text(fill: T.ink, size: hs(13pt), weight: "bold")[#m.captures.at(0)],
           text(fill: T.ink, size: hs(13pt), weight: "bold")[#t.slice(m.text.len())])]
     } else {
-      block(breakable: false)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
+      block(breakable: false, sticky: true)[#text(fill: T.ink, size: hs(13pt), weight: "bold")[#t]]
     }
   } else {
     block(breakable: false)[
@@ -1881,7 +1922,7 @@
   if al == "center" { std.align(center)[#body] } else { body }
   v(2pt)
 }
-#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
+#let lbl(t, col: none) = { if syllabus { v(10pt, weak: true) } else { v(2pt) }; let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
 
 // ---- boxes ---------------------------------------------------------------
 // modern:   light fill + thick accent LEFT stripe.
@@ -2211,11 +2252,19 @@
       let first = if type(l) == array { l.find(s => s.t.trim() != "") } else { none }
       ltext(l).trim(at: start).match(regex("^[(\\[…a-z]")) != none or (first != none and first.at("it", default: false))
     }
+    // A method line is set flush left, so the spaces some manuscripts type before it
+    // ("     Research") are dropped; otherwise it stood indented against its siblings.
+    let trimL(l) = if type(l) == array { let m = l; if m.len() > 0 { m.at(0) = (..m.at(0), t: m.at(0).t.trim(at: start)) }; m } else { l.trim(at: start) }
+    let lineOut(x) = if type(x) == array { segs(x) } else { x }
+    // Lay out ("h", method) / ("b", activity) items: a method flush left across both
+    // columns, an activity behind its bullet.
+    let actGrid(items) = grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
+      ..items.map(it => if it.at(0) == "h" { (grid.cell(colspan: 2, lineOut(it.at(1))),) } else { (text[•], lineOut(it.at(1))) }).flatten())
     if lines.any(isBul) {
       let items = ()
       for l in lines {
         if isBul(l) { items.push(("b", clean(l))) }
-        else if allBold(l) { items.push(("h", l)) }
+        else if allBold(l) { items.push(("h", trimL(l))) }
         else if items.len() == 0 or items.last().at(0) == "h" or not runsOn(l) { items.push(("b", l)) }
         else {
           let prev = items.pop()
@@ -2223,12 +2272,21 @@
           items.push((prev.at(0), joined))
         }
       }
-      let lineOut(x) = if type(x) == array { segs(x) } else { x }
-      grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
-        ..items.map(it => if it.at(0) == "h" { (grid.cell(colspan: 2, lineOut(it.at(1))),) } else { (text[•], lineOut(it.at(1))) }).flatten())
+      actGrid(items)
     } else if lines.len() == 0 { cell(c) } else {
-      grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
-        ..lines.map(l => { let cl = clean(l); (text[•], if type(cl) == array { segs(cl) } else { cl }) }).flatten())
+      // No bullets in the source either: every line is an activity — unless the cell is
+      // laid out as METHOD / activities, METHOD / activities … ("Research" / "Researching
+      // on …"): it opens on a line wholly in bold, ends on a plain one, every line is
+      // either wholly bold or wholly plain, and no two bold lines stand together. Then the
+      // bold lines are the teaching methods, set flush left without a bullet as in a
+      // bulleted cell. (The History Methods syllabus types method and activity alike as
+      // plain paragraphs in some cells.) A cell whose author bolded some ACTIVITIES —
+      // two bold lines running, a bold line last, a half-bold line — keeps every bullet.
+      let noBold(l) = type(l) != array or l.all(s => not s.at("b", default: false) or s.t.match(regex("[A-Za-z0-9]")) == none)
+      let methods = (lines.len() >= 2 and allBold(lines.first()) and noBold(lines.last())
+        and lines.all(l => allBold(l) or noBold(l))
+        and range(1, lines.len()).all(i => not (allBold(lines.at(i)) and allBold(lines.at(i - 1)))))
+      actGrid(lines.map(l => { let cl = clean(l); if methods and allBold(l) { ("h", trimL(cl)) } else { ("b", cl) } }))
     }
   }
   let isEmptyCell(x, y) = {
@@ -2345,7 +2403,8 @@
     // its early topics in caps and its later ones in title case — so normalise here
     // rather than leaving the column looking like two different styles down the page.
     // …except in the COMPETENCES | DESCRIPTORS table, whose first column lands here too
-    // (it has no TOPIC header, so it is column 0): competence names are set with a
+    // (it has no TOPIC header, so it is column 0): competence names (in capitals since a
+    // later 2026-10-12 request; "Analytical Thinking" before that) are set with a
     // capital on each word and the rest small — the engine has already cased them.
     let compTable = sylhdr and rows.at(0).any(h => upper(plainlabel(h)).contains("DESCRIPTOR"))
     let tt = if compTable { stripLead(plainlabel(c)).trim() } else { upper(stripLead(plainlabel(c)).trim()) }
@@ -2383,28 +2442,43 @@
     } else { body }
   } else { numcell(c) }
   let tbl = if syl and sylhdr {
-    table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt),
-      fill: (col, row) => if row == 0 { T.at("matHeader", default: rgb("#d9d9d9")) } else { white },
-      table.header(..rows.at(0).map(c => align(center)[#text(fill: T.ink, weight: "bold")[#plainlabel(c)]])),
-      // A row that OPENS a topic never splits across a page: the topic title is often
-      // taller than that first row's own content, and a split strands the end of the
-      // title ("PHYSICAL DISABILITIES") in an otherwise empty row overleaf.
-      // Nor does a SHORT row — every cell a clause or two. Split, it left the last two
-      // lines of a competence ("…self-advocacy among autistic individuals.") alone in a
-      // row at the head of the next page, to save two lines at the foot of this one. A
-      // row with a long cell (a sub-topic carrying a column of competences) still breaks,
-      // or it would leave half a page empty.
-      // …unless the row is taller than a page can hold. A topic whose first row carries
-      // some 900 characters of activities or more does not fit a page whole: held
-      // unbreakable it ran on over the footer and off the sheet, losing its last lines
-      // (Music Methods 1.21, a 1,200-character list). Such a row breaks like any other.
-      ..rows.slice(1).map(r => {
-        let short = r.all(c => plainlabel(c).len() <= 160)
-        let huge = r.any(c => plainlabel(c).len() >= 900)
-        r.enumerate().map(((ci, c)) =>
-          if (ci == tc and plainlabel(c).trim() != "" and not huge) or (short and ci == 0) { table.cell(breakable: false, sylbody(ci, c, r)) }
-          else { sylbody(ci, c, r) })
-      }).flatten())
+    layout(size => {
+      // …unless that row is taller than a page can hold. An author who types a whole
+      // topic into ONE row (four sub-topics, six competences and their activities side
+      // by side) makes a row no page can take; held together it ran straight through
+      // the footer and off the sheet. So measure the row at its real column widths and
+      // keep it whole only when it fits under the repeated header.
+      let allfr = cols.all(c => type(c) == fraction)
+      let total = if allfr { cols.map(c => c / 1fr).sum() } else { 1.0 }
+      let rowFits(r) = {
+        if not allfr or size.height > 5000pt { true } else {
+          let hs = r.enumerate().map(((ci, c)) => measure(block(
+            width: calc.max(size.width * (cols.at(ci) / 1fr) / total - 2 * (ix + 2pt), 10pt),
+            sylbody(ci, c, r))).height)
+          calc.max(..hs) + 2 * (iy + 1.5pt) < size.height - 48pt
+        }
+      }
+      table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt),
+        fill: (col, row) => if row == 0 { T.at("matHeader", default: rgb("#d9d9d9")) } else { white },
+        table.header(..rows.at(0).map(c => align(center)[#text(fill: T.ink, weight: "bold")[#plainlabel(c)]])),
+        // A row that OPENS a topic never splits across a page: the topic title is often
+        // taller than that first row's own content, and a split strands the end of the
+        // title ("PHYSICAL DISABILITIES") in an otherwise empty row overleaf.
+        // Nor does a SHORT row — every cell a clause or two. Split, it left the last two
+        // lines of a competence ("…self-advocacy among autistic individuals.") alone in a
+        // row at the head of the next page, to save two lines at the foot of this one. A
+        // row with a long cell (a sub-topic carrying a column of competences) still breaks,
+        // or it would leave half a page empty.
+        ..rows.slice(1).map(r => {
+          // (and never a row with a 900-character cell: Music Methods 1.21, kept whole by
+          // the character count before the measured fit existed -- both hold)
+          let whole = r.len() > tc and plainlabel(r.at(tc)).trim() != "" and r.all(c => plainlabel(c).len() < 900) and rowFits(r)
+          let short = r.all(c => plainlabel(c).len() <= 160) or r.any(c => c.at("keep", default: false))   // or sidecar keepRowWhole
+          r.enumerate().map(((ci, c)) =>
+            if (ci == tc and whole) or (short and ci == 0) { table.cell(breakable: false, sylbody(ci, c, r)) }
+            else { sylbody(ci, c, r) })
+        }).flatten())
+    })
   } else if syl {
     table(columns: cols, stroke: sylStroke, inset: (x: ix + 2pt, y: iy + 1.5pt), fill: white,
       ..rows.map(r => r.enumerate().map(((ci, c)) => sylbody(ci, c, r))).flatten())
