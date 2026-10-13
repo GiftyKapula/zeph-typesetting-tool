@@ -1,0 +1,117 @@
+{
+  "_comment": [
+    "Computer Science -- Secondary School Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-13.",
+    "",
+    "LEVEL / YEAR. Secondary School Teachers' Diploma, as the manuscript's cover and title page say;",
+    "2025 as on the copyright line (the manuscript's cover says 2026). The manuscript also carries",
+    "leftover cover text from another syllabus (Design & Technology, Senior Secondary School); the",
+    "cover and title page are drawn from the theme, so none prints.",
+    "",
+    "LAID OUT BY COURSE. Year -> Term -> Course -> matrix, numbered Year.Course.Topic (1.1.1). The",
+    "engine (courseOutline) sets one level page per year, each term as a heading under it, each course",
+    "on a fresh page, and a contents list of years and courses.",
+    "",
+    "MATRIX NUMBERS. renumberMatrix: the typed numbers slip in places, the table structure does not.",
+    "Counted afresh within each course:",
+    " - Course 2.2 Cyber Security was numbered 2.1.x throughout (as if it were Robotics): now 2.2.x;",
+    "   its topics also ran 2.1.6, 2.1.8, 2.1.8, 2.1.9 -> 2.2.6, 2.2.7, 2.2.8, 2.2.9.",
+    " - 1.8 Operating Systems, 1.9 Web Design and 2.3 Mobile Apps each ran topics 6, 8, 8: now 6, 7, 8.",
+    " - Course 1.7's first competence was typed 1.6.1.1.1; 1.7.6.1's 1.7.5.3.1; 2.1.2.2's 2.1.2.1.2.",
+    " - 1.3.3.2 .2, 1.3.9.1 .3 (a space inside), 1.3.10.1.1.3 (a part too many), '1.6.2.2.1 1.'.",
+    "CDC to confirm.",
+    "",
+    "REFERENCES (setHeading, keep). Each course's reading sits under its course name; the manuscript styles the",
+    "reading labels anything from Heading 1 to plain, so six opened a page of their own and stranded the",
+    "course name above them at a page foot. Every label is a small bold label under its course, out of the contents."
+  ],
+  "level": "Secondary School Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "setHeading": [
+    {
+      "find": "References/Prescribed Reading",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "References / Prescribed Reading",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Prescribed Reading",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "References",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Recommended Reading",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Supplementary Readings (Including Zambian Authors)",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Zambian Context & Supplementary Readings:",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Online Resources",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "References and Recommended Book Readings",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "References and Recommended Resources",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Prescribed Books",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Verifiable References and Recommended Resources",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Recommended IDE / Development Environments",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Recommended editors for website design",
+      "as": "label",
+      "all": true,
+      "keep": true
+    }
+  ]
+}

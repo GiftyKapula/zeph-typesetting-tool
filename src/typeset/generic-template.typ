@@ -2328,9 +2328,15 @@
     let w(s) = measure(if bold { text(weight: "bold")[#s] } else { text[#s] }).width
     calc.max(w(num), w(std))
   }
-  let hang(num, bold, rest) = context grid(
+  // A syllabus numbered by course (Year.Course.Topic: competences run to "1.2.3.6.1")
+  // sets the number on its own line over the text: hung beside it, the five-part number
+  // left the competence a strip a few words wide, and a topic word ("FUNDAMENTALS") ran
+  // through the cell's right border.
+  let hang(num, bold, rest) = if T.at("courseNums", default: false) {
+    stack(spacing: 3pt, if bold { text(weight: "bold")[#num] } else { num }, rest)
+  } else { context grid(
     columns: (numCol(num, bold), 1fr), column-gutter: 6pt, align: (left + top, left + top),
-    if bold { text(weight: "bold")[#num] } else { num }, rest)
+    if bold { text(weight: "bold")[#num] } else { num }, rest) }
   let numRe1 = regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+")
   let numcell(c) = {
     let ct = plainlabel(c)
@@ -2436,7 +2442,9 @@
       let titles = tlines.map(s => s.replace(numRe, m => tidyNum(m.captures.at(0)) + " "))
       let entry(s, first) = {
         let label = if num == "" or not first or s.match(regex("^\\d+\\.\\d")) != none { s } else { num + " " + s }
-        tocentry(2, label)
+        // a syllabus laid out by course files its topics under the course, at
+        // one level below what the contents shows, so it lists years and courses (courseOutline)
+        tocentry(T.at("matrixToc", default: 2), label)
       }
       [#titles.enumerate().map(((i, s)) => entry(s, i == 0)).join()#body]
     } else { body }

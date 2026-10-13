@@ -1600,6 +1600,9 @@ function applyOverrides(blocks, ov) {
       const blk = blocks[i];
       blk.text = sh.text != null ? sh.text : blockPlain(blk).trim();
       blk.t = sh.as || blk.t;
+      // keep: true -- the kind set here is final; the syllabus section pass, which lifts a
+      // reading-list title after the matrix to a page of its own, leaves it alone
+      if (sh.keep) blk.noPromote = true;
       delete blk.segs; delete blk.marker; delete blk.isList; delete blk.numId; delete blk.lvl;
       n++;
       if (!sh.all) break;
@@ -3189,6 +3192,60 @@ function dedupeLevelHeadings(blocks) {
   if (dropped || demoted || moved) console.log(`   level headings: one page per level (${dropped} repeat(s) dropped${demoted ? `, ${demoted} after the matrix set as a plain line` : ""}${moved ? `, ${moved} moved below the competences to open the matrix` : ""})`);
 }
 
+// A syllabus laid out by COURSE (Computer Science, ICT): "YEAR ONE – TERM 1", then
+// "COURSE 1.1: COMPUTER MATHEMATICS", "Course Content" and the course's matrix, numbered
+// Year.Course.Topic (1.1.1 NUMBER SYSTEMS). The manuscripts set those lines in any Word
+// style (Heading 1, 2, 3, a bold label) and either case ("Course 1.5: Database"), and
+// name the year only inside the term line, so no level page was set. Here:
+//   * the first term line of each year is preceded by that year's level page (YEAR ONE),
+//     and each term line becomes "TERM 1", a plain head under it;
+//   * each course is a contents entry in capitals, opening a fresh page;
+//   * the "Course Outline" title over the first term and every "Course Content" line go
+//     (the year page and the course heading say both);
+// and the caller files the matrix topics one contents level down, so the contents lists
+// years and courses, not the hundred-odd topics. Returns true when the book is laid out
+// by course. Applies only with two or more "COURSE n.n" headings.
+const COURSE_RE = /^course\s+(\d+)\.(\d+)\s*[:.\-–]?\s*(.*)$/i;
+function courseOutline(blocks) {
+  const isHead = (b) => b && ["h1", "h2", "h3", "head", "label"].includes(b.t);
+  const txt = (b) => String(b.text || "").replace(/\s+/g, " ").trim();
+  if (blocks.filter((b) => isHead(b) && COURSE_RE.test(txt(b))).length < 2) return false;
+  const TERM_RE = new RegExp(`^year\\s+(${NUMWORD_RE})\\s*[–\\-—:,]?\\s*term\\s+(${NUMWORD_RE})$`, "i");
+  let year = 0, term = 0, terms = 0, courses = 0, dropped = 0;
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!isHead(b)) continue;
+    const t = txt(b);
+    if (/^course\s+(outline|content)s?$/i.test(t)) { blocks.splice(i, 1); i--; dropped++; continue; }
+    const tm = t.match(TERM_RE);
+    if (tm) {
+      const y = numOrWord(tm[1]), tn = numOrWord(tm[2]);
+      const head = { t: "head", text: `TERM ${tn}` };
+      // the same term typed again over its next course ("YEAR ONE – TERM 2" over C++,
+      // "YEAR 1 – TERM 2" over Database) is not a new term: the course just opens a page
+      if (y === year && tn === term) { blocks.splice(i, 1); i--; dropped++; continue; }
+      term = tn;
+      if (y !== year) {
+        year = y;
+        blocks.splice(i, 1, { t: "h2", text: `YEAR ${NUMWORD[y - 1].toUpperCase()}` }, head);
+        i++;
+      } else blocks.splice(i, 1, { t: "pagebreak" }, head), i++;
+      terms++;
+      continue;
+    }
+    const cm = t.match(COURSE_RE);
+    if (cm) {
+      const out = { t: "h2", text: `COURSE ${cm[1]}.${cm[2]}: ${cm[3].trim().toUpperCase()}` };
+      // a course opens a fresh page, unless its term heading has just done so
+      if (blocks[i - 1] && blocks[i - 1].t === "head" && /^TERM \d+$/.test(blocks[i - 1].text)) blocks[i] = out;
+      else { blocks.splice(i, 1, { t: "pagebreak" }, out); i++; }
+      courses++;
+    }
+  }
+  console.log(`   course outline: ${courses} course(s) in ${terms} term(s), one level page per year${dropped ? `, ${dropped} repeated or "Course Outline/Content" line(s) dropped` : ""}`);
+  return true;
+}
+
 // A year's Key Competences table comes before that year's level page (competences, then
 // YEAR 2, then the matrix), so its heading was filed in the contents as a sub-entry of
 // whatever came before it: History Content's Year 2 competences sat under "1.15 Attempts
@@ -3269,12 +3326,18 @@ function auditSyllabusNumbering(blocks) {
   const lines = (c) => String((c && c.text) || "").split("\n").map((l) => l.trim()).filter(Boolean);
 
   let year = 0, tables = 0;
+  // Under a "COURSE 1.2: …" heading (courseOutline) every matrix number carries the course
+  // after the year -- topic 1.2.3, sub-topic 1.2.3.1, competence 1.2.3.1.1 -- one part
+  // longer at each level, and counting starts afresh in each course.
+  let course = null;
   const seen = { topic: null, sub: null, comp: null };
   for (const b of blocks) {
     if (!b || typeof b !== "object") continue;
     if (!Array.isArray(b.rows)) {
       const y = yearOf(b.text || blockPlain(b));
-      if (y && y !== year) { year = y; seen.topic = seen.sub = seen.comp = null; }
+      if (y && y !== year) { year = y; course = null; seen.topic = seen.sub = seen.comp = null; }
+      const cm = /^h[123]$|^head$/.test(b.t) && String(b.text || "").trim().match(COURSE_RE);
+      if (cm) { course = [+cm[1], +cm[2]]; seen.topic = seen.sub = seen.comp = null; }
       continue;
     }
     if (!Array.isArray(b.rows[0])) continue;
@@ -3294,7 +3357,8 @@ function auditSyllabusNumbering(blocks) {
     // A course outline that leads with a TERM column numbers by term (1.x, 2.x, 3.x under
     // one YEAR heading), so its first number is not the year.
     const byTerm = H.some((h) => /^TERMS?$/.test(h));
-    const cols = [[tc, "topic", 2], [sc, "sub-topic", 3], [cc, "competence", 4]];
+    const off = course ? 1 : 0;
+    const cols = [[tc, "topic", 2 + off], [sc, "sub-topic", 3 + off], [cc, "competence", 4 + off]];
     for (const row of b.rows.slice(1)) {
       if (!Array.isArray(row)) continue;
       // a YEAR row merged across the matrix (one text, however many cells it spans)
@@ -3320,24 +3384,27 @@ function auditSyllabusNumbering(blocks) {
           if (n.parts.length !== depth) { say(where, `${n.parts.length} parts, a ${kind} number has ${depth}`); return; }
           if (n.parts.some((x) => !Number.isFinite(x))) return;
           if (year && !byTerm && n.parts[0] !== year) say(where, `year ${n.parts[0]}, but this is the Year ${year} matrix`);
+          if (course && n.parts[1] !== course[1]) say(where, `course ${n.parts[0]}.${n.parts[1]}, but this is the Course ${course.join(".")} matrix`);
           const key = (arr) => arr.join(".");
+          // T, S, C: the positions of the topic, sub-topic and competence counters
+          const T = 1 + off, S = 2 + off, C = 3 + off;
           if (kind === "topic") {
             const prev = seen.topic;
-            const want = prev && prev[0] === n.parts[0] ? prev[1] + 1 : 1;
-            if (n.parts[1] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${n.parts[0]}.${want})` : `the first topic is numbered ${n.parts[1]}`);
+            const want = prev && key(prev.slice(0, T)) === key(n.parts.slice(0, T)) ? prev[T] + 1 : 1;
+            if (n.parts[T] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${key(n.parts.slice(0, T))}.${want})` : `the first topic is numbered ${n.parts[T]}`);
             seen.topic = n.parts; seen.sub = seen.comp = null;
           } else if (kind === "sub-topic") {
-            if (seen.topic && key(n.parts.slice(0, 2)) !== key(seen.topic)) say(where, `filed under topic ${key(seen.topic)}`);
+            if (seen.topic && key(n.parts.slice(0, S)) !== key(seen.topic)) say(where, `filed under topic ${key(seen.topic)}`);
             const prev = seen.sub;
-            const want = prev && key(prev.slice(0, 2)) === key(n.parts.slice(0, 2)) ? prev[2] + 1 : 1;
-            if (n.parts[2] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${key(n.parts.slice(0, 2))}.${want})` : `the first sub-topic is numbered ${n.parts[2]}`);
+            const want = prev && key(prev.slice(0, S)) === key(n.parts.slice(0, S)) ? prev[S] + 1 : 1;
+            if (n.parts[S] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${key(n.parts.slice(0, S))}.${want})` : `the first sub-topic is numbered ${n.parts[S]}`);
             seen.sub = n.parts; seen.comp = null; rowSubs.push(key(n.parts));
           } else {
-            const parent = key(n.parts.slice(0, 3));
+            const parent = key(n.parts.slice(0, C));
             if (seen.sub && parent !== key(seen.sub) && !rowSubs.includes(parent)) say(where, `filed under sub-topic ${key(seen.sub)}`);
             const prev = seen.comp;
-            const want = prev && key(prev.slice(0, 3)) === key(n.parts.slice(0, 3)) ? prev[3] + 1 : 1;
-            if (n.parts[3] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${key(n.parts.slice(0, 3))}.${want})` : `the first competence is numbered ${n.parts[3]}`);
+            const want = prev && key(prev.slice(0, C)) === key(n.parts.slice(0, C)) ? prev[C] + 1 : 1;
+            if (n.parts[C] !== want) say(where, prev ? `comes after ${key(prev)} (expected ${key(n.parts.slice(0, C))}.${want})` : `the first competence is numbered ${n.parts[C]}`);
             seen.comp = n.parts;
           }
         });
@@ -3416,7 +3483,16 @@ function reorderBackmatter(blocks) {
 
   // Case 1: Standalone References heading block
   let refIdx = blocks.findIndex((b) => b && (b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para") && /^references\b/i.test(getText(b).trim()));
-  if (refIdx >= 0) {
+  // References already in the back matter, with no glossary to go after, stay where they
+  // are. Computer Science lists its references course by course under sub-headings, then
+  // its APPENDICES: only the run up to the first sub-heading was lifted, to the very end
+  // of the book, past the appendices, with the rest of the list left behind.
+  const hasGloss = blocks.some((b) => b && /^GLOSSARY\b/i.test(getText(b).trim()) && b.t !== "para");
+  const isMatrix = (b) => b && b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0])
+    && b.rows[0].some((c) => /^\s*TOPIC/i.test((c && c.text) || ""))
+    && b.rows[0].some((c) => /^\s*SUB[\s-]*TOPIC/i.test((c && c.text) || ""));
+  if (refIdx >= 0 && !hasGloss && blocks.some(isMatrix) && !blocks.slice(refIdx).some(isMatrix)) refIdx = -1;
+  else if (refIdx >= 0) {
     // A title naming two things at once ("REFERENCES/PRESCRIBED READING") keeps its own
     // wording — cut back to "REFERENCES" it dropped half of what the section is.
     const own = getText(blocks[refIdx]).trim();
@@ -4616,8 +4692,8 @@ function flattenSyllabusBoxes(blocks) {
 function fixSyllabusSignatures(blocks) {
   const txtOf = (b) => (b ? (blockPlain(b) || "").trim() : "");
   const prevNonEmpty = (from) => { let j = from; while (j >= 0 && txtOf(blocks[j]) === "") j--; return j; };
-  const bold = (t) => ({ t: "para", plain: t, segs: [{ t, b: true, it: false, c: null }] });
-  const plain = (t) => ({ t: "para", plain: t, segs: [{ t, b: false, it: false, c: null }] });
+  const bold = (t) => ({ t: "para", plain: t, segs: [{ t, b: true, it: false, c: null }], sig: true });
+  const plain = (t) => ({ t: "para", plain: t, segs: [{ t, b: false, it: false, c: null }], sig: true });
   // The same three lines typed as ONE paragraph with line breaks (name / office /
   // MINISTRY OF EDUCATION under Shift+Enter): it set as a solid bold block hard under
   // the last line of the Preface. Split it, so the pass below finds its three lines.
@@ -4626,6 +4702,19 @@ function fixSyllabusSignatures(blocks) {
     const lines = (blockPlain(blocks[i]) || "").split("\n").map((s) => s.trim()).filter(Boolean);
     if (lines.length !== 3 || !/^ministry of education$/i.test(lines[2]) || lines.some((l) => l.length > 80)) continue;
     blocks.splice(i, 1, ...lines.map(plain));
+    i += 2;
+  }
+  // A two-line signatory with no ministry line under it -- "Charles Ndakala (Dr.)" and
+  // "Director – Curriculum Development" in one bold paragraph (Computer Science) -- came
+  // in as a single bold label, set as a heading and listed in the contents. NAME (title)
+  // bold, the office plain, a clear space above.
+  const SIG2 = /^(.{3,60}?\((?:Dr|PhD|Prof|Mr|Mrs|Ms)\.?\))\s*((?:Director|Permanent Secretary|Deputy Director|Chief|Senior)\b.{0,80})$/i;
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!["label", "head", "h3", "para"].includes(b.t)) continue;
+    const m = txtOf(b).replace(/\s+/g, " ").match(SIG2);
+    if (!m || /^ministry of education$/i.test(txtOf(blocks[i + 1]))) continue;
+    blocks.splice(i, 1, { t: "sigspace" }, bold(m[1].trim()), plain(m[2].trim()));
     i += 2;
   }
   for (let i = 0; i < blocks.length; i++) {
@@ -4639,6 +4728,16 @@ function fixSyllabusSignatures(blocks) {
     blocks[ni] = bold(txtOf(blocks[ni]));
     blocks.splice(ni, 0, { t: "sigspace" });
     i++;
+  }
+  // Each signatory sets as one unbreakable block: as loose paragraphs the Computer Science
+  // Preface's "Kelvin Mambwe (PhD)" sat at the foot of one page, his office overleaf.
+  for (let i = 0; i < blocks.length; i++) {
+    if (blocks[i].t !== "sigspace") continue;
+    let j = i + 1;
+    while (j < blocks.length && blocks[j].sig) j++;
+    if (j - i < 3) continue;   // a name alone is not a signatory block
+    const lines = blocks.slice(i + 1, j).map((b) => ({ text: b.plain, bold: !!b.segs[0].b }));
+    blocks.splice(i + 1, j - i - 1, { t: "signature", lines });
   }
   return blocks;
 }
@@ -5499,9 +5598,11 @@ function normaliseQuestionMarkBold(blocks) {
       };
       // a line minus its number: { had, rest }. Takes off whatever else leads the line
       // once a number has gone: a second, typed copy of it ("1.1.2 1.1.2. Reasons for
-      // learning history" -- a list number in front of a typed one) and the stray dots
-      // an author types after a list number (".Meaning of History", "..Communicate").
-      const LEADJUNK = /^\s*(?:(?:\d+(?:\.\d+)+\.?|\d+\.)(?=[\s.]|$)\s*|[.:;,]+\s*)/;
+      // learning history" -- a list number in front of a typed one), the stray dots
+      // an author types after a list number (".Meaning of History", "..Communicate"), and
+      // the last part of a number typed after a space ("1.3.3.2 .2 Construct", Computer
+      // Science), which left a lone "2" at the head of the text.
+      const LEADJUNK = /^\s*(?:(?:\d+(?:\.\d+)+\.?|\d+\.)(?=[\s.]|$)\s*|\.\d+(?=\s|$)\s*|[.:;,]+\s*)/;
       const strip = (line) => {
         const m = txt(line).match(NUM);
         if (!m) return { had: false, rest: line };
@@ -5532,12 +5633,16 @@ function normaliseQuestionMarkBold(blocks) {
         setLines(c, out);
         return n;
       };
+      // `year` is the numbers' prefix: the year, or under a "COURSE 1.2: …" heading the
+      // year and course ("1.2", so topic 1.2.3), counted afresh in each course.
       let year = 0, k = 0, j = 0, m = 0;
       const tally = {};
       for (const b of blocks) {
         if (b.t !== "table") {
           const y = yearOf(b.text || blockPlain(b));
           if (y) { year = y; k = j = m = 0; }
+          const cm = /^h[123]$|^head$|^label$/.test(b.t) && String(b.text || "").replace(/\s+/g, " ").trim().match(COURSE_RE);
+          if (cm) { year = `${+cm[1]}.${+cm[2]}`; k = j = m = 0; }
           continue;
         }
         if (!Array.isArray(b.rows) || b.rows.length < 2 || !Array.isArray(b.rows[0])) continue;
@@ -5556,7 +5661,7 @@ function normaliseQuestionMarkBold(blocks) {
           if (comps && (!k || !j)) console.warn(`!  renumberMatrix: a competence with no ${k ? "sub-topic" : "topic"} above it (${year}.${k}.${j}.${m})`);
         }
       }
-      console.log("   renumbered the matrix from its structure:", Object.keys(tally).map((y) => `year ${y}: ${tally[y]} topics`).join("; ") || "nothing found");
+      console.log("   renumbered the matrix from its structure:", Object.keys(tally).map((y) => `${String(y).includes(".") ? "course" : "year"} ${y}: ${tally[y]} topics`).join("; ") || "nothing found");
     }
     // Matrix numbers take NO dot after them: "1.5.1.1 Produce…", never "1.5.1.1. Produce…"
     // (the demo book, and every syllabus but the two that typed them so -- Devices and
@@ -5750,7 +5855,8 @@ function normaliseQuestionMarkBold(blocks) {
     // A trailing colon marks a run-in lead-in ("Course Name:"), not a section; a leading
     // digit marks a numbered item ("1. Project-Based Learning"), which head() already
     // hangs on its number and which the reference does not set as a section either.
-    const isSectionLabel = (b) => (b.t === "label" || b.t === "head")
+    // (not a head a sidecar set as one with asHead: noPromote keeps it where it was put)
+    const isSectionLabel = (b) => (b.t === "label" || b.t === "head") && !b.noPromote
       && (b.text || "").trim() && (b.text || "").trim().length <= 80
       && !/:$/.test((b.text || "").trim()) && !/^\d/.test((b.text || "").trim());
     // Which of those sections are TOP-LEVEL. In the reference book (Travel & Tourism)
@@ -5845,7 +5951,7 @@ function normaliseQuestionMarkBold(blocks) {
     // takes the page and the rule, and they flow beneath it as its sub-sections — each
     // opening a page of its own left the parent alone on an otherwise empty page.
     {
-      const isHeadB = (b) => b && (b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t));
+      const isHeadB = (b) => b && !b.noPromote && (b.t === "label" || b.t === "head" || /^h[123]$/.test(b.t));
       // ("REFERENCES/PRESCRIBED READING": two of them sharing one heading.)
       // …and the SCOPE AND SEQUENCE CHART that closes some syllabuses, whatever follows
       // the words ("… CHART (PROPOSED FRAME-WORK)"): set as a sub-section it started
@@ -6186,6 +6292,11 @@ function normaliseQuestionMarkBold(blocks) {
   // auditSyllabusNumbering): a clean build log says nothing about a "1.10.1.1." or a
   // competence numbered under the wrong topic.
   if (variant === "syllabus") {
+    // by course: the contents lists years and courses; the topics go one level down
+    if (courseOutline(blocks)) {
+      themeOverrides.matrixToc = (themeOverrides.tocDepth || (THEMES[theme] || {}).tocDepth || 2) + 1;
+      themeOverrides.courseNums = true;   // matrix numbers over their text, not hung beside it
+    }
     dedupeLevelHeadings(blocks);
     tidyPunctuationSpaces(blocks);
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
