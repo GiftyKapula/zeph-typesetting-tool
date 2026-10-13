@@ -1,0 +1,36 @@
+{
+  "_comment": [
+    "Religious Education Teaching Methods -- Secondary Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-13.",
+    "",
+    "LEVEL / YEAR. As the cover says; 2025 as on the copyright line.",
+    "",
+    "YEAR 2. The matrix is one unbroken table for both years; the YEAR 2 banner goes before topic 2.1 Teaching Experience 1",
+    "(insertRow), where the manuscript's own contents list starts Year 2.",
+    "MATRIX NUMBERS. renumberMatrix: Word list numbers that run on (sub-topics 1.1.7, 1.1.8 under topic 1.2, then 1.2.3; 1.5.1",
+    "twice; a sub-topic with no number, Role of the Teacher in Classroom Management; 2.2.2.3/2.2.2.4 under 2.2.3/2.2.4).",
+    "Counted afresh from the table structure. CDC to confirm.",
+    "STRAY BACKSLASH. The last matrix row has a lone \"\\\" in its TOPIC cell, which set a topic 2.4 with no title (and a contents entry); emptied, so the row carries on topic 2.3 (its competence is 2.3.1.3).",
+    "AUTHOR QUERY: 1.5.2 Role of the Teacher in Classroom Management and 1.5.3 Management of TLSM share ONE sub-topic cell, with",
+    " three competences beside them; counted from the structure they are 1.5.3.1-1.5.3.3 (the manuscript numbered the first 1.5.2.1).",
+    " CDC to say which competences belong to 1.5.2 and split the row."
+  ],
+  "subject": "Religious Education Teaching Methods",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "insertRow": [
+    {
+      "_why": "Year 2 starts at topic 2.1 (see _comment).",
+      "startsWith": "2.1",
+      "text": "YEAR TWO"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "a lone backslash in a TOPIC cell",
+      "pattern": "^\\s*\\\\\\s*$",
+      "with": ""
+    }
+  ]
+}

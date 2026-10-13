@@ -2606,7 +2606,8 @@ function applyOverrides(blocks, ov) {
     }
     const start = blocks.findIndex((b, i) => i >= base && blockPlain(b).includes(rr.from));
     if (start < 0) { console.warn("!  removeRange start not matched:", rr.from); continue; }
-    let end = blocks.findIndex((b, i) => i > start && blockPlain(b).includes(rr.to));
+    // (no `to`: to the end of the book -- the second of two syllabuses typed in one file)
+    let end = rr.to == null ? blocks.length : blocks.findIndex((b, i) => i > start && blockPlain(b).includes(rr.to));
     if (end < 0) { console.warn("!  removeRange end not matched:", rr.to); continue; }
     blocks.splice(start, end - start);
   }
@@ -3246,6 +3247,96 @@ function courseOutline(blocks) {
   return true;
 }
 
+// One matrix, one table. A manuscript that breaks its matrix into a new Word table at
+// every page (Entrepreneurship: eleven pieces, each repeating the header row) printed a
+// fresh header part-way down the page wherever a piece ended. A matrix table followed,
+// with nothing but empty paragraphs between, by another with the same header row -- or
+// with no header row at all -- carries on as the first. Runs BEFORE the sidecar, so a
+// piece with no header row is not taken for a table whose first row is its header
+// (editCell never touches a header row: the rows it should have fixed went untouched).
+function mergeSplitMatrices(blocks) {
+  // A matrix whose first row is the year merged across it ("YEAR 1", then the TOPIC |
+  // SUB-TOPIC header -- Literature in Zambian Languages Teaching Methods) was not taken
+  // for a matrix at all: no level page, no numbering check. The year comes out above it
+  // as a heading, and the header row leads the table.
+  const yrRow = (r) => {
+    const ts = [...new Set((r || []).map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim()).filter(Boolean))];
+    return ts.length === 1 && new RegExp(`^(year|form|grade)\\s+(${NUMWORD_RE})$`, "i").test(ts[0]) ? ts[0] : null;
+  };
+  // A row with an empty cell more than the header row (Social Studies: two matrix rows
+  // of six against a header of five) widened the whole table by a blank column down its
+  // right edge. Trailing empty cells past the header's width go.
+  for (const b of blocks) {
+    if (!(b && b.t === "table" && Array.isArray(b.rows) && b.rows.length > 1)) continue;
+    const w = Math.max(...b.rows.slice(0, 2).map((r) => (r || []).length));
+    for (const r of b.rows) while (Array.isArray(r) && r.length > w && !String((r[r.length - 1] && r[r.length - 1].text) || "").trim()
+      && !((r[r.length - 1] && r[r.length - 1].imgs) || []).length) r.pop();
+  }
+  // A Key Competences table titled in a merged first row ("Competences to be developed in
+  // Year One", then COMPETENCES | DESCRIPTORS -- Social Studies): the title comes out
+  // above it as a heading, so the body is found to start there (it never did: no level
+  // page, and the matrix pages carried roman numbers).
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!(b && b.t === "table" && Array.isArray(b.rows) && b.rows.length > 2)) continue;
+    const ts = [...new Set((b.rows[0] || []).map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim()).filter(Boolean))];
+    const h1 = (b.rows[1] || []).map((c) => String((c && c.text) || "").toUpperCase());
+    if (ts.length !== 1 || !/competen/i.test(ts[0]) || ts[0].length > 80
+      || !h1.some((t) => /COMPETEN/.test(t)) || !h1.some((t) => /DESCRIPT/.test(t))) continue;
+    b.rows.shift();
+    blocks.splice(i, 0, { t: "h2", text: ts[0].toUpperCase() });
+    i++;
+  }
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!(b && b.t === "table" && Array.isArray(b.rows) && b.rows.length > 2)) continue;
+    const y = yrRow(b.rows[0]);
+    const h1 = (b.rows[1] || []).map((c) => String((c && c.text) || "").toUpperCase());
+    if (!y || !h1.some((t) => /^\s*TOPIC/.test(t)) || !h1.some((t) => /^\s*SUB[\s-]*TOPIC/.test(t))) continue;
+    b.rows.shift();
+    blocks.splice(i, 0, { t: "h2", text: y.toUpperCase() });
+    i++;
+    console.log(`   matrix: ${y} row over the header set as the year heading`);
+  }
+  const hdr = (b) => (b.rows[0] || []).map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase().replace(/^SUB[\s-]*TOPICS?$/, "SUB-TOPIC")).join("|");
+  const isMat = (b) => b && b.t === "table" && Array.isArray(b.rows) && b.rows.length && (b.rows[0] || []).length >= 5
+    && /\bTOPIC\b/.test(hdr(b)) && /SUB-TOPIC/.test(hdr(b));
+  let merged = 0;
+  // (any table of three or more columns joins a piece that repeats its header row exactly:
+  // ICT's Teaching Tools chart came in five pieces. A piece with NO header row joins only a
+  // matrix -- elsewhere a following headerless table may well be a different table.)
+  const isTbl3 = (b) => b && b.t === "table" && Array.isArray(b.rows) && b.rows.length && (b.rows[0] || []).length >= 3 && hdr(b).replace(/\|/g, "").trim();
+  for (let i = 0; i < blocks.length; i++) {
+    const mat = isMat(blocks[i]);
+    if (!mat && !isTbl3(blocks[i])) continue;
+    let j = i + 1;
+    while (j < blocks.length && blocks[j].t === "para" && !(blockPlain(blocks[j]) || "").trim()) j++;
+    const nb = blocks[j];
+    if (!(nb && nb.t === "table" && Array.isArray(nb.rows) && nb.rows.length && (nb.rows[0] || []).length === blocks[i].rows[0].length)) continue;
+    const same = hdr(nb) === hdr(blocks[i]);
+    const noHdr = mat && !/\bTOPIC\b/.test(hdr(nb));
+    if (!same && !noHdr) continue;
+    blocks[i].rows.push(...nb.rows.slice(same ? 1 : 0));
+    blocks.splice(i + 1, j - i);
+    merged++; i--;
+  }
+  if (merged) console.log(`   matrix: ${merged} split piece(s) joined to the table above`);
+  // …and a table carried over a page in Word by repeating its header row as a body row
+  // (Literature in Zambian Languages: "S/N | COMPETENCE | DESCRIPTORS" again at row 6)
+  // drops the repeat: the template repeats the real header on every page by itself.
+  let repeats = 0;
+  const txt = (r) => (r || []).map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase()).join("|");
+  for (const b of blocks) {
+    if (!(b && b.t === "table" && Array.isArray(b.rows) && b.rows.length > 2)) continue;
+    const h = txt(b.rows[0]);
+    if (!h.replace(/\|/g, "")) continue;
+    const keep = b.rows.filter((r, ri) => ri === 0 || txt(r) !== h);
+    repeats += b.rows.length - keep.length;
+    b.rows = keep;
+  }
+  if (repeats) console.log(`   ${repeats} repeated header row(s) dropped from inside a table`);
+}
+
 // A year's Key Competences table comes before that year's level page (competences, then
 // YEAR 2, then the matrix), so its heading was filed in the contents as a sub-entry of
 // whatever came before it: History Content's Year 2 competences sat under "1.15 Attempts
@@ -3345,7 +3436,9 @@ function auditSyllabusNumbering(blocks) {
     // S/N column of any table.
     const sn = H.findIndex((h) => /^(S\s*\/\s*N|NO\.?|S\.?\s*NO\.?)$/.test(h));
     if (sn >= 0) {
-      const vals = b.rows.slice(1).map((r) => String((r[sn] && r[sn].text) || "").trim()).filter(Boolean);
+      // (a "TERM 1" row across the chart heads the rows under it; it is not one of them --
+      // Entrepreneurship's scope chart numbers 1-11 straight through three such rows)
+      const vals = b.rows.slice(1).map((r) => String((r[sn] && r[sn].text) || "").trim()).filter((v) => v && !/^(term|year)\s+\w+$/i.test(v));
       const forms = new Set(vals.map((v) => v.replace(/\d+/g, "9")));
       if (forms.size > 1) say(`S/N column (${clip(H.join(" | "))})`, `numbers in mixed forms (${[...forms].join(", ")})`);
       vals.forEach((v, i) => { const n = parseInt(v, 10); if (n !== i + 1) say(`S/N column (${clip(H.join(" | "))})`, `row ${i + 1} numbered "${v}"`); });
@@ -3423,23 +3516,31 @@ function auditSyllabusNumbering(blocks) {
   // and ends at a heading or a table; a "1." or "a)" starts a new one. Numbers and
   // letters are counted separately, so "1." items with "a)" items under them are fine.
   const isNum = (v) => /^\d+$/.test(v);
+  // Roman numerals count as their own kind ("i. ii. iii. iv. v.": Entrepreneurship's
+  // competences, which read as letters i and v out of turn). A lone "i"/"v"/"x" is Roman
+  // when it carries on a Roman run or starts one, a letter when it follows "h"/"u"/"w".
+  const ROMAN = { i: 1, v: 5, x: 10, l: 50, c: 100 };
+  const romanVal = (s) => { let n = 0; const r = s.toLowerCase(); for (let k = 0; k < r.length; k++) { const a = ROMAN[r[k]], b2 = ROMAN[r[k + 1]] || 0; n += a < b2 ? -a : a; } return n; };
   const runs = (arr) => {
-    const last = { num: null, alpha: null };
+    const last = { num: null, alpha: null, roman: null };
     const check = (v, mk, text) => {
-      const kind = isNum(v) ? "num" : "alpha";
-      const val = isNum(v) ? +v : v.toLowerCase().charCodeAt(0) - 96;
+      const lv = v.toLowerCase();
+      const letterNext = last.alpha != null && lv.length === 1 && lv.charCodeAt(0) - 96 === last.alpha + 1;
+      const kind = isNum(v) ? "num" : (/^[ivxlc]+$/.test(lv) && !letterNext && (lv.length > 1 || lv === "i" || last.roman != null)) ? "roman" : "alpha";
+      const val = kind === "num" ? +v : kind === "roman" ? romanVal(lv) : lv.charCodeAt(0) - 96;
       if (val !== 1) {
         const want = last[kind] == null ? 1 : last[kind] + 1;
-        if (val !== want) say(`list item ${mk} "${clip(text)}"`, `expected ${kind === "num" ? want : String.fromCharCode(96 + want)}${mk.replace(/^\(?[0-9a-z]+/i, "")}`);
+        const show = kind === "num" ? want : kind === "roman" ? ["", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii"][want] || want : String.fromCharCode(96 + want);
+        if (val !== want) say(`list item ${mk} "${clip(text)}"`, `expected ${show}${mk.replace(/^\(?[0-9a-z]+/i, "")}`);
       }
       last[kind] = val;
-      if (kind === "num") last.alpha = null;
+      if (kind === "num") last.alpha = last.roman = null;
     };
     for (const b of arr) {
       if (!b || typeof b !== "object") continue;
-      if (Array.isArray(b.rows) || /^h[123]$/.test(b.t) || b.t === "divider") { last.num = last.alpha = null; continue; }
+      if (Array.isArray(b.rows) || /^h[123]$/.test(b.t) || b.t === "divider") { last.num = last.alpha = last.roman = null; continue; }
       // list items, and the numbered items of an assessment/exercise box
-      const m = (b.t === "listitem" || b.kind === "q") && typeof b.marker === "string" && b.marker.trim().match(/^\(?([0-9]+|[a-z])[.)]$/i);
+      const m = (b.t === "listitem" || b.kind === "q") && typeof b.marker === "string" && b.marker.trim().match(/^\(?([0-9]+|[ivxlc]+|[a-z])[.)]$/i);
       if (m) check(m[1], b.marker.trim(), blockPlain(b) || b.q || "");
       else {
         // "a) Age limit" typed as a plain paragraph counts too
@@ -3482,7 +3583,10 @@ function reorderBackmatter(blocks) {
   let refItems = [];
 
   // Case 1: Standalone References heading block
-  let refIdx = blocks.findIndex((b) => b && (b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para") && /^references\b/i.test(getText(b).trim()));
+  // (not a hand-typed contents line, "References ………… 32": Literature in Zambian Languages
+  // had one, and the Preface and Acknowledgements under it went to the back of the book)
+  let refIdx = blocks.findIndex((b) => b && (b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para") && /^references\b/i.test(getText(b).trim())
+    && !/[.…]{4,}/.test(getText(b)));
   // References already in the back matter, with no glossary to go after, stay where they
   // are. Computer Science lists its references course by course under sub-headings, then
   // its APPENDICES: only the run up to the first sub-heading was lifted, to the very end
@@ -4704,6 +4808,16 @@ function fixSyllabusSignatures(blocks) {
     blocks.splice(i, 1, ...lines.map(plain));
     i += 2;
   }
+  // …or the office and the ministry run on in one line ("Permanent Secretary – Education
+  // Services MINISTRY OF EDUCATION", Entrepreneurship): the ministry goes on a line of its own.
+  for (let i = 0; i < blocks.length; i++) {
+    if (blocks[i].t !== "para") continue;
+    const m = (blockPlain(blocks[i]) || "").replace(/\s+/g, " ").trim()
+      .match(/^((?:Permanent Secretary|Director|Deputy Director|Chief)\b.{0,80}?)\s+(MINISTRY OF EDUCATION)$/);
+    if (!m) continue;
+    blocks.splice(i, 1, plain(m[1]), plain(m[2]));
+    i++;
+  }
   // A two-line signatory with no ministry line under it -- "Charles Ndakala (Dr.)" and
   // "Director – Curriculum Development" in one bold paragraph (Computer Science) -- came
   // in as a single bold label, set as a heading and listed in the contents. NAME (title)
@@ -4713,7 +4827,11 @@ function fixSyllabusSignatures(blocks) {
     const b = blocks[i];
     if (!["label", "head", "h3", "para"].includes(b.t)) continue;
     const m = txtOf(b).replace(/\s+/g, " ").match(SIG2);
-    if (!m || /^ministry of education$/i.test(txtOf(blocks[i + 1]))) continue;
+    if (!m) continue;
+    // with the ministry line under it ("Kelvin Mambwe (PhD) Permanent Secretary- Education
+    // Services" on one line, Social Studies): split name from office, and the ministry pass
+    // below makes the three-line block
+    if (/^ministry of education$/i.test(txtOf(blocks[i + 1]))) { blocks.splice(i, 1, plain(m[1].trim()), plain(m[2].trim())); i++; continue; }
     blocks.splice(i, 1, { t: "sigspace" }, bold(m[1].trim()), plain(m[2].trim()));
     i += 2;
   }
@@ -4791,6 +4909,18 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
       line("No part of this publication may be reproduced, stored in a retrieval system, "
         + "or transmitted by electronic, mechanical, photocopying, recording or otherwise "
         + "without prior written permission of the copyright owner."));
+  }
+  // The "© Curriculum Development Centre, 2025" line over the notice. Religious Education
+  // Methods and Social Studies styled it Heading 1 (or typed it as the first heading of
+  // the book), and it went with the rest of the cover text: the copyright page opened on
+  // "All rights reserved". When no line before the notice names the owner, set one.
+  {
+    const at = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+    const near = blocks.slice(Math.max(0, at - 3), at + 1).map((b) => blockPlain(b) || b.text || "").join(" ");
+    if (at >= 0 && !/©|curriculum development centre,?\s*\d{4}/i.test(near)) {
+      const t = `© Curriculum Development Centre, ${year || ""}`.trim().replace(/,\s*$/, "");
+      blocks.splice(at, 0, { t: "para", plain: t, segs: [{ t, b: true, it: false, c: null }], align: "center" });
+    }
   }
   const crIdx = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
   // The copyright notice usually runs on past "All rights reserved." into the
@@ -4989,6 +5119,7 @@ async function typesetOne(docxPath, themeName) {
     if (stillMissing.length) console.warn("!  unit(s) missing a theme in the manuscript (left bare):", stillMissing.join(", "));
   }
 
+  if (variant === "syllabus") mergeSplitMatrices(blocks);
   if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.cellSubtext || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
@@ -5534,6 +5665,30 @@ function normaliseQuestionMarkBold(blocks) {
       // Only swap when a typed-out list was actually found, never on a bare heading.
       if (blocks.slice(tocHeadAt + 1, end).some(isEntry)) blocks.splice(tocHeadAt, end - tocHeadAt, { t: "toc" });
     }
+    // Typed contents lines left after the contents Word generated: Literature in Zambian
+    // Languages follows its contents field with ten more hand-typed entries ("Scope and
+    // Sequence ……… 2 6", a sub-title, "Course Description ……… 34"), which printed on the
+    // Vision page. The run of dot-leader lines right after the contents goes, with any
+    // short line between two of them.
+    {
+      const at = blocks.findIndex((b) => b.t === "toc");
+      const isEntry = (b) => b && b.t === "para" && /[.…]{4,}\s*[\divxlc ]+\s*$/i.test(blockPlain(b) || "")
+        && (blockPlain(b) || "").trim().length <= 200;
+      const blank = (b) => b && b.t === "para" && !(blockPlain(b) || "").trim();
+      if (at >= 0) {
+        let end = at + 1;
+        for (;;) {
+          if (end < blocks.length && (isEntry(blocks[end]) || blank(blocks[end]))) { end++; continue; }
+          // a short title line between entries ("Literature in Zambia Languages - Teaching Methods")
+          if (end + 1 < blocks.length && (blockPlain(blocks[end]) || blocks[end].text || "").trim().length <= 80 && isEntry(blocks[end + 1]) && end > at + 1) { end += 2; continue; }
+          break;
+        }
+        if (blocks.slice(at + 1, end).some(isEntry)) {
+          console.log(`   ${blocks.slice(at + 1, end).filter(isEntry).length} typed contents line(s) after the contents dropped`);
+          blocks.splice(at + 1, end - at - 1);
+        }
+      }
+    }
     blocks = fixSyllabusSignatures(blocks);
     // Drop a matrix row left empty but for its clause number. An author who adds a row
     // to the table and never fills it in leaves a full-width band of empty cells with a
@@ -5569,11 +5724,15 @@ function normaliseQuestionMarkBold(blocks) {
     // scope-and-sequence chart. Never on by default: a matrix whose numbers the author
     // TYPED is kept exactly as written.
     if (ov.renumberMatrix) {
-      // (any run of dots after it: "1.1.2.. Reasons for learning history")
-      const NUM = /^\s*(?:\d+(?:\.\d+)+\.*|\d+\.+)(?=\s|$)\s*/;
+      // (any run of dots after it: "1.1.2.. Reasons for learning history"; and one space
+      // typed after a dot inside it: "1.8. 2 Ways of learning", Social Studies; or a dot
+      // typed twice: "1.4..1.1 Database Management Systems", ICT)
+      const NUM = /^\s*(?:\d+(?:\.\.? ?\d+)+\.*|\d+\.+)(?=\s|$)\s*/;
       const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
+      // (a colon after it too: Religious Education Content's scope chart writes "YEAR 1:", and
+      // its rows were numbered on from the Year 2 matrix above -- 2.4, 2.5 … under YEAR 1)
       const yearOf = (t) => {
-        const m = String(t || "").replace(/\s+/g, " ").trim().match(new RegExp(`^(?:(?:year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$`, "i"));
+        const m = String(t || "").replace(/\s+/g, " ").trim().replace(/\s*[:.]$/, "").match(new RegExp(`^(?:(?:year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$`, "i"));
         return m ? (m[1] ? numOrWord(m[1]) : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
       };
       const txt = (l) => l.map((s) => s.t).join("");
@@ -5655,7 +5814,12 @@ function normaliseQuestionMarkBold(blocks) {
           if (!Array.isArray(row)) continue;
           if (yc >= 0 && row[yc]) { const y = yearOf(row[yc].text); if (y) { year = y; k = j = m = 0; } }
           if (renum(row[tc], () => { k++; j = m = 0; return `${year}.${k}`; })) tally[year] = k;
-          const subs = renum(row[sc], () => { j++; m = 0; return `${year}.${k}.${j}`; });
+          // A scope-and-sequence chart (a YEARS column) lists a topic's sub-topics one per
+          // line with no numbers: left so. Numbering only the first line set "1.1.1
+          // Definitions of Religion" over five unnumbered titles (Religious Education Content).
+          const bareList = yc >= 0 && row[sc] && (toLines(row[sc]) || []).length > 1
+            && !(toLines(row[sc]) || []).some((l) => NUM.test(txt(l)));
+          const subs = bareList ? 0 : renum(row[sc], () => { j++; m = 0; return `${year}.${k}.${j}`; });
           const comps = cc >= 0 ? renum(row[cc], () => { m++; return `${year}.${k}.${j}.${m}`; }) : 0;
           if (subs > 1 && comps) console.warn(`!  renumberMatrix: ${subs} sub-topics share a row with competences (numbered under ${year}.${k}.${j})`);
           if (comps && (!k || !j)) console.warn(`!  renumberMatrix: a competence with no ${k ? "sub-topic" : "topic"} above it (${year}.${k}.${j}.${m})`);
@@ -5939,7 +6103,9 @@ function normaliseQuestionMarkBold(blocks) {
       const t = (blockPlain(b) || "").trim();
       if (!t || t.length > 40 || !TOPSECTION.test(t)) continue;
       const segs = Array.isArray(b.segs) ? b.segs : [];
-      if (!segs.length || !segs.every((s) => s.b)) continue;
+      // (or the name alone in capitals on its line, bold or not: Entrepreneurship's plain
+      // "ACKNOWLEDGEMENTS" ran on as a paragraph under the Preface's signatory)
+      if (!(segs.length && segs.every((s) => s.b)) && !(t === t.toUpperCase() && /[A-Z]{5}/.test(t))) continue;
       blocks[i] = { t: "h1", text: t };
     }
     // Back-matter divisions are top-level. "Prescribed Textbooks" came through as a
@@ -6001,16 +6167,23 @@ function normaliseQuestionMarkBold(blocks) {
       if (!Array.isArray(b.rows)) continue;
       const cellText = (r, i) => ((r[i] && r[i].text) || "").trim();
       let hi = -1, ci = -1;
-      for (let ri = 0; ri < b.rows.length && hi < 0; ri++) {
+      // (the header is one of the first two rows, its cells short labels: a matrix row whose
+      // activities mention "competences" and "descriptors" set a whole column in capitals)
+      for (let ri = 0; ri < Math.min(2, b.rows.length) && hi < 0; ri++) {
         const r = b.rows[ri];
         if (!Array.isArray(r) || r.length < 2) continue;
+        const short = (i) => cellText(r, i).length <= 40;
         // ("GENERAL COMPETENCES" too: anchored to the start of the cell, that header was missed.)
-        const comp = r.findIndex((_, i) => /\bcompeten/i.test(cellText(r, i)) && !/descriptor/i.test(cellText(r, i)));
-        const desc = r.findIndex((_, i) => /descriptor/i.test(cellText(r, i)));
+        // ("Description" as well: Computer Science heads it "Key Competence | Description")
+        const comp = r.findIndex((_, i) => short(i) && /\bcompeten/i.test(cellText(r, i)) && !/descript(?:or|ion)/i.test(cellText(r, i)));
+        const desc = r.findIndex((_, i) => short(i) && /descript(?:or|ion)/i.test(cellText(r, i)));
         if (comp >= 0 && desc >= 0 && comp !== desc) { hi = ri; ci = comp; }
       }
       if (hi < 0) continue;
       for (let ri = hi + 1; ri < b.rows.length; ri++) uc((b.rows[ri] || [])[ci]);
+      // The header row itself in capitals too -- "KEY COMPETENCE | DESCRIPTION", never
+      // "Key Competence | Description" (publisher, 2026-10-13, for every book).
+      for (const c of b.rows[hi] || []) uc(c);
     }
     // Indent a numbered item's body paragraphs to align under the heading text: a bold
     // "1. Project-Based Learning" heading, then its prose indented to line up with the
@@ -6127,6 +6300,7 @@ function normaliseQuestionMarkBold(blocks) {
   // then deepening faint line-art diagrams (photos/crisp diagrams/cut-outs unchanged).
   // Falls back to a plain copy when neither applies or `canvas` isn't available.
   let enhanced = 0, cropped = 0, emfConv = 0;
+  const emfLost = new Set();
   for (const m of media) {
     const dest = path.join(mediaDir, m.name);
     try {
@@ -6136,6 +6310,7 @@ function normaliseQuestionMarkBold(blocks) {
       if (m.emf) {
         const png = emfToPng(fs.readFileSync(m.src));
         if (png) { fs.writeFileSync(dest, png); emfConv++; }
+        else emfLost.add(m.name);
         continue;
       }
       if (m.crop && cropImage(m.src, dest, m.crop, fs)) { cropped++; continue; }
@@ -6144,6 +6319,23 @@ function normaliseQuestionMarkBold(blocks) {
     } catch (e) { /* skip missing */ }
   }
   if (emfConv) console.log(`   recovered ${emfConv} EMF image(s) to PNG`);
+  // …and its picture comes out of the book, with a warning, instead of the build
+  // failing on a file that was never written (Social Studies: its Assessment section
+  // pasted in as a vector picture of Word text). Replace it from the sidecar.
+  if (emfLost.size) {
+    const lost = (x) => emfLost.has(x && typeof x === "object" ? x.file : x);
+    const prune = (arr) => {
+      for (let i = arr.length - 1; i >= 0; i--) {
+        const b = arr[i];
+        if (b && b.t === "image" && lost(b.file)) { arr.splice(i, 1); continue; }
+        if (b && Array.isArray(b.imgs)) b.imgs = b.imgs.filter((x) => !lost(x));
+        if (b && Array.isArray(b.rows)) for (const r of b.rows) for (const c of r || []) if (c && Array.isArray(c.imgs)) c.imgs = c.imgs.filter((x) => !lost(x));
+        for (const k of ["body", "parts", "items"]) if (b && Array.isArray(b[k])) prune(b[k]);
+      }
+    };
+    prune(blocks);
+    console.warn(`!  ${emfLost.size} vector EMF picture(s) could not be converted and were left out: ${[...emfLost].join(", ")}`);
+  }
   if (cropped) console.log(`   applied Word crop to ${cropped} image(s)`);
   if (enhanced) console.log(`   enhanced ${enhanced} faint line-art image(s)`);
 
@@ -6261,6 +6453,9 @@ function normaliseQuestionMarkBold(blocks) {
   // A book may also override the TOC depth directly. Depth 1 keeps top-level
   // sections only (front matter + units/topics) and excludes sub-topics.
   if (ov.tocDepth !== undefined) themeOverrides.tocDepth = ov.tocDepth;
+  // …and the space above each top-level contents entry (default 10pt): a contents page
+  // that runs one line over onto a page of its own closes up to fit.
+  if (ov.tocGap !== undefined) themeOverrides.tocGap = ov.tocGap;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json

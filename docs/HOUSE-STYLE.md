@@ -341,7 +341,7 @@ off, so a change only touches the books that opt in. Keys:
 | `replace` | swap a paragraph containing a substring (flattens formatting) |
 | `replaceExact` | like `replace` but the block's **whole trimmed text** must equal `find` |
 | `remove` | delete any block containing a substring (trim a section to fit) |
-| `removeRange` | delete blocks from `from` up to (not incl.) `to` — for anchors sharing text |
+| `removeRange` | delete blocks from `from` up to (not incl.) `to` — for anchors sharing text; `after` starts the search past an anchor; no `to` deletes to the end of the book (one of two syllabuses typed in one file) |
 | `removeWhereNext` | delete a block matching `find` only when the block right after it matches `next` (disambiguates a repeated heading) |
 | `moveBefore` | lift the block containing `find` and re-insert it before the block containing `before` |
 | `moveSectionBefore` | like `moveBefore` but moves a whole section (heading through to the next heading), not just one block |
@@ -381,6 +381,7 @@ off, so a change only touches the books that opt in. Keys:
 | `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |
 | `tocDepth` | how many heading levels the table of contents lists (default 2: top-level + one sub-level) |
+| `tocGap` | space above each top-level contents entry (default `"10pt"`) — close it up (`"6pt"`) when the contents runs one line onto a page of its own |
 | `tocUnitsOnly` | `false` also lists front/back matter (Authors, Foreword, References, …) in the TOC, not just units/topics |
 
 **Lists / questions / tables**
