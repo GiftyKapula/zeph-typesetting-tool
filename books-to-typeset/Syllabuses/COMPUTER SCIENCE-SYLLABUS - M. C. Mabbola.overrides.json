@@ -113,5 +113,24 @@
       "all": true,
       "keep": true
     }
+  ],
+  "keepRowWhole": [
+    {
+      "startsWith": "1.9.3.4"
+    }
+  ],
+  "splitRow": [
+    {
+      "startsWith": "1.5.5.2",
+      "at": "Selecting appropriate"
+    },
+    {
+      "startsWith": "1.7.1.2",
+      "at": "Analysing AI subfields b"
+    },
+    {
+      "startsWith": "1.9.4.4",
+      "at": "Evaluating layouts acros"
+    }
   ]
 }

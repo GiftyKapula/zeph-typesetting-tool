@@ -3298,6 +3298,50 @@ const NUMWORD = ["one", "two", "three", "four", "five", "six", "seven", "eight",
 const NUMWORD_RE = "\\d+|" + NUMWORD.join("|");
 const numOrWord = (s) => +s || NUMWORD.indexOf(String(s).toLowerCase()) + 1;
 
+// An activity typed as a table row of its own: every cell blank but the activities
+// (PE and Sport Methods: "• Demonstrating good qualities of a teacher…" in a row under
+// 1.2.3.1, its topic and sub-topic merged down from above, competence and standard empty).
+// It belongs to the competence above, but as a row of its own the page could break
+// between the two -- the bullet then opened the next page with nothing beside it, and
+// keepRowWhole on the competence could not hold it. Its lines join the activities cell of
+// the row above -- or, when it only repeats a line already there word for word, it goes.
+// Matrix tables only; a row carrying a picture is left alone.
+function foldActivityRows(blocks) {
+  let n = 0;
+  for (const b of blocks) {
+    if (!b || b.t !== "table" || !Array.isArray(b.rows) || b.rows.length < 3) continue;
+    const H = (b.rows[0] || []).map((c) => String((c && c.text) || "").toUpperCase());
+    if (!H.some((h) => /TOPIC/.test(h))) continue;
+    const act = H.findIndex((h) => /ACT.?VIT/.test(h));
+    if (act < 0) continue;
+    const blank = (c) => !c || (!String(c.text || "").trim() && !(c.imgs || []).length);
+    for (let ri = b.rows.length - 1; ri >= 2; ri--) {
+      const row = b.rows[ri], up = b.rows[ri - 1];
+      if (!Array.isArray(row) || !Array.isArray(up) || row.length !== up.length || row.length !== H.length) continue;
+      const c = row[act], u = up[act];
+      if (blank(c) || (c.imgs || []).length || !u || (u.imgs || []).length) continue;
+      if (!row.every((x, ci) => ci === act || blank(x))) continue;
+      const ut = String(u.text || "");
+      // the row only repeats the cell's last activity word for word (Civic Education
+      // Content 1.3.7.1: "Explain the role of citizenship…" twice): it goes
+      const norm = (s) => String(s).replace(/^[\s•▪◦·-]+|[\s.;,]+$/g, "").replace(/\s+/g, " ").toLowerCase();
+      if (norm(c.text) && ut.split("\n").some((l) => norm(l) === norm(c.text))) {
+        console.log(`   repeated activity row dropped: "${String(c.text).trim().slice(0, 60)}"`);
+        b.rows.splice(ri, 1);
+        continue;
+      }
+      u.text = ut ? ut + "\n" + c.text : c.text;
+      if (Array.isArray(u.segs) || Array.isArray(c.segs)) {
+        const segs = (x) => Array.isArray(x.segs) && x.segs.length ? x.segs : [{ t: String(x.text || ""), b: false, it: false, c: null }];
+        u.segs = ut ? [...segs(u), { t: "\n", b: false, it: false, c: null }, ...segs(c)] : segs(c);
+      }
+      b.rows.splice(ri, 1);
+      n++;
+    }
+  }
+  if (n) console.log(`   activity-only rows joined to the row above: ${n}`);
+}
+
 // One level page per level. A manuscript that names the year over its Key Competences as
 // well as over its matrix -- or twice running over the matrix -- printed a level page for
 // each (Civic Education Content: three YEAR ONE pages, two YEAR TWO). For each level, the
@@ -6694,6 +6738,7 @@ function normaliseQuestionMarkBold(blocks) {
       themeOverrides.courseNums = true;   // matrix numbers over their text, not hung beside it
     }
     dedupeLevelHeadings(blocks);
+    foldActivityRows(blocks);
     tidyPunctuationSpaces(blocks);
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
     // finished blocks -- after every heading, cell and list has taken its final form.
