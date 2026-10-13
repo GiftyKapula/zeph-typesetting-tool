@@ -226,6 +226,8 @@
     },
   )
   body
+  // marks the last page, so the syllabus cover can size its spine from the page count
+  [#metadata("end") <zeph-end>]
 }
 
 // ---- title page (series): the book name repeated, modern sans, with a small
@@ -433,8 +435,16 @@
     let title = T.at("covTitle", default: T.ink)
     let name = if subject != "" and not ("SYLLABUS" in upper(subject)) { subject } else { T.subject }
     let year = T.at("year", default: "")
-    let fdx = 297mm   // left edge of the FRONT (right) panel
-    page(width: 594mm, height: 210mm, flipped: false, margin: 0pt, header: none, footer: none, fill: field)[
+    // SPINE. A syllabus of more than 112 pages (the cover spread not counted) is thick
+    // enough to stand on a shelf, so the spread gets a spine between its two panels:
+    // back | spine | front. Its width is the block's thickness at 80gsm (0.10mm a leaf);
+    // a printer's exact figure overrides it per book with the `spineWidth` key (mm).
+    context {
+    let inner = locate(<zeph-end>).page() - 1
+    let sw = if T.at("spineWidth", default: none) != none { T.spineWidth * 1mm }
+      else if inner > 112 { calc.ceil(inner / 2) * 0.1mm } else { 0mm }
+    let fdx = 297mm + sw   // left edge of the FRONT (right) panel
+    page(width: 594mm + sw, height: 210mm, flipped: false, margin: 0pt, header: none, footer: none, fill: field)[
       // The band is a fixed spread-wide element (it has to line up across both panels),
       // so it splits each panel into two zones: everything ABOVE it and everything
       // BELOW it. Each zone's content is then CENTRED in that zone, vertically as well
@@ -450,7 +460,26 @@
         box(width: panelW, height: h)[#set align(center + horizon)
           #body])
       // full-width title band across the whole spread
-      #place(top + left, dy: bandTop, rect(width: 100%, height: bandH, fill: band, stroke: none))
+      // (stopping either side of the spine, which stays the plain subject colour)
+      #place(top + left, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+      #place(top + left, dx: fdx, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+      // ---- SPINE: the title read bottom-to-top (as the house's other spines), the
+      // ministry at its foot; type scaled to the spine so it stays inside its width ----
+      #if sw > 0mm {
+        let ts = sw * 0.42
+        place(top + left, dx: panelW, box(width: sw, height: 210mm)[
+          #place(center + horizon, rotate(-90deg, reflow: false, box(width: 210mm - 16mm, height: sw)[
+            #set par(justify: false, spacing: 0pt)
+            #set text(font: T.bodyFont, fill: ftext, weight: "bold")
+            #align(center + horizon)[
+              #text(size: ts * 0.72, tracking: 0.6pt)[MINISTRY OF EDUCATION]
+              #h(8mm)
+              #text(font: T.displayFont, size: ts, weight: "black", tracking: 0.4pt)[#upper(name) SYLLABUS]
+              #if year != "" [ #h(8mm) #text(size: ts * 0.72)[#year] ]
+            ]
+          ]))
+        ])
+      }
       // ---- FRONT cover (right panel) ----
       #zone(fdx, 0mm, zAbove)[
         #if hero != none and hero.file != "" { image("_media/" + hero.file, height: 40mm); v(2.5mm) }
@@ -513,6 +542,7 @@
         #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Zambia Educational Publishing House]
       ]
     ]
+    }
     pastcover.update(true)
     pagebreak(weak: true)
   } else if finished and hero != none {

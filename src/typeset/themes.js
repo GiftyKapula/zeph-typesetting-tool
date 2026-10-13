@@ -434,7 +434,7 @@ function themeTypst(theme, overrides = {}) {
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},
   tocUnitsOnly: ${t.tocUnitsOnly ? "true" : "false"}, coverStyle: ${q(t.coverStyle || "")}, boxStyle: ${q(t.boxStyle || "")}, tocDepth: ${t.tocDepth || 2}, mono: ${t.mono ? "true" : "false"},
   ${t.tableSize ? `tableSize: ${t.tableSize},\n  ` : ""}${t.matrixToc ? `matrixToc: ${t.matrixToc},\n  ` : ""}${t.courseNums ? `courseNums: true,\n  ` : ""}
-  ${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
+  ${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}${typeof t.spineWidth === "number" ? `spineWidth: ${t.spineWidth},\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
 )\n`;
 }
 
