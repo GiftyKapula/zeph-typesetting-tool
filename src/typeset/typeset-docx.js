@@ -5792,11 +5792,11 @@ function normaliseQuestionMarkBold(blocks) {
         if (isBack(blocks[n])) underParent = true;
       }
     }
-    // COMPETENCES AND DESCRIPTORS table: the competence NAMES set with a capital on each
-    // word and the rest small ("Analytical Thinking", "Creativity and Innovation"),
-    // against sentence-case descriptors beside them. The family standard since
-    // 2026-10-12; before that they were set in full capitals, as the reference book has
-    // them. Only this column: the matrix TOPIC column stays in capitals.
+    // COMPETENCES AND DESCRIPTORS table: the competence NAMES set in full capitals
+    // ("ANALYTICAL THINKING", "CREATIVITY AND INNOVATION"), against sentence-case
+    // descriptors beside them -- as the reference book has them, and the publisher's
+    // standard (2026-10-12, later the same day reversing "Analytical Thinking", a capital
+    // on each word, asked for that morning). Only this column.
     // Find the competence column BY ITS HEADER wherever it sits, rather than assuming
     // it is column 0 with descriptors in column 1: that assumption held for the
     // reference's two-column table but not for a book that numbers its rows, where the
@@ -5804,10 +5804,8 @@ function normaliseQuestionMarkBold(blocks) {
     // the casing came out however the author had typed it.
     const uc = (c) => {
       if (!c) return;
-      const SMALL = new Set(["and", "of", "the", "in", "to", "for", "a", "an", "on", "or"]);
       // Case only, so every run keeps its length and its formatting.
-      const tc = (t) => t.toLowerCase().replace(/[a-z][a-z’']*/g, (w, at, all) =>
-        (SMALL.has(w) && all.slice(0, at).trim()) ? w : w.charAt(0).toUpperCase() + w.slice(1));
+      const tc = (t) => t.toUpperCase();
       const segs = Array.isArray(c.segs) ? c.segs.filter((x) => typeof x.t === "string" && !x.m) : [];
       if (segs.length) {
         const whole = tc(segs.map((x) => x.t).join(""));
@@ -5815,6 +5813,11 @@ function normaliseQuestionMarkBold(blocks) {
         for (const x of segs) { x.t = whole.slice(at, at + x.t.length); at += x.t.length; }
       }
       if (c.text) c.text = tc(c.text);
+      // …and bold, in every book (publisher, 2026-10-12): a table that numbers its rows
+      // (S/N | COMPETENCE | DESCRIPTORS, the History syllabuses) set them in regular weight
+      // where the two-column tables set them bold.
+      if (segs.length) for (const x of segs) x.b = true;
+      else if (c.text && c.text.trim()) c.segs = [{ t: c.text, b: true, it: false, c: null }];
     };
     for (const b of blocks) {
       if (!Array.isArray(b.rows)) continue;

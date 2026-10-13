@@ -2403,7 +2403,8 @@
     // its early topics in caps and its later ones in title case — so normalise here
     // rather than leaving the column looking like two different styles down the page.
     // …except in the COMPETENCES | DESCRIPTORS table, whose first column lands here too
-    // (it has no TOPIC header, so it is column 0): competence names are set with a
+    // (it has no TOPIC header, so it is column 0): competence names (in capitals since a
+    // later 2026-10-12 request; "Analytical Thinking" before that) are set with a
     // capital on each word and the rest small — the engine has already cased them.
     let compTable = sylhdr and rows.at(0).any(h => upper(plainlabel(h)).contains("DESCRIPTOR"))
     let tt = if compTable { stripLead(plainlabel(c)).trim() } else { upper(stripLead(plainlabel(c)).trim()) }

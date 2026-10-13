@@ -110,7 +110,7 @@ later ones in title case; another typed its competences in title case):
 | matrix **TOPIC** | **BOLD UPPERCASE** |
 | matrix **SUB-TOPIC** | bold title case — *not* uppercase |
 | matrix SPECIFIC COMPETENCE / ACTIVITIES / EXPECTED STANDARD | sentence case |
-| competences table **COMPETENCE** | a capital on each word, the rest small ("Analytical Thinking", "Creativity and Innovation") — *not* uppercase. Standard from 2026-10-12; this column only |
+| competences table **COMPETENCE** | **bold, full capitals** ("ANALYTICAL THINKING", "CREATIVITY AND INNOVATION"), whatever the manuscript typed. Standard from 2026-10-12 (later that day it replaced "a capital on each word", asked for that morning); this column only — the descriptors beside it stay in sentence case |
 | competences table DESCRIPTORS | sentence case |
 
 The competence column is found by its own header wherever it sits, so a table
