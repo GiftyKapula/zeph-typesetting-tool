@@ -73,6 +73,15 @@ ways:
 | a year's competences heading (`h2` whose next heading is a year/form/grade line) | tracked BOLD CAPS like a sub-section, but a **level-1** contents entry, just above its YEAR: it was filed under the previous year's last topic | `Key Competences to be developed at Year Two`, `KEY COMPETENCES`, `General Competences and Descriptors` |
 | data line (`label`) | plain bold, not a heading, not in contents | `Total 40%`, `CA + EXAM = 100%` |
 
+**Breathing space above every heading** (publisher, 2026-10-12: "there should always be some
+breathing space on top of each heading, especially the ones in the front matter"). A heading
+sits clearly nearer the text it opens than the text above it: 28pt above a sub-section head,
+20pt above a numbered/bold head ("1. College-Based Assessment"), 10pt above a bold label —
+all weak, so none at the head of a page. Every one of them, and a short all-bold lettered
+item ("b) Academic Qualifications"), is kept with the text that follows: none is left alone at
+the foot of a page. A sidecar `pageBreakBefore` set to dodge a page-end under the old, tighter
+spacing may now misfire — re-look at the page after any spacing change.
+
 Past the matrix a section title is only recognised when it carries **no digit** —
 that is what keeps the assessment weightings out of the heading stream.
 
