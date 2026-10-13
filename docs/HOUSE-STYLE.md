@@ -188,8 +188,24 @@ either fixed in the sidecar (where the right number is plain from the rows aroun
 or written into the sidecar's `_comment` as an author query. Matrix numbers also take
 **no dot after them** (`1.5.1.1 Produce…`, not `1.5.1.1. Produce…`): the engine drops a
 single trailing dot from TOPIC / SUB-TOPIC / COMPETENCE numbers, as the demo book sets
-them. A section number outside the matrix (`6.1. Continuous Assessment`) is the
-author's style and is left alone.
+them. The same holds **outside the matrix**: a multi-part number heading a list item, a
+line, a box line or a weightings grid row (`6.1. Continuous Assessment`, a Word list's
+`1.1.1.`) loses its trailing dot too, so one book never sets `1.1` in the matrix and
+`1.1.` in its course outline. A single number (`1. TERM ONE`) keeps its dot.
+
+**Uniformity of marks** (the publisher's standing rule, 2026-10-12: every mark of one kind
+looks the same at a given text size, book-wide):
+- List bullets, numbers and letters (`•`, `1.`, `a)`), and the numbers of a weightings
+  grid, are set in the text colour and regular weight, whatever the item's own weight.
+  (Bullets were the theme's grey, numbers a shade off the text, and a number went bold
+  whenever its item opened in bold.) The item text keeps its own bold.
+- A run of numbers that reaches 10 takes one marker width, so items 10+ line up with 1-9.
+- S/N columns are bare numbers, 1, 2, 3, in every book (no "1.").
+- Each SUB-TOPIC and COMPETENCE column takes one weight across the book, the one most of
+  its cells already have.
+- A sub-topic whose title the manuscript lost still gets its **number** in the empty
+  sub-topic cell (`1.4.3`, no title invented), and its competences count from 1 under it;
+  the title goes to the author as a query.
 
 **Matrix numbers that are all Word list numbers** (none typed) are often wrong on
 the page: the lists restart, change list mid-topic and go on counting in the
