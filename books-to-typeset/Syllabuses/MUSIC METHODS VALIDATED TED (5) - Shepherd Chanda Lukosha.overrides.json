@@ -26,10 +26,10 @@
     "    and 2.8. The manuscript's own contents list repeats them too. Set as written.",
     "  * No expected standard is given for 1.18.1.2 (pair/group work) or 2.7.1.1",
     "    (composition techniques).",
-    "  * Key Competences: the descriptor against ENTREPRENEURSHIP is about emotional",
-    "    intelligence (it nearly repeats EMOTIONAL INTELLIGENCE's own). Set as written.",
     "  * 1.7.1 Resource selection: the competence had no number; set as 1.7.1.1.",
-    "  * Cover subject wording (see `subject`) -- confirm against CDC's title for the course."
+    "  * Cover subject wording (see `subject`) -- confirm against CDC's title for the course.",
+    "",
+    "2026-10-13 clean-up: ENTREPRENEURSHIP descriptor written (CDC to confirm); Kelvin Mambwe, (PhD) comma dropped."
   ],
   "subject": "Musical Arts Education Teaching Methods",
   "level": "Secondary Teachers' Diploma",
@@ -83,6 +83,11 @@
       "_why": "Dash as in the Acknowledgement's 'Director – Curriculum Development'.",
       "find": "Permanent Secretary- Educational Services",
       "with": "Permanent Secretary – Educational Services"
+    },
+    {
+      "_why": "Comma before the degree, as no other syllabus signs it (Kelvin Mambwe (PhD)).",
+      "find": "Kelvin Mambwe, (PhD)",
+      "with": "Kelvin Mambwe (PhD)"
     }
   ],
   "unbold": [
@@ -219,6 +224,12 @@
       "_why": "...and its only competence counts from 1 beneath it: 2.2.3.2 -> 2.2.3.1 (the manuscript has no 2.2.3.1).",
       "find": "2.2.3.2 Practice  holistic music approach in lesson planning",
       "with": "2.2.3.1 Practice holistic music approach in lesson planning"
+    },
+    {
+      "_why": "KEY COMPETENCES: the manuscript ENTREPRENEURSHIP descriptor is about emotional intelligence (it repeats the EMOTIONAL INTELLIGENCE row), as in Music Content. Written for entrepreneurship in the same form as the other descriptors, the same text as Music Content (2026-10-13). CDC to confirm.",
+      "row": "Entrepreneurship",
+      "col": 1,
+      "with": "Ability to apply project-based and experiential teaching methods to develop learners' capacity to identify opportunities in the music industry, create and market musical products and services, and manage resources, enabling educators to foster innovation, self-reliance, and income-generating ventures that contribute to national development."
     }
   ],
   "keepRowWhole": [

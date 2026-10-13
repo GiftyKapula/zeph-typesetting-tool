@@ -2440,7 +2440,10 @@
     // Each title line hangs like the other columns: its number (tidied) in a fixed-width
     // column, the title wrapping under ITSELF rather than back under the number.
     let numRe = regex("^(\\d+(?:\\.\\d+)+\\.?|\\d+\\.)\\s+")
-    let tline(s) = {
+    let tline(s0) = {
+      // a closing number stays with the word before it: "FORM AND ANALYSIS 1" wrapped
+      // to leave the "1" alone on a line (Music Content)
+      let s = s0.replace(regex("(\\S)\\s+(\\d{1,2}|I{1,3}|IV|V)$"), m => m.captures.at(0) + "\u{00A0}" + m.captures.at(1))
       let m = s.match(numRe)
       if m == none { text(weight: "bold")[#s] }
       else { hang(tidyNum(m.captures.at(0)), true, text(weight: "bold")[#s.slice(m.text.len()).trim()]) }

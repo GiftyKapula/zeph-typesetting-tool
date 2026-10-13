@@ -1918,8 +1918,12 @@ async function importDocx(docxPath, opts = {}) {
   if (copyrightIdx >= 0) {
     for (let i = copyrightIdx + 1; i < imprintEnd; i++) {
       // stop at the first styled heading OR the first front-matter section name
-      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i]))
-        || (opts.syllabus && SYL_FM_SECTION.test(textOf(parts[i]).trim())))) { imprintEnd = i; break; }
+      // (a title may carry a tag in brackets: Music Content's "PREFACE (CONTENT)" was not
+      // taken for the Preface, so the Preface and Acknowledgement were set as imprint --
+      // centred lines, and 5mm over each line of the signatures)
+      const t = textOf(parts[i]).trim().replace(/\s*\([^)]*\)\s*$/, "");
+      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(t)
+        || (opts.syllabus && SYL_FM_SECTION.test(t)))) { imprintEnd = i; break; }
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.

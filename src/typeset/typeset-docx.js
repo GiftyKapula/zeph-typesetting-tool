@@ -3070,7 +3070,11 @@ function tidyPunctuationSpaces(blocks) {
       .replace(/([^\s.(])[ \t ]+([,;])/g, "$1$2")
       .replace(/([A-Za-z)'’"”])[ \t ]+([.:])(?=[ \t ]|$)/g, "$1$2")
       .replace(/\([ \t ]+(?=\S)/g, "(")
-      .replace(/(?<=[^\s.])[ \t ]+\)/g, ")");
+      .replace(/(?<=[^\s.])[ \t ]+\)/g, ")")
+      // two or more spaces between words ("teach music  education"), and a space typed
+      // before a slash joining two words ("content /topic") -- Music Content
+      .replace(/(\S)[ \t]{2,}(?=\S)/g, "$1 ")
+      .replace(/(\w) \/(?=\w)/g, "$1/");
     if (t !== o) n++;
     return t;
   };
@@ -3083,6 +3087,8 @@ function tidyPunctuationSpaces(blocks) {
       const nx = segs[i + 1];
       if (nx && typeof nx.t === "string" && /[^\s(][ \t ]+$/.test(s.t) && /^[,;)]/.test(nx.t)) { s.t = s.t.replace(/[ \t ]+$/, ""); n++; }
       if (nx && typeof nx.t === "string" && /\($/.test(s.t) && /^[ \t ]+\S/.test(nx.t)) { nx.t = nx.t.replace(/^[ \t ]+/, ""); n++; }
+      // a space ending one run and another opening the next: one space
+      if (nx && typeof nx.t === "string" && /\S[ \t]+$/.test(s.t) && /^[ \t]+\S/.test(nx.t)) { nx.t = nx.t.replace(/^[ \t]+/, ""); n++; }
       s.t = tidyStr(s.t);
     }
   };
@@ -3181,6 +3187,68 @@ function keepRowsWhole(blocks, ov) {
     if (!n) console.warn("!  keepRowWhole not matched:", want || pre);
     else console.log(`   keepRowWhole ${want || pre}: ${n} row(s)`);
   }
+}
+
+// Lines in a syllabus table cell that the author's Word layout left behind (Music Content):
+// a paragraph holding only a full stop under a competence ("…quadruple metre" / "."), a
+// clause typed one short line per paragraph ("All major source types have" / "been
+// correctly identified," / …) or broken after its first word ("Historical" / "and
+// cultural origins…"), a full stop typed at the head of a clause (". Simple melody
+// harmonized correctly.", "• . Tuning kalimba") and a bullet with nothing after it. A
+// punctuation-only line goes, a leading full stop or comma goes, an empty bullet goes, and
+// a line opening with a small letter joins the line above unless that one ends a sentence
+// (. : ; ! ?). The activities column keeps its lines (the template runs on its own
+// small-letter lines and keeps methods apart). Matrix and Key Competences tables only.
+function tidyCellLines(blocks) {
+  let n = 0;
+  const PUNCT_ONLY = /^[\s.,;:·…•▪]*$/;
+  for (const b of blocks) {
+    if (!b || b.t !== "table" || !Array.isArray(b.rows) || b.rows.length < 2) continue;
+    const H = (b.rows[0] || []).map((c) => String((c && c.text) || "").toUpperCase());
+    if (!H.some((h) => /TOPIC|COMPETEN|DESCRIPT/.test(h))) continue;
+    const actCol = H.findIndex((h) => /ACT.?VIT/.test(h));
+    for (const row of b.rows.slice(1)) (row || []).forEach((c, ci) => {
+      if (!c || (c.imgs || []).length) return;
+      const src = Array.isArray(c.segs) && c.segs.length ? c.segs : [{ t: String(c.text || ""), b: false, it: false, c: null }];
+      if (src.some((s) => s.m || typeof s.t !== "string")) return;
+      let lines = [[]];
+      for (const s of src) s.t.split("\n").forEach((p, i) => { if (i) lines.push([]); if (p !== "") lines[lines.length - 1].push({ ...s, t: p }); });
+      const txt = (l) => l.map((s) => s.t).join("");
+      const before = lines.map(txt).join("\n");
+      // a full stop / comma at the head of a line, after any bullet: ". Simple…", "• . Tuning…"
+      lines = lines.map((l) => {
+        const m = txt(l).match(/^(\s*(?:[•▪◦●·‣∙]\s*)?)([.,;]+\s+)(?=\S)/);
+        if (!m) return l;
+        let cut = m[2].length, at = m[1].length; const out = [];
+        for (const s of l) {
+          const len = s.t.length;
+          if (at >= len) { at -= len; out.push(s); continue; }
+          const k = Math.min(len - at, cut);
+          out.push({ ...s, t: s.t.slice(0, at) + s.t.slice(at + k) }); cut -= k; at = 0;
+        }
+        return out.filter((s) => s.t !== "");
+      });
+      lines = lines.filter((l) => !PUNCT_ONLY.test(txt(l)));
+      if (ci !== actCol) {
+        const out = [];
+        for (const l of lines) {
+          const t = txt(l).trim(), prev = out.length ? txt(out[out.length - 1]).replace(/\s+$/, "") : null;
+          if (prev != null && /^[a-z]/.test(t) && !/[.:;!?]$/.test(prev) && !/^(?:\d+(?:\.\d+)+|[-–•▪])/.test(t)) {
+            const last = out[out.length - 1];
+            out[out.length - 1] = [...last.map((s, i) => i === last.length - 1 ? { ...s, t: s.t.replace(/\s+$/, "") } : s),
+              { ...l[0], t: " " }, ...l.map((s, i) => i === 0 ? { ...s, t: s.t.replace(/^\s+/, "") } : s)];
+          } else out.push(l);
+        }
+        lines = out;
+      }
+      const after = lines.map(txt).join("\n");
+      if (after === before) return;
+      n++;
+      c.text = after;
+      if (Array.isArray(c.segs) && c.segs.length) { const j = []; lines.forEach((l, i) => { if (i) j.push({ t: "\n", b: false, it: false, c: null }); j.push(...l); }); c.segs = j; }
+    });
+  }
+  if (n) console.log(`   table cells tidied (stray full stops, hand-wrapped lines, empty bullets): ${n}`);
 }
 
 function unifyFullStops(blocks) {
@@ -6620,6 +6688,7 @@ function normaliseQuestionMarkBold(blocks) {
     tidyPunctuationSpaces(blocks);
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
     // finished blocks -- after every heading, cell and list has taken its final form.
+    tidyCellLines(blocks);
     unifyFullStops(blocks);
     topCompetenceHeadings(blocks);
     hyphenateSubTopicHeader(blocks);

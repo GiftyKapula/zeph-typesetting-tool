@@ -18,9 +18,6 @@
     "    imprint shows a blank ISBN line.",
     "  * Year. The copyright line says 2024; the sister Music Methods syllabus says 2025.",
     "    Set as written (2024).",
-    "  * Sub-topic 2.4.3 reads 'whole-tone scale fragments)' -- its opening words are lost",
-    "    (its competence is 'Compose melodies using modal scales and whole-tone scale",
-    "    fragments'). Set as written.",
     "  * Year 2 had no topic 2.1 and no 2.15 (YEAR TWO -> 2.2, and 2.14 -> 2.16; the scope chart has",
     "    School Experience 1 and 2 there, with no rows in the matrix). Publisher decided 2026-10-13: renumber",
     "    (renumberMatrix) -- Year 2 now runs 2.1-2.19. The scope chart is left as typed, so its Year 2",
@@ -33,8 +30,10 @@
     "    SEQUENCE CHART' only.",
     "  * Topic titles repeat: 1.4, 1.5 and 1.6 are all 'PITCH AND SCALES'; 1.18 and 2.18 are",
     "    both 'WORLD MUSIC 2'. Set as written.",
-    "  * Key Competences: the descriptor against ENTREPRENEURSHIP is about emotional",
-    "    intelligence (as in the Methods syllabus). Set as written."
+    "",
+    "2026-10-13 clean-up (user: 'correct all the issues'): ENTREPRENEURSHIP descriptor written (CDC to confirm);",
+    "  '[name the genres]' -> 'selected genres'; 2.3.3 titled 'Modal and Whole-Tone Scales'; reviewer's note in 2.19.3.1",
+    "  resolved; Outcomes unbolded (as Music Methods); 'Kelvin Mambwe, (PhD)' comma dropped."
   ],
   "subject": "Musical Arts Education Content",
   "level": "Secondary Teachers' Diploma",
@@ -127,6 +126,11 @@
       "_why": "Dash as in the Acknowledgement's 'Director – Curriculum Development'.",
       "find": "Permanent Secretary- Educational Services",
       "with": "Permanent Secretary – Educational Services"
+    },
+    {
+      "_why": "Comma before the degree, as no other syllabus signs it (\"Kelvin Mambwe (PhD)\").",
+      "find": "Kelvin Mambwe, (PhD)",
+      "with": "Kelvin Mambwe (PhD)"
     }
   ],
   "editCell": [
@@ -173,6 +177,34 @@
     {
       "pattern": "development\\.[\"”]$",
       "with": "development."
+    },
+    {
+      "_why": "KEY COMPETENCES: the manuscript's ENTREPRENEURSHIP descriptor is about emotional intelligence (it repeats the EMOTIONAL INTELLIGENCE row). Written for entrepreneurship in the same form as the other descriptors (2026-10-13). CDC to confirm.",
+      "row": "Entrepreneurship",
+      "col": 1,
+      "with": "Ability to apply project-based and experiential teaching methods to develop learners' capacity to identify opportunities in the music industry, create and market musical products and services, and manage resources, enabling educators to foster innovation, self-reliance, and income-generating ventures that contribute to national development."
+    },
+    {
+      "_why": "A placeholder left in the competence; its activities say 'a chosen genre'.",
+      "pattern": "\\[name the genres\\]",
+      "with": "selected genres"
+    },
+    {
+      "_why": "Sub-topic lost its opening words ('whole-tone scale fragments)'); titled from its competence (modal scales and whole-tone scale fragments) and standard (modal and whole-tone melodies).",
+      "pattern": "^(\\d+(?:\\.\\d+)+\\s+)?whole-tone scale fragments\\)$",
+      "with": "$1Modal and Whole-Tone Scales"
+    },
+    {
+      "_why": "A reviewer's note left in the standard ('… assessed as satisfactory changed to a complete professional portfolio …'): the replacement is kept.",
+      "pattern": "^Portfolio submitted complete and assessed as satisfactory changed to\\s+a complete",
+      "with": "A complete"
     }
+  ],
+  "unbold": [
+    "Demonstrate knowledge, practical skills, values, and positive attitudes in Musical Arts.",
+    "Plan, prepare, and effectively deliver competence-based Musical Arts lessons.",
+    "Design and develop appropriate teaching and learning materials for Musical Arts.",
+    "Apply entrepreneurial knowledge and skills in music-related activities and ventures.",
+    "Demonstrate performance, creativity, coordination, observation, and self-expression through vocal, instrumental, and other musical activities."
   ]
 }
