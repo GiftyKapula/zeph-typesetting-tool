@@ -3197,7 +3197,7 @@ function keepRowsWhole(blocks, ov) {
 // harmonized correctly.", "• . Tuning kalimba") and a bullet with nothing after it. A
 // punctuation-only line goes, a leading full stop or comma goes, an empty bullet goes, and
 // a line opening with a small letter joins the line above unless that one ends a sentence
-// (. : ; ! ?). The activities column keeps its lines (the template runs on its own
+// (. : ; ! ?) or the two are whole statements of their own. The activities column keeps its lines (the template runs on its own
 // small-letter lines and keeps methods apart). Matrix and Key Competences tables only.
 function tidyCellLines(blocks) {
   let n = 0;
@@ -3231,9 +3231,18 @@ function tidyCellLines(blocks) {
       lines = lines.filter((l) => !PUNCT_ONLY.test(txt(l)));
       if (ci !== actCol) {
         const out = [];
+        const words = (s) => s.split(/\s+/).filter(Boolean).length;
+        // the line above is cut short: a comma or a joining word at its end ("Functions of",
+        // "…source types have", "…planned,"), or only a word or three ("Historical")
+        const OPEN_END = /(?:,|\b(?:a|an|the|of|in|on|at|to|for|with|by|from|into|and|or|but|nor|as|that|which|their|its|have|has|had|been|be|is|are|was|were))$/i;
         for (const l of lines) {
           const t = txt(l).trim(), prev = out.length ? txt(out[out.length - 1]).replace(/\s+$/, "") : null;
-          if (prev != null && /^[a-z]/.test(t) && !/[.:;!?]$/.test(prev) && !/^(?:\d+(?:\.\d+)+|[-–•▪])/.test(t)) {
+          // Two whole statements one under the other ("Skills in DAW recording demonstrated
+          // correctly" / "advanced MIDI and VST skills applied appropriately") stay apart: join
+          // only when the line above is cut short or the line below is a short tail
+          // ("analysed accordingly").
+          if (prev != null && /^[a-z]/.test(t) && !/[.:;!?]$/.test(prev) && !/^(?:\d+(?:\.\d+)+|[-–•▪])/.test(t)
+              && (OPEN_END.test(prev) || words(prev) <= 3 || words(t) <= 3)) {
             const last = out[out.length - 1];
             out[out.length - 1] = [...last.map((s, i) => i === last.length - 1 ? { ...s, t: s.t.replace(/\s+$/, "") } : s),
               { ...l[0], t: " " }, ...l.map((s, i) => i === 0 ? { ...s, t: s.t.replace(/^\s+/, "") } : s)];

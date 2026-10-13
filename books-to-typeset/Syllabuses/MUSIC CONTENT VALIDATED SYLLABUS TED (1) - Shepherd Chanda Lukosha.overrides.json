@@ -198,6 +198,16 @@
       "_why": "A reviewer's note left in the standard ('… assessed as satisfactory changed to a complete professional portfolio …'): the replacement is kept.",
       "pattern": "^Portfolio submitted complete and assessed as satisfactory changed to\\s+a complete",
       "with": "A complete"
+    },
+    {
+      "_why": "CAPITAL LETTER. 2.11.1 DAW standard: three standards one per line, the second and third typed with a small first letter.",
+      "pattern": "(?<=demonstrated correctlys*\ns*)advanced MIDI",
+      "with": "Advanced MIDI"
+    },
+    {
+      "_why": "CAPITAL LETTER. As above.",
+      "pattern": "(?<=applied appropriatelys*\ns*)mixing and mastering",
+      "with": "Mixing and mastering"
     }
   ],
   "unbold": [
