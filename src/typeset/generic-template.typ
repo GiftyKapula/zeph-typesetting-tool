@@ -2258,8 +2258,29 @@
     let lineOut(x) = if type(x) == array { segs(x) } else { x }
     // Lay out ("h", method) / ("b", activity) items: a method flush left across both
     // columns, an activity behind its bullet.
-    let actGrid(items) = grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
+    // A method never stands alone at the foot of a page: it and its first activity are one
+    // unbreakable block (Social Studies: "Mock trial or mock parliament:" closed page 10,
+    // its activity opened page 11). A cell with no methods is one grid, as it always was.
+    let actRows(items) = grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
       ..items.map(it => if it.at(0) == "h" { (grid.cell(colspan: 2, lineOut(it.at(1))),) } else { (text[•], lineOut(it.at(1))) }).flatten())
+    let actGrid(items) = if not items.any(it => it.at(0) == "h") { actRows(items) } else {
+      let groups = ()
+      let i = 0
+      while i < items.len() {
+        if items.at(i).at(0) == "h" and i + 1 < items.len() and items.at(i + 1).at(0) == "b" {
+          groups.push(block(breakable: false, above: 4pt, below: 4pt, actRows(items.slice(i, i + 2)))); i += 2
+        } else {
+          // the activities after a method run on as one grid until the next method
+          let j = i + 1
+          while j < items.len() and items.at(j).at(0) != "h" { j += 1 }
+          groups.push(block(above: 4pt, below: 4pt, actRows(items.slice(i, j)))); i = j
+        }
+      }
+      // in the flow, not a stack: a stack never breaks, and the whole cell would have
+      // gone overleaf with its method; only each method + first activity holds together.
+      // 4pt between the pieces, as between the rows of the one grid.
+      groups.join()
+    }
     if lines.any(isBul) {
       let items = ()
       for l in lines {
@@ -2296,7 +2317,9 @@
       c.text.trim() == "" and c.at("seg", default: ()).len() == 0 and c.imgs.len() == 0
     }
   }
-  let mergeTop(x, y) = x <= tc + 1 and y >= 1 and isEmptyCell(x, y)
+  // (a sidecar `splitRow` continuation row joins the row above in every column: no rule)
+  let isCont(y) = y >= 1 and y < rows.len() and rows.at(y).len() > 0 and rows.at(y).at(0).at("cont", default: false)
+  let mergeTop(x, y) = (x <= tc + 1 and y >= 1 and isEmptyCell(x, y)) or isCont(y)
   let sylStroke = (x, y) => {
     let lastr = rows.len() - 1
     let lastc = rows.at(0).len() - 1
@@ -2417,7 +2440,10 @@
     // Each title line hangs like the other columns: its number (tidied) in a fixed-width
     // column, the title wrapping under ITSELF rather than back under the number.
     let numRe = regex("^(\\d+(?:\\.\\d+)+\\.?|\\d+\\.)\\s+")
-    let tline(s) = {
+    let tline(s0) = {
+      // a closing number stays with the word before it: "FORM AND ANALYSIS 1" wrapped
+      // to leave the "1" alone on a line (Music Content)
+      let s = s0.replace(regex("(\\S)\\s+(\\d{1,2}|I{1,3}|IV|V)$"), m => m.captures.at(0) + "\u{00A0}" + m.captures.at(1))
       let m = s.match(numRe)
       if m == none { text(weight: "bold")[#s] }
       else { hang(tidyNum(m.captures.at(0)), true, text(weight: "bold")[#s.slice(m.text.len()).trim()]) }

@@ -18,12 +18,10 @@
     "    imprint shows a blank ISBN line.",
     "  * Year. The copyright line says 2024; the sister Music Methods syllabus says 2025.",
     "    Set as written (2024).",
-    "  * Sub-topic 2.4.3 reads 'whole-tone scale fragments)' -- its opening words are lost",
-    "    (its competence is 'Compose melodies using modal scales and whole-tone scale",
-    "    fragments'). Set as written.",
-    "  * Year 2 has no topic 2.1 and no 2.15: the matrix goes 1.26 -> YEAR TWO -> 2.2, and",
-    "    2.14 -> 2.16. The scope and sequence chart has 2.1 School Experience 1 and 2.15",
-    "    School Experience 2 there. Set as written.",
+    "  * Year 2 had no topic 2.1 and no 2.15 (YEAR TWO -> 2.2, and 2.14 -> 2.16; the scope chart has",
+    "    School Experience 1 and 2 there, with no rows in the matrix). Publisher decided 2026-10-13: renumber",
+    "    (renumberMatrix) -- Year 2 now runs 2.1-2.19. The scope chart is left as typed, so its Year 2",
+    "    numbers no longer match the matrix.",
     "  * The scope and sequence chart's numbers and titles do not match the matrix in Year 1",
     "    (chart 1.15 Conducting / 1.16 Harmony 1 / 1.21 Harmony 2 ...; matrix 1.14 CONDUCTING,",
     "    1.15 HARMONY, 1.21 HARMONY 2 ...). Both set as written.",
@@ -32,12 +30,15 @@
     "    SEQUENCE CHART' only.",
     "  * Topic titles repeat: 1.4, 1.5 and 1.6 are all 'PITCH AND SCALES'; 1.18 and 2.18 are",
     "    both 'WORLD MUSIC 2'. Set as written.",
-    "  * Key Competences: the descriptor against ENTREPRENEURSHIP is about emotional",
-    "    intelligence (as in the Methods syllabus). Set as written."
+    "",
+    "2026-10-13 clean-up (user: 'correct all the issues'): ENTREPRENEURSHIP descriptor written (CDC to confirm);",
+    "  '[name the genres]' -> 'selected genres'; 2.3.3 titled 'Modal and Whole-Tone Scales'; reviewer's note in 2.19.3.1",
+    "  resolved; Outcomes unbolded (as Music Methods); 'Kelvin Mambwe, (PhD)' comma dropped."
   ],
   "subject": "Musical Arts Education Content",
   "level": "Secondary Teachers' Diploma",
   "year": 2024,
+  "renumberMatrix": true,
   "remove": [
     "ISBN: 978-9982-54-066-7"
   ],
@@ -55,36 +56,63 @@
       "text": "ACKNOWLEDGEMENT",
       "as": "label"
     },
-    { "find": "BACKGROUND", "as": "label" },
-    { "find": "RATIONALE", "as": "label" },
+    {
+      "find": "BACKGROUND",
+      "as": "label"
+    },
+    {
+      "find": "RATIONALE",
+      "as": "label"
+    },
     {
       "_why": "Sections typed as numbered list items (1. Outcomes, 2. Admission Requirements), not as headings like their siblings Aims / Duration / Graduation Requirements.",
       "find": "Outcomes of the programme",
       "as": "label"
     },
-    { "find": "Admission Requirements", "as": "label" }
+    {
+      "find": "Admission Requirements",
+      "as": "label"
+    }
   ],
-  "deleteExact": ["Duration of the Programme"],
+  "deleteExact": [
+    "Duration of the Programme"
+  ],
   "_deleteExact_why": "List item '3. Duration of the Programme' sits directly above the section's own heading 'DURATION OF THE PROGRAMME' -- the same title twice.",
   "replaceBlocks": [
     {
       "_why": "The year heading above the matrix, in the family's wording, so it sets the YEAR divider page and files a top-level contents entry.",
       "find": "YEAR ONE (1)",
-      "with": [{ "label": "YEAR 1" }]
+      "with": [
+        {
+          "label": "YEAR 1"
+        }
+      ]
     },
     {
       "find": "YEAR TWO (2)",
-      "with": [{ "label": "YEAR 2" }]
+      "with": [
+        {
+          "label": "YEAR 2"
+        }
+      ]
     },
     {
       "_why": "See _comment: the title named the Methods book.",
       "find": "SCOPE AND SEQUENCE CHART - MUSICAL ARTS EDUCATION TEACHING METHODS",
-      "with": [{ "h1": "SCOPE AND SEQUENCE CHART" }]
+      "with": [
+        {
+          "h1": "SCOPE AND SEQUENCE CHART"
+        }
+      ]
     },
     {
       "_why": "A sentence typed as a bold line, not a section: it introduces the qualification below it.",
       "find": "The programme is for the Secondary School Teaching",
-      "with": [{ "para": "The programme is for Secondary School teaching." }]
+      "with": [
+        {
+          "para": "The programme is for Secondary School teaching."
+        }
+      ]
     }
   ],
   "pageBreakBefore": [
@@ -98,6 +126,11 @@
       "_why": "Dash as in the Acknowledgement's 'Director – Curriculum Development'.",
       "find": "Permanent Secretary- Educational Services",
       "with": "Permanent Secretary – Educational Services"
+    },
+    {
+      "_why": "Comma before the degree, as no other syllabus signs it (\"Kelvin Mambwe (PhD)\").",
+      "find": "Kelvin Mambwe, (PhD)",
+      "with": "Kelvin Mambwe (PhD)"
     }
   ],
   "editCell": [
@@ -144,6 +177,44 @@
     {
       "pattern": "development\\.[\"”]$",
       "with": "development."
+    },
+    {
+      "_why": "KEY COMPETENCES: the manuscript's ENTREPRENEURSHIP descriptor is about emotional intelligence (it repeats the EMOTIONAL INTELLIGENCE row). Written for entrepreneurship in the same form as the other descriptors (2026-10-13). CDC to confirm.",
+      "row": "Entrepreneurship",
+      "col": 1,
+      "with": "Ability to apply project-based and experiential teaching methods to develop learners' capacity to identify opportunities in the music industry, create and market musical products and services, and manage resources, enabling educators to foster innovation, self-reliance, and income-generating ventures that contribute to national development."
+    },
+    {
+      "_why": "A placeholder left in the competence; its activities say 'a chosen genre'.",
+      "pattern": "\\[name the genres\\]",
+      "with": "selected genres"
+    },
+    {
+      "_why": "Sub-topic lost its opening words ('whole-tone scale fragments)'); titled from its competence (modal scales and whole-tone scale fragments) and standard (modal and whole-tone melodies).",
+      "pattern": "^(\\d+(?:\\.\\d+)+\\s+)?whole-tone scale fragments\\)$",
+      "with": "$1Modal and Whole-Tone Scales"
+    },
+    {
+      "_why": "A reviewer's note left in the standard ('… assessed as satisfactory changed to a complete professional portfolio …'): the replacement is kept.",
+      "pattern": "^Portfolio submitted complete and assessed as satisfactory changed to\\s+a complete",
+      "with": "A complete"
+    },
+    {
+      "_why": "CAPITAL LETTER. 2.11.1 DAW standard: three standards one per line, the second and third typed with a small first letter.",
+      "pattern": "(?<=demonstrated correctlys*\ns*)advanced MIDI",
+      "with": "Advanced MIDI"
+    },
+    {
+      "_why": "CAPITAL LETTER. As above.",
+      "pattern": "(?<=applied appropriatelys*\ns*)mixing and mastering",
+      "with": "Mixing and mastering"
     }
+  ],
+  "unbold": [
+    "Demonstrate knowledge, practical skills, values, and positive attitudes in Musical Arts.",
+    "Plan, prepare, and effectively deliver competence-based Musical Arts lessons.",
+    "Design and develop appropriate teaching and learning materials for Musical Arts.",
+    "Apply entrepreneurial knowledge and skills in music-related activities and ventures.",
+    "Demonstrate performance, creativity, coordination, observation, and self-expression through vocal, instrumental, and other musical activities."
   ]
 }

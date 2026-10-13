@@ -54,7 +54,7 @@ const EMPTY_CELL = { text: "", imgs: [] };
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 // Rich table cell: text plus any images it contains (and rich segments with
 // math when the cell holds an equation).
-const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""})`;
+const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""}${c.cont ? ", cont: true" : ""})`;
 const normRows = (rows) => { const n = Math.max(0, ...rows.map((r) => r.length)); return rows.map((r) => r.concat(Array(n - r.length).fill(EMPTY_CELL))); };
 const rowArr = (rows) => arr(normRows(rows), (r) => arr(r, cellArr));
 const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0}, tall: ${im.tall ? "true" : "false"}, cap: ${im.caption ? S(im.caption) : "none"}, hmm: ${im.hmm || 0})`);
@@ -1550,6 +1550,35 @@ function applyOverrides(blocks, ov) {
     walkI(blocks);
     if (!done) console.warn("!  insertRow not matched:", want || pre);
   }
+  // moveRow: [{ startsWith, after | before }] — move one table row, whole and with its
+  // formatting, to sit just after (or before) the row with a cell opening on `after`
+  // (`before`), in the same table. For a row typed in the wrong place: Entrepreneurship's
+  // "1.3.2.3 Assess suitable Financing Options" sat under 1.3.3 Business networks. A moved
+  // row whose TOPIC / SUB-TOPIC cells are empty continues the ones above its new place.
+  for (const mr of ov.moveRow || []) {
+    const opens = (row, s) => Array.isArray(row) && row.some((c) => ((c && c.text) || "").trim().startsWith(s));
+    let done = false;
+    const walkM = (arr) => {
+      for (const b of arr) {
+        if (done || !b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          const from = b.rows.findIndex((row, ri) => ri > 0 && opens(row, mr.startsWith));
+          const anchor = mr.after != null ? mr.after : mr.before;
+          if (from > 0 && b.rows.some((row, ri) => ri > 0 && ri !== from && opens(row, anchor))) {
+            const [row] = b.rows.splice(from, 1);
+            const to = b.rows.findIndex((r, ri) => ri > 0 && opens(r, anchor));
+            b.rows.splice(mr.after != null ? to + 1 : to, 0, row);
+            done = true;
+            console.log(`   moveRow ${mr.startsWith}: ${mr.after != null ? "after" : "before"} ${anchor}`);
+            continue;
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkM(b[k]);
+      }
+    };
+    walkM(blocks);
+    if (!done) console.warn("!  moveRow not matched:", mr.startsWith);
+  }
   // deleteExact: ["exact trimmed text", …] — remove EVERY block (at any depth) whose
   // whole trimmed plain text equals the string, splicing it out of the tree entirely
   // (no empty paragraph left behind). Use for a redundant line the manuscript repeated
@@ -3041,7 +3070,11 @@ function tidyPunctuationSpaces(blocks) {
       .replace(/([^\s.(])[ \t ]+([,;])/g, "$1$2")
       .replace(/([A-Za-z)'’"”])[ \t ]+([.:])(?=[ \t ]|$)/g, "$1$2")
       .replace(/\([ \t ]+(?=\S)/g, "(")
-      .replace(/(?<=[^\s.])[ \t ]+\)/g, ")");
+      .replace(/(?<=[^\s.])[ \t ]+\)/g, ")")
+      // two or more spaces between words ("teach music  education"), and a space typed
+      // before a slash joining two words ("content /topic") -- Music Content
+      .replace(/(\S)[ \t]{2,}(?=\S)/g, "$1 ")
+      .replace(/(\w) \/(?=\w)/g, "$1/");
     if (t !== o) n++;
     return t;
   };
@@ -3054,6 +3087,8 @@ function tidyPunctuationSpaces(blocks) {
       const nx = segs[i + 1];
       if (nx && typeof nx.t === "string" && /[^\s(][ \t ]+$/.test(s.t) && /^[,;)]/.test(nx.t)) { s.t = s.t.replace(/[ \t ]+$/, ""); n++; }
       if (nx && typeof nx.t === "string" && /\($/.test(s.t) && /^[ \t ]+\S/.test(nx.t)) { nx.t = nx.t.replace(/^[ \t ]+/, ""); n++; }
+      // a space ending one run and another opening the next: one space
+      if (nx && typeof nx.t === "string" && /\S[ \t]+$/.test(s.t) && /^[ \t]+\S/.test(nx.t)) { nx.t = nx.t.replace(/^[ \t]+/, ""); n++; }
       s.t = tidyStr(s.t);
     }
   };
@@ -3068,6 +3103,60 @@ function tidyPunctuationSpaces(blocks) {
   };
   walk(blocks);
   if (n) console.log(`   punctuation spacing tidied: ${n} run(s)`);
+}
+
+// splitRow: [{ startsWith, at }] — cut one tall matrix row in two at a line of its own,
+// where a page break leaves only a line or two of it overleaf and keeping it whole would
+// leave half a page empty (Social Studies 1.6.5). `startsWith` finds the row like
+// keepRowWhole; `at` is the opening text of the line, in any cell, that starts the second
+// piece. The second piece is a continuation row: every other cell empty, and no rule
+// between it and the first in ANY column, so on one page the two read as one row; across
+// a page it carries a few lines rather than one or two. It never splits itself.
+function splitRows(blocks, ov) {
+  const cellLines = (c) => {
+    const src = Array.isArray(c.segs) && c.segs.length ? c.segs : [{ t: c.text || "" }];
+    const lines = [[]];
+    for (const s of src) String(s.t == null ? "" : s.t).split("\n").forEach((p, i) => {
+      if (i) lines.push([]);
+      if (p !== "") lines[lines.length - 1].push({ ...s, t: p });
+    });
+    return lines;
+  };
+  const join = (lines) => { const j = []; lines.forEach((l, i) => { if (i) j.push({ t: "\n", b: false, it: false, c: null }); j.push(...l); }); return j; };
+  const plain = (l) => l.map((s) => s.t).join("");
+  for (const sr of ov.splitRow || []) {
+    let done = false;
+    const walkS = (arr) => {
+      for (const b of arr) {
+        if (done || !b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          const ri = b.rows.findIndex((row, i) => i > 0 && Array.isArray(row) && row.some((c) => ((c && c.text) || "").trim().startsWith(sr.startsWith)));
+          if (ri > 0) {
+            const row = b.rows[ri];
+            for (let ci = 0; ci < row.length && !done; ci++) {
+              const c = row[ci];
+              if (!c || (c.imgs || []).length) continue;
+              const lines = cellLines(c);
+              const at = lines.findIndex((l, li) => li > 0 && plain(l).replace(/^[\s•▪◦●·‣∙]+/, "").startsWith(sr.at));
+              if (at < 1) continue;
+              const head = lines.slice(0, at), tail = lines.slice(at);
+              const hadSegs = Array.isArray(c.segs) && c.segs.length;
+              c.text = head.map(plain).join("\n"); if (hadSegs) c.segs = join(head);
+              const cont = row.map((x, xi) => xi === ci
+                ? { text: tail.map(plain).join("\n"), imgs: [], segs: hadSegs ? join(tail) : null, cont: true, keep: true }
+                : { text: "", imgs: [], segs: null, cont: true, keep: true });
+              b.rows.splice(ri + 1, 0, cont);
+              done = true;
+              console.log(`   splitRow ${sr.startsWith}: second piece from "${sr.at}"`);
+            }
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkS(b[k]);
+      }
+    };
+    walkS(blocks);
+    if (!done) console.warn("!  splitRow not matched:", sr.startsWith, "/", sr.at);
+  }
 }
 
 // keepRowWhole: [{ find | startsWith }] — never split this TABLE ROW across a page. The
@@ -3098,6 +3187,77 @@ function keepRowsWhole(blocks, ov) {
     if (!n) console.warn("!  keepRowWhole not matched:", want || pre);
     else console.log(`   keepRowWhole ${want || pre}: ${n} row(s)`);
   }
+}
+
+// Lines in a syllabus table cell that the author's Word layout left behind (Music Content):
+// a paragraph holding only a full stop under a competence ("…quadruple metre" / "."), a
+// clause typed one short line per paragraph ("All major source types have" / "been
+// correctly identified," / …) or broken after its first word ("Historical" / "and
+// cultural origins…"), a full stop typed at the head of a clause (". Simple melody
+// harmonized correctly.", "• . Tuning kalimba") and a bullet with nothing after it. A
+// punctuation-only line goes, a leading full stop or comma goes, an empty bullet goes, and
+// a line opening with a small letter joins the line above unless that one ends a sentence
+// (. : ; ! ?) or the two are whole statements of their own. The activities column keeps its lines (the template runs on its own
+// small-letter lines and keeps methods apart). Matrix and Key Competences tables only.
+function tidyCellLines(blocks) {
+  let n = 0;
+  const PUNCT_ONLY = /^[\s.,;:·…•▪]*$/;
+  for (const b of blocks) {
+    if (!b || b.t !== "table" || !Array.isArray(b.rows) || b.rows.length < 2) continue;
+    const H = (b.rows[0] || []).map((c) => String((c && c.text) || "").toUpperCase());
+    if (!H.some((h) => /TOPIC|COMPETEN|DESCRIPT/.test(h))) continue;
+    const actCol = H.findIndex((h) => /ACT.?VIT/.test(h));
+    for (const row of b.rows.slice(1)) (row || []).forEach((c, ci) => {
+      if (!c || (c.imgs || []).length) return;
+      const src = Array.isArray(c.segs) && c.segs.length ? c.segs : [{ t: String(c.text || ""), b: false, it: false, c: null }];
+      if (src.some((s) => s.m || typeof s.t !== "string")) return;
+      let lines = [[]];
+      for (const s of src) s.t.split("\n").forEach((p, i) => { if (i) lines.push([]); if (p !== "") lines[lines.length - 1].push({ ...s, t: p }); });
+      const txt = (l) => l.map((s) => s.t).join("");
+      const before = lines.map(txt).join("\n");
+      // a full stop / comma at the head of a line, after any bullet: ". Simple…", "• . Tuning…"
+      lines = lines.map((l) => {
+        const m = txt(l).match(/^(\s*(?:[•▪◦●·‣∙]\s*)?)([.,;]+\s+)(?=\S)/);
+        if (!m) return l;
+        let cut = m[2].length, at = m[1].length; const out = [];
+        for (const s of l) {
+          const len = s.t.length;
+          if (at >= len) { at -= len; out.push(s); continue; }
+          const k = Math.min(len - at, cut);
+          out.push({ ...s, t: s.t.slice(0, at) + s.t.slice(at + k) }); cut -= k; at = 0;
+        }
+        return out.filter((s) => s.t !== "");
+      });
+      lines = lines.filter((l) => !PUNCT_ONLY.test(txt(l)));
+      if (ci !== actCol) {
+        const out = [];
+        const words = (s) => s.split(/\s+/).filter(Boolean).length;
+        // the line above is cut short: a comma or a joining word at its end ("Functions of",
+        // "…source types have", "…planned,"), or only a word or three ("Historical")
+        const OPEN_END = /(?:,|\b(?:a|an|the|of|in|on|at|to|for|with|by|from|into|and|or|but|nor|as|that|which|their|its|have|has|had|been|be|is|are|was|were))$/i;
+        for (const l of lines) {
+          const t = txt(l).trim(), prev = out.length ? txt(out[out.length - 1]).replace(/\s+$/, "") : null;
+          // Two whole statements one under the other ("Skills in DAW recording demonstrated
+          // correctly" / "advanced MIDI and VST skills applied appropriately") stay apart: join
+          // only when the line above is cut short or the line below is a short tail
+          // ("analysed accordingly").
+          if (prev != null && /^[a-z]/.test(t) && !/[.:;!?]$/.test(prev) && !/^(?:\d+(?:\.\d+)+|[-–•▪])/.test(t)
+              && (OPEN_END.test(prev) || words(prev) <= 3 || words(t) <= 3)) {
+            const last = out[out.length - 1];
+            out[out.length - 1] = [...last.map((s, i) => i === last.length - 1 ? { ...s, t: s.t.replace(/\s+$/, "") } : s),
+              { ...l[0], t: " " }, ...l.map((s, i) => i === 0 ? { ...s, t: s.t.replace(/^\s+/, "") } : s)];
+          } else out.push(l);
+        }
+        lines = out;
+      }
+      const after = lines.map(txt).join("\n");
+      if (after === before) return;
+      n++;
+      c.text = after;
+      if (Array.isArray(c.segs) && c.segs.length) { const j = []; lines.forEach((l, i) => { if (i) j.push({ t: "\n", b: false, it: false, c: null }); j.push(...l); }); c.segs = j; }
+    });
+  }
+  if (n) console.log(`   table cells tidied (stray full stops, hand-wrapped lines, empty bullets): ${n}`);
 }
 
 function unifyFullStops(blocks) {
@@ -3551,9 +3711,16 @@ function auditSyllabusNumbering(blocks) {
   // when it carries on a Roman run or starts one, a letter when it follows "h"/"u"/"w".
   const ROMAN = { i: 1, v: 5, x: 10, l: 50, c: 100 };
   const romanVal = (s) => { let n = 0; const r = s.toLowerCase(); for (let k = 0; k < r.length; k++) { const a = ROMAN[r[k]], b2 = ROMAN[r[k + 1]] || 0; n += a < b2 ? -a : a; } return n; };
+  // A numbered item that carries on one Word list across a table or heading (Entrepreneurship's
+  // Appendix 2: "1. Programme Overview", a table, "2. Assessment Framework", a table, "3. …") is
+  // counted on from the item before it in that list, not taken for a new run.
+  const wordList = {};
   const runs = (arr) => {
     const last = { num: null, alpha: null, roman: null };
-    const check = (v, mk, text) => {
+    const check = (v, mk, text, blk) => {
+      const wl = blk && blk.numId != null && isNum(v) ? blk.numId + ":" + (blk.lvl || 0) : null;
+      if (wl && last.num == null && wordList[wl] != null && +v === wordList[wl] + 1) last.num = wordList[wl];
+      if (wl) wordList[wl] = +v;
       const lv = v.toLowerCase();
       const letterNext = last.alpha != null && lv.length === 1 && lv.charCodeAt(0) - 96 === last.alpha + 1;
       const kind = isNum(v) ? "num" : (/^[ivxlc]+$/.test(lv) && !letterNext && (lv.length > 1 || lv === "i" || last.roman != null)) ? "roman" : "alpha";
@@ -3571,7 +3738,7 @@ function auditSyllabusNumbering(blocks) {
       if (Array.isArray(b.rows) || /^h[123]$/.test(b.t) || b.t === "divider") { last.num = last.alpha = last.roman = null; continue; }
       // list items, and the numbered items of an assessment/exercise box
       const m = (b.t === "listitem" || b.kind === "q") && typeof b.marker === "string" && b.marker.trim().match(/^\(?([0-9]+|[ivxlc]+|[a-z])[.)]$/i);
-      if (m) check(m[1], b.marker.trim(), blockPlain(b) || b.q || "");
+      if (m) check(m[1], b.marker.trim(), blockPlain(b) || b.q || "", b);
       else {
         // "a) Age limit" typed as a plain paragraph counts too
         const t = (b.t === "para" || b.t === "label") ? String(blockPlain(b) || "").trim() : "";
@@ -5150,7 +5317,7 @@ async function typesetOne(docxPath, themeName) {
   }
 
   if (variant === "syllabus") mergeSplitMatrices(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.cellSubtext || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -5813,11 +5980,15 @@ function normaliseQuestionMarkBold(blocks) {
         if (!lines || !lines.length) return 0;
         const parts = lines.map(strip);
         const anyNum = parts.some((p) => p.had);
-        const out = []; let n = 0;
+        const out = []; let n = 0, carry = false;
         parts.forEach((p, i) => {
-          if (!p.rest.length) return;                                         // a number and nothing else
-          if (p.had || (!anyNum && i === 0)) { out.push(withNum(next(), p.rest)); n++; }
+          // a number and nothing else: it numbers the line under it ("1.17.1" over "Zambian
+          // music", Music Content -- dropped, the sub-topic went unnumbered and its
+          // competence came out 1.17.0.1)
+          if (!p.rest.length) { carry = p.had; return; }
+          if (p.had || carry || (!anyNum && i === 0)) { out.push(withNum(next(), p.rest)); n++; }
           else out.push(p.rest);
+          carry = false;
         });
         setLines(c, out);
         return n;
@@ -6526,9 +6697,11 @@ function normaliseQuestionMarkBold(blocks) {
     tidyPunctuationSpaces(blocks);
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
     // finished blocks -- after every heading, cell and list has taken its final form.
+    tidyCellLines(blocks);
     unifyFullStops(blocks);
     topCompetenceHeadings(blocks);
     hyphenateSubTopicHeader(blocks);
+    splitRows(blocks, ov);
     keepRowsWhole(blocks, ov);
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }

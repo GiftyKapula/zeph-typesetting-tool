@@ -75,5 +75,12 @@
       "with": "YEAR 2"
     }
   ],
-  "renumberMatrix": true
+  "renumberMatrix": true,
+  "splitRow": [
+    {
+      "_why": "Opens its topic, so it never splits: the page before it ended a third or more empty. Cut here so the first piece, with the topic title, fills that page (2026-10-13 clean-up).",
+      "startsWith": "1.9.1.1",
+      "at": "Demonstrating the use"
+    }
+  ]
 }
