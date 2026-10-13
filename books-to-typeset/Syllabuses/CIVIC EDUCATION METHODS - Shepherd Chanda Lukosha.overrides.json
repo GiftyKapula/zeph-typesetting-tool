@@ -1,0 +1,69 @@
+{
+  "_comment": [
+    "Civic Education Methods -- Secondary Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-12.",
+    "",
+    "THEME. The file name carries no SYLLABUS, TED or VALIDATED, so \"theme\": \"gensyl\" is set here.",
+    "LEVEL / YEAR. Secondary Teachers' Diploma; 2025 as on the copyright line (the manuscript's cover",
+    "says 2023). The manuscript also carries leftover cover text from other syllabuses (Design &",
+    "Technology, Technology Studies); the cover and title page are drawn from the theme, so none prints.",
+    "",
+    "MATRIX NUMBERS. renumberMatrix: the topics run 1.3, 1.3, 1.5, 1.6, 1.6, 1.9 and two sub-topics are",
+    "numbered only '1.'. Counted afresh, Year 1 has 9 topics (1.1-1.9, as in the typed contents list)",
+    "and Year 2 three (2.1 School Experience, 2.2 School Experience Review, 2.3 Record Management).",
+    "",
+    "YEAR PAGES. YEAR 1 / YEAR 2 are typed over each year's Key Competences; the engine moves each below",
+    "the competences, over its matrix. Year 2's competences had YEAR 2 merged across the top of the",
+    "table and no heading: KEY COMPETENCES is added and the table opens a fresh page, as in Year 1.",
+    "",
+    "YEAR 2 KEY COMPETENCES (publisher's request, 2026-10-12, as for Civic Content):",
+    " - 'Creativity and Innovation' and 'Critical Thinking' each appeared twice. The second of each is",
+    "   removed: both repeat a competence that already has its row, and their wording comes from Civic",
+    "   Education CONTENT (business challenges, environmental activism; gender stereotypes, child abuse,",
+    "   institutions of gender, development policies), not from this syllabus's Year 2 topics.",
+    " - Financial Literacy ended in a cut-off line, 'Developing s'; it is dropped (the cell's first line",
+    "   already begins 'Developing students' understanding of financial concepts').",
+    "No other descriptor is changed. CDC to confirm."
+  ],
+  "theme": "gensyl",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "removeRow": [
+    {
+      "_why": "YEAR 2 KEY COMPETENCES (see _comment): the second 'Creativity and Innovation' row, wording from Civic Education Content.",
+      "startsWith": "• Develop innovative solutions to business challenges"
+    },
+    {
+      "_why": "The second 'Critical thinking' row, wording from Civic Education Content.",
+      "startsWith": "• Evaluate the impact of gender stereotypes"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "Year 2 Financial Literacy: a cut-off last line, 'Developing s'.",
+      "pattern": "\\n•\\s*Developing s\\s*$",
+      "with": ""
+    }
+  ],
+  "insertHead": [
+    {
+      "_why": "Year 2 competences carry no KEY COMPETENCES heading (Year 1 does); the manuscript only merged YEAR 2 across the top of the table.",
+      "before": "YEAR TWO",
+      "head": "KEY COMPETENCES",
+      "as": "h2"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "The Assessment section split with its '1. College-Based Assessment' heading alone at the foot of a page; it opens the next page whole.",
+      "find": "Assessment",
+      "near": "The programme shall use two types of assessment"
+    },
+    {
+      "_why": "Year 2 competences open a fresh page, as Year 1 does, instead of starting under the last Year 1 matrix row.",
+      "find": "KEY COMPETENCES",
+      "near": "YEAR TWO"
+    }
+  ]
+}
