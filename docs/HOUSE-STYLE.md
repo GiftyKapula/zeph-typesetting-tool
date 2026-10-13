@@ -376,7 +376,7 @@ off, so a change only touches the books that opt in. Keys:
 | `pageBreakBefore` | insert a page break before the first block containing the text |
 | `replaceSection` | swap a whole section body (heading → next section) for supplied `items` (markdown-ish: `**bold**`, `*italic*`, `$math$`, `## sub-head`); optional `rename`/`until` |
 | `recase` | change a block's case (`{ startsWith, to: "sentence" }`) — e.g. an ALL-CAPS label the house style wants in sentence case |
-| `setHeading` | force a block to render as a specific heading kind (`as: "label"`, etc.) — for a heading the importer classified wrong |
+| `setHeading` | force a block to render as a specific heading kind (`as: "label"`, etc.) — for a heading the importer classified wrong. `all: true` every match; `keep: true` makes the kind final (a syllabus does not lift a kept reading-list label after the matrix to a page of its own) |
 | `centrePara` | centre a paragraph (and, inside an exercise, its "lead" part) rather than justify/left-align it — matches a manuscript's own centred diagram or ASCII layout |
 | `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |

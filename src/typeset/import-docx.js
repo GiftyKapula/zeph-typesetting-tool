@@ -1883,6 +1883,19 @@ async function importDocx(docxPath, opts = {}) {
   const colorHeads = !styled && parts.some((x) =>
     !isTbl(x) && /<w:rPr>(?:(?!<\/w:rPr>)[\s\S])*<w:b\b(?!Cs)(?:(?!<\/w:rPr>)[\s\S])*<w:color\s+w:val="(?!auto|000000)[0-9A-Fa-f]{6}"/.test(x));
 
+  // A sentence styled TOC Heading is body text the author styled by accident, not the
+  // contents title: Computer Science set its Vision statement in TOC Heading, every TOC-
+  // styled line is dropped below, and the VISION page printed empty. It reads as a plain
+  // paragraph. So does a "Vision" / "Mission" title in that style: Civic Education Content
+  // set both its Vision title and statement in TOC Heading, and printed no Vision at all.
+  for (let i = 0; i < parts.length; i++) {
+    const x = parts[i];
+    if (isTbl(x) || !/^TOCHeading$/i.test(styleOf(x))) continue;
+    const t = textOf(x).trim();
+    if (/^(vision|mission)$/i.test(t)) parts[i] = x.replace(/<w:pStyle\s+w:val="TOCHeading"\s*\/>/i, '<w:pStyle w:val="Heading1"/>');
+    else if (t.length > 40 && !/contents?/i.test(t)) parts[i] = x.replace(/<w:pStyle\s+w:val="TOCHeading"\s*\/>/i, "");
+  }
+
   // ---- front-matter detection (only when the book clearly has one) ----
   const hasTocStyle = parts.some((x) => /<w:pStyle\s+w:val="TOC\d/.test(x));
   const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso/i.test(textOf(x)));
