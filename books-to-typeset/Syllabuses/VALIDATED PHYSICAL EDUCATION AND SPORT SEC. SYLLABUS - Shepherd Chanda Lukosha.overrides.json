@@ -93,5 +93,15 @@
       "find": "OPIC",
       "with": "TOPIC"
     }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Split at the page foot (2026-10-13 rebuild, measured topic column), row 1.7.4 carried its last two lines onto the next page. Kept whole.",
+      "startsWith": "1.7.4.1"
+    },
+    {
+      "_why": "Split at the page foot (2026-10-13 rebuild, measured topic column), row 2.3.6 carried its last bullet onto the next page. Kept whole.",
+      "startsWith": "2.3.6.1"
+    }
   ]
 }
