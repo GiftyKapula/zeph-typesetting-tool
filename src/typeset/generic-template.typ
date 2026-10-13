@@ -2217,6 +2217,8 @@
     let p = rows.at(0).position(c => upper(plainlabel(c)).trim().starts-with("TOPIC"))
     if p == none { 0 } else { p }
   } else { 0 }
+  // …and the SUB-TOPIC column ("SUB-TOPIC", "SUB TOPIC", "SUBTOPICS"), if the matrix has one.
+  let stc = if sylhdr { rows.at(0).position(c => upper(plainlabel(c)).trim().starts-with(regex("SUB[\\s\\-]*TOPIC"))) } else { none }
   let sylbullets(c) = {
     let sg = c.at("seg", default: ())
     let lines = ()
@@ -2428,7 +2430,7 @@
   } else if ci == tc {
     // The TOPIC column is set in BOLD UPPERCASE, as the reference book sets it
     // ("INTRODUCTION TO TRAVEL AND TOURISM"), while the SUB-TOPIC column beside it
-    // stays bold title case. Manuscripts are inconsistent about this — one book typed
+    // is plain title case (`stc`). Manuscripts are inconsistent about this — one book typed
     // its early topics in caps and its later ones in title case — so normalise here
     // rather than leaving the column looking like two different styles down the page.
     // …except in the COMPETENCES | DESCRIPTORS table, whose first column lands here too
@@ -2474,6 +2476,10 @@
       }
       [#titles.enumerate().map(((i, s)) => entry(s, i == 0)).join()#body]
     } else { body }
+  } else if ci == stc {
+    // The SUB-TOPIC column is set plain, number and title alike, whatever bold the
+    // manuscript typed there (2026-10-13 request: only the TOPIC column is bold).
+    numcell((..c, seg: c.at("seg", default: ()).map(s => (..s, b: false))))
   } else { numcell(c) }
   let tbl = if syl and sylhdr {
     layout(size => {
