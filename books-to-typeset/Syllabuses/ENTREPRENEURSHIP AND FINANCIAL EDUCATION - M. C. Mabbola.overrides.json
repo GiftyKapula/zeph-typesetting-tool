@@ -74,5 +74,11 @@
       "pattern": "^\\s*Schools\\s*$",
       "with": ""
     }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Split at the page foot (2026-10-13 rebuild, measured topic column), row 1.8.2 carried its last line onto the next page. Kept whole. (Other rows tried 2026-10-13: keeping any of 1.1.5.2, 1.1.7.1, 1.4.2.1 only moves a two-line carry-over elsewhere or adds a page.)",
+      "startsWith": "1.8.2.2"
+    }
   ]
 }
