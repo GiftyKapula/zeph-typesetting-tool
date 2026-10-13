@@ -328,5 +328,11 @@
       "from": "[[manuscript weightings follow]]",
       "to": "Time Allocation"
     }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Split at the page foot, row 2.2.5 (Disability, Education and Climate Change Awareness) carried its last bullet ('Discussing prevention strategies when faced with climatic disaster') onto a page of its own. Kept whole, the row opens the next page.",
+      "startsWith": "2.2.5.1"
+    }
   ]
 }

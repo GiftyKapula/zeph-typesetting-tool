@@ -54,7 +54,7 @@ const EMPTY_CELL = { text: "", imgs: [] };
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 // Rich table cell: text plus any images it contains (and rich segments with
 // math when the cell holds an equation).
-const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""})`;
+const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""})`;
 const normRows = (rows) => { const n = Math.max(0, ...rows.map((r) => r.length)); return rows.map((r) => r.concat(Array(n - r.length).fill(EMPTY_CELL))); };
 const rowArr = (rows) => arr(normRows(rows), (r) => arr(r, cellArr));
 const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0}, tall: ${im.tall ? "true" : "false"}, cap: ${im.caption ? S(im.caption) : "none"}, hmm: ${im.hmm || 0})`);
@@ -3012,6 +3012,78 @@ function stopTarget(group, units) {
   const dot = units.filter((u) => u.end === "dot" || u.end === "double").length, none = units.length - dot;
   return none > dot ? "none" : "dot";
 }
+// Stray spaces around punctuation, as typed: "group work , debate", "play ,Brain storm",
+// "taught for one year .", "( keyboard, guitar )". The comma or stop closes up to its word,
+// a bracket to its text, and a comma that had a space before it but none after gets one.
+// Works across run boundaries (a space ending one run, the comma opening the next). Leaves
+// a colon between figures (10 : 30), dot leaders and ellipses alone.
+function tidyPunctuationSpaces(blocks) {
+  let n = 0;
+  const tidyStr = (t) => {
+    const o = t;
+    t = t.replace(/([^\s.(])[ \t ]+([,;])(?=[A-Za-z])/g, "$1$2 ")
+      .replace(/([^\s.(])[ \t ]+([,;])/g, "$1$2")
+      .replace(/([A-Za-z)'’"”])[ \t ]+([.:])(?=[ \t ]|$)/g, "$1$2")
+      .replace(/\([ \t ]+(?=\S)/g, "(")
+      .replace(/(?<=[^\s.])[ \t ]+\)/g, ")");
+    if (t !== o) n++;
+    return t;
+  };
+  const tidySegs = (segs) => {
+    if (!Array.isArray(segs)) return;
+    for (let i = 0; i < segs.length; i++) {
+      const s = segs[i];
+      if (!s || typeof s.t !== "string") continue;
+      // "work" + " , debate" / "work " + ", debate": close the gap across the run boundary
+      const nx = segs[i + 1];
+      if (nx && typeof nx.t === "string" && /[^\s(][ \t ]+$/.test(s.t) && /^[,;)]/.test(nx.t)) { s.t = s.t.replace(/[ \t ]+$/, ""); n++; }
+      if (nx && typeof nx.t === "string" && /\($/.test(s.t) && /^[ \t ]+\S/.test(nx.t)) { nx.t = nx.t.replace(/^[ \t ]+/, ""); n++; }
+      s.t = tidyStr(s.t);
+    }
+  };
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b)) { walk(b); continue; }
+      for (const k of ["segs", "qseg", "s"]) if (Array.isArray(b[k])) tidySegs(b[k]);
+      if (typeof b.text === "string" && !/\.\s?\.\s?\./.test(b.text)) b.text = tidyStr(b.text);
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && !["segs", "qseg", "s"].includes(k)) walk(b[k]);
+    }
+  };
+  walk(blocks);
+  if (n) console.log(`   punctuation spacing tidied: ${n} run(s)`);
+}
+
+// keepRowWhole: [{ find | startsWith }] — never split this TABLE ROW across a page. The
+// matrix lets a long row break, which is right as a rule, but now and then the break
+// carries one bullet into an otherwise empty row overleaf (Inclusive ECE 2.2.5). Matched
+// like removeRow: any one cell's whole trimmed text, or its opening text. Header excluded.
+// Runs on the finished blocks, after the syllabus passes that rebuild matrix cells.
+function keepRowsWhole(blocks, ov) {
+  for (const kr of ov.keepRowWhole || []) {
+    const want = kr.find != null ? String(kr.find) : null;
+    const pre = kr.startsWith != null ? String(kr.startsWith) : null;
+    let n = 0;
+    const hit = (cell) => {
+      const t = ((cell && cell.text) || "").trim();
+      if (!t) return false;
+      return want != null ? t === want : (pre != null && t.startsWith(pre));
+    };
+    const walkK = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          b.rows.forEach((row, ri) => { if (ri > 0 && Array.isArray(row) && row.some(hit)) { row.forEach((c) => { if (c && typeof c === "object") c.keep = true; }); n++; } });
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkK(b[k]);
+      }
+    };
+    walkK(blocks);
+    if (!n) console.warn("!  keepRowWhole not matched:", want || pre);
+    else console.log(`   keepRowWhole ${want || pre}: ${n} row(s)`);
+  }
+}
+
 function unifyFullStops(blocks) {
   const units = stopUnits(blocks);
   const byGroup = {};
@@ -6115,11 +6187,13 @@ function normaliseQuestionMarkBold(blocks) {
   // competence numbered under the wrong topic.
   if (variant === "syllabus") {
     dedupeLevelHeadings(blocks);
+    tidyPunctuationSpaces(blocks);
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
     // finished blocks -- after every heading, cell and list has taken its final form.
     unifyFullStops(blocks);
     topCompetenceHeadings(blocks);
     hyphenateSubTopicHeader(blocks);
+    keepRowsWhole(blocks, ov);
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }

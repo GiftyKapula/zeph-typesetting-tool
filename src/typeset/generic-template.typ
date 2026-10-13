@@ -2473,7 +2473,7 @@
           // (and never a row with a 900-character cell: Music Methods 1.21, kept whole by
           // the character count before the measured fit existed -- both hold)
           let whole = r.len() > tc and plainlabel(r.at(tc)).trim() != "" and r.all(c => plainlabel(c).len() < 900) and rowFits(r)
-          let short = r.all(c => plainlabel(c).len() <= 160)
+          let short = r.all(c => plainlabel(c).len() <= 160) or r.any(c => c.at("keep", default: false))   // or sidecar keepRowWhole
           r.enumerate().map(((ci, c)) =>
             if (ci == tc and whole) or (short and ci == 0) { table.cell(breakable: false, sylbody(ci, c, r)) }
             else { sylbody(ci, c, r) })

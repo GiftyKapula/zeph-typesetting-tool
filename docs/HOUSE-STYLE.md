@@ -86,6 +86,8 @@ item ("b) Academic Qualifications"), is kept with the text that follows: none is
 the foot of a page. A sidecar `pageBreakBefore` set to dodge a page-end under the old, tighter
 spacing may now misfire — re-look at the page after any spacing change.
 
+**Spaces around punctuation, as typed, are closed up** (2026-10-13): "group work , debate" → "group work, debate", "play ,Brain storm" → "play, Brain storm", "one year ." → "one year.", "( keyboard" → "(keyboard", "Deficits )" → "Deficits)". Dot leaders, ellipses and a colon between figures are left alone (`tidyPunctuationSpaces`, syllabus family).
+
 Past the matrix a section title is only recognised when it carries **no digit** —
 that is what keeps the assessment weightings out of the heading stream.
 
@@ -390,6 +392,7 @@ off, so a change only touches the books that opt in. Keys:
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
 | `removeRow` | delete a whole table row, matched by any one cell's exact text (`find`) or its opening text (`startsWith`) — for a row the author duplicated, or a clause withdrawn after validation. Never matches the header row. `remove` deletes a whole block and `editCell` only rewrites text, so this is the way to drop one row of a syllabus matrix |
+| `keepRowWhole` | never split one TABLE ROW across a page, matched like `removeRow` (`find` = a cell's whole text, or `startsWith`) — for a long matrix row whose page break carries one bullet into an otherwise empty row overleaf |
 | `levelPageAfterCompetences` | `true` moves a syllabus’s level page ("SECONDARY TEACHERS’ DIPLOMA") from ahead of the competences section to after its table, in front of the first YEAR matrix; arabic page 1 then opens on the competences |
 | `insertRow` | put a row merged across the table, holding `text`, before the first body row with a cell matching `find` (whole text) or `startsWith` — a `YEAR 2` row in a syllabus matrix that runs both years as one table; the family lifts it out as the YEAR banner. With `cells: [...]` instead of `text`, an ordinary row of those cells (a Key Competences row the manuscript left out) |
 | `coverColour` | a 6-digit hex value (`"1f5c3a"`) — syllabus family only. The colour of the cover and back-cover field. A syllabus on the generic theme otherwise takes one from a fixed set of twelve deep colours, picked by its subject name (the same book always gets the same one; none repeats a named theme's orange, teal or indigo). Set this when two subjects land on the same or a near colour |
