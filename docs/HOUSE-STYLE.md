@@ -145,7 +145,13 @@ Six more, from the Physical Education and Sport syllabus:
   line runs on from the activity above it when it opens with a bracket, an
   ellipsis or a small letter, or is in italics (`(Bandages, scissors, GV paint…)`);
   otherwise it is an activity whose bullet was left off. A cell with no bullets
-  at all, or with one on every line, is bulleted line by line as before.
+  at all, or with one on every line, is bulleted line by line as before — except
+  a cell with no bullets laid out as method / activities (History Methods types
+  `Research` / `Researching on …` as plain paragraphs alike): it opens on a line
+  wholly in bold, ends on a plain one, every line is wholly bold or wholly plain,
+  and no two bold lines stand together. Its bold lines are methods. A cell where
+  the author bolded some activities (two bold lines running, a half-bold line)
+  keeps every bullet. A method line drops the spaces typed in front of it.
 - **The competences section is found by what it heads** when its title names no
   "descriptors" (`KEY COMPETENCES`): the heading over the COMPETENCES |
   DESCRIPTORS table opens the body (level divider, arabic page 1).
