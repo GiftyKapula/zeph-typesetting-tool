@@ -95,6 +95,11 @@
     {
       "_why": "The last line of TIME ALLOCATION ('99 hours for Year One (1)') fell alone on a page of its own. The two closing sections now share a page.",
       "find": "ASSESSMENT METHODS AND WEIGHTINGS"
+    },
+    {
+      "_why": "OUTCOMES OF THE PROGRAMME and its first item ('1. Knowledge and Understanding') sat at the foot of p. ix, with the item's text over the page. The section now opens the next page whole.",
+      "find": "Outcomes of the programme",
+      "near": "Support Lifelong Outcomes for Learners"
     }
   ],
   "remove": [
