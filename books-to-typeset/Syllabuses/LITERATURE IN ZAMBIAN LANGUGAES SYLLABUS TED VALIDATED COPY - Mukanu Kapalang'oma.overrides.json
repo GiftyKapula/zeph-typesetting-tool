@@ -1,0 +1,56 @@
+{
+  "_comment": [
+    "Literature in Zambian Languages -- Secondary Teachers' Diploma syllabus.",
+    "First typeset 2026-10-13.",
+    "",
+    "SOURCE. Received as a Word 97 .doc; converted to .docx with Word (Save As) before typesetting.",
+    "SUBJECT. Set here: the file name misspells it (\"LANGUGAES\").",
+    "LEVEL / YEAR. As the cover says; 2026 as on the cover and copyright line.",
+    "",
+    "TWO SYLLABUSES IN ONE FILE. After this syllabus's References the manuscript carries a second, complete one: Literature in",
+    "Zambian Languages TEACHING METHODS (course name, competences, content, scope, methods, assessment, references). Set as its",
+    "own book, as the family sets every Content / Methods pair; it is cut from here (removeRange, to the end). The Preface and",
+    "Acknowledgements, written for both \"syllabi\", print in both books. The Methods book is built from a copy of this .docx:",
+    "\"LITERATURE IN ZAMBIAN LANGUAGES TEACHING METHODS SYLLABUS TED VALIDATED - Mukanu Kapalang'oma\".",
+    "",
+    "SECTION HEADS. The manuscript numbers its sections 1-8 but styles them three ways (heading, bold line, plain); 5. Scope and",
+    "Sequence and 6. Teaching and Learning Methods set as loose bold lines. All eight are the same sub-section head (setHeading).",
+    "The reading lists under 8. References (Prescribed / Recommended Readings) are labels under it, not pages of their own."
+  ],
+  "subject": "Literature in Zambian Languages",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2026,
+  "removeRange": [
+    {
+      "_why": "the Teaching Methods syllabus that follows this one in the file (see _comment)",
+      "after": "Recommended Readings",
+      "from": "LITERATURE IN ZAMBIAN LANGUAGES"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "5. Scope and Sequence",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "6. Teaching and Learning Methods",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Prescribed Readings",
+      "as": "label",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "Recommended Readings",
+      "as": "label",
+      "all": true,
+      "keep": true
+    }
+  ]
+}

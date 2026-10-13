@@ -1,0 +1,79 @@
+{
+  "_comment": [
+    "Literature in Zambian Languages Teaching Methods -- Secondary Teachers' Diploma syllabus.",
+    "First typeset 2026-10-13.",
+    "",
+    "SOURCE. The manuscript \"LITERATURE IN ZAMBIAN LANGUGAES SYLLABUS TED VALIDATED COPY - Mukanu Kapalang'oma\" (received as a Word 97 .doc, converted to .docx with Word) holds two syllabuses: Literature",
+    "in Zambian Languages, then this Teaching Methods one. This book is built from a copy of that .docx; the first syllabus is cut",
+    "(removeRange, from its title to this one's). The Preface and Acknowledgements, written for both \"syllabi\", are kept.",
+    "",
+    "LEVEL / YEAR. Secondary Teachers' Diploma, as the cover says; 2026 as on the cover and copyright line.",
+    "",
+    "SECTION HEADS. Sections 1-7 are typed as bold lines and plain paragraphs; set as sub-section heads, as in the Content book.",
+    "MATRIX NUMBERS. renumberMatrix: Word list numbers; Year 2, 2.3.3 Teaching Story Composition had its competence numbered 3.3.3.1. Counted afresh from the table structure.",
+    "YEAR 2. The Year 2 row reads \"YEAR TWO\" against \"YEAR 1\"; set as YEAR 2."
+  ],
+  "subject": "Literature in Zambian Languages Teaching Methods",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2026,
+  "removeRange": [
+    {
+      "_why": "the first syllabus in the file (see _comment)",
+      "after": "ACKNOWLEDGEMENTS",
+      "from": "LITERATURE IN ZAMBIAN LANGUAGES SYLLABUS",
+      "to": "1. COURSE NAME: LITERATURE IN ZAMBIAN LANGUAGES TEACHING METHODS"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "1. COURSE NAME: LITERATURE IN ZAMBIAN LANGUAGES TEACHING METHODS",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "2. COURSE DESCRIPTION:",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "3. General Competences and Descriptors",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "4. Course Content",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "5. Scope and sequence",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "6. Teaching and Learning Methods",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "find": "7. Assessment methods and Time Allocation",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "YEAR 1 / YEAR 2, as the Year 1 row has it",
+      "pattern": "^\\s*YEAR TWO\\s*$",
+      "with": "YEAR 2"
+    }
+  ],
+  "renumberMatrix": true
+}

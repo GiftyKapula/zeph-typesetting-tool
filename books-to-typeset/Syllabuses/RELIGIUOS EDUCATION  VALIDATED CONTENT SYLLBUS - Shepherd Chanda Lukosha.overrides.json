@@ -1,0 +1,52 @@
+{
+  "_comment": [
+    "Religious Education Content -- Secondary Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-13.",
+    "",
+    "SUBJECT. Set here: the file name misspells it (\"RELIGIUOS\", \"SYLLBUS\").",
+    "LEVEL / YEAR. As the cover says. The manuscript prints no year at all; 2025 is taken from its companion,",
+    "Religious Education Methods. CDC to confirm.",
+    "",
+    "YEAR 2. The matrix is one unbroken table for both years; the YEAR 2 banner goes before topic 2.1 The Role of Religion in",
+    "Cross-Cutting Issues (insertRow), where the manuscript's own scope chart starts Year 2.",
+    "MATRIX NUMBERS. renumberMatrix: most numbers are Word list numbers that run on across topics (1.4 twice, 1.6.1 twice,",
+    "1.6.6 twice, 1.9 twice ...), some typed over them (\"2.1.3.4.1\" on the Islam competence, \"2.4.6.1\" on Poverty).",
+    "Counted afresh from the table structure. CDC to confirm.",
+    "",
+    "SECOND COVER. After its contents list the manuscript repeats its cover (Republic of Zambia, MINISTRY OF EDUCATION, the",
+    "title lines, YEARS 1-2, the crest) and two typed contents lines (REFERENCES ....47, SCOPE AND SEQUENCE CHART ....49); they",
+    "printed after the contents and as a full-page crest, and the typed lines ended up at the back of the book. Removed (removeRange).",
+    "\"CONTENT FOR TWO YEARS\" (a heading over nothing but the YEAR 1 page, stranded at the foot of the competences) removed.",
+    "CONTENTS. tocGap 6pt: at the default the contents ran one line (Scope and Sequence Chart) onto a page of its own.",
+    "TOPIC 1.4. Its cell reads \"CHRISTIANITY IN AFRICA\" then a stray line \"IN\" (left from an edit); it set a second topic line and a contents entry \"IN\". Dropped."
+  ],
+  "subject": "Religious Education Content",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "insertRow": [
+    {
+      "_why": "Year 2 starts at topic 2.1 (see _comment).",
+      "startsWith": "2.1 THE",
+      "text": "YEAR 2"
+    }
+  ],
+  "removeRange": [
+    {
+      "_why": "second cover + typed contents leftovers (see _comment)",
+      "from": "Republic of Zambia",
+      "to": "Vision"
+    }
+  ],
+  "remove": [
+    "CONTENT FOR TWO YEARS"
+  ],
+  "tocGap": "6pt",
+  "editCell": [
+    {
+      "_why": "stray \"IN\" line under CHRISTIANITY IN AFRICA",
+      "pattern": "(CHRISTIANITY IN AFRICA)\\s*\\n\\s*IN\\s*$",
+      "with": "$1"
+    }
+  ]
+}

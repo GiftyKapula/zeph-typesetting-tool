@@ -1,0 +1,78 @@
+{
+  "_comment": [
+    "Entrepreneurship and Financial Education -- Teachers' Diploma syllabus.",
+    "First typeset 2026-10-13.",
+    "",
+    "THEME. The file name carries no SYLLABUS, TED or VALIDATED, so \"theme\": \"gensyl\" is set here.",
+    "LEVEL / YEAR. \"Teachers' Diploma\" as the cover and preface say (no primary/secondary named); 2025 as on the copyright line.",
+    "",
+    "LEVEL PAGE. A one-year Foundation Course in three terms: the manuscript names no year over its matrix, so there is no YEAR page (only the diploma page).",
+    "",
+    "MATRIX NUMBERS (editCell, each from its neighbours):",
+    " - 1.3.2. 1 -> 1.3.2.1 (space inside); Legal Obligations typed 1.3.3 again after 1.3.3 Business networks -> 1.3.4 / 1.3.4.1.",
+    " - Basic Accounting typed 1.5 under topic 1.6 -> 1.6.2 (its competence is already 1.6.2.1).",
+    " - 1.9 BUSINESS PLAN and 1.9.1 Business Plan lost their space (a tab); 1.11. 1 -> 1.11.1; 1.11.1 Design activities -> 1.11.1.1.",
+    " - \"Promotion of Financial Education in / Schools\": the word Schools fell into the next table piece; joined back.",
+    "AUTHOR QUERY: \"1.3.2.3 Assess suitable Financing Options\" sits AFTER 1.3.3 Business networks (and there is no 1.3.2.2 row of",
+    " its own; 1.3.2.2 shares the 1.3.2.1 cell). Left as typed, so the numbering check reports it filed under 1.3.3. CDC to say",
+    " whether it belongs to Business Financing (move up) or Business networks (1.3.3.2).",
+    "APPENDIX LISTS. \"1. Programme Overview\" ... \"2. Assessment Framework\", \"3. Monitoring and Evaluation Tools\" run on across the",
+    " appendix headings and tables, as typed; the check reads each as a new list. Correct as typed."
+  ],
+  "theme": "gensyl",
+  "subject": "Entrepreneurship and Financial Education",
+  "level": "Teachers' Diploma",
+  "year": 2025,
+  "editCell": [
+    {
+      "_why": "space inside the number",
+      "pattern": "^1\\.3\\.2\\. 1 ",
+      "with": "1.3.2.1 "
+    },
+    {
+      "_why": "second 1.3.3 (after 1.3.3 Business networks)",
+      "pattern": "1\\.3\\.3(\\s+Legal)",
+      "with": "1.3.4$1"
+    },
+    {
+      "_why": "its competence",
+      "pattern": "1\\.3\\.3\\.1(\\s+Describe Legal)",
+      "with": "1.3.4.1$1"
+    },
+    {
+      "_why": "Basic Accounting is topic 1.6 sub-topic 2",
+      "pattern": "^1\\.5(\\s+Basic Accounting)",
+      "with": "1.6.2$1"
+    },
+    {
+      "_why": "tab lost after the number",
+      "pattern": "1\\.9\\s*BUSINESS\\s+PLAN",
+      "with": "1.9 BUSINESS PLAN"
+    },
+    {
+      "_why": "tab lost; title broken over two lines",
+      "pattern": "1\\.9\\.1\\s*Business\\s*Plan",
+      "with": "1.9.1 Business Plan"
+    },
+    {
+      "_why": "space inside the number",
+      "pattern": "^1\\.11\\. 1 ",
+      "with": "1.11.1 "
+    },
+    {
+      "_why": "competence numbered like a sub-topic",
+      "pattern": "^1\\.11\\.1(\\s+Design activities)",
+      "with": "1.11.1.1$1"
+    },
+    {
+      "_why": "Schools fell into the next table piece",
+      "pattern": "(Promotion of Financial Education in)\\s*$",
+      "with": "$1 Schools"
+    },
+    {
+      "_why": "...and is taken out of the row it fell into",
+      "pattern": "^\\s*Schools\\s*$",
+      "with": ""
+    }
+  ]
+}

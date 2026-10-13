@@ -1,0 +1,33 @@
+{
+  "_comment": [
+    "Social Studies Education -- Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-13.",
+    "",
+    "LEVEL / YEAR. The cover names no diploma; the Preface calls it the 'Primary School Teacher's Diploma'",
+    "Social Studies Education Syllabus, so Primary School Teachers' Diploma. 2025 as on the copyright line.",
+    "CDC to confirm the level.",
+    "",
+    "ASSESSMENT. The manuscript's Assessment section (after Suggested Teaching Methodology, before Time",
+    "Allocation) is a vector picture of Word text (an EMF the engine cannot convert, so it is left out).",
+    "Its wording is set back here as real text, word for word from the picture, as Civic Education and",
+    "History set the same two-part section.",
+    "",
+    "MATRIX NUMBERS. renumberMatrix: sub-topics 1.2.1 then 1.2.3 (no 1.2.2); 2.1.2 typed twice (Pressure",
+    "Groups, Elections); 2.3.2 then 2.3.4-2.3.6 (no 2.3.3); 1.6.2's competence numbered 1.6.2.2; '1.8. 2'",
+    "and '1.8.2. 1' with a space inside. Counted afresh from the table structure. CDC to confirm."
+  ],
+  "subject": "Social Studies Education",
+  "level": "Primary School Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "insertText": [
+    { "before": "TIME ALLOCATION", "text": "The programme shall use two types of assessments:" },
+    { "before": "TIME ALLOCATION", "text": "1. College-Based Assessment", "as": "head" },
+    { "before": "TIME ALLOCATION", "text": "This will be conducted and managed by the college throughout the six terms. It monitors continuous learning through assignments, tests, micro-teaching, practicum and portfolios. Colleges are responsible for administration, marking and recording. Results for this assessment will count towards final certification." },
+    { "before": "TIME ALLOCATION", "text": "2. Written Final Examinations", "as": "head" },
+    { "before": "TIME ALLOCATION", "text": "This will be administered by the Examinations Council of Zambia (ECZ) at the end of the programme. These examinations provide a standardised, national measure of subject knowledge and pedagogical Competence as prescribed by ECZ. ECZ is responsible for setting, moderating and marking these examinations." }
+  ],
+  "insertHead": [
+    { "_why": "Heads the Assessment section restored above (in the manuscript only as a picture).", "before": "The programme shall use two types of assessments:", "head": "Assessment", "as": "h2" }
+  ]
+}
