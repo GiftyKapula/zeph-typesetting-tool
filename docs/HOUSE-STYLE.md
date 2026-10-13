@@ -262,6 +262,23 @@ Four more, from the Music Methods syllabus:
 - **A topic's opening row that is taller than a page breaks** (a cell of about
   900 characters or more). Held whole it ran off the foot of the sheet.
 
+Three more, from the Creative and Technology Studies ECE syllabus:
+
+- **A later year's matrix typed with no header row** (Year 2 opening straight on
+  `2.1 CREATIVITY | 2.1.1 …` under its YEAR heading) gets a copy of the previous
+  matrix's header: same number of columns, and a first row numbered as a topic and
+  a sub-topic. Without it the first topic row was taken for the header — no grey
+  row, no repeat on each page, no contents entries for that year.
+- **The TOPIC column is measured to fit its longest word** — bold capitals beside
+  the hung number. Long slash-joined activities (`Demonstration/Role-play/Play-based/
+  Discussion`, one word to the letter count) took the width, and `COMMUNICATION`
+  ran across the sub-topic's number. Only a column that would overflow is widened.
+  The same fix cleared overflows in eight finished books (Social Studies'
+  `ENVIRONMENT`, `GOVERNANCE`; Literature Methods' `INTRODUCING` …).
+- **`mergePara` on a numbered list item closes the list up.** Folding a reference
+  Word wrapped into an item of its own (`… Handbook for` / `Early Childhood
+  Educators. …`) left a gap (1, 3, 4 …); the items after it now renumber.
+
 A matrix that runs both years as one unbroken table gets its second YEAR banner
 from the sidecar: `insertRow` puts a merged `YEAR 2` row before the second
 year's first topic, and the merged-row rule above lifts it out as the banner.

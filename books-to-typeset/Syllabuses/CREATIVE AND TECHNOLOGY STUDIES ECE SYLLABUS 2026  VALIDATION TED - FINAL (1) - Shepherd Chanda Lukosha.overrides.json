@@ -1,0 +1,82 @@
+{
+  "_comment": [
+    "Creative and Technology Studies -- Early Childhood Education Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-13.",
+    "",
+    "SUBJECT / LEVEL / YEAR as on the manuscript's own cover ('CREATIVE AND TECHNOLOGY STUDIES SYLLABUS',",
+    "'EARLY CHILDHOOD EDUCATION TEACHERS' DIPLOMA') and copyright line (2025); the file name's 'ECE 2026' is not the title.",
+    "",
+    "REFERENCES. Three entries ran over into the next list item in the manuscript (Choksy's publisher",
+    "\"Prentice Hall.\" at the head of the Craft entry; the ends of Wiggins & Espeland and of Fisher as items",
+    "of their own): rejoined. \"Children, Imaginative Teaching. Buckingham: Open University Press.\" has no author",
+    "or year in the manuscript -- left as typed; author to supply.",
+    "",
+    "MATRIX NUMBERS. renumberMatrix: competences 1.5.1.1, 1.6.1.1 and 1.11.4.1 typed with no number; topic 1.29's",
+    "sub-topics typed 1.29.2-1.29.4 (no 1.29.1) and 1.32's as 1.32.2; topic 2.11's sub-topic typed 2.13.1.",
+    "Counted afresh from the table structure. CDC to confirm.",
+    "",
+    "AUTHOR QUERIES, left as typed: topics 1.13 'INFORMATION AND COMMUNICATION TECHNOLOGY (ICT) DEVICES',",
+    "1.14 'ICT DEVICES' and 1.29 'ICT DEVICES' -- two topics share a title. Year 2 sets each cell's teaching",
+    "method as a bold line over its bullets; Year 1 types the method as the first bullet."
+  ],
+  "subject": "Creative and Technology Studies",
+  "level": "Early Childhood Education Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "edit": [
+    {
+      "_why": "Choksy's publisher, typed at the head of the next entry.",
+      "find": "(2 ed.). New Jersey:",
+      "with": "(2 ed.). New Jersey: Prentice Hall."
+    },
+    {
+      "_why": "...and taken off the Craft entry.",
+      "find": "Prentice Hall. Craft, A. (2002).",
+      "with": "Craft, A. (2002)."
+    }
+  ],
+  "mergePara": [
+    {
+      "_why": "The rest of the Wiggins & Espeland entry.",
+      "find": "Espeland, I. M. (2012)"
+    },
+    {
+      "_why": "The rest of the Fisher entry.",
+      "find": "A Curriculum Development Handbook for"
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Split at the page foot, row 1.17.2 (Gross motor skills) left two lines of each cell behind. Kept whole.",
+      "startsWith": "1.17.2.1"
+    },
+    {
+      "_why": "Split at the page foot, row 1.17.7 (Balancing Skills) carried its last bullet onto the next page. Kept whole.",
+      "startsWith": "1.17.7.1"
+    },
+    {
+      "_why": "Split at the page foot, row 1.29.2 (Care of ICT Devices) carried its last bullet onto the next page. Kept whole.",
+      "startsWith": "1.29.2.1"
+    },
+    {
+      "_why": "Split at the page foot, row 1.31.2 (Notes and rests) carried the end of its competence and standard overleaf. Kept whole.",
+      "startsWith": "1.31.2.1"
+    },
+    {
+      "_why": "Split at the page foot, row 2.10.3 (Songs and dances) left only its method line; every activity went overleaf. Kept whole.",
+      "startsWith": "2.10.3.1"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "Two activities typed as one line in the manuscript (row 1.24.1, Light).",
+      "pattern": "\\(illumination\\)\\s*Utilising sources of light",
+      "with": "(illumination)\n• Utilising sources of light"
+    },
+    {
+      "_why": "Two activities typed as one line in the manuscript (row 1.29.1, ICT Devices).",
+      "pattern": "\\(switching on/off…\\)\\s*Operating ICT devices",
+      "with": "(switching on/off…)\n• Operating ICT devices"
+    }
+  ]
+}

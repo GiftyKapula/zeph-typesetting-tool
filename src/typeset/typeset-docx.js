@@ -2330,6 +2330,18 @@ function applyOverrides(blocks, ov) {
       blocks[i].segs = mp.glue ? [...a, ...b2] : [...a, { t: " ", b: false, it: false, c: null }, ...b2];
       delete blocks[i].text;
       blocks.splice(i + 1, 1);
+      // Folding a numbered list item into the one above (a reference Word wrapped into an
+      // item of its own: "… Handbook for" / "Early Childhood Educators. …") left a gap in
+      // the numbers (1, 3, 4 …). The rest of that list closes up.
+      const nm = /^(\d+)([.)]?)$/.exec(next.t === "listitem" ? String(next.marker || "") : "");
+      if (nm) {
+        for (let k = i + 1; k < blocks.length && blocks[k].t === "listitem"; k++) {
+          const bk = blocks[k];
+          if ((bk.lvl || 0) !== (next.lvl || 0) || (next.numId != null && bk.numId !== next.numId)) continue;
+          const km = /^(\d+)([.)]?)$/.exec(String(bk.marker || ""));
+          if (km) bk.marker = (Number(km[1]) - 1) + km[2];
+        }
+      }
     }
   }
   // underline: [{ find, all?, scope? }] — underline an exact substring IN PLACE,
@@ -3321,6 +3333,24 @@ function mergeSplitMatrices(blocks) {
     merged++; i--;
   }
   if (merged) console.log(`   matrix: ${merged} split piece(s) joined to the table above`);
+  // A later year's matrix typed with no header row of its own, under its YEAR heading
+  // (Creative and Technology Studies ECE: Year 2 opens straight on "2.1 CREATIVITY |
+  // 2.1.1 …"). With a heading between, it is not a piece of the table above; it is its
+  // own matrix and needs the header: without it the first topic row was taken for the
+  // header, nothing repeated on each page and the year's topics filed no contents
+  // entries. It gets a copy of the previous matrix's header -- only when it has the same
+  // number of columns and its first row is numbered as a topic and a sub-topic.
+  let lent = 0, lastMat = null;
+  for (const b of blocks) {
+    if (isMat(b)) { lastMat = b; continue; }
+    if (!(lastMat && b && b.t === "table" && Array.isArray(b.rows) && b.rows.length
+      && (b.rows[0] || []).length === lastMat.rows[0].length)) continue;
+    const cells = (b.rows[0] || []).map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim());
+    if (!/^(?:[•▪◦●·‣∙]\s*)?\d+\.\d+\.?\s+\S/.test(cells[0] || "") || !/^\d+\.\d+\.\d+\.?\s*\S/.test(cells[1] || "")) continue;
+    b.rows.unshift(JSON.parse(JSON.stringify(lastMat.rows[0])));
+    lastMat = b; lent++;
+  }
+  if (lent) console.log(`   matrix: ${lent} table(s) with no header row given the matrix header`);
   // …and a table carried over a page in Word by repeating its header row as a body row
   // (Literature in Zambian Languages: "S/N | COMPETENCE | DESCRIPTORS" again at row 6)
   // drops the repeat: the template repeats the real header on every page by itself.

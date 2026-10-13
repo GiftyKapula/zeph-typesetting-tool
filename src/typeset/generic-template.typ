@@ -2456,6 +2456,34 @@
       // by side) makes a row no page can take; held together it ran straight through
       // the footer and off the sheet. So measure the row at its real column widths and
       // keep it whole only when it fits under the repeated header.
+      let allfr0 = cols.all(c => type(c) == fraction)
+      // The TOPIC column is wide enough for its longest word, MEASURED: bold capitals
+      // beside the hung number. The weight floor above counts letters, and a matrix whose
+      // activities are typed as long slash-joined runs ("Demonstration/Role-play/Play-based/
+      // Discussion", one unbreakable word to the count) took so much of the width that
+      // "1.13 INFORMATION AND COMMUNICATION …" ran COMMUNICATION across the sub-topic's
+      // number (Creative and Technology Studies ECE). Only a column that would overflow is
+      // widened; one that fits keeps the width it had.
+      let cols = if allfr0 and actCol != none and tc < ncols and size.width < 5000pt {
+        let numRe = regex("^(\\d+(?:\\.\\d+)+\\.?|\\d+\\.)\\s+")
+        let bw(s) = measure(text(weight: "bold")[#s]).width
+        let need = calc.max(0pt, ..rows.slice(1).map(r => {
+          let tt = upper(stripLead(plainlabel(r.at(tc))).trim())
+          let lines = tt.split("\n").map(s => s.trim()).filter(s => s != "")
+          calc.max(0pt, ..lines.map(s => {
+            let m = s.match(numRe)
+            let rest = if m == none { s } else { s.slice(m.text.len()) }
+            let wmax = calc.max(0pt, ..rest.split(regex("\\s+")).filter(w => w != "").map(bw))
+            if m == none or T.at("courseNums", default: false) { wmax } else { numCol(tidyNum(m.captures.at(0)), true) + 6pt + wmax }
+          }))
+        })) + 2 * (ix + 2pt) + 1pt
+        let tot = cols.map(c => c / 1fr).sum()
+        let w = cols.at(tc) / 1fr
+        if need > 0pt and need < size.width * 0.4 and size.width * w / tot < need {
+          let w2 = (need / size.width) * (tot - w) / (1 - need / size.width)
+          cols.enumerate().map(((i, c)) => if i == tc { w2 * 1fr } else { c })
+        } else { cols }
+      } else { cols }
       let allfr = cols.all(c => type(c) == fraction)
       let total = if allfr { cols.map(c => c / 1fr).sum() } else { 1.0 }
       let rowFits(r) = {
