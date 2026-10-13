@@ -3134,6 +3134,40 @@ function topCompetenceHeadings(blocks) {
   }
 }
 
+// The matrix's sub-topic column is headed "SUB-TOPIC", with the hyphen, in every syllabus
+// (publisher, 2026-10-12). Manuscripts type it "SUBTOPIC", "SUB TOPIC" or "Sub-topic".
+// Header rows only (the first row of a table that also has a TOPIC column).
+function hyphenateSubTopicHeader(blocks) {
+  const RE = /^\s*sub[\s\-‐-―]*topic(s?)\s*:?\s*$/i;
+  let n = 0;
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.rows) && Array.isArray(b.rows[0]) && b.rows[0].some((c) => /^\s*TOPIC/i.test((c && c.text) || ""))) {
+        for (const c of b.rows[0]) {
+          // its TOPIC neighbour in capitals too: Inclusive Education's scope chart is headed
+          // "Topic | Subtopic", which read "Topic | SUB-TOPIC"
+          const tm = c && typeof c.text === "string" && c.text.match(/^\s*(topics?)\s*:?\s*$/i);
+          if (tm && b.rows[0].some((x) => x && RE.test(x.text || "")) && c.text.trim() !== tm[1].toUpperCase()) {
+            c.text = tm[1].toUpperCase();
+            if (Array.isArray(c.segs) && c.segs.length) c.segs = [{ ...c.segs.find((s) => (s.t || "").trim()) || c.segs[0], t: c.text }];
+          }
+          const m = c && typeof c.text === "string" && c.text.match(RE);
+          if (!m) continue;
+          const want = "SUB-TOPIC" + (m[1] ? "S" : "");
+          if (c.text === want && !(Array.isArray(c.segs) && c.segs.some((s) => s.t.trim() && s.t.trim() !== want))) continue;
+          c.text = want;
+          if (Array.isArray(c.segs) && c.segs.length) c.segs = [{ ...c.segs.find((s) => (s.t || "").trim()) || c.segs[0], t: want }];
+          n++;
+        }
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walk(b[k]);
+    }
+  };
+  walk(blocks);
+  if (n) console.log(`   matrix header: ${n} sub-topic column(s) set as SUB-TOPIC`);
+}
+
 function auditSyllabusNumbering(blocks) {
   const issues = [];
   const say = (where, msg) => issues.push(`${where}: ${msg}`);
@@ -6082,6 +6116,7 @@ function normaliseQuestionMarkBold(blocks) {
     // finished blocks -- after every heading, cell and list has taken its final form.
     unifyFullStops(blocks);
     topCompetenceHeadings(blocks);
+    hyphenateSubTopicHeader(blocks);
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }
