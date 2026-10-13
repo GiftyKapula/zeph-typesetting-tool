@@ -103,5 +103,12 @@
       "_why": "Split at the page foot (2026-10-13 rebuild, measured topic column), row 2.3.6 carried its last bullet onto the next page. Kept whole.",
       "startsWith": "2.3.6.1"
     }
+  ],
+  "splitRow": [
+    {
+      "_why": "Opens its topic, so it never splits: the page before it ended a third or more empty. Cut here so the first piece, with the topic title, fills that page (2026-10-13 clean-up).",
+      "startsWith": "2.6.1.1",
+      "at": "Interactive and explorat"
+    }
   ]
 }

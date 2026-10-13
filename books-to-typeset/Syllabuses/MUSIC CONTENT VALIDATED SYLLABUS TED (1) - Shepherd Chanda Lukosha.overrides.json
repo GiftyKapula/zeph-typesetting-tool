@@ -21,9 +21,10 @@
     "  * Sub-topic 2.4.3 reads 'whole-tone scale fragments)' -- its opening words are lost",
     "    (its competence is 'Compose melodies using modal scales and whole-tone scale",
     "    fragments'). Set as written.",
-    "  * Year 2 has no topic 2.1 and no 2.15: the matrix goes 1.26 -> YEAR TWO -> 2.2, and",
-    "    2.14 -> 2.16. The scope and sequence chart has 2.1 School Experience 1 and 2.15",
-    "    School Experience 2 there. Set as written.",
+    "  * Year 2 had no topic 2.1 and no 2.15 (YEAR TWO -> 2.2, and 2.14 -> 2.16; the scope chart has",
+    "    School Experience 1 and 2 there, with no rows in the matrix). Publisher decided 2026-10-13: renumber",
+    "    (renumberMatrix) -- Year 2 now runs 2.1-2.19. The scope chart is left as typed, so its Year 2",
+    "    numbers no longer match the matrix.",
     "  * The scope and sequence chart's numbers and titles do not match the matrix in Year 1",
     "    (chart 1.15 Conducting / 1.16 Harmony 1 / 1.21 Harmony 2 ...; matrix 1.14 CONDUCTING,",
     "    1.15 HARMONY, 1.21 HARMONY 2 ...). Both set as written.",
@@ -38,6 +39,7 @@
   "subject": "Musical Arts Education Content",
   "level": "Secondary Teachers' Diploma",
   "year": 2024,
+  "renumberMatrix": true,
   "remove": [
     "ISBN: 978-9982-54-066-7"
   ],
@@ -55,36 +57,63 @@
       "text": "ACKNOWLEDGEMENT",
       "as": "label"
     },
-    { "find": "BACKGROUND", "as": "label" },
-    { "find": "RATIONALE", "as": "label" },
+    {
+      "find": "BACKGROUND",
+      "as": "label"
+    },
+    {
+      "find": "RATIONALE",
+      "as": "label"
+    },
     {
       "_why": "Sections typed as numbered list items (1. Outcomes, 2. Admission Requirements), not as headings like their siblings Aims / Duration / Graduation Requirements.",
       "find": "Outcomes of the programme",
       "as": "label"
     },
-    { "find": "Admission Requirements", "as": "label" }
+    {
+      "find": "Admission Requirements",
+      "as": "label"
+    }
   ],
-  "deleteExact": ["Duration of the Programme"],
+  "deleteExact": [
+    "Duration of the Programme"
+  ],
   "_deleteExact_why": "List item '3. Duration of the Programme' sits directly above the section's own heading 'DURATION OF THE PROGRAMME' -- the same title twice.",
   "replaceBlocks": [
     {
       "_why": "The year heading above the matrix, in the family's wording, so it sets the YEAR divider page and files a top-level contents entry.",
       "find": "YEAR ONE (1)",
-      "with": [{ "label": "YEAR 1" }]
+      "with": [
+        {
+          "label": "YEAR 1"
+        }
+      ]
     },
     {
       "find": "YEAR TWO (2)",
-      "with": [{ "label": "YEAR 2" }]
+      "with": [
+        {
+          "label": "YEAR 2"
+        }
+      ]
     },
     {
       "_why": "See _comment: the title named the Methods book.",
       "find": "SCOPE AND SEQUENCE CHART - MUSICAL ARTS EDUCATION TEACHING METHODS",
-      "with": [{ "h1": "SCOPE AND SEQUENCE CHART" }]
+      "with": [
+        {
+          "h1": "SCOPE AND SEQUENCE CHART"
+        }
+      ]
     },
     {
       "_why": "A sentence typed as a bold line, not a section: it introduces the qualification below it.",
       "find": "The programme is for the Secondary School Teaching",
-      "with": [{ "para": "The programme is for Secondary School teaching." }]
+      "with": [
+        {
+          "para": "The programme is for Secondary School teaching."
+        }
+      ]
     }
   ],
   "pageBreakBefore": [

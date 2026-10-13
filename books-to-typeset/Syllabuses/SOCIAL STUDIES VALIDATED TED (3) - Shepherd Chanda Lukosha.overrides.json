@@ -29,5 +29,9 @@
   ],
   "insertHead": [
     { "_why": "Heads the Assessment section restored above (in the manuscript only as a picture).", "before": "The programme shall use two types of assessments:", "head": "Assessment", "as": "h2" }
+  ],
+  "splitRow": [
+    { "_why": "Topic 1.4 opens on one tall row, and a topic opener never splits: it left page 7 half empty. Cut before its last method (Field Visits) so the first piece, with the topic title, fills page 7.", "startsWith": "1.4.1.1", "at": "Field Visits" },
+    { "_why": "The same for topic 1.6 (page 9 ended a third empty); cut before Group Discussions. With both, no row leaves a line or two overleaf and the book keeps 51 pages (2026-10-13).", "startsWith": "1.6.1.1", "at": "Group Discussions" }
   ]
 }

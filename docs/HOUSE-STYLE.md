@@ -279,6 +279,32 @@ Three more, from the Creative and Technology Studies ECE syllabus:
   Word wrapped into an item of its own (`… Handbook for` / `Early Childhood
   Educators. …`) left a gap (1, 3, 4 …); the items after it now renumber.
 
+**Page breaks in the matrix — the standard (2026-10-13).** A finished syllabus has no
+row that leaves a line or two of itself at the head of the next page, no teaching
+method alone at the foot of a page, and no matrix page left a third or more empty
+in front of a topic (the end of a year or of the matrix aside). The engine keeps each
+method with its first activity; the rest is per book, in the sidecar:
+
+- **`keepRowWhole`** when a short row splits.
+- **`splitRow`** when a tall row splits, or a topic opener (never split by the engine,
+  so its title is not stranded) leaves the page before it a third empty: the row is
+  cut in two at one of its own activity lines; the second piece is a *continuation
+  row* with no rule above it in any column, so on one page it reads as one row.
+- Check with the page count and the page-foot gaps after every keep or split, not
+  just the fragment: a keep moves every break after it, and in Entrepreneurship four
+  keeps in turn only moved a two-line carry-over further down the book.
+
+Three more rules, from the same clean-up:
+
+- **A method never stands alone at a page foot.** It and its first activity are one
+  unbreakable block (Social Studies had seven, Civic Education Content seven).
+- **The numbering check follows a Word list across tables and headings.**
+  Entrepreneurship's Appendix 2 numbers its sub-heads 1–3 in one list split by
+  tables; each used to be read as a new list ("2. expected 1.").
+- **`renumberMatrix` reads a number typed alone on its line** ("1.17.1" over "Zambian
+  music", Music Content): it numbers the line under it. Dropped, the sub-topic went
+  unnumbered and its competence came out 1.17.0.1.
+
 A matrix that runs both years as one unbroken table gets its second YEAR banner
 from the sidecar: `insertRow` puts a merged `YEAR 2` row before the second
 year's first topic, and the merged-row rule above lifts it out as the banner.
@@ -411,6 +437,8 @@ off, so a change only touches the books that opt in. Keys:
 | `tables` | rebuild a badly-built table as an explicit grid |
 | `removeRow` | delete a whole table row, matched by any one cell's exact text (`find`) or its opening text (`startsWith`) — for a row the author duplicated, or a clause withdrawn after validation. Never matches the header row. `remove` deletes a whole block and `editCell` only rewrites text, so this is the way to drop one row of a syllabus matrix |
 | `keepRowWhole` | never split one TABLE ROW across a page, matched like `removeRow` (`find` = a cell's whole text, or `startsWith`) — for a long matrix row whose page break carries one bullet into an otherwise empty row overleaf |
+| `splitRow` | cut one tall matrix row in two: `startsWith` finds the row (as `keepRowWhole`), `at` is the opening text of the line, in any cell, that starts the second piece. The second piece is a continuation row (other cells empty, no rule above it, never split itself). For a row that leaves a line or two overleaf when keeping it whole would leave half a page empty, or a topic opener that leaves the page before it a third empty |
+| `moveRow` | move one table row, whole and with its formatting: `startsWith` finds it, `after` (or `before`) the opening text of a cell in the row it goes next to — for a row typed in the wrong place (Entrepreneurship 1.3.2.3 under 1.3.3). Empty TOPIC / SUB-TOPIC cells continue the ones above its new place |
 | `levelPageAfterCompetences` | `true` moves a syllabus’s level page ("SECONDARY TEACHERS’ DIPLOMA") from ahead of the competences section to after its table, in front of the first YEAR matrix; arabic page 1 then opens on the competences |
 | `insertRow` | put a row merged across the table, holding `text`, before the first body row with a cell matching `find` (whole text) or `startsWith` — a `YEAR 2` row in a syllabus matrix that runs both years as one table; the family lifts it out as the YEAR banner. With `cells: [...]` instead of `text`, an ordinary row of those cells (a Key Competences row the manuscript left out) |
 | `coverColour` | a 6-digit hex value (`"1f5c3a"`) — syllabus family only. The colour of the cover and back-cover field. A syllabus on the generic theme otherwise takes one from a fixed set of twelve deep colours, picked by its subject name (the same book always gets the same one; none repeats a named theme's orange, teal or indigo). Set this when two subjects land on the same or a near colour |
