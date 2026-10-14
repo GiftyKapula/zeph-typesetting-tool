@@ -463,20 +463,28 @@
       // (stopping either side of the spine, which stays the plain subject colour)
       #place(top + left, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
       #place(top + left, dx: fdx, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
-      // ---- SPINE: the title read bottom-to-top (as the house's other spines), the
-      // ministry at its foot; type scaled to the spine so it stays inside its width ----
+      // ---- SPINE: only the book's name and its level, as the front cover words them,
+      // read bottom-to-top (as the house's other spines), with the CDC badge upright
+      // at its foot; type scaled to the spine so it stays inside its width ----
       #if sw > 0mm {
         let ts = sw * 0.42
+        let lw = sw * 0.8                          // the badge, square, inside the spine
+        let foot = if logo != none and logo.file != "" { lw + 10mm } else { 0mm }
         place(top + left, dx: panelW, box(width: sw, height: 210mm)[
-          #place(center + horizon, rotate(-90deg, reflow: false, box(width: 210mm - 16mm, height: sw)[
+          #if foot > 0mm { place(bottom + center, dy: -6mm, image("_media/" + logo.file, width: lw)) }
+          #place(center + horizon, dy: -foot / 2, rotate(-90deg, reflow: false, box(width: 210mm - 16mm - foot, height: sw)[
             #set par(justify: false, spacing: 0pt)
             #set text(font: T.bodyFont, fill: ftext, weight: "bold")
-            #align(center + horizon)[
-              #text(size: ts * 0.72, tracking: 0.6pt)[MINISTRY OF EDUCATION]
-              #h(8mm)
-              #text(font: T.displayFont, size: ts, weight: "black", tracking: 0.4pt)[#upper(name) SYLLABUS]
-              #if year != "" [ #h(8mm) #text(size: ts * 0.72)[#year] ]
-            ]
+            // ONE line: a long name ("INFORMATION AND COMMUNICATION TECHNOLOGY") with
+            // its level wrapped the level's last word onto a second line, so the
+            // type steps down until the whole line fits the spine's length
+            #context {
+              let nm(k) = text(font: T.displayFont, size: ts * k, weight: "black", tracking: 0.4pt)[#upper(name) SYLLABUS]
+              let lv(k) = text(size: ts * 0.78 * k, tracking: 0.4pt)[#upper(T.eyebrow)]
+              // measured part by part: measured whole, the line had already wrapped
+              let k = calc.min(1, (210mm - 16mm - foot - 10mm) / (measure(nm(1)).width + measure(lv(1)).width) * 0.97)
+              align(center + horizon, box(nm(k) + h(10mm * k) + lv(k)))
+            }
           ]))
         ])
       }
