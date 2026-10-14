@@ -55,6 +55,11 @@
       "with": "1.9.1 Business Plan"
     },
     {
+      "_why": "topic 1.11 typed with its number on a line of its own and no space after ENTREPRENEURSHIP",
+      "pattern": "^1\\.11\\s*ENTREPRENEURSHIPAND\\b",
+      "with": "1.11 ENTREPRENEURSHIP AND"
+    },
+    {
       "_why": "space inside the number",
       "pattern": "^1\\.11\\. 1 ",
       "with": "1.11.1 "

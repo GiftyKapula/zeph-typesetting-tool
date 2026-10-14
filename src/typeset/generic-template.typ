@@ -2391,15 +2391,29 @@
     let w(s) = measure(if bold { text(weight: "bold")[#s] } else { text[#s] }).width
     calc.max(w(num), w(std))
   }
-  // A syllabus numbered by course (Year.Course.Topic: competences run to "1.2.3.6.1")
-  // sets the number on its own line over the text: hung beside it, the five-part number
-  // left the competence a strip a few words wide, and a topic word ("FUNDAMENTALS") ran
-  // through the cell's right border.
-  let hang(num, bold, rest) = if T.at("courseNums", default: false) {
-    stack(spacing: 3pt, if bold { text(weight: "bold")[#num] } else { num }, rest)
-  } else { context grid(
+  // Every number hangs beside its text, in every syllabus. (Course-numbered ones —
+  // Computer Science, ICT — used to stack it over the text; since the TOPIC column is
+  // measured to fit number + longest word, they hang like the rest: 2026-10-14 request
+  // for one position throughout.)
+  let hang(num, bold, rest) = context grid(
     columns: (numCol(num, bold), 1fr), column-gutter: 6pt, align: (left + top, left + top),
-    if bold { text(weight: "bold")[#num] } else { num }, rest) }
+    if bold { text(weight: "bold")[#num] } else { num }, rest)
+  // The title lines of a TOPIC cell. A number typed on a line of its own ("1.11" /
+  // "ENTREPRENEURSHIP…") joins the title after it, and an unnumbered line after a
+  // numbered title is the rest of that title ("1.2 APPROACHES TO THE STUDY OF" /
+  // "RELIGION"): either way it hangs beside the number, not back under it.
+  let titleLines(tt) = {
+    let numbered = regex("^(\\d+(?:\\.\\d+)+\\.?|\\d+\\.)\\s+")
+    let bare = regex("^\\d+(?:\\.\\d+)+\\.?$")
+    let out = ()
+    for s in tt.split("\n").map(s => s.trim()).filter(s => s != "") {
+      let last = if out.len() > 0 { out.last() } else { none }
+      if last != none and s.match(numbered) == none and s.match(bare) == none and (last.match(numbered) != none or last.match(bare) != none) {
+        out.at(-1) = last + " " + s
+      } else { out.push(s) }
+    }
+    out
+  }
   let numRe1 = regex("^(\\d+(?:\\.\\d+)*\\.?)\\s+")
   let numcell(c) = {
     let ct = plainlabel(c)
@@ -2488,7 +2502,7 @@
       if m == none { text(weight: "bold")[#s] }
       else { hang(tidyNum(m.captures.at(0)), true, text(weight: "bold")[#s.slice(m.text.len()).trim()]) }
     }
-    let tlines = tt.split("\n").map(s => s.trim()).filter(s => s != "")
+    let tlines = titleLines(tt)
     // First-fit line breaking: the optimiser "balances" a narrow ragged column into
     // short stubby lines ("PRODUCTION / OF LEARNING / …"), making the topic taller than
     // its row and spilling it onto the next page.
@@ -2539,12 +2553,12 @@
         let bw(s) = measure(text(weight: "bold")[#s]).width
         let need = calc.max(0pt, ..rows.slice(1).map(r => {
           let tt = upper(stripLead(plainlabel(r.at(tc))).trim())
-          let lines = tt.split("\n").map(s => s.trim()).filter(s => s != "")
+          let lines = titleLines(tt)
           calc.max(0pt, ..lines.map(s => {
             let m = s.match(numRe)
             let rest = if m == none { s } else { s.slice(m.text.len()) }
             let wmax = calc.max(0pt, ..rest.split(regex("\\s+")).filter(w => w != "").map(bw))
-            if m == none or T.at("courseNums", default: false) { wmax } else { numCol(tidyNum(m.captures.at(0)), true) + 6pt + wmax }
+            if m == none { wmax } else { numCol(tidyNum(m.captures.at(0)), true) + 6pt + wmax }
           }))
         })) + 2 * (ix + 2pt) + 1pt
         let tot = cols.map(c => c / 1fr).sum()
