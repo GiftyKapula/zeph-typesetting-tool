@@ -464,15 +464,15 @@
       #place(top + left, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
       #place(top + left, dx: fdx, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
       // ---- SPINE: only the book's name and its level, as the front cover words them,
-      // read bottom-to-top (as the house's other spines), with the CDC badge upright
-      // at its foot; type scaled to the spine so it stays inside its width ----
+      // read top-to-bottom, the name first at the head and the level after it (user,
+      // 2026-10-14), with the CDC badge upright at its foot; type scaled to the spine ----
       #if sw > 0mm {
         let ts = sw * 0.42
         let lw = sw * 0.8                          // the badge, square, inside the spine
         let foot = if logo != none and logo.file != "" { lw + 10mm } else { 0mm }
         place(top + left, dx: panelW, box(width: sw, height: 210mm)[
           #if foot > 0mm { place(bottom + center, dy: -6mm, image("_media/" + logo.file, width: lw)) }
-          #place(center + horizon, dy: -foot / 2, rotate(-90deg, reflow: false, box(width: 210mm - 16mm - foot, height: sw)[
+          #place(center + horizon, dy: -foot / 2, rotate(90deg, reflow: false, box(width: 210mm - 16mm - foot, height: sw)[
             #set par(justify: false, spacing: 0pt)
             #set text(font: T.bodyFont, fill: ftext, weight: "bold")
             // ONE line: a long name ("INFORMATION AND COMMUNICATION TECHNOLOGY") with
