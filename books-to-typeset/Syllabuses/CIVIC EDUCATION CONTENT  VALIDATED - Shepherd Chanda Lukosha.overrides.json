@@ -66,5 +66,10 @@
       "pattern": "\\n•\\s*Understanding the financial implications of international relationships[^\\n]*$",
       "with": "\n• Show empathy for people affected by conflict, valuing Zambia’s contribution to UN peacekeeping."
     }
+  ],
+  "keepRowWhole": [
+    {
+      "startsWith": "1.3.7.1"
+    }
   ]
 }
