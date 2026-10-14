@@ -226,6 +226,8 @@
     },
   )
   body
+  // marks the last page, so the syllabus cover can size its spine from the page count
+  [#metadata("end") <zeph-end>]
 }
 
 // ---- title page (series): the book name repeated, modern sans, with a small
@@ -433,8 +435,16 @@
     let title = T.at("covTitle", default: T.ink)
     let name = if subject != "" and not ("SYLLABUS" in upper(subject)) { subject } else { T.subject }
     let year = T.at("year", default: "")
-    let fdx = 297mm   // left edge of the FRONT (right) panel
-    page(width: 594mm, height: 210mm, flipped: false, margin: 0pt, header: none, footer: none, fill: field)[
+    // SPINE. A syllabus of more than 112 pages (the cover spread not counted) is thick
+    // enough to stand on a shelf, so the spread gets a spine between its two panels:
+    // back | spine | front. Its width is the block's thickness at 80gsm (0.10mm a leaf);
+    // a printer's exact figure overrides it per book with the `spineWidth` key (mm).
+    context {
+    let inner = locate(<zeph-end>).page() - 1
+    let sw = if T.at("spineWidth", default: none) != none { T.spineWidth * 1mm }
+      else if inner > 112 { calc.ceil(inner / 2) * 0.1mm } else { 0mm }
+    let fdx = 297mm + sw   // left edge of the FRONT (right) panel
+    page(width: 594mm + sw, height: 210mm, flipped: false, margin: 0pt, header: none, footer: none, fill: field)[
       // The band is a fixed spread-wide element (it has to line up across both panels),
       // so it splits each panel into two zones: everything ABOVE it and everything
       // BELOW it. Each zone's content is then CENTRED in that zone, vertically as well
@@ -450,7 +460,34 @@
         box(width: panelW, height: h)[#set align(center + horizon)
           #body])
       // full-width title band across the whole spread
-      #place(top + left, dy: bandTop, rect(width: 100%, height: bandH, fill: band, stroke: none))
+      // (stopping either side of the spine, which stays the plain subject colour)
+      #place(top + left, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+      #place(top + left, dx: fdx, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+      // ---- SPINE: only the book's name and its level, as the front cover words them,
+      // read bottom-to-top (as the house's other spines), with the CDC badge upright
+      // at its foot; type scaled to the spine so it stays inside its width ----
+      #if sw > 0mm {
+        let ts = sw * 0.42
+        let lw = sw * 0.8                          // the badge, square, inside the spine
+        let foot = if logo != none and logo.file != "" { lw + 10mm } else { 0mm }
+        place(top + left, dx: panelW, box(width: sw, height: 210mm)[
+          #if foot > 0mm { place(bottom + center, dy: -6mm, image("_media/" + logo.file, width: lw)) }
+          #place(center + horizon, dy: -foot / 2, rotate(-90deg, reflow: false, box(width: 210mm - 16mm - foot, height: sw)[
+            #set par(justify: false, spacing: 0pt)
+            #set text(font: T.bodyFont, fill: ftext, weight: "bold")
+            // ONE line: a long name ("INFORMATION AND COMMUNICATION TECHNOLOGY") with
+            // its level wrapped the level's last word onto a second line, so the
+            // type steps down until the whole line fits the spine's length
+            #context {
+              let nm(k) = text(font: T.displayFont, size: ts * k, weight: "black", tracking: 0.4pt)[#upper(name) SYLLABUS]
+              let lv(k) = text(size: ts * 0.78 * k, tracking: 0.4pt)[#upper(T.eyebrow)]
+              // measured part by part: measured whole, the line had already wrapped
+              let k = calc.min(1, (210mm - 16mm - foot - 10mm) / (measure(nm(1)).width + measure(lv(1)).width) * 0.97)
+              align(center + horizon, box(nm(k) + h(10mm * k) + lv(k)))
+            }
+          ]))
+        ])
+      }
       // ---- FRONT cover (right panel) ----
       #zone(fdx, 0mm, zAbove)[
         #if hero != none and hero.file != "" { image("_media/" + hero.file, height: 40mm); v(2.5mm) }
@@ -513,6 +550,7 @@
         #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Zambia Educational Publishing House]
       ]
     ]
+    }
     pastcover.update(true)
     pagebreak(weak: true)
   } else if finished and hero != none {
@@ -2217,6 +2255,8 @@
     let p = rows.at(0).position(c => upper(plainlabel(c)).trim().starts-with("TOPIC"))
     if p == none { 0 } else { p }
   } else { 0 }
+  // …and the SUB-TOPIC column ("SUB-TOPIC", "SUB TOPIC", "SUBTOPICS"), if the matrix has one.
+  let stc = if sylhdr { rows.at(0).position(c => upper(plainlabel(c)).trim().starts-with(regex("SUB[\\s\\-]*TOPIC"))) } else { none }
   let sylbullets(c) = {
     let sg = c.at("seg", default: ())
     let lines = ()
@@ -2428,7 +2468,7 @@
   } else if ci == tc {
     // The TOPIC column is set in BOLD UPPERCASE, as the reference book sets it
     // ("INTRODUCTION TO TRAVEL AND TOURISM"), while the SUB-TOPIC column beside it
-    // stays bold title case. Manuscripts are inconsistent about this — one book typed
+    // is plain title case (`stc`). Manuscripts are inconsistent about this — one book typed
     // its early topics in caps and its later ones in title case — so normalise here
     // rather than leaving the column looking like two different styles down the page.
     // …except in the COMPETENCES | DESCRIPTORS table, whose first column lands here too
@@ -2474,6 +2514,10 @@
       }
       [#titles.enumerate().map(((i, s)) => entry(s, i == 0)).join()#body]
     } else { body }
+  } else if ci == stc {
+    // The SUB-TOPIC column is set plain, number and title alike, whatever bold the
+    // manuscript typed there (2026-10-13 request: only the TOPIC column is bold).
+    numcell((..c, seg: c.at("seg", default: ()).map(s => (..s, b: false))))
   } else { numcell(c) }
   let tbl = if syl and sylhdr {
     layout(size => {

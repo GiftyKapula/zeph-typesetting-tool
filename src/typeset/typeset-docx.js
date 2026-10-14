@@ -6701,6 +6701,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the space above each top-level contents entry (default 10pt): a contents page
   // that runs one line over onto a page of its own closes up to fit.
   if (ov.tocGap !== undefined) themeOverrides.tocGap = ov.tocGap;
+  // A syllabus over 112 pages gets a cover spine sized from its page count; a printer's
+  // exact width (in mm) replaces that figure.
+  if (typeof ov.spineWidth === "number") themeOverrides.spineWidth = ov.spineWidth;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json
