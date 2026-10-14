@@ -188,6 +188,18 @@ Three more, from the History Content syllabus:
   copy of it after a list number (`1.1.2 1.1.2. Reasons…`), a run of dots after it
   (`1.1.2..`), and stray dots before the text (`.Meaning of History`, `..Communicate`).
 
+Three more, from the Expressive Arts and Geography Content syllabuses:
+
+- **`renumberMatrix` drops a bare `1` alone on its line.** It is the empty list
+  paragraph Word leaves in a vertically merged cell under a topic: Word hides it, the
+  import keeps it, and each one used to be counted as a new topic (`1.7 1`, `1.28 2`).
+- **`renumberMatrix` reads a one-cell table nested in an empty matrix cell** as that
+  cell's text (a Word paste). Left nested, sub-topic `2.10.1 Organise sports
+  tournaments` went uncounted and its competence came out `2.10.0.1`.
+- **A year line may carry its numeral in brackets**: `YEAR TWO (2)`, `Year One (1)`
+  are read as years everywhere a year line is (the banner, the contents, the
+  renumbering, the numbering check), as `Year 1 (one)` already was.
+
 **Numbering is checked on every build — read the check.** Numbers are where these
 manuscripts go wrong most, and none of it stops a build, so every syllabus build ends
 with a line `numbering check: N matrix table(s), clean` or `… K issue(s)`, each issue

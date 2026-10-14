@@ -3357,7 +3357,7 @@ function dedupeLevelHeadings(blocks) {
   const levelKey = (b) => {
     if (!b || !["h1", "h2"].includes(b.t)) return null;
     const t = String(b.text || "").replace(/\s+/g, " ").trim();
-    const m = t.match(new RegExp(`^(year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?$`, "i"));
+    const m = t.match(new RegExp(`^(year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z0-9]+\\))?$`, "i"));
     if (m) return m[1].toLowerCase() + " " + numOrWord(m[2]);
     const o = t.match(/^(first|second|third|fourth|fifth|sixth)\s+year$/i);
     return o ? "year " + (ORD.indexOf(o[1].toLowerCase()) + 1) : null;
@@ -3577,7 +3577,7 @@ function mergeSplitMatrices(blocks) {
 // at World Peace", inside Year 1, and Year 1's under Background. A competences heading
 // whose next heading is a level line is a top-level contents entry, beside the YEARs.
 function topCompetenceHeadings(blocks) {
-  const LEVEL = /^(?:(?:year|form|grade)\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)(?:\s*\([a-z]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
+  const LEVEL = /^(?:(?:year|form|grade)\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)(?:\s*\([a-z0-9]+\))?|(?:first|second|third|fourth|fifth|sixth)\s+year)$/i;
   const isHead = (b) => b && ["h1", "h2", "head", "h3"].includes(b.t);
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
@@ -3628,7 +3628,7 @@ function auditSyllabusNumbering(blocks) {
   const clip = (s) => { s = String(s || "").replace(/\s+/g, " ").trim(); return s.length > 48 ? s.slice(0, 45) + "…" : s; };
   const ORD = ["first", "second", "third", "fourth", "fifth", "sixth"];
   const yearOf = (t) => {
-    const m = String(t || "").replace(/\s+/g, " ").trim().match(new RegExp(`^(?:(?:year|form|grade)\\s+(${NUMWORD_RE})|(first|second|third|fourth|fifth|sixth)\\s+year)$`, "i"));
+    const m = String(t || "").replace(/\s+/g, " ").trim().match(new RegExp(`^(?:(?:year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z0-9]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$`, "i"));
     return m ? (m[1] ? numOrWord(m[1]) : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
   };
   // A line's leading number: the raw token as typed, and its parts when well formed.
@@ -5751,7 +5751,7 @@ function normaliseQuestionMarkBold(blocks) {
     // family has, with the matrix (its header repeated) carrying on beneath; any other
     // merged line closes the stretch of matrix above it as a centred bold line.
     {
-      const YEARROW = new RegExp(`^(?:(?:year|form|grade)\\s+(?:${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?|(?:first|second|third|fourth|fifth|sixth)\\s+year)$`, "i");
+      const YEARROW = new RegExp(`^(?:(?:year|form|grade)\\s+(?:${NUMWORD_RE})(?:\\s*\\([a-z0-9]+\\))?|(?:first|second|third|fourth|fifth|sixth)\\s+year)$`, "i");
       const out = [];
       for (const b of blocks) {
         const ncol = Array.isArray(b.rows) && b.rows.length ? (b.rows[0] || []).length : 0;
@@ -5973,7 +5973,7 @@ function normaliseQuestionMarkBold(blocks) {
       // (a colon after it too: Religious Education Content's scope chart writes "YEAR 1:", and
       // its rows were numbered on from the Year 2 matrix above -- 2.4, 2.5 … under YEAR 1)
       const yearOf = (t) => {
-        const m = String(t || "").replace(/\s+/g, " ").trim().replace(/\s*[:.]$/, "").match(new RegExp(`^(?:(?:year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$`, "i"));
+        const m = String(t || "").replace(/\s+/g, " ").trim().replace(/\s*[:.]$/, "").match(new RegExp(`^(?:(?:year|form|grade)\\s+(${NUMWORD_RE})(?:\\s*\\([a-z0-9]+\\))?|(first|second|third|fourth|fifth|sixth)\\s+year)$`, "i"));
         return m ? (m[1] ? numOrWord(m[1]) : ORD.indexOf(m[2].toLowerCase()) + 1) : 0;
       };
       const txt = (l) => l.map((s) => s.t).join("");
@@ -6004,6 +6004,10 @@ function normaliseQuestionMarkBold(blocks) {
       // Science), which left a lone "2" at the head of the text.
       const LEADJUNK = /^\s*(?:(?:\d+(?:\.\d+)+\.?|\d+\.)(?=[\s.]|$)\s*|\.\d+(?=\s|$)\s*|[.:;,]+\s*)/;
       const strip = (line) => {
+        // a bare "1" alone on its line is a Word list number too: the empty list paragraph
+        // left in a vertically merged cell under a topic, which Word hides but the import
+        // keeps (Geography Content: "1.7 1", "1.28 2" -- each counted as a new topic)
+        if (/^\s*\d+\s*$/.test(txt(line))) return { had: true, rest: [] };
         const m = txt(line).match(NUM);
         if (!m) return { had: false, rest: line };
         let cut = m[0].length;
@@ -6020,6 +6024,16 @@ function normaliseQuestionMarkBold(blocks) {
       const withNum = (num, rest) => [{ t: num + " ", b: !!rest[0].b, it: false, c: null }, ...rest];
       // Renumber one cell's lines; `next()` hands out the number for each item.
       const renum = (c, next) => {
+        // an empty cell holding nothing but a one-cell table nested in it (a Word paste):
+        // its text is the cell's text. Left nested, the renumbering never saw it -- sub-topic
+        // "2.10.1 Organise sports tournaments" went uncounted and its competence came out
+        // 2.10.0.1 (Expressive Arts)
+        if (c && !String(c.text || "").trim() && Array.isArray(c.subs) && c.subs.length === 1) {
+          const rows = c.subs[0], inner = Array.isArray(rows) && rows.length === 1 && Array.isArray(rows[0]) && rows[0].length === 1 && rows[0][0];
+          if (inner && typeof inner.text === "string" && inner.text.trim() && !(inner.imgs || []).length && !inner.subs) {
+            c.text = inner.text; c.segs = inner.segs || null; delete c.subs;
+          }
+        }
         const lines = c && toLines(c);
         if (!lines || !lines.length) return 0;
         const parts = lines.map(strip);
@@ -6238,7 +6252,7 @@ function normaliseQuestionMarkBold(blocks) {
     // a level-2 contents entry, so a year set as a bare paragraph looked nothing like
     // the year above it. Ordinal wording counts too ("FIRST YEAR"): Devices and
     // Materials Production labels its only year that way.
-    const YEARLINE = new RegExp(`^(?:(?:year|form|grade)\\s+(?:${NUMWORD_RE})(?:\\s*\\([a-z]+\\))?|(?:first|second|third|fourth|fifth|sixth)\\s+year)$`, "i");
+    const YEARLINE = new RegExp(`^(?:(?:year|form|grade)\\s+(?:${NUMWORD_RE})(?:\\s*\\([a-z0-9]+\\))?|(?:first|second|third|fourth|fifth|sixth)\\s+year)$`, "i");
     for (const b of blocks) {
       const t = (b.t === "label" ? b.text : blockPlain(b) || "").trim();
       // (…or as a Word heading: "YEAR 1" in a heading style set as a ruled section head

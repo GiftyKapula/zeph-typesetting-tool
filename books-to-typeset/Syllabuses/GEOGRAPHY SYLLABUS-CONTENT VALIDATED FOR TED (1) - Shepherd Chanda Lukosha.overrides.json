@@ -1,0 +1,4 @@
+{
+  "_comment": "Matrix numbers are Word auto-list numbers that restart and run on across merged cells; renumberMatrix counts them afresh from the table structure.",
+  "renumberMatrix": true
+}
