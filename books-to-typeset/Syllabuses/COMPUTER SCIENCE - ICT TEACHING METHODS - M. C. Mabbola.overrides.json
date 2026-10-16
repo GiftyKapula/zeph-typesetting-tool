@@ -1,0 +1,48 @@
+{
+  "_comment": [
+    "Computer Science and ICT Teaching Methods -- Secondary School Teachers' Diploma syllabus, Years 1-2.",
+    "First typeset 2026-10-16.",
+    "",
+    "THEME. The file name carries none of SYLLABUS / TED / VALIDATED; the engine now also takes",
+    "\"TEACHING METHODS\" as a syllabus name (themes.js autoTheme), so it is on the generic syllabus theme.",
+    "",
+    "TITLE / LEVEL / YEAR. \"Computer Science and ICT Teaching Methods\" as the manuscript's title page has it",
+    "(the cover writes \"&\", the file name \"-\"); Secondary School Teachers' Diploma as cover and title page say;",
+    "2025 as on the copyright line (the manuscript's cover says 2026), as in Computer Science and ICT.",
+    "",
+    "YEAR PAGES. The manuscript heads each matrix \"Year 1 – Course Content\" / \"Year 2 – Course Content\";",
+    "cut to \"Year 1\" / \"Year 2\" so each sets as its own level page before its matrix.",
+    "",
+    "MATRIX NUMBERS. Topic 1.1-1.12 (Year 1) and 2.1-2.4 (Year 2), numbering check clean as typed.",
+    "The back matter keeps the author's own section numbers 1.7-1.12 (Method of Teaching ... Recommended",
+    "Books), which follow on from the front matter's 1.1-1.6, not from the matrix."
+  ],
+  "subject": "Computer Science and ICT Teaching Methods",
+  "level": "Secondary School Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "pageBreakBefore": [
+    {
+      "_why": "1.1 Introduction started at the foot of the Acknowledgement page with two lines under it",
+      "find": "1.1 Introduction",
+      "near": "teaching methods prepare pre-service secondary school teachers"
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "its last activity bullet ran alone onto the next page",
+      "startsWith": "1.12.1.2"
+    }
+  ],
+  "editAll": [
+    {
+      "_why": "a bare year heading sets as the level page before its matrix",
+      "find": "Year 1 – Course Content",
+      "with": "Year 1"
+    },
+    {
+      "find": "Year 2 – Course Content",
+      "with": "Year 2"
+    }
+  ]
+}

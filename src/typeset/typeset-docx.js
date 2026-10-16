@@ -3531,7 +3531,15 @@ function mergeSplitMatrices(blocks) {
     if (!(nb && nb.t === "table" && Array.isArray(nb.rows) && nb.rows.length && (nb.rows[0] || []).length === blocks[i].rows[0].length)) continue;
     const same = hdr(nb) === hdr(blocks[i]);
     const noHdr = mat && !/\bTOPIC\b/.test(hdr(nb));
-    if (!same && !noHdr) continue;
+    // …and a numbered COMPETENCE | DESCRIPTORS table whose rows run on in pieces with no
+    // header, each its own Word table (Geography Content's Year 2: rows 1-6, then 7, 8, 9
+    // and 10 one table each, which printed as four loose boxes in title case). Only when
+    // the piece's S/N carries on the count of the table above.
+    const sn = (r) => { const m = String((r && r[0] && r[0].text) || "").trim().match(/^(\d+)\.?$/); return m ? +m[1] : null; };
+    const prev = blocks[i].rows[blocks[i].rows.length - 1];
+    const runOn = !mat && /COMPETEN/.test(hdr(blocks[i])) && /DESCRIPT/.test(hdr(blocks[i]))
+      && sn(prev) != null && sn(nb.rows[0]) === sn(prev) + 1;
+    if (!same && !noHdr && !runOn) continue;
     blocks[i].rows.push(...nb.rows.slice(same ? 1 : 0));
     blocks.splice(i + 1, j - i);
     merged++; i--;
