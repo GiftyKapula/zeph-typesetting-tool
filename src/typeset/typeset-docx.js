@@ -6832,8 +6832,13 @@ function normaliseQuestionMarkBold(blocks) {
       // The cover (front + back) stays in FULL COLOUR — only the interior is greyscale — so
       // preserve the original palette for the cover-only colour fields (cover() shadows T
       // with these, so every colour it draws comes from here, not the greyed body colours).
-      covPrimary: orig.primary, covPrimary2: orig.primary2, covAccent: orig.accent,
-      covSignature: orig.signature || orig.primary, covCyan: orig.cyan || orig.primary2,
+      // …unless a cover colour is already set: a syllabus's own colour (coverColour, or
+      // the one picked by its subject) was overwritten here with the generic theme's grey
+      // whenever the file name read as a teacher's book ("…TEACHER EDUCATION…": Business
+      // Studies printed a grey cover while its log said #3d3d7a)
+      covPrimary: themeOverrides.covPrimary || orig.primary, covPrimary2: themeOverrides.covPrimary2 || orig.primary2,
+      covAccent: themeOverrides.covAccent || orig.accent,
+      covSignature: themeOverrides.covSignature || orig.signature || orig.primary, covCyan: orig.cyan || orig.primary2,
       covInk: orig.ink, covRulec: orig.rulec,
     });
   }
