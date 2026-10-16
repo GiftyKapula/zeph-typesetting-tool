@@ -202,7 +202,7 @@ function emit(blocks) {
         else out += `#sectionhead(${S(b.text)})\n`;
         break;
       }
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""}${b.top ? ", top: true" : ""})\n`; break;
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""}${b.top ? ", top: true" : ""}${b.inCourse ? ", course: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
@@ -3342,6 +3342,29 @@ function foldActivityRows(blocks) {
   if (n) console.log(`   activity-only rows joined to the row above: ${n}`);
 }
 
+// A Key Competences row typed twice, word for word, in the same table (Business Studies,
+// Economics: ANALYTICAL THINKING first and again last, the same four descriptors) prints
+// the same competence twice: the repeat goes. Only a COMPETENCE | DESCRIPTORS table, and
+// only a row equal to an earlier one in every cell.
+function dropRepeatedCompetenceRows(blocks) {
+  const norm = (c) => String((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase();
+  let n = 0;
+  for (const b of blocks) {
+    if (!b || b.t !== "table" || !Array.isArray(b.rows) || !Array.isArray(b.rows[0])) continue;
+    const H = b.rows[0].map(norm);
+    if (!H.some((h) => /^COMPETEN/.test(h)) || !H.some((h) => /DESCRIPTOR|DISCRIPTOR/.test(h))) continue;
+    const seen = new Set();
+    b.rows = b.rows.filter((row, i) => {
+      if (i === 0 || !Array.isArray(row)) return true;
+      const k = row.map(norm).join("|");
+      if (!k.replace(/\|/g, "")) return true;
+      if (seen.has(k)) { n++; console.log(`   repeated competence row dropped: "${norm(row[0]).slice(0, 40)}"`); return false; }
+      seen.add(k); return true;
+    });
+  }
+  return n;
+}
+
 // One level page per level. A manuscript that names the year over its Key Competences as
 // well as over its matrix -- or twice running over the matrix -- printed a level page for
 // each (Civic Education Content: three YEAR ONE pages, two YEAR TWO). For each level, the
@@ -3372,11 +3395,16 @@ function dedupeLevelHeadings(blocks) {
     }
     return false;
   };
+  // A book of several courses (markCourses) runs Year 1, Year 2 again in each course:
+  // a level is one per course, not one per book.
+  const seg = []; let s = 0;
+  blocks.forEach((b, i) => { if (b && b.course) s++; seg[i] = s; });
+  const keyAt = (i) => { const k = levelKey(blocks[i]); return k && `${seg[i]}|${k}`; };
   const keep = new Map();
-  blocks.forEach((b, i) => { const k = levelKey(b); if (k && opens(i)) keep.set(k, i); });
+  blocks.forEach((b, i) => { const k = keyAt(i); if (k && opens(i)) keep.set(k, i); });
   let dropped = 0, demoted = 0;
   for (let i = blocks.length - 1; i >= 0; i--) {
-    const b = blocks[i], k = levelKey(b);
+    const b = blocks[i], k = keyAt(i);
     if (!k || !keep.has(k)) continue;
     const at = keep.get(k);
     if (i === at) {
@@ -3669,6 +3697,8 @@ function auditSyllabusNumbering(blocks) {
     if (!Array.isArray(b.rows)) {
       const y = yearOf(b.text || blockPlain(b));
       if (y && y !== year) { year = y; course = null; seen.topic = seen.sub = seen.comp = null; }
+      // a new course of a several-course book (markCourses) counts afresh, year and all
+      if (b.course) { year = 0; seen.topic = seen.sub = seen.comp = null; }
       const cm = /^h[123]$|^head$/.test(b.t) && String(b.text || "").trim().match(COURSE_RE);
       if (cm) { course = [+cm[1], +cm[2]]; seen.topic = seen.sub = seen.comp = null; }
       continue;
@@ -5113,6 +5143,57 @@ function fixSyllabusSignatures(blocks) {
 // → [roman i] copyright + imprint → TOC → [roman visible] Vision … front matter → level
 // divider page → [arabic 1] Competences & Descriptors → body → back cover. The counter
 // resets/visibility ride on the marker blocks (titlestart/showpage/bodystart).
+// A syllabus that bundles several courses in one book (Business Studies: Financial
+// Accounting, Commerce, Teaching Methods, Economics, Business Mathematics, Business and
+// Company Law), each with its own description, competences and Year 1 / Year 2 matrices.
+// Sidecar `courses` names them as typed. Each course title becomes a section head -- a
+// fresh page and a top-level contents entry -- flagged `course`, so the body opens on the
+// first course and every course keeps its own year pages (dedupeLevelHeadings). Matched
+// on a heading or a bold line standing alone, case and spacing ignored; the first match
+// after the front matter's own mentions is the one, since the title stands on a line of
+// its own and the front matter only names the courses inside sentences.
+function markCourses(blocks, courses) {
+  if (!Array.isArray(courses) || !courses.length) return;
+  const norm = (s) => String(s || "").replace(/\s+/g, " ").trim().toUpperCase();
+  const headish = (b) => b && (/^h[123]$/.test(b.t) || b.t === "head" || b.t === "label" || b.t === "para");
+  let from = 0;
+  for (const name of courses) {
+    const want = norm(name);
+    const i = blocks.findIndex((b, k) => k >= from && headish(b) && norm(b.t === "para" ? blockPlain(b) : (b.text || blockPlain(b))) === want);
+    if (i < 0) { console.warn("!  courses: not matched:", name); continue; }
+    const b = blocks[i];
+    b.t = "h1"; b.text = want; b.course = true; b.noPromote = true;
+    delete b.segs; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
+    from = i + 1;
+  }
+  // the title typed again inside its own course, over the matrix (Business Mathematics
+  // under YEAR ONE), would print as a stray sub-head: it goes
+  const names = new Set(blocks.filter((b) => b.course).map((b) => b.text));
+  let rep = 0;
+  for (let i = blocks.length - 1; i >= 0; i--) {
+    const b = blocks[i];
+    if (!b || b.course || !(/^h[123]$/.test(b.t) || b.t === "head" || b.t === "label")) continue;
+    if (names.has(norm(b.text || blockPlain(b))) && blocks.slice(0, i).some((x) => x.course)) { blocks.splice(i, 1); rep++; }
+  }
+  if (rep) console.log(`   courses: ${rep} repeated course title(s) dropped`);
+  // Each course's Assessment weightings and Time Allocation lines are one Word list that
+  // runs through the whole file, so they printed 1.4, 1.4.1 … 1.10 in Commerce and 2.7 …
+  // 2.11 in Business Mathematics -- numbers that count nothing. Inside a course they are
+  // bullets, a third-level number (a weighting's part) a dash under its line.
+  let inside = false, bul = 0;
+  for (const b of blocks) {
+    if (b.course) { inside = true; continue; }
+    if (!inside || b.t !== "listitem") continue;
+    const m = String(b.marker || "").trim().match(/^\d+\.\d+(?:\.\d+)*\.?$/);
+    if (!m) continue;
+    b.marker = m[0].replace(/\.$/, "").split(".").length > 2 ? "–" : "•";
+    if (Array.isArray(b.segs) && b.segs.length) b.segs[0] = { ...b.segs[0], t: String(b.segs[0].t).replace(/^[\s.]+/, "") };
+    bul++;
+  }
+  if (bul) console.log(`   courses: ${bul} running list number(s) outside the matrix set as bullets`);
+  console.log(`   courses:${blocks.filter((b) => b.course).length} of ${courses.length} set as sections`);
+}
+
 function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelAfterCompetences = false } = {}) {
   const coverIdx = blocks.findIndex((b) => b.t === "cover");
   const cov = coverIdx >= 0 ? blocks[coverIdx] : null;
@@ -5201,8 +5282,12 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
   // syllabus titles the section "KEY COMPETENCES", and with no title to match the body
   // never started -- no level divider, and roman folios to the last page. The section is
   // the heading that stands over the COMPETENCES | DESCRIPTORS table.
+  // A book of several courses (sidecar `courses`, see markCourses): the body opens on the
+  // first course, its level divider in front of it, not on that course's competences.
+  const firstCourse = blocks.findIndex((b) => b.course);
+  if (firstCourse >= 0) compIdx = firstCourse;
   if (compIdx < 0) {
-    const hdrHas = (b, re) => b.rows[0].some((c) => re.test(((c && c.text) || "").trim()));
+    const hdrHas =(b, re) => b.rows[0].some((c) => re.test(((c && c.text) || "").trim()));
     const ct = blocks.findIndex((b) => b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0])
       && hdrHas(b, /^competen/i) && hdrHas(b, /descriptor/i));
     for (let k = ct - 1; k > crIdx && k >= ct - 4; k--) if (isHead(blocks[k])) { compIdx = k; break; }
@@ -5987,13 +6072,19 @@ function normaliseQuestionMarkBold(blocks) {
       const txt = (l) => l.map((s) => s.t).join("");
       const toLines = (c) => {
         const src = Array.isArray(c.segs) && c.segs.length ? c.segs : [{ t: c.text || "", b: false, it: false, c: null }];
-        if (src.some((s) => s.m || typeof s.t !== "string")) return null;      // a cell with maths: leave alone
+        if (src.some((s) => typeof s.t !== "string")) return null;
         const lines = [[]];
-        for (const s of src) s.t.split("\n").forEach((p, i) => {
+        for (const s of src) (s.m ? [s.t] : s.t.split("\n")).forEach((p, i) => {
           if (i) lines.push([]);
           if (p !== "") lines[lines.length - 1].push({ ...s, t: p });
         });
-        return lines.filter((l) => txt(l).trim());
+        const out = lines.filter((l) => txt(l).trim());
+        // a cell with maths where a number would go: leave alone. Maths further along a
+        // line passes through -- the "st" of "21st Century", set as a superscript, left the
+        // whole cell unnumbered, and the competence under it came out 1.2.0.1 (Business
+        // Studies)
+        if (out.some((l) => { const f = l.find((s) => s.t.trim()); return f && f.m; })) return null;
+        return out;
       };
       const setLines = (c, lines) => {
         c.text = lines.map(txt).join("\n");
@@ -6537,6 +6628,7 @@ function normaliseQuestionMarkBold(blocks) {
       if (fs.existsSync(cdcG)) { media.push({ name: "syl_cdc_grey.png", src: cdcG }); cov.logoGrey = { file: "syl_cdc_grey.png" }; }
     }
     const Tsyl = THEMES[theme] || {};
+    markCourses(blocks, ov.courses);
     blocks = applySyllabusFront(blocks, { year: sylYear || sylMsYear || "",
       level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null,
       levelAfterCompetences: !!ov.levelPageAfterCompetences });
@@ -6762,6 +6854,7 @@ function normaliseQuestionMarkBold(blocks) {
       themeOverrides.matrixToc = (themeOverrides.tocDepth || (THEMES[theme] || {}).tocDepth || 2) + 1;
     }
     dedupeLevelHeadings(blocks);
+    dropRepeatedCompetenceRows(blocks);
     foldActivityRows(blocks);
     tidyPunctuationSpaces(blocks);
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
@@ -6772,6 +6865,13 @@ function normaliseQuestionMarkBold(blocks) {
     hyphenateSubTopicHeader(blocks);
     splitRows(blocks, ov);
     keepRowsWhole(blocks, ov);
+    // a book of several courses (markCourses): the contents lists each course with its
+    // competences and years under it, not every topic -- as by-course Computer Science does
+    if (blocks.some((b) => b.course)) {
+      themeOverrides.matrixToc = (themeOverrides.tocDepth || (THEMES[theme] || {}).tocDepth || 2) + 1;
+      let inside = false;
+      for (const b of blocks) { if (b.course) inside = true; else if (inside && b.t === "h2") b.inCourse = true; }
+    }
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }
