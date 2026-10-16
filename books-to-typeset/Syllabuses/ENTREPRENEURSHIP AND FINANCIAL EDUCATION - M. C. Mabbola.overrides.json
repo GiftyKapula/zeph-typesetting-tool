@@ -17,7 +17,8 @@
     " it belongs to 1.3.2 Business Financing, as its number says -- moved up under 1.3.2 (moveRow), number unchanged.",
     " (1.3.2.2 still shares the 1.3.2.1 cell, as typed.)",
     "APPENDIX 2. \"1. Programme Overview\", \"2. Assessment Framework\", \"3. Monitoring and Evaluation Tools\" are one Word list",
-    "running on across the appendix tables, as typed (the numbering check follows the Word list across them)."
+    "running on across the appendix tables, as typed (the numbering check follows the Word list across them).",
+    "APPENDIX 1 (2026-10-16). 'SCOPE AND SEQUENCE' is Appendix 1's title, but the section pass gave it a page of its own, which left APPENDICES / Appendix 1 alone on a page: set as a kept label under Appendix 1."
   ],
   "theme": "gensyl",
   "subject": "Entrepreneurship and Financial Education",
@@ -111,6 +112,13 @@
     {
       "startsWith": "1.8.3.1",
       "at": "Describing the importanc"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "SCOPE AND SEQUENCE",
+      "as": "label",
+      "keep": true
     }
   ]
 }
