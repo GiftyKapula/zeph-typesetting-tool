@@ -57,6 +57,8 @@ const SECTION_WORD = "ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN|ELEVEN|TW
 const SECTION_RE = new RegExp(
   "^(TOPIC|UNIT|CHAPTER|SUB[-\\s‐-―]*TOPIC)\\s*:?\\s*" +
   "(?:[\\d.]|(?:" + SECTION_WORD + ")\\b(?=\\s*(?:[:.–—-]|$)))", "i");
+// A line that is nothing but a back-matter section's name — it ends any box before it.
+const BOX_BACKMATTER_LINE = /^(GLOSSARY(\s+OF\s+TERMS)?|((SUGGES+TED|FURTHER|RECOMMENDED)\s+)?REFERENCES?|BIBLIOGRAPHY)\s*:?$/i;
 // The manuscript's own hand-typed contents heading, in every spelling we see. Writers
 // type the singular "TABLE OF CONTENT" at least as often as the plural, and some type a
 // bare "CONTENTS" with no "TABLE OF" — all three must be recognised, because this
@@ -1746,6 +1748,20 @@ function buildQAParts(blocks) {
       // bullets through the plain bodyArr path instead of the styled qaparts row.
       const sub = b.marker === "•" || (!decimal && (elvl(b) > 0 || hasDecimalTop));
       let marker;
+      // Bullets that OPEN an exercise whose questions are numbered are its
+      // instructions to the teacher ("• Ask learners to answer individually.
+      // • Discuss answers together as a class."), not answers to a question. Hung
+      // under the empty "1." that ensureTopBeforeSub() invents, they pushed the real
+      // first question to "2." — twice in Topic 3 of the RE Form 3 Teacher's Guide.
+      // They print as the exercise's lead-in lines instead, as the same book's
+      // un-bulleted instructions already do. Only bullets that are the very FIRST
+      // lines of the exercise: bullets under a lead-in of the author's own ("Assessment
+      // Criteria:" under an unnumbered first task, Musical Arts Form 5 TG; "Key Rule:"
+      // in the Geography Form 1 TG) belong to that lead-in and keep the old handling.
+      if (b.marker === "•" && hasDecimalTop && parts.every((p) => p.openingBullet)) {
+        parts.push({ kind: "lead", q: b.plain, qseg: b.segs, openingBullet: true });
+        continue;
+      }
       if (sub && b.marker === "•") {
         // A bullet draws as a bullet and takes NO position in the lettered run it
         // sits inside. markerFor() already refuses to reletter a bullet, but only
@@ -3027,6 +3043,20 @@ async function importDocx(docxPath, opts = {}) {
     const rpr = (r.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     return /<w:b\b(?!Cs)/.test(rpr);
   };
+  // Opt-in (`boxLabelBlankRuns` override): read a box label's weight from its first run
+  // that PRINTS something. Word leaves blank runs behind as indentation residue — the RE
+  // Form 3 Teacher's Guide opens one of its six "End-of-Topic Assessment" labels with an
+  // unformatted run of ten spaces ahead of the bold text, so that label read as not bold
+  // and Topic 2's assessment alone was never boxed. Opt-in because other books carry the
+  // same residue (LIT in ENG F1 TG's "ACTIVITY 1: Group Work") and were laid out and
+  // reviewed with those labels unboxed.
+  const boldFirstTextRun = (x) => {
+    const runs = x.match(/<w:r\b[^>]*>[\s\S]*?<\/w:r>/g) || [];
+    const r = runs.find((s) => /<w:t\b[^>]*>\s*[^<\s]/.test(s)) || runs[0] || "";
+    const rpr = (r.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
+    return /<w:b\b(?!Cs)/.test(rpr);
+  };
+  const boldLabel = (x) => boldFirstRun(x) || (opts.boxLabelBlankRuns && boldFirstTextRun(x));
   const startBody = copyrightIdx >= 0 ? copyrightIdx : 0;
   const styledBodyHeads = parts.filter((x, i) => !isTbl(x) && hmap[styleOf(x)] && i > startBody).length;
   // Use size-based heading inference when the book's headings are mostly hand-
@@ -3268,6 +3298,9 @@ async function importDocx(docxPath, opts = {}) {
   // following non-empty lines (up to a blank line, heading, table, or next box)
   // are its body. Maps start-index -> { kind, end, labelSegs, body[] }.
   const paraBox = new Map();
+  // More than one "Glossary…" line in the book: each topic closes with its own.
+  // (A whole-line match, so a contents entry "Glossary ........ 134" is not counted.)
+  const glossaryPerTopic = parts.filter((x) => !isTbl(x) && /^GLOSSARY(\s+OF\s+TERMS)?\s*:?$/i.test(textOf(x).trim())).length > 1;
   for (let i = 0; flat ? false : i < parts.length; i++) {  // flat layout: no callout boxes (activities/exercises flow as headings)
     const x = parts[i];
     if (isTbl(x) || inImprint(i)) continue;
@@ -3284,7 +3317,7 @@ async function importDocx(docxPath, opts = {}) {
     // Forms of written Literature" in the table of contents beside the real sections.
     // boxKindFromTitle() is anchored and narrow, so accepting a heading here only ever
     // captures a paragraph that really is a box label.
-    if (!kind || !(boldFirstRun(x) || hmap[styleOf(x)])) continue;
+    if (!kind || !(boldLabel(x) || hmap[styleOf(x)])) continue;
     const bodyIdx = [];
     let lastContent = -1;
     // When the WRITER drew a real box around the label in Word (a four-sided paragraph
@@ -3366,6 +3399,14 @@ async function importDocx(docxPath, opts = {}) {
       // "Specific Competence"), which the same manuscript sets at body size.
       if (bodySize && !isTbl(y) && ty && boldFirstRun(y) && sizeOf(y) > bodySize && !boxKindFromTitle(ty)) break;
       if (SECTION_RE.test(ty)) break; // a numbered heading (no Word style)
+      // A topic's own "Glossary of Terms" / "Suggested References", typed as a plain
+      // body-size line straight after its End-of-Topic Assessment. Nothing above ends
+      // the assessment there (it is not bold, styled or larger), so five of the six
+      // topics of the RE Form 3 Teacher's Guide printed their glossary and reading list
+      // inside the grey assessment panel, as if they were more answers. Only in a book
+      // that closes several topics this way: a single book-end glossary keeps its
+      // existing handling, so no book laid out before this rule changes.
+      if (glossaryPerTopic && BOX_BACKMATTER_LINE.test(ty.trim())) break;
       if (restoredBanner.has(j)) break; // the next topic's banner, typed without "TOPIC"
       if (boxKindFromTitle(ty) && boldFirstRun(y)) break;        // the next box label
       // learn the box's own body size from the first sized line it takes in
