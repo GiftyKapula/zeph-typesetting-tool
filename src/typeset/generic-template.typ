@@ -312,16 +312,18 @@
   body
 }
 
-// A byline of "Name • Name • Name" that fits on one line stays on one line. One that
-// does not is set two names to a line instead of being left to wrap: free wrapping split
-// a name in two (the RE Form 3 Teacher's Guide title page ran "… • Maybin" on one line
-// and "Simuchenje Yamba • …" on the next) or, with the names kept whole, ended the first
-// line on a dangling bullet.
-#let bylineText(byline, sep) = layout(sz => {
+// Byline layout. By default a byline is the names joined by bullets and left to wrap,
+// as every book before the RE Form 3 Teacher's Guide was laid out and reviewed. A book
+// that sets `bylineRows` instead keeps one line when the names fit and otherwise sets
+// two names to a line: free wrapping split a name in two on that book's title page
+// ("… • Maybin" / "Simuchenje Yamba • …") or, with names kept whole, ended a line on a
+// dangling bullet. Opt-in so no other book's cover or title page moves.
+#let bylineRows = T.at("bylineRows", default: false)
+#let bylineText(byline, sep) = if not bylineRows { byline.join(sep) } else { layout(sz => {
   let one = byline.map(n => box(n)).join(sep)
   if measure(one).width <= sz.width { one }
   else { byline.chunks(2).map(c => c.map(n => box(n)).join(sep)).join(linebreak()) }
-})
+}) }
 
 // ---- title page (series): the book name repeated, modern sans, with a small
 // geometric accent that echoes the cover ----
@@ -434,10 +436,10 @@
   // silently overlapped. Past 2 names, wrap them into one centred paragraph
   // instead (matching how the cover's own byline already handles a long list).
   if byline.len() > 0 {
-    // Past two names the byline takes two lines (see bylineText); give back that line
-    // here, or a two-line title (RELIGIOUS / EDUCATION) pushes "Lusaka", the title
-    // page's last line, over onto a page of its own.
-    v(if byline.len() > 2 { 9mm } else { 16mm })
+    // With bylineRows, a byline that takes two lines gives that line back here, or a
+    // two-line title (RELIGIOUS / EDUCATION) pushes "Lusaka", the title page's last
+    // line, over onto a page of its own.
+    if bylineRows and byline.len() > 2 { v(9mm) } else { v(16mm) }
     align(center)[
       #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
       #v(3mm)

@@ -8,6 +8,10 @@
     "Maybin Simuchenje Yamba",
     "Emmah Ndekazi Zimba"
   ],
+  "//bylineRows": "Four authors do not fit on one line. Without this the title page split a name across lines (\"Maybin\" / \"Simuchenje Yamba\") and, once that was stopped, ended a line on a bullet and pushed \"Lusaka\" onto a page of its own. Sets the names two to a line.",
+  "bylineRows": true,
+  "//boxLabelBlankRuns": "Topic 2's \"End-of-Topic Assessment\" label opens with an unformatted run of ten spaces before its bold text, so the engine read it as not bold and never boxed that assessment; this reads the label's weight from its first run with visible text instead. Opt-in, because other books carry the same residue on labels they were reviewed with unboxed.",
+  "boxLabelBlankRuns": true,
   "//removeImages": "image7/8/9 are tiny (about 0.2 inch) pictures of the numerals '1.', '2.', '3.' the author pasted beside the Exercise 1 questions in Sub-topic 2.1. The questions already carry their typed numbers, so the pictures printed a second, blurred set of numbers at full width across printed page 19.",
   "removeImages": [
     "image7.png",

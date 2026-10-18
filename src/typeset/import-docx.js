@@ -2946,23 +2946,26 @@ async function importDocx(docxPath, opts = {}) {
   // First run's font size (half-points; 32 = 16pt). Some manuscripts size their
   // headings by hand instead of using Word heading styles — when a book barely
   // uses styled headings, infer heading level from a bold line's font size.
-  // "First run" means the first run that prints something. Word leaves blank runs
-  // behind as indentation residue — the RE Form 3 Teacher's Guide opens one of its six
-  // "End-of-Topic Assessment" labels with an unformatted run of ten spaces ahead of the
-  // bold text, and reading THAT as the first run made the label not bold, so Topic 2's
-  // assessment alone was never boxed. Falls back to the literal first run for a
-  // paragraph with no text at all.
-  const firstRun = (x) => {
-    const runs = x.match(/<w:r\b[^>]*>[\s\S]*?<\/w:r>/g) || [];
-    const r = runs.find((s) => /<w:t\b[^>]*>\s*[^<\s]/.test(s)) || runs[0] || "";
-    return (r.match(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/) || [])[1] || "";
-  };
-  const sizeOf = (x) => parseInt(firstRun(x).match(/<w:sz\s+w:val="(\d+)"/)?.[1] || "0", 10);
+  const sizeOf = (x) => parseInt(((x.match(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/) || [])[1] || "").match(/<w:sz\s+w:val="(\d+)"/)?.[1] || "0", 10);
   const boldFirstRun = (x) => {
-    const r = firstRun(x);
+    const r = (x.match(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/) || [])[1] || "";
     const rpr = (r.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     return /<w:b\b(?!Cs)/.test(rpr);
   };
+  // Opt-in (`boxLabelBlankRuns` override): read a box label's weight from its first run
+  // that PRINTS something. Word leaves blank runs behind as indentation residue — the RE
+  // Form 3 Teacher's Guide opens one of its six "End-of-Topic Assessment" labels with an
+  // unformatted run of ten spaces ahead of the bold text, so that label read as not bold
+  // and Topic 2's assessment alone was never boxed. Opt-in because other books carry the
+  // same residue (LIT in ENG F1 TG's "ACTIVITY 1: Group Work") and were laid out and
+  // reviewed with those labels unboxed.
+  const boldFirstTextRun = (x) => {
+    const runs = x.match(/<w:r\b[^>]*>[\s\S]*?<\/w:r>/g) || [];
+    const r = runs.find((s) => /<w:t\b[^>]*>\s*[^<\s]/.test(s)) || runs[0] || "";
+    const rpr = (r.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
+    return /<w:b\b(?!Cs)/.test(rpr);
+  };
+  const boldLabel = (x) => boldFirstRun(x) || (opts.boxLabelBlankRuns && boldFirstTextRun(x));
   const startBody = copyrightIdx >= 0 ? copyrightIdx : 0;
   const styledBodyHeads = parts.filter((x, i) => !isTbl(x) && hmap[styleOf(x)] && i > startBody).length;
   // Use size-based heading inference when the book's headings are mostly hand-
@@ -3204,6 +3207,9 @@ async function importDocx(docxPath, opts = {}) {
   // following non-empty lines (up to a blank line, heading, table, or next box)
   // are its body. Maps start-index -> { kind, end, labelSegs, body[] }.
   const paraBox = new Map();
+  // More than one "Glossary…" line in the book: each topic closes with its own.
+  // (A whole-line match, so a contents entry "Glossary ........ 134" is not counted.)
+  const glossaryPerTopic = parts.filter((x) => !isTbl(x) && /^GLOSSARY(\s+OF\s+TERMS)?\s*:?$/i.test(textOf(x).trim())).length > 1;
   for (let i = 0; flat ? false : i < parts.length; i++) {  // flat layout: no callout boxes (activities/exercises flow as headings)
     const x = parts[i];
     if (isTbl(x) || inImprint(i)) continue;
@@ -3220,7 +3226,7 @@ async function importDocx(docxPath, opts = {}) {
     // Forms of written Literature" in the table of contents beside the real sections.
     // boxKindFromTitle() is anchored and narrow, so accepting a heading here only ever
     // captures a paragraph that really is a box label.
-    if (!kind || !(boldFirstRun(x) || hmap[styleOf(x)])) continue;
+    if (!kind || !(boldLabel(x) || hmap[styleOf(x)])) continue;
     const bodyIdx = [];
     let lastContent = -1;
     // When the WRITER drew a real box around the label in Word (a four-sided paragraph
@@ -3281,8 +3287,10 @@ async function importDocx(docxPath, opts = {}) {
       // body-size line straight after its End-of-Topic Assessment. Nothing above ends
       // the assessment there (it is not bold, styled or larger), so five of the six
       // topics of the RE Form 3 Teacher's Guide printed their glossary and reading list
-      // inside the grey assessment panel, as if they were more answers.
-      if (BOX_BACKMATTER_LINE.test(ty.trim())) break;
+      // inside the grey assessment panel, as if they were more answers. Only in a book
+      // that closes several topics this way: a single book-end glossary keeps its
+      // existing handling, so no book laid out before this rule changes.
+      if (glossaryPerTopic && BOX_BACKMATTER_LINE.test(ty.trim())) break;
       if (restoredBanner.has(j)) break; // the next topic's banner, typed without "TOPIC"
       if (boxKindFromTitle(ty) && boldFirstRun(y)) break;        // the next box label
       // learn the box's own body size from the first sized line it takes in

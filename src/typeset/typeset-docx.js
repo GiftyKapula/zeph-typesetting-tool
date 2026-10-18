@@ -6759,6 +6759,7 @@ async function typesetOne(docxPath, themeName) {
     : {};
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
+  importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
   if (!blocks.length) {
@@ -7766,6 +7767,9 @@ function normaliseQuestionMarkBold(blocks) {
   }
   // A pinned `coverColor` is the book saying what its field should be, so it pins
   // whichever of the two its own cover shape actually uses — set both.
+  // `bylineRows`: lay the cover and title-page byline out two names to a line when the
+  // names do not fit on one (see bylineText in generic-template.typ). Opt-in.
+  if (ov.bylineRows) themeOverrides.bylineRows = true;
   if (ov.coverColor) {
     const pinned = String(ov.coverColor).replace(/^#/, "");
     themeOverrides.covSignature = pinned;
