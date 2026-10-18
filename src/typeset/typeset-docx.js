@@ -7609,6 +7609,9 @@ function normaliseQuestionMarkBold(blocks) {
   // A book may also override the TOC depth directly. Depth 1 keeps top-level
   // sections only (front matter + units/topics) and excludes sub-topics.
   if (ov.tocDepth !== undefined) themeOverrides.tocDepth = ov.tocDepth;
+  // …and the gap above each topic's contents entry (default 10pt), so a contents page
+  // that runs a line or two onto a second page can be drawn back onto one.
+  if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json
