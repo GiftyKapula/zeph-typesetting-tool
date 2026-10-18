@@ -2085,8 +2085,30 @@ function makeBox(kind, blocks) {
     // So try this first; BODY_OPEN still catches titles glued without any break.
     // Note the split must be made on the SEGS: `titleText` comes from the block's
     // `plain`, where the soft break has already been flattened to a space.
-    const brk = (titleSegs || []).findIndex((s, k) => k > 0 && !s.m && typeof s.t === "string"
+    let brk = (titleSegs || []).findIndex((s, k) => k > 0 && !s.m && typeof s.t === "string"
       && /^\n/.test(s.t) && !s.b && titleSegs.slice(0, k).some((p) => !p.m && p.b && (p.t || "").trim()));
+    // The same bold-to-plain change with NO break at all: the instruction typed straight
+    // on after the title in the one paragraph. Two of the RE Form 3 Learner's Book's
+    // seventy activities are typed so ("…Distinguishing various admission practices
+    // Role play how people are admitted…"), and the whole instruction printed in the
+    // bold title. Split only where everything before is bold and everything after is
+    // plain and reads as a sentence (opens with a capital, runs to at least four words),
+    // so a title with one plain word inside it is left whole.
+    if (brk < 0 && titleSegs) {
+      const k = titleSegs.findIndex((s) => !s.m && !s.b && (s.t || "").trim());
+      const before = k > 0 ? titleSegs.slice(0, k) : [];
+      const after2 = k > 0 ? titleSegs.slice(k) : [];
+      const tailText = after2.map((s) => (s.m ? "" : s.t)).join("").trim();
+      // The bold part must carry a TITLE after the label, not the label alone: the
+      // Accounting Form 2 books bold only "LEARNING ACTIVITY 1:" and set the title itself
+      // plain, and splitting there left every box titled "LEARNING ACTIVITY 1:".
+      const headText = before.map((s) => (s.m ? "" : s.t)).join("");
+      const titled = /:\s*\S/.test(headText.replace(/\s+$/, ""));
+      if (k > 0 && titled && before.some((p) => !p.m && p.b && /:/.test(p.t || ""))
+          && before.every((p) => p.m || p.b || !(p.t || "").trim())
+          && after2.every((p) => p.m || !p.b || !(p.t || "").trim())
+          && /^[A-Z]/.test(tailText) && /[.!?]$/.test(tailText) && tailText.split(/\s+/).length >= 4) brk = k;
+    }
     if (brk > 0) {
       const headSegs = titleSegs.slice(0, brk);
       const restSegs = titleSegs.slice(brk);
@@ -2511,6 +2533,67 @@ async function importDocx(docxPath, opts = {}) {
   const numMapEarly = parseNumbering(read("word/numbering.xml"));
   const tbBoxes = [];
   ({ rawDoc } = extractTextboxBoxes(rawDoc, tbBoxes, numMapEarly));
+  // A box LABEL on its own in a floating text box — word-art style, the questions
+  // following in the ordinary flow. The RE Form 3 Learner's Book sets two of its six
+  // "END-OF-TOPIC ASSESSMENT" titles this way (five small text boxes grouped in one
+  // drawing — "END", "-", "OF", "-", "TOPIC ASSESSMENT"), and the text-box stripping below deleted the label, so those two
+  // assessments printed as loose questions with no title and no box. Read the text of
+  // every box in one drawing together; when that whole text IS a box label, hoist it
+  // out as an ordinary bold paragraph in front of the drawing's host paragraph, where
+  // the paragraph-box detection finds it like any other. A caption or a diagram's
+  // labels never read as a box label, so they are left to the stripping as before.
+  {
+    const groups = new Map();   // drawing start -> texts of its text boxes
+    const tbRe = /<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/g;
+    let tm;
+    while ((tm = tbRe.exec(rawDoc))) {
+      if (/<a:blip\b|<v:imagedata\b/.test(tm[1])) continue;
+      const pre = rawDoc.slice(0, tm.index);
+      const at = Math.max(pre.lastIndexOf("<w:drawing>"), pre.lastIndexOf("<w:pict>"), pre.lastIndexOf("<w:pict "));
+      if (at < 0) continue;
+      const txt = [...tm[1].matchAll(/<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/g)].map((t) => t[1]).join(" ");
+      if (!groups.has(at)) groups.set(at, []);
+      groups.get(at).push(txt);
+    }
+    // A TOPIC/UNIT banner built the same way (the same book's Topic 4 opener is a group of
+    // its photo and two text boxes, "TOPIC 4:" and "FAITH AND PRAYER") is hoisted too —
+    // but only when the book has no other copy of that banner in its ordinary text, so a
+    // manuscript that also types the heading in the flow does not gain a second one.
+    const flowText = new Set((rawDoc.replace(/<w:txbxContent>[\s\S]*?<\/w:txbxContent>/g, "")
+      .match(/<w:p\b[\s\S]*?<\/w:p>/g) || [])
+      .map((p) => [...p.matchAll(/<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/g)].map((t) => t[1]).join("").replace(/\s+/g, " ").trim().toUpperCase())
+      .filter((t) => t && !/[.…]{2,}\s*\d*\s*$/.test(t)));
+    const bannerKey = (t) => (t.match(/^(TOPIC|UNIT|CHAPTER)\s*\d+/i) || [""])[0].replace(/\s+/g, " ").toUpperCase();
+    const hoists = [];
+    for (const [at, texts] of groups) {
+      const txt = texts.join(" ").replace(/\s*-\s*/g, "-").replace(/\s+/g, " ").trim();
+      const banner = txt.length <= 80 && bannerKey(txt)
+        && ![...flowText].some((t) => t.startsWith(bannerKey(txt)));
+      if (!txt || !(banner || (txt.length <= 40 && boxKindFromTitle(txt)))) continue;
+      const pre = rawDoc.slice(0, at);
+      const hostAt = Math.max(pre.lastIndexOf("<w:p "), pre.lastIndexOf("<w:p>"));
+      if (hostAt < 0 || hoists.some((h) => h.host === hostAt)) continue;
+      // Above or below its anchor paragraph? The drawing's own vertical offset says. Topic
+      // 2's title sits 1.7 cm ABOVE the question it is anchored in (offset -597200 EMU) and
+      // goes in front of it; Topic 5's sits 6.9 cm BELOW the closing notes paragraph it is
+      // anchored in (+2473647), and put in front of that paragraph it pulled the notes into
+      // the assessment. So a title positioned below its anchor goes after the paragraph.
+      const draw = rawDoc.slice(at, rawDoc.indexOf("<w:txbxContent>", at));
+      const off = +(draw.match(/<wp:positionV\b[^>]*relativeFrom="paragraph"[^>]*>[\s\S]*?<wp:posOffset>(-?\d+)<\/wp:posOffset>/i) || [])[1] || 0;
+      let insAt = hostAt;
+      if (off > 0) {
+        const close = rawDoc.startsWith("<w:drawing", at) ? "</w:drawing>" : "</w:pict>";
+        const endDraw = rawDoc.indexOf(close, at);
+        const endHost = endDraw < 0 ? -1 : rawDoc.indexOf("</w:p>", endDraw);
+        if (endHost >= 0) insAt = endHost + "</w:p>".length;
+      }
+      hoists.push({ host: hostAt, at: insAt, txt: txt.toUpperCase() });
+    }
+    hoists.sort((a, b) => a.at - b.at);
+    for (const h of hoists.reverse()) {
+      rawDoc = rawDoc.slice(0, h.at) + `<w:p><w:r><w:rPr><w:b/></w:rPr><w:t>${h.txt}</w:t></w:r></w:p>` + rawDoc.slice(h.at);
+    }
+  }
   const rels = relsMap(read("word/_rels/document.xml.rels"));
   // The author placed each figure's caption ("Fig N: …") in its OWN text box, next
   // to the picture inside the drawing. Capture those captions BEFORE stripping, so
@@ -2674,6 +2757,14 @@ async function importDocx(docxPath, opts = {}) {
     const bdr = (pPr.match(/<w:pBdr>[\s\S]*?<\/w:pBdr>/) || [""])[0];
     if (!bdr) return false;
     return SIDES.every((s) => new RegExp(`<w:${s}\\b[^>]*w:val="(?!nil|none)`).test(bdr));
+  };
+  // The paragraph's own background fill (<w:shd> in its pPr — not a run's shading), or
+  // "" when it has none or is plain white/auto. Read like boxBorderOf: a shaded box
+  // label says the box is exactly the run of paragraphs that share its fill.
+  const shadeOf = (x) => {
+    const pPr = ((x.match(/<w:pPr>[\s\S]*?<\/w:pPr>/) || [""])[0]).replace(/<w:rPr>[\s\S]*?<\/w:rPr>/g, "");
+    const f = ((pPr.match(/<w:shd\b[^>]*w:fill="([0-9A-Fa-f]{6})"/) || [])[1] || "").toUpperCase();
+    return f === "FFFFFF" ? "" : f;
   };
   // Word sometimes stores vector pictures as EMF/WMF (and a few other formats)
   // that Typst can't read — skip just those rather than fail the whole book.
@@ -3261,6 +3352,31 @@ async function importDocx(docxPath, opts = {}) {
       }
       continue;
     }
+    // The same statement made with SHADING instead of a border: the writer filled the
+    // label paragraph with a background colour, and the run of paragraphs carrying that
+    // same fill is the box. The RE Form 3 Learner's Book shades all seventy of its
+    // activities this way — the label and its one or two instruction lines in E2EFD9,
+    // the sub-topic's notes after them unshaded — and with nothing else to stop it, the
+    // heuristic below carried every activity on through the notes to the next heading.
+    // A label shaded on its own with its instruction typed into the label's paragraph
+    // (bold title, plain instruction) is a whole box by itself: it ends there, with an
+    // empty body, rather than falling through to the heuristic, which would carry it on
+    // through the notes. A shaded label with NO instruction in it says nothing about
+    // where its box ends — the Grade 1 CTS Learner's Book shades its bare activity
+    // labels and runs LET'S LOOK / LET'S DO beneath them unshaded — so that one is left
+    // to the rules below, exactly as before.
+    const fill = shadeOf(x);
+    if (fill) {
+      for (let j = i + 1; j < parts.length && !isTbl(parts[j]) && shadeOf(parts[j]) === fill; j++) {
+        if (!textOf(parts[j]) && !imagesOf(parts[j]).length) continue;
+        bodyIdx.push(j);
+      }
+      const ownInstruction = paraSegs(x).some((s) => !s.m && !s.b && (s.t || "").trim().split(/\s+/).length >= 4);
+      if (bodyIdx.length || ownInstruction) {
+        paraBox.set(i, { kind, end: bodyIdx.length ? bodyIdx[bodyIdx.length - 1] : i, labelSegs: paraSegs(x), title: text, body: bodyIdx });
+        continue;
+      }
+    }
     // The size of the body the box has absorbed so far, to spot the JUMP UP that marks
     // the next section starting (see the break below).
     let bodySize = 0;
@@ -3500,8 +3616,23 @@ async function importDocx(docxPath, opts = {}) {
         // real heading is kept, even when a short SUBTITLE line ("Children's
         // Rights") sits between it and the body prose (which would otherwise fail
         // the "next line is long body prose" test below and drop the heading).
+        // ...but a contents entry can carry a heading style too, when the writer typed
+        // the list by restyling lines: the RE Form 3 Learner's Book has two of its
+        // sub-topic entries in Heading2, and the scan stopped at the first of them, so
+        // "SUB-TOPIC 3.3: …" and "SUB-TOPIC 4.3: … 80" printed on the copyright page. An
+        // entry still gives itself away by the next line being another leadered entry (a
+        // real heading is followed by its content).
+        // Its own trailing number is not used as the sign: "UNIT 4: NUMBERS 1 TO 10" is a
+        // real heading that ends in one.
         if (SECTION_RE.test(t)
-            && (/^heading\s*\d/i.test(styleOf(parts[j])) || sizeOf(parts[j]) >= 28)) break;
+            && (/^heading\s*\d/i.test(styleOf(parts[j])) || sizeOf(parts[j]) >= 28)) {
+          let n = j + 1;
+          while (n < parts.length && !isTbl(parts[n]) && flat(textOf(parts[n])) === "") n++;
+          const nt = n < parts.length && !isTbl(parts[n]) ? textOf(parts[n]) : "";
+          const entry = /[.…]{2,}\s*\[?\d+\]?\s*$/.test(flat(nt)) || spaceLeader(nt);
+          if (!entry) break;
+          j++; continue;
+        }
         // A short heading-like line: a TOC entry to drop UNLESS it's the real
         // first section header (its next non-blank line is long body prose).
         if (t.length < 60) {
