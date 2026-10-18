@@ -92,6 +92,20 @@ PDF — real selectable text, images, and math rendered through the same Typst
 engine for pixel parity with the print edition. See `docs/EBOOK-FORMAT.md` for
 the bundle format contract.
 
+Pass `--from-print` to build the bundle from the blocks the PRINT pipeline finished
+with (`typeset-docx.js` run with `ZEPH_EBOOK_DUMP`) rather than a fresh import, so the
+eBook carries the book's `.overrides.json` corrections and every house fix the PDF
+has. Without it the raw manuscript is re-imported, uncorrected.
+
+**EPUB** — `src/typeset/emit-epub.js` turns that bundle into a standard EPUB 3 (with an
+EPUB 2 NCX for older readers) for Google Play Books, Apple Books, Kobo and Kindle
+(Send-to-Kindle): one chapter per topic, the contents as the reader's navigation, and
+the printed cover (page 1 of the typeset PDF) as its cover:
+
+    node src/typeset/emit-ebook.js "<book>.docx" --from-print --id <id> --title "…" \
+         --grade "Form 3" --subject "…" --kind LB
+    node src/typeset/emit-epub.js dist-ebooks/<id> "<book> - typeset.pdf" "<book>.epub"
+
 ## 7. The workflow layer — `zeph` (`tools/`)
 
 Everything above is a *pure function of a `.docx` file*. `zeph` (`tools/zeph.js`)

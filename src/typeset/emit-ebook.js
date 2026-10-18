@@ -416,9 +416,25 @@ async function main() {
   console.log(`  manuscript: ${docxPath}`);
   if (!fs.existsSync(docxPath)) throw new Error("manuscript file not found on disk");
 
-  // Same import options the science books are typeset with.
-  const importOpts = { styled: true, flat: false, textCover: true, imgOverrides: {}, removeImages: [] };
-  const { blocks: raw, media, tmp } = await importDocx(docxPath, importOpts);
+  // --from-print: take the blocks the PRINT pipeline finished with (typeset-docx.js run
+  // with ZEPH_EBOOK_DUMP), so the eBook carries the book's overrides and every house
+  // fix the PDF has. Without it the raw manuscript is re-imported, and a book whose
+  // corrections live in its .overrides.json comes out uncorrected.
+  let raw, media, tmp;
+  if (args["from-print"]) {
+    const os = require("os");
+    const { execFileSync } = require("child_process");
+    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "ebook-print-"));
+    execFileSync(process.execPath, [path.join(__dirname, "typeset-docx.js"), docxPath],
+      { env: { ...process.env, ZEPH_EBOOK_DUMP: tmp }, stdio: ["ignore", "ignore", "inherit"] });
+    raw = JSON.parse(fs.readFileSync(path.join(tmp, "blocks.json"), "utf8")).blocks;
+    const md = path.join(tmp, "_media");
+    media = fs.existsSync(md) ? fs.readdirSync(md).map((name) => ({ name, src: path.join(md, name) })) : [];
+  } else {
+    // Same import options the science books are typeset with.
+    const importOpts = { styled: true, flat: false, textCover: true, imgOverrides: {}, removeImages: [] };
+    ({ blocks: raw, media, tmp } = await importDocx(docxPath, importOpts));
+  }
   if (!raw.length) throw new Error("importDocx returned no blocks");
   console.log(`  imported ${raw.length} raw blocks, ${(media || []).length} media`);
 

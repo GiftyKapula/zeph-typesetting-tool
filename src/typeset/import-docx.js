@@ -3027,6 +3027,22 @@ async function importDocx(docxPath, opts = {}) {
     const rpr = (r.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     return /<w:b\b(?!Cs)/.test(rpr);
   };
+  // The first run that carries visible TEXT — skipping a run that holds only a space or
+  // a page-break marker. Used only to recognise a box LABEL: the RE Form 3 Learner's
+  // Book types one activity label as " " (plain) + "LEARNING ACTIVITY 3" (bold), and
+  // boldFirstRun read the space, so that one activity printed as a bare heading instead
+  // of a box. Kept apart from boldFirstRun, whose other callers are left as they were,
+  // and used only for a SHADED ACTIVITY label: Geography F2 and the Grade 1 CTS books
+  // shade EXERCISE labels the same way and print them as plain labels on purpose.
+  const boldFirstTextRun = (x) => {
+    for (const m of x.matchAll(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/g)) {
+      const txt = [...m[1].matchAll(/<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/g)].map((t) => t[1]).join("");
+      if (!txt.trim()) continue;
+      const rpr = (m[1].match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
+      return /<w:b\b(?!Cs)/.test(rpr);
+    }
+    return false;
+  };
   const startBody = copyrightIdx >= 0 ? copyrightIdx : 0;
   const styledBodyHeads = parts.filter((x, i) => !isTbl(x) && hmap[styleOf(x)] && i > startBody).length;
   // Use size-based heading inference when the book's headings are mostly hand-
@@ -3284,7 +3300,7 @@ async function importDocx(docxPath, opts = {}) {
     // Forms of written Literature" in the table of contents beside the real sections.
     // boxKindFromTitle() is anchored and narrow, so accepting a heading here only ever
     // captures a paragraph that really is a box label.
-    if (!kind || !(boldFirstRun(x) || hmap[styleOf(x)])) continue;
+    if (!kind || !(boldFirstRun(x) || hmap[styleOf(x)] || (kind === "activity" && shadeOf(x) && boldFirstTextRun(x)))) continue;
     const bodyIdx = [];
     let lastContent = -1;
     // When the WRITER drew a real box around the label in Word (a four-sided paragraph

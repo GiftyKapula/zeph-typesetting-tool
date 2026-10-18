@@ -60,11 +60,12 @@
   "tocDepth": 2,
   "//tocGap": "With the sub-topics listed, the contents ran two lines (GLOSSARY, REFERENCES) onto a second, otherwise empty page. A tighter gap above each topic entry brings it back onto one page.",
   "tocGap": "4pt",
-  "//removeImages": "Three 147-byte blank PNGs — the fallback images Word stores behind its old-style (VML) floating text boxes: the word-art END - OF - TOPIC ASSESSMENT titles and the repeated TOPIC 4: FAITH AND PRAYER banner. They carry nothing visible, but each was laid out as a side picture and squeezed the text beside it into a narrow column (Topic 2 assessment question 1, all of Topic 5's assessment).",
+  "//removeImages": "Three 147-byte blank PNGs — the fallback images Word stores behind its old-style (VML) floating text boxes: the word-art END - OF - TOPIC ASSESSMENT titles and the repeated TOPIC 4: FAITH AND PRAYER banner. They carry nothing visible, but each was laid out as a side picture and squeezed the text beside it into a narrow column (Topic 2 assessment question 1, all of Topic 5's assessment). Also image25.png: a 126x71 clipping of the word \"good\" pasted beside the stray Expected Standard under sub-topic 5.2 (see deleteExact).",
   "removeImages": [
     "image13.png",
     "image22.png",
-    "image26.png"
+    "image26.png",
+    "image25.png"
   ],
   "//images": "The Topic 4 opener is a grouped drawing: a blank 160-byte placeholder (image19.png), the faith-and-prayer photograph (image20.jpg) and the banner text boxes. The engine takes the placeholder as the group's picture, so the page printed Fig 9's caption under nothing. The placeholder is pointed at the photograph, extracted unchanged from the manuscript.",
   "images": {
@@ -81,7 +82,9 @@
   ],
   "deleteExact": [
     "Traditional Religion",
-    "117"
+    "117",
+    "Expected standard",
+    "Emotional intelligence in maintaining happiness applied according"
   ],
   "//edit": "Learning Activity 6 (Topic 2): the first sentence of the notes was typed onto the end of the activity's shaded instruction, with no full stop between ('…Report your findings to the whole class Leisure time can be used in meaningful ways…'), so it printed inside the box. The instruction gets its full stop and the sentence goes back to head the notes below.",
   "edit": [
@@ -187,5 +190,5 @@
       "to": "In this section, you will:"
     }
   ],
-  "//deleteExact": "\"Traditional Religion\": the second half of Figure 2's split caption (see setCaption). \"117\": a page number typed into the manuscript at the foot of Topic 5's assessment, which printed as a line of the box."
+  "//deleteExact": "\"Traditional Religion\": the second half of Figure 2's split caption (see setCaption). \"117\": a page number typed into the manuscript at the foot of Topic 5's assessment, which printed as a line of the box. \"Expected standard\" and \"Emotional intelligence in maintaining happiness applied according\" (sub-topic 5.2): an Expected Standard carried over from the Teacher's Guide — the only one in the Learner's Book, cut off mid-word, with a pasted picture of the word \"good\" beside it."
 }

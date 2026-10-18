@@ -7749,6 +7749,16 @@ function normaliseQuestionMarkBold(blocks) {
   // right edge (house style — see splitMarksToFr). Must run after every pass that
   // still expects a plain `.t` string on each segment in a run.
   applyMarkFlushRight(blocks);
+  // Hand the FINISHED blocks to the eBook exporter (emit-ebook.js --from-print), so an
+  // eBook carries every correction the printed book does — the book's overrides, the
+  // synthesised cover, the house fixes — instead of re-reading the raw manuscript. The
+  // images go with them, as the print workspace holds them (overrides and crops applied).
+  if (process.env.ZEPH_EBOOK_DUMP) {
+    const dumpDir = process.env.ZEPH_EBOOK_DUMP;
+    fs.mkdirSync(path.join(dumpDir, "_media"), { recursive: true });
+    for (const f of fs.readdirSync(mediaDir)) fs.copyFileSync(path.join(mediaDir, f), path.join(dumpDir, "_media", f));
+    fs.writeFileSync(path.join(dumpDir, "blocks.json"), JSON.stringify({ title, blocks }));
+  }
   const tmpl = fs.readFileSync(path.join(__dirname, "generic-template.typ"), "utf8");
   // Inject the theme dict ABOVE the template so its functions capture it.
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
