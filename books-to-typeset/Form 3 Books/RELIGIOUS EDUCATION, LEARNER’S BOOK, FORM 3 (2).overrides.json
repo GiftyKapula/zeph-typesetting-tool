@@ -58,6 +58,8 @@
   ],
   "//tocDepth": "The religious theme lists topics only in the contents (tocDepth 1). This book's CDC evaluation report (24 July 2026), 2.1.1, asks for its sub-topics to be in the Table of Contents — 'Sub-topics 3.3.2 and 3.5.3 should be added on the Table of Contents' — and the manuscript's own contents list carries every sub-topic, so this book lists them.",
   "tocDepth": 2,
+  "//tocGap": "With the sub-topics listed, the contents ran two lines (GLOSSARY, REFERENCES) onto a second, otherwise empty page. A tighter gap above each topic entry brings it back onto one page.",
+  "tocGap": "4pt",
   "//removeImages": "Three 147-byte blank PNGs — the fallback images Word stores behind its old-style (VML) floating text boxes: the word-art END - OF - TOPIC ASSESSMENT titles and the repeated TOPIC 4: FAITH AND PRAYER banner. They carry nothing visible, but each was laid out as a side picture and squeezed the text beside it into a narrow column (Topic 2 assessment question 1, all of Topic 5's assessment).",
   "removeImages": [
     "image13.png",
