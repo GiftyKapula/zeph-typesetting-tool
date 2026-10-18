@@ -1,0 +1,189 @@
+{
+  "//synthesiseCover": "The manuscript's cover is three floating text boxes (title, 'Form', the byline, a lone '3') plus a second plain-text copy that splits the subject over two lines — 'RELIGIOUS' / 'EDUCATION' / 'FORM 3' / 'LEARNER'S BOOK'. Read as-is, the cover printed 'RELIGIOUS' as the whole subject, 'FORM 3' twice, and 'LEARNER'S BOOK' and the publisher's address as the authors. Synthesised instead from the subject, the form and the book type.",
+  "synthesiseCover": true,
+  "subject": "Religious Education",
+  "//authors": "The four authors exactly as the manuscript's own cover byline gives them ('E.B. Mumba, S.M. Maseka, M.S. Yamba and E. N. Zimba'), split into four so the cover reads AUTHORS; only the stray space in 'E. N.' is closed up to match the other three. Written out in full (as the AUTHORS biographies give them) the four names wrapped onto a second line on the title page and pushed its last line, 'Lusaka', onto a page of its own.",
+  "authors": [
+    "E.B. Mumba",
+    "S.M. Maseka",
+    "M.S. Yamba",
+    "E.N. Zimba"
+  ],
+  "//tables": "KEY COMPETENCES. The manuscript builds the list as two tables: competences 1-5 in three columns (SN, COMPETENCE, DESCRIPTORS, each descriptor bulleted inside its cell) and 6-11 in FOUR, with the bullets in a column of their own and Emotional Intelligence's third descriptor in a row of its own with empty SN and competence cells. Printed as given, the second page of the list looked like a different table. Rebuilt in the first table's shape, with its header repeated over the continuation. One descriptor carries two items run together in the source cell ('Distinguish types of love Apply emotional intelligence…'), separated here.",
+  "tables": [
+    {
+      "match": "Explore influence of digital literacy on leisure",
+      "columns": [
+        "SN",
+        "COMPETENCE",
+        "DESCRIPTORS"
+      ],
+      "rows": [
+        [
+          "6",
+          "Digital",
+          "• Explore influence of digital literacy on leisure"
+        ],
+        [
+          "7",
+          "Emotional Intelligence",
+          "• Distinguish types of love\n• Apply emotional intelligence in maintaining happiness\n• Distinguish different types of suffering in society"
+        ],
+        [
+          "8",
+          "Entrepreneurship",
+          "• Justify entrepreneurship in wealth creation"
+        ],
+        [
+          "9",
+          "Environmental Sustainability",
+          "• Recognise personal role in environmental management"
+        ],
+        [
+          "10",
+          "Financial Education",
+          "• Apply financial literacy in wealth management"
+        ],
+        [
+          "11",
+          "Problem Solving",
+          "• Apply problem solving skills in suffering"
+        ]
+      ]
+    }
+  ],
+  "//tableNoHeader": "The ACRONYMS table is a plain two-column list with no header row; its first entry, CLA, printed as the list's heading.",
+  "tableNoHeader": [
+    "Constructive Leisure Activity"
+  ],
+  "//tocDepth": "The religious theme lists topics only in the contents (tocDepth 1). This book's CDC evaluation report (24 July 2026), 2.1.1, asks for its sub-topics to be in the Table of Contents — 'Sub-topics 3.3.2 and 3.5.3 should be added on the Table of Contents' — and the manuscript's own contents list carries every sub-topic, so this book lists them.",
+  "tocDepth": 2,
+  "//removeImages": "Three 147-byte blank PNGs — the fallback images Word stores behind its old-style (VML) floating text boxes: the word-art END - OF - TOPIC ASSESSMENT titles and the repeated TOPIC 4: FAITH AND PRAYER banner. They carry nothing visible, but each was laid out as a side picture and squeezed the text beside it into a narrow column (Topic 2 assessment question 1, all of Topic 5's assessment).",
+  "removeImages": [
+    "image13.png",
+    "image22.png",
+    "image26.png"
+  ],
+  "//images": "The Topic 4 opener is a grouped drawing: a blank 160-byte placeholder (image19.png), the faith-and-prayer photograph (image20.jpg) and the banner text boxes. The engine takes the placeholder as the group's picture, so the page printed Fig 9's caption under nothing. The placeholder is pointed at the photograph, extracted unchanged from the manuscript.",
+  "images": {
+    "image19.png": {
+      "src": "RE F3 LB media/image20.jpg"
+    }
+  },
+  "//setCaption": "Figure 2's caption is split over two paragraphs in the manuscript ('… Christianity, Islam, Hinduism and' / 'Traditional Religion'), and the second line printed as a loose italic line under the figure. Joined, with 'Zambian' restored — the book names the religion 'Zambian Traditional Religion' everywhere else.",
+  "setCaption": [
+    {
+      "file": "image5.",
+      "text": "Fig 2: Illustration of admission practices in Christianity, Islam, Hinduism and Zambian Traditional Religion"
+    }
+  ],
+  "deleteExact": [
+    "Traditional Religion",
+    "117"
+  ],
+  "//edit": "Learning Activity 6 (Topic 2): the first sentence of the notes was typed onto the end of the activity's shaded instruction, with no full stop between ('…Report your findings to the whole class Leisure time can be used in meaningful ways…'), so it printed inside the box. The instruction gets its full stop and the sentence goes back to head the notes below.",
+  "edit": [
+    {
+      "find": "Report your findings to the whole class Leisure time can be used in meaningful ways that benefit both yourself and the environment.",
+      "with": "Report your findings to the whole class."
+    }
+  ],
+  "insertText": [
+    {
+      "before": "Taking Part in Cleaning the School and Home Surroundings",
+      "text": [
+        "Leisure time can be used in meaningful ways that benefit both yourself and the environment."
+      ]
+    }
+  ],
+  "//setHeading": "The four 'Religious teachings on …' sub-topics (2.2, 3.3, 4.3, 5.3) are styled Heading 3 in the manuscript where every other sub-topic is Heading 2, so they printed as smaller headings and were left out of the contents — 5.3 among them, which CDC asked to have listed (2.1.1). All four are set as sub-topics like their siblings. 3.3 also gets the 'TEACHINGS' CDC asked for (2.1.5): the contents entry had been corrected but not the heading. The heading over each sub-topic's competences was written three ways — 'Specific Competence' (9), 'Specific Competences' (4) and 'SPECIFIC COMPETENCIES:' (2) — under every sub-topic alike. All fifteen read 'Specific Competences', CDC's own term in its evaluation report (2.1.2). The lead-in under it lost its comma twice ('In this section you will:', against 13 'In this section, you will:'); see subtext. Topic 4's Introduction is styled a level lower than the other five topics' Introductions, and is set to match.",
+  "setHeading": [
+    {
+      "find": "SUB-TOPIC 2.2: RELIGIOUS TEACHINGS ON LEISURE",
+      "as": "h2"
+    },
+    {
+      "find": "SUB-TOPIC 3.3: RELIGIOUS TEACHING ON FRIENDSHIP AND LOVE",
+      "as": "h2",
+      "text": "SUB-TOPIC 3.3: RELIGIOUS TEACHINGS ON FRIENDSHIP AND LOVE"
+    },
+    {
+      "find": "SUB-TOPIC 4.3: RELIGIOUS TEACHINGS ON FAITH AND PRAYER",
+      "as": "h2"
+    },
+    {
+      "find": "SUB-TOPIC 5.3: RELIGIOUS TEACHINGS ON WEALTH AND HAPPINESS",
+      "as": "h2"
+    },
+    {
+      "find": "Specific Competence",
+      "as": "h3",
+      "text": "Specific Competences",
+      "all": true
+    },
+    {
+      "find": "Specific competences",
+      "as": "h3",
+      "text": "Specific Competences",
+      "all": true
+    },
+    {
+      "find": "Specific competencies:",
+      "as": "h3",
+      "text": "Specific Competences",
+      "all": true
+    },
+    {
+      "find": "Introduction",
+      "near": "Faith is when you trust or believe",
+      "as": "h2"
+    }
+  ],
+  "//moveBefore": "CDC evaluation report (24 July 2026), 2.1.6: 'On page 22, figure 4 should move to page 21'. Figure 4 shows leisure time abused (drinking, idling); the manuscript places it under the next heading, 'Constructive Leisure Time Activities', so it is moved up to sit with the abuse section it illustrates.",
+  "moveBefore": [
+    {
+      "find": "Fig 4. Illustration of leisure time showing harmful acts",
+      "before": "Constructive Leisure Time Activities"
+    }
+  ],
+  "//subtext": "Corrections from the CDC evaluation report (24 July 2026) that the authors' revision had not yet carried out, plus slips introduced while making the others. (1) 2.1.5, p63: 'the word read to be removed from the beginning of Bible passages for consistency' — done for most passages but two remained in the friendship-and-love teachings. (2) 2.1.5, p77: 'the word the between with and God to be deleted' (Learning Activity 5, elements of prayer); the same 'with the God' stood in the introduction to Learning Activity 7 and is corrected the same way. (3) 2.1.5, p18: 'the hyphen to be removed from the word present day' — removed from the heading and the paragraph but not from Learning Activity 2's instruction. (4) 2.1.5, Key Competences: 'ones' was replaced with 'oneself' as asked, but the edit left a stray 'if' ('express oneself if in friendship and love'); the sub-topic's own copy of the competence reads 'appropriated language'. (5) 2.1.5: the contents entry was corrected to 'RELIGIOUS TEACHINGS ON FRIENDSHIP AND LOVE' but the sub-topic heading itself still read 'TEACHING'. (6) 'Bhagavad Gita17 v 28' — the reference CDC asked for, typed without its space.",
+  "subtext": [
+    {
+      "from": "Read Ruth 1:1",
+      "to": "Ruth 1:1"
+    },
+    {
+      "from": "Read Acts 9:26",
+      "to": "Acts 9:26"
+    },
+    {
+      "from": "meaningfully with the God",
+      "to": "meaningfully with God"
+    },
+    {
+      "from": "communication with the God",
+      "to": "communication with God"
+    },
+    {
+      "from": "identify the present-day positive",
+      "to": "identify the present day positive"
+    },
+    {
+      "from": "express oneself if in",
+      "to": "express oneself in"
+    },
+    {
+      "from": "Use appropriated language",
+      "to": "Use appropriate language"
+    },
+    {
+      "from": "Gita17",
+      "to": "Gita 17"
+    },
+    {
+      "from": "In this section you will:",
+      "to": "In this section, you will:"
+    }
+  ],
+  "//deleteExact": "\"Traditional Religion\": the second half of Figure 2's split caption (see setCaption). \"117\": a page number typed into the manuscript at the foot of Topic 5's assessment, which printed as a line of the box."
+}
