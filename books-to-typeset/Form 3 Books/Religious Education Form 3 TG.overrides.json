@@ -1,0 +1,39 @@
+{
+  "//synthesiseCover": "The manuscript's cover page is three stacked copies of the title block ('RELIGIOUS' / 'EDUCATION' / 'FORM 3' on separate lines, twice with a stray 'Form' + '3' split), so the detected cover read 'RELIGIOUS' as the whole title, printed 'FORM 3' twice and put the imprint line 'Zambia Education Publishing House Lusaka' where the authors go. Built fresh from title/subject/book type instead.",
+  "synthesiseCover": true,
+  "//authors": "The cover byline is one string of initials ('E.B. Mumba, S.M. Maseka, M.S. Yamba and E. N. Zimba'), which the author filter drops as too long, so the cover read AUTHORS with nobody under it. Kept in the manuscript cover's order, with each name as the AUTHORS bios spell it in full.",
+  "authors": [
+    "Emmanuel Besa Mumba",
+    "Stephania Mukolo Maseka",
+    "Maybin Simuchenje Yamba",
+    "Emmah Ndekazi Zimba"
+  ],
+  "//removeImages": "image7/8/9 are tiny (about 0.2 inch) pictures of the numerals '1.', '2.', '3.' the author pasted beside the Exercise 1 questions in Sub-topic 2.1. The questions already carry their typed numbers, so the pictures printed a second, blurred set of numbers at full width across printed page 19.",
+  "removeImages": [
+    "image7.png",
+    "image8.png",
+    "image9.png"
+  ],
+  "//subtext": "Slips the build's prose check quoted. 'Let the learners to do' is the extra-'to' slip ('let someone do'), twice in the manuscript. The Competences label is typed with doubled spaces three times ('to  be  developed'), which justified text stretches into visible gaps; 35 other instances read 'Competences to be developed:'.",
+  "subtext": [
+    {
+      "from": "Let the learners to do",
+      "to": "Let the learners do"
+    },
+    {
+      "from": "Competences to  be  developed",
+      "to": "Competences to be developed"
+    },
+    {
+      "from": "Competences to  be developed",
+      "to": "Competences to be developed"
+    }
+  ],
+  "//editAll": "\"Competences to be developed : citizenship\" (Topic 1) has a space before its colon, split across runs so subtext cannot reach it.",
+  "editAll": [
+    {
+      "find": "developed : ",
+      "with": "developed: "
+    }
+  ]
+}

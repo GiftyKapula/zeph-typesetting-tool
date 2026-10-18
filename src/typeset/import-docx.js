@@ -57,6 +57,8 @@ const SECTION_WORD = "ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN|ELEVEN|TW
 const SECTION_RE = new RegExp(
   "^(TOPIC|UNIT|CHAPTER|SUB[-\\s‐-―]*TOPIC)\\s*:?\\s*" +
   "(?:[\\d.]|(?:" + SECTION_WORD + ")\\b(?=\\s*(?:[:.–—-]|$)))", "i");
+// A line that is nothing but a back-matter section's name — it ends any box before it.
+const BOX_BACKMATTER_LINE = /^(GLOSSARY(\s+OF\s+TERMS)?|((SUGGES+TED|FURTHER|RECOMMENDED)\s+)?REFERENCES?|BIBLIOGRAPHY)\s*:?$/i;
 // The manuscript's own hand-typed contents heading, in every spelling we see. Writers
 // type the singular "TABLE OF CONTENT" at least as often as the plural, and some type a
 // bare "CONTENTS" with no "TABLE OF" — all three must be recognised, because this
@@ -1746,6 +1748,20 @@ function buildQAParts(blocks) {
       // bullets through the plain bodyArr path instead of the styled qaparts row.
       const sub = b.marker === "•" || (!decimal && (elvl(b) > 0 || hasDecimalTop));
       let marker;
+      // Bullets that OPEN an exercise whose questions are numbered are its
+      // instructions to the teacher ("• Ask learners to answer individually.
+      // • Discuss answers together as a class."), not answers to a question. Hung
+      // under the empty "1." that ensureTopBeforeSub() invents, they pushed the real
+      // first question to "2." — twice in Topic 3 of the RE Form 3 Teacher's Guide.
+      // They print as the exercise's lead-in lines instead, as the same book's
+      // un-bulleted instructions already do. Only bullets that are the very FIRST
+      // lines of the exercise: bullets under a lead-in of the author's own ("Assessment
+      // Criteria:" under an unnumbered first task, Musical Arts Form 5 TG; "Key Rule:"
+      // in the Geography Form 1 TG) belong to that lead-in and keep the old handling.
+      if (b.marker === "•" && hasDecimalTop && parts.every((p) => p.openingBullet)) {
+        parts.push({ kind: "lead", q: b.plain, qseg: b.segs, openingBullet: true });
+        continue;
+      }
       if (sub && b.marker === "•") {
         // A bullet draws as a bullet and takes NO position in the lettered run it
         // sits inside. markerFor() already refuses to reletter a bullet, but only
@@ -2930,9 +2946,20 @@ async function importDocx(docxPath, opts = {}) {
   // First run's font size (half-points; 32 = 16pt). Some manuscripts size their
   // headings by hand instead of using Word heading styles — when a book barely
   // uses styled headings, infer heading level from a bold line's font size.
-  const sizeOf = (x) => parseInt(((x.match(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/) || [])[1] || "").match(/<w:sz\s+w:val="(\d+)"/)?.[1] || "0", 10);
+  // "First run" means the first run that prints something. Word leaves blank runs
+  // behind as indentation residue — the RE Form 3 Teacher's Guide opens one of its six
+  // "End-of-Topic Assessment" labels with an unformatted run of ten spaces ahead of the
+  // bold text, and reading THAT as the first run made the label not bold, so Topic 2's
+  // assessment alone was never boxed. Falls back to the literal first run for a
+  // paragraph with no text at all.
+  const firstRun = (x) => {
+    const runs = x.match(/<w:r\b[^>]*>[\s\S]*?<\/w:r>/g) || [];
+    const r = runs.find((s) => /<w:t\b[^>]*>\s*[^<\s]/.test(s)) || runs[0] || "";
+    return (r.match(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/) || [])[1] || "";
+  };
+  const sizeOf = (x) => parseInt(firstRun(x).match(/<w:sz\s+w:val="(\d+)"/)?.[1] || "0", 10);
   const boldFirstRun = (x) => {
-    const r = (x.match(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/) || [])[1] || "";
+    const r = firstRun(x);
     const rpr = (r.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     return /<w:b\b(?!Cs)/.test(rpr);
   };
@@ -3250,6 +3277,12 @@ async function importDocx(docxPath, opts = {}) {
       // "Specific Competence"), which the same manuscript sets at body size.
       if (bodySize && !isTbl(y) && ty && boldFirstRun(y) && sizeOf(y) > bodySize && !boxKindFromTitle(ty)) break;
       if (SECTION_RE.test(ty)) break; // a numbered heading (no Word style)
+      // A topic's own "Glossary of Terms" / "Suggested References", typed as a plain
+      // body-size line straight after its End-of-Topic Assessment. Nothing above ends
+      // the assessment there (it is not bold, styled or larger), so five of the six
+      // topics of the RE Form 3 Teacher's Guide printed their glossary and reading list
+      // inside the grey assessment panel, as if they were more answers.
+      if (BOX_BACKMATTER_LINE.test(ty.trim())) break;
       if (restoredBanner.has(j)) break; // the next topic's banner, typed without "TOPIC"
       if (boxKindFromTitle(ty) && boldFirstRun(y)) break;        // the next box label
       // learn the box's own body size from the first sized line it takes in

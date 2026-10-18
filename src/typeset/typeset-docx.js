@@ -608,6 +608,14 @@ function liftRunOnBoxSections(blocks) {
       && x.segs.every((s) => s.m || !(s.t || "").trim() || s.b)
       && outside.has(norm(blockPlain(x))));
     if (cut < 1) continue;
+    // Not inside the box's own answers. Under a "Possible answers" line, a bold line is
+    // how the answer key is laid out, and it can echo a section heading of the same
+    // name: Learning Activity 2 of the RE Form 3 Teacher's Guide answers "Possible
+    // answers / Causes of Suffering / • …", directly below the section "Causes of
+    // Suffering" — cut there, every answer and the box's closing "Competences to be
+    // developed" line printed loose on the page.
+    const ANSWERS = /^(possible|expected|suggested|sample)\s+(answers?|responses?)\s*:?$/i;
+    if (b.body.slice(0, cut).some((x) => x && x.t === "para" && ANSWERS.test(blockPlain(x).trim()))) continue;
     const tail = b.body.splice(cut);
     // The heading arrived as a bold paragraph because everything inside a hand-drawn
     // box does; out here it is a heading again, and must be one so it prints like the
@@ -3783,12 +3791,64 @@ function reformatAcronyms(blocks) {
   }
 }
 
+// Some books close EVERY topic with its own glossary and reading list instead of
+// collecting them at the back: the RE Form 3 Teacher's Guide ends each of its six
+// topics "End-of-Topic Assessment -> Glossary of Terms -> Suggested References". The
+// back-matter passes below were written for one glossary and one reference list at the
+// end of the book, so they turned the first topic's glossary into a full GLOSSARY OF
+// TERMS section with its own page and contents line, and lifted the first reading list
+// out of Topic 1 to plant it after that glossary. Told apart by a glossary heading
+// standing BEFORE a later topic opener — book-end back matter never has a topic after it.
+const TOPIC_OPENER = /^(TOPIC|UNIT|CHAPTER)\b/i;
+function backmatterPerTopic(blocks) {
+  const txt = (b) => (b.segs ? b.segs.map((s) => s.t).join("") : b.text || "").trim();
+  const isH = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
+  let seenGloss = false;
+  for (const b of blocks) {
+    if (!b) continue;
+    if (isH(b) && /^GLOSSARY\b/i.test(txt(b))) seenGloss = true;
+    else if (seenGloss && b.t === "h1" && TOPIC_OPENER.test(txt(b))) return true;
+  }
+  return false;
+}
+
 // Within a GLOSSARY section, render each entry as "term" (bold) + ": " +
 // meaning (regular) — dropping the manuscript's "Term – meaning" dash and any
 // stray bold on the whole line. The separator must be a dash SURROUNDED by
 // spaces so hyphenated terms ("Well-being") and definitions ("non-living") stay
 // intact.
 function formatGlossary(blocks) {
+  // One glossary per topic: each stays where the author put it, as a bold sub-head
+  // closing its topic, and each is sorted on its own (see backmatterPerTopic).
+  const perTopic = backmatterPerTopic(blocks);
+  if (perTopic) {
+    const groups = [];
+    let cur = null;
+    const flushTo = () => { cur = { at: [], entries: [], hasDividers: false }; groups.push(cur); };
+    const isH = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
+    for (let gi = 0; gi < blocks.length; gi++) {
+      const b = blocks[gi];
+      const full = (b.segs ? b.segs.map((s) => s.t).join("") : b.text || "").trim();
+      if (isH(b) && /^GLOSSARY\b/i.test(full)) { flushTo(); b.t = "head"; b.text = "Glossary of Terms"; b.noPromote = true; delete b.segs; continue; }
+      if (!cur) continue;
+      if (isH(b) || !(b.t === "para" || b.t === "listitem")) {
+        if (isH(b) && /^[A-Z]$/.test(full)) { cur.hasDividers = true; continue; }
+        cur = null; continue;
+      }
+      const m = full.match(/^(.{1,40}?)(?:\s+[–—-]\s+|:\s+)(.+)$/s);
+      if (!m) { cur = null; continue; }
+      b.t = "para"; delete b.text; delete b.marker;
+      b.segs = [
+        { t: m[1].trim(), b: true, it: false, c: null },
+        { t: ": ", b: false, it: false, c: null },
+        { t: m[2].trim().replace(/\s+/g, " "), b: false, it: false, c: null },
+      ];
+      cur.entries.push(b); cur.at.push(gi);
+    }
+    for (const g of groups) sortGlossaryRun(blocks, g.entries, g.at, g.hasDividers);
+    if (groups.length) console.log(`   glossary: ${groups.length} per-topic glossaries kept with their topics`);
+    return;
+  }
   const isHead = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
   const ENTRY = /^(.{1,40}?)(?:\s+[–—-]\s+|:\s+)(.+)$/s;   // "Term – meaning" or "Term: meaning"
   // Render one entry as: term (bold) + ": " + meaning (regular).
@@ -3833,6 +3893,10 @@ function formatGlossary(blocks) {
     const m = full.match(ENTRY);
     if (m) { toEntry(b, m); entries.push(b); at.push(gi); }
   }
+  sortGlossaryRun(blocks, entries, at, hasDividers);
+}
+
+function sortGlossaryRun(blocks, entries, at, hasDividers) {
   // A glossary nobody can look a word up in is not a glossary. Authors add terms as they
   // write and the list comes out in the order they thought of them: the Food and Nutrition
   // Form 2 Learner's Book runs Accompaniment, Additive, Baking, Budget … Stock in good
@@ -3976,6 +4040,42 @@ function reorderBackmatter(blocks) {
     if (b.t === "label" || b.t === "para") return REF_ONLY.test(t);
     return false;
   };
+  // Each topic carries its own reading list (see backmatterPerTopic): leave every list
+  // where the author put it, closing its topic under a bold sub-head, and move nothing.
+  if (backmatterPerTopic(blocks)) {
+    let n = 0, joined = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!b || !(b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para")) continue;
+      const t = getText(b).trim();
+      if (!REF_ONLY.test(t)) continue;
+      b.t = "head"; b.text = t.replace(/[:.]\s*$/, "").toLowerCase().replace(/(^|\s)\S/g, (c) => c.toUpperCase());
+      b.noPromote = true; delete b.segs; n++;
+      // The lists arrive hard-broken mid-entry, the way text pasted from a PDF does
+      // ("…Grades 8- 9. Lusaka:" / "Curriculum" / "Development Centre."), so one
+      // reference printed as three. Every entry here carries its date as "(2013)", so
+      // a line WITHOUT one carries on the entry above it — unless it opens with a
+      // corporate author whose date was itself broken onto the next line ("Ministry of
+      // Education, …" / "(2013). Religious …"); a line opening on "(" is that date.
+      const YEAR = /\((?:19|20)\d{2}\)/;
+      const NEW_ENTRY = /^(Ministry|Government|Republic)\s+of\b/;
+      let j = i + 1;
+      while (j < blocks.length && blocks[j] && blocks[j].t === "para") {
+        const prev = blocks[j - 1], cur = blocks[j];
+        const ct = getText(cur).trim();
+        const cont = prev.t === "para" && (/^\(/.test(ct) || (!YEAR.test(ct) && !NEW_ENTRY.test(ct)));
+        if (!cont) { j++; continue; }
+        const a = (prev.segs || [{ t: prev.text || "", b: false, it: false, c: null }]).slice();
+        const c2 = (cur.segs || [{ t: cur.text || "", b: false, it: false, c: null }]).slice();
+        if (a.length) a[a.length - 1] = { ...a[a.length - 1], t: String(a[a.length - 1].t || "").replace(/\s+$/, "") };
+        if (c2.length) c2[0] = { ...c2[0], t: String(c2[0].t || "").replace(/^\s+/, "") };
+        prev.segs = [...a, { t: " ", b: false, it: false, c: null }, ...c2]; delete prev.text;
+        blocks.splice(j, 1); joined++;
+      }
+    }
+    if (n) console.log(`reorderBackmatter: ${n} per-topic reference lists kept with their topics (${joined} broken lines rejoined)`);
+    return;
+  }
   let refIdx = blocks.findIndex((b) => b && isRefOpener(b));
   if (refIdx >= 0) {
     refHeader = { t: "h1", text: "REFERENCES" };
