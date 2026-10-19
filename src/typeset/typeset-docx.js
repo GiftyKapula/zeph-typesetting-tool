@@ -7766,6 +7766,9 @@ function normaliseQuestionMarkBold(blocks) {
   if (ov.keepQuestionParts) themeOverrides.keepQuestionParts = true;
   // Give a table column left empty for the learner to write in some width (dtable()).
   if (ov.writingColumns) themeOverrides.writingColumns = true;
+  // Keep the page furniture of the earlier layout a manuscript came back in (template
+  // `banded`): pill running heads, a navy foot band, barred headings, banded boxes.
+  if (ov.houseStyle) themeOverrides.houseStyle = ov.houseStyle;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json

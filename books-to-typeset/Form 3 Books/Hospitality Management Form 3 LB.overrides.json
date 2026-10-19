@@ -9,6 +9,8 @@
   "//coverImage": "The book's green-and-gold cover art (LB.jpeg, supplied with the manuscripts on 19 Oct 2026), upscaled 4x with Real-ESRGAN, then cropped to the cover frame's shape from the top of the art (the server's face, the waiter and the chefs). Uncropped, the frame cut her off at the chin. The art carries no lettering.",
   "coverImage": "hosp-cover/LB-cover-crop.png",
   "tocDepth": 2,
+  "//houseStyle": "The LB came back as the earlier typeset layout (converted to Word); the user asked (2026-10-19) to keep that house style as a SECOND edition alongside the theme layout already delivered. With this key: pill running heads alternating sides, navy foot band with the folio in a circle, grey heading bars, a navy TOPIC tab over each opener, banded boxes (delivered as \"… FORM 3 - Original House Style.pdf\"). Remove the key to build the theme layout (\"… FORM 3.pdf\"). The covers are the same in both.",
+  "houseStyle": "banded",
   "//images": "Face Mapping (Sub-Topic 3.4.2) and the make-up finish: small close-ups that sat beside their text in the earlier layout. Left to the template's readability floor they printed half a page tall or more (the nose two-thirds of a page, each face shape the full text width). Given a fixed height instead, so each picture stays with its paragraph. The QR code (Figure 4) likewise, at 32 mm.",
   "images": {
     "image17.jpeg": {
