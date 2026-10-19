@@ -38,6 +38,28 @@
 // with a rounded tinted CARD: a solid title chip + a hexagon (benzene-ring) motif
 // and a full hairline border, no side stripe. Empty = the theme's default box.
 #let boxstyle = T.at("boxStyle", default: "")
+// Opt-in page furniture "banded" (a book's `houseStyle` override): the house style a
+// manuscript arrives in when it is an earlier typeset layout returned for correction,
+// kept so the corrected book looks like the one the editor marked up. Running head in a
+// navy pill that alternates sides (book name on left pages, section on right pages), a
+// navy band across the foot with the folio in a ringed circle, grey bars for front-matter
+// and sub-topic headings, a navy tab over each topic opener, and boxes capped by a solid
+// title band. First used by the Hospitality Management Form 3 Learner's Book.
+#let banded = T.at("houseStyle", default: "") == "banded"
+#let SMALLWORDS = ("a", "an", "and", "as", "at", "be", "but", "by", "for", "in", "of", "on", "or", "the", "to", "with")
+#let titlecase(s) = s.split(" ").enumerate().map(((i, w)) => {
+  let l = lower(w)
+  let cs = l.clusters()
+  if (i > 0 and l in SMALLWORDS) or cs.len() == 0 { l } else { upper(cs.first()) + cs.slice(1).join() }
+}).join(" ")
+// The banded running head names the section in force on the page (marked on or before
+// it, the same header-timing rule as topicnow), and is left off a topic opener's page.
+#let bandmark(t) = [#metadata(t)<bandsect>]
+#let bandnow() = {
+  let ms = query(selector(<bandsect>)).filter(m => m.location().page() <= here().page())
+  if ms.len() > 0 { ms.last().value } else { "" }
+}
+#let bandopener() = query(selector(<bandopen>)).any(m => m.location().page() == here().page())
 // The x-inset a BOX's content sits at. titledbox picks this per theme (see its
 // branches); genericbox mirrors it here rather than hard-coding its own, so an
 // untitled box's text and list markers line up down the page with the titled
@@ -194,11 +216,46 @@
     flipped: T.at("landscape", default: false),
     margin: if syllabus { (top: 20mm, bottom: 20mm, x: 20mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
     header-ascent: if tallhdr { 8mm } else { 30% },
+    // BANDED foot: a navy band across the full page width, the folio centred on it in
+    // a white circle ringed in navy; and on a topic opener, a navy tab hanging from the
+    // top edge carrying "TOPIC n:". Only once the folios are visible, so the covers and
+    // title page stay bare.
+    background: if banded { context {
+      if pgvisible.get() {
+        place(bottom + left, dy: -9mm, rect(width: 100%, height: 4.2mm, fill: T.primary))
+        place(bottom + center, dy: -6.6mm, circle(radius: 4.6mm, fill: white, stroke: 1pt + T.primary,
+          align(center + horizon, text(font: T.bodyFont, size: 9pt, fill: T.ink)[#counter(page).display()])))
+      }
+      let tab = query(selector(<bandopen>)).filter(m => m.location().page() == here().page())
+      if tab.len() > 0 {
+        place(top + center, block(fill: T.primary, inset: (x: 16pt, top: 14mm, bottom: 9pt), radius: (bottom: 5pt),
+          text(font: "Cambria", size: hm(19pt), weight: "bold", fill: white)[#tab.first().value]))
+      }
+    } } else { none },
     footer-descent: if syllabus { 40% } else { 30% },
     header: context {
       let visible = if serieslike { pastcover.get() } else { counter(page).get().first() > 1 }
       if syllabus {
         // No running header on the matrix pages (the wide matrix uses the full width).
+      } else if visible and banded {
+        // BANDED running head: a navy pill and a thin navy rule running to the far
+        // margin. Left (even) pages carry the book's name with the pill at the left;
+        // right (odd) pages the section, pill at the right. None on a topic opener,
+        // whose tab hangs from the top edge instead (see `background`).
+        if not bandopener() {
+          set text(font: T.bodyFont, size: 7.5pt)
+          set block(spacing: 0pt)
+          set par(spacing: 0pt, justify: false)
+          let pill(t) = box(fill: T.primary, inset: (x: 9pt, y: 2.8pt), radius: 6pt)[#text(fill: white, style: "italic", hyphenate: false)[#t]]
+          let rule = line(length: 100%, stroke: 0.9pt + T.primary)
+          if calc.even(here().page()) {
+            let book = T.subject + " - " + T.hdrtab.replace(regex("^((?:Form|Grade)\s+\d+)\s+"), m => m.captures.at(0) + " - ")
+            grid(columns: (auto, 1fr), align: (left + horizon, left + horizon), pill(book), rule)
+          } else {
+            let sect = bandnow()
+            grid(columns: (1fr, auto), align: (left + horizon, right + horizon), rule, if sect != "" { pill(sect) })
+          }
+        }
       } else if visible {
         if serieslike and (T.at("coverStyle", default: "") == "grade3" or T.at("coverStyle", default: "") == "grade2" or boxstyle == "labcard") {
           // GRADE 2/3 playful header: subject in a rounded pill, book tag on the
@@ -290,6 +347,9 @@
             } else { [] },
             [])
         }
+      } else if banded {
+        // drawn edge to edge in `background`, which (unlike the footer) is not held
+        // inside the side margins
       } else if serieslike {
         if pgvisible.get() {
           // counter(page).display() honours the page's native numbering pattern
@@ -1452,7 +1512,7 @@
   // `lines` and `logo` stay in the signature so every existing call site keeps working.
   let signature = T.at("covSignature", default: T.signature)
   let onfield = if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
-  page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
+  page(margin: 0pt, header: none, footer: none, background: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
     // ISBN: if known, print it (no barcode); otherwise reserve a clean box for the
     // press to add the ISBN + barcode at print time. Centred, low on the page.
@@ -1484,7 +1544,7 @@
   // type size from the spine's WIDTH (in mm): capitals about half the spine across, so
   // a 7.6 mm spine sets near 11 pt; capped for very thick books
   let fsz = calc.min(width * 0.5, 5.5) * 1mm
-  page(margin: 0pt, header: none, footer: none, fill: T.signature, width: w, height: 250mm)[
+  page(margin: 0pt, header: none, footer: none, background: none, fill: T.signature, width: w, height: 250mm)[
     #set text(font: T.displayFont)
     // the line of text, laid out horizontally and then turned to run down the spine
     #let avail = 250mm - 30mm - logoH
@@ -1512,11 +1572,21 @@
   // section that had already ended, the same defect settopic() was introduced to cure
   // for the unit openers.
   settopic(T.toctitle)
+  if banded {
+    bandmark(titlecase(T.toctitle))
+    // BANDED: the title in a navy pill, centred between two navy rules
+    block(breakable: false, width: 100%, grid(columns: (1fr, auto, 1fr), column-gutter: 4pt, align: horizon,
+      line(length: 100%, stroke: 0.9pt + T.primary),
+      box(fill: T.primary, inset: (x: 12pt, y: 4pt), radius: 8pt)[#text(fill: white, size: 13pt, weight: "bold")[#upper(T.toctitle)]],
+      line(length: 100%, stroke: 0.9pt + T.primary)))
+    v(12pt)
+  } else {
   block(breakable: false)[
     #text(fill: T.primary, size: 20pt, weight: "bold")[#T.toctitle]
     #v(3pt)
     #box(fill: iaccent, width: 60pt, height: 3pt, radius: 1.5pt)]
   v(8pt)
+  }
   set par(leading: 0.9em)
   // Never hyphenate a contents entry — the same rule sectionhead() states for a
   // section heading, and for the same reason. A long entry broken mid-word leaves
@@ -1564,7 +1634,12 @@
     // and so takes the paragraph back out of this scope, losing the hanging indent
     // again. That block is also what applied outline()'s own `indent`, so the per-level
     // step is applied here instead, at the same 1.2em.
-    let line = upper(it.inner())
+    // BANDED contents keep the sub-topics as typed ("Sub-Topic 3.1.1: Health Hazards
+    // in the Work Place"), only the topics in capitals.
+    let line = if banded and it.level > 1 {
+      show regex("Sub-Topic \d+(?:\.\d+)*"): s => s + ":"
+      it.inner()
+    } else { upper(it.inner()) }
     if it.level > 1 { pad(left: 1.2em * (it.level - 1), line) } else { line }
   }
   let tgap = T.at("tocGap", default: 10pt)
@@ -2092,7 +2167,19 @@
   // per-theme — a banner is one element and must look the same in every book.
   set par(justify: false)
   set text(hyphenate: false)
-  if science and T.motif == "cell" {
+  if banded {
+    // BANDED topic opener: "TOPIC n:" in the navy tab drawn from the page's top edge
+    // (see the page `background`), the title centred under it in orange serif capitals
+    // over a short orange rule.
+    [#metadata("TOPIC " + no + ":")<bandopen>]
+    bandmark("Topic " + no + ": " + titlecase(title))
+    v(16mm)
+    align(center, block(width: 100%, breakable: false)[
+      #text(font: "Cambria", fill: T.accent, size: hm(19pt), weight: "bold", tracking: 0.3pt)[#upper(title)]
+      #v(2pt)
+      #line(length: 34%, stroke: 1.4pt + T.accent)])
+    v(8pt)
+  } else if science and T.motif == "cell" {
     // BIOLOGY: an emerald card with a circular amber-ringed number badge, a soft
     // "cell" motif in the corner, and an amber baseline — organic and distinct.
     v(2pt)
@@ -2247,7 +2334,17 @@
   // competences table to the next page in BOTH Religious Education Form 2 books, which
   // were right as they were. Ragged belongs in subhead(), where the stretching is real.
   set text(hyphenate: false)
-  if boxstyle == "labcard" {
+  if banded { bandmark(titlecase(t)) }
+  if banded {
+    // BANDED front-matter heading: centred navy capitals on a full-width grey bar
+    // with a navy rule along its foot.
+    v(4pt)
+    block(width: 100%, breakable: false, fill: rgb("#dcddde"), inset: (x: 8pt, top: 5pt, bottom: 4pt),
+      stroke: (bottom: 1.6pt + T.primary))[
+      #set par(justify: false)
+      #align(center, text(fill: T.primary, size: hm(13pt), weight: "bold")[#upper(t)])]
+    v(9pt)
+  } else if boxstyle == "labcard" {
     let u = upper(t)
     let isunit = isUnitTitle(t)
     if isunit {
@@ -2370,7 +2467,15 @@
   // text; hoisting it here gives every other sub-topic style the same rule.
   set text(hyphenate: false)
   v(7pt, weak: true)
-  if boxstyle == "labcard" {
+  if banded {
+    // BANDED sub-topic: the title as typed (with its colon after the number) in navy
+    // on a full-width blue-grey bar, a navy rule along the bar's foot.
+    v(14pt, weak: true)
+    let shown = t.replace(regex("^(Sub-?Topic\s+\d+(?:\.\d+)*)\s+"), m => m.captures.at(0) + ": ")
+    block(width: 100%, breakable: false, sticky: true, fill: rgb("#dae4e7"), inset: (x: 7pt, top: 5pt, bottom: 5pt),
+      stroke: (bottom: 1.6pt + T.primary))[
+      #text(fill: T.primary, size: hs(13pt), weight: "bold")[#shown]]
+  } else if boxstyle == "labcard" {
     // CHEMISTRY sub-topic: a small amber label+number eyebrow, the name below in
     // amethyst bold, over a single thin rule. Split on the first colon.
     v(20pt, weak: true)
@@ -2543,8 +2648,24 @@
   // MUSIC.  REFER TO FORM 4 LEARNER'S BOOK PAGE 70.") has so few spaces per line
   // that justification stretches them into visibly uneven gaps — worst on the
   // line with the fewest words. Headings are conventionally left-ragged in print.
+  let raw = title
   let title = { set par(justify: false); text(hyphenate: false)[#title] }
-  if boxstyle == "labcard" {
+  if banded {
+    // BANDED box: a solid title band (orange for a learning activity, navy for an
+    // exercise or assessment) with the label centred in white; the box's own name —
+    // what follows the label's colon — opens the body in bold.
+    let band = if kind == T.act { T.accent } else { T.primary }
+    let ci = if type(raw) == str { raw.position(":") } else { none }
+    let label = if ci != none { raw.slice(0, ci + 1).trim() } else { title }
+    let name = if ci != none { raw.slice(ci + 1).trim() } else { "" }
+    block(width: 100%, breakable: breakable, stroke: 0.9pt + band, fill: kind.fill)[
+      #block(width: 100%, sticky: true, fill: band, inset: (x: 10pt, y: 5pt), below: 0pt)[
+        #set par(justify: false)
+        #align(center, text(fill: white, weight: "bold", size: hs(12.5pt), hyphenate: false)[#upper(label)])]
+      #block(width: 100%, breakable: breakable, inset: (x: boxinx, top: 7pt, bottom: 9pt))[
+        #if name != "" { block(sticky: true, below: 5pt, { set par(justify: false); text(weight: "bold", fill: T.ink, hyphenate: false)[#name] }) }
+        #content]]
+  } else if boxstyle == "labcard" {
     // Chemistry callout: a clean rounded card. A solid full-width title band in the
     // kind colour caps the card (white title); the body sits on a light tint below.
     // No side stripe, no motif — quiet and professional.
@@ -3831,8 +3952,8 @@
     }
   }
 }
-#let exercise(title, parts, force: false) = keepwhole("ex", text(size: hs(14pt))[#title], qaparts(parts), force: force)
-#let assessment(title, intro, parts, extra, force: false) = keepwhole("asmt", text(size: hs(14pt))[#title], {
+#let exercise(title, parts, force: false) = keepwhole("ex", if banded { title } else { text(size: hs(14pt))[#title] }, qaparts(parts), force: force)
+#let assessment(title, intro, parts, extra, force: false) = keepwhole("asmt", if banded { title } else { text(size: hs(14pt))[#title] }, {
   for line in intro [#par[#text(style: "italic")[#line]]; #v(2pt)]
   qaparts(parts)
   if extra.len() > 0 { v(2pt); for e in extra [#grid(columns: (10pt, 1fr), text(fill: T.asmt.border)[•], par[#e]); #v(1pt)] }
