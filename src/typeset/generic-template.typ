@@ -2919,9 +2919,16 @@
     let floor = calc.max(6, colword(ci) * 2)   // fit the column's longest (unbreakable) word
     let cwl = camelword(ci)
     let floor = if cwl > 0 { calc.max(floor, calc.min(30, cwl * 3.2)) } else { floor }
+    let bodyEmpty = rows.slice(calc.min(1, rows.len())).all(r => celllen(r.at(ci)) == 0)
     if fillin and not bigcontent {
-      let bodyEmpty = rows.slice(calc.min(1, rows.len())).all(r => celllen(r.at(ci)) == 0)
       if bodyEmpty { calc.max(20, floor) } else { calc.max(floor, calc.min(collen(ci), 45)) }
+    } else if bodyEmpty and rows.len() >= 2 and T.at("writingColumns", default: false) {
+      // a column left EMPTY for the learner to write in ("Response") inside a table
+      // that is otherwise filled: by content it is sized to its header word alone and
+      // squeezed until even that breaks ("Re-sponse", Hospitality Management Form 3 LB
+      // p. 41). Give it writing room. Opt-in (`writingColumns`) so proofread books keep
+      // their tables as they are.
+      calc.max(24, floor)
     } else { calc.max(floor, calc.min(collen(ci), 45)) }
   }
   // A genuine numbering/serial column ("S/N", "No.", "#") has a short header AND

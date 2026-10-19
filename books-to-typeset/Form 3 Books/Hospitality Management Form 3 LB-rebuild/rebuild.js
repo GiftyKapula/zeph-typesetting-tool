@@ -286,6 +286,31 @@ function drawingParts(d) {
     if (v >= 0) { res[v].xml = mkP('How to Nurture a Business Venture', res[v].style); res[v].text = 'How to Nurture a Business Venture'; log.push('heading fixed: Business Adventure -> Business Venture'); }
     else log.push('PATCH MISSED: Business Adventure heading');
   }
+  // the Customer Profile Template's form line: tab gaps that printed as a stray "_";
+  // writing lines instead, as a form to fill in
+  for (const b of res) if (b.k === 'box') for (let i = 0; i < b.paras.length; i++) {
+    if (/^Hospitality Facility:\s*Date:\s*$/.test(textOf(b.paras[i]))) {
+      b.paras[i] = mkP('Hospitality Facility: ________________________   Date: ______________', '');
+      log.push('profile template form line given writing lines');
+    }
+  }
+  // "Offer Solutions" (steps in handling complaints): its text carries stray italic and
+  // bold-italic punctuation runs; set like its four siblings (bold term, plain text)
+  {
+    const i = res.findIndex((b) => b.k === 'p' && /^Offer Solutions\s*:/.test(b.text || ''));
+    if (i >= 0) {
+      const rest = res[i].text.replace(/^Offer Solutions\s*:\s*/, '');
+      res[i] = { k: 'p', xml: lead('Offer Solutions:', ' ' + rest), text: 'Offer Solutions: ' + rest, style: res[i].style };
+      log.push('"Offer Solutions" set like its siblings');
+    } else log.push('PATCH MISSED: Offer Solutions');
+  }
+  // "Social Media Platforms": Facebook and TikTok were italic, Twitter and Instagram not;
+  // brand names in roman, all four alike
+  {
+    const i = res.findIndex((b) => b.k === 'p' && /^Social Media Platforms/.test(b.text || ''));
+    if (i >= 0) { res[i].xml = res[i].xml.replace(/<w:i\/>|<w:iCs\/>/g, ''); log.push('platform names set in roman'); }
+    else log.push('PATCH MISSED: Social Media Platforms');
+  }
   // two acronyms typed on one line
   {
     const a = find(/^USP – Unique Selling Proposition VIP – Very Important Person$/);
@@ -336,6 +361,26 @@ function drawingParts(d) {
       log.push(`Topic 1 assessment Q6 split into ${parts.length} parts`);
     } else log.push('PATCH MISSED: Topic 1 assessment Q6 parts');
   }
+  // ---- headings: one form for one heading, book-wide (consistency pass, 19 Oct 2026) ----
+  // Topics 1-2 head their opening section "INTRODUCTION", Topics 3-8 "Introduction"; the
+  // majority Title Case wins, as for every other sub-heading. Likewise "Specific
+  // competence" (once) beside "Specific Competence", and the stray capital in
+  // "Highlights For a Face".
+  for (const b of res) if (b.k === 'p' && /Heading/.test(b.style || '')) {
+    const t0 = b.text;
+    let t = t0.replace(/^INTRODUCTION$/, 'Introduction').replace(/^Specific competence$/, 'Specific Competence').replace(/^Highlights For a Face$/, 'Highlights for a Face');
+    if (t !== t0) { b.xml = mkP(t, b.style); b.text = t; log.push(`heading: "${t0}" -> "${t}"`); }
+  }
+  // a sentence that introduces a table was styled as a heading; set it as body text,
+  // like the book's other table lead-ins ("The following table outlines …")
+  {
+    const i = res.findIndex((b) => b.k === 'p' && /^The table below shows communication strategies in conflict situation$/.test(b.text || ''));
+    if (i >= 0) { const t = res[i].text + '.'; res[i] = { k: 'p', xml: mkP(t, 'BodyText'), text: t, style: 'BodyText' }; log.push('table lead-in set as body text'); }
+    else log.push('PATCH MISSED: table lead-in heading');
+  }
+  // Learning Activity titles: 55 end without a full stop and 20 with one; none, like the
+  // majority (a title, not a sentence)
+  for (const b of res) if (b.k === 'box') b.titleNoStop = true;
   // spelling slips in the captions (the words are otherwise as typed)
   const CAPFIX = [[/Illustartion/g, 'Illustration'], [/\bcurtsy\b|\bcurtesy\b/g, 'courtesy'], [/^(Figure \d+),/, '$1.'], [/^(Figure \d+) (?=[A-Z])/, '$1. '], [/\( picture/g, '(Picture'], [/extension\(/g, 'extension (']];
   for (const b of res) if (isCap(b)) for (const [re, to] of CAPFIX) if (b.text.search(re) >= 0) {
@@ -366,17 +411,40 @@ function drawingParts(d) {
     if (b.k === 'h1') return mkP(b.text, 'Heading1');
     if (b.k === 'h2') return mkP(b.text, 'Heading2');
     if (b.k === 'box') {
-      // an empty numbered line prints as a lone "5." at the foot of a box
-      let paras = b.paras.map(cleanP).filter((x) => !(/<w:numPr>/.test(x) && !textOf(x) && !/<w:drawing>/.test(x)));
+      // an empty numbered line prints as a lone "5." at the foot of a box; a line holding
+      // only "." or the stray keystrokes "tt" (both un-highlighted leftovers in the
+      // edited copy: Exercise 4 of 3.3.2, Exercise 3 of 3.5.2, LA 3 of 3.4.1) likewise
+      let paras = b.paras.map(cleanP).filter((x) => {
+        if (/<w:drawing>/.test(x)) return true;
+        const t = textOf(x).trim();
+        if (/<w:numPr>/.test(x) && !t) return false;
+        if (t === '.' || t === 'tt') { log.push(`stray line dropped from box "${b.label}": "${t}"`); return false; }
+        return true;
+      });
       let label = b.label.replace(/\s+/g, ' ').trim();
       if (/^LEARNING/i.test(label) && paras.length && !b.loose) {
         const title = textOf(paras[0]);
         if (title && title.length < 160) { label = `${label.replace(/:?$/, ':')} ${title}`; paras = paras.slice(1); }
+        else if (title) {
+          // title and instruction typed as ONE paragraph: the title is its leading bold
+          // run(s); the plain text after them stays as the first body line
+          const runs = splitTop(paras[0], ['w:r']);
+          let k = 0, bt = '';
+          while (k < runs.length && (/<w:b\/>|<w:b w:val="(?:1|true)"\/>/.test(runs[k].xml) || !textOf(runs[k].xml).trim())) { bt += textOf(runs[k].xml) ? (bt ? ' ' : '') + textOf(runs[k].xml) : ''; k++; }
+          bt = bt.replace(/\s+/g, ' ').trim();
+          if (bt && bt.length < 160 && k < runs.length) {
+            label = `${label.replace(/:?$/, ':')} ${bt}`;
+            const pPr = (paras[0].match(/<w:pPr>[\s\S]*?<\/w:pPr>/) || [''])[0];
+            paras[0] = `<w:p>${pPr}${runs.slice(k).map((r) => r.xml).join('')}</w:p>`;
+            log.push(`activity title split from its instruction: ${bt}`);
+          }
+        }
       }
       if (b.loose) {
         const first = paras.length ? textOf(paras[0]) : '';
         if (first && first.length < 160) { label = `${label.replace(/:?$/, ':')} ${first}`; paras = paras.slice(1); }
       }
+      if (b.titleNoStop && /^LEARNING/i.test(label) && /[^.]\.$/.test(label)) { log.push(`activity title full stop dropped: ${label.slice(0, 60)}`); label = label.slice(0, -1); }
       // the instruction under an activity title opens with a capital
       if (/^LEARNING/i.test(label) && paras.length && /^[a-z]/.test(textOf(paras[0])))
         paras[0] = paras[0].replace(/(<w:t(?: [^>]*)?>)(\s*)([a-z])/, (m, a, sp, c) => a + sp + c.toUpperCase());
@@ -389,12 +457,98 @@ function drawingParts(d) {
   // hyphen and loses only the space. Done across runs: the two halves often sit in
   // separate <w:t> nodes.
   const SPLIT = new Set(['Responsi-bilities', 'Account-ability', 'Identifica-tion', 'Man-agement', 'hospi-tality', 'mem-ber', 'se-curity']);
-  const fixHyphens = (px) => {
+  // ---- bold lead-in terms ("Term: explanation"), consistency pass 19 Oct 2026 ----
+  // 225 of 251 carry their colon inside the bold and 240 are in Title Case; the rest
+  // are brought into line: the colon joins the bold term, and seven terms take Title Case.
+  const LEAD_CASE = ['Flexible Scheduling', 'Poor Listening Skills', 'Lack of Empathy', 'Documentation and Follow-up',
+    'Right to Correct Information', 'Reflection and Evaluation', 'Positive Body Language'];
+  const isBoldRun = (r) => /<w:b\/>|<w:b w:val="(?:1|true)"\/>/.test(r);
+  const leadFix = (px) => {
+    const runs = [...px.matchAll(/<w:r\b[^>]*>[\s\S]*?<\/w:r>/g)].map((m) => ({ xml: m[0], at: m.index }));
+    const txt = (r) => (r.xml.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map((s) => s.replace(/<[^>]+>/g, '')).join('');
+    let k = 0, lead = '';
+    while (k < runs.length && (isBoldRun(runs[k].xml) || !txt(runs[k]).trim()) && (lead || txt(runs[k]).trim() || k === 0)) {
+      if (!isBoldRun(runs[k].xml) && txt(runs[k]).trim()) break;
+      lead += txt(runs[k]); k++;
+    }
+    if (!lead.trim() || lead.length > 60 || k >= runs.length) return px;
+    let out = px;
+    // the colon typed just after the bold term: move it into the term's last bold run
+    if (!/:\s*$/.test(lead) && /^\s*:/.test(txt(runs[k]))) {
+      let lb = k - 1; while (lb >= 0 && !isBoldRun(runs[lb].xml)) lb--;
+      if (lb >= 0) {
+        const newBold = runs[lb].xml.replace(/(<w:t[^>]*>)([^<]*)(<\/w:t>)(?![\s\S]*<w:t)/, (m, a, t, b) => `${a.replace(/<w:t(?! xml:space)/, '<w:t xml:space="preserve"')}${t.replace(/\s+$/, '')}:${b}`);
+        const newNext = runs[k].xml.replace(/(<w:t[^>]*>)\s*:/, (m, a) => a.replace(/<w:t(?! xml:space)/, '<w:t xml:space="preserve"'));
+        out = out.slice(0, runs[lb].at) + newBold + out.slice(runs[lb].at + runs[lb].xml.length, runs[k].at) + newNext + out.slice(runs[k].at + runs[k].xml.length);
+        log.push(`lead-in colon moved into bold: ${lead.trim()}`);
+      }
+    }
+    // the term's casing
+    const term = lead.replace(/:\s*$/, '').replace(/\s+/g, ' ').trim();
+    const want = LEAD_CASE.find((w) => w.toLowerCase() === term.toLowerCase() && w !== term);
+    if (want) {
+      // the term usually spans several runs (one word per run), so change the letters in
+      // place across the runs' text nodes: same length, case only
+      let all = '';
+      const nodes = [...out.matchAll(/(<w:t(?: [^>]*)?>)([^<]*)(<\/w:t>)/g)];
+      nodes.forEach((n) => { all += n[2]; });
+      const s0 = all.search(/\S/);
+      const flat = all.slice(s0, s0 + term.length * 2).replace(/\s+/g, ' ');
+      if (flat.startsWith(term)) {
+        const fixed = all.split(''); let ti = 0;
+        for (let c = s0; c < all.length && ti < want.length; c++) {
+          if (/\s/.test(all[c]) && want[ti] !== ' ') continue;
+          if (/\s/.test(all[c])) { ti++; while (c + 1 < all.length && /\s/.test(all[c + 1])) c++; continue; }
+          fixed[c] = want[ti]; ti++;
+        }
+        let pos = 0, k2 = 0;
+        out = out.replace(/(<w:t(?: [^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => { const r = a + fixed.slice(pos, pos + t.length).join('') + b; pos += t.length; k2++; return r; });
+        log.push(`lead-in term cased: ${term} -> ${want}`);
+      }
+    }
+    return out;
+  };
+  // A word split across a bold/plain boundary ("**Sincere Apolo**gy:", "Thi**s**") prints
+  // half bold. The smaller fragment takes the format of the larger: it is moved, as
+  // text, into the neighbouring run.
+  const wordSplitFix = (px) => {
+    const re = /<w:r\b[^>]*>[\s\S]*?<\/w:r>/g;
+    let runs = [...px.matchAll(re)].map((m) => ({ xml: m[0], at: m.index }));
+    const tOf = (x) => (x.match(/<w:t(?: [^>]*)?>([^<]*)<\/w:t>/) || [, null])[1];
+    const setT = (x, t) => x.replace(/<w:t(?: [^>]*)?>[^<]*<\/w:t>/, `<w:t xml:space="preserve">${t}</w:t>`);
+    let changed = false;
+    for (let i = 0; i < runs.length - 1; i++) {
+      const a = runs[i], b = runs[i + 1];
+      const ta = tOf(a.xml), tb = tOf(b.xml);
+      if (ta == null || tb == null || isBoldRun(a.xml) === isBoldRun(b.xml)) continue;
+      const tail = (ta.match(/[A-Za-z’']+$/) || [''])[0], head = (tb.match(/^[a-z’']+/) || [''])[0];
+      if (!tail || !head) continue;
+      if (tail.length >= head.length) { a.xml = setT(a.xml, ta + head); b.xml = setT(b.xml, tb.slice(head.length)); }
+      else { a.xml = setT(a.xml, ta.slice(0, -tail.length)); b.xml = setT(b.xml, tail + tb); }
+      log.push(`split word rejoined: "${ta.slice(-12)}|${tb.slice(0, 12)}"`); changed = true;
+    }
+    if (!changed) return px;
+    let out = '', pos = 0;
+    for (const r of [...px.matchAll(re)].map((m, k) => ({ m, k }))) { out += px.slice(pos, r.m.index) + runs[r.k].xml; pos = r.m.index + r.m[0].length; }
+    return out + px.slice(pos);
+  };
+  const fixHyphens = (px0) => {
+    // a TAB the PDF conversion left between two words ("Explain⇥how⇥make⇥up") is a word
+    // space; one at the start or end of a line is nothing. Tabs are carried as text here
+    // so the word passes below see them, then any left (a form line's gaps) go back.
+    const px = px0.replace(/<w:tab\/>/g, '<w:t xml:space="preserve">\t</w:t>');
     const nodes = [...px.matchAll(/(<w:t(?: [^>]*)?>)([^<]*)(<\/w:t>)/g)];
     if (!nodes.length) return px;
     let all = ''; const owner = [];
     nodes.forEach((n, k) => { for (let c = 0; c < n[2].length; c++) owner.push(k); all += n[2]; });
     const drop = new Set();
+    const tabSwap = new Map();
+    for (let c = 0; c < all.length; c++) if (all[c] === '\t') {
+      const before = all.slice(0, c), after = all.slice(c + 1);
+      if (!before.trim() || !after.trim()) drop.add(c);                       // leading / trailing
+      else if (/[A-Za-z,.?]$/.test(before) && /^[A-Za-z]/.test(after)) tabSwap.set(c, ' ');   // between words
+    }
+    if (drop.size || tabSwap.size) log.push(`tabs: ${tabSwap.size} word gaps, ${drop.size} stray in "${all.replace(/\t/g, '⇥').slice(0, 50)}"`);
     for (const m of all.matchAll(/([A-Za-z]+)- ([a-z]+)/g)) {
       const at = m.index + m[1].length; // index of "-"
       const joined = `${m[1]}-${m[2]}`;
@@ -405,15 +559,45 @@ function drawingParts(d) {
     const swap = new Map();
     for (const m of all.matchAll(/\bwhere l could\b/g)) { swap.set(m.index + 6, 'I'); log.push('text fixed: "where l could" -> "where I could"'); }
     // a list letter typed hard against its item: "b)How" -> "b) How"
-    const ins = new Set();
+    const ins = new Set(), ins2 = new Map();
     for (const m of all.matchAll(/(?:^|\s)[a-h]\)(?=[A-Z])/g)) { ins.add(m.index + m[0].length); log.push(`text fixed: "${m[0].trim()}" given a space`); }
     // ...and a full stop typed hard against the next sentence: "properly.These"
     for (const m of all.matchAll(/\b[a-z]{2,}\.(?=[A-Z][a-z]{2,})/g)) { ins.add(m.index + m[0].length); log.push(`text fixed: space after "${m[0]}" (${all.slice(m.index + m[0].length, m.index + m[0].length + 12)}…)`); }
-    if (!drop.size && !swap.size && !ins.size) return px;
+    // ---- one spelling for one word, book-wide (consistency pass, 19 Oct 2026) ----
+    // The edited copy spells the same word several ways. The majority form wins:
+    // "makeup" (86) over "make-up" (35) and "make up" (3); "workplace" (39) over "work
+    // place" (4); "teamwork" (12) over "team-work" (1). All are deletions, so they are
+    // made character-by-character across Word's runs.
+    for (const m of all.matchAll(/\b([Mm]ake|MAKE)(-\s?|\s)([Uu]p|UP)\b(?!\s+(?:for|of|the|a|their|your|his|her)\b)/g)) {
+      for (let c = m.index + m[1].length; c < m.index + m[1].length + m[2].length; c++) drop.add(c);
+      if (m[3] === 'Up') swap.set(m.index + m[1].length + m[2].length, 'u');   // "Make Up" -> "Makeup"
+      log.push(`spelling: "${m[0]}" -> makeup`);
+    }
+    for (const m of all.matchAll(/\b([Ww]ork|WORK) (place|PLACE)\b/g)) { drop.add(m.index + m[1].length); log.push(`spelling: "${m[0]}" -> workplace`); }
+    for (const m of all.matchAll(/\b([Tt]eam)-(work)\b/g)) { drop.add(m.index + m[1].length); log.push(`spelling: "${m[0]}" -> teamwork`); }
+    // "practice" is the noun and "practise" the verb in British English, which the book
+    // already follows in five places; the verb uses spelt "practice" take the -se form
+    for (const m of all.matchAll(/(?:\b(?:to|will|and|then|can|should|must|you|learners)\s+|^\s*|[.:]\s+)([Pp]ractice)(?=\s+(?:how|combining|interper|mediating|good|responding|security|the|using|with|written|it|your|proper)\b)/g)) {
+      swap.set(m.index + m[0].length - 2, 's'); log.push(`spelling: verb "${m[0].trim()}" -> practise`);
+    }
+    // "Discus two ways…" (twice, Exercises 1 and 2 of 3.3.1/3.3.2) is the verb "discuss"
+    for (const m of all.matchAll(/\bDiscus(?=\s)/g)) { ins2.set(m.index + 6, 's'); log.push('spelling: "Discus" -> "Discuss"'); }
+    // the follow-up label: "Follow up activity" / "Follow up activity:" -> "Follow-up activity:"
+    for (const m of all.matchAll(/\bFollow up activity(:?)/g)) {
+      swap.set(m.index + 6, '-'); if (!m[1]) ins2.set(m.index + m[0].length, ':');
+      log.push(`label: "${m[0]}" -> "Follow-up activity:"`);
+    }
+    if (!drop.size && !swap.size && !ins.size && !ins2.size && !tabSwap.size) return px0;
     const texts = nodes.map(() => '');
-    for (let c = 0; c < all.length; c++) { if (ins.has(c)) texts[owner[c - 1]] += ' '; if (!drop.has(c)) texts[owner[c]] += swap.get(c) || all[c]; }
+    for (let c = 0; c < all.length; c++) {
+      if (ins.has(c)) texts[owner[c - 1]] += ' ';
+      if (ins2.has(c)) texts[owner[c - 1]] += ins2.get(c);
+      if (!drop.has(c)) texts[owner[c]] += swap.get(c) || tabSwap.get(c) || all[c];
+    }
+    if (ins2.has(all.length)) texts[owner[all.length - 1]] += ins2.get(all.length);
     let k = 0;
-    return px.replace(/(<w:t(?: [^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => `<w:t xml:space="preserve">${texts[k++]}${b}`);
+    return px.replace(/(<w:t(?: [^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => `<w:t xml:space="preserve">${texts[k++]}${b}`)
+      .replace(/<w:t xml:space="preserve">\t<\/w:t>/g, '<w:tab/>');   // a tab still standing is a real one
   };
   // stray letters left by the conversion (checked against the edited copy's own text)
   const TEXTFIX = [[/(LEARNING ACTIVITY 2: )L (Performing guest privacy drills)/g, '$1$2'], [/(<w:t(?: [^>]*)?>)([a-h]\))(?=[A-Z])/g, '$1$2 '], [/ENTERPRENEURSHIP/g, 'ENTREPRENEURSHIP'], [/Enterpreneurship/g, 'Entrepreneurship'],
@@ -421,7 +605,7 @@ function drawingParts(d) {
     // "your adventure" in the sentence under it — corrected on the user's instruction, 19 Oct 2026
     [/Business Adventure/g, 'Business Venture'], [/your adventure and drive growth/g, 'your venture and drive growth']];
   const fixText = (x) => { for (const [re, to] of TEXTFIX) if (x.search(re) >= 0) { log.push(`text fixed: ${re}`); x = x.replace(re, to); } return x; };
-  const body = res.map(xmlOf).map((x) => fixText(x.replace(/<w:p\b[\s\S]*?<\/w:p>/g, fixHyphens))).join('');
+  const body = res.map(xmlOf).map((x) => fixText(x.replace(/<w:p\b[\s\S]*?<\/w:p>/g, (p) => leadFix(wordSplitFix(fixHyphens(p)))))).join('');
   const newDoc = doc.slice(0, bStart) + body + lastSect + doc.slice(doc.lastIndexOf('</w:body>'));
   z.file('word/document.xml', newDoc);
   fs.writeFileSync(outp, await z.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' }));
