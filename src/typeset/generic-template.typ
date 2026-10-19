@@ -60,6 +60,15 @@
   if ms.len() > 0 { ms.last().value } else { "" }
 }
 #let bandopener() = query(selector(<bandopen>)).any(m => m.location().page() == here().page())
+// The banded book is set the way its earlier layout was: 12pt on a 15pt line (Typst
+// measures leading from cap height to the next line's top, hence 0.53em), a paragraph
+// gap of about one line, and box text a little tighter still.
+#let bodylead = if banded { 0.53em } else { 0.66em }
+#let bodygap = if banded { 1em } else { 0.86em }
+// A banded topic opener gives its whole page to the topic's picture: the first picture
+// after the banner fills the text width and the topic's text starts overleaf. Cleared by
+// any heading, so an opener without a picture leaves the next one alone.
+#let bandpic = state("bandpic", false)
 // The x-inset a BOX's content sits at. titledbox picks this per theme (see its
 // branches); genericbox mirrors it here rather than hard-coding its own, so an
 // untitled box's text and list markers line up down the page with the titled
@@ -193,7 +202,7 @@
   // of it, nearly all inside the narrow rubric columns where the measure leaves no
   // other option. Body prose is where the win landed.
   set text(font: T.bodyFont, size: bodySize, fill: T.ink, costs: (hyphenation: 300%), lang: "en", region: "gb", hyphenate: T.at("hyphenate", default: true))
-  set par(justify: true, leading: 0.66em, first-line-indent: 0pt, spacing: 0.86em, linebreaks: "optimized")
+  set par(justify: true, leading: bodylead, first-line-indent: 0pt, spacing: bodygap, linebreaks: "optimized")
   // The authors set every stand-alone equation flush to the LEFT text margin (not
   // centred) so a reader can scan a working straight down the page. Typst centres
   // block equations by default, so force them left; dispmath then handles the width.
@@ -214,22 +223,22 @@
   set page(
     paper: T.paper,
     flipped: T.at("landscape", default: false),
-    margin: if syllabus { (top: 20mm, bottom: 20mm, x: 20mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
-    header-ascent: if tallhdr { 8mm } else { 30% },
+    margin: if syllabus { (top: 20mm, bottom: 20mm, x: 20mm) } else if banded { (top: 23mm, bottom: 19mm, x: 20mm) } else if tallhdr { (top: 24mm, bottom: 16mm, x: 17mm) } else if serieslike { (top: 19mm, bottom: 16mm, x: 17mm) } else { (top: 23mm, bottom: 20mm, x: 21mm) },
+    header-ascent: if banded { 3mm } else if tallhdr { 8mm } else { 30% },
     // BANDED foot: a navy band across the full page width, the folio centred on it in
     // a white circle ringed in navy; and on a topic opener, a navy tab hanging from the
     // top edge carrying "TOPIC n:". Only once the folios are visible, so the covers and
     // title page stay bare.
     background: if banded { context {
       if pgvisible.get() {
-        place(bottom + left, dy: -9mm, rect(width: 100%, height: 4.2mm, fill: T.primary))
-        place(bottom + center, dy: -6.6mm, circle(radius: 4.6mm, fill: white, stroke: 1pt + T.primary,
-          align(center + horizon, text(font: T.bodyFont, size: 9pt, fill: T.ink)[#counter(page).display()])))
+        place(bottom + left, dy: -9.9mm, rect(width: 100%, height: 5mm, fill: T.primary))
+        place(bottom + center, dy: -6.1mm, circle(radius: 6.3mm, fill: white, stroke: 1pt + T.primary,
+          align(center + horizon, text(font: T.bodyFont, size: 12pt, fill: T.ink)[#counter(page).display()])))
       }
       let tab = query(selector(<bandopen>)).filter(m => m.location().page() == here().page())
       if tab.len() > 0 {
-        place(top + center, block(fill: T.primary, inset: (x: 16pt, top: 14mm, bottom: 9pt), radius: (bottom: 5pt),
-          text(font: "Cambria", size: hm(19pt), weight: "bold", fill: white)[#tab.first().value]))
+        place(top + center, block(width: 45mm, height: 43mm, fill: T.primary, radius: (bottom: 6pt),
+          align(center + bottom, pad(bottom: 5mm, text(font: "Cambria", size: 22pt, weight: "bold", tracking: 1pt, fill: white)[#tab.first().value]))))
       }
     } } else { none },
     footer-descent: if syllabus { 40% } else { 30% },
@@ -243,10 +252,10 @@
         // right (odd) pages the section, pill at the right. None on a topic opener,
         // whose tab hangs from the top edge instead (see `background`).
         if not bandopener() {
-          set text(font: T.bodyFont, size: 7.5pt)
+          set text(font: T.bodyFont, size: 10pt)
           set block(spacing: 0pt)
           set par(spacing: 0pt, justify: false)
-          let pill(t) = box(fill: T.primary, inset: (x: 9pt, y: 2.8pt), radius: 6pt)[#text(fill: white, style: "italic", hyphenate: false)[#t]]
+          let pill(t) = box(fill: T.primary, inset: (x: 10pt, y: 3.2pt), radius: 7pt)[#text(fill: white, style: "italic", hyphenate: false)[#t]]
           let rule = line(length: 100%, stroke: 0.9pt + T.primary)
           if calc.even(here().page()) {
             let book = T.subject + " - " + T.hdrtab.replace(regex("^((?:Form|Grade)\s+\d+)\s+"), m => m.captures.at(0) + " - ")
@@ -1577,7 +1586,7 @@
     // BANDED: the title in a navy pill, centred between two navy rules
     block(breakable: false, width: 100%, grid(columns: (1fr, auto, 1fr), column-gutter: 4pt, align: horizon,
       line(length: 100%, stroke: 0.9pt + T.primary),
-      box(fill: T.primary, inset: (x: 12pt, y: 4pt), radius: 8pt)[#text(fill: white, size: 13pt, weight: "bold")[#upper(T.toctitle)]],
+      box(fill: T.primary, inset: (x: 12pt, y: 4pt), radius: 8pt)[#text(fill: white, size: 14pt, weight: "bold")[#upper(T.toctitle)]],
       line(length: 100%, stroke: 0.9pt + T.primary)))
     v(12pt)
   } else {
@@ -1622,9 +1631,10 @@
   // and paragraph spacing do not touch it); setting it to egap makes a continuation line
   // sit exactly as far below its first line as the next entry does, and a level-1 entry,
   // which is set off by the larger tocGap, then reads as one unit against its neighbours.
-  let egap = 5pt
+  let egap = if banded { 12pt } else { 5pt }
   let tocline(it) = {
-    set par(hanging-indent: 1.2em, leading: egap)
+    // (the banded contents space their entries wider than a wrapped entry's own lines)
+    set par(hanging-indent: 1.2em, leading: if banded { 5pt } else { egap })
     // it.inner() is the entry's OWN body + leader + page number, so the line breaks
     // exactly where Typst would have broken it — the title wraps at a word boundary
     // and the leader stays with the tail. Rebuilding those three parts by hand instead
@@ -1642,10 +1652,10 @@
     } else { upper(it.inner()) }
     if it.level > 1 { pad(left: 1.2em * (it.level - 1), line) } else { line }
   }
-  let tgap = T.at("tocGap", default: 10pt)
+  let tgap = if banded { 14pt } else { T.at("tocGap", default: 10pt) }
   show outline.entry: it => { v(egap, weak: true); tocline(it) }
   let tdepth = T.at("tocDepth", default: 2)
-  if serieslike {
+  if serieslike and not banded {
     show outline.entry.where(level: 1): it => { v(tgap, weak: true); text(fill: iaccent, weight: "bold")[#tocline(it)] }
     outline(title: none, depth: tdepth)
   } else {
@@ -2173,12 +2183,14 @@
     // over a short orange rule.
     [#metadata("TOPIC " + no + ":")<bandopen>]
     bandmark("Topic " + no + ": " + titlecase(title))
-    v(16mm)
+    // the title well below the tab, over a tapering orange swoosh
+    v(28mm)
     align(center, block(width: 100%, breakable: false)[
-      #text(font: "Cambria", fill: T.accent, size: hm(19pt), weight: "bold", tracking: 0.3pt)[#upper(title)]
-      #v(2pt)
-      #line(length: 34%, stroke: 1.4pt + T.accent)])
-    v(8pt)
+      #text(font: "Cambria", fill: T.accent, size: 26pt, weight: "bold", tracking: 1pt)[#upper(title)]
+      #v(9mm)
+      #polygon(fill: T.accent, (0mm, 0pt), (37.5mm, -2.2pt), (75mm, 0pt), (37.5mm, 2.2pt))])
+    v(6mm)
+    bandpic.update(true)
   } else if science and T.motif == "cell" {
     // BIOLOGY: an emerald card with a circular amber-ringed number badge, a soft
     // "cell" motif in the corner, and an amber baseline — organic and distinct.
@@ -2339,10 +2351,10 @@
     // BANDED front-matter heading: centred navy capitals on a full-width grey bar
     // with a navy rule along its foot.
     v(4pt)
-    block(width: 100%, breakable: false, fill: rgb("#dcddde"), inset: (x: 8pt, top: 5pt, bottom: 4pt),
+    block(width: 100%, breakable: false, fill: rgb("#d9d9d9"), inset: (x: 8pt, top: 5pt, bottom: 4pt),
       stroke: (bottom: 1.6pt + T.primary))[
       #set par(justify: false)
-      #align(center, text(fill: T.primary, size: hm(13pt), weight: "bold")[#upper(t)])]
+      #align(center, text(fill: T.ink, size: 16pt, weight: "bold")[#upper(t)])]
     v(9pt)
   } else if boxstyle == "labcard" {
     let u = upper(t)
@@ -2470,11 +2482,12 @@
   if banded {
     // BANDED sub-topic: the title as typed (with its colon after the number) in navy
     // on a full-width blue-grey bar, a navy rule along the bar's foot.
+    bandpic.update(false)
     v(14pt, weak: true)
     let shown = t.replace(regex("^(Sub-?Topic\s+\d+(?:\.\d+)*)\s+"), m => m.captures.at(0) + ": ")
     block(width: 100%, breakable: false, sticky: true, fill: rgb("#dae4e7"), inset: (x: 7pt, top: 5pt, bottom: 5pt),
       stroke: (bottom: 1.6pt + T.primary))[
-      #text(fill: T.primary, size: hs(13pt), weight: "bold")[#shown]]
+      #text(fill: T.primary, size: hs(14pt), weight: "bold")[#shown]]
   } else if boxstyle == "labcard" {
     // CHEMISTRY sub-topic: a small amber label+number eyebrow, the name below in
     // amethyst bold, over a single thin rule. Split on the first colon.
@@ -2573,8 +2586,12 @@
   v(5pt)
 }
 #let head(t, al: none, black: false, col: none) = {
+  if banded { bandpic.update(false) }
   if serieslike { v(13pt, weak: true) } else { v(5pt) }
-  let body = if serieslike {
+  let body = if banded {
+    // BANDED sub-heading: bold, body size, in ink — as the earlier layout set them
+    block(breakable: false, sticky: true)[#text(fill: T.ink, weight: "bold")[#t]]
+  } else if serieslike {
     // activities/exercises in teal, other bold sub-subheads in ink (like the ref);
     // sticky so the heading stays with the content that follows it. `black` forces the
     // accent-coloured activity/exercise heads to ink; `col` overrides the fill outright
@@ -2658,11 +2675,14 @@
     let ci = if type(raw) == str { raw.position(":") } else { none }
     let label = if ci != none { raw.slice(0, ci + 1).trim() } else { title }
     let name = if ci != none { raw.slice(ci + 1).trim() } else { "" }
-    block(width: 100%, breakable: breakable, stroke: 0.9pt + band, fill: kind.fill)[
-      #block(width: 100%, sticky: true, fill: band, inset: (x: 10pt, y: 5pt), below: 0pt)[
+    // The end-of-topic assessment is the band alone, its questions on the page below.
+    let open = kind == T.asmt
+    block(width: 100%, breakable: breakable, stroke: if open { none } else { 0.9pt + band }, fill: if open { none } else { kind.fill })[
+      #block(width: 100%, sticky: true, fill: band, inset: (x: 10pt, y: if open { 3pt } else { 5pt }), below: 0pt)[
         #set par(justify: false)
-        #align(center, text(fill: white, weight: "bold", size: hs(12.5pt), hyphenate: false)[#upper(label)])]
-      #block(width: 100%, breakable: breakable, inset: (x: boxinx, top: 7pt, bottom: 9pt))[
+        #align(center, text(fill: white, weight: "bold", size: if open { 12pt } else { 14pt }, hyphenate: false)[#upper(label)])]
+      #set par(leading: 0.45em, spacing: 0.65em)
+      #block(width: 100%, breakable: breakable, inset: (x: if open { 0pt } else { boxinx }, top: 7pt, bottom: 9pt))[
         #if name != "" { block(sticky: true, below: 5pt, { set par(justify: false); text(weight: "bold", fill: T.ink, hyphenate: false)[#name] }) }
         #content]]
   } else if boxstyle == "labcard" {
@@ -2734,7 +2754,7 @@
   let k = capnum(t)
   if k != none [#metadata(none)#label(k.at(0) + "-" + k.at(1))]
 }
-#let figimg(pathstr, wpx, tall, cap, sticky: false, hmm: 0) = {
+#let figbody(pathstr, wpx, tall, cap, sticky: false, hmm: 0) = {
   v(2pt)
   let img = if hmm > 0 {
     // author asked to enlarge/fit: force an explicit on-page height (mm)
@@ -2754,10 +2774,26 @@
   ]]
   v(3pt)
 }
+#let figimg(pathstr, wpx, tall, cap, sticky: false, hmm: 0) = if banded and hmm == 0 { context {
+  if bandpic.get() {
+    // the banded opener's picture: the full text width, as tall as the page allows
+    // (the space left under the opener's title), and the topic's text overleaf
+    bandpic.update(false)
+    layout(sz => {
+      let room = 140mm - (if cap != none { 8mm } else { 0mm })
+      let im = image(pathstr, width: sz.width)
+      let h = measure(im).height
+      align(center, block(breakable: false)[
+        #if h > room { image(pathstr, height: room) } else { im }
+        #if cap != none [ #v(2pt) #capmark(cap)#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]])
+    })
+    pagebreak(weak: true)
+  } else { figbody(pathstr, wpx, tall, cap, sticky: sticky, hmm: hmm) }
+} } else { figbody(pathstr, wpx, tall, cap, sticky: sticky, hmm: hmm) }
 // Side-by-side images, aspect preserved (no stretching), one caption each.
 // 2-3 images: a UNIFORM height so they line up and their labels align.
 // More than that (a gallery): proportional widths that always fit the page.
-#let imagerow(imgs) = {
+#let rowbody(imgs) = {
   v(3pt)
   if imgs.len() <= 3 {
     // an author "enlarge to fit" request sets hmm on the row's images; the largest
@@ -2793,6 +2829,15 @@
   }
   v(5pt)
 }
+// A banded opener whose picture is a set of four lays them out two by two, filling the
+// opener page as the single picture does (the topic's text then starts overleaf).
+#let imagerow(imgs) = if banded and imgs.len() == 4 { context {
+  if bandpic.get() {
+    bandpic.update(false)
+    v(2pt)
+    align(center, grid(columns: 2, column-gutter: 5mm, row-gutter: 5mm, ..imgs.map(im => image(im.at("file"), height: 66mm))))
+  } else { rowbody(imgs) }
+} } else { rowbody(imgs) }
 #let figcaption(t) = { align(center)[#capmark(t)#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#t]]; v(5pt) }
 
 // ---- a List of Figures / List of Tables entry: a bold "Figure N"/"Table N"
