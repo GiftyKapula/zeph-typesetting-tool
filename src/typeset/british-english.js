@@ -207,7 +207,13 @@ const Q_AUX = /^(?:(?:is|are|was|were)\s+(?!not\b)[a-z]|(?:do|does|did|can|could
 // separately" — and never a question. And the bare auxiliary arm is dropped with it,
 // because after a comma it lands on list imperatives: "…create a basic business plan,
 // do market research, financial projections…".
-const Q_WH_TAIL = /^(?:who|what|whom|whose|why|how)\s+(?:is|are|was|were|do|does|did|can|could|has|have|had)\b/i;
+//
+// "who", "whom" and "whose" go for the same reason as "which": after a comma they open a
+// relative clause on the noun before it. "Tionge shares her friends mascara wand, who
+// has just suffered from heavy open pore sores" (Hospitality Management Form 3 LB) was
+// printed as a question; across every manuscript on file no tail "who" opens a real one,
+// and dropping it changed no other book's punctuation.
+const Q_WH_TAIL = /^(?:what|why|how)\s+(?:is|are|was|were|do|does|did|can|could|has|have|had)\b/i;
 // A CLEFT, not a question: "What is important is that your ambition should be
 // meaningful to you", "What is important is to save regularly and have a clear
 // purpose for the money". The wh-word opens a free relative that is the SUBJECT of a
@@ -219,9 +225,15 @@ const Q_WH_TAIL = /^(?:who|what|whom|whose|why|how)\s+(?:is|are|was|were|do|does
 // genuine report — "What is the food that is served at a banquet" is excluded too —
 // which is the right side to err on when the alternative is punctuating a statement
 // as a question.
+//
+// The second verb need not be a copula: a MODAL does the same job. "What is polite in
+// one culture may be considered rude in another" (Hospitality Management Form 3
+// Learner's Book) is a statement whose subject is "what is polite in one culture", and
+// it was printed as a question. A real question has no finite verb after its own
+// auxiliary either way, so a following modal is the same tell as a following copula.
 const isCleft = (t) => {
   const m = /^(?:who|what|whose|which)\s+(?:is|are|was|were)\b/i.exec(t);
-  return !!m && /\b(?:is|are|was|were)\b/i.test(t.slice(m[0].length));
+  return !!m && /\b(?:is|are|was|were|may|might|must|can|could|will|would|should|shall)\b/i.test(t.slice(m[0].length));
 };
 const isDirectQuestion = (s) => {
   const t = String(s || "").trim();
