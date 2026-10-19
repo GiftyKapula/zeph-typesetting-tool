@@ -249,10 +249,19 @@ const isCleft = (t) => {
   const m = /^(?:who|what|whose|which)\s+(?:is|are|was|were)\b/i.exec(t);
   return !!m && /\b(?:is|are|was|were|may|might|must|can|could|will|would|should|shall)\b/i.test(t.slice(m[0].length));
 };
+// A copula with no subject after it is a predicate fragment, never a question: "Reinforce
+// that effective hand washing: … Is required before handling food. / Is essential after
+// toilet use." and "Is organised and systematic." (Hospitality Management Form 3 TG) were
+// all printed as questions. A yes/no question puts its subject straight after the verb
+// ("Is the kitchen clean"), so a past participle or a predicate-only adjective in that
+// place means the subject was the stem line above. The -ed/-en arm wants three letters
+// before the ending, so "red", "bed", "seed" and "speed" never reach it.
+const Q_COPULA_FRAGMENT = /^(?:is|are|was|were)\s+(?:[a-z]{3,}(?:ed|en)|essential|necessary|important|needed|useful|responsible|available|possible|suitable)\b/i;
 const isDirectQuestion = (s) => {
   const t = String(s || "").trim();
   if (!t || t.includes("?")) return false;
   if (isCleft(t)) return false;
+  if (Q_COPULA_FRAGMENT.test(t)) return false;
   if (Q_WH.test(t) || Q_AUX.test(t)) return true;
   const after = t.includes(",") ? t.slice(t.indexOf(",") + 1).trim() : "";
   return !!after && !isCleft(after) && Q_WH_TAIL.test(after);
