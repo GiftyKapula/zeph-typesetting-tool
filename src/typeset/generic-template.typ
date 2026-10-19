@@ -3818,7 +3818,7 @@
       // on the guest may include:"): it heads the parts below it, as a colon lead-in does.
       // (Only the colon: binding every answerless stem to the indented answer under it
       // pushed whole answers over and left near-empty pages in the same book.)
-      let heads = it.q.trim().ends-with(":") and it.a == "" and aseg.len() == 0
+      let heads = (it.q.trim().ends-with(":") and it.a == "" and aseg.len() == 0) or it.at("keep", default: false)
       if bindNext.at(pi) or heads { block(sticky: true, width: 100%)[#qablock] } else { qablock }
       v(T.at("qgap", default: 3pt))
     }

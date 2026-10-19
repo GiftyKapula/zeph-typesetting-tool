@@ -80,7 +80,7 @@ const partsArr = (parts) => arr(parts, (p) =>
   // "352 ___ ___ ___") that columnizeLists turned into a grid — emit it as a colgrid
   // part so qaparts renders the aligned columns instead of dropping to an empty q.
   : (p.k === "colgrid" || p.kind === "colgrid") ? `(kind: "colgrid", ${colgridArg(p)})`
-  : `(kind: "q", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, a: ${S(p.a)}, aseg: ${segArr(p.aseg || [])}, marker: ${S(p.marker || "")}, depth: ${p.depth || 0})`);
+  : `(kind: "q", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, a: ${S(p.a)}, aseg: ${segArr(p.aseg || [])}, marker: ${S(p.marker || "")}, depth: ${p.depth || 0}${p.keepNext ? ", keep: true" : ""})`);
 // A question's ANSWER SURFACE: the row of lettered choices a learner picks from
 // ("a) Ladder  b) Slide  c) Rope"), or the sentence with a blank to fill in ("We
 // should take ______ when using playground equipment."). A manuscript types it either
@@ -2930,6 +2930,15 @@ function applyOverrides(blocks, ov) {
   const tableText = (t) => (t.rows || []).map((r) => r.map((c) => c.text || "").join(" ")).join(" ");
   const allTables = [];
   (function tv(arr) { for (const b of arr) { if (!b || typeof b !== "object") continue; if (b.rows && (b.t === "table" || b.kind === "table")) allTables.push(b); for (const k of Object.keys(b)) if (Array.isArray(b[k])) tv(b[k]); } })(blocks);
+  // keepWithNext: ["substring", …] — an exercise/assessment part (or any block) that
+  // must not end a page apart from the line after it: a question stem whose answer is
+  // set as indented lines below it, so the engine has no rule binding the two. Book-
+  // by-book on purpose: binding every such stem pushes whole answers over and empties
+  // pages (tried on the Hospitality Management Form 3 TG, Exercise 3 of 3.5.2).
+  for (const k of ov.keepWithNext || []) {
+    const b = flat.find((x) => blockPlain(x).includes(k));
+    if (b) b.keepNext = true; else console.warn("!  keepWithNext not matched:", k);
+  }
   for (const sm of ov.setMarker || []) {
     const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
     if (!b) { console.warn("!  setMarker not matched:", sm.find); continue; }
@@ -6886,7 +6895,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base));
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
