@@ -3633,7 +3633,16 @@
   // together — and only those two, so a long run still breaks freely further up rather
   // than being pushed off the page entire.
   let mk(i) = if i >= 0 and i < parts.len() { parts.at(i).at("marker", default: "") } else { "" }
-  let bindNext = range(parts.len()).map(i => mk(i) == "•" and mk(i + 1) == "•" and mk(i + 2) != "•")
+  // With the book's `keepQuestionParts` override the same binding holds a question's
+  // lettered/roman PARTS: the stem stays with its first part, and the last two parts
+  // travel together. Without it, question 6 of the Hospitality Management Form 3 LB's
+  // Topic 1 assessment ended one page and its parts a) and b) opened the next, alone on
+  // an otherwise empty page. Opt-in so books already proofread keep their page breaks.
+  let kq = T.at("keepQuestionParts", default: false)
+  let dp(i) = if i >= 0 and i < parts.len() and parts.at(i).kind == "q" { parts.at(i).at("depth", default: 0) } else { -1 }
+  let bindNext = range(parts.len()).map(i => (mk(i) == "•" and mk(i + 1) == "•" and mk(i + 2) != "•")
+    or (kq and dp(i) == 0 and dp(i + 1) == 1)
+    or (kq and dp(i) == 1 and dp(i + 1) == 1 and dp(i + 2) != 1))
   for (pi, it) in parts.enumerate() {
     if it.kind == "colsum" {
       // a vertical column sum/subtraction answer (converted from an unaligned fraction),

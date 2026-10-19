@@ -6770,6 +6770,7 @@ async function typesetOne(docxPath, themeName) {
     : {};
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
+  importOpts.romanSubParts = !!ov.romanSubParts;
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
@@ -7724,6 +7725,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // Keep an exercise/assessment question with its sub-parts across a page break
+  // (template qaparts(); opt-in so proofread books keep their page breaks).
+  if (ov.keepQuestionParts) themeOverrides.keepQuestionParts = true;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json

@@ -117,8 +117,13 @@
     },
     "image3.jpeg": {
       "src": "Hospitality Management Form 3 LB-hires/image3.png"
-    }
+    },
+    "image7.jpeg": {}
   },
   "//orIndividually": "The editor's note says her corrected copy is authoritative and that nothing is to be added or overridden; her copy never offers \"or individually\", so the standing rule that writes it in (62 activities) is off for this book.",
-  "orIndividually": false
+  "orIndividually": false,
+  "//romanSubParts": "The editor numbers sub-parts with Word's lower-roman list (i., ii., iii.) in four questions (Topic 2 EOTA Q?, Topic 3 assessment), and her copy is authoritative; without this the engine prints them a., b., c.",
+  "romanSubParts": true,
+  "//keepQuestionParts": "Keeps a question with its parts across a page break: question 6 of the Topic 1 assessment otherwise left its a) and b) alone on an empty page.",
+  "keepQuestionParts": true
 }
