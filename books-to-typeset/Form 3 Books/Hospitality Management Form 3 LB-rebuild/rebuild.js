@@ -302,6 +302,40 @@ function drawingParts(d) {
     b.text = b.text.replace(/Heath Hazards/, 'Health Hazards').replace(/Conflicts Resolution/, 'Conflict Resolution');
     if (b.text !== t0) log.push(`heading fixed: ${t0} -> ${b.text}`);
   }
+  // Figure 15's caption and the next paragraph were typed as ONE paragraph in the edited
+  // copy ("…support business growth.Operational Excellence: Operational efficiency…"),
+  // so the body text printed inside the caption. Split at the join.
+  {
+    const f = res.findIndex((b) => b.k === 'p' && /^Figure 15:.*growth\.Operational Excellence:/.test(b.text || ''));
+    if (f >= 0) {
+      const t = res[f].text, at = t.indexOf('Operational Excellence:');
+      const cap = t.slice(0, at).trim(), body = t.slice(at + 'Operational Excellence:'.length).trim();
+      res.splice(f, 1, { k: 'p', xml: mkP(cap, 'BodyText'), text: cap, style: 'BodyText' },
+        { k: 'p', xml: lead('Operational Excellence:', ' ' + body), text: 'Operational Excellence: ' + body, style: 'BodyText' });
+      log.push('Figure 15 caption split from the "Operational Excellence" paragraph');
+    } else log.push('PATCH MISSED: Figure 15 caption split');
+  }
+  // End of Topic 3 Assessment, question 8: the editor typed its three parts in ONE
+  // paragraph ("i. Explain … ii. Explain … iii. The hotel …"); one item per part, with
+  // her own roman markers (the book's `romanSubParts` keeps them roman).
+  {
+    const q = res.findIndex((b) => b.k === 'p' && /^i\. Explain how you would personalise the service/.test(b.text || ''));
+    if (q >= 0) {
+      const parts = res[q].text.split(/\s+(?=(?:ii|iii)\.\s)/);
+      res.splice(q, 1, ...parts.map((t) => ({ k: 'p', xml: mkP(t.trim(), 'ListParagraph'), text: t.trim(), style: 'ListParagraph' })));
+      log.push(`Topic 3 assessment Q8 split into ${parts.length} parts`);
+    } else log.push('PATCH MISSED: Topic 3 assessment Q8 parts');
+  }
+  // Topic 1 assessment, question 6: "a) Identify two risks … food.b) Recommend …" typed
+  // as one line; one item per part.
+  {
+    const q = res.findIndex((b) => b.k === 'p' && /^a\) Identify two risks associated with allowing the co-worker/.test(b.text || ''));
+    if (q >= 0) {
+      const parts = res[q].text.split(/(?<=\.)\s*(?=b\)\s)/);
+      res.splice(q, 1, ...parts.map((t) => ({ k: 'p', xml: mkP(t.trim(), 'ListParagraph'), text: t.trim(), style: 'ListParagraph' })));
+      log.push(`Topic 1 assessment Q6 split into ${parts.length} parts`);
+    } else log.push('PATCH MISSED: Topic 1 assessment Q6 parts');
+  }
   // spelling slips in the captions (the words are otherwise as typed)
   const CAPFIX = [[/Illustartion/g, 'Illustration'], [/\bcurtsy\b|\bcurtesy\b/g, 'courtesy'], [/^(Figure \d+),/, '$1.'], [/^(Figure \d+) (?=[A-Z])/, '$1. '], [/\( picture/g, '(Picture'], [/extension\(/g, 'extension (']];
   for (const b of res) if (isCap(b)) for (const [re, to] of CAPFIX) if (b.text.search(re) >= 0) {
@@ -373,6 +407,8 @@ function drawingParts(d) {
     // a list letter typed hard against its item: "b)How" -> "b) How"
     const ins = new Set();
     for (const m of all.matchAll(/(?:^|\s)[a-h]\)(?=[A-Z])/g)) { ins.add(m.index + m[0].length); log.push(`text fixed: "${m[0].trim()}" given a space`); }
+    // ...and a full stop typed hard against the next sentence: "properly.These"
+    for (const m of all.matchAll(/\b[a-z]{2,}\.(?=[A-Z][a-z]{2,})/g)) { ins.add(m.index + m[0].length); log.push(`text fixed: space after "${m[0]}" (${all.slice(m.index + m[0].length, m.index + m[0].length + 12)}…)`); }
     if (!drop.size && !swap.size && !ins.size) return px;
     const texts = nodes.map(() => '');
     for (let c = 0; c < all.length; c++) { if (ins.has(c)) texts[owner[c - 1]] += ' '; if (!drop.has(c)) texts[owner[c]] += swap.get(c) || all[c]; }
