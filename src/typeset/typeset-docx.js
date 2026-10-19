@@ -3482,8 +3482,10 @@ function applyOverrides(blocks, ov) {
   // assessment parts (where reference tables live).
   for (const t of ov.tables || []) {
     const richRows = [];
-    if (t.columns) richRows.push(t.columns.map((c) => ({ text: c, imgs: [] })));
-    for (const row of t.rows) richRows.push(row.map((c) => ({ text: c, imgs: [] })));
+    // A cell is plain text, or `{ text, segs }` to keep bold/italic runs.
+    const cell = (c) => (c && typeof c === "object" ? { imgs: [], ...c } : { text: c, imgs: [] });
+    if (t.columns) richRows.push(t.columns.map(cell));
+    for (const row of t.rows) richRows.push(row.map(cell));
     if (!replaceTableRows(blocks, t.match, richRows)) console.warn("!  table override not matched:", t.match);
   }
   // replaceSection: [{ heading, until?, rename?, items: [...] }] — swap the whole body
@@ -5348,7 +5350,7 @@ function splitAnswerLabels(blocks) {
   const plainOf = (segs) => segs.map((s) => s.t).join("");
   // Split a run array at the answer label into [questionSegs, answerSegs] (label dropped),
   // or null when the runs carry no answer to peel off.
-  const cut = (segs) => {
+  const cut = (segs, colonIsLabel = false) => {
     let qSegs = null, aSegs = null;
     const idx = segs.findIndex((s) => s && !s.m && LABEL_FULL.test(s.t || ""));
     if (idx >= 0) {
@@ -5381,7 +5383,13 @@ function splitAnswerLabels(blocks) {
     // real inline answer — treating a non-empty-but-blank aSegs as one promoted this
     // heading to its own "q" with a visibly empty "Possible answer:" line floating
     // under it (Physics Form 2 TG's four-stroke-cycle exercise). Require actual text.
-    if (!aSegs || !aSegs.map((s) => s.t || "").join("").trim()) return null;
+    // On the plain-paragraph path (colonIsLabel), a remainder that is only the label's own
+    // colon, typed as a run of its own (bold "Possible responses" then plain ": "), is not
+    // an answer: the colon belongs to the label, and cutting there emptied the line — five
+    // answer headings in the activity boxes of the RE Form 3 Teacher's Guide printed as
+    // blank gaps. Paragraphs only: the exercise path is left exactly as it was, since books
+    // already reviewed (Geography Form 1 TG) are laid out on its behaviour.
+    if (!aSegs || !aSegs.map((s) => s.t || "").join("").replace(colonIsLabel ? /^\s*:\s*/ : /^$/, "").trim()) return null;
     if (qSegs.length) qSegs[qSegs.length - 1] = { ...qSegs[qSegs.length - 1], t: qSegs[qSegs.length - 1].t.replace(/\s+$/, "") };
     // The label's colon is sometimes typed as the START of the NEXT run instead of
     // the end of the label run itself (a formatting-boundary quirk: bold "Answer",
@@ -5463,7 +5471,7 @@ function splitAnswerLabels(blocks) {
   const splitPara = (b) => {
     const segs = b.segs;
     if (!Array.isArray(segs) || !segs.length) return;
-    const c = cut(segs);
+    const c = cut(segs, true);
     if (!c) return;
     const [qSegs, aSegs] = c;
     // The leading newline breaks the answer off the question that precedes it ON THE
@@ -7893,18 +7901,33 @@ function normaliseQuestionMarkBold(blocks) {
   const n = blocks.length;
   console.log(`Typeset: ${base}  [theme: ${theme}]  (${n} blocks, ${media.length} images) -> ${outPath} [${fs.statSync(outPath).size} bytes]`);
 
+  // `--epub`: also write a reflowable EPUB 3 from the SAME final blocks the PDF was just
+  // printed from, so the e-book carries every override and engine fix by construction.
+  // Opt-in; without the flag nothing here runs. Must come before the temp cleanup below,
+  // because the pictures are read from the workspace's staged (cropped/enhanced) copies.
+  if (WANT_EPUB) {
+    const epubPath = path.join(bookDir, `${base}.epub`);
+    if (process.env.EPUB_DUMP) fs.writeFileSync(process.env.EPUB_DUMP, JSON.stringify({ blocks, files: fs.readdirSync(ws, { recursive: true }) }, null, 1));
+    await require("./emit-epub.js").writeEpub({ blocks, workspace: ws, outPath: epubPath, pdfPath: outPath });
+    console.log(`EPUB:    ${epubPath} [${fs.statSync(epubPath).size} bytes]`);
+  }
+
   // best-effort cleanup of temp extraction dirs
   try { fs.rmSync(ws, { recursive: true, force: true }); } catch (e) {}
   try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) {}
 }
 
+// Set by `--epub` on the command line (see the end of typesetOne).
+let WANT_EPUB = false;
+
 async function main() {
-  // Parse args: positional .docx paths + an optional `--theme NAME`.
+  // Parse args: positional .docx paths + an optional `--theme NAME` and `--epub`.
   const argv = process.argv.slice(2);
   let themeName = null;
   const paths = [];
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--theme") { themeName = argv[++i]; continue; }
+    if (argv[i] === "--epub") { WANT_EPUB = true; continue; }
     paths.push(argv[i]);
   }
   if (themeName && !THEMES[themeName]) {
