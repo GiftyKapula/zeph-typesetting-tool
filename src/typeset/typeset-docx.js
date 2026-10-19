@@ -1009,7 +1009,10 @@ const REF_HEADING = new RegExp(
 // its text is kept but it stops polluting the TOC / forcing a page break.
 function fixStrayBodyH1s(blocks) {
   const UNIT = /^(TOPIC|UNIT|CHAPTER|CHIBALU|CIPATI)\b/i;
-  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
+  // "AUTHOR'S BIOGRAPHY" / "ABOUT THE AUTHOR" are the same section as "AUTHORS" under
+  // another name (Hospitality Management Form 3 LB); unlisted, the heading was demoted
+  // to h2 and the biography was carried along with whichever section stood before it.
+  const FRONTBACK = /^((THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?|ABOUT\s+THE\s+AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
   // FRONTBACK requires an EXACT match end-to-end, which is right for most of its
   // entries (a stray body h1 could otherwise dodge demotion by coincidentally
   // starting with "Introduction" or "Preface"). But ACRONYMS and (KEY/GENERAL)
@@ -1355,7 +1358,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // here they fall through as a plain bold `head` block that looks like a
   // heading but never gets its own page or a Table of Contents entry.
   // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
-  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
   // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
@@ -6767,6 +6770,7 @@ async function typesetOne(docxPath, themeName) {
     : {};
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
+  importOpts.romanSubParts = !!ov.romanSubParts;
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
@@ -7721,6 +7725,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // Keep an exercise/assessment question with its sub-parts across a page break
+  // (template qaparts(); opt-in so proofread books keep their page breaks).
+  if (ov.keepQuestionParts) themeOverrides.keepQuestionParts = true;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json
@@ -7900,6 +7907,28 @@ function normaliseQuestionMarkBold(blocks) {
 
   const n = blocks.length;
   console.log(`Typeset: ${base}  [theme: ${theme}]  (${n} blocks, ${media.length} images) -> ${outPath} [${fs.statSync(outPath).size} bytes]`);
+
+  // House rule: over 112 interior pages, a spine — written as the printer's cover
+  // spread (back | spine | front) beside the book. B5 books only: the landscape
+  // syllabus builds its own spread inside the book. Needs the workspace (the logo),
+  // so it runs before the temp cleanup below.
+  const coverBlk = blocks.find((b) => b.t === "cover");
+  const backBlk = blocks.find((b) => b.t === "backcover");
+  if (variant !== "syllabus" && coverBlk && backBlk) {
+    const spreadPath = path.join(bookDir, `${base} - cover spread.pdf`);
+    try {
+      const r = await require("./cover-spread.js").writeCoverSpread({
+        pdf: Buffer.from(pdf), compiler, prefix: `${themeTypst(theme, themeOverrides)}${tmpl}`,
+        lines: backBlk.lines || coverBlk.lines || [], logo: backBlk.logo || null,
+        spineWidth: ov.spineWidth, outPath: spreadPath,
+        fieldHex: String(themeOverrides.covSignature || (THEMES[theme] || {}).signature || (THEMES[theme] || {}).primary || "").replace(/^#/, ""),
+      });
+      if (r) console.log(`   cover spread: ${r.interior} interior pages -> ${r.width} mm spine${ov.spineWidth ? " (spineWidth override)" : ""} -> ${spreadPath}`);
+      else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);   // the book has thinned below the spine threshold
+    } catch (e) {
+      console.error(`!  cover spread not written: ${e.message}`);
+    }
+  }
 
   // `--epub`: also write a reflowable EPUB 3 from the SAME final blocks the PDF was just
   // printed from, so the e-book carries every override and engine fix by construction.

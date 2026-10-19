@@ -28,6 +28,9 @@ const proseFixes = [];
 // in the build said so. Naming each one costs a line and makes the next such box
 // findable instead of invisible.
 const droppedBoxes = [];
+// Per-book switch read by markerFor(): a sub-run opening at "i" is roman, not lettered.
+// Set from importDocx's `romanSubParts` option (the book's override of the same name).
+let ROMAN_SUB_PARTS = false;
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -1174,7 +1177,13 @@ function markerFor(n, template) {
   let s;
   if (/^\d+$/.test(core)) s = String(n);
   else if (/^[IVXLCDM]+$/.test(core)) s = toRoman(n).toUpperCase();
-  else if (/^[ivxlcdm]{2,}$/.test(core)) s = toRoman(n);
+  // A run that OPENS at "i" is read as letters (i -> a, b, c…), which is how every book
+  // has printed Word's lower-roman sub-lists so far. With the book's `romanSubParts`
+  // override it is read as the roman run the writer numbered instead (i, ii, iii):
+  // the Hospitality Management Form 3 LB's editor numbered her sub-parts i/ii/iii and
+  // her copy is authoritative. Opt-in, because twenty other books carry such runs and
+  // print them lettered today.
+  else if (/^[ivxlcdm]{2,}$/.test(core) || (core === "i" && ROMAN_SUB_PARTS)) s = toRoman(n);
   else if (/^[A-Z]$/.test(core)) s = String.fromCharCode(64 + n);
   else s = toLetter(n);
   return s + suf;
@@ -2475,6 +2484,7 @@ function groupAssessments(blocks) {
 async function importDocx(docxPath, opts = {}) {
   proseFixes.length = 0;            // per-book tally (see the declaration at the top)
   droppedBoxes.length = 0;          // ditto
+  ROMAN_SUB_PARTS = !!opts.romanSubParts;
   // ZEPH house-style options (decoupled so different layouts can mix them):
   //   styled    – trust Word heading styles (don't infer headings from colour/size)
   //   flat      – no callout boxes; activities/exercises become headings (English)
@@ -2976,7 +2986,7 @@ async function importDocx(docxPath, opts = {}) {
   // first real section begins, even when the manuscript didn't style it as a
   // Word heading (many don't). This stops the imprint's centred styling from
   // bleeding into the Authors/Foreword text.
-  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM_SECTION = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // Back-matter section names — a genuine back-matter heading (also reliably Word-
   // Heading-styled, same as a front-matter one above) must not be folded down to a
   // plain inline sub-head by the "numbered-topic short Heading-styled paragraph"

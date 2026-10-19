@@ -1,0 +1,129 @@
+{
+  "//source": "Built from the editor's corrected copy 'HOSPITALITY MANAGEMENT FORM 3 LB TYPESET EDITED COPYl.docx' (a typeset PDF converted back to Word: 131 sections, every box a floating drawing group). That file was rebuilt into a linear manuscript first — drawn boxes to one-cell tables, banners to headings, the old running heads and page numbers dropped, lines the old page breaks split rejoined — keeping every word, correction and picture.",
+  "//synthesiseCover": "The converted file's cover is loose text boxes ('HOSPITALITY MANAGEMENT', 'FORM 3', 'LEARNER'S BOOK') over the old cover picture; built fresh instead.",
+  "synthesiseCover": true,
+  "subject": "Hospitality Management",
+  "authors": [
+    "Phyllis Simasiku"
+  ],
+  "//coverImage": "The book's green-and-gold cover art (LB.jpeg, supplied with the manuscripts on 19 Oct 2026), upscaled 4x with Real-ESRGAN, then cropped to the cover frame's shape from the top of the art (the server's face, the waiter and the chefs). Uncropped, the frame cut her off at the chin. The art carries no lettering.",
+  "coverImage": "hosp-cover/LB-cover-crop.png",
+  "tocDepth": 2,
+  "//images": "Face Mapping (Sub-Topic 3.4.2) and the make-up finish: small close-ups that sat beside their text in the earlier layout. Left to the template's readability floor they printed half a page tall or more (the nose two-thirds of a page, each face shape the full text width). Given a fixed height instead, so each picture stays with its paragraph. The QR code (Figure 4) likewise, at 32 mm.",
+  "images": {
+    "image17.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image17.png",
+      "hmm": 38
+    },
+    "image18.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image18.png",
+      "hmm": 45
+    },
+    "image19.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image19.png",
+      "hmm": 38
+    },
+    "image20.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image20.png",
+      "hmm": 38
+    },
+    "image27.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image27.png",
+      "hmm": 45
+    },
+    "image28.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image28.png",
+      "hmm": 50
+    },
+    "image29.jpeg": {
+      "hmm": 50
+    },
+    "image33.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image33.png",
+      "hmm": 55
+    },
+    "image12.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image12.png",
+      "hmm": 32
+    },
+    "image30.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image30.png"
+    },
+    "image2.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image2.png"
+    },
+    "image15.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image15.png"
+    },
+    "image31.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image31.png"
+    },
+    "image44.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image44.png"
+    },
+    "image14.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image14.png"
+    },
+    "image32.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image32.png"
+    },
+    "image9.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image9.png"
+    },
+    "image35.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image35.png"
+    },
+    "image37.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image37.png"
+    },
+    "image13.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image13.png"
+    },
+    "image39.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image39.png"
+    },
+    "image40.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image40.png"
+    },
+    "image38.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image38.png"
+    },
+    "image22.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image22.png"
+    },
+    "image4.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image4.png"
+    },
+    "image5.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image5.png"
+    },
+    "image11.png": {
+      "src": "Hospitality Management Form 3 LB-hires/image11.png"
+    },
+    "image21.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image21.png"
+    },
+    "image34.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image34.png"
+    },
+    "image23.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image23.png"
+    },
+    "image42.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image42.png"
+    },
+    "image36.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image36.png"
+    },
+    "image3.jpeg": {
+      "src": "Hospitality Management Form 3 LB-hires/image3.png"
+    },
+    "image7.jpeg": {}
+  },
+  "//orIndividually": "The editor's note says her corrected copy is authoritative and that nothing is to be added or overridden; her copy never offers \"or individually\", so the standing rule that writes it in (62 activities) is off for this book.",
+  "orIndividually": false,
+  "//romanSubParts": "The editor numbers sub-parts with Word's lower-roman list (i., ii., iii.) in four questions (Topic 2 EOTA Q?, Topic 3 assessment), and her copy is authoritative; without this the engine prints them a., b., c.",
+  "romanSubParts": true,
+  "//keepQuestionParts": "Keeps a question with its parts across a page break: question 6 of the Topic 1 assessment otherwise left its a) and b) alone on an empty page.",
+  "keepQuestionParts": true
+}

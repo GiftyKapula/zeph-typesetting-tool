@@ -1446,89 +1446,57 @@
       ]
     }
   }
-  let subject = lines.at(0, default: "")
-  let grade = lines.find(l => hasGradeWord(l))
-  let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-  // Subject title: strip the form/grade token off the grade line ("ENGLISH GRADE 2"
-  // -> "ENGLISH"). When the subject and the form sit on SEPARATE lines
-  // ("MATHEMATICS" + "Form 1") that leaves nothing, so fall back to the first line
-  // that is neither a form/grade nor the standard eyebrow. Without this fallback the
-  // name came out blank and the "·" separator was left orphaned. Mirrors `cover`.
-  let name = subjectName(lines, grade, booktype)
-  // The back cover stays in FULL COLOUR even when the interior is greyscale (mono), so use
-  // the cover-only colour fields (they equal the theme colours for normal books).
-  let primary = T.at("covPrimary", default: T.primary)
-  let accent = T.at("covAccent", default: T.accent)
+  // HOUSE RULE (publisher, 2026-10-19): the back cover carries the ISBN and NOTHING
+  // else — no title, no publisher block, no logo, no corner wedges, no motif. It keeps
+  // the cover's own colour field so front, spine and back still print as one sheet.
+  // `lines` and `logo` stay in the signature so every existing call site keeps working.
   let signature = T.at("covSignature", default: T.signature)
-  let ink = T.at("covInk", default: T.ink)
-  let deepteal = primary.darken(30%)
-  // on a LIGHT signature (yellow) text is deep brand colour; on a DARK signature
-  // (indigo) it is white, with an accent-coloured rule/wedges.
-  let onfield = if science { white } else { deepteal }
-  let accentc = if science { accent } else { primary }
-  let pubsub = if science { white } else { ink }
-  let rawsub = lines.at(0, default: "")
-  // When line 0 IS the subject (rather than a standard education-level eyebrow) it
-  // would otherwise be printed twice — once small and once as the title. Fall back
-  // to the education level in that case, as the front cover does.
-  let eyebrow = if hasGradeWord(rawsub) or (rawsub == name) { T.eyebrow } else { rawsub }
-  // signature-colour dominant, mirroring the front.
+  let onfield = if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
-    // corner wedges
-    #place(top + left, polygon(fill: accentc, (0mm, 250mm), (0mm, 197mm), (59mm, 250mm)))
-    #place(top + left, polygon(fill: accentc, (176mm, 250mm), (176mm, 215mm), (137mm, 250mm)))
-    // MUSICAL ARTS (notes): the same scattered colourful note glyphs as the front
-    // cover, echoed here in the open field so front and back read as one set.
-    #if T.motif == "notes" [
-      #place(top + left, dx: 20mm, dy: 60mm, rotate(-10deg, text(size: 22pt, fill: onfield.transparentize(20%))[♪]))
-      #place(top + right, dx: -22mm, dy: 62mm, rotate(10deg, text(size: 20pt, fill: accentc.transparentize(10%))[♬]))
-      #place(bottom + left, dx: 24mm, dy: -70mm, rotate(8deg, text(size: 20pt, fill: onfield.transparentize(25%))[♫]))
-      #place(bottom + right, dx: -26mm, dy: -70mm, rotate(-8deg, text(size: 22pt, fill: accentc.transparentize(10%))[♪]))
-    ]
-    // book identity — CENTRED (every element on the back cover reads centred,
-    // matching the publisher branding block below it).
-    #place(top + center, dy: 20mm, block(width: 144mm)[#align(center)[
-      #text(size: 11pt, weight: "bold", fill: onfield, tracking: 1.5pt)[#upper(eyebrow)]
-      #v(3mm)
-      // Subject on its own line — scaled down to fit if a long subject name
-      // would otherwise overflow the block.
-      #layout(sz => {
-        let ttl = box(text(size: 26pt, weight: "bold", fill: onfield)[#name])
-        let m = measure(ttl)
-        if m.width > sz.width and m.width > 0pt {
-          scale(x: sz.width / m.width * 100%, y: sz.width / m.width * 100%, reflow: true, origin: left + horizon, ttl)
-        } else { ttl }
-      })
-      // Form/grade on its OWN line, between the subject and the book type.
-      #if formtxt != "" [
-        #v(2mm)
-        #text(size: 16pt, weight: "bold", fill: accentc)[#upper(formtxt)]
-      ]
-      #v(1mm)
-      #text(size: 13pt, weight: "bold", fill: onfield)[#upper(booktype)]
-      #v(3mm)
-      #box(fill: accentc, width: 34mm, height: 2.5pt, radius: 1.5pt)
-    ]])
-    // publisher branding, centred
-    #place(top + center, dy: 120mm, align(center)[
-      #if logo != none [ #image("_media/" + logo.file, height: 20mm) #v(4mm) ]
-      #text(size: 14pt, weight: "bold", fill: onfield)[Zambia Educational Publishing House]
-      #v(1mm)
-      #text(size: 11pt, fill: pubsub)[Lusaka, Zambia]
-    ])
-    // ISBN: if known, print it (no barcode); otherwise reserve a clean box for
-    // the press to add the ISBN + barcode at print time. CENTRED, like every
-    // other element on the back cover — sitting on the page's centre line also
-    // keeps it well clear of both bottom corner wedges (see "corner wedges"
-    // above: triangles from (0,197mm)-(0,250mm)-(59,250mm) and the mirrored one
-    // on the right), which only reach in from the left/right edges.
+    // ISBN: if known, print it (no barcode); otherwise reserve a clean box for the
+    // press to add the ISBN + barcode at print time. Centred, low on the page.
     #if isbn != none [
       #place(bottom + center, dy: -43mm, text(size: 11pt, weight: "bold", fill: onfield)[ISBN #isbn])
     ] else [
       #place(bottom + center, dy: -45mm, box(width: 52mm, height: 26mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
         #align(center + horizon)[#text(size: 8pt, fill: luma(55%))[ISBN & barcode]]])
+    ]
+  ]
+}
+
+// ---- spine (series/science B5 books over 112 interior pages) -------------------
+// One page the width of the spine, in the cover's colour field. The book's name,
+// form/grade and book type read TOP-TO-BOTTOM (the text runs down the spine, as on
+// the syllabus spine), shrunk to fit the height; the ZEPH logo sits upright at the
+// foot when the spine is wide enough to carry it. typeset-docx.js composes this page
+// between the back and front covers into the printer's cover spread.
+#let spine(lines, logo, width) = {
+  let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
+  let grade = lines.find(l => hasGradeWord(l))
+  let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
+  let name = subjectName(lines, grade, booktype)
+  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\s+\d+")); if m != none { m.text } else { "" } } else { "" }
+  let onfield = if science { white } else { T.primary.darken(30%) }
+  let accentc = if science { T.accent } else { T.primary }
+  let w = width * 1mm
+  let logoH = if logo != none and width >= 6 { calc.min(width - 1.5, 12) * 1mm } else { 0mm }
+  // type size from the spine's WIDTH (in mm): capitals about half the spine across, so
+  // a 7.6 mm spine sets near 11 pt; capped for very thick books
+  let fsz = calc.min(width * 0.5, 5.5) * 1mm
+  page(margin: 0pt, header: none, footer: none, fill: T.signature, width: w, height: 250mm)[
+    #set text(font: T.displayFont)
+    // the line of text, laid out horizontally and then turned to run down the spine
+    #let avail = 250mm - 30mm - logoH
+    #let line = box(text(size: fsz, weight: "bold", fill: onfield)[#upper(name)#if formtxt != "" [#h(1.2em)#text(fill: accentc)[#upper(formtxt)]]#h(1.2em)#upper(booktype)])
+    #context {
+      let m = measure(line)
+      let f = if m.width > avail { avail / m.width } else { 1.0 }
+      let set_ = scale(x: f * 100%, y: f * 100%, reflow: true, line)
+      place(top + center, dy: 14mm, rotate(90deg, reflow: true, set_))
+    }
+    #if logoH > 0mm [
+      #place(bottom + center, dy: -6mm, image("_media/" + logo.file, height: logoH))
     ]
   ]
 }
@@ -3665,7 +3633,16 @@
   // together — and only those two, so a long run still breaks freely further up rather
   // than being pushed off the page entire.
   let mk(i) = if i >= 0 and i < parts.len() { parts.at(i).at("marker", default: "") } else { "" }
-  let bindNext = range(parts.len()).map(i => mk(i) == "•" and mk(i + 1) == "•" and mk(i + 2) != "•")
+  // With the book's `keepQuestionParts` override the same binding holds a question's
+  // lettered/roman PARTS: the stem stays with its first part, and the last two parts
+  // travel together. Without it, question 6 of the Hospitality Management Form 3 LB's
+  // Topic 1 assessment ended one page and its parts a) and b) opened the next, alone on
+  // an otherwise empty page. Opt-in so books already proofread keep their page breaks.
+  let kq = T.at("keepQuestionParts", default: false)
+  let dp(i) = if i >= 0 and i < parts.len() and parts.at(i).kind == "q" { parts.at(i).at("depth", default: 0) } else { -1 }
+  let bindNext = range(parts.len()).map(i => (mk(i) == "•" and mk(i + 1) == "•" and mk(i + 2) != "•")
+    or (kq and dp(i) == 0 and dp(i + 1) == 1)
+    or (kq and dp(i) == 1 and dp(i + 1) == 1 and dp(i + 2) != 1))
   for (pi, it) in parts.enumerate() {
     if it.kind == "colsum" {
       // a vertical column sum/subtraction answer (converted from an unaligned fraction),
