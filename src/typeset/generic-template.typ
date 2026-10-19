@@ -1849,7 +1849,17 @@
 #let FILLBLANK = regex("_{12,}")
 #let hasFillBlank(ss) = ss.any(s => s.at("m", default: false) == false
   and s.at("t", default: "").find(FILLBLANK) != none)
-#let para(ss, align: none, drop: false, hyphenate: true) = {
+// A line that ends in a colon INTRODUCES what follows it ("Hospitality staff can:",
+// "a) Effects on the guest may include:", "For Client A:") and is stranded when a page
+// ends on it with its list over the leaf. Such a line is set `sticky`, which acts only
+// where it would otherwise be the last thing on a page, so no other break moves. Capped
+// at a few lines' worth of text: an unbreakable long paragraph would be pushed whole.
+// (Hospitality Management Form 3 TG: ten pages ended on such a lead-in.)
+#let endsColon(ss) = {
+  let t = ss.fold("", (acc, s) => acc + if s.at("m", default: false) { "" } else { s.at("t", default: "") }).trim()
+  t.ends-with(":") and t.len() <= 240
+}
+#let para0(ss, align: none, drop: false, hyphenate: true) = {
   set text(hyphenate: hyphenate)
   set par(justify: false) if hasFillBlank(ss)
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
@@ -1908,8 +1918,12 @@
     } else { flowsegs(ss) }
   }
 }
+#let para(ss, ..args) = {
+  let out = para0(ss, ..args)
+  if endsColon(ss) { block(sticky: true, breakable: false, width: 100%)[#out] } else { out }
+}
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
-#let listitem(ss, marker, indent: 0) = {
+#let listitem0(ss, marker, indent: 0) = {
   let isbullet = marker == "•"
   // A numbered/lettered marker used to be bold unconditionally — right for the
   // common case (a bold numbered step), but it left the marker visibly bolder
@@ -1938,6 +1952,10 @@
     grid(columns: (indent * 18pt, colw, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
       [], mk, par[#segs(ss)])
   }
+}
+#let listitem(ss, marker, indent: 0) = {
+  let out = listitem0(ss, marker, indent: indent)
+  if endsColon(ss) { block(sticky: true, breakable: false, width: 100%)[#out] } else { out }
 }
 // ---- a marker-led line INSIDE A TABLE CELL -------------------------------
 // House style: a line that opens with a marker never lets its next line start where
@@ -2402,7 +2420,15 @@
           #v(2pt)
           #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt)]).height
         let own = measure(block(width: size.width, bannerBody)).height
-        block(width: 100%, height: calc.max(own, twoLine), breakable: false, bannerBody)
+        // The v(-14pt) below is taken out of a one-line title's padding. A title that
+        // WRAPPED has no padding to give, so the pull-up lands on the banner itself, and
+        // where a plain paragraph follows (not a heading with room of its own above it)
+        // that line prints over the rule: "General Competence: …" under every wrapped
+        // sub-topic of the Hospitality Management Form 3 TG. `subtopicRuleClear` lends a
+        // wrapped banner the 14pt back. Opt-in, as it moves wrapped titles in books
+        // already proofread, where a heading follows and nothing overlaps.
+        let clear = if T.at("subtopicRuleClear", default: false) and own + 2pt >= twoLine { 14pt } else { 0pt }
+        block(width: 100%, height: calc.max(own + clear, twoLine), breakable: false, bannerBody)
       })]
     // Close the gap between the banner's rule and the first line under it. The
     // proofreader marked one sub-topic page "the space is too much", and measured
@@ -2494,7 +2520,10 @@
   if al == "center" { std.align(center)[#kept] } else { kept }
   v(2pt - keep)
 }
-#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
+// A label heads what follows it, so it is `sticky` like every heading: "END OF TOPIC
+// ASSESSMENT" ended a page of the Hospitality Management Form 3 TG with its
+// "SUGGESTED RESPONSES" and answers overleaf.
+#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; block(sticky: true, breakable: false)[#if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }]; v(1pt) }
 
 // ---- boxes ---------------------------------------------------------------
 // modern:   light fill + thick accent LEFT stripe.
@@ -3154,16 +3183,31 @@
         // `auto` column "1." and "10." size differently, so a facilitation procedure's
         // steps start indenting a millimetre further right the moment the list reaches
         // ten. Reserve two digits for every numbered item.
-        context {
+        let row = context {
           let mw = measure(mk).width
           let colw = if isbullet { mw } else { calc.max(mw, measure(text(weight: wt)[88.]).width) }
           grid(columns: (pad, colw, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
             [], mk, par[#segs(it.s)])
         }
+        // an item that introduces the lines below it ("d) Expired food served:") keeps
+        // with them — see endsColon()
+        if endsColon(it.s) { block(sticky: true, breakable: false, width: 100%)[#row] } else { row }
         v(1.5pt)
       }
       else if it.k == "colgrid" { colgrid(rows: it.rows, ncol: it.ncol, hasMarker: it.hasMarker) }
       else if it.k == "colsum" { colsum(it.rows, it.answer) }
+      else if (it.k == "para" and it.at("s", default: none) != none and (endsColon(it.s) or (it.s.len() == 1
+          and it.s.at(0).at("b", default: false) == true
+          and it.s.at(0).at("t", default: "").trim().len() <= 40
+          and it.s.at(0).at("t", default: "").trim().match(regex("[.?!;,]$")) == none))) {
+        // A box sub-head the manuscript typed as a bold paragraph rather than a heading
+        // ("Key Teaching Points", "TIPS", "Note"): sticky like the `head` branch above, so
+        // it cannot be the last line on a page with its list starting on the next. The
+        // Hospitality Management Form 3 TG ended a page on "Note" that way. Sticky only
+        // acts where the label would otherwise end a page, so no other break moves.
+        block(breakable: false, sticky: true, width: 100%)[#flowsegs(it.s)]
+        v(2pt)
+      }
       else { flowsegs(it.s); v(2pt) }
   }
   // ---- keep an ACTIVITY CHECKLIST with the table it introduces ----
@@ -3670,10 +3714,14 @@
       // text (the 22pt marker gutter) instead of hugging the box's left edge.
       let leadbody = richflow(it.at("qseg", default: ()), it.q)
       let al = it.at("align", default: none)
-      if it.at("indent", default: false) {
+      let leadrow = if it.at("indent", default: false) {
         grid(columns: (22pt, 1fr), column-gutter: 6pt, align: (left + top, left + top),
           [], if al == "center" { std.align(center)[#leadbody] } else { leadbody })
       } else { if al == "center" { std.align(center)[#leadbody] } else { leadbody } }
+      // A lead-in that ends in a colon ("For Client A:", "Possible responses include:")
+      // introduces the lines after it and must not be the last thing on a page. The
+      // Hospitality Management Form 3 TG ended pages on both. Sticky moves nothing else.
+      if it.q.trim().ends-with(":") { block(sticky: true, breakable: false, width: 100%)[#leadrow] } else { leadrow }
       v(2pt)
     }
     else {
@@ -3757,7 +3805,12 @@
       // Musical Arts Form 5 Teacher's Guide's assessment rubrics. Let the wrapper take
       // the same default spacing as its unwrapped siblings; the `sticky` is what this
       // block is for, and it is unaffected.
-      if bindNext.at(pi) { block(sticky: true, width: 100%)[#qablock] } else { qablock }
+      // So is a question with no answer of its own whose text ends in a colon ("a) Effects
+      // on the guest may include:"): it heads the parts below it, as a colon lead-in does.
+      // (Only the colon: binding every answerless stem to the indented answer under it
+      // pushed whole answers over and left near-empty pages in the same book.)
+      let heads = it.q.trim().ends-with(":") and it.a == "" and aseg.len() == 0
+      if bindNext.at(pi) or heads { block(sticky: true, width: 100%)[#qablock] } else { qablock }
       v(T.at("qgap", default: 3pt))
     }
   }

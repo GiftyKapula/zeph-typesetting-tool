@@ -6217,6 +6217,22 @@ function spaceOptionMarkers(blocks) {
 // The recurring sub-topic labels a Teacher's Guide is built out of — the fixed list its
 // own Introduction numbers off. They are bold sub-heads wherever they stand.
 const GUIDE_LABEL = /^(Introduction|General\s+Competences?|Specific\s+Competences?|Expected\s+Standards?|Teaching and Learning Materials|Teacher.?s?\s*Facilitation Procedure|Facilitation Procedure|Teacher.?s?\s*Notes?|Take note of responses.*)$/i;
+// …except where the guide LISTS those labels. The Introduction of a Teacher's Guide
+// enumerates what each topic holds ("Each topic in the guide includes: • General and
+// specific competences • Expected standards • Teaching and learning materials • Tips for
+// teachers …"), and promoting the two items that happen to spell a label turned them
+// into bold sub-heads in the middle of their own bulleted list (Hospitality Management
+// Form 3 TG; the Musical Arts Form 4 and Form 5 and Expressive Arts Grade 6 TGs carry
+// the same list). An item with ordinary list items on BOTH sides of it, in one unbroken
+// run of list items, is an entry in an enumeration, not a heading over what follows.
+function isEnumeratedLabel(arr, i) {
+  const text = (b) => (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "")).trim();
+  const plain = (b) => b && b.t === "listitem" && !GUIDE_LABEL.test(text(b));
+  let before = false, after = false;
+  for (let j = i - 1; j >= 0 && arr[j] && arr[j].t === "listitem"; j--) if (plain(arr[j])) { before = true; break; }
+  for (let j = i + 1; j < arr.length && arr[j] && arr[j].t === "listitem"; j++) if (plain(arr[j])) { after = true; break; }
+  return before && after;
+}
 
 // proofPolish() below normalises those labels, but only across TOP-LEVEL blocks, and by
 // the time it runs an activity the manuscript wrapped in a TABLE is already a box, its
@@ -6229,11 +6245,11 @@ const GUIDE_LABEL = /^(Introduction|General\s+Competences?|Specific\s+Competence
 function boldGuideLabels(blocks) {
   const walk = (arr) => {
     if (!Array.isArray(arr)) return;
-    for (const b of arr) {
+    for (const [i, b] of arr.entries()) {
       if (!b || typeof b !== "object") continue;
       if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) {
         const t = b.segs.map((s) => s.t).join("").trim();
-        if (t && GUIDE_LABEL.test(t)) { b.t = "head"; b.text = t; delete b.segs; delete b.marker; continue; }
+        if (t && GUIDE_LABEL.test(t) && !(b.t === "listitem" && isEnumeratedLabel(arr, i))) { b.t = "head"; b.text = t; delete b.segs; delete b.marker; continue; }
       }
       for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs" && k !== "rows") walk(b[k]);
     }
@@ -6271,7 +6287,8 @@ function proofPolish(blocks) {
     }
   }
   // 1) normalise the known labels to bold sub-heads (regardless of source style)
-  for (const b of blocks) {
+  for (const [i, b] of blocks.entries()) {
+    if (b.t === "listitem" && isEnumeratedLabel(blocks, i)) continue;
     if ((b.t === "para" || b.t === "listitem") && LABEL.test(textOf(b))) {
       b.text = fixCompetenceCase(textOf(b)); b.t = "head"; delete b.segs; delete b.marker;
     }
@@ -7528,7 +7545,9 @@ function normaliseQuestionMarkBold(blocks) {
     numberLessons: variant === "series",
     // Primary Teacher's Guides have longer front-matter sections; a tighter gap
     // keeps each (e.g. the Acknowledgement + its signatory) on a single page.
-    fmSpacing: (THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em",
+    // `fmSpacing` (override, e.g. "1.5em") sets it for one book whose front-matter section
+    // runs a line or two over its page at the default.
+    fmSpacing: ov.fmSpacing || ((THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em"),
   }, detectName);
 
   // An ISBN supplied in the overrides is shown on the covers (no barcode).
@@ -7784,6 +7803,9 @@ function normaliseQuestionMarkBold(blocks) {
   // `bylineRows`: lay the cover and title-page byline out two names to a line when the
   // names do not fit on one (see bylineText in generic-template.typ). Opt-in.
   if (ov.bylineRows) themeOverrides.bylineRows = true;
+  // `subtopicRuleClear`: keep the line under a WRAPPED sub-topic title clear of the
+  // banner's rule (see the series sub-topic banner in generic-template.typ). Opt-in.
+  if (ov.subtopicRuleClear) themeOverrides.subtopicRuleClear = true;
   if (ov.coverColor) {
     const pinned = String(ov.coverColor).replace(/^#/, "");
     themeOverrides.covSignature = pinned;
