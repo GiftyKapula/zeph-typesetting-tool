@@ -39,5 +39,116 @@
       "find": "developed : ",
       "with": "developed: "
     }
+  ],
+  "//tables": "Learning Activity 12's answer box (Topic 3, printed page 49) was typed as a three-cell Word table, splitting 'Competences to be developed: communication, emotional intelligence, collaboration' across the cells so it printed as a broken three-column grid ('Expected Responses … intelligence, collaboration | communication, | emotional'). Rebuilt as the one-cell box every other answer box in the book is, with the competences line whole and in the manuscript's own order.",
+  "tables": [
+    {
+      "match": "Prevents misunderstandings",
+      "rows": [
+        [
+          {
+            "text": "Expected Responses\n• Prevents misunderstandings\n• Builds trust\n• Helps express feelings\n• Strengthens relationships\nCompetences to be developed: communication, emotional intelligence, collaboration",
+            "segs": [
+              {
+                "t": "Expected Responses",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "\n",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "• ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Prevents misunderstandings",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "\n",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "• ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Builds trust",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "\n",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "• ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Helps express feelings",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "\n",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "• ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Strengthens relationships",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "\n",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Competences to be developed:",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " communication, emotional intelligence, collaboration",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        ]
+      ]
+    }
   ]
 }
