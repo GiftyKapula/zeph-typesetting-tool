@@ -7904,6 +7904,28 @@ function normaliseQuestionMarkBold(blocks) {
   const n = blocks.length;
   console.log(`Typeset: ${base}  [theme: ${theme}]  (${n} blocks, ${media.length} images) -> ${outPath} [${fs.statSync(outPath).size} bytes]`);
 
+  // House rule: over 112 interior pages, a spine — written as the printer's cover
+  // spread (back | spine | front) beside the book. B5 books only: the landscape
+  // syllabus builds its own spread inside the book. Needs the workspace (the logo),
+  // so it runs before the temp cleanup below.
+  const coverBlk = blocks.find((b) => b.t === "cover");
+  const backBlk = blocks.find((b) => b.t === "backcover");
+  if (variant !== "syllabus" && coverBlk && backBlk) {
+    const spreadPath = path.join(bookDir, `${base} - cover spread.pdf`);
+    try {
+      const r = await require("./cover-spread.js").writeCoverSpread({
+        pdf: Buffer.from(pdf), compiler, prefix: `${themeTypst(theme, themeOverrides)}${tmpl}`,
+        lines: backBlk.lines || coverBlk.lines || [], logo: backBlk.logo || null,
+        spineWidth: ov.spineWidth, outPath: spreadPath,
+        fieldHex: String(themeOverrides.covSignature || (THEMES[theme] || {}).signature || (THEMES[theme] || {}).primary || "").replace(/^#/, ""),
+      });
+      if (r) console.log(`   cover spread: ${r.interior} interior pages -> ${r.width} mm spine${ov.spineWidth ? " (spineWidth override)" : ""} -> ${spreadPath}`);
+      else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);   // the book has thinned below the spine threshold
+    } catch (e) {
+      console.error(`!  cover spread not written: ${e.message}`);
+    }
+  }
+
   // `--epub`: also write a reflowable EPUB 3 from the SAME final blocks the PDF was just
   // printed from, so the e-book carries every override and engine fix by construction.
   // Opt-in; without the flag nothing here runs. Must come before the temp cleanup below,
