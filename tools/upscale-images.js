@@ -342,8 +342,13 @@ async function main() {
   const ov = fs.existsSync(ovPath) ? JSON.parse(fs.readFileSync(ovPath, "utf8")) : {};
   ov.images = ov.images || {};
   for (const { j, outFile } of done) {
-    // relative to the .docx, which is how import-docx.js resolves an override path
-    ov.images[j.name] = { src: path.relative(path.dirname(opt.docx), outFile).replace(/\\/g, "/") };
+    // relative to the .docx, which is how import-docx.js resolves an override path.
+    // Only `src` is the upscale's to set: the rest of an existing entry (an `hmm` height,
+    // a `w` width, a `watermark` box) is a decision about the picture, not about its
+    // file, and replacing the whole entry threw it away — seven pictures of the
+    // Hospitality Management Form 3 LB lost their set heights this way.
+    const prev = ov.images[j.name] && typeof ov.images[j.name] === "object" ? ov.images[j.name] : {};
+    ov.images[j.name] = { ...prev, src: path.relative(path.dirname(opt.docx), outFile).replace(/\\/g, "/") };
   }
   fs.writeFileSync(ovPath, JSON.stringify(ov, null, 2) + "\n");
   console.log(`\nwrote ${done.length} override(s) to ${path.basename(ovPath)}`);
