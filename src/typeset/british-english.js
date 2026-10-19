@@ -137,9 +137,23 @@ function britishWord(w) {
 
 // Convert every word in a string. Returns { text, hits } — hits naming each change so
 // the build log can show what moved, the same way the watermark and JPEG passes do.
+// An official NAME keeps its own spelling: "World Health Organization", "International
+// Labour Organization", "Food and Agriculture Organization of the United Nations", "World
+// Tourism Organization". The Hospitality Management Form 3 Learner's Book cites all four in
+// its References and every one printed as "Organisation" — a citation the reader can no
+// longer match to the body that issued it. Only the named international bodies are kept
+// (the UN agencies these books cite, and "… Organization of the United Nations"): a looser
+// "capitalised word before it" rule also froze a Title Case heading ("Purpose of Data
+// Organization", Geography Form 2 LB) and generic terms ("Non-Governmental Organization"),
+// which are ordinary words and take the British spelling like any other.
+const NAMED_ORG_BEFORE = /\b(?:Health|Labour|Labor|Agriculture|Tourism|Cultural|Trade|Meteorological|Maritime|Property|Aviation|Customs|Development)\s+$/;
+const isNamedOrganization = (w, text, at) =>
+  /^Organization$/.test(w) && (NAMED_ORG_BEFORE.test(text.slice(Math.max(0, at - 30), at))
+    || /^\s+of\s+the\s+United\s+Nations\b/.test(text.slice(at + w.length, at + w.length + 30)));
 function toBritish(text) {
   const hits = [];
-  const out = text.replace(/[A-Za-z]+/g, (w) => {
+  const out = text.replace(/[A-Za-z]+/g, (w, at) => {
+    if (isNamedOrganization(w, text, at)) return w;
     const b = britishWord(w);
     if (!b || b === w) return w;
     hits.push(`${w} -> ${b}`);
