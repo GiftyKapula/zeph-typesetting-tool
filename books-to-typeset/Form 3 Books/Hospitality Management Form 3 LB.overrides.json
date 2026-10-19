@@ -125,5 +125,9 @@
   "//romanSubParts": "The editor numbers sub-parts with Word's lower-roman list (i., ii., iii.) in four questions (Topic 2 EOTA Q?, Topic 3 assessment), and her copy is authoritative; without this the engine prints them a., b., c.",
   "romanSubParts": true,
   "//keepQuestionParts": "Keeps a question with its parts across a page break: question 6 of the Topic 1 assessment otherwise left its a) and b) alone on an empty page.",
-  "keepQuestionParts": true
+  "keepQuestionParts": true,
+  "//headListSpacing": "A heading kept on the page with the short list under it (Benefits of Technological Communication) sat 3pt closer to the text above than every other heading; this gives it the same space.",
+  "headListSpacing": true,
+  "//writingColumns": "The Customer Profile Template's empty Response column (learners write in it) was squeezed until its header broke as Re-sponse.",
+  "writingColumns": true
 }

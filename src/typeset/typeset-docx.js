@@ -426,6 +426,13 @@ function emit(blocks) {
           const li = listitemCall;
           const items = blocks.slice(bi + 1, runEnd);
           const keep = (s) => `#block(breakable: false, width: 100%)[${s.trim()}]\n`;
+          // Inside the wrapper the heading's own weak space above it is swallowed at the
+          // block's top, so a heading kept with its list sat ~3pt closer to the text above
+          // than every other heading ("Benefits of Technological Communication",
+          // Hospitality Management Form 3 LB p. 105). With the book's `headListSpacing`
+          // the same space is set OUTSIDE the wrapper. Opt-in: proofread books keep their
+          // page breaks.
+          if (HEAD_LIST_SPACING) out += `#if serieslike { v(13pt, weak: true) }\n`;
           if (nItems < 4) out += keep(h + items.map(li).join(""));
           else {
             out += keep(h + items.slice(0, 2).map(li).join(""));
@@ -6787,6 +6794,7 @@ async function typesetOne(docxPath, themeName) {
     : {};
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
+  HEAD_LIST_SPACING = !!ov.headListSpacing;
   importOpts.romanSubParts = !!ov.romanSubParts;
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
@@ -7747,6 +7755,8 @@ function normaliseQuestionMarkBold(blocks) {
   // Keep an exercise/assessment question with its sub-parts across a page break
   // (template qaparts(); opt-in so proofread books keep their page breaks).
   if (ov.keepQuestionParts) themeOverrides.keepQuestionParts = true;
+  // Give a table column left empty for the learner to write in some width (dtable()).
+  if (ov.writingColumns) themeOverrides.writingColumns = true;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json
@@ -7970,6 +7980,8 @@ function normaliseQuestionMarkBold(blocks) {
 
 // Set by `--epub` on the command line (see the end of typesetOne).
 let WANT_EPUB = false;
+// Set per book from the `headListSpacing` override (read by emit()).
+let HEAD_LIST_SPACING = false;
 
 async function main() {
   // Parse args: positional .docx paths + an optional `--theme NAME` and `--epub`.
