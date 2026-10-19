@@ -279,6 +279,13 @@ function drawingParts(d) {
     if (h >= 0 && e >= 0 && e < nextH1) { res[e].label = 'EXERCISE 3'; log.push('Topic 6, Sub-Topic 3.6.3: second "EXERCISE 2" renumbered 3'); }
     else log.push('PATCH MISSED: Topic 6 exercise number');
   }
+  // "Business Adventure" for "Business Venture" (Sub-Topic 3.8.1 heading, printed page
+  // 133): the heading's words sit in separate runs, so it is set whole here (user, 19 Oct 2026)
+  {
+    const v = find(/^How to Nurture a Business Adventure$/);
+    if (v >= 0) { res[v].xml = mkP('How to Nurture a Business Venture', res[v].style); res[v].text = 'How to Nurture a Business Venture'; log.push('heading fixed: Business Adventure -> Business Venture'); }
+    else log.push('PATCH MISSED: Business Adventure heading');
+  }
   // two acronyms typed on one line
   {
     const a = find(/^USP – Unique Selling Proposition VIP – Very Important Person$/);
@@ -373,7 +380,10 @@ function drawingParts(d) {
     return px.replace(/(<w:t(?: [^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => `<w:t xml:space="preserve">${texts[k++]}${b}`);
   };
   // stray letters left by the conversion (checked against the edited copy's own text)
-  const TEXTFIX = [[/(LEARNING ACTIVITY 2: )L (Performing guest privacy drills)/g, '$1$2'], [/(<w:t(?: [^>]*)?>)([a-h]\))(?=[A-Z])/g, '$1$2 '], [/ENTERPRENEURSHIP/g, 'ENTREPRENEURSHIP'], [/Enterpreneurship/g, 'Entrepreneurship']];
+  const TEXTFIX = [[/(LEARNING ACTIVITY 2: )L (Performing guest privacy drills)/g, '$1$2'], [/(<w:t(?: [^>]*)?>)([a-h]\))(?=[A-Z])/g, '$1$2 '], [/ENTERPRENEURSHIP/g, 'ENTREPRENEURSHIP'], [/Enterpreneurship/g, 'Entrepreneurship'],
+    // "Business Adventure" for "Business Venture" (Sub-Topic 3.8.1, printed page 133) and
+    // "your adventure" in the sentence under it — corrected on the user's instruction, 19 Oct 2026
+    [/Business Adventure/g, 'Business Venture'], [/your adventure and drive growth/g, 'your venture and drive growth']];
   const fixText = (x) => { for (const [re, to] of TEXTFIX) if (x.search(re) >= 0) { log.push(`text fixed: ${re}`); x = x.replace(re, to); } return x; };
   const body = res.map(xmlOf).map((x) => fixText(x.replace(/<w:p\b[\s\S]*?<\/w:p>/g, fixHyphens))).join('');
   const newDoc = doc.slice(0, bStart) + body + lastSect + doc.slice(doc.lastIndexOf('</w:body>'));
