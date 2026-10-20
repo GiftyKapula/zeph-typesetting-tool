@@ -6738,7 +6738,6 @@ function normaliseQuestionMarkBold(blocks) {
     // by course: the contents lists years and courses; the topics go one level down
     if (courseOutline(blocks)) {
       themeOverrides.matrixToc = (themeOverrides.tocDepth || (THEMES[theme] || {}).tocDepth || 2) + 1;
-      themeOverrides.courseNums = true;   // matrix numbers over their text, not hung beside it
     }
     dedupeLevelHeadings(blocks);
     foldActivityRows(blocks);
