@@ -19,12 +19,23 @@
     "APPENDIX 2. \"1. Programme Overview\", \"2. Assessment Framework\", \"3. Monitoring and Evaluation Tools\" are one Word list",
     "running on across the appendix tables, as typed (the numbering check follows the Word list across them).",
     "APPENDIX 1 (2026-10-16). 'SCOPE AND SEQUENCE' is Appendix 1's title, but the section pass gave it a page of its own, which left APPENDICES / Appendix 1 alone on a page: set as a kept label under Appendix 1.",
-    "ROWS 1.1.3.1, 1.8.2.1, 1.11.2.1 (2026-10-20). Each had its last activity and standard typed in a row of their own with no competence; the engine now runs them on into the row above, so no rule cuts the competence in two. Pages 6 and 19 then had room for 1.1.5.2 and 1.8.3.1 whole: their splitRows are gone."
+    "ROWS 1.1.3.1, 1.8.2.1, 1.11.2.1 (2026-10-20). Each had its last activity and standard typed in a row of their own with no competence; the engine now runs them on into the row above, so no rule cuts the competence in two. Pages 6 and 19 then had room for 1.1.5.2 and 1.8.3.1 whole: their splitRows are gone.",
+    "COURSE LAYOUT (2026-10-20, user): opens on a fresh page (pageBreakBefore). Every matrix break moved; reworked page by page so no row carries 1-2 lines or breaks mid-activity and no page ends a third empty (splitRow / keepRowWhole marked 2026-10-20). ASSESSMENT METHODS now opens a page too: its heading had been left at a page foot with its table overleaf."
   ],
   "theme": "gensyl",
   "subject": "Entrepreneurship and Financial Education",
   "level": "Teachers' Diploma",
   "year": 2025,
+  "pageBreakBefore": [
+    {
+      "_why": "Course Layout opens on a fresh page (user, 2026-10-20); it followed the Key Competences table on the same page",
+      "find": "Course Layout"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): the heading and its first lines stood at the foot of the page, its table overleaf",
+      "find": "ASSESSMENT METHODS AND WEIGHTINGS"
+    }
+  ],
   "editCell": [
     {
       "_why": "space inside the number",
@@ -97,13 +108,63 @@
     {
       "_why": "Split by the page, it carried a line or two overleaf. Kept whole (2026-10-13 clean-up).",
       "startsWith": "1.3.2.3"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): it broke mid-activity",
+      "startsWith": "1.3.1.2"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): only Brainstorming: stood at the page foot",
+      "startsWith": "1.3.2.1"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): it broke mid-activity",
+      "startsWith": "1.3.4.1"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): only two lines stood at the page foot",
+      "startsWith": "1.4.2.1"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): it broke mid-activity",
+      "startsWith": "1.5.1.6"
     }
   ],
   "splitRow": [
     {
-      "_why": "Opens its topic, so it never splits: the page before it ended a third or more empty. Cut here so the first piece, with the topic title, fills that page (2026-10-13 clean-up).",
-      "startsWith": "1.11.1.1",
-      "at": "Identifying Entrepreneur"
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): cut at a bullet so whole activities carry over (it carried 2 lines)",
+      "startsWith": "1.1.4.1",
+      "at": "Explaining the types of"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): cut at a bullet so whole activities carry over",
+      "startsWith": "1.1.7.1",
+      "at": "Explaining factors affecting"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): it carried 2 lines",
+      "startsWith": "1.5.1.3",
+      "at": "Discussing the importance"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): opens its topic, so it never splits; the page before it ended half empty. Cut so the first piece fills that page",
+      "startsWith": "1.6.1.1",
+      "at": "Explaining Business Records"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): it broke mid-sentence",
+      "startsWith": "1.6.2.1",
+      "at": "Identifying Financial"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): opens its topic, so it never splits; the page before it ended half empty. Cut so the first piece fills that page",
+      "startsWith": "1.10.1.1",
+      "at": "Explaining the importance of"
+    },
+    {
+      "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): it broke mid-activity",
+      "startsWith": "1.11.2.1",
+      "at": "Designing Financial Literacy"
     }
   ],
   "setHeading": [
