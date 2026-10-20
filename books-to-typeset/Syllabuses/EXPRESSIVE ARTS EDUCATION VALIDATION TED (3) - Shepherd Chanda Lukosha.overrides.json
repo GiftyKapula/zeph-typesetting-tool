@@ -1,0 +1,18 @@
+{
+  "_comment": "Matrix numbers are Word auto-list numbers that restart and run on across merged cells (1.4, 1.4, 1.6 …; 1.25.x competences under sub-topic 1.32.x); renumberMatrix counts them afresh from the table structure. The matrix runs both years as one table with no YEAR TWO heading: the YEAR 2 banner goes before the author's own topic 2.1, Harmonic Structures.",
+  "renumberMatrix": true,
+  "insertRow": [
+    {
+      "_why": "One matrix for both years; the author numbers Harmonic Structures 2.1, after Year 1's 1.34 Planning to Teach.",
+      "startsWith": "2.1 HARMONIC STRUCTURES",
+      "text": "YEAR TWO (2)"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "A stray '2' typed against the competence text: '2.10.1.1 2Create fixtures for games'.",
+      "pattern": " 2(?=Create fixtures for games)",
+      "with": " "
+    }
+  ]
+}
