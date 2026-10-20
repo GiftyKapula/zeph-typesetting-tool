@@ -1,0 +1,154 @@
+{
+  "_comment": [
+    "Business Studies -- Secondary School Teachers' Diploma syllabi, Years 1-2.",
+    "First typeset 2026-10-16.",
+    "",
+    "TITLE / LEVEL / YEAR. \"Business Studies\" (the manuscript's cover says \"Business Studies Syllabi\");",
+    "Secondary School Teachers' Diploma as the Preface says; 2025 as on the copyright line.",
+    "",
+    "SIX COURSES IN ONE BOOK (courses). Financial Accounting, Commerce, Teaching Methods for Commerce and",
+    "Principles of Accounts, Economics, Business Mathematics, Business and Company Law -- each with its own",
+    "description, competences and matrix. Each opens a section of its own and keeps its own year pages.",
+    "The course-span lines under the titles (\"YEAR 1 TO YEAR 2\", \"YEAR 1 – 2\") go: the year pages say it.",
+    "",
+    "MATRIX NUMBERS. renumberMatrix: most numbers are broken Word list numbers (Commerce's topics ran",
+    "1.8 COMMERCE, 1.9, 1.10 ... after Financial Accounting's, Business Mathematics typed 2.1-2.3 inside",
+    "Year 1). Counted afresh from the table structure, Year.Topic within each course.",
+    "",
+    "COVER. Deep burgundy (coverColour): the subject's own pick, #3d3d7a, is all but the indigo of Devices and",
+    "Material Production (#35306b); #7a1f3d is the one colour of the set no other syllabus uses."
+  ],
+  "subject": "Business Studies",
+  "level": "Secondary School Teachers' Diploma",
+  "year": 2025,
+  "coverColour": "7a1f3d",
+  "renumberMatrix": true,
+  "courses": [
+    "FINANCIAL ACCOUNTING",
+    "COMMERCE",
+    "TEACHING METHODS FOR COMMERCE AND PRINCIPLES OF ACCOUNTS",
+    "ECONOMICS",
+    "BUSINESS MATHEMATICS",
+    "BUSINESS AND COMPANY LAW"
+  ],
+  "remove": [
+    "YEAR 1 TO YEAR 2",
+    "YEAR 1 – 2"
+  ],
+  "setHeading": [
+    {
+      "_why": "every course's reading lists sit under it as sub-heads; from Commerce on, \"Prescribed Textbooks\" opened a page of its own",
+      "find": "Prescribed Textbooks",
+      "as": "h2",
+      "all": true,
+      "keep": true
+    },
+    {
+      "_why": "Business Mathematics typed it as a bold line with a colon; the other courses head it",
+      "find": "Course Description:",
+      "text": "Course Description",
+      "as": "h2",
+      "keep": true
+    },
+    {
+      "_why": "the other courses name the year in words (YEAR ONE / YEAR TWO)",
+      "find": "YEAR 1",
+      "text": "YEAR ONE",
+      "all": true
+    },
+    {
+      "find": "YEAR 2",
+      "text": "YEAR TWO",
+      "all": true
+    },
+    {
+      "_why": "Financial Accounting: a heading like the other courses Assessment heads, no colon",
+      "find": "Assessment:",
+      "text": "Assessment",
+      "as": "h2",
+      "keep": true
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "typo, Financial Accounting 1.3",
+      "pattern": "BUSINESS TRANSATION",
+      "with": "BUSINESS TRANSACTION"
+    },
+    {
+      "_why": "typo, Economics 2.11",
+      "pattern": "INTERNATIO\\s+NAL",
+      "with": "INTERNATIONAL"
+    },
+    {
+      "_why": "typo, Teaching Methods 1.11",
+      "pattern": "TEACHING ND LEARNING",
+      "with": "TEACHING AND LEARNING"
+    },
+    {
+      "_why": "typo, Commerce competences header",
+      "find": "DISCRIPTORS",
+      "with": "DESCRIPTORS"
+    }
+  ],
+  "editAll": [
+    {
+      "_why": "Economics numbered its course description 1.1, as no other course does",
+      "find": "1. Course description",
+      "with": "Course description"
+    },
+    {
+      "find": "1.Course description",
+      "with": "Course description"
+    }
+  ],
+  "asPara": [
+    "The programme shall use two types of assessment:"
+  ],
+  "splitRow": [
+    {
+      "_why": "Financial Accounting 2.3.2.1: split by the page, it carried two lines overleaf; cut here so a whole method carries",
+      "startsWith": "2.3.2.1 Exhibit knowledge on Electronic",
+      "at": "Demonstration/Guest"
+    },
+    {
+      "_why": "Financial Accounting 1.14.1.1 opens its topic; whole, it left the page before a third empty",
+      "startsWith": "1.14.1.1 Describe Non-Profit",
+      "at": "Think Pair, write and Share"
+    },
+    {
+      "_why": "Teaching Methods 1.7.1.1 opens its topic; whole, it left the page before a third empty",
+      "startsWith": "1.7.1.1 Demonstrate ability to manage",
+      "at": "Case Study Analysis"
+    },
+    {
+      "_why": "Business Law 2.4.1.1 opens its topic; whole, it left the page before a third empty",
+      "startsWith": "2.4.1.1 Exhibit knowledge of a Business Contract",
+      "at": "Case Study"
+    },
+    {
+      "_why": "Business Law 2.6.1.1 opens its topic; whole, it left the page before a third empty",
+      "startsWith": "2.6.1.1 Demonstrate knowledge of creation of Agency",
+      "at": "Case Study"
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Business Law's last row: split by the page, it carried three lines onto the last page alone",
+      "startsWith": "2.7.4.1 Demonstrating Knowledge of corporate failure"
+    }
+  ],
+  "setMarker": [
+    {
+      "_why": "Admission Requirements run a), b), then '1.' for the third item",
+      "find": "Duration of the Programme",
+      "marker": "c)"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "split by the page, Graduation Requirements carried its last two lines overleaf",
+      "find": "Graduation Requirements"
+    }
+  ]
+}
