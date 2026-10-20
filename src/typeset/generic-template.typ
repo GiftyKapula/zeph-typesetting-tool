@@ -2422,6 +2422,19 @@
     let ct = plainlabel(c)
     let m = ct.match(numRe1)
     let lines = ct.split("\n").filter(l => l.trim() != "")
+    if c.at("tight", default: false) and c.imgs.len() == 0 and c.at("seg", default: ()).len() == 0 and lines.len() > 1 {
+      // sidecar `tightTable`: one item per line, 4pt apart (5pt elsewhere). A numbered line hangs as usual;
+      // an unnumbered one (a chart topic left without a number) sits in the text column.
+      let fl = lines.map(l => l.trim().match(numRe1)).filter(x => x != none)
+      if fl.len() > 0 {
+        let w = tidyNum(fl.first().captures.at(0))
+        return stack(spacing: 4pt, ..lines.map(l => {
+          let lm = l.trim().match(numRe1)
+          if lm != none { hang(tidyNum(lm.captures.at(0)), false, l.trim().slice(lm.text.len())) }
+          else { context grid(columns: (numCol(w, false), 1fr), column-gutter: 6pt, [], l.trim()) }
+        }))
+      }
+    }
     if m != none and c.imgs.len() == 0 and lines.len() > 1 and lines.all(l => l.trim().match(numRe1) != none) {
       // Several numbered clauses stacked in ONE cell ("1.6.2 Sign Language…" /
       // "1.6.3 Multimedia…"): split the runs at each line break and hang every clause
@@ -2456,6 +2469,19 @@
         else { let g = groups.pop(); groups.push((g.at(0), g.at(1) + "\n" + l)) }
       }
       return stack(spacing: 5pt, ..groups.map(g => hang(g.at(0), false, g.at(1))))
+    }
+    if m == none and c.imgs.len() == 0 and c.at("seg", default: ()).len() == 0 and lines.len() > 1 {
+      // A list whose opening item(s) carry no number, the rest numbered (a scope-and-sequence
+      // chart: "School Experience 1" left unnumbered at a reviewer's request, then "2.1
+      // Harmony 3" …). Set as a plain cell, the whole list lost its number column; instead
+      // the unnumbered items sit in the text column, the numbered ones hang as usual.
+      let k = lines.position(l => l.trim().match(numRe1) != none)
+      if k != none and lines.slice(k).all(l => l.trim().match(numRe1) != none) {
+        let w = tidyNum(lines.at(k).trim().match(numRe1).captures.at(0))
+        let free = lines.slice(0, k).map(l => context grid(
+          columns: (numCol(w, false), 1fr), column-gutter: 6pt, [], l.trim()))
+        return stack(spacing: 5pt, ..free, numcell((text: lines.slice(k).join("\n"), imgs: ())))
+      }
     }
     if m == none { cell(c) } else {
       let num = tidyNum(m.captures.at(0))

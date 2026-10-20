@@ -54,7 +54,7 @@ const EMPTY_CELL = { text: "", imgs: [] };
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 // Rich table cell: text plus any images it contains (and rich segments with
 // math when the cell holds an equation).
-const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""}${c.cont ? ", cont: true" : ""})`;
+const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""}${c.cont ? ", cont: true" : ""}${c.tight ? ", tight: true" : ""})`;
 const normRows = (rows) => { const n = Math.max(0, ...rows.map((r) => r.length)); return rows.map((r) => r.concat(Array(n - r.length).fill(EMPTY_CELL))); };
 const rowArr = (rows) => arr(normRows(rows), (r) => arr(r, cellArr));
 const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0}, tall: ${im.tall ? "true" : "false"}, cap: ${im.caption ? S(im.caption) : "none"}, hmm: ${im.hmm || 0})`);
@@ -3164,6 +3164,31 @@ function splitRows(blocks, ov) {
 // carries one bullet into an otherwise empty row overleaf (Inclusive ECE 2.2.5). Matched
 // like removeRow: any one cell's whole trimmed text, or its opening text. Header excluded.
 // Runs on the finished blocks, after the syllabus passes that rebuild matrix cells.
+// tightTable: [{ find }] — set the stacked lines of every body cell of the table holding a
+// cell whose trimmed text contains `find` closer together (4pt between lines instead of 5pt).
+// For a one-page chart that a correction has made a line too tall, so its last row would
+// otherwise go overleaf on its own (Music Content's scope and sequence chart, 2026-10-20).
+function tightTables(blocks, ov) {
+  for (const tt of ov.tightTable || []) {
+    const want = String(tt.find || "");
+    let n = 0;
+    const walkT = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")
+            && want && b.rows.some((r) => Array.isArray(r) && r.some((c) => c && typeof c.text === "string" && c.text.includes(want)))) {
+          b.rows.slice(1).forEach((row) => { if (Array.isArray(row)) row.forEach((c) => { if (c && typeof c === "object") c.tight = true; }); });
+          n++;
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
+      }
+    };
+    walkT(blocks);
+    if (!n) console.warn("!  tightTable not matched:", want);
+    else console.log(`   tightTable ${want}: ${n} table(s)`);
+  }
+}
+
 function keepRowsWhole(blocks, ov) {
   for (const kr of ov.keepRowWhole || []) {
     const want = kr.find != null ? String(kr.find) : null;
@@ -6801,6 +6826,7 @@ function normaliseQuestionMarkBold(blocks) {
     hyphenateSubTopicHeader(blocks);
     splitRows(blocks, ov);
     keepRowsWhole(blocks, ov);
+    tightTables(blocks, ov);
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }
