@@ -350,7 +350,11 @@ function autoTheme(name) {
   // …or "VALIDATED" / "VALIDATION": CDC's tag on a syllabus that has been through
   // validation, and the only marker some carry ("CIVIC EDUCATION CONTENT  VALIDATED"
   // went to `navy` too). No learner's book or teacher's guide is filed so.
-  if (/syllabus/i.test(name) || /\bTED\b/.test(name) || /\bvalidat(?:ed|ion)\b/i.test(name)) {
+  // …or "TEACHING METHODS": the name of a TED methods syllabus, and on some files the
+  // only marker ("COMPUTER SCIENCE - ICT TEACHING METHODS - M. C. Mabbola" carries no
+  // other, and its "Computer Science" sent it to the portrait `compsci` theme).
+  if (/syllabus/i.test(name) || /\bTED\b/.test(name) || /\bvalidat(?:ed|ion)\b/i.test(name)
+      || /\bteaching\s+methods?\b/i.test(name)) {
     if (/travel|tourism/i.test(name)) return "travelsyl";
     // Devices and Materials Production. Checked BEFORE Special Education: this
     // syllabus is itself *for* learners with special educational needs, so its
