@@ -3305,6 +3305,12 @@ const numOrWord = (s) => +s || NUMWORD.indexOf(String(s).toLowerCase()) + 1;
 // between the two -- the bullet then opened the next page with nothing beside it, and
 // keepRowWhole on the competence could not hold it. Its lines join the activities cell of
 // the row above -- or, when it only repeats a line already there word for word, it goes.
+// The same goes for a row that carries an expected standard too, its competence cell
+// still blank, when that standard carries on a sentence from the row above
+// (Entrepreneurship 1.1.3.1: "programmes (e.g., CEEC, ZDA, CDF)" beside "business
+// financing shown correctly", the standard above ending "…Education, and"): it is the
+// competence above run on, and the rule drawn over it cut that competence in two. Each
+// of its cells joins its own cell above.
 // Matrix tables only; a row carrying a picture is left alone.
 function foldActivityRows(blocks) {
   let n = 0;
@@ -3314,12 +3320,39 @@ function foldActivityRows(blocks) {
     if (!H.some((h) => /TOPIC/.test(h))) continue;
     const act = H.findIndex((h) => /ACT.?VIT/.test(h));
     if (act < 0) continue;
+    const comp = H.findIndex((h) => /COMPETEN/.test(h));
+    const std = comp < 0 ? -1 : H.findIndex((h) => /STANDARD/.test(h));
     const blank = (c) => !c || (!String(c.text || "").trim() && !(c.imgs || []).length);
+    // runOn: text that opens with a small letter after a line left mid-clause is that
+    // line's own end ("…economic empowerment" / "programmes (e.g., CEEC…)"): a space, not
+    // a new line (which, in a cell whose every line is a bullet, made it a bullet of its own)
+    const join = (u, c, runOn) => {
+      const ut = String(u.text || "");
+      const sep = runOn && /[A-Za-z,]$/.test(ut.trimEnd()) && /^[a-z]/.test(String(c.text || "").trimStart()) ? " " : "\n";
+      u.text = !ut ? c.text : sep === " " ? ut.trimEnd() + " " + String(c.text).trimStart() : ut + "\n" + c.text;
+      if (Array.isArray(u.segs) || Array.isArray(c.segs)) {
+        const segs = (x) => Array.isArray(x.segs) && x.segs.length ? x.segs : [{ t: String(x.text || ""), b: false, it: false, c: null }];
+        u.segs = ut ? [...segs(u), { t: sep, b: false, it: false, c: null }, ...segs(c)] : segs(c);
+      }
+    };
     for (let ri = b.rows.length - 1; ri >= 2; ri--) {
       const row = b.rows[ri], up = b.rows[ri - 1];
       if (!Array.isArray(row) || !Array.isArray(up) || row.length !== up.length || row.length !== H.length) continue;
       const c = row[act], u = up[act];
       if (blank(c) || (c.imgs || []).length || !u || (u.imgs || []).length) continue;
+      // activities and a standard but no competence, under a row that has one, the standard
+      // carrying on mid-sentence (it opens with a small letter): run on. A standard of its
+      // own (RE Content 2.3.1.1: "Understanding the concept of wealth…" under "…of work…")
+      // is the author's own row and keeps its rule.
+      if (std >= 0 && /^[a-z]/.test(String(row[std] && row[std].text || "").trimStart())
+          && !(row[std].imgs || []).length && up[std] && !(up[std].imgs || []).length
+          && !blank(up[comp]) && row.every((x, ci) => ci === act || ci === std || blank(x))) {
+        join(u, c, true);
+        join(up[std], row[std], true);
+        b.rows.splice(ri, 1);
+        n++;
+        continue;
+      }
       if (!row.every((x, ci) => ci === act || blank(x))) continue;
       const ut = String(u.text || "");
       // the row only repeats the cell's last activity word for word (Civic Education
@@ -3330,16 +3363,12 @@ function foldActivityRows(blocks) {
         b.rows.splice(ri, 1);
         continue;
       }
-      u.text = ut ? ut + "\n" + c.text : c.text;
-      if (Array.isArray(u.segs) || Array.isArray(c.segs)) {
-        const segs = (x) => Array.isArray(x.segs) && x.segs.length ? x.segs : [{ t: String(x.text || ""), b: false, it: false, c: null }];
-        u.segs = ut ? [...segs(u), { t: "\n", b: false, it: false, c: null }, ...segs(c)] : segs(c);
-      }
+      join(u, c);
       b.rows.splice(ri, 1);
       n++;
     }
   }
-  if (n) console.log(`   activity-only rows joined to the row above: ${n}`);
+  if (n) console.log(`   rows with no competence joined to the row above: ${n}`);
 }
 
 // One level page per level. A manuscript that names the year over its Key Competences as
