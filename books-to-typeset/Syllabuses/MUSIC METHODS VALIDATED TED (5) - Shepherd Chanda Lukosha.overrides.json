@@ -29,7 +29,10 @@
     "  * 1.7.1 Resource selection: the competence had no number; set as 1.7.1.1.",
     "  * Cover subject wording (see `subject`) -- confirm against CDC's title for the course.",
     "",
-    "2026-10-13 clean-up: ENTREPRENEURSHIP descriptor written (CDC to confirm); Kelvin Mambwe, (PhD) comma dropped."
+    "2026-10-13 clean-up: ENTREPRENEURSHIP descriptor written (CDC to confirm); Kelvin Mambwe, (PhD) comma dropped.",
+    "",
+    "2026-10-20 proofread round 1 (reviewer's PDF '... - Shepherd Chanda _261020_103507.pdf', 2 comments): p10 Aims:",
+    "  'Musical Arts' -> 'Musical Arts Education'; 'trainee' deleted ('reflective teachers'). Same two changes as Music Content."
   ],
   "subject": "Musical Arts Education Teaching Methods",
   "level": "Secondary Teachers' Diploma",
@@ -88,6 +91,16 @@
       "_why": "Comma before the degree, as no other syllabus signs it (Kelvin Mambwe (PhD)).",
       "find": "Kelvin Mambwe, (PhD)",
       "with": "Kelvin Mambwe (PhD)"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-20, p10: 'Change from Musical Arts to Musical Arts Education'.",
+      "find": "This course in Musical Arts aims",
+      "with": "This course in Musical Arts Education aims"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-20, p10: 'trainee' marked 'Delete'.",
+      "find": "creative, and reflective trainee teachers equipped",
+      "with": "creative, and reflective teachers equipped"
     }
   ],
   "unbold": [
