@@ -21,6 +21,10 @@
     {
       "find": "Uses of Sauces",
       "with": "Analysing the Uses of Sauces"
+    },
+    {
+      "find": "Storage in Food Industries",
+      "with": "Exploring Food Industries"
     }
   ],
   "removeWhereNext": [
@@ -51,6 +55,15 @@
     {
       "from": "Sub-Topic 2.8.2: Preparing Meals",
       "to": "Preparing Meals Using Convenience Foods"
+    },
+    {
+      "from": "Sub-Topic 2.4.1: Table Etiquettes",
+      "to": "Sub-Topic 2.4.2: Table Etiquette"
+    },
+    {
+      "from": "Exploring Food Industries",
+      "to": "EXERCISE 3",
+      "after": "Demonstrating Storage of Food in a Home and Industry"
     }
   ],
   "remove": [
@@ -62,8 +75,7 @@
     "Reduces food wastage.",
     "Helps with bulk purchasing and better budgeting.",
     "Encourages wise food choices.",
-    "Similarities Among the Three Food Industries: Refer to pupils Book",
-    "Storage in Food Industries"
+    "Similarities Among the Three Food Industries: Refer to pupils Book"
   ],
   "setHeading": [
     {
@@ -127,6 +139,69 @@
     {
       "find": "when making condiments at home  .",
       "with": "when making condiments at home."
+    },
+    {
+      "find": "Special appreciation goes to Ms. Gwen Chewe, author of the Form 6 Learner’s Book, whose expertise in physical education pedagogy and curriculum design has laid a strong foundation for this publication. Her work, which blends academic excellence with practical application, will encourage learners to embrace physical activity as part of their daily lives.  ",
+      "with": "Special recognition is extended to the author Dr. Rabecca Kayumba, whose dedication and commitment ensured that the content is both rigorous and engaging. "
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Present Your Findings: Create a single-page poster.",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Present Your Findings: Create a single-page poster.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "v."
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Tips: ",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "Food industries are businesses that process, preserve, package and distribute food for consumers. Examples include milling, dairy, meat, beverage, bakery and fruit-processing industries. They use raw materials such as maize, milk, fruits, vegetables and meat to produce safe and convenient food products. Food industries create employment, add value to local agricultural products and contribute to economic development.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Individual Activity:",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Individual Activity:",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "2."
+          }
+        }
+      ]
     }
   ]
 }
