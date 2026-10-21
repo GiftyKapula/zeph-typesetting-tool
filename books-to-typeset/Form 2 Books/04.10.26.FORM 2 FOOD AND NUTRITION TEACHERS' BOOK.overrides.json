@@ -1,0 +1,110 @@
+{
+  "edit": [
+    {
+      "find": "Analysing the Process of Purchasing of Food",
+      "with": "Analysing the Purchasing of Food"
+    },
+    {
+      "find": "Sub-Topic 2.5.1: Food Labelling",
+      "with": "Sub-Topic 2.5.2: Food Labelling"
+    },
+    {
+      "find": "LEARNING ACTIVITY 5: Practising food purchasing",
+      "with": "LEARNING ACTIVITY 4: Practising food purchasing"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Using different types of condiments",
+      "with": "LEARNING ACTIVITY 3: Using different types of condiments"
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "Uses of Sauces",
+      "with": "Analysing the Uses of Sauces"
+    }
+  ],
+  "removeWhereNext": [
+    {
+      "find": "Analysing the Process of Purchasing of Food",
+      "next": "Purchasing food is a complex"
+    },
+    {
+      "find": "Interpreting Recipe Instruction",
+      "next": "Table 3: Standard Recipe"
+    }
+  ],
+  "removeRange": [
+    {
+      "from": "Comparing Methods of Purchasing Food",
+      "to": "When purchasing food, consumers",
+      "after": "Distance and transport availability"
+    },
+    {
+      "from": "Sub-Topic 2.7.3: Sauces",
+      "to": "Sub-Topic 2.7.3: Sauces",
+      "after": "Methods of Serving Soups Refer to notes in pupils book"
+    },
+    {
+      "from": "Sub-Topic 2.8.2: Preparing Meals",
+      "to": "Preparing Meals Using Convenience Foods"
+    }
+  ],
+  "remove": [
+    "Importance of making a Shopping Plan",
+    "Prevents impulse buying.",
+    "Helps control food expenses.",
+    "Saves time and energy.",
+    "Ensures balanced meals are provided.",
+    "Reduces food wastage.",
+    "Helps with bulk purchasing and better budgeting.",
+    "Encourages wise food choices.",
+    "Similarities Among the Three Food Industries: Refer to pupils Book",
+    "Storage in Food Industries"
+  ],
+  "setHeading": [
+    {
+      "find": "PIC 2.8: CONVENIENCE FOODS",
+      "text": "TOPIC 2.8: CONVENIENCE FOODS",
+      "as": "h1"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "Convenience foods are foods that have been prepared, partly prepared, preserved, or packaged to"
+    }
+  ],
+  "fixExercise": [
+    {
+      "match": "EXERCISE 1",
+      "near": "Demonstrate the functional role of condiments",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "Functional Role of Condiments in Culinary Preparation",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE.",
+      "near": "Definition of Gravy",
+      "heading": "EXERCISE 1"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "Improves Plate Value and Prices",
+      "marker": "•",
+      "depth": 0
+    }
+  ],
+  "subtext": [
+    {
+      "from": "chicken Grav,",
+      "to": "Chicken Gravy,"
+    },
+    {
+      "from": "Poultry Grave,",
+      "to": "Poultry Gravy,"
+    }
+  ]
+}

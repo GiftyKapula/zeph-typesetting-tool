@@ -275,7 +275,11 @@ function boxKindFromTitle(t) {
   // the PRECEDING activity box — Activity 4 of the Literature in English Form 1
   // Learner's Book printed as the last question of Activity 3, its own questions with
   // it, while every other activity in the book stood in its own framed box.
-  if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|$)/i.test(s) || /^ACTIVITY\s*:?\s*\d/i.test(s)) return "exercise";
+  // A bare label closed with a full stop and nothing after it ("EXERCISE.") is the same
+  // number-dropped label: the Food and Nutrition Form 2 Teacher's Guide heads its gravy
+  // Expected Answers that way, and the whole box (twenty paragraphs) never printed.
+  // Only a lone stop qualifies, so "Exercise. Moving your body…" stays prose.
+  if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|\.\s*$|$)/i.test(s) || /^ACTIVITY\s*:?\s*\d/i.test(s)) return "exercise";
   if (/^(U?Mulimo|Mwingilo|Zocitila|Zoc[hk]?ita|Zakueza|Mudimu)\b/i.test(s)) return "exercise";
   // --- Key points / Did you know ---
   if (/^(KEY POINTS|Key Points to Remember|Mau ofunika kudziwa)/i.test(s)) return "keypoints";
@@ -312,6 +316,7 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
   // so only a depth-0 </w:drawing> ends a match, the same technique the main
   // paragraph splitter uses for a floating picture nested inside a paragraph.
   const drawingSpans = [];
+  let lastBox = null;   // the box most recently emitted: { idx in out, end of its drawing }
   {
     const tokRe = /<w:drawing\b[^>]*>|<\/w:drawing>/g;
     let tm, depth = 0, start = -1;
@@ -379,8 +384,17 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       // to recover it later, since paraSegs never captures <w:drawing> content.
       .filter((p) => p.isTable || p.segs.some((s) => (s.t || "").trim()) || /<w:drawing\b/.test(p.xml));
     if (!paras.length || paras[0].isTable) continue;   // a title-less box (table first) — leave it
-    const title = plainOf(paras[0].segs).trim();
-    const kind = boxKindFromTitle(title);
+    let title = plainOf(paras[0].segs).trim();
+    let kind = boxKindFromTitle(title);
+    // A box that opens on a numbered PART rather than a label ("iii. How the Skill
+    // Benefits a Small Restaurant in Lusaka") and stands directly after a box the
+    // importer did name, with no text of the page between them, is that box run on: the
+    // writer ran out of room and drew a second text box under the first. The Food and
+    // Nutrition Form 2 Teacher's Guide splits EXERCISE 4's Expected Answers this way,
+    // and part iii never printed. Its paragraphs join the box above instead.
+    const runOn = !kind && lastBox && /^\(?(?:[ivx]{1,5}|\d{1,2}|[a-h])[.)]\s+\S/i.test(title)
+      && !textIn(lastBox.end, spanStart) ? lastBox : null;
+    if (runOn) { kind = out[runOn.idx].kind; title = ""; }
     if (kind !== "activity" && kind !== "exercise" && kind !== "assessment") {
       // A shape carrying several paragraphs of real prose is not decoration. One line of
       // text is a label on a diagram; a title plus a body is a box whose label was not
@@ -405,19 +419,67 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     const numIdOf = (p) => (p.xml.match(/<w:numId\s+w:val="(\d+)"/) || [])[1];
     const numbered = (p) => hasListNumbering(p.xml);
     const fmtOf = (p) => { const numId = numIdOf(p); return numId ? ((levelInfo(numMap, numId, ilvlOf(p)) || {}).fmt || null) : null; };
-    const rest = paras.slice(1);
+    const rest = runOn ? paras : paras.slice(1);
     let topFmt = null;
     let auto = 0;   // fallback sequential counter when the numbering definition can't be found
+    // The Word-list item emitted last in this box, while nothing else has come between
+    // it and the next one. A writer who presses Enter twice, or pastes, ends one list and
+    // starts another on the very next line: the Food and Nutrition Form 2 Teacher's Guide
+    // has activity steps "Arrange the table correctly." on one numId and the two steps
+    // after it on another, which printed "i. / i. / ii.". A new list that picks up
+    // directly under an unfinished one at the same level and in the same format is the
+    // same list, so its count continues instead of restarting — unless the item above
+    // ends with a colon ("Arrange the following activities in the correct order:"),
+    // which introduces a sub-list whose own count rightly starts again.
+    // The colon case is the other half of the same signal: a NEW list opening right
+    // under "iv. Arrange the following activities in the correct order:" is that item's
+    // sub-list even when Word keeps it at the same level and format, so it is set one
+    // level in — otherwise its "i.–v." printed flush with the questions and the next
+    // question, "v.", appeared to repeat (Food and Nutrition Form 2 Teacher's Guide,
+    // EXERCISE 1 of Topic 2.1).
+    let prevItem = null;
+    const subIds = new Set();
+    // A deeper Word level than the box's first numbered item is a sub-level too, even in
+    // the same format: EXERCISE 3 of Topic 2.9 in the same book numbers its question
+    // "i." at level 0 and the foods under it "i) ii) iii)" at level 1, both lowerRoman.
+    let topIlvl = null;
     const nextMarker = (p) => {
       const numId = numIdOf(p), ilvl = ilvlOf(p), fmt = fmtOf(p);
       if (topFmt == null && fmt != null) topFmt = fmt;
-      const depth = fmt != null && topFmt != null && fmt !== topFmt ? 1 : 0;
+      if (topIlvl == null && numId) topIlvl = ilvl;
+      if (numId && prevItem && prevItem.colon && prevItem.numId !== numId && prevItem.ilvl === ilvl
+          && !subIds.has(prevItem.numId) && !(counts[numId] && counts[numId][ilvl] != null)) subIds.add(numId);
+      const depth = (fmt != null && topFmt != null && fmt !== topFmt) || subIds.has(numId)
+        || (numId && topIlvl != null && ilvl > topIlvl) ? 1 : 0;
+      if (numId && prevItem && prevItem.numId !== numId && prevItem.ilvl === ilvl && prevItem.fmt === fmt
+          && !prevItem.colon && fmt && fmt !== "bullet" && !(counts[numId] && counts[numId][ilvl] != null)) {
+        const c = counts[numId] || (counts[numId] = []);
+        c[ilvl] = counts[prevItem.numId][ilvl];
+      }
       const marker = numId ? computeListMarker(numMap, counts, numId, ilvl) : null;
+      prevItem = numId && marker ? { numId, ilvl, fmt, colon: /:\s*$/.test(plainOf(p.segs)) } : null;
       return { marker: marker || `${(auto += 1)}.`, depth };
     };
+    // A typed step number counts only the DECIMAL steps before it. Counting every list
+    // item made "2) Individual Activity" print as "5." when three Word-list sub-steps
+    // (i., ii., iii.) stood between it and "1)" — the pattern behind nine activities in
+    // the Food and Nutrition Form 2 Teacher's Guide. A sub-level item (a deeper Word
+    // level, or a format other than the box's first list) never counts, however it is
+    // numbered — "1. Serving utensils" under "classify the utensils into:" is not a step.
+    const isDecimal = (mk) => /^\(?\d+[.)]$/.test(String(mk || "").trim());
+    // The shape of a typed marker opening a lead line — "(" or not, roman / decimal /
+    // letter, "." or ")" — so two labels can be compared for style. A bare "i" counts as
+    // roman, which is how it is used at the head of an answer section.
+    const leadStyle = (t) => {
+      const m = String(t || "").match(/^\s*(\(?)([ivx]{1,5}|\d{1,2}|[a-z])([.)])\s+\S/i);
+      if (!m) return null;
+      return m[1] + (/^\d/.test(m[2]) ? "n" : /^[ivx]+$/i.test(m[2]) ? "r" : "a") + m[3];
+    };
+    let groupStyle = null;
     const body = [], parts = [];
     for (const p of rest) {
       if (p.isTable) {
+        prevItem = null;
         if (kind === "activity") body.push({ t: "table", rows: p.rows });
         else parts.push({ kind: "table", rows: p.rows });
         continue;
@@ -439,7 +501,11 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       // A marker the writer TYPED at the head of the paragraph, shared by both branches
       // below — `litSegs()` returns the runs with that marker taken off, so the renderer
       // can draw it in the gutter instead of leaving it inline as body text.
-      const litAll = numbered(p) ? null : plainOf(p.segs).match(/^\s*\(?(\d{1,2})[.)]\s+(?=\S)/);
+      // The space after the number is sometimes missing — "1)You have been asked to set a
+      // table…", "2)Distinguish between…" in the Food and Nutrition Form 2 Teacher's Guide —
+      // and that is still a typed marker when a capital opens the text straight after it
+      // (a measurement such as "1.5 kg" never qualifies).
+      const litAll = numbered(p) ? null : plainOf(p.segs).match(/^\s*\(?(\d{1,2})[.)](?:\s+(?=\S)|(?=[A-Z]))/);
       const litSegs = () => {
         let left = litAll[0].length;
         const outSegs = [];
@@ -451,7 +517,7 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
         return outSegs;
       };
       if (kind === "activity") {
-        if (numbered(p)) { const { marker } = nextMarker(p); body.push({ t: "listitem", segs: p.segs, marker }); }
+        if (numbered(p)) { const { marker, depth } = nextMarker(p); body.push({ t: "listitem", segs: p.segs, marker, ...(depth || ilvlOf(p) ? { sub: true } : {}) }); }
         // An activity's steps are typed as literal numbers just as often as an
         // exercise's questions are, and were landing here as plain paragraphs for the
         // same reason — LEARNING ACTIVITY 4 on printed page 16 of the Food and
@@ -459,9 +525,10 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
         // indent while the activity three pages earlier hung properly.
         else if (litAll) {
           body.push({ t: "listitem", segs: litSegs(),
-            marker: `${body.filter((x) => x.t === "listitem").length + 1}.` });
+            marker: `${body.filter((x) => x.t === "listitem" && !x.sub && isDecimal(x.marker)).length + 1}.` });
+          prevItem = null;
         }
-        else body.push({ t: "para", segs: p.segs });
+        else { body.push({ t: "para", segs: p.segs }); prevItem = null; }
       } else {
         const q = plainOf(p.segs);
         // A marker the writer TYPED into the text ("1. ", "2) ", "(3) ") is as much a
@@ -487,7 +554,8 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
           // normalisation the main path applies, so a block always reads 1..N even
           // where the writer's own numbers skip or restart.
           parts.push({ kind: "q", q: q.slice(litAll[0].length), qseg: litSegs(), a: "", aseg: [],
-            marker: `${parts.filter((x) => x.kind === "q").length + 1}.`, depth: 0 });
+            marker: `${parts.filter((x) => x.kind === "q" && !x.depth && isDecimal(x.marker)).length + 1}.`, depth: 0 });
+          prevItem = null;
         }
         // An unnumbered line that FOLLOWS a numbered question is a continuation of it
         // (the next line of a worked solution, "= 250 × 12", or a lettered sub-part the
@@ -499,12 +567,36 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
         // (b) aligns with (a)", "the equal signs … not directly under 1 but under W").
         // …except a section divider, which opens a new group rather than continuing
         // the question above it — see isSectionDivider().
-        else parts.push({ kind: "lead", q, qseg: p.segs,
-          indent: parts.some((x) => x.kind === "q") && !isSectionDivider(q) });
+        // …and except a SIBLING of the box's first lead line. An Expected Answers box is
+        // usually built as typed section labels — "i. Definition of Gravy", "ii. Five
+        // Functions of Warm Gravy", "iii. …" — each over a run of bulleted answers. The
+        // first label comes before any bullet and sits flush; every later one used to be
+        // read as a continuation of the bullet above it and indented, so i. and ii. stood
+        // at different left edges in nearly every answer box of the Food and Nutrition
+        // Form 2 Teacher's Guide. A lead typed in the SAME marker style as that first
+        // label is another label, not a continuation, and stays flush with it. A box
+        // whose first marked lead comes after a question (the "a)… b)… i)…" sub-parts
+        // of a question) has no such label, so its sub-parts keep their indent.
+        else {
+          const st = leadStyle(q);
+          if (st && groupStyle == null && !parts.some((x) => x.kind === "q")) groupStyle = st;
+          parts.push({ kind: "lead", q, qseg: p.segs,
+            indent: parts.some((x) => x.kind === "q") && !isSectionDivider(q) && !(st && st === groupStyle) });
+          prevItem = null;
+        }
       }
+    }
+    if (runOn) {
+      const host = out[runOn.idx];
+      if (host.kind === "activity") host.body.push(...body); else host.parts.push(...parts);
+      result += rawDoc.slice(last, spanStart);
+      last = spanEnd;
+      lastBox = { idx: runOn.idx, end: spanEnd };
+      continue;
     }
     const idx = out.length;
     out.push(kind === "activity" ? { kind, title, body } : { kind, title, parts });
+    lastBox = { idx, end: spanEnd };
     // Give the sentinel its OWN paragraph — close whatever paragraph is open, emit a
     // minimal <w:p> holding just the sentinel run, then reopen a fresh paragraph for
     // anything that follows. A box's host paragraph often ALSO carries real body text
