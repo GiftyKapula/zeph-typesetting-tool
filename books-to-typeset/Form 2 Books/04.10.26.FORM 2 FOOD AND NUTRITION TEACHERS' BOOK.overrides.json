@@ -31,6 +31,10 @@
     {
       "find": "Interpreting Recipe Instruction",
       "next": "Table 3: Standard Recipe"
+    },
+    {
+      "find": "In this subtopic, you will learn to",
+      "next": "2.4.2.1"
     }
   ],
   "removeRange": [
@@ -105,6 +109,24 @@
     {
       "from": "Poultry Grave,",
       "to": "Poultry Gravy,"
+    }
+  ],
+  "textFix": [
+    {
+      "find": "this Form 2 Food and Nutrition Learner’s Book",
+      "with": "this Form 2 Food and Nutrition Teacher’s Guide"
+    },
+    {
+      "find": "DESRIPTIONS",
+      "with": "DESCRIPTIONS"
+    },
+    {
+      "find": "a time plane for",
+      "with": "a time plan for"
+    },
+    {
+      "find": "when making condiments at home  .",
+      "with": "when making condiments at home."
     }
   ]
 }

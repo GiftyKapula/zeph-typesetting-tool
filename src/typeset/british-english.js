@@ -378,6 +378,21 @@ function fixProse(text) {
     hits.push(`"${c} ${p}" -> "${c}${p}"`);
     return c + p;
   });
+  //   A SENTENCE GLUED TO THE NEXT. "…without rushing.It prevents…", "…for a balanced
+  //   diet.Cost / Money available…", "…successfully:It helps…" (Food and Nutrition Form 2
+  //   Teacher's Guide). Two or more lower-case letters, the stop or colon, then a
+  //   capitalised word: abbreviations ("e.g.", "i.e."), decimals, times ("10:30") and
+  //   lower-case web addresses cannot match, so the missing space is the only reading.
+  //   A FULL STOP TYPED TWICE. "…shelf life and handling requirements..", "Explain
+  //   reason for the choice..", "i.. Saves time" — never an ellipsis, which is three.
+  out = out.replace(/([A-Za-z])\.\.(?!\.)/g, (m, c) => {
+    hits.push(`"${c}.." -> "${c}."`);
+    return `${c}.`;
+  });
+  out = out.replace(/([a-z]{2,})([.:])([A-Z][a-z]+)/g, (m, w, p, nx) => {
+    hits.push(`"${w}${p}${nx}" -> "${w}${p} ${nx}"`);
+    return `${w}${p} ${nx}`;
+  });
   return { text: out, hits };
 }
 
