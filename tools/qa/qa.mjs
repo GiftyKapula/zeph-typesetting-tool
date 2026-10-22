@@ -60,6 +60,12 @@ async function manuscript(docx) {
   const zip = await JSZip.loadAsync(fs.readFileSync(docx));
   let xml = await zip.file("word/document.xml").async("string");
   xml = xml.replace(/<mc:Fallback>[\s\S]*?<\/mc:Fallback>/g, "");
+  // a manuscript converted from a PDF keeps the PDF's comment notes as text boxes
+  // ("muson 2026-09-13 08:52:49 ---- REPLACE …"): reviewer notes, not book text
+  xml = xml.replace(/<w:txbxContent>[\s\S]*?<\/w:txbxContent>/g, (m) => {
+    const t = [...m.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("").trim();
+    return /^.{0,40}?\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\s*-{5,}/s.test(t) ? "" : m;
+  });
   const paras = xml.split(/<\/w:p>/);
   const text = [];
   for (const p of paras) {
@@ -208,6 +214,20 @@ export async function qa(docx, opts = {}) {
     const txt = it.map((x) => x.s).join(" ").replace(/~\s*[0-9ivxlc]+\s*~/gi, " ");
     const ph = txt.match(/\b(INSERT\s+(A\s+)?(PICTURE|PICTUERE|ANSWERS?|IMAGE|PHOTO|TABLE|DIAGRAM|TEXT)|PUT\s+A\s+[A-Z ]*PICTURE|PICTURE\s+HERE|TO\s?DO|XXX+|lorem ipsum)\b/i);
     if (ph) blockers.push(`p${pg.pn || `sheet ${pg.i}`}: placeholder "${ph[0]}"`);
+    // the copyright page is one alignment throughout: a converted manuscript set its labels
+    // as left-aligned headings, the names centred and one address line flush left
+    if (/all rights reserved/i.test(txt)) {
+      const L = lines(pg).filter((l) => l.y < pg.H * 0.9).map((l) => ({ x0: Math.min(...l.items.map((x) => x.x0)), x1: Math.max(...l.items.map((x) => x.x1)) }));
+      const lo = Math.min(...L.map((l) => l.x0)), hi = Math.max(...L.map((l) => l.x1));
+      const short = L.filter((l) => l.x1 - l.x0 < (hi - lo) * 0.85);
+      // the page's centre line: the most common centre of its short lines
+      const tally = new Map();
+      for (const l of short) { const c = Math.round((l.x0 + l.x1) / 4) * 2; tally.set(c, (tally.get(c) || 0) + 1); }
+      const mid = [...tally].sort((a, b) => b[1] - a[1])[0]?.[0] ?? (lo + hi) / 2;
+      const centred = short.filter((l) => Math.abs((l.x0 + l.x1) / 2 - mid) < 4).length;
+      const left = short.filter((l) => Math.abs(l.x0 - lo) < 3 && Math.abs((l.x0 + l.x1) / 2 - mid) >= 4).length;
+      if (centred >= 2 && left >= 1) blockers.push(`copyright page: ${left} line(s) flush left among ${centred} centred (set it with "imprint")`);
+    }
     // pages without a page number (cover, title page, blank verso) are designed pages,
     // not text flow — the layout checks below are for the numbered pages
     if (!pg.pn) continue;

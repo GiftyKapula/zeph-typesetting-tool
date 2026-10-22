@@ -853,7 +853,8 @@ function applyOverrides(blocks, ov) {
     // added) still force every seg, so existing plain-string callers render unchanged.
     const segsFor = (tx) => mkSegs(tx).map((s) => ({ ...s, ...(it.bold ? { b: true } : {}), ...(it.italic ? { it: true } : {}) }));
     // (as: "unit" — a unit banner the import lost, e.g. one glued to the typed contents list)
-    const mkBlks = () => texts.map((tx, idx) => it.as === "unit"
+    // (`items`: blockspecs as in replaceRange — a whole new exercise a reviewer asked to add)
+    const mkBlks = () => it.items ? it.items.map(mkBlock).filter(Boolean) : texts.map((tx, idx) => it.as === "unit"
       ? { t: "h1", text: tx, top: true }
       : it.as === "section"
       ? { t: "head", text: tx, styleSection: true, noPromote: true }

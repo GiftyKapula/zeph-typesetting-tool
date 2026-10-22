@@ -323,6 +323,9 @@ const THEMES = {
   // Grade 3 Mathematics and Science — a cheerful primary-school ZEPH theme in a
   // bright, friendly BLUE with a sunny amber accent (distinct from English's orange
   // and CTS's turquoise), sharing the playful "grade3" cover + header layout.
+  // Primary-school Technology Studies (Grade 4-7) in the ZEPH series: title page, series
+  // page numbers, a deep indigo with a tangerine accent (the older "tech" theme is not a series book)
+  techstudies: { ...zeph({ subject: "Technology Studies", level: "Primary Education Level", signature: "e3e6f7", primary: "34429a", primary2: "5566c4", accent: "ff9e2c", cyan: "3a8fc4" }), boxActivities: true, hyphenate: false, qgap: "1.5pt" },
   mathsci: { ...zeph({ subject: "Mathematics and Science", level: "Primary Education Level", signature: "d5e8f7", primary: "1f6fb5", primary2: "3f92d0", accent: "ff9e2c", cyan: "2bb3c0", coverStyle: "grade3" }), boxActivities: true, hyphenate: false, qgap: "1.5pt" },
   // Grade 6 Home Economics — a cheerful primary-school ZEPH theme in a warm
   // terracotta with a fresh sage-green accent (a kitchen/textiles palette,

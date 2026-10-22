@@ -114,6 +114,24 @@ function boxifyActivities(blocks, opts = {}) {
   // is swallowed into the previous exercise's box and reads as "missing".
   const LESSONBANNER = /^.+?:\s*LESSON\s+\d+\s*$/i;
   const isLessonBanner = (b) => LESSONBANNER.test(blockPlain(b).trim());
+  // `rebox` (per-book): the importer's own exercise boxes ran past their end and took in
+  // the next sub-topic (its competence lines). Lay every one out flat again as heading +
+  // lines, so the box is rebuilt here with the section-end rules below.
+  if (opts.rebox) blocks = blocks.flatMap((b) => {
+    if (!b || b.t !== "exercise" || typeof b.heading !== "string") return [b];
+    const out = [{ t: "head", text: b.heading }];
+    const para = (segs) => ({ t: "para", segs });
+    for (const s of b.intro || []) out.push(para([{ t: s, b: false, it: false, c: null }]));
+    for (const p of b.parts || []) {
+      const segs = p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }];
+      if (p.kind === "q") out.push({ t: "listitem", segs, marker: p.marker || "•" });
+      else if (p.kind === "lead") out.push(para(segs));
+      else if (p.kind === "table") out.push({ t: "table", rows: p.rows });
+      else if (p.kind === "image") out.push({ t: "imagerow", images: p.images });
+    }
+    for (const s of b.extra || []) out.push(para([{ t: s, b: false, it: false, c: null }]));
+    return out;
+  });
   const out = [];
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
@@ -175,6 +193,12 @@ function boxifyActivities(blocks, opts = {}) {
         && (y.t === "h2" || y.t === "h3" || isHead(y)
           || ((y.t === "para" || y.t === "listitem") && (y.segs || []).some((s) => s.b)));
       if (altActPending && !isHead(y)) { body.push(y); j++; altActDone = true; break; }
+      // `leadsOut` (per-book): the teacher's lead-in to the NEXT activity ("Introduce e-waste
+      // using real examples…", "Guide learners to…") sits right after an exercise's last
+      // answer; it opens the next activity, so it ends the exercise box instead of closing it
+      if (opts.leadsOut && k === "ex" && body.length && y.t === "para"
+        && /^(Introduce|Guide|Encourage|Demonstrate|Emphasi[sz]e|Reinforce|Highlight|Conclude|Summari[sz]e)\b/.test(blockPlain(y).trim())
+        && blocks[j + 1] && (isHead(blocks[j + 1]) || blocks[j + 1].t === "activity") && (blocks[j + 1].t === "activity" || kindOf(ht(blocks[j + 1])))) break;
       if (!passageHead && !leadAbsorb && !phaseHead && !altActHead) {
         if (y.t === "h1" || y.t === "h2" || y.t === "h3") break;     // topic / sub-topic / sub-sub-heading
         if (isHead(y)) {

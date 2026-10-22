@@ -1773,6 +1773,18 @@
     // in Word — a proportional font can't hold the columns the manuscript relied on)
     // renders through raw() so every space keeps its exact fixed-width position.
     if s.at("mono", default: false) {
+      // a whole drawing (several lines) is one unbreakable block: no justification, every
+      // leading space kept, never split across a page
+      // (lines set by hand in a fixed-width font, spaces made non-breaking: a raw block
+      // renders nothing with the fonts the compiler has)
+      if src.contains("\n") {
+        return block(breakable: false, above: 0.6em, below: 0.6em)[
+          #set text(font: ("Consolas", "Courier New", "DejaVu Sans Mono"), size: 0.9em)
+          #set par(justify: false, leading: 0.35em)
+          // (U+E000 = a space the drawing's author typed: kept safe from whitespace clean-ups)
+          #src.split("\n").map(l => [#l.replace(" ", "\u{00A0}").replace("\u{E000}", "\u{00A0}")]).join(linebreak())
+        ]
+      }
       return if s.c == none { raw(src) } else { text(fill: rgb("#" + s.c))[#raw(src)] }
     }
     // a run rendered in the theme handwriting font (e.g. tracing exercises)
@@ -1821,7 +1833,8 @@
 // blank. Contiguous inline segments stay in a paragraph. Shared by every text path
 // (body paragraphs, box bodies, exercise/assessment questions).
 #let flowsegs(ss) = {
-  let isdisp(s) = s.at("m", default: false) and s.at("display", default: false)
+  // (a multi-line monospace drawing is a block too: a block inside par[] is dropped)
+  let isdisp(s) = (s.at("m", default: false) and s.at("display", default: false)) or (s.at("mono", default: false) and s.t.contains("\n"))
   if ss.any(isdisp) {
     let buf = ()
     for s in ss {

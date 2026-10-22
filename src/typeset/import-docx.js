@@ -2054,6 +2054,49 @@ async function importDocx(docxPath, opts = {}) {
       }
     }
   }
+  // opts.unwrapTextboxes: a manuscript CONVERTED FROM A PDF (ilovepdf, Word reflow) puts
+  // whatever it could not flow — an answer, a box, a side note — in a floating text box,
+  // which is stripped below and lost. Each text box (not a picture) gives its paragraphs
+  // back to the text flow, right after the paragraph that anchors it.
+  if (opts.unwrapTextboxes) {
+    const held = []; let n = 0, notes = 0;
+    // the whole element from `at`, nesting counted (a group of shapes, a box inside a box)
+    const span = (s, at, tag) => {
+      const re = new RegExp(`<${tag}[\\s>]|</${tag}>`, "g"); re.lastIndex = at; let depth = 0, m;
+      while ((m = re.exec(s))) { depth += m[0][1] === "/" ? -1 : 1; if (!depth) return re.lastIndex; }
+      return s.length;
+    };
+    // every text box's paragraphs, outermost boxes only (inner boxes ride along inside them)
+    const boxes = (s) => {
+      const out = []; const re = /<w:txbxContent>/g; let m;
+      while ((m = re.exec(s))) { const e = span(s, m.index, "w:txbxContent"); out.push(s.slice(m.index + 15, e - 16)); re.lastIndex = e; }
+      return out;
+    };
+    let out = "", i = 0;
+    for (;;) {
+      const re = /<mc:AlternateContent>|<w:pict>/g; re.lastIndex = i;
+      const m = re.exec(rawDoc); if (!m) break;
+      const tag = m[0] === "<w:pict>" ? "w:pict" : "mc:AlternateContent";
+      const e = span(rawDoc, m.index, tag), el = rawDoc.slice(m.index, e);
+      // the Choice (DrawingML) only: its Fallback repeats the same text as VML
+      const body = tag === "w:pict" ? el : (el.match(/<mc:Choice\b[\s\S]*?<\/mc:Choice>/) || [el])[0];
+      const inner = /<w:txbxContent>/.test(body) && !/<a:blip\b|<v:imagedata\b/.test(el) ? boxes(body).filter((x) => /<w:t[\s>]/.test(x)) : null;
+      out += rawDoc.slice(i, m.index);
+      // a PDF comment's pop-up note ("2026-09-11 21:12:36 / ---- / Include …") came across
+      // as a text box too: it is a reviewer's note, not book text, so it goes
+      const txt = (s) => [...s.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("").trim();
+      // (the reviewer's name may come first: "muson 2026-09-13 08:52:49 ----")
+      if (inner && inner.length && inner.every((x) => /^.{0,40}?\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\s*-{5,}/s.test(txt(x)))) { notes++; i = e; continue; }
+      if (inner) { n += inner.length; held.push(inner.join("")); out += `<!--TXBX${held.length - 1}-->`; }
+      else out += el;
+      i = e;
+    }
+    rawDoc = out + rawDoc.slice(i);
+    rawDoc = rawDoc.replace(/(<w:p\b(?:(?!<\/w:p>)[\s\S])*?<!--TXBX\d+-->[\s\S]*?<\/w:p>)/g, (host) =>
+      host + [...host.matchAll(/<!--TXBX(\d+)-->/g)].map((x) => held[+x[1]]).join(""));
+    rawDoc = rawDoc.replace(/<!--TXBX\d+-->/g, "");
+    if (n || notes) console.log(`   unwrapTextboxes: ${n} text box(es) returned to the text flow, ${notes} PDF comment note(s) dropped`);
+  }
   // opts.textboxHeadings: the author drew a section title as a SHAPE with text (an arrow
   // or banner text box: "MAU OYAMBA", "ZOTHOKOZA"…). Text boxes are stripped below, which
   // dropped every such title. A text box holding just one short line becomes a bold run in
@@ -2985,9 +3028,12 @@ async function importDocx(docxPath, opts = {}) {
     // inconsistently for ordinary in-topic sub-headings too. Handle it explicitly
     // here, before that general rule can fold a genuine section down to a plain
     // sub-head just because its wording happens to be short and plain-sentenced.
+    // (front matter only before the first topic: inside a topic, a styled "Introduction" or
+    // "Key Competences:" is the topic's own sub-heading, not a new section on its own page)
     if (hasNumberedTopics && flat && hmap[styleOf(x)]) {
       const plainFM = plainOf(segs).trim();
-      if (plainFM && (FM_SECTION.test(plainFM) || BACKMATTER_NAME.test(plainFM))) {
+      const inTopic = FM_SECTION.test(plainFM) && blocks.some((b) => b.t === "h1" && /^(TOPIC|UNIT|CHAPTER)\s*\d/i.test(b.text || ""));
+      if (plainFM && !inTopic && (FM_SECTION.test(plainFM) || BACKMATTER_NAME.test(plainFM))) {
         blocks.push({ t: "h1", text: plainFM });
         continue;
       }

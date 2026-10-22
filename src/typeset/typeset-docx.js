@@ -107,7 +107,8 @@ async function typesetOne(docxPath, themeName) {
   importOpts.noSideFigures = !!ov.noSideFigures;
   importOpts.colonHeadings = !!ov.colonHeadings;   // "TOPIC: 1.5 …" headings (see import-docx.js)
   importOpts.sourceFix = ov.sourceFix || [];          // fix manuscript text before recognition
-  importOpts.textboxHeadings = !!ov.textboxHeadings;   // a short title line in a Word text box becomes a heading
+  importOpts.textboxHeadings = !!ov.textboxHeadings;
+  importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;   // a manuscript converted from a PDF: text boxes rejoin the text flow   // a short title line in a Word text box becomes a heading
   importOpts.flattenBorderless = !!ov.flattenBorderless;   // a table with no lines in Word is set as plain text
   importOpts.tabGap = !!ov.glossaryColumns;           // a single tab still separates two glossary columns
   importOpts.exerciseBullets = !!ov.exerciseBullets; // keep Word bullets inside exercises as bullets
@@ -414,6 +415,10 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
+  // ZEPH_BLOCKS=<file>: one line per block as the overrides will see it (index, type, text),
+  // for writing anchors (`from`/`to`/`find`) against a manuscript we did not author
+  if (process.env.ZEPH_BLOCKS) fs.writeFileSync(process.env.ZEPH_BLOCKS, blocks.map((b, i) => `${i}\t${b.t}\t${blockPlain(b).replace(/\s+/g, " ").slice(0, 160)}`).join("\n"));
+
   if (ov.fill || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange) { applyOverrides(blocks, ov); }
   // glossaryColon: true — in the glossary, a term is followed by a colon, not the hyphen
   // the author typed: "Bacikombo- Caamba bamukowa" -> "Bacikombo: Caamba bamukowa".
@@ -597,7 +602,7 @@ async function typesetOne(docxPath, themeName) {
   // by the theme-colour greying below); `blackWhite: false` opts a rare TG back out.
   const wantsBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBookName(base));
   if (wantsBlackWhite) clearAllInlineColor(blocks);
-  const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [] };
+  const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [], rebox: !!ov.reboxExercises, leadsOut: !!ov.exerciseLeadsOut };
   // Unlike the rest of proofPolish()'s lesson-field normalisation, "General/Specific
   // Competence(s)" case is a house-style rule for every book, not just the boxActivities
   // ones — see normaliseCompetenceLabels() above.
