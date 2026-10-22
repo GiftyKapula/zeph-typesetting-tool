@@ -323,6 +323,9 @@ const THEMES = {
   // Grade 3 Mathematics and Science — a cheerful primary-school ZEPH theme in a
   // bright, friendly BLUE with a sunny amber accent (distinct from English's orange
   // and CTS's turquoise), sharing the playful "grade3" cover + header layout.
+  // Primary-school Technology Studies (Grade 4-7) in the ZEPH series: title page, series
+  // page numbers, a deep indigo with a tangerine accent (the older "tech" theme is not a series book)
+  techstudies: { ...zeph({ subject: "Technology Studies", level: "Primary Education Level", signature: "e3e6f7", primary: "34429a", primary2: "5566c4", accent: "ff9e2c", cyan: "3a8fc4" }), boxActivities: true, hyphenate: false, qgap: "1.5pt" },
   mathsci: { ...zeph({ subject: "Mathematics and Science", level: "Primary Education Level", signature: "d5e8f7", primary: "1f6fb5", primary2: "3f92d0", accent: "ff9e2c", cyan: "2bb3c0", coverStyle: "grade3" }), boxActivities: true, hyphenate: false, qgap: "1.5pt" },
   // Grade 6 Home Economics — a cheerful primary-school ZEPH theme in a warm
   // terracotta with a fresh sage-green accent (a kitchen/textiles palette,
@@ -420,6 +423,8 @@ function themeTypst(theme, overrides = {}) {
   paper: "${t.paper || "a4"}", landscape: ${t.landscape ? "true" : "false"}, bodySize: ${t.bodySize || "12pt"}, hMain: ${t.hMain || "none"}, hSub: ${t.hSub || "none"}, ink: ${c(t.ink)}, motif: ${q(t.motif || "atom")},
   year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
   subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"}, boxStripe: ${t.boxStripe === false ? "false" : "true"}, capSize: ${t.capSize || "none"},
+
+  authorsWord: ${q(t.authorsWord || "")}, printedBy: ${q(t.printedBy || "")},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
   labels: (${Object.entries(t.labels || {}).map(([k, v]) => `${k}: ${q(v)}`).join(", ")}${Object.keys(t.labels || {}).length ? "" : ":"}),
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
@@ -427,7 +432,7 @@ function themeTypst(theme, overrides = {}) {
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},
   tocUnitsOnly: ${t.tocUnitsOnly ? "true" : "false"}, coverStyle: ${q(t.coverStyle || "")}, boxStyle: ${q(t.boxStyle || "")}, tocDepth: ${t.tocDepth || 2}, mono: ${t.mono ? "true" : "false"},
   ${t.tableSize ? `tableSize: ${t.tableSize},\n  ` : ""}
-  ${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
+  ${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.keepBoxMm ? `keepBoxMm: ${t.keepBoxMm},\n  ` : ""}${t.keepTableMm ? `keepTableMm: ${t.keepTableMm},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
 )\n`;
 }
 

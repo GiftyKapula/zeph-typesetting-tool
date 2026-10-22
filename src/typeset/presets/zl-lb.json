@@ -1,0 +1,7 @@
+{
+  "_note": "Zambian-language Learner's Book house settings: colour interior, covers as page 1, no box stripe, indented lists, colon after heading numbers.",
+  "coversInBook": true,
+  "boxStripe": false,
+  "indentLists": true,
+  "colonAfterNumber": true
+}
