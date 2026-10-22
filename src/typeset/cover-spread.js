@@ -24,7 +24,7 @@ const spineWidthMm = (interior, override) =>
 
 // Returns null when the book is too thin for a spine (nothing written), otherwise
 // { interior, width, outPath }.
-async function writeCoverSpread({ pdf, compiler, prefix, lines, logo, spineWidth, fieldHex, outPath }) {
+async function writeCoverSpread({ pdf, compiler, prefix, lines, logo, spineWidth, fieldHex, outPath, bookOutPath }) {
   const book = await PDFDocument.load(pdf);
   const total = book.getPageCount();
   const interior = interiorPages(total);
@@ -51,7 +51,25 @@ async function writeCoverSpread({ pdf, compiler, prefix, lines, logo, spineWidth
   page.drawPage(front, { x: W + S, y: 0, width: W, height: H });
   out.setTitle(`${book.getTitle() || ""} - cover spread`.trim());
   fs.writeFileSync(outPath, await out.save());
-  return { interior, width, outPath };
+  // The book as ONE file for the printer (user, 2026-10-22: "the cover spread is
+  // separate from the book, don't separate them, they should be one thing"): the spread
+  // as page 1, then the interior from the title page on — the separate front and back
+  // cover pages are already on the spread — and a blank leaf at the end when the
+  // interior runs to an odd number of pages. The same layout as the Food and Nutrition
+  // Form 2 Teacher's Guide copy that came back from proofreading.
+  let withCoverPath = null;
+  if (bookOutPath) {
+    const one = await PDFDocument.create();
+    const [spreadCopy] = await one.copyPages(out, [0]);
+    one.addPage(spreadCopy);
+    const inner = await one.copyPages(book, Array.from({ length: interior }, (_, i) => i + 1));
+    for (const p of inner) one.addPage(p);
+    if (interior % 2) one.addPage([W, H]);
+    one.setTitle(book.getTitle() || "");
+    fs.writeFileSync(bookOutPath, await one.save());
+    withCoverPath = bookOutPath;
+  }
+  return { interior, width, outPath, withCoverPath };
 }
 
 module.exports = { writeCoverSpread, SPINE_FROM, spineWidthMm, interiorPages };

@@ -7964,15 +7964,17 @@ function normaliseQuestionMarkBold(blocks) {
   const backBlk = blocks.find((b) => b.t === "backcover");
   if (variant !== "syllabus" && coverBlk && backBlk) {
     const spreadPath = path.join(bookDir, `${base} - cover spread.pdf`);
+    // …and the book in ONE file with that spread as its first page — what is delivered.
+    const withCoverPath = path.join(bookDir, `${base} - with cover spread.pdf`);
     try {
       const r = await require("./cover-spread.js").writeCoverSpread({
         pdf: Buffer.from(pdf), compiler, prefix: `${themeTypst(theme, themeOverrides)}${tmpl}`,
         lines: backBlk.lines || coverBlk.lines || [], logo: backBlk.logo || null,
-        spineWidth: ov.spineWidth, outPath: spreadPath,
+        spineWidth: ov.spineWidth, outPath: spreadPath, bookOutPath: withCoverPath,
         fieldHex: String(themeOverrides.covSignature || (THEMES[theme] || {}).signature || (THEMES[theme] || {}).primary || "").replace(/^#/, ""),
       });
-      if (r) console.log(`   cover spread: ${r.interior} interior pages -> ${r.width} mm spine${ov.spineWidth ? " (spineWidth override)" : ""} -> ${spreadPath}`);
-      else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);   // the book has thinned below the spine threshold
+      if (r) console.log(`   cover spread: ${r.interior} interior pages -> ${r.width} mm spine${ov.spineWidth ? " (spineWidth override)" : ""} -> ${spreadPath}\n   book with cover spread (one file): ${withCoverPath}`);
+      else for (const p of [spreadPath, withCoverPath]) if (fs.existsSync(p)) fs.rmSync(p);   // the book has thinned below the spine threshold
     } catch (e) {
       console.error(`!  cover spread not written: ${e.message}`);
     }
