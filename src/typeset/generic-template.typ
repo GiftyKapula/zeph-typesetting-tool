@@ -1446,14 +1446,24 @@
       ]
     }
   }
-  // HOUSE RULE (publisher, 2026-10-19): the back cover carries the ISBN and NOTHING
-  // else — no title, no publisher block, no logo, no corner wedges, no motif. It keeps
-  // the cover's own colour field so front, spine and back still print as one sheet.
-  // `lines` and `logo` stay in the signature so every existing call site keeps working.
+  // HOUSE RULE (publisher, 2026-10-19, amended 2026-10-22): the back cover carries the
+  // ISBN, the ZEPH logo and "Published by / Zambia Educational Publishing House" — and
+  // nothing else: no title, no subject, no level, no form/grade, no book type, no
+  // corner wedges, no motif. It keeps the cover's own colour field so front, spine and
+  // back still print as one sheet. `lines` stays in the signature so every existing call
+  // site keeps working.
   let signature = T.at("covSignature", default: T.signature)
   let onfield = if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
+    // Publisher block: the logo over "Published by / Zambia Educational Publishing
+    // House", centred a little below the middle of the page, clear above the ISBN.
+    #place(horizon + center, dy: 18mm, box(width: 140mm)[
+      #set align(center)
+      #if logo != none [#image("_media/" + logo.file, height: 20mm) #v(4mm)]
+      #text(size: 9.5pt, fill: onfield)[Published by] #linebreak()
+      #text(size: 12pt, weight: "bold", fill: onfield)[Zambia Educational Publishing House]
+    ])
     // ISBN: if known, print it (no barcode); otherwise reserve a clean box for the
     // press to add the ISBN + barcode at print time. Centred, low on the page.
     #if isbn != none [
