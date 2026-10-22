@@ -211,6 +211,35 @@ function markSubLists(blks) {
     top = p.n; sub = 0;                                                    // a top-level item
     if (b.numId != null) { topId = b.numId; topLvl = b.lvl != null ? b.lvl : null; }
   }
+  // ---- a list introduced by an item ending ":" sits one level under it ------------
+  // "iii. Learners classify the utensils into:" followed by "1. Serving utensils, 2. …",
+  // or "ii. Categorise each … into one of the following:" followed by "a. … b. … c.":
+  // the run that follows is that item's own sub-list, whatever level the passes above
+  // gave it. Both came out at the same indent as their lead item in the Food and
+  // Nutrition Form 2 Teacher's Guide (four lists), reading as siblings of it. The run is
+  // the items of the NEW numbering style straight after the lead; it ends at the first
+  // item in any other style or at anything that is not a list item.
+  {
+    const styleOf = (b) => {
+      const mk = ((b && b.marker) || "").trim();
+      if (!mk || mk === "•") return "bullet";
+      if (/^\(?\d+[.)]?$/.test(mk)) return "num";
+      if (/^\(?(i|ii|iii|iv|v|vi|vii|viii|ix|x)[.)]?$/i.test(mk)) return "roman";
+      if (/^\(?[a-z][.)]?$/i.test(mk)) return "alpha";
+      return "other";
+    };
+    const textOf = (b) => (b.segs || []).map((s) => (s && !s.m && s.t) || "").join("").trim();
+    for (let i = 0; i + 1 < blks.length; i++) {
+      const lead = blks[i];
+      if (!isList(lead) || !/:$/.test(textOf(lead))) continue;
+      const st = styleOf(lead), next = blks[i + 1];
+      if (!isList(next) || styleOf(next) === st || styleOf(next) === "bullet") continue;
+      const subSt = styleOf(next), lvl = (lead._sub || 0) + 1;
+      for (let j = i + 1; j < blks.length && isList(blks[j]) && styleOf(blks[j]) === subSt; j++) {
+        if ((blks[j]._sub || 0) < lvl) blks[j]._sub = lvl;
+      }
+    }
+  }
   // ---- a question's answer surface belongs in the question's own text column ----
   // An EXERCISE question is followed by the surface the learner answers on: a row of
   // lettered choices ("a) Ladder  b) Slide  c) Rope") or a sentence with a blank to fill
@@ -4631,7 +4660,9 @@ function applyHeadingCase(blocks, cfg) {
 // no separate line for a name at all — the very next paragraph there is unrelated
 // real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
 // non-empty block" would destroy that section instead of crediting anyone.
-const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
+// The name itself is the user's to set (2026-10-22: "cover and book layout should be for
+// chikondi robinson ng`ambi"); it was "Ng`ambi Teddy (B.Sc)" before.
+const LAYOUT_CREDIT = "Chikondi Robinson Ng`ambi";
 function fillLayoutCredit(blocks) {
   // Manuscripts word this credit several ways — "Cover and Book Layout:", "Cover
   // designed by:", "Book layout by:", "Design and layout:" — and matching only the
@@ -7834,6 +7865,13 @@ function normaliseQuestionMarkBold(blocks) {
     themeOverrides.covSignature = pinned;
     themeOverrides.covPrimary = pinned;
   }
+  // `coverPrimary`: pin the colour the cover draws ON its field — the title lettering
+  // (darkened by the template), the grade badge, the rule, the corner triangles and the
+  // byline badge — separately from the field itself. `coverColor` alone sets both to one
+  // value, which on a light field washes every one of those out. The Food and Nutrition
+  // Form 2 Teacher's Guide had to keep the cover it was proofread with: a tan D9A46A
+  // field carrying the theme's own 8A4A2E. Opt-in; applied after coverColor.
+  if (ov.coverPrimary) themeOverrides.covPrimary = String(ov.coverPrimary).replace(/^#/, "");
   // ---- British English, and a report on the prose ---------------------------
   // These books are written in British English and nothing enforced it, so a
   // manuscript that spelt "colour" on one page and "color" on the next printed both.
@@ -7957,15 +7995,20 @@ function normaliseQuestionMarkBold(blocks) {
   const backBlk = blocks.find((b) => b.t === "backcover");
   if (variant !== "syllabus" && coverBlk && backBlk) {
     const spreadPath = path.join(bookDir, `${base} - cover spread.pdf`);
+    // …and the book in ONE file with that spread as its first page — what is delivered.
+    const withCoverPath = path.join(bookDir, `${base} - with cover spread.pdf`);
     try {
       const r = await require("./cover-spread.js").writeCoverSpread({
         pdf: Buffer.from(pdf), compiler, prefix: `${themeTypst(theme, themeOverrides)}${tmpl}`,
         lines: backBlk.lines || coverBlk.lines || [], logo: backBlk.logo || null,
-        spineWidth: ov.spineWidth, outPath: spreadPath,
+        spineWidth: ov.spineWidth, outPath: spreadPath, bookOutPath: withCoverPath,
+        // `spineStyle: "badge"` — the proofread-copy spine (see spine() in the template),
+        // which also carries the cover's author byline.
+        spineStyle: ov.spineStyle || null, author: ov.spineStyle ? (coverBlk.byline || []).join(", ") : null,
         fieldHex: String(themeOverrides.covSignature || (THEMES[theme] || {}).signature || (THEMES[theme] || {}).primary || "").replace(/^#/, ""),
       });
-      if (r) console.log(`   cover spread: ${r.interior} interior pages -> ${r.width} mm spine${ov.spineWidth ? " (spineWidth override)" : ""} -> ${spreadPath}`);
-      else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);   // the book has thinned below the spine threshold
+      if (r) console.log(`   cover spread: ${r.interior} interior pages -> ${r.width} mm spine${ov.spineWidth ? " (spineWidth override)" : ""} -> ${spreadPath}\n   book with cover spread (one file): ${withCoverPath}`);
+      else for (const p of [spreadPath, withCoverPath]) if (fs.existsSync(p)) fs.rmSync(p);   // the book has thinned below the spine threshold
     } catch (e) {
       console.error(`!  cover spread not written: ${e.message}`);
     }

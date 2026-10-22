@@ -1446,14 +1446,24 @@
       ]
     }
   }
-  // HOUSE RULE (publisher, 2026-10-19): the back cover carries the ISBN and NOTHING
-  // else — no title, no publisher block, no logo, no corner wedges, no motif. It keeps
-  // the cover's own colour field so front, spine and back still print as one sheet.
-  // `lines` and `logo` stay in the signature so every existing call site keeps working.
+  // HOUSE RULE (publisher, 2026-10-19, amended 2026-10-22): the back cover carries the
+  // ISBN, the ZEPH logo and "Published by / Zambia Educational Publishing House" — and
+  // nothing else: no title, no subject, no level, no form/grade, no book type, no
+  // corner wedges, no motif. It keeps the cover's own colour field so front, spine and
+  // back still print as one sheet. `lines` stays in the signature so every existing call
+  // site keeps working.
   let signature = T.at("covSignature", default: T.signature)
   let onfield = if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
+    // Publisher block: the logo over "Published by / Zambia Educational Publishing
+    // House", centred a little below the middle of the page, clear above the ISBN.
+    #place(horizon + center, dy: 18mm, box(width: 140mm)[
+      #set align(center)
+      #if logo != none [#image("_media/" + logo.file, height: 20mm) #v(4mm)]
+      #text(size: 9.5pt, fill: onfield)[Published by] #linebreak()
+      #text(size: 12pt, weight: "bold", fill: onfield)[Zambia Educational Publishing House]
+    ])
     // ISBN: if known, print it (no barcode); otherwise reserve a clean box for the
     // press to add the ISBN + barcode at print time. Centred, low on the page.
     #if isbn != none [
@@ -1471,7 +1481,7 @@
 // the syllabus spine), shrunk to fit the height; the ZEPH logo sits upright at the
 // foot when the spine is wide enough to carry it. typeset-docx.js composes this page
 // between the back and front covers into the printer's cover spread.
-#let spine(lines, logo, width) = {
+#let spine(lines, logo, width, style: "standard", author: none) = {
   let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
   let grade = lines.find(l => hasGradeWord(l))
   let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
@@ -1480,6 +1490,39 @@
   let onfield = if science { white } else { T.primary.darken(30%) }
   let accentc = if science { T.accent } else { T.primary }
   let w = width * 1mm
+  // `spineStyle: "badge"` (opt-in, per book): the spine the Food and Nutrition Form 2
+  // Teacher's Guide had on its proofread copy — the subject large, the form/grade white
+  // on a rounded badge in the cover colour, the book type, the author in plain type, the
+  // logo near the foot and a band of the cover colour across the bottom that runs on
+  // into the front cover's corner wedge.
+  if style == "badge" {
+    let s1 = calc.min(width * 1.0, 14) * 1pt
+    let s2 = s1 * 0.65
+    let s3 = s1 * 0.58
+    let badge = box(fill: T.primary, radius: 2pt, inset: (x: 0.55em, y: 0.35em),
+      text(size: s2, weight: "bold", fill: white)[#upper(formtxt)])
+    let row = box[
+      #set text(font: T.displayFont)
+      #text(size: s1, weight: "bold", fill: onfield)[#upper(name)]
+      #if formtxt != "" [#h(2.2em) #badge]
+      #h(2.2em) #text(size: s2, weight: "bold", fill: onfield)[#upper(booktype)]
+      #if author != none and author != "" [#h(2.6em) #text(size: s3, fill: onfield)[#author]]
+    ]
+    let bandTop = 216mm
+    let logoH = if logo != none and width >= 6 { calc.min(width - 3, 9) * 1mm } else { 0mm }
+    return page(margin: 0pt, header: none, footer: none, fill: T.signature, width: w, height: 250mm)[
+      #context {
+        let avail = 200mm - 38mm
+        let m = measure(row)
+        let f = if m.width > avail { avail / m.width } else { 1.0 }
+        place(top + center, dy: 38mm, rotate(90deg, reflow: true, scale(x: f * 100%, y: f * 100%, reflow: true, row)))
+      }
+      #if logoH > 0mm [
+        #place(top + center, dy: bandTop - logoH - 8mm, image("_media/" + logo.file, height: logoH))
+      ]
+      #place(top + left, dy: bandTop, rect(width: w, height: 250mm - bandTop, fill: T.primary, stroke: none))
+    ]
+  }
   let logoH = if logo != none and width >= 6 { calc.min(width - 1.5, 12) * 1mm } else { 0mm }
   // type size from the spine's WIDTH (in mm): capitals about half the spine across, so
   // a 7.6 mm spine sets near 11 pt; capped for very thick books
