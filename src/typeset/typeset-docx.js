@@ -4660,7 +4660,9 @@ function applyHeadingCase(blocks, cfg) {
 // no separate line for a name at all — the very next paragraph there is unrelated
 // real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
 // non-empty block" would destroy that section instead of crediting anyone.
-const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
+// The name itself is the user's to set (2026-10-22: "cover and book layout should be for
+// chikondi robinson ng`ambi"); it was "Ng`ambi Teddy (B.Sc)" before.
+const LAYOUT_CREDIT = "Chikondi Robinson Ng`ambi";
 function fillLayoutCredit(blocks) {
   // Manuscripts word this credit several ways — "Cover and Book Layout:", "Cover
   // designed by:", "Book layout by:", "Design and layout:" — and matching only the
