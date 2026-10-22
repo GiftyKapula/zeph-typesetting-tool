@@ -4660,10 +4660,11 @@ function applyHeadingCase(blocks, cfg) {
 // no separate line for a name at all — the very next paragraph there is unrelated
 // real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
 // non-empty block" would destroy that section instead of crediting anyone.
-// The name itself is the user's to set (2026-10-22: "cover and book layout should be for
-// chikondi robinson ng`ambi"); it was "Ng`ambi Teddy (B.Sc)" before.
-const LAYOUT_CREDIT = "Chikondi Robinson Ng`ambi";
-function fillLayoutCredit(blocks) {
+// A book can carry a different name with the sidecar key `layoutCredit` — the Food and
+// Nutrition Form 2 Teacher's Guide credits Chikondi Robinson Ng`ambi (user, 2026-10-22:
+// "the change of the name is changed just for this one"); every other book keeps this.
+const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
+function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
   // Manuscripts word this credit several ways — "Cover and Book Layout:", "Cover
   // designed by:", "Book layout by:", "Design and layout:" — and matching only the
   // first spelling left the credit unfilled on any book using another. The ICT Form 2
@@ -4724,8 +4725,8 @@ function fillLayoutCredit(blocks) {
         }
       }
       if (nameIdx >= 0) {
-        if (blockPlain(arr[nameIdx]).trim() !== LAYOUT_CREDIT) {
-          setBlockSegs(arr[nameIdx], [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }]);
+        if (blockPlain(arr[nameIdx]).trim() !== credit) {
+          setBlockSegs(arr[nameIdx], [{ t: credit, b: false, it: false, c: null }]);
         }
         // Space the credit from whatever ZEPH statement (publisher block, "First
         // Published by:", …) follows it, unless a blank line already does the job.
@@ -4735,7 +4736,7 @@ function fillLayoutCredit(blocks) {
         // (now dot-free) label, then a gap so the name never runs straight into
         // whatever follows.
         arr.splice(i + 1, 0,
-          { t: "para", segs: [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }], align: b.align || "center" },
+          { t: "para", segs: [{ t: credit, b: false, it: false, c: null }], align: b.align || "center" },
           { t: "vspace", h: "4mm" });
       }
       return;
@@ -7221,7 +7222,7 @@ function normaliseQuestionMarkBold(blocks) {
   // manuscript wrote them, and every other book keeps the rule.
   if (ov.orIndividually !== false) ensureOrIndividually(blocks);
   normaliseQuestionMarkBold(blocks);
-  fillLayoutCredit(blocks);  // credit the typesetter on the "Cover and Book Layout:" line
+  fillLayoutCredit(blocks, ov.layoutCredit || LAYOUT_CREDIT);  // credit the typesetter on the "Cover and Book Layout:" line
   labelIntroductions(blocks);
   unnumberCompetenceCodes(blocks);
   boldAuthorNames(blocks);
