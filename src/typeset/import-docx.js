@@ -208,8 +208,15 @@ function fixBoxTitleSpelling(s) {
 // questions inside an exercise or assessment, as opposed to a lead-in line that
 // continues the question above it. Anchored, and the letter/number must be followed
 // by punctuation, so ordinary prose opening "Part of the reason…" never matches.
+// The answers label of a box that carries its questions and its answers together —
+// "Expected Answers", "Possible Answers" — is the same kind of divider: it opens the
+// answers group rather than continuing the last question. Indented as a continuation,
+// nine such labels in the Food and Nutrition Form 2 Teacher's Guide stood a step to
+// the right of the sixty that open a box of their own.
 function isSectionDivider(t) {
-  return /^(SECTION|PART)\s+([A-Za-z]|\d{1,2})\s*[:.)–—-]/i.test((t || "").trim());
+  const s = (t || "").trim();
+  return /^(SECTION|PART)\s+([A-Za-z]|\d{1,2})\s*[:.)–—-]/i.test(s)
+    || /^(expected|possible|suggested|model)\s+answers?\s*:?$/i.test(s);
 }
 
 function boxKindFromTitle(t) {
@@ -476,6 +483,7 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       return m[1] + (/^\d/.test(m[2]) ? "n" : /^[ivx]+$/i.test(m[2]) ? "r" : "a") + m[3];
     };
     let groupStyle = null;
+    let litFrom = 0;   // where the current run of typed steps began in `body`
     const body = [], parts = [];
     for (const p of rest) {
       if (p.isTable) {
@@ -524,8 +532,13 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
         // Nutrition Form 2 Learner's Book printed seven such steps with no hanging
         // indent while the activity three pages earlier hung properly.
         else if (litAll) {
+          // A typed "1." straight after a plain line of the box starts a NEW list under
+          // that line rather than continuing the steps above it: the Food and Nutrition
+          // Form 2 Teacher's Guide types steps "1)" and "2)", then "ONE-DAY MEAL PLAN" and
+          // a meal list typed 1-5, which printed as 3-7.
+          if (+litAll[1] === 1 && body.length && body[body.length - 1].t === "para") litFrom = body.length;
           body.push({ t: "listitem", segs: litSegs(),
-            marker: `${body.filter((x) => x.t === "listitem" && !x.sub && isDecimal(x.marker)).length + 1}.` });
+            marker: `${body.slice(litFrom).filter((x) => x.t === "listitem" && !x.sub && isDecimal(x.marker)).length + 1}.` });
           prevItem = null;
         }
         else { body.push({ t: "para", segs: p.segs }); prevItem = null; }

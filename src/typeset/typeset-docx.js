@@ -7834,6 +7834,13 @@ function normaliseQuestionMarkBold(blocks) {
     themeOverrides.covSignature = pinned;
     themeOverrides.covPrimary = pinned;
   }
+  // `coverPrimary`: pin the colour the cover draws ON its field — the title lettering
+  // (darkened by the template), the grade badge, the rule, the corner triangles and the
+  // byline badge — separately from the field itself. `coverColor` alone sets both to one
+  // value, which on a light field washes every one of those out. The Food and Nutrition
+  // Form 2 Teacher's Guide had to keep the cover it was proofread with: a tan D9A46A
+  // field carrying the theme's own 8A4A2E. Opt-in; applied after coverColor.
+  if (ov.coverPrimary) themeOverrides.covPrimary = String(ov.coverPrimary).replace(/^#/, "");
   // ---- British English, and a report on the prose ---------------------------
   // These books are written in British English and nothing enforced it, so a
   // manuscript that spelt "colour" on one page and "color" on the next printed both.

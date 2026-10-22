@@ -1,4 +1,8 @@
 {
+  "//cover": "Keep the cover exactly as it was on the copy the reviewer marked (typeset 16 Oct): the cooking-class photograph the tan field D9A46A (coverColor) and the theme's own brown 8A4A2E on it (coverPrimary) - measured off that PDF. The manuscript's own cover picture is a mock-up with lettering on it, and the engine's automatic Teacher's Guide colour shift turned the field dark brown; the user asked for the cover to be left as it was. The photo is extracted at full resolution (3344 x 1882) from that PDF.",
+  "coverImage": "food-nutrition-form2-tg-cover.png",
+  "coverColor": "D9A46A",
+  "coverPrimary": "8A4A2E",
   "edit": [
     {
       "find": "Analysing the Process of Purchasing of Food",
@@ -40,7 +44,7 @@
   "removeRange": [
     {
       "from": "Comparing Methods of Purchasing Food",
-      "to": "When purchasing food, consumers",
+      "to": "LEARNING ACTIVITY 3: Comparing methods",
       "after": "Distance and transport availability"
     },
     {
@@ -139,6 +143,42 @@
     {
       "find": "Special appreciation goes to Ms. Gwen Chewe, author of the Form 6 Learner’s Book, whose expertise in physical education pedagogy and curriculum design has laid a strong foundation for this publication. Her work, which blends academic excellence with practical application, will encourage learners to embrace physical activity as part of their daily lives.  ",
       "with": "Special recognition is extended to the author Dr. Rabecca Kayumba, whose dedication and commitment ensured that the content is both rigorous and engaging. "
+    },
+    {
+      "find": "Possible Answers",
+      "with": "Expected Answers"
+    },
+    {
+      "find": "Expected  Answers",
+      "with": "Expected Answers"
+    },
+    {
+      "find": "ONE-DAY MEAL PLAN1.",
+      "with": "ONE-DAY MEAL PLAN"
+    },
+    {
+      "find": "BREAKFAST - 7:00 AM Enriched maize meal porridge with groundnut powder, plus milk1 boiled egg1 banana",
+      "with": "BREAKFAST - 7:00 AM: Enriched maize meal porridge with groundnut powder, plus milk, 1 boiled egg, 1 banana"
+    },
+    {
+      "find": "MID-MORNING SNACK - 10:30 AMFresh fruit salad",
+      "with": "MID-MORNING SNACK - 10:30 AM: Fresh fruit salad"
+    },
+    {
+      "find": "LUNCH - 1:00 PMNshima (portion controlled)Beans mixed with vegetables (tomato, onion, rape)Small portion of grilled kapentaWater",
+      "with": "LUNCH - 1:00 PM: Nshima (portion controlled), beans mixed with vegetables (tomato, onion, rape), small portion of grilled kapenta, water"
+    },
+    {
+      "find": "AFTERNOON SNACK - 4:00 PM Roasted maize",
+      "with": "AFTERNOON SNACK - 4:00 PM: Roasted maize"
+    },
+    {
+      "find": "SUPPER - 7:00 PM Rice Grilled chicken Mixed vegetables (cabbage, carrots, green beans)Sour milk / Chibwantu",
+      "with": "SUPPER - 7:00 PM: Rice, grilled chicken, mixed vegetables (cabbage, carrots, green beans), sour milk / Chibwantu"
+    },
+    {
+      "find": "Each group should:a)Identify the nutritional needs of their assigned group. b)Select suitable foods. c)Prepare a one-day balanced meal plan.d) Explain",
+      "with": "Each group should: a) identify the nutritional needs of their assigned group; b) select suitable foods; c) prepare a one-day balanced meal plan; d) explain"
     }
   ],
   "replaceBlocks": [
@@ -442,7 +482,7 @@
                   {
                     "t": "Expected Answers",
                     "b": true,
-                    "it": true,
+                    "it": false,
                     "c": null
                   }
                 ],
@@ -688,6 +728,18 @@
           }
         }
       ]
+    }
+  ],
+  "mdReplaceExact": [
+    {
+      "find": "Expected Answe",
+      "with": "**Expected Answers**",
+      "all": true
+    },
+    {
+      "find": "Expected Answers",
+      "with": "**Expected Answers**",
+      "all": true
     }
   ]
 }
