@@ -211,6 +211,35 @@ function markSubLists(blks) {
     top = p.n; sub = 0;                                                    // a top-level item
     if (b.numId != null) { topId = b.numId; topLvl = b.lvl != null ? b.lvl : null; }
   }
+  // ---- a list introduced by an item ending ":" sits one level under it ------------
+  // "iii. Learners classify the utensils into:" followed by "1. Serving utensils, 2. …",
+  // or "ii. Categorise each … into one of the following:" followed by "a. … b. … c.":
+  // the run that follows is that item's own sub-list, whatever level the passes above
+  // gave it. Both came out at the same indent as their lead item in the Food and
+  // Nutrition Form 2 Teacher's Guide (four lists), reading as siblings of it. The run is
+  // the items of the NEW numbering style straight after the lead; it ends at the first
+  // item in any other style or at anything that is not a list item.
+  {
+    const styleOf = (b) => {
+      const mk = ((b && b.marker) || "").trim();
+      if (!mk || mk === "•") return "bullet";
+      if (/^\(?\d+[.)]?$/.test(mk)) return "num";
+      if (/^\(?(i|ii|iii|iv|v|vi|vii|viii|ix|x)[.)]?$/i.test(mk)) return "roman";
+      if (/^\(?[a-z][.)]?$/i.test(mk)) return "alpha";
+      return "other";
+    };
+    const textOf = (b) => (b.segs || []).map((s) => (s && !s.m && s.t) || "").join("").trim();
+    for (let i = 0; i + 1 < blks.length; i++) {
+      const lead = blks[i];
+      if (!isList(lead) || !/:$/.test(textOf(lead))) continue;
+      const st = styleOf(lead), next = blks[i + 1];
+      if (!isList(next) || styleOf(next) === st || styleOf(next) === "bullet") continue;
+      const subSt = styleOf(next), lvl = (lead._sub || 0) + 1;
+      for (let j = i + 1; j < blks.length && isList(blks[j]) && styleOf(blks[j]) === subSt; j++) {
+        if ((blks[j]._sub || 0) < lvl) blks[j]._sub = lvl;
+      }
+    }
+  }
   // ---- a question's answer surface belongs in the question's own text column ----
   // An EXERCISE question is followed by the surface the learner answers on: a row of
   // lettered choices ("a) Ladder  b) Slide  c) Rope") or a sentence with a blank to fill
@@ -7971,6 +8000,9 @@ function normaliseQuestionMarkBold(blocks) {
         pdf: Buffer.from(pdf), compiler, prefix: `${themeTypst(theme, themeOverrides)}${tmpl}`,
         lines: backBlk.lines || coverBlk.lines || [], logo: backBlk.logo || null,
         spineWidth: ov.spineWidth, outPath: spreadPath, bookOutPath: withCoverPath,
+        // `spineStyle: "badge"` — the proofread-copy spine (see spine() in the template),
+        // which also carries the cover's author byline.
+        spineStyle: ov.spineStyle || null, author: ov.spineStyle ? (coverBlk.byline || []).join(", ") : null,
         fieldHex: String(themeOverrides.covSignature || (THEMES[theme] || {}).signature || (THEMES[theme] || {}).primary || "").replace(/^#/, ""),
       });
       if (r) console.log(`   cover spread: ${r.interior} interior pages -> ${r.width} mm spine${ov.spineWidth ? " (spineWidth override)" : ""} -> ${spreadPath}\n   book with cover spread (one file): ${withCoverPath}`);

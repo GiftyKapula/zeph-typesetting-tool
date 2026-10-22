@@ -3,6 +3,8 @@
   "coverImage": "food-nutrition-form2-tg-cover.png",
   "coverColor": "D9A46A",
   "coverPrimary": "8A4A2E",
+  "//spineStyle": "The spine as it was on the proofread copy (user, 2026-10-22): subject, FORM 2 on a badge, book type, author, logo, and a band across the foot.",
+  "spineStyle": "badge",
   "edit": [
     {
       "find": "Analysing the Process of Purchasing of Food",
