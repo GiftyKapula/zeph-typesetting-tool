@@ -12,7 +12,9 @@
     "pdf:size": "node tools/dev/pdf-size.mjs",
     "lexicon:form": "node tools/lexicon/make-word-form.js",
     "lexicon:import": "node tools/lexicon/import-forms.js",
-    "art:gen": "node tools/genimage.js"
+    "art:gen": "node tools/genimage.js",
+    "qa": "node tools/qa/qa.mjs",
+    "batch": "node tools/qa/batch.mjs"
   },
   "keywords": [
     "typesetting",
