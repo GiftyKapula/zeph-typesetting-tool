@@ -121,6 +121,14 @@
     {
       "from": "Poultry Grave,",
       "to": "Poultry Gravy,"
+    },
+    {
+      "from": "Kayumba Rabecca",
+      "to": "Dr. Rebecca Kayumba-Piyo"
+    },
+    {
+      "from": "Rabecca Kayumba",
+      "to": "Dr. Rebecca Kayumba-Piyo"
     }
   ],
   "textFix": [
@@ -142,7 +150,7 @@
     },
     {
       "find": "Special appreciation goes to Ms. Gwen Chewe, author of the Form 6 Learner’s Book, whose expertise in physical education pedagogy and curriculum design has laid a strong foundation for this publication. Her work, which blends academic excellence with practical application, will encourage learners to embrace physical activity as part of their daily lives.  ",
-      "with": "Special recognition is extended to the author Dr. Rabecca Kayumba, whose dedication and commitment ensured that the content is both rigorous and engaging. "
+      "with": "Special recognition is extended to the author Dr. Rebecca Kayumba-Piyo, whose dedication and commitment ensured that the content is both rigorous and engaging. "
     },
     {
       "find": "Possible Answers",
@@ -179,6 +187,10 @@
     {
       "find": "Each group should:a)Identify the nutritional needs of their assigned group. b)Select suitable foods. c)Prepare a one-day balanced meal plan.d) Explain",
       "with": "Each group should: a) identify the nutritional needs of their assigned group; b) select suitable foods; c) prepare a one-day balanced meal plan; d) explain"
+    },
+    {
+      "find": "FORWARD",
+      "with": "FOREWORD"
     }
   ],
   "replaceBlocks": [
@@ -741,5 +753,9 @@
       "with": "**Expected Answers**",
       "all": true
     }
+  ],
+  "//authors": "The author's name follows the Form 2 Learner's Book, where the user settled it as 'Dr. Rebecca Kayumba-Piyo' in every place it appears (cover, title page, imprint, biography, acknowledgement). This manuscript spelt it 'Dr. Rabecca Kayumba (Ph.D)', 'Kayumba Rabecca' and 'Rabecca Kayumba'.",
+  "authors": [
+    "Dr. Rebecca Kayumba-Piyo"
   ]
 }
