@@ -238,7 +238,10 @@ function boxKindFromTitle(t) {
   // --- Learning Activity --- ("LEARNING ACTIVITY" tested without a trailing \b so a
   // glued number like "LEARNING ACTIVITY23" (author typo) is still recognised as an
   // activity box rather than falling through to a raw table).
-  if (/^LEARNING\s+ACT(?:IVIT|IVT|VIT)/i.test(s)) return "activity";   // ACTIVITY/ACTIVITIES + the ACTIVTY/ACTVITY misspellings
+  // LEARN(IN)ING: the ICT Form 2 Teacher's Guide heads Activities 1-3 of Topic 2.4
+  // "LEARNINING ACTIVITY"; unrecognised, all three fell to the plain generic box, unlike
+  // every other activity in the book (the sidecar's `subtext` corrects the printed word).
+  if (/^LEARN(?:IN)?ING\s+ACT(?:IVIT|IVT|VIT)/i.test(s)) return "activity";   // ACTIVITY/ACTIVITIES + the ACTIVTY/ACTVITY misspellings
   if (/^(Ifyakucita|Mwingilo wakuuba|Nchito|Musebezi|Vyakulinga|Zhakwila(\s+atudizi)?|Cakucita)\b/i.test(s)) return "activity";
   // --- End-of-topic / unit Assessment ---
   if (/^(Ukweshiwa|Kupwa kwa mutwe|Mayeso|Tatubo|Mukanga|Esekelo|Kweseka|Musunko)\b/i.test(s)) return "assessment";
