@@ -20,7 +20,9 @@
     "running on across the appendix tables, as typed (the numbering check follows the Word list across them).",
     "APPENDIX 1 (2026-10-16). 'SCOPE AND SEQUENCE' is Appendix 1's title, but the section pass gave it a page of its own, which left APPENDICES / Appendix 1 alone on a page: set as a kept label under Appendix 1.",
     "ROWS 1.1.3.1, 1.8.2.1, 1.11.2.1 (2026-10-20). Each had its last activity and standard typed in a row of their own with no competence; the engine now runs them on into the row above, so no rule cuts the competence in two. Pages 6 and 19 then had room for 1.1.5.2 and 1.8.3.1 whole: their splitRows are gone.",
-    "COURSE LAYOUT (2026-10-20, user): opens on a fresh page (pageBreakBefore). Every matrix break moved; reworked page by page so no row carries 1-2 lines or breaks mid-activity and no page ends a third empty (splitRow / keepRowWhole marked 2026-10-20). ASSESSMENT METHODS now opens a page too: its heading had been left at a page foot with its table overleaf."
+    "COURSE LAYOUT (2026-10-20, user): opens on a fresh page (pageBreakBefore). Every matrix break moved; reworked page by page so no row carries 1-2 lines or breaks mid-activity and no page ends a third empty (splitRow / keepRowWhole marked 2026-10-20). ASSESSMENT METHODS now opens a page too: its heading had been left at a page foot with its table overleaf.",
+    "PROOFREAD ROUND 1 (2026-10-23, reviewer's PDF from the Mailo folder; its copies (1)-(3) are the same file): 7 comments,",
+    " all made. 'in board' is read as 'in bold'. Page numbers in the rules are the reviewer's PDF's."
   ],
   "theme": "gensyl",
   "subject": "Entrepreneurship and Financial Education",
@@ -34,6 +36,87 @@
     {
       "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): the heading and its first lines stood at the foot of the page, its table overleaf",
       "find": "ASSESSMENT METHODS AND WEIGHTINGS"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p9: 'structure of the syllabus which start on the new page'.",
+      "find": "STRUCTURE OF THE SYLLABUS"
+    }
+  ],
+  "methodLabels": true,
+  "_methodLabels_why": "User, 2026-10-23: every method label in the matrix set alike, flush left without a bullet (house style); 17 of them had kept the bullet the author typed.",
+  "cellSubtext": [
+    {
+      "_why": "PROOFREAD 2026-10-23, p22 (1.2.2.1): 'Brainstorming Session: should be in bold' (in board), as in 1.2.1.1 above it.",
+      "from": "Brainstorming Session:",
+      "to": "Brainstorming Session:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p23: 'Focus group discussion should be in bold'.",
+      "from": "Focus Group Discussion:",
+      "to": "Focus Group Discussion:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p27: 'market survey: must be put in bold'.",
+      "from": "Market Survey:",
+      "to": "Market Survey:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p32: 'Group discussions and case studies: should be in bold'.",
+      "from": "Group Discussions and Case Studies:",
+      "to": "Group Discussions and Case Studies:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p34: 'Practicum of a Business Plan, should be put in bold'.",
+      "from": "Practicum of a Business Plan:",
+      "to": "Practicum of a Business Plan:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "Round 1 follow-up (user, 2026-10-23): the other method labels typed plain, bolded like the five the reviewer marked. The two longer labels holding 'Role Play:' first, so each is bold as a whole.",
+      "from": "Focus Group Discussion or Role Play:", "to": "Focus Group Discussion or Role Play:", "bold": true, "all": true
+    },
+    { "from": "Case Study and Role Play:", "to": "Case Study and Role Play:", "bold": true, "all": true },
+    { "from": "Role Play:", "to": "Role Play:", "bold": true, "all": true },
+    { "from": "Role-play Activities:", "to": "Role-play Activities:", "bold": true, "all": true },
+    { "from": "Interactive Lecture:", "to": "Interactive Lecture:", "bold": true, "all": true },
+    { "from": "Problem Solving:", "to": "Problem Solving:", "bold": true, "all": true },
+    { "from": "Group Discussion/Brainstorming:", "to": "Group Discussion/Brainstorming:", "bold": true, "all": true },
+    { "from": "Practical exercises:", "to": "Practical exercises:", "bold": true, "all": true },
+    { "from": "Mentorship and Support:", "to": "Mentorship and Support:", "bold": true, "all": true },
+    {
+      "_why": "1.5.1.6 (user, 2026-10-23): one activity typed over two lines, so its second line printed with a bullet of its own. Joined.",
+      "from": "Discussing the importance of Financial Risk Management.",
+      "to": "Discussing the importance of Financial Risk Management."
+    },
+    {
+      "_why": "1.5.1.6, as above.",
+      "from": "Applying Financial Risk Management Strategies",
+      "to": "Applying Financial Risk Management Strategies"
+    },
+    {
+      "_why": "The same, through the matrix (user, 2026-10-23): activities typed over two lines whose second line printed with a bullet of its own -- each found where the line before stops mid-phrase. Joined. 1.1.2.1:",
+      "from": "Explaining Financial Education: A case study", "to": "Explaining Financial Education: A case study"
+    },
+    { "_why": "1.1.4.1", "from": "Identifying the types of Entrepreneurs: Matching", "to": "Identifying the types of Entrepreneurs: Matching" },
+    { "_why": "1.1.4.1", "from": "Explaining the types of Entrepreneurs by Christopher", "to": "Explaining the types of Entrepreneurs by Christopher" },
+    { "_why": "1.2.1.1 (two breaks)", "from": "Eliminate and Reverse) Model, and 5W+H Model Methods", "to": "Eliminate and Reverse) Model, and 5W+H Model Methods" },
+    { "_why": "1.2.2.1", "from": "(Small and Medium Enterprises)", "to": "(Small and Medium Enterprises)" },
+    { "_why": "1.3.2.1", "from": "Guest talk by Personnel from Financial Institutions", "to": "Guest talk by Personnel from Financial Institutions" },
+    { "_why": "1.5.1.2", "from": "Explaining the importance of Saving", "to": "Explaining the importance of Saving" },
+    { "_why": "1.6.3.1", "from": "Explaining the contents of Financial Statements", "to": "Explaining the contents of Financial Statements" },
+    { "_why": "1.10.1.1", "from": "importance of using technology in an Enterprise.", "to": "importance of using technology in an Enterprise." },
+    {
+      "_why": "Sub-topic 1.4.3 typed 'Salesmans hip' (user, 2026-10-23).",
+      "from": "Salesmans hip", "to": "Salesmanship", "all": true
     }
   ],
   "editCell": [
@@ -91,6 +174,13 @@
       "_why": "...and is taken out of the row it fell into",
       "pattern": "^\\s*Schools\\s*$",
       "with": ""
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p25: the empty expected standard of 1.3.3.1 -- 'insert the following phrase: Business networks identified correctly.' (without the full stop, as every standard in the matrix).",
+      "row": "1.3.3.1 identify business networks relevant to businesses",
+      "col": 4,
+      "with": "Business networks identified correctly",
+      "bold": false
     }
   ],
   "moveRow": [
