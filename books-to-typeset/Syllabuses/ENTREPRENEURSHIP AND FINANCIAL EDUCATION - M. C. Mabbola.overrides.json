@@ -20,7 +20,9 @@
     "running on across the appendix tables, as typed (the numbering check follows the Word list across them).",
     "APPENDIX 1 (2026-10-16). 'SCOPE AND SEQUENCE' is Appendix 1's title, but the section pass gave it a page of its own, which left APPENDICES / Appendix 1 alone on a page: set as a kept label under Appendix 1.",
     "ROWS 1.1.3.1, 1.8.2.1, 1.11.2.1 (2026-10-20). Each had its last activity and standard typed in a row of their own with no competence; the engine now runs them on into the row above, so no rule cuts the competence in two. Pages 6 and 19 then had room for 1.1.5.2 and 1.8.3.1 whole: their splitRows are gone.",
-    "COURSE LAYOUT (2026-10-20, user): opens on a fresh page (pageBreakBefore). Every matrix break moved; reworked page by page so no row carries 1-2 lines or breaks mid-activity and no page ends a third empty (splitRow / keepRowWhole marked 2026-10-20). ASSESSMENT METHODS now opens a page too: its heading had been left at a page foot with its table overleaf."
+    "COURSE LAYOUT (2026-10-20, user): opens on a fresh page (pageBreakBefore). Every matrix break moved; reworked page by page so no row carries 1-2 lines or breaks mid-activity and no page ends a third empty (splitRow / keepRowWhole marked 2026-10-20). ASSESSMENT METHODS now opens a page too: its heading had been left at a page foot with its table overleaf.",
+    "PROOFREAD ROUND 1 (2026-10-23, reviewer's PDF from the Mailo folder; its copies (1)-(3) are the same file): 7 comments,",
+    " all made. 'in board' is read as 'in bold'. Page numbers in the rules are the reviewer's PDF's."
   ],
   "theme": "gensyl",
   "subject": "Entrepreneurship and Financial Education",
@@ -34,6 +36,47 @@
     {
       "_why": "Course Layout on a fresh page moved the breaks (2026-10-20): the heading and its first lines stood at the foot of the page, its table overleaf",
       "find": "ASSESSMENT METHODS AND WEIGHTINGS"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p9: 'structure of the syllabus which start on the new page'.",
+      "find": "STRUCTURE OF THE SYLLABUS"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "PROOFREAD 2026-10-23, p22 (1.2.2.1): 'Brainstorming Session: should be in bold' (in board), as in 1.2.1.1 above it.",
+      "from": "Brainstorming Session:",
+      "to": "Brainstorming Session:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p23: 'Focus group discussion should be in bold'.",
+      "from": "Focus Group Discussion:",
+      "to": "Focus Group Discussion:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p27: 'market survey: must be put in bold'.",
+      "from": "Market Survey:",
+      "to": "Market Survey:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p32: 'Group discussions and case studies: should be in bold'.",
+      "from": "Group Discussions and Case Studies:",
+      "to": "Group Discussions and Case Studies:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p34: 'Practicum of a Business Plan, should be put in bold'.",
+      "from": "Practicum of a Business Plan:",
+      "to": "Practicum of a Business Plan:",
+      "bold": true,
+      "all": true
     }
   ],
   "editCell": [
@@ -91,6 +134,13 @@
       "_why": "...and is taken out of the row it fell into",
       "pattern": "^\\s*Schools\\s*$",
       "with": ""
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p25: the empty expected standard of 1.3.3.1 -- 'insert the following phrase: Business networks identified correctly.' (without the full stop, as every standard in the matrix).",
+      "row": "1.3.3.1 identify business networks relevant to businesses",
+      "col": 4,
+      "with": "Business networks identified correctly",
+      "bold": false
     }
   ],
   "moveRow": [

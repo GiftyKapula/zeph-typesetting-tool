@@ -1448,8 +1448,9 @@ function applyOverrides(blocks, ov) {
   // a title and an italic gloss, and several clauses may share one cell. Give enough of
   // the text after the number to single the clause out ("1.3.1. Developmental domains"
   // -> "1.4.1. Developmental domains"); whitespace is matched loosely and the match may
-  // run across runs — the replacement takes the styling of the run it starts in. Warns
-  // when nothing matches, and when more than one cell does (unless `all`).
+  // run across runs — the replacement takes the styling of the run it starts in, or the
+  // weight given by `bold`. Warns when nothing matches, and when more than one cell does
+  // (unless `all`).
   for (const cs of ov.cellSubtext || []) {
     if (!cs || typeof cs.from !== "string" || !cs.from.trim()) continue;
     const re = new RegExp(cs.from.trim().split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("\\s+"));
@@ -1467,11 +1468,16 @@ function applyOverrides(blocks, ov) {
               if (m) {
                 const start = m.index, end = m.index + m[0].length;
                 let pos = 0, put = false;
-                cell.segs = cell.segs.map((s) => {
+                // `bold: true|false` gives the replacement a weight of its own (a reviewer's
+                // "should be in bold" on a method label typed plain), splitting the run so
+                // the text around it keeps its weight.
+                cell.segs = cell.segs.flatMap((s) => {
                   const a = pos, z = pos + s.t.length; pos = z;
-                  if (z <= start || a >= end) return s;
+                  if (z <= start || a >= end) return [s];
                   const mid = put ? "" : to; put = true;
-                  return { ...s, t: s.t.slice(0, Math.max(0, start - a)) + mid + s.t.slice(Math.min(s.t.length, end - a)) };
+                  const head = s.t.slice(0, Math.max(0, start - a)), tail = s.t.slice(Math.min(s.t.length, end - a));
+                  if (cs.bold == null || !mid) return [{ ...s, t: head + mid + tail }];
+                  return [{ ...s, t: head }, { ...s, t: mid, b: !!cs.bold }, { ...s, t: tail }];
                 }).filter((s) => s.t !== "");
               }
             }
