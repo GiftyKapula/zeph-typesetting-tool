@@ -101,6 +101,22 @@
       "_why": "1.5.1.6, as above.",
       "from": "Applying Financial Risk Management Strategies",
       "to": "Applying Financial Risk Management Strategies"
+    },
+    {
+      "_why": "The same, through the matrix (user, 2026-10-23): activities typed over two lines whose second line printed with a bullet of its own -- each found where the line before stops mid-phrase. Joined. 1.1.2.1:",
+      "from": "Explaining Financial Education: A case study", "to": "Explaining Financial Education: A case study"
+    },
+    { "_why": "1.1.4.1", "from": "Identifying the types of Entrepreneurs: Matching", "to": "Identifying the types of Entrepreneurs: Matching" },
+    { "_why": "1.1.4.1", "from": "Explaining the types of Entrepreneurs by Christopher", "to": "Explaining the types of Entrepreneurs by Christopher" },
+    { "_why": "1.2.1.1 (two breaks)", "from": "Eliminate and Reverse) Model, and 5W+H Model Methods", "to": "Eliminate and Reverse) Model, and 5W+H Model Methods" },
+    { "_why": "1.2.2.1", "from": "(Small and Medium Enterprises)", "to": "(Small and Medium Enterprises)" },
+    { "_why": "1.3.2.1", "from": "Guest talk by Personnel from Financial Institutions", "to": "Guest talk by Personnel from Financial Institutions" },
+    { "_why": "1.5.1.2", "from": "Explaining the importance of Saving", "to": "Explaining the importance of Saving" },
+    { "_why": "1.6.3.1", "from": "Explaining the contents of Financial Statements", "to": "Explaining the contents of Financial Statements" },
+    { "_why": "1.10.1.1", "from": "importance of using technology in an Enterprise.", "to": "importance of using technology in an Enterprise." },
+    {
+      "_why": "Sub-topic 1.4.3 typed 'Salesmans hip' (user, 2026-10-23).",
+      "from": "Salesmans hip", "to": "Salesmanship", "all": true
     }
   ],
   "editCell": [
