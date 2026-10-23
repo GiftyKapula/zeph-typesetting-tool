@@ -77,7 +77,19 @@
       "to": "Practicum of a Business Plan:",
       "bold": true,
       "all": true
-    }
+    },
+    {
+      "_why": "Round 1 follow-up (user, 2026-10-23): the other method labels typed plain, bolded like the five the reviewer marked. The two longer labels holding 'Role Play:' first, so each is bold as a whole.",
+      "from": "Focus Group Discussion or Role Play:", "to": "Focus Group Discussion or Role Play:", "bold": true, "all": true
+    },
+    { "from": "Case Study and Role Play:", "to": "Case Study and Role Play:", "bold": true, "all": true },
+    { "from": "Role Play:", "to": "Role Play:", "bold": true, "all": true },
+    { "from": "Role-play Activities:", "to": "Role-play Activities:", "bold": true, "all": true },
+    { "from": "Interactive Lecture:", "to": "Interactive Lecture:", "bold": true, "all": true },
+    { "from": "Problem Solving:", "to": "Problem Solving:", "bold": true, "all": true },
+    { "from": "Group Discussion/Brainstorming:", "to": "Group Discussion/Brainstorming:", "bold": true, "all": true },
+    { "from": "Practical exercises:", "to": "Practical exercises:", "bold": true, "all": true },
+    { "from": "Mentorship and Support:", "to": "Mentorship and Support:", "bold": true, "all": true }
   ],
   "editCell": [
     {

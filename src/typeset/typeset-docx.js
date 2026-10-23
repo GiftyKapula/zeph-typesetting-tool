@@ -1462,6 +1462,10 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
             if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
+            // A cell with no formatting at all comes from the importer with no runs (it
+            // renders from `text`); `bold` needs runs to set, so start from one plain run.
+            if (cs.bold != null && !(Array.isArray(cell.segs) && cell.segs.length))
+              cell.segs = [{ t: cell.text, b: false, it: false, c: null }];
             cell.text = cell.text.replace(re, () => to);
             if (Array.isArray(cell.segs) && cell.segs.length && !cell.segs.some((s) => s.m || typeof s.t !== "string")) {
               const m = cell.segs.map((s) => s.t).join("").match(re);

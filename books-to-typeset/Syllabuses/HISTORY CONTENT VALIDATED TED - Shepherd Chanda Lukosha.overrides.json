@@ -109,7 +109,8 @@
     {
       "_why": "PROOFREAD 2026-10-23, p18 (1.3.4.1 competence): 'Remove the brackets'.",
       "from": "Use abbreviations (BC/BCE and AD/CE)",
-      "to": "Use abbreviations BC/BCE and AD/CE"
+      "to": "Use abbreviations BC/⁠BCE and AD/⁠CE",
+      "_to_why": "A word joiner after each slash (follow-up, 2026-10-23): the line broke inside 'BC/ BCE'."
     },
     {
       "_why": "PROOFREAD 2026-10-23, p20 (1.7.2.1): 'Insert the phrase into Zambia after the word migrations'.",
