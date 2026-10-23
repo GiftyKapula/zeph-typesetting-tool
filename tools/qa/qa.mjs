@@ -66,6 +66,19 @@ async function manuscript(docx) {
     const t = [...m.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("").trim();
     return /^.{0,40}?\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\s*-{5,}/s.test(t) ? "" : m;
   });
+  // …and the notes the reviewer TYPED onto the CDC page (the sidecar's cdcComments list,
+  // which the engine drops the same way): a coloured text box holding one note
+  const side = docx.replace(/\.docx$/i, ".overrides.json");
+  const ov = fs.existsSync(side) ? JSON.parse(fs.readFileSync(side, "utf8")) : {};
+  if (ov.cdcComments) {
+    const squash = (s) => s.replace(/&(?:[a-z]+|#\d+|#x[0-9a-f]+);/gi, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+    const list = JSON.parse(fs.readFileSync(path.resolve(path.dirname(docx), ov.cdcComments), "utf8"));
+    const keys = list.map((c) => squash(c.note || "")).filter(Boolean);
+    xml = xml.replace(/<w:txbxContent>[\s\S]*?<\/w:txbxContent>/g, (m) => {
+      const k = squash([...m.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join(""));
+      return k && keys.some((n) => n === k || (k.length >= 12 && n.includes(k))) ? "" : m;
+    });
+  }
   const paras = xml.split(/<\/w:p>/);
   const text = [];
   for (const p of paras) {
@@ -144,6 +157,8 @@ function pdfText(pages) {
 function typInfo(typ) {
   const heads = [];
   for (const m of typ.matchAll(/^#(sectionhead|subhead|head|lbl|termpage)\("((?:[^"\\]|\\.)*)"/gm)) heads.push({ kind: m[1], text: m[2].replace(/\\(.)/g, "$1") });
+  // a topic banner (#topicbanner("5.4", "PLANTS AND ANIMALS", …)) opens a section too
+  for (const m of typ.matchAll(/^#topicbanner\("[^"]*", "((?:[^"\\]|\\.)*)"/gm)) heads.push({ kind: "topicbanner", text: m[1].replace(/\\(.)/g, "$1") });
   const listWarn = [];
   let run = null;
   const val = (mk) => {
@@ -212,7 +227,8 @@ export async function qa(docx, opts = {}) {
     const it = pg.items;
     // placeholder left in (the running footer's page number — "~ xxx ~" — is not one)
     const txt = it.map((x) => x.s).join(" ").replace(/~\s*[0-9ivxlc]+\s*~/gi, " ");
-    const ph = txt.match(/\b(INSERT\s+(A\s+)?(PICTURE|PICTUERE|ANSWERS?|IMAGE|PHOTO|TABLE|DIAGRAM|TEXT)|PUT\s+A\s+[A-Z ]*PICTURE|PICTURE\s+HERE|TO\s?DO|XXX+|lorem ipsum)\b/i);
+    // ("TO DO" only in capitals: "has to do with" and "harder to do" are ordinary prose)
+    const ph = txt.match(/\b(INSERT\s+(A\s+)?(PICTURE|PICTUERE|ANSWERS?|IMAGE|PHOTO|TABLE|DIAGRAM|TEXT)|PUT\s+A\s+[A-Z ]*PICTURE|PICTURE\s+HERE|XXX+|lorem ipsum)\b/i) || txt.match(/\bTO\s?DO\b/);
     if (ph) blockers.push(`p${pg.pn || `sheet ${pg.i}`}: placeholder "${ph[0]}"`);
     // the copyright page is one alignment throughout: a converted manuscript set its labels
     // as left-aligned headings, the names centred and one address line flush left
@@ -247,9 +263,15 @@ export async function qa(docx, opts = {}) {
     // Then this page legitimately ends early, and its last line (a foreword's signature
     // "ZAMBIA EDUCATIONAL PUBLISHING HOUSE") ends a section rather than being stranded.
     const nxt = body[body.indexOf(pg) + 1];
-    const nxtTop = nxt ? lines(nxt).find((l) => !/secondary education|early childhood|teacher'?s guide|learner'?s book|^~/i.test(l.text)) : null;
+    // (the running head is not the page's first line: "Primary Education Level Science" too)
+    const RUNHEAD = /secondary education|primary education|early childhood|teacher'?s guide|learner'?s book|^~/i;
+    const nxtTop = nxt ? lines(nxt).find((l) => !RUNHEAD.test(l.text)) : null;
+    // (a topic banner spells its parts on separate lines — "T O P I C", "5.4", the name —
+    // so look for the banner's name among the next page's first few lines)
+    const nxtFirst = nxt ? lines(nxt).filter((l) => !RUNHEAD.test(l.text)).slice(0, 14).map((l) => l.text.trim().toLowerCase()) : [];
+    const opensTopic = info.heads.some((h) => h.kind === "topicbanner" && nxtFirst.some((t) => t === h.text.toLowerCase() || t.endsWith(" " + h.text.toLowerCase())));
     // (an unnumbered next page — a term page, blank verso or the back cover — is a break too)
-    const opensSection = (!!nxt && !nxt.pn) || !!nxtTop && info.heads.some((h) => /^(sectionhead|subhead|termpage)$/.test(h.kind) && h.text.toLowerCase().startsWith(nxtTop.text.trim().toLowerCase().slice(0, 15)));
+    const opensSection = (!!nxt && !nxt.pn) || opensTopic || !!nxtTop && info.heads.some((h) => /^(sectionhead|subhead|termpage)$/.test(h.kind) && h.text.toLowerCase().startsWith(nxtTop.text.trim().toLowerCase().slice(0, 15)));
     if (lastLine && L.length > 3 && !(pg.imgBottom < lastLine.y - 5) && !opensSection) {   // (a picture below it means it is not the last thing)
       const t = lastLine.text.replace(/\s+/g, " ").trim().toLowerCase();
       if (t.length >= 4 && [...headTexts].some((h) => h === t || (h.startsWith(t) && t.length > 12))) flag(pg, `heading/label stranded at page foot "${lastLine.text.trim().slice(0, 30)}"`);
@@ -280,7 +302,11 @@ export async function qa(docx, opts = {}) {
   const got = bag(words(pdfText(pages)));
   const explained = new Set();
   const collect = (o) => { if (typeof o === "string") words(o).forEach((w) => explained.add(w)); else if (Array.isArray(o)) o.forEach(collect); else if (o && typeof o === "object") Object.entries(o).forEach(([k, v]) => { if (!/^(imprint|coverWords|authors)$/.test(k)) collect(v); }); };
-  collect({ remove: ov.remove, deleteExact: ov.deleteExact, phraseFix: (ov.phraseFix || []).map((p) => p[0]), sourceFix: (ov.sourceFix || []).map((p) => p[0]), setHeading: (ov.setHeading || []).map((s) => s.find), qaIgnore: ov.qaIgnore, removeRange: ov.removeRange, deleteRun: ov.deleteRun });
+  // (words a correction replaced on purpose — a respelt OCR slip, an edited line — are
+  // explained by that correction, not lost)
+  const finds = (list) => (list || []).map((e) => e && e.find).filter((s) => typeof s === "string");
+  collect({ remove: ov.remove, deleteExact: ov.deleteExact, phraseFix: (ov.phraseFix || []).map((p) => p[0]), sourceFix: (ov.sourceFix || []).map((p) => p[0]), setHeading: (ov.setHeading || []).map((s) => s.find), qaIgnore: ov.qaIgnore, removeRange: ov.removeRange, deleteRun: ov.deleteRun,
+    wordFix: Object.keys(ov.wordFix || {}), edit: finds(ov.edit), editAll: finds(ov.editAll), replaceExact: finds(ov.replaceExact), replaceBlocks: finds(ov.replaceBlocks), mdReplaceExact: finds(ov.mdReplaceExact) });
   let total = 0, hit = 0, expl = 0;
   const missing = [];
   // front matter the engine rebuilds itself (cover page, imprint) is not counted: the
