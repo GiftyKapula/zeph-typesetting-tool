@@ -148,7 +148,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // source glued into one paragraph, e.g. "Noriana Muneku (Ms.)Permanent
   // Secretary…MINISTRY OF EDUCATION").
   const SIGINLINE = /\(\s*(?:dr|ms|mr|mrs|prof|hon|ph\.?\s?d|ed\.?\s?d|m\.?\s?ed|phd)\.?\s*\)/i;
-  const plainOfBlk = (x) => (x.t === "head" || x.t === "label" || x.t === "h1" || x.t === "h2" ? (x.text || "") : (x.segs || []).map((s) => s.t).join("")).trim();
+  const plainOfBlk = (x) => (x.t === "head" || x.t === "label" || x.t === "h1" || x.t === "h2" || x.t === "h3" ? (x.text || "") : (x.segs || []).map((s) => s.t).join("")).trim();
   // A manuscript that hand-sizes its signatory lines as large as a heading reaches here with
   // them as h1 ("Agness Mumba Wilkins (PhD)" / "Managing Director / …" / "ZAMBIA EDUCATIONAL
   // PUBLISHING HOUSE"); read those as signature lines, not as new sections. A real section
@@ -166,7 +166,8 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
     const isOrg = SIGORG.test(txt);
     return { text: isOrg ? txt.toUpperCase() : txt, bold: isName || isAllCaps || isOrg };
   };
-  const isText = (x) => x && (x.t === "para" || x.t === "head" || x.t === "label");
+  // (h3 too: a converted manuscript sets the signatory lines as small headings)
+  const isText = (x) => x && (x.t === "para" || x.t === "head" || x.t === "label" || x.t === "h3");
   // A hand-signature line of dots the author typed above the signatory ("……………") —
   // the signature block leaves its own room, so drop it.
   const DOTS = /^[.…‥\s_]{5,}$/;

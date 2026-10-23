@@ -330,19 +330,24 @@ function fillLayoutCredit(blocks) {
 function boldAuthorNames(blocks) {
   const textOf = (b) => (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "")).trim();
   const isHead = (b) => b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t);
-  const NAME = /^([A-Z][A-Za-z.'’-]+(?:\s+[A-Z][A-Za-z.'’-]+){1,4})\s+(holds?|is\b|has\b|obtained|received|earned|graduated|studied|teaches|taught|possess|acquired|attained|completed|did\b|works?\b|serves?\b)/;
+  // (a middle initial counts as a name word: "Costain M Bulanda")
+  const NAME = /^([A-Z][A-Za-z.'’-]+(?:\s+[A-Z][A-Za-z.'’-]*){1,4})\s+(holds?|is\b|has\b|obtained|received|earned|graduated|studied|teaches|taught|possess|acquired|attained|completed|did\b|works?\b|serves?\b)/;
   for (let i = 0; i < blocks.length; i++) {
-    if (!(isHead(blocks[i]) && /^(THE\s+)?AUTHORS?$/i.test(textOf(blocks[i])))) continue;
+    // (the "AUTHORS" line may still be a plain paragraph here — it becomes a section heading later)
+    if (!((isHead(blocks[i]) || blocks[i].t === "para") && /^(THE\s+)?AUTHORS?$/i.test(textOf(blocks[i])))) continue;
     for (let j = i + 1; j < blocks.length; j++) {
       const y = blocks[j];
-      if (isHead(y)) break;
+      if (isHead(y) || (y.t === "para" && /^[A-Z ]{4,}$/.test(textOf(y)))) break;   // the next section
       if (y.t !== "para" || !y.segs || !y.segs.length) continue;
       const full = y.segs.map((s) => s.t).join("");
       const m = full.match(NAME);
       if (!m) continue;
       const nameLen = m[1].length;
-      // already fully bold at the front? leave it.
-      if (y.segs[0].b && full.indexOf(m[1]) === 0) continue;
+      // already bold all through the name? leave it. (A converted file can bold only part of
+      // it: "Kashanda" bold, "Kasaila" not — that is bolded through.)
+      let pos = 0, allBold = true;
+      for (const s of y.segs) { if (pos >= nameLen) break; if (s.t.trim() && !s.b) allBold = false; pos += s.t.length; }
+      if (allBold && full.indexOf(m[1]) === 0) continue;
       y.segs = boldPrefix(y.segs, nameLen);
     }
     break;

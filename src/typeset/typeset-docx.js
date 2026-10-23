@@ -33,7 +33,7 @@ const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatt
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
-const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold } = require("./passes/polish.js");
+const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, joinBrokenLines, boxLooseActivities } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
 
 async function typesetOne(docxPath, themeName) {
@@ -109,6 +109,13 @@ async function typesetOne(docxPath, themeName) {
   importOpts.sourceFix = ov.sourceFix || [];          // fix manuscript text before recognition
   importOpts.textboxHeadings = !!ov.textboxHeadings;
   importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;   // a manuscript converted from a PDF: text boxes rejoin the text flow   // a short title line in a Word text box becomes a heading
+  // the CDC copy's typed-on notes (FreeText comments, the list tools/cdc-comments.mjs writes):
+  // the converter turns each into a text box, which unwrapTextboxes would print as book text
+  if (ov.cdcComments) {
+    const list = JSON.parse(fs.readFileSync(resolveBookPath(docxPath, ov.cdcComments), "utf8"));
+    importOpts.cdcNotes = list.map((c) => c.note || "").filter(Boolean);
+  }
+  importOpts.coverUntil = ov.coverUntil;               // where the cover ends when no © line marks it
   importOpts.flattenBorderless = !!ov.flattenBorderless;   // a table with no lines in Word is set as plain text
   importOpts.tabGap = !!ov.glossaryColumns;           // a single tab still separates two glossary columns
   importOpts.exerciseBullets = !!ov.exerciseBullets; // keep Word bullets inside exercises as bullets
@@ -118,6 +125,11 @@ async function typesetOne(docxPath, themeName) {
     console.warn("!  No content extracted from", docxPath);
     return;
   }
+  // joinBrokenLines: true — a manuscript converted from a PDF has a paragraph per printed
+  // line; rejoin the sentences (see passes/polish.js)
+  // (with reboxExercises, the exercise boxes are laid out flat first, as the rebox will:
+  // an over-long box must not hide the activities and headings it swallowed)
+  if (ov.joinBrokenLines) console.log(`   joinBrokenLines: ${joinBrokenLines(blocks, { flattenExercises: !!ov.reboxExercises })} broken line(s) joined`);
   // untableImages: true — a picture book (ECE) lays its pages out with Word tables used
   // only to place pictures side by side, with at most a short label in a cell. Rendered as
   // a table those pictures shrink to thumbnails; unpack each such table into its short
@@ -135,7 +147,7 @@ async function typesetOne(docxPath, themeName) {
     const walk = (o) => {
       if (o == null || typeof o !== "object") return;
       if (Array.isArray(o)) { for (const x of o) walk(x); return; }
-      for (const k of ["t", "text", "plain", "q", "a", "title", "heading"]) if (typeof o[k] === "string") o[k] = fix(o[k]);
+      for (const k of ["t", "text", "plain", "q", "a", "title", "heading", "caption"]) if (typeof o[k] === "string") o[k] = fix(o[k]);
       for (const v of Object.values(o)) if (v && typeof v === "object") walk(v);
     };
     walk(blocks);
@@ -313,9 +325,11 @@ async function typesetOne(docxPath, themeName) {
     media.push({ src, name });
     // (`after: true` — keep the matched block and put the picture right below it: a picture
     // the import lost, e.g. the unit opener glued to the typed contents list)
-    if (ip.after) list.splice(i + 1, 0, { t: "image", file: name, w: 601, tall: false });
-    else if (ip.before) list.splice(i, 0, { t: "image", file: name, w: 601, tall: false });
-    else list[i] = { t: "image", file: name, w: 601, tall: false };
+    // (`w`: the on-page width in px, as the manuscript gives it; 601 = the full text width)
+    const w = ip.w || 601;
+    if (ip.after) list.splice(i + 1, 0, { t: "image", file: name, w, tall: false });
+    else if (ip.before) list.splice(i, 0, { t: "image", file: name, w, tall: false });
+    else list[i] = { t: "image", file: name, w, tall: false };
   }
   // subSections: "regex" — the level below the units ("Chihande: 1.2.1 Kutanga…" in a
   // Luvale book), however the author styled each one (Heading 1/2/3 or a plain line):
@@ -417,9 +431,9 @@ async function typesetOne(docxPath, themeName) {
   fixACappellaSpacing(blocks);
   // ZEPH_BLOCKS=<file>: one line per block as the overrides will see it (index, type, text),
   // for writing anchors (`from`/`to`/`find`) against a manuscript we did not author
-  if (process.env.ZEPH_BLOCKS) fs.writeFileSync(process.env.ZEPH_BLOCKS, blocks.map((b, i) => `${i}\t${b.t}\t${blockPlain(b).replace(/\s+/g, " ").slice(0, 160)}`).join("\n"));
+  if (process.env.ZEPH_BLOCKS) fs.writeFileSync(process.env.ZEPH_BLOCKS, blocks.map((b, i) => `${i}\t${b.t}\t${blockPlain(b).replace(/\s+/g, " ").slice(0, 160)}${b.file ? ` [${path.basename(b.file)}]` : ""}${Array.isArray(b.images) ? ` [${b.images.map((x) => path.basename(x.file || x.src || "")).join(" ")}]` : ""}`).join("\n"));
 
-  if (ov.fill || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange) { applyOverrides(blocks, ov); }
   // glossaryColon: true — in the glossary, a term is followed by a colon, not the hyphen
   // the author typed: "Bacikombo- Caamba bamukowa" -> "Bacikombo: Caamba bamukowa".
   if (ov.glossaryColon) {
@@ -578,7 +592,7 @@ async function typesetOne(docxPath, themeName) {
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
   normaliseSpacing(blocks);
   unboldLeadProse(blocks);
-  ensureOrIndividually(blocks);
+  if (!ov.keepActivityWording) ensureOrIndividually(blocks);   // keepActivityWording: a CDC-approved text keeps its own "In groups,"
   normaliseQuestionMarkBold(blocks);
   fillLayoutCredit(blocks);  // credit the typesetter on the "Cover and Book Layout:" line
   labelIntroductions(blocks);
@@ -609,6 +623,9 @@ async function typesetOne(docxPath, themeName) {
   normaliseCompetenceLabels(blocks);
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
+  // (a converted book again, now the boxes made from headings exist: each takes back its
+  // own instructions and "Expected Responses" left after it)
+  if (ov.joinBrokenLines) boxLooseActivities(blocks);
   // after boxing, so the assessment bodies exist to scan
   boldAssessmentSections(blocks);
   boldSafetyAndSteps(blocks);
@@ -1473,6 +1490,65 @@ async function typesetOne(docxPath, themeName) {
       n[b.t] = (n[b.t] || 0) + 1;
     }
     console.log(`   headingCase: ${Object.entries(n).map(([k, v]) => `${v} ${k}`).join(", ")}`);
+  }
+  // boldAnswerLabels: true — in a run of "Label - answer" list items where some labels are
+  // bold, make every label bold up to its dash. A book converted from a PDF keeps the bold
+  // of some runs and loses it on others ("Fertilizer that supports steady growth" with only
+  // "steady" roman), so one answer list reads half bold, half plain.
+  if (ov.boldAnswerLabels) {
+    const { boldPrefix } = require("./blocktext.js");
+    // "Label - answer", "Label -answer" or "Label- answer"
+    const LABEL = /^(.{3,120}?)(?:\s+[-–]\s?(?=\S)|[-–]\s+(?=\S))/;
+    let n = 0;
+    const visit = (arr) => {
+      if (!Array.isArray(arr)) return;
+      for (let i = 0; i < arr.length; i++) {
+        const b = arr[i];
+        if (!b || typeof b !== "object") continue;
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs") visit(b[k]);
+        if (b.t !== "listitem" || (i > 0 && arr[i - 1] && arr[i - 1].t === "listitem")) continue;
+        let j = i; while (j < arr.length && arr[j] && arr[j].t === "listitem") j++;
+        const run = arr.slice(i, j).filter((x) => Array.isArray(x.segs) && LABEL.test(x.segs.map((s) => s.t).join("")));
+        // (an answer list — under "Possible Answers" — is always set with bold labels, even
+        // where the conversion lost every one of them)
+        const answers = arr.some((x) => x && /^possible answers?\b/i.test(blockPlain(x).trim()));
+        if (!answers && !run.some((x) => x.segs[0].b)) continue;
+        for (const x of run) {
+          const len = x.segs.map((s) => s.t).join("").match(LABEL)[1].length;
+          if (x.segs.map((s) => s.t).join("").slice(0, len).split("").every((_, c) => { let o = 0; for (const s of x.segs) { if (c < o + s.t.length) return s.b; o += s.t.length; } return true; })) continue;
+          x.segs = boldPrefix(x.segs, len); n++;
+        }
+      }
+    };
+    visit(blocks);
+    // In an answer list, two more shapes: a "Label: answer" item (bold through the colon),
+    // and a question followed by its answer paragraph (an End of Topic Assessment) — the
+    // question reads bold, its own italic answer text stays as it is.
+    const COLON = /^(.{3,60}?:)\s+(?=\S)/;
+    const visit2 = (arr) => {
+      if (!Array.isArray(arr)) return;
+      const answers = arr.some((x) => x && /^possible answers?\b/i.test(blockPlain(x).trim()));
+      for (let i = 0; i < arr.length; i++) {
+        const b = arr[i];
+        if (!b || typeof b !== "object") continue;
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs") visit2(b[k]);
+        if (!answers || b.t !== "listitem" || !Array.isArray(b.segs)) continue;
+        const txt = b.segs.map((s) => s.t).join("");
+        if (LABEL.test(txt)) continue;
+        const m = txt.match(COLON);
+        if (m && !b.segs.every((s) => s.b || !s.t.trim())) {
+          const head = txt.slice(0, m[1].length);
+          if (!/[.?!]/.test(head.slice(0, -1))) { b.segs = boldPrefix(b.segs, m[1].length); n++; continue; }
+        }
+        const next = arr[i + 1];
+        // (or its italic answer run on the same line: "Describing ways … animals Destroying …")
+        if (((next && next.t === "para") || b.segs.some((s) => s.it && s.t.trim())) && b.segs.some((s) => !s.b && !s.it && s.t.trim())) {
+          b.segs = b.segs.map((s) => (s.it || s.m ? s : { ...s, b: true })); n++;
+        }
+      }
+    };
+    visit2(blocks);
+    if (n) console.log(`   boldAnswerLabels: ${n} label(s) bolded`);
   }
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
 

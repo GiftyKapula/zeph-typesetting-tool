@@ -10,7 +10,8 @@
 // `from` alone highlights the line holding that phrase; with `to`, every line from the `from` line through
 // the `to` line (across pages) is highlighted; `extra` adds that many lines after `to`.
 // `after`: start looking only past this phrase. The search starts at the first body page
-// ("~ 1 ~"), so the contents page never catches an anchor. Phrases are case-insensitive,
+// ("~ 1 ~"), so the contents page never catches an anchor (`front: true` searches from the
+// first page instead, for a correction in the front matter). Phrases are case-insensitive,
 // single-line, and dashes/quotes/spaces are normalised.
 import fs from 'fs';
 import { createRequire } from 'module';
@@ -92,7 +93,8 @@ const add = (p, quads, note, title) => {
 
 let ok = 0; const misses = []; const report = [];
 for (const it of plan.items) {
-  const base = it.after ? find(it.after, start) : start;
+  const from0 = it.front ? 0 : start;
+  const base = it.after ? find(it.after, from0) : from0;
   if (base < 0) { misses.push(`${it.n}: after "${it.after}"`); continue; }
   const a = find(it.from, base);
   if (a < 0) { misses.push(`${it.n}: from "${it.from}"`); continue; }
