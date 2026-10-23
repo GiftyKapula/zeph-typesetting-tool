@@ -42,6 +42,8 @@
       "find": "STRUCTURE OF THE SYLLABUS"
     }
   ],
+  "methodLabels": true,
+  "_methodLabels_why": "User, 2026-10-23: every method label in the matrix set alike, flush left without a bullet (house style); 17 of them had kept the bullet the author typed.",
   "cellSubtext": [
     {
       "_why": "PROOFREAD 2026-10-23, p22 (1.2.2.1): 'Brainstorming Session: should be in bold' (in board), as in 1.2.1.1 above it.",

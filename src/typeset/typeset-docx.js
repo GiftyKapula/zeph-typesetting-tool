@@ -1495,6 +1495,78 @@ function applyOverrides(blocks, ov) {
     if (!n) console.warn("!  cellSubtext not matched:", cs.from);
     else if (n > 1 && !cs.all) console.warn(`!  cellSubtext matched ${n} cells:`, cs.from);
   }
+  // methodLabels: true — set every teaching-method label in the matrix alike, flush left
+  // without a bullet. A label is a short line wholly in bold ("Role Play:", "Group
+  // Presentations"). Typed with a bullet it kept it in a cell that mixes bulleted and plain
+  // lines, but came out flush left as a method in a cell bulleted throughout — so one book
+  // showed both. Its bullet is taken off (the template sets an unbulleted bold line in a
+  // bulleted cell as a method). A bold label with its first activity run on after the colon
+  // ("Field Study: Identifying …") is split there, the activity behind a bullet of its own.
+  // Works on the runs (they carry the bold) and makes the same change in `text`, matched
+  // by the label: the runs keep spaces the text has tidied ("•  Recording").
+  if (ov.methodLabels) {
+    let n = 0;
+    const words = (t) => t.trim().split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("\\s+");
+    // replace characters [a, z) of the runs with `ins`, styled like the run at `a`
+    const splice = (segs, a, z, ins, style) => {
+      let pos = 0, put = false;
+      const out = segs.flatMap((s) => {
+        const sa = pos, sz = pos + s.t.length; pos = sz;
+        if (sz <= a || sa >= z) return [s];
+        const head = s.t.slice(0, Math.max(0, a - sa)), tail = s.t.slice(Math.min(s.t.length, z - sa));
+        const mid = put || !ins ? [] : [{ ...s, ...style, t: ins }]; put = true;
+        return [{ ...s, t: head }, ...mid, { ...s, t: tail }];
+      }).filter((s) => s.t !== "");
+      return out;
+    };
+    const walkM = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          for (const row of b.rows.slice(1)) if (Array.isArray(row)) for (const cell of row) {
+            if (!cell || typeof cell.text !== "string" || !Array.isArray(cell.segs) || !cell.segs.length) continue;
+            if (cell.segs.some((s) => s.m || typeof s.t !== "string")) continue;
+            const joined = cell.segs.map((s) => s.t).join("");
+            const boldAt = cell.segs.flatMap((s) => Array.from(s.t, () => !!s.b));
+            const isBold = (a, z) => Array.from(joined.slice(a, z)).every((ch, i) => !/[A-Za-z0-9]/.test(ch) || boldAt[a + i]);
+            const edits = []; // [a, z, ins, label, kind]
+            let ls = 0;
+            for (const line of joined.split("\n")) {
+              // a label on its own line, behind a bullet
+              const m = line.match(/^(\s*[•▪◦●·‣∙]\s*)(\S[^\n]{1,45}?)\s*$/);
+              // a label (bulleted or not) with its first activity after the colon
+              const r = line.match(/^(\s*(?:[•▪◦●·‣∙]\s*)?)([A-Z][^\n:]{1,40}:)([ \t]+)(\S.*)$/);
+              if (m && isBold(ls + m[1].length, ls + m[1].length + m[2].length) && /[A-Za-z]/.test(m[2])) {
+                edits.push([ls, ls + m[1].length, "", m[2], "own"]);
+              } else if (r) {
+                const la = ls + r[1].length, lz = la + r[2].length, ra = lz + r[3].length;
+                if (isBold(la, lz) && !isBold(ra, ra + r[4].length)) {
+                  edits.push([lz, ra, "\n• ", r[2], "split"]);
+                  if (r[1]) edits.push([ls, la, "", r[2], "own"]);
+                }
+              }
+              ls += line.length + 1;
+            }
+            if (!edits.length) continue;
+            let segs = cell.segs;
+            for (const [a, z, ins] of edits.slice().sort((x, y) => y[0] - x[0]))
+              segs = splice(segs, a, z, ins, { b: false, it: false });
+            cell.segs = segs;
+            for (const [, , , label, kind] of edits) {
+              const L = words(label);
+              cell.text = kind === "own"
+                ? cell.text.replace(new RegExp("(^|\\n)[ \\t]*[•▪◦●·‣∙][ \\t]*(" + L + ")"), "$1$2")
+                : cell.text.replace(new RegExp("(" + L + ")[ \\t]+"), "$1\n• ");
+            }
+            n += edits.length;
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkM(b[k]);
+      }
+    };
+    walkM(blocks);
+    console.log(`   methodLabels: ${n} label(s) set as methods`);
+  }
   // removeRow: [{ find }] — delete a whole TABLE ROW, matched by any one of its cells
   // whose trimmed text equals `find` (or starts with it, with `startsWith` instead).
   // For a row the author duplicated or a clause withdrawn after validation: `remove`
@@ -5433,7 +5505,7 @@ async function typesetOne(docxPath, themeName) {
   }
 
   if (variant === "syllabus") mergeSplitMatrices(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.methodLabels || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
