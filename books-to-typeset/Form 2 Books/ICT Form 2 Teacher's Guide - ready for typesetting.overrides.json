@@ -10,7 +10,8 @@
     "header all called the book Computer Science.",
     "",
     "Rebuilt 2026-10-23 on the current engine: two empty \"Performance Levels\" headings in Sub-Topic 2.2.1 (no table under them in the manuscript) removed; LEARNINING/Alterative typos corrected; one column split for every rubric (uniformRubrics); glossary and references set a little tighter together (backmatterSpacing) so neither runs two entries onto a page of its own.",
-    "Exercises 8 and 12: the two Excel screenshots (image3/image5, ~100 DPI) redrawn as spreadsheet grids like the others in the book, values exactly as in the screenshots (the Sn column there reads 2-6 - left for the author)."
+    "Exercises 8 and 12: the two Excel screenshots (image3/image5, ~100 DPI) redrawn as spreadsheet grids like the others in the book, values exactly as in the screenshots (the Sn column there reads 2-6 - left for the author).",
+    "Foreword signatory set like the Preface and Acknowledgement ones (bold name, title and organisation in bold capitals): the manuscript typed it with no bold, and its title in mixed case."
   ],
   "subject": "Information and Communication Technology",
   "backmatterSpacing": {
@@ -25,6 +26,10 @@
     {
       "from": "Alterative Activity",
       "to": "Alternative Activity"
+    },
+    {
+      "from": "Permanent Secretary (Administration)",
+      "to": "PERMANENT SECRETARY (ADMINISTRATION)"
     }
   ],
   "uniformRubrics": true,

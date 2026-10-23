@@ -1472,6 +1472,21 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
         done = true;
         continue;
       }
+      // The same signatory typed as ONE paragraph with Word line breaks but NO bold
+      // name: with no formatting change the importer keeps it as a single run
+      // ("Noriana Muneku (Ms.)\nPermanent Secretary (Administration)\nMINISTRY OF
+      // EDUCATION"), so the run test above never fires and the block printed as plain
+      // body text while the Preface and Acknowledgement signatories beside it were bold
+      // (ICT Form 2 TG). Split on the breaks; the first line must read as a short name.
+      const brLines = !done && SIGSEC.test(section) && x.t === "para" && plain.includes("\n")
+        ? plain.split("\n").map((l) => l.trim()).filter(Boolean) : null;
+      if (brLines && brLines.length >= 2 && brLines.length <= 5 && brLines[0].length <= 60
+          && SIGNAME.test(brLines[0])) {
+        withSig.push({ t: "sigspace" });
+        withSig.push({ t: "signature", lines: brLines.map((l, k) => sigLine(l, k === 0)) });
+        done = true;
+        continue;
+      }
       // A signatory NAME line is short ("Agness Mumba Wilkins (PhD)"); a prose sentence that
       // merely starts with an honorific ("Mr. Eustace Panga Museka wrote the book…") is not a
       // signature, so cap the length or it steals the block from the real signatory below it.
