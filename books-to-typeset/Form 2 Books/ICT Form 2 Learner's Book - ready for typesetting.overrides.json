@@ -1,4 +1,7 @@
 {
+  "_comment": [
+    "ICT Form 2 Learner's Book. Rebuilt 2026-10-23 on the current engine, matched to the Teacher's Guide (PR #95): LEARNINING/Alterative typos corrected; Foreword signatory title in capitals like the Preface and Acknowledgement ones; glossary and references set a little tighter together (backmatterSpacing); the two Excel screenshots (Exercises 8 and 12) drawn as spreadsheet grids, values as in the screenshots (Sn reads 2-6, left for the author); three page breaks: the Creating Columns figure kept with its label, End of Topic 2.2 Q9 taken over with Q10, Learning Activity 19 starts a page."
+  ],
   "coverImage": "ict-form2-lb-cover.png",
   "images": {
     "image21.png": {
@@ -16,5 +19,102 @@
     "image33.jpeg": {
       "src": "ICT Form 2 Learner's Book - ready for typesetting-hires/image33.png"
     }
-  }
+  },
+  "subtext": [
+    {
+      "from": "LEARNINING ACTIVITY",
+      "to": "LEARNING ACTIVITY"
+    },
+    {
+      "from": "Alterative Activity",
+      "to": "Alternative Activity"
+    },
+    {
+      "from": "Permanent Secretary (Administration)",
+      "to": "PERMANENT SECRETARY (ADMINISTRATION)"
+    }
+  ],
+  "backmatterSpacing": {
+    "leading": "0.6em",
+    "spacing": "0.7em"
+  },
+  "imageToTable": {
+    "image17.png": {
+      "sheet": true,
+      "rows": [
+        [
+          "Sn",
+          "Student Name",
+          "Marks (%)"
+        ],
+        [
+          "2",
+          "Mutale",
+          "78"
+        ],
+        [
+          "3",
+          "Nkandu",
+          "64"
+        ],
+        [
+          "4",
+          "Chisanga",
+          "90"
+        ],
+        [
+          "5",
+          "Mwape",
+          "55"
+        ],
+        [
+          "6",
+          "Phiri",
+          "82"
+        ]
+      ]
+    },
+    "image21.png": {
+      "sheet": true,
+      "rows": [
+        [
+          "Name",
+          "Admission No.",
+          "Age",
+          "Contact No."
+        ],
+        [
+          "Chanda",
+          "101",
+          "14",
+          "977000001"
+        ],
+        [
+          "Banda",
+          "102",
+          "13",
+          "977000002"
+        ],
+        [
+          "Phiri",
+          "103",
+          "14",
+          "977000003"
+        ],
+        [
+          "Tembo",
+          "104",
+          "13",
+          "977000004"
+        ]
+      ]
+    }
+  },
+  "keepWithNext": [
+    "The Environmental Club is designing a poster for World"
+  ],
+  "pageBreakBefore": [
+    "Steps for Creating Columns",
+    "LEARNING ACTIVITY 19"
+  ]
 }
