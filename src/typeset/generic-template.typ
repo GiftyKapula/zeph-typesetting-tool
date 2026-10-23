@@ -2253,8 +2253,9 @@
     // a lesson heading (already numbered "1. …" at build time) — generous space
     // before it, and `sticky` so a heading never strands at the foot of a page
     v(22pt, weak: true)
+    // (a heading never hyphenates: "EN-" / "ERGY" across two lines reads as two words)
     block(width: 100%, breakable: false, sticky: true)[
-      #text(fill: T.primary, size: hs(14pt), weight: "bold")[#upper(t)]
+      #text(fill: T.primary, size: hs(14pt), weight: "bold", hyphenate: false)[#upper(t)]
       // (`nobar`: a heading stacked straight under another one — only the upper one is underlined)
       #if not nobar [ #v(2pt) #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt) ]]
   } else if literary {
@@ -2298,7 +2299,7 @@
     // (used to give TOPIC/SUB-TOPIC heads a specific blend colour per book).
     let u = upper(t)
     let isact = (u.starts-with("ACTIVITY") or u.starts-with("EXERCISE") or u.starts-with("TASK") or u.starts-with("PROJECT") or u.starts-with("DISCUSSION")) and not black
-    block(breakable: false, sticky: true)[#text(fill: if col != none { rgb("#" + col) } else if isact { T.primary } else { T.ink }, size: hs(14pt), weight: "bold")[#t]]
+    block(breakable: false, sticky: true)[#text(fill: if col != none { rgb("#" + col) } else if isact { T.primary } else { T.ink }, size: hs(14pt), weight: "bold", hyphenate: false)[#t]]
   } else if literary {
     block(breakable: false)[#text(fill: T.primary, size: hs(13pt), weight: "bold", style: "italic")[#t]]
   } else if panel {
@@ -2426,33 +2427,17 @@
   } else if tall {
     image(pathstr, height: 95mm)
   } else {
-    v(2pt)
-    let img = if hmm > 0 {
-      // author asked to enlarge/fit: an explicit on-page height (mm), never wider than
-      // the text block (a wide picture then fills the width instead)
-      layout(size => {
-        let m = measure(image(pathstr, height: hmm * 1mm))
-        if m.width > size.width { image(pathstr, width: size.width) } else { image(pathstr, height: hmm * 1mm) }
-      })
-    } else if tall {
-      image(pathstr, height: 95mm)
-    } else {
-      // Keep illustrations large enough to read (accessibility): a generous floor
-      // so small source diagrams aren't shrunk, and reach full width sooner.
-      let f = if wpx <= 0 { 0.85 } else { calc.max(0.55, calc.min(1.0, wpx / 480)) }
-      image(pathstr, width: f * 100%)
-    }
-    // `sticky` keeps the picture on the same page as the heading/title that follows it.
-    // (the OUTER element is a full-width block, so a sticky heading just above — "NCHITO"
-    // over its picture — has a block to hold on to; a bare align() let it strand)
-    block(width: 100%, breakable: false, sticky: sticky)[#align(center)[
-      #img
-      #if cap != none [ #v(2pt) #text(size: capsz(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
-    ]]
-    v(3pt)
+    // Keep illustrations large enough to read (accessibility): a generous floor
+    // so small source diagrams aren't shrunk, and reach full width sooner.
+    let f = if wpx <= 0 { 0.85 } else { calc.max(0.55, calc.min(1.0, wpx / 480)) }
+    image(pathstr, width: f * 100%)
   }
   // `sticky` keeps the picture on the same page as the heading/title that follows it.
-  align(center)[#block(breakable: false, sticky: sticky)[
+  // (the OUTER element is a full-width block, so a sticky heading just above — "NCHITO"
+  // over its picture — has a block to hold on to; a bare align() let it strand)
+  // (a merge once left a second copy of this body inside the last branch above, which
+  // printed every ordinary picture's caption twice)
+  block(width: 100%, breakable: false, sticky: sticky)[#align(center)[
     #img
     #if cap != none [ #v(2pt) #text(size: capsz(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
   ]]
@@ -2855,7 +2840,7 @@
       else if it.k == "head" {
         v(3pt)
         let hd = text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t]
-        block(breakable: false, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
+        block(breakable: false, sticky: true, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
         v(2pt)
       }
       else if it.k == "list" {
@@ -2921,6 +2906,23 @@
         i = stop
       }
     } else { i = i + 1 }
+  }
+  // ---- keep a box's lead-in label with what it introduces ----
+  // "Possible Answers", "Expected Responses", "Purpose:" — a short line set wholly in
+  // bold — opens the item after it; on its own at the foot of a page it is stranded.
+  let isLabel(it) = it.k == "para" and {
+    let ss = it.at("s", default: ()).filter(g => g.at("t", default: "") != none and g.at("t", default: "").trim() != "")
+    let t = txt(it).trim()
+    // (bold, or the familiar lead-in words even where the manuscript left them plain)
+    t.len() > 0 and t.len() <= 40 and ss.len() > 0 and (ss.all(g => g.at("b", default: false)) or t.match(regex("(?i)^(possible answers?|expected (responses?|findings?|answers?|standards?)|purpose|materials|procedure|tips?)\\s*:?$")) != none)
+  }
+  let k = 0
+  while k + 1 < n {
+    if mark.at(k) == -1 and mark.at(k + 1) == -1 and isLabel(body.at(k)) and body.at(k + 1).k != "img" {
+      mark.at(k) = k + 2
+      mark.at(k + 1) = -2
+      k = k + 2
+    } else { k = k + 1 }
   }
   for (idx, it) in body.enumerate() {
     let m = mark.at(idx)

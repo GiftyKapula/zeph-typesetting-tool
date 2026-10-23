@@ -1,0 +1,1523 @@
+{
+  "theme": "grade6sci",
+  "subject": "Science",
+  "outFolder": "_Post-CDC 2026-10",
+  "blackWhite": true,
+  "boxStripe": false,
+  "coversInBook": true,
+  "unwrapTextboxes": true,
+  "collapseSpaces": true,
+  "boldAnswerLabels": true,
+  "cdcComments": "cdc/Science Grade 5 TG - CDC comments.json",
+  "boxActivities": true,
+  "reboxExercises": true,
+  "exerciseLeadsOut": true,
+  "joinBrokenLines": true,
+  "keepScaffold": true,
+  "joinSplitTables": true,
+  "renumberActivities": "subtopic",
+  "coverUntil": "SCIENCE GRADE 5",
+  "synthesiseCover": true,
+  "authors": [
+    "Blessed Mufune",
+    "Chewe Lunda",
+    "Costain Bulanda",
+    "Davie Kapiji",
+    "Ephraim Kagele",
+    "Excella Mpande",
+    "Janet Nkhonjera",
+    "John Mwansa",
+    "Kashanda Kasaila",
+    "Masauso P. Chawinga",
+    "Medai Msimuko",
+    "Vistah J. Mudenda"
+  ],
+  "wordFix": {
+    "xpected": "Expected",
+    "lnsolubility": "Insolubility",
+    "Absentening from sexual activitie": "Abstaining from sexual activities",
+    "abstenance": "abstinence",
+    "acquatic": "aquatic",
+    "activte": "active",
+    "adhropods": "arthropods",
+    "afew": "a few",
+    "aggressivenness": "aggressiveness",
+    "anthratis": "arthritis",
+    "Anthritis": "Arthritis",
+    "Aotes": "Notes",
+    "asscociated": "associated",
+    "aswell": "as well",
+    "avoding": "avoiding",
+    "Behaviourassociated": "Behaviour associated",
+    "brian": "brain",
+    "carbohtdrates": "carbohydrates",
+    "chalkpowder": "chalk powder",
+    "comfodable": "comfortable",
+    "Commision": "Commission",
+    "comon": "common",
+    "conclution": "conclusion",
+    "concude": "conclude",
+    "Condtion": "Condition",
+    "consitently": "consistently",
+    "convinient": "convenient",
+    "corrrectly": "correctly",
+    "decissions": "decisions",
+    "Decribing": "Describing",
+    "defieciencies": "deficiencies",
+    "deforestaion": "deforestation",
+    "didy": "dirty",
+    "Differnces": "Differences",
+    "dipicting": "depicting",
+    "disporse": "dispose",
+    "Disporsing": "Disposing",
+    "econmic": "economic",
+    "eggsin": "eggs in",
+    "Elctricity": "Electricity",
+    "enforcenment": "enforcement",
+    "enlargening": "enlarging",
+    "enlargens": "enlarges",
+    "enlrge": "enlarge",
+    "enviroment": "environment",
+    "ev'aporation": "evaporation",
+    "exoskeleeton": "exoskeleton",
+    "experimentto": "experiment to",
+    "Faciliatate": "Facilitate",
+    "Faciliate": "Facilitate",
+    "fedile": "fertile",
+    "fedilisers": "fertilisers",
+    "fedilizer": "fertilizer",
+    "fedilizers": "fertilizers",
+    "Fertizer": "Fertilizer",
+    "Helplearners": "Help learners",
+    "hemerus": "humerus",
+    "impodance": "importance",
+    "Impodance": "Importance",
+    "impodant": "important",
+    "Impodant": "Important",
+    "importanat": "important",
+    "ingradients": "ingredients",
+    "Kwashoirkor": "Kwashiorkor",
+    "kwashokior": "kwashiorkor",
+    "lables": "labels",
+    "learnercentered": "learner-centred",
+    "learnersa": "learners",
+    "leraners": "learners",
+    "Leraners": "Learners",
+    "Lfse": "Use",
+    "likey": "likely",
+    "localityor": "locality or",
+    "malnutriton": "malnutrition",
+    "Malnutriton": "Malnutrition",
+    "measuing": "measuring",
+    "menstral": "menstrual",
+    "menstraul": "menstrual",
+    "Mensturation": "Menstruation",
+    "Mentrual": "Menstrual",
+    "mestrual": "menstrual",
+    "mestruating": "menstruating",
+    "movemnt": "movement",
+    "nutreints": "nutrients",
+    "nutrientdeficiency": "nutrient deficiency",
+    "nutrientdense": "nutrient-dense",
+    "obstcle": "obstacle",
+    "occuring": "occurring",
+    "ofjoints": "of joints",
+    "pac'kaged": "packaged",
+    "padicipation": "participation",
+    "paralle": "parallel",
+    "parasictic": "parasitic",
+    "parastic": "parasitic",
+    "parcipating": "participating",
+    "particilate": "participate",
+    "pevented": "prevented",
+    "physcical": "physical",
+    "piched": "pitched",
+    "plroblem": "problem",
+    "povedy": "poverty",
+    "preacutions": "precautions",
+    "prebvent": "prevent",
+    "pregnacies": "pregnancies",
+    "presnt": "present",
+    "prevelance": "prevalence",
+    "producation": "production",
+    "provinding": "providing",
+    "pubedy": "puberty",
+    "Pubedy": "Puberty",
+    "pubertyboys": "puberty boys",
+    "quanities": "quantities",
+    "redroductive": "reproductive",
+    "regulary": "regularly",
+    "repsctive": "respective",
+    "safetly": "safely",
+    "sanitory": "sanitary",
+    "shafi": "shaft",
+    "shodages": "shortages",
+    "shoder": "shorter",
+    "shod explanation": "short explanation",
+    "shod circuits": "short circuits",
+    "staunted": "stunted",
+    "substancce": "substance",
+    "suppod": "support",
+    "Suppod": "Support",
+    "susbtance": "substance",
+    "taxoplasmosis": "toxoplasmosis",
+    "tesing": "testing",
+    "theywill": "they will",
+    "tothe": "to the",
+    "transfussion": "transfusion",
+    "transmists": "transmits",
+    "uderstanding": "understanding",
+    "ultilising": "utilising",
+    "undertand": "understand",
+    "underwieght": "underweight",
+    "unsual": "unusual",
+    "vedebrate": "vertebrate",
+    "vedebrates": "vertebrates",
+    "vertebrtates": "vertebrates",
+    "vopour": "vapour",
+    "watercycle": "water cycle",
+    "whiloe": "while",
+    "chads": "charts",
+    "chad or short talk": "chart or short talk",
+    "Pads of human": "Parts of human",
+    "main pads": "main parts",
+    "private pads": "private parts",
+    "exact pad or point": "exact part or point",
+    "identify pads such": "identify parts such",
+    "protects the head and lungs": "protects the heart and lungs",
+    "alertness and sleepness": "alertness and sleepiness",
+    "Sleepness": "Steepness",
+    "sleepness": "steepness",
+    "sleeg - wake": "sleep-wake",
+    "Grade S Science": "Grade 5 Science",
+    "STls": "STIs",
+    "Demostrate": "Demonstrate",
+    "soff": "soft",
+    "unaccessibility": "inaccessibility",
+    "Simp/e": "Simple",
+    "loo/s": "tools",
+    "L/se": "Use",
+    "too/s": "tools",
+    "sz/perv/sion": "supervision",
+    "e/ectrica/": "electrical",
+    "inc/ine p/alG&apos;": "inclined plane",
+    "internal body pads (such as head, brain)": "internal body parts (such as heart, brain)",
+    "Femur, Uma, Tibia": "Femur, Ulna, Tibia",
+    "(BMI  -  - kg/m*)": "(BMI = kg/m²)",
+    "(BMI - - kg/m*)": "(BMI = kg/m²)",
+    "storer/": "stored",
+    "safe/y": "safely",
+    "EARNING ACTIVITY": "LEARNING ACTIVITY",
+    "ips": "Tips",
+    "LEARINING ACTIVITY": "LEARNING ACTIVITY",
+    "LEARNINNG ACTIVITY": "LEARNING ACTIVITY",
+    "LEARINING": "LEARNING",
+    "Leaners": "Learners",
+    "leaners": "learners",
+    "ip:": "Tip:",
+    "DMI  -  St Eugene": "DMI – St Eugene",
+    "District  - Copperbelt": "District – Copperbelt",
+    "contexts - whether": "contexts—whether",
+    "explainl": "explain",
+    "cadilage": "cartilage",
+    "reproductiotypically": "reproduction, typically",
+    "menstruatio which": "menstruation, which",
+    "sweet glands": "sweat glands",
+    "Sweet glands": "Sweat glands",
+    "lips (Fats)": "lipids (fats)"
+  },
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House (2026)",
+    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without the prior written permission of the copyright owner or publisher.",
+    "isbn": "…………………………",
+    "groups": [
+      {
+        "label": "Edited by:",
+        "lines": [
+          "Mr. Edward Chocha, Ms. Nzila O. Siabalima and Amb. Stella Libongani"
+        ]
+      },
+      {
+        "label": "Illustrated by:",
+        "lines": [
+          "Blessed Mufune, Chewe Lunda, Costain Bulanda, Davie Kapiji, Ephraim Kagele, Excella Mpande, Janet Nkhonjera, John Mwansa, Kashanda Kasaila, Masauso P. Chawinga, Medai Msimuko, Vistah J. Mudenda."
+        ]
+      },
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Ng`ambi Teddy (B.Sc)"
+        ]
+      },
+      {
+        "label": "First Published by:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road, P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "Printed by:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "deleteExact": [
+    "SCIENCE GRADE 5",
+    "Zambia Education Publishing House Lusaka",
+    "In this sub-topic, learners will learn to:",
+    "In this sub-top, learners will learn to:",
+    "importance",
+    "ACTIVITY",
+    "19: Exploring inclined planes and their",
+    "B2",
+    "How vehicles contribute to climate change - Release harmful gases in the air.",
+    "Name two uses of a hoe.",
+    "How do you spray crops using a sprayer?",
+    "Why is it important to guide a plough carefully?",
+    "Explain the correct way to guide a plough in the field.",
+    "List three safety measures when using farm tools and implements.",
+    "TEACHER’S BOOK",
+    "HIV",
+    "Z2",
+    "Ti2",
+    "7iS",
+    "7B",
+    "1D1",
+    "present"
+  ],
+  "removeRange": [
+    {
+      "from": "AUTHORS i",
+      "to": "AUTHORS"
+    }
+  ],
+  "insertText": [
+    {
+      "before": "Blessed Mufune holds",
+      "text": "AUTHORS"
+    },
+    {
+      "before": "The Ministry of Education is proud to present",
+      "text": "FOREWORD"
+    },
+    {
+      "before": "Science is a subject that opens the minds",
+      "text": "PREFACE"
+    },
+    {
+      "before": "The Zambia Educational Publishing House (ZEPH) wishes",
+      "text": "ACKNOWLEDGEMENT"
+    },
+    {
+      "before": "carefully prepared to support teachers in delivering",
+      "text": "INTRODUCTION"
+    },
+    {
+      "after": "Above all, this Teacher",
+      "text": "KEY COMPETENCES TO BE DEVELOPED"
+    }
+  ],
+  "insertHead": [
+    {
+      "before": "Introduction",
+      "near": "This topic introduces learners to the skeleton",
+      "head": "TOPIC 5.1 THE HUMAN BODY",
+      "as": "h1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.1.1 The Skeletal System",
+      "as": "h2",
+      "near": "5.1.1.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.1.2 Puberty",
+      "as": "h2",
+      "near": "Examine changes associated with puberty"
+    },
+    {
+      "before": "Introduction",
+      "near": "Nutrition and health are very important for our daily lives",
+      "head": "TOPIC 5.2 NUTRITION AND HEALTH",
+      "as": "h1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.2.1 Food Nutrients",
+      "as": "h2",
+      "near": "5.2.1.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.2.2 Labels on Packaged Foods",
+      "as": "h2",
+      "near": "Interpret the labels on the packaged foods"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.2.3 Malnutrition",
+      "as": "h2",
+      "near": "5.2.3.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.2.4 Harmful Substances and their Effects",
+      "as": "h2",
+      "near": "5.2.4.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.2.5 Parasitic Diseases",
+      "as": "h2",
+      "near": "5.2.5.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.2.6 STIs, HIV and AIDS",
+      "as": "h2",
+      "near": "5.2.6.1"
+    },
+    {
+      "before": "Introduction",
+      "near": "In this topic, learners will learn about climate change",
+      "head": "TOPIC 5.3 THE ENVIRONMENT",
+      "as": "h1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.3.1 Climate Change",
+      "as": "h2",
+      "near": "5.3.1.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.3.2 The Water Cycle",
+      "as": "h2",
+      "near": "5.3.2.1"
+    },
+    {
+      "before": "Introduction",
+      "near": "learners will learn about soil health",
+      "head": "TOPIC 5.4 PLANTS AND ANIMALS",
+      "as": "h1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.4.1 Soil Health",
+      "as": "h2",
+      "near": "5.4.1.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.4.2 Vertebrate Animals",
+      "as": "h2",
+      "near": "Classify vertebrate animals"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.4.3 Poultry",
+      "as": "h2",
+      "near": "5.4.3.1"
+    },
+    {
+      "before": "Introduction",
+      "near": "In this topic learners will learn how substances behave",
+      "head": "TOPIC 5.5 MATERIALS AND ENERGY",
+      "as": "h1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.5.1 Harnessing Electrical Energy",
+      "as": "h2",
+      "near": "5.5.1.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.5.2 Electricity",
+      "as": "h2",
+      "near": "Construct electric circuits to demonstrate the flow"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.5.3 Storage of Energy",
+      "as": "h2",
+      "near": "5.5.3.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.5.4 Separation Techniques",
+      "as": "h2",
+      "near": "5.5.4.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.5.5 Simple Machines",
+      "as": "h2",
+      "near": "5.5.5.1"
+    },
+    {
+      "before": "General",
+      "head": "Sub-Topic 5.5.6 Farm Machinery",
+      "as": "h2",
+      "near": "5.5.6.1"
+    },
+    {
+      "before": "Artificial Source of Light:",
+      "head": "GLOSSARY",
+      "as": "h1"
+    },
+    {
+      "before": "Science Concepts in Zambian Primary Schools",
+      "head": "REFERENCES",
+      "as": "h1"
+    },
+    {
+      "before": "Acquired immunodeficiency syndrome",
+      "head": "ACRONYMS",
+      "as": "h1",
+      "inTable": true
+    }
+  ],
+  "replaceSection": [
+    {
+      "heading": "GLOSSARY",
+      "until": "REFERENCES",
+      "items": [
+        "## A",
+        "**Artificial Source of Light:** A source of light made by people, such as a bulb or torch.",
+        "## D",
+        "**Drug:** Any externally administered substance which modifies or alters the rate of metabolic reactions in the body.",
+        "## E",
+        "**Evaporation:** The process by which water changes into water vapour and disappears into the air, often with the help of heat from sunlight.",
+        "## F",
+        "**Freezing:** The change of state from liquid to solid when heat is removed.",
+        "## G",
+        "**Gas:** A state of matter that spreads out to fill all the space available.",
+        "## I",
+        "**Insolubility:** The inability of a substance to dissolve in water.",
+        "## L",
+        "**Light Energy:** A form of energy that makes things bright and helps us see.",
+        "**Liquid:** A state of matter that flows and takes the shape of its container.",
+        "## M",
+        "**Matter:** Anything that has a mass and occupies space.",
+        "**Melting:** The change of matter from solid to liquid when heat is added.",
+        "**Mixture:** A combination of two or more substances mixed together.",
+        "## N",
+        "**Natural Source of Light:** A source of light that occurs in nature, such as the Sun or stars.",
+        "## P",
+        "**Photosynthesis:** The process by which plants use sunlight to make their own food and grow.",
+        "**Pulse:** A wave of pressure created in the arteries by a heartbeat.",
+        "**Pure Substance:** A material made of only one type of substance.",
+        "## S",
+        "**Solid:** A state of matter that has a fixed shape and size.",
+        "**Solubility:** The ability of a substance to dissolve in water.",
+        "**Sublimation:** The change of state from solid to gas without becoming a liquid first.",
+        "## W",
+        "**Withdrawal symptom:** Symptoms or signs that an individual experiences when they discontinue using a drug they are addicted to."
+      ]
+    },
+    {
+      "heading": "REFERENCES",
+      "items": [
+        "Chanda, L. and Phiri, M. (2024) *Teaching Science Concepts in Zambian Primary Schools: Focus on Matter and Materials*. Lusaka: University of Zambia Press.",
+        "Department of Basic Education (2023) *Annual Teaching Plans: Natural Sciences and Technology Grade 4 (2023/24)*. Pretoria: Government of South Africa.",
+        "Ministry of Education, Zambia (2023) *Upper Primary Science Syllabus* Grades 5-7. Lusaka: Curriculum Development Centre.",
+        "Mwila, J. (2025) *Innovative Approaches to Teaching Matter in Primary Schools*. Lusaka: Zambia Educational Publishing House (ZEPH)",
+        "Umar, M. (n.d.) *Using Activity-Based Method in Teaching the Concept of Separation Techniques of Mixture: A Model for Primary School Teachers*. Federal University of Education. Kano. Available at https://www.researchgate.net.",
+        "Tweedy, M., Kidd, K. and Lightburn, M. (n.d) *Mixtures and Solutions: Grade 5 Physical Science Presentation*. Department of Mathematics and Science. Available at: https://www.sciencecurriculumresource.org"
+      ],
+      "gap": "0.9em"
+    }
+  ],
+  "removeImages": [
+    "image21.png",
+    "image25.png",
+    "image30.png",
+    "image32.png",
+    "grp_rId5.png",
+    "grp_rId13.png",
+    "grp_rId22.png"
+  ],
+  "keepActivityWording": true,
+  "coverImage": "media/sci5-tg/cover-photo.jpeg",
+  "replaceBlocks": [
+    {
+      "find": "Classify vertebrate animals based on their characteristics.",
+      "with": [
+        {
+          "para": "*5.4.2.1 Classify vertebrate animals based on their characteristics.*"
+        }
+      ]
+    },
+    {
+      "find": "Evaluate the economic importance of vertebrate animals.",
+      "with": [
+        {
+          "para": "*5.4.2.2 Evaluate the economic importance of vertebrate animals.*"
+        }
+      ]
+    },
+    {
+      "find": "LEARNING",
+      "with": [
+        {
+          "head": "LEARNING ACTIVITY 19: Exploring inclined planes and their importance"
+        }
+      ]
+    },
+    {
+      "find": "Safety precautions on electricity:",
+      "with": [
+        {
+          "listitem": "**Safety precautions on electricity:**",
+          "marker": "6."
+        }
+      ]
+    },
+    {
+      "find": "Comparing and Contrasting the Human Skeletal System and other vertebrates",
+      "with": [
+        {
+          "head": "Comparing and Contrasting the Human Skeletal System and other Vertebrates"
+        }
+      ]
+    },
+    {
+      "find": "The main parts of the human skeletal system. Skull, spine, rib cage, limbs",
+      "with": [
+        {
+          "listitem": "**The main parts of the human skeletal system.**",
+          "marker": "1."
+        },
+        {
+          "para": "Skull, spine, rib cage, limbs."
+        }
+      ]
+    },
+    {
+      "find": "Two minerals stored in bones.",
+      "with": [
+        {
+          "listitem": "**Two minerals stored in bones.**",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Difference between a tendon and a ligament.",
+      "with": [
+        {
+          "listitem": "**Difference between a tendon and a ligament.**",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "Long bones help in movement.",
+      "with": [
+        {
+          "listitem": "**Long bones help in movement.**",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "find": "Similarities between the human skeletal system and that of other vertebrates.",
+      "with": [
+        {
+          "listitem": "**Similarities between the human skeletal system and that of other vertebrates.**",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "find": "Physical changes during puberty",
+      "with": [
+        {
+          "listitem": "**Physical changes during puberty**",
+          "marker": "6."
+        }
+      ]
+    },
+    {
+      "find": "Social and emotional changes in boys and girls during puberty.",
+      "with": [
+        {
+          "listitem": "**Social and emotional changes in boys and girls during puberty.**",
+          "marker": "7."
+        }
+      ]
+    },
+    {
+      "find": "Importance of good personal hygiene",
+      "with": [
+        {
+          "listitem": "**Importance of good personal hygiene**",
+          "marker": "8."
+        }
+      ]
+    },
+    {
+      "find": "Menstrual hygiene practices",
+      "with": [
+        {
+          "listitem": "**Menstrual hygiene practices**",
+          "marker": "9."
+        }
+      ]
+    },
+    {
+      "find": "Reducing challenges associated with puberty",
+      "with": [
+        {
+          "listitem": "**Reducing challenges associated with puberty**",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "find": "Boys: anger and open resistance, sexual feelings, body image Girls: anxiety and depression, sexual feelings, body image",
+      "with": [
+        {
+          "para": "Boys: anger and open resistance, sexual feelings, body image"
+        },
+        {
+          "para": "Girls: anxiety and depression, sexual feelings, body image"
+        }
+      ]
+    },
+    {
+      "find": "Harmful Substances that are Abused by Individuals",
+      "with": [
+        {
+          "head": "Harmful Substances that are Abused by Individuals"
+        }
+      ]
+    },
+    {
+      "find": "Why an inclined plane is used - People use inclined planes to make work easier by: Moving heavy objects up or down without lifting, saving energy and strength, helping wheelchair users access buildings and loading and unloading trucks",
+      "with": [
+        {
+          "listitem": "**Why an inclined plane is used** - People use inclined planes to make work easier by: Moving heavy objects up or down without lifting, saving energy and strength, helping wheelchair users access buildings and loading and unloading trucks",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "Changes associated with puberty examined accordingly Personal hygiene at puberty stage practised correctly. Risks associated with puberty examined accordingly",
+      "with": [
+        {
+          "para": "*Changes associated with puberty examined accordingly*"
+        },
+        {
+          "para": "*Personal hygiene at puberty stage practised correctly.*"
+        },
+        {
+          "para": "*Risks associated with puberty examined accordingly*"
+        }
+      ]
+    },
+    {
+      "find": "Sources of Mineral salts and fibre Mineral salts: milk, green vegetables; Fibre: fruits, whole grains.",
+      "with": [
+        {
+          "listitem": "**Sources of Mineral salts and fibre**",
+          "marker": "1."
+        },
+        {
+          "para": "Mineral salts: milk, green vegetables; Fibre: fruits, whole grains."
+        }
+      ]
+    },
+    {
+      "find": "The use of water in the human body",
+      "with": [
+        {
+          "listitem": "**The use of water in the human body**",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Functions of proteins and carbohydrates in the body.",
+      "with": [
+        {
+          "listitem": "**Functions of proteins and carbohydrates in the body.**",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "Important to look for packaged food labels before buying. Help get information about the product in terms of quantities, manufacturing and expiry dates, etc.",
+      "with": [
+        {
+          "listitem": "**Important to look for packaged food labels before buying.**",
+          "marker": "4."
+        },
+        {
+          "para": "Help get information about the product in terms of quantities, manufacturing and expiry dates, etc."
+        }
+      ]
+    },
+    {
+      "find": "Children require few calories and more nutrient-dense portions. Children need fewer calories but more nutrient-dense food for growth and development.",
+      "with": [
+        {
+          "listitem": "**Children require few calories and more nutrient-dense portions.**",
+          "marker": "5."
+        },
+        {
+          "para": "Children need fewer calories but more nutrient-dense food for growth and development."
+        }
+      ]
+    },
+    {
+      "find": "Importance of carrying out food tests.",
+      "with": [
+        {
+          "listitem": "**Importance of carrying out food tests.**",
+          "marker": "6."
+        }
+      ]
+    },
+    {
+      "find": "Problems associated with lack sufficient nutrients",
+      "with": [
+        {
+          "listitem": "**Problems associated with lack sufficient nutrients**",
+          "marker": "7."
+        }
+      ]
+    },
+    {
+      "find": "Commonly used terms to indicate expiry dates Best Before, Use By, Expiry Date.",
+      "with": [
+        {
+          "listitem": "**Commonly used terms to indicate expiry dates**",
+          "marker": "8."
+        },
+        {
+          "para": "Best Before, Use By, Expiry Date."
+        }
+      ]
+    },
+    {
+      "find": "Definition of malnutrition",
+      "with": [
+        {
+          "listitem": "**Definition of malnutrition**",
+          "marker": "9."
+        }
+      ]
+    },
+    {
+      "find": "Ways of Preventing the Spread of Parasitic Diseases.",
+      "with": [
+        {
+          "head": "Ways of Preventing the Spread of Parasitic Diseases"
+        }
+      ]
+    },
+    {
+      "find": "Solar energy - Solar panels change sunlight directly into electricity. Wind energy - Moving air turns the blades of a wind turbine, which drives a generator to produce electricity.",
+      "with": [
+        {
+          "listitem": "**Solar energy** - Solar panels change sunlight directly into electricity.",
+          "marker": "1."
+        },
+        {
+          "listitem": "**Wind energy** - Moving air turns the blades of a wind turbine, which drives a generator to produce electricity.",
+          "marker": " "
+        }
+      ]
+    },
+    {
+      "find": "Hydroelectric energy - Flowing or falling water spins turbines connected to generators.",
+      "with": [
+        {
+          "listitem": "**Hydroelectric energy** - Flowing or falling water spins turbines connected to generators.",
+          "marker": " "
+        }
+      ]
+    },
+    {
+      "find": "Fossil fuels - Coal, oil, or gas are burned to produce heat that makes steam, which turns turbines to generate electricity.",
+      "with": [
+        {
+          "listitem": "**Fossil fuels** - Coal, oil, or gas are burned to produce heat that makes steam, which turns turbines to generate electricity.",
+          "marker": " "
+        }
+      ]
+    },
+    {
+      "find": "Wind - Wind turns turbine blades, and the spinning motion produces electricity.",
+      "with": [
+        {
+          "listitem": "**Wind** - Wind turns turbine blades, and the spinning motion produces electricity.",
+          "marker": " "
+        }
+      ]
+    },
+    {
+      "find": "Moving water - Flowing or falling water turns turbines in dams to generate electricity.",
+      "with": [
+        {
+          "listitem": "**Moving water** - Flowing or falling water turns turbines in dams to generate electricity.",
+          "marker": " "
+        }
+      ]
+    },
+    {
+      "find": "1. Series and parallel circuits -Series is in form of a loop while the parallel is in form of a junction.",
+      "with": [
+        {
+          "listitem": "**Series and parallel circuits** - Series is in form of a loop while the parallel is in form of a junction.",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "1. Working of motor - When the motor is switched on, the coil begins to spin and the motor rotates because electricity from the battery flows through the wire.",
+      "with": [
+        {
+          "listitem": "**Working of motor** - When the motor is switched on, the coil begins to spin and the motor rotates because electricity from the battery flows through the wire.",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "Inclined planes in everyday life",
+      "with": [
+        {
+          "head": "Inclined planes in everyday life"
+        }
+      ]
+    },
+    {
+      "find": "l. Simple farm tools that learners can make - Watering can and dibber.",
+      "with": [
+        {
+          "listitem": "**Simple farm tools that learners can make** - Watering can and dibber.",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "Use of a watering can - It is used for watering plants.",
+      "with": [
+        {
+          "listitem": "**Use of a watering can** - It is used for watering plants.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Use of a dipper - It is used for making holes in the soil for planting seeds or seedlings.",
+      "with": [
+        {
+          "listitem": "**Use of a dipper** - It is used for making holes in the soil for planting seeds or seedlings.",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "tools should be stored safely - to prevent accidents, avoid damage, and make them easy to find when needed.",
+      "with": [
+        {
+          "listitem": "**Tools should be stored safely** - to prevent accidents, avoid damage, and make them easy to find when needed.",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "find": "Learners should work under adult supervision - to ensure safety and prevent injuries.",
+      "with": [
+        {
+          "listitem": "**Learners should work under adult supervision** - to ensure safety and prevent injuries.",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "find": "Ensure the appliance is connected to the correct voltage Read the operational manual before using the appliance Avoid loose connections",
+      "with": [
+        {
+          "listitem": "Ensure the appliance is connected to the correct voltage",
+          "marker": " "
+        },
+        {
+          "listitem": "Read the operational manual before using the appliance",
+          "marker": " "
+        },
+        {
+          "listitem": "Avoid loose connections",
+          "marker": " "
+        }
+      ]
+    },
+    {
+      "find": "Ensure connecting wires are well insulated Appliance must be in good working condition Never touch electrical appliances with wet hands",
+      "with": [
+        {
+          "listitem": "Ensure connecting wires are well insulated",
+          "marker": " "
+        },
+        {
+          "listitem": "Appliance must be in good working condition",
+          "marker": " "
+        },
+        {
+          "listitem": "Never touch electrical appliances with wet hands",
+          "marker": " "
+        }
+      ]
+    },
+    {
+      "find": "Switch off the main power supply before fixing electrical problems",
+      "with": [
+        {
+          "listitem": "Switch off the main power supply before fixing electrical problems",
+          "marker": " "
+        }
+      ]
+    },
+    {
+      "find": "Connect the experiment to real-life farming or gardening practices. Expected Responses",
+      "with": [
+        {
+          "para": "*Connect the experiment to real-life farming or gardening practices.*"
+        },
+        {
+          "para": "**Expected Responses**"
+        }
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "match": "Damage to houses and crops",
+      "columns": [
+        "Effect of Climate Change",
+        "Result"
+      ],
+      "rows": [
+        [
+          "Drought",
+          "Lack of water"
+        ],
+        [
+          "Floods",
+          "Damage to houses and crops"
+        ],
+        [
+          "High temperatures",
+          "Dry soils and crop failure"
+        ],
+        [
+          "Unusual rainfall patterns",
+          "Floods and poor crop yield."
+        ]
+      ]
+    },
+    {
+      "match": "Rain falls",
+      "rows": [
+        [
+          "Evaporation",
+          "water changes into water vapour"
+        ],
+        [
+          "Transpiration",
+          "Loss of water through leaves"
+        ],
+        [
+          "Condensation",
+          "Vapour forms water droplets"
+        ],
+        [
+          "Precipitation",
+          "Rain falls"
+        ],
+        [
+          "Collection",
+          "Water collects in rivers, dams or lakes."
+        ]
+      ],
+      "noHeader": true
+    },
+    {
+      "match": "Has a long wooden handle",
+      "columns": [
+        "Tool/Implement",
+        "Description (Parts & Material)",
+        "Use"
+      ],
+      "rows": [
+        [
+          "Hoe",
+          "Has a long wooden handle and a flat metal blade fixed at one end",
+          "Used for digging, weeding, making ridges"
+        ],
+        [
+          "Watering Can",
+          "Has a container body, handle, spout, and sprinkler head; made of plastic or metal",
+          "Watering plants"
+        ],
+        [
+          "Plough",
+          "Has a strong metal blade and frame; may have handles and is made of metal and wood",
+          "Used for turning and loosening soil before planting"
+        ]
+      ]
+    },
+    {
+      "match": "Acquired immunodeficiency syndrome",
+      "noHeader": true,
+      "rows": [
+        [
+          "AIDS",
+          "Acquired immunodeficiency syndrome"
+        ],
+        [
+          "BMI",
+          "Body mass index"
+        ],
+        [
+          "DEC",
+          "Drug Enforcement Commission"
+        ],
+        [
+          "FAO",
+          "Food and Agriculture Organisation"
+        ],
+        [
+          "HIV",
+          "Human immunodeficiency virus"
+        ],
+        [
+          "WHO",
+          "World Health Organisation"
+        ]
+      ]
+    }
+  ],
+  "removeWhereNext": [
+    {
+      "find": "Precipitation",
+      "next": "The water cycle includes four main processes"
+    }
+  ],
+  "edit": [
+    {
+      "find": "Experiments on Process of Evaporation, Transpiration, Condensation and",
+      "with": "Experiments on Process of Evaporation, Transpiration, Condensation and Precipitation"
+    },
+    {
+      "find": "Ms. Nzila Osma Siabalima and Ambassador",
+      "with": "Ms. Nzila Osma Siabalima, Edward Chocha and Ambassador"
+    },
+    {
+      "find": "Classify  food nutrients to the function",
+      "with": "Classify food nutrients according to the function"
+    },
+    {
+      "find": "including enhanced cardiovascular",
+      "with": "including improved cardiovascular"
+    },
+    {
+      "find": "Ways of maintaining a healthy body weight -",
+      "with": "Number of times BMI test should be conducted -"
+    },
+    {
+      "find": "Harmful substances such as drug can",
+      "with": "Harmful substances such as drugs can"
+    },
+    {
+      "find": "Substances abuse commonly abused",
+      "with": "Substances commonly abused"
+    },
+    {
+      "find": "coming into contact with bodily fluids",
+      "with": "coming into contact with body fluids"
+    },
+    {
+      "find": "In this topic, your learners will learn",
+      "with": "In this topic, learners will learn"
+    },
+    {
+      "find": "let the collect soil",
+      "with": "let them collect soil"
+    },
+    {
+      "find": "baking soda) to determine. Let them",
+      "with": "baking soda) to determine the acidity and alkalinity of the soil. Let them"
+    },
+    {
+      "find": "This information guides him",
+      "with": "This information guides a learner"
+    },
+    {
+      "find": "Encourage learners watch the jar",
+      "with": "Encourage learners to observe the jar"
+    },
+    {
+      "find": "When the composite is ready",
+      "with": "When the compost is ready"
+    },
+    {
+      "find": "soil mixed with composite grow",
+      "with": "soil mixed with compost grow"
+    },
+    {
+      "find": "are grouped into five major groups",
+      "with": "are classified into five major groups"
+    },
+    {
+      "find": "Thes include food",
+      "with": "These include food"
+    },
+    {
+      "find": "products when they ready",
+      "with": "products when they are ready"
+    },
+    {
+      "find": "prevented of avoided",
+      "with": "prevented or avoided"
+    },
+    {
+      "find": "without even knowing. TEmphasise",
+      "with": "without even knowing. Emphasise"
+    },
+    {
+      "find": "Critical thinking, analytical thinking, collaboration and communication.",
+      "with": "Critical thinking, analytical thinking, collaboration, communication and environmental sustainability."
+    },
+    {
+      "find": "EXERCISE 24",
+      "with": "EXERCISE 23"
+    },
+    {
+      "find": "Chest , penis",
+      "with": "Chest, penis"
+    },
+    {
+      "find": "apple”leading",
+      "with": "apple” leading"
+    },
+    {
+      "find": "explainI  the skeleton",
+      "with": "explain that the skeleton"
+    },
+    {
+      "find": "daiIy,washing",
+      "with": "daily, washing"
+    },
+    {
+      "find": "hours,aIways",
+      "with": "hours, always"
+    },
+    {
+      "find": "/\\/ote:",
+      "with": "Note:"
+    },
+    {
+      "find": "7esf for",
+      "with": "Test for"
+    },
+    {
+      "find": "earners should state -Vertebrates",
+      "with": "Learners should state - Vertebrates"
+    },
+    {
+      "find": "form of chemica and",
+      "with": "form of chemical and"
+    },
+    {
+      "find": "\\More information check Learners' book]",
+      "with": "[More information check Learners' book]"
+    },
+    {
+      "find": "Examine changes associated with puberty in girls and boys",
+      "with": "5.1.2.1 Examine changes associated with puberty in girls and boys"
+    },
+    {
+      "find": "Practise personal hygiene at puberty stage",
+      "with": "5.1.2.2 Practise personal hygiene at puberty stage"
+    },
+    {
+      "find": "Examine risks associated with puberty",
+      "with": "5.1.2.3 Examine risks associated with puberty"
+    },
+    {
+      "find": "Construct electric circuits to demonstrate the flow",
+      "with": "5.5.2.1 Construct electric circuits to demonstrate the flow"
+    },
+    {
+      "find": "Construct a simple Direct Current motor",
+      "with": "5.5.2.2 Construct a simple Direct Current motor"
+    },
+    {
+      "find": "Interpret the labels on the packaged foods",
+      "with": "5.2.2.1 Interpret the labels on the packaged foods"
+    },
+    {
+      "find": "Health Risky Behaviours Associated with the infection of STIs including",
+      "with": "Health Risky Behaviours Associated with the infection of STIs including HIV"
+    },
+    {
+      "find": "important during during menstruation",
+      "with": "important during menstruation"
+    },
+    {
+      "find": "shaving , brushing",
+      "with": "shaving, brushing"
+    },
+    {
+      "find": "Classes of vertebratesMammals",
+      "with": "Classes of vertebrates - Mammals"
+    },
+    {
+      "find": "Layers, boilers and dual",
+      "with": "Layers, broilers and dual-"
+    },
+    {
+      "find": "- purpose birds",
+      "with": "purpose birds"
+    },
+    {
+      "find": "Pats of a motor",
+      "with": "Parts of a motor"
+    },
+    {
+      "find": "heterogeneous mixtures..",
+      "with": "heterogeneous mixtures."
+    },
+    {
+      "find": "all around us.Guide",
+      "with": "all around us. Guide"
+    },
+    {
+      "find": "' Determining soil acidity",
+      "with": "Determining soil acidity"
+    },
+    {
+      "find": "Safety Notes:Ensure",
+      "with": "Safety Notes: Ensure"
+    },
+    {
+      "find": "do not to taste",
+      "with": "do not taste"
+    },
+    {
+      "find": "Its is a chemical substance",
+      "with": "It is a chemical substance"
+    },
+    {
+      "find": "Emphasise that It is a time",
+      "with": "Emphasise that it is a time"
+    },
+    {
+      "find": "list at three of them",
+      "with": "list at least three of them"
+    },
+    {
+      "find": "Emphasise that It is estimated",
+      "with": "Emphasise that it is estimated"
+    },
+    {
+      "find": "by the brain ; Simply",
+      "with": "by the brain; simply"
+    },
+    {
+      "find": "the formation groups, let learners",
+      "with": "the formation of groups, let learners"
+    },
+    {
+      "find": "contamination of the bodily fluids",
+      "with": "contamination of the body fluids"
+    },
+    {
+      "find": "such as been a source",
+      "with": "such as being a source"
+    },
+    {
+      "find": "provide provide a chart",
+      "with": "provide a chart"
+    },
+    {
+      "find": "Let learners to identify",
+      "with": "Let learners identify"
+    },
+    {
+      "find": "separate each mixtures",
+      "with": "separate each mixture"
+    },
+    {
+      "find": "and Muddy water. Provide",
+      "with": "and muddy water. Provide"
+    },
+    {
+      "find": "let Learners set up",
+      "with": "let learners set up"
+    },
+    {
+      "find": "use the correctly",
+      "with": "use them correctly"
+    },
+    {
+      "find": "a wide variety of appliance use",
+      "with": "a wide variety of appliances use"
+    },
+    {
+      "find": "Why it important to use",
+      "with": "Why it is important to use"
+    },
+    {
+      "find": "iron fillings and sawdust",
+      "with": "iron filings and sawdust"
+    },
+    {
+      "find": "Separating Magnetism or using a magnet",
+      "with": "Magnetic separation, using a magnet"
+    },
+    {
+      "find": "not to flash sanitary pads or product down",
+      "with": "not to flush sanitary pads or product down"
+    },
+    {
+      "find": "do not flash sanitary pads",
+      "with": "do not flush sanitary pads"
+    },
+    {
+      "find": "not to flash sanitary pads down",
+      "with": "not to flush sanitary pads down"
+    },
+    {
+      "find": "dispose off them a bin",
+      "with": "dispose of them in a bin"
+    },
+    {
+      "find": "Disposing off used sanitary pads",
+      "with": "Disposing of used sanitary pads"
+    }
+  ],
+  "replaceExact": [],
+  "keepBoxMm": 70,
+  "keepFramedMm": 70,
+  "subtopicsRunOn": true,
+  "setMarker": [
+    {
+      "find": "A simple DC motor - is a device used to produce movement",
+      "marker": "7."
+    },
+    {
+      "find": "Energy storage- is the process",
+      "marker": "8."
+    },
+    {
+      "find": "An inclined plane - is a flat",
+      "marker": "9."
+    },
+    {
+      "find": "Why farmers should make simple tools",
+      "marker": "10."
+    },
+    {
+      "find": "Why salt is not separated when a mixture of sand and salt solution",
+      "marker": "3."
+    }
+  ],
+  "alignLeft": [
+    "Blessed Mufune ",
+    "Chewe Lunda ",
+    "Costain M ",
+    "Davie Kapiji ",
+    "Excella Mpande ",
+    "Ephraim Kagele ",
+    "Janet Nkhonjera ",
+    "John Mwansa ",
+    "Kashanda Kasaila ",
+    "Masauso P",
+    "Medai Msimuko ",
+    "Vistah Johnson ",
+    "5.2.6.1 Analyse",
+    "5.4.3.1 Demonstrate"
+  ],
+  "editCell": [
+    {
+      "find": "Problem Solving",
+      "with": "Problem Solving",
+      "bold": true
+    },
+    {
+      "find": "through play\nactivities.",
+      "with": "through play activities."
+    }
+  ],
+  "editAll": [
+    {
+      "find": "to the the class",
+      "with": "to the class"
+    },
+    {
+      "find": "Possible Answers:",
+      "with": "Possible Answers"
+    }
+  ],
+  "unlist": [
+    "Examine changes associated with puberty in girls and boys",
+    "Practise personal hygiene at puberty stage",
+    "Examine risks associated with puberty",
+    "Construct electric circuits to demonstrate the flow",
+    "Construct a simple Direct Current motor",
+    "Interpret the labels on the packaged foods"
+  ],
+  "mergePara": [
+    {
+      "find": "Similarities between human skeletal system and other vertebrates"
+    },
+    {
+      "find": "Carbohydrates are used for energy generation"
+    },
+    {
+      "find": "Importance of minding the amounts of food to"
+    },
+    {
+      "find": "it is estimated that about 32% to 35",
+      "glue": true
+    },
+    {
+      "find": "Risky Behaviour associated with the spread of STIs and HIV/"
+    },
+    {
+      "find": "Layers, broilers and dual-",
+      "glue": true
+    },
+    {
+      "find": "Heterogeneous mixture, Salt and water -"
+    },
+    {
+      "find": "Technique used to separate a mixture of iron filings and sawdust-"
+    },
+    {
+      "find": "Explaining what happens to water when a salt solution is left in the"
+    }
+  ],
+  "images": {
+    "image28.jpeg": {
+      "hmm": 62
+    }
+  },
+  "extendBox": [
+    {
+      "title": "Determining soil acidity",
+      "count": 4
+    }
+  ]
+}
