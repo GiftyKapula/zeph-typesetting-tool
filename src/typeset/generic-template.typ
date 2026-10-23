@@ -2754,7 +2754,9 @@
   v(4pt)
   set text(size: 11pt)
   set par(justify: false)
-  align(center, table(
+  // A spreadsheet of a screenful or less is one picture: left breakable, the ICT Form 2
+  // TG's budget sheet put its A | B letter row alone at a page foot and the cells overleaf.
+  block(breakable: rows.len() > 15, width: 100%, align(center, table(
     columns: (9mm,) + (auto,) * ncol,
     stroke: 0.5pt + luma(150),
     inset: (x: 7pt, y: 5pt),
@@ -2765,7 +2767,7 @@
       table.cell(fill: headfill, align: center)[#text(weight: "bold", fill: luma(60))[#(i + 1)]],
       ..r.map(c => table.cell(align: if isnum(c.text) { right } else { left })[#c.text]),
     )).flatten(),
-  ))
+  )))
   v(4pt)
 }
 #let dtable(rows, noHeader: false, sheet: false) = if sheet { sheetgrid(rows) } else if rows.len() > 0 and rows.at(0).len() > 0 {
@@ -3024,7 +3026,16 @@
       t != "" and t.len() <= 10 and not t.contains("\n") and r.at(ci).imgs.len() == 0 })
     and rows.slice(1).any(r => r.at(ci).text.trim().contains(" ")))
   let anyWide = range(ncols).any(ci => not compactCol(ci) and not narrowNum(ci))
-  let cols = if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
+  // An ASSESSMENT RUBRIC (header: Criterion | Excellent | Good | Developing | Beginning |
+  // Not demonstrated) recurs dozens of times in a Teacher's Guide, and content-sized
+  // columns gave each copy its own widths — so the same header broke "Devel-", "Begin-",
+  // "Not demon-" in one table and whole in the next (ICT Form 2 TG: 68 rubrics, five
+  // header layouts). Opt-in `uniformRubrics` gives every rubric one column split: criterion and top band a
+  // little wider (their cells hold the longest descriptors), the other bands equal.
+  let isrubric = T.at("uniformRubrics", default: false) and ncols >= 4 and rows.len() >= 2 and (
+    lower(rows.at(0).at(0).text.trim()).starts-with("criteri") and
+    rows.at(0).slice(1).all(c => lower(c.text.trim()).find(regex("^(excellent|very good|good|fair|satisfactory|developing|beginning|emerging|not|poor|needs)")) != none))
+  let cols = if isrubric { (1.1fr, 1.2fr) + range(ncols - 2).map(_ => 1fr) } else if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
   // ---- CDC SYLLABUS matrix look: a GREY header row that REPEATS on every page, a black
   // inner grid + thicker outer frame, no zebra, the TOPIC column bold, the activities
   // column bulleted, and the TOPIC/SUB-TOPIC row-span merge (empty left cells continue the

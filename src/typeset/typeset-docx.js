@@ -417,6 +417,10 @@ function emit(blocks) {
         const topicfull = m ? `TOPIC ${m[1].replace(/[.:]+$/, "")}: ${m[2].trim()}` : "";
         if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(topicfull)}${b.nobreak ? ", nobrk: true" : ""})\n`;
         else out += `#sectionhead(${S(b.text)})\n`;
+        // `backmatterSpacing` (set as bmSpacing by its override pass): the glossary and the
+        // references take one tighter line/entry spacing, so a section running a line or two
+        // past its page fits without either section looking different from the other.
+        if (b.bmSpacing) out += `#set par(leading: ${b.bmSpacing.leading || "0.6em"}, spacing: ${b.bmSpacing.spacing || "0.7em"})\n`;
         break;
       }
       // The punctuation a writer leaves after a sub-topic's number is dropped so every
@@ -3364,9 +3368,17 @@ function applyOverrides(blocks, ov) {
       return cell;
     };
     const noHeader = !Array.isArray(spec) && !!spec.noHeader;
+    // `sheet: true` draws the table as a spreadsheet (column letters, row numbers;
+    // template sheetgrid()) — for a pasted SCREENSHOT of a spreadsheet, so it matches the
+    // spreadsheet grids the engine already draws in the same book instead of printing as
+    // a blurred 100 DPI picture beside them (ICT Form 2 TG, Exercises 8 and 12).
+    const sheet = !Array.isArray(spec) && !!spec.sheet;
     // Built fresh per placement: the same picture can appear more than once, and two
-    // blocks sharing one rows array would have later passes edit both at once.
-    replaceImageBlock(mediaName, () => ({ t: "table", rows: src.map((r) => r.map(mkCell)), noHeader }), "imageToTable");
+    // blocks sharing one rows array would have later passes edit both at once. Inside an
+    // exercise the picture is a PART, which takes the part form of a table.
+    replaceImageBlock(mediaName, (where) => (where === "part"
+      ? { kind: "table", rows: src.map((r) => r.map(mkCell)), ...(sheet ? { sheet } : {}) }
+      : { t: "table", rows: src.map((r) => r.map(mkCell)), noHeader, ...(sheet ? { sheet } : {}) }), "imageToTable");
   }
   // remove: ["substring", …] — delete any block whose text contains the substring
   // (e.g. trimming a paragraph so a front-matter section fits on one page).
@@ -7600,6 +7612,13 @@ function normaliseQuestionMarkBold(blocks) {
     fmSpacing: ov.fmSpacing || ((THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em"),
   }, detectName);
 
+  // `backmatterSpacing` ({ leading, spacing }, e.g. { "leading": "0.6em", "spacing": "0.7em" }):
+  // one tighter paragraph setting for the back matter — GLOSSARY and REFERENCES alike, never
+  // one without the other — for a book whose glossary or reference list runs one or two
+  // entries over its page at the body spacing (0.66em / 0.86em). Opt-in per book.
+  if (ov.backmatterSpacing) for (const b of blocks)
+    if (b.t === "h1" && /^(GLOSSARY|REFERENCES|BIBLIOGRAPHY)\b/i.test(b.text || "")) b.bmSpacing = ov.backmatterSpacing;
+
   // An ISBN supplied in the overrides is shown on the covers (no barcode).
   if (ov.isbn) for (const b of blocks) if (b.t === "cover" || b.t === "backcover") b.isbn = ov.isbn;
 
@@ -7798,6 +7817,9 @@ function normaliseQuestionMarkBold(blocks) {
   if (ov.keepQuestionParts) themeOverrides.keepQuestionParts = true;
   // Give a table column left empty for the learner to write in some width (dtable()).
   if (ov.writingColumns) themeOverrides.writingColumns = true;
+  // Give every assessment rubric in the book one column split (dtable(); opt-in so
+  // proofread books keep their tables as they are).
+  if (ov.uniformRubrics) themeOverrides.uniformRubrics = true;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json
