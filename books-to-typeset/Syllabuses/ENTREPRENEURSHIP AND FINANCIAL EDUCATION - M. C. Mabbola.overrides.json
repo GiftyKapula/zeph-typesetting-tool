@@ -89,7 +89,17 @@
     { "from": "Problem Solving:", "to": "Problem Solving:", "bold": true, "all": true },
     { "from": "Group Discussion/Brainstorming:", "to": "Group Discussion/Brainstorming:", "bold": true, "all": true },
     { "from": "Practical exercises:", "to": "Practical exercises:", "bold": true, "all": true },
-    { "from": "Mentorship and Support:", "to": "Mentorship and Support:", "bold": true, "all": true }
+    { "from": "Mentorship and Support:", "to": "Mentorship and Support:", "bold": true, "all": true },
+    {
+      "_why": "1.5.1.6 (user, 2026-10-23): one activity typed over two lines, so its second line printed with a bullet of its own. Joined.",
+      "from": "Discussing the importance of Financial Risk Management.",
+      "to": "Discussing the importance of Financial Risk Management."
+    },
+    {
+      "_why": "1.5.1.6, as above.",
+      "from": "Applying Financial Risk Management Strategies",
+      "to": "Applying Financial Risk Management Strategies"
+    }
   ],
   "editCell": [
     {
