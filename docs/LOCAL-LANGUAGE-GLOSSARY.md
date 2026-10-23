@@ -11,7 +11,7 @@ Those words live in one word list per language, filled in by the authors themsel
 | Piece | Where | What it does |
 |---|---|---|
 | Author form | `npm run lexicon:form` → `admin/local-language-forms/ZEPH Local Language Words Form.docx` | One short Word form for every language: 38 common words (cover, front matter, headings, boxes, back matter) in two columns, *English* / *How you write it*. |
-| Returned forms | `admin/local-language-forms/Received Filled-in Forms/*.docx` | What the authors send back. `admin/` is git-ignored: forms carry authors' phone numbers. |
+| Returned forms | `admin/local-language-forms/Received Filled-in Forms/*.docx` | What the authors send back. That folder is git-ignored: forms carry authors' phone numbers. |
 | Importer | `npm run lexicon:import` | Reads every returned form (and the hand-typed ones in `tools/lexicon/manual/`, for scanned PDFs) and writes `src/typeset/lexicon/<language>.json`. Phone numbers are dropped. |
 | Corrections | `tools/lexicon/corrections.json` | Wordings we deliberately drop (one author's slip, a word given for two different boxes). Each entry says why. Delete an entry to bring the word back. |
 | Word lists | `src/typeset/lexicon/<language>.json` | Every wording any author gave for each concept, plus the words the engine already knew. |
