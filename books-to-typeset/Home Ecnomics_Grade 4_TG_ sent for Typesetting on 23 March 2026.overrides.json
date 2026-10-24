@@ -1,4 +1,20 @@
 {
   "theme": "homeecon",
-  "subject": "Home Economics"
+  "subject": "Home Economics",
+  "replaceBlocks": [
+    { "find": "To stop sickness b) Write one reason why safe food handling is important. (2 marks)",
+      "with": [ { "listitem": "*To stop sickness.*" }, { "para": "b) Write one reason why safe food handling is important. (2 marks)" } ] },
+    { "find": "a) Why is first aid important? (2 marks) b) What should you do if you do not understand a hazard symbol? (2 marks)",
+      "with": [ { "para": "a) Why is first aid important? (2 marks)" } ] },
+    { "find": "It helps before the doctor arrives.", "with": [ { "listitem": "*It helps before the doctor arrives.*" } ] },
+    { "find": "It stops injuries from getting worse.", "with": [ { "listitem": "*It stops injuries from getting worse.*" } ] },
+    { "find": "b)", "with": [ { "para": "b) What should you do if you do not understand a hazard symbol? (2 marks)" } ] },
+    { "find": "Ask an adult.", "with": [ { "listitem": "*Ask an adult.*" } ] },
+    { "find": "Do not touch the chemical.", "with": [ { "listitem": "*Do not touch the chemical.*" } ] },
+    { "find": "Burns.", "with": [ { "listitem": "*Burns.*" } ] },
+    { "find": "Cuts.", "with": [ { "listitem": "*Cuts.*" } ] },
+    { "find": "Slipping.", "with": [ { "listitem": "*Slipping.*" } ] },
+    { "find": "Fire.", "with": [ { "listitem": "*Fire.*" } ] }
+  ],
+  "deleteExact": [ "Possible Answers: a)" ]
 }

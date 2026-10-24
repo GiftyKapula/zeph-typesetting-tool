@@ -1902,6 +1902,15 @@
   let t = ss.fold("", (acc, s) => acc + if s.at("m", default: false) { "" } else { s.at("t", default: "") }).trim()
   t.ends-with(":") and t.len() <= 240
 }
+// A one-line side-heading the manuscript typed as a plain paragraph ("Using Utensils",
+// "Meal Patterns", "Tips for learner assessment"): short, capitalised, no closing
+// punctuation, not a numbered line. It introduces the text below it exactly as a
+// colon line does and is stranded the same way when a page ends on it (Home Economics
+// Grade 4 TG: ten pages did). Sticky, so it moves only where it would end a page.
+#let sideHead(ss) = {
+  let t = ss.fold("", (acc, s) => acc + if s.at("m", default: false) { "" } else { s.at("t", default: "") }).trim()
+  t.len() > 0 and t.len() <= 60 and t.match(regex("^[A-Z]")) != none and t.match(regex("[.?!;,:]$")) == none and t.match(PARA_NUM) == none
+}
 #let para0(ss, align: none, drop: false, hyphenate: true) = {
   set text(hyphenate: hyphenate)
   set par(justify: false) if hasFillBlank(ss)
@@ -1963,7 +1972,7 @@
 }
 #let para(ss, ..args) = {
   let out = para0(ss, ..args)
-  if endsColon(ss) { block(sticky: true, breakable: false, width: 100%)[#out] } else { out }
+  if endsColon(ss) or sideHead(ss) { block(sticky: true, breakable: false, width: 100%)[#out] } else { out }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
 #let listitem0(ss, marker, indent: 0) = {
@@ -3257,7 +3266,7 @@
       }
       else if it.k == "colgrid" { colgrid(rows: it.rows, ncol: it.ncol, hasMarker: it.hasMarker) }
       else if it.k == "colsum" { colsum(it.rows, it.answer) }
-      else if (it.k == "para" and it.at("s", default: none) != none and (endsColon(it.s) or (it.s.len() == 1
+      else if (it.k == "para" and it.at("s", default: none) != none and (endsColon(it.s) or sideHead(it.s) or (it.s.len() == 1
           and it.s.at(0).at("b", default: false) == true
           and it.s.at(0).at("t", default: "").trim().len() <= 40
           and it.s.at(0).at("t", default: "").trim().match(regex("[.?!;,]$")) == none))) {
