@@ -93,7 +93,11 @@ const BLANK_RE = /_{3,}/;
 const isAnswerSurface = (b) => {
   if (!b || b.t !== "para" || !Array.isArray(b.segs)) return false;
   const t = b.segs.map((s) => s.t || "").join("");
-  return !!t.trim() && (OPTROW_RE.test(t) || BLANK_RE.test(t));
+  // "b) Why is it important to label food? (2 marks)" opens like a choice row but is the
+  // question's next PART, not a surface to answer on: indented under the bullets above
+  // it, it read as one more answer (Home Economics Grade 4 TG, end-of-topic assessments).
+  const isPart = ANSWER_RUN_END.test(t.trim());
+  return !!t.trim() && ((OPTROW_RE.test(t) && !isPart) || BLANK_RE.test(t));
 };
 
 // Mixed box body: paragraphs, sub-headings, list items, images and nested
@@ -5383,7 +5387,12 @@ const ANSWER_LABEL_RE = /^\s*(possible|expected|sample|suggested|model)\s*(answe
 // manuscripts head a lesson-spec FIELD with "Expected Performance:" and set the
 // descriptor beneath it, and that heading has to survive. So the pass that drops a
 // lone label and italicises the run below it keeps to the answer nouns only.
-const ANSWER_LABEL_ALONE_RE = /^\s*(possible|expected|sample|suggested|model)\s*(answers?|responses?)\s*:\s*/i;
+// Tested on a line's trimmed text: the label as the WHOLE line, colon or not, with an
+// optional note in brackets ("Possible Answers (any 2 correct ones)") kept as group 3.
+const ANSWER_LABEL_ALONE_RE = /^(possible|expected|sample|suggested|model)\s*(answers?|responses?)\s*:?\s*(\([^)]*\))?\s*:?$/i;
+// What ends the run of answers under such a label: the next question ("…?", or a
+// "(2 marks)" tag). See stripStrayAnswerLabels() and labelledExerciseAnswers().
+const ANSWER_RUN_END = /\?\s*$|\(\s*\d+\s*marks?\s*\)/i;
 // Strip every such label from a run of segments. `atStart` says whether the run's FIRST
 // segment already counts as the beginning of a line: true for a standalone paragraph,
 // false inside an exercise answer whose opening label was another pass's job.
@@ -5889,18 +5898,39 @@ function stripStrayAnswerLabels(blocks) {
           delete b.text;
           continue;
         }
-        // The label ALONE, with the answer on the lines below it — the shape an
-        // ordering exercise takes ("Expected Answer:" then the steps in order).
-        // Dropping the label on its own would leave those lines looking like more of
-        // the question's own list, so the run that follows takes the italic instead:
-        // the label goes, and the answer is still marked as the answer. Only inside a
-        // box, where the run belongs to one exercise and the next heading ends it.
-        if (inBody && ANSWER_LABEL_ALONE_RE.test(b.text)) {
+      }
+      // The label ALONE, with the answer on the lines below it — the shape an ordering
+      // exercise takes ("Expected Answer:" then the steps in order). Dropping the label on
+      // its own would leave those lines looking like more of the question's own list, so
+      // the run that follows takes the italic instead: the label goes, and the answer is
+      // still marked as the answer. Only inside a box, where the run belongs to one
+      // exercise.
+      // Whatever the label is typed as — a bold `head`, or a plain paragraph — and with or
+      // without its colon: the Home Economics Grade 4 TG has "Possible Answers:",
+      // "Possible answers:", "Possible Answers" and "Possible Answers (any 2 correct
+      // ones)" in a single assessment box, and only the first lost its label. A note in
+      // brackets after the label stays, as an italic line of its own.
+      // The run ends at the next QUESTION ("…?" or a "(2 marks)" tag) as well as at the
+      // next heading: assessments type their numbered questions as plain paragraphs, and
+      // that one label used to set Questions 3–5 and all their answers in italic.
+      if (inBody && (b.t === "head" || b.t === "label" || b.t === "para")) {
+        const t = (typeof b.text === "string" ? b.text
+          : (b.segs || []).map((s) => (s.m ? "" : s.t || "")).join("")).trim();
+        const m = t.match(ANSWER_LABEL_ALONE_RE);
+        if (m) {
           let k = bi + 1;
           while (k < arr.length && (arr[k].t === "para" || arr[k].t === "listitem")) {
+            const u = (arr[k].segs || []).map((s) => (s.m ? "" : s.t || "")).join("").trim();
+            if (k > bi + 1 && (ANSWER_RUN_END.test(u) || ANSWER_LABEL_RE.test(u))) break;
             italicise(arr[k]); k++;
           }
-          if (k > bi + 1) { arr.splice(bi, 1); bi--; continue; }
+          if (k > bi + 1) {
+            if (m[3]) {
+              b.t = "para"; b.segs = [{ t: m[3], b: false, it: true, c: null }]; b.plain = m[3];
+              delete b.text;
+            } else { arr.splice(bi, 1); bi--; }
+            continue;
+          }
         }
       }
       if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) {
@@ -5960,6 +5990,61 @@ function italiciseAnswerTails(blocks) {
           const hasAnswer = (prev.a || "").trim() || (prev.aseg || []).some((s) => (s.t || "").trim());
           if (!hasAnswer) continue;
           for (const s of p.qseg || []) if (!s.m) s.it = true;
+        }
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+}
+
+// An EXERCISE whose answers the writer listed under an answer label rather than under
+// each question: the label is a part of its own ("Possible Answers:") or is glued onto
+// the end of the question ("… state what each is used for. (4 marks) Possible
+// answers:"), and the answers below it arrive as further numbered or lettered parts.
+// They printed as more questions in roman, the label above them in bold — the only
+// answers in the book still carrying a label (Home Economics Grade 4 TG, Exercises 9-11
+// of 4.3.3, 1 of 4.8.1, 2 of 4.9.1). Drop the label and set those parts in italic, up to
+// the next question, exactly as stripStrayAnswerLabels() does for a box body.
+function labelledExerciseAnswers(blocks) {
+  const TRAIL = /\s*(possible|expected|sample|suggested|model)\s*(answers?|responses?)\s*:?\s*$/i;
+  const textOf = (p) => (p.qseg && p.qseg.length ? p.qseg.map((s) => (s.m ? "" : s.t || "")).join("") : p.q || "").trim();
+  const italicFrom = (parts, j) => {
+    for (; j < parts.length; j++) {
+      const p = parts[j];
+      if (!p || (p.kind !== "q" && p.kind !== "lead")) break;
+      const t = textOf(p);
+      if (ANSWER_RUN_END.test(t) || ANSWER_LABEL_RE.test(t) || ANSWER_LABEL_ALONE_RE.test(t)) break;
+      for (const s of p.qseg || []) if (!s.m) s.it = true;
+    }
+  };
+  const walk = (arr) => {
+    for (const b of arr || []) {
+      if (!b || typeof b !== "object") continue;
+      const parts = Array.isArray(b.parts) ? b.parts : null;
+      if (parts) {
+        for (let i = 0; i < parts.length; i++) {
+          const p = parts[i];
+          if (!p || (p.kind !== "q" && p.kind !== "lead")) continue;
+          const hasAnswer = (p.a || "").trim() || (p.aseg || []).some((s) => (s.t || "").trim());
+          const t = textOf(p);
+          if (p.kind === "lead" && ANSWER_LABEL_ALONE_RE.test(t) && i + 1 < parts.length) {
+            parts.splice(i, 1);
+            italicFrom(parts, i);
+            i--;
+          } else if (p.kind === "q" && !hasAnswer && TRAIL.test(t) && t.replace(TRAIL, "").trim()) {
+            // take the label off the end of the question's runs: its own run (often the
+            // bold one) or the tail of the last run, plus any blank run left behind
+            const segs = p.qseg || [];
+            while (segs.length && !segs[segs.length - 1].m) {
+              const last = segs[segs.length - 1], lt = last.t || "";
+              if (!lt.trim() || ANSWER_LABEL_ALONE_RE.test(lt.trim())) { segs.pop(); continue; }
+              if (TRAIL.test(lt)) segs[segs.length - 1] = { ...last, t: lt.replace(TRAIL, "") };
+              break;
+            }
+            p.q = (p.q || "").replace(TRAIL, "");
+            italicFrom(parts, i + 1);
+          }
         }
       }
       for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
@@ -7301,6 +7386,8 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the second half of an answer the manuscript split into its own paragraph is set
   // the same way as the first.
   italiciseAnswerTails(blocks);
+  // …and an exercise's answers listed under one label, as parts of their own.
+  labelledExerciseAnswers(blocks);
   uniformQuestionLines(blocks);
   // Runs here, not in applyOverrides(): a box the author drew as a one-cell Word table
   // only becomes an `activity` block at convertTableActivities() above, so an override
