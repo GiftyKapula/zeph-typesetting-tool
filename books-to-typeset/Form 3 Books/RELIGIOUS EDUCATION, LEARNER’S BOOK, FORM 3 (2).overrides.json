@@ -86,11 +86,43 @@
     "Expected standard",
     "Emotional intelligence in maintaining happiness applied according"
   ],
-  "//edit": "Learning Activity 6 (Topic 2): the first sentence of the notes was typed onto the end of the activity's shaded instruction, with no full stop between ('…Report your findings to the whole class Leisure time can be used in meaningful ways…'), so it printed inside the box. The instruction gets its full stop and the sentence goes back to head the notes below.",
+  "//edit": "Learning Activity 6 (Topic 2): the first sentence of the notes was typed onto the end of the activity's shaded instruction, with no full stop between ('…Report your findings to the whole class Leisure time can be used in meaningful ways…'), so it printed inside the box. The instruction gets its full stop and the sentence goes back to head the notes below. Reviewer round on the 18 Oct proof (24 Oct 2026): grammar slips highlighted by the reviewer — \"Diploma English\" (in), \"the four religious\" (religions), \"pressure\" (pleasure, the Hindu aim kama), lamps \"are light\" (lit), \"advice to the Head Teacher how can solve\", \"trust respect\" (comma), \"hard work_ Quran 18:46\" (stray underscore; reference bracketed), \"and presents the findings\" (present).",
   "edit": [
     {
       "find": "Report your findings to the whole class Leisure time can be used in meaningful ways that benefit both yourself and the environment.",
       "with": "Report your findings to the whole class."
+    },
+    {
+      "find": "holds a Diploma English and Religious Education",
+      "with": "holds a Diploma in English and Religious Education"
+    },
+    {
+      "find": "teachings on leisure in the four religious",
+      "with": "teachings on leisure in the four religions"
+    },
+    {
+      "find": "Leisure and pressure in Hindu",
+      "with": "Leisure and pleasure in Hindu"
+    },
+    {
+      "find": "These lamps are light and they shine",
+      "with": "These lamps are lit and they shine"
+    },
+    {
+      "find": "give the proper advice to the Head Teacher how can solve this problem.",
+      "with": "give the proper advice to the Head Teacher on how to solve this problem."
+    },
+    {
+      "find": "When trust respect, responsibility",
+      "with": "When trust, respect, responsibility"
+    },
+    {
+      "find": "through hard work_ Quran 18:46.",
+      "with": "through hard work (Quran 18:46)."
+    },
+    {
+      "find": "and presents the findings to the class",
+      "with": "and present the findings to the class"
     }
   ],
   "insertText": [

@@ -4838,8 +4838,13 @@ function ensureOrIndividually(blocks) {
                 // individually…". House style only needs ONE "individually" per
                 // sentence/segment, so skip the whole segment once it already contains
                 // the word anywhere, rather than checking only right after each trigger.
+                //
+                // A group size belongs to "groups": "In groups of five, discuss…"
+                // used to become "In groups or individually of five", so the phrase
+                // now goes after an "of <size>" qualifier ("In groups of five or
+                // individually, discuss…").
                 if (!/\bindividually\b/i.test(s.t)) {
-                  s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
+                  s.t = s.t.replace(/\b((?:in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)(?:\s+of\s+(?:\d+|two|three|four|five|six|seven|eight|nine|ten)(?:\s+(?:learners|pupils|people|members))?)?)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
                 }
                 if (s.t.trimEnd().endsWith("individually")) {
                   s.t = s.t.trimEnd() + " ";
