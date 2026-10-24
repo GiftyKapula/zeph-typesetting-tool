@@ -257,6 +257,7 @@ off, so a change only touches the books that opt in. Keys:
 | `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |
 | `tocDepth` | how many heading levels the table of contents lists (default 2: top-level + one sub-level) |
+| `tocGap` | the gap above each top-level contents entry (theme default 10pt), e.g. `"4pt"` — to draw a contents page that runs a line or two onto a second page back onto one |
 | `tocUnitsOnly` | `false` also lists front/back matter (Authors, Foreword, References, …) in the TOC, not just units/topics |
 
 **Lists / questions / tables**

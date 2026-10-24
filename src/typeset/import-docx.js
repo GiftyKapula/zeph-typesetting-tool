@@ -3168,6 +3168,8 @@ async function importDocx(docxPath, opts = {}) {
   // and Topic 2's assessment alone was never boxed. Opt-in because other books carry the
   // same residue (LIT in ENG F1 TG's "ACTIVITY 1: Group Work") and were laid out and
   // reviewed with those labels unboxed.
+  // Also used, in every book, for a SHADED ACTIVITY label: the RE Form 3 Learner's Book
+  // types one as " " (plain) + "LEARNING ACTIVITY 3" (bold) (see the box-label test below).
   const boldFirstTextRun = (x) => {
     const runs = x.match(/<w:r\b[^>]*>[\s\S]*?<\/w:r>/g) || [];
     const r = runs.find((s) => /<w:t\b[^>]*>\s*[^<\s]/.test(s)) || runs[0] || "";
@@ -3435,7 +3437,7 @@ async function importDocx(docxPath, opts = {}) {
     // Forms of written Literature" in the table of contents beside the real sections.
     // boxKindFromTitle() is anchored and narrow, so accepting a heading here only ever
     // captures a paragraph that really is a box label.
-    if (!kind || !(boldLabel(x) || hmap[styleOf(x)])) continue;
+    if (!kind || !(boldLabel(x) || hmap[styleOf(x)] || (kind === "activity" && shadeOf(x) && boldFirstTextRun(x)))) continue;
     const bodyIdx = [];
     let lastContent = -1;
     // When the WRITER drew a real box around the label in Word (a four-sided paragraph
