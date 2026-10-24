@@ -361,6 +361,18 @@ const THEMES = {
   // the contents keeps the default depth 2 because the books carry only five topics
   // and the authors' own table of contents lists the sub-topics.
   accounting: zeph({ subject: "Accounting", variant: "science", signature: "372157", primary: "372157", primary2: "6a4a9c", accent: "c79a3b", cyan: "2f8f8a" }),
+  // Hospitality Management (Form 1-4) — the palette of the books' own earlier layout:
+  // a deep teal-navy for headings and exercise bars, a warm terracotta-orange for the
+  // Learning Activity bars over a peach fill, and a muted blue-grey for exercises.
+  // The cover field is the bottle green of the books' own green-and-gold cover art.
+  // Boxed Learning Activities, Exercises and End of Topic Assessments throughout, so
+  // the "science" (boxed) variant; the contents lists sub-topics (depth 2), as the
+  // authors' own contents page does.
+  hospitality: {
+    ...zeph({ subject: "Hospitality Management", variant: "science", motif: "earth", signature: "0a542f", primary: "0f4761", primary2: "467886", accent: "e97132", cyan: "467886" }),
+    act: { fill: "fceae0", border: "e97132", title: "0f4761" },
+    ex:  { fill: "e8eef0", border: "467886", title: "0f4761" },
+  },
   // Primary school (Grade 1-6) — same ZEPH house style, but a cheerful palette and
   // a "Primary Education Level" eyebrow/header (see the education-level rule on `level`).
   // sunny yellow-gold + teal; big lower-primary tables. Hyphenation OFF (as on the
@@ -448,6 +460,7 @@ function autoTheme(name) {
   // filenames separate fields with underscores, which are word characters — the
   // same trap the maths and "Grade 6_LB" routes above document.
   if (/(?:^|[^a-z])account(?:ing|ancy|s)(?=\b|_)/i.test(name)) return "accounting";
+  if (/hospitality/i.test(name)) return "hospitality";
   // Literature in English, however the filename writes it. Manuscripts arrive
   // abbreviated at least as often as spelled out ("LIT in ENG F1 LB"), and the
   // abbreviation must be word-bounded — a bare /lit/ matches "quality", "political",
@@ -490,7 +503,7 @@ function themeTypst(theme, overrides = {}) {
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},
   tocUnitsOnly: ${t.tocUnitsOnly ? "true" : "false"}, coverStyle: ${q(t.coverStyle || "")}, boxStyle: ${q(t.boxStyle || "")}, tocDepth: ${t.tocDepth || 2}, mono: ${t.mono ? "true" : "false"},
   ${t.tableSize ? `tableSize: ${t.tableSize},\n  ` : ""}
-  ${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
+  ${t.bylineRows ? `bylineRows: true,\n  ` : ""}${t.subtopicRuleClear ? `subtopicRuleClear: true,\n  ` : ""}${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}${t.keepQuestionParts ? `keepQuestionParts: true,\n  ` : ""}${t.writingColumns ? `writingColumns: true,\n  ` : ""}${t.uniformRubrics ? `uniformRubrics: true,\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
 )\n`;
 }
 

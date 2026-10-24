@@ -1,0 +1,765 @@
+{
+  "//cover": "Keep the cover exactly as it was on the copy the reviewer marked (typeset 16 Oct): the cooking-class photograph the tan field D9A46A (coverColor) and the theme's own brown 8A4A2E on it (coverPrimary) - measured off that PDF. The manuscript's own cover picture is a mock-up with lettering on it, and the engine's automatic Teacher's Guide colour shift turned the field dark brown; the user asked for the cover to be left as it was. The photo is extracted at full resolution (3344 x 1882) from that PDF.",
+  "coverImage": "food-nutrition-form2-tg-cover.png",
+  "coverColor": "D9A46A",
+  "coverPrimary": "8A4A2E",
+  "//spineStyle": "The spine as it was on the proofread copy (user, 2026-10-22): subject, FORM 2 on a badge, book type, author, logo, and a band across the foot.",
+  "spineStyle": "badge",
+  "//layoutCredit": "This book only (user, 2026-10-22): the imprint credits Chikondi Robinson Ng`ambi for Cover and Book Layout; every other book keeps the engine default.",
+  "layoutCredit": "Chikondi Robinson Ng`ambi",
+  "edit": [
+    {
+      "find": "Analysing the Process of Purchasing of Food",
+      "with": "Analysing the Purchasing of Food"
+    },
+    {
+      "find": "Sub-Topic 2.5.1: Food Labelling",
+      "with": "Sub-Topic 2.5.2: Food Labelling"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Using different types of condiments",
+      "with": "LEARNING ACTIVITY 3: Using different types of condiments"
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "Uses of Sauces",
+      "with": "Analysing the Uses of Sauces"
+    },
+    {
+      "find": "Storage in Food Industries",
+      "with": "Exploring Food Industries"
+    }
+  ],
+  "removeWhereNext": [
+    {
+      "find": "Analysing the Process of Purchasing of Food",
+      "next": "Purchasing food is a complex"
+    },
+    {
+      "find": "Interpreting Recipe Instruction",
+      "next": "Table 3: Standard Recipe"
+    },
+    {
+      "find": "In this subtopic, you will learn to",
+      "next": "2.4.2.1"
+    }
+  ],
+  "removeRange": [
+    {
+      "from": "Comparing Methods of Purchasing Food",
+      "to": "LEARNING ACTIVITY 3: Comparing methods",
+      "after": "Distance and transport availability"
+    },
+    {
+      "from": "Sub-Topic 2.7.3: Sauces",
+      "to": "Sub-Topic 2.7.3: Sauces",
+      "after": "Methods of Serving Soups Refer to notes in pupils book"
+    },
+    {
+      "from": "Sub-Topic 2.8.2: Preparing Meals",
+      "to": "Preparing Meals Using Convenience Foods"
+    },
+    {
+      "from": "Sub-Topic 2.4.1: Table Etiquettes",
+      "to": "Sub-Topic 2.4.2: Table Etiquette"
+    },
+    {
+      "from": "Exploring Food Industries",
+      "to": "EXERCISE 3",
+      "after": "Demonstrating Storage of Food in a Home and Industry"
+    }
+  ],
+  "remove": [
+    "Importance of making a Shopping Plan",
+    "Prevents impulse buying.",
+    "Helps control food expenses.",
+    "Saves time and energy.",
+    "Ensures balanced meals are provided.",
+    "Reduces food wastage.",
+    "Helps with bulk purchasing and better budgeting.",
+    "Encourages wise food choices.",
+    "Similarities Among the Three Food Industries: Refer to pupils Book"
+  ],
+  "setHeading": [
+    {
+      "find": "PIC 2.8: CONVENIENCE FOODS",
+      "text": "TOPIC 2.8: CONVENIENCE FOODS",
+      "as": "h1"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "Convenience foods are foods that have been prepared, partly prepared, preserved, or packaged to"
+    }
+  ],
+  "fixExercise": [
+    {
+      "match": "EXERCISE 1",
+      "near": "Demonstrate the functional role of condiments",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "Functional Role of Condiments in Culinary Preparation",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE.",
+      "near": "Definition of Gravy",
+      "heading": "EXERCISE 1"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "Improves Plate Value and Prices",
+      "marker": "•",
+      "depth": 0
+    }
+  ],
+  "subtext": [
+    {
+      "from": "chicken Grav,",
+      "to": "Chicken Gravy,"
+    },
+    {
+      "from": "Poultry Grave,",
+      "to": "Poultry Gravy,"
+    },
+    {
+      "from": "Kayumba Rabecca",
+      "to": "Dr. Rebecca Kayumba-Piyo"
+    },
+    {
+      "from": "Rabecca Kayumba",
+      "to": "Dr. Rebecca Kayumba-Piyo"
+    }
+  ],
+  "textFix": [
+    {
+      "find": "this Form 2 Food and Nutrition Learner’s Book",
+      "with": "this Form 2 Food and Nutrition Teacher’s Guide"
+    },
+    {
+      "find": "DESRIPTIONS",
+      "with": "DESCRIPTIONS"
+    },
+    {
+      "find": "a time plane for",
+      "with": "a time plan for"
+    },
+    {
+      "find": "when making condiments at home  .",
+      "with": "when making condiments at home."
+    },
+    {
+      "find": "Special appreciation goes to Ms. Gwen Chewe, author of the Form 6 Learner’s Book, whose expertise in physical education pedagogy and curriculum design has laid a strong foundation for this publication. Her work, which blends academic excellence with practical application, will encourage learners to embrace physical activity as part of their daily lives.  ",
+      "with": "Special recognition is extended to the author Dr. Rebecca Kayumba-Piyo, whose dedication and commitment ensured that the content is both rigorous and engaging. "
+    },
+    {
+      "find": "Possible Answers",
+      "with": "Expected Answers"
+    },
+    {
+      "find": "Expected  Answers",
+      "with": "Expected Answers"
+    },
+    {
+      "find": "ONE-DAY MEAL PLAN1.",
+      "with": "ONE-DAY MEAL PLAN"
+    },
+    {
+      "find": "BREAKFAST - 7:00 AM Enriched maize meal porridge with groundnut powder, plus milk1 boiled egg1 banana",
+      "with": "BREAKFAST - 7:00 AM: Enriched maize meal porridge with groundnut powder, plus milk, 1 boiled egg, 1 banana"
+    },
+    {
+      "find": "MID-MORNING SNACK - 10:30 AMFresh fruit salad",
+      "with": "MID-MORNING SNACK - 10:30 AM: Fresh fruit salad"
+    },
+    {
+      "find": "LUNCH - 1:00 PMNshima (portion controlled)Beans mixed with vegetables (tomato, onion, rape)Small portion of grilled kapentaWater",
+      "with": "LUNCH - 1:00 PM: Nshima (portion controlled), beans mixed with vegetables (tomato, onion, rape), small portion of grilled kapenta, water"
+    },
+    {
+      "find": "AFTERNOON SNACK - 4:00 PM Roasted maize",
+      "with": "AFTERNOON SNACK - 4:00 PM: Roasted maize"
+    },
+    {
+      "find": "SUPPER - 7:00 PM Rice Grilled chicken Mixed vegetables (cabbage, carrots, green beans)Sour milk / Chibwantu",
+      "with": "SUPPER - 7:00 PM: Rice, grilled chicken, mixed vegetables (cabbage, carrots, green beans), sour milk / Chibwantu"
+    },
+    {
+      "find": "Each group should:a)Identify the nutritional needs of their assigned group. b)Select suitable foods. c)Prepare a one-day balanced meal plan.d) Explain",
+      "with": "Each group should: a) identify the nutritional needs of their assigned group; b) select suitable foods; c) prepare a one-day balanced meal plan; d) explain"
+    },
+    {
+      "find": "FORWARD",
+      "with": "FOREWORD"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Present Your Findings: Create a single-page poster.",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Present Your Findings: Create a single-page poster.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "v."
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Tips: ",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "Food industries are businesses that process, preserve, package and distribute food for consumers. Examples include milling, dairy, meat, beverage, bakery and fruit-processing industries. They use raw materials such as maize, milk, fruits, vegetables and meat to produce safe and convenient food products. Food industries create employment, add value to local agricultural products and contribute to economic development.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Individual Activity:",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Individual Activity:",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "2."
+          }
+        }
+      ]
+    },
+    {
+      "find": "Making up a shopping plan is the process of preparing a detailed guide of what to buy, where to buy it, when to buy it, and how much money is needed before going shopping. It helps a person or family to purchase food and other items in an organised way, avoid unnecessary spending, and ensure that all needs are met.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Making up a shopping plan is the process of preparing a detailed guide of what to buy, where to buy it, when to buy it, and how much money is needed before going shopping. It helps a person or family to purchase food and other items in an organised way, avoid unnecessary spending, and ensure that all needs are met.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 4: Making up a shopping plan",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "A Form 2 Food and Nutrition class is given K250 to prepare a nutritious meal for a small school activity. The teacher divides the learners into inclusive groups consisting of boys and girls, including a learner with a physical disability. Each group should:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Decide on a balanced meal to prepare.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "marker": "1."
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Check which ingredients are already available in the Food and Nutrition laboratory.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "marker": "2."
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Prepare a shopping list showing the item, quantity, estimated price and total cost.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "marker": "3."
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Ensure that the total cost does not exceed K250.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "marker": "4."
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Suggest ways of reducing food waste and unnecessary packaging.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "marker": "5."
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Ensure that every learner participates according to their abilities.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "marker": "6."
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Present and justify the shopping plan to the class.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "marker": "7."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Smart food purchasing requires a mix of financial discipline, safety awareness, and strategic planning. Shoppers must carry backup cash in case digital payment systems fail, and they should always calculate unit pricing since larger packages are occasionally more expensive per gram. Sticking strictly to a shopping list prevents costly impulse buying, while safety checks like avoiding dented or bulging cans must always take priority over written expiry dates. Finally, collaborating with others to buy items in bulk allows everyday consumers to access lower wholesale prices and split costs effectively.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Smart food purchasing requires a mix of financial discipline, safety awareness, and strategic planning.",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " Shoppers must carry backup cash in case digital payment systems fail, and they should always calculate unit pricing since larger packages are occasionally more expensive per gram.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 5",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "A family needs fresh vegetables, a 25 kg bag of mealie meal and a refrigerator. Suggest a suitable purchasing model for each and give a reason.",
+                "qseg": [
+                  {
+                    "t": "A family needs fresh vegetables, a 25 kg bag of mealie meal and a refrigerator. Suggest a suitable purchasing model for each and give a reason.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "i.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "State two advantages and two disadvantages of buying food through online purchasing.",
+                "qseg": [
+                  {
+                    "t": "State two advantages and two disadvantages of buying food through online purchasing.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "ii.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain why a shopper who plans to pay by mobile money or card should still carry some cash.",
+                "qseg": [
+                  {
+                    "t": "Explain why a shopper who plans to pay by mobile money or card should still carry some cash.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "iii.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "A 1 kg packet of sugar costs K30 and a 2 kg packet costs K64. Which is better value? Show your working.",
+                "qseg": [
+                  {
+                    "t": "A 1 kg packet of sugar costs K30 and a 2 kg packet costs K64. Which is better value? Show your working.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "iv.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Describe how a group of neighbours could use bulk purchasing to save money.",
+                "qseg": [
+                  {
+                    "t": "Describe how a group of neighbours could use bulk purchasing to save money.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "v.",
+                "depth": 0
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 5",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Expected Answers",
+                "qseg": [
+                  {
+                    "t": "Expected Answers",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "i. Suitable Purchasing Models",
+                "qseg": [
+                  {
+                    "t": "i. ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Suitable Purchasing Models",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Fresh vegetables: open market or direct purchasing from farmers, because the foods are fresh and bargaining is possible.",
+                "qseg": [
+                  {
+                    "t": "Fresh vegetables: open market or direct purchasing from farmers, because the foods are fresh and bargaining is possible.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "•",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Mealie meal: bulk purchasing from a wholesale supplier, because the cost per kilogram is lower.",
+                "qseg": [
+                  {
+                    "t": "Mealie meal: bulk purchasing from a wholesale supplier, because the cost per kilogram is lower.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "•",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Refrigerator: hire purchase, because it is an expensive appliance that can be paid for in instalments over an agreed period.",
+                "qseg": [
+                  {
+                    "t": "Refrigerator: hire purchase, because it is an expensive appliance that can be paid for in instalments over an agreed period.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "•",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "ii. Online Purchasing",
+                "qseg": [
+                  {
+                    "t": "ii. ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Online Purchasing",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Advantages: it is convenient, saves time, allows comparison of products and prices, and is useful for people who cannot easily visit shops.",
+                "qseg": [
+                  {
+                    "t": "Advantages: it is convenient, saves time, allows comparison of products and prices, and is useful for people who cannot easily visit shops.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "•",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Disadvantages: delivery charges may increase the cost, products cannot always be inspected physically, and it requires internet access and electronic payment.",
+                "qseg": [
+                  {
+                    "t": "Disadvantages: delivery charges may increase the cost, products cannot always be inspected physically, and it requires internet access and electronic payment.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "•",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "iii. Carrying Backup Cash",
+                "qseg": [
+                  {
+                    "t": "iii. ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Carrying Backup Cash",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Digital payment systems can fail because of network or power problems; backup cash allows the shopper to complete the purchase.",
+                "qseg": [
+                  {
+                    "t": "Digital payment systems can fail because of network or power problems; backup cash allows the shopper to complete the purchase.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "•",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "iv. Unit Pricing",
+                "qseg": [
+                  {
+                    "t": "iv. ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Unit Pricing",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "1 kg packet: K30 per kg. 2 kg packet: K64 ÷ 2 = K32 per kg. The 1 kg packet gives better value, which shows that a larger package is not always cheaper.",
+                "qseg": [
+                  {
+                    "t": "1 kg packet: K30 per kg. 2 kg packet: K64 ÷ 2 = K32 per kg. The 1 kg packet gives better value, which shows that a larger package is not always cheaper.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "•",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "v. Bulk Purchasing",
+                "qseg": [
+                  {
+                    "t": "v. ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Bulk Purchasing",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "The neighbours put their money together, buy items in large quantities from a wholesaler at lower prices, and then share the items and the cost.",
+                "qseg": [
+                  {
+                    "t": "The neighbours put their money together, buy items in large quantities from a wholesaler at lower prices, and then share the items and the cost.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "•",
+                "depth": 0
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Sticking strictly to a shopping list prevents costly impulse buying, while safety checks like avoiding dented or bulging cans must always take priority over written expiry dates. Finally, collaborating with others to buy items in bulk allows everyday consumers to access lower wholesale prices and split costs effectively.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "mdReplaceExact": [
+    {
+      "find": "Expected Answe",
+      "with": "**Expected Answers**",
+      "all": true
+    },
+    {
+      "find": "Expected Answers",
+      "with": "**Expected Answers**",
+      "all": true
+    }
+  ],
+  "//authors": "The author's name follows the Form 2 Learner's Book, where the user settled it as 'Dr. Rebecca Kayumba-Piyo' in every place it appears (cover, title page, imprint, biography, acknowledgement). This manuscript spelt it 'Dr. Rabecca Kayumba (Ph.D)', 'Kayumba Rabecca' and 'Rabecca Kayumba'.",
+  "authors": [
+    "Dr. Rebecca Kayumba-Piyo"
+  ]
+}

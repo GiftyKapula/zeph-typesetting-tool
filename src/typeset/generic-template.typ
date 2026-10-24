@@ -312,6 +312,19 @@
   body
 }
 
+// Byline layout. By default a byline is the names joined by bullets and left to wrap,
+// as every book before the RE Form 3 Teacher's Guide was laid out and reviewed. A book
+// that sets `bylineRows` instead keeps one line when the names fit and otherwise sets
+// two names to a line: free wrapping split a name in two on that book's title page
+// ("… • Maybin" / "Simuchenje Yamba • …") or, with names kept whole, ended a line on a
+// dangling bullet. Opt-in so no other book's cover or title page moves.
+#let bylineRows = T.at("bylineRows", default: false)
+#let bylineText(byline, sep) = if not bylineRows { byline.join(sep) } else { layout(sz => {
+  let one = byline.map(n => box(n)).join(sep)
+  if measure(one).width <= sz.width { one }
+  else { byline.chunks(2).map(c => c.map(n => box(n)).join(sep)).join(linebreak()) }
+}) }
+
 // ---- title page (series): the book name repeated, modern sans, with a small
 // geometric accent that echoes the cover ----
 #let titlepage(lines, byline, hero: none, logo: none) = {
@@ -423,7 +436,10 @@
   // silently overlapped. Past 2 names, wrap them into one centred paragraph
   // instead (matching how the cover's own byline already handles a long list).
   if byline.len() > 0 {
-    v(16mm)
+    // With bylineRows, a byline that takes two lines gives that line back here, or a
+    // two-line title (RELIGIOUS / EDUCATION) pushes "Lusaka", the title page's last
+    // line, over onto a page of its own.
+    if bylineRows and byline.len() > 2 { v(9mm) } else { v(16mm) }
     align(center)[
       #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
       #v(3mm)
@@ -432,7 +448,7 @@
       // on a title that wraps to two lines (Religious Education, Food and Nutrition…)
       // that was enough to push the publisher imprint off the foot of the page
       // altogether. One line keeps the whole title page on one page, unsqueezed.
-      #text(size: 13pt, weight: "medium", fill: T.ink)[#byline.join("   •   ")]
+      #text(size: 13pt, weight: "medium", fill: T.ink)[#bylineText(byline, "   •   ")]
     ]
   }
   // The publisher imprint used to sit at a FIXED 199mm from the top of the page while
@@ -790,7 +806,7 @@
         let bylineBlock = block(width: 152mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: amber, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(2mm)
-          #text(size: 10.5pt, weight: "semibold", fill: white)[#byline.join("    •    ")]]]
+          #text(size: 10.5pt, weight: "semibold", fill: white)[#bylineText(byline, "    •    ")]]]
         if earthCard {
           // GRADE 6 SCIENCE (earth): a soft, rounded, barely-there card behind the
           // author credit — the cover otherwise being one flat colour field reads
@@ -877,7 +893,7 @@
         #place(top + center, dy: 197mm, block(width: 160mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(2mm)
-          #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
+          #text(size: 9.5pt, weight: "bold", fill: deep)[#bylineText(byline, "  •  ")]]])
       ]
       // publisher + logo
       #place(bottom + center, dy: -13mm, align(center)[
@@ -935,7 +951,7 @@
         #place(top + center, dy: 202mm, block(width: 160mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: T.accent.darken(8%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(2mm)
-          #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
+          #text(size: 9.5pt, weight: "bold", fill: deep)[#bylineText(byline, "  •  ")]]])
       ]
       // publisher + logo
       #place(bottom + center, dy: -12mm, align(center)[
@@ -1000,7 +1016,7 @@
         #place(bottom + center, dy: -33mm, block(width: 162mm)[#align(center)[
           #text(size: 8.5pt, weight: "bold", fill: white.transparentize(45%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(1.5mm)
-          #text(size: 10pt, weight: "bold", fill: white.transparentize(24%))[#byline.join("   •   ")]]])
+          #text(size: 10pt, weight: "bold", fill: white.transparentize(24%))[#bylineText(byline, "   •   ")]]])
       ]
       #place(bottom + center, dy: -9mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(1.5mm) ]
@@ -1045,7 +1061,7 @@
         #place(top + center, dy: 211mm, block(width: 160mm)[#align(center)[
           #text(size: 8pt, weight: "bold", fill: white.transparentize(35%), tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(1mm)
-          #text(size: 9.5pt, weight: "bold", fill: white)[#byline.join("   •   ")]]])
+          #text(size: 9.5pt, weight: "bold", fill: white)[#bylineText(byline, "   •   ")]]])
       ]
       #place(bottom + center, dy: -8mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 10mm) #v(1mm) ]
@@ -1103,7 +1119,7 @@
         #place(top + center, dy: 203mm, block(width: 160mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
           #v(2mm)
-          #text(size: 10pt, weight: "bold", fill: deep)[#byline.join("   •   ")]]])
+          #text(size: 10pt, weight: "bold", fill: deep)[#bylineText(byline, "   •   ")]]])
       ]
       // publisher + logo
       #place(bottom + center, dy: -12mm, align(center)[
@@ -1158,7 +1174,7 @@
         #place(top + center, dy: 196mm, align(center)[
           #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]])
         #place(top + center, dy: 201mm, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt)[
-          #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#byline.join("   •   ")]]))
+          #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#bylineText(byline, "   •   ")]]))
       ]
       // --- publisher + logo, bottom centre ---
       #place(bottom + center, dy: -13mm, align(center)[
@@ -1193,7 +1209,7 @@
         #align(center)[
           #if byline.len() > 0 [
             #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]]
-            \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#byline.join(", ")]
+            \ #v(1pt) #text(size: 12.5pt, weight: "bold")[#bylineText(byline, ", ")]
           ]
           #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
           #v(3mm)
@@ -1221,7 +1237,7 @@
         #if byline.len() > 0 [
           #block(width: 170mm)[#align(center)[
             #text(fill: T.accent, size: 10pt, tracking: 3pt)[#smallcaps[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]] \ #v(1pt)
-            #text(fill: T.primary, size: 12.5pt, weight: "bold")[#byline.join(", ")]]]
+            #text(fill: T.primary, size: 12.5pt, weight: "bold")[#bylineText(byline, ", ")]]]
         ]
         #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
         #v(2mm)
@@ -1392,7 +1408,7 @@
       #if byline.len() > 0 [
         #block(width: 170mm)[#align(center)[
           #text(size: 10pt, tracking: 4pt, fill: T.accent, weight: "bold")[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]
-          \ #v(1pt) #text(size: 14pt, weight: "bold")[#byline.join(", ")]]]
+          \ #v(1pt) #text(size: 14pt, weight: "bold")[#bylineText(byline, ", ")]]]
       ]
       #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 12mm) ]
       #v(3mm)
@@ -1430,89 +1446,100 @@
       ]
     }
   }
-  let subject = lines.at(0, default: "")
-  let grade = lines.find(l => hasGradeWord(l))
-  let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
-  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\\s+\\d+")); if m != none { m.text } else { "" } } else { "" }
-  // Subject title: strip the form/grade token off the grade line ("ENGLISH GRADE 2"
-  // -> "ENGLISH"). When the subject and the form sit on SEPARATE lines
-  // ("MATHEMATICS" + "Form 1") that leaves nothing, so fall back to the first line
-  // that is neither a form/grade nor the standard eyebrow. Without this fallback the
-  // name came out blank and the "·" separator was left orphaned. Mirrors `cover`.
-  let name = subjectName(lines, grade, booktype)
-  // The back cover stays in FULL COLOUR even when the interior is greyscale (mono), so use
-  // the cover-only colour fields (they equal the theme colours for normal books).
-  let primary = T.at("covPrimary", default: T.primary)
-  let accent = T.at("covAccent", default: T.accent)
+  // HOUSE RULE (publisher, 2026-10-19, amended 2026-10-22): the back cover carries the
+  // ISBN, the ZEPH logo and "Published by / Zambia Educational Publishing House" — and
+  // nothing else: no title, no subject, no level, no form/grade, no book type, no
+  // corner wedges, no motif. It keeps the cover's own colour field so front, spine and
+  // back still print as one sheet. `lines` stays in the signature so every existing call
+  // site keeps working.
   let signature = T.at("covSignature", default: T.signature)
-  let ink = T.at("covInk", default: T.ink)
-  let deepteal = primary.darken(30%)
-  // on a LIGHT signature (yellow) text is deep brand colour; on a DARK signature
-  // (indigo) it is white, with an accent-coloured rule/wedges.
-  let onfield = if science { white } else { deepteal }
-  let accentc = if science { accent } else { primary }
-  let pubsub = if science { white } else { ink }
-  let rawsub = lines.at(0, default: "")
-  // When line 0 IS the subject (rather than a standard education-level eyebrow) it
-  // would otherwise be printed twice — once small and once as the title. Fall back
-  // to the education level in that case, as the front cover does.
-  let eyebrow = if hasGradeWord(rawsub) or (rawsub == name) { T.eyebrow } else { rawsub }
-  // signature-colour dominant, mirroring the front.
+  let onfield = if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
-    // corner wedges
-    #place(top + left, polygon(fill: accentc, (0mm, 250mm), (0mm, 197mm), (59mm, 250mm)))
-    #place(top + left, polygon(fill: accentc, (176mm, 250mm), (176mm, 215mm), (137mm, 250mm)))
-    // MUSICAL ARTS (notes): the same scattered colourful note glyphs as the front
-    // cover, echoed here in the open field so front and back read as one set.
-    #if T.motif == "notes" [
-      #place(top + left, dx: 20mm, dy: 60mm, rotate(-10deg, text(size: 22pt, fill: onfield.transparentize(20%))[♪]))
-      #place(top + right, dx: -22mm, dy: 62mm, rotate(10deg, text(size: 20pt, fill: accentc.transparentize(10%))[♬]))
-      #place(bottom + left, dx: 24mm, dy: -70mm, rotate(8deg, text(size: 20pt, fill: onfield.transparentize(25%))[♫]))
-      #place(bottom + right, dx: -26mm, dy: -70mm, rotate(-8deg, text(size: 22pt, fill: accentc.transparentize(10%))[♪]))
-    ]
-    // book identity — CENTRED (every element on the back cover reads centred,
-    // matching the publisher branding block below it).
-    #place(top + center, dy: 20mm, block(width: 144mm)[#align(center)[
-      #text(size: 11pt, weight: "bold", fill: onfield, tracking: 1.5pt)[#upper(eyebrow)]
-      #v(3mm)
-      // Subject on its own line — scaled down to fit if a long subject name
-      // would otherwise overflow the block.
-      #layout(sz => {
-        let ttl = box(text(size: 26pt, weight: "bold", fill: onfield)[#name])
-        let m = measure(ttl)
-        if m.width > sz.width and m.width > 0pt {
-          scale(x: sz.width / m.width * 100%, y: sz.width / m.width * 100%, reflow: true, origin: left + horizon, ttl)
-        } else { ttl }
-      })
-      // Form/grade on its OWN line, between the subject and the book type.
-      #if formtxt != "" [
-        #v(2mm)
-        #text(size: 16pt, weight: "bold", fill: accentc)[#upper(formtxt)]
-      ]
-      #v(1mm)
-      #text(size: 13pt, weight: "bold", fill: onfield)[#upper(booktype)]
-      #v(3mm)
-      #box(fill: accentc, width: 34mm, height: 2.5pt, radius: 1.5pt)
-    ]])
-    // publisher branding, centred
-    #place(top + center, dy: 120mm, align(center)[
-      #if logo != none [ #image("_media/" + logo.file, height: 20mm) #v(4mm) ]
-      #text(size: 14pt, weight: "bold", fill: onfield)[Zambia Educational Publishing House]
-      #v(1mm)
-      #text(size: 11pt, fill: pubsub)[Lusaka, Zambia]
+    // Publisher block: the logo over "Published by / Zambia Educational Publishing
+    // House", centred a little below the middle of the page, clear above the ISBN.
+    #place(horizon + center, dy: 18mm, box(width: 140mm)[
+      #set align(center)
+      #if logo != none [#image("_media/" + logo.file, height: 20mm) #v(4mm)]
+      #text(size: 9.5pt, fill: onfield)[Published by] #linebreak()
+      #text(size: 12pt, weight: "bold", fill: onfield)[Zambia Educational Publishing House]
     ])
-    // ISBN: if known, print it (no barcode); otherwise reserve a clean box for
-    // the press to add the ISBN + barcode at print time. CENTRED, like every
-    // other element on the back cover — sitting on the page's centre line also
-    // keeps it well clear of both bottom corner wedges (see "corner wedges"
-    // above: triangles from (0,197mm)-(0,250mm)-(59,250mm) and the mirrored one
-    // on the right), which only reach in from the left/right edges.
+    // ISBN: if known, print it (no barcode); otherwise reserve a clean box for the
+    // press to add the ISBN + barcode at print time. Centred, low on the page.
     #if isbn != none [
       #place(bottom + center, dy: -43mm, text(size: 11pt, weight: "bold", fill: onfield)[ISBN #isbn])
     ] else [
       #place(bottom + center, dy: -45mm, box(width: 52mm, height: 26mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
         #align(center + horizon)[#text(size: 8pt, fill: luma(55%))[ISBN & barcode]]])
+    ]
+  ]
+}
+
+// ---- spine (series/science B5 books over 112 interior pages) -------------------
+// One page the width of the spine, in the cover's colour field. The book's name,
+// form/grade and book type read TOP-TO-BOTTOM (the text runs down the spine, as on
+// the syllabus spine), shrunk to fit the height; the ZEPH logo sits upright at the
+// foot when the spine is wide enough to carry it. typeset-docx.js composes this page
+// between the back and front covers into the printer's cover spread.
+#let spine(lines, logo, width, style: "standard", author: none) = {
+  let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
+  let grade = lines.find(l => hasGradeWord(l))
+  let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
+  let name = subjectName(lines, grade, booktype)
+  let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\s+\d+")); if m != none { m.text } else { "" } } else { "" }
+  let onfield = if science { white } else { T.primary.darken(30%) }
+  let accentc = if science { T.accent } else { T.primary }
+  let w = width * 1mm
+  // `spineStyle: "badge"` (opt-in, per book): the spine the Food and Nutrition Form 2
+  // Teacher's Guide had on its proofread copy — the subject large, the form/grade white
+  // on a rounded badge in the cover colour, the book type, the author in plain type, the
+  // logo near the foot and a band of the cover colour across the bottom that runs on
+  // into the front cover's corner wedge.
+  if style == "badge" {
+    let s1 = calc.min(width * 1.0, 14) * 1pt
+    let s2 = s1 * 0.65
+    let s3 = s1 * 0.58
+    let badge = box(fill: T.primary, radius: 2pt, inset: (x: 0.55em, y: 0.35em),
+      text(size: s2, weight: "bold", fill: white)[#upper(formtxt)])
+    let row = box[
+      #set text(font: T.displayFont)
+      #text(size: s1, weight: "bold", fill: onfield)[#upper(name)]
+      #if formtxt != "" [#h(2.2em) #badge]
+      #h(2.2em) #text(size: s2, weight: "bold", fill: onfield)[#upper(booktype)]
+      #if author != none and author != "" [#h(2.6em) #text(size: s3, fill: onfield)[#author]]
+    ]
+    let bandTop = 216mm
+    let logoH = if logo != none and width >= 6 { calc.min(width - 3, 9) * 1mm } else { 0mm }
+    return page(margin: 0pt, header: none, footer: none, fill: T.signature, width: w, height: 250mm)[
+      #context {
+        let avail = 200mm - 38mm
+        let m = measure(row)
+        let f = if m.width > avail { avail / m.width } else { 1.0 }
+        place(top + center, dy: 38mm, rotate(90deg, reflow: true, scale(x: f * 100%, y: f * 100%, reflow: true, row)))
+      }
+      #if logoH > 0mm [
+        #place(top + center, dy: bandTop - logoH - 8mm, image("_media/" + logo.file, height: logoH))
+      ]
+      #place(top + left, dy: bandTop, rect(width: w, height: 250mm - bandTop, fill: T.primary, stroke: none))
+    ]
+  }
+  let logoH = if logo != none and width >= 6 { calc.min(width - 1.5, 12) * 1mm } else { 0mm }
+  // type size from the spine's WIDTH (in mm): capitals about half the spine across, so
+  // a 7.6 mm spine sets near 11 pt; capped for very thick books
+  let fsz = calc.min(width * 0.5, 5.5) * 1mm
+  page(margin: 0pt, header: none, footer: none, fill: T.signature, width: w, height: 250mm)[
+    #set text(font: T.displayFont)
+    // the line of text, laid out horizontally and then turned to run down the spine
+    #let avail = 250mm - 30mm - logoH
+    #let line = box(text(size: fsz, weight: "bold", fill: onfield)[#upper(name)#if formtxt != "" [#h(1.2em)#text(fill: accentc)[#upper(formtxt)]]#h(1.2em)#upper(booktype)])
+    #context {
+      let m = measure(line)
+      let f = if m.width > avail { avail / m.width } else { 1.0 }
+      let set_ = scale(x: f * 100%, y: f * 100%, reflow: true, line)
+      place(top + center, dy: 14mm, rotate(90deg, reflow: true, set_))
+    }
+    #if logoH > 0mm [
+      #place(bottom + center, dy: -6mm, image("_media/" + logo.file, height: logoH))
     ]
   ]
 }
@@ -1865,7 +1892,17 @@
 #let FILLBLANK = regex("_{12,}")
 #let hasFillBlank(ss) = ss.any(s => s.at("m", default: false) == false
   and s.at("t", default: "").find(FILLBLANK) != none)
-#let para(ss, align: none, drop: false, hyphenate: true) = {
+// A line that ends in a colon INTRODUCES what follows it ("Hospitality staff can:",
+// "a) Effects on the guest may include:", "For Client A:") and is stranded when a page
+// ends on it with its list over the leaf. Such a line is set `sticky`, which acts only
+// where it would otherwise be the last thing on a page, so no other break moves. Capped
+// at a few lines' worth of text: an unbreakable long paragraph would be pushed whole.
+// (Hospitality Management Form 3 TG: ten pages ended on such a lead-in.)
+#let endsColon(ss) = {
+  let t = ss.fold("", (acc, s) => acc + if s.at("m", default: false) { "" } else { s.at("t", default: "") }).trim()
+  t.ends-with(":") and t.len() <= 240
+}
+#let para0(ss, align: none, drop: false, hyphenate: true) = {
   set text(hyphenate: hyphenate)
   set par(justify: false) if hasFillBlank(ss)
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
@@ -1924,8 +1961,12 @@
     } else { flowsegs(ss) }
   }
 }
+#let para(ss, ..args) = {
+  let out = para0(ss, ..args)
+  if endsColon(ss) { block(sticky: true, breakable: false, width: 100%)[#out] } else { out }
+}
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
-#let listitem(ss, marker, indent: 0) = {
+#let listitem0(ss, marker, indent: 0) = {
   let isbullet = marker == "•"
   // A numbered/lettered marker used to be bold unconditionally — right for the
   // common case (a bold numbered step), but it left the marker visibly bolder
@@ -1954,6 +1995,10 @@
     grid(columns: (indent * 18pt, colw, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
       [], mk, par[#segs(ss)])
   }
+}
+#let listitem(ss, marker, indent: 0) = {
+  let out = listitem0(ss, marker, indent: indent)
+  if endsColon(ss) { block(sticky: true, breakable: false, width: 100%)[#out] } else { out }
 }
 // ---- a marker-led line INSIDE A TABLE CELL -------------------------------
 // House style: a line that opens with a marker never lets its next line start where
@@ -2418,7 +2463,15 @@
           #v(2pt)
           #box(fill: iaccent2, width: 34pt, height: 2.5pt, radius: 1pt)]).height
         let own = measure(block(width: size.width, bannerBody)).height
-        block(width: 100%, height: calc.max(own, twoLine), breakable: false, bannerBody)
+        // The v(-14pt) below is taken out of a one-line title's padding. A title that
+        // WRAPPED has no padding to give, so the pull-up lands on the banner itself, and
+        // where a plain paragraph follows (not a heading with room of its own above it)
+        // that line prints over the rule: "General Competence: …" under every wrapped
+        // sub-topic of the Hospitality Management Form 3 TG. `subtopicRuleClear` lends a
+        // wrapped banner the 14pt back. Opt-in, as it moves wrapped titles in books
+        // already proofread, where a heading follows and nothing overlaps.
+        let clear = if T.at("subtopicRuleClear", default: false) and own + 2pt >= twoLine { 14pt } else { 0pt }
+        block(width: 100%, height: calc.max(own + clear, twoLine), breakable: false, bannerBody)
       })]
     // Close the gap between the banner's rule and the first line under it. The
     // proofreader marked one sub-topic page "the space is too much", and measured
@@ -2510,7 +2563,10 @@
   if al == "center" { std.align(center)[#kept] } else { kept }
   v(2pt - keep)
 }
-#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }; v(1pt) }
+// A label heads what follows it, so it is `sticky` like every heading: "END OF TOPIC
+// ASSESSMENT" ended a page of the Hospitality Management Form 3 TG with its
+// "SUGGESTED RESPONSES" and answers overleaf.
+#let lbl(t, col: none) = { v(2pt); let c = if col != none { rgb("#" + col) } else { none }; block(sticky: true, breakable: false)[#if serieslike { text(weight: "bold", size: fs(10pt), fill: if c != none { c } else { iaccent }, tracking: 0.5pt)[#upper(t)] } else { text(weight: "bold", size: fs(12pt), fill: if c != none { c } else { T.primary2 })[#t] }]; v(1pt) }
 
 // ---- boxes ---------------------------------------------------------------
 // modern:   light fill + thick accent LEFT stripe.
@@ -2698,7 +2754,9 @@
   v(4pt)
   set text(size: 11pt)
   set par(justify: false)
-  align(center, table(
+  // A spreadsheet of a screenful or less is one picture: left breakable, the ICT Form 2
+  // TG's budget sheet put its A | B letter row alone at a page foot and the cells overleaf.
+  block(breakable: rows.len() > 15, width: 100%, align(center, table(
     columns: (9mm,) + (auto,) * ncol,
     stroke: 0.5pt + luma(150),
     inset: (x: 7pt, y: 5pt),
@@ -2709,7 +2767,7 @@
       table.cell(fill: headfill, align: center)[#text(weight: "bold", fill: luma(60))[#(i + 1)]],
       ..r.map(c => table.cell(align: if isnum(c.text) { right } else { left })[#c.text]),
     )).flatten(),
-  ))
+  )))
   v(4pt)
 }
 #let dtable(rows, noHeader: false, sheet: false) = if sheet { sheetgrid(rows) } else if rows.len() > 0 and rows.at(0).len() > 0 {
@@ -2906,9 +2964,16 @@
     let floor = calc.max(6, colword(ci) * 2)   // fit the column's longest (unbreakable) word
     let cwl = camelword(ci)
     let floor = if cwl > 0 { calc.max(floor, calc.min(30, cwl * 3.2)) } else { floor }
+    let bodyEmpty = rows.slice(calc.min(1, rows.len())).all(r => celllen(r.at(ci)) == 0)
     if fillin and not bigcontent {
-      let bodyEmpty = rows.slice(calc.min(1, rows.len())).all(r => celllen(r.at(ci)) == 0)
       if bodyEmpty { calc.max(20, floor) } else { calc.max(floor, calc.min(collen(ci), 45)) }
+    } else if bodyEmpty and rows.len() >= 2 and T.at("writingColumns", default: false) {
+      // a column left EMPTY for the learner to write in ("Response") inside a table
+      // that is otherwise filled: by content it is sized to its header word alone and
+      // squeezed until even that breaks ("Re-sponse", Hospitality Management Form 3 LB
+      // p. 41). Give it writing room. Opt-in (`writingColumns`) so proofread books keep
+      // their tables as they are.
+      calc.max(24, floor)
     } else { calc.max(floor, calc.min(collen(ci), 45)) }
   }
   // A genuine numbering/serial column ("S/N", "No.", "#") has a short header AND
@@ -2961,7 +3026,16 @@
       t != "" and t.len() <= 10 and not t.contains("\n") and r.at(ci).imgs.len() == 0 })
     and rows.slice(1).any(r => r.at(ci).text.trim().contains(" ")))
   let anyWide = range(ncols).any(ci => not compactCol(ci) and not narrowNum(ci))
-  let cols = if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
+  // An ASSESSMENT RUBRIC (header: Criterion | Excellent | Good | Developing | Beginning |
+  // Not demonstrated) recurs dozens of times in a Teacher's Guide, and content-sized
+  // columns gave each copy its own widths — so the same header broke "Devel-", "Begin-",
+  // "Not demon-" in one table and whole in the next (ICT Form 2 TG: 68 rubrics, five
+  // header layouts). Opt-in `uniformRubrics` gives every rubric one column split: criterion and top band a
+  // little wider (their cells hold the longest descriptors), the other bands equal.
+  let isrubric = T.at("uniformRubrics", default: false) and ncols >= 4 and rows.len() >= 2 and (
+    lower(rows.at(0).at(0).text.trim()).starts-with("criteri") and
+    rows.at(0).slice(1).all(c => lower(c.text.trim()).find(regex("^(excellent|very good|good|fair|satisfactory|developing|beginning|emerging|not|poor|needs)")) != none))
+  let cols = if isrubric { (1.1fr, 1.2fr) + range(ncols - 2).map(_ => 1fr) } else if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
   // ---- CDC SYLLABUS matrix look: a GREY header row that REPEATS on every page, a black
   // inner grid + thicker outer frame, no zebra, the TOPIC column bold, the activities
   // column bulleted, and the TOPIC/SUB-TOPIC row-span merge (empty left cells continue the
@@ -3170,16 +3244,31 @@
         // `auto` column "1." and "10." size differently, so a facilitation procedure's
         // steps start indenting a millimetre further right the moment the list reaches
         // ten. Reserve two digits for every numbered item.
-        context {
+        let row = context {
           let mw = measure(mk).width
           let colw = if isbullet { mw } else { calc.max(mw, measure(text(weight: wt)[88.]).width) }
           grid(columns: (pad, colw, 1fr), column-gutter: (0pt, 7pt), align: (left + top, left + top, left + top),
             [], mk, par[#segs(it.s)])
         }
+        // an item that introduces the lines below it ("d) Expired food served:") keeps
+        // with them — see endsColon()
+        if endsColon(it.s) { block(sticky: true, breakable: false, width: 100%)[#row] } else { row }
         v(1.5pt)
       }
       else if it.k == "colgrid" { colgrid(rows: it.rows, ncol: it.ncol, hasMarker: it.hasMarker) }
       else if it.k == "colsum" { colsum(it.rows, it.answer) }
+      else if (it.k == "para" and it.at("s", default: none) != none and (endsColon(it.s) or (it.s.len() == 1
+          and it.s.at(0).at("b", default: false) == true
+          and it.s.at(0).at("t", default: "").trim().len() <= 40
+          and it.s.at(0).at("t", default: "").trim().match(regex("[.?!;,]$")) == none))) {
+        // A box sub-head the manuscript typed as a bold paragraph rather than a heading
+        // ("Key Teaching Points", "TIPS", "Note"): sticky like the `head` branch above, so
+        // it cannot be the last line on a page with its list starting on the next. The
+        // Hospitality Management Form 3 TG ended a page on "Note" that way. Sticky only
+        // acts where the label would otherwise end a page, so no other break moves.
+        block(breakable: false, sticky: true, width: 100%)[#flowsegs(it.s)]
+        v(2pt)
+      }
       else { flowsegs(it.s); v(2pt) }
   }
   // ---- keep an ACTIVITY CHECKLIST with the table it introduces ----
@@ -3649,7 +3738,16 @@
   // together — and only those two, so a long run still breaks freely further up rather
   // than being pushed off the page entire.
   let mk(i) = if i >= 0 and i < parts.len() { parts.at(i).at("marker", default: "") } else { "" }
-  let bindNext = range(parts.len()).map(i => mk(i) == "•" and mk(i + 1) == "•" and mk(i + 2) != "•")
+  // With the book's `keepQuestionParts` override the same binding holds a question's
+  // lettered/roman PARTS: the stem stays with its first part, and the last two parts
+  // travel together. Without it, question 6 of the Hospitality Management Form 3 LB's
+  // Topic 1 assessment ended one page and its parts a) and b) opened the next, alone on
+  // an otherwise empty page. Opt-in so books already proofread keep their page breaks.
+  let kq = T.at("keepQuestionParts", default: false)
+  let dp(i) = if i >= 0 and i < parts.len() and parts.at(i).kind == "q" { parts.at(i).at("depth", default: 0) } else { -1 }
+  let bindNext = range(parts.len()).map(i => (mk(i) == "•" and mk(i + 1) == "•" and mk(i + 2) != "•")
+    or (kq and dp(i) == 0 and dp(i + 1) == 1)
+    or (kq and dp(i) == 1 and dp(i + 1) == 1 and dp(i + 2) != 1))
   for (pi, it) in parts.enumerate() {
     if it.kind == "colsum" {
       // a vertical column sum/subtraction answer (converted from an unaligned fraction),
@@ -3686,10 +3784,14 @@
       // text (the 22pt marker gutter) instead of hugging the box's left edge.
       let leadbody = richflow(it.at("qseg", default: ()), it.q)
       let al = it.at("align", default: none)
-      if it.at("indent", default: false) {
+      let leadrow = if it.at("indent", default: false) {
         grid(columns: (22pt, 1fr), column-gutter: 6pt, align: (left + top, left + top),
           [], if al == "center" { std.align(center)[#leadbody] } else { leadbody })
       } else { if al == "center" { std.align(center)[#leadbody] } else { leadbody } }
+      // A lead-in that ends in a colon ("For Client A:", "Possible responses include:")
+      // introduces the lines after it and must not be the last thing on a page. The
+      // Hospitality Management Form 3 TG ended pages on both. Sticky moves nothing else.
+      if it.q.trim().ends-with(":") { block(sticky: true, breakable: false, width: 100%)[#leadrow] } else { leadrow }
       v(2pt)
     }
     else {
@@ -3773,7 +3875,12 @@
       // Musical Arts Form 5 Teacher's Guide's assessment rubrics. Let the wrapper take
       // the same default spacing as its unwrapped siblings; the `sticky` is what this
       // block is for, and it is unaffected.
-      if bindNext.at(pi) { block(sticky: true, width: 100%)[#qablock] } else { qablock }
+      // So is a question with no answer of its own whose text ends in a colon ("a) Effects
+      // on the guest may include:"): it heads the parts below it, as a colon lead-in does.
+      // (Only the colon: binding every answerless stem to the indented answer under it
+      // pushed whole answers over and left near-empty pages in the same book.)
+      let heads = (it.q.trim().ends-with(":") and it.a == "" and aseg.len() == 0) or it.at("keep", default: false)
+      if bindNext.at(pi) or heads { block(sticky: true, width: 100%)[#qablock] } else { qablock }
       v(T.at("qgap", default: 3pt))
     }
   }

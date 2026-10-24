@@ -97,14 +97,10 @@ with (`typeset-docx.js` run with `ZEPH_EBOOK_DUMP`) rather than a fresh import, 
 eBook carries the book's `.overrides.json` corrections and every house fix the PDF
 has. Without it the raw manuscript is re-imported, uncorrected.
 
-**EPUB** — `src/typeset/emit-epub.js` turns that bundle into a standard EPUB 3 (with an
-EPUB 2 NCX for older readers) for Google Play Books, Apple Books, Kobo and Kindle
-(Send-to-Kindle): one chapter per topic, the contents as the reader's navigation, and
-the printed cover (page 1 of the typeset PDF) as its cover:
+**EPUB** — `src/typeset/emit-epub.js` writes a standard EPUB 3 straight from the
+final block list the PDF is printed from (every engine pass and override applied):
 
-    node src/typeset/emit-ebook.js "<book>.docx" --from-print --id <id> --title "…" \
-         --grade "Form 3" --subject "…" --kind LB
-    node src/typeset/emit-epub.js dist-ebooks/<id> "<book> - typeset.pdf" "<book>.epub"
+    node src/typeset/typeset-docx.js "<book>.docx" --epub
 
 ## 7. The workflow layer — `zeph` (`tools/`)
 

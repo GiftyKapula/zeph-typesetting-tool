@@ -80,7 +80,7 @@ const partsArr = (parts) => arr(parts, (p) =>
   // "352 ___ ___ ___") that columnizeLists turned into a grid — emit it as a colgrid
   // part so qaparts renders the aligned columns instead of dropping to an empty q.
   : (p.k === "colgrid" || p.kind === "colgrid") ? `(kind: "colgrid", ${colgridArg(p)})`
-  : `(kind: "q", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, a: ${S(p.a)}, aseg: ${segArr(p.aseg || [])}, marker: ${S(p.marker || "")}, depth: ${p.depth || 0})`);
+  : `(kind: "q", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, a: ${S(p.a)}, aseg: ${segArr(p.aseg || [])}, marker: ${S(p.marker || "")}, depth: ${p.depth || 0}${p.keepNext ? ", keep: true" : ""})`);
 // A question's ANSWER SURFACE: the row of lettered choices a learner picks from
 // ("a) Ladder  b) Slide  c) Rope"), or the sentence with a blank to fill in ("We
 // should take ______ when using playground equipment."). A manuscript types it either
@@ -210,6 +210,35 @@ function markSubLists(blks) {
     if (top > 0 && p.n === 1 && !newList(b, topId, topLvl)) { b._sub = 1; sub = 1; continue; }   // numeric sub-list restarting at 1
     top = p.n; sub = 0;                                                    // a top-level item
     if (b.numId != null) { topId = b.numId; topLvl = b.lvl != null ? b.lvl : null; }
+  }
+  // ---- a list introduced by an item ending ":" sits one level under it ------------
+  // "iii. Learners classify the utensils into:" followed by "1. Serving utensils, 2. …",
+  // or "ii. Categorise each … into one of the following:" followed by "a. … b. … c.":
+  // the run that follows is that item's own sub-list, whatever level the passes above
+  // gave it. Both came out at the same indent as their lead item in the Food and
+  // Nutrition Form 2 Teacher's Guide (four lists), reading as siblings of it. The run is
+  // the items of the NEW numbering style straight after the lead; it ends at the first
+  // item in any other style or at anything that is not a list item.
+  {
+    const styleOf = (b) => {
+      const mk = ((b && b.marker) || "").trim();
+      if (!mk || mk === "•") return "bullet";
+      if (/^\(?\d+[.)]?$/.test(mk)) return "num";
+      if (/^\(?(i|ii|iii|iv|v|vi|vii|viii|ix|x)[.)]?$/i.test(mk)) return "roman";
+      if (/^\(?[a-z][.)]?$/i.test(mk)) return "alpha";
+      return "other";
+    };
+    const textOf = (b) => (b.segs || []).map((s) => (s && !s.m && s.t) || "").join("").trim();
+    for (let i = 0; i + 1 < blks.length; i++) {
+      const lead = blks[i];
+      if (!isList(lead) || !/:$/.test(textOf(lead))) continue;
+      const st = styleOf(lead), next = blks[i + 1];
+      if (!isList(next) || styleOf(next) === st || styleOf(next) === "bullet") continue;
+      const subSt = styleOf(next), lvl = (lead._sub || 0) + 1;
+      for (let j = i + 1; j < blks.length && isList(blks[j]) && styleOf(blks[j]) === subSt; j++) {
+        if ((blks[j]._sub || 0) < lvl) blks[j]._sub = lvl;
+      }
+    }
   }
   // ---- a question's answer surface belongs in the question's own text column ----
   // An EXERCISE question is followed by the surface the learner answers on: a row of
@@ -388,6 +417,10 @@ function emit(blocks) {
         const topicfull = m ? `TOPIC ${m[1].replace(/[.:]+$/, "")}: ${m[2].trim()}` : "";
         if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(topicfull)}${b.nobreak ? ", nobrk: true" : ""})\n`;
         else out += `#sectionhead(${S(b.text)})\n`;
+        // `backmatterSpacing` (set as bmSpacing by its override pass): the glossary and the
+        // references take one tighter line/entry spacing, so a section running a line or two
+        // past its page fits without either section looking different from the other.
+        if (b.bmSpacing) out += `#set par(leading: ${b.bmSpacing.leading || "0.6em"}, spacing: ${b.bmSpacing.spacing || "0.7em"})\n`;
         break;
       }
       // The punctuation a writer leaves after a sub-topic's number is dropped so every
@@ -426,6 +459,13 @@ function emit(blocks) {
           const li = listitemCall;
           const items = blocks.slice(bi + 1, runEnd);
           const keep = (s) => `#block(breakable: false, width: 100%)[${s.trim()}]\n`;
+          // Inside the wrapper the heading's own weak space above it is swallowed at the
+          // block's top, so a heading kept with its list sat ~3pt closer to the text above
+          // than every other heading ("Benefits of Technological Communication",
+          // Hospitality Management Form 3 LB p. 105). With the book's `headListSpacing`
+          // the same space is set OUTSIDE the wrapper. Opt-in: proofread books keep their
+          // page breaks.
+          if (HEAD_LIST_SPACING) out += `#if serieslike { v(13pt, weak: true) }\n`;
           if (nItems < 4) out += keep(h + items.map(li).join(""));
           else {
             out += keep(h + items.slice(0, 2).map(li).join(""));
@@ -608,6 +648,14 @@ function liftRunOnBoxSections(blocks) {
       && x.segs.every((s) => s.m || !(s.t || "").trim() || s.b)
       && outside.has(norm(blockPlain(x))));
     if (cut < 1) continue;
+    // Not inside the box's own answers. Under a "Possible answers" line, a bold line is
+    // how the answer key is laid out, and it can echo a section heading of the same
+    // name: Learning Activity 2 of the RE Form 3 Teacher's Guide answers "Possible
+    // answers / Causes of Suffering / • …", directly below the section "Causes of
+    // Suffering" — cut there, every answer and the box's closing "Competences to be
+    // developed" line printed loose on the page.
+    const ANSWERS = /^(possible|expected|suggested|sample)\s+(answers?|responses?)\s*:?$/i;
+    if (b.body.slice(0, cut).some((x) => x && x.t === "para" && ANSWERS.test(blockPlain(x).trim()))) continue;
     const tail = b.body.splice(cut);
     // The heading arrived as a bold paragraph because everything inside a hand-drawn
     // box does; out here it is a heading again, and must be one so it prints like the
@@ -1001,7 +1049,10 @@ const REF_HEADING = new RegExp(
 // its text is kept but it stops polluting the TOC / forcing a page break.
 function fixStrayBodyH1s(blocks) {
   const UNIT = /^(TOPIC|UNIT|CHAPTER|CHIBALU|CIPATI)\b/i;
-  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
+  // "AUTHOR'S BIOGRAPHY" / "ABOUT THE AUTHOR" are the same section as "AUTHORS" under
+  // another name (Hospitality Management Form 3 LB); unlisted, the heading was demoted
+  // to h2 and the biography was carried along with whichever section stood before it.
+  const FRONTBACK = /^((THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?|ABOUT\s+THE\s+AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
   // FRONTBACK requires an EXACT match end-to-end, which is right for most of its
   // entries (a stray body h1 could otherwise dodge demotion by coincidentally
   // starting with "Introduction" or "Preface"). But ACRONYMS and (KEY/GENERAL)
@@ -1347,7 +1398,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // here they fall through as a plain bold `head` block that looks like a
   // heading but never gets its own page or a Table of Contents entry.
   // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
-  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
   // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
@@ -1418,6 +1469,21 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
         withSig.push({ t: "sigspace" });
         const lines = x.segs.filter((s) => s.t.trim()).map((s, k) => sigLine(s.t.trim(), k === 0));
         withSig.push({ t: "signature", lines });
+        done = true;
+        continue;
+      }
+      // The same signatory typed as ONE paragraph with Word line breaks but NO bold
+      // name: with no formatting change the importer keeps it as a single run
+      // ("Noriana Muneku (Ms.)\nPermanent Secretary (Administration)\nMINISTRY OF
+      // EDUCATION"), so the run test above never fires and the block printed as plain
+      // body text while the Preface and Acknowledgement signatories beside it were bold
+      // (ICT Form 2 TG). Split on the breaks; the first line must read as a short name.
+      const brLines = !done && SIGSEC.test(section) && x.t === "para" && plain.includes("\n")
+        ? plain.split("\n").map((l) => l.trim()).filter(Boolean) : null;
+      if (brLines && brLines.length >= 2 && brLines.length <= 5 && brLines[0].length <= 60
+          && SIGNAME.test(brLines[0])) {
+        withSig.push({ t: "sigspace" });
+        withSig.push({ t: "signature", lines: brLines.map((l, k) => sigLine(l, k === 0)) });
         done = true;
         continue;
       }
@@ -2919,6 +2985,15 @@ function applyOverrides(blocks, ov) {
   const tableText = (t) => (t.rows || []).map((r) => r.map((c) => c.text || "").join(" ")).join(" ");
   const allTables = [];
   (function tv(arr) { for (const b of arr) { if (!b || typeof b !== "object") continue; if (b.rows && (b.t === "table" || b.kind === "table")) allTables.push(b); for (const k of Object.keys(b)) if (Array.isArray(b[k])) tv(b[k]); } })(blocks);
+  // keepWithNext: ["substring", …] — an exercise/assessment part (or any block) that
+  // must not end a page apart from the line after it: a question stem whose answer is
+  // set as indented lines below it, so the engine has no rule binding the two. Book-
+  // by-book on purpose: binding every such stem pushes whole answers over and empties
+  // pages (tried on the Hospitality Management Form 3 TG, Exercise 3 of 3.5.2).
+  for (const k of ov.keepWithNext || []) {
+    const b = flat.find((x) => blockPlain(x).includes(k));
+    if (b) b.keepNext = true; else console.warn("!  keepWithNext not matched:", k);
+  }
   for (const sm of ov.setMarker || []) {
     const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
     if (!b) { console.warn("!  setMarker not matched:", sm.find); continue; }
@@ -3308,9 +3383,17 @@ function applyOverrides(blocks, ov) {
       return cell;
     };
     const noHeader = !Array.isArray(spec) && !!spec.noHeader;
+    // `sheet: true` draws the table as a spreadsheet (column letters, row numbers;
+    // template sheetgrid()) — for a pasted SCREENSHOT of a spreadsheet, so it matches the
+    // spreadsheet grids the engine already draws in the same book instead of printing as
+    // a blurred 100 DPI picture beside them (ICT Form 2 TG, Exercises 8 and 12).
+    const sheet = !Array.isArray(spec) && !!spec.sheet;
     // Built fresh per placement: the same picture can appear more than once, and two
-    // blocks sharing one rows array would have later passes edit both at once.
-    replaceImageBlock(mediaName, () => ({ t: "table", rows: src.map((r) => r.map(mkCell)), noHeader }), "imageToTable");
+    // blocks sharing one rows array would have later passes edit both at once. Inside an
+    // exercise the picture is a PART, which takes the part form of a table.
+    replaceImageBlock(mediaName, (where) => (where === "part"
+      ? { kind: "table", rows: src.map((r) => r.map(mkCell)), ...(sheet ? { sheet } : {}) }
+      : { t: "table", rows: src.map((r) => r.map(mkCell)), noHeader, ...(sheet ? { sheet } : {}) }), "imageToTable");
   }
   // remove: ["substring", …] — delete any block whose text contains the substring
   // (e.g. trimming a paragraph so a front-matter section fits on one page).
@@ -3474,8 +3557,10 @@ function applyOverrides(blocks, ov) {
   // assessment parts (where reference tables live).
   for (const t of ov.tables || []) {
     const richRows = [];
-    if (t.columns) richRows.push(t.columns.map((c) => ({ text: c, imgs: [] })));
-    for (const row of t.rows) richRows.push(row.map((c) => ({ text: c, imgs: [] })));
+    // A cell is plain text, or `{ text, segs }` to keep bold/italic runs.
+    const cell = (c) => (c && typeof c === "object" ? { imgs: [], ...c } : { text: c, imgs: [] });
+    if (t.columns) richRows.push(t.columns.map(cell));
+    for (const row of t.rows) richRows.push(row.map(cell));
     if (!replaceTableRows(blocks, t.match, richRows)) console.warn("!  table override not matched:", t.match);
   }
   // replaceSection: [{ heading, until?, rename?, items: [...] }] — swap the whole body
@@ -3783,12 +3868,64 @@ function reformatAcronyms(blocks) {
   }
 }
 
+// Some books close EVERY topic with its own glossary and reading list instead of
+// collecting them at the back: the RE Form 3 Teacher's Guide ends each of its six
+// topics "End-of-Topic Assessment -> Glossary of Terms -> Suggested References". The
+// back-matter passes below were written for one glossary and one reference list at the
+// end of the book, so they turned the first topic's glossary into a full GLOSSARY OF
+// TERMS section with its own page and contents line, and lifted the first reading list
+// out of Topic 1 to plant it after that glossary. Told apart by a glossary heading
+// standing BEFORE a later topic opener — book-end back matter never has a topic after it.
+const TOPIC_OPENER = /^(TOPIC|UNIT|CHAPTER)\b/i;
+function backmatterPerTopic(blocks) {
+  const txt = (b) => (b.segs ? b.segs.map((s) => s.t).join("") : b.text || "").trim();
+  const isH = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
+  let seenGloss = false;
+  for (const b of blocks) {
+    if (!b) continue;
+    if (isH(b) && /^GLOSSARY\b/i.test(txt(b))) seenGloss = true;
+    else if (seenGloss && b.t === "h1" && TOPIC_OPENER.test(txt(b))) return true;
+  }
+  return false;
+}
+
 // Within a GLOSSARY section, render each entry as "term" (bold) + ": " +
 // meaning (regular) — dropping the manuscript's "Term – meaning" dash and any
 // stray bold on the whole line. The separator must be a dash SURROUNDED by
 // spaces so hyphenated terms ("Well-being") and definitions ("non-living") stay
 // intact.
 function formatGlossary(blocks) {
+  // One glossary per topic: each stays where the author put it, as a bold sub-head
+  // closing its topic, and each is sorted on its own (see backmatterPerTopic).
+  const perTopic = backmatterPerTopic(blocks);
+  if (perTopic) {
+    const groups = [];
+    let cur = null;
+    const flushTo = () => { cur = { at: [], entries: [], hasDividers: false }; groups.push(cur); };
+    const isH = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
+    for (let gi = 0; gi < blocks.length; gi++) {
+      const b = blocks[gi];
+      const full = (b.segs ? b.segs.map((s) => s.t).join("") : b.text || "").trim();
+      if (isH(b) && /^GLOSSARY\b/i.test(full)) { flushTo(); b.t = "head"; b.text = "Glossary of Terms"; b.noPromote = true; delete b.segs; continue; }
+      if (!cur) continue;
+      if (isH(b) || !(b.t === "para" || b.t === "listitem")) {
+        if (isH(b) && /^[A-Z]$/.test(full)) { cur.hasDividers = true; continue; }
+        cur = null; continue;
+      }
+      const m = full.match(/^(.{1,40}?)(?:\s+[–—-]\s+|:\s+)(.+)$/s);
+      if (!m) { cur = null; continue; }
+      b.t = "para"; delete b.text; delete b.marker;
+      b.segs = [
+        { t: m[1].trim(), b: true, it: false, c: null },
+        { t: ": ", b: false, it: false, c: null },
+        { t: m[2].trim().replace(/\s+/g, " "), b: false, it: false, c: null },
+      ];
+      cur.entries.push(b); cur.at.push(gi);
+    }
+    for (const g of groups) sortGlossaryRun(blocks, g.entries, g.at, g.hasDividers);
+    if (groups.length) console.log(`   glossary: ${groups.length} per-topic glossaries kept with their topics`);
+    return;
+  }
   const isHead = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
   const ENTRY = /^(.{1,40}?)(?:\s+[–—-]\s+|:\s+)(.+)$/s;   // "Term – meaning" or "Term: meaning"
   // Render one entry as: term (bold) + ": " + meaning (regular).
@@ -3833,6 +3970,10 @@ function formatGlossary(blocks) {
     const m = full.match(ENTRY);
     if (m) { toEntry(b, m); entries.push(b); at.push(gi); }
   }
+  sortGlossaryRun(blocks, entries, at, hasDividers);
+}
+
+function sortGlossaryRun(blocks, entries, at, hasDividers) {
   // A glossary nobody can look a word up in is not a glossary. Authors add terms as they
   // write and the list comes out in the order they thought of them: the Food and Nutrition
   // Form 2 Learner's Book runs Accompaniment, Additive, Baking, Budget … Stock in good
@@ -3976,6 +4117,42 @@ function reorderBackmatter(blocks) {
     if (b.t === "label" || b.t === "para") return REF_ONLY.test(t);
     return false;
   };
+  // Each topic carries its own reading list (see backmatterPerTopic): leave every list
+  // where the author put it, closing its topic under a bold sub-head, and move nothing.
+  if (backmatterPerTopic(blocks)) {
+    let n = 0, joined = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!b || !(b.t === "h1" || b.t === "h2" || b.t === "head" || b.t === "label" || b.t === "para")) continue;
+      const t = getText(b).trim();
+      if (!REF_ONLY.test(t)) continue;
+      b.t = "head"; b.text = t.replace(/[:.]\s*$/, "").toLowerCase().replace(/(^|\s)\S/g, (c) => c.toUpperCase());
+      b.noPromote = true; delete b.segs; n++;
+      // The lists arrive hard-broken mid-entry, the way text pasted from a PDF does
+      // ("…Grades 8- 9. Lusaka:" / "Curriculum" / "Development Centre."), so one
+      // reference printed as three. Every entry here carries its date as "(2013)", so
+      // a line WITHOUT one carries on the entry above it — unless it opens with a
+      // corporate author whose date was itself broken onto the next line ("Ministry of
+      // Education, …" / "(2013). Religious …"); a line opening on "(" is that date.
+      const YEAR = /\((?:19|20)\d{2}\)/;
+      const NEW_ENTRY = /^(Ministry|Government|Republic)\s+of\b/;
+      let j = i + 1;
+      while (j < blocks.length && blocks[j] && blocks[j].t === "para") {
+        const prev = blocks[j - 1], cur = blocks[j];
+        const ct = getText(cur).trim();
+        const cont = prev.t === "para" && (/^\(/.test(ct) || (!YEAR.test(ct) && !NEW_ENTRY.test(ct)));
+        if (!cont) { j++; continue; }
+        const a = (prev.segs || [{ t: prev.text || "", b: false, it: false, c: null }]).slice();
+        const c2 = (cur.segs || [{ t: cur.text || "", b: false, it: false, c: null }]).slice();
+        if (a.length) a[a.length - 1] = { ...a[a.length - 1], t: String(a[a.length - 1].t || "").replace(/\s+$/, "") };
+        if (c2.length) c2[0] = { ...c2[0], t: String(c2[0].t || "").replace(/^\s+/, "") };
+        prev.segs = [...a, { t: " ", b: false, it: false, c: null }, ...c2]; delete prev.text;
+        blocks.splice(j, 1); joined++;
+      }
+    }
+    if (n) console.log(`reorderBackmatter: ${n} per-topic reference lists kept with their topics (${joined} broken lines rejoined)`);
+    return;
+  }
   let refIdx = blocks.findIndex((b) => b && isRefOpener(b));
   if (refIdx >= 0) {
     refHeader = { t: "h1", text: "REFERENCES" };
@@ -4510,8 +4687,11 @@ function applyHeadingCase(blocks, cfg) {
 // no separate line for a name at all — the very next paragraph there is unrelated
 // real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
 // non-empty block" would destroy that section instead of crediting anyone.
+// A book can carry a different name with the sidecar key `layoutCredit` — the Food and
+// Nutrition Form 2 Teacher's Guide credits Chikondi Robinson Ng`ambi (user, 2026-10-22:
+// "the change of the name is changed just for this one"); every other book keeps this.
 const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
-function fillLayoutCredit(blocks) {
+function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
   // Manuscripts word this credit several ways — "Cover and Book Layout:", "Cover
   // designed by:", "Book layout by:", "Design and layout:" — and matching only the
   // first spelling left the credit unfilled on any book using another. The ICT Form 2
@@ -4572,8 +4752,8 @@ function fillLayoutCredit(blocks) {
         }
       }
       if (nameIdx >= 0) {
-        if (blockPlain(arr[nameIdx]).trim() !== LAYOUT_CREDIT) {
-          setBlockSegs(arr[nameIdx], [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }]);
+        if (blockPlain(arr[nameIdx]).trim() !== credit) {
+          setBlockSegs(arr[nameIdx], [{ t: credit, b: false, it: false, c: null }]);
         }
         // Space the credit from whatever ZEPH statement (publisher block, "First
         // Published by:", …) follows it, unless a blank line already does the job.
@@ -4583,7 +4763,7 @@ function fillLayoutCredit(blocks) {
         // (now dot-free) label, then a gap so the name never runs straight into
         // whatever follows.
         arr.splice(i + 1, 0,
-          { t: "para", segs: [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }], align: b.align || "center" },
+          { t: "para", segs: [{ t: credit, b: false, it: false, c: null }], align: b.align || "center" },
           { t: "vspace", h: "4mm" });
       }
       return;
@@ -5253,7 +5433,7 @@ function splitAnswerLabels(blocks) {
   const plainOf = (segs) => segs.map((s) => s.t).join("");
   // Split a run array at the answer label into [questionSegs, answerSegs] (label dropped),
   // or null when the runs carry no answer to peel off.
-  const cut = (segs) => {
+  const cut = (segs, colonIsLabel = false) => {
     let qSegs = null, aSegs = null;
     const idx = segs.findIndex((s) => s && !s.m && LABEL_FULL.test(s.t || ""));
     if (idx >= 0) {
@@ -5286,7 +5466,13 @@ function splitAnswerLabels(blocks) {
     // real inline answer — treating a non-empty-but-blank aSegs as one promoted this
     // heading to its own "q" with a visibly empty "Possible answer:" line floating
     // under it (Physics Form 2 TG's four-stroke-cycle exercise). Require actual text.
-    if (!aSegs || !aSegs.map((s) => s.t || "").join("").trim()) return null;
+    // On the plain-paragraph path (colonIsLabel), a remainder that is only the label's own
+    // colon, typed as a run of its own (bold "Possible responses" then plain ": "), is not
+    // an answer: the colon belongs to the label, and cutting there emptied the line — five
+    // answer headings in the activity boxes of the RE Form 3 Teacher's Guide printed as
+    // blank gaps. Paragraphs only: the exercise path is left exactly as it was, since books
+    // already reviewed (Geography Form 1 TG) are laid out on its behaviour.
+    if (!aSegs || !aSegs.map((s) => s.t || "").join("").replace(colonIsLabel ? /^\s*:\s*/ : /^$/, "").trim()) return null;
     if (qSegs.length) qSegs[qSegs.length - 1] = { ...qSegs[qSegs.length - 1], t: qSegs[qSegs.length - 1].t.replace(/\s+$/, "") };
     // The label's colon is sometimes typed as the START of the NEXT run instead of
     // the end of the label run itself (a formatting-boundary quirk: bold "Answer",
@@ -5368,7 +5554,7 @@ function splitAnswerLabels(blocks) {
   const splitPara = (b) => {
     const segs = b.segs;
     if (!Array.isArray(segs) || !segs.length) return;
-    const c = cut(segs);
+    const c = cut(segs, true);
     if (!c) return;
     const [qSegs, aSegs] = c;
     // The leading newline breaks the answer off the question that precedes it ON THE
@@ -6111,6 +6297,22 @@ function spaceOptionMarkers(blocks) {
 // The recurring sub-topic labels a Teacher's Guide is built out of — the fixed list its
 // own Introduction numbers off. They are bold sub-heads wherever they stand.
 const GUIDE_LABEL = /^(Introduction|General\s+Competences?|Specific\s+Competences?|Expected\s+Standards?|Teaching and Learning Materials|Teacher.?s?\s*Facilitation Procedure|Facilitation Procedure|Teacher.?s?\s*Notes?|Take note of responses.*)$/i;
+// …except where the guide LISTS those labels. The Introduction of a Teacher's Guide
+// enumerates what each topic holds ("Each topic in the guide includes: • General and
+// specific competences • Expected standards • Teaching and learning materials • Tips for
+// teachers …"), and promoting the two items that happen to spell a label turned them
+// into bold sub-heads in the middle of their own bulleted list (Hospitality Management
+// Form 3 TG; the Musical Arts Form 4 and Form 5 and Expressive Arts Grade 6 TGs carry
+// the same list). An item with ordinary list items on BOTH sides of it, in one unbroken
+// run of list items, is an entry in an enumeration, not a heading over what follows.
+function isEnumeratedLabel(arr, i) {
+  const text = (b) => (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "")).trim();
+  const plain = (b) => b && b.t === "listitem" && !GUIDE_LABEL.test(text(b));
+  let before = false, after = false;
+  for (let j = i - 1; j >= 0 && arr[j] && arr[j].t === "listitem"; j--) if (plain(arr[j])) { before = true; break; }
+  for (let j = i + 1; j < arr.length && arr[j] && arr[j].t === "listitem"; j++) if (plain(arr[j])) { after = true; break; }
+  return before && after;
+}
 
 // proofPolish() below normalises those labels, but only across TOP-LEVEL blocks, and by
 // the time it runs an activity the manuscript wrapped in a TABLE is already a box, its
@@ -6123,11 +6325,11 @@ const GUIDE_LABEL = /^(Introduction|General\s+Competences?|Specific\s+Competence
 function boldGuideLabels(blocks) {
   const walk = (arr) => {
     if (!Array.isArray(arr)) return;
-    for (const b of arr) {
+    for (const [i, b] of arr.entries()) {
       if (!b || typeof b !== "object") continue;
       if ((b.t === "para" || b.t === "listitem") && Array.isArray(b.segs)) {
         const t = b.segs.map((s) => s.t).join("").trim();
-        if (t && GUIDE_LABEL.test(t)) { b.t = "head"; b.text = t; delete b.segs; delete b.marker; continue; }
+        if (t && GUIDE_LABEL.test(t) && !(b.t === "listitem" && isEnumeratedLabel(arr, i))) { b.t = "head"; b.text = t; delete b.segs; delete b.marker; continue; }
       }
       for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs" && k !== "rows") walk(b[k]);
     }
@@ -6165,7 +6367,8 @@ function proofPolish(blocks) {
     }
   }
   // 1) normalise the known labels to bold sub-heads (regardless of source style)
-  for (const b of blocks) {
+  for (const [i, b] of blocks.entries()) {
+    if (b.t === "listitem" && isEnumeratedLabel(blocks, i)) continue;
     if ((b.t === "para" || b.t === "listitem") && LABEL.test(textOf(b))) {
       b.text = fixCompetenceCase(textOf(b)); b.t = "head"; delete b.segs; delete b.marker;
     }
@@ -6664,6 +6867,9 @@ async function typesetOne(docxPath, themeName) {
     : {};
   importOpts.imgOverrides = imgOverrides;
   importOpts.removeImages = ov.removeImages || [];
+  HEAD_LIST_SPACING = !!ov.headListSpacing;
+  importOpts.romanSubParts = !!ov.romanSubParts;
+  importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
   if (!blocks.length) {
@@ -6761,7 +6967,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base));
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
@@ -7048,7 +7254,7 @@ function normaliseQuestionMarkBold(blocks) {
   // manuscript wrote them, and every other book keeps the rule.
   if (ov.orIndividually !== false) ensureOrIndividually(blocks);
   normaliseQuestionMarkBold(blocks);
-  fillLayoutCredit(blocks);  // credit the typesetter on the "Cover and Book Layout:" line
+  fillLayoutCredit(blocks, ov.layoutCredit || LAYOUT_CREDIT);  // credit the typesetter on the "Cover and Book Layout:" line
   labelIntroductions(blocks);
   unnumberCompetenceCodes(blocks);
   boldAuthorNames(blocks);
@@ -7421,8 +7627,17 @@ function normaliseQuestionMarkBold(blocks) {
     numberLessons: variant === "series",
     // Primary Teacher's Guides have longer front-matter sections; a tighter gap
     // keeps each (e.g. the Acknowledgement + its signatory) on a single page.
-    fmSpacing: (THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em",
+    // `fmSpacing` (override, e.g. "1.5em") sets it for one book whose front-matter section
+    // runs a line or two over its page at the default.
+    fmSpacing: ov.fmSpacing || ((THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em"),
   }, detectName);
+
+  // `backmatterSpacing` ({ leading, spacing }, e.g. { "leading": "0.6em", "spacing": "0.7em" }):
+  // one tighter paragraph setting for the back matter — GLOSSARY and REFERENCES alike, never
+  // one without the other — for a book whose glossary or reference list runs one or two
+  // entries over its page at the body spacing (0.66em / 0.86em). Opt-in per book.
+  if (ov.backmatterSpacing) for (const b of blocks)
+    if (b.t === "h1" && /^(GLOSSARY|REFERENCES|BIBLIOGRAPHY)\b/i.test(b.text || "")) b.bmSpacing = ov.backmatterSpacing;
 
   // An ISBN supplied in the overrides is shown on the covers (no barcode).
   if (ov.isbn) for (const b of blocks) if (b.t === "cover" || b.t === "backcover") b.isbn = ov.isbn;
@@ -7617,6 +7832,14 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // Keep an exercise/assessment question with its sub-parts across a page break
+  // (template qaparts(); opt-in so proofread books keep their page breaks).
+  if (ov.keepQuestionParts) themeOverrides.keepQuestionParts = true;
+  // Give a table column left empty for the learner to write in some width (dtable()).
+  if (ov.writingColumns) themeOverrides.writingColumns = true;
+  // Give every assessment rubric in the book one column split (dtable(); opt-in so
+  // proofread books keep their tables as they are).
+  if (ov.uniformRubrics) themeOverrides.uniformRubrics = true;
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json
@@ -7674,11 +7897,24 @@ function normaliseQuestionMarkBold(blocks) {
   }
   // A pinned `coverColor` is the book saying what its field should be, so it pins
   // whichever of the two its own cover shape actually uses — set both.
+  // `bylineRows`: lay the cover and title-page byline out two names to a line when the
+  // names do not fit on one (see bylineText in generic-template.typ). Opt-in.
+  if (ov.bylineRows) themeOverrides.bylineRows = true;
+  // `subtopicRuleClear`: keep the line under a WRAPPED sub-topic title clear of the
+  // banner's rule (see the series sub-topic banner in generic-template.typ). Opt-in.
+  if (ov.subtopicRuleClear) themeOverrides.subtopicRuleClear = true;
   if (ov.coverColor) {
     const pinned = String(ov.coverColor).replace(/^#/, "");
     themeOverrides.covSignature = pinned;
     themeOverrides.covPrimary = pinned;
   }
+  // `coverPrimary`: pin the colour the cover draws ON its field — the title lettering
+  // (darkened by the template), the grade badge, the rule, the corner triangles and the
+  // byline badge — separately from the field itself. `coverColor` alone sets both to one
+  // value, which on a light field washes every one of those out. The Food and Nutrition
+  // Form 2 Teacher's Guide had to keep the cover it was proofread with: a tan D9A46A
+  // field carrying the theme's own 8A4A2E. Opt-in; applied after coverColor.
+  if (ov.coverPrimary) themeOverrides.covPrimary = String(ov.coverPrimary).replace(/^#/, "");
   // ---- British English, and a report on the prose ---------------------------
   // These books are written in British English and nothing enforced it, so a
   // manuscript that spelt "colour" on one page and "color" on the next printed both.
@@ -7804,18 +8040,62 @@ function normaliseQuestionMarkBold(blocks) {
   const n = blocks.length;
   console.log(`Typeset: ${base}  [theme: ${theme}]  (${n} blocks, ${media.length} images) -> ${outPath} [${fs.statSync(outPath).size} bytes]`);
 
+  // House rule: over 112 interior pages, a spine — written as the printer's cover
+  // spread (back | spine | front) beside the book. B5 books only: the landscape
+  // syllabus builds its own spread inside the book. Needs the workspace (the logo),
+  // so it runs before the temp cleanup below.
+  const coverBlk = blocks.find((b) => b.t === "cover");
+  const backBlk = blocks.find((b) => b.t === "backcover");
+  if (variant !== "syllabus" && coverBlk && backBlk) {
+    const spreadPath = path.join(bookDir, `${base} - cover spread.pdf`);
+    // …and the book in ONE file with that spread as its first page — what is delivered.
+    const withCoverPath = path.join(bookDir, `${base} - with cover spread.pdf`);
+    try {
+      const r = await require("./cover-spread.js").writeCoverSpread({
+        pdf: Buffer.from(pdf), compiler, prefix: `${themeTypst(theme, themeOverrides)}${tmpl}`,
+        lines: backBlk.lines || coverBlk.lines || [], logo: backBlk.logo || null,
+        spineWidth: ov.spineWidth, outPath: spreadPath, bookOutPath: withCoverPath,
+        // `spineStyle: "badge"` — the proofread-copy spine (see spine() in the template),
+        // which also carries the cover's author byline.
+        spineStyle: ov.spineStyle || null, author: ov.spineStyle ? (coverBlk.byline || []).join(", ") : null,
+        fieldHex: String(themeOverrides.covSignature || (THEMES[theme] || {}).signature || (THEMES[theme] || {}).primary || "").replace(/^#/, ""),
+      });
+      if (r) console.log(`   cover spread: ${r.interior} interior pages -> ${r.width} mm spine${ov.spineWidth ? " (spineWidth override)" : ""} -> ${spreadPath}\n   book with cover spread (one file): ${withCoverPath}`);
+      else for (const p of [spreadPath, withCoverPath]) if (fs.existsSync(p)) fs.rmSync(p);   // the book has thinned below the spine threshold
+    } catch (e) {
+      console.error(`!  cover spread not written: ${e.message}`);
+    }
+  }
+
+  // `--epub`: also write a reflowable EPUB 3 from the SAME final blocks the PDF was just
+  // printed from, so the e-book carries every override and engine fix by construction.
+  // Opt-in; without the flag nothing here runs. Must come before the temp cleanup below,
+  // because the pictures are read from the workspace's staged (cropped/enhanced) copies.
+  if (WANT_EPUB) {
+    const epubPath = path.join(bookDir, `${base}.epub`);
+    if (process.env.EPUB_DUMP) fs.writeFileSync(process.env.EPUB_DUMP, JSON.stringify({ blocks, files: fs.readdirSync(ws, { recursive: true }) }, null, 1));
+    await require("./emit-epub.js").writeEpub({ blocks, workspace: ws, outPath: epubPath, pdfPath: outPath });
+    console.log(`EPUB:    ${epubPath} [${fs.statSync(epubPath).size} bytes]`);
+  }
+
   // best-effort cleanup of temp extraction dirs
   try { fs.rmSync(ws, { recursive: true, force: true }); } catch (e) {}
   try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) {}
 }
 
+// Set by `--epub` on the command line (see the end of typesetOne).
+let WANT_EPUB = false;
+// Set per book from the `headListSpacing` override (read by emit()).
+let HEAD_LIST_SPACING = false;
+
 async function main() {
-  // Parse args: positional .docx paths + an optional `--theme NAME`.
+  // Parse args: positional .docx paths + an optional `--theme NAME` and `--epub`.
   const argv = process.argv.slice(2);
   let themeName = null;
   const paths = [];
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--theme") { themeName = argv[++i]; continue; }
+    if (argv[i] === "--epub") { WANT_EPUB = true; continue; }
     paths.push(argv[i]);
   }
   if (themeName && !THEMES[themeName]) {

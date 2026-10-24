@@ -137,9 +137,23 @@ function britishWord(w) {
 
 // Convert every word in a string. Returns { text, hits } — hits naming each change so
 // the build log can show what moved, the same way the watermark and JPEG passes do.
+// An official NAME keeps its own spelling: "World Health Organization", "International
+// Labour Organization", "Food and Agriculture Organization of the United Nations", "World
+// Tourism Organization". The Hospitality Management Form 3 Learner's Book cites all four in
+// its References and every one printed as "Organisation" — a citation the reader can no
+// longer match to the body that issued it. Only the named international bodies are kept
+// (the UN agencies these books cite, and "… Organization of the United Nations"): a looser
+// "capitalised word before it" rule also froze a Title Case heading ("Purpose of Data
+// Organization", Geography Form 2 LB) and generic terms ("Non-Governmental Organization"),
+// which are ordinary words and take the British spelling like any other.
+const NAMED_ORG_BEFORE = /\b(?:Health|Labour|Labor|Agriculture|Tourism|Cultural|Trade|Meteorological|Maritime|Property|Aviation|Customs|Development)\s+$/;
+const isNamedOrganization = (w, text, at) =>
+  /^Organization$/.test(w) && (NAMED_ORG_BEFORE.test(text.slice(Math.max(0, at - 30), at))
+    || /^\s+of\s+the\s+United\s+Nations\b/.test(text.slice(at + w.length, at + w.length + 30)));
 function toBritish(text) {
   const hits = [];
-  const out = text.replace(/[A-Za-z]+/g, (w) => {
+  const out = text.replace(/[A-Za-z]+/g, (w, at) => {
+    if (isNamedOrganization(w, text, at)) return w;
     const b = britishWord(w);
     if (!b || b === w) return w;
     hits.push(`${w} -> ${b}`);
@@ -207,7 +221,13 @@ const Q_AUX = /^(?:(?:is|are|was|were)\s+(?!not\b)[a-z]|(?:do|does|did|can|could
 // separately" — and never a question. And the bare auxiliary arm is dropped with it,
 // because after a comma it lands on list imperatives: "…create a basic business plan,
 // do market research, financial projections…".
-const Q_WH_TAIL = /^(?:who|what|whom|whose|why|how)\s+(?:is|are|was|were|do|does|did|can|could|has|have|had)\b/i;
+//
+// "who", "whom" and "whose" go for the same reason as "which": after a comma they open a
+// relative clause on the noun before it. "Tionge shares her friends mascara wand, who
+// has just suffered from heavy open pore sores" (Hospitality Management Form 3 LB) was
+// printed as a question; across every manuscript on file no tail "who" opens a real one,
+// and dropping it changed no other book's punctuation.
+const Q_WH_TAIL = /^(?:what|why|how)\s+(?:is|are|was|were|do|does|did|can|could|has|have|had)\b/i;
 // A CLEFT, not a question: "What is important is that your ambition should be
 // meaningful to you", "What is important is to save regularly and have a clear
 // purpose for the money". The wh-word opens a free relative that is the SUBJECT of a
@@ -219,14 +239,29 @@ const Q_WH_TAIL = /^(?:who|what|whom|whose|why|how)\s+(?:is|are|was|were|do|does
 // genuine report — "What is the food that is served at a banquet" is excluded too —
 // which is the right side to err on when the alternative is punctuating a statement
 // as a question.
+//
+// The second verb need not be a copula: a MODAL does the same job. "What is polite in
+// one culture may be considered rude in another" (Hospitality Management Form 3
+// Learner's Book) is a statement whose subject is "what is polite in one culture", and
+// it was printed as a question. A real question has no finite verb after its own
+// auxiliary either way, so a following modal is the same tell as a following copula.
 const isCleft = (t) => {
   const m = /^(?:who|what|whose|which)\s+(?:is|are|was|were)\b/i.exec(t);
-  return !!m && /\b(?:is|are|was|were)\b/i.test(t.slice(m[0].length));
+  return !!m && /\b(?:is|are|was|were|may|might|must|can|could|will|would|should|shall)\b/i.test(t.slice(m[0].length));
 };
+// A copula with no subject after it is a predicate fragment, never a question: "Reinforce
+// that effective hand washing: … Is required before handling food. / Is essential after
+// toilet use." and "Is organised and systematic." (Hospitality Management Form 3 TG) were
+// all printed as questions. A yes/no question puts its subject straight after the verb
+// ("Is the kitchen clean"), so a past participle or a predicate-only adjective in that
+// place means the subject was the stem line above. The -ed/-en arm wants three letters
+// before the ending, so "red", "bed", "seed" and "speed" never reach it.
+const Q_COPULA_FRAGMENT = /^(?:is|are|was|were)\s+(?:[a-z]{3,}(?:ed|en)|essential|necessary|important|needed|useful|responsible|available|possible|suitable)\b/i;
 const isDirectQuestion = (s) => {
   const t = String(s || "").trim();
   if (!t || t.includes("?")) return false;
   if (isCleft(t)) return false;
+  if (Q_COPULA_FRAGMENT.test(t)) return false;
   if (Q_WH.test(t) || Q_AUX.test(t)) return true;
   const after = t.includes(",") ? t.slice(t.indexOf(",") + 1).trim() : "";
   return !!after && !isCleft(after) && Q_WH_TAIL.test(after);
@@ -342,6 +377,21 @@ function fixProse(text) {
   out = out.replace(/([A-Za-z]) ([.,;:!?])(?= |$)/g, (m, c, p) => {
     hits.push(`"${c} ${p}" -> "${c}${p}"`);
     return c + p;
+  });
+  //   A SENTENCE GLUED TO THE NEXT. "…without rushing.It prevents…", "…for a balanced
+  //   diet.Cost / Money available…", "…successfully:It helps…" (Food and Nutrition Form 2
+  //   Teacher's Guide). Two or more lower-case letters, the stop or colon, then a
+  //   capitalised word: abbreviations ("e.g.", "i.e."), decimals, times ("10:30") and
+  //   lower-case web addresses cannot match, so the missing space is the only reading.
+  //   A FULL STOP TYPED TWICE. "…shelf life and handling requirements..", "Explain
+  //   reason for the choice..", "i.. Saves time" — never an ellipsis, which is three.
+  out = out.replace(/([A-Za-z])\.\.(?!\.)/g, (m, c) => {
+    hits.push(`"${c}.." -> "${c}."`);
+    return `${c}.`;
+  });
+  out = out.replace(/([a-z]{2,})([.:])([A-Z][a-z]+)/g, (m, w, p, nx) => {
+    hits.push(`"${w}${p}${nx}" -> "${w}${p} ${nx}"`);
+    return `${w}${p} ${nx}`;
   });
   return { text: out, hits };
 }

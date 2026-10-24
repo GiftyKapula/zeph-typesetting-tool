@@ -1,0 +1,423 @@
+{
+  "//source": "Built from the editor's corrected copy 'HOSPITALITY MANAGEMENT FORM 3 TG post cdc edit word.docx' — the earlier typeset PDF converted back to Word, with her additions highlighted yellow (kept) and deletions in red (removed). It is rebuilt into a linear manuscript first by 'Hospitality Management Form 3 TG-rebuild/rebuild-tg.js': red text and the old layout's invisible running heads, banners and frames dropped, the typed contents page dropped (the engine builds its own), the eight TOPIC headings restored, boxes cut at the old page breaks joined, the exercises she re-typed as plain text boxed like the rest, and lines the old page breaks split rejoined.",
+  "//synthesiseCover": "The converted file's cover is loose text ('HOSPITALITY' / 'MANAGEMENT FORM 3' / 'TEACHER'S BOOK') over the old cover picture; built fresh instead, as the Learner's Book is.",
+  "synthesiseCover": true,
+  "subject": "Hospitality Management",
+  "authors": [
+    "Phyllis Simasiku"
+  ],
+  "//coverImage": "The Teacher's Guide's purple-and-gold cover art (TG.jpeg, supplied with the manuscripts on 19 Oct 2026), upscaled 4x with Real-ESRGAN, then cropped to the cover frame's shape (1.85:1) clear of the gold swoosh, keeping all five faces. Uncropped, the frame cut the teacher and the waiter off at the chin. The art carries no lettering.",
+  "coverImage": "hosp-tg-cover/TG-cover-crop.png",
+  "//coverColor": "The purple of the cover art's own bands, so the field around the picture continues it.",
+  "coverColor": "5b1c77",
+  "tocDepth": 2,
+  "//orIndividually": "The editor's note asks for her corrected copy to be followed exactly; the standing 'or individually' insertion would add words she did not write (as in the Learner's Book).",
+  "orIndividually": false,
+  "//mergePara": "The author biography breaks after \"Edgar Lungu National STEM\" where a line of the old layout ended, leaving \"Secondary School in Petauke…\" as a paragraph of its own.",
+  "mergePara": [
+    {
+      "find": "Deputy Headteacher at Edgar Lungu National STEM"
+    }
+  ],
+  "//subtext": "Slips in the manuscript, corrected keeping each run's formatting. Sub-topic titles as the contents page and the Learner's Book spell them (\"Heath Hazards\" → Health; 3.6.3 \"Conflict Resolution\"); \"ASSESSEMENT\". Typos: Reparating, Rouching, Soilage, actiity, recal, bellow, conture (contour), firs, gust (guest), huma, qualitiy, sowing (showing), taters (tatters), throbbing (strobing, the highlighting technique), Sugested, Manag. Hyphens the PDF-to-Word conversion dropped at old line ends: competence-based, decision-making, natural-looking, non-verbal, service-driven, well-defined, follow-up. Grammar: customer(s) are central, elderly women, the others act, Reinforce that, emergency response, Business Venture (the heading means a business undertaking), others where safe, protects guests, her friend’s, learners practise, Importance of treating, information or visit, scenario-based training exercises. Sub-competence numbers typed with commas (3.1.2,1. / 3,4,1,1.) or without a space. Stray full stops inside a sentence (\"place. unnecessary\", \"body. posture\") and doubled ones. The Acknowledgement closed on a comma. Doubled spaces collapsed. Lines the conversion glued together (and the rebuild script now splits) needed their own capital or full stop: \"Key Teaching Points\", \"Possible learner response:\", \"Reinforce best practices\", \"Add important skills\", \"Key skills\", \"Guide learners to see…\", \"…reduce bias.\". A stray \"6.\" before one of the unnumbered customer scenarios; \"What was done well,\" took a question mark after its comma; \"Possible Challenges,\"; \"complaint .respectfully\"; the Learning Activity title \"…handling service failure exercise\" (the word twice); \"responsibility and problem.\" lost the end of \"problem-solving\" at an old line end. From the second proof: \"triangle and diamond,\"; \"learner’s/learners Book\" → Learner’s Book as everywhere else; practice → practise where it is the verb; \"Reinforce that…\", \"and is thrown out\", \"Responding to…\" (small word lower case as in every other heading), programmes, \"communities benefit\" (verb, not possessive); a TIPS bullet typed with a question mark; lower-case labels.",
+  "subtext": [
+    {
+      "from": "Heath Hazards",
+      "to": "Health Hazards"
+    },
+    {
+      "from": "Conflicts Resolution",
+      "to": "Conflict Resolution"
+    },
+    {
+      "from": "ASSESSEMENT",
+      "to": "ASSESSMENT"
+    },
+    {
+      "from": "Reparating raw",
+      "to": "Separating raw"
+    },
+    {
+      "from": "Rouching surfaces",
+      "to": "Touching surfaces"
+    },
+    {
+      "from": "Food Soilage",
+      "to": "Food Spoilage"
+    },
+    {
+      "from": "previous actiity",
+      "to": "previous activity"
+    },
+    {
+      "from": "recal the",
+      "to": "recall the"
+    },
+    {
+      "from": "profiles bellow",
+      "to": "profiles below"
+    },
+    {
+      "from": "conture",
+      "to": "contour"
+    },
+    {
+      "from": "applying firs aid",
+      "to": "applying first aid"
+    },
+    {
+      "from": "A gust struggles",
+      "to": "A guest struggles"
+    },
+    {
+      "from": "huma and professional",
+      "to": "human and professional"
+    },
+    {
+      "from": "safety and qualitiy",
+      "to": "safety and quality"
+    },
+    {
+      "from": "role play sowing",
+      "to": "role play showing"
+    },
+    {
+      "from": "dressed in taters",
+      "to": "dressed in tatters"
+    },
+    {
+      "from": "throbbing",
+      "to": "strobing"
+    },
+    {
+      "from": "competencebased",
+      "to": "competence-based"
+    },
+    {
+      "from": "decisionmaking",
+      "to": "decision-making"
+    },
+    {
+      "from": "naturallooking",
+      "to": "natural-looking"
+    },
+    {
+      "from": "nonverbal",
+      "to": "non-verbal"
+    },
+    {
+      "from": "servicedriven",
+      "to": "service-driven"
+    },
+    {
+      "from": "welldefined",
+      "to": "well-defined"
+    },
+    {
+      "from": "followup",
+      "to": "follow-up"
+    },
+    {
+      "from": "Sugested",
+      "to": "Suggested"
+    },
+    {
+      "from": "Manag front",
+      "to": "Manage front"
+    },
+    {
+      "from": "Explore on international",
+      "to": "Explore international"
+    },
+    {
+      "from": "customer are central",
+      "to": "customers are central"
+    },
+    {
+      "from": "Two elderly woman",
+      "to": "Two elderly women"
+    },
+    {
+      "from": "the others acts as",
+      "to": "the others act as"
+    },
+    {
+      "from": "Reinforce those complaints",
+      "to": "Reinforce that complaints"
+    },
+    {
+      "from": "emergence response",
+      "to": "emergency response"
+    },
+    {
+      "from": "Business Adventure",
+      "to": "Business Venture"
+    },
+    {
+      "from": "assist others were safe",
+      "to": "assist others where safe"
+    },
+    {
+      "from": "Poor hygiene -food",
+      "to": "Poor hygiene - food"
+    },
+    {
+      "from": "This can place. unnecessary",
+      "to": "This can place unnecessary"
+    },
+    {
+      "from": "body. posture",
+      "to": "body posture"
+    },
+    {
+      "from": "benefit of applying",
+      "to": "Benefit of applying"
+    },
+    {
+      "from": "3,4,1,1.",
+      "to": "3.4.1.1."
+    },
+    {
+      "from": "3.3.6.1.Demonstrate",
+      "to": "3.3.6.1. Demonstrate"
+    },
+    {
+      "from": "skin types..",
+      "to": "skin types."
+    },
+    {
+      "from": "protects guest.",
+      "to": "protects guests."
+    },
+    {
+      "from": "Limpo is a manager at lodge hears a fire alarm",
+      "to": "Limpo, a manager at a lodge, hears a fire alarm"
+    },
+    {
+      "from": "coordinating the writing process,",
+      "to": "coordinating the writing process."
+    },
+    {
+      "from": "her friends mascara",
+      "to": "her friend’s mascara"
+    },
+    {
+      "from": "Before learners’ practise",
+      "to": "Before learners practise"
+    },
+    {
+      "from": "short-written message",
+      "to": "short written message"
+    },
+    {
+      "from": "information neither visit",
+      "to": "information or visit"
+    },
+    {
+      "from": "in a scenario-based training exercises",
+      "to": "in scenario-based training exercises"
+    },
+    {
+      "from": "learner groups and Using",
+      "to": "learner groups and using"
+    },
+    {
+      "from": "Important of treat customers",
+      "to": "Importance of treating customers"
+    },
+    {
+      "from": "roleplay",
+      "to": "role play"
+    },
+    {
+      "from": "  ",
+      "to": " "
+    },
+    {
+      "from": "3.1.2,1",
+      "to": "3.1.2.1"
+    },
+    {
+      "from": "mouth neither does",
+      "to": "mouth, nor does"
+    },
+    {
+      "from": "learners should understand:",
+      "to": "Learners should understand:"
+    },
+    {
+      "from": "key Teaching Points",
+      "to": "Key Teaching Points"
+    },
+    {
+      "from": "possible learner response:",
+      "to": "Possible learner response:"
+    },
+    {
+      "from": "criticism. reinforce best",
+      "to": "criticism. Reinforce best"
+    },
+    {
+      "from": "strengths. add important",
+      "to": "strengths. Add important"
+    },
+    {
+      "from": "What was done well,",
+      "to": "What was done well?"
+    },
+    {
+      "from": "6. Impatient Customer",
+      "to": "Impatient Customer"
+    },
+    {
+      "from": "Possible Challenges,",
+      "to": "Possible Challenges"
+    },
+    {
+      "from": "complaint .respectfully",
+      "to": "complaint respectfully"
+    },
+    {
+      "from": "service failure exercise",
+      "to": "service failure"
+    },
+    {
+      "from": "reduce bias",
+      "to": "reduce bias."
+    },
+    {
+      "from": "Benefits to the business",
+      "to": "Benefits to the business:"
+    },
+    {
+      "from": "responsibility and problem.",
+      "to": "responsibility and problem-solving."
+    },
+    {
+      "from": "guide learners to see the consequences",
+      "to": "Guide learners to see the consequences"
+    },
+    {
+      "from": "triangle and diamond,",
+      "to": "triangle and diamond."
+    },
+    {
+      "from": "learner’s Book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "learners Book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "Practice their technique",
+      "to": "Practise their technique"
+    },
+    {
+      "from": "3.5.1.1. Practice professionalism",
+      "to": "3.5.1.1. Practise professionalism"
+    },
+    {
+      "from": "to practice security responses",
+      "to": "to practise security responses"
+    },
+    {
+      "from": "can practice appropriate",
+      "to": "can practise appropriate"
+    },
+    {
+      "from": "mistakes; Rotate roles",
+      "to": "mistakes; rotate roles"
+    },
+    {
+      "from": "Reinforce those quick responses",
+      "to": "Reinforce that quick responses"
+    },
+    {
+      "from": "hotel and thrown out",
+      "to": "hotel and is thrown out"
+    },
+    {
+      "from": "Responding To Security Incidents",
+      "to": "Responding to Security Incidents"
+    },
+    {
+      "from": "Loyalty programs",
+      "to": "Loyalty programmes"
+    },
+    {
+      "from": "communities’ benefit from tourism",
+      "to": "communities benefit from tourism"
+    },
+    {
+      "from": "tone and body language matter?",
+      "to": "tone and body language matter."
+    },
+    {
+      "from": "scenarios:",
+      "to": "Scenarios:"
+    },
+    {
+      "from": "key skills: (learners",
+      "to": "Key skills: (learners"
+    }
+  ],
+  "//retext": "A label whose first letter the conversion lost at an old line start (\"ips\" in the Face Mapping answers, between \"Highlighter…\" and \"Lip liner…\").",
+  "retext": [
+    {
+      "from": "ips",
+      "to": "Lips"
+    }
+  ],
+  "//subtopicRuleClear": "Every sub-topic opens straight onto the plain \"General Competence(s):\" line, which rode up over the short rule under any sub-topic title that wraps to two lines (3.3.2, 3.5.1, 3.5.2, 3.7.1 …). Gives a wrapped title its gap back; opt-in because it moves wrapped titles in books already proofread.",
+  "subtopicRuleClear": true,
+  "//setMarker": "Answer keys that mix typed sub-numbers (1a, 1b) with plain ones. Sub-topic 3.6.1 Exercise 1 is typed 1a, 1b, 2, 3a, 3b, but the lone \"2.\" was counted as the first numbered answer and printed \"1.\". Sub-topic 3.7.1 Exercise 1 numbers its later answers with Word list numbering that restarted at 1 after 1a/1b. Topic 3.2 assessment answer 3: the editor numbers its two parts i. and ii.; the second was typed on the end of a bullet, so the parts printed a. and i.",
+  "setMarker": [
+    {
+      "find": "Memo on responsible use of cleaning materials",
+      "marker": "2.",
+      "depth": 0
+    },
+    {
+      "find": "How risk assessment helps",
+      "marker": "2.",
+      "depth": 0
+    },
+    {
+      "find": "CCTV advantage and limitation",
+      "marker": "3.",
+      "depth": 0
+    },
+    {
+      "find": "Identify one sign that may show the food has spoiled",
+      "marker": "i.",
+      "depth": 1
+    },
+    {
+      "find": "State two actions that could have prevented the spoilage",
+      "marker": "ii.",
+      "depth": 1
+    }
+  ],
+  "//unboldBlock": "Answer-key items the manuscript bolded among plain siblings: Topic 3.1 assessment item 4 (\"4. a) Why unsafe\"), Exercise 1 item 3 (\"Benefit of applying first aid…\"), Topic 3.3 assessment item 4 and its \"ii.\", Exercise 2 item 3 of Sub-topic 3.5.1.",
+  "unboldBlock": [
+    "Why unsafe",
+    "aid correctly in a work place",
+    "A staff member ignores a customer because of their appearance",
+    "State three steps a staff member",
+    "Professional behaviour and its impact"
+  ],
+  "//fmSpacing": "The Introduction ran two lines onto a page of its own at the default 1.9em between front-matter paragraphs.",
+  "fmSpacing": "1.5em",
+  "//pageBreakBefore": "Page breaks so nothing is stranded: the Preface ended with its signature alone on a page (its last paragraph now goes over with it); the References ended with two entries alone (four go over); the Topic 3.6 assessment ended with two lines alone (the break comes before answer 10 b)). Exercise 11 (Sub-topic 3.3.6) opened at the foot of a page with only its first question stem, the answer over the leaf: it starts on the next page.",
+  "pageBreakBefore": [
+    "Use this guide to enrich your teaching",
+    "The employee could establish the facts",
+    "Walker, J.R.",
+    "EXERCISE 11"
+  ],
+  "//keepWithNext": "Exercise 3 of Sub-topic 3.5.2: question 2 (\"Responding to the caller\") ended a page with its answer overleaf.",
+  "keepWithNext": [
+    "Responding to the caller"
+  ]
+}

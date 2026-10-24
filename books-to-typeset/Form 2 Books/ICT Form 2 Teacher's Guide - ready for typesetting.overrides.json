@@ -7,8 +7,120 @@
     "Science\". This manuscript is not Computer Science: its own title page reads",
     "\"INFORMATION AND COMMUNICATION TECHNOLOGY FORM 2\", and it says ICT 121 times",
     "against Computer Science twice. Without this the cover, title page and running",
-    "header all called the book Computer Science."
+    "header all called the book Computer Science.",
+    "",
+    "Rebuilt 2026-10-23 on the current engine: two empty \"Performance Levels\" headings in Sub-Topic 2.2.1 (no table under them in the manuscript) removed; LEARNINING/Alterative typos corrected; one column split for every rubric (uniformRubrics); glossary and references set a little tighter together (backmatterSpacing) so neither runs two entries onto a page of its own.",
+    "Exercises 8 and 12: the two Excel screenshots (image3/image5, ~100 DPI) redrawn as spreadsheet grids like the others in the book, values exactly as in the screenshots (the Sn column there reads 2-6 - left for the author).",
+    "Foreword signatory set like the Preface and Acknowledgement ones (bold name, title and organisation in bold capitals): the manuscript typed it with no bold, and its title in mixed case."
   ],
-
-  "subject": "Information and Communication Technology"
+  "subject": "Information and Communication Technology",
+  "backmatterSpacing": {
+    "leading": "0.6em",
+    "spacing": "0.7em"
+  },
+  "subtext": [
+    {
+      "from": "LEARNINING ACTIVITY",
+      "to": "LEARNING ACTIVITY"
+    },
+    {
+      "from": "Alterative Activity",
+      "to": "Alternative Activity"
+    },
+    {
+      "from": "Permanent Secretary (Administration)",
+      "to": "PERMANENT SECRETARY (ADMINISTRATION)"
+    }
+  ],
+  "uniformRubrics": true,
+  "removeWhereNext": [
+    {
+      "find": "Performance Levels",
+      "next": "Teacher Reflection"
+    },
+    {
+      "find": "Performance Levels",
+      "next": "Teacher Reflection"
+    }
+  ],
+  "imageToTable": {
+    "image3.png": {
+      "sheet": true,
+      "rows": [
+        [
+          "Sn",
+          "Student Name",
+          "Marks (%)"
+        ],
+        [
+          "2",
+          "Mutale",
+          "78"
+        ],
+        [
+          "3",
+          "Nkandu",
+          "64"
+        ],
+        [
+          "4",
+          "Chisanga",
+          "90"
+        ],
+        [
+          "5",
+          "Mwape",
+          "55"
+        ],
+        [
+          "6",
+          "Phiri",
+          "82"
+        ]
+      ]
+    },
+    "image5.png": {
+      "sheet": true,
+      "rows": [
+        [
+          "Name",
+          "Admission No.",
+          "Age",
+          "Contact No."
+        ],
+        [
+          "Chanda",
+          "101",
+          "14",
+          "977000001"
+        ],
+        [
+          "Banda",
+          "102",
+          "13",
+          "977000002"
+        ],
+        [
+          "Phiri",
+          "103",
+          "14",
+          "977000003"
+        ],
+        [
+          "Tembo",
+          "104",
+          "13",
+          "977000004"
+        ]
+      ]
+    }
+  },
+  "images": {
+    "image1.jpeg": {
+      "src": "ICT Form 2 Teacher's Guide - ready for typesetting-hires/image1.png"
+    },
+    "image4.png": {
+      "src": "ICT Form 2 Teacher's Guide - ready for typesetting-hires/image4.png"
+    }
+  }
 }
