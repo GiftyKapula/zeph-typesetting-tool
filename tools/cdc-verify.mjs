@@ -72,7 +72,7 @@ const pages = out.getPages();
 const add = (p, quads, note, title) => {
   const xs = quads.flatMap((q) => [q.x0, q.x1]), ys = quads.flatMap((q) => [q.y0, q.y1]);
   const R = [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
-  // the yellow itself is painted on the page (below); the annotation carries the note and
+  // the green itself is painted on the page (below); the annotation carries the note and
   // draws nothing, so a viewer that shows annotations does not paint the line twice
   const ap = out.context.stream('', {
     Type: 'XObject', Subtype: 'Form', BBox: [0, 0, R[2] - R[0], R[3] - R[1]],
@@ -84,7 +84,7 @@ const add = (p, quads, note, title) => {
     AP: { N: out.context.register(ap) },
     QuadPoints: out.context.obj(quads.flatMap((q) => [q.x0, q.y1, q.x1, q.y1, q.x0, q.y0, q.x1, q.y0]).map(PDFNumber.of)),
     Contents: lit(note), T: lit(title), M: PDFString.of('D:20261021000000Z'),
-    C: [1, 0.86, 0.18].map(PDFNumber.of), CA: PDFNumber.of(1), F: PDFNumber.of(4),
+    C: [0.62, 0.92, 0.58].map(PDFNumber.of), CA: PDFNumber.of(1), F: PDFNumber.of(4),
   });
   const node = pages[p - 1].node;
   let annots = node.lookup(PDFName.of('Annots'));
@@ -92,12 +92,12 @@ const add = (p, quads, note, title) => {
   annots.push(out.context.register(dict));
   // and painted on the page itself (multiplied, so the text stays black): a viewer that
   // ignores annotations still shows every corrected line
-  // several comments can point at one line: paint it once, so its yellow stays even
+  // several comments can point at one line: paint it once, so its green stays even
   for (const q of quads) {
     const key = `${p}:${q.y0.toFixed(1)}`;
     if (painted.has(key)) continue;
     painted.add(key);
-    pages[p - 1].drawRectangle({ x: q.x0, y: q.y0, width: q.x1 - q.x0, height: q.y1 - q.y0, color: rgb(1, 0.92, 0.35), blendMode: BlendMode.Multiply });
+    pages[p - 1].drawRectangle({ x: q.x0, y: q.y0, width: q.x1 - q.x0, height: q.y1 - q.y0, color: rgb(0.62, 0.92, 0.58), blendMode: BlendMode.Multiply });
   }
 };
 const painted = new Set();
