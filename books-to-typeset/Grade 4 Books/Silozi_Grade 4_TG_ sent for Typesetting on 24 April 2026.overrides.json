@@ -156,7 +156,7 @@
           "vspace": "3mm"
         },
         {
-          "para": "**IKabisizwe ki:**",
+          "para": "**Cover and Book Layout:**",
           "center": true
         },
         {
@@ -196,6 +196,52 @@
         {
           "listitem": "Tabo",
           "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Laela bana basikolo kubelekisana ni babañwi kuyolisa mwanzwi alwanisana.a) Kuca litolwana kutiisa mubili.b) Monde uikutwa kutiya.c) Namakau ucanga lico ze tiisa mubili.d) Mwiya ubulela kuli mubili utiile ni kuiketa.",
+      "with": [
+        {
+          "listitem": "Laela bana basikolo kubelekisana ni babañwi kuyolisa mwanzwi alwanisana.",
+          "marker": "•"
+        },
+        {
+          "listitem": "Kuca litolwana kutiisa mubili.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "Monde uikutwa kutiya.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "Namakau ucanga lico ze tiisa mubili.",
+          "marker": "c)"
+        },
+        {
+          "listitem": "Mwiya ubulela kuli mubili utiile ni kuiketa.",
+          "marker": "d)"
+        }
+      ]
+    },
+    {
+      "find": "Muluti abafe mibamba ni kubalaela kubeleka hamoho kuñolulula mibamba kakuitusisa manzwi alwanisana ni ainzi mwa mibamba. a) Lucanga lico ze kenile zazi ni zazi.b) Kunwa mezi akenile kutusa mibili yaluna kuiketa.c) Kutapa kwa mazoho kulusileleza kwa matuku.",
+      "with": [
+        {
+          "listitem": "Muluti abafe mibamba ni kubalaela kubeleka hamoho kuñolulula mibamba kakuitusisa manzwi alwanisana ni ainzi mwa mibamba.",
+          "marker": "•"
+        },
+        {
+          "listitem": "Lucanga lico ze kenile zazi ni zazi.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "Kunwa mezi akenile kutusa mibili yaluna kuiketa.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "Kutapa kwa mazoho kulusileleza kwa matuku.",
+          "marker": "c)"
         }
       ]
     }
@@ -593,6 +639,114 @@
     {
       "find": "4.5.8.1.1kutoloka",
       "with": "4.5.8.1.1 kutoloka"
+    },
+    {
+      "find": "2. 2. 1 Fumana",
+      "with": "4.2.2.1.1 Fumana"
+    },
+    {
+      "find": "4. 3. 2. I Itusisa",
+      "with": "4.3.2.1.1 Itusisa"
+    },
+    {
+      "find": "5 .  5. 2 . 1 Ñola",
+      "with": "4.5.2.1.1 Ñola"
+    },
+    {
+      "find": "4. 6. 5. 11 Ñola",
+      "with": "4.6.5.1.1 Ñola"
+    },
+    {
+      "find": "4. 4. 2. 1 Bala kakutwisIso",
+      "with": "4.4.2.1.1 Bala kakutwisiso"
+    },
+    {
+      "find": "4. 4. 2. 2. 1 Bala",
+      "with": "4.4.2.2.1 Bala"
+    },
+    {
+      "find": "TUTO:4.6.1. 4MILUMO",
+      "with": "TUTO: 4.6.14. MILUMO"
+    },
+    {
+      "find": "milumoyeakeleza",
+      "with": "milumo yeakeleza"
+    },
+    {
+      "find": "4 .5. 2",
+      "with": "4.5.2"
+    },
+    {
+      "find": "4. 4. 2. 2",
+      "with": "4.4.2.2"
+    },
+    {
+      "find": "4. 4. 2. 1",
+      "with": "4.4.2.1"
+    },
+    {
+      "find": "4. 2. 2. 1",
+      "with": "4.2.2.1"
+    },
+    {
+      "find": "4. 6. 5. 1",
+      "with": "4.6.5.1"
+    },
+    {
+      "find": "4. 4. 1",
+      "with": "4.4.1"
+    },
+    {
+      "find": "4. 2. 2",
+      "with": "4.2.2"
+    },
+    {
+      "find": "4. 3. 2",
+      "with": "4.3.2"
+    },
+    {
+      "find": "4. 4. 2",
+      "with": "4.4.2"
+    },
+    {
+      "find": "4. 6. 5",
+      "with": "4.6.5"
+    },
+    {
+      "find": "Tuto nyana",
+      "with": "Tutonyana"
+    },
+    {
+      "find": "TUTO NYANA",
+      "with": "TUTONYANA"
+    },
+    {
+      "find": "TUTONYANA YA 4. 4.1.1",
+      "with": "TUTONYANA YA 4.4.1.1"
+    },
+    {
+      "find": "Tutonyanya: 4.3.2.2: Kupalela",
+      "with": "Tutonyana: 4.4.2.2: Kupalela"
+    },
+    {
+      "find": "4.4.2.2. Luka",
+      "with": "4.4.2.2.1 Luka"
+    },
+    {
+      "find": "4.2.2.1; Libuka",
+      "with": "4.2.2.1: Libuka"
+    },
+    {
+      "find": "4.1.7.2.2 LIPINA ZA SIZO",
+      "with": "4.1.7.2 LIPINA ZA SIZO"
+    },
+    {
+      "find": "Tutonyana :4.5.5.1.1: Kukusufaza",
+      "with": "Tutonyana :4.5.5.1: Kukusufaza"
+    },
+    {
+      "find": "TUTO: 4.22: BUPAKI",
+      "with": "TUTO: 4.2.2: BUPAKI"
     }
   ],
   "insertText": [
@@ -626,7 +780,7 @@
     },
     {
       "after": "KALULO: KUÑOLA",
-      "near": "Tutonyana :4.5.5.1.1: Kukusufaza zeñozwi",
+      "near": "Tutonyana :4.5.5.1: Kukusufaza zeñozwi",
       "items": [
         {
           "raw": {
@@ -638,7 +792,7 @@
     },
     {
       "before": "KALULO: PUPO YA PUWO",
-      "near": "Tuto nyana:4.6.9.1: Kubonisa manzwi a si",
+      "near": "Tutonyana:4.6.9.1: Kubonisa manzwi a si",
       "items": [
         {
           "raw": {
@@ -674,7 +828,7 @@
     },
     {
       "after": "KALULO: PUPO YA PUWO",
-      "near": "Tuto nyana:4.6.9.1: Kubonisa manzwi a si",
+      "near": "Tutonyana:4.6.9.1: Kubonisa manzwi a si",
       "items": [
         {
           "raw": {
@@ -711,5 +865,6 @@
     "TUTO YA NAMUNGELELE": "TUTO YESINA KUKETULULA",
     "tuto ya namungelele": "tuto yesina kuketulula",
     "Tuto ya namungelele": "Tuto yesina kuketulula"
-  }
+  },
+  "tidySpacing": true
 }
