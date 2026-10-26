@@ -447,17 +447,20 @@
     {
       "find": "5. cupwi cupwi cupwi             5. Nanjanja ki",
       "with": []
+    },
+    {
+      "find": "Bala likande kusina kukakatela",
+      "with": [
+        {
+          "head": "BUIKETO BWA MUBILI"
+        }
+      ]
     }
   ],
   "insertText": [
     {
       "after": "KUBALA KAKUTUMUSA",
       "text": "Kubala kakutumusa ki mukwa wa kubala kakuzuseza linzwi kwande. Haubala kakutumusa mutu kaufela yali bukaufi ni wena ukona kuutwa kaufela zeubala."
-    },
-    {
-      "after": "Bala taba yetatama kusina kukakatela.",
-      "text": "BUIKETO BWA MUBILI",
-      "as": "head"
     },
     {
       "after": "KALULO: KUTEELEZA NI KUBULELA",
@@ -678,6 +681,10 @@
   ],
   "edit": [
     {
+      "find": "Buikoneli kakutala:",
+      "with": "Sika sesilukela luli kukoniwa:"
+    },
+    {
       "find": "Bala taba kusina  kukakatela",
       "with": "Bala taba yetatama kusina kukakatela."
     },
@@ -696,6 +703,10 @@
     {
       "find": "Musebezi 1:Musebezi ka buñwi",
       "with": "Musebezi 1: Musebezi ka buñwi"
+    },
+    {
+      "find": "IKabisizwe ki …………………",
+      "with": "IKabisizwe ki Ng`ambi Teddy (B.Sc)"
     }
   ],
   "splitBox": [
