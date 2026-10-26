@@ -455,6 +455,79 @@
           "head": "BUIKETO BWA MUBILI"
         }
       ]
+    },
+    {
+      "find": "Ibaakanyizwe ni kulukiswa ki……………",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Ibaakanyizwe ni kulukiswa ki:**",
+          "center": true
+        },
+        {
+          "para": "……………",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Iswanisizwe ki………………..",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Iswanisizwe ki:**",
+          "center": true
+        },
+        {
+          "para": "………………",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "IKabisizwe ki …………………",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**IKabisizwe ki:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Ihatisizwe mwa silimo sa 2026 ki ba",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Ihatisizwe mwa silimo sa 2026 ki ba:**",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "ISBN: ……………………………",
+      "with": [
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        }
+      ]
     }
   ],
   "insertText": [
@@ -703,10 +776,6 @@
     {
       "find": "Musebezi 1:Musebezi ka buñwi",
       "with": "Musebezi 1: Musebezi ka buñwi"
-    },
-    {
-      "find": "IKabisizwe ki …………………",
-      "with": "IKabisizwe ki Ng`ambi Teddy (B.Sc)"
     }
   ],
   "splitBox": [
