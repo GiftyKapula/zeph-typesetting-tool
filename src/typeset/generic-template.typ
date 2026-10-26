@@ -63,6 +63,10 @@
 // Register a heading so the real outline (TOC) can find it, but render nothing
 // itself — the visible heading is drawn by the functions below.
 #show heading: none
+// "C++" / "C#" never break across a line ("C+" / "+" in a narrow matrix cell). A box,
+// not word joiners: joiners keep the line but swallow the "++" in the PDF's text layer.
+#show "C++": box
+#show "C#": box
 #let mark(lvl, body) = heading(level: lvl, outlined: true, numbering: none)[#body]
 // Register a heading so the real outline (TOC) finds it at THIS page, but render nothing
 // on the page — used to list the matrix TOPICS (which live inside table cells) in the
