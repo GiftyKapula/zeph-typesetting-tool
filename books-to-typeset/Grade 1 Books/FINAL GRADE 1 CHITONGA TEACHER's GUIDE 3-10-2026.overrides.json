@@ -21,5 +21,11 @@
   ],
   "coverWords": {
     "printedBy": "Lyakasimbwa aba"
-  }
+  },
+  "replace": [
+    {
+      "find": "mpolili atala kwakacitwa aba",
+      "with": "Cover and Book Layout:"
+    }
+  ]
 }
