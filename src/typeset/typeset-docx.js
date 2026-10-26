@@ -1550,6 +1550,54 @@ async function typesetOne(docxPath, themeName) {
     visit2(blocks);
     if (n) console.log(`   boldAnswerLabels: ${n} label(s) bolded`);
   }
+  // dropBreaks: [n, …] — a manuscript that starts every lesson on a new page leaves a
+  // near-empty page wherever a lesson spills a few lines over. The body's page breaks
+  // (typed page breaks, and lesson headings that open their own page) are numbered from 1
+  // in reading order; each listed one is dropped, so the next lesson follows on the same
+  // page. The numbered list is written to _breaks.json beside the PDF (each break with the
+  // words that open it), to pick the numbers from. Layout-dependent breaks in Typst itself
+  // (context + here().position()) were tried and dropped: with dozens of them the layout
+  // never converged and the page numbers came out wrong.
+  // tidySpacing (see overrides.js) also squeezes doubled spaces out of HEADINGS ("CIPATI  2",
+  // "MUTWE:  1.14"), here at the end when every heading is final. Body text keeps its
+  // spaces: authors lay word lists out in columns with runs of spaces.
+  if (ov.tidySpacing) {
+    let n = 0;
+    const HEADS = /^(head|h1|h2|h3|label|sectionhead|subhead)$/;
+    const sq = (s) => { const t = s.replace(/ {2,}/g, " "); if (t !== s) n++; return t; };
+    const walkH = (arr) => {
+      for (const b of arr || []) {
+        if (!b || typeof b !== "object") continue;
+        if (HEADS.test(b.t)) {
+          if (typeof b.text === "string") b.text = sq(b.text);
+          for (const s of b.segs || []) if (typeof s.t === "string" && !s.m) s.t = sq(s.t);
+        }
+        if (typeof b.title === "string") b.title = sq(b.title);
+        for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walkH(b[k]);
+      }
+    };
+    walkH(blocks);
+    if (n) console.log(`   tidySpacing: ${n} heading(s) with doubled spaces squeezed`);
+  }
+  let breakPoints = null;
+  if (ov.dropBreaks) {
+    const drop = new Set(ov.dropBreaks);
+    const body0 = blocks.findIndex((b) => b.t === "bodystart");
+    const textOf = (b) => (b && (b.text || (b.segs || []).map((s) => s.t).join(""))) || "";
+    const points = [];
+    for (let i = body0 + 1; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!(b.t === "pagebreak" || (b.t === "h2" && !b.nobreak))) continue;
+      const n = points.length + 1;
+      const after = blocks.slice(i + (b.t === "h2" ? 0 : 1)).filter((x) => x.t !== "vspace").slice(0, 2).map(textOf).join(" | ");
+      points.push({ n, kind: b.t, opens: after.slice(0, 120) });
+      if (!drop.has(n)) continue;
+      if (b.t === "h2") b.nobreak = true;
+      else { blocks[i] = { t: "vspace", h: "1.2em" }; const nx = blocks.slice(i + 1).find((x) => x.t !== "vspace"); if (nx && nx.t === "h2") nx.nobreak = true; }
+    }
+    breakPoints = points;
+    console.log(`   dropBreaks: ${drop.size} of ${points.length} body page break(s) dropped`);
+  }
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
 
   // Include OS system fonts so specialty faces like Bradley Hand ITC (used for
@@ -1583,6 +1631,7 @@ async function typesetOne(docxPath, themeName) {
   fs.writeFileSync(outPath, Buffer.from(pdf));
   // keep the generated .typ alongside the PDF (and by the runner) for inspection
   fs.writeFileSync(path.join(bookDir, "_source.typ"), doc);
+  if (breakPoints) fs.writeFileSync(path.join(bookDir, "_breaks.json"), JSON.stringify(breakPoints, null, 1));
   fs.writeFileSync(path.join(__dirname, "_last-docx.typ"), doc);
 
   const n = blocks.length;

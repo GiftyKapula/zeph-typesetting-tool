@@ -1,5 +1,9 @@
 {
   "localLabels": true,
+  "coversInBook": true,
+  "coverWords": {
+    "printedBy": "Lyakasimbwa aba"
+  },
   "remove": [
     "Zyili Moomu",
     "picture showing morning, afternoon, evening, night."
@@ -194,5 +198,11 @@
     "image12.jpeg": {
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image12.png"
     }
-  }
+  },
+  "replace": [
+    {
+      "find": "mpolili atala kwakacitwa aba",
+      "with": "**Cover and Book Layout:**"
+    }
+  ]
 }

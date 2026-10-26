@@ -21,5 +21,109 @@
   ],
   "coverWords": {
     "printedBy": "Lyakasimbwa aba"
-  }
+  },
+  "replace": [
+    {
+      "find": "mpolili atala kwakacitwa aba",
+      "with": "Cover and Book Layout:"
+    }
+  ],
+  "textFix": [
+    {
+      "find": "BULANGIZI BWEELEDE::",
+      "with": "BULANGIZI BWEELEDE:"
+    },
+    {
+      "find": "yasicikolo( ",
+      "with": "yasicikolo ("
+    },
+    {
+      "find": "( ",
+      "with": "("
+    },
+    {
+      "find": "1.1Twaano",
+      "with": "1.1 Twaano"
+    },
+    {
+      "find": "1.14. Kakutaninga",
+      "with": "1.14 Kakutaninga"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Cover and Book Layout:",
+      "with": []
+    },
+    {
+      "find": "Kalima & Kahinga",
+      "with": [
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Lusaka, Zambia (2026)",
+      "with": [
+        {
+          "para": "Lusaka, Zambia (2026)",
+          "center": true
+        }
+      ]
+    }
+  ],
+  "dropBreaks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13,
+    14,
+    15,
+    17,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    29,
+    30,
+    31,
+    32,
+    35,
+    38,
+    39,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    50,
+    51,
+    53,
+    54
+  ],
+  "tidySpacing": true,
+  "editAll": [
+    {
+      "find": "yabo yabo beni",
+      "with": "yabo beni"
+    }
+  ]
 }
