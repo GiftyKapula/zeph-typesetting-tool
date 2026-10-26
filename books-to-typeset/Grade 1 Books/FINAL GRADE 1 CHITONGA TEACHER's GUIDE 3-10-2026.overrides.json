@@ -9,13 +9,34 @@
   "insertText": [
     {
       "before": "© Ministry of Education, 2026",
-      "align": "center",
-      "text": [
-        "Lyakabambwa akulembwa aba Zambia Educational Publishing House",
-        "Light Industrial Area",
-        "Chishango Road",
-        "P.O. Box 32708",
-        "Lusaka, Zambia"
+      "items": [
+        {
+          "para": "**Lyakabambwa akulembwa aba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        }
       ]
     }
   ],
@@ -74,8 +95,55 @@
         {
           "para": "Lusaka, Zambia (2026)",
           "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**ISBN**",
+          "center": true
         }
       ]
+    },
+    {
+      "find": "Lyakalondolwa aba Vision Milimo (2026)",
+      "with": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Lyakalondolwa aba:**",
+          "center": true
+        },
+        {
+          "para": "Vision Milimo (2026)",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Lyakasimbwa aba Zambia Educational Publishing House P.O. Box 32664",
+      "with": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Lyakasimbwa aba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32664",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "ISBN",
+      "with": []
     }
   ],
   "dropBreaks": [
