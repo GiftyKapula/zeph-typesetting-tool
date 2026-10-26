@@ -73,6 +73,10 @@
   ],
   "replaceBlocks": [
     {
+      "find": "ISBN",
+      "with": []
+    },
+    {
       "find": "Cover and Book Layout:",
       "with": []
     },
@@ -95,19 +99,19 @@
         {
           "para": "Lusaka, Zambia (2026)",
           "center": true
-        },
-        {
-          "vspace": "5mm"
-        },
-        {
-          "para": "**ISBN**",
-          "center": true
         }
       ]
     },
     {
       "find": "Lyakalondolwa aba Vision Milimo (2026)",
       "with": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**ISBN**",
+          "center": true
+        },
         {
           "vspace": "5mm"
         },
@@ -140,10 +144,6 @@
           "center": true
         }
       ]
-    },
-    {
-      "find": "ISBN",
-      "with": []
     }
   ],
   "dropBreaks": [
