@@ -480,6 +480,11 @@
       "from": "(Google Teachable Machine",
       "to": "(Google Teachable Machine",
       "bold": false
+    },
+    {
+      "_why": "Spelling check after round 1: topic 1.7.5 heading misspelt in the manuscript",
+      "from": "ARTIFICIAL INTELLIGIENCE",
+      "to": "ARTIFICIAL INTELLIGENCE"
     }
   ]
 }
