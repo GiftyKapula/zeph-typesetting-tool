@@ -443,10 +443,14 @@ function paraSegs(pXml) {
     // line the author styled this way (rather than pressing Ctrl+B) was silently
     // read as plain text and demoted to body prose. Both are Word BUILT-IN style
     // IDs with a fixed meaning apps never redefine, so treat them the same as the
-    // direct formatting they visually apply.
+    // direct formatting they visually apply. A direct <w:b w:val="0"/> (or i) on the
+    // run still wins over the style, as in Word: "Strong" switched off by hand reads
+    // as plain text (ICT syllabus: hundreds of activity verbs and standards).
     const rstyle = (rpr.match(/<w:rStyle\s+w:val="([^"]+)"/) || [])[1] || "";
-    const b = (/<w:b\b(?!Cs)/.test(rpr) && !/<w:b\b[^>]*w:val="(0|false)"/.test(rpr)) || rstyle === "Strong";
-    const it = (/<w:i\b(?!Cs)/.test(rpr) && !/<w:i\b[^>]*w:val="(0|false)"/.test(rpr)) || rstyle === "Emphasis";
+    const bOff = /<w:b\b(?!Cs)[^>]*w:val="(0|false)"/.test(rpr);
+    const iOff = /<w:i\b(?!Cs)[^>]*w:val="(0|false)"/.test(rpr);
+    const b = !bOff && (/<w:b\b(?!Cs)/.test(rpr) || rstyle === "Strong");
+    const it = !iOff && (/<w:i\b(?!Cs)/.test(rpr) || rstyle === "Emphasis");
     // Author underline (<w:u w:val="single"/>, etc.) — preserved on BODY text only:
     // headings/banners/box-titles emit as plain strings (S(b.text)/S(b.title)), so a
     // structural label the author underlined in Word (e.g. "Exercise") never carries
@@ -481,6 +485,9 @@ function paraSegs(pXml) {
   const merged = [];
   for (const s of segs) {
     const last = merged[merged.length - 1];
+    // A lone bold full stop/comma/colon after plain text (Word keeps the bold of the
+    // run it was typed into) takes the weight of the text it closes.
+    if (last && !last.m && !s.m && s.b && !last.b && /^[.,;:]\s*$/.test(s.t) && /\S$/.test(last.t)) s.b = false;
     if (last && !last.m && !s.m && last.b === s.b && last.it === s.it && last.c === s.c && !!last.u === !!s.u) last.t += s.t;
     else merged.push({ ...s });
   }
