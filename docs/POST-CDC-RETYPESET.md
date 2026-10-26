@@ -82,3 +82,8 @@ in the log; never invent content.
    then other changes and the points for the author.
 
 Rebuild the verification copy whenever the book is rebuilt: the pages move.
+
+The same tool serves an author's marked copy: put `"label": "Author", "copy": "the author's marked copy"`
+on the plan and the notes read "Author comment N (page X of the author's marked copy)". For a phrase
+that repeats through the book (a heading, a label), give the item `onPage` (the PDF page to start
+looking on) instead of a chain of `after` phrases.

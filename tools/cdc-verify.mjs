@@ -11,8 +11,11 @@
 // the `to` line (across pages) is highlighted; `extra` adds that many lines after `to`.
 // `after`: start looking only past this phrase. The search starts at the first body page
 // ("~ 1 ~"), so the contents page never catches an anchor (`front: true` searches from the
-// first page instead, for a correction in the front matter). Phrases are case-insensitive,
-// single-line, and dashes/quotes/spaces are normalised.
+// first page instead, for a correction in the front matter). `onPage`: start looking at the top
+// of that PDF page (sheet number, 1 = first page of the file), for a phrase that repeats through
+// the book. Phrases are case-insensitive, single-line, and dashes/quotes/spaces are normalised.
+// A round that did not come from the CDC sets `label` and `copy` on the plan, e.g.
+// { "label": "Author", "copy": "the author's marked copy", "items": [...] }.
 import fs from 'fs';
 import { createRequire } from 'module';
 import { PDFDocument, PDFName, PDFString, PDFNumber, rgb, BlendMode } from 'pdf-lib';
@@ -61,6 +64,7 @@ let start = 0;
     if (/~\s*1\s*~/.test(t)) { start = lines.findIndex((l) => l.p === p); break; }
   }
 }
+const pageStart = (p) => lines.findIndex((l) => l.p >= p);
 const find = (phrase, from) => { const t = norm(phrase); for (let i = from; i < lines.length; i++) if (norm(lines[i].text).includes(t)) return i; return -1; };
 
 const out = await PDFDocument.load(new Uint8Array(bytes));
@@ -88,12 +92,19 @@ const add = (p, quads, note, title) => {
   annots.push(out.context.register(dict));
   // and painted on the page itself (multiplied, so the text stays black): a viewer that
   // ignores annotations still shows every corrected line
-  for (const q of quads) pages[p - 1].drawRectangle({ x: q.x0, y: q.y0, width: q.x1 - q.x0, height: q.y1 - q.y0, color: rgb(1, 0.92, 0.35), blendMode: BlendMode.Multiply });
+  // several comments can point at one line: paint it once, so its yellow stays even
+  for (const q of quads) {
+    const key = `${p}:${q.y0.toFixed(1)}`;
+    if (painted.has(key)) continue;
+    painted.add(key);
+    pages[p - 1].drawRectangle({ x: q.x0, y: q.y0, width: q.x1 - q.x0, height: q.y1 - q.y0, color: rgb(1, 0.92, 0.35), blendMode: BlendMode.Multiply });
+  }
 };
+const painted = new Set();
 
 let ok = 0; const misses = []; const report = [];
 for (const it of plan.items) {
-  const from0 = it.front ? 0 : start;
+  const from0 = it.onPage ? pageStart(it.onPage) : it.front ? 0 : start;
   const base = it.after ? find(it.after, from0) : from0;
   if (base < 0) { misses.push(`${it.n}: after "${it.after}"`); continue; }
   const a = find(it.from, base);
@@ -101,7 +112,7 @@ for (const it of plan.items) {
   let b = a;
   if (it.to) { b = find(it.to, a); if (b < 0) { misses.push(`${it.n}: to "${it.to}"`); continue; } }
   b = Math.min(lines.length - 1, b + (it.extra || 0));
-  const note = `CDC comment ${it.n} (page ${it.page} of the CDC copy): ${it.comment}\n\nDone: ${it.done}`;
+  const note = `${plan.label || 'CDC'} comment ${it.n} (page ${it.page} of ${plan.copy || 'the CDC copy'}): ${it.comment}\n\nDone: ${it.done}`;
   // one highlight per page, one quad per line
   const byPage = new Map();
   for (let k = a; k <= b; k++) {

@@ -205,7 +205,7 @@
   "replace": [
     {
       "find": "Muzuzu wa kelezo kwa sikolo sa luna",
-      "with": "Muzuzu wa kelezo kwa sikolo sa luna ki sibaka se sikuzize ni pabalelo kwa bana basikolo. Sina ni lipula za mbombolelwa, maswaniso fa ma mota, ni tafule foo bana ba sikolo baina ni kuambola ni bo muluti. Bana basikolo ba tahanga mwa muzuzu wobaikutwa kuishonda, habai kutwa kubani minahano yemiñata ye bautwa butuku, niku nyema, kubilaela kuamana ni sikolo kapa kwandu. Muluti u teeleza ka tokomelo ni kutusa bana basikolo kubulela mwa baikutwela. Sibaka se sikuzize situsa bana ba sikolo kulukuluha, kuikutwa kuba batu babautwisisizwe, niku ituta linzila za buino bobunde za kukusufaza maikuto. Hasamulaho hakupotela ndu ya kelezo, bana ba sikolo babañata baikutwanga hande, bundume bobuñata, ni kuitukiseza ku kuta kwa sitopa ni ku zwelapili ku ituta."
+      "with": "Muzuzu wa kelezo kwa sikolo sa luna ki sibaka se sikuzize ni pabalelo kwa bana basikolo. Sina ni lipula za mbombolelwa, maswaniso fa ma mota, ni tafule foo bana ba sikolo baina ni kuambola ni bo muluti. Bana basikolo ba tahanga mwa muzuzu wobaikutwa kuishonda, habai kutwa kubani minahano yemiñata ye bautwa butuku, niku nyema, kubilaela kuamana ni sikolo kapa kwandu. Muluti u teeleza ka tokomelo ni kutusa bana basikolo kubulela mwa baikutwela. Sibaka se sikuzize situsa bana ba sikolo kulukuluha, kuikutwa kuba batu babautwisisize, niku ituta linzila za buino bobunde za kukusufaza maikuto. Hasamulaho hakupotela ndu ya kelezo, bana ba sikolo babañata baikutwanga hande. Bana ba sikolo hape baikutwanga bundume bobuñata habanze baitukiseza kukuta kwa sitopa sabona kuli bayozwela pili kuituta hape."
     }
   ],
   "removeRange": [
@@ -987,6 +987,14 @@
     {
       "find": "Musebezi 3. Musebezi wa mwa tukwata .",
       "with": "Musebezi 3: Musebezi wa mwa tukwata."
+    },
+    {
+      "find": "Ñola mibamba yakuikupulela",
+      "with": "Ñola lipulelo yakuikupulela"
+    },
+    {
+      "find": "Homonimuzi ki manzwi a swana kwa milumo",
+      "with": "Homofonizi ki manzwi a swana kwa milumo"
     }
   ],
   "splitBox": [
