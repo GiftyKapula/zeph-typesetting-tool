@@ -15,7 +15,8 @@
     "REFERENCES (setHeading, keep). As in Computer Science: each course's reading sits under its course name, and the reading labels",
     "(styled anything from Heading 1 to plain) are small bold labels under it, out of the contents.",
     "",
-    "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25): 392 comments. 350 'Remove Boldface' -- the manuscript sets activities/standards in Word's Strong style with bold switched off by hand; the importer now honours that (engine). The rest below."
+    "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25): 392 comments. 350 'Remove Boldface' -- the manuscript sets activities/standards in Word's Strong style with bold switched off by hand; the importer now honours that (engine). The rest below.",
+    "PAGE BREAKS: 1.1.4.3.1, 1.3.1.1.2 and 1.3.6.1.2 each carry one 3-line bullet onto the next page. Keeping them whole was tried (2026-10-26): it left pages 49-61% empty and a 2-line carry-over at 1.3.6.1.4, so they stay split."
   ],
   "subject": "Information and Communication Technology",
   "level": "Secondary School Teachers' Diploma",
@@ -251,6 +252,10 @@
   "keepRowWhole": [
     {
       "startsWith": "2.2.8.4"
+    },
+    {
+      "_why": "Page-break check after round 1: the row left one bullet alone at the top of p31; kept whole",
+      "startsWith": "1.1.7.1.2"
     }
   ],
   "coverColour": "996ab5",
@@ -354,9 +359,9 @@
       "to": "Different types of kernels explained and their roles in managing system resources analysed correctly"
     },
     {
-      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p94 (1.7.4.1.1): 'delete the word \"in\"' (the manuscript reads 'based on their in operating systems')",
+      "_why": "PROOFREAD round 1 (Google Drive comments), p94 (1.7.4.1.1): the reviewer highlighted \"in\" in \"compared based on their in operating systems\" -- the manuscript dropped a word there. Restored from the competence above it (\"...and their application in operating systems\") and the same standard in the Computer Science syllabus (\"...based on their application in operating systems\").",
       "from": "compared based on their in operating systems",
-      "to": "compared based on their operating systems"
+      "to": "compared based on their application in operating systems"
     },
     {
       "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p95: rewrite",
@@ -457,6 +462,46 @@
       "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p131: rewrite",
       "from": "Web project requirements analysed and plans developed by defining objectives, resources, and system specifications",
       "to": "Web project requirements analysed and project plans developed correctly by defining objectives, resources and system specifications"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities): the notebook tool is Jupyter",
+      "from": "(Jupiter, PyCharm",
+      "to": "(Jupyter, PyCharm"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities): the editor is VS Code",
+      "from": "VS-Codes",
+      "to": "VS Code"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities): Python is a name (capital P, as everywhere else in the book)",
+      "from": "Exploring python syntax",
+      "to": "Exploring Python syntax"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities)",
+      "from": "configuring python, IDEs",
+      "to": "configuring Python, IDEs"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities)",
+      "from": "Creating python projects",
+      "to": "Creating Python projects"
+    },
+    {
+      "_why": "Grammar check after round 1 (manuscript slips): capital C mid-sentence (1.2.3.1.1)",
+      "from": "design and Code programs",
+      "to": "design and code programs"
+    },
+    {
+      "_why": "Grammar check after round 1 (manuscript slips): programs ... use",
+      "from": "Creating programs that uses loops",
+      "to": "Creating programs that use loops"
+    },
+    {
+      "_why": "Grammar check after round 1 (manuscript slips): programs ... use",
+      "from": "Developing programs that uses arrays",
+      "to": "Developing programs that use arrays"
     }
   ]
 }

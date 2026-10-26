@@ -508,7 +508,7 @@ function paraSegs(pXml) {
       // House style is British spelling: convert the -ize/-ise verb family to -ise
       // for a curated set of stems (so "size", "maize", "prize", "citizen" are never
       // touched). Only the z is swapped, so the word's own casing is preserved.
-      .replace(/\b(summar|special|emphas|organ|recogn|visual|minim|stabil|crystall|synthes|immobil|fertil|general|categor|character|util|standard|maxim|coloni|memor)i(z)(e|es|ed|ing|ation|able|ably)\b/gi,
+      .replace(/\b(summar|special|emphas|organ|recogn|visual|minim|stabil|crystall|synthes|immobil|fertil|general|categor|character|util|standard|maxim|coloni|memor|normal|personal|author|synchron|virtual|container|optim|priorit|custom|digit|modern|real|final|central|critic|mobil|familiar|sanit|harmon)i(z)(e|es|ed|ing|ation|ations|able|ably|er|ers)\b/gi,
         (_, stem, z, suf) => stem + "i" + (z === "Z" ? "S" : "s") + suf)
       // British -our for a curated set (colour, behaviour, flavour, odour, vapour,
       // favour…). "labo(u)r" is left out so "laboratory" is never touched.
