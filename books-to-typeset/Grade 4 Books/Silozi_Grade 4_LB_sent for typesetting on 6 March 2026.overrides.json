@@ -318,6 +318,73 @@
   ],
   "replaceBlocks": [
     {
+      "find": "Ihatisizwe mwa silimo sa 2026 ki ba",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road",
+      "with": []
+    },
+    {
+      "find": "P.O. Box 32708",
+      "with": []
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "ISBN: ……………………………",
+      "with": []
+    },
+    {
+      "find": "© Zambia Educational Publishing House, 2026",
+      "with": [
+        {
+          "para": "**Ihatisizwe mwa silimo sa 2026 ki ba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "© Zambia Educational Publishing House, 2026",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        }
+      ]
+    },
+    {
       "find": "Ki manzwi aitusisa litaluso lisili isiñi luli ze litalusa linzwi.",
       "with": [
         {
@@ -460,7 +527,18 @@
       "find": "Ibaakanyizwe ni kulukiswa ki……………",
       "with": [
         {
-          "vspace": "3mm"
+          "vspace": "5mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
         },
         {
           "para": "**Ibaakanyizwe ni kulukiswa ki:**",
@@ -476,7 +554,7 @@
       "find": "Iswanisizwe ki………………..",
       "with": [
         {
-          "vspace": "3mm"
+          "vspace": "5mm"
         },
         {
           "para": "**Iswanisizwe ki:**",
@@ -492,7 +570,7 @@
       "find": "IKabisizwe ki …………………",
       "with": [
         {
-          "vspace": "3mm"
+          "vspace": "5mm"
         },
         {
           "para": "**Cover and Book Layout:**",
@@ -500,31 +578,6 @@
         },
         {
           "para": "Ng`ambi Teddy (B.Sc)",
-          "center": true
-        }
-      ]
-    },
-    {
-      "find": "Ihatisizwe mwa silimo sa 2026 ki ba",
-      "with": [
-        {
-          "vspace": "3mm"
-        },
-        {
-          "para": "**Ihatisizwe mwa silimo sa 2026 ki ba:**",
-          "center": true
-        }
-      ]
-    },
-    {
-      "find": "ISBN: ……………………………",
-      "with": [
-        {
-          "para": "**ISBN:**",
-          "center": true
-        },
-        {
-          "para": "……………………………",
           "center": true
         }
       ]
@@ -857,5 +910,98 @@
     "Lindalo": "Lisupi",
     "lindalo": "lisupi",
     "ze  konakubalwa": "ze konakubalwa"
-  }
+  },
+  "textFix": [
+    {
+      "find": "BAÑOLI:",
+      "with": "BAÑOLI"
+    },
+    {
+      "find": "MUKANGA 4:  KUITUSISA MILYANI NI ZEKOLA KA MAFOSISA.",
+      "with": "MUKANGA 4: KUITUSISA MILYANI NI ZEKOLA KA MAFOSISA"
+    },
+    {
+      "find": "mwanaa Sikolo ya silozi ya giledi 4",
+      "with": "mwanaa sikolo ya Silozi ya Giledi 4"
+    },
+    {
+      "find": "Curiculum Development Center",
+      "with": "Curriculum Development Centre"
+    },
+    {
+      "find": "tuto , liluko",
+      "with": "tuto, liluko"
+    },
+    {
+      "find": "mukanga -  Itoloka",
+      "with": "mukanga – Itoloka"
+    },
+    {
+      "find": "kubala  -  Makande",
+      "with": "kubala – Makande"
+    },
+    {
+      "find": "Kuñola -  ikutusa",
+      "with": "Kuñola – ikutusa"
+    },
+    {
+      "find": "mwa  buka",
+      "with": "mwa buka"
+    },
+    {
+      "find": "batusisze  mwa",
+      "with": "batusisze mwa"
+    },
+    {
+      "find": "bundume  ni",
+      "with": "bundume ni"
+    },
+    {
+      "find": "hao  bwa",
+      "with": "hao bwa"
+    },
+    {
+      "find": "in  Limulunga",
+      "with": "in Limulunga"
+    },
+    {
+      "find": "ka  kubona",
+      "with": "ka kubona"
+    },
+    {
+      "find": "kakutusa  kuambola",
+      "with": "kakutusa kuambola"
+    },
+    {
+      "find": "kuambolisana.  Ukaituta",
+      "with": "kuambolisana. Ukaituta"
+    },
+    {
+      "find": "kubala  buka",
+      "with": "kubala buka"
+    },
+    {
+      "find": "kunahana  ni",
+      "with": "kunahana ni"
+    },
+    {
+      "find": "lwaitumela  kwatuso",
+      "with": "lwaitumela kwatuso"
+    },
+    {
+      "find": "ongi  kwa",
+      "with": "ongi kwa"
+    },
+    {
+      "find": "ya  kuikabela",
+      "with": "ya kuikabela"
+    },
+    {
+      "find": "yaluna.  Ku",
+      "with": "yaluna. Ku"
+    }
+  ],
+  "asHead": [
+    "Kikezo ya kubeela muhupulo kwa lika zo bala kapa zo teeleza."
+  ]
 }
