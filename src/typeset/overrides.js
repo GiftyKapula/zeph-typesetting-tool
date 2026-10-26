@@ -63,7 +63,20 @@ function applyOverrides(blocks, ov) {
       const segList = Array.isArray(o.segs) ? o.segs : Array.isArray(o.qseg) ? o.qseg : null;
       if (segList && segList.length > 0) {
         const combined = segList.map(s => (s && typeof s.t === "string") ? s.t : "").join("");
-        if (combined.includes(tf.find)) {
+        // the find sits inside single runs: replace there, so the other runs keep their own
+        // formatting (a bold label run must not make the plain sentence after it bold)
+        const inRuns = segList.some(s => s && typeof s.t === "string" && s.t.includes(tf.find));
+        if (inRuns) {
+          for (const s of segList) if (s && typeof s.t === "string" && s.t.includes(tf.find)) s.t = s.t.split(tf.find).join(repl);
+          // a replacement ending in a space next to a run that starts with one: keep one
+          for (let i = 0; i + 1 < segList.length; i++) {
+            const a = segList[i], b = segList[i + 1];
+            if (a && b && typeof a.t === "string" && typeof b.t === "string" && /\s$/.test(a.t) && /^\s/.test(b.t)) b.t = b.t.replace(/^\s+/, "");
+          }
+          if (typeof o.plain === "string") o.plain = o.plain.split(tf.find).join(repl);
+          if (typeof o.q === "string") o.q = o.q.split(tf.find).join(repl);
+          n++;
+        } else if (combined.includes(tf.find)) {
           const newCombined = combined.split(tf.find).join(repl);
           const firstSeg = segList[0] || {};
           if (Array.isArray(o.segs)) o.segs = [{ ...firstSeg, t: newCombined }];
