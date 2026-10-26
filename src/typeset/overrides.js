@@ -654,6 +654,23 @@ function applyOverrides(blocks, ov) {
     if (i < 0) { console.warn("!  extendBox not matched:", eb.title); continue; }
     blocks[i].body.push(...blocks.splice(i + 1, eb.count || 1));
   }
+  // splitBox: [{ at }] — the inverse of extendBox: one activity box swallowed the next
+  // activity ("MUSEBEZI 3: …" typed as a line inside MUSEBEZI 2's box). The body line whose
+  // trimmed text equals `at` becomes the title of a new box holding everything after it.
+  for (const sb of ov.splitBox || []) {
+    let done = false;
+    for (let i = 0; i < blocks.length && !done; i++) {
+      const b = blocks[i];
+      if (!Array.isArray(b.body) || typeof b.title !== "string") continue;
+      const k = b.body.findIndex((x) => blockPlain(x).trim() === sb.at);
+      if (k < 1) continue;
+      const rest = b.body.splice(k);
+      const head = rest.shift();
+      blocks.splice(i + 1, 0, { ...b, title: blockPlain(head).trim(), body: rest });
+      done = true;
+    }
+    if (!done) console.warn("!  splitBox not matched:", sb.at);
+  }
   // collapseSpaces: true — a book converted from a PDF carries the old layout's doubled
   // spaces ("Use  simple farm tools"); reduce every run of spaces in the text to one,
   // across run boundaries too (math runs untouched). Runs after edit/editAll, so their
@@ -1258,14 +1275,19 @@ function applyOverrides(blocks, ov) {
   const tableText = (t) => (t.rows || []).map((r) => r.map((c) => c.text || "").join(" ")).join(" ");
   const allTables = [];
   (function tv(arr) { for (const b of arr) { if (!b || typeof b !== "object") continue; if (b.rows && (b.t === "table" || b.kind === "table")) allTables.push(b); for (const k of Object.keys(b)) if (Array.isArray(b[k])) tv(b[k]); } })(blocks);
+  // (`all: true` sets it on EVERY matching line — an exercise the manuscript repeats in a
+  // later unit with the numbering carried on from a neighbouring activity)
   for (const sm of ov.setMarker || []) {
-    const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
-    if (!b) { console.warn("!  setMarker not matched:", sm.find); continue; }
-    b.marker = sm.marker;
-    // Promote an unlabelled lead line to a real answer so the marker renders, and
-    // honour an explicit depth (default: a sub-answer, depth 1).
-    if (b.kind === "lead") { b.kind = "q"; if (b.a == null) b.a = ""; if (b.aseg == null) b.aseg = []; }
-    if (b.kind === "q") b.depth = sm.depth != null ? sm.depth : 1;
+    const hits = sm.all ? flat.filter((x) => blockPlain(x).includes(sm.find))
+      : [flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find))].filter(Boolean);
+    if (!hits.length) { console.warn("!  setMarker not matched:", sm.find); continue; }
+    for (const b of hits) {
+      b.marker = sm.marker;
+      // Promote an unlabelled lead line to a real answer so the marker renders, and
+      // honour an explicit depth (default: a sub-answer, depth 1).
+      if (b.kind === "lead") { b.kind = "q"; if (b.a == null) b.a = ""; if (b.aseg == null) b.aseg = []; }
+      if (b.kind === "q") b.depth = sm.depth != null ? sm.depth : 1;
+    }
   }
   // unlist: ["substring", …] — convert a paragraph the importer wrongly parsed as a
   // list item (its marker mis-extracted — e.g. a competence code "c.1.1.3" mistaken for
