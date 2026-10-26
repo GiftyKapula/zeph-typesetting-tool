@@ -27,5 +27,11 @@
       "find": "mpolili atala kwakacitwa aba",
       "with": "Cover and Book Layout:"
     }
+  ],
+  "textFix": [
+    {
+      "find": "BULANGIZI BWEELEDE::",
+      "with": "BULANGIZI BWEELEDE:"
+    }
   ]
 }
