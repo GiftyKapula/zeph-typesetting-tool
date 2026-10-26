@@ -1747,6 +1747,52 @@ function applyOverrides(blocks, ov) {
     if (to < 0) { console.warn("!  moveSectionBefore target not matched:", mv.before); blocks.splice(start, 0, ...span); continue; }
     blocks.splice(to, 0, ...span);
   }
+  // moveToSectionEnd: [{ find, label? }] — move EVERY lesson-summary block whose text
+  // starts with the word `find` (a heading, or a paragraph that opens with it, e.g.
+  // "Kusufazo Makande alutusa…"), together with the paragraphs / list items under it,
+  // down to the end of its section: just before the next h1/h2/h3 (or the end of the
+  // book). For an author who wants each lesson's summary to come after its exercises
+  // rather than before them. With `label`, a paragraph that opens with the word is split
+  // into a `label` heading plus the paragraph, and a summary heading is set to `label`,
+  // so every moved summary looks alike.
+  for (const ms of ov.moveToSectionEnd || []) {
+    const word = new RegExp(`^${ms.find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?!\\p{L})[\\s.:,]*`, "iu");
+    const isSec = (b) => /^h[123]$/.test(b.t);
+    let n = 0;
+    const moved = new Set();   // each summary moves once (its new place is already final)
+    for (let i = 0; i < blocks.length; i++) {
+      if (moved.has(blocks[i])) continue;
+      if (!["head", "para", "label"].includes(blocks[i].t) || !word.test(blockPlain(blocks[i]).trim())) continue;
+      let j = i + 1;
+      while (j < blocks.length && (blocks[j].t === "para" || blocks[j].t === "listitem")) j++;
+      let to = j;
+      while (to < blocks.length && !isSec(blocks[to])) to++;
+      if (to === j) continue;   // already the last thing in its section
+      const span = blocks.splice(i, j - i);
+      if (ms.label) {
+        const first = span[0];
+        const txt = blockPlain(first).trim();
+        const lead = txt.match(word)[0];
+        if (txt.length > lead.length) {
+          editBlockText(first, lead, "");
+          first.t = "para";
+          span.unshift({ t: "head", text: ms.label });
+        } else {
+          first.t = "head"; first.text = ms.label; delete first.segs;
+        }
+      }
+      const at = to - (j - i);
+      // two summaries landing together (a section that had one after each of its
+      // lessons) share one heading rather than repeating it
+      if (ms.label && at > 0 && moved.has(blocks[at - 1]) && span[0].t === "head") span.shift();
+      span.forEach((b) => moved.add(b));
+      blocks.splice(at, 0, ...span);
+      if (n++ > 5000) { console.warn("!  moveToSectionEnd: stopped, too many moves"); break; }
+      i--;
+    }
+    if (!n) console.warn("!  moveToSectionEnd matched nothing:", ms.find);
+    else console.log(`   moveToSectionEnd: ${n} "${ms.find}" summary block(s) moved to the end of their section`);
+  }
   // tables: [{ match, columns?, rows: [[c, c], …] }] — replace a table the writer
   // built badly (e.g. a matching table with every term lumped in one cell) with a
   // clean grid. Searches top-level blocks AND box/activity bodies and exercise/
