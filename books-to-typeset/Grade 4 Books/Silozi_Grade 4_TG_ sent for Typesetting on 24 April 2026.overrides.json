@@ -1,26 +1,33 @@
 {
   "localLabels": true,
+  "coversInBook": true,
+  "boxStripe": false,
   "tocTitle": "Mukoloko wa Litaba",
+  "coverWords": {
+    "printedBy": "Ihatisizwe ki ba"
+  },
   "authors": [
     "C. Naipelekela",
     "M. Mwila",
     "M. Kamuya",
     "M. Mwangala",
-    "F. Nkomesha"
+    "F. Nkomesha",
+    "P. Kambaya"
   ],
   "asHead": [
-    "Buikoneli Kabutungi",
-    "Buikoneli ka butungi",
     "Musebezi 1: Kulukisa likandenyana ka mukwa wa kutatamana kubupa likandenyana le lilukile",
-    "Kutosa lindalo (locatives) mwa mibamba.",
-    "Kuñola Lindalo(locatives)mwa mibamba kakuitusisa puwo yeswanela",
+    "Kutosa lisupi (locatives) mwa mibamba.",
+    "Kuñola Lisupi(locatives)mwa mibamba kakuitusisa puwo yeswanela",
     "Kubala ka kutumusa",
     "Kubala ka nako yefilwe",
     "Kukandekulula makande/Kukandeka sinca makande",
     "Kunuha zekaezahala mwa likande.",
     "Kutosa litaba za butokwa mwa likande",
     "Kutosa manzwi ashutana-shutana ka libawelu",
-    "Kukandekulula/kukandeka hape makande"
+    "Kukandekulula/kukandeka hape makande",
+    "Sika luli sesilukanela kukoniwa:",
+    "Litaelo za muluti",
+    "Litaelo ku muluti."
   ],
   "tocDepth": 1,
   "replaceBlocks": [
@@ -89,7 +96,7 @@
               {
                 "marker": "",
                 "cells": [
-                  "Sika luli sesi lukela kukoniwa",
+                  "Sika luli sesilukanela kukoniwa",
                   "Specific Competence"
                 ]
               }
@@ -107,13 +114,757 @@
       "with": []
     },
     {
-      "find": "Sika luli sesi lukela kukoniwa Specific Competence",
+      "find": "Sika luli sesilukanela kukoniwa Specific Competence",
       "with": []
+    },
+    {
+      "find": "Ibaakanyizwe ni kulukiswa ki……………",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Ibaakanyizwe ni kulukiswa ki:**",
+          "center": true
+        },
+        {
+          "para": "……………",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Iswanisizwe ki………………..",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Iswanisizwe ki:**",
+          "center": true
+        },
+        {
+          "para": "………………",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "IKabisizwe ki …………………",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Ihatisizwe mwa silimo sa 2026 ki ba",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Ihatisizwe mwa silimo sa 2026 ki ba:**",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "ISBN: ……………………………",
+      "with": [
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "2. Tabo",
+      "with": [
+        {
+          "listitem": "Tabo",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Laela bana basikolo kubelekisana ni babañwi kuyolisa mwanzwi alwanisana.a) Kuca litolwana kutiisa mubili.b) Monde uikutwa kutiya.c) Namakau ucanga lico ze tiisa mubili.d) Mwiya ubulela kuli mubili utiile ni kuiketa.",
+      "with": [
+        {
+          "listitem": "Laela bana basikolo kubelekisana ni babañwi kuyolisa mwanzwi alwanisana.",
+          "marker": "•"
+        },
+        {
+          "listitem": "Kuca litolwana kutiisa mubili.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "Monde uikutwa kutiya.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "Namakau ucanga lico ze tiisa mubili.",
+          "marker": "c)"
+        },
+        {
+          "listitem": "Mwiya ubulela kuli mubili utiile ni kuiketa.",
+          "marker": "d)"
+        }
+      ]
+    },
+    {
+      "find": "Muluti abafe mibamba ni kubalaela kubeleka hamoho kuñolulula mibamba kakuitusisa manzwi alwanisana ni ainzi mwa mibamba. a) Lucanga lico ze kenile zazi ni zazi.b) Kunwa mezi akenile kutusa mibili yaluna kuiketa.c) Kutapa kwa mazoho kulusileleza kwa matuku.",
+      "with": [
+        {
+          "listitem": "Muluti abafe mibamba ni kubalaela kubeleka hamoho kuñolulula mibamba kakuitusisa manzwi alwanisana ni ainzi mwa mibamba.",
+          "marker": "•"
+        },
+        {
+          "listitem": "Lucanga lico ze kenile zazi ni zazi.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "Kunwa mezi akenile kutusa mibili yaluna kuiketa.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "Kutapa kwa mazoho kulusileleza kwa matuku.",
+          "marker": "c)"
+        }
+      ]
     }
   ],
   "images": {
     "image1.png": {
       "src": "Silozi_Grade 4_TG_ sent for Typesetting on 24 April 2026-hires/cover-hero-fixed.png"
     }
-  }
+  },
+  "textFix": [
+    {
+      "find": "PETAHALO YA MULELO :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "PETAHALO YA MULELO:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Kakutala :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Kakutala:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI KAKUTALA :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI KAKUTALA:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Kabutungi :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Kabutungi:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka butungi :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka butungi:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Bukoneli ka butungi :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Bukoneli ka butungi:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI SAKATA :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI SAKATA:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI KABUTUNGI :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI KABUTUNGI:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka kutala :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka kutala:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka ka butungi :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka ka butungi:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Ka butungi :",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Ka butungi:",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "PETAHALO YA MULELO",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Kakutala",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI KAKUTALA",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Kabutungi",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka butungi",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Bukoneli ka butungi",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI SAKATA",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "BUIKONELI KABUTUNGI",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka kutala",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli ka ka butungi",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Buikoneli Ka butungi",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Sika luli sesi lukela ku koniwa",
+      "with": "Sika luli sesilukanela kukoniwa"
+    },
+    {
+      "find": "Sika luli sesi lukela kukoniwa",
+      "with": "Sika luli sesilukanela kukoniwa"
+    },
+    {
+      "find": "Sika luli sesilukela kukoniwa",
+      "with": "Sika luli sesilukanela kukoniwa"
+    },
+    {
+      "find": "Sika luli sesi lukela",
+      "with": "Sika luli sesilukanela"
+    },
+    {
+      "find": "Sika luli sesilukela",
+      "with": "Sika luli sesilukanela"
+    },
+    {
+      "find": "kukoniwa::",
+      "with": "kukoniwa:"
+    },
+    {
+      "find": "sesilukanela kukukoniwa",
+      "with": "sesilukanela kukoniwa"
+    },
+    {
+      "find": "sesilukanela kukonwa;",
+      "with": "sesilukanela kukoniwa:"
+    },
+    {
+      "find": "sesilukanela koniwa:",
+      "with": "sesilukanela kukoniwa:"
+    },
+    {
+      "find": "Sika luli sesi lukanela",
+      "with": "Sika luli sesilukanela"
+    },
+    {
+      "find": "BUIKONELI  KAKUTALA",
+      "with": "Sika luli sesilukanela kukoniwa:"
+    },
+    {
+      "find": "kukoniwa:",
+      "with": "kukoniwa: "
+    },
+    {
+      "find": "4.1.1.1.2Nyakisisa",
+      "with": "4.1.1.1.2 Nyakisisa"
+    },
+    {
+      "find": "4.1.9.1Litoko",
+      "with": "4.1.9.1 Litoko"
+    },
+    {
+      "find": "4.2.1.1Kufumana",
+      "with": "4.2.1.1 Kufumana"
+    },
+    {
+      "find": "4.2.1.KUBALA",
+      "with": "4.2.1. KUBALA"
+    },
+    {
+      "find": "4.2.2.1.1Kuunga",
+      "with": "4.2.2.1.1 Kuunga"
+    },
+    {
+      "find": "4.3.2.1:Manzwi",
+      "with": "4.3.2.1: Manzwi"
+    },
+    {
+      "find": "4.3.2.SILIKANI",
+      "with": "4.3.2. SILIKANI"
+    },
+    {
+      "find": "4.3.3.Linombolo",
+      "with": "4.3.3. Linombolo"
+    },
+    {
+      "find": "4.3.4.1.1Uka",
+      "with": "4.3.4.1.1 Uka"
+    },
+    {
+      "find": "4.4.1.1Kubala",
+      "with": "4.4.1.1 Kubala"
+    },
+    {
+      "find": "4.4.1.1Teeleza",
+      "with": "4.4.1.1 Teeleza"
+    },
+    {
+      "find": "4.4.1.KUTEELEZA",
+      "with": "4.4.1. KUTEELEZA"
+    },
+    {
+      "find": "4.4.2.1.1Bala",
+      "with": "4.4.2.1.1 Bala"
+    },
+    {
+      "find": "4.4.2.2.1Babale",
+      "with": "4.4.2.2.1 Babale"
+    },
+    {
+      "find": "4.4.2.2.Luka",
+      "with": "4.4.2.2. Luka"
+    },
+    {
+      "find": "4.5.1.1Ñola",
+      "with": "4.5.1.1 Ñola"
+    },
+    {
+      "find": "4.5.1.1Peletela",
+      "with": "4.5.1.1 Peletela"
+    },
+    {
+      "find": "4.5.4.Kuñola",
+      "with": "4.5.4. Kuñola"
+    },
+    {
+      "find": "4.5.5.1.1Kusufaza",
+      "with": "4.5.5.1.1 Kusufaza"
+    },
+    {
+      "find": "4.6.1.1Itusise",
+      "with": "4.6.1.1 Itusise"
+    },
+    {
+      "find": "4.6.13.1.1Kutoloka",
+      "with": "4.6.13.1.1 Kutoloka"
+    },
+    {
+      "find": "4.6.13.1KUTOLOKA",
+      "with": "4.6.13.1 KUTOLOKA"
+    },
+    {
+      "find": "4.6.13.MASHITANGUTI",
+      "with": "4.6.13. MASHITANGUTI"
+    },
+    {
+      "find": "kukoniwa:  ",
+      "with": "kukoniwa: "
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "KUBULELA NI KUTEELEZA",
+      "with": "KALULO: KUBULELA NI KUTEELEZA",
+      "all": true
+    },
+    {
+      "find": "KUBALA",
+      "with": "KALULO: KUBALA",
+      "all": true
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "with": "KALULO: ZIBO YA MANZWI",
+      "all": true
+    },
+    {
+      "find": "KUTWISISO",
+      "with": "KALULO: KUTWISISO",
+      "all": true
+    },
+    {
+      "find": "KUÑOLA",
+      "with": "KALULO: KUÑOLA",
+      "all": true
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "with": "KALULO: PUPO YA PUWO",
+      "all": true
+    }
+  ],
+  "edit": [
+    {
+      "find": "TUTONYANA: 4.5.1. KUÑOLA KA MUTATEZO",
+      "with": "TUTONYANA: 4.5.1. Manzwi"
+    },
+    {
+      "find": "HOMOGILAFU NIHOMONIMUZI",
+      "with": "HOMOGILAFU NI HOMOFONIZI"
+    },
+    {
+      "find": "Homogilafu ki manzwi abalelwa",
+      "with": "Homogilafu ki mufuta wa Homonimuzi ili manzwi abalelwa"
+    },
+    {
+      "find": "Homonimuzi ki manzwi aswana kwa milumo",
+      "with": "Homofonizi ki mufuta wa Homonimuzi ili manzwi aswana kwa milumo"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "ma Homonimuzi",
+      "with": "ma Homofonizi"
+    },
+    {
+      "find": "ma Homonimuzi",
+      "with": "ma Homofonizi"
+    },
+    {
+      "find": "4.1.1.1.1Toloka",
+      "with": "4.1.1.1.1 Toloka"
+    },
+    {
+      "find": "4.2.1.1Bala",
+      "with": "4.2.1.1 Bala"
+    },
+    {
+      "find": "4.3.1.LITALUSO",
+      "with": "4.3.1. LITALUSO"
+    },
+    {
+      "find": "4.3.1.1Fa",
+      "with": "4.3.1.1 Fa"
+    },
+    {
+      "find": "4.1.1.1.1Kubuza",
+      "with": "4.1.1.1.1 Kubuza"
+    },
+    {
+      "find": "4.3.1.LISINONIMU",
+      "with": "4.3.1. LISINONIMU"
+    },
+    {
+      "find": "4.6LISUPO",
+      "with": "4.6 LISUPO"
+    },
+    {
+      "find": "4.6.4.1.Kuitusisa",
+      "with": "4.6.4.1. Kuitusisa"
+    },
+    {
+      "find": "4.6.9.2Manzwi",
+      "with": "4.6.9.2 Manzwi"
+    },
+    {
+      "find": "4.1.7:MIKWA",
+      "with": "4.1.7: MIKWA"
+    },
+    {
+      "find": "4.2.2.1Libuka",
+      "with": "4.2.2.1 Libuka"
+    },
+    {
+      "find": "4.3.1.1Kuitusisa",
+      "with": "4.3.1.1 Kuitusisa"
+    },
+    {
+      "find": "4.5.8.1.1kutoloka",
+      "with": "4.5.8.1.1 kutoloka"
+    },
+    {
+      "find": "2. 2. 1 Fumana",
+      "with": "4.2.2.1.1 Fumana"
+    },
+    {
+      "find": "4. 3. 2. I Itusisa",
+      "with": "4.3.2.1.1 Itusisa"
+    },
+    {
+      "find": "5 .  5. 2 . 1 Ñola",
+      "with": "4.5.2.1.1 Ñola"
+    },
+    {
+      "find": "4. 6. 5. 11 Ñola",
+      "with": "4.6.5.1.1 Ñola"
+    },
+    {
+      "find": "4. 4. 2. 1 Bala kakutwisIso",
+      "with": "4.4.2.1.1 Bala kakutwisiso"
+    },
+    {
+      "find": "4. 4. 2. 2. 1 Bala",
+      "with": "4.4.2.2.1 Bala"
+    },
+    {
+      "find": "TUTO:4.6.1. 4MILUMO",
+      "with": "TUTO: 4.6.14. MILUMO"
+    },
+    {
+      "find": "milumoyeakeleza",
+      "with": "milumo yeakeleza"
+    },
+    {
+      "find": "4 .5. 2",
+      "with": "4.5.2"
+    },
+    {
+      "find": "4. 4. 2. 2",
+      "with": "4.4.2.2"
+    },
+    {
+      "find": "4. 4. 2. 1",
+      "with": "4.4.2.1"
+    },
+    {
+      "find": "4. 2. 2. 1",
+      "with": "4.2.2.1"
+    },
+    {
+      "find": "4. 6. 5. 1",
+      "with": "4.6.5.1"
+    },
+    {
+      "find": "4. 4. 1",
+      "with": "4.4.1"
+    },
+    {
+      "find": "4. 2. 2",
+      "with": "4.2.2"
+    },
+    {
+      "find": "4. 3. 2",
+      "with": "4.3.2"
+    },
+    {
+      "find": "4. 4. 2",
+      "with": "4.4.2"
+    },
+    {
+      "find": "4. 6. 5",
+      "with": "4.6.5"
+    },
+    {
+      "find": "Tuto nyana",
+      "with": "Tutonyana"
+    },
+    {
+      "find": "TUTO NYANA",
+      "with": "TUTONYANA"
+    },
+    {
+      "find": "TUTONYANA YA 4. 4.1.1",
+      "with": "TUTONYANA YA 4.4.1.1"
+    },
+    {
+      "find": "Tutonyanya: 4.3.2.2: Kupalela",
+      "with": "Tutonyana: 4.4.2.2: Kupalela"
+    },
+    {
+      "find": "4.4.2.2. Luka",
+      "with": "4.4.2.2.1 Luka"
+    },
+    {
+      "find": "4.2.2.1; Libuka",
+      "with": "4.2.2.1: Libuka"
+    },
+    {
+      "find": "4.1.7.2.2 LIPINA ZA SIZO",
+      "with": "4.1.7.2 LIPINA ZA SIZO"
+    },
+    {
+      "find": "Tutonyana :4.5.5.1.1: Kukusufaza",
+      "with": "Tutonyana :4.5.5.1: Kukusufaza"
+    },
+    {
+      "find": "TUTO: 4.22: BUPAKI",
+      "with": "TUTO: 4.2.2: BUPAKI"
+    }
+  ],
+  "insertText": [
+    {
+      "after": "Mukamba Mwangala: Holds M.A degree",
+      "text": "**Kambaya Pelekelo**: Holds M.A degree in Linguistic Science (University of Zambia). He is currently Head of Languages Department, Mongu School for Continuing Education, Mongu."
+    },
+    {
+      "after": "KALULO 5: KUÑOLA",
+      "near": "TUTONYANA: 4.5.4.2. Kuñola Taba Kakutalu",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.5em"
+          }
+        }
+      ]
+    },
+    {
+      "before": "MUKANGA 6: KUITUTA ZA KUPILA HAMOHO NI MAIKUTO",
+      "near": "Kuituta za kupila hamoho ni maikuto litu",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ]
+    },
+    {
+      "after": "KALULO: KUÑOLA",
+      "near": "Tutonyana :4.5.5.1: Kukusufaza zeñozwi",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.5em"
+          }
+        }
+      ]
+    },
+    {
+      "before": "KALULO: PUPO YA PUWO",
+      "near": "Tutonyana:4.6.9.1: Kubonisa manzwi a si",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ]
+    },
+    {
+      "after": "KALULO: ZIBO YA MANZWI",
+      "near": "TUTO: 4.3.2: SILIKANI SA MANZWI",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.5em"
+          }
+        }
+      ]
+    },
+    {
+      "before": "KALULO: KUTWISISO",
+      "near": "Tutonyana: 4.4.2.1: Kubala ka butungi",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ]
+    },
+    {
+      "after": "KALULO: PUPO YA PUWO",
+      "near": "Tutonyana:4.6.9.1: Kubonisa manzwi a si",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.5em"
+          }
+        }
+      ]
+    },
+    {
+      "before": "MUKANGA 9: LINZILA NI KUFITISA MAÑUSA NI MAIKUTO KU BABAÑWI",
+      "near": "Caati ya manzwi ya kuitusisa ni ya maswa",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ]
+    }
+  ],
+  "renameNear": [
+    {
+      "find": "KALULO: ZIBO YA MANZWI",
+      "near": "TUTO: 4.3.2: SILIKANI SA MANZWI",
+      "to": "KALULO: ZIBO YA LINZWI"
+    }
+  ],
+  "wordFix": {
+    "LINDALO": "LISUPI",
+    "Lindalo": "Lisupi",
+    "lindalo": "lisupi",
+    "TUTO YA NAMUNGELELE": "TUTO YESINA KUKETULULA",
+    "tuto ya namungelele": "tuto yesina kuketulula",
+    "Tuto ya namungelele": "Tuto yesina kuketulula"
+  },
+  "tidySpacing": true
 }
