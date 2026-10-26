@@ -6,40 +6,7 @@
   "remove": [
     "Zyili Moomu"
   ],
-  "insertText": [
-    {
-      "before": "© Ministry of Education, 2026",
-      "items": [
-        {
-          "para": "**Lyakabambwa akulembwa aba:**",
-          "center": true
-        },
-        {
-          "para": "Zambia Educational Publishing House",
-          "center": true
-        },
-        {
-          "para": "Light Industrial Area",
-          "center": true
-        },
-        {
-          "para": "Chishango Road",
-          "center": true
-        },
-        {
-          "para": "P.O. Box 32708",
-          "center": true
-        },
-        {
-          "para": "Lusaka, Zambia",
-          "center": true
-        },
-        {
-          "vspace": "5mm"
-        }
-      ]
-    }
-  ],
+  "insertText": [],
   "coverWords": {
     "printedBy": "Lyakasimbwa aba"
   },
@@ -69,29 +36,16 @@
     {
       "find": "1.14. Kakutaninga",
       "with": "1.14 Kakutaninga"
+    },
+    {
+      "find": "Ba Mariana Mwanza-",
+      "with": "Ba Mariana Mwanza:"
     }
   ],
   "replaceBlocks": [
     {
       "find": "ISBN",
       "with": []
-    },
-    {
-      "find": "Cover and Book Layout:",
-      "with": []
-    },
-    {
-      "find": "Kalima & Kahinga",
-      "with": [
-        {
-          "para": "**Cover and Book Layout:**",
-          "center": true
-        },
-        {
-          "para": "Ng`ambi Teddy (B.Sc)",
-          "center": true
-        }
-      ]
     },
     {
       "find": "Lusaka, Zambia (2026)",
@@ -103,17 +57,18 @@
       ]
     },
     {
-      "find": "Lyakalondolwa aba Vision Milimo (2026)",
+      "find": "Lyakasimbwa aba Zambia Educational Publishing House P.O. Box 32664",
       "with": [
         {
-          "vspace": "5mm"
-        },
-        {
-          "para": "**ISBN**",
+          "para": "© Ministry of Education, 2026",
           "center": true
         },
         {
-          "vspace": "5mm"
+          "para": "Nguzu zyoonse zyilisinkilidwe. Kwiina kulembulula, kumwaya, kubelesya zyibelesyo, kubambulula, kutobelezya antela kulembulula bbuku eeli nokuba kubelesya nzila zyimbi kakunyina cizuminano cilembedwe kwiinda mumulawo abalembi babbuku kutaluba abakalisimba.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
         },
         {
           "para": "**Lyakalondolwa aba:**",
@@ -122,12 +77,56 @@
         {
           "para": "Vision Milimo (2026)",
           "center": true
-        }
-      ]
-    },
-    {
-      "find": "Lyakasimbwa aba Zambia Educational Publishing House P.O. Box 32664",
-      "with": [
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Lyakabambwa akulembwa aba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
         {
           "vspace": "5mm"
         },
@@ -192,6 +191,12 @@
     {
       "find": "yabo yabo beni",
       "with": "yabo beni"
+    }
+  ],
+  "deleteRun": [
+    {
+      "from": "© Ministry of Education, 2026",
+      "to": "Kalima & Kahinga"
     }
   ]
 }
