@@ -1614,7 +1614,12 @@ async function typesetOne(docxPath, themeName) {
       const mm = Number(ov.spineMmPerPage) || 0.055;
       const spineMm = Math.round((pages * mm + 1) * 10) / 10;
       const logo = cov.logo && cov.logo.file ? `(file: ${S(cov.logo.file)})` : "none";
-      const spineDoc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#spine(${S(name)}, ${S(level)}, ${S(booktype)}, ${logo}, ${spineMm}mm)\n`;
+      // localLabels books: the spine speaks the cover's language too ("GILEDI 1 · BBUKU
+      // LYABAYI", not "GRADE 1 · TEACHER'S GUIDE") — the same word list as the front cover.
+      const L = themeOverrides.labels || {};
+      const spineLevel = level.replace(/\bgrade\b/i, (m) => L.grade || m).replace(/\bform\b/i, (m) => L.form || m);
+      const spineType = booktype.replace(/teacher['’]?s\s+guide/i, (m) => L.tg || m).replace(/learner['’]?s\s+book/i, (m) => L.lb || m);
+      const spineDoc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#spine(${S(name)}, ${S(spineLevel)}, ${S(spineType)}, ${logo}, ${spineMm}mm)\n`;
       const spinePdf = hasSpine ? await PDFDocument.load(compiler.pdf({ mainFileContent: spineDoc })) : null;
       // coversInBook: true — the spread becomes the book's FIRST page (as the syllabuses
       // do) in place of the separate front and back cover pages; otherwise it is written
