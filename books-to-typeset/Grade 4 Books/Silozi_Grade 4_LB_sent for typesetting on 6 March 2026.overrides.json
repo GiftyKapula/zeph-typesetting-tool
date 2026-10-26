@@ -909,8 +909,8 @@
       "with": "Kuitusisa ma Homogilafusi ni ma Homofonizi ili mifuta ya ma Homonimuzi."
     },
     {
-      "find": "Ñola mibamba yakuikupulela",
-      "with": "Ñola lipulelo yakuikupulela"
+      "find": "Ñola mibamba yakuikupulela kuitusisa mabizo",
+      "with": "Ñola lipulelo yakuikupulela kuitusisa mabizo"
     },
     {
       "find": "luteele za kubabañwi",
@@ -987,10 +987,6 @@
     {
       "find": "Musebezi 3. Musebezi wa mwa tukwata .",
       "with": "Musebezi 3: Musebezi wa mwa tukwata."
-    },
-    {
-      "find": "Ñola mibamba yakuikupulela",
-      "with": "Ñola lipulelo yakuikupulela"
     },
     {
       "find": "Homonimuzi ki manzwi a swana kwa milumo",
