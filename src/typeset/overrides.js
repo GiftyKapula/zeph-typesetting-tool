@@ -650,6 +650,7 @@ function applyOverrides(blocks, ov) {
   for (const e of ov.edit || []) {
     const b = flat.find((x) => blockPlain(x).includes(e.find));
     if (b) editBlockText(b, e.find, e.with || "");
+    else console.warn("!  edit not matched:", e.find);
   }
   // editAll: [{ find, with }] — like edit, but applied to EVERY block that contains the
   // substring (not just the first). For a recurring phrase the same across the whole
