@@ -11,7 +11,8 @@
     "M. Mwila",
     "M. Kamuya",
     "M. Mwangala",
-    "F. Nkomesha"
+    "F. Nkomesha",
+    "P. Kambaya"
   ],
   "images": {
     "image10.jpeg": {
@@ -63,121 +64,14 @@
       "src": "Silozi_Grade 4_LB_sent for typesetting on 6 March 2026-hires/image8.png"
     }
   },
-  "replaceExact": [
-    {
-      "find": "KUBULELA NI KUTEELEZA",
-      "with": "KALULO: KUTEELEZA NI KUBULELA",
-      "all": true
-    },
-    {
-      "find": "KUTEELEZA NI KUBULELA",
-      "with": "KALULO: KUTEELEZA NI KUBULELA",
-      "all": true
-    },
-    {
-      "find": "KUBALA",
-      "with": "KALULO: KUBALA",
-      "all": true
-    },
-    {
-      "find": "KUTWISISO",
-      "with": "KALULO: KUTWISISO",
-      "all": true
-    },
-    {
-      "find": "KUÑOLA",
-      "with": "KALULO: KUÑOLA",
-      "all": true
-    },
-    {
-      "find": "PUPO YA PUWO",
-      "with": "KALULO: PUPO YA PUWO",
-      "all": true
-    },
-    {
-      "find": "ZIBO YA MANZWI",
-      "with": "KALULO: ZIBO YA MANZWI",
-      "all": true
-    },
-    {
-      "find": "KUBALA KAKUTWISISO",
-      "with": "KALULO: KUBALA KAKUTWISISO",
-      "all": true
-    },
-    {
-      "find": "Zibo Ya Manzwi",
-      "with": "KALULO: ZIBO YA MANZWI"
-    },
-    {
-      "find": "MAKANDE",
-      "with": "TUTO: MAKANDE"
-    },
-    {
-      "find": "Kukandeka Makande",
-      "with": "Tutonyana: Kukandeka likande"
-    },
-    {
-      "find": "KUBALA LIBUKA ZE ITUSISIZWE",
-      "with": "SIMBULE SA BUPAKI"
-    },
-    {
-      "find": "Kutwisiso ya Mulomo",
-      "with": "Kutwisiso ya zebaliwa kakutumusa/zebulelwa"
-    },
-    {
-      "find": "Kutwisiso Hakuitusiswa Mulomo",
-      "with": "Kutwisiso ya zebaliwa kakutumusa/zebulelwa"
-    },
-    {
-      "find": "Mashitanguti",
-      "with": "MASHITANGUTI"
-    },
-    {
-      "find": "Kubala ka kutumusa",
-      "with": "KUBALA KAKUTUMUSA",
-      "all": true
-    }
-  ],
   "editAll": [
     {
-      "find": "Buikoneli Kakutala:",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
-      "find": "Buikoneli Kakutala.",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
       "find": "Buikoneli kakutala:",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
-      "find": "Buikoneli kakutala.",
-      "with": "Sika luli sesilukela kukoniwa:"
+      "with": "Sika luli sesilukanela kukoniwa:"
     },
     {
       "find": "Buikoneli bobutuna:",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
-      "find": "Buikoneli bobutuna.",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
-      "find": "Buikoneli Kakutala",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
-      "find": "Buikoneli kakutala",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
-      "find": "Sika luli sesi lukelwa kukoniwa:",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
-      "find": "Sika luli sesi lukela ku koniwa:",
-      "with": "Sika luli sesilukela kukoniwa:"
+      "with": "Sika luli sesilukanela kukoniwa:"
     },
     {
       "find": "kuti batuse",
@@ -196,7 +90,7 @@
       "with": "Lunani mokuyumbelwa"
     },
     {
-      "find": "Kubala kokusina ku kakatela ki kubala makande kusina kukakatela, kuutwahala hande ni ku bonisa muinelo",
+      "find": "Kubala kokusina ku kakatela ki kubala makande kusina kukakatela, kuutwahala hande ni kubonisa muinelo",
       "with": "Kubala kokusina kukakatela ki mukwa wakubala ka bunangu ni ka linzwi leliutwahala hande ili kubonisa muinelo"
     },
     {
@@ -268,38 +162,50 @@
       "with": "Mbasi iswana ……. ndu yetuna mokukona kulobala nyangela ya batu."
     },
     {
-      "find": "Sika luli sesi lukela  kukukoniwa:",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
       "find": "Sika luli sesi lukanelwa kukoniwa:",
-      "with": "Sika luli sesilukela kukoniwa:"
+      "with": "Sika luli sesilukanela kukoniwa:"
     },
     {
       "find": "Sika luli sesi lukanewa kukoniwa:",
-      "with": "Sika luli sesilukela kukoniwa:"
+      "with": "Sika luli sesilukanela kukoniwa:"
     },
     {
       "find": "Sika luli sesi lukanela kukoniwa",
-      "with": "Sika luli sesilukela kukoniwa"
-    },
-    {
-      "find": "Buikoneli kakkutala",
-      "with": "Sika luli sesilukela kukoniwa:"
-    },
-    {
-      "find": "KUBALA KUSINA KU KAKATELA",
-      "with": "KUBALA KUSINA KUKAKATELA"
+      "with": "Sika luli sesilukanela kukoniwa"
     },
     {
       "find": "mwa bingunguli",
       "with": "mokuyumbelwa"
+    },
+    {
+      "find": "Bala taba kusina kukakatela",
+      "with": "Bala taba yetatama kusina kukakatela."
+    },
+    {
+      "find": "famandesiki",
+      "with": "fa madesiki"
+    },
+    {
+      "find": "ma kilasi",
+      "with": "makilasi"
+    },
+    {
+      "find": "Ma luti babona",
+      "with": "Maluti babona"
+    },
+    {
+      "find": "lebakabala hañwi bo muluti.",
+      "with": "lebakabala hañwi bo muluti lelitatama:"
+    },
+    {
+      "find": "balikani ba hae",
+      "with": "balikani ba hae"
     }
   ],
   "replace": [
     {
-      "find": "Muzuzu wa kelezo kwa sikolo sa luna",
-      "with": "Muzuzu wa kelezo kwa sikolo sa luna ki sibaka se sikuzize ni pabalelo kwa bana basikolo. Sina ni lipula za mbombolelwa, maswaniso fa ma mota, ni tafule foo bana ba sikolo baina ni kuambola ni bo muluti. Bana basikolo ba tahanga mwa muzuzu wobaikutwa kuishonda, habai kutwa kubani minahano yemiñata ye bautwa butuku, niku nyema, kubilaela kuamana ni sikolo kapa kwandu. Muluti u teeleza ka tokomelo ni kutusa bana basikolo kubulela mwa baikutwela. Sibaka se sikuzize situsa bana ba sikolo kulukuluha, kuikutwa kuba batu babautwisisizwe, niku ituta linzila za buino bobunde za kukusufaza maikuto. Hasamulaho hakupotela ndu ya kelezo, bana ba sikolo babañata baikutwanga hande, bundume bobuñata, ni kuitukiseza ku kuta kwa sitopa ni ku zwelapili ku ituta."
+      "find": "Muzuzu wa kelezo kwa sikolo saluna",
+      "with": "Muzuzu wa kelezo kwa sikolo saluna ki sibaka se sikuzize ni pabalelo kwa bana ba sikolo. Sina ni lipula za mbombolelwa, maswaniso fa ma mota, ni tafule foo bana ba sikolo baina ni kuambola ni bo muluti. Bana ba sikolo ba tahanga mwa muzuzu wobaikutwa kuishonda, habai kutwa kubani minahano yemiñata ye bautwa butuku, niku nyema, kubilaela kuamana ni sikolo kapa kwandu. Muluti u teeleza ka tokomelo ni kutusa bana ba sikolo kubulela mwa baikutwela. Sibaka se sikuzize situsa bana ba sikolo kulukuluha, kuikutwa kuba batu babautwisisize, niku ituta linzila za buino bobunde za kukusufaza maikuto. Hasamulaho hakupotela ndu ya kelezo, bana ba sikolo babañata baikutwanga hande. Bana ba sikolo hape baikutwanga bundume bobuñata habanze baitukiseza kukuta kwa sitopa sabona kuli bayozwela pili kuituta hape."
     }
   ],
   "removeRange": [
@@ -307,6 +213,11 @@
       "after": "Bina nafumani kaze ye latehile",
       "from": "MUSEBEZI 3: LIKWATA",
       "to": "Yomuñwi abulela"
+    },
+    {
+      "after": "Mwa likwata za mina muñolulule",
+      "from": "Kusufazo",
+      "to": "Zakueza"
     }
   ],
   "renameNear": [
@@ -314,6 +225,61 @@
       "find": "MUSEBEZI 2: LIKWATA",
       "near": "Lisimili libapanya lika zepeli",
       "to": "MUSEBEZI 3: LIKWATA"
+    },
+    {
+      "find": "Musebezi 1: LIKWATA",
+      "near": "1. Kana uutwile likamañi mwa likande?",
+      "to": "Musebezi 1: Likwata"
+    },
+    {
+      "find": "MUSEBEZI 3: LIKWATA",
+      "near": "1. Kana uutwile likamañi mwa likande?",
+      "to": "Musebezi 3: Likwata"
+    },
+    {
+      "find": "MUSEBEZI 4: LIKWATA",
+      "near": "1. Kana uutwile likamañi mwa likande?",
+      "to": "Musebezi 4: Likwata"
+    },
+    {
+      "find": "MUSEBEZI 1: LIKWATA",
+      "near": "1. Nekuezahalile likamañi mwa likande?",
+      "to": "Musebezi 1: Likwata"
+    },
+    {
+      "find": "MUSEBEZI 2: LIKWATA",
+      "near": "1. Nekuezahalile likamañi mwa likande?",
+      "to": "Musebezi 2: Likwata"
+    },
+    {
+      "find": "Musebezi 1:  LIKWATA",
+      "near": "Bala mibamba yetatama mi u lale manzwi a yemela",
+      "to": "Musebezi 1: Likwata"
+    },
+    {
+      "find": "Musebezi 2:  LIKWATA",
+      "near": "Bala mibamba yetatama mi u lale manzwi a yemela",
+      "to": "Musebezi 2: Likwata"
+    },
+    {
+      "find": "MUSEBEZI 2: LIKWATA",
+      "near": "Pupo ya puwo, ilutusa kwa kubiha",
+      "to": "MUSEBEZI 6: LIKWATA"
+    },
+    {
+      "find": "MUSEBEZI 1: BABABELI BABABELI",
+      "near": "Pupo ya puwo, ilutusa kwa kubiha",
+      "to": "MUSEBEZI 5: BABABELI BABABELI"
+    },
+    {
+      "find": "MUSEBEZI 2: LIKWATA",
+      "near": "Pupo ya puwo, ilutusa kwa kubiha",
+      "to": "MUSEBEZI 4: LIKWATA"
+    },
+    {
+      "find": "MUSEBEZI 1: BABABELI BABABELI",
+      "near": "Pupo ya puwo, ilutusa kwa kubiha",
+      "to": "MUSEBEZI 3: BABABELI BABABELI"
     }
   ],
   "replaceBlocks": [
@@ -372,10 +338,10 @@
       ]
     },
     {
-      "find": "Sika luli sesilukela kukoniwa Uka:",
+      "find": "Sika luli sesilukanela kukoniwa Uka:",
       "with": [
         {
-          "label": "Sika luli sesilukela kukoniwa:"
+          "label": "Sika luli sesilukanela kukoniwa:"
         },
         {
           "label": "Uka:"
@@ -528,16 +494,65 @@
           "center": true
         }
       ]
+    },
+    {
+      "find": "Kikezo ya kubeela muhupulo kwa lika zo bala kapa zo teeleza.",
+      "with": [
+        {
+          "para": "Kutwisiso ki kezo yakubeela muhupulo kwa lika zobala kapa zoteeleza."
+        }
+      ]
+    },
+    {
+      "find": "Buikoneli bobutuna: Uka:",
+      "with": [
+        {
+          "label": "Sika luli sesilukanela kukoniwa:"
+        },
+        {
+          "label": "Uka:"
+        }
+      ]
     }
   ],
   "insertText": [
     {
-      "after": "KUBALA KAKUTUMUSA",
-      "text": "Kubala kakutumusa ki mukwa wa kubala kakuzuseza linzwi kwande. Haubala kakutumusa mutu kaufela yali bukaufi ni wena ukona kuutwa kaufela zeubala."
+      "after": "TUTONYANA: KUBALA KAKUTUMUSA",
+      "text": "Kubala kakutumusa ki mukwa wakubala kakuzuseza linzwi kwande. Haubala kakutumusa mutu kaufela yali bukaufi ni wena ukona kuutwa kaufela zeubala."
+    },
+    {
+      "after": "Mukamba Mwangala",
+      "text": "**Kambaya Pelekelo**: Holds M.A degree in Linguistic Science (University of Zambia). He is currently Head of Languages Department, Mongu School for Continuing Education, Mongu."
+    },
+    {
+      "before": "KALULO: KUTEELEZA NI KUBULELA",
+      "text": "Kana ubona ñi mwa siswaniso sesifahalimu? Ki siswaniso sa bana ba sikolo babaituta kubala mi basebeza hamoho habanze baituta kubala cwalo. Baituta kubala maswaniso pili kona bakakona kuituta kubala zeñozwi. Ubone kuli ni wena uituta kubala kakusebeza ni balikani bahao kwa sikolo."
+    },
+    {
+      "before": "MUKANGA 7:",
+      "items": [
+        {
+          "head": "Kusufazo"
+        },
+        {
+          "para": "Mwa kalulo mo baituti balutilwe manzwi haitusiswa kushangela kapa kungungahanya lipulelo. Manzwi haitusiswa kushangela kapa kungungahanya lipulelo ki a mañata hahulu kono mwa kalulo mo kulutilwe manzwi atatama: ni, kono, bakeñisa mane ni linzwi la cwale."
+        }
+      ]
+    },
+    {
+      "before": "MUKANGA 8:",
+      "items": [
+        {
+          "head": "Kusufazo"
+        },
+        {
+          "para": "Mwa kalulo ye, baituti baitutile za manzwi atoloka kezo ya sibaka mane ni kezo ya nako."
+        }
+      ]
     },
     {
       "after": "KALULO: KUTEELEZA NI KUBULELA",
-      "near": "Makande ki litaba ze nde za niti kapa za",
+      "near": "Makande ki litaba zende za niti kapa za",
       "items": [
         {
           "raw": {
@@ -545,11 +560,12 @@
             "v": "0.5em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "before": "KALULO: KUBALA",
-      "near": "Kubala kusina kukakatela kukutusa kuli u",
+      "near": "Kubala ka kubulela ki kubala ka kupunda nikutumusa manzwi.",
       "items": [
         {
           "raw": {
@@ -557,23 +573,25 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
-      "after": "KALULO: KUTEELEZA NI KUBULELA",
-      "near": "Kiza butokwa kakuli lilu tusa kuba ni si",
+      "after": "KALULO: ZIBO YA MANZWI",
+      "near": "Itusisa manzwi a litaluso ze bata kuswan",
       "items": [
         {
           "raw": {
             "t": "parspacing",
-            "v": "0.32em"
+            "v": "0.5em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
-      "before": "KALULO: KUBALA",
-      "near": "Ki batu kapa libuka zeitusiswa kwa ku ba",
+      "before": "KALULO: KUTWISISO",
+      "near": "Ki zibo yakukona kuutwisisa taluso ya ze",
       "items": [
         {
           "raw": {
@@ -581,11 +599,38 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
+    },
+    {
+      "after": "KALULO: PUPO YA PUWO",
+      "near": "Ki mukoloko wa manzwi, mibamba ni litaba",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.5em"
+          }
+        }
+      ],
+      "tight": true
+    },
+    {
+      "before": "KALULO: KUTEELEZA NI KUBULELA",
+      "near": "Maikuto ki mouikutwelanga akuezahalanga",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ],
+      "tight": true
     },
     {
       "after": "KALULO: KUBALA",
-      "near": "Kubala kakutumusa ki mukwa wa kubala kak",
+      "near": "Kubala kokusina kukakatela ki mukwa wakubala",
       "items": [
         {
           "raw": {
@@ -593,7 +638,8 @@
             "v": "0.5em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "before": "KALULO: ZIBO YA MANZWI",
@@ -605,11 +651,12 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "after": "KALULO: ZIBO YA MANZWI",
-      "near": "Linombolo li lutusa kubala, kulikanya, n",
+      "near": "Linombolo lilutusa kubala, kulikanya, n",
       "items": [
         {
           "raw": {
@@ -617,11 +664,12 @@
             "v": "0.5em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "before": "KALULO: KUTWISISO",
-      "near": "Ku utwisisa kwa kuteeleza ki za ku utwis",
+      "near": "kwa kuteeleza ki za",
       "items": [
         {
           "raw": {
@@ -629,7 +677,8 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "after": "KALULO: KUTWISISO",
@@ -641,7 +690,8 @@
             "v": "0.5em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "before": "KALULO: KUÑOLA",
@@ -653,7 +703,34 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
+    },
+    {
+      "after": "KALULO: PUPO YA PUWO",
+      "near": "Ki manzwi aitusiswa kukopanya manzwi ama",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.5em"
+          }
+        }
+      ],
+      "tight": true
+    },
+    {
+      "before": "KALULO: KUBULELA NI KUTEELEZA",
+      "near": "Likute ki kubonisa pabalelo, mombociima,",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ],
+      "tight": true
     },
     {
       "after": "KALULO: PUPO YA PUWO",
@@ -665,11 +742,12 @@
             "v": "0.5em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
-      "before": "MUKANGA 8: BUIKETO NI SILELEZO YA SILAFAZO YA LILALANDA",
-      "near": "Buiketo bwa Libaka ni Bushiamisi bwa Bus",
+      "before": "KALULO: KUBULELA NI KUTEELEZA",
+      "near": "Opela lipina za sizo.",
       "items": [
         {
           "raw": {
@@ -677,7 +755,8 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "after": "KALULO: KUBALA",
@@ -689,7 +768,8 @@
             "v": "0.5em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "before": "KALULO: ZIBO YA MANZWI",
@@ -701,10 +781,11 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
-      "after": "KALULO: KUTEELEZA NI KUBULELA",
+      "after": "KALULO: KUBULELA NI KUTEELEZA",
       "near": "Ki piho ye tatulula muutwahalelo ni mubo",
       "items": [
         {
@@ -713,11 +794,12 @@
             "v": "0.5em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "before": "KALULO: KUBALA",
-      "near": "Kubala kusina kukakatela kutusa kuli uba",
+      "near": "Kubala ka kubulela ki kubala ka kupunda niku tumusa manzwi.",
       "items": [
         {
           "raw": {
@@ -725,7 +807,34 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
+    },
+    {
+      "after": "KALULO: KUTWISISO",
+      "near": "Kuteeleza ka kutwisiso kutalusa kuiseza",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.4em"
+          }
+        }
+      ],
+      "tight": true
+    },
+    {
+      "before": "KALULO: KUÑOLA",
+      "near": "Ki mufuta wa kuñola kokuluta za buniti b",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ],
+      "tight": true
     },
     {
       "after": "KALULO: KUÑOLA",
@@ -734,14 +843,15 @@
         {
           "raw": {
             "t": "parspacing",
-            "v": "0.5em"
+            "v": "0.4em"
           }
         }
-      ]
+      ],
+      "tight": true
     },
     {
       "before": "KALULO: PUPO YA PUWO",
-      "near": "Lipulelo zezinga ki linzwi kapa pulelo y",
+      "near": "Lipulelo zezinga ki linzwi kapa pulelo yeitusisizwe",
       "items": [
         {
           "raw": {
@@ -749,13 +859,14 @@
             "v": "0.86em"
           }
         }
-      ]
+      ],
+      "tight": true
     }
   ],
   "edit": [
     {
       "find": "Buikoneli kakutala:",
-      "with": "Sika sesilukela luli kukoniwa:"
+      "with": "Sika luli sesilukanela kukoniwa:"
     },
     {
       "find": "Bala taba kusina  kukakatela",
@@ -776,6 +887,118 @@
     {
       "find": "Musebezi 1:Musebezi ka buñwi",
       "with": "Musebezi 1: Musebezi ka buñwi"
+    },
+    {
+      "find": "Ki manzwi aswana mulumo ni muñolelo kono ashutana litaluso.",
+      "with": "Ki manzwi aswana mulumo ni muñolelo kono ashutana litaluso. Mifuta ya lihomonimu ki lihomofoni ni lihomogilafu. Lihomofoni ki manzwi aswana kwa milumo kono ashutana kwa litaluso. Lihomogilafu zona ki manzwi aswana kwa muñolelo kono ashutana kwa litaluso."
+    },
+    {
+      "find": "KUTOSA LIHOMONIMU NI",
+      "with": "KUTOSA LIHOMOFONI NI"
+    },
+    {
+      "find": "Muatose nji ki homonimu kapa",
+      "with": "Muatose nji ki homofoni kapa"
+    },
+    {
+      "find": "ukakon:",
+      "with": "ukakona:"
+    },
+    {
+      "find": "Kuitusisa ma Homogilafusi ni ma Homonimuzi.",
+      "with": "Kuitusisa ma Homogilafusi ni ma Homofonizi ili mifuta ya ma Homonimuzi."
+    },
+    {
+      "find": "Ñola mibamba yakuikupulela",
+      "with": "Ñola lipulelo yakuikupulela"
+    },
+    {
+      "find": "luteele za kubabañwi",
+      "with": "luteeleza kubabañwi"
+    },
+    {
+      "find": "niku banitaboyakubala",
+      "with": "ni kuba ni tabo ya kubala"
+    },
+    {
+      "find": "Musebezi 1. Kutosa puwo ya muñolo ye talusa",
+      "with": "Musebezi 1: Kutosa Puwo ya Muñolo yena ni Taluso"
+    },
+    {
+      "find": "Ngungahanya mibamba yetatama",
+      "with": "Ngungahanya lipulelo yetatama"
+    },
+    {
+      "find": "Kwa mafelelezo a tuto u bana ba",
+      "with": "Kwa mafelelezo a tuto bana ba"
+    },
+    {
+      "find": "wamwa lilalanda",
+      "with": "wa mwa lilalanda"
+    },
+    {
+      "find": "ku mutolokela",
+      "with": "kumutolokela"
+    },
+    {
+      "find": "Hatusa bana ba ba sikolo",
+      "with": "Hatusa bana ba sikolo"
+    },
+    {
+      "find": "Taleleza mabizo a yemela",
+      "with": "Taleleza manzwi a yemela"
+    },
+    {
+      "find": "tikitialekiswa",
+      "with": "tikiti alekiswa"
+    },
+    {
+      "find": "Itusisa lipulelo zezinga.",
+      "with": "Itusisa lipulelo zezinga ni mashitanguti kakuluka."
+    },
+    {
+      "find": "Mwatuto ye, banabasikolobaitutilekulikubalakusinakukakatela ki kubalakusinakukakatelaluli kutalusaku bala ka bundume, ka nitini ka mubulelelo.",
+      "with": "Mwa tuto ye, bana ba sikolo baitutile kuli kubala kusina kukakatela ki kubala kusina kukakatela luli kutalusa kubala ka bundume, ka niti ni ka mubulelelo."
+    },
+    {
+      "find": "baitutlie",
+      "with": "baitutile"
+    },
+    {
+      "find": "MUSEBEZI: 1 LIKWATA ZA BABABELI BABABELI",
+      "with": "MUSEBEZI 1: LIKWATA ZA BABABELI BABABELI"
+    },
+    {
+      "find": "Musebezi 2. Likwata",
+      "with": "Musebezi 2: Likwata"
+    },
+    {
+      "find": "Musebezi:4 Mwa tukwata twa bababeli  bababeli.",
+      "with": "Musebezi 4: Mwa tukwata twa bababeli bababeli."
+    },
+    {
+      "find": "MUSEBEZI1: LIKWATA",
+      "with": "MUSEBEZI 1: LIKWATA"
+    },
+    {
+      "find": "Musebezi 2. Buñwi",
+      "with": "Musebezi 2: Buñwi"
+    },
+    {
+      "find": "Musebezi 3. Musebezi wa mwa tukwata .",
+      "with": "Musebezi 3: Musebezi wa mwa tukwata."
+    },
+    {
+      "find": "Ñola mibamba yakuikupulela",
+      "with": "Ñola lipulelo yakuikupulela"
+    },
+    {
+      "find": "Homonimuzi ki manzwi a swana kwa milumo",
+      "with": "Homofonizi ki manzwi a swana kwa milumo"
+    },
+    {
+      "find": "Baba  ñwi abafiyela",
+      "with": "Babañwi abafiyela"
     }
   ],
   "splitBox": [
@@ -792,7 +1015,7 @@
       "marker": "ii."
     },
     {
-      "find": "lipuzo zezwelela fa likande le bakabala",
+      "find": "lipuzo zezwelela fa likande lebakabala",
       "marker": "II."
     },
     {
@@ -852,10 +1075,1747 @@
   ],
   "glossaryColumns": true,
   "wordFix": {
-    "sesi lukela kukoniwa": "sesilukela kukoniwa",
+    "sesi lukela kukoniwa": "sesilukanela kukoniwa",
     "LINDALO": "LISUPI",
     "Lindalo": "Lisupi",
     "lindalo": "lisupi",
-    "ze  konakubalwa": "ze konakubalwa"
-  }
+    "ze  konakubalwa": "ze konakubalwa",
+    "sesilukela": "sesilukanela",
+    "batusisze": "batusize",
+    "Batusisze": "Batusize",
+    "BATUSISZE": "BATUSIZE",
+    "curiculum": "curriculum",
+    "Curiculum": "Curriculum",
+    "CURICULUM": "CURRICULUM",
+    "ku bala": "kubala",
+    "Ku bala": "Kubala",
+    "KU BALA": "KUBALA",
+    "basikolo": "ba sikolo",
+    "Basikolo": "Ba sikolo",
+    "BASIKOLO": "BA SIKOLO",
+    "basikoloba": "ba sikolo ba",
+    "Basikoloba": "Ba sikolo ba",
+    "BASIKOLOBA": "BA SIKOLO BA",
+    "banaba": "bana ba",
+    "Banaba": "Bana ba",
+    "BANABA": "BANA BA",
+    "baba beli": "bababeli",
+    "Baba beli": "Bababeli",
+    "BABA BELI": "BABABELI",
+    "ku itusisa": "kuitusisa",
+    "Ku itusisa": "Kuitusisa",
+    "KU ITUSISA": "KUITUSISA",
+    "ku teeleza": "kuteeleza",
+    "Ku teeleza": "Kuteeleza",
+    "KU TEELEZA": "KUTEELEZA",
+    "mwalikwata": "mwa likwata",
+    "Mwalikwata": "Mwa likwata",
+    "MWALIKWATA": "MWA LIKWATA",
+    "ku bulela": "kubulela",
+    "Ku bulela": "Kubulela",
+    "KU BULELA": "KUBULELA",
+    "bomuluti": "bo muluti",
+    "Bomuluti": "Bo muluti",
+    "BOMULUTI": "BO MULUTI",
+    "baba ñwi": "babañwi",
+    "Baba ñwi": "Babañwi",
+    "BABA ÑWI": "BABAÑWI",
+    "tu kwata": "tukwata",
+    "Tu kwata": "Tukwata",
+    "TU KWATA": "TUKWATA",
+    "li papali": "lipapali",
+    "Li papali": "Lipapali",
+    "LI PAPALI": "LIPAPALI",
+    "ku ituta": "kuituta",
+    "Ku ituta": "Kuituta",
+    "KU ITUTA": "KUITUTA",
+    "ku tusa": "kutusa",
+    "Ku tusa": "Kutusa",
+    "KU TUSA": "KUTUSA",
+    "ku utwisisa": "kuutwisisa",
+    "Ku utwisisa": "Kuutwisisa",
+    "KU UTWISISA": "KUUTWISISA",
+    "mwatukwata": "mwa tukwata",
+    "Mwatukwata": "Mwa tukwata",
+    "MWATUKWATA": "MWA TUKWATA",
+    "mwa tu kwata": "mwa tukwata",
+    "Mwa tu kwata": "Mwa tukwata",
+    "MWA TU KWATA": "MWA TUKWATA",
+    "mulikanaa hao": "mulikanaahao",
+    "Mulikanaa hao": "Mulikanaahao",
+    "MULIKANAA HAO": "MULIKANAAHAO",
+    "mulikanahao": "mulikanaahao",
+    "Mulikanahao": "Mulikanaahao",
+    "MULIKANAHAO": "MULIKANAAHAO",
+    "mulikana hao": "mulikanaahao",
+    "Mulikana hao": "Mulikanaahao",
+    "MULIKANA HAO": "MULIKANAAHAO",
+    "nimulikanaahao": "ni mulikanaahao",
+    "Nimulikanaahao": "Ni mulikanaahao",
+    "NIMULIKANAAHAO": "NI MULIKANAAHAO",
+    "ma bizo": "mabizo",
+    "Ma bizo": "Mabizo",
+    "MA BIZO": "MABIZO",
+    "ma sila": "masila",
+    "Ma sila": "Masila",
+    "MA SILA": "MASILA",
+    "ku fumana": "kufumana",
+    "Ku fumana": "Kufumana",
+    "KU FUMANA": "KUFUMANA",
+    "ka kutumusa": "kakutumusa",
+    "Ka kutumusa": "Kakutumusa",
+    "KA KUTUMUSA": "KAKUTUMUSA",
+    "ka ku tumusa": "kakutumusa",
+    "Ka ku tumusa": "Kakutumusa",
+    "KA KU TUMUSA": "KAKUTUMUSA",
+    "kakutu musa": "kakutumusa",
+    "Kakutu musa": "Kakutumusa",
+    "KAKUTU MUSA": "KAKUTUMUSA",
+    "ku tumusa": "kutumusa",
+    "Ku tumusa": "Kutumusa",
+    "KU TUMUSA": "KUTUMUSA",
+    "zamina": "za mina",
+    "Zamina": "Za mina",
+    "ZAMINA": "ZA MINA",
+    "ka kuluka": "kakuluka",
+    "Ka kuluka": "Kakuluka",
+    "KA KULUKA": "KAKULUKA",
+    "kakutwisiso": "ka kutwisiso",
+    "Kakutwisiso": "Ka kutwisiso",
+    "KAKUTWISISO": "KA KUTWISISO",
+    "ku bonisa": "kubonisa",
+    "Ku bonisa": "Kubonisa",
+    "KU BONISA": "KUBONISA",
+    "ka kusasana": "kakusasana",
+    "Ka kusasana": "Kakusasana",
+    "KA KUSASANA": "KAKUSASANA",
+    "kaku sasana": "kakusasana",
+    "Kaku sasana": "Kakusasana",
+    "KAKU SASANA": "KAKUSASANA",
+    "ku bapala": "kubapala",
+    "Ku bapala": "Kubapala",
+    "KU BAPALA": "KUBAPALA",
+    "ka kutiisa": "kakutiisa",
+    "Ka kutiisa": "Kakutiisa",
+    "KA KUTIISA": "KAKUTIISA",
+    "kaku tiisa": "kakutiisa",
+    "Kaku tiisa": "Kakutiisa",
+    "KAKU TIISA": "KAKUTIISA",
+    "ma zoho": "mazoho",
+    "Ma zoho": "Mazoho",
+    "MA ZOHO": "MAZOHO",
+    "ku toloka": "kutoloka",
+    "Ku toloka": "Kutoloka",
+    "KU TOLOKA": "KUTOLOKA",
+    "ku talusa": "kutalusa",
+    "Ku talusa": "Kutalusa",
+    "KU TALUSA": "KUTALUSA",
+    "zetatama": "ze tatama",
+    "Zetatama": "Ze tatama",
+    "ZETATAMA": "ZE TATAMA",
+    "yo muñwi": "yomuñwi",
+    "Yo muñwi": "Yomuñwi",
+    "YO MUÑWI": "YOMUÑWI",
+    "ye filwe": "yefilwe",
+    "Ye filwe": "Yefilwe",
+    "YE FILWE": "YEFILWE",
+    "ku kenisa": "kukenisa",
+    "Ku kenisa": "Kukenisa",
+    "KU KENISA": "KUKENISA",
+    "kwamazoho": "kwa mazoho",
+    "Kwamazoho": "Kwa mazoho",
+    "KWAMAZOHO": "KWA MAZOHO",
+    "ze kola": "zekola",
+    "Ze kola": "Zekola",
+    "ZE KOLA": "ZEKOLA",
+    "cwaloni": "cwalo ni",
+    "Cwaloni": "Cwalo ni",
+    "CWALONI": "CWALO NI",
+    "ze nde": "zende",
+    "Ze nde": "Zende",
+    "ZE NDE": "ZENDE",
+    "zaona": "za ona",
+    "Zaona": "Za ona",
+    "ZAONA": "ZA ONA",
+    "ye tatama": "yetatama",
+    "Ye tatama": "Yetatama",
+    "YE TATAMA": "YETATAMA",
+    "yemibeli": "ye mibeli",
+    "Yemibeli": "Ye mibeli",
+    "YEMIBELI": "YE MIBELI",
+    "li kalulo": "likalulo",
+    "Li kalulo": "Likalulo",
+    "LI KALULO": "LIKALULO",
+    "ba likani": "balikani",
+    "Ba likani": "Balikani",
+    "BA LIKANI": "BALIKANI",
+    "bu tungi": "butungi",
+    "Bu tungi": "Butungi",
+    "BU TUNGI": "BUTUNGI",
+    "kabubebe": "ka bubebe",
+    "Kabubebe": "Ka bubebe",
+    "KABUBEBE": "KA BUBEBE",
+    "kanako": "ka nako",
+    "Kanako": "Ka nako",
+    "KANAKO": "KA NAKO",
+    "shutanashutana": "shutana shutana",
+    "Shutanashutana": "Shutana shutana",
+    "SHUTANASHUTANA": "SHUTANA SHUTANA",
+    "ku eza": "kueza",
+    "Ku eza": "Kueza",
+    "KU EZA": "KUEZA",
+    "mwabubeli": "mwa bubeli",
+    "Mwabubeli": "Mwa bubeli",
+    "MWABUBELI": "MWA BUBELI",
+    "ze peli": "zepeli",
+    "Ze peli": "Zepeli",
+    "ZE PELI": "ZEPELI",
+    "yabona": "ya bona",
+    "Yabona": "Ya bona",
+    "YABONA": "YA BONA",
+    "mwatoho": "mwa toho",
+    "Mwatoho": "Mwa toho",
+    "MWATOHO": "MWA TOHO",
+    "kamukwa": "ka mukwa",
+    "Kamukwa": "Ka mukwa",
+    "KAMUKWA": "KA MUKWA",
+    "nimaikuto": "ni maikuto",
+    "Nimaikuto": "Ni maikuto",
+    "NIMAIKUTO": "NI MAIKUTO",
+    "ku alaba": "kualaba",
+    "Ku alaba": "Kualaba",
+    "KU ALABA": "KUALABA",
+    "ukabala": "uka bala",
+    "Ukabala": "Uka bala",
+    "UKABALA": "UKA BALA",
+    "sa luna": "saluna",
+    "Sa luna": "Saluna",
+    "SA LUNA": "SALUNA",
+    "lika mañi": "likamañi",
+    "Lika mañi": "Likamañi",
+    "LIKA MAÑI": "LIKAMAÑI",
+    "ka kuakufisa": "kakuakufisa",
+    "Ka kuakufisa": "Kakuakufisa",
+    "KA KUAKUFISA": "KAKUAKUFISA",
+    "kaku akufisa": "kakuakufisa",
+    "Kaku akufisa": "Kakuakufisa",
+    "KAKU AKUFISA": "KAKUAKUFISA",
+    "ku kusufaza": "kukusufaza",
+    "Ku kusufaza": "Kukusufaza",
+    "KU KUSUFAZA": "KUKUSUFAZA",
+    "nikuba": "ni kuba",
+    "Nikuba": "Ni kuba",
+    "NIKUBA": "NI KUBA",
+    "niku ba": "ni kuba",
+    "Niku ba": "Ni kuba",
+    "NIKU BA": "NI KUBA",
+    "kikubala": "ki kubala",
+    "Kikubala": "Ki kubala",
+    "KIKUBALA": "KI KUBALA",
+    "kabundume": "ka bundume",
+    "Kabundume": "Ka bundume",
+    "KABUNDUME": "KA BUNDUME",
+    "papaliya": "papali ya",
+    "Papaliya": "Papali ya",
+    "PAPALIYA": "PAPALI YA",
+    "ka kutala": "kakutala",
+    "Ka kutala": "Kakutala",
+    "KA KUTALA": "KAKUTALA",
+    "yasibaka": "ya sibaka",
+    "Yasibaka": "Ya sibaka",
+    "YASIBAKA": "YA SIBAKA",
+    "mwateñi": "mwa teñi",
+    "Mwateñi": "Mwa teñi",
+    "MWATEÑI": "MWA TEÑI",
+    "ku buza": "kubuza",
+    "Ku buza": "Kubuza",
+    "KU BUZA": "KUBUZA",
+    "bwamina": "bwa mina",
+    "Bwamina": "Bwa mina",
+    "BWAMINA": "BWA MINA",
+    "ku bata": "kubata",
+    "Ku bata": "Kubata",
+    "KU BATA": "KUBATA",
+    "yataba": "ya taba",
+    "Yataba": "Ya taba",
+    "YATABA": "YA TABA",
+    "zekaezahala": "ze kaezahala",
+    "Zekaezahala": "Ze kaezahala",
+    "ZEKAEZAHALA": "ZE KAEZAHALA",
+    "zeka ezahala": "ze kaezahala",
+    "Zeka ezahala": "Ze kaezahala",
+    "ZEKA EZAHALA": "ZE KAEZAHALA",
+    "ze ka ezahala": "ze kaezahala",
+    "Ze ka ezahala": "Ze kaezahala",
+    "ZE KA EZAHALA": "ZE KAEZAHALA",
+    "kamafosisa": "ka mafosisa",
+    "Kamafosisa": "Ka mafosisa",
+    "KAMAFOSISA": "KA MAFOSISA",
+    "ye minde": "yeminde",
+    "Ye minde": "Yeminde",
+    "YE MINDE": "YEMINDE",
+    "kaku utwahala": "kakuutwahala",
+    "Kaku utwahala": "Kakuutwahala",
+    "KAKU UTWAHALA": "KAKUUTWAHALA",
+    "ka kuutwahala": "kakuutwahala",
+    "Ka kuutwahala": "Kakuutwahala",
+    "KA KUUTWAHALA": "KAKUUTWAHALA",
+    "ka ku utwahala": "kakuutwahala",
+    "Ka ku utwahala": "Kakuutwahala",
+    "KA KU UTWAHALA": "KAKUUTWAHALA",
+    "kabukuswani": "ka bukuswani",
+    "Kabukuswani": "Ka bukuswani",
+    "KABUKUSWANI": "KA BUKUSWANI",
+    "sesi kenile": "sesikenile",
+    "Sesi kenile": "Sesikenile",
+    "SESI KENILE": "SESIKENILE",
+    "ku butokwa": "kubutokwa",
+    "Ku butokwa": "Kubutokwa",
+    "KU BUTOKWA": "KUBUTOKWA",
+    "ka ezahala": "kaezahala",
+    "Ka ezahala": "Kaezahala",
+    "KA EZAHALA": "KAEZAHALA",
+    "ku zwelela": "kuzwelela",
+    "Ku zwelela": "Kuzwelela",
+    "KU ZWELELA": "KUZWELELA",
+    "koku sina": "kokusina",
+    "Koku sina": "Kokusina",
+    "KOKU SINA": "KOKUSINA",
+    "ku wina": "kuwina",
+    "Ku wina": "Kuwina",
+    "KU WINA": "KUWINA",
+    "wahao": "wa hao",
+    "Wahao": "Wa hao",
+    "WAHAO": "WA HAO",
+    "nakokaufela": "nako kaufela",
+    "Nakokaufela": "Nako kaufela",
+    "NAKOKAUFELA": "NAKO KAUFELA",
+    "kakubulela": "ka kubulela",
+    "Kakubulela": "Ka kubulela",
+    "KAKUBULELA": "KA KUBULELA",
+    "zabutokwa": "za butokwa",
+    "Zabutokwa": "Za butokwa",
+    "ZABUTOKWA": "ZA BUTOKWA",
+    "ze nca": "zenca",
+    "Ze nca": "Zenca",
+    "ZE NCA": "ZENCA",
+    "zeswana": "ze swana",
+    "Zeswana": "Ze swana",
+    "ZESWANA": "ZE SWANA",
+    "ye sina": "yesina",
+    "Ye sina": "Yesina",
+    "YE SINA": "YESINA",
+    "kuzuseza pili": "kuzusezapili",
+    "Kuzuseza pili": "Kuzusezapili",
+    "KUZUSEZA PILI": "KUZUSEZAPILI",
+    "zefumaneha": "ze fumaneha",
+    "Zefumaneha": "Ze fumaneha",
+    "ZEFUMANEHA": "ZE FUMANEHA",
+    "si tusa": "situsa",
+    "Si tusa": "Situsa",
+    "SI TUSA": "SITUSA",
+    "ku balela": "kubalela",
+    "Ku balela": "Kubalela",
+    "KU BALELA": "KUBALELA",
+    "mu bababeli": "mubababeli",
+    "Mu bababeli": "Mubababeli",
+    "MU BABABELI": "MUBABABELI",
+    "yeubalile": "yeu balile",
+    "Yeubalile": "Yeu balile",
+    "YEUBALILE": "YEU BALILE",
+    "ya hao": "yahao",
+    "Ya hao": "Yahao",
+    "YA HAO": "YAHAO",
+    "ze butokwa": "zebutokwa",
+    "Ze butokwa": "Zebutokwa",
+    "ZE BUTOKWA": "ZEBUTOKWA",
+    "nikufitisa": "ni kufitisa",
+    "Nikufitisa": "Ni kufitisa",
+    "NIKUFITISA": "NI KUFITISA",
+    "yeshutana": "ye shutana",
+    "Yeshutana": "Ye shutana",
+    "YESHUTANA": "YE SHUTANA",
+    "niwena": "ni wena",
+    "Niwena": "Ni wena",
+    "NIWENA": "NI WENA",
+    "la kuikupulela": "lakuikupulela",
+    "La kuikupulela": "Lakuikupulela",
+    "LA KUIKUPULELA": "LAKUIKUPULELA",
+    "kituto": "ki tuto",
+    "Kituto": "Ki tuto",
+    "KITUTO": "KI TUTO",
+    "balakusina": "bala kusina",
+    "Balakusina": "Bala kusina",
+    "BALAKUSINA": "BALA KUSINA",
+    "mubambaulimuñwi": "mubamba ulimuñwi",
+    "Mubambaulimuñwi": "Mubamba ulimuñwi",
+    "MUBAMBAULIMUÑWI": "MUBAMBA ULIMUÑWI",
+    "zetaalu": "ze taalu",
+    "Zetaalu": "Ze taalu",
+    "ZETAALU": "ZE TAALU",
+    "yeama": "ye ama",
+    "Yeama": "Ye ama",
+    "YEAMA": "YE AMA",
+    "nikuli": "ni kuli",
+    "Nikuli": "Ni kuli",
+    "NIKULI": "NI KULI",
+    "nakomañi": "nako mañi",
+    "Nakomañi": "Nako mañi",
+    "NAKOMAÑI": "NAKO MAÑI",
+    "ku nwa": "kunwa",
+    "Ku nwa": "Kunwa",
+    "KU NWA": "KUNWA",
+    "bo bunde": "bobunde",
+    "Bo bunde": "Bobunde",
+    "BO BUNDE": "BOBUNDE",
+    "ba lukela": "balukela",
+    "Ba lukela": "Balukela",
+    "BA LUKELA": "BALUKELA",
+    "nimibamba": "ni mibamba",
+    "Nimibamba": "Ni mibamba",
+    "NIMIBAMBA": "NI MIBAMBA",
+    "yalibuka": "ya libuka",
+    "Yalibuka": "Ya libuka",
+    "YALIBUKA": "YA LIBUKA",
+    "ku babalela": "kubabalela",
+    "Ku babalela": "Kubabalela",
+    "KU BABALELA": "KUBABALELA",
+    "ku tatuba": "kutatuba",
+    "Ku tatuba": "Kutatuba",
+    "KU TATUBA": "KUTATUBA",
+    "ku kutela": "kukutela",
+    "Ku kutela": "Kukutela",
+    "KU KUTELA": "KUKUTELA",
+    "ku kuteka": "kukuteka",
+    "Ku kuteka": "Kukuteka",
+    "KU KUTEKA": "KUKUTEKA",
+    "laniti": "la niti",
+    "Laniti": "La niti",
+    "LANITI": "LA NITI",
+    "ka kaze": "kakaze",
+    "Ka kaze": "Kakaze",
+    "KA KAZE": "KAKAZE",
+    "ba bonisanga": "babonisanga",
+    "Ba bonisanga": "Babonisanga",
+    "BA BONISANGA": "BABONISANGA",
+    "lilu tusa": "lilutusa",
+    "Lilu tusa": "Lilutusa",
+    "LILU TUSA": "LILUTUSA",
+    "li lutusa": "lilutusa",
+    "Li lutusa": "Lilutusa",
+    "LI LUTUSA": "LILUTUSA",
+    "zamifuta": "za mifuta",
+    "Zamifuta": "Za mifuta",
+    "ZAMIFUTA": "ZA MIFUTA",
+    "wobonisa": "wo bonisa",
+    "Wobonisa": "Wo bonisa",
+    "WOBONISA": "WO BONISA",
+    "kaku yandulula": "kakuyandulula",
+    "Kaku yandulula": "Kakuyandulula",
+    "KAKU YANDULULA": "KAKUYANDULULA",
+    "ka kuyandulula": "kakuyandulula",
+    "Ka kuyandulula": "Kakuyandulula",
+    "KA KUYANDULULA": "KAKUYANDULULA",
+    "ku punda": "kupunda",
+    "Ku punda": "Kupunda",
+    "KU PUNDA": "KUPUNDA",
+    "bakabala": "baka bala",
+    "Bakabala": "Baka bala",
+    "BAKABALA": "BAKA BALA",
+    "ye mi laalu": "yemilaalu",
+    "Ye mi laalu": "Yemilaalu",
+    "YE MI LAALU": "YEMILAALU",
+    "ye milaalu": "yemilaalu",
+    "Ye milaalu": "Yemilaalu",
+    "YE MILAALU": "YEMILAALU",
+    "sesi lukile": "sesilukile",
+    "Sesi lukile": "Sesilukile",
+    "SESI LUKILE": "SESILUKILE",
+    "wa kubala": "wakubala",
+    "Wa kubala": "Wakubala",
+    "WA KUBALA": "WAKUBALA",
+    "le bakabala": "lebakabala",
+    "Le bakabala": "Lebakabala",
+    "LE BAKABALA": "LEBAKABALA",
+    "bo malumahe": "bomalumahe",
+    "Bo malumahe": "Bomalumahe",
+    "BO MALUMAHE": "BOMALUMAHE",
+    "leli ambola": "leliambola",
+    "Leli ambola": "Leliambola",
+    "LELI AMBOLA": "LELIAMBOLA",
+    "ze ñwi": "zeñwi",
+    "Ze ñwi": "Zeñwi",
+    "ZE ÑWI": "ZEÑWI",
+    "kakukuza": "ka kukuza",
+    "Kakukuza": "Ka kukuza",
+    "KAKUKUZA": "KA KUKUZA",
+    "haku na": "hakuna",
+    "Haku na": "Hakuna",
+    "HAKU NA": "HAKUNA",
+    "li inzi": "liinzi",
+    "Li inzi": "Liinzi",
+    "LI INZI": "LIINZI",
+    "ze siilwe": "zesiilwe",
+    "Ze siilwe": "Zesiilwe",
+    "ZE SIILWE": "ZESIILWE",
+    "ma botela": "mabotela",
+    "Ma botela": "Mabotela",
+    "MA BOTELA": "MABOTELA",
+    "ku ngungahanya": "kungungahanya",
+    "Ku ngungahanya": "Kungungahanya",
+    "KU NGUNGAHANYA": "KUNGUNGAHANYA",
+    "ku sileleza": "kusileleza",
+    "Ku sileleza": "Kusileleza",
+    "KU SILELEZA": "KUSILELEZA",
+    "ku mata": "kumata",
+    "Ku mata": "Kumata",
+    "KU MATA": "KUMATA",
+    "ba mati": "bamati",
+    "Ba mati": "Bamati",
+    "BA MATI": "BAMATI",
+    "ku luza": "kuluza",
+    "Ku luza": "Kuluza",
+    "KU LUZA": "KULUZA",
+    "ze zinga": "zezinga",
+    "Ze zinga": "Zezinga",
+    "ZE ZINGA": "ZEZINGA",
+    "yeshutanashutana": "ye shutana shutana",
+    "Yeshutanashutana": "Ye shutana shutana",
+    "YESHUTANASHUTANA": "YE SHUTANA SHUTANA",
+    "hivni": "hiv ni",
+    "Hivni": "Hiv ni",
+    "HIVNI": "HIV NI",
+    "kauufela": "kaufela",
+    "Kauufela": "Kaufela",
+    "KAUUFELA": "KAUFELA",
+    "kuitusiasa": "kuitusisa",
+    "Kuitusiasa": "Kuitusisa",
+    "KUITUSIASA": "KUITUSISA",
+    "kuitusia": "kuitusisa",
+    "Kuitusia": "Kuitusisa",
+    "KUITUSIA": "KUITUSISA",
+    "silfazo": "silafazo",
+    "Silfazo": "Silafazo",
+    "SILFAZO": "SILAFAZO",
+    "babanwi": "babañwi",
+    "Babanwi": "Babañwi",
+    "BABANWI": "BABAÑWI",
+    "lialuso": "litaluso",
+    "Lialuso": "Litaluso",
+    "LIALUSO": "LITALUSO",
+    "liñlo": "liñolo",
+    "Liñlo": "Liñolo",
+    "LIÑLO": "LIÑOLO",
+    "mublili": "mubili",
+    "Mublili": "Mubili",
+    "MUBLILI": "MUBILI",
+    "bababbeli": "bababeli",
+    "Bababbeli": "Bababeli",
+    "BABABBELI": "BABABELI",
+    "babbeli": "babeli",
+    "Babbeli": "Babeli",
+    "BABBELI": "BABELI",
+    "mibilli": "mibili",
+    "Mibilli": "Mibili",
+    "MIBILLI": "MIBILI",
+    "kuzweelela": "kuzwelela",
+    "Kuzweelela": "Kuzwelela",
+    "KUZWEELELA": "KUZWELELA",
+    "kakutiis": "kakutiisa",
+    "Kakutiis": "Kakutiisa",
+    "KAKUTIIS": "KAKUTIISA",
+    "kakuituisisa": "kakuitusisa",
+    "Kakuituisisa": "Kakuitusisa",
+    "KAKUITUISISA": "KAKUITUSISA",
+    "kubuhisana": "kubuisana",
+    "Kubuhisana": "Kubuisana",
+    "KUBUHISANA": "KUBUISANA",
+    "cwani": "cwañi",
+    "Cwani": "Cwañi",
+    "CWANI": "CWAÑI",
+    "sichaba": "sicaba",
+    "Sichaba": "Sicaba",
+    "SICHABA": "SICABA",
+    "muzebezi": "musebezi",
+    "Muzebezi": "Musebezi",
+    "MUZEBEZI": "MUSEBEZI",
+    "HIVni": "HIV ni"
+  },
+  "setHeading": [
+    {
+      "find": "KUBULELA NI KUTEELEZA",
+      "text": "KALULO: KUTEELEZA NI KUBULELA",
+      "as": "h2",
+      "near": "Makande ki litaba zende za niti kapa za"
+    },
+    {
+      "find": "MAKANDE",
+      "text": "TUTO: MAKANDE",
+      "as": "h3",
+      "near": "Makande ki litaba zende za niti kapa za"
+    },
+    {
+      "find": "Kukandeka Makande",
+      "text": "TUTONYANA: KUKANDEKA LIKANDE",
+      "as": "h3",
+      "near": "Makande ki litaba zende za niti kapa za"
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Kubala ka kubulela ki kubala ka kupunda nikutumusa manzwi."
+    },
+    {
+      "find": "KUBALA KUSINA KUKAKATELA",
+      "text": "TUTO: KUBALA KUSINA KUKAKATELA",
+      "as": "h3",
+      "near": "Kubala ka kubulela ki kubala ka kupunda nikutumusa manzwi."
+    },
+    {
+      "find": "Kubala Ka Kubulela",
+      "text": "TUTONYANA: KUBALA KA KUBULELA",
+      "as": "h3",
+      "near": "Kubala ka kubulela ki kubala ka kupunda nikutumusa manzwi."
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Kikufa butokwa bwa linzwi, taluso kapa k"
+    },
+    {
+      "find": "TALUSO",
+      "text": "TUTO: TALUSO",
+      "as": "h3",
+      "near": "Kikufa butokwa bwa linzwi, taluso kapa k"
+    },
+    {
+      "find": "Litaluso za manzwi",
+      "text": "TUTONYANA: TALUSO YA MANZWI",
+      "as": "h3",
+      "near": "Kikufa butokwa bwa linzwi, taluso kapa k"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "Ki kalulo ya kuiseza ngana ni muhupulo k"
+    },
+    {
+      "find": "KUTEELEZA  KA KUTWISISO",
+      "text": "TUTO: KUTEELEZA KA KUTWISISO",
+      "as": "h3",
+      "near": "Ki kalulo ya kuiseza ngana ni muhupulo k"
+    },
+    {
+      "find": "Kuteeleza kuze balwa kapa kuze bulelwa",
+      "text": "TUTONYANA: KUTEELEZA KUZE BALWA KAPA KUZE BULELWA",
+      "as": "h3",
+      "near": "Nesi nabulezi kuli: “Kukaba ni kuboniswa"
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Ki kezo ye ñozwi ka lizoho la mutu isiñi"
+    },
+    {
+      "find": "MUÑOLO",
+      "text": "TUTO: MUÑOLO",
+      "as": "h3",
+      "near": "Ki kezo ye ñozwi ka lizoho la mutu isiñi"
+    },
+    {
+      "find": "Kuñola Ka Mutatezo",
+      "text": "TUTONYANA: KUÑOLA KA MUTATEZO",
+      "as": "h3",
+      "near": "Musebezi 2: Mañi Ni Mañi"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Tensi ki manzwi a bonisa nako yeliezahal"
+    },
+    {
+      "find": "LITENSI",
+      "text": "TUTO: LITENSI",
+      "as": "h3",
+      "near": "Tensi ki manzwi a bonisa nako yeliezahal"
+    },
+    {
+      "find": "Litensi za cwale,ze kaezahala ni zeezahalile.",
+      "text": "TUTONYANA: LITENSI ZA CWALE, ZE KAEZAHALA NI ZEEZAHALILE",
+      "as": "h3",
+      "near": "Zakueza 1: Likwata za Bababeli Bababeli"
+    },
+    {
+      "find": "KUBULELA NI KUTEELEZA",
+      "text": "KALULO: KUBULELA NI KUTEELEZA",
+      "as": "h2",
+      "near": "Kiza butokwa kakuli lilutusa kuba ni si"
+    },
+    {
+      "find": "Litaba ni litaluso",
+      "text": "TUTO: LITABA NI LITALUSO",
+      "as": "h3",
+      "near": "Kiza butokwa kakuli lilutusa kuba ni si"
+    },
+    {
+      "find": "Lisupo za libaka",
+      "text": "TUTONYANA: LISUPO ZA LIBAKA",
+      "as": "h3",
+      "near": "Kiza butokwa kakuli lilutusa kuba ni si"
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Ki batu kapa libuka zeitusiswa kwa"
+    },
+    {
+      "find": "BUPAKI",
+      "text": "TUTO: BUPAKI",
+      "as": "h3",
+      "near": "Ki batu kapa libuka zeitusiswa kwa"
+    },
+    {
+      "find": "Libuka.",
+      "text": "TUTONYANA: LIBUKA",
+      "as": "h3",
+      "near": "Kilika ze nani maswaniso ni litaba za mi"
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Itusisa manzwi a litaluso ze bata kuswan"
+    },
+    {
+      "find": "SILIKANI SA MANZWI.",
+      "text": "TUTO: SILIKANI SA MANZWI",
+      "as": "h3",
+      "near": "Itusisa manzwi a litaluso ze bata kuswan"
+    },
+    {
+      "find": "Manzwi aswana Litaluso",
+      "text": "TUTONYANA: MANZWI ASWANA LITALUSO",
+      "as": "h3",
+      "near": "Itusisa manzwi a litaluso ze bata kuswan"
+    },
+    {
+      "find": "Liantonimu.",
+      "text": "TUTONYANA: LIANTONIMU",
+      "as": "h3",
+      "near": "Ki manzwi anani litaluso ze lwanisana."
+    },
+    {
+      "find": "LIHOMONIMU",
+      "text": "TUTONYANA: LIHOMONIMU",
+      "as": "h3",
+      "near": "Ki manzwi aswana mulumo ni muñolelo kono"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "Ki zibo yakukona kuutwisisa taluso ya ze"
+    },
+    {
+      "find": "KUBALA KA KUTWISISO",
+      "text": "TUTO: KUBALA KA KUTWISISO",
+      "as": "h3",
+      "near": "Ki zibo yakukona kuutwisisa taluso ya ze"
+    },
+    {
+      "find": "KUBALA KA BUTUNGI",
+      "text": "TUTONYANA: KUBALA KA BUTUNGI",
+      "as": "h3",
+      "near": "Kubala ka butungi ki kubala ka kuiseza t"
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Kikezo ya kuñola ka kupunda litaku za l"
+    },
+    {
+      "find": "SIPELETA",
+      "text": "TUTO: SIPELETA",
+      "as": "h3",
+      "near": "Kikezo ya kuñola ka kupunda litaku za l"
+    },
+    {
+      "find": "Manzwi",
+      "text": "TUTONYANA: MANZWI",
+      "as": "h3",
+      "near": "Ki kalulo ya mushobo ye shimbile taluso"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Ki mukoloko wa manzwi, mibamba ni litaba"
+    },
+    {
+      "find": "LISUPO",
+      "text": "TUTO: LISUPO",
+      "as": "h3",
+      "near": "Ki lika ze tusa mubali kuziba mubamba fo"
+    },
+    {
+      "find": "LISUPO ZA LIPULELO",
+      "text": "TUTONYANA: LISUPO ZA LIPULELO",
+      "as": "h3",
+      "near": "Ki lika ze tusa mubali kuziba mubamba fo"
+    },
+    {
+      "find": "KUTEELEZA NI KUBULELA",
+      "text": "KALULO: KUTEELEZA NI KUBULELA",
+      "as": "h2",
+      "near": "Maikuto ki mouikutwelanga akuezahalanga"
+    },
+    {
+      "find": "MAIKUTO",
+      "text": "TUTO: MAIKUTO",
+      "as": "h3",
+      "near": "Maikuto ki mouikutwelanga akuezahalanga"
+    },
+    {
+      "find": "Kubulela maikuto",
+      "text": "TUTONYANA: KUBULELA MAIKUTO",
+      "as": "h3",
+      "near": "Itusisa puwo yeswanela kubulela maikuto"
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Kubala kokusina ku kakatela ki kubala makande kusina kukakatela, kuutwahala hande ni kubonisa muinelo wa kuli bateelezi ba kone kutwisisa taluso ya likande leli bulelwa.  Kubala kokusina ku kakatela kutusa kuutwisisa zo bala ni kulibisa ze tabisa nikukona kuikabela makande ni minahano ka sepo."
+    },
+    {
+      "find": "KUBALA KUSINA KU KAKATELA",
+      "text": "TUTO: KUBALA KUSINA KUKAKATELA",
+      "as": "h3",
+      "near": "Kubala kokusina ku kakatela ki kubala makande kusina kukakatela, kuutwahala hande ni kubonisa muinelo wa kuli bateelezi ba kone kutwisisa taluso ya likande leli bulelwa.  Kubala kokusina ku kakatela kutusa kuutwisisa zo bala ni kulibisa ze tabisa nikukona kuikabela makande ni minahano ka sepo."
+    },
+    {
+      "find": "Kubala kakutumusa",
+      "text": "TUTONYANA: KUBALA KAKUTUMUSA",
+      "as": "h3",
+      "near": "Bala taba kusina  kukakatela"
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Manzwi alwanisana ki manzwi a na ni lita"
+    },
+    {
+      "find": "Silikani sa Manzwi",
+      "text": "TUTO: SILIKANI SA MANZWI",
+      "as": "h3",
+      "near": "Manzwi alwanisana ki manzwi a na ni lita"
+    },
+    {
+      "find": "Manzwi a Lwanisana",
+      "text": "TUTONYANA: MANZWI A LWANISANA",
+      "as": "h3",
+      "near": "Manzwi alwanisana ki manzwi a na ni lita"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "Kubala ka kutwisiso kutalusa kuutwisisa"
+    },
+    {
+      "find": "KUTEELEZA KA KUTWISISO",
+      "text": "TUTO: KUTEELEZA KA KUTWISISO",
+      "as": "h3",
+      "near": "Kuteeleza ka kutwisiso kutusa banana kuu"
+    },
+    {
+      "find": "Kutwisiso ya Mulomo",
+      "text": "TUTONYANA: KUTWISISO YA ZEBALIWA KAKUTUMUSA/ZEBULELWA",
+      "as": "h3",
+      "near": "kutwisiso ya mulomo iama kuteeleza kwa l"
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Kutatamanisa kutusa bana ba sikolo kuzib"
+    },
+    {
+      "find": "Kutatamanisa",
+      "text": "TUTO: KUTATAMANISA",
+      "as": "h3",
+      "near": "Kutatamanisa kutusa bana ba sikolo kuzib"
+    },
+    {
+      "find": "Sikwata sa mibamba",
+      "text": "TUTONYANA: SIKWATA SA LIPULELO",
+      "as": "h3",
+      "near": "Kutatamanisa kutusa bana ba sikolo kuzib"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Lisupi ki manzwi abonisa kokuezahalela s"
+    },
+    {
+      "find": "LISUPI",
+      "text": "TUTO: LISUPI",
+      "as": "h3",
+      "near": "Lisupi ki manzwi abonisa kokuezahalela s"
+    },
+    {
+      "find": "Kuitusisa Manzwi a Lisupi",
+      "text": "TUTONYANA: KUITUSISA MANZWI A LISUPI",
+      "as": "h3",
+      "near": "Tosa ni kuñola lisupi ka mukwa wolukile"
+    },
+    {
+      "find": "PAPALI",
+      "text": "KALULO: PAPALI",
+      "as": "h2",
+      "near": "Kubapala kutusa bana ba sikolo kubonisa"
+    },
+    {
+      "find": "Kubapala.",
+      "text": "TUTO: KUBAPALA",
+      "as": "h3",
+      "near": "Kubapala kutusa bana ba sikolo kubonisa"
+    },
+    {
+      "find": "KUBAPALA MAKANDE",
+      "text": "TUTO: KUBAPALA MAKANDE",
+      "as": "h3",
+      "near": "Kubapala za makande a ñozwi kapa a sika"
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Ze ki mufuta wa libuka zeluitusisa kwa k"
+    },
+    {
+      "find": "KUBALA LIBUKA ZE ITUSISIZWE",
+      "text": "TUTO: SIMBULE SA BUPAKI",
+      "as": "h3",
+      "near": "Ze ki mufuta wa libuka zeluitusisa kwa k"
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Ki sikuka kamo manzwi a mabeil kapa a ma"
+    },
+    {
+      "find": "Silikani sa Manzwi",
+      "text": "TUTO: SILIKANI SA MANZWI",
+      "as": "h3",
+      "near": "Ki sikuka kamo manzwi a mabeil kapa a ma"
+    },
+    {
+      "find": "KUBALA KA KUTWISISO",
+      "text": "TUTO: KUBALA KA KUTWISISO",
+      "as": "h3",
+      "near": "Ki mubalelo wakubala katokomelo ni kuutw"
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Kuñola makande mwabutungi kuswana sina m"
+    },
+    {
+      "find": "KUNOLA MAKANDE MWABUTUNGI",
+      "text": "TUTO: KUÑOLA MAKANDE MWA BUTUNGI",
+      "as": "h3",
+      "near": "Kuñola makande mwabutungi kuswana sina m"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Libizo ki linzwi leli yemela libizo la m"
+    },
+    {
+      "find": "Mabizo",
+      "text": "TUTO: MABIZO",
+      "as": "h3",
+      "near": "Libizo ki linzwi leli yemela libizo la m"
+    },
+    {
+      "find": "KUTEELEZA NI KUBULELA",
+      "text": "KALULO: KUTEELEZA NI KUBULELA",
+      "as": "h2",
+      "near": "Kukanana ki fo batu bafamabaka kuhatisez"
+    },
+    {
+      "find": "KUKANANA",
+      "text": "TUTO: KUKANANA",
+      "as": "h3",
+      "near": "Kukanana ki fo batu bafamabaka kuhatisez"
+    },
+    {
+      "find": "kusinganyeka ka Mulao",
+      "text": "TUTONYANA: KUSINGANYEKA KA MULAO",
+      "as": "h3",
+      "near": "kusinganyeka ka mulao ki puisano ilifoo"
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Kubala kokusina kukakatela kutalusa kuba"
+    },
+    {
+      "find": "KUBALA KUSINA KUKAKATELA",
+      "text": "TUTO: KUBALA KUSINA KUKAKATELA",
+      "as": "h3",
+      "near": "Kubala kokusina kukakatela kutalusa kuba"
+    },
+    {
+      "find": "Kubala ka kubulela",
+      "text": "TUTONYANA: KUBALA KA KUBULELA",
+      "as": "h3",
+      "near": "Kubala ka mulomo ki kubala ka mukwa wo k"
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Linombolo lilutusa kubala, kulikanya, n"
+    },
+    {
+      "find": "Linombolo",
+      "text": "TUTO: LINOMBOLO",
+      "as": "h3",
+      "near": "Linombolo lilutusa kubala, kulikanya, n"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "kwa kuteeleza ki za"
+    },
+    {
+      "find": "KUTEELEZA KA KUTWISISO",
+      "text": "TUTO: KUTEELEZA KA KUTWISISO",
+      "as": "h3",
+      "near": "kwa kuteeleza ki za"
+    },
+    {
+      "find": "Kutwisisa Ka kubulela",
+      "text": "TUTONYANA: KUTEELEZA KA KUBULELA",
+      "as": "h3",
+      "near": "Teeleza litaba ze balwa kapa ze bulelwa"
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Kuñola taluso kakutala kutusa bana ba si"
+    },
+    {
+      "find": "TABA YEÑOZWI",
+      "text": "TUTO: TABA YEÑOZWI",
+      "as": "h3",
+      "near": "Kuñola taluso kakutala kutusa bana ba si"
+    },
+    {
+      "find": "KUÑOLA TALUSO KAKUTALA",
+      "text": "TUTONYANA: KUÑOLA TALUSO KAKUTALA",
+      "as": "h3",
+      "near": "Kuñola taluso kakutala kutusa bana ba si"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Litaku zepanga manzwi litusa bana"
+    },
+    {
+      "find": "LIBAWELU",
+      "text": "TUTO: LIBAWELU",
+      "as": "h3",
+      "near": "Litaku zepanga manzwi litusa bana"
+    },
+    {
+      "find": "LIBAWELU ZEKUSWANI NI ZETELELE",
+      "text": "TUTONYANA: LIBAWELU ZEKUSWANI NI ZETELELE",
+      "as": "h3",
+      "near": "Litaku zebupa manzwi ili za milumo yemik"
+    },
+    {
+      "find": "KUBULELA NI KUTEELEZA",
+      "text": "KALULO: KUBULELA NI KUTEELEZA",
+      "as": "h2",
+      "near": "Manyamenyame a kubulela ni kuteeleza alu"
+    },
+    {
+      "find": "Kubiha kakutumusa",
+      "text": "TUTO: KUBIHA KAKUTUMUSA",
+      "as": "h3",
+      "near": "Manyamenyame a kubulela ni kuteeleza alu"
+    },
+    {
+      "find": "KUBIHA KAMULOMO",
+      "text": "TUTO: KUBIHA KA MULOMO",
+      "as": "h3",
+      "near": "Baituti batoloke litaba zebafitile kuzon"
+    },
+    {
+      "find": "Litaba Zeezahalile Zenani Bupaki",
+      "text": "TUTONYANA: LITABA ZEEZAHALILE ZENANI BUPAKI",
+      "as": "h3",
+      "near": "Baituti batoloke litaba zebafitile kuzon"
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Kuituta mazazi a mwa biki kutusa bana ba"
+    },
+    {
+      "find": "KALENDA",
+      "text": "TUTO: KALENDA",
+      "as": "h3",
+      "near": "Kuituta mazazi a mwa biki kutusa bana ba"
+    },
+    {
+      "find": "Mazazi a mwa Sunda",
+      "text": "TUTONYANA: MAZAZI A MWA SUNDA",
+      "as": "h3",
+      "near": "Kuituta mazazi a mwa biki kutusa bana ba"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "Kuipalela feela kucimbula mubalelo, kuzi"
+    },
+    {
+      "find": "Kuipalela",
+      "text": "TUTO: KUIPALELA",
+      "as": "h3",
+      "near": "Kuipalela feela kucimbula mubalelo, kuzi"
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Kuñola piho kutahisanga lizibiso ni lika"
+    },
+    {
+      "find": "Kuñola Piho",
+      "text": "TUTO: KUÑOLA PIHO",
+      "as": "h3",
+      "near": "Kuñola piho kutahisanga lizibiso ni lika"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Ki manzwi aitusiswa kukopanya manzwi ama"
+    },
+    {
+      "find": "Manzwi aitusiswa kungungahanya",
+      "text": "TUTO: MANZWI AITUSISWA KUNGUNGAHANYA MAIKUTO",
+      "as": "h3",
+      "near": "Ki manzwi aitusiswa kukopanya manzwi ama"
+    },
+    {
+      "find": "KUBULELA NI KUTEELEZA",
+      "text": "KALULO: KUBULELA NI KUTEELEZA",
+      "as": "h2",
+      "near": "Likute ki kubonisa pabalelo, mombociima,"
+    },
+    {
+      "find": "Sizo",
+      "text": "TUTO: SIZO",
+      "as": "h3",
+      "near": "Likute ki kubonisa pabalelo, mombociima,"
+    },
+    {
+      "find": "Likute",
+      "text": "TUTONYANA: LIKUTE",
+      "as": "h3",
+      "near": "Likute ki kubonisa pabalelo, mombociima,"
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Kubala kokusina ku kakatela ki kubala makande kusina kukakatela, kuutwahala hande ni kubonisa muinelo wa kuli bateelezi ba kone kuutwisisa taluso ya likande leli bulelwa.  Kubala kokusina kukakatela kutusa  kuutwisisa zo bala ni kulibisa ze tabisa nikukona kuikabela makande ni minahano ka sepo."
+    },
+    {
+      "find": "Kubala kusina kukakatela.",
+      "text": "TUTO: KUBALA KUSINA KUKAKATELA",
+      "as": "h3",
+      "near": "Kubala kokusina ku kakatela ki kubala makande kusina kukakatela, kuutwahala hande ni kubonisa muinelo wa kuli bateelezi ba kone kuutwisisa taluso ya likande leli bulelwa.  Kubala kokusina kukakatela kutusa  kuutwisisa zo bala ni kulibisa ze tabisa nikukona kuikabela makande ni minahano ka sepo."
+    },
+    {
+      "find": "Kubala kakutumusa",
+      "text": "TUTONYANA: KUBALA KAKUTUMUSA",
+      "as": "h3",
+      "near": "Kuituta Hamoho."
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Zibo ya manzwi ki sikwata  sa manzwi aui"
+    },
+    {
+      "find": "MIBALA",
+      "text": "TUTO: MIBALA",
+      "as": "h3",
+      "near": "Mibala kinto yelu tolokela kamo lika lib"
+    },
+    {
+      "find": "Kuketa mibala",
+      "text": "TUTONYANA: KUKETA MIBALA",
+      "as": "h3",
+      "near": "Kuketa mibala ki bunangu bwa kuziba ni k"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "Kubala ka kutwisiso ki kuutwisisisa zo b"
+    },
+    {
+      "find": "KUTEELEZA KA KUTWISISO",
+      "text": "TUTO: KUTEELEZA KA KUTWISISO",
+      "as": "h3",
+      "near": "Buikoneli kakutala."
+    },
+    {
+      "find": "Kutwisiso Hakuitusiswa Mulomo",
+      "text": "TUTONYANA: KUTWISISO HAKUITUSISWA MULOMO",
+      "as": "h3",
+      "near": "Buikoneli kakutala."
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Kuñola ki bunangu bwa butokwa bobu lutus"
+    },
+    {
+      "find": "KUÑOLA TABA",
+      "text": "TUTO: KUÑOLA TABA",
+      "as": "h3",
+      "near": "ki mañolo a silikani añolelwa bahabo mut"
+    },
+    {
+      "find": "Liñolo la Mulikani",
+      "text": "TUTONYANA: LIÑOLO LA MULIKANI",
+      "as": "h3",
+      "near": "ki mañolo a silikani añolelwa bahabo mut"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Talelezo ki manzwi aekeza taluso ya manz"
+    },
+    {
+      "find": "TALELEZO",
+      "text": "TUTO: TALELEZO",
+      "as": "h3",
+      "near": "Talelezo ki manzwi aekeza taluso ya manz"
+    },
+    {
+      "find": "Manzwi Atoloka Likezo",
+      "text": "TUTONYANA: MANZWI ATOLOKA LIKEZO",
+      "as": "h3",
+      "near": "Talelezo ki manzwi aekeza taluso ya manz"
+    },
+    {
+      "find": "KUBULELA NI KUTEELEZA",
+      "text": "KALULO: KUBULELA NI KUTEELEZA",
+      "as": "h2",
+      "near": "Opela lipina za sizo."
+    },
+    {
+      "find": "MIKWA NI SIZO.",
+      "text": "TUTO: MIKWA NI SIZO",
+      "as": "h3",
+      "near": "Opela lipina za sizo."
+    },
+    {
+      "find": "Lipina za sizo",
+      "text": "TUTONYANA: LIPINA ZA SIZO",
+      "as": "h3",
+      "near": "Opela lipina za sizo."
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Kaanga litaba kuzwa mwa bupaki."
+    },
+    {
+      "find": "BUPAKI",
+      "text": "TUTO: LIBUKA",
+      "as": "h3",
+      "near": "Kaanga litaba kuzwa mwa bupaki."
+    },
+    {
+      "find": "Libuka",
+      "text": "TUTONYANA: LIBUKA",
+      "as": "h3",
+      "near": "Kaanga litaba kuzwa mwa bupaki."
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Fa litaluso za manzwi afilwe kuzwa mwa p"
+    },
+    {
+      "find": "TALUSO",
+      "text": "TUTO: TALUSO",
+      "as": "h3",
+      "near": "Fa litaluso za manzwi afilwe kuzwa mwa p"
+    },
+    {
+      "find": "Taluso ya manzwi",
+      "text": "TUTONYANA: TALUSO YA MANZWI",
+      "as": "h3",
+      "near": "Fa litaluso za manzwi afilwe kuzwa mwa p"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "Bala taba ka kutwisiso."
+    },
+    {
+      "find": "KUBALA KA KUTWISISO",
+      "text": "TUTO: KUBALA KA KUTWISISO",
+      "as": "h3",
+      "near": "Bala taba ka kutwisiso."
+    },
+    {
+      "find": "Kubala kabutungi",
+      "text": "TUTONYANA: KUBALA KA BUTUNGI",
+      "as": "h3",
+      "near": "Bala taba ka kutwisiso."
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Kukusufaza taba kutalusa kuñola taba kak"
+    },
+    {
+      "find": "KUSUFAZO",
+      "text": "TUTO: KUSUFAZO",
+      "as": "h3",
+      "near": "Kukusufaza taba kutalusa kuñola taba kak"
+    },
+    {
+      "find": "Kukusufaza zeñozwi",
+      "text": "TUTONYANA: KUKUSUFAZA ZEÑOZWI",
+      "as": "h3",
+      "near": "Kukusufaza taba kutalusa kuñola taba kak"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Itusisa mabizo"
+    },
+    {
+      "find": "MABIZO",
+      "text": "TUTO: MABIZO",
+      "as": "h3",
+      "near": "Itusisa mabizo"
+    },
+    {
+      "find": "Kubonisa mabizo",
+      "text": "TUTONYANA: KUBONISA MABIZO",
+      "as": "h3",
+      "near": "Itusisa mabizo"
+    },
+    {
+      "find": "KUBULELA NI KUTEELEZA",
+      "text": "KALULO: KUBULELA NI KUTEELEZA",
+      "as": "h2",
+      "near": "Ki piho ye tatulula muutwahalelo ni mubo"
+    },
+    {
+      "find": "KUTOLOKA",
+      "text": "TUTO: KUTOLOKA",
+      "as": "h3",
+      "near": "Ki piho ye tatulula muutwahalelo ni mubo"
+    },
+    {
+      "find": "Libaka",
+      "text": "TUTONYANA: LIBAKA",
+      "as": "h3",
+      "near": "Ki ponahalo kapa maneku a silalanda."
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Kubala ka kubulela ki kubala ka kupunda niku tumusa manzwi."
+    },
+    {
+      "find": "KUBALA KUSINA KUKAKATELA",
+      "text": "TUTO: KUBALA KUSINA KUKAKATELA",
+      "as": "h3",
+      "near": "Kubala ka kubulela ki kubala ka kupunda niku tumusa manzwi."
+    },
+    {
+      "find": "Kubala ka Kubulela",
+      "text": "TUTONYANA: KUBALA KA KUBULELA",
+      "as": "h3",
+      "near": "Kubala ka kubulela ki kubala ka kupunda niku tumusa manzwi."
+    },
+    {
+      "find": "ZIBO YA MANZWI",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Itusisa lisinonimu (manzwi a litaluso ze"
+    },
+    {
+      "find": "SILIKANI SA MANZWI",
+      "text": "TUTO: SILIKANI SA MANZWI",
+      "as": "h3",
+      "near": "Itusisa lisinonimu (manzwi a litaluso ze"
+    },
+    {
+      "find": "Lisinonimu (Manzwi aswana Litaluso )",
+      "text": "TUTONYANA: LISINONIMU (MANZWI ASWANA LITALUSO)",
+      "as": "h3",
+      "near": "Itusisa lisinonimu (manzwi a litaluso ze"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "Kuteeleza ka kutwisiso kutalusa kuiseza"
+    },
+    {
+      "find": "KUTEELEZA KA KUTWISISO",
+      "text": "TUTO: KUTEELEZA KA KUTWISISO",
+      "as": "h3",
+      "near": "Kuteeleza ka kutwisiso kutalusa kuiseza"
+    },
+    {
+      "find": "Kuteeleza Kwa Lipulelo",
+      "text": "TUTONYANA: KUTEELEZA KWA LIPULELO",
+      "as": "h3",
+      "near": "Teeleza kwa litaba zeka baliwa kapa ku b"
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Ki mufuta wa kuñola kokuluta za buniti b"
+    },
+    {
+      "find": "KUÑOLA BUNITI",
+      "text": "TUTO: KUÑOLA BUNITI",
+      "as": "h3",
+      "near": "Ki mufuta wa kuñola kokuluta za buniti b"
+    },
+    {
+      "find": "Lizibiso ni libabazo",
+      "text": "TUTONYANA: LIZIBISO NI LIBABAZO",
+      "as": "h3",
+      "near": "Kikezo ya kupatalaza lika kwa sicaba."
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Ñola manzwi ni mibamba ye baka bala bo m"
+    },
+    {
+      "find": "LIPULELO ZEZINGA",
+      "text": "TUTO: LIPULELO ZEZINGA",
+      "as": "h3",
+      "near": "Itusisa lipulelo zezinga."
+    },
+    {
+      "find": "Mashitanguti",
+      "text": "TUTO: MASHITANGUTI",
+      "as": "h3",
+      "near": "Itusisa lipulelo zezinga."
+    },
+    {
+      "find": "KUBULELA NI KUTEELEZA",
+      "text": "KALULO: KUBULELA NI KUTEELEZA",
+      "as": "h2",
+      "near": "Litoloko ki nzila yeipitezi ya kufezamin"
+    },
+    {
+      "find": "Litoko",
+      "text": "TUTO: LITOKO",
+      "as": "h3",
+      "near": "Litoloko ki nzila yeipitezi ya kufezamin"
+    },
+    {
+      "find": "Litoko zebunolo",
+      "text": "TUTONYANA: LITOKO ZEBUNOLO",
+      "as": "h3",
+      "near": "Litoloko ki nzila yeipitezi ya kufezamin"
+    },
+    {
+      "find": "Tumbo ye bunolo.",
+      "text": "TUTONYANA: TUMBO YE BUNOLO",
+      "as": "h3",
+      "near": "Eza litumbo ze bunolo, kubapala papali ya"
+    },
+    {
+      "find": "KUBALA",
+      "text": "KALULO: KUBALA",
+      "as": "h2",
+      "near": "Libuka li nani bupaki bobu swana sina li"
+    },
+    {
+      "find": "BUPAKI",
+      "text": "TUTO: BUPAKI",
+      "as": "h3",
+      "near": "Libuka li nani bupaki bobu swana sina li"
+    },
+    {
+      "find": "Libuka",
+      "text": "TUTONYANA: LIBUKA",
+      "as": "h3",
+      "near": "Libuka li nani bupaki bobu swana sina li"
+    },
+    {
+      "find": "Zibo Ya Manzwi",
+      "text": "KALULO: ZIBO YA MANZWI",
+      "as": "h2",
+      "near": "Ma antonimuzi ki manzwi a lwanisana.Mwa"
+    },
+    {
+      "find": "Silikani sa manzwi",
+      "text": "TUTO: SILIKANI SA MANZWI",
+      "as": "h3",
+      "near": "Ma antonimuzi ki manzwi a lwanisana.Mwa"
+    },
+    {
+      "find": "Manzwi a lwanisana",
+      "text": "TUTONYANA: MANZWI ALWANISANA",
+      "as": "h3",
+      "near": "Ma antonimuzi ki manzwi a lwanisana.Mwa"
+    },
+    {
+      "find": "KUTWISISO",
+      "text": "KALULO: KUTWISISO",
+      "as": "h2",
+      "near": "Kubala ka kutwisiso."
+    },
+    {
+      "find": "KUBALA KA KUTWISISO",
+      "text": "TUTO: KUBALA KA KUTWISISO",
+      "as": "h3",
+      "near": "Kubala ka kutwisiso."
+    },
+    {
+      "find": "Kubala kabutungi",
+      "text": "TUTONYANA: KUBALA KA BUTUNGI",
+      "as": "h3",
+      "near": "Kubala ka kutwisiso."
+    },
+    {
+      "find": "Kuipalela",
+      "text": "TUTO: KUIPALELA",
+      "as": "h3",
+      "near": "Bala mifuta ya libuka ka milelo ye shuta"
+    },
+    {
+      "find": "KUÑOLA",
+      "text": "KALULO: KUÑOLA",
+      "as": "h2",
+      "near": "Toloka manzwi ni mibamba kuzusa mwa sikuw"
+    },
+    {
+      "find": "Manzwi ni Mibamba",
+      "text": "TUTO: MANZWI NI MIBAMBA",
+      "as": "h3",
+      "near": "Toloka manzwi ni mibamba kuzusa mwa sikuw"
+    },
+    {
+      "find": "PUPO YA PUWO",
+      "text": "KALULO: PUPO YA PUWO",
+      "as": "h2",
+      "near": "Kutoloka mashitanguti."
+    },
+    {
+      "find": "Mashitanguti",
+      "text": "TUTO: MASHITANGUTI",
+      "as": "h3",
+      "near": "Kutoloka mashitanguti."
+    },
+    {
+      "find": "Kutoloka mashitanguti",
+      "text": "TUTONYANA: KUTOLOKA MASHITANGUTI",
+      "as": "h3",
+      "near": "Kutoloka mashitanguti."
+    },
+    {
+      "find": "MILUMO YEAKALEZA",
+      "text": "TUTO: MILUMO YEAKALEZA",
+      "as": "h3",
+      "near": "Milumo yeakeleza ki manzwi a butokwa a t"
+    },
+    {
+      "find": "KUTOSA  MILUMO YEAKELEZA",
+      "text": "TUTONYANA: KUTOSA MILUMO YEAKALEZA",
+      "as": "h3",
+      "near": "Milumo yeakeleza ki manzwi a butokwa a t"
+    },
+    {
+      "find": "Buikoneli Kakutala:",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Buikoneli Kakutala",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Buikoneli kakutala:",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Buikoneli kakutala",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Buikoneli kakkutala",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Buikoneli bobutuna.",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Buikoneli Kakutala.",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Buikoneli kakutala.",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Sika luli sesilukanela kukoniwa:",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Sika luli sesi lukelwa kukoniwa:",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Sika luli sesi lukela  kukukoniwa:",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Sika luli sesi lukela ku koniwa:",
+      "text": "Sika luli sesilukanela kukoniwa:",
+      "as": "label",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Zakueza.",
+      "text": "Zakueza",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "Zakueza:",
+      "text": "Zakueza",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "ZAKUEZA",
+      "text": "Zakueza",
+      "all": true,
+      "label": true
+    },
+    {
+      "find": "MUKANGA 4:  KUITUSISA MILYANI NI ZEKOLA KA MAFOSISA.",
+      "text": "MUKANGA 4: KUITUSISA MILYANI NI ZEKOLA KA MAFOSISA",
+      "as": "h1"
+    }
+  ],
+  "insertHead": [
+    {
+      "before": "TUTO: KUBALA KA KUTWISISO",
+      "near": "Ki mubalelo wakubala katokomelo ni kuutwa zeubala",
+      "head": "KALULO: KUTWISISO",
+      "as": "h2"
+    }
+  ],
+  "retext": [
+    {
+      "from": "Homonimuzi",
+      "to": "Homofonizi"
+    }
+  ],
+  "moveToSectionEnd": [
+    {
+      "find": "Kusufazo",
+      "label": "Kusufazo"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "find": "Zakueza",
+      "near": "Ukona kubuza cwañi mwa kuzamaela"
+    },
+    {
+      "find": "Zakueza",
+      "near": "Bana ba sikolo baopele lipina za sizo"
+    }
+  ]
 }

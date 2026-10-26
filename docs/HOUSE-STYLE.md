@@ -101,6 +101,7 @@ off, so a change only touches the books that opt in. Keys:
 | `removeWhereNext` | delete a block matching `find` only when the block right after it matches `next` (disambiguates a repeated heading) |
 | `moveBefore` | lift the block containing `find` and re-insert it before the block containing `before` |
 | `moveSectionBefore` | like `moveBefore` but moves a whole section (heading through to the next heading), not just one block |
+| `moveToSectionEnd` | `[{ find, label? }]` — move every lesson summary that starts with the word `find` ("Kusufazo"), with the paragraphs/list items under it, to the end of its section (just before the next h1/h2/h3); `label` splits a run-in "Kusufazo Makande…" into a heading + paragraph so all summaries look alike |
 | `splitBox` | `[{ at }]` — split an activity box that swallowed the next activity: the body line whose whole text is `at` ("MUSEBEZI 3: …") becomes the title of a new box holding everything after it |
 | `replaceBlocks` | replace a run of blocks between two anchors with freshly built ones — blockspecs: `para`/`head`/`h1`/`listitem`/`label`/`vspace`/`raw`/`numbond`; `raw` inserts a pre-built block object verbatim (e.g. grafting a table or list from elsewhere in the same book) |
 | `insertText` | insert a new paragraph/heading before an anchor (lighter-weight than `replaceBlocks` when you're only adding, not replacing) |
