@@ -76,7 +76,7 @@ in the log; never invent content.
 2. The CDC verification copy: write a plan (one item per comment: where the correction now sits
    and what was done), then
    `node tools/cdc-verify.mjs "<book> - typeset.pdf" plan.json "<book> - CDC verification copy (corrections highlighted).pdf"`.
-   Every corrected line is highlighted in green with a note "CDC comment N (page X of the CDC
+   Every corrected line is highlighted in purple (a real highlight mark, as a reviewer's highlighter makes) with a note "CDC comment N (page X of the CDC
    copy): … Done: …". Open it and check every highlight sits on the right text.
 3. The corrections log (Word): one row per comment (number, CDC page, comment, what we did),
    then other changes and the points for the author.
