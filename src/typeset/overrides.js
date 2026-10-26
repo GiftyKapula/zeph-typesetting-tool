@@ -63,7 +63,20 @@ function applyOverrides(blocks, ov) {
       const segList = Array.isArray(o.segs) ? o.segs : Array.isArray(o.qseg) ? o.qseg : null;
       if (segList && segList.length > 0) {
         const combined = segList.map(s => (s && typeof s.t === "string") ? s.t : "").join("");
-        if (combined.includes(tf.find)) {
+        // the find sits inside single runs: replace there, so the other runs keep their own
+        // formatting (a bold label run must not make the plain sentence after it bold)
+        const inRuns = segList.some(s => s && typeof s.t === "string" && s.t.includes(tf.find));
+        if (inRuns) {
+          for (const s of segList) if (s && typeof s.t === "string" && s.t.includes(tf.find)) s.t = s.t.split(tf.find).join(repl);
+          // a replacement ending in a space next to a run that starts with one: keep one
+          for (let i = 0; i + 1 < segList.length; i++) {
+            const a = segList[i], b = segList[i + 1];
+            if (a && b && typeof a.t === "string" && typeof b.t === "string" && /\s$/.test(a.t) && /^\s/.test(b.t)) b.t = b.t.replace(/^\s+/, "");
+          }
+          if (typeof o.plain === "string") o.plain = o.plain.split(tf.find).join(repl);
+          if (typeof o.q === "string") o.q = o.q.split(tf.find).join(repl);
+          n++;
+        } else if (combined.includes(tf.find)) {
           const newCombined = combined.split(tf.find).join(repl);
           const firstSeg = segList[0] || {};
           if (Array.isArray(o.segs)) o.segs = [{ ...firstSeg, t: newCombined }];
@@ -653,6 +666,23 @@ function applyOverrides(blocks, ov) {
     const i = blocks.findIndex((b) => Array.isArray(b.body) && typeof b.title === "string" && b.title.includes(eb.title));
     if (i < 0) { console.warn("!  extendBox not matched:", eb.title); continue; }
     blocks[i].body.push(...blocks.splice(i + 1, eb.count || 1));
+  }
+  // splitBox: [{ at }] — the inverse of extendBox: one activity box swallowed the next
+  // activity ("MUSEBEZI 3: …" typed as a line inside MUSEBEZI 2's box). The body line whose
+  // trimmed text equals `at` becomes the title of a new box holding everything after it.
+  for (const sb of ov.splitBox || []) {
+    let done = false;
+    for (let i = 0; i < blocks.length && !done; i++) {
+      const b = blocks[i];
+      if (!Array.isArray(b.body) || typeof b.title !== "string") continue;
+      const k = b.body.findIndex((x) => blockPlain(x).trim() === sb.at);
+      if (k < 1) continue;
+      const rest = b.body.splice(k);
+      const head = rest.shift();
+      blocks.splice(i + 1, 0, { ...b, title: blockPlain(head).trim(), body: rest });
+      done = true;
+    }
+    if (!done) console.warn("!  splitBox not matched:", sb.at);
   }
   // collapseSpaces: true — a book converted from a PDF carries the old layout's doubled
   // spaces ("Use  simple farm tools"); reduce every run of spaces in the text to one,
@@ -1258,14 +1288,19 @@ function applyOverrides(blocks, ov) {
   const tableText = (t) => (t.rows || []).map((r) => r.map((c) => c.text || "").join(" ")).join(" ");
   const allTables = [];
   (function tv(arr) { for (const b of arr) { if (!b || typeof b !== "object") continue; if (b.rows && (b.t === "table" || b.kind === "table")) allTables.push(b); for (const k of Object.keys(b)) if (Array.isArray(b[k])) tv(b[k]); } })(blocks);
+  // (`all: true` sets it on EVERY matching line — an exercise the manuscript repeats in a
+  // later unit with the numbering carried on from a neighbouring activity)
   for (const sm of ov.setMarker || []) {
-    const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
-    if (!b) { console.warn("!  setMarker not matched:", sm.find); continue; }
-    b.marker = sm.marker;
-    // Promote an unlabelled lead line to a real answer so the marker renders, and
-    // honour an explicit depth (default: a sub-answer, depth 1).
-    if (b.kind === "lead") { b.kind = "q"; if (b.a == null) b.a = ""; if (b.aseg == null) b.aseg = []; }
-    if (b.kind === "q") b.depth = sm.depth != null ? sm.depth : 1;
+    const hits = sm.all ? flat.filter((x) => blockPlain(x).includes(sm.find))
+      : [flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find))].filter(Boolean);
+    if (!hits.length) { console.warn("!  setMarker not matched:", sm.find); continue; }
+    for (const b of hits) {
+      b.marker = sm.marker;
+      // Promote an unlabelled lead line to a real answer so the marker renders, and
+      // honour an explicit depth (default: a sub-answer, depth 1).
+      if (b.kind === "lead") { b.kind = "q"; if (b.a == null) b.a = ""; if (b.aseg == null) b.aseg = []; }
+      if (b.kind === "q") b.depth = sm.depth != null ? sm.depth : 1;
+    }
   }
   // unlist: ["substring", …] — convert a paragraph the importer wrongly parsed as a
   // list item (its marker mis-extracted — e.g. a competence code "c.1.1.3" mistaken for
@@ -1801,6 +1836,55 @@ function applyOverrides(blocks, ov) {
     fixRefs(blocks);
     const moved = [...map].filter(([a, b]) => a !== b).length;
     console.log(`   renumberFigures: ${n} caption(s), ${moved} figure number(s) changed`);
+  }
+  // tidySpacing: true — a manuscript typed with careless spacing around punctuation:
+  // "TUTO :4.5.5" -> "TUTO: 4.5.5", "1.Bala" -> "1. Bala", "sicaba.Kono" -> "sicaba. Kono",
+  // "muzamaelo,mubala" -> "muzamaelo, mubala". A space is dropped before a colon and added
+  // after one, after a list number at the start of a line, after a comma or semicolon
+  // between words, and after a full stop that ends a word right before a capitalised word —
+  // across run boundaries too, so each run keeps its formatting. Runs last, after every
+  // `find`/`near` anchor has matched the manuscript's own spacing.
+  if (ov.tidySpacing) {
+    let n = 0;
+    const tidy = (s, atStart) => {
+      const t = s
+        .replace(/([\p{L}\d]) +:(?!\/)/gu, "$1:")
+        .replace(/([\p{L})]):(?=[\p{L}\d])/gu, "$1: ")
+        .replace(/(\d):(?=\p{L})/gu, "$1: ")
+        .replace(atStart ? /(^|\s)(\d{1,2})\.(?=\p{L}{2})/gu : /(\s)(\d{1,2})\.(?=\p{L}{2})/gu, "$1$2. ")
+        .replace(/(\p{Ll}{2,})\.(?=\p{Lu}\p{Ll})/gu, "$1. ")
+        .replace(/(\p{L})([,;])(?=\p{L})/gu, "$1$2 ");
+      if (t !== s) n++;
+      return t;
+    };
+    const fixSegs = (segs) => {
+      if (!Array.isArray(segs)) return;
+      let prev = null;
+      for (const s of segs) {
+        if (typeof s.t !== "string" || s.m) { prev = null; continue; }
+        if (prev) {
+          if (/[\p{L}\d]$/u.test(prev.t) && /^ +:/.test(s.t)) s.t = s.t.replace(/^ +/, "");
+          const glue = /[\p{L})]:$/u.test(prev.t) && /^[\p{L}\d]/u.test(s.t)
+            || /\d:$/.test(prev.t) && /^\p{L}/u.test(s.t)
+            || /(^|\s)\d{1,2}\.$/.test(prev.t) && /^\p{L}{2}/u.test(s.t)
+            || /\p{Ll}{2,}\.$/u.test(prev.t) && /^\p{Lu}\p{Ll}/u.test(s.t)
+            || /\p{L}[,;]$/u.test(prev.t) && /^\p{L}/u.test(s.t);
+          if (glue) { prev.t += " "; n++; }
+        }
+        s.t = tidy(s.t, prev === null || /\s$/.test(prev.t));
+        if (s.t) prev = s;
+      }
+    };
+    // every block, box body and table cell (a cell is { text, seg })
+    const walk = (o) => {
+      if (o == null || typeof o !== "object") return;
+      if (Array.isArray(o)) { for (const x of o) walk(x); return; }
+      fixSegs(o.segs); fixSegs(o.qseg); fixSegs(o.aseg); fixSegs(o.seg);
+      for (const k of ["text", "caption", "title", "heading", "plain", "q", "a"]) if (typeof o[k] === "string") o[k] = tidy(o[k], true);
+      for (const [k, v] of Object.entries(o)) if (v && typeof v === "object" && !["segs", "qseg", "aseg", "seg"].includes(k)) walk(v);
+    };
+    walk(blocks);
+    console.log(`   tidySpacing: ${n} spacing slip(s) tidied`);
   }
 }
 
