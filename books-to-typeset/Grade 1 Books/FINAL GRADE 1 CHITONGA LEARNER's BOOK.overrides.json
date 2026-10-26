@@ -1,5 +1,9 @@
 {
   "localLabels": true,
+  "coversInBook": true,
+  "coverWords": {
+    "printedBy": "Lyakasimbwa aba"
+  },
   "remove": [
     "Zyili Moomu",
     "picture showing morning, afternoon, evening, night."
