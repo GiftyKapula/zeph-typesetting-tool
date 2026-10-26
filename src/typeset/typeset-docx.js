@@ -3726,6 +3726,10 @@ function topCompetenceHeadings(blocks) {
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
     if (!(b && b.t === "h2" && /competen/i.test(b.text || "") && !LEVEL.test(String(b.text || "").trim()))) continue;
+    // a heading numbered within the front matter ("1.6.4 General Competences ...",
+    // "1.7 Key Competences") is one of its sections and stays nested with 1.1, 1.2 ...
+    // (CS-ICT Teaching Methods reviewer: "indent this and unbold it" in the contents)
+    if (/^\d+\.\d+/.test(String(b.text || "").trim())) continue;
     let j = i + 1;
     while (j < blocks.length && !isHead(blocks[j])) j++;
     if (j < blocks.length && LEVEL.test(String(blocks[j].text || "").replace(/\s+/g, " ").trim())) b.top = true;

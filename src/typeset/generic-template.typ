@@ -1692,7 +1692,7 @@
      Zambia Educational Publishing House \
      Light Industrial Area \
      Chishango Road \
-     P.O. BOX 32708 \
+     P.O. Box 32708 \
      Lusaka Zambia]
     v(20pt)
     [Printed by: \
@@ -2125,6 +2125,10 @@
   // Syllabus matrix cells are ragged-right (not justified): with hyphenation OFF, justified
   // narrow columns open ugly word gaps. Other books keep the document's justified cells.
   set par(justify: T.variant != "syllabus")
+  // ...and filled line by line: the document's "optimized" breaking balances a ragged
+  // cell's lines, which left a bullet's first word alone ("Classifying" / "and
+  // Categorising existing ...", CS-ICT Teaching Methods round 1).
+  set par(linebreaks: if T.variant == "syllabus" { "simple" } else { auto })
   // Is a cell completely empty? Such cells appear in "Complete the table" / "Fill
   // in the table" grids the learner writes into. When many body cells are empty
   // the table is a FILL-IN table — give every empty cell a minimum writing height
