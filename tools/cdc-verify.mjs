@@ -18,7 +18,7 @@
 // { "label": "Author", "copy": "the author's marked copy", "items": [...] }.
 import fs from 'fs';
 import { createRequire } from 'module';
-import { PDFDocument, PDFName, PDFString, PDFNumber, rgb, BlendMode } from 'pdf-lib';
+import { PDFDocument, PDFName, PDFString, PDFNumber } from 'pdf-lib';
 const require = createRequire(import.meta.url);
 const pdfjs = await import('file:///' + require.resolve('pdfjs-dist/legacy/build/pdf.mjs').replace(/\\/g, '/'));
 
@@ -72,11 +72,18 @@ const pages = out.getPages();
 const add = (p, quads, note, title) => {
   const xs = quads.flatMap((q) => [q.x0, q.x1]), ys = quads.flatMap((q) => [q.y0, q.y1]);
   const R = [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
-  // the yellow itself is painted on the page (below); the annotation carries the note and
-  // draws nothing, so a viewer that shows annotations does not paint the line twice
-  const ap = out.context.stream('', {
-    Type: 'XObject', Subtype: 'Form', BBox: [0, 0, R[2] - R[0], R[3] - R[1]],
-    Matrix: [1, 0, 0, 1, R[0], R[1]],
+  // a real highlight annotation (what a reviewer's highlighter makes): its own appearance
+  // paints the purple over the line, multiplied so the black text stays black, and it
+  // prints (F 4). The page itself is not touched. Several comments can point at one line:
+  // only the first paints it, so its purple stays even; the others carry their notes.
+  const fresh = quads.filter((q) => !painted.has(`${p}:${q.y0.toFixed(1)}`));
+  for (const q of fresh) painted.add(`${p}:${q.y0.toFixed(1)}`);
+  const ops = fresh.length
+    ? `/GS0 gs ${HL.join(' ')} rg ` + fresh.map((q) => `${q.x0.toFixed(2)} ${q.y0.toFixed(2)} ${(q.x1 - q.x0).toFixed(2)} ${(q.y1 - q.y0).toFixed(2)} re f`).join(' ')
+    : '';
+  const ap = out.context.stream(ops, {
+    Type: 'XObject', Subtype: 'Form', BBox: R.map(PDFNumber.of),
+    Resources: { ExtGState: { GS0: { Type: 'ExtGState', BM: 'Multiply', CA: 1, ca: 1 } } },
   });
   const dict = out.context.obj({
     Type: 'Annot', Subtype: 'Highlight',
@@ -84,22 +91,15 @@ const add = (p, quads, note, title) => {
     AP: { N: out.context.register(ap) },
     QuadPoints: out.context.obj(quads.flatMap((q) => [q.x0, q.y1, q.x1, q.y1, q.x0, q.y0, q.x1, q.y0]).map(PDFNumber.of)),
     Contents: lit(note), T: lit(title), M: PDFString.of('D:20261021000000Z'),
-    C: [1, 0.86, 0.18].map(PDFNumber.of), CA: PDFNumber.of(1), F: PDFNumber.of(4),
+    C: HL.map(PDFNumber.of), CA: PDFNumber.of(1), F: PDFNumber.of(4),
   });
   const node = pages[p - 1].node;
   let annots = node.lookup(PDFName.of('Annots'));
   if (!annots) { annots = out.context.obj([]); node.set(PDFName.of('Annots'), annots); }
   annots.push(out.context.register(dict));
-  // and painted on the page itself (multiplied, so the text stays black): a viewer that
-  // ignores annotations still shows every corrected line
-  // several comments can point at one line: paint it once, so its yellow stays even
-  for (const q of quads) {
-    const key = `${p}:${q.y0.toFixed(1)}`;
-    if (painted.has(key)) continue;
-    painted.add(key);
-    pages[p - 1].drawRectangle({ x: q.x0, y: q.y0, width: q.x1 - q.x0, height: q.y1 - q.y0, color: rgb(1, 0.92, 0.35), blendMode: BlendMode.Multiply });
-  }
 };
+// highlighter colour: purple (the house colour for corrections, 2026-10-26)
+const HL = [0.8, 0.66, 1];
 const painted = new Set();
 
 let ok = 0; const misses = []; const report = [];
