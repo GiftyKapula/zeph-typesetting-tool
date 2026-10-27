@@ -73,9 +73,9 @@ const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w:
 // Ordered questions + lead-ins + reference tables + diagrams (preserves position).
 const partsArr = (parts) => arr(parts, (p) =>
   p.kind === "colsum" ? `(kind: "colsum", rows: ${strArr(p.rows || [])}, answer: ${strArr(p.answerRows || [])}, marker: ${S(p.marker || "")})`
-  : p.kind === "table" ? `(kind: "table", r: ${rowArr(p.rows)}, marker: ${S(p.marker || "")}${p.sheet ? ", sheet: true" : ""})`
+  : p.kind === "table" ? `(kind: "table", r: ${rowArr(p.rows)}, marker: ${S(p.marker || "")}${p.sheet ? ", sheet: true" : ""}${p.header ? ", hdr: true" : ""})`
   : p.kind === "image" ? `(kind: "image", images: ${imgArr(p.images)}, marker: ${S(p.marker || "")})`
-  : p.kind === "lead" ? `(kind: "lead", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, indent: ${p.indent ? "true" : "false"}${p.align ? `, align: ${S(p.align)}` : ""})`
+  : p.kind === "lead" ? `(kind: "lead", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, indent: ${p.indent ? "true" : "false"}${p.align ? `, align: ${S(p.align)}` : ""}${p.whole ? ", whole: true" : ""})`
   // a run of space-separated columns inside an exercise (e.g. a place-value chart:
   // "352 ___ ___ ___") that columnizeLists turned into a grid — emit it as a colgrid
   // part so qaparts renders the aligned columns instead of dropping to an empty q.
@@ -1998,6 +1998,33 @@ function applyOverrides(blocks, ov) {
     // `importDocx` would have produced it, instead of being retyped as markup and risking
     // a transcription slip.
     if (spec.raw != null && typeof spec.raw === "object") return spec.raw;
+    // { exercise: "EXERCISE 8", italic: true, parts: [ part, … ] } -> a boxed exercise built
+    // from compact parts, for an exercise an author or CDC sends as a separate document
+    // (a combined "EXERCISES 8 & 9" split into two, each placed after its own activity).
+    // A part is { q, marker, depth } (a question; depth 1 for a lettered sub-part),
+    // { lead } (an indented passage such as a scenario) or { table: [[cell, …], …] }
+    // (row 0 is the header band unless `header: false`; "" leaves an answer cell blank;
+    // **bold** works in a cell). Text is md-parsed;
+    // `italic` sets the questions in italic, matching a book whose exercises are italic.
+    if (spec.exercise != null) {
+      const seg = (tx) => mkSegs(String(tx)).map((s) => (spec.italic ? { ...s, it: true } : s));
+      const parts = (spec.parts || []).map((p) => {
+        if (Array.isArray(p.table)) return { kind: "table", header: p.header !== false, rows: p.table.map((r) => r.map((c) => {
+          const s = String(c);
+          return /\*/.test(s) ? { text: s.replace(/\*/g, ""), imgs: [], segs: mkSegs(s) } : { text: s, imgs: [] };
+        })) };
+        if (p.lead != null) return { kind: "lead", q: String(p.lead).replace(/\*\*/g, ""), qseg: seg(p.lead), indent: p.indent !== false, whole: true };
+        return { kind: "q", q: String(p.q).replace(/\*\*/g, ""), qseg: seg(p.q), a: "", aseg: [], marker: p.marker || "", depth: p.depth || 0 };
+      });
+      // a question that introduces a table ("Match each … Column A …", "Copy and complete
+      // the table below.") must not end a page without it
+      // — nor end one without the scenario passage it introduces ("Read the situation below …")
+      parts.forEach((p, i) => { if (p.kind === "q" && parts[i + 1] && (parts[i + 1].kind === "table" || parts[i + 1].kind === "lead")) p.keepNext = true; });
+      // — and the last question does not cross a page on its own: the part before it holds on
+      const lastTop = parts.map((p) => p.kind === "q" && !p.depth).lastIndexOf(true);
+      if (lastTop > 0 && parts[lastTop - 1].kind === "q") parts[lastTop - 1].keepNext = true;
+      return { t: "exercise", heading: spec.exercise, parts };
+    }
     // { numbond: ["15","8","7"] } -> a number-bond diagram (whole 15, parts 8 and 7).
     // Primary-maths books draw these with spaces in Word, which collapse when typeset;
     // this renders a proper centred whole-over-two-parts bond with connecting strokes.
@@ -2603,7 +2630,8 @@ function applyOverrides(blocks, ov) {
     // `it.bold`/`it.italic` (the whole-block flags this took before markdown support was
     // added) still force every seg, so existing plain-string callers render unchanged.
     const segsFor = (tx) => mkSegs(tx).map((s) => ({ ...s, ...(it.bold ? { b: true } : {}), ...(it.italic ? { it: true } : {}) }));
-    const mkBlks = () => texts.map((tx, idx) => it.as === "section"
+    // `blocks: [blockspec, …]` inserts replaceBlocks-style blocks (an exercise, say) instead of text.
+    const mkBlks = () => Array.isArray(it.blocks) ? it.blocks.map(mkBlock).filter(Boolean) : texts.map((tx, idx) => it.as === "section"
       ? { t: "head", text: tx, styleSection: true, noPromote: true }
       : it.as === "head"
       ? { t: "head", text: tx, black: true, noPromote: true }
@@ -3894,7 +3922,7 @@ function backmatterPerTopic(blocks) {
 // stray bold on the whole line. The separator must be a dash SURROUNDED by
 // spaces so hyphenated terms ("Well-being") and definitions ("non-living") stay
 // intact.
-function formatGlossary(blocks) {
+function formatGlossary(blocks, glossTitle = "GLOSSARY OF TERMS") {
   // One glossary per topic: each stays where the author put it, as a bold sub-head
   // closing its topic, and each is sorted on its own (see backmatterPerTopic).
   const perTopic = backmatterPerTopic(blocks);
@@ -3949,7 +3977,7 @@ function formatGlossary(blocks) {
     if (isHead(b)) {
       // The GLOSSARY section can open as any heading style (h1/h2/head/label),
       // depending on how the manuscript styled it and the import variant.
-      if (/^GLOSSARY\b/i.test(full)) { inGloss = true; b.t = "h1"; b.text = "GLOSSARY OF TERMS"; continue; }
+      if (/^GLOSSARY\b/i.test(full)) { inGloss = true; b.t = "h1"; b.text = glossTitle; continue; }
       // A single-letter alphabetical divider ("A", "B", "C"…) inside the glossary
       // is just a section marker — keep it, but don't let it end the glossary.
       if (inGloss && /^[A-Z]$/.test(full)) { hasDividers = true; continue; }
@@ -4077,7 +4105,7 @@ function reorderFrontmatter(blocks) {
   console.log(`reorderFrontmatter: moved "${txt(cut[0]).trim()}" (${cut.length} blocks) to after ${txt(blocks[anchor - cut.length] || {}).trim() || "the acknowledgement"}`);
 }
 
-function reorderBackmatter(blocks) {
+function reorderBackmatter(blocks, glossTitle = "GLOSSARY OF TERMS") {
   const getText = (b) => {
     if (!b) return "";
     if (typeof b === "string") return b;
@@ -4194,7 +4222,7 @@ function reorderBackmatter(blocks) {
     const text = getText(b).trim();
     if (b && (b.t === "h2" || b.t === "h1" || b.t === "head" || b.t === "label" || b.t === "para") && /^GLOSSARY\b/i.test(text)) {
       b.t = "h1";
-      b.text = "GLOSSARY OF TERMS";
+      b.text = glossTitle;
       glossIdx = i;
     }
   }
@@ -6970,7 +6998,7 @@ async function typesetOne(docxPath, themeName) {
   reformatAcronyms(blocks);
   normaliseCaptionLabels(blocks);
   normaliseRunColours(blocks, ov.keepRunColours);
-  formatGlossary(blocks);
+  formatGlossary(blocks, ov.glossaryTitle);
   displayifyColumnMath(blocks);
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
   normaliseSpacing(blocks);
@@ -7321,7 +7349,7 @@ function normaliseQuestionMarkBold(blocks) {
   // Group each lesson's header metadata into one distinct 14pt panel (Teacher's Guide).
   if (ov.polish) blocks = groupLessonMeta(blocks);
   reorderFrontmatter(blocks);   // house-style front-matter order (see the function)
-  reorderBackmatter(blocks);
+  reorderBackmatter(blocks, ov.glossaryTitle);
   // The author's hand-typed LIST OF FIGURES/TABLES, reconciled against the captions the
   // book actually carries. Runs here, after reorderBackmatter has put the back matter into
   // its final order, so the entries are matched against the finished block list.
@@ -7827,6 +7855,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // Figure captions in bold (still italic, same size) — a reviewer's "captions under
+  // illustrations should be put in bold, for all". Opt-in per book.
+  if (ov.boldCaptions) themeOverrides.capBold = true;
   // Keep an exercise/assessment question with its sub-parts across a page break
   // (template qaparts(); opt-in so proofread books keep their page breaks).
   if (ov.keepQuestionParts) themeOverrides.keepQuestionParts = true;
