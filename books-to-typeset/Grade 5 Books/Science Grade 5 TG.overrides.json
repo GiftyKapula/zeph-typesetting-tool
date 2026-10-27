@@ -1405,6 +1405,182 @@
     {
       "find": "Disposing off used sanitary pads",
       "with": "Disposing of used sanitary pads"
+    },
+    {
+      "find": "linking science to familiar contexts—whether",
+      "with": "linking science to familiar contexts whether"
+    },
+    {
+      "find": "learning about their bodies, or investigating",
+      "with": "learning about their bodies or investigating"
+    },
+    {
+      "find": "solve problems, and apply",
+      "with": "solve problems and apply"
+    },
+    {
+      "find": "digestion, circulation, and maintaining",
+      "with": "digestion, circulation and maintaining"
+    },
+    {
+      "find": "when the food was produced, while",
+      "with": "when the food was produced while"
+    },
+    {
+      "find": "trace the products, while",
+      "with": "trace the products while"
+    },
+    {
+      "find": "poor concentration, or increased",
+      "with": "poor concentration or increased"
+    },
+    {
+      "find": "sexual activities, while married",
+      "with": "sexual activities while married"
+    },
+    {
+      "find": "obesity, and nutrient-deficiency diseases",
+      "with": "obesity and nutrient deficiency diseases"
+    },
+    {
+      "find": "drinking, farming, and prevents",
+      "with": "drinking, farming and prevents"
+    },
+    {
+      "find": "plants, animals, and humans.",
+      "with": "plants, animals and humans."
+    },
+    {
+      "find": "supports agriculture, and maintains",
+      "with": "supports agriculture and maintains"
+    },
+    {
+      "find": "leaf colour, and overall growth, and explain",
+      "with": "leaf colour and overall growth and explain"
+    },
+    {
+      "find": "shortages, hunger, and economic",
+      "with": "shortages, hunger and economic"
+    },
+    {
+      "find": "leaf colour, and overall health",
+      "with": "leaf colour and overall health"
+    },
+    {
+      "find": "balance of nutrients, water, and air.",
+      "with": "balance of nutrients, water and air."
+    },
+    {
+      "find": "save money, and avoid",
+      "with": "save money and avoid"
+    },
+    {
+      "find": "five primary groups - mammals, birds, reptiles, amphibians and fish - based",
+      "with": "five primary groups (mammals, birds, reptiles, amphibians and fish) based"
+    },
+    {
+      "find": "tourism etc. [More information check Learners' book].",
+      "with": "tourism etc."
+    },
+    {
+      "find": "feeding areas regularly, and ensuring",
+      "with": "feeding areas regularly and ensuring"
+    },
+    {
+      "find": "from predators, and a clean",
+      "with": "from predators and a clean"
+    },
+    {
+      "find": "keeping the environment clean, and seeking",
+      "with": "keeping the environment clean and seeking"
+    },
+    {
+      "find": "lack of proper nutrition, and unhygienic",
+      "with": "lack of proper nutrition and unhygienic"
+    },
+    {
+      "find": "compare options, and bargain",
+      "with": "compare options and bargain"
+    },
+    {
+      "find": "tell neighbors, and take",
+      "with": "tell neighbors and take"
+    },
+    {
+      "find": "fair pricing, and using",
+      "with": "fair pricing and using"
+    },
+    {
+      "find": "canned chicken, or smoked",
+      "with": "canned chicken or smoked"
+    },
+    {
+      "find": "power to homes, schools, and industries",
+      "with": "power to homes, schools and industries"
+    },
+    {
+      "find": "flowing water, or fossil",
+      "with": "flowing water or fossil"
+    },
+    {
+      "find": "solar, hydro, and fossil fuels",
+      "with": "solar, hydro and fossil fuels"
+    },
+    {
+      "find": "solar, and hydro, while",
+      "with": "solar, and hydro while"
+    },
+    {
+      "find": "solar, hydro, and generators",
+      "with": "solar, hydro and generators"
+    },
+    {
+      "find": "homes, schools, and hospitals",
+      "with": "homes, schools and hospitals"
+    },
+    {
+      "find": "shade, dust, or anything",
+      "with": "shade, dust or anything"
+    },
+    {
+      "find": "small bulb, and access",
+      "with": "small bulb and access"
+    },
+    {
+      "find": "light to pass through, while",
+      "with": "light to pass through while"
+    },
+    {
+      "find": "reaching the panel, while",
+      "with": "reaching the panel while"
+    },
+    {
+      "find": "magnets, commutator, and brushes, which",
+      "with": "magnets, commutator and brushes, which"
+    },
+    {
+      "find": "appear as one substance, while",
+      "with": "appear as one substance while"
+    },
+    {
+      "find": "magnetism, solubility, and particle",
+      "with": "magnetism, solubility and particle"
+    },
+    {
+      "find": "soluble, magnetic, or able",
+      "with": "soluble, magnetic or able"
+    },
+    {
+      "find": "steepness, materials, and safety",
+      "with": "steepness, materials and safety"
+    },
+    {
+      "find": "has a specific use, and we",
+      "with": "has a specific use and we"
+    },
+    {
+      "find": "power outages, and reduces",
+      "with": "power outages and reduces"
     }
   ],
   "replaceExact": [],
@@ -1468,6 +1644,14 @@
     {
       "find": "Possible Answers:",
       "with": "Possible Answers"
+    },
+    {
+      "find": "learner-centered",
+      "with": "learner-⁠centered"
+    },
+    {
+      "find": "hard-shelled",
+      "with": "hard-⁠shelled"
     }
   ],
   "unlist": [
@@ -1519,5 +1703,6 @@
       "title": "Determining soil acidity",
       "count": 4
     }
-  ]
+  ],
+  "hyphenate": false
 }
