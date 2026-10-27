@@ -914,6 +914,10 @@ async function typesetOne(docxPath, themeName) {
   // keepBoxMm: boxes shorter than this stay whole on one page (default 180 mm); a lower value lets
   // mid-size activity boxes split rather than leave half a page empty before them
   if (ov.keepBoxMm) themeOverrides.keepBoxMm = Number(ov.keepBoxMm);
+  // keepBoxesWhole: true — an activity box that fits on a page moves to the next page whole
+  // instead of breaking (off by default: see framedsection in the template). For a picture
+  // book, where a break leaves the instruction on one page and its picture on the next.
+  if (ov.keepBoxesWhole) themeOverrides.keepBoxesWhole = true;
   if (ov.keepTableMm) themeOverrides.keepTableMm = Number(ov.keepTableMm);   // (likewise for tables; default ~141 mm)
   const coverB = blocks.find((b) => b.t === "cover");
   if (coverB && coverB.lines && coverB.lines.length) {
@@ -1653,7 +1657,7 @@ async function typesetOne(docxPath, themeName) {
     if (hasSpine || ov.coversInBook) {
       const cov = blocks.find((b) => b.t === "cover") || {};
       const lines = cov.lines || [];
-      const LEVEL = /\b(form|fo+mu|grade)\s*\d+|\bECE\b/i;
+      const LEVEL = /\b(form|fo+mu|grade)\s*\d+|\bECE(\s+(level|levo)\s+\d+)?\b/i;   // (an ECE level keeps its number: "ECE Levo 1")
       const lvLine = [...lines].reverse().find((l) => LEVEL.test(l)) || "";   // (last: a local eyebrow may name a form too)
       const level = (lvLine.match(LEVEL) || [""])[0];
       const T = THEMES[theme] || {};
