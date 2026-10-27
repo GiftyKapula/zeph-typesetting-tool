@@ -63,18 +63,6 @@
     "image57.jpeg": {
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image57.png"
     },
-    "image60.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image60.png"
-    },
-    "image61.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image61.png"
-    },
-    "image62.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image62.png"
-    },
-    "image63.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image63.png"
-    },
     "image64.jpeg": {
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image64.png"
     },
@@ -181,10 +169,11 @@
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image15.png"
     },
     "image65.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image65.png"
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/cyclist-car.jpeg"
     },
     "image68.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image68.png"
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/cows-drum.jpeg",
+      "w": 420
     },
     "image31.jpeg": {
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image31.png"
@@ -196,7 +185,10 @@
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image11.png"
     },
     "image12.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image12.png"
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/p14-matching.jpeg"
+    },
+    "image20.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/unit3-sports.jpeg"
     }
   },
   "replace": [
@@ -204,5 +196,898 @@
       "find": "mpolili atala kwakacitwa aba",
       "with": "**Cover and Book Layout:**"
     }
-  ]
+  ],
+  "font": "Century Gothic",
+  "dropBreaks": [
+    18,
+    20,
+    21,
+    23,
+    24,
+    25,
+    26,
+    30,
+    31,
+    32,
+    34,
+    35,
+    39,
+    40,
+    41,
+    42,
+    49,
+    50,
+    54,
+    55,
+    57,
+    60,
+    61,
+    64,
+    65,
+    66,
+    70
+  ],
+  "wordFix": {
+    "MEEBEEEBA": "MEEBEEBE",
+    "akonzyanya": "akozyanya",
+    "zyakuandulula": "zyakupandulula",
+    "mangwee": "tungwe",
+    "kangwee": "kangwe",
+    "zyimbwali": "cimbwali",
+    "kamusyo": "kamusyobo"
+  },
+  "removeImages": [
+    "image69.jpeg",
+    "image60.jpeg",
+    "image61.jpeg",
+    "image62.jpeg",
+    "image63.jpeg"
+  ],
+  "insertPictures": [
+    {
+      "find": "Andaanya mabala mutwaambo tutaambwe",
+      "file": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image30.png",
+      "after": true,
+      "w": 250
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "KUSWIILILA CIBALWA",
+      "near": "Masimpe azyakuliyeeyela",
+      "text": "KUMVWISISISYA CIBALWA"
+    },
+    {
+      "find": "KUSWIILILA CIBALWA",
+      "all": true,
+      "text": "KUMVWISISISYA CAAMBWA"
+    },
+    {
+      "find": "KUSWIILILA",
+      "all": true,
+      "text": "KUMVWISISISYA CAAMBWA"
+    },
+    {
+      "find": "KUMVWA CIBALWA",
+      "text": "KUMVWISISISYA CIBALWA"
+    },
+    {
+      "find": "KUMVWA",
+      "all": true,
+      "text": "KUMVWISISISYA"
+    },
+    {
+      "find": "Kuzyiba mabala",
+      "all": true,
+      "text": "Kujana mabala"
+    },
+    {
+      "find": "Kuzyiba Mabala",
+      "all": true,
+      "text": "Kujana Mabala"
+    },
+    {
+      "find": "KUZYIBA AKWAAMBA TUVWUUMINA",
+      "near": "Kubamba mabala mukwaambala kubelesya",
+      "text": "KWAAMBA TUVWUUMINA"
+    },
+    {
+      "find": "KUZYIBA AKWAAMBA TUBALA",
+      "text": "KUZYIBA AKWAAMBA TUVWUUMINA"
+    },
+    {
+      "find": "KUZYIBA KUBALA AKULEMBA TUVWUUMINA",
+      "text": "KUBALA AKULEMBA TUVWUUMINA"
+    },
+    {
+      "find": "CIPATI 8: ZYEENDELO AMIBANDI",
+      "text": "CIPATI 8: ZYEENDELO, KUTUMA AKUTAMBULA MILUMBE"
+    },
+    {
+      "find": "Kuli tubeela twamabala tongaye mubala atobela.",
+      "text": "Kuli tubeela twamabala tongaye mumabala atobela."
+    }
+  ],
+  "edit": [
+    {
+      "find": "Jula wamana ujale bbuku.",
+      "with": "Jula wamana ujale bbuku bweelede."
+    },
+    {
+      "find": "Vwunauna mapepa abbuku",
+      "with": "Vwunauna mapepa abbuku bweelede."
+    },
+    {
+      "find": "Tondezya acimwi nkocuunka.",
+      "with": "Tondezya acimwi cintu cili kulumwesyi nkocuunka."
+    },
+    {
+      "find": "Tondeka moombe wabbuku",
+      "with": "Pandulwida mweenzyinyoko moombe wabbuku"
+    },
+    {
+      "find": "Jana zyibeela zyabbuku.",
+      "with": "Amba zyibeela zyabbuku. Bobilo-bobilo, umwi atondeke cibeela cabbuku mpoona umwi acaambe."
+    },
+    {
+      "find": "Andaanya mabala mutwaambo tutaambwe kuzwa mucipikicca.",
+      "with": "Bandika abeenzyinyoko kujatikizya cipikicca wamana mwaambe namba yamabala ali mutwaambo tutaambwe kuzwa mucipikicca."
+    },
+    {
+      "find": "Pandulula zyifwanikiso",
+      "with": "Pandulula zyipikicca"
+    },
+    {
+      "find": "Bikka zyifwanikiso mbozyitobelana",
+      "with": "Bikka zyipikicca mbozyitobelana"
+    },
+    {
+      "find": "Jana mabala mumpasulula balozi eeyi",
+      "with": "Jana mabala."
+    },
+    {
+      "find": "Zekula zyintu zyiindene-indene nzyoyanda.",
+      "with": "Dulowa zyintu zyiindene-indene nzyoyanda."
+    },
+    {
+      "find": "Lemba mapatani",
+      "with": "Lemba mapatani mubbuku lyako lyakulembela."
+    },
+    {
+      "find": "Jana mazyina acigaminina ali mukkilasi one",
+      "with": "Jana mazyina one aacigaminina"
+    },
+    {
+      "find": "cincanya tubeela twamabala mumubala",
+      "with": "Cincanya tubeela twamabala mumubala"
+    },
+    {
+      "find": "Bala zyakulilembela",
+      "with": "Lemba mabala akuliyeeyela wamana ubale."
+    },
+    {
+      "find": "Pandulula  zyintu eezyi",
+      "with": "Pandulula zyintu eezyi:"
+    },
+    {
+      "find": "2.wazwa",
+      "with": "2. wazwa"
+    },
+    {
+      "find": "4.tacipyi",
+      "with": "4. tacipyi"
+    },
+    {
+      "find": "2.mangwalo",
+      "with": "2. mangwalo"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "Lembulula masyeepu",
+      "with": "Lembulula masyeepu mubbuku lyako lyakulembela."
+    },
+    {
+      "find": "Lembulula  masyeepu",
+      "with": "Lembulula masyeepu mubbuku lyako lyakulembela."
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Lembulula",
+      "with": [
+        {
+          "para": "Lembulula mubbuku lyako lyakulembela."
+        }
+      ]
+    },
+    {
+      "find": "Lembulula",
+      "with": [
+        {
+          "para": "Lembulula mubbuku lyako lyakulembela."
+        }
+      ]
+    },
+    {
+      "find": "Lemba",
+      "with": [
+        {
+          "para": "Lemba mubbuku lyako lyakulembela."
+        }
+      ]
+    },
+    {
+      "find": "Lemba",
+      "with": [
+        {
+          "para": "Lemba mubbuku lyako lyakulembela."
+        }
+      ]
+    },
+    {
+      "find": "Lemba",
+      "with": [
+        {
+          "para": "Lemba mubbuku lyako lyakulembela."
+        }
+      ]
+    },
+    {
+      "find": "Lemba",
+      "with": [
+        {
+          "para": "Lemba mubbuku lyako lyakulembela."
+        }
+      ]
+    },
+    {
+      "find": "1) mufwaafwi",
+      "with": []
+    },
+    {
+      "find": "2) ulineneede",
+      "with": []
+    },
+    {
+      "find": "3) mulamfwu",
+      "with": []
+    },
+    {
+      "find": "4) ulikokede",
+      "with": []
+    },
+    {
+      "find": "Endelanya mabala kupandulula bantu aaba.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "sticky": true,
+            "segs": [
+              {
+                "t": "Endelanya mabala kupandulula bantu aaba.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Endelanya kwaanzyanya kuluzi kuciindi ceelede.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "sticky": true,
+            "segs": [
+              {
+                "t": "Endelanya kwaanzyanya kuluzi kuciindi ceelede.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "renameNear": [
+    {
+      "find": "CAKUCITA",
+      "near": "Kujata zyibelesyo zyakulembya",
+      "to": "CAKUCITA 1: Kujata zyibelesyo zyakulembya (mpesele/kkilayoni nkoyilembya)"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "Kubala zyibalo zyijisi twaambo 2 naa 5",
+      "to": "CAKUCITA 5: Kubala zyibalo zyijisi twaambo 2 naa 5"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "Kubala akumvwa zyibalo zyijisi",
+      "to": "CAKUCITA 6: Kubala akumvwa zyibalo zyijisi tuvwuumina atubala twiindene-indene"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "Kubala zyibalo zyijisi twaambo 2 kusika ku 5",
+      "to": "CAKUCITA 5: Kubala zyibalo zyijisi twaambo 2 kusika ku 5"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "Kuzyiba cibalo cijisi tuvwuumina",
+      "to": "CAKUCITA 6: Kuzyiba cibalo cijisi tuvwuumina akutwaandaanya"
+    },
+    {
+      "find": "CAKUCITA 1:",
+      "near": "mabala( kwaandaanya",
+      "to": "CAKUCITA 1: Kuzyiba mabala kubelesya zyaandaanya mabala (kwaandaanya twaambo, mpasulula balozi yamabala)"
+    },
+    {
+      "find": "CAKUCITA 1:",
+      "near": "Kubandika cuulikidwe",
+      "to": "CAKUCITA 1: Kubandika kujatikizya mutwe wakaambo upedwe abeenzyinyoko"
+    },
+    {
+      "find": "CAKUCITA 1:",
+      "near": "Kupandulula zyifwanikiso",
+      "to": "CAKUCITA 1: Kupandulula zyipikicca"
+    },
+    {
+      "find": "CAKUCITA 2:",
+      "near": "Kubikka zyifwanikiso",
+      "to": "CAKUCITA 2: Kubikka zyipikicca mumulongo mbozyitobelana"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "Kubala mabala",
+      "to": "CAKUCITA 2: Kubala mabala"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "Kubala zyakulilembela omwini",
+      "to": "CAKUCITA 3: Kubala zyakulilembela omwini"
+    },
+    {
+      "find": "CAKUCITA 2: Kubala akuzyiba",
+      "near": "Kubala akuzyiba twaambo",
+      "to": "CAKUCITA 4: Kubala akuzyiba twaambo"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "1:  Kubala mabala",
+      "to": "CAKUCITA 2: Kubala mabala"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "1:  Kubala zyakulilembela",
+      "to": "CAKUCITA 3: Kubala zyakulilembela"
+    },
+    {
+      "find": "CAKUCITA 2: Kubala akuzyiba",
+      "near": "CAKUCITA 2: Kubala akuzyiba twaambo",
+      "to": "CAKUCITA 4: Kubala akuzyiba twaambo"
+    }
+  ],
+  "pageBreakBefore": [
+    "MIBUZYO YAKUMANINZYA CIPATI 5"
+  ],
+  "removeWhereNext": [
+    {
+      "find": "CAKUCITA 2: Kujana zyamasimpe",
+      "next": "CAKUCITA 2: Kujana zyamasimpe"
+    }
+  ],
+  "imprintSpacing": "0.3em",
+  "imprintGap": "3mm",
+  "insertText": [
+    {
+      "after": "CAKUCITA 2: Kujana zyamasimpe",
+      "near": "Kutantaanya Mabala",
+      "items": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "CAKUCITA 3: Kujana zyamasimpe mukaano",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Manininzya kaano.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "after": "KUBALA",
+      "near": "CAKUCITA 1: Kupandulula zyipikicca",
+      "items": [
+        {
+          "raw": {
+            "t": "h2",
+            "text": "MUZEEZO WABUSIMBO"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kujana Busimbo"
+          }
+        }
+      ]
+    },
+    {
+      "before": "NSEBA ABUSANI",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 1"
+        },
+        {
+          "listitem": "Tondeka bbuku mpolili atala.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Tondeka bbuku nkolili kunze.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Tondeka moombe wabbuku.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Kkala bukkala lewo.",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "before": ": MISOBANO",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 2"
+        },
+        {
+          "listitem": "Ana kaano kubayi.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Tondezya mbokujatwa mpesele.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "before": ": BUSOLOLI",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 3"
+        },
+        {
+          "para": "Bungika akwaandaanya zyintu zyijanika kucikolo amumasena mozwa"
+        },
+        {
+          "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/chalk-duster-spoon-pot.png",
+          "w": 520
+        }
+      ]
+    },
+    {
+      "before": ": MEEBEEBE",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 4"
+        },
+        {
+          "para": "Jana mabala"
+        },
+        {
+          "para": "1. __________"
+        },
+        {
+          "para": "2. __________"
+        },
+        {
+          "para": "3. __________"
+        },
+        {
+          "para": "4. __________"
+        },
+        {
+          "para": "5. __________"
+        },
+        {
+          "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image28.png",
+          "w": 430
+        }
+      ]
+    },
+    {
+      "before": "TUNSIYA-NSIYA TWACISI",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 5"
+        },
+        {
+          "listitem": "Enga keengo anselelo amazyina acigaminina.",
+          "marker": "1."
+        },
+        {
+          "para": "Kucikolo  Mutinta  Mubwa  Maliya"
+        },
+        {
+          "listitem": "Enga keengo anselelo amazyina biyo.",
+          "marker": "2."
+        },
+        {
+          "para": "Mazabuka  Busu  Bbola  Beene"
+        }
+      ]
+    },
+    {
+      "before": "LWIIYO LWAMAKWEBO",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 6"
+        },
+        {
+          "listitem": "Lemba tubala tutobela",
+          "marker": "1."
+        },
+        {
+          "para": "y   y   y   y   y   y   y"
+        },
+        {
+          "para": "n   n   n   n   n   n   n"
+        },
+        {
+          "para": "b   b   b   b   b   b   b"
+        },
+        {
+          "para": "l   l   l   l   l   l   l   l   l   l   l"
+        }
+      ]
+    },
+    {
+      "before": ": ZYEENDELO",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 7"
+        },
+        {
+          "listitem": "Lembulula mabala atobela mubulembo bwiimvwi butajatene.",
+          "marker": "1."
+        },
+        {
+          "listitem": "nuka",
+          "marker": "a."
+        },
+        {
+          "listitem": "cela",
+          "marker": "b."
+        },
+        {
+          "listitem": "duda",
+          "marker": "c."
+        },
+        {
+          "listitem": "guma",
+          "marker": "d."
+        },
+        {
+          "listitem": "wawa",
+          "marker": "e."
+        }
+      ]
+    },
+    {
+      "before": "KUBELESYA MISAMU AMICELO BUTEELEDE",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 8"
+        },
+        {
+          "listitem": "Endelanya mabala",
+          "marker": "1."
+        },
+        {
+          "para": "a. nana\tlila"
+        },
+        {
+          "para": "b. bana\tyoya"
+        },
+        {
+          "para": "c. lila\tnana"
+        },
+        {
+          "para": "d. yoya\tbana"
+        },
+        {
+          "listitem": "Lembulula kaambo katobela mubulembo bwiimvwi butajatene.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Bona baama basika.",
+          "marker": "a."
+        }
+      ]
+    },
+    {
+      "before": "LWIIYO LWAMALI",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 9"
+        },
+        {
+          "listitem": "Kuzwa mucipikicca capegwa anselelo, sala tuvwuumina tutalisya mabala apegwa.",
+          "marker": "1."
+        },
+        {
+          "listitem": "pepa",
+          "marker": "a."
+        },
+        {
+          "listitem": "gama",
+          "marker": "b."
+        },
+        {
+          "listitem": "jula",
+          "marker": "c."
+        },
+        {
+          "listitem": "damu",
+          "marker": "d."
+        },
+        {
+          "listitem": "mena",
+          "marker": "e."
+        },
+        {
+          "listitem": "zuza",
+          "marker": "f."
+        },
+        {
+          "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/bread-tomato-mealiemeal.png",
+          "w": 480
+        }
+      ]
+    },
+    {
+      "before": "MILAWO AZYIYANDIKA MUCISI",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 10"
+        },
+        {
+          "listitem": "Dulowa zyipikicca zyitondezya kaano kakuliyeeyela.",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "before": ": MAKULO",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 11"
+        },
+        {
+          "listitem": "Lemba mabala atobela mubunji.",
+          "marker": "1."
+        },
+        {
+          "listitem": "mwana",
+          "marker": "a."
+        },
+        {
+          "listitem": "muntu",
+          "marker": "b."
+        },
+        {
+          "listitem": "kutwi",
+          "marker": "c."
+        },
+        {
+          "listitem": "Lemba mabala atobela mukamwi",
+          "marker": "2."
+        },
+        {
+          "listitem": "babwa",
+          "marker": "a."
+        },
+        {
+          "listitem": "mililo",
+          "marker": "b."
+        }
+      ]
+    },
+    {
+      "before": ": BULIMI",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 12"
+        },
+        {
+          "para": "Bamba mabala"
+        },
+        {
+          "para": "1. ba\tzwa\t= ________"
+        },
+        {
+          "para": "2. ko\tlya\t= ________"
+        },
+        {
+          "para": "3. mbe\tba\t= ________"
+        },
+        {
+          "para": "4. mu\ttwe\t= ________"
+        }
+      ]
+    },
+    {
+      "before": "MILAWO YACISI AZYIYANDIKA",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 13"
+        },
+        {
+          "para": "Maninzya twaambo tutobela kubelesya mabala apegwa."
+        },
+        {
+          "para": "mulangu  bbola  ncoko"
+        },
+        {
+          "para": "1. Kucikolo kwesu tulasobana ________."
+        },
+        {
+          "para": "2. Bayi besu balembya ________ kubboodi."
+        },
+        {
+          "para": "3. ________ walila biyo tulanjila mukkilasi."
+        }
+      ]
+    },
+    {
+      "after": "Lemba kaano kajisi twaambo totatwe",
+      "items": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "head": "MIBUZYO YAKUMANINZYA CIPATI 14"
+        },
+        {
+          "para": "Enga keengo anselelo abbala liindene kavwuumina katalisya."
+        },
+        {
+          "para": "1. suma\tzula\tsama\tsiya"
+        },
+        {
+          "para": "2. puna\tpepa\tpeta\tbulo"
+        },
+        {
+          "para": "3. nyama\tnyemu\tngoma\tnyika"
+        },
+        {
+          "para": "4. bbala\tccuka\tbbuku\tbbila"
+        }
+      ]
+    },
+    {
+      "after": "Endelanya mabala kupandulula bantu aaba.",
+      "items": [
+        {
+          "images": [
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/child-tall.jpeg",
+              "w": 300,
+              "cap": "1)"
+            },
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/child-thin.jpeg",
+              "w": 300,
+              "cap": "2)"
+            },
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/child-short.png",
+              "w": 300,
+              "cap": "3)"
+            },
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/child-fat.jpeg",
+              "w": 300,
+              "cap": "4)"
+            }
+          ]
+        },
+        {
+          "raw": {
+            "t": "table",
+            "noHeader": true,
+            "rows": [
+              [
+                {
+                  "text": "mufwaafwi",
+                  "imgs": []
+                },
+                {
+                  "text": "ulineneede",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "mulamfwu",
+                  "imgs": []
+                },
+                {
+                  "text": "ulikokede",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "after": "Endelanya kwaanzyanya kuluzi kuciindi ceelede.",
+      "items": [
+        {
+          "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/times-of-day.png",
+          "w": 601
+        }
+      ]
+    }
+  ],
+  "captionSize": "18pt"
 }

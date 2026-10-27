@@ -433,6 +433,31 @@ async function typesetOne(docxPath, themeName) {
   // for writing anchors (`from`/`to`/`find`) against a manuscript we did not author
   if (process.env.ZEPH_BLOCKS) fs.writeFileSync(process.env.ZEPH_BLOCKS, blocks.map((b, i) => `${i}\t${b.t}\t${blockPlain(b).replace(/\s+/g, " ").slice(0, 160)}${b.file ? ` [${path.basename(b.file)}]` : ""}${Array.isArray(b.images) ? ` [${b.images.map((x) => path.basename(x.file || x.src || "")).join(" ")}]` : ""}`).join("\n"));
 
+  // insertText items may carry a picture: { image: "<path relative to the .docx>", w } —
+  // a picture a reviewer asked to sit with newly added text (an end-of-unit exercise's
+  // picture). Registered as media here, since applyOverrides has no access to it.
+  // { images: [{ image, w, cap }, …] } — a row of pictures side by side, each with an
+  // optional caption under it (the "1)", "2)" … of a match-the-words exercise).
+  for (const it of ov.insertText || []) for (const spec of it.items || []) {
+    if (spec && Array.isArray(spec.images)) {
+      const row = [];
+      for (const im of spec.images) {
+        const src = resolveBookPath(docxPath, im.image || "");
+        if (!fs.existsSync(src)) { console.warn("!  insertText image not found:", src); continue; }
+        const name = "ins_" + path.basename(src);
+        if (!media.some((m) => m.name === name)) media.push({ src, name });
+        row.push({ file: name, w: im.w || 601, tall: false, ...(im.cap ? { caption: im.cap } : {}) });
+      }
+      if (row.length) spec.raw = { t: "imagerow", images: row };
+      continue;
+    }
+    if (!spec || typeof spec.image !== "string") continue;
+    const src = resolveBookPath(docxPath, spec.image);
+    if (!fs.existsSync(src)) { console.warn("!  insertText image not found:", src); continue; }
+    const name = "ins_" + path.basename(src);
+    if (!media.some((m) => m.name === name)) media.push({ src, name });
+    spec.raw = { t: "image", file: name, w: spec.w || 601, tall: false };
+  }
   if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing) { applyOverrides(blocks, ov); }
   // glossaryColon: true — in the glossary, a term is followed by a colon, not the hyphen
   // the author typed: "Bacikombo- Caamba bamukowa" -> "Bacikombo: Caamba bamukowa".
@@ -972,6 +997,9 @@ async function typesetOne(docxPath, themeName) {
     themeOverrides.bodyFont = "Century Gothic";
     themeOverrides.displayFont = "Century Gothic";
   }
+  // font: "Century Gothic" — set one book's whole face (body, headings, display) by
+  // name, for a book outside the rule above that its reviewer wants in another face.
+  if (ov.font) { themeOverrides.font = ov.font; themeOverrides.bodyFont = ov.font; themeOverrides.displayFont = ov.font; }
   // CDC 2025 body-text size for LEARNER'S Books — young readers need larger text:
   //   Grade 1 → 18pt, Grade 2-3 → 16pt, Grade 4-6 → 14pt (Avant Garde / Century Gothic).
   // Teacher's Guides and secondary (Form) books keep the 12pt default (Arial/Times New
