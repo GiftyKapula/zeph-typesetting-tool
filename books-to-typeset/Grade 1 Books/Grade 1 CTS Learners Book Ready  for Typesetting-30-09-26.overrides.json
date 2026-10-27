@@ -66,7 +66,7 @@
     },
     {
       "from": "(c) Arranging desks and chairs",
-      "to": "(b) Arranging desks and chairs"
+      "to": "(b) Arrange desks and chairs"
     },
     {
       "from": "litter and Sweep the",
@@ -121,24 +121,12 @@
       "to": "welcome"
     },
     {
-      "from": "Thieves(b)",
-      "to": "Thieves (b)"
-    },
-    {
-      "from": "Volume button(b)",
-      "to": "Volume button (b)"
-    },
-    {
       "from": "animals(b)",
       "to": "animals (b)"
     },
     {
       "from": "pealed",
       "to": "peeled"
-    },
-    {
-      "from": "Clean the widows and window sills",
-      "to": "Clean the windows and window sills."
     },
     {
       "from": " (insert a Picture)",
@@ -167,14 +155,6 @@
     {
       "from": "Keep your materials safely.",
       "to": "Keep your materials safe."
-    },
-    {
-      "from": "Sweeping the floor.",
-      "to": "Sweep the floor."
-    },
-    {
-      "from": "Collecting litter.",
-      "to": "Collect litter."
     },
     {
       "from": "Wash the following utensils;",
@@ -207,6 +187,34 @@
     {
       "from": "another is a",
       "to": "another is a "
+    },
+    {
+      "from": "Sketch a Money box in your exercise book",
+      "to": "Sketch a money box in your exercise book."
+    },
+    {
+      "from": "ACTIVITY 3: Making Different Pictures",
+      "to": "ACTIVITY 6: Making Different Pictures"
+    },
+    {
+      "from": "ACTIVITY 4: Modelling Free",
+      "to": "ACTIVITY 7: Modelling Free"
+    },
+    {
+      "from": "b ) planting",
+      "to": "b) planting"
+    },
+    {
+      "from": "Name the toy shown",
+      "to": "Name the tool shown"
+    },
+    {
+      "from": "Draw one culture that",
+      "to": "Draw one dance from a culture that"
+    },
+    {
+      "from": "(c) Sack race.",
+      "to": "(c) Sack race.\n(d) Standing long jump.\n(e) Bean-bag throw."
     }
   ],
   "//coverImage": "The cover hero. The picture the manuscript itself put on the cover showed four learners, none of them with a visible disability, which the house rule requires wherever human beings appear, covers included. This replacement shows six: three boys and three girls, so the gender count is even, and three of them carry a disability between them — an albino learner, a wheelchair user, and a girl wearing a hearing aid. What they are doing is the book’s own subject: drawing, colouring, building with blocks, and writing, in a classroom whose chalkboard and bookshelf say the same. The source picture is a full portrait cover graphic with its own decorative bands top and bottom and a row of topic vignettes below the table; the grade3 cover frames its hero in a 138x82mm landscape window with fit: \"cover\", so the whole portrait would have been cropped to a thin horizontal slice through the middle, cutting every head off. Only the photograph is used, cropped to exactly that window’s 138:82 so the frame trims nothing further, chosen to clear the Zambian flag above and to leave the standing girl’s hair whole. It is then taken through Real-ESRGAN to 1679px, which is 309 DPI at 138mm.",
@@ -219,10 +227,10 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image28.png"
     },
     "image55.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image55.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-games-match.png"
     },
     "image10.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image10.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image10-relabelled.png"
     },
     "image73.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image73.png"
@@ -369,7 +377,7 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image57.png"
     },
     "image58.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image58.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-field-track.png"
     },
     "image61.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image61.png"
@@ -455,5 +463,2719 @@
     "image71.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image71.png"
     }
-  }
+  },
+  "//insertBlocks": "CDC return, October 2026 (Downloads\\CTS: \"Creative and Technology Studies Grade 1 Learners Book _CDC CORRECTIONS _Oct 2026.docx\" and the CDC-marked PDF). Everything the CDC added is inserted here rather than typed into the manuscript, so each addition stays reviewable: Topic 5 Patterns rebuilt as the CDC's five activities (fingerprint, scribble, line, splash, tear) with their pictures, replacing the single fingerprint activity; Topic 16 gains the paper house, paper mask and Zambian flag activities after Activity 2 (the three items Activity 1 already names), so collage and modelling become Activity/Exercise 6 and 7; the four safety notes and the LET'S DO sections the CDC wrote (cleaning, printed p63; drawing needlework tools, p118, which had repeated Activity 1's LET'S DO word for word; the pincushion, p120); the CDC's higher-order questions at the fifteen places it named, numbered on from the existing questions; and the CDC's twenty END-OF-TOPIC assessments, one at the end of every topic. Decided with the user: only the set-of-20 Topic 5 assessment (not the shorter one inside the Patterns draft); no \"Topic 1.x\" subtitle under the assessment headings; the p118 LET'S DO combines the PDF comment (Observe ...) with the docx version (Draw ...). Topic 18's assessment gets the \"Choose the correct answer.\" line the CDC gave the other nineteen. Slips in the CDC text corrected: colors, favorite, \"mage\" (made), \"LT'S LOOK\", \"needwork\", \"tin\" capitalised like its sibling options. Fitness Exercise 1 had numbered its option row \"2.\"; it is Q1's options, as the CDC's own listing of the exercise shows.",
+  "insertBlocks": [
+    {
+      "before": "Making simple patterns (finger print",
+      "blocks": [
+        {
+          "head": "LEARNING ACTIVITY 1: Making Fingerprint Patterns"
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-fingerprint.png"
+        },
+        {
+          "head": "LET’S LOOK"
+        },
+        {
+          "para": "Look carefully at the picture."
+        },
+        {
+          "head": "LET’S TALK AND LEARN"
+        },
+        {
+          "listitem": "What are the learners doing?",
+          "marker": "1."
+        },
+        {
+          "listitem": "What are they using?",
+          "marker": "2."
+        },
+        {
+          "listitem": "What colours can you see?",
+          "marker": "3."
+        },
+        {
+          "listitem": "Have you ever used paint?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Which pattern do you like?",
+          "marker": "5."
+        },
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "head": "Work on your own."
+        },
+        {
+          "listitem": "Make fingerprint patterns using:",
+          "marker": "1."
+        },
+        {
+          "para": "**(a)** One colour."
+        },
+        {
+          "para": "**(b)** Two colours."
+        },
+        {
+          "listitem": "Show your pattern to your teacher.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Tell your friend how you made your pattern.",
+          "marker": "3."
+        },
+        {
+          "head": "EXERCISE 1"
+        },
+        {
+          "listitem": "Make a fingerprint pattern on paper.",
+          "marker": "1."
+        },
+        {
+          "para": "A scribble pattern is made by moving a pencil or crayon freely on paper."
+        },
+        {
+          "para": "Scribbles can make beautiful designs."
+        },
+        {
+          "head": "LEARNING ACTIVITY 2: Making Scribble Patterns"
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-scribble.png"
+        },
+        {
+          "head": "LET’S LOOK"
+        },
+        {
+          "para": "Look carefully at the picture."
+        },
+        {
+          "head": "LET’S TALK AND LEARN"
+        },
+        {
+          "listitem": "What are the learners doing?",
+          "marker": "1."
+        },
+        {
+          "listitem": "What are they using?",
+          "marker": "2."
+        },
+        {
+          "listitem": "Which colours can you see?",
+          "marker": "3."
+        },
+        {
+          "listitem": "Which scribble do you like?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Why should we draw carefully?",
+          "marker": "5."
+        },
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "listitem": "Use different colours to make a scribble pattern.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Show your work to your teacher.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Tell your friend which colours you used.",
+          "marker": "3."
+        },
+        {
+          "head": "EXERCISE 2"
+        },
+        {
+          "listitem": "Use two colours to make a scribble pattern.",
+          "marker": "1."
+        },
+        {
+          "para": "We can make many patterns using lines."
+        },
+        {
+          "para": "Lines can be straight, curved, zigzag or wavy."
+        },
+        {
+          "head": "LEARNING ACTIVITY 3: Making Line Patterns"
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-lines.png"
+        },
+        {
+          "head": "LET’S LOOK"
+        },
+        {
+          "para": "Look carefully at the picture."
+        },
+        {
+          "head": "LET’S TALK AND LEARN"
+        },
+        {
+          "listitem": "What lines can you see?",
+          "marker": "1."
+        },
+        {
+          "listitem": "Which line is straight?",
+          "marker": "2."
+        },
+        {
+          "listitem": "Which line is zigzag?",
+          "marker": "3."
+        },
+        {
+          "listitem": "Which line is wavy?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Which line do you like?",
+          "marker": "5."
+        },
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "listitem": "Go on a nature walk around the school and identify different patterns that different lines form.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Identify the lines on a millipede.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Identify the lines on a snail.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Make a paper snake and decorate it with lines of your choice.",
+          "marker": "4."
+        },
+        {
+          "head": "EXERCISE 3"
+        },
+        {
+          "listitem": "Name the following lines:",
+          "marker": "1."
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-lines-diagram.png",
+          "w": 220
+        },
+        {
+          "listitem": "Draw the following in your exercise book:",
+          "marker": "2."
+        },
+        {
+          "para": "**(a)** A straight line"
+        },
+        {
+          "para": "**(b)** A zigzag line"
+        },
+        {
+          "para": "**(c)** A wavy line"
+        },
+        {
+          "listitem": "Complete the sentence.",
+          "marker": "3."
+        },
+        {
+          "para": "A ruler helps us draw __________ lines."
+        },
+        {
+          "para": "We can make splash patterns using paint."
+        },
+        {
+          "para": "We should use paint carefully."
+        },
+        {
+          "head": "LEARNING ACTIVITY 4: Making Splash Patterns"
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-splash.png"
+        },
+        {
+          "head": "LET’S LOOK"
+        },
+        {
+          "para": "Look carefully at the picture."
+        },
+        {
+          "head": "LET’S TALK AND LEARN"
+        },
+        {
+          "listitem": "What are the learners doing?",
+          "marker": "1."
+        },
+        {
+          "listitem": "What are they using?",
+          "marker": "2."
+        },
+        {
+          "listitem": "What colours can you see?",
+          "marker": "3."
+        },
+        {
+          "listitem": "Why are they wearing aprons?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Which splash pattern do you like?",
+          "marker": "5."
+        },
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "listitem": "Make splash patterns using your favourite colour.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Observe the different splash patterns made by different spills in your classroom.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Show your work to your teacher.",
+          "marker": "3."
+        },
+        {
+          "head": "EXERCISE 4"
+        },
+        {
+          "listitem": "Choose the tool used for splash painting.",
+          "marker": "1."
+        },
+        {
+          "para": "(a) Spoon     (b) Paint     (c) Book"
+        },
+        {
+          "listitem": "Make a splash pattern in your exercise book.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Complete the sentence.",
+          "marker": "3."
+        },
+        {
+          "para": "We use __________ to make splash patterns."
+        },
+        {
+          "para": "(a) Tin     (b) Paint     (c) Book"
+        },
+        {
+          "para": "We can tear coloured paper into small pieces."
+        },
+        {
+          "para": "We paste the pieces to make beautiful pictures."
+        },
+        {
+          "head": "LEARNING ACTIVITY 5: Making Tear Patterns"
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-tear.png"
+        },
+        {
+          "head": "LET’S LOOK"
+        },
+        {
+          "para": "Look carefully at the picture."
+        },
+        {
+          "head": "LET’S TALK AND LEARN"
+        },
+        {
+          "listitem": "What are the learners doing?",
+          "marker": "1."
+        },
+        {
+          "listitem": "What are they using?",
+          "marker": "2."
+        },
+        {
+          "listitem": "What colours can you see?",
+          "marker": "3."
+        },
+        {
+          "listitem": "What is the teacher doing?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Why should we paste carefully?",
+          "marker": "5."
+        },
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "listitem": "Make tear paper patterns.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Tear coloured paper into small pieces.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Paste the pieces on paper.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Make a simple picture.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Show your work to your teacher.",
+          "marker": "5."
+        },
+        {
+          "head": "EXERCISE 5"
+        },
+        {
+          "listitem": "Tear coloured paper into small pieces.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Paste the pieces on paper.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Make a simple picture.",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "before": "Paper Crafts",
+      "near": "Make a paper belt",
+      "blocks": [
+        {
+          "head": "LEARNING ACTIVITY 3: Making a Paper House Model"
+        },
+        {
+          "para": "**Materials needed:** Cardboard, coloured paper, glue, pencil, ruler and child-safe scissors."
+        },
+        {
+          "para": "Follow the steps."
+        },
+        {
+          "listitem": "Get a piece of cardboard.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Make four walls for the house.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Make a triangular roof.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Paste the roof onto the walls.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Cut out a door and windows.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Paste the door and windows onto the house.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Decorate your house with coloured paper.",
+          "marker": "7."
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-paper-house.png"
+        },
+        {
+          "head": "LET’S LOOK"
+        },
+        {
+          "para": "Look carefully at the picture."
+        },
+        {
+          "head": "LET’S TALK AND LEARN"
+        },
+        {
+          "listitem": "What are the learners making?",
+          "marker": "1."
+        },
+        {
+          "listitem": "What materials are they using?",
+          "marker": "2."
+        },
+        {
+          "listitem": "What shape is the roof?",
+          "marker": "3."
+        },
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "head": "Work with your teacher."
+        },
+        {
+          "listitem": "Make the walls of a house using cardboard.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Add a roof, door and windows.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Decorate your paper house.",
+          "marker": "3."
+        },
+        {
+          "head": "EXERCISE 3"
+        },
+        {
+          "listitem": "Name two parts of a house.",
+          "marker": "1."
+        },
+        {
+          "listitem": "What is the roof used for?",
+          "marker": "2."
+        },
+        {
+          "head": "LEARNING ACTIVITY 4: Making a Paper Mask"
+        },
+        {
+          "para": "**Materials needed:** Cardboard, coloured paper, glue, pencil and child-safe scissors."
+        },
+        {
+          "para": "Follow the steps."
+        },
+        {
+          "listitem": "Draw a large face on cardboard.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Ask your teacher to help cut out the face.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Draw the eyes, nose and mouth.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Ask your teacher to help cut out the eye holes.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Decorate the mask with coloured paper.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Attach a paper handle with your teacher’s help.",
+          "marker": "6."
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-paper-mask.png"
+        },
+        {
+          "head": "LET’S LOOK"
+        },
+        {
+          "para": "Look carefully at the picture."
+        },
+        {
+          "head": "LET’S TALK AND LEARN"
+        },
+        {
+          "listitem": "What are the learners making?",
+          "marker": "1."
+        },
+        {
+          "listitem": "What materials are they using?",
+          "marker": "2."
+        },
+        {
+          "listitem": "Which mask can you see?",
+          "marker": "3."
+        },
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "head": "Work with your teacher."
+        },
+        {
+          "listitem": "Draw a face on cardboard.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Decorate your mask with coloured paper.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Display your finished mask.",
+          "marker": "3."
+        },
+        {
+          "head": "EXERCISE 4"
+        },
+        {
+          "listitem": "What is a mask?",
+          "marker": "1."
+        },
+        {
+          "listitem": "Name one material used to make a paper mask.",
+          "marker": "2."
+        },
+        {
+          "head": "LEARNING ACTIVITY 5: Making the Zambian National Flag"
+        },
+        {
+          "para": "**Materials needed:** White paper, green, red, black and orange paper, glue, pencil and child-safe scissors."
+        },
+        {
+          "para": "Follow the steps."
+        },
+        {
+          "listitem": "Get a rectangular piece of white paper.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Cover it with green paper.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Cut small rectangles of red, black and orange paper.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Paste the stripes vertically near the lower-right corner in this order: red, black and orange.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Add an orange eagle above the stripes.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Display your Zambian flag.",
+          "marker": "6."
+        },
+        {
+          "img": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-zambian-flag.png"
+        },
+        {
+          "head": "LET’S LOOK"
+        },
+        {
+          "para": "Look carefully at the picture."
+        },
+        {
+          "head": "LET’S TALK AND LEARN"
+        },
+        {
+          "listitem": "What flag can you see?",
+          "marker": "1."
+        },
+        {
+          "listitem": "What is the main colour of the flag?",
+          "marker": "2."
+        },
+        {
+          "listitem": "What bird is on the flag?",
+          "marker": "3."
+        },
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "head": "Work with your teacher."
+        },
+        {
+          "listitem": "Cover a rectangular piece of paper with green paper.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Add the red, black and orange stripes.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Add the orange eagle and display your flag.",
+          "marker": "3."
+        },
+        {
+          "head": "EXERCISE 5"
+        },
+        {
+          "listitem": "Name the country whose flag is shown.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Name the three colours of the stripes.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "before": "EXERCISE 3",
+      "near": "Making Different Pictures Using Collage",
+      "drop": 1,
+      "blocks": [
+        {
+          "head": "EXERCISE 6"
+        }
+      ]
+    },
+    {
+      "before": "EXERCISE 4",
+      "near": "Modelling Free-form Objects",
+      "drop": 1,
+      "blocks": [
+        {
+          "head": "EXERCISE 7"
+        }
+      ]
+    },
+    {
+      "before": "LEARNING ACTIVITY 3: Making Products Using Hand Tools",
+      "blocks": [
+        {
+          "para": "**Safety Note:** The teacher must supervise the activity. Only the teacher should handle sharp tools such as saws and knives. Learners should use child-safe tools and follow all safety instructions when making toys.",
+          "keep": true
+        }
+      ]
+    },
+    {
+      "before": "Work with your group to clean your classroom.",
+      "drop": 9,
+      "blocks": [
+        {
+          "para": "Work with your group to clean your classroom."
+        },
+        {
+          "listitem": "Under the teacher’s guidance, clean the classroom or another designated room, such as the Home Economics Room or School Health Room.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Remove cobwebs from low, safe places.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "Clean low windows and window sills that you can reach safely from the floor.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "Sweep the floor.",
+          "marker": "c)"
+        },
+        {
+          "listitem": "Wipe the tables and other surfaces.",
+          "marker": "d)"
+        },
+        {
+          "listitem": "Make the beds, where available.",
+          "marker": "e)"
+        },
+        {
+          "listitem": "Collect litter and put it in the correct bin.",
+          "marker": "f)"
+        },
+        {
+          "listitem": "Arrange the chairs neatly.",
+          "marker": "g)"
+        },
+        {
+          "para": "**Safety Note:** The teacher must supervise the activity. Learners must not climb on chairs, desks or ladders to clean windows or remove cobwebs. Handle detergents only as instructed by the teacher, avoid contact with the eyes and mouth, and never taste or mix cleaning products.",
+          "keep": true
+        }
+      ]
+    },
+    {
+      "before": "Work with your teacher.",
+      "near": "Drawing Small Needlework Tools",
+      "drop": 4,
+      "blocks": [
+        {
+          "para": "Work with your group to draw small needlework tools."
+        },
+        {
+          "listitem": "Observe the following needlework tools:",
+          "marker": "1."
+        },
+        {
+          "listitem": "A tailor’s chalk.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "A tape measure.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "A thimble.",
+          "marker": "c)"
+        },
+        {
+          "listitem": "Draw small needlework tools:",
+          "marker": "2."
+        },
+        {
+          "listitem": "Draw a tailor’s chalk.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "Draw a tape measure.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "Draw a thimble.",
+          "marker": "c)"
+        },
+        {
+          "para": "**Safety Note:** The teacher must supervise the activity. Learners should use child-safe drawing materials, handle needlework tools carefully, and never play with sharp tools such as needles and scissors.",
+          "keep": true
+        }
+      ]
+    },
+    {
+      "before": "EXERCISE 3",
+      "near": "Which item would you like to make?",
+      "blocks": [
+        {
+          "head": "LET’S DO"
+        },
+        {
+          "head": "Making a Simple Pincushion"
+        },
+        {
+          "para": "**Materials:** Small piece of cloth, soft cotton or fabric scraps, needle and thread."
+        },
+        {
+          "para": "**Steps:**"
+        },
+        {
+          "listitem": "Take a small piece of cloth.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Fold the cloth in half.",
+          "marker": "2."
+        },
+        {
+          "listitem": "With the teacher’s help, sew three sides together.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Fill the cloth with soft cotton or fabric scraps.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Sew the open side closed with the teacher’s help.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Check that the pincushion is firmly closed.",
+          "marker": "6."
+        },
+        {
+          "para": "**Safety Note:** The teacher must supervise the activity. Only the teacher should handle sharp needles and scissors. Learners should use child-safe tools and follow all safety instructions.",
+          "keep": true
+        }
+      ]
+    },
+    {
+      "after": "Why should we keep our classroom clean",
+      "blocks": [
+        {
+          "listitem": "What could happen if litter is left on the classroom floor?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Which classroom would be safer for learning: a clean classroom or a dirty classroom?",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "after": "Draw one storage place found in your classroom.",
+      "blocks": [
+        {
+          "listitem": "Which classroom would you choose for learning: a clean classroom or a dirty classroom?",
+          "marker": "3."
+        },
+        {
+          "listitem": "A learner leaves pencils on the floor. What should the learner do?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Which is the better place to keep pencils: a pencil holder or the floor?",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "after": "Draw yourself sitting correctly",
+      "blocks": [
+        {
+          "listitem": "Look at the pictures. Which learner is sitting correctly at a desk?",
+          "marker": "3."
+        },
+        {
+          "listitem": "What may happen if a learner lifts a box carelessly?",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "after": "Draw a recycling bin in your exercise book.",
+      "blocks": [
+        {
+          "listitem": "Two learners have paper left after an activity. One throws it away, while the other keeps it for another activity. Who is using the paper wisely?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Name one material that can be used again.",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "after": "Draw your favourite ICT device in your exercise book.",
+      "blocks": [
+        {
+          "listitem": "Which device is used to type words: a computer or a football?",
+          "marker": "3."
+        },
+        {
+          "listitem": "A computer cable is damaged. What should the learner do?",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "before": "Sleeping b) Running",
+      "drop": 4,
+      "blocks": [
+        {
+          "para": "a) Sleeping     b) Running     c) Sitting"
+        },
+        {
+          "listitem": "Complete the sentence.",
+          "marker": "2."
+        },
+        {
+          "para": "Exercise helps us to stay __________."
+        },
+        {
+          "listitem": "Draw one fitness activity in your exercise book.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Which activity would you choose to keep fit: running or sitting all day?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Which is better before exercise: gentle warm-up movements or sitting still?",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "after": "We use __________ to exercise safely.",
+      "blocks": [
+        {
+          "listitem": "Which item is safer for tumbling: a mat or a hard desk?",
+          "marker": "3."
+        },
+        {
+          "listitem": "Why should learners use a mat during tumbling?",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "after": "Balancing on one foot",
+      "near": "Name three stunt activities",
+      "blocks": [
+        {
+          "listitem": "Which activity helps you practise balance: standing on one foot or lying down?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Why should learners perform stunt activities carefully?",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "after": "imp_image55",
+      "blocks": [
+        {
+          "listitem": "Which game would you choose to play with a ball: football or skipping?",
+          "marker": "3."
+        },
+        {
+          "listitem": "A learner pushes another learner during a game. Is this safe?",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "after": "Draw your favourite events.",
+      "blocks": [
+        {
+          "listitem": "Which event involves learners passing a baton: a relay race or a sack race?",
+          "marker": "4."
+        },
+        {
+          "listitem": "What should learners wait for before starting a race?",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "before": "Field and track events help us to become",
+      "blocks": [
+        {
+          "listitem": "A learner starts running before the starting signal. Is this correct?",
+          "marker": "3."
+        },
+        {
+          "listitem": "What should the learner do next time?",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "after": "imp_image64",
+      "blocks": [
+        {
+          "listitem": "Which tool is used to measure cloth: a tape measure or tailor’s chalk?",
+          "marker": "2."
+        },
+        {
+          "listitem": "Why should sharp needlework tools be kept safely?",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "after": "We can also use a ______________ to store",
+      "blocks": [
+        {
+          "listitem": "Why should pins be kept on a pincushion?",
+          "marker": "4."
+        },
+        {
+          "listitem": "Which is safer: keeping needles in a safe container or leaving them on the floor?",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "after": "Colour your work neatly.",
+      "near": "Using Free",
+      "blocks": [
+        {
+          "listitem": "Which line would you choose to show a winding road: a straight line or a wavy line?",
+          "marker": "5."
+        },
+        {
+          "listitem": "Which line has sharp turns: a zigzag line or a straight line?",
+          "marker": "6."
+        }
+      ]
+    },
+    {
+      "after": "Saying \"Thank you\"",
+      "blocks": [
+        {
+          "listitem": "A customer buys vegetables, while another person carries goods for payment. Which person is buying goods?",
+          "marker": "6."
+        },
+        {
+          "listitem": "A customer receives goods from a seller. What is a polite thing to say?",
+          "marker": "7."
+        }
+      ]
+    },
+    {
+      "before": "The sun rises in the",
+      "drop": 1,
+      "blocks": [
+        {
+          "listitem": "The sun rises in the __________________.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "after": "imp_image74",
+      "blocks": [
+        {
+          "move": "LET’S LOOK",
+          "near": "Making Various Items Using Paper"
+        }
+      ]
+    },
+    {
+      "after": "imp_image68",
+      "blocks": [
+        {
+          "move": "LET’S LOOK",
+          "near": "Identifying different types of lines"
+        }
+      ]
+    },
+    {
+      "before": "Standing",
+      "near": "How are the learners in",
+      "drop": 5,
+      "blocks": [
+        {
+          "listitem": "Standing",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "Sitting",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "Kneeling",
+          "marker": "(c)"
+        },
+        {
+          "listitem": "Walking",
+          "marker": "(d)"
+        },
+        {
+          "listitem": "Lifting the box",
+          "marker": "(e)"
+        }
+      ]
+    },
+    {
+      "before": "A chair.",
+      "near": "Neatly, draw and colour the following",
+      "drop": 4,
+      "blocks": [
+        {
+          "listitem": "A chair.",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "A pot.",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "A cup.",
+          "marker": "(c)"
+        },
+        {
+          "listitem": "A money box.",
+          "marker": "(d)"
+        }
+      ]
+    },
+    {
+      "before": "Draw your favourite hand tool in your exercise book.",
+      "drop": 1,
+      "blocks": [
+        {
+          "listitem": "Draw your favourite hand tool in your exercise book.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "before": "Tell your friend what can be made from clay.",
+      "drop": 4,
+      "blocks": [
+        {
+          "listitem": "Tell your friend what can be made from clay.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Tell your friend what can be made from reeds.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Make a simple object using plasticine.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Show your work to your teacher and classmates.",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "before": "LET’S TALK",
+      "exact": true,
+      "near": "Naming Various Types of",
+      "drop": 1,
+      "blocks": [
+        {
+          "head": "LET’S TALK AND LEARN"
+        }
+      ]
+    },
+    {
+      "before": "LET’S TALK",
+      "exact": true,
+      "near": "Modelling Free-form",
+      "drop": 1,
+      "blocks": [
+        {
+          "head": "LET’S TALK AND LEARN"
+        }
+      ]
+    },
+    {
+      "before": "LET’S TALK",
+      "exact": true,
+      "near": "Role-Playing the Roles",
+      "drop": 1,
+      "blocks": [
+        {
+          "head": "LET’S TALK AND LEARN"
+        }
+      ]
+    },
+    {
+      "before": "Complete the sentence using the words in the box.",
+      "near": "Which cardinal point is at the top",
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "Complete the sentence using the words in the box."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 2 DRAWING",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 1 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which action is safe in the classroom?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Running between desks"
+        },
+        {
+          "para": "b) Walking carefully"
+        },
+        {
+          "para": "c) Pushing a friend"
+        },
+        {
+          "listitem": "What should you do when you see something dangerous?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Tell the teacher"
+        },
+        {
+          "para": "b) Play with it"
+        },
+        {
+          "para": "c) Hide it"
+        },
+        {
+          "listitem": "How should you sit at your desk?",
+          "marker": "3."
+        },
+        {
+          "para": "a) With your chair tilted"
+        },
+        {
+          "para": "b) With your feet on the desk"
+        },
+        {
+          "para": "c) Sitting properly"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one place where you should be careful.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Demonstrate how to walk safely in the classroom.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Show how to lift a light object safely.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Point to one thing in the classroom that could cause an accident.",
+          "marker": "7."
+        },
+        {
+          "listitem": "What should you do if you see litter on the classroom floor?",
+          "marker": "8."
+        },
+        {
+          "para": "a) Leave it there"
+        },
+        {
+          "para": "b) Pick it up safely or tell the teacher"
+        },
+        {
+          "para": "c) Kick it around"
+        },
+        {
+          "listitem": "Should you follow the teacher’s safety instructions? Say Yes or No.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate one way of keeping your classroom safe.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 3 TOOLS",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 2 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which item can you use for drawing?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Pencil     b) Plate     c) Shoe"
+        },
+        {
+          "listitem": "Which item can you use for colouring?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Stone     b) Crayon     c) Spoon"
+        },
+        {
+          "listitem": "What should you do when you finish drawing?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Tear your work"
+        },
+        {
+          "para": "b) Throw your pencils"
+        },
+        {
+          "para": "c) Keep your work neatly"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one thing you can draw.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Draw a simple house in your exercise book.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Colour your house using colours of your choice.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Draw a simple object you see in your classroom.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you share drawing materials with your classmates? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how you can take care of your crayons.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Arrange your drawing materials neatly after using them.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 4: MATERIALS",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 3 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a hand tool?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Hammer     b) Pillow     c) Cup"
+        },
+        {
+          "listitem": "What should you do before using a tool?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Throw it"
+        },
+        {
+          "para": "b) Listen to the teacher’s instructions"
+        },
+        {
+          "para": "c) Play with it"
+        },
+        {
+          "listitem": "What should you do if a tool is broken?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Hide it"
+        },
+        {
+          "para": "b) Continue using it"
+        },
+        {
+          "para": "c) Tell the teacher"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one tool you know.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Point to a tool shown by your teacher.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Draw one tool in your exercise book.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Demonstrate how to carry a safe classroom tool carefully.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you play with tools? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how you would return a tool after using it.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate how you can share classroom equipment with a friend.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 5: PATTERNS",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 4 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a material?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Wood     b) Singing     c) Running"
+        },
+        {
+          "listitem": "Which material can be used to make a clay pot?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Paper     b) Clay     c) Cloth"
+        },
+        {
+          "listitem": "Which object can be made from wood?",
+          "marker": "3."
+        },
+        {
+          "para": "a) A wooden chair     b) A song     c) A shadow"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one material you know.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Point to an object made from wood.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Sort the materials shown by your teacher into groups.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Match a material to an object made from it.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you waste materials? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how to keep learning materials safely.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate how to share materials with your classmates.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 6: SOUNDS",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 5 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a pattern?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Circle, square, circle, square"
+        },
+        {
+          "para": "b) Chair, shoe, book, cup"
+        },
+        {
+          "para": "c) One random mark"
+        },
+        {
+          "listitem": "Which line is zigzag?",
+          "marker": "2."
+        },
+        {
+          "para": "a) A straight line"
+        },
+        {
+          "para": "b) A line with sharp turns"
+        },
+        {
+          "para": "c) A round circle"
+        },
+        {
+          "listitem": "What can you use to make a fingerprint pattern?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Your fingertip and suitable paint"
+        },
+        {
+          "para": "b) A spoon only"
+        },
+        {
+          "para": "c) A school bag"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Point to a pattern shown by your teacher.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Continue this pattern: circle, square, circle, ______.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Draw a straight line and a zigzag line.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Make a simple pattern using shapes or fingerprints, with your teacher’s guidance.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you laugh at a friend’s pattern? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Share the materials used for making patterns.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Show your pattern to the class and handle the materials carefully.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 7: DRAMA",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 6 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these makes a sound?",
+          "marker": "1."
+        },
+        {
+          "para": "a) A drum"
+        },
+        {
+          "para": "b) A silent picture"
+        },
+        {
+          "para": "c) A sleeping mat"
+        },
+        {
+          "listitem": "Which part of the body helps us hear sounds?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Ears     b) Knees     c) Elbows"
+        },
+        {
+          "listitem": "Which action helps you hear your teacher?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Shouting"
+        },
+        {
+          "para": "b) Listening quietly"
+        },
+        {
+          "para": "c) Talking at the same time"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one thing that makes a sound.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Clap your hands to make a sound.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Make a sound using your voice.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Listen to a sound made by your teacher and try to identify its source.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you listen when another learner is speaking? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Take turns with your classmates when making sounds.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate how to make a sound without disturbing others.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 8: HOSPITALITY",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 7 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which activity is part of drama?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Acting     b) Sleeping     c) Washing a plate"
+        },
+        {
+          "listitem": "What should you do when acting with others?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Push your friends"
+        },
+        {
+          "para": "b) Take turns"
+        },
+        {
+          "para": "c) Refuse to listen"
+        },
+        {
+          "listitem": "Which action shows a happy feeling?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Smiling     b) Frowning     c) Crying"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Show a happy facial expression.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Pretend to greet a visitor politely.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Act out one familiar activity at home or school.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Work with a friend to act out a short scene.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you respect your classmates during drama? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Take turns when acting with your group.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Show how you can encourage a friend who is shy about acting.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 9: ICT",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 8 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "What should you say when someone greets you politely?",
+          "marker": "1."
+        },
+        {
+          "para": "a) A polite reply"
+        },
+        {
+          "para": "b) An insult"
+        },
+        {
+          "para": "c) Nothing while ignoring them"
+        },
+        {
+          "listitem": "Which item can help you sweep the classroom?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Broom     b) Pillow     c) Plate"
+        },
+        {
+          "listitem": "Why should we keep a room clean?",
+          "marker": "3."
+        },
+        {
+          "para": "a) To make it dirty"
+        },
+        {
+          "para": "b) To make it safe and pleasant"
+        },
+        {
+          "para": "c) To hide litter"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one item used for cleaning.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Demonstrate how to greet a visitor politely.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Show how to arrange chairs neatly.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Demonstrate how to collect litter safely, following your teacher’s instructions.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you help keep the classroom clean? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how you can work with a friend to tidy a room.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate how to put cleaning materials away safely.",
+          "marker": "10."
+        },
+        {
+          "para": "**Safety Note:** The teacher must supervise cleaning activities. Learners must not climb on chairs or desks to clean high places. Cleaning products must be handled only as instructed by the teacher.",
+          "keep": true
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 10: COMPUTER",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 9 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which device can be used to make a phone call?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Mobile phone     b) Broom     c) Cup"
+        },
+        {
+          "listitem": "Which device can be used to listen to radio programmes?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Radio     b) Ruler     c) Plate"
+        },
+        {
+          "listitem": "What should you do before using another person’s device?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Take it without asking"
+        },
+        {
+          "para": "b) Ask for permission"
+        },
+        {
+          "para": "c) Hide it"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one ICT device you know.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Point to a computer or radio shown by your teacher.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Tell your teacher one use of a mobile phone.",
+          "marker": "6."
+        },
+        {
+          "listitem": "With your teacher’s help, demonstrate how to switch an ICT device on or off, where appropriate.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you handle ICT devices carefully? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how to take turns when using a shared device.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate how to put away or leave a device safely after use.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 11: HEALTH",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 10 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "What can you use to play an educational game on a computer?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Computer software"
+        },
+        {
+          "para": "b) A school shoe"
+        },
+        {
+          "para": "c) A cooking pot"
+        },
+        {
+          "listitem": "Which device can run a computer game?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Computer     b) Broom     c) Chair"
+        },
+        {
+          "listitem": "What should you do when the teacher gives instructions in the computer room?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Ignore the teacher"
+        },
+        {
+          "para": "b) Follow the instructions"
+        },
+        {
+          "para": "c) Run around"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one computer game or programme you have seen or used.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Point to the computer programme or game shown by your teacher.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Demonstrate how to sit properly when using a computer.",
+          "marker": "6."
+        },
+        {
+          "listitem": "With your teacher’s help, take part in a simple educational computer game.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you take turns when using a shared computer? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how you can treat a classmate fairly during a computer activity.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate how to follow the teacher’s instructions during a computer activity.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 12: TOURISM",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 11 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which activity helps keep your body active?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Running"
+        },
+        {
+          "para": "b) Sitting all day"
+        },
+        {
+          "para": "c) Sleeping during every lesson"
+        },
+        {
+          "listitem": "Which activity involves jumping?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Frog jump     b) Reading     c) Drawing"
+        },
+        {
+          "listitem": "What should you do before taking part in a physical activity?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Ignore the teacher"
+        },
+        {
+          "para": "b) Listen to the instructions"
+        },
+        {
+          "para": "c) Push other learners"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one activity that helps keep your body fit.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Demonstrate deep breathing as shown by your teacher.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Perform a frog jump in a safe, open space.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Take part in a simple fitness activity guided by your teacher.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you push other learners during exercise? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how to wait for your turn during a fitness activity.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate how to follow the teacher’s safety instructions during exercise.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 13: SPORTS",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 12 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a landmark?",
+          "marker": "1."
+        },
+        {
+          "para": "a) A hospital"
+        },
+        {
+          "para": "b) A pencil mark"
+        },
+        {
+          "para": "c) A school exercise"
+        },
+        {
+          "listitem": "Which activity can show a community’s culture?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Traditional dancing"
+        },
+        {
+          "para": "b) Pushing a friend"
+        },
+        {
+          "para": "c) Throwing litter"
+        },
+        {
+          "listitem": "Which direction is opposite to north?",
+          "marker": "3."
+        },
+        {
+          "para": "a) East     b) South     c) West"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one cultural activity in your community.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Name one landmark you know.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Show a traditional dance movement or sing a familiar cultural song, if you wish.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Using a simple map shown by your teacher, point to a landmark in the direction instructed.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you respect other people’s cultures? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Listen politely when a classmate talks about their culture.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Work with a group to share something you know about your community.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 14 NEEDLEWORK",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 13 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a game?",
+          "marker": "1."
+        },
+        {
+          "para": "a) A running game"
+        },
+        {
+          "para": "b) Sleeping"
+        },
+        {
+          "para": "c) Eating lunch"
+        },
+        {
+          "listitem": "Which activity is a track event?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Running a race"
+        },
+        {
+          "para": "b) Drawing a picture"
+        },
+        {
+          "para": "c) Singing quietly"
+        },
+        {
+          "listitem": "What should you do when playing a game?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Follow the rules"
+        },
+        {
+          "para": "b) Push other players"
+        },
+        {
+          "para": "c) Refuse to take turns"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one game you know.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Demonstrate a simple running movement in a safe space.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Practise a simple jumping or throwing activity as directed by your teacher.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Take part in a simple game with your classmates.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you accept the rules of a game? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how to take turns during a game.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate good sportsmanship when playing with others.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 15: GRAPHIC",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 14 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which tool is used to measure cloth?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Tape measure     b) Broom     c) Cup"
+        },
+        {
+          "listitem": "Which tool can be used to mark cloth?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Tailor’s chalk     b) Plate     c) Ball"
+        },
+        {
+          "listitem": "What should you do when using needlework tools?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Play with them"
+        },
+        {
+          "para": "b) Use them carefully with the teacher’s guidance"
+        },
+        {
+          "para": "c) Throw them"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one small needlework tool.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Point to the tape measure shown by your teacher.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Draw a tailor’s chalk in your exercise book.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Draw a thimble and show your drawing to the teacher.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you play with needles or scissors? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how you would return needlework tools to their proper storage place.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Demonstrate how to share materials and follow the teacher’s instructions during a needlework activity.",
+          "marker": "10."
+        },
+        {
+          "para": "**Safety Note:** The teacher must supervise the activity. Sharp tools such as needles and scissors must be handled only with the teacher’s guidance.",
+          "keep": true
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 16: CRAFTS",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 15 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a type of line?",
+          "marker": "1."
+        },
+        {
+          "para": "a) Zigzag     b) Spoon     c) Cup"
+        },
+        {
+          "listitem": "Which tool can help you draw a straight line?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Ruler     b) Pillow     c) Plate"
+        },
+        {
+          "listitem": "Why should we make lines clearly?",
+          "marker": "3."
+        },
+        {
+          "para": "a) So people can see them easily"
+        },
+        {
+          "para": "b) So they become dirty"
+        },
+        {
+          "para": "c) So nobody can see them"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Point to a straight line shown by your teacher.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Draw a straight line in your exercise book.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Draw a zigzag line.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Draw a wavy line.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you share drawing materials with others? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how to care for a ruler after using it.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Arrange your drawing materials neatly after the activity.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 17: LETTERING",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 16 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a craft item?",
+          "marker": "1."
+        },
+        {
+          "para": "a) A paper chain"
+        },
+        {
+          "para": "b) A running race"
+        },
+        {
+          "para": "c) A sound"
+        },
+        {
+          "listitem": "Which material can be used to make a paper chain?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Paper     b) Water only     c) Sand only"
+        },
+        {
+          "listitem": "What should you do with craft materials after using them?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Scatter them"
+        },
+        {
+          "para": "b) Store them safely"
+        },
+        {
+          "para": "c) Tear them for fun"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one craft item you know.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Make a simple paper chain with your teacher’s guidance.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Use suitable materials to make a simple craft item.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Show your finished craft item to the class.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you respect another learner’s work? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Share craft materials with your group.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Collect leftover materials and tidy your work area.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 18: SWIMMING",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 17 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a letter?",
+          "marker": "1."
+        },
+        {
+          "para": "a) A     b) 7     c) +"
+        },
+        {
+          "listitem": "Which item can you use to draw or write a letter?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Pencil     b) Plate     c) Shoe"
+        },
+        {
+          "listitem": "What makes a letter easy to read?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Clear writing"
+        },
+        {
+          "para": "b) Scribbling over it"
+        },
+        {
+          "para": "c) Hiding it"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one letter of the alphabet.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Write or copy the letter A in your exercise book.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Copy the letter B.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Colour a large letter provided by your teacher.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you take care of your pencils and crayons? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Share lettering materials with your classmates.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Show how to keep your work neat and your materials tidy.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 19: STRUCTURES",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 18 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Where should you swim?",
+          "marker": "1."
+        },
+        {
+          "para": "a) In a place approved for swimming with proper supervision"
+        },
+        {
+          "para": "b) In a drain"
+        },
+        {
+          "para": "c) In a flooded road"
+        },
+        {
+          "listitem": "What should you do before entering a swimming pool?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Enter without permission"
+        },
+        {
+          "para": "b) Follow the teacher’s instructions"
+        },
+        {
+          "para": "c) Push another learner into the water"
+        },
+        {
+          "listitem": "Why should you shower before swimming, where required?",
+          "marker": "3."
+        },
+        {
+          "para": "a) To help keep the pool clean"
+        },
+        {
+          "para": "b) To make the floor dirty"
+        },
+        {
+          "para": "c) To avoid listening to the teacher"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one item used for swimming.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Point to a swimming item shown by your teacher.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Show what you should do when the teacher says to wait before entering the pool.",
+          "marker": "6."
+        },
+        {
+          "listitem": "On dry land, demonstrate one action that shows you understand a swimming safety rule.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you enter water without permission and supervision? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Show how you can follow instructions during a swimming lesson.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Tell your teacher what you should do if you see another learner in danger near water.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "TOPIC 20: ENTREPRENEURSHIP",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 19 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Which of these is a structure?",
+          "marker": "1."
+        },
+        {
+          "para": "a) House     b) Song     c) Sound"
+        },
+        {
+          "listitem": "What is a bridge used for?",
+          "marker": "2."
+        },
+        {
+          "para": "a) Helping people cross an obstacle"
+        },
+        {
+          "para": "b) Cooking food"
+        },
+        {
+          "para": "c) Making music"
+        },
+        {
+          "listitem": "Which material can be used to make a simple model structure?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Building blocks     b) Sound     c) Light"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one structure you see in your community.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Point to a picture of a house shown by your teacher.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Draw a simple house in your exercise book.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Use safe materials or building blocks to make a simple model structure.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should you destroy another learner’s model? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Work with your group to build a simple structure.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Put away the materials safely after completing your model.",
+          "marker": "10."
+        }
+      ]
+    },
+    {
+      "before": "GLOSSARY",
+      "near": "TOPIC 20",
+      "blocks": [
+        {
+          "head": "END-OF-TOPIC 20 ASSESSMENT"
+        },
+        {
+          "para": "Choose the correct answer."
+        },
+        {
+          "listitem": "Who sells goods to people?",
+          "marker": "1."
+        },
+        {
+          "para": "a) A trader"
+        },
+        {
+          "para": "b) A sleeping child"
+        },
+        {
+          "para": "c) A person who is swimming"
+        },
+        {
+          "listitem": "Which of these is a good to sell?",
+          "marker": "2."
+        },
+        {
+          "para": "a) A loaf of bread     b) A shadow     c) A sound"
+        },
+        {
+          "listitem": "What should a seller do when a customer arrives?",
+          "marker": "3."
+        },
+        {
+          "para": "a) Greet the customer politely"
+        },
+        {
+          "para": "b) Shout at the customer"
+        },
+        {
+          "para": "c) Ignore the customer"
+        },
+        {
+          "para": "Answer or demonstrate."
+        },
+        {
+          "listitem": "Name one person who sells goods in your community.",
+          "marker": "4."
+        },
+        {
+          "listitem": "Name one good that people buy.",
+          "marker": "5."
+        },
+        {
+          "listitem": "Pretend to sell an item to a classmate.",
+          "marker": "6."
+        },
+        {
+          "listitem": "Pretend to be a customer and ask politely for an item.",
+          "marker": "7."
+        },
+        {
+          "listitem": "Should a seller tell the truth about an item? Say Yes or No.",
+          "marker": "8."
+        },
+        {
+          "listitem": "Demonstrate how to take turns when playing a buying-and-selling game.",
+          "marker": "9."
+        },
+        {
+          "listitem": "Show how to treat a customer politely during the role-play.",
+          "marker": "10."
+        }
+      ]
+    }
+  ],
+  "edit": [
+    {
+      "find": "Polite (b) harsh",
+      "with": "polite (b) harsh"
+    },
+    {
+      "find": "Thieves(b) visitors",
+      "with": "thieves (b) visitors"
+    },
+    {
+      "find": "Volume button(b) power button",
+      "with": "Volume button (b) Power button"
+    }
+  ],
+  "keepExercisesWhole": "185mm",
+  "//keepExercisesWhole": "CDC Oct 2026 asked three times for an exercise split across a page turn to be pushed down whole (printed p13, p97, p101); every exercise and assessment box under 185mm (a B5 text page is about 200mm) now moves whole to the next page instead of splitting.",
+  "removeRange": [
+    {
+      "from": "Making simple patterns (finger print",
+      "to": "END-OF-TOPIC 5 ASSESSMENT"
+    }
+  ],
+  "tables": [
+    {
+      "match": "transporter",
+      "rows": [
+        [
+          "shop owner",
+          "market trader",
+          "transporter"
+        ]
+      ]
+    }
+  ],
+  "//cdcComments": "CDC PDF comments (Oct 2026) applied through subtext/edit/retext/tables: \"Arrange desks and chairs\" (printed p2), \"money box\" (p16), \"Name the tool shown\" (p31), the lower-case options \"polite\"/\"thieves\" (p60), \"Power button\" (p71), \"Draw one dance from a culture\" (p89), every bare \"LET’S TALK\" made \"LET’S TALK AND LEARN\" (p100 and its two siblings), the entrepreneurs word bank \"shop owner, market trader, transporter\" (p154, which printed \"shop owner\" twice), and \"Standing long jump\" and \"Bean-bag throw\" added to both event lists of Field and Track Events, as the CDC asked and its new p107 picture shows. The three CDC entries made obsolete here (Thieves(b), the widows/Sweeping/Collecting cleaning-list fixes) were dropped because the CDC rewrote those lines.",
+  "//imagesCdc": "CDC Oct 2026: image10 (posture, printed p14) has its corner labels re-lettered A-D in reading order (they read D, A, C, B); image55 (the games matching table, p102) is the CDC's replacement, which names Solo instead of \"Traditional game\" (a type of game, not a name); image58 (field and track events, p107) is the CDC's replacement that adds the standing long jump and the bean-bag throw. All the CDC pictures are Real-ESRGAN upscales of the ones in its corrections .docx."
 }

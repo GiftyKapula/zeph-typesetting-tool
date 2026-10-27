@@ -516,7 +516,9 @@ function emit(blocks) {
         // a label, which occupies no space (measured: the caption and the table around it sit
         // at identical offsets with and without it), so this only ever adds the lookup.
         const tblcap = capOfTable(plain);
-        const pm = tblcap ? `#capmark(${S(plain)})` + p : p;
+        const pm0 = tblcap ? `#capmark(${S(plain)})` + p : p;
+        // a short note that must not be split over a page turn (insertBlocks `keep`)
+        const pm = b.keepWhole ? `#block(breakable: false)[${pm0.trim()}]\n` : pm0;
         out += (b.stickyNext || tblcap || capOpener(plain) || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(pm) : pm;
         break;
       }
@@ -716,7 +718,9 @@ function boxifyActivities(blocks, opts = {}) {
   // manuscript typo — spelt that way it was not recognised as a heading at all and the
   // whole end-of-topic answer key stayed un-boxed, flush against the body text. The
   // misspelling is corrected in the PRINTED title by fixBoxTitleSpelling (import-docx.js).
-  const ASMT = /^(((END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*)?ASSESS?MENTS?|(END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*EXERCISE)(\s+\d+)?\s*:?\s*$/i;
+  // "END-OF-TOPIC 5 ASSESSMENT": the topic number may sit before the word too, as the
+  // importer's own assessment test (import-docx.js) already allows.
+  const ASMT = /^(((END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*(\d+[\s-]*)?)?ASSESS?MENTS?|(END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*EXERCISE)(\s+\d+)?\s*:?\s*$/i;
   // a glossary definition line ("Term – meaning") is never a box heading
   const isDefn = (t) => /\s[–-]\s/.test(t);
   // A Teacher's Guide answer section ("Exercise – Expected Answers", "Assessment –
@@ -907,6 +911,33 @@ function boxifyActivities(blocks, opts = {}) {
       if (altActHead) altActPending = true;
       if (!readmode && (k === "act" || k === "ex") && READINSTR.test(blockPlain(y))) readmode = true;
       j++;
+    }
+    // The lead-in prose of the NEXT activity is not part of this exercise. Primary
+    // Learner's Books open each activity with two or three plain sentences ("Every game
+    // has rules. / Rules help us to play safely and fairly.") typed straight after the
+    // previous exercise's last question, with no heading between them — so the exercise
+    // box ran on and printed them inside its panel. The CDC marked one (Grade 1 CTS
+    // LB, printed p89: "THIS PART SHOULD BE PUSHED DOWN, IT IS NOT PART OF THE
+    // EXERCISE"); the same book had it after at least four other exercises. Only when
+    // the box ends at an activity, only after a real question, and only finished
+    // sentences — never an option row, a fill-in blank or a lead-in ending in a colon.
+    if (k === "ex" && j < blocks.length && isHead(blocks[j]) && kindOf(ht(blocks[j])) === "act") {
+      const blankish = (x) => isAnswerSurface(x) || /_{3,}|…|\.{3,}/.test(blockPlain(x));
+      // an instruction is the exercise's own question, typed without a number
+      // ("Draw one straight, one zigzag and one wavy line in your exercise book.")
+      const instr = (x) => /^(Draw|Write|Name|Colou?r|Make|Match|Fill|Complete|Choose|Circle|Tick|Label|List|Tell|Show|Use|Copy|Trace|Identify|Answer|Sketch|Paint|Cut|Paste|Arrange|Sort|Point|Say|Find|Read|Explain|Describe|Mention|State|Give|Put|Look)\b/.test(blockPlain(x).trim());
+      let n = 0;
+      while (n < body.length - 1) {
+        const x = body[body.length - 1 - n];
+        if (x.t !== "para" || blankish(x) || instr(x) || !/[.!]$/.test(blockPlain(x).trim())) break;
+        n++;
+      }
+      // …and only when what stands before them is plainly a question: a list item, a
+      // picture or table, an instruction, or a line with an answer surface (options, a
+      // blank to fill)
+      const prev = body[body.length - 1 - n];
+      const isQuestion = prev && (prev.t === "listitem" || prev.t === "image" || prev.t === "table" || blankish(prev) || instr(prev));
+      if (n && isQuestion) { body.splice(body.length - n, n); j -= n; }
     }
     // mergeColon: fold a bare "ACTIVITY N" title's first short instruction line
     // up into the title as "ACTIVITY N: <instruction>".
@@ -6964,6 +6995,91 @@ async function typesetOne(docxPath, themeName) {
     }
   }
 
+  // insertBlocks: [{ before | after, near?, exact?, drop?, blocks: [spec, …] }] — add new content,
+  // pictures included, at a top-level anchor (the first block whose text contains
+  // `before`/`after`; `near` first finds a block and searches from there on).
+  // For a reviewer's ADDITIONS too rich for insertText — a whole new learning activity
+  // with its picture, an exercise, an end-of-topic assessment — that are still small
+  // enough to keep in the sidecar rather than in a second .docx (replaceUnitDocx).
+  // Specs mirror what the importer produces, so the new blocks are boxed, numbered and
+  // text-fixed by the passes that follow exactly like native content:
+  //   { head: "LET’S DO" }                  -> heading (box titles, LET'S LOOK, …)
+  //   { para: "**Safety Note:** …", keep? } -> paragraph (md-parsed: **bold** *italic*);
+  //                                            keep: true = never split over a page
+  //   { listitem: "text", marker: "1." }    -> numbered item; a run of items is one list
+  //   { img: "media/x.png", w: 590 }        -> picture (PNG), path relative to the .docx
+  //   { move: "imp_image74", near? }        -> lift an EXISTING block (by text, or a
+  //                                            picture by file name) to this spot
+  // Anchors match a picture by its file name too. Runs BEFORE applyOverrides, so
+  // `removeRange`/`subtext`/renumbering also see the new blocks.
+  {
+    const norm = (s) => (s || "").replace(/\s+/g, " ").trim();
+    const txt = (b) => norm(blockPlain(b)) + (b.t === "image" ? ` ${b.file || ""}` : "");
+    const pngSize = (p) => {
+      const b = fs.readFileSync(p);
+      return b.length > 24 && b.readUInt32BE(12) === 0x49484452 ? { w: b.readUInt32BE(16), h: b.readUInt32BE(20) } : null;
+    };
+    let nIns = 0;
+    for (const ins of ov.insertBlocks || []) {
+      nIns += 1;
+      const needle = norm(ins.before != null ? ins.before : ins.after);
+      let from = 0;
+      if (ins.near) {
+        from = blocks.findIndex((b) => txt(b).includes(norm(ins.near)));
+        if (from < 0) { console.warn("!  insertBlocks 'near' not matched:", ins.near); continue; }
+      }
+      // moved blocks are lifted first, so the anchor is found in the order that remains
+      const moved = [];
+      for (const sp of ins.blocks || []) {
+        if (sp.move == null) continue;
+        const f0 = sp.near ? blocks.findIndex((b) => txt(b).includes(norm(sp.near))) : 0;
+        const k = blocks.findIndex((b, i) => i >= Math.max(f0, 0) && txt(b).includes(norm(sp.move)));
+        if (k < 0) { console.warn("!  insertBlocks 'move' not matched:", sp.move); continue; }
+        if (k < from) from -= 1;
+        moved.push(blocks.splice(k, 1)[0]);
+      }
+      // `exact`: the anchor is the block's whole text (a heading whose words also open longer ones)
+      const at = blocks.findIndex((b, i) => i >= from && (ins.exact ? norm(blockPlain(b)) === needle : txt(b).includes(needle)));
+      if (at < 0) { console.warn("!  insertBlocks not matched:", needle); continue; }
+      // Questions added to an existing exercise continue ITS list: until the insert opens
+      // a heading of its own, items take the Word list id of the nearest list item above
+      // the insertion point within the same section, so they number on as siblings
+      // rather than reading as a new (sub-)list.
+      const pos = ins.after != null ? at + 1 : at;
+      let prevNum = null;
+      for (let k = pos - 1; k >= 0; k--) {
+        const b = blocks[k];
+        if (b.t === "head" || /^h[123]$/.test(b.t)) break;
+        if (b.t === "listitem" && b.numId != null) { prevNum = b.numId; break; }
+      }
+      const out = [];
+      let list = 0, inList = false, headSeen = false;
+      for (const sp of ins.blocks || []) {
+        if (sp.listitem == null) inList = false;
+        if (sp.move != null) { if (moved.length) out.push(moved.shift()); }
+        else if (sp.head != null) { headSeen = true; out.push({ t: "head", text: sp.head }); }
+        else if (sp.para != null) out.push({ t: "para", segs: mkSegs(sp.para), ...(sp.keep ? { keepWhole: true } : {}) });
+        else if (sp.listitem != null) {
+          if (!inList) { list += 1; inList = true; }
+          const numId = !headSeen && prevNum != null ? prevNum : `ins${nIns}_${list}`;
+          out.push({ t: "listitem", segs: mkSegs(sp.listitem), marker: sp.marker || "•", numId, lvl: 0 });
+        } else if (sp.img != null) {
+          const src = path.isAbsolute(sp.img) ? sp.img : path.resolve(path.dirname(docxPath), sp.img);
+          const dim = fs.existsSync(src) && pngSize(src);
+          if (!dim) { console.warn("!  insertBlocks picture missing or not a PNG:", sp.img); continue; }
+          const name = `ins${nIns}_${path.basename(src)}`;
+          media.push({ src, name, orig: name, crop: null, rot: 0, emf: false });
+          const w = Math.min(sp.w || 590, 590), h = (w * dim.h) / dim.w;
+          out.push({ t: "image", file: name, w, h, tall: h / w > 1.05, caption: sp.caption || "", hmm: 0, floatingBelowText: false, side: null, voff: 0 });
+        }
+      }
+      // `drop: n` REPLACES: the n blocks from the anchor on are taken out first (an
+      // `after` anchor itself is kept, so the n blocks after it go).
+      blocks.splice(ins.after != null ? at + 1 : at, ins.drop || 0, ...out);
+    }
+    if (nIns) console.log(`   insertBlocks: ${nIns} insertion(s)`);
+  }
+
   // Merge each unit's theme into its banner ("UNIT N: Theme") and demote stray body
   // sub-headings, so units read like the Learner's Book and the contents lists units
   // only. Runs BEFORE applyOverrides so renumberLessons/Activities see settled heads.
@@ -7861,6 +7977,11 @@ function normaliseQuestionMarkBold(blocks) {
   // Keep an exercise/assessment question with its sub-parts across a page break
   // (template qaparts(); opt-in so proofread books keep their page breaks).
   if (ov.keepQuestionParts) themeOverrides.keepQuestionParts = true;
+  // Keep a SHORT exercise/assessment box whole (template framedsection(); opt-in, a
+  // length such as "120mm"): the box moves to the next page instead of splitting. CDC
+  // asked for it three times on the Grade 1 CTS Learner's Book ("let this part be
+  // pushed down"); activity boxes, which open with a tall picture, stay breakable.
+  if (ov.keepExercisesWhole) themeOverrides.keepExercisesWhole = ov.keepExercisesWhole;
   // Give a table column left empty for the learner to write in some width (dtable()).
   if (ov.writingColumns) themeOverrides.writingColumns = true;
   // Give every assessment rubric in the book one column split (dtable(); opt-in so
