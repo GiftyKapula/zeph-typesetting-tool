@@ -3579,6 +3579,9 @@ function applyOverrides(blocks, ov) {
     if (from < 0) { console.warn("!  moveBefore source not matched:", mv.near ? `${mv.find} near ${mv.near}` : mv.find); continue; }
     const [blk] = blocks.splice(from, 1);
     let to = blocks.findIndex((b) => mbMatch(b, mv.before));
+    // no paragraph holds it: the target may be a table, named by text in its cells
+    // (a lead-in moved to sit directly above the table it introduces)
+    if (to < 0) to = blocks.findIndex((b) => b.t === "table" && tableText(b).includes(mv.before));
     if (to < 0) { console.warn("!  moveBefore target not matched:", mv.before); blocks.splice(from, 0, blk); continue; }
     blocks.splice(to, 0, blk);
   }
@@ -6923,6 +6926,7 @@ async function typesetOne(docxPath, themeName) {
   importOpts.removeImages = ov.removeImages || [];
   HEAD_LIST_SPACING = !!ov.headListSpacing;
   importOpts.romanSubParts = !!ov.romanSubParts;
+  importOpts.keepTypedMarkers = !!ov.keepTypedMarkers;
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
