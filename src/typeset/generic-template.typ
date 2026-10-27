@@ -3365,6 +3365,29 @@
     } else { i = i + 1 }
   }
   let nbody = body.len()
+  // ---- a table's TITLE LINES travel with the table ----
+  // A worked answer names its table in a line or two above it ("Manda Enterprises" /
+  // "Trial Balance as at 31 October 20X6"). dtable keeps a short table whole, so when
+  // it did not fit it jumped to the next page alone and left its title lines at the foot
+  // of this one — the Accounting Form 2 TG ended pages that way more than once. A short
+  // line with no closing punctuation, directly above a table (or above another such
+  // line that is), is sticky: it moves only where it would otherwise end a page.
+  let capLike(it) = it.k == "para" and it.at("cont", default: none) == none and {
+    let t = txt(it).trim()
+    t.len() > 0 and t.len() <= 70 and t.match(regex("[.?!;,]$")) == none
+  }
+  // At most three such lines: a title is a name and a date, perhaps a letter above
+  // them. A longer run of short lines is a worked answer ("Bank loan = K80,000" …)
+  // that happens to end at a table, and binding all of it moved whole pages.
+  let toTable = range(nbody).map(_ => false)
+  let tdist = range(nbody).map(_ => 0)
+  for k in range(nbody).rev() {
+    if capLike(body.at(k)) and k + 1 < nbody {
+      let d = if body.at(k + 1).k == "table" { 1 } else if tdist.at(k + 1) > 0 { tdist.at(k + 1) + 1 } else { 0 }
+      if d > 0 and d <= 3 { tdist.at(k) = d; toTable.at(k) = true }
+    }
+  }
+  let oneAt(k) = if toTable.at(k) { block(sticky: true, breakable: false, width: 100%)[#one(body.at(k))] } else { one(body.at(k)) }
   // ---- a box body with nothing to group it ----------------------------------
   // An EXERCISE is usually a flat run of questions: no heading, so none of the grouping
   // above claims any of it, and every item is left to break on its own. Two kinds of
@@ -3381,9 +3404,9 @@
   // entire and wastes whatever was left of this one.
   let loose = mark.all(v => v == -1)
   if loose and nbody >= 2 {
-    let whole = body.map(g => one(g)).join()
-    let head = body.slice(0, nbody - 2).map(g => one(g)).join()
-    let pair = body.slice(nbody - 2).map(g => one(g)).join()
+    let whole = range(nbody).map(k => oneAt(k)).join()
+    let head = range(nbody - 2).map(k => oneAt(k)).join()
+    let pair = range(nbody - 2, nbody).map(k => oneAt(k)).join()
     layout(size => {
       let h = measure(box(width: size.width)[#whole]).height
       if h < 240pt { block(breakable: false, width: 100%)[#whole] }
@@ -3462,7 +3485,7 @@
         if h < 240pt { block(breakable: false, width: 100%)[#pair] } else { pair }
       })
       skipnext = true
-    } else if m == -1 { one(it) }
+    } else if m == -1 { oneAt(idx) }
   }
   }
 }
@@ -3774,6 +3797,20 @@
   let bindNext = range(parts.len()).map(i => (mk(i) == "•" and mk(i + 1) == "•" and mk(i + 2) != "•")
     or (kq and dp(i) == 0 and dp(i + 1) == 1)
     or (kq and dp(i) == 1 and dp(i + 1) == 1 and dp(i + 2) != 1))
+  // A part that only TITLES the table below it — a lead line ("Banda Enterprises"), or a
+  // question with no answer of its own ("b) Trial Balance as at 30 June 2026", or a bare
+  // "4. a)") — must not end a page apart from that table: same rule as renderbody's.
+  let ptxt(p) = p.at("q", default: "").trim()
+  let pcap(p) = ((p.kind == "lead" and ptxt(p).len() > 0) or (p.kind == "q" and p.at("a", default: "") == "" and p.at("aseg", default: ()).len() == 0)) and ptxt(p).len() <= 70 and ptxt(p).match(regex("[.?!;,]$")) == none
+  // (three lines at most, as there)
+  let capT = range(parts.len()).map(_ => false)
+  let cdist = range(parts.len()).map(_ => 0)
+  for k in range(parts.len()).rev() {
+    if pcap(parts.at(k)) and k + 1 < parts.len() {
+      let d = if parts.at(k + 1).kind == "table" { 1 } else if cdist.at(k + 1) > 0 { cdist.at(k + 1) + 1 } else { 0 }
+      if d > 0 and d <= 3 { cdist.at(k) = d; capT.at(k) = true }
+    }
+  }
   for (pi, it) in parts.enumerate() {
     if it.kind == "colsum" {
       // a vertical column sum/subtraction answer (converted from an unaligned fraction),
@@ -3818,7 +3855,7 @@
       // introduces the lines after it and must not be the last thing on a page. The
       // Hospitality Management Form 3 TG ended pages on both. Sticky moves nothing else.
       // `whole` (a short scenario passage an override set) keeps the passage on one page.
-      if it.q.trim().ends-with(":") { block(sticky: true, breakable: false, width: 100%)[#leadrow] }
+      if it.q.trim().ends-with(":") or capT.at(pi) { block(sticky: true, breakable: false, width: 100%)[#leadrow] }
       else if it.at("whole", default: false) { block(breakable: false, width: 100%)[#leadrow] } else { leadrow }
       v(2pt)
     }
@@ -3908,7 +3945,7 @@
       // (Only the colon: binding every answerless stem to the indented answer under it
       // pushed whole answers over and left near-empty pages in the same book.)
       let heads = (it.q.trim().ends-with(":") and it.a == "" and aseg.len() == 0) or it.at("keep", default: false)
-      if bindNext.at(pi) or heads { block(sticky: true, width: 100%)[#qablock] } else { qablock }
+      if bindNext.at(pi) or heads or capT.at(pi) { block(sticky: true, width: 100%)[#qablock] } else { qablock }
       v(T.at("qgap", default: 3pt))
     }
   }

@@ -31,6 +31,13 @@ const droppedBoxes = [];
 // Per-book switch read by markerFor(): a sub-run opening at "i" is roman, not lettered.
 // Set from importDocx's `romanSubParts` option (the book's override of the same name).
 let ROMAN_SUB_PARTS = false;
+// Per-book switch (the `keepTypedMarkers` override): a TYPED answer marker prints as the
+// writer typed it. By default buildQAParts re-sequences typed letters and numbers so a
+// block reads a, b, c… / 1..N even where the writer slipped — but in an answer key whose
+// worked tables and nested lists break the run, that turned the writer's own "b)" into
+// "a)", "(c)" into "g)" and a list "1., 2." under "(c)" into "6., 7." (Accounting Form 2
+// TG). Opt-in, because other books rely on the re-sequencing to mend their slips.
+let KEEP_TYPED_MARKERS = false;
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -289,7 +296,12 @@ function boxKindFromTitle(t) {
   // number-dropped label: the Food and Nutrition Form 2 Teacher's Guide heads its gravy
   // Expected Answers that way, and the whole box (twenty paragraphs) never printed.
   // Only a lone stop qualifies, so "Exercise. Moving your body…" stays prose.
+  // A dash followed by nothing but "(Expected) Solutions/Answers" is the answer key's
+  // own label, never a glossary line: the Accounting Form 2 TG heads one answer box
+  // "Exercise – Expected Solutions", and unrecognised its one-cell table was flattened
+  // into a single paragraph with its worked tables lifted out above it.
   if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|\.\s*$|$)/i.test(s) || /^ACTIVITY\s*:?\s*\d/i.test(s)) return "exercise";
+  if (/^(EXE?RCISES?|EXCERCISES?)\s*[-–—]\s*(Expected\s+)?(Solutions|Answers|Responses)\s*$/i.test(s)) return "exercise";
   if (/^(U?Mulimo|Mwingilo|Zocitila|Zoc[hk]?ita|Zakueza|Mudimu)\b/i.test(s)) return "exercise";
   // --- Key points / Did you know ---
   if (/^(KEY POINTS|Key Points to Remember|Mau ofunika kudziwa)/i.test(s)) return "keypoints";
@@ -1509,6 +1521,17 @@ function splitGluedOptions(blocks) {
 // gets folded into the surrounding answer text (below), join it with a plain space
 // instead of a line break so "[2]"/"[1]" sit right after the sentence they mark.
 const MARK_ONLY = /^\[\s*\d+(?:\s*marks?)?\s*\]$/i;
+// True when a typed number ("2.") is the next one of a typed list already set one step
+// in under a lettered part ("1." just before it, at depth 2) — keepTypedMarkers only.
+function continuesTypedList(parts, mk) {
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const p = parts[i];
+    if (p.kind !== "q") continue;
+    const m = /^(\d+)([.)])$/.exec(p.marker || "");
+    return p.depth === 2 && !!m && +m[1] + 1 === +mk.replace(/\D/g, "") && mk.endsWith(m[2]);
+  }
+  return false;
+}
 function buildQAParts(blocks) {
   blocks = expandGluedSubparts(splitBrokenTops(splitGluedOptions(splitGluedFirstOption(blocks))));
   // Manuscripts sometimes indent an ENTIRE question list one or two Word-list
@@ -1841,6 +1864,19 @@ function buildQAParts(blocks) {
         if (resumesSubRun(sm[1])) { subN = lastSubN; subTpl = lastSubTpl; }   // the writer's own letter says this continues
         else { subTpl = stripLit(sm[1]); ensureTopBeforeSub(); }
       }
+      if (KEEP_TYPED_MARKERS) {
+        const core = sm[1].replace(/^\(/, "").replace(/[.)]\s*$/, "");
+        // a roman run ("i. Gross Profit Margin", "ii. …") under a lettered part lists
+        // that part's answers: typed numeral, one step in, the letter count untouched.
+        // A lone "i" is the letter only where it follows "h)".
+        const prevMk = (parts[parts.length - 1] || {}).marker || "";
+        if (/^[ivx]{2,4}$/.test(core) || (core === "i" && !/^\(?h[.)]$/.test(prevMk))) {
+          const an = grabAnswer();
+          parts.push({ kind: "q", q: sm[2].trim(), qseg: qsegOf(sm[2]), a: an.a, aseg: an.aseg, marker: stripLit(sm[1]), depth: 2 });
+          continue;
+        }
+        if (/^[a-z]$/.test(core)) { subN = core.charCodeAt(0) - 97; subTpl = stripLit(sm[1]); }
+      }
       subN += 1;
       const an = grabAnswer();
       parts.push({ kind: "q", q: sm[2].trim(), qseg: qsegOf(sm[2]), a: an.a, aseg: an.aseg, marker: markerFor(subN, subTpl), depth: 1 });
@@ -1939,6 +1975,12 @@ function buildQAParts(blocks) {
       const an = grabAnswer();
       parts.push({ kind: "q", q: tmSub[2].trim(), qseg: qsegOf(tmSub[2]), a: an.a, aseg: an.aseg,
         marker: markerFor(topN, topTpl) + " " + markerFor(subN, subTpl), depth: 0 });
+    } else if (tm && KEEP_TYPED_MARKERS && (subN > 0 || lastSubN > 0) && /^\d+[.)]$/.test(tm[1])
+      && (+tm[1].replace(/\D/g, "") <= topN || continuesTypedList(parts, tm[1]))) {
+      // a typed "1., 2." list under a lettered part answers THAT part: keep the writer's
+      // numbers and set the list one step in, instead of continuing the questions' count
+      const an = grabAnswer();
+      parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: tm[1], depth: 2 });
     } else if (tm) {                     // a literal top item "1." (text may be empty)
       topN += 1; subN = 0; lastSubN = 0;
       const an = grabAnswer();
@@ -2107,6 +2149,28 @@ function buildQAParts(blocks) {
       top.aseg = [{ t: top.a, b: false, it: false, c: null }];
       parts.splice(i + 1, all.length);
       continue;
+    }
+  }
+  // A question number with nothing after it — Word's list number on an empty line, or
+  // a number whose only text is its first letter ("4." holding just "a)") — printed as a
+  // bare "1." on a line of its own with "a) …" starting the next. The writer meant
+  // "1. a) …", the form "2. a)" takes when it is typed on one line, so fold the number
+  // into the lettered part below it. Accounting Form 2 TG, Exercise 1 – Solutions.
+  for (let i = 0; i < parts.length - 1; i++) {
+    const top = parts[i], nx = parts[i + 1];
+    if (top.kind !== "q" || (top.depth || 0) !== 0 || !/^\d+\.$/.test(top.marker || "")) continue;
+    if (top.a || (top.aseg && top.aseg.length)) continue;
+    const q = (top.q || "").trim();
+    if (q === "" && nx.kind === "q" && /^\(?[a-z]\)$/.test(nx.marker || "")) {
+      nx.marker = top.marker + " " + nx.marker;
+      nx.depth = 0;
+      parts.splice(i, 1);
+    } else if (/^\(?[a-z]\)$/.test(q)) {
+      top.marker = top.marker + " " + q;
+      top.q = "";
+      top.qseg = [];
+      // the letter now introduces the table or passage below it; never strand it
+      if (nx.kind === "table" || nx.kind === "lead") top.keepNext = true;
     }
   }
   return parts;
@@ -2593,6 +2657,7 @@ async function importDocx(docxPath, opts = {}) {
   proseFixes.length = 0;            // per-book tally (see the declaration at the top)
   droppedBoxes.length = 0;          // ditto
   ROMAN_SUB_PARTS = !!opts.romanSubParts;
+  KEEP_TYPED_MARKERS = !!opts.keepTypedMarkers;
   // ZEPH house-style options (decoupled so different layouts can mix them):
   //   styled    – trust Word heading styles (don't infer headings from colour/size)
   //   flat      – no callout boxes; activities/exercises become headings (English)
