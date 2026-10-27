@@ -34,10 +34,6 @@
       "to": "how the financial aspect of a business functions."
     },
     {
-      "from": "strengthened its content and quality",
-      "to": "strengthened its content and quality."
-    },
-    {
       "from": "the key competencies covered in this course",
       "to": "the key competences covered in this course"
     },
@@ -287,7 +283,7 @@
       "marker": "16."
     }
   ],
-  "//editCell": "The KEY COMPETENCES table repeats two of its descriptor lines verbatim — a copy-paste slip, not two different competences: 'Draw up the Statement of Financial Position…' appears three times in the Analytical Thinking row and 'Prepare the Statement of Profit or Loss' twice in the Financial Education row. Each is collapsed to a single bullet. The find strings begin with the newline-and-bullet separator the cell text uses, so only a CONSECUTIVE repeat inside one cell matches: the single, legitimate 'Prepare the Statement of Profit or Loss' under Entrepreneurship is a different competence's descriptor and is left alone. The Statement of Financial Position format labels its current-assets subtotal \"Total Fixed Assets\" a second time, and the Charity Wholesalers worked example labels the same subtotal \"Net Assets\" (its real Net Assets line is further down) and heads the trade payables \"LESS: LIABILITIES\" where the format reads LESS: CURRENT LIABILITIES; inRow pins each to the one row.",
+  "//editCell": "The KEY COMPETENCES table repeats two of its descriptor lines verbatim — a copy-paste slip, not two different competences: 'Draw up the Statement of Financial Position…' appears three times in the Analytical Thinking row and 'Prepare the Statement of Profit or Loss' twice in the Financial Education row. Each is collapsed to a single bullet. The find strings begin with the newline-and-bullet separator the cell text uses, so only a CONSECUTIVE repeat inside one cell matches: the single, legitimate 'Prepare the Statement of Profit or Loss' under Entrepreneurship is a different competence's descriptor and is left alone. The Statement of Financial Position format labels its current-assets subtotal \"Total Fixed Assets\" a second time, and the Charity Wholesalers worked example labels the same subtotal \"Net Assets\" (its real Net Assets line is further down) and heads the trade payables \"LESS: LIABILITIES\" where the format reads LESS: CURRENT LIABILITIES; inRow pins each to the one row. Two data sets did not balance (user, 2026-10-27: fix). Learning Activity 4 (Manda Enterprises): debits K263,000 against credits K255,000, the K8,000 gap being exactly the Drawings figure, so Capital becomes K93,000 and the trial balance agrees. Learning Activity 9 (Gracine Tiana General Traders): assets K515,000 against capital K330,000 + liabilities K135,000; Opening capital K350,000 balances it (K380,000 + K135,000).",
   "editCell": [
     {
       "find": "\n• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities)\n• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities)",
@@ -310,6 +306,16 @@
     {
       "find": "LESS: LIABILITIES",
       "with": "LESS: CURRENT LIABILITIES"
+    },
+    {
+      "find": "85,000",
+      "with": "93,000",
+      "inRow": "Capital"
+    },
+    {
+      "find": "300,000",
+      "with": "350,000",
+      "inRow": "Opening capital"
     }
   ],
   "//moveBefore": "Copyright page laid out as the house model (Silozi G4 LB): the credits and the publisher first, then the ISBN line, then the printer. The manuscript puts its ISBN line above the editor. Two Key Point boxes in Topic 2.3 are anchored inside the last item of their examples list, so the item printed AFTER the box: \"Repainting an existing warehouse\" (as a plain paragraph, its bullet lost) and \"6. K15,000 rent received\". Each box moves to the end of its list; the repainting example is a bullet again. REFERENCES put in alphabetical order by author (IASB, IFRS, Kieso, Ministry of Education, Wood, ZICA), as a reference list is read; each web address stays under its own entry.",
@@ -441,7 +447,7 @@
       ]
     }
   ],
-  "//edit": "Mansa Trading Company (Topic 2.5, Learning Activity 2) is dated year ended 31 December 2026 in its scenario but 20X7 over its own figures; the date there is split across two runs (an italic \"20X\" and a roman \"7\"), so it is corrected on the whole block. The Waduka Farms answer is set as its own bold run, edited alone. Glossary: every other term is in Title Case; four were not, and the Non-Current Assets definition lacked its relative clause (\"Assets held ... and are expected\"). The glossary pass that runs later already brings each definition to a capital and a closing full stop.",
+  "//edit": "Mansa Trading Company (Topic 2.5, Learning Activity 2) is dated year ended 31 December 2026 in its scenario but 20X7 over its own figures; the date there is split across two runs (an italic \"20X\" and a roman \"7\"), so it is corrected on the whole block. The Waduka Farms answer is set as its own bold run, edited alone. Glossary: every other term is in Title Case; four were not, and the Non-Current Assets definition lacked its relative clause (\"Assets held ... and are expected\"). The glossary pass that runs later already brings each definition to a capital and a closing full stop. The Acknowledgement thanks an independent reviewer whose name was never filled in (\"Recognition is also given to …….for independent review…\"); no manuscript of the book or its Teacher's Guide names them, so the unfinished sentence is dropped rather than printed with a blank (user, 2026-10-27: fix).",
   "edit": [
     {
       "find": "Financial Information for the Year Ended 31 December 20X7",
@@ -466,6 +472,10 @@
     {
       "find": "Non-Current Assets: Assets held for use in the business and are expected",
       "with": "Non-Current Assets: Assets that are held for use in the business and are expected"
+    },
+    {
+      "find": " Recognition is also given to …….for independent review of the book and providing valuable feedback that strengthened its content and quality",
+      "with": ""
     }
   ],
   "retext": [
