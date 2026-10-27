@@ -358,7 +358,7 @@
       "src": "ECE Lunda LEVEL 2 LB-hires/image46.png"
     },
     "image39.jpeg": {
-      "src": "ECE Lunda LEVEL 2 LB-hires/image39.png"
+      "src": "ECE Lunda LEVEL 2 LB-hires/image39-relettered.png"
     },
     "image38.jpeg": {
       "src": "ECE Lunda LEVEL 2 LB-hires/image38.png"
@@ -672,5 +672,6 @@
       "near": "• Kukopolola mapatani apela."
     },
     "KWESEKA KWAHA KAPETULU 4"
-  ]
+  ],
+  "_note_r1_picture": "Round 1: the rhyme picture (Kapetulu 5, Tukasa madimi) carried the old wording in its lettering. Relettered from the picture's own glyphs (user's request, 2026-10-27): the a of katatakachi replaced by the picture's own i, the rest of the word closed up; the K of Kuteleka replaced by the line's lowercase w scaled to capital height, the line after it moved 30px right. The upscaled original stays as image39.png beside it."
 }
