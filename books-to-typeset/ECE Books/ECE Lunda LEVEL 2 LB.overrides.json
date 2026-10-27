@@ -13,6 +13,9 @@
     "Kapiteni Edah Samutamu",
     "Kakoma Mushitala"
   ],
+  "_note_round1": "Reviewer round 1 (2026-10-27): the reviewer returned the proof as a Word file edited in place (no comments, no tracked changes); the 52 changes were found by diffing it against the proof PDF and are logged in zeph round 1. The keys below marked round 1 carry them.",
+  "titleAgeLine": "YAAKA 4-5",
+  "tocTitle": "Yuma Yidi Mukachi",
   "_note_tables": "The author boxed the term lines (Temu 1-3), the strand lines and a few pictures in Word tables. Unpack them into headings and full-width pictures.",
   "untableImages": true,
   "tocUnitsOnly": false,
@@ -21,28 +24,7 @@
     "Remove g on the picture of a dog and replace it with k",
     "Replace the words on the chart in the picture with these lunda words.",
     "(watu, wetu, mutu, itu, ketu, yetu, etu)",
-    "Temu 1",
-    "Temu 2",
-    "Temu 3",
     "Kutachikakudiza kutaṅa"
-  ],
-  "_note_terms": "The Temu 1-3 lines sat just before a KAPETULU heading, which always opens a fresh page, so each was stranded alone at the foot of the page before. Set each one under its chapter heading instead, above the strand line. The duplicated, misspelt strand line \"Kutachikakudiza kutaṅa\" above Chapter 11 \"Kutachika Kudiza Kutaña\" is dropped.",
-  "insertHead": [
-    {
-      "before": "Kuhosha Nakutiyilila",
-      "near": "Wansañu  : Mazhina",
-      "head": "Temu 1"
-    },
-    {
-      "before": "Kuhosha Nakutiyilila",
-      "near": "Mazu adifwana kukukumisha",
-      "head": "Temu 2"
-    },
-    {
-      "before": "Kuhosha Nakutiyilila",
-      "near": "Kuhanjika",
-      "head": "Temu 3"
-    }
   ],
   "_note_typos": "Manuscript slips in repeated labels, set right: Wansazhñ/Wansaña/MutWansañu -> Wansañu, Nakutoiyilila -> Nakutiyilila, Atidizi -> Atudizi, a stray letter before Chuma (huma / LChuma / LUChuma), lower-case zhakwila.",
   "editAll": [
@@ -73,6 +55,50 @@
     {
       "find": "ZHAKWILA 5",
       "with": "ZHAKWILA 4"
+    },
+    {
+      "find": "amuchisaka chatandumuka",
+      "with": "amuchisaka cheneni"
+    },
+    {
+      "find": "muchituñulu",
+      "with": "muchituñilu"
+    },
+    {
+      "find": "yiketu yanyevulu",
+      "with": "yibalu yanyevulu"
+    },
+    {
+      "find": "katatakachi",
+      "with": "katatakichi"
+    },
+    {
+      "find": "Kuteleka wusukula",
+      "with": "Wuteleka wusukula"
+    },
+    {
+      "find": "nakwakula tuchomeku twapela",
+      "with": "nakwakula yishimu yapela"
+    },
+    {
+      "find": "yikunkunyamazu",
+      "with": "yikunku yamazu"
+    },
+    {
+      "find": "na   ne     ni    na     nu",
+      "with": "na   ne     ni    no     nu"
+    },
+    {
+      "find": "Mutu Wansañu  : ",
+      "with": ""
+    },
+    {
+      "find": "Mutu Wansañu : ",
+      "with": ""
+    },
+    {
+      "find": "Mutu Wansañu: ",
+      "with": ""
     }
   ],
   "_note_cells": "The same slips inside the objectives boxes (Word tables) need editCell. \"huma\" is a substring of every correct \"Chuma\", so it is fixed in two steps: huma -> Chuma everywhere (the good ones briefly become CChuma), then CChuma -> Chuma.",
@@ -127,6 +153,9 @@
     {
       "find": "imu",
       "bold": true
+    },
+    {
+      "find": "he       ma        hema"
     }
   ],
   "images": {
@@ -329,7 +358,7 @@
       "src": "ECE Lunda LEVEL 2 LB-hires/image46.png"
     },
     "image39.jpeg": {
-      "src": "ECE Lunda LEVEL 2 LB-hires/image39.png"
+      "src": "ECE Lunda LEVEL 2 LB-hires/image39-relettered.png"
     },
     "image38.jpeg": {
       "src": "ECE Lunda LEVEL 2 LB-hires/image38.png"
@@ -345,5 +374,304 @@
       "to": "ZHAKWILA 1"
     }
   ],
-  "_note_activities": "Activity badges: the label box and its number circle are separate shapes; the engine joins them when they share a paragraph. One badge (Kutena yivumina yamazu...) has its \"1\" circle in the next paragraph, so it is numbered here with renameNear. The manuscript skips ZHAKWILA 4 in Kapetulu 3 (1, 2, 3, 5): set as 4. One label typed in lower case (zhakwila 1) set in capitals like the rest."
+  "_note_activities": "Activity badges: the label box and its number circle are separate shapes; the engine joins them when they share a paragraph. One badge (Kutena yivumina yamazu...) has its \"1\" circle in the next paragraph, so it is numbered here with renameNear. The manuscript skips ZHAKWILA 4 in Kapetulu 3 (1, 2, 3, 5): set as 4. One label typed in lower case (zhakwila 1) set in capitals like the rest.",
+  "_note_terms": "Round 1: the reviewer set each \"Temu N\" back ABOVE its \"KAPETULU N\", as the manuscript has it. keepHeadsWithUnit opens the chapter's page with the Temu line instead of stranding it on the page before. The duplicated, misspelt strand line \"Kutachikakudiza kutaṅa\" above Chapter 11 is still dropped.",
+  "keepHeadsWithUnit": true,
+  "_note_r1_labels": "Round 1: the Learner's Book loses the teacher-facing labels. Every \"Mutu Wansañu:\" label goes (the topic name stays), every \"Chuma Chinakuhwelelewi Atudizi Kwilukisha:\" outcomes block goes with its bullet points (incl. the Kapetulu 2 box and the Kapetulu 5 table), and every \"Mutu Wansañu Wanyanya:\" line goes, except where the reviewer kept the sub-topic as a heading (edit entries strip the label there). The reviewer also deleted the strand lines in Kapetulu 9 and the malformed \"Kudiza Kutaña\" in Kapetulu 7; every other chapter keeps them, so they are kept, the K7 one written in full.",
+  "edit": [
+    {
+      "find": "Mutu Wansañu Wanyanya: Tunyama",
+      "with": "Tunyama"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: Yidika yapela.",
+      "with": "Yidika yapela."
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: Yuma hashikola",
+      "with": "Yuma yawanikaña hashikola"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: Kulumbulula maluña alema amuchituñilu.",
+      "with": "Kulumbulula maluña alema amuchituñilu."
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: Nshimbi zhapela",
+      "with": "Nshimbi zhapela"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya:  Kulombola kwapwla",
+      "with": "Kulombola kwapela"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya:  Yivumina yansona yidi kukutachika kwamazu.",
+      "with": "Yivumina yansona yidi kukutachika kwamazu."
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya:  Zhinzhila mwakutiyashanina",
+      "with": "Zhinzhila mwakutiyashanina"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya:  Yuma yamwekanaña nawamabwambu",
+      "with": "Yuma yamwekanaña nawamabwambu"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: Nyidimu yahetala",
+      "with": "Nyidimu yahetala"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: Nyidimu yahashikola",
+      "with": "Nyidimu yahashikola"
+    },
+    {
+      "find": "Mutu Wansañu wansañu wanyanya: Nyichidi yañendelu",
+      "with": "Nyichidi yañendelu"
+    },
+    {
+      "find": "Mutu Wansañu  Wanyanya:  Kulanda nakulandisha",
+      "with": "Kulanda nakulandisha"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: Mazu apela",
+      "with": "Mazu apela"
+    },
+    {
+      "find": "MutWansañu: Kutaña",
+      "with": "Kutaña"
+    },
+    {
+      "find": "Mutu Wansañu: Tuchomeku",
+      "with": "Yishimu"
+    },
+    {
+      "find": "• Kupenta mashepu nizhakuleña.",
+      "with": "Kupenta mashepu nizhakuleña."
+    },
+    {
+      "find": "Kutena yuma yelukawu mwiluña",
+      "with": "Kutena yuma yelukawu yawanikaña mwiluña"
+    },
+    {
+      "find": "1.Shimunaku",
+      "with": "1. Shimunaku"
+    },
+    {
+      "find": "2.Tenaku tunyama tuyedi",
+      "with": "2. Tenaku mazhina atunyama tuyedi"
+    },
+    {
+      "find": "nyifunda yamadoti",
+      "with": "nyifunda yamandokundoku"
+    },
+    {
+      "find": "mashepu amadoti apela",
+      "with": "mashepu apela"
+    },
+    {
+      "find": "kawa            mutu             nona",
+      "with": "ka/wa            mu/tu             no/na"
+    },
+    {
+      "find": "hema            bola              watu",
+      "with": "he/ma            bo/la              wa/tu"
+    },
+    {
+      "find": "Teñaku yikunku",
+      "with": "Tenaku yikunku"
+    },
+    {
+      "find": "Kutena yuma yidi munyevulu",
+      "with": "Kutena yuma yidi hanyevulu"
+    },
+    {
+      "find": "Kulumbulula yuma yidi mumwevulu",
+      "with": "Kulumbulula yuma yidi hamwevulu"
+    },
+    {
+      "find": "Lumbululaku yuma yawanikaña hashikola yidi hamwevulu.",
+      "with": "Lumbululaku yuma yidi hamwevulu yawanikaña hashikola."
+    },
+    {
+      "find": "Kwambula yikunku yamazu mumazu amukuhosha.",
+      "with": "Zhakwila: Kwambula yikunku yamazu mumazu amukuhosha."
+    },
+    {
+      "find": "Kudiza Kutachika Kusoneka",
+      "with": "Kutachika Kudiza Kusoneka"
+    },
+    {
+      "find": "Kuvumisha yivumina yansona /t/",
+      "with": "Kutena yivumina yansona /t/"
+    },
+    {
+      "find": "Vumishaku iyi yivumina",
+      "with": "Tenaku iyi yivumina"
+    },
+    {
+      "find": "yiwazataña kwitalala",
+      "with": "yiwazataña kwitala"
+    },
+    {
+      "find": "izhina deyi nkaweyi",
+      "with": "izhina deyi halweyi"
+    },
+    {
+      "find": "Shimunaku nyichi yañendelu",
+      "with": "Shimunaku nyichidi yañendelu"
+    },
+    {
+      "find": "Kubomba katumwa namwanta nakutuña",
+      "with": "Kubomba katumwa namwanta wansona nakutuña"
+    },
+    {
+      "find": "Anyanta ansonaa",
+      "with": "Anyanta yansona"
+    },
+    {
+      "find": "Tutumwa      t  ,   y   ,  m   ,    w",
+      "with": "Tutumwa t, y, m, w, v"
+    },
+    {
+      "find": "he       ma        hema",
+      "with": "he/ma        hema"
+    },
+    {
+      "find": "to        na         tona",
+      "with": "to/na         tona"
+    },
+    {
+      "find": "ma       ha         maha",
+      "with": "ma/ha         maha"
+    },
+    {
+      "find": "Kopololaku nakupenta mashepu apela.",
+      "with": "Kopololaku nakupenta awa mashepu apela."
+    },
+    {
+      "find": "Tuñaku mazu kuzatisha iyi yikunku yamazu",
+      "with": "Tuñaku mazu kuzatisha iyi yikunku yamazu."
+    },
+    {
+      "find": "we      yi",
+      "with": "we/      yi",
+      "after": "Tuñaku mazu kuzatisha"
+    },
+    {
+      "find": "ha       mu",
+      "with": "ha/       mu",
+      "after": "Tuñaku mazu kuzatisha"
+    },
+    {
+      "find": "he      nu",
+      "with": "he/      nu",
+      "after": "Tuñaku mazu kuzatisha"
+    },
+    {
+      "find": "Kuleña nakutiyasha zhamaana.",
+      "with": "Kutiyashana nakumwekesha yitoñozhoka kuhitila mukuleña."
+    },
+    {
+      "find": "yansona /t/ /k/ /m/ /d/ /f/",
+      "with": "yansona ​/⁠t⁠/ ​/⁠k⁠/ ​/⁠m⁠/ ​/⁠d⁠/ ​/⁠f⁠/"
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "KWESEKA KWAHA KAPETULU",
+      "with": "KWESEKA KWAHA KAPETULU 2"
+    },
+    {
+      "find": "Kudiza Kutaña",
+      "with": "Kutachika Kudiza Kutaña"
+    }
+  ],
+  "recase": [
+    {
+      "startsWith": "KUTACHIKA KUDIZA",
+      "to": "title"
+    },
+    {
+      "startsWith": "KUHOSHA NAKUTIYILILA",
+      "to": "title"
+    }
+  ],
+  "retext": [
+    {
+      "from": "Mama",
+      "to": "mama"
+    },
+    {
+      "from": "Momu",
+      "to": "momu"
+    },
+    {
+      "from": "Ona",
+      "to": "ona"
+    },
+    {
+      "from": "Imu",
+      "to": "imu"
+    }
+  ],
+  "insertHead": [
+    {
+      "before": "Kushimuna yuma yayineñeshaña.",
+      "head": "ZHAKWILA 2",
+      "as": "head"
+    },
+    {
+      "before": "Kukopolola izhina deyi kufuma hakadi",
+      "head": "ZHAKWILA 1",
+      "as": "head"
+    }
+  ],
+  "setCaption": [
+    {
+      "file": "image35",
+      "text": "kawa"
+    }
+  ],
+  "remove": [
+    "inakuhwelelewi",
+    "• ",
+    "anyanya:",
+    "Tuheka twapela",
+    {
+      "find": "Kuhema yisela yanyidimu yamboka yawanikaña"
+    },
+    {
+      "find": "Kwambula tunyama twawutadi kwesekana"
+    },
+    "Kutena tunyama twamwisaña."
+  ],
+  "removeWhereNext": [
+    {
+      "find": "",
+      "next": "Kutena nyidimu yawanikaña muchituñilu."
+    },
+    {
+      "find": "Kutena nyidimu yawanikaña muchituñilu.",
+      "next": ""
+    }
+  ],
+  "removeRange": [
+    {
+      "after": "Mazu adifwana kukukumisha",
+      "from": "",
+      "to": "ZHAKWILA 1"
+    }
+  ],
+  "_note_r1_pages": "Round 1 page breaks: the Kapetulu 3 reading strand opens a fresh page and the Kapetulu 4 test does too, so neither leaves a one-line carry-over (b. munu / a. he/ma b. wa/tu) on the next page; the Kapetulu 4 Mudimu goes over with its two words. The he/ma line is set as plain text like the to/na and ma/ha lines under it, and the sound list /t/ ... /f/ is kept on one line.",
+  "pageBreakBefore": [
+    {
+      "find": "Kutachika Kudiza Kutaña",
+      "near": "Kutena yikunku yamazu mumazu amukuhosha"
+    },
+    {
+      "find": "Mudimu",
+      "near": "• Kukopolola mapatani apela."
+    },
+    "KWESEKA KWAHA KAPETULU 4"
+  ],
+  "_note_r1_picture": "Round 1: the rhyme picture (Kapetulu 5, Tukasa madimi) carried the old wording in its lettering. Relettered from the picture's own glyphs (user's request, 2026-10-27): the a of katatakachi replaced by the picture's own i, the rest of the word closed up; the K of Kuteleka replaced by the line's lowercase w scaled to capital height, the line after it moved 30px right. The upscaled original stays as image39.png beside it."
 }

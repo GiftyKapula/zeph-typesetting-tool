@@ -424,7 +424,7 @@ function themeTypst(theme, overrides = {}) {
   year: ${q(t.year || "")}, covBand: ${c(t.covBand || t.signature || t.primary)}, covText: ${c(t.covText || "ffffff")}, covTitle: ${c(t.covTitle || t.primary)}, matHeader: ${c(t.matHeader || "d9d9d9")},
   subject: ${q(t.subject)}, eyebrow: ${q(t.eyebrow || "Secondary Education Ordinary Level")}, tagline: ${q(t.tagline)}, tab: ${q(t.tab)}, toctitle: ${q(t.toctitle || "Table of Contents")}, hyphenate: ${t.hyphenate === false ? "false" : "true"}, boxStripe: ${t.boxStripe === false ? "false" : "true"}, capSize: ${t.capSize || "none"},
 
-  authorsWord: ${q(t.authorsWord || "")}, printedBy: ${q(t.printedBy || "")},
+  authorsWord: ${q(t.authorsWord || "")}, printedBy: ${q(t.printedBy || "")}, titleAgeLine: ${q(t.titleAgeLine || "")},
   hdrleft: ${q(t.hdrleft)}, hdrtab: ${q(t.hdrtab || t.tab)},
   labels: (${Object.entries(t.labels || {}).map(([k, v]) => `${k}: ${q(v)}`).join(", ")}${Object.keys(t.labels || {}).length ? "" : ":"}),
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
