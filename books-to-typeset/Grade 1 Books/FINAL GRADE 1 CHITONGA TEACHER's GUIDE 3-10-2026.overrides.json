@@ -29,9 +29,6 @@
       "before": ": MISOBANO",
       "items": [
         {
-          "vspace": "4mm"
-        },
-        {
           "head": "MIBUZYO YAKUMANINZYA CIPATI 2"
         },
         {
@@ -349,7 +346,7 @@
           "marker": "2."
         },
         {
-          "listitem": "ngoma",
+          "listitem": "mbuto",
           "marker": "3."
         },
         {
@@ -526,19 +523,21 @@
     30,
     31,
     32,
-    35,
-    38,
-    39,
-    42,
-    43,
+    33,
+    36,
+    37,
+    40,
+    41,
     44,
     45,
     46,
     47,
-    50,
-    51,
+    48,
+    49,
+    52,
     53,
-    54
+    55,
+    56
   ],
   "tidySpacing": true,
   "editAll": [
@@ -609,7 +608,33 @@
     "baswiilizye": "baswiilile",
     "bandlike": "bandike",
     "MEEBEEBA": "MEEBEEBE",
-    "cipikica": "cipikicca"
+    "cipikica": "cipikicca",
+    "basiciklo": "basicikolo",
+    "Basiciklolo": "Basicikolo",
+    "apehgwa": "apegwa",
+    "cipikicc": "cipikicca",
+    "cipukicca": "cipikicca",
+    "banthu": "bantu",
+    "kweeledd": "kweelede",
+    "Weeelede": "Weelede",
+    "zyakbelesya": "zyakubelesya",
+    "twamabal": "twamabala",
+    "Belesyab": "Belesya",
+    "mponna": "mpoona",
+    "msyeepu": "masyeepu",
+    "mntu": "muntu",
+    "tumaminide": "tumaninide",
+    "buzubaa": "buzuba",
+    "abeenzyinyinga": "abeenzyinyina",
+    "waamana": "wamana",
+    "tueela": "tubeela",
+    "Batle": "Batole",
+    "amasmpe": "amasimpe",
+    "kwendelana": "kweendelana",
+    "kwaanyanya": "kwaanzyanya",
+    "bingo": "bbingo",
+    "basickolo": "basicikolo",
+    "abasickolo": "abasicikolo"
   },
   "setHeading": [
     {
@@ -1379,6 +1404,152 @@
     {
       "find": "KUMVWA",
       "text": "KUMVWISISISYA"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "Zyijatikizya Bulembo"
+      ],
+      "find": "CAKUCITA 1: Omwe-omwe",
+      "text": "CAKUCITA 1: Kujula akujala bbuku"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "Zyijatikizya Bulembo"
+      ],
+      "find": "CAKUCITA 2: Omwe-omwe",
+      "text": "CAKUCITA 2: Kuvwunauna mapepa abbuku"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "Zyijatikizya Bulembo"
+      ],
+      "find": "CAKUCITA 3: Omwe-omwe",
+      "text": "CAKUCITA 3: Kujata bbuku mumoombe"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "Zyijatikizya Bulembo"
+      ],
+      "find": "CAKUCITA 4: Omwe-omwe",
+      "text": "CAKUCITA 4: Kujata bbuku kulilanzya mujulu"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "Zyijatikizya Bulembo"
+      ],
+      "find": "CAKUCITA 5: Bobilo-bobilo",
+      "text": "CAKUCITA 5: Kujana zyibeela zyabbuku"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "Zyijatikizya Bulembo"
+      ],
+      "find": "CAKUCITA 6: Tubunga",
+      "text": "CAKUCITA 6: Kusobana tusobano twakweenzya meso kuzwa kulumwensyi kuunka kululyo"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "1.10 MABALA"
+      ],
+      "find": "CAKUCITA 1: Tubunga",
+      "text": "CAKUCITA 1: Kujana mabala mwaandaanina"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "1.12 KUSWIILILA CIBALWA"
+      ],
+      "find": "CAKUCITA 1: Bobilo-bobilo naa olikke",
+      "text": "CAKUCITA 1: Kujana akupa muzeezo mupati wakaambo"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "1.12 KUSWIILILA CIBALWA"
+      ],
+      "find": "CAKUCITA 2: Bobilo-bobilo naa omwe-omwe",
+      "text": "CAKUCITA 2: Kufwiinsya kaano"
+    },
+    {
+      "after": [
+        "CIPATI 2: NSEBA ABUSANI",
+        "1.14 NTALISYO YAKULEMBA"
+      ],
+      "find": "CAKUCITA 1: Omwe-omwe",
+      "text": "CAKUCITA 1: Kujata mpesele"
+    },
+    {
+      "after": [
+        "CIPATI 3: MISOBANO",
+        "1.10 MABALA"
+      ],
+      "find": "CAKUCITA 1: Tubunga",
+      "text": "CAKUCITA 1: Kujana mabala mwaandaanina"
+    },
+    {
+      "after": [
+        "CIPATI 3: MISOBANO",
+        "1.12 KUSWIILILA CIBALWA"
+      ],
+      "find": "CAKUCITA 1: Tubunga",
+      "text": "CAKUCITA 1: Kuzubulula twaambo tuubauba kuzwa kumakani amvwugwa"
+    },
+    {
+      "after": [
+        "CIPATI 8: ZYEENDELO AMIBANDI"
+      ],
+      "find": "CAKUCITA 1: Bobilo-bobilo",
+      "text": "CAKUCITA 1: Kubandika kujatikizya zyeendelo"
+    },
+    {
+      "find": "MUTWE MUSYOONTO: 1.1.1 Kuswiilila Twaano",
+      "text": "MUTWE MUSYOONTO: 1.1.1 Kuswiilila Twaano",
+      "as": "h3"
+    },
+    {
+      "find": "MUTWE: 1.2 MIBANDI",
+      "text": "MUTWE: 1.2 MIBANDI",
+      "as": "h2",
+      "after": "CIPATI 8: ZYEENDELO"
+    },
+    {
+      "find": "MUTWE MUSYOONTO: 1.2.6 Kubandika",
+      "text": "MUTWE MUSYOONTO: 1.2.6 Kubandika",
+      "as": "h3"
+    },
+    {
+      "find": "MUTWE: 1.15 Bulembo",
+      "text": "MUTWE: 1.15 Bulembo",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTWE MUSYOONTO: 1.15.3 Kutantaanya mabala",
+      "text": "MUTWE MUSYOONTO: 1.15.3 Kutantaanya mabala",
+      "as": "h3",
+      "all": true
+    },
+    {
+      "find": "MUTWE: 1.3 BUPANDULUZI",
+      "text": "MUTWE: 1.3 BUPANDULUZI",
+      "as": "h2"
+    },
+    {
+      "find": "MUTWE MUSYOONTO: 1.3.2 Masena",
+      "text": "MUTWE MUSYOONTO: 1.3.2 Masena",
+      "as": "h3"
+    },
+    {
+      "find": "MUTWE MUSYOONTO: 1.3.3 Zyintu",
+      "text": "MUTWE MUSYOONTO: 1.3.3 Zyintu",
+      "as": "h3"
     }
   ],
   "edit": [
@@ -1486,6 +1657,11 @@
       "after": "KUTUMA AKUTAMBULA",
       "find": "Kujana mazyina acigaminina amazyina biyo",
       "with": "Bajane mazyina acigaminina amazyina biyo"
+    },
+    {
+      "after": "NSEBA ABUSANI",
+      "find": "bafwiinsye.",
+      "with": "bafwiinsye kaano."
     }
   ],
   "unlist": [
