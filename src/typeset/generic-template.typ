@@ -44,6 +44,8 @@
 // boxes around it. They differed by 1pt before — invisible on its own, but it put
 // two list families in one book at two different left edges, which is exactly the
 // unevenness the numbering rules elsewhere work to avoid.
+// Figure-caption weight: regular unless the book sets `boldCaptions` (captions stay italic).
+#let capw = if T.at("capBold", default: false) { "bold" } else { "regular" }
 #let boxinx = if boxstyle == "labcard" { 14pt } else if serieslike or panel or literary or modern { 11pt } else { 10pt }
 // A small hexagon (benzene ring) used as the chemistry callout motif.
 #let hexmark(c, sz: 5.2mm, w: 0.9pt) = polygon.regular(vertices: 6, size: sz,
@@ -2672,7 +2674,7 @@
   // `sticky` keeps the picture on the same page as the heading/title that follows it.
   align(center)[#block(breakable: false, sticky: sticky)[
     #img
-    #if cap != none [ #v(2pt) #capmark(cap)#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
+    #if cap != none [ #v(2pt) #capmark(cap)#text(size: fs(8.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#cap] ]
   ]]
   v(3pt)
 }
@@ -2690,7 +2692,7 @@
       #grid(columns: imgs.map(_ => auto), column-gutter: 10pt, align: top + center,
         ..imgs.map(im => block(width: auto)[
           #image(im.at("file"), height: h)
-          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
+          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", weight: capw, fill: rgb("#444"))[#im.at("cap")] ]
         ]))]
     // At a uniform height, two landscape images (e.g. side-by-side formula
     // images) can be wider than the text block and bleed off the margins. If the
@@ -2710,12 +2712,12 @@
       #grid(columns: imgs.map(im => (im.at("w") / total) * 1fr), column-gutter: 6pt, align: top + center,
         ..imgs.map(im => [
           #image(im.at("file"), width: 100%)
-          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(7.5pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
+          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(7.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#im.at("cap")] ]
         ]))]
   }
   v(5pt)
 }
-#let figcaption(t) = { align(center)[#capmark(t)#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#t]]; v(5pt) }
+#let figcaption(t) = { align(center)[#capmark(t)#text(size: fs(8.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#t]]; v(5pt) }
 
 // ---- a List of Figures / List of Tables entry: a bold "Figure N"/"Table N"
 // label + caption on the left, a dotted leader, and a right-aligned page number
@@ -2770,7 +2772,7 @@
   )))
   v(4pt)
 }
-#let dtable(rows, noHeader: false, sheet: false) = if sheet { sheetgrid(rows) } else if rows.len() > 0 and rows.at(0).len() > 0 {
+#let dtable(rows, noHeader: false, sheet: false, forceHeader: false) = if sheet { sheetgrid(rows) } else if rows.len() > 0 and rows.at(0).len() > 0 {
   v(2pt)
   // table text matches the body size (12pt) for readability; very wide tables
   // (5+ columns) step down so they still fit the page width. A theme may set a larger
@@ -2921,7 +2923,8 @@
   // reading as the title of a table that never arrived and burying the fact that those
   // two words were the answers on offer. Require a second row before treating the first
   // as a header.
-  let hdr = rows.len() > 1 and (not noHeader) and rows.at(0).all(c =>
+  // `forceHeader`: the table's source says row 0 is its header (an override-built exercise table)
+  let hdr = (forceHeader and rows.len() > 1) or rows.len() > 1 and (not noHeader) and rows.at(0).all(c =>
     c.imgs.len() == 0 and plainHeaderCell(c)
     and not c.text.contains("\n") and c.text.len() <= 40 and c.text != "")
   let hasimg = rows.any(r => r.any(c => c.imgs.len() > 0))
@@ -3483,7 +3486,7 @@
       image(im.at("file"), width: 100%)
       if im.at("cap", default: none) != none [
         #v(2pt)
-        #align(center)[#capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")]]
+        #align(center)[#capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", weight: capw, fill: rgb("#444"))[#im.at("cap")]]
       ]
     }
   ]
@@ -3760,8 +3763,8 @@
       // an answer that is a comparison table may carry a part marker (e.g. "c)")
       let tm = it.at("marker", default: "")
       let sh = it.at("sheet", default: false)
-      if tm != "" { grid(columns: (22pt, 1fr), column-gutter: 6pt, align: (right + top, left + top), text(fill: T.primary, weight: "bold")[#tm], dtable(it.r, sheet: sh)) }
-      else { dtable(it.r, sheet: sh) }
+      if tm != "" { grid(columns: (22pt, 1fr), column-gutter: 6pt, align: (right + top, left + top), text(fill: T.primary, weight: "bold")[#tm], dtable(it.r, sheet: sh, forceHeader: it.at("hdr", default: false))) }
+      else { dtable(it.r, sheet: sh, forceHeader: it.at("hdr", default: false)) }
     }
     else if it.kind == "image" {
       let mk = it.at("marker", default: "")
@@ -3791,7 +3794,9 @@
       // A lead-in that ends in a colon ("For Client A:", "Possible responses include:")
       // introduces the lines after it and must not be the last thing on a page. The
       // Hospitality Management Form 3 TG ended pages on both. Sticky moves nothing else.
-      if it.q.trim().ends-with(":") { block(sticky: true, breakable: false, width: 100%)[#leadrow] } else { leadrow }
+      // `whole` (a short scenario passage an override set) keeps the passage on one page.
+      if it.q.trim().ends-with(":") { block(sticky: true, breakable: false, width: 100%)[#leadrow] }
+      else if it.at("whole", default: false) { block(breakable: false, width: 100%)[#leadrow] } else { leadrow }
       v(2pt)
     }
     else {
