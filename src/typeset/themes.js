@@ -501,7 +501,7 @@ function themeTypst(theme, overrides = {}) {
   primary: ${c(t.primary)}, primary2: ${c(t.primary2)}, accent: ${c(t.accent)}, cyan: ${c(t.cyan || t.primary2)}, signature: ${c(t.signature || t.primary)},
   covPrimary: ${c(t.covPrimary || t.primary)}, covPrimary2: ${c(t.covPrimary2 || t.primary2)}, covAccent: ${c(t.covAccent || t.accent)}, covSignature: ${c(t.covSignature || t.signature || t.primary)}, covCyan: ${c(t.covCyan || t.cyan || t.primary2)}, covInk: ${c(t.covInk || t.ink)}, covRulec: ${c(t.covRulec || t.rulec)},
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},
-  tocUnitsOnly: ${t.tocUnitsOnly ? "true" : "false"}, coverStyle: ${q(t.coverStyle || "")}, boxStyle: ${q(t.boxStyle || "")}, tocDepth: ${t.tocDepth || 2}, mono: ${t.mono ? "true" : "false"},
+  tocUnitsOnly: ${t.tocUnitsOnly ? "true" : "false"}, coverStyle: ${q(t.coverStyle || "")}, boxStyle: ${q(t.boxStyle || "")}, tocDepth: ${t.tocDepth || 2}, mono: ${t.mono ? "true" : "false"},${t.capBold ? " capBold: true," : ""}
   ${t.tableSize ? `tableSize: ${t.tableSize},\n  ` : ""}
   ${t.bylineRows ? `bylineRows: true,\n  ` : ""}${t.subtopicRuleClear ? `subtopicRuleClear: true,\n  ` : ""}${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}${t.keepQuestionParts ? `keepQuestionParts: true,\n  ` : ""}${t.keepExercisesWhole ? `keepExercisesWhole: ${t.keepExercisesWhole},\n  ` : ""}${t.writingColumns ? `writingColumns: true,\n  ` : ""}${t.uniformRubrics ? `uniformRubrics: true,\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
 )\n`;
