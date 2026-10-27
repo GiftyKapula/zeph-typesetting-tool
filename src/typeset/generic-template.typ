@@ -1902,8 +1902,12 @@
   let t = ss.fold("", (acc, s) => acc + if s.at("m", default: false) { "" } else { s.at("t", default: "") }).trim()
   t.ends-with(":") and t.len() <= 240
 }
-#let para0(ss, align: none, drop: false, hyphenate: true) = {
-  set text(hyphenate: hyphenate)
+#let para0(ss, align: none, drop: false, hyphenate: auto) = {
+  // auto = keep the book's own setting (doc() sets it from the theme). A default of
+  // true here switched hyphenation back ON for every body paragraph of a theme that
+  // turns it off (cts, mathsci, homeecon, primaryeng): Grade 1 CTS printed "pa-per"
+  // across a line end, and the CDC asked for words written in full.
+  set text(hyphenate: hyphenate) if hyphenate != auto
   set par(justify: false) if hasFillBlank(ss)
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
     // Drop capital: lift the first letter of the first run to ~3-line height in the
@@ -3498,6 +3502,7 @@
   ]
   v(4pt)
 }
+#let exfits = state("exfits", true)
 #let framedsection(kind, title, body) = {
   let content = renderbody(body)
   // Always breakable (mirrors titledbox's own default). A prior version kept any box
@@ -3518,7 +3523,25 @@
   // same waste the comment above records a reviewer flagging. The widow this would have
   // guarded against is handled where it actually occurs instead: at the box's END, by
   // renderbody binding the last item to the one before it.
-  titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: true)
+  //
+  // The one exception is opt-in, per book (`keepExercisesWhole`, a length): an EXERCISE
+  // or ASSESSMENT box shorter than it is kept whole and moves to the next page rather
+  // than split. Those boxes carry no opening picture, so the cost above does not apply,
+  // and a learner's exercise split across a page turn is what the CDC objected to on
+  // the Grade 1 CTS Learner's Book ("let this part be pushed down", three times).
+  // Measured into a state and read back at the top level, as keepwhole() does.
+  let lim = T.at("keepExercisesWhole", default: none)
+  if lim != none and (kind == "ex" or kind == "asmt") {
+    layout(sz => exfits.update(measure(box(width: sz.width, content)).height < lim))
+    // A box too tall to keep whole still must not OPEN at a page foot with its title
+    // and one question (the CDC's "push it down" again) — keepwhole()'s opening guard.
+    let openkeep = 70mm
+    block(breakable: false, sticky: true)[#v(openkeep)]
+    v(-openkeep)
+    context titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: not exfits.get())
+  } else {
+    titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: true)
+  }
 }
 // The lesson-header metadata (LESSON N + Component / Topic / Sub-Topic / competences /
 // Expected Standard / methodology / vocabulary) grouped and STYLED — NOT boxed. The
