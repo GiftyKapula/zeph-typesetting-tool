@@ -63,18 +63,6 @@
     "image57.jpeg": {
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image57.png"
     },
-    "image60.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image60.png"
-    },
-    "image61.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image61.png"
-    },
-    "image62.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image62.png"
-    },
-    "image63.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image63.png"
-    },
     "image64.jpeg": {
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image64.png"
     },
@@ -181,10 +169,11 @@
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image15.png"
     },
     "image65.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image65.png"
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/cyclist-car.jpeg"
     },
     "image68.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image68.png"
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/cows-drum.jpeg",
+      "w": 420
     },
     "image31.jpeg": {
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image31.png"
@@ -196,7 +185,10 @@
       "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image11.png"
     },
     "image12.jpeg": {
-      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image12.png"
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/p14-matching.jpeg"
+    },
+    "image20.jpeg": {
+      "src": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/unit3-sports.jpeg"
     }
   },
   "replace": [
@@ -210,7 +202,10 @@
     18,
     20,
     21,
+    23,
+    24,
     25,
+    26,
     30,
     31,
     32,
@@ -222,6 +217,7 @@
     42,
     49,
     50,
+    54,
     55,
     57,
     60,
@@ -241,7 +237,11 @@
     "kamusyo": "kamusyobo"
   },
   "removeImages": [
-    "image69.jpeg"
+    "image69.jpeg",
+    "image60.jpeg",
+    "image61.jpeg",
+    "image62.jpeg",
+    "image63.jpeg"
   ],
   "insertPictures": [
     {
@@ -438,6 +438,60 @@
       "with": [
         {
           "para": "Lemba mubbuku lyako lyakulembela."
+        }
+      ]
+    },
+    {
+      "find": "1) mufwaafwi",
+      "with": []
+    },
+    {
+      "find": "2) ulineneede",
+      "with": []
+    },
+    {
+      "find": "3) mulamfwu",
+      "with": []
+    },
+    {
+      "find": "4) ulikokede",
+      "with": []
+    },
+    {
+      "find": "Endelanya mabala kupandulula bantu aaba.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "sticky": true,
+            "segs": [
+              {
+                "t": "Endelanya mabala kupandulula bantu aaba.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Endelanya kwaanzyanya kuluzi kuciindi ceelede.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "sticky": true,
+            "segs": [
+              {
+                "t": "Endelanya kwaanzyanya kuluzi kuciindi ceelede.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
         }
       ]
     }
@@ -967,6 +1021,73 @@
           "para": "4. bbala\tccuka\tbbuku\tbbila"
         }
       ]
+    },
+    {
+      "after": "Endelanya mabala kupandulula bantu aaba.",
+      "items": [
+        {
+          "images": [
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/child-tall.jpeg",
+              "w": 300,
+              "cap": "1)"
+            },
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/child-thin.jpeg",
+              "w": 300,
+              "cap": "2)"
+            },
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/child-short.png",
+              "w": 300,
+              "cap": "3)"
+            },
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/child-fat.jpeg",
+              "w": 300,
+              "cap": "4)"
+            }
+          ]
+        },
+        {
+          "raw": {
+            "t": "table",
+            "noHeader": true,
+            "rows": [
+              [
+                {
+                  "text": "mufwaafwi",
+                  "imgs": []
+                },
+                {
+                  "text": "ulineneede",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "mulamfwu",
+                  "imgs": []
+                },
+                {
+                  "text": "ulikokede",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "after": "Endelanya kwaanzyanya kuluzi kuciindi ceelede.",
+      "items": [
+        {
+          "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/times-of-day.png",
+          "w": 601
+        }
+      ]
     }
-  ]
+  ],
+  "captionSize": "18pt"
 }

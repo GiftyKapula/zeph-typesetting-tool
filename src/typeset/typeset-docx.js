@@ -436,7 +436,21 @@ async function typesetOne(docxPath, themeName) {
   // insertText items may carry a picture: { image: "<path relative to the .docx>", w } —
   // a picture a reviewer asked to sit with newly added text (an end-of-unit exercise's
   // picture). Registered as media here, since applyOverrides has no access to it.
+  // { images: [{ image, w, cap }, …] } — a row of pictures side by side, each with an
+  // optional caption under it (the "1)", "2)" … of a match-the-words exercise).
   for (const it of ov.insertText || []) for (const spec of it.items || []) {
+    if (spec && Array.isArray(spec.images)) {
+      const row = [];
+      for (const im of spec.images) {
+        const src = resolveBookPath(docxPath, im.image || "");
+        if (!fs.existsSync(src)) { console.warn("!  insertText image not found:", src); continue; }
+        const name = "ins_" + path.basename(src);
+        if (!media.some((m) => m.name === name)) media.push({ src, name });
+        row.push({ file: name, w: im.w || 601, tall: false, ...(im.cap ? { caption: im.cap } : {}) });
+      }
+      if (row.length) spec.raw = { t: "imagerow", images: row };
+      continue;
+    }
     if (!spec || typeof spec.image !== "string") continue;
     const src = resolveBookPath(docxPath, spec.image);
     if (!fs.existsSync(src)) { console.warn("!  insertText image not found:", src); continue; }
