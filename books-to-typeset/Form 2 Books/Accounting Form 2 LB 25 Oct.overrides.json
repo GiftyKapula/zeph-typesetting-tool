@@ -1,0 +1,590 @@
+{
+  "//subtext": "Two typos in the KEY COMPETENCES table of the manuscript, both verified against the raw OOXML before being corrected here. 'DESCRIPTERS' is the table's own column header (the CDC syllabus and every other book in the family spell it DESCRIPTORS), and 'Problem Saving' is the competence the syllabus calls Problem Solving — neither is a Zambian spelling variant, both are slips. The 25 Oct manuscript adds front-matter and heading slips, each checked in its OOXML: the Acknowledgement calls this the \"Form Four\" Learner's Book; the Preface has \"learner-centre approach\" for learner-centred; Sub-topic 2.1.1 reads \"Types of Books Prime Entry\", the \"of\" dropped from the topic's own name, Books of Prime Entry; and the editor credit trails a run of dots after the name. Reading the whole book then found the slips listed after the first six entries: wrong words and agreement, \"In this sub topic\" against the SUB-TOPIC headings, a business renamed inside its own question (Chipata/Tionge, Lundazi/Mbuzi, Chanda/Waduka, Chanda/Chilembo), a Required line dated 2026 under a question dated 20X6 (or the reverse) - always brought to the question's own date - and the Topic 2.4 worked figures: Net Purchases drops the K11,000 carriage inwards its own formula adds, the cost-of-sales and gross-profit examples restate K480,000/K250,000 where the chain carries K491,000/K239,000, and the Waduka Farms illustration deducts a K10,000 that appears nowhere in its data (K345,000 + K25,000 - K140,000 = K230,000). Figures 7 and 9 were captioned 8 and 10 in the manuscript. \"Returns inward(s)/outward(s)\" is spelled four ways; the book's majority is the plural, as in Carriage inwards/outwards, so every form is first taken to the singular and then to the plural (a direct \"inward\"->\"inwards\" would double the s on the forms already right).",
+  "subtext": [
+    {
+      "from": "DESCRIPTERS",
+      "to": "DESCRIPTORS"
+    },
+    {
+      "from": "Problem Saving",
+      "to": "Problem Solving"
+    },
+    {
+      "from": "Form Four Accounting Learner’s Book",
+      "to": "Form Two Accounting Learner’s Book"
+    },
+    {
+      "from": "learner-centre approach",
+      "to": "learner-centred approach"
+    },
+    {
+      "from": "Types of Books Prime Entry",
+      "to": "Types of Books of Prime Entry"
+    },
+    {
+      "from": "Simasiku Phylis........",
+      "to": "Simasiku Phylis"
+    },
+    {
+      "from": "of prime entry, companies prepare the trial balance and financial statements and how",
+      "to": "of prime entry, prepare the trial balance and financial statements, and how"
+    },
+    {
+      "from": "how the financial aspect of a business function.",
+      "to": "how the financial aspect of a business functions."
+    },
+    {
+      "from": "strengthened its content and quality",
+      "to": "strengthened its content and quality."
+    },
+    {
+      "from": "the key competencies covered in this course",
+      "to": "the key competences covered in this course"
+    },
+    {
+      "from": "In this sub topic,",
+      "to": "In this sub-topic,"
+    },
+    {
+      "from": "Support records of fares",
+      "to": "Supports records of fares"
+    },
+    {
+      "from": "paid stationery of K200",
+      "to": "paid for stationery of K200"
+    },
+    {
+      "from": "from Book of prime entry to the Ledger",
+      "to": "from Books of Prime Entry to the Ledger"
+    },
+    {
+      "from": "The debit and credit entries total K1,500",
+      "to": "The debit entries total K1,500"
+    },
+    {
+      "from": "Paid rent by cash",
+      "to": "Paid rent in cash"
+    },
+    {
+      "from": "Purchased goods by cash",
+      "to": "Purchased goods for cash"
+    },
+    {
+      "from": "Sold goods by cash",
+      "to": "Sold goods for cash"
+    },
+    {
+      "from": "Paid electricity bills by cash",
+      "to": "Paid electricity bills in cash"
+    },
+    {
+      "from": "Paid electricity expenses by cash",
+      "to": "Paid electricity expenses in cash"
+    },
+    {
+      "from": "for Chanda Traders for October 2026",
+      "to": "for Chanda Traders for October 20X6"
+    },
+    {
+      "from": "three-column cash book for November 2026",
+      "to": "three-column cash book for November 20X6"
+    },
+    {
+      "from": "Trial Balance as at 31 March 2026",
+      "to": "Trial Balance as at 31 March 20X7"
+    },
+    {
+      "from": "Balance the cash book on 30 September 2026",
+      "to": "Balance the cash book on 30 September 20X6"
+    },
+    {
+      "from": "from the Ledger Accounts balances",
+      "to": "from the Ledger Account Balances"
+    },
+    {
+      "from": "Trial Balance as at 30 June 2026",
+      "to": "Trial Balance as at 30 June 20X6"
+    },
+    {
+      "from": "revenue receipts and expenses.",
+      "to": "revenue receipts and expenditure."
+    },
+    {
+      "from": "During the year, Chipata Milling Company",
+      "to": "During the year, Tionge Milling Company"
+    },
+    {
+      "from": "During the year, Lundazi Transport Services",
+      "to": "During the year, Mbuzi Transport Services"
+    },
+    {
+      "from": "Figure 8: Summary of Revenue Receipts",
+      "to": "Figure 7: Summary of Revenue Receipts"
+    },
+    {
+      "from": "Figure 8: Examples of Capital expenditure",
+      "to": "Figure 8: Examples of Capital Expenditure"
+    },
+    {
+      "from": "Figure 10: Examples of Revenue expenditure",
+      "to": "Figure 9: Examples of Revenue Expenditure"
+    },
+    {
+      "from": "lay out of the Statement",
+      "to": "layout of the Statement"
+    },
+    {
+      "from": "Net Purchases = K500,000 − K20,000 = K491,000",
+      "to": "Net Purchases = K500,000 + K11,000 − K20,000 = K491,000"
+    },
+    {
+      "from": "Net purchases = K480,000",
+      "to": "Net purchases = K491,000"
+    },
+    {
+      "from": "Gross profit = K250,000",
+      "to": "Gross profit = K239,000"
+    },
+    {
+      "from": "the owners' residual interest",
+      "to": "the owner’s residual interest"
+    },
+    {
+      "from": "Calculating capitals",
+      "to": "Calculating Capital"
+    },
+    {
+      "from": "Financial Position of Chanda Traders as at 31 December 20X9",
+      "to": "Financial Position of Chilembo Traders as at 31 December 20X9"
+    },
+    {
+      "from": "Frank Wood, F., & Sangster, A. (2018)",
+      "to": "Wood, F., & Sangster, A. (2018)"
+    },
+    {
+      "from": "Ministry of Education, (2023) Commerce",
+      "to": "Ministry of Education. (2023). Commerce"
+    },
+    {
+      "from": "prepared the following information for the year ended 31 December 2026",
+      "to": "prepared the following information for the year ended 31 December 20X6"
+    },
+    {
+      "from": "Chanda Traders made a net profit of K220,000",
+      "to": "Waduka Farms made a net profit of K230,000"
+    },
+    {
+      "from": "− K140,000 − K10,000",
+      "to": "− K140,000"
+    },
+    {
+      "from": "Returns Inwards",
+      "to": "Returns Inward"
+    },
+    {
+      "from": "Returns inwards",
+      "to": "Returns inward"
+    },
+    {
+      "from": "Returns Outwards",
+      "to": "Returns Outward"
+    },
+    {
+      "from": "Returns outwards",
+      "to": "Returns outward"
+    },
+    {
+      "from": "Returns Inward",
+      "to": "Returns Inwards"
+    },
+    {
+      "from": "Returns inward",
+      "to": "Returns inwards"
+    },
+    {
+      "from": "Returns Outward",
+      "to": "Returns Outwards"
+    },
+    {
+      "from": "Returns outward",
+      "to": "Returns outwards"
+    }
+  ],
+  "//coverImage": "The cover picture the user chose (supplied as 10.jpeg, 853x1280). Converted to PNG and upscaled with Real-ESRGAN to 1800px wide, because 853px across the 144mm hero window is about 150 DPI against the 300 DPI print rule — 144mm needs 1701px. It is an accounting still life (ledgers, a columned cash book, a calculator, coin stacks and charts) with no people in it, so it depicts the subject but does not engage the disability-representation or gender-balance rules, which apply where human beings appear. NOTE: the source is 2:3 PORTRAIT and the hero window is 144x78mm (1.846:1 LANDSCAPE), filled with fit: \"cover\" — so the window keeps only a central horizontal band and the rest is cropped away.",
+  "coverImage": "Accounting F2 28 Sept-art/cover.png",
+  "//setMarker": "Two roman sub-lists in the END OF TOPIC ASSESSMENT for Topic 2.5 printed with the wrong label. The manuscript types each as a SINGLE Word paragraph holding all of its items separated by line breaks and numbered as literal text ('i. Gross profit margin' / 'ii. Net profit margin' / …), under a parent part that ends in a colon. The importer models two list levels — a decimal top ('1.') and a lettered sub ('a)') — and has no third, so the first roman item was counted as one more letter in the lettered run and came out as 'e)' on printed p.134 and 'h)' on printed p.136, while its siblings stayed literal text underneath. The letters are plainly wrong (they read as further tasks rather than as the list the parent part introduces), so the marker is forced back to 'i.' in both. The remaining items still sit in the same paragraph as continuation lines; giving this manuscript shape a real third list level is an engine change, deliberately NOT attempted here.",
+  "setMarker": [
+    {
+      "find": "ii. Net profit margin",
+      "marker": "i."
+    },
+    {
+      "find": "Gross profit margin \nii. Current ratio",
+      "marker": "i."
+    },
+    {
+      "find": "The owner introduced additional capital of K100,000.",
+      "marker": "1."
+    },
+    {
+      "find": "Cash sales of processed products amounted to K250,000.",
+      "marker": "2."
+    },
+    {
+      "find": "The business received a bank loan of K300,000.",
+      "marker": "3."
+    },
+    {
+      "find": "A new processing machine was purchased for K220,000.",
+      "marker": "4."
+    },
+    {
+      "find": "Wages paid to workers amounted to K45,000.",
+      "marker": "5."
+    },
+    {
+      "find": "An old processing machine was sold for K60,000.",
+      "marker": "6."
+    },
+    {
+      "find": "Rent paid during the year amounted to K24,000.",
+      "marker": "7."
+    },
+    {
+      "find": "A new storage building was constructed for K180,000.",
+      "marker": "8."
+    },
+    {
+      "find": "Electricity expenses amounted to K12,000.",
+      "marker": "9."
+    },
+    {
+      "find": "Commission received amounted to K8,000.",
+      "marker": "10."
+    },
+    {
+      "find": "Repairs to existing machinery cost K15,000.",
+      "marker": "11."
+    },
+    {
+      "find": "Office furniture costing K25,000 was purchased.",
+      "marker": "12."
+    },
+    {
+      "find": "Advertising expenses amounted to K10,000.",
+      "marker": "13."
+    },
+    {
+      "find": "The business received K20,000 interest on an investment.",
+      "marker": "14."
+    },
+    {
+      "find": "Transport costs for delivering the new processing machine",
+      "marker": "15."
+    },
+    {
+      "find": "The owner withdrew K15,000 from the business for personal use.",
+      "marker": "16."
+    }
+  ],
+  "//editCell": "The KEY COMPETENCES table repeats two of its descriptor lines verbatim — a copy-paste slip, not two different competences: 'Draw up the Statement of Financial Position…' appears three times in the Analytical Thinking row and 'Prepare the Statement of Profit or Loss' twice in the Financial Education row. Each is collapsed to a single bullet. The find strings begin with the newline-and-bullet separator the cell text uses, so only a CONSECUTIVE repeat inside one cell matches: the single, legitimate 'Prepare the Statement of Profit or Loss' under Entrepreneurship is a different competence's descriptor and is left alone. The Statement of Financial Position format labels its current-assets subtotal \"Total Fixed Assets\" a second time, and the Charity Wholesalers worked example labels the same subtotal \"Net Assets\" (its real Net Assets line is further down) and heads the trade payables \"LESS: LIABILITIES\" where the format reads LESS: CURRENT LIABILITIES; inRow pins each to the one row.",
+  "editCell": [
+    {
+      "find": "\n• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities)\n• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities)",
+      "with": ""
+    },
+    {
+      "find": "\n• Prepare the Statement of Profit or Loss\n• Prepare the Statement of Profit or Loss",
+      "with": "\n• Prepare the Statement of Profit or Loss"
+    },
+    {
+      "find": "Total Fixed Assets",
+      "with": "Total Current Assets",
+      "inRow": "XXX"
+    },
+    {
+      "find": "Net Assets",
+      "with": "Total Current Assets",
+      "inRow": "220,000"
+    },
+    {
+      "find": "LESS: LIABILITIES",
+      "with": "LESS: CURRENT LIABILITIES"
+    }
+  ],
+  "//moveBefore": "Copyright page laid out as the house model (Silozi G4 LB): the credits and the publisher first, then the ISBN line, then the printer. The manuscript puts its ISBN line above the editor. Two Key Point boxes in Topic 2.3 are anchored inside the last item of their examples list, so the item printed AFTER the box: \"Repainting an existing warehouse\" (as a plain paragraph, its bullet lost) and \"6. K15,000 rent received\". Each box moves to the end of its list; the repainting example is a bullet again. REFERENCES put in alphabetical order by author (IASB, IFRS, Kieso, Ministry of Education, Wood, ZICA), as a reference list is read; each web address stays under its own entry.",
+  "moveBefore": [
+    {
+      "find": "ISBN:…",
+      "before": "Printed by:"
+    },
+    {
+      "find": "The main test is to ask: Does the expenditure",
+      "before": "Distinguishing Between Capital and Revenue Receipts"
+    },
+    {
+      "find": "The main question to ask when distinguishing",
+      "before": "Categorising Capital and Revenue Receipts and Expenditure"
+    },
+    {
+      "find": "Commerce and Principles of Accounts Syllabus",
+      "before": "Business Accounting 1: Study and Revision Guide"
+    },
+    {
+      "find": "Accounting Syllabus and Curriculum Materials",
+      "before": "Business Accounting 1: Study and Revision Guide"
+    },
+    {
+      "find": "Frank Wood’s Business Accounting 2 (13th ed.)",
+      "before": "Zambia Institute of Chartered Accountants"
+    },
+    {
+      "find": "Frank Wood’s Business Accounting 1 (14th ed.)",
+      "before": "Zambia Institute of Chartered Accountants"
+    }
+  ],
+  "//tables": "Worked Example 2 (Mwamba Traders, two-column cash book, February 20X6): the manuscript enters a stray 200 in the cash credit column of the 12 February supplier row (that supplier was paid K700 by cheque, which it also shows), so the cash balance came out K2,300 instead of 2,000 + 800 - 300 = K2,500, and the brought-down line is dated Nov 13 in a February book. The totals (2,800 / 5,200) already agree with K2,500.",
+  "tables": [
+    {
+      "match": "Nov 13",
+      "rows": [
+        [
+          "Date",
+          "Details",
+          "F",
+          "Cash (K)",
+          "",
+          "Bank (K)",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "Dr (K)",
+          "Cr (K)",
+          "Dr (K)",
+          "Cr (K)"
+        ],
+        [
+          "Feb 1",
+          "Balance",
+          "b/d",
+          "2,000",
+          "",
+          "4,000",
+          ""
+        ],
+        [
+          "Feb 3",
+          "Sales",
+          "",
+          "800",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Feb 5",
+          "Rent",
+          "",
+          "",
+          "300",
+          "",
+          ""
+        ],
+        [
+          "Feb 8",
+          "Customer",
+          "",
+          "",
+          "",
+          "1,200",
+          ""
+        ],
+        [
+          "Feb 12",
+          "Supplier",
+          "",
+          "",
+          "",
+          "",
+          "700"
+        ],
+        [
+          "Feb 12",
+          "Balance",
+          "c/d",
+          "",
+          "2,500",
+          "",
+          "4,500"
+        ],
+        [
+          "",
+          "",
+          "",
+          "2,800",
+          "2,800",
+          "5,200",
+          "5,200"
+        ],
+        [
+          "Feb 13",
+          "Balance",
+          "b/d",
+          "2,500",
+          "",
+          "4,500",
+          ""
+        ]
+      ]
+    }
+  ],
+  "//edit": "Mansa Trading Company (Topic 2.5, Learning Activity 2) is dated year ended 31 December 2026 in its scenario but 20X7 over its own figures; the date there is split across two runs (an italic \"20X\" and a roman \"7\"), so it is corrected on the whole block. The Waduka Farms answer is set as its own bold run, edited alone. Glossary: every other term is in Title Case; four were not, and the Non-Current Assets definition lacked its relative clause (\"Assets held ... and are expected\"). The glossary pass that runs later already brings each definition to a capital and a closing full stop.",
+  "edit": [
+    {
+      "find": "Financial Information for the Year Ended 31 December 20X7",
+      "with": "Financial Information for the Year Ended 31 December 2026"
+    },
+    {
+      "find": "Accounting ratios: numerical relationships calculated",
+      "with": "Accounting Ratios: numerical relationships calculated"
+    },
+    {
+      "find": "Current liabilities: Obligations expected",
+      "with": "Current Liabilities: Obligations expected"
+    },
+    {
+      "find": "Trade payables: Amounts owed by the business to suppliers",
+      "with": "Trade Payables: Amounts owed by the business to suppliers"
+    },
+    {
+      "find": "Working capital: The excess",
+      "with": "Working Capital: The excess"
+    },
+    {
+      "find": "Non-Current Assets: Assets held for use in the business and are expected",
+      "with": "Non-Current Assets: Assets that are held for use in the business and are expected"
+    }
+  ],
+  "retext": [
+    {
+      "from": "K220,000",
+      "to": "K230,000",
+      "near": "K345,000 + K25,000 − K140,000"
+    }
+  ],
+  "//retext": "The Waduka Farms Step 5 answer is its own bold run; near: keeps the change to that line (a different K220,000 figure is a machine price in Topic 2.3).",
+  "//fixExercise": "Numbering slips, each checked on the page: Topic 2.1 runs EXERCISE 1, 2, 3 and then a second \"EXERCISE 2\" (Zondi Traders), here EXERCISE 4. Exercise 1 question 4 letters the five transactions under \"a) Identify the appropriate Book of Prime Entry for each of the following:\" and the five books under \"State two source documents used for each of the following:\" as if they were questions b) to l); they are i)-v) under a) and under b). The Topic 2.3 assessment does the same with the four terms under \"1. a) Define the following terms:\", so \"State two differences\" becomes b).",
+  "fixExercise": [
+    {
+      "match": "EXERCISE 2",
+      "near": "Zondi Traders",
+      "heading": "EXERCISE 4"
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "Petauke records",
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+          "marker": "i)",
+          "depth": 2
+        },
+        {
+          "marker": "ii)",
+          "depth": 2
+        },
+        {
+          "marker": "iii)",
+          "depth": 2
+        },
+        {
+          "marker": "iv)",
+          "depth": 2
+        },
+        {
+          "marker": "v)",
+          "depth": 2
+        },
+        {
+          "marker": "b)",
+          "depth": 1
+        },
+        {
+          "marker": "i)",
+          "depth": 2
+        },
+        {
+          "marker": "ii)",
+          "depth": 2
+        },
+        {
+          "marker": "iii)",
+          "depth": 2
+        },
+        {
+          "marker": "iv)",
+          "depth": 2
+        },
+        {
+          "marker": "v)",
+          "depth": 2
+        }
+      ]
+    },
+    {
+      "match": "END OF TOPIC ASSESSMENT",
+      "near": "Sampa Traders",
+      "markers": [
+        null,
+        {
+          "marker": "i)",
+          "depth": 2
+        },
+        {
+          "marker": "ii)",
+          "depth": 2
+        },
+        {
+          "marker": "iii)",
+          "depth": 2
+        },
+        {
+          "marker": "iv)",
+          "depth": 2
+        },
+        {
+          "marker": "b)",
+          "depth": 1
+        }
+      ]
+    }
+  ],
+  "//unlist": "Learning Activity 5 (Topic 2.3): the sentence introducing Petulo Agro-Processing Company's transactions is numbered as transaction 1, so the sixteen transactions ran 2-17. The lead-in is set as a sentence and the transactions numbered 1-16.",
+  "unlist": [
+    "Agro-Processing Company had the following transactions:"
+  ],
+  "//replaceBlocks": "The repainting example lost its bullet when the Key Point box anchored in it was lifted out; it is set back as the last bullet of its list.",
+  "replaceBlocks": [
+    {
+      "find": "Repainting an existing warehouse for K15,000: This is normally revenue expenditure because it is routine maintenance rather than an improvement that creates additional economic benefits.",
+      "with": [
+        {
+          "listitem": "**Repainting an existing warehouse for K15,000:** This is normally **revenue expenditure** because it is routine maintenance rather than an improvement that creates additional economic benefits."
+        }
+      ]
+    }
+  ]
+}
