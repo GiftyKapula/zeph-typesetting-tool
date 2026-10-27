@@ -1047,6 +1047,9 @@ async function typesetOne(docxPath, themeName) {
     if (ov.coverWords.authors) themeOverrides.authorsWord = ov.coverWords.authors;
     if (ov.coverWords.printedBy) themeOverrides.printedBy = ov.coverWords.printedBy;
   }
+  // titleAgeLine: an age line set under the book type on the TITLE PAGE only (an ECE
+  // reviewer's "YAAKA 4-5"); the cover and spine are left as they are.
+  if (ov.titleAgeLine) themeOverrides.titleAgeLine = ov.titleAgeLine;
   if (ov.captionSize) themeOverrides.capSize = ov.captionSize;
   // "boxStripe": false — plain tinted activity/exercise/assessment boxes, no thick left border
   if (ov.boxStripe === false) themeOverrides.boxStripe = false;   // e.g. "12pt" (see capsz in the template)
@@ -1318,6 +1321,14 @@ async function typesetOne(docxPath, themeName) {
   if (ov.keepHeadsWithUnit) {
     for (let i = 0; i < blocks.length; i++) {
       if (blocks[i].t !== "h1" || blocks[i].brk === false) continue;
+      // the first unit has the front matter's end marker (bodystart) between it and the
+      // heads above it ("Temu 1" then "KAPETULU 1"): move the marker up above the heads,
+      // as termPages does, so they open the body with the unit instead
+      if (i > 0 && blocks[i - 1].t === "bodystart") {
+        let h = i - 1;
+        while (h > 0 && /^(head|h3|label)$/.test(blocks[h - 1].t)) h--;
+        if (h < i - 1) { const [bs] = blocks.splice(i - 1, 1); blocks.splice(h, 0, bs); }
+      }
       let j = i;
       while (j > 0 && /^(head|h3|label)$/.test(blocks[j - 1].t)) j--;
       if (j === i) continue;

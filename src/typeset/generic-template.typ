@@ -431,6 +431,9 @@
         #text(size: 22pt, weight: "bold", fill: formtext, tracking: 1pt)[#upper(lbl(formtxt))]] ]
     #v(7mm)
     #text(size: 20pt, weight: "bold", fill: T.primary)[#upper(lbl(booktype))]
+    // titleAgeLine override: the age range under the book type, title page only
+    #if T.at("titleAgeLine", default: "") != "" [ #v(6mm)
+      #text(size: 18pt, weight: "bold", fill: deepteal)[#upper(T.titleAgeLine)] ]
   ]
   // The author byline flows a FIXED gap below the booktype line rather than sitting at
   // an absolute page offset — a long subject name (e.g. "Food and Nutrition") wraps the
@@ -444,7 +447,8 @@
   // silently overlapped. Past 2 names, wrap them into one centred paragraph
   // instead (matching how the cover's own byline already handles a long list).
   if byline.len() > 0 {
-    v(if byline.len() > 3 { 9mm } else { 20mm })
+    // (an age line under the book type takes the room the gap would)
+    v(if byline.len() > 3 { 9mm } else if T.at("titleAgeLine", default: "") != "" { 10mm } else { 20mm })
     align(center)[
       #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
       #v(3mm)

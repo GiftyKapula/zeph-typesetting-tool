@@ -89,6 +89,7 @@ off, so a change only touches the books that opt in. Keys:
 | `synthesiseCover` | force the engine to build a fresh cover from title/subject/booktype/author even when a cover-ish page was detected (its line shapes didn't match what the theme expects) |
 | `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey. This is now the **default for any TG** (filename carries "TG" or "teacher"), so most books never need to set it; use `blackWhite: false` for the rare TG that must stay in colour, or `blackWhite: true` to force it on a Learner's Book (which otherwise keeps its colour) |
 | `tocTitle` | the contents page heading in the book's own words (a local-language book's own contents heading, e.g. Kiikaonde "Biji mu Kachi") instead of the theme's "Table of Contents" |
+| `titleAgeLine` | an age line set under the book type on the **title page only** (an ECE reviewer's "YAAKA 4-5"); the cover and spine are untouched |
 
 **Text (whole-block)**
 
