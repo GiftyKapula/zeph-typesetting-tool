@@ -292,7 +292,14 @@ function boxKindFromTitle(t) {
   if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|\.\s*$|$)/i.test(s) || /^ACTIVITY\s*:?\s*\d/i.test(s)) return "exercise";
   if (/^(U?Mulimo|Mwingilo|Zocitila|Zoc[hk]?ita|Zakueza|Mudimu)\b/i.test(s)) return "exercise";
   // --- Key points / Did you know ---
+  // The singular "Key Point" / "Key Point to Remember" and the "Important Distinction /
+  // Note / Point" callouts are the same note box under another name. Unrecognised, each
+  // failed the `kind` guard in extractTextboxBoxes() and its whole text box vanished from
+  // the page: the Accounting Form 2 Learner's Book lost four such boxes this way. These
+  // arms are anchored at BOTH ends (label alone, optional colon) because this classifier
+  // also runs on body paragraphs, where a bold "Important note: the ledger…" must stay prose.
   if (/^(KEY POINTS|Key Points to Remember|Mau ofunika kudziwa)/i.test(s)) return "keypoints";
+  if (/^(KEY POINT(\s+TO\s+REMEMBER)?|IMPORTANT\s+(DISTINCTIONS?|NOTES?|POINTS?))\s*:?\s*$/i.test(s)) return "keypoints";
   if (/^DID YOU KNOW/i.test(s)) return "fact";
   return null;
 }
@@ -313,6 +320,7 @@ const NAVY = "1F3864";
 // merging, …), and record its parsed title/body/parts in `out` so a later pass
 // (resolveTextboxBoxes) can replace the sentinel with the real block once the block
 // array exists. Returns { rawDoc } with the swap applied; boxes are pushed onto `out`.
+const NOTE_KINDS = new Set(["keypoints", "fact"]);
 function extractTextboxBoxes(rawDoc, out, numMap) {
   let result = "", last = 0;
   // Nesting-aware: a text box's own content can carry an inline picture (e.g. a
@@ -402,10 +410,10 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     // writer ran out of room and drew a second text box under the first. The Food and
     // Nutrition Form 2 Teacher's Guide splits EXERCISE 4's Expected Answers this way,
     // and part iii never printed. Its paragraphs join the box above instead.
-    const runOn = !kind && lastBox && /^\(?(?:[ivx]{1,5}|\d{1,2}|[a-h])[.)]\s+\S/i.test(title)
+    const runOn = !kind && lastBox && !NOTE_KINDS.has(out[lastBox.idx].kind) && /^\(?(?:[ivx]{1,5}|\d{1,2}|[a-h])[.)]\s+\S/i.test(title)
       && !textIn(lastBox.end, spanStart) ? lastBox : null;
     if (runOn) { kind = out[runOn.idx].kind; title = ""; }
-    if (kind !== "activity" && kind !== "exercise" && kind !== "assessment") {
+    if (kind !== "activity" && kind !== "exercise" && kind !== "assessment" && !NOTE_KINDS.has(kind)) {
       // A shape carrying several paragraphs of real prose is not decoration. One line of
       // text is a label on a diagram; a title plus a body is a box whose label was not
       // recognised, and that is worth saying out loud.
@@ -611,7 +619,15 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
       continue;
     }
     const idx = out.length;
-    out.push(kind === "activity" ? { kind, title, body } : { kind, title, parts });
+    // A Key Point / Important Distinction / Did You Know note drawn as a text box: its
+    // paragraphs are the note's lines, and it carries no questions to number. Unbulleted
+    // unless the author typed a Word list - these notes are prose, and a lone bullet in
+    // front of one paragraph reads as a list of one.
+    if (NOTE_KINDS.has(kind)) {
+      const lines = rest.filter((p) => !p.isTable)
+        .map((p) => ({ plain: plainOf(p.segs).trim(), list: hasListNumbering(p.xml) })).filter((p) => p.plain);
+      out.push({ kind, title, points: lines.map((p) => p.plain.replace(/^[•]\s*/, "")), bullets: lines.some((p) => p.list) });
+    } else out.push(kind === "activity" ? { kind, title, body } : { kind, title, parts });
     lastBox = { idx, end: spanEnd };
     // Give the sentinel its OWN paragraph — close whatever paragraph is open, emit a
     // minimal <w:p> holding just the sentinel run, then reopen a fresh paragraph for
@@ -651,6 +667,8 @@ function resolveTextboxBoxes(blocks, tbBoxes) {
   const SENT = /^@@BOX(\d+)@@$/;
   const boxBlock = (idx) => {
     const box = tbBoxes[idx];
+    if (box.kind === "keypoints") return { t: "keypoints", title: box.title, points: box.points, ...(box.bullets ? {} : { bullets: false }) };
+    if (box.kind === "fact") return { t: "fact", body: box.points.map((p) => ({ t: "para", segs: [{ t: p, b: false, it: false, c: null }], plain: p })) };
     return box.kind === "activity" ? { t: "activity", title: box.title, body: box.body }
       : box.kind === "exercise" ? { t: "exercise", heading: box.title, parts: box.parts }
       : { t: "assessment", title: box.title, intro: [], parts: box.parts, extra: [] };
@@ -2286,7 +2304,7 @@ function makeBox(kind, blocks) {
   if (kind === "keypoints") {
     const points = after.filter((b) => b.t === "para").map((p) => p.plain.replace(/^[••]\s*/, ""));
     after.filter((b) => b.t === "table").forEach((tb) => tb.rows.forEach((r) => points.push(r.map((c) => c.text).join(" – "))));
-    const title = /Mau ofunika|KEY POINTS|Key Points/i.test(titleText) ? titleText : "";
+    const title = /Mau ofunika|KEY POINTS?\b|^IMPORTANT\s/i.test(titleText) ? titleText : "";
     return { t: "keypoints", title, ...(title && hasMathSeg(titleSegs) ? { titleSegs } : {}), points };
   }
   if (kind === "exercise") {
@@ -2637,7 +2655,11 @@ async function importDocx(docxPath, opts = {}) {
   // Drop the legacy <mc:Fallback> half of an <mc:AlternateContent> first (we keep
   // the modern <mc:Choice>); otherwise a floating image encoded both ways is
   // imported twice.
-  let rawDoc = read("word/document.xml").replace(/<mc:Fallback>[\s\S]*?<\/mc:Fallback>/g, "");
+  // The open tag can carry namespace declarations (<mc:Fallback xmlns:w16se="…">, as
+  // a later Word writes them): the Accounting Form 2 Learner's Book has six, and with a
+  // bare "<mc:Fallback>" pattern each stale legacy copy - an older picture under an
+  // older caption - printed beside the real figure.
+  let rawDoc = read("word/document.xml").replace(/<mc:Fallback\b[^>]*>[\s\S]*?<\/mc:Fallback>/g, "");
   // Recover a Learning Activity / Exercise / Assessment the author placed ENTIRELY
   // inside a floating text box (a drawing canvas with no picture) rather than the
   // document flow — otherwise the whole box (title + every question) is silently
@@ -2965,7 +2987,7 @@ async function importDocx(docxPath, opts = {}) {
     // captured above) and the legacy <v:imagedata> fallback are the SAME image —
     // counting the fallback too would duplicate it. Standalone OLE/VML pictures
     // (the common case here) live outside AlternateContent and are unaffected.
-    const xv = x.replace(/<mc:Fallback>[\s\S]*?<\/mc:Fallback>/g, "");
+    const xv = x.replace(/<mc:Fallback\b[^>]*>[\s\S]*?<\/mc:Fallback>/g, "");
     for (const vm of xv.matchAll(/<v:imagedata[^>]*r:id="([^"]+)"[^>]*>/g)) {
       const rid = vm[1];
       // the enclosing <v:shape …> carries the on-page size as CSS points (pt→px @96dpi)
@@ -3160,6 +3182,12 @@ async function importDocx(docxPath, opts = {}) {
     const r = (x.match(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/) || [])[1] || "";
     const rpr = (r.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     return /<w:b\b(?!Cs)/.test(rpr);
+  };
+  // the first run carries an explicit colour other than black/auto
+  const colouredFirstRun = (x) => {
+    const r = (x.match(/<w:r\b[^>]*>([\s\S]*?)<\/w:r>/) || [])[1] || "";
+    const c = ((r.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "").match(/<w:color\s+w:val="([0-9A-Fa-f]{6})"/);
+    return !!c && !/^0{6}$/.test(c[1]);
   };
   // Opt-in (`boxLabelBlankRuns` override): read a box label's weight from its first run
   // that PRINTS something. Word leaves blank runs behind as indentation residue — the RE
@@ -3527,6 +3555,14 @@ async function importDocx(docxPath, opts = {}) {
       if (glossaryPerTopic && BOX_BACKMATTER_LINE.test(ty.trim())) break;
       if (restoredBanner.has(j)) break; // the next topic's banner, typed without "TOPIC"
       if (boxKindFromTitle(ty) && boldFirstRun(y)) break;        // the next box label
+      // A note box (Key Point / Did You Know) holds prose, so a short bold line in a
+      // heading colour after it is the next lesson's hand-styled heading, typed at body
+      // size so the size test above cannot see it. The Accounting Form 2 Learner's Book
+      // follows two of its "Key Point" notes straight on with "Describing the Statement
+      // of Financial Position items" / "Calculating Capital" in bold purple, and both
+      // headings, with the paragraph under each, were drawn inside the note.
+      if ((kind === "keypoints" || kind === "fact") && !isTbl(y) && ty && ty.length <= 80
+          && !/[.:]$/.test(ty.trim()) && boldFirstRun(y) && colouredFirstRun(y)) break;
       // learn the box's own body size from the first sized line it takes in
       if (!bodySize && !isTbl(y) && ty) { const sy = sizeOf(y); if (sy) bodySize = sy; }
       // An End-of-Topic assessment runs to the next section: its questions are
