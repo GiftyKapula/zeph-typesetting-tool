@@ -3264,7 +3264,7 @@
       }
       else if it.k == "colgrid" { colgrid(rows: it.rows, ncol: it.ncol, hasMarker: it.hasMarker) }
       else if it.k == "colsum" { colsum(it.rows, it.answer) }
-      else if (it.k == "para" and it.at("s", default: none) != none and (endsColon(it.s) or (it.s.len() == 1
+      else if (it.k == "para" and it.at("s", default: none) != none and (endsColon(it.s) or it.at("keep", default: false) or (it.s.len() == 1
           and it.s.at(0).at("b", default: false) == true
           and it.s.at(0).at("t", default: "").trim().len() <= 40
           and it.s.at(0).at("t", default: "").trim().match(regex("[.?!;,]$")) == none))) {
@@ -3607,8 +3607,9 @@
 }
 #let activity(title, body, force: false) = keepwhole("act", title, renderbody(body), force: force)
 #let fact(body) = titledbox("Did You Know?", T.fact, renderbody(body))
-#let keypoints(title, items) = titledbox(if title == none { "Key Points to Remember" } else { title }, T.kp,
-  { for it in items [#grid(columns: (10pt, 1fr), text(fill: T.kp.border)[•], par[#it]); #v(1.5pt)] })
+// bullets: false — a note typed as plain paragraphs (a "Key Point" text box), set as prose.
+#let keypoints(title, items, bullets: true) = titledbox(if title == none { "Key Points to Remember" } else { title }, T.kp,
+  { for it in items [#if bullets { grid(columns: (10pt, 1fr), text(fill: T.kp.border)[•], par[#it]) } else { par[#it] }; #v(1.5pt)] })
 #let genericbox(body) = { block(width: 100%, breakable: true, radius: 3pt,
   stroke: 0.9pt + T.rulec, fill: rgb("#f7f9fc"), inset: (x: boxinx, y: 8pt))[#renderbody(body)]; v(3pt) }
 

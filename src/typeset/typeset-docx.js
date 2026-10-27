@@ -273,7 +273,20 @@ function markSubLists(blks) {
   }
   return blks;
 }
-const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
+// A short unpunctuated line directly above a table in a box is that table's title
+// ("Information for the Year Ended 31 December 20X5"): it travels with the table. The
+// Accounting Form 2 Learner's Book left one at a page foot with its table overleaf.
+const markTableTitles = (blks) => {
+  (blks || []).forEach((b, i) => {
+    const nx = blks[i + 1];
+    if (b && b.t === "para" && !b.isList && nx && nx.t === "table") {
+      const t = (b.segs || []).map((s) => s.t || "").join("").trim();
+      if (t && t.length <= 70 && !/[.?!;,]$/.test(t)) b._keepTbl = true;
+    }
+  });
+  return blks;
+};
+const bodyArr = (blks) => arr(markTableTitles(markSubLists(blks)), (b) =>
   b.t === "table" ? `(k: "table", r: ${rowArr(b.rows)}${b.noHeader ? ", nohdr: true" : ""}${b.sheet ? ", sheet: true" : ""})`
   : (b.t === "img" || b.t === "imagerow") ? `(k: "img", images: ${imgArr(b.images)})`
   : b.t === "image" ? `(k: "img", images: ${imgArr([{ file: b.file, w: b.w, tall: b.tall, caption: b.caption, hmm: b.hmm }])})`
@@ -285,7 +298,7 @@ const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
   : (b.t === "para" && b.marker && b.isList) ? `(k: "list", marker: ${S(b.marker)}, s: ${segArr(b.segs)}${b._sub ? `, indent: ${b._sub}` : ""})`
   : (b.k === "colgrid" || b.t === "colgrid") ? `(k: "colgrid", ${colgridArg(b)})`
   : b.t === "colsum" ? `(k: "colsum", rows: ${strArr(b.rows || [])}, answer: ${strArr(b.answerRows || [])})`
-  : `(k: "para", s: ${segArr(b.segs || [])}${b._cont != null ? `, cont: ${b._cont}` : ""})`);
+  : `(k: "para", s: ${segArr(b.segs || [])}${b._cont != null ? `, cont: ${b._cont}` : ""}${b._keepTbl ? ", keep: true" : ""})`);
 // Tolerates the colon landing on either side of the number ("TOPIC 1.4: Title" —
 // the house form — as well as a manuscript that instead types "TOPIC: 1.4 Title").
 const TOPIC_RE = /^TOPIC\s*:?\s*([\d.]+)\s*:?\s*(.+)$/i;
@@ -552,7 +565,7 @@ function emit(blocks) {
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
       case "activity": out += `#activity(${titleContent(b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "fact": out += `#fact(${bodyArr(b.body)})\n`; break;
-      case "keypoints": out += `#keypoints(${b.title ? titleContent(b.title, b.titleSegs) : "none"}, ${strArr(b.points)})\n`; break;
+      case "keypoints": out += `#keypoints(${b.title ? titleContent(b.title, b.titleSegs) : "none"}, ${strArr(b.points)}${b.bullets === false ? ", bullets: false" : ""})\n`; break;
       case "exercise": out += `#exercise(${titleContent(b.heading, b.headingSegs)}, ${partsArr(b.parts || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "assessment": out += `#assessment(${titleContent(b.title, b.titleSegs)}, ${strArr(b.intro || [])}, ${partsArr(b.parts || [])}, ${strArr(b.extra || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "box": out += `#genericbox(${bodyArr(b.body)})\n`; break;
@@ -1615,6 +1628,8 @@ const blockPlain = (b) => {
   if (b.t === "imagerow" && Array.isArray(b.images)) return b.images.map((im) => im.caption || "").join(" ");
   const tk = titleKey(b);
   if (tk && typeof b[tk] === "string") return b[tk];
+  // a Key Points box: its title and lines, so moveBefore & co. can find it by its words
+  if (b.t === "keypoints") return [b.title || "", ...(b.points || [])].join(" ").trim();
   return "";
 };
 function setBlockText(b, text) {
@@ -2125,9 +2140,19 @@ function applyOverrides(blocks, ov) {
       for (const b of arr) {
         if (!b || typeof b !== "object") continue;
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
-          for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
+          // `inRow` (optional): only in a row where another cell reads exactly this — a
+          // mislabelled subtotal ("Total Fixed Assets" over the current assets) whose label
+          // is right on the other rows that carry it.
+          for (const row of b.rows) if (Array.isArray(row)
+              && (!ec.inRow || row.some((c) => c && typeof c.text === "string" && c.text.trim() === ec.inRow))) for (const cell of row) {
             if (!cell || typeof cell.text !== "string") continue;
-            if (cell.text.trim() === ec.find) { cell.text = ec.with; n++; continue; }
+            // A styled (bold) cell is drawn from its runs, so they change with the text:
+            // rewriting `text` alone left a bold "Total Fixed Assets" label printed as it was.
+            if (cell.text.trim() === ec.find) {
+              cell.text = ec.with;
+              if (Array.isArray(cell.segs) && cell.segs.length) cell.segs = [{ ...cell.segs.find((s) => (s.t || "").trim()) || cell.segs[0], t: ec.with }];
+              n++; continue;
+            }
             if (cell.text.includes(ec.find)) {
               cell.text = cell.text.split(ec.find).join(ec.with);
               // The cell's RUNS are what gets drawn, and an edit rarely sits inside one
@@ -2789,8 +2814,10 @@ function applyOverrides(blocks, ov) {
   // place, PRESERVING its bold/italic/colour (unlike `edit`, which flattens formatting).
   // e.g. de-shout a label from ALL CAPS to Title Case ("GENERAL COMPETENCES:"→"General
   // Competences:") while keeping it bold. Runs after any italiciseFrom pass.
+  // `near` (optional): only in a block whose text also contains `near`, for a run like a
+  // bare "K220,000" answer that recurs elsewhere in the book as a different figure.
   for (const rt of ov.retext || []) {
-    for (const b of flat) for (const s of b.segs || []) {
+    for (const b of flat) if (!rt.near || blockPlain(b).includes(rt.near)) for (const s of b.segs || []) {
       if (!s.m && (s.t || "").trim() === rt.from) s.t = s.t.replace(rt.from, rt.to);
     }
   }
@@ -2844,6 +2871,12 @@ function applyOverrides(blocks, ov) {
               inSegs(cell.segs);
             }
           }
+        }
+        // A Key Points box keeps its lines as plain strings in `points`, out of reach of
+        // every walk above: "the owners' residual interest" inside the Accounting Form 2
+        // Learner's Book's Key Point logged "not matched" and printed unchanged.
+        if (b.t === "keypoints" && Array.isArray(b.points)) {
+          for (let i = 0; i < b.points.length; i++) inStr(b.points, i);
         }
         for (const k of Object.keys(b)) if (Array.isArray(b[k])) cells(b[k]);
       }
@@ -3068,7 +3101,8 @@ function applyOverrides(blocks, ov) {
   // so the line sits flush like its sibling paragraphs. Pair with `subtext` to fold a
   // corrected number into the text run (keeping its italic/bold).
   for (const sub of ov.unlist || []) {
-    const b = flat.find((x) => x.t === "listitem" && blockPlain(x).includes(sub));
+    // an activity's numbered lines are paragraphs carrying a list marker (`isList`)
+    const b = flat.find((x) => (x.t === "listitem" || (x.t === "para" && x.isList)) && blockPlain(x).includes(sub));
     if (!b) { console.warn("!  unlist not matched:", sub); continue; }
     b.t = "para"; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
   }
@@ -3301,14 +3335,16 @@ function applyOverrides(blocks, ov) {
     const walk = (arr) => {
       for (const b of arr) {
         if (!b || typeof b !== "object") continue;
-        if (!target && b.t === "exercise" && (b.heading || "").trim().replace(/\s+/g, " ") === fx.match
+        // An END OF TOPIC ASSESSMENT box (its label is `title`) is matched the same way.
+        if (!target && (b.t === "exercise" || b.t === "assessment")
+            && ((b.t === "exercise" ? b.heading : b.title) || "").trim().replace(/\s+/g, " ") === fx.match
             && (!fx.near || JSON.stringify(b.parts || []).includes(fx.near))) { target = b; return; }
         for (const k of Object.keys(b)) if (Array.isArray(b[k])) { walk(b[k]); if (target) return; }
       }
     };
     walk(blocks);
     if (!target) { console.warn("!  fixExercise not matched:", fx.match, fx.near || ""); continue; }
-    if (fx.heading) target.heading = fx.heading;
+    if (fx.heading) { if (target.t === "assessment") target.title = fx.heading; else target.heading = fx.heading; }
     const parts = target.parts || [];
     if (fx.parentBefore) {
       const idx = parts.findIndex((p) => (p.marker || "") === fx.parentBefore);
@@ -3334,10 +3370,12 @@ function applyOverrides(blocks, ov) {
         if (idx >= fx.markers.length) return;
         const mk = fx.markers[idx];
         if (mk === null) return;      // null leaves this part exactly as-is (skip it)
-        p.marker = mk; p.depth = 0;
+        // { marker, depth } keeps a sub-part indented ("i)" under "a) Define the following terms:")
+        if (mk && typeof mk === "object") { p.marker = mk.marker; p.depth = mk.depth || 0; }
+        else { p.marker = mk; p.depth = 0; }
         // a non-empty marker must render as a numbered item: promote a bare "lead" line
         // (e.g. an answer sequence the import left un-numbered) to a proper question part.
-        if (mk && p.kind === "lead") { p.kind = "q"; p.a = p.a || ""; p.aseg = p.aseg || []; }
+        if (p.marker && p.kind === "lead") { p.kind = "q"; p.a = p.a || ""; p.aseg = p.aseg || []; }
       });
     }
     // addParts: [{ text, marker?, depth?, at? }] — insert answer lines the manuscript
@@ -5077,8 +5115,16 @@ function ensureOrIndividually(blocks) {
                 // individually…". House style only needs ONE "individually" per
                 // sentence/segment, so skip the whole segment once it already contains
                 // the word anywhere, rather than checking only right after each trigger.
-                if (!/\bindividually\b/i.test(s.t)) {
-                  s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
+                // "Individual" in ANY form counts: "In groups or as individuals" already
+                // names the mode, and the bare "individually" test read it as missing
+                // and printed "In groups or individually or as individuals" (Accounting
+                // Form 2 Learner's Book). A trigger the author already paired with a
+                // second mode ("In groups or pairs") takes the addition as a list,
+                // "In groups, pairs or individually" — not "In groups or individually
+                // or pairs", which the same book printed.
+                if (!/\bindividual(?:ly|s)?\b/i.test(s.t)) {
+                  s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?:\s*,?\s*or\s+((?:in\s+)?(?:pairs|groups)))?(?!\s*,?\s*or\s+individually)/gi,
+                    (m, a, b) => b ? `${a}, ${b} or individually` : `${a} or individually`);
                 }
                 if (s.t.trimEnd().endsWith("individually")) {
                   s.t = s.t.trimEnd() + " ";
