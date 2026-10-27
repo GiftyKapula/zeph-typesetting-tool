@@ -1050,6 +1050,9 @@ async function typesetOne(docxPath, themeName) {
   if (ov.captionSize) themeOverrides.capSize = ov.captionSize;
   // "boxStripe": false — plain tinted activity/exercise/assessment boxes, no thick left border
   if (ov.boxStripe === false) themeOverrides.boxStripe = false;   // e.g. "12pt" (see capsz in the template)
+  // "hyphenate": false — no word broken across two lines (a reviewer marked every
+  // "repro-duced" break); otherwise the theme's own setting
+  if (ov.hyphenate !== undefined) themeOverrides.hyphenate = !!ov.hyphenate;
   // The colours the AUTHOR gave text runs in the manuscript (a blue sub-topic line, a red
   // word) print black in a black-and-white book: nothing in it is coloured. White text is
   // kept (it sits on a dark band or table header).
