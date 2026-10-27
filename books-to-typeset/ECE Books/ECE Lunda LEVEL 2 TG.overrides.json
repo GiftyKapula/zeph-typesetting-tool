@@ -1,0 +1,1160 @@
+{
+  "_note_cover": "The manuscript's cover picture (image1.png, 1478x865, rounded black corners) has no lettering. Cut to the series cover card's 122:78 shape (x 85-1394, y 14-851: water table, sandpit, blocks, book corner, painting table), Real-ESRGAN x4 then scaled to 2452x1568, ~510 DPI at 122mm. The hand-set title block around it (text boxes) is the manuscript's own cover lettering: dropped, the cover is built from the word list as in Level 1.",
+  "coverImage": "lunda-ece-level2-tg-cover-hires.png",
+  "_note_coverColor": "Level 1 LB rose (ef96ae) / Level 1 TG deeper rose (d62151); Level 2 LB gold (e3a32e), so the Level 2 TG takes a deeper gold, the same LB/TG step as Level 1.",
+  "coverColor": "b8801f",
+  "removeImages": [
+    "image1.png",
+    "image3.png"
+  ],
+  "coversInBook": true,
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "authors": [
+    "Kapiteni Edah Samutamu",
+    "Kakoma Mushitala"
+  ],
+  "tocUnitsOnly": false,
+  "_note_terms": "TEMU 1-3 (terms) get a page of their own, as in the manuscript's own contents (TEMU 2 p22, KAPETULU 5 p23).",
+  "termPages": "^TEMU [0-9]+$",
+  "_note_imprint": "Copyright page laid out as the house model (Silozi G4 LB): bold label on its own line, plain value below. The manuscript's English labels are kept (no Lunda wording for them in the manuscript); the layout credit is the house default.",
+  "replaceBlocks": [
+    {
+      "find": "ISBN: ……………………………",
+      "with": []
+    },
+    {
+      "find": "Cover and Book layout by: Gift Kapula",
+      "with": []
+    },
+    {
+      "find": "First Published 2026 by:",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road, P.O. Box 32708 Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "Printed by:",
+      "with": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**First Published 2026 by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Printed by:**",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Mutu Wansañu 0.2.16: Kutiyilila Nakanañachima Mutu Wansañu Wanyanya 0.2.16.1: Tuheka twapela",
+      "with": [
+        {
+          "head": "Mutu Wansañu 0.2.16: Kutiyilila Nakanañachima"
+        },
+        {
+          "head": "Mutu Wansañu Wanyanya 0.2.16.1: Tuheka twapela"
+        }
+      ]
+    },
+    {
+      "find": "0.2.9.1.1 Kushimuna yuma yayizañaleshaña niyayineñeshaña Yikuyuñulu:",
+      "with": [
+        {
+          "para": "**0.2.9.1.1** Kushimuna yuma yayizañaleshaña niyayineñeshaña"
+        },
+        {
+          "label": "Yikuyuñulu"
+        }
+      ]
+    },
+    {
+      "find": "Kwiluka kubomba tutumwa nawanyanta zhasona nakutuña yikunku yamazu. Yikuyuñulu:",
+      "with": [
+        {
+          "para": "Kwiluka kubomba tutumwa nawanyanta zhasona nakutuña yikunku yamazu."
+        },
+        {
+          "label": "Yikuyuñulu"
+        }
+      ]
+    },
+    {
+      "find": "Kwiluka kutaña tutumwa nawanyanta yansona hamu niyikunku yamazu. Yikuyuñulu:",
+      "with": [
+        {
+          "para": "Kwiluka kutaña tutumwa nawanyanta yansona hamu niyikunku yamazu."
+        },
+        {
+          "label": "Yikuyuñulu"
+        }
+      ]
+    },
+    {
+      "find": "Ñakwllu yinafukulewi",
+      "with": [
+        {
+          "label": "Ñakwilu Zhinafukulewi"
+        }
+      ]
+    },
+    {
+      "find": "a. hema",
+      "with": [
+        {
+          "listitem": "hema",
+          "marker": "a."
+        }
+      ]
+    },
+    {
+      "find": "b. watu",
+      "with": [
+        {
+          "listitem": "watu",
+          "marker": "b."
+        }
+      ]
+    },
+    {
+      "find": "iv",
+      "with": []
+    },
+    {
+      "find": "Yuma Yalema Yakulumbulula Hakutañisha Kwiluka antu amuchisaka cheneni.",
+      "with": [
+        {
+          "label": "Yuma Yalema Yakulumbulula Hakutañisha"
+        },
+        {
+          "para": "Kwiluka antu amuchisaka cheneni."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Mapatani apela anasonekewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Mapatani apela anasonekewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Nyevulu yinashewi munlondakenu.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Nyevulu yinashewi munlondakenu."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Nyifunda yinafundululewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Nyifunda yinafundululewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Yuma Yalema Yakulumbulula Hakutañisha: Kwiluka kufundulula mumandokundoku amashepu.",
+      "with": [
+        {
+          "label": "Yuma Yalema Yakulumbulula Hakutañisha"
+        },
+        {
+          "para": "Kwiluka kufundulula mumandokundoku amashepu."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Mashepu apela anfundululewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Mashepu apela anfundululewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Nsona zhinafundululewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Nsona zhinafundululewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chuma Chinakuhwelelewi Atudizi Kwilukisha: Kulumbulula yidika yapela.",
+      "with": [
+        {
+          "label": "Chuma Chinakuhwelelewi Atudizi Kwilukisha:"
+        },
+        {
+          "para": "Kulumbulula yidika yapela."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Yikuyuñulu: Chati hadi nyevulu yamaluña alema amuchituñilu chidi neyi (shikola, chipompelu, hakapokola, maliketi chipateli).",
+      "with": [
+        {
+          "label": "Yikuyuñulu"
+        },
+        {
+          "para": "Chati hadi nyevulu yamaluña alema amuchituñilu chidi neyi (shikola, chipompelu, hakapokola, maliketi chipateli)."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chuma Chinakuhwelelewi Atudizi Kwilukisha: Mapatani apela anakopololewi mwaloña.",
+      "with": [
+        {
+          "label": "Chuma Chinakuhwelelewi Atudizi Kwilukisha:"
+        },
+        {
+          "para": "Mapatani apela anakopololewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Yuma Yalema akulumbulula Hakutañisha: Kwiluka kuhana nshimbi zhapela.",
+      "with": [
+        {
+          "label": "Yuma Yalema Yakulumbulula Hakutañisha"
+        },
+        {
+          "para": "Kwiluka kuhana nshimbi zhapela."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chanukishi: Ilukaku neyi iyi hidiyi yivumina hohuku. Watela kutañisha chivumina chimu hefuku kwesekezha nanloñeshelu mwakutañishila yivumina yansona.",
+      "with": [
+        {
+          "label": "Chanukishi:"
+        },
+        {
+          "para": "Ilukaku neyi iyi hidiyi yivumina hohuku. Watela kutañisha chivumina chimu hefuku kwesekezha nanloñeshelu mwakutañishila yivumina yansona."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Mazhina awu anakopololewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Mazhina awu anakopololewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Kulumbulula: Iwu mutu wansañu wanyanya wayinjikijilu yaseka wukukwasha atudizi kwiluka chalumbuluka yinjikijilu.",
+      "with": [
+        {
+          "label": "Kulumbulula"
+        },
+        {
+          "para": "Iwu mutu wansañu wanyanya wayinjikijilu yaseka wukukwasha atudizi kwiluka chalumbuluka yinjikijilu."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Yikunku yamazu yinatañewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Yikunku yamazu yinatañewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Mazu apela anakopololewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Mazu apela anakopololewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chanukishi: Zataku chochimu hakutañisha yishimu yikwawu.",
+      "with": [
+        {
+          "label": "Chanukishi:"
+        },
+        {
+          "para": "Zataku chochimu hakutañisha yishimu yikwawu."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Mashepu anapentewi mwatelela.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Mashepu anapentewi mwatelela."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Zhakuleña zhinapentewi mwatelela.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Zhakuleña zhinapentewi mwatelela."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Mazu apela anatañewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Mazu apela anatañewi mwaloña."
+        }
+      ],
+      "_runin": true
+    },
+    {
+      "find": "Chipimu Chanzatilu Chinakuhwelelewi: Yuma yamboka yinaleñewi mwaloña.",
+      "with": [
+        {
+          "label": "Chipimu Chanzatilu Chinakuhwelelewi:"
+        },
+        {
+          "para": "Yuma yamboka yinaleñewi mwaloña."
+        }
+      ],
+      "_runin": true
+    }
+  ],
+  "_note_ansoneki": "The ANSONEKI heading sits right after the hand-typed contents list and is dropped with it (as in Level 1): put it back above the bios.",
+  "insertHead": [
+    {
+      "before": "Kapiteni Edah Samutamu Deputy",
+      "head": "ANSONEKI",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.1.1: Mazhina awantu",
+      "head": "KAPETULU 1",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.1.4: Mazhina Anyidimu",
+      "head": "KAPETULU 2",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.2.1: Kwimusha Kwaseka",
+      "head": "KAPETULU 3",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.4.1: Nyevulu",
+      "head": "KAPETULU 4",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.5.1: Mazu Adifwana Kukukumisha Apela",
+      "head": "KAPETULU 5",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.7.1: Kulomba Kwapela",
+      "head": "KAPETULU 6",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.9.1: Chinakutiyayi muntu",
+      "head": "KAPETULU 7",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.9.5: Nyidimu Yahetala",
+      "head": "KAPETULU 8",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.10.1: Yinjikizhilu Yaseka",
+      "head": "KAPETULU 9",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.11.1: Yishimu Yapela",
+      "head": "KAPETULU 10",
+      "as": "h1"
+    },
+    {
+      "before": "KUHOSHA NAKUTIYILILA",
+      "near": "0.2.12.1: Mapoyemu apela",
+      "head": "KAPETULU 11",
+      "as": "h1"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.13: Kwiluka Zhasonekewa",
+      "near": "Iwu mutu wansañu wanyanya wakabadi kamukanda wukukwasha atud",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.14: Nyevulu",
+      "near": "Iwu mutu wansañu wanyanya wakulumbulula nyevulu wukukwasha a",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.15: Yivumina",
+      "near": "Iwu mutu wansañu wanyanya wayivumina wukukwasha atudiz kwilu",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.15: Yivumina",
+      "near": "0.2.15.1.2 Kubomba yikunku yamazu nakutuña mazu apela amukuh",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.15: Yivumina",
+      "near": "0.2.15.1.3 Kwambula mazu apela amukuhosha muyikunku yamazu.",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.15: Yivumina",
+      "near": "Mutu Wansañu Wanyanya 0.2.15.2: Yivumina ansona yidi kukutac",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.15: Yivumina",
+      "near": "Iwu mutu wansañu wanyanya wakutena yivumina yansona wukukwas",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.17: Kutaña",
+      "near": "Iwu mutu wansañu wanyanya wanyanya wukwasha atudizi kwiluka ",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.17: Kutaña",
+      "near": "0.2.17.1.3 Kubomba yikunku yamazu nakutuña mazu apela.",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    },
+    {
+      "before": "Mutu Wansañu 0.2.17: Kutaña",
+      "near": "Iwu mutu wansañu wanyanya wamazu apela wukukwasha atudizi kw",
+      "head": "KUTACHIKA KUDIZA KUTAÑA"
+    }
+  ],
+  "_note_edit": "Manuscript slips: the author bios' spaced brackets, KWaHA, and the 0.2.13 outcome number typed 0.12.13.1.1 (its sub-topic is 0.2.13.1). 0.2.82.1 -> 0.2.8.2.1 (under sub-topic 0.2.8.2).",
+  "editAll": [
+    {
+      "find": "( Mwinilunga )",
+      "with": "(Mwinilunga)"
+    },
+    {
+      "find": "KWESEKA KWaHA",
+      "with": "KWESEKA KWAHA"
+    },
+    {
+      "find": "0.12.13.1.1",
+      "with": "0.2.13.1.1"
+    },
+    {
+      "find": "0.2.82.1",
+      "with": "0.2.8.2.1"
+    }
+  ],
+  "coverWords": {
+    "printedBy": "Published by"
+  },
+  "_note_backcover": "Back cover: ZEPH logo + Published by / Zambia Educational Publishing House + ISBN box (house standard).",
+  "_note_glued": "Three Yikuyuñulu labels typed at the end of the line above them: set on their own line like the rest.",
+  "setMarker": [
+    {
+      "find": "Akopololi tilayango na lekitango",
+      "marker": "2."
+    }
+  ],
+  "_note_numbering": "Assessment numbering: Chapter 4 answer 1 is lettered a./b. under question 1 (Word numbered \"a. hema\" as a second question); Chapter 10 the copying task is question 2 (Word restarted it at 1 after the a-c answers of question 1, as Chapter 9 numbers it).",
+  "setHeading": [
+    {
+      "find": "Kuhosha Nakutiyilila",
+      "text": "KUHOSHA NAKUTIYILILA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wansañu 0.2.1: Mazhina",
+      "text": "Mutu Wansañu 0.2.1: Mazhina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.1.1: Mazhina awantu amuchisaka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kulumbulula",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Yuma Yinakukuhwelelewa Atudizi Kwilukisha",
+      "text": "Yuma Yinakuhwelelewi Atudizi Kwilukisha",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mazu Alema:",
+      "text": "Mazu Alema",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Chuma Chinakuhwelelewi Atudizi Kwilukisha:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.1.2: Wusoku Wamuchisaka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kulumbulula:",
+      "text": "Kulumbulula",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Zhakwilu 1: Kushimuna wusoku wawu wamuchisaka cheneni.",
+      "text": "Zhakwila 1: Kushimuna wusoku wawu wamuchisaka cheneni",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.1.3: Mazhina Ayuma Yelukawu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Chuma Chinakuhwelelewi Atudizi Kwilukisha 1:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Chuma Chinakuhwelelewi Atudizi Kwilukisha 2:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña Mutu Wansañu 0.2.13: Kwiluka Zhasonekewa",
+      "text": "Mutu Wansañu 0.2.13: Kwiluka Zhasonekewa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.1.13.1: Kabadi Kamukanda",
+      "text": "Mutu Wansañu Wanyanya 0.2.13.1: Kabadi Kamukanda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mudimu",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Ñakwilu zhinafukulewi",
+      "text": "Ñakwilu Zhinafukulewi",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Kutachika Kudiza Kusoneka",
+      "text": "KUTACHIKA KUDIZA KUSONEKA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu: O.2.18 Chizala",
+      "text": "Mutu Wansañu 0.2.18: Chizala",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: O.2.18.1 Kusoneka Mapatani",
+      "text": "Mutu Wansañu Wanyanya 0.2.18.1: Kusoneka Mapatani",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Yikuyuñulu",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Ñakwilu Zhinafukulewi",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.1: Mazhina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.1.4: Mazhina Anyidimu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Yuma Yinakuhwelelewi Atudizi Kwilukisha:",
+      "text": "Yuma Yinakuhwelelewi Atudizi Kwilukisha",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mazu Alema",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Yuma Yalema Yakulumbulula Hakutañisha:",
+      "text": "Yuma Yalema Yakulumbulula Hakutañisha",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.1.5: Tunyama",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila: Kwambula tunyama twawutadi kwesekana nanyidimu yatu (kuda, ñendelu, kudima).",
+      "text": "Zhakwila: Kwambula tunyama twawutadi kwesekana nanyidimu yatu (kuda, ñendelu, kudima)",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña Mutu Wansañu 0.2.14: Nyevulu",
+      "text": "Mutu Wansañu 0.2.14: Nyevulu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.14.1: Kulumbulula Nyevulu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ñakwilu zhinafukulewi.",
+      "text": "Ñakwilu Zhinafukulewi",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.18: Chizala",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.18.2: Kufundulula",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.2: Kwimusha",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya O.2.2.1: Kwimusha Kwaseka",
+      "text": "Mutu Wansañu Wanyanya 0.2.2.1: Kwimusha Kwaseka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Yuma Chinakuhwelelewi Atudizi Kwilukisha",
+      "text": "Yuma Yinakuhwelelewi Atudizi Kwilukisha",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.3: Tuheka Twapela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.3.1: Kulumbulula",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Yuma Yinakuhwelelewi Atudizi Kwilukisha",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña Mutu wansañu 0.2.15: Yivumina",
+      "text": "Mutu Wansañu 0.2.15: Yivumina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu wansañu wanyanya 0.2.15.1: Yikunku yamazu",
+      "text": "Mutu Wansañu Wanyanya 0.2.15.1: Yikunku yamazu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.18.2: Chizala",
+      "text": "Mutu Wansañu 0.2.18: Chizala",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Yikuyuñulu:",
+      "text": "Yikuyuñulu",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.4: Kulumbulula",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.4.1:Nyevulu",
+      "text": "Mutu Wansañu Wanyanya 0.2.4.1: Nyevulu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu wansañu wanyanya: Yidika yapela",
+      "text": "Mutu Wansañu Wanyanya: Yidika yapela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila 1: Kulumbulula yidika yapela yamwekanaña muchituñilu (kusumbwisha, chidika, kilisimasi, kwanuka ifuku dakusemuka).",
+      "text": "Zhakwila 1: Kulumbulula yidika yapela yamwekanaña muchituñilu (kusumbwisha, chidika, kilisimasi, kwanuka ifuku dakusemuka)",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.4.2: Yuma Hashikola",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.4.4: Kulumbulula Maluña Alema Amuchituñilu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña Mutu Wansañu 0.2.15: Yivumina",
+      "text": "Mutu Wansañu 0.2.15: Yivumina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.15.1: Yikunku Yamazu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.18.3: Kukopolola",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.5: Mazu Adifwana Kukukumisha",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.5.1: Mazu Adifwana Kukukumisha Apela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.6: Tukasa Madimi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.6.1: Tukasa Madimi Twapela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Chpimu Chanzatilu Chinakuhwelelewi:",
+      "text": "Chipimu Chanzatilu Chinakuhwelelewi:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.7: Kulomba",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Aanyanya 0.2.7.1: Kulomba Kwapela",
+      "text": "Mutu Wansañu Wanyanya 0.2.7.1: Kulomba Kwapela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.8: Nshimbi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.8.1: Nshimbi zhapela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila: Kuhana nshimbi zhapela (kunona nkenu, kwenzununa kuchisu, kudondomwena kuchisu).",
+      "text": "Zhakwila: Kuhana nshimbi zhapela (kunona nkenu, kwenzununa kuchisu, kudondomwena kuchisu)",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.8.2: Kulombola kwapela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.15.2: Yivumina ansona yidi kukutachika kwamazu.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Chuma chinakuhwelelewi atudizi kwilukisha:",
+      "text": "Chuma Chinakuhwelelewi Atudizi Kwilukisha:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.9: Kuhanjika",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.9.1: Chinakutiyayi muntu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Chuma Chinakuhwelelewi Atudizi Kwailukisha:",
+      "text": "Chuma Chinakuhwelelewi Atudizi Kwilukisha:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.9.2: Zhinzhila mwakutiyashanina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila: Kushimuna zhinzhila mwakutiyashanina kuzatisha mazu ashikila (foni, nyikanda…).",
+      "text": "Zhakwila: Kushimuna zhinzhila mwakutiyashanina kuzatisha mazu ashikila (foni, nyikanda…)",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.9.3.1: Zhamwekanaña Muyisaka",
+      "text": "Mutu Wansañu Wanyanya 0.2.9.3: Zhamwekanaña Muyisaka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila: Kuhema yisela yayuma yamwekanaña muchisaka (kulanda, kuya kuchipompelu, kunona nyikabu).",
+      "text": "Zhakwila: Kuhema yisela yayuma yamwekanaña muchisaka (kulanda, kuya kuchipompelu, kunona nyikabu)",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.9.4: Yuma Yamwekanaña Nawamabwambu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila: Kudihimpa hakushimuna yuma yayimwekeneni nawamabwambu yidi neyi kuhema yisela.",
+      "text": "Zhakwila: Kudihimpa hakushimuna yuma yayimwekeneni nawamabwambu yidi neyi kuhema yisela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu wansañu wanyanya 0.2.15.3: Yivumina yansona",
+      "text": "Mutu Wansañu Wanyanya 0.2.15.3: Yivumina yansona",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.9.5: Nyidimu Yahetala",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.9.6: Nyidimu Yahashikola",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.9.7: Nyichidi Yañendelu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.9.8: Kulanda Nakulandisha",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña",
+      "text": "KUTACHIKA KUDIZA KUTAÑA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.18.3: Kusoneka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.10: Nsañu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.10.1: Yinjikizhilu Yaseka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña Mutu Wansañu 0.2.17: Kutaña",
+      "text": "Mutu Wansañu 0.2.17: Kutaña",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.17.1: Yikunku Yamazu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.11: Yishimu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.11.1: Yishimu Yapela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña Mutu wansañu 0.2.17: Kutaña",
+      "text": "Mutu Wansañu 0.2.17: Kutaña",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila: Kubomba yikunku yamazu nakutuña mazu apela (mazu adi na mwanta wansona-katumwa-mwanta wansona).",
+      "text": "Zhakwila: Kubomba yikunku yamazu nakutuña mazu apela (mazu adi na mwanta wansona-katumwa-mwanta wansona)",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.18: Chazala",
+      "text": "Mutu Wansañu 0.2.18: Chizala",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.18.4: Kupenta",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu 0.2.12: Mapoyemu apela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.12.1: Mapoyemu apela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Chanukishi:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.17.2: Mazu apela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya 0.2.18.5: Kuleña",
+      "as": "head",
+      "all": true
+    }
+  ],
+  "asPara": [
+    "Chisaka, cheneni, nkaka, mandumi, asonyi",
+    "Mashepu, kufundulula, chizala",
+    "Nsona, kufundulula, chizala",
+    "Nyevulu, kulumbulula, yibalu",
+    "Antu, kulumbulula, nyevulu",
+    "Yidika, yapela, kulumbulula",
+    "Shikola, yuma, kulumbulula",
+    "Maluña, chituñilu, alema, kulumbulula",
+    "Yikunku yamazu, mazu",
+    "Mapatani, kukopolola",
+    "Adifwana, kukukumisha, mazu, kuhosha",
+    "Tukasa madimi, kuhosha, twapela",
+    "Yikunku yamazu, kwambula, mazu",
+    "Mashepu, kukopolola",
+    "Kulomba, kuhosha, kwapela",
+    "Nshimbi, zhapela, kuhana",
+    "Kulombola, kwapela",
+    "Yivumina, mazu",
+    "Nsona, nsona, kukopolola",
+    "Kutiyashana, zhinzhila",
+    "Yisaka, yidika,",
+    "Kudihimpa, yamwekanaña",
+    "Yivumina, yansona",
+    "Nsona, kukopolola, yikunku yamazu",
+    "Kuzata, nyidimu, hetala",
+    "Kuzata, nyidimu, hashikola",
+    "Ñendelu, nyichidi",
+    "Kulanda, kulandisha, chisela",
+    "Kaheka, malwihu, kwakula",
+    "Izhina, kusoneka, kwiluka",
+    "Yinjikijilu, kulumbulula, yaseka",
+    "Yikunku yamazu, kubomba, anyanta asona",
+    "Yikunku yamazu, kutaña, anyanta asona",
+    "Mazu, kukopolola, apela",
+    "Yishimu, kwakula, kuhosha, yapela",
+    "Yikunku yamazu, kutaña, kubomba, mazu",
+    "Kupenta, mashepu, zhakuleña",
+    "Mapoyemu, apela",
+    "Mazu, kutaña, apela",
+    "Kuleña, yuma"
+  ]
+}
