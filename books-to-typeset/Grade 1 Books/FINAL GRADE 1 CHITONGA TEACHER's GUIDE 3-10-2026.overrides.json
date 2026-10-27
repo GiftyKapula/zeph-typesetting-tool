@@ -5,7 +5,10 @@
   "coverImage": "chitonga-g1-tg-cover-hires.png",
   "remove": [
     "Zyili Moomu",
-    "Endeenda Lailila basicikolo kubeleka cakucita 1."
+    {
+      "after": "LWIIYO LWAMALI",
+      "find": "Endeenda Lailila basicikolo kubeleka cakucita 1."
+    }
   ],
   "insertText": [
     {
@@ -508,6 +511,7 @@
     13,
     14,
     15,
+    16,
     17,
     19,
     20,
@@ -543,28 +547,12 @@
       "with": "yabo beni"
     },
     {
-      "find": "(kwaandaanya twaambo, mabala ampasulula balozi)",
-      "with": "(kwaandaanya twaambo)"
-    },
-    {
       "find": "1.12 KUSWIILILA CIBALWA",
       "with": "1.12 KUMVWISISISYA CAAMBWA"
     },
     {
-      "find": "Indulula kweenga mwiinda",
-      "with": "Indulula kweenga keengo akanwe mwiinda"
-    },
-    {
-      "find": "Buzya basicikolo, ncinzi ncomubona? Muyeeya kuti",
-      "with": "Buzya basicikolo, 1. Ncinzi ncomubona? 2. Muyeeya kuti"
-    },
-    {
       "find": "ngotaambe.pandulule",
       "with": "ngotaambe. Bapandulule"
-    },
-    {
-      "find": "bafwiinsye.",
-      "with": "bafwiinsye kaano."
     },
     {
       "find": "mazyina- ",
@@ -579,48 +567,8 @@
       "with": "alimwi bambi basicikolo"
     },
     {
-      "find": "Kujana mazyina acigaminina amazyina biyo",
-      "with": "Bajane mazyina acigaminina amazyina biyo"
-    },
-    {
       "find": "bandika abasicikolo kujatikizya mabala ngobali",
       "with": "Bandika abasicikolo kujatikizya mabala ngobali"
-    },
-    {
-      "find": "4# ",
-      "with": "4. "
-    },
-    {
-      "find": "5# ",
-      "with": "5. "
-    },
-    {
-      "find": "6# ",
-      "with": "6. "
-    },
-    {
-      "find": "7# ",
-      "with": "7. "
-    },
-    {
-      "find": "8# ",
-      "with": "8. "
-    },
-    {
-      "find": "9# ",
-      "with": "9. "
-    },
-    {
-      "find": "10# ",
-      "with": "10. "
-    },
-    {
-      "find": "11# ",
-      "with": "11. "
-    },
-    {
-      "find": "12# ",
-      "with": "12. "
     }
   ],
   "deleteRun": [
@@ -632,10 +580,6 @@
   "noLessonNumbers": true,
   "wordFix": {
     "kuyeesya": "kuyeeyesya",
-    "cifwanikiso": "cipikicca",
-    "mucifwanikiso": "mucipikicca",
-    "Zifwanikiso": "Zyipikicca",
-    "zyifwanikiso": "zyipikicca",
     "bwantuto": "bwatwaano",
     "kuliibwa": "kuliiba",
     "lyatazapuka": "litazapuki",
@@ -714,59 +658,59 @@
     },
     {
       "find": "CAKUCITA 1: Omwe-omwe",
-      "text": "CAKUCITA 1: Kusoleka mbokweelede kukkalwa"
+      "text": "CAKUCITA 1: Omwe-omwe⁠"
     },
     {
       "find": "CAKUCITA 1: Tubunga",
-      "text": "CAKUCITA 1: Kwiindulula kwaana kaano"
+      "text": "CAKUCITA 1: Tubunga⁠"
     },
     {
       "find": "CAKUCITA 2: Tubunga",
-      "text": "CAKUCITA 2: Kwaana kaano"
+      "text": "CAKUCITA 2: Tubunga⁠"
     },
     {
       "find": "CAKUCITA 3: Tubunga",
-      "text": "CAKUCITA 3: Kusobana twaano"
+      "text": "CAKUCITA 3: Tubunga⁠"
     },
     {
       "find": "CAKUCITA 1: Omwe-omwe",
-      "text": "CAKUCITA 1: Kujula akujala bbuku"
+      "text": "CAKUCITA 1: Omwe-omwe⁠"
     },
     {
       "find": "CAKUCITA 2: Omwe-omwe",
-      "text": "CAKUCITA 2: Kuvwunauna mapepa mubbuku"
+      "text": "CAKUCITA 2: Omwe-omwe⁠"
     },
     {
       "find": "CAKUCITA 3: Omwe-omwe",
-      "text": "CAKUCITA 3: Kujata bbuku mumoombe"
+      "text": "CAKUCITA 3: Omwe-omwe⁠"
     },
     {
       "find": "CAKUCITA 4: Omwe-omwe",
-      "text": "CAKUCITA 4: Kujata bbuku"
+      "text": "CAKUCITA 4: Omwe-omwe⁠"
     },
     {
       "find": "CAKUCITA 5: Bobilo-bobilo",
-      "text": "CAKUCITA 5: Kujana zyibeela zyabbuku"
+      "text": "CAKUCITA 5: Bobilo-bobilo⁠"
     },
     {
       "find": "CAKUCITA 6: Tubunga",
-      "text": "CAKUCITA 6: Kusobana tusobano twakweenzya meso kuzwa kulumwensyi kuunka kululyo"
+      "text": "CAKUCITA 6: Tubunga⁠"
     },
     {
       "find": "CAKUCITA 1: Tubunga",
-      "text": "CAKUCITA 1: Kujana mabala mwaandaanina kwiinda mukwaambaula"
+      "text": "CAKUCITA 1: Tubunga⁠"
     },
     {
       "find": "CAKUCITA 1: Bobilo-bobilo naa olikke",
-      "text": "CAKUCITA 1: Kujana akupa muzeezo mupati wakaambo kaswiililwa"
+      "text": "CAKUCITA 1: Bobilo-bobilo naa olikke⁠"
     },
     {
       "find": "CAKUCITA 2: Bobilo-bobilo naa omwe-omwe",
-      "text": "CAKUCITA 2: Kufwiinsya kaano"
+      "text": "CAKUCITA 2: Bobilo-bobilo naa omwe-omwe⁠"
     },
     {
       "find": "CAKUCITA 1: Omwe-omwe",
-      "text": "CAKUCITA 1: Kujata zyibelesyo zyakulembya"
+      "text": "CAKUCITA 1: Omwe-omwe⁠"
     },
     {
       "find": "CAKUCITA 1: Tubunga",
@@ -806,11 +750,11 @@
     },
     {
       "find": "CAKUCITA 1: Tubunga",
-      "text": "CAKUCITA 1: Kujana mabala mwaandaanina kwiinda mukwaambaula"
+      "text": "CAKUCITA 1: Tubunga⁠"
     },
     {
       "find": "CAKUCITA 1: Tubunga",
-      "text": "CAKUCITA 1: Kuzubulula twaambo tuubauba kuzwa kumakani amvwugwa"
+      "text": "CAKUCITA 1: Tubunga⁠"
     },
     {
       "find": "CAKUCITA 1: Omwe-omwe",
@@ -978,7 +922,7 @@
     },
     {
       "find": "CAKUCITA 2: Bobilo-bobilo naa omwe-omwe",
-      "text": "CAKUCITA 2: Kufwiinsya kaano"
+      "text": "CAKUCITA 2: Bobilo-bobilo naa omwe-omwe⁠"
     },
     {
       "find": "CAKUCITA 1: Omwe-omwe",
@@ -1042,7 +986,7 @@
     },
     {
       "find": "CAKUCITA 1: Bobilo-bobilo",
-      "text": "CAKUCITA 1: Kubandika bubotu abubi bwazyeendelo"
+      "text": "CAKUCITA 1: Bobilo-bobilo⁠"
     },
     {
       "find": "CAKUCITA 1: Tubunga",
@@ -1373,6 +1317,66 @@
       "text": "CAKUCITA 2: Kubamba kaano kaubauba"
     },
     {
+      "find": "CAKUCITA 1: Omwe-omwe⁠",
+      "text": "CAKUCITA 1: Omwe-omwe",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 1: Tubunga⁠",
+      "text": "CAKUCITA 1: Tubunga",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 2: Tubunga⁠",
+      "text": "CAKUCITA 2: Tubunga",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 3: Tubunga⁠",
+      "text": "CAKUCITA 3: Tubunga",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 2: Omwe-omwe⁠",
+      "text": "CAKUCITA 2: Omwe-omwe",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 3: Omwe-omwe⁠",
+      "text": "CAKUCITA 3: Omwe-omwe",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 4: Omwe-omwe⁠",
+      "text": "CAKUCITA 4: Omwe-omwe",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 5: Bobilo-bobilo⁠",
+      "text": "CAKUCITA 5: Bobilo-bobilo",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 6: Tubunga⁠",
+      "text": "CAKUCITA 6: Tubunga",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 1: Bobilo-bobilo naa olikke⁠",
+      "text": "CAKUCITA 1: Bobilo-bobilo naa olikke",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 2: Bobilo-bobilo naa omwe-omwe⁠",
+      "text": "CAKUCITA 2: Bobilo-bobilo naa omwe-omwe",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 1: Bobilo-bobilo⁠",
+      "text": "CAKUCITA 1: Bobilo-bobilo",
+      "all": true
+    },
+    {
       "find": "KUMVWA",
       "text": "KUMVWISISISYA"
     }
@@ -1447,249 +1451,57 @@
       "with": "CIPATI 8: ZYEENDELO, KUTUMA AKUTAMBULA MILUMBE"
     },
     {
-      "find": "4. Endeenda kubona kuti batobelezya",
-      "with": "4# Endeenda kubona kuti batobelezya"
+      "find": "Bandika abasicikolo cifwanikiso",
+      "with": "Bandika abasicikolo cipikicca"
     },
     {
-      "find": "5. Gwasyilizya bajana buyumu-yumu",
-      "with": "5# Gwasyilizya bajana buyumu-yumu"
+      "find": "Tondezya cifwanikiso cakayuni",
+      "with": "Tondezya cipikicca cakayuni"
     },
     {
-      "find": "4. Endeenda kubona kuti batobelezya",
-      "with": "6# Endeenda kubona kuti batobelezya"
+      "find": "Indulula kweenga mwiinda",
+      "with": "Indulula kweenga keengo akanwe mwiinda"
     },
     {
-      "find": "5. Gwasyilizya bajana buyumu-yumu",
-      "with": "7# Gwasyilizya bajana buyumu-yumu"
+      "after": "NSEBA ABUSANI",
+      "find": "(kwaandaanya twaambo, mabala ampasulula balozi)",
+      "with": "(kwaandaanya twaambo)"
     },
     {
-      "find": "4. Endeenda kubona kuti batobelezya",
-      "with": "8# Endeenda kubona kuti batobelezya"
+      "after": ": MISOBANO",
+      "find": "Buzya basicikolo, ncinzi ncomubona? Muyeeya kuti",
+      "with": "Buzya basicikolo, 1. Ncinzi ncomubona? 2. Muyeeya kuti"
     },
     {
-      "find": "5. Gwasyilizya bajana buyumu-yumu",
-      "with": "9# Gwasyilizya bajana buyumu-yumu"
+      "after": ": MISOBANO",
+      "find": "bafwiinsye.",
+      "with": "bafwiinsye kaano."
     },
     {
-      "find": "4. Endeenda kubona kuti batobelezya",
-      "with": "10# Endeenda kubona kuti batobelezya"
+      "after": ": MISOBANO",
+      "find": "bafwiinsye.",
+      "with": "bafwiinsye kaano."
     },
     {
-      "find": "5. Gwasyilizya bajana buyumu-yumu",
-      "with": "11# Gwasyilizya bajana buyumu-yumu"
-    },
-    {
-      "find": "6. Sololela basicikolo balembe mulimo wapegwa",
-      "with": "12# Sololela basicikolo balembe mulimo wapegwa"
-    },
-    {
-      "find": "4. Endeenda kubona kuti batobelezya",
-      "with": "4# Endeenda kubona kuti batobelezya"
-    },
-    {
-      "find": "5. Gwasyilizya bajana buyumu-yumu",
-      "with": "5# Gwasyilizya bajana buyumu-yumu"
-    },
-    {
-      "find": "4. Endeenda kubona kuti batobelezya",
-      "with": "6# Endeenda kubona kuti batobelezya"
-    },
-    {
-      "find": "5. Gwasyilizya bajana buyumu-yumu",
-      "with": "7# Gwasyilizya bajana buyumu-yumu"
-    },
-    {
-      "find": "4. Endeenda kubona kuti batobelezya",
-      "with": "8# Endeenda kubona kuti batobelezya"
-    },
-    {
-      "find": "5. Gwasyilizya bajana buyumu-yumu",
-      "with": "9# Gwasyilizya bajana buyumu-yumu"
-    },
-    {
-      "find": "4. Endeenda kubona kuti batobelezya",
-      "with": "10# Endeenda kubona kuti batobelezya"
-    },
-    {
-      "find": "5. Gwasyilizya bajana buyumu-yumu",
-      "with": "11# Gwasyilizya bajana buyumu-yumu"
-    },
-    {
-      "find": "6. Sololela basicikolo balembe mulimo wapegwa",
-      "with": "12# Sololela basicikolo balembe mulimo wapegwa"
-    },
-    {
-      "find": "7. Lailila basicikolo balembe mulimo",
-      "with": "6. Lailila basicikolo balembe mulimo"
-    },
-    {
-      "after": [
-        "CIPATI 14:",
-        "1.5.2.1 Baambe twaanga mulaka"
-      ],
-      "find": "4. Endeenda kutegwa ubone masimpe kuti boonse basicikolo",
-      "with": "3. Endeenda kutegwa ubone masimpe kuti boonse basicikolo"
-    },
-    {
-      "after": [
-        "CIPATI 14:",
-        "1.5.2.1 Baambe twaanga mulaka"
-      ],
-      "find": "5. Gwasyilizya basicikolo bajana buyumu-yumu.",
-      "with": "4. Gwasyilizya basicikolo bajana buyumu-yumu."
-    },
-    {
-      "after": [
-        "CIPATI 14:",
-        "1.5.2.1 Baambe twaanga mulaka"
-      ],
-      "find": "6. Sololela basicikolo kutola lubazu kucita mulimo wapegwa",
-      "with": "5. Sololela basicikolo kutola lubazu kucita mulimo wapegwa"
+      "after": "KUTUMA AKUTAMBULA",
+      "find": "Kujana mazyina acigaminina amazyina biyo",
+      "with": "Bajane mazyina acigaminina amazyina biyo"
     }
   ],
   "unlist": [
-    "Sololela basicikolo kubeleka mulimo.",
-    "Sololela basicikolo kubeleka mulimo.",
-    "Sololela basicikolo kubeleka mulimo."
+    {
+      "after": "TUNSIYA-NSIYA TWACISI",
+      "find": "Sololela basicikolo kubeleka mulimo."
+    }
   ],
   "setMarker": [
     {
       "find": "Gwasyilizya basicikolo bajana buyumu-yumu.",
-      "near": "Mwiinga wakaciswa",
-      "marker": "5."
-    },
-    {
-      "find": "Gwasyilizya basicikolo bajana buyumu-yumu.",
       "near": "Milika wakali kuyanda",
-      "marker": "5."
-    },
-    {
-      "find": "Gwasyilizya basicikolo bajana buyumu-yumu.",
-      "near": "Kucikolo kwabo Beene kuli milawo",
-      "marker": "5."
-    },
-    {
-      "find": "Bandika abasicikolo kujatikizya tukkaadi ntojisi.",
-      "after": "1.8.3.1 Babikke antoomwe tubeela twamabala kubamba mabala",
-      "marker": "1."
-    },
-    {
-      "find": "Bamba bbala kwiinda mukusanganya tukkaadi",
-      "after": "1.8.3.1 Babikke antoomwe tubeela twamabala kubamba mabala",
-      "marker": "2."
-    },
-    {
-      "find": "Tondezya basicikolo mbokusanganizyigwa tubeela",
-      "after": "1.8.3.1 Babikke antoomwe tubeela twamabala kubamba mabala",
-      "marker": "3."
-    },
-    {
-      "find": "Cincauzya tubeela twamabala",
-      "after": "1.8.3.1 Babikke antoomwe tubeela twamabala kubamba mabala",
-      "marker": "4."
-    },
-    {
-      "find": "Amba bbala mpoona ubaambile",
-      "after": "1.8.3.1 Babikke antoomwe tubeela twamabala kubamba mabala",
-      "marker": "5."
-    },
-    {
-      "find": "Sololela basicikolo muzyakucita zyapegwa",
-      "after": "1.8.3.1 Babikke antoomwe tubeela twamabala kubamba mabala",
-      "marker": "6."
-    },
-    {
-      "find": "Bandika abasicikolo kujatikizya tukkaadi tulembedwe",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.1"
-      ],
-      "marker": "1."
-    },
-    {
-      "find": "Bweza tukkaadi tulembedwe",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.1"
-      ],
-      "marker": "2."
-    },
-    {
-      "find": "Kulwaizya basicikolo kuti babale bweelede",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.1"
-      ],
-      "marker": "3."
-    },
-    {
-      "find": "Bikka basicikolo mutubunga wamana ubape tupepa",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.1"
-      ],
-      "marker": "4."
-    },
-    {
-      "find": "Balailile babale mucakucita",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.1"
-      ],
-      "marker": "5."
-    },
-    {
-      "find": "Bandika abasicikolo kujatikizya tukkaadi tulembedwe",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.2 Babale mabala"
-      ],
-      "marker": "1."
-    },
-    {
-      "find": "Bweza tukkaadi tulembedwe",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.2 Babale mabala"
-      ],
-      "marker": "2."
-    },
-    {
-      "find": "Kulwaizya basicikolo kuti babale bweelede",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.2 Babale mabala"
-      ],
-      "marker": "3."
-    },
-    {
-      "find": "Bikka basicikolo mutubunga wamana ubape tupepa",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.2 Babale mabala"
-      ],
-      "marker": "4."
-    },
-    {
-      "find": "Balailile babale mucakucita",
-      "after": [
-        "CIPATI 14:",
-        "1.9.1.2 Babale mabala"
-      ],
       "marker": "5."
     }
   ],
   "pageBreakBefore": [
     "MABALA MAPATI-PATI AKABELESYEGWA"
-  ],
-  "asPara": [
-    {
-      "find": "Cakucita: Basicikolo nzyobeelede kubeleka akujana.",
-      "boldLead": true
-    },
-    {
-      "find": "Mulimo: Cibeela cakulingula basicikolo bamana kubeleka zyakucita.",
-      "boldLead": true
-    }
   ]
 }
