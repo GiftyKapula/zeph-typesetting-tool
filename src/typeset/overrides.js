@@ -428,7 +428,9 @@ function applyOverrides(blocks, ov) {
       lo = Math.max(0, na - 15); hi = Math.min(blocks.length, na + 15);
     }
     for (let i = lo; i < hi; i++) {
-      if (blockPlain(blocks[i]).trim() !== sh.find) continue;
+      // spaces collapsed on both sides: a `find` copied from the ZEPH_BLOCKS dump (which
+      // collapses runs of spaces) must still match a heading typed "CAKUCITA 1:  Tubunga"
+      if (blockPlain(blocks[i]).replace(/\s+/g, " ").trim() !== sh.find.replace(/\s+/g, " ").trim()) continue;
       if (sh.mergeNext && HEADISH(blocks[i + 1])) blocks.splice(i + 1, 1);
       // mutate in place (keep the object identity) so a later primitive scanning the
       // pre-built `flat` list — e.g. recolorHead — still sees this now-heading block.
@@ -647,8 +649,16 @@ function applyOverrides(blocks, ov) {
   // edit: [{ find, with }] — replace/delete a substring INSIDE a block while
   // keeping the formatting of the surrounding runs (e.g. trim one sentence from a
   // paragraph without flattening the bold names elsewhere in it).
+  // (`after`: a phrase, or a chain of phrases found one after another, to start looking
+  // past — for a line a later unit repeats word for word; also on `unlist` and `remove`)
+  const afterIndex = (list, after) => {
+    let from = 0;
+    for (const a of [].concat(after || [])) { const k = list.findIndex((x, i) => i >= from && blockPlain(x).includes(a)); from = k < 0 ? list.length : k + 1; }
+    return from;
+  };
   for (const e of ov.edit || []) {
-    const b = flat.find((x) => blockPlain(x).includes(e.find));
+    const from = afterIndex(flat, e.after);
+    const b = flat.find((x, i) => i >= from && blockPlain(x).includes(e.find));
     if (b) editBlockText(b, e.find, e.with || "");
     else console.warn("!  edit not matched:", e.find);
   }
@@ -1291,8 +1301,12 @@ function applyOverrides(blocks, ov) {
   (function tv(arr) { for (const b of arr) { if (!b || typeof b !== "object") continue; if (b.rows && (b.t === "table" || b.kind === "table")) allTables.push(b); for (const k of Object.keys(b)) if (Array.isArray(b[k])) tv(b[k]); } })(blocks);
   // (`all: true` sets it on EVERY matching line — an exercise the manuscript repeats in a
   // later unit with the numbering carried on from a neighbouring activity)
+  // (`near`: the first matching line within 15 blocks AFTER the block holding `near` — for a
+  // step whose wording repeats in every unit, e.g. "Gwasyilizya basicikolo bajana buyumu-yumu.")
   for (const sm of ov.setMarker || []) {
-    const hits = sm.all ? flat.filter((x) => blockPlain(x).includes(sm.find))
+    const na = sm.near ? flat.findIndex((x) => blockPlain(x).includes(sm.near)) : -1;
+    const hits = sm.near ? (na < 0 ? [] : [flat.slice(na, na + 15).find((x) => blockPlain(x).includes(sm.find))].filter(Boolean))
+      : sm.all ? flat.filter((x) => blockPlain(x).includes(sm.find))
       : [flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find))].filter(Boolean);
     if (!hits.length) { console.warn("!  setMarker not matched:", sm.find); continue; }
     for (const b of hits) {
@@ -1308,8 +1322,11 @@ function applyOverrides(blocks, ov) {
   // a "c." letter-list marker) back into a plain paragraph: drop the stray list marker
   // so the line sits flush like its sibling paragraphs. Pair with `subtext` to fold a
   // corrected number into the text run (keeping its italic/bold).
-  for (const sub of ov.unlist || []) {
-    const b = flat.find((x) => x.t === "listitem" && blockPlain(x).includes(sub));
+  // ({ find, after }: only the first such line past `after` — see `edit`)
+  for (const ul of ov.unlist || []) {
+    const sub = typeof ul === "string" ? ul : ul.find;
+    const from = afterIndex(flat, ul.after);
+    const b = flat.find((x, i) => i >= from && x.t === "listitem" && blockPlain(x).includes(sub));
     if (!b) { console.warn("!  unlist not matched:", sub); continue; }
     b.t = "para"; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
   }
@@ -1645,9 +1662,16 @@ function applyOverrides(blocks, ov) {
   }
   // remove: ["substring", …] — delete any block whose text contains the substring
   // (e.g. trimming a paragraph so a front-matter section fits on one page).
-  for (const sub of ov.remove || []) {
+  // ({ find, after }: delete only the first such block past `after` — see `edit`)
+  for (const rm of ov.remove || []) {
+    if (typeof rm === "object") {
+      const from = afterIndex(blocks, rm.after);
+      const i = blocks.findIndex((b, k) => k >= from && blockPlain(b).includes(rm.find));
+      if (i < 0) console.warn("!  remove not matched:", rm.find); else blocks.splice(i, 1);
+      continue;
+    }
     for (let i = blocks.length - 1; i >= 0; i--) {
-      if (blockPlain(blocks[i]).includes(sub)) blocks.splice(i, 1);
+      if (blockPlain(blocks[i]).includes(rm)) blocks.splice(i, 1);
     }
   }
   // removeWhereNext: [{ find, next }] — delete the FIRST block containing `find`, but
