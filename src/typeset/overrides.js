@@ -408,7 +408,7 @@ function applyOverrides(blocks, ov) {
     }
     if (n) console.log(`   joinSplitTables: ${n} table(s) split by a page joined back`);
   }
-  // setHeading: [{ find, text, as?, mergeNext?, all? }] — repair a mangled unit/topic
+  // setHeading: [{ find, text, as?, mergeNext?, all?, near?, after? }] — repair a mangled unit/topic
   // heading. Find top-level block(s) whose trimmed text === `find`; set the block's
   // text to `text` and (if `as`) its type — "h1" renders a unit/topic banner (e.g. a
   // "CHIBALU N: Title" chapter), "head" a plain lesson heading. With `mergeNext`, also
@@ -426,6 +426,13 @@ function applyOverrides(blocks, ov) {
       const na = blocks.findIndex((b) => blockPlain(b).includes(sh.near));
       if (na < 0) { console.warn("!  setHeading `near` not matched:", sh.near); continue; }
       lo = Math.max(0, na - 15); hi = Math.min(blocks.length, na + 15);
+    }
+    // `after`: a phrase, or a chain of phrases found one after another, to start looking
+    // past — for an activity heading every unit repeats word for word (as on `edit`)
+    for (const a of [].concat(sh.after || [])) {
+      const want = a.replace(/\s+/g, " ").trim();
+      const k = blocks.findIndex((x, i) => i >= lo && blockPlain(x).replace(/\s+/g, " ").includes(want));
+      lo = k < 0 ? hi : k + 1;
     }
     for (let i = lo; i < hi; i++) {
       // spaces collapsed on both sides: a `find` copied from the ZEPH_BLOCKS dump (which
