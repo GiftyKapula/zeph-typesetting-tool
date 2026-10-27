@@ -360,6 +360,14 @@
     {
       "find": "Describe signs or problems that show a person may be suffering",
       "before": "Ways of Preventing the Spread of Parasitic Diseases"
+    },
+    {
+      "find": "Inclined Planes and Effort",
+      "before": "After trying different slopes"
+    },
+    {
+      "find": "Different types of inclines",
+      "before": "After talking in your group"
     }
   ],
   "keepScaffold": true,
@@ -662,6 +670,42 @@
     {
       "find": "It is produced when tiny, charged particles move through wires.",
       "with": "It is produced when an electric current moves through wires."
+    },
+    {
+      "find": "semi-transparent",
+      "with": "semi-⁠transparent"
+    },
+    {
+      "find": "nutrient-dense",
+      "with": "nutrient-⁠dense"
+    },
+    {
+      "find": "over-nutrition",
+      "with": "over-⁠nutrition"
+    },
+    {
+      "find": "Over-nutrition",
+      "with": "Over-⁠nutrition"
+    },
+    {
+      "find": "under-nutrition",
+      "with": "under-⁠nutrition"
+    },
+    {
+      "find": "Under-nutrition",
+      "with": "Under-⁠nutrition"
+    },
+    {
+      "find": "micro-nutrient",
+      "with": "micro-⁠nutrient"
+    },
+    {
+      "find": "sleep-wake",
+      "with": "sleep-⁠wake"
+    },
+    {
+      "find": "non-uniform",
+      "with": "non-⁠uniform"
     }
   ],
   "replaceExact": [
@@ -1145,6 +1189,66 @@
     {
       "find": "ZZHOLD2",
       "with": "From your group discussion, choose one situation. Explain how an inclined plane would help."
+    },
+    {
+      "find": "myths surrounding menstruation in the community",
+      "with": "myths surrounding menstruation in the communities"
+    },
+    {
+      "find": "HIV/Aids and STIs",
+      "with": "HIV/AIDS and STIs"
+    },
+    {
+      "find": "food, water, and raw materials",
+      "with": "food, water and raw materials"
+    },
+    {
+      "find": "hot and dry, while",
+      "with": "hot and dry while"
+    },
+    {
+      "find": "shaping the environment, but",
+      "with": "shaping the environment but"
+    },
+    {
+      "find": "tourism opportunities, and services",
+      "with": "tourism opportunities and services"
+    },
+    {
+      "find": "sticks, straw, or clay",
+      "with": "sticks, straw or clay"
+    },
+    {
+      "find": "must be separated, and vaccination",
+      "with": "must be separated, the process of vaccination"
+    },
+    {
+      "find": "global warming, and",
+      "with": "global warming and"
+    },
+    {
+      "find": "a solid and a liquid, or two solids",
+      "with": "a solid and a liquid or two solids"
+    },
+    {
+      "find": "evaporation, and sublimation",
+      "with": "evaporation and sublimation"
+    },
+    {
+      "find": "the magnet, and the sand",
+      "with": "the magnet and the sand"
+    },
+    {
+      "find": "small stones, and charcoal",
+      "with": "small stones and charcoal"
+    },
+    {
+      "find": "used by hand, while farm",
+      "with": "used by hand while farm"
+    },
+    {
+      "find": "Now that you] know",
+      "with": "Now that you know"
     }
   ],
   "tables": [
@@ -1345,5 +1449,6 @@
       "with": "Problem Solving",
       "bold": true
     }
-  ]
+  ],
+  "hyphenate": false
 }
