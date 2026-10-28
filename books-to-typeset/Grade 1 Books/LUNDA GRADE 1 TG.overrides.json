@@ -21,6 +21,17 @@
   "authors": [
     "Charles Kazembe Kabalakanya"
   ],
+  "_note_localLabels": [
+    "Cover, title page and spine words in Lunda, as the Lunda Grade 1 LB prints them (no English on a local-language cover)."
+  ],
+  "localLabels": true,
+  "_note_coverWords": [
+    "Book type as the manuscript's own cover prints it, \"MUKANDA WA NTAÑISHI\" (also on the 6 Oct build and the author's returned FINAL BOOK), not the word list's \"MUKANDA WAKULOMBOLA NTAÑISHI\". Back cover \"Published by\", the house standard."
+  ],
+  "coverWords": {
+    "booktype": "MUKANDA WA NTAÑISHI",
+    "printedBy": "Published by"
+  },
   "_note_boxActivities": [
     "The author typed every activity as a bold heading ('Zhakwila 1: Kubakula ni",
     "kuzhika mukanda') with its instructions as plain paragraphs under it, rather",
@@ -143,13 +154,18 @@
   ],
   "recase": [
     {
-      "find": "MAZU",
-      "to": "sentence",
-      "first": true
-    },
-    {
       "startsWith": "KUSONEKA (CHITUÑI",
       "to": "sentence"
+    }
+  ],
+  "_note_mazuEdit": [
+    "The front-matter strand MAZU is singled out with edit + after (main has no recase find/first): the first block containing MAZU after the Kutaña strand heading is that strand, not MAZU ATACHI or a body banner."
+  ],
+  "edit": [
+    {
+      "find": "MAZU",
+      "with": "Mazu",
+      "after": "Kutaña (chakubula kumamatila)"
     }
   ],
   "_note_references": [
@@ -197,7 +213,14 @@
       "src": "LUNDA GRADE 1 TG-hires/image2.png"
     },
     "image1.png": {
-      "src": "LUNDA GRADE 1 TG-hires/image1.png"
+      "src": "lunda-g1-tg-cover.png"
     }
-  }
+  },
+  "_note_cover": [
+    "COVER PICTURE (2026-10-28): replaced by the picture the user supplied as \"23.jpeg\": five learners outside a school, among them a boy in a wheelchair, a boy with albinism and a girl with a hearing aid. It is portrait (762x1080), so coverHeroPortrait gives this cover a tall 80x113mm card; the wide 132x78mm band could only keep a strip of it.",
+    "  supplied  lunda-g1-tg-cover-src.jpeg  762x1080",
+    "  print     lunda-g1-tg-cover.png       1000x1417, Real-ESRGAN x4 (-s 4) then resampled down, 318 DPI at 80mm",
+    "It replaces image1.png, which is the FRONT cover picture (the engine’s hero; the older note below has image1/image2 the other way round). image2.png keeps its upscale."
+  ],
+  "coverHeroPortrait": true
 }
