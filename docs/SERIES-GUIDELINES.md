@@ -144,7 +144,9 @@ controlled. Two kinds:
   - The **`Cover and Book Layout:`** line is filled automatically for *every*
     book (engine default: `LAYOUT_CREDIT` / `fillLayoutCredit` in
     `src/typeset/passes/backmatter.js`, the typesetter's name). You do not need a per-book override for it; add one only to
-    override the default.
+    override the default. A manuscript whose imprint page has **no** such line gets one
+    created: a bold `Cover and Book Layout:` label with the name under it, placed where the
+    house imprint puts it — after the editor/illustrator credits, before the publisher group.
 - **`replace`** swaps a paragraph that contains the given text.
 - **`images`** swaps a specific source image for a contextualised one. The key is
   the manuscript's media filename (e.g. `image8.jpeg` — find it by mapping each

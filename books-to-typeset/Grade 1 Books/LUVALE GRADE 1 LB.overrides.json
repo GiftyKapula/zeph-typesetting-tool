@@ -636,5 +636,108 @@
     "095585bd9d81cdb833bbd940d477f476d6c4ebf8.png": {
       "src": "LUVALE GRADE 1 LB-hires/095585bd9d81cdb833bbd940d477f476d6c4ebf8.png"
     }
-  }
+  },
+  "replaceBlocks": [
+    {
+      "find": "ISBN: …………………………………",
+      "with": []
+    },
+    {
+      "find": "Vaufwatwile chakavanga kuli vaka:",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road",
+      "with": []
+    },
+    {
+      "find": "P.O. Box 32708",
+      "with": []
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "© Zambia Educational Publishing House (2026)",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House (2026)",
+          "center": true
+        },
+        {
+          "para": "Lusesa lwose vanalukanyisa. Chijila kufwatulula, kunungulula chipwe kulama chihanda chamukanda ou mujila navahasa kufwatula cheka chakuzeneka lusesa kuli venyawo chipwe vaufwatwile.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Vaufwatwile chakavanga kuli vaka:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "4mm"
+        },
+        {
+          "para": "**Printed by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    }
+  ]
 }
