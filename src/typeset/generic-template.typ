@@ -901,8 +901,15 @@
           #text(size: 16pt, weight: "bold", fill: white.transparentize(8%))[#upper(lbl(booktype))]
         ]])
       ])
+      // portrait picture (coverHeroPortrait): a tall card overlapping the band's foot,
+      // 80x113mm (~0.71:1), so an upright picture prints whole instead of as a strip
+      #let tallHero = hero != none and T.at("coverHeroPortrait", default: false)
       // straight, thick-framed hero (soft drop plate behind for depth)
-      #if hero != none [
+      #if tallHero [
+        #place(top + center, dy: 89mm, box(width: 80mm, height: 113mm, radius: 5mm, fill: deep))
+        #place(top + center, dy: 86mm, box(width: 80mm, height: 113mm, radius: 5mm, clip: true, stroke: 5pt + white)[
+          #image("_media/" + hero.file, width: 100%, height: 113mm, fit: "cover")])
+      ] else if hero != none [
         #place(top + center, dy: 109mm, box(width: 132mm, height: 78mm, radius: 5mm, fill: deep))
         #place(top + center, dy: 106mm, box(width: 132mm, height: 78mm, radius: 5mm, clip: true, stroke: 5pt + white)[
           #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")])
@@ -913,7 +920,7 @@
       ]
       // authors
       #if byline.len() > 0 [
-        #place(top + center, dy: 197mm, block(width: 160mm)[#align(center)[
+        #place(top + center, dy: if tallHero { 205mm } else { 197mm }, block(width: 160mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])

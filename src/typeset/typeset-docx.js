@@ -952,6 +952,9 @@ async function typesetOne(docxPath, themeName) {
   if (gnum === "2" && eduLevel === "Primary Education Level") themeOverrides.coverStyle = "grade2";
   // a book may pin a specific cover style (e.g. to A/B-test a Grade 2 cover variant)
   if (ov.coverStyle) themeOverrides.coverStyle = ov.coverStyle;
+  // coverHeroPortrait: true — a portrait cover picture gets a tall card (form1 cover) instead of
+  // the wide 132x78mm band, which can only keep a strip of an upright picture
+  if (ov.coverHeroPortrait) themeOverrides.coverHeroPortrait = true;
   // keepBoxMm: boxes shorter than this stay whole on one page (default 180 mm); a lower value lets
   // mid-size activity boxes split rather than leave half a page empty before them
   if (ov.keepBoxMm) themeOverrides.keepBoxMm = Number(ov.keepBoxMm);
@@ -987,11 +990,14 @@ async function typesetOne(docxPath, themeName) {
       if (w) labels[k] = w;
     }
     themeOverrides.labels = labels;
+    // a book type the author's own cover prints (coverWords.booktype) names the header pill
+    // too, so the pill and the cover never use two different words for one book
+    const ownType = ov.coverWords && ov.coverWords.booktype;
     const tr = (s) => s
       .replace(/\bgrade\b/i, (m) => labels.grade || m)
       .replace(/\bform\b/i, (m) => labels.form || m)
-      .replace(/teacher['’]?s\s+guide/i, (m) => labels.tg || m)
-      .replace(/learner['’]?s\s+book/i, (m) => labels.lb || m);
+      .replace(/teacher['’]?s\s+guide/i, (m) => ownType || labels.tg || m)
+      .replace(/learner['’]?s\s+book/i, (m) => ownType || labels.lb || m);
     if (themeOverrides.hdrtab) themeOverrides.hdrtab = titleCase(tr(themeOverrides.hdrtab));
     const lvlId = { "Early Childhood Education Level": "level_ece", "Primary Education Level": "level_primary",
       "Secondary Education Ordinary Level": "level_ordinary", "Secondary Education Advanced Level": "level_advanced" }[eduLevel];
