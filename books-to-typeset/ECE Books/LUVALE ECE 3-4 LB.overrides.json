@@ -84,7 +84,7 @@
       "src": "LUVALE ECE 3-4 LB-hires/image10.png"
     },
     "image11.jpeg": {
-      "src": "LUVALE ECE 3-4 LB-hires/image11.png"
+      "src": "luvale-ece-lb-family.png"
     },
     "image2.jpeg": {
       "src": "LUVALE ECE 3-4 LB-hires/image2.png"
@@ -181,12 +181,160 @@
     }
   },
   "remove": [
-    "IUEAO"
+    "IUEAO",
+    "Vuluka majina avyuma vitatu vyatwama hembo lyenu."
   ],
   "replaceExact": [
     {
       "find": "A  E   I   O   U",
       "with": "A E I O U"
     }
+  ],
+  "setHeading": [
+    {
+      "find": "Mutwe Wachihande: Kutwama chamwenemwene",
+      "text": "Mutwe Wachihande: Twamiso",
+      "as": "head"
+    },
+    {
+      "find": "Mutwe Wachihande 2: Vyuma vyahembo",
+      "text": "Mutwe Wachihande 2: Usendo Wamuuthanga",
+      "as": "head"
+    },
+    {
+      "find": "Mutwe Wachihande 1: Lijina Lyove",
+      "text": "Mutwe Wachihande 1: Lijina Lyove",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutwe Wachihande 1: Majina avathanga",
+      "text": "Mutwe Wachihande 1: Majina avathanga",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutwe Wachihande 1: Majina avyuma vathachikiza",
+      "text": "Mutwe Wachihande 1: Majina avyuma vathachikiza",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutwe Wachihande 2: Majina atunyama",
+      "text": "Mutwe Wachihande 2: Majina atunyama",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutwe Wachihande 1: Jishimbi Jahembo",
+      "text": "Mutwe Wachihande 1: Jishimbi Jahembo",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutwe Wachihande 2: Jishimbi Jahashikola",
+      "text": "Mutwe Wachihande 2: Jishimbi Jahashikola",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutwe Wachihande: Kufundulula",
+      "text": "Mutwe Wachihande: Kufundulula",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutwe Wachihande: Kulomba lisesa",
+      "text": "Mutwe Wachihande: Kulomba lisesa",
+      "as": "head",
+      "all": true
+    }
+  ],
+  "edit": [
+    {
+      "find": "Linangule kutwama chamwenemwene.",
+      "with": "Linangule twamiso yamwenemwene."
+    },
+    {
+      "find": "kutwama chakwoloka",
+      "with": "twamiso yamwenemwene"
+    },
+    {
+      "find": "Vuluka vyuma vyatwama hembo.",
+      "with": "Vuluka usendo wove navathanga vamukamwihi."
+    },
+    {
+      "find": "Soneka patani eji jili hamuvwimbimbi",
+      "with": "Soneka jipatani eji jili hamuvwimbimbi"
+    },
+    {
+      "find": "Wachihande 2: Kwinyikila chachashi",
+      "with": "Wachihande 2: Kulombweza"
+    },
+    {
+      "find": "Wachihande: Kulomba Chachashi",
+      "with": "Wachihande: Kulombela Chachashi"
+    },
+    {
+      "find": "Hanjika kulomba chachashi.",
+      "with": "Hanjika kulombela chachashi."
+    },
+    {
+      "find": "Vulukenu lwola vatela kulomba vathu.",
+      "with": "Vulukenu lwola vatela kulombela vathu."
+    },
+    {
+      "find": "Kufunda naulombo",
+      "with": "Kukwita naulombo"
+    },
+    {
+      "find": "jove ufunde ulombo mujishepu eji jili",
+      "with": "jove ukwite ulombo mujishepu nahavyuma vyakutenga evi jili"
+    }
+  ],
+  "moveBefore": [
+    {
+      "find": "VYAKULINGA",
+      "near": "Vuluka majina avathanga jove.",
+      "before": "Vuluka majina avathanga jove."
+    },
+    {
+      "find": "VYAKULINGA",
+      "near": "Vuluka usendo wove navathanga vamukamwihi.",
+      "before": "Vuluka usendo wove navathanga vamukamwihi."
+    },
+    {
+      "find": "VYAKULINGA",
+      "near": "Vulukenu majina akhala vyuma",
+      "before": "Vulukenu majina akhala vyuma"
+    },
+    {
+      "find": "VYAKULINGA",
+      "near": "Vuluka majina atunyama mwathachikiza",
+      "before": "Vuluka majina atunyama mwathachikiza"
+    },
+    {
+      "find": "VYAKULINGA",
+      "near": "Hanjika hajishimbi jahembo",
+      "before": "Hanjika hajishimbi jahembo"
+    },
+    {
+      "find": "VYAKULINGA",
+      "near": "Hanjika hajishimbi jahashikola",
+      "before": "Hanjika hajishimbi jahashikola"
+    },
+    {
+      "find": "VYAKULINGA",
+      "near": "Fundulula jishepu eji vanakuhame",
+      "before": "Fundulula jishepu eji vanakuhame"
+    },
+    {
+      "find": "VYAKULINGA",
+      "near": "Linangule kulomba lisesa",
+      "before": "Linangule kulomba lisesa"
+    }
+  ],
+  "unlist": [
+    "Vuluka majina avathanga jove atanu."
   ]
 }
