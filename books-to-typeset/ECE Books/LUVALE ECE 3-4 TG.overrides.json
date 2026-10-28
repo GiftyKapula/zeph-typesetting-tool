@@ -14,5 +14,961 @@
   "dropDupImages": true,
   "remove": [
     "IUEAO"
+  ],
+  "edit": [
+    {
+      "find": "Tambokenu mwane mu shikola ya Early",
+      "with": "Tamboka kukunangula cha Early",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "chakulinangula chove chosena.",
+      "with": "chakulinangula chavalongi jove chosena.",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "Mukulinangula chove nauhasa",
+      "with": "Mukulinangula chavo, navahasa",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "mumazavu navakwenu, mukushimutwila",
+      "with": "mumazavu navakwavo, mukushimutwila",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "Evi vikilikita navikukafwa",
+      "with": "Evi vikilikita navivakafwa",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "mukachi kove uhashi",
+      "with": "mukachi kavo uhashi",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "wakuzata navakwenu, kuhunanana",
+      "with": "wakuzata navakwavo, kuhunanana",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "Omu nauhita muno",
+      "with": "Omu navahita nakulinangula vilongeselelo vya muno",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "mumukanda, nautambula",
+      "with": "mumukanda, navatambula",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "Naukola nawa",
+      "with": "Navakola nawa",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "Naupwa muthu wakulihana",
+      "with": "Navapwa vathu vakulihana",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "vyumavyambwende",
+      "with": "vyuma vyambwende",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "(ECE) naupwa nalufwelelo",
+      "with": "(ECE) valongi jove navapwa nalufwelelo",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "muuhashi wove wakuhasa",
+      "with": "muuhashi wavo wakuhasa",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "namushikola unakutangila",
+      "with": "namushikola vanakutangila",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "namuchingichingi unakutwama",
+      "with": "namuchingichingi vanakutwama",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "Mumukanda ou, naulinangula",
+      "with": "Mumukanda ou, navalinangula",
+      "after": "KUJIMBULA"
+    },
+    {
+      "find": "Vyuma vyahembo",
+      "with": "Usendo Wamuuthanga"
+    },
+    {
+      "find": "Vavuluke vyuma vyatwama hembo.",
+      "with": "Vavuluke usendo wavo navathanga vamukamwihi."
+    },
+    {
+      "find": "majina avyuma vitatu vyatwama hembo lyavo.",
+      "with": "majina avathanga vamukamwihi akufwana nge sevo, nevo, vandumbwavo (Vasongo javo chipwe yavava javo)."
+    },
+    {
+      "find": "vyuma vitatu vyatwama hembo lyavo vyakufwana nge mitondo, zuvo, lithepa, tusumbi, litemba, munyau, khinga navikwavo.",
+      "with": "majina avathanga atatu."
+    },
+    {
+      "find": "InyikVenyike",
+      "with": "Venyike"
+    },
+    {
+      "find": "vyatwama mukda tahinyi",
+      "with": "vyatwama mukhanda tahinyi"
+    },
+    {
+      "find": "Mutwe Wachihande: Kusoneka Patani",
+      "with": "Mutwe Wachihande: Jipatani"
+    },
+    {
+      "find": "Mutwe Wachihande: Kufunda naulombo",
+      "with": "Mutwe Wachihande: Kukwita"
+    },
+    {
+      "find": "vanakupindasana kuskopolola",
+      "with": "vanakupindasana kukopolola"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "KUHANJIKA NAKWIVWILILA",
+      "with": "KWIVWILILA NAKUHANJIKA"
+    },
+    {
+      "find": "KUHANJIKA NAKWVIVWILILA",
+      "with": "KWIVWILILA NAKUHANJIKA"
+    },
+    {
+      "find": "vivumina",
+      "with": "vivumino"
+    }
+  ],
+  "insertText": [
+    {
+      "after": "Mutwe Wachihande: Mwakutangila",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navalifwanyisa kutanga kufuma kuchimoswe nakuya kuchilyo.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vanalifwanyisa kutanga kufuma kuchimoswe nakuya kuchilyo mujila yakutamo.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kuvwovuwisa minwe",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navazata vyakulinga vyakuvwovuwisa minwe.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vyakulinga vyakuvwovuwisa minwe vanavizate mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 1: Majina avyuma vathachikiza",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navaluka majina avyuma vyamukhanda.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vyuma vyawenyembo mukhanda vanaviluku majina mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Visonejeka",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navatongola visonejeka.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Visonejeka vanavitongola mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kukwata Jisonekeso",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navakwata miyachi yajisonekeso yakuliseza-seza.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Miyachi yajisonekeso vanayikwate mujila yakutesamo.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kumeneka chawenyembo",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navazachisa kumeneka chawenyembo chakuliseza-seza kweseka nalwola lwakulihandununa.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Kumeneka chalwola lwakuliseza-seza vanachizachisa mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Vivumino vyatunyama vahembo",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navalondezeza vivumino vyatunyama vakuheta hembo.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vivumino vyavimuna vakulihandununa vanavilondezeza mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Jipatani",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navasoneka jipatani jajashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Jipatani jajashi vanajisoneka mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 1: Chiyoyelo chajithanga",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navahanjika hachiyoyelo chajithanga.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Chiyoyelo chajithanga vanachihanjika hatoma kaha muunyongochima.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 2: Vyuma wazanga nevi wajinda",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navaula vyuma vazanga navyuma vajinda.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vyuma vazanga navyuma vajinda vanavihanjika kuzachisa mazu akulonga.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Vivumino vyavyuma vyakuliseza-seza",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Londezeza vivumino vyavyuma vyakuliseza-seza.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vivumino vyakufuma kuvyuma vyakuliseza-seza vanavivumisa mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kufundulula",
+      "near": "Mutwe wachihande uno naweulula valongi kufundulula",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navafundulula mifunda.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Mifunda vanayifundulula mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "KUSHIMUTWILA",
+      "near": "Hamutwe wachihande uno, valongi jove vatela kulinangula kushimutwila",
+      "items": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Mutwe Wachihande: Jishimbi Jamukhanda"
+          }
+        },
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navazachisa lilimi lyakwoloka kuhanjika hajishimbi jamukhanda.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Jishimbi jamukhanda vanajishimutwila kuzachisa lilimi lyakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 1: Vasonavumo",
+      "near": "Vasonavumo vyapwa vimbwa",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navatongola vasonavumo mumazu akuhanjika amashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vasonavumo mumazu akuhanjika amashi vanavatongola mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kufundulula",
+      "near": "Anuka kweulula watanganga",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navafundulula jishepu jajashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Jishepu jajashi vanajifundulula mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kulomba lisesa",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navazachisa lilimi lyakwoloka kulomba lisesa.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Lilimi lyakwoloka vanalizachisa kulomba lisesa.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 1: Jindongi Jajashi",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navakavangiza jindongi jajashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Jindongi vanajikumbulula mujila yakwoloka.*"
+        },
+        {
+          "listitem": "*Jindongi vanajikave mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 2: Kwinyikila chipwe kulombweza chachashi",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navakavangiza kulombweza chachashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Kulombweza vanachikumbulula mujila yakwoloka.*"
+        },
+        {
+          "listitem": "*Kulombweza vanachikavangiza mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 1: Vasonavumo",
+      "near": "Nge muze twashimutwilanga hachihande chavasonavumo",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navahandununa mazu amashi muvasonavumo.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Mazu amashi vanawahandununa muvasonavumo mujila yakutamo.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kufundulula",
+      "near": "Anuka nge washimutwilanga lyehi mutwe wachihande ou",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navafundulula vasona kuzachisa vinoma vyavasona mujila yakwoloka.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vasona vanavafundulula kuzachisa vinoma vyavasona mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Mijimbu Yayashi",
+      "near": "Kwivwilila kumijimbu yayashi cheji",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navevwilila kumujimbu wawashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vihula vyamukanwa vyakufuma hamujimbu wawashi unambulula vanavikumbulula mujila yakwoloka.*"
+        },
+        {
+          "listitem": "*Vihula vyamukanwa vyakufuma hamujimbu wawashi unavatangila vanavikumbulula mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 1: Vasonavumo",
+      "near": "Uchili nakutwalililaho nachihande chavasonavumo",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navatongola chivumino chatete mumazu amashi amukuhanjika.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vivumino vyatete mumazu amashi amukuhanjika vanavitongola mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kukopolola",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navakopolola jipatani jajashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Jipatani jajashi vanajikopolola mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Jilayimu Jajashi",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navahanjika layimu yayashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Layimu yayashi vanayihanjika mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Vivumino Vyavasona",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navavuluka vivumino vyavasona.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vivumino vyavasona vanavivuluka mukwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kukopola",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navafundulula vasona kuzachisa vinoma vyavasona mujila yakwoloka.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vasona vanavafundulula kuzachisa vinoma vyavasona mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kulomba Chachashi",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navalombela kulombela chachashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Kulomba chachashi vanachihanjika kuzachisa lilimi lyakutamo.*"
+        },
+        {
+          "listitem": "*Lwola lwakulomba lwakuliseza-seza vanaluvuluka mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kulumbununa Muvwimbimbi",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navalumbununa mivwimbimbi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Mivwimbimbi vanayilumbununa mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kukwita",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navakwita jishepu navyuma vikwavo naulombo.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Jishepu vanajikwichi ulombo mukwoloka.*"
+        },
+        {
+          "listitem": "*Vyuma vikwavo vanavikwichi ulombo mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Vyuma Vyamukhanda",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navalumbununa vyuma vyamukhanda.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vyuma vyamukhanda vanavilumbununa nalilimi lyakutamo mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande 2: Mivwimbimbi",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navalumbununa vyuma vili mumuvwimbimbi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vyuma vili mumuvwimbimbi vanavilumbununa kuzachisa lilimi lyakutamo mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Mijimbu Yayashi",
+      "near": "Mutwe wachihande uno naweulula valongi kwivwilila nakashishi",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navakumbulula vihula vyamukanwa kufuma hamujimbu wawashi.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vihula vyamukanwa vyakufuma hamujimbu wawashi vanavikumbulula mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "after": "Mutwe Wachihande: Kutenga",
+      "items": [
+        {
+          "label": "Uhashi Wakunangakana:"
+        },
+        {
+          "para": "*Muchihanda omu:*"
+        },
+        {
+          "listitem": "*Navatenga vyuma vyakuliseza-seza.*"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        },
+        {
+          "listitem": "*Vyuma vyakuliseza-seza vanavitenge mujila yakwoloka.*"
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 2",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 1"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 3",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 2"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 4",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 3"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 5",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 4"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 6",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 5"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 7",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 6"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 8",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 7"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 9",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 8"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 10",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 9"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "CHIHANDA 11",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 10"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    },
+    {
+      "before": "Kwafumu unjiho",
+      "items": [
+        {
+          "head": "ESEKELO YACHIHANDA 11"
+        },
+        {
+          "para": "Eseka valongi jove hamitwe yavihande vanalinangula muchihande echi. Anuka nge valongi jove kanda vathachikize kusoneka. Shikaho vihula vyavivulu vyatela kupwa vyamukanwa nakuhichila muvihemo."
+        }
+      ]
+    }
+  ],
+  "dropBreaks": [
+    5,
+    16,
+    18,
+    21
   ]
 }
