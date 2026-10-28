@@ -228,7 +228,7 @@
   },
   "imprint": {
     "copyright": "© Zambia Educational Publishing House (2026)",
-    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without the prior written permission of the copyright owner or publisher.",
+    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the copyright owner or publisher.",
     "isbn": "…………………………",
     "groups": [
       {
@@ -1581,6 +1581,114 @@
     {
       "find": "power outages, and reduces",
       "with": "power outages and reduces"
+    },
+    {
+      "find": "practical, engaging, and relevant to their everyday",
+      "with": "practical, engaging and relevant to their everyday"
+    },
+    {
+      "find": "clear, practical, and enjoyable",
+      "with": "clear, practical and enjoyable"
+    },
+    {
+      "find": "experiments, discussions, and real-life examples",
+      "with": "experiments, discussions and real-life examples"
+    },
+    {
+      "find": "respecting nature, and contributing positively",
+      "with": "respecting nature and contributing positively"
+    },
+    {
+      "find": "curiosity, creativity, and",
+      "with": "curiosity, creativity and"
+    },
+    {
+      "find": "engaging, relevant, and effective",
+      "with": "engaging, relevant and effective"
+    },
+    {
+      "find": "environmental care, and responsible citizenship",
+      "with": "environmental care and responsible citizenship"
+    },
+    {
+      "find": "confident, creative, and responsible members",
+      "with": "confident, creative and responsible members"
+    },
+    {
+      "find": "families, schools, and communities",
+      "with": "families, schools and communities"
+    },
+    {
+      "find": "vulnerability to diseases), and possible",
+      "with": "vulnerability to diseases) and possible"
+    },
+    {
+      "find": "community awareness, and health",
+      "with": "community awareness and health"
+    },
+    {
+      "find": "A 24- hour internal",
+      "with": "This is a 24-hour internal"
+    },
+    {
+      "find": "causes deforestation, and leads to loss",
+      "with": "causes deforestation and leads to loss"
+    },
+    {
+      "find": ", and silt soil being smooth",
+      "with": " and silt soil being smooth"
+    },
+    {
+      "find": "water retention, and those in clay soil",
+      "with": "water retention and those in clay soil"
+    },
+    {
+      "find": "carbonates, while adding baking soda",
+      "with": "carbonates while adding baking soda"
+    },
+    {
+      "find": "wood, wire mesh, or grass thatch",
+      "with": "wood, wire mesh or grass thatch"
+    },
+    {
+      "find": "attractive, safe, or easier to transport",
+      "with": "attractive, safe or easier to transport"
+    },
+    {
+      "find": "soil structure, fertility, and",
+      "with": "soil structure, fertility and"
+    },
+    {
+      "find": "include wind, solar,",
+      "with": "include wind, solar"
+    },
+    {
+      "find": "larger surface area, and receives",
+      "with": "larger surface area and receives"
+    },
+    {
+      "find": "dust, dirt, or opaque materials",
+      "with": "dust, dirt or opaque materials"
+    },
+    {
+      "find": "teamwork, problem-solving,",
+      "with": "teamwork, problem-solving"
+    },
+    {
+      "find": "access, slide, or water drum",
+      "with": "access, slide or water drum"
+    },
+    {
+      "find": "efficiently, and encourages creativity",
+      "with": "efficiently and encourages creativity"
+    },
+    {
+      "find": "used by hand, while",
+      "with": "used by hand while"
+    },
+    {
+      "find": "in straight lines, and move at a steady speed",
+      "with": "in straight lines and move at a steady speed"
     }
   ],
   "replaceExact": [],
