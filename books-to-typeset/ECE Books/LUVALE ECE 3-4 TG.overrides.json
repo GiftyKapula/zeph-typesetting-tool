@@ -1177,10 +1177,27 @@
     6,
     8,
     14,
-    16,
-    18,
-    20,
+    17,
+    19,
     21,
-    22
+    22,
+    23
+  ],
+  "replaceBlocks": [
+    {
+      "find": "A E I O U",
+      "with": [
+        {
+          "image": "luvale-ece-tg-vowels-aeiou.png",
+          "w": 360
+        }
+      ]
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "find": "VYAKULINGA",
+      "near": "Valweze vafundulule vasona kuzachisa chinoma"
+    }
   ]
 }
