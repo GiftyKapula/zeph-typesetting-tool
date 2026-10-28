@@ -60,8 +60,12 @@ function boxifyActivities(blocks, opts = {}) {
   // whole end-of-topic answer key stayed un-boxed, flush against the body text. The
   // misspelling is corrected in the PRINTED title by fixBoxTitleSpelling (import-docx.js).
   const ASMT = /^(((END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*)?ASSESS?MENTS?|(END[\s-]*OF[\s-]*)?(TOPIC|UNIT)[\s-]*EXERCISE)(\s+\d+)?\s*:?\s*$/i;
-  // a glossary definition line ("Term – meaning") is never a box heading
-  const isDefn = (t) => /\s[–-]\s/.test(t);
+  // A glossary/contents entry is never a box heading — neither the "Term – meaning"
+  // shape nor the DOT LEADER one ("Exercise................ Mudimu"), which is how a
+  // glossary typed as a tabbed two-column list arrives. Without the leader test the
+  // Lunda Grade 1 Teacher's Guide's glossary entry for the word "Exercise" was read
+  // as an exercise heading and boxed, taking the six entries below it inside the box.
+  const isDefn = (t) => /\s[–-]\s/.test(t) || /\.{3,}/.test(t);
   // A Teacher's Guide answer section ("Exercise – Expected Answers", "Assessment –
   // Expected Responses") reads like a "Term – meaning" glossary line to isDefn, but is
   // really an exercise box that should frame the answers below it. Recognise it FIRST,

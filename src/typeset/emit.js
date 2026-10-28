@@ -246,6 +246,12 @@ function emit(blocks) {
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
         // table it follows — renders with the section-heading look, not a plain sub-head.
         if (b.styleSection) { out += `#sectionhead(${S(b.text)}, brk: false, outlined: false)\n`; break; }
+        // A heading straight after a list item gets the room it has after a box or a
+        // paragraph. A list item brings no spacing of its own below it, so the heading's
+        // own weak gap was all there was and the heading read as one more line of the
+        // list (Lunda Grade 1 LB: "KUTAÑA" 9pt under "2. Yakudanyi yahanaña ñovu?").
+        let pb = bi - 1; while (pb >= 0 && blocks[pb].t === "vspace") pb--;
+        if (pb >= 0 && (blocks[pb].t === "listitem" || (blocks[pb].t === "para" && blocks[pb].marker && blocks[pb].isList))) out += `#afterlist()\n`;
         const h = `#head(${S(b.text)}${b.align === "center" ? `, al: "center"` : ""}${b.black ? `, black: true` : ""}${b.headColor ? `, col: ${S(b.headColor)}` : ""})\n`;
         // A short figure label ("(a) Histogram", "Figure 1") right before its picture
         // must not be orphaned at a page break — stick it to the image that follows.

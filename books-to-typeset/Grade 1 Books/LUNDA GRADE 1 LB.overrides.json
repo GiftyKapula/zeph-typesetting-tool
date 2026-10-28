@@ -1,0 +1,114 @@
+{
+  "_comment": [
+    "Lunda Grade 1 Learner's Book — per-book overrides.",
+    "",
+    "Every entry here corrects this manuscript's own slips or sizes this manuscript's",
+    "own pictures. None of it is an engine fault, so none of it belongs in src/typeset/."
+  ],
+  "_comment_authors": [
+    "The manuscript names the same person two ways: its own title page (line 5 of the",
+    "plain-text conversion) has the initials 'C.K. KABALAKANYA', while the ANSONEKI",
+    "bio page gives him in full as 'Charles Kazembe Kabalakanya, Managing Director/CEO",
+    "Wa Charle-Charle General Dealers Company Limited'. House style is one form per",
+    "person, the fullest one, so the cover and title-page byline carry the full name",
+    "rather than the initials the author happened to type on his own cover page."
+  ],
+  "authors": [
+    "Charles Kazembe Kabalakanya"
+  ],
+  "_comment_localLabels": [
+    "Local-language book: every label on the cover, title page and running header in Lunda, from lexicon/lunda.json",
+    "(level 'Shikola yamañu yanyanya mañu 1 - 6', book type 'Mukanda wa Kadizi') - the wording the 6 Oct typeset carried."
+  ],
+  "localLabels": true,
+  "_comment_images": [
+    "Four worksheet pictures the author drew PORTRAIT. The template caps a tall picture",
+    "by height so that one picture cannot swallow a whole page — a sound rule, and the",
+    "right one for a tall photograph. These four are not photographs: they are whole",
+    "worksheets, with their own word cards, writing rules and lettering inside them, and",
+    "each is the only thing on its page. At the template's standard cap they came out",
+    "63-86mm wide on a 142mm measure — a third to a half of the measure — with their",
+    "lettering too small for a Grade 1 reader, and two thirds of the page left blank",
+    "beneath them.",
+    "",
+    "So each is given its own printed height instead. The heights below are chosen to",
+    "fill the page these pictures actually have while leaving the heading stack above",
+    "them room, and to keep the widest of them just inside the 142mm measure:",
+    "",
+    "  image7.png   1023x1537  aspect 1.50  ->  165mm tall, 110mm wide",
+    "  image20.png  1086x1448  aspect 1.33  ->  165mm tall, 124mm wide",
+    "  image30.png  1086x1448  aspect 1.33  ->  165mm tall, 124mm wide",
+    "  image32.png  1086x1206  aspect 1.11  ->  155mm tall, 140mm wide",
+    "",
+    "Printing them this size drops them below 300 DPI, so all four are upscaled — see",
+    "the upscale entries written by tools/upscale-images.js alongside this comment."
+  ],
+  "images": {
+    "image7.png": {
+      "hmm": 165
+    },
+    "image20.png": {
+      "hmm": 165
+    },
+    "image30.png": {
+      "hmm": 165
+    },
+    "image32.png": {
+      "hmm": 155
+    }
+  },
+  "_comment_cover": [
+    "COVER PICTURE. The manuscript opened with the same cartoon group photo the",
+    "Teacher’s Guide uses, which showed no learner with a disability — against the",
+    "house rule that every cover include one. This replacement, supplied for this book,",
+    "puts four learners at a reading table: a girl with albinism and a boy using a",
+    "wheelchair alongside two other learners, two girls and two boys.",
+    "",
+    "The supplied file is a whole cover PAGE, not a photo: it carries an empty title",
+    "panel, an empty rainbow oval and a decorative border, all of which the template",
+    "draws itself. Left in, the hero card would have printed empty frames inside it. So",
+    "only the classroom scene is used, cropped to the hero card’s own 132x78mm",
+    "(1.692:1) so `fit: \"cover\"` has nothing left to trim: the crop already ends where",
+    "the card ends, which keeps every child, the wheelchair and its wheel in frame.",
+    "",
+    "  supplied   1073x1466  whole cover page",
+    "  cropped    1033x610   the classroom scene alone, at the card’s aspect",
+    "  upscaled   1600x945   Real-ESRGAN x4 then resampled down, 308 DPI at 132x78mm",
+    "",
+    "lunda-g1-lb-cover-src.png is the crop before upscaling, kept because the upscale",
+    "cannot be reproduced from the supplied file alone if the card geometry ever changes."
+  ],
+  "coverImage": "lunda-g1-lb-cover.png",
+  "_comment_manuscript": [
+    "2026-10-28: the manuscript now carries the author's edited version (a Word PDF of 26 Oct 2026 made from our",
+    "typeset book): end-of-chapter tests (KWESEKA KWAHACHIBALU) in Ch 1-7, Mudimu exercises in Ch 1-8, sound/syllable lessons",
+    "in Ch 6, 7, 9-12, the noun lessons renamed (mazhina ayuma / kala mazhina), listening lessons moved one topic earlier, and",
+    "story-based reading lessons in Ch 9-11. The author also renumbered the three \"Zhakwila 1: Kusumbwisha\" activities to 2,",
+    "so the editAll that used to do it here is gone."
+  ],
+  "_comment_hyphenate": [
+    "A Grade 1 reader: no word is broken across two lines. Typst has no Lunda patterns, so its breaks were",
+    "guesses ('ya-', 'ku-namwekeshiwu', 'Hichu-manyi', 'kwakusan-duzhola')."
+  ],
+  "hyphenate": false,
+  "_comment_indentLists": [
+    "The tests and Mudimu exercises put i./ii. sub-items under a numbered question; without this they sat flush",
+    "with the numbers. indentLists nests them under their question, as the author's own version shows them."
+  ],
+  "indentLists": true,
+  "_comment_pageBreakBefore": [
+    "Four activity boxes that otherwise leave their last line or two (or their worksheet table) at the top",
+    "of the next page start a fresh page instead: Ch 6 Kutuña Mazu Akuhosha ('3. Nka + ka =' was carried),",
+    "Ch 7 Talilenu nakusoneka Mazu ('2. Kulanda / 3. Maliketi'), Ch 11 Kutuña Yikunku Yamazu (its grid), Ch 12 Kuhimpa",
+    "Nikufumishaku ('3. Kudila / 4. Kutukana'). The first 'Kutuña Mazu Akuhosha' in the book is Ch 6's.",
+    "Also Ch 11 Kutaña Chati and Ch 12 Kwiluka Yikunku Yamazu Yidi Mwizu: their tables went to the next page without them."
+  ],
+  "pageBreakBefore": [
+    "Zhakwila 3: Kutuña Mazu Akuhosha",
+    "Zhakwila 1: Talilenu nakusoneka Mazu",
+    "Zhakwila 1: Kutuña Yikunku Yamazu",
+    "Zhakwila 2: Kuhimpa Nikufumishaku",
+    "Zhakwila 2: Kutaña Chati Yayikunku Yamazu",
+    "Zhakwila 3: Kwiluka Yikunku Yamazu Yidi Mwizu"
+  ]
+}
