@@ -85,5 +85,30 @@
     "in Ch 6, 7, 9-12, the noun lessons renamed (mazhina ayuma / kala mazhina), listening lessons moved one topic earlier, and",
     "story-based reading lessons in Ch 9-11. The author also renumbered the three \"Zhakwila 1: Kusumbwisha\" activities to 2,",
     "so the editAll that used to do it here is gone."
+  ],
+  "_comment_hyphenate": [
+    "A Grade 1 reader: no word is broken across two lines. Typst has no Lunda patterns, so its breaks were",
+    "guesses ('ya-', 'ku-namwekeshiwu', 'Hichu-manyi', 'kwakusan-duzhola')."
+  ],
+  "hyphenate": false,
+  "_comment_indentLists": [
+    "The tests and Mudimu exercises put i./ii. sub-items under a numbered question; without this they sat flush",
+    "with the numbers. indentLists nests them under their question, as the author's own version shows them."
+  ],
+  "indentLists": true,
+  "_comment_pageBreakBefore": [
+    "Four activity boxes that otherwise leave their last line or two (or their worksheet table) at the top",
+    "of the next page start a fresh page instead: Ch 6 Kutuña Mazu Akuhosha ('3. Nka + ka =' was carried),",
+    "Ch 7 Talilenu nakusoneka Mazu ('2. Kulanda / 3. Maliketi'), Ch 11 Kutuña Yikunku Yamazu (its grid), Ch 12 Kuhimpa",
+    "Nikufumishaku ('3. Kudila / 4. Kutukana'). The first 'Kutuña Mazu Akuhosha' in the book is Ch 6's.",
+    "Also Ch 11 Kutaña Chati and Ch 12 Kwiluka Yikunku Yamazu Yidi Mwizu: their tables went to the next page without them."
+  ],
+  "pageBreakBefore": [
+    "Zhakwila 3: Kutuña Mazu Akuhosha",
+    "Zhakwila 1: Talilenu nakusoneka Mazu",
+    "Zhakwila 1: Kutuña Yikunku Yamazu",
+    "Zhakwila 2: Kuhimpa Nikufumishaku",
+    "Zhakwila 2: Kutaña Chati Yayikunku Yamazu",
+    "Zhakwila 3: Kwiluka Yikunku Yamazu Yidi Mwizu"
   ]
 }
