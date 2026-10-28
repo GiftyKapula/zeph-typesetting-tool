@@ -382,6 +382,10 @@
     {
       "find": "Different types of inclines",
       "before": "After talking in your group"
+    },
+    {
+      "find": "Fig 52: Healthy and unhealthy chicks",
+      "before": "Good poultry health requires proper feeding"
     }
   ],
   "keepScaffold": true,
@@ -1125,6 +1129,35 @@
     },
     "image140.png": {
       "src": "media/sci5-lb/fig-dc-motor.png"
+    },
+    "image97.jpeg": {
+      "src": "media/sci5-lb/fig22-bmi-test.jpeg",
+      "w": 371
+    },
+    "image93.jpeg": {
+      "src": "media/sci5-lb/fig18-child-muac.jpeg"
+    },
+    "image95.jpeg": {
+      "src": "media/sci5-lb/fig20-food-portions.jpeg"
+    },
+    "image89.jpeg": {
+      "src": "media/sci5-lb/fig14-food-label.jpeg",
+      "w": 439
+    },
+    "image129.jpeg": {
+      "src": "media/sci5-lb/chicks-brooder.jpeg",
+      "w": 393
+    },
+    "image87.jpeg": {
+      "src": "media/sci5-lb/fig12-grease-spot.jpeg"
+    },
+    "image82.png": {
+      "src": "media/sci5-lb/fig8-social-emotional-AB.jpeg",
+      "w": 456
+    },
+    "image84.jpeg": {
+      "src": "media/sci5-lb/fig10-menstrual-hygiene.jpeg",
+      "w": 321
     }
   },
   "setCaption": [
