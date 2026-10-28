@@ -2296,6 +2296,13 @@
   }
   v(5pt)
 }
+// Emitted before a head that follows a list item (emit.js). In the series layout the
+// head's own gap is a weak 13pt, and a list item ends with no spacing below it, so a
+// strand heading sat closer to the list than the list's own lines sit to each other.
+// Weak, so it merges with the head's gap (the larger wins) and vanishes at a page top;
+// 28pt puts the heading as far below the list as it sits below an activity box (24pt
+// glyph to glyph, measured). Other layouts unchanged.
+#let afterlist() = if serieslike { v(28pt, weak: true) }
 #let head(t, al: none, black: false, col: none) = {
   if serieslike { v(13pt, weak: true) } else { v(5pt) }
   let body = if serieslike {
