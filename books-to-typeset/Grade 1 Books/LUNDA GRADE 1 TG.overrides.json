@@ -217,9 +217,9 @@
     }
   },
   "_note_cover": [
-    "COVER PICTURE (2026-10-28): replaced by the picture the user supplied as \"23.jpeg\": five learners outside a school, among them a boy in a wheelchair, a boy with albinism and a girl with a hearing aid. It is portrait (762x1080), so coverHeroPortrait gives this cover a tall 80x113mm card; the wide 132x78mm band could only keep a strip of it.",
+    "COVER PICTURE (2026-10-28): replaced by the picture the user supplied as \"23.jpeg\": five learners outside a school, among them a boy in a wheelchair, a boy with albinism and a girl with a hearing aid. It is portrait (762x1080), so coverHeroPortrait gives this cover a tall card, 92mm wide and as high as the picture’s own shape makes it (~130mm), so nothing is trimmed; the wide 132x78mm band could only keep a strip of it.",
     "  supplied  lunda-g1-tg-cover-src.jpeg  762x1080",
-    "  print     lunda-g1-tg-cover.png       1000x1417, Real-ESRGAN x4 (-s 4) then resampled down, 318 DPI at 80mm",
+    "  print     lunda-g1-tg-cover.png       1120x1587, Real-ESRGAN x4 (-s 4) then resampled down, 309 DPI at 92mm",
     "It replaces image1.png, which is the FRONT cover picture (the engine’s hero; the older note below has image1/image2 the other way round). image2.png keeps its upscale."
   ],
   "coverHeroPortrait": true
