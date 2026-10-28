@@ -1,6 +1,7 @@
 {
   "_comment": [
-    "ICT Form 2 Learner's Book. Rebuilt 2026-10-23 on the current engine, matched to the Teacher's Guide (PR #95): LEARNINING/Alterative typos corrected; Foreword signatory title in capitals like the Preface and Acknowledgement ones; glossary and references set a little tighter together (backmatterSpacing); the two Excel screenshots (Exercises 8 and 12) drawn as spreadsheet grids, values as in the screenshots (Sn reads 2-6, left for the author); three page breaks: the Creating Columns figure kept with its label, End of Topic 2.2 Q9 taken over with Q10, Learning Activity 19 starts a page."
+    "ICT Form 2 Learner's Book. Rebuilt 2026-10-23 on the current engine, matched to the Teacher's Guide (PR #95): LEARNINING/Alterative typos corrected; Foreword signatory title in capitals like the Preface and Acknowledgement ones; glossary and references set a little tighter together (backmatterSpacing); the two Excel screenshots (Exercises 8 and 12) drawn as spreadsheet grids, values as in the screenshots (Sn reads 2-6, left for the author); three page breaks: the Creating Columns figure kept with its label, End of Topic 2.2 Q9 taken over with Q10, Learning Activity 19 starts a page.",
+    "2026-10-28: 'subtopic' (33x in the body) spelled 'sub-topic' like the headings and the Teacher's Guide (user's choice)."
   ],
   "coverImage": "ict-form2-lb-cover.png",
   "images": {
@@ -131,6 +132,10 @@
     {
       "from": "Permanent Secretary (Administration)",
       "to": "PERMANENT SECRETARY (ADMINISTRATION)"
+    },
+    {
+      "from": "subtopic",
+      "to": "sub-topic"
     }
   ],
   "backmatterSpacing": {
