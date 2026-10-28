@@ -1610,6 +1610,10 @@
     // again. That block is also what applied outline()'s own `indent`, so the per-level
     // step is applied here instead, at the same 1.2em.
     let line = upper(it.inner())
+    // tocSubSize: a smaller size for the entries below the top level, so a long
+    // sub-topic title fits one line (a reviewer's "reduce the size to fit a single line")
+    let subSize = T.at("tocSubSize", default: none)
+    if it.level > 1 and subSize != none { line = text(size: subSize, line) }
     if it.level > 1 { pad(left: 1.2em * (it.level - 1), line) } else { line }
   }
   let tgap = T.at("tocGap", default: 10pt)
@@ -2517,6 +2521,10 @@
   v(5pt)
 }
 #let head(t, al: none, black: false, col: none) = {
+  // A heading that wraps is set ragged, never stretched to the body's justified
+  // measure: with hyphenation off, "Exploring Self-Awareness, Self-Management, Social
+  // Awareness, …" spread its first line into wide gaps between four words.
+  set par(justify: false)
   if serieslike { v(13pt, weak: true) } else { v(5pt) }
   let body = if serieslike {
     // activities/exercises in teal, other bold sub-subheads in ink (like the ref);
@@ -3602,7 +3610,17 @@
     let openkeep = 32mm
     block(breakable: false, sticky: true)[#v(openkeep)]
     v(-openkeep)
-    titledbox(title, T.at(kind), content, breakable: true)
+    // `keepExercisesWhole` (a length) reaches these exercise/assessment boxes too, not
+    // only framedsection's: one shorter than it moves whole to the next page instead of
+    // leaving its first question behind (RE Form 2 LB proofread round: "push to the next
+    // page" on an exercise split after question 1).
+    let lim = T.at("keepExercisesWhole", default: none)
+    if lim != none and (kind == "ex" or kind == "asmt") {
+      layout(sz => exfits.update(measure(box(width: sz.width, content)).height < lim))
+      context titledbox(title, T.at(kind), content, breakable: not exfits.get())
+    } else {
+      titledbox(title, T.at(kind), content, breakable: true)
+    }
   }
 }
 #let activity(title, body, force: false) = keepwhole("act", title, renderbody(body), force: force)
@@ -3743,7 +3761,9 @@
   // exercise/assessment text is left-aligned (not justified): fill-in-the-blank lines
   // ("Natural Resources = ____") end in a long unbreakable underscore run that wraps to
   // the next line, and justification would stretch the orphaned label across the column.
-  set par(justify: false)
+  // A book can ask for justified questions (justifyQuestions: true) when a reviewer
+  // marks the ragged edge ("align this straight") and it has no blank-line questions.
+  set par(justify: T.at("justifyQuestions", default: false))
   // …and NEVER hyphenated. doc() tunes `costs.hyphenation` for body prose, where a
   // measured 300% is the right trade; a question is not body prose. It is a short,
   // numbered instruction a teacher reads out and a learner copies, so a word split
