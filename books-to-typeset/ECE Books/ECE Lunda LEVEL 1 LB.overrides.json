@@ -836,5 +836,44 @@
       "find": "Leñaku yuma yamboka",
       "with": "Leñaku yuma yamboka."
     }
-  ]
+  ],
+  "_note_spine": "User 2026-10-28: this book has a spine although it is under 112 pages (spine: true).",
+  "spine": true,
+  "_note_imprint": "The manuscript has no copyright page. Built as the Lunda ECE Level 2 TG has it (house model): the series' Lunda rights paragraph from the Level 2 LB manuscript, bold labels with plain values, layout credit = house default.",
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House (2026)",
+    "rights": "Ñovu zhezhima haniwu mukanda zhidi mumakasa awenawu antu awusoneka. Kosi chibalu chaniwu mukanda hela chimu chinatweshi kwidishewa cheñiku, kuhembewa munzhila yiwunatweshi kwikala waswayi kuwana nakwidisha cheñi hela kutemeshewa kwacheñiku nakuzatisha makina amaana amaha, kufwatulewa, kukopewa hela nzhila zhikwawu, chakubula kusambila kwitezhewa kudi aka Zambia Educational Publishing House.",
+    "groups": [
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Ng`ambi Teddy (B.Sc)"
+        ]
+      },
+      {
+        "label": "First Published 2026 by:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road",
+          "P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "ISBN:",
+        "lines": [
+          "……………………………"
+        ]
+      },
+      {
+        "label": "Printed by:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "imprintSpacing": "0.3em",
+  "imprintGap": "3mm"
 }
