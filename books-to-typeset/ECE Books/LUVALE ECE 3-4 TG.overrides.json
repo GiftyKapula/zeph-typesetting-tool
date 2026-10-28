@@ -136,9 +136,147 @@
     {
       "find": "vanakupindasana kuskopolola",
       "with": "vanakupindasana kukopolola"
+    },
+    {
+      "find": "Mutwe Wachihande: Kukopola",
+      "with": "Mutwe Wachihande: Kukopolola"
+    },
+    {
+      "find": "Mutwe Wachihande: Vyuma Vyamukhanda",
+      "with": "Mutwe Wachihande 1: Vyuma Vyamukhanda"
+    },
+    {
+      "find": "Mutwe Wachihande 1: Vasonavumo",
+      "with": "Mutwe Wachihande: Vasonavumo",
+      "after": "CHIHANDA 7"
+    },
+    {
+      "find": "Mutwe Wachihande 1: Vasonavumo",
+      "with": "Mutwe Wachihande: Vasonavumo",
+      "after": "CHIHANDA 8"
+    },
+    {
+      "find": "chamwakuvwovuwishila mine",
+      "with": "chamwakuvwovuwishila minwe"
+    },
+    {
+      "find": "vyuma vyamukanda namilimo yavwo",
+      "with": "vyuma vyamukhanda namilimo yavo"
+    },
+    {
+      "find": "mikand akuli valongi",
+      "with": "mikanda kuli valongi"
+    },
+    {
+      "find": "fwashi kulo valongi",
+      "with": "fwashi kuli valongi"
+    },
+    {
+      "find": "yakwamb ngwavo",
+      "with": "yakwamba ngwavo"
+    },
+    {
+      "find": "Hanyima yakkulinga",
+      "with": "Hanyima yakulinga"
+    },
+    {
+      "find": "Vasona vumo vangahi",
+      "with": "Vasonavumo vangahi"
+    },
+    {
+      "find": "longi hilo anuke",
+      "with": "longi hilongi anuke"
+    },
+    {
+      "find": "Hana jilayi kuli",
+      "with": "Hana jilayimu kuli"
     }
   ],
   "editAll": [
+    {
+      "find": "yvakuliseza",
+      "with": "vyakuliseza"
+    },
+    {
+      "find": "Chhuma",
+      "with": "Chuma"
+    },
+    {
+      "find": "kutachikiza",
+      "with": "kuthachikiza"
+    },
+    {
+      "find": "nahvyuma",
+      "with": "navyuma"
+    },
+    {
+      "find": "Putuka nayuma",
+      "with": "Putuka navyuma"
+    },
+    {
+      "find": "vyayvyashi",
+      "with": "vyavyashi"
+    },
+    {
+      "find": "mivwimbimi ",
+      "with": "mivwimbimbi "
+    },
+    {
+      "find": "vyma vyekha",
+      "with": "vyuma vyekha"
+    },
+    {
+      "find": "mujibu ou",
+      "with": "mujimbu ou"
+    },
+    {
+      "find": "muvasonvumo",
+      "with": "muvasonavumo"
+    },
+    {
+      "find": "mwayso",
+      "with": "mwaso"
+    },
+    {
+      "find": "jikhilayoni",
+      "with": "jikilayoni"
+    },
+    {
+      "find": "valumunune",
+      "with": "valumbunune"
+    },
+    {
+      "find": "Hunanan nakuwana",
+      "with": "Hunanana nakuwana"
+    },
+    {
+      "find": "nnamukwavo",
+      "with": "namukwavo"
+    },
+    {
+      "find": "shimuwtila",
+      "with": "shimutwila"
+    },
+    {
+      "find": "valoki kulinangula",
+      "with": "valongi kulinangula"
+    },
+    {
+      "find": "Valweve",
+      "with": "Valweze"
+    },
+    {
+      "find": "vihula vikwavi",
+      "with": "vihula vikwavo"
+    },
+    {
+      "find": "Hitangala mushikola",
+      "with": "Hitangana mushikola"
+    },
+    {
+      "find": "kufunfulula",
+      "with": "kufundulula"
+    },
     {
       "find": "KUHANJIKA NAKWIVWILILA",
       "with": "KWIVWILILA NAKUHANJIKA"
@@ -150,6 +288,73 @@
     {
       "find": "vivumina",
       "with": "vivumino"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "Kweulula Mungeshi",
+      "text": "Kweulula Mulongeshi"
+    },
+    {
+      "find": "Kwulula Mulongeshi",
+      "text": "Kweulula Mulongeshi",
+      "all": true
+    },
+    {
+      "find": "Kweulula mulongeshi",
+      "text": "Kweulula Mulongeshi",
+      "all": true
+    },
+    {
+      "find": "Mwakunangula",
+      "text": "Mwakunangwila"
+    },
+    {
+      "find": "Mwakunangila",
+      "text": "Mwakunangwila"
+    },
+    {
+      "find": "CHALA",
+      "as": "h3"
+    },
+    {
+      "find": "JINDONGI",
+      "as": "h3"
+    },
+    {
+      "find": "Mutwe Wachihande 1: Majina avyuma vathachikiza",
+      "as": "h3"
+    },
+    {
+      "find": "KWIVWILILA NAKUHANJIKA",
+      "as": "h2",
+      "near": "JILAYIMU"
+    }
+  ],
+  "tocTitle": "VILIMO",
+  "renameNear": [
+    {
+      "find": "VYAKULINGA 2",
+      "near": "Vavuluke majina akhala vyuma vathachikiza",
+      "to": "VYAKULINGA 1"
+    }
+  ],
+  "recase": [
+    {
+      "startsWith": "Majina",
+      "to": "upper"
+    },
+    {
+      "startsWith": "Kuthachikiza visonejeka",
+      "to": "upper"
+    },
+    {
+      "startsWith": "Chala",
+      "to": "upper"
+    },
+    {
+      "startsWith": "Kuluka Majina",
+      "to": "upper"
     }
   ],
   "insertText": [
@@ -530,7 +735,7 @@
       ]
     },
     {
-      "after": "Mutwe Wachihande 1: Vasonavumo",
+      "after": "Wachihande: Vasonavumo",
       "near": "Nge muze twashimutwilanga hachihande chavasonavumo",
       "items": [
         {
@@ -596,7 +801,7 @@
       ]
     },
     {
-      "after": "Mutwe Wachihande 1: Vasonavumo",
+      "after": "Wachihande: Vasonavumo",
       "near": "Uchili nakutwalililaho nachihande chavasonavumo",
       "items": [
         {
@@ -618,6 +823,7 @@
     },
     {
       "after": "Mutwe Wachihande: Kukopolola",
+      "near": "Anuka nge valongi jove vanaliangulanga",
       "items": [
         {
           "label": "Uhashi Wakunangakana:"
@@ -677,7 +883,8 @@
       ]
     },
     {
-      "after": "Mutwe Wachihande: Kukopola",
+      "after": "Mutwe Wachihande: Kukopolola",
+      "near": "Anukisa valongi jove nge washimutwilile lyehi",
       "items": [
         {
           "label": "Uhashi Wakunangakana:"
@@ -686,13 +893,13 @@
           "para": "*Muchihanda omu:*"
         },
         {
-          "listitem": "*Navafundulula vasona kuzachisa vinoma vyavasona mujila yakwoloka.*"
+          "listitem": "*Navakopolola jishepu.*"
         },
         {
           "label": "Seteko yakunangakana:"
         },
         {
-          "listitem": "*Vasona vanavafundulula kuzachisa vinoma vyavasona mujila yakwoloka.*"
+          "listitem": "*Jishepu vanajikopolola mujila yakwoloka.*"
         }
       ]
     },
@@ -763,7 +970,7 @@
       ]
     },
     {
-      "after": "Mutwe Wachihande: Vyuma Vyamukhanda",
+      "after": "Mutwe Wachihande 1: Vyuma Vyamukhanda",
       "items": [
         {
           "label": "Uhashi Wakunangakana:"
@@ -967,8 +1174,13 @@
   ],
   "dropBreaks": [
     5,
+    6,
+    8,
+    14,
     16,
     18,
-    21
+    20,
+    21,
+    22
   ]
 }
