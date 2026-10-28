@@ -15,6 +15,7 @@ const { importDocx, fixBoxTitleSpelling, isProseSentence } = require("./import-d
 const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng, toPrintJpeg } = require("./image-enhance.js");
 const { stripWatermark } = require("./dewatermark.js");
+const { applyProseRules } = require("./prose-rules.js");
 const { proseIssues, fixQuestionMark } = require("./british-english.js");
 const { writeManuscriptMarkdown } = require("./docx-to-markdown.js");
 
@@ -4648,7 +4649,10 @@ function applyHeadingCase(blocks, cfg) {
     let first = true;
     return d.replace(/[A-Za-z][A-Za-z'’-]*/g, (w) => {
       const kept = keep.get(w.toLowerCase());
-      const cap = () => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+      // title case capitalises each part of a hyphenated word ("Self-Esteem",
+      // "Decision-Making"), the way the book's own headings write them
+      const capOne = (p) => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+      const cap = () => to === "title" ? w.split("-").map(capOne).join("-") : capOne(w);
       if (kept) { first = false; return kept; }
       if (!shouts && w.length >= 2 && w === w.toUpperCase()) { first = false; return w; }
       if (first) { first = false; return cap(); }
@@ -5043,12 +5047,16 @@ function convertTableActivities(blocks) {
   walk(blocks);
 }
 
-function ensureOrIndividually(blocks) {
+// `except`: activities (named by a substring of their body) a reviewer wants left as
+// the manuscript wrote them, while the rule still holds for the rest of the book.
+function ensureOrIndividually(blocks, except = []) {
+  const named = (b) => except.length && (b.body || []).some((x) => x && Array.isArray(x.segs) &&
+    except.some((e) => x.segs.map((z) => z.t || "").join("").includes(e)));
   const walk = (arr) => {
     if (!Array.isArray(arr)) return;
     for (const b of arr) {
       if (!b || typeof b !== "object") continue;
-      if (b.t === "activity") {
+      if (b.t === "activity" && !named(b)) {
         const bodyArr = Array.isArray(b.body) ? b.body : [];
         for (const sub of bodyArr) {
           if (sub && Array.isArray(sub.segs)) {
@@ -7108,6 +7116,9 @@ async function typesetOne(docxPath, themeName) {
   fixACappellaSpacing(blocks);
   if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
+  // book-wide prose rules a reviewer asked for "throughout" (curlyQuotes, serialComma,
+  // emphasis, captionStop) — after the overrides so inserted text follows them too
+  applyProseRules(blocks, ov, { verbose: !!process.env.PROSE_VERBOSE });
   competenceLeadIn(blocks, isTeacherBookName(base));
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
   markSpreadsheetTables(blocks);
@@ -7391,7 +7402,10 @@ function normaliseQuestionMarkBold(blocks) {
   // which is the fault its reviewer objected to most often, so this is a per-book
   // switch rather than three surgical edits: off, the activities read exactly as the
   // manuscript wrote them, and every other book keeps the rule.
-  if (ov.orIndividually !== false) ensureOrIndividually(blocks);
+  // `orIndividuallyExcept: ["substring", …]` keeps the rule but leaves the named activities
+  // alone — for a reviewer who strikes the phrase from a few activities while writing it
+  // into their own new ones (RE Form 2 LB, proofread round 1).
+  if (ov.orIndividually !== false) ensureOrIndividually(blocks, ov.orIndividuallyExcept || []);
   normaliseQuestionMarkBold(blocks);
   fillLayoutCredit(blocks, ov.layoutCredit || LAYOUT_CREDIT);  // credit the typesetter on the "Cover and Book Layout:" line
   labelIntroductions(blocks);
@@ -7913,6 +7927,11 @@ function normaliseQuestionMarkBold(blocks) {
   if (gnum === "2" && eduLevel === "Primary Education Level") themeOverrides.coverStyle = "grade2";
   // a book may pin a specific cover style (e.g. to A/B-test a Grade 2 cover variant)
   if (ov.coverStyle) themeOverrides.coverStyle = ov.coverStyle;
+  // "hyphenate": false — no word broken across two lines (a reviewer marked every
+  // "repro-duced" break); otherwise the theme's own setting
+  if (ov.hyphenate !== undefined) themeOverrides.hyphenate = !!ov.hyphenate;
+  // "justifyQuestions": true — exercise/assessment questions justified like the prose
+  if (ov.justifyQuestions) themeOverrides.justifyQuestions = true;
   const coverB = blocks.find((b) => b.t === "cover");
   if (coverB && coverB.lines && coverB.lines.length) {
     const gl = coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
@@ -7971,6 +7990,7 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  if (ov.tocSubSize) themeOverrides.tocSubSize = ov.tocSubSize;   // e.g. "9.5pt": sub-topic entries one line each
   // Figure captions in bold (still italic, same size) — a reviewer's "captions under
   // illustrations should be put in bold, for all". Opt-in per book.
   if (ov.boldCaptions) themeOverrides.capBold = true;

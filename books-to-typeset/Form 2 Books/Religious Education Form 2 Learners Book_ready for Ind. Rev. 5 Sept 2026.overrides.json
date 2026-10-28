@@ -11,7 +11,7 @@
       "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image6.png"
     },
     "image11.png": {
-      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image11.png"
+      "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image11-whitebg.png"
     },
     "image5.png": {
       "src": "Religious Education Form 2 Learners Book_ready for Ind. Rev. 5 Sept 2026-hires/image5.png"
@@ -133,6 +133,30 @@
     {
       "from": "quarreled",
       "to": "quarrelled"
+    },
+    {
+      "from": "Zambia Traditional Religion",
+      "to": "Zambian Traditional Religion"
+    },
+    {
+      "from": "African Traditional Religion",
+      "to": "Zambian Traditional Religion"
+    },
+    {
+      "from": "well-being",
+      "to": "well-⁠being"
+    },
+    {
+      "from": "learned",
+      "to": "learnt"
+    },
+    {
+      "from": "Luke 5:21–48",
+      "to": "Matthew 5:21–48"
+    },
+    {
+      "from": "Establishing the relationship between freedom and laws in the community.",
+      "to": "Establishing the relationship between freedom and laws in the community"
     }
   ],
   "//setCaption": "Round 2, printed page 27: 'Take this to the picture above'. The manuscript types the Fig. 4 caption two paragraphs below its picture, so the picture printed with no caption and the caption printed as a stray centred line in the middle of the running text on the next page. setCaption attaches it to the image and clears the loose paragraph.",
@@ -156,12 +180,22 @@
     {
       "find": "Family and community support can also influence freedom",
       "before": "Factors that limit freedom"
+    },
+    {
+      "find": "Radhakrishnan, S.",
+      "before": "Republic of Zambia (2022)"
     }
   ],
   "//removeRange": "Round 2, printed pages 155-156: \"Refer to the Learner's Book or attached Activity\" and \"Please get the right activity from the Learners' Book or the attached copy in word\". No Word file was attached, but the manuscript answers the note itself. LEARNING ACTIVITY 18 is the one activity the writer drew no box border around, so the box ran on past the instruction and took in his planning scaffold: a bare list of scripture references under \"1. Christianity\", \"2. Hindu\", \"3. Muslim\" and \"4. Zambian Traditional Religion\", a \"Discussion Task\" repeating word for word the instruction six lines above it, and the unfinished note to himself \"Also add appropriate proverbs ...\". Immediately below the box the same sub-topic sets all of it out as finished learner prose, religion by religion. So the scaffold goes, from \"1. Christianity\" to the end of the box, leaving the activity as its instruction alone - the shape the proofreader asked for on the other sixty activities. Three teachings in the scaffold were NOT repeated in the prose and are carried into it by the edits below, so nothing is lost.",
   "removeRange": [
     {
       "from": "1. Christianity"
+    },
+    {
+      "from": "- Hinduism (non-violence as only path to justice"
+    },
+    {
+      "from": "Identify what each religion teaches about:"
     }
   ],
   "//edit": "The three teachings the scaffold removed above carried alone, written into the prose in the author's own words. (1) Bhagavad Gita 3:8 was the only scriptural reference for Hinduism anywhere in the sub-topic - the Hindu prose cites none, while Christianity carries five references, Islam carries Qur'an 53:39 and Zambian Traditional Religion carries proverbs. (2) \"Work is a command\" is Islam's framing of work as an obligation rather than a choice; the prose says work is valuable and should be honest but never that it is commanded, and the scaffold's own contrast line (\"emphasis on divine command, communal duty, or personal motives\") points straight back at it. (3) \"Neglecting work results in lack of food\" is the Zambian Traditional Religion consequence; the prose covers responsibility, communal work and cooperation but never what follows from not working. CDC round (25 Oct 2026), printed page 17: 'Replace the proverb with: matako alaabili tabuli kucumbana (the two buttocks cannot avoid friction) meaning misunderstandings are there; it is normal but should not lead to division or hatred' - set in the paragraph's own pattern (bold proverb, italic meaning in brackets). Also 'good and honesty living' -> 'good and honest living' in Learning Activity 9 of Topic 2.5.",
@@ -195,16 +229,52 @@
       "with": "good and honest living"
     },
     {
-      "find": "GENERAL COMPETENCES TO BE DEVELOPED",
-      "with": "KEY COMPETENCES TO BE DEVELOPED"
-    },
-    {
       "find": "The Teachings of the Four Religions In Zambia On Freedom In Community",
       "with": "Religious Teachings on Freedom and Community"
     },
     {
       "find": "Social and Emotional Learning (SEL)",
       "with": "Social and Emotional Learning"
+    },
+    {
+      "find": "Form One learners may repeatedly threaten",
+      "with": "Learners may repeatedly threaten"
+    },
+    {
+      "find": "Evaluating religious teachings of the four religions on freedom in community",
+      "with": "Evaluating Religious Teachings of the Four Religions on Freedom in Community"
+    },
+    {
+      "find": "Illustrating self-awareness and positive self-perception",
+      "with": "Illustration of self-awareness and positive self-perception"
+    },
+    {
+      "find": "Illustrating work, cooperation and ethical responsibility",
+      "with": "Illustration of work, cooperation and ethical responsibility"
+    },
+    {
+      "find": "code of ethics in different work places",
+      "with": "code of ethics in different workplaces"
+    },
+    {
+      "find": "Religious Teachings on Self-Esteem",
+      "with": "Religious Teachings on Self-⁠Esteem"
+    },
+    {
+      "find": "Exploring religious teachings on ambitions and hope in the four religions (Christianity; Luke 12 vs. 16-21, Luke 12 vs. 22-34), Hinduism Islam, Zambian Traditional Religion)",
+      "with": "Exploring Religious Teachings on Ambitions and Hope in the Four Religions"
+    },
+    {
+      "find": "reconciliation to take place.",
+      "with": "reconciliation to take place"
+    },
+    {
+      "find": "freedom and laws in the community.",
+      "with": "freedom and laws in the community"
+    },
+    {
+      "find": "Exploring self-awareness, self-management, social awareness, relationship skills and responsible decision-making.",
+      "with": "Exploring self-awareness, self-management, social awareness, relationship skills and responsible decision-making"
     }
   ],
   "//replaceBlocks": "CDC round (25 Oct 2026), the separate Word file 'Religious Education Form 2 - Separated Exercises for Topics 1 to 6_Post CDC Comments': every combined exercise ('EXERCISES 1 & 2', 'EXERCISES 3 TO 5', 'EXERCISES 10 - 12' ...) is split so that each Learning Activity is followed by its own exercise of three questions. Each combined exercise is replaced in place by the LAST exercise of its group (it already sat after that activity's notes); the earlier ones go in through insertText. Entries run in book order, so a heading that repeats in several topics ('EXERCISES 1 & 2') is taken topic by topic. Questions are the Word file's own words; italic like the book's other exercises. Two changes: 'quarreled' -> 'quarrelled' (British spelling, as the rest of the book), and the labels '(Knowledge)', '(Skills)', '(Values)' written after the three questions of Topic 2.6 Exercise 3 only are left out as the writer's planning notes. Last entry - CDC printed page 43: Learning Activity 6 of Topic 2.2 'must be guided Learning Activity'. The writer's one-paragraph instruction is set out as numbered steps, in the writer's own words; nothing added.",
@@ -1013,7 +1083,7 @@
               "marker": "3."
             },
             {
-              "lead": "Ethan has learned how to make school bags from locally available materials. He wants to start producing and selling the bags to learners in his community. If the business grows, he hopes to employ two other young people."
+              "lead": "Ethan has learnt how to make school bags from locally available materials. He wants to start producing and selling the bags to learners in his community. If the business grows, he hopes to employ two other young people."
             },
             {
               "q": "Suggest ways in which Ethan can develop the activity responsibly.",
@@ -1141,20 +1211,991 @@
       "find": "In groups, discuss what collaboration means and identify situations at home, at school and in the community where people need to work together. Explain how people can collaborate while still enjoying their freedom. Share your findings with the class.",
       "with": [
         {
-          "listitem": "*In groups, discuss what collaboration means.*",
+          "para": "*In groups or individually, discuss what collaboration means. Identify situations at home, at school and in the community where people need to work together, and explain how people can collaborate while still enjoying their freedom. Share your findings with the class.*"
+        }
+      ]
+    },
+    {
+      "find": "Identify the causes of division and hatred shown in the case study.",
+      "with": [
+        {
+          "listitem": "*Identify the causes of division and hatred shown in the case study.*",
           "marker": "1."
-        },
+        }
+      ]
+    },
+    {
+      "find": "How did the learners' behaviour affect the success of the class project?",
+      "with": [
         {
-          "listitem": "*Identify situations at home, at school and in the community where people need to work together.*",
+          "listitem": "*How did the learners' behaviour affect the success of the class project?*",
           "marker": "2."
-        },
+        }
+      ]
+    },
+    {
+      "find": "Which values could have helped prevent the conflict?",
+      "with": [
         {
-          "listitem": "*Explain how people can collaborate while still enjoying their freedom.*",
+          "listitem": "*Which values could have helped prevent the conflict?*",
           "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "How can learners promote unity and peaceful relationships in school?",
+      "with": [
+        {
+          "listitem": "*How can learners promote unity and peaceful relationships in school?*",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "find": "What lesson have you learnt from the case study?",
+      "with": [
+        {
+          "listitem": "*What lesson have you learnt from the case study?*",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "find": "Suggest four ways learners can promote forgiveness and reconciliation in their homes, schools, or communities.",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Suggest four ways learners can promote forgiveness and reconciliation in their homes, schools, or communities.",
+            "qseg": [
+              {
+                "t": "Suggest four ways learners can promote forgiveness and reconciliation in their homes, schools, or communities.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "aseg": [],
+            "marker": "2.",
+            "depth": 0
+          }
         },
         {
-          "listitem": "*Share your findings with the class.*",
-          "marker": "4."
+          "raw": {
+            "kind": "q",
+            "q": "Mutale broke his friend’s calculator and denied it, and their friendship ended. Advise Mutale on the steps he should take to seek forgiveness, and explain how this would help to restore the friendship.",
+            "qseg": [
+              {
+                "t": "Mutale broke his friend’s calculator and denied it, and their friendship ended. Advise Mutale on the steps he should take to seek forgiveness, and explain how this would help to restore the friendship.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "aseg": [],
+            "marker": "3.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "END OF TOPIC 1 ASSESSMENT",
+      "with": [
+        {
+          "raw": {
+            "t": "assessment",
+            "title": "END OF TOPIC 1 ASSESSMENT",
+            "intro": [],
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Instructions: Answer all the questions.",
+                "qseg": [
+                  {
+                    "t": "Instructions: Answer all the questions.",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Define the following terms: a) Division b) Hatred c) Forgiveness d) Reconciliation",
+                "qseg": [
+                  {
+                    "t": "Define the following terms:\na) Division\nb) Hatred\nc) Forgiveness\nd) Reconciliation",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "State five causes of division and hatred in modern society.",
+                "qseg": [
+                  {
+                    "t": "State five causes of division and hatred in modern society.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Outline five ways learners can practice unity and love in their daily lives.",
+                "qseg": [
+                  {
+                    "t": "Outline five ways learners can practice unity and love in their daily lives.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain how any two religions teach believers to overcome division and hatred.",
+                "qseg": [
+                  {
+                    "t": "Explain how any two religions teach believers to overcome division and hatred.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Describe three effects of division and hatred on: a) families b) schools  c) communities",
+                "qseg": [
+                  {
+                    "t": "Describe three effects of division and hatred on:\na) families\nb) schools \nc) communities",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain the importance of forgiveness and reconciliation in promoting peaceful coexistence.",
+                "qseg": [
+                  {
+                    "t": "Explain the importance of forgiveness and reconciliation in promoting peaceful coexistence.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Describe the five steps needed for forgiveness and reconciliation to take place.",
+                "qseg": [
+                  {
+                    "t": "Describe the five steps needed for forgiveness and reconciliation to take place.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Your classmates refuse to work with a learner because of his religion. Explain how religious teachings can help resolve the conflict peacefully.",
+                "qseg": [
+                  {
+                    "t": "Your classmates refuse to work with a learner because of his religion. Explain how religious teachings can help resolve the conflict peacefully.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Imagine you are the head prefect of your school. Suggest five practical ways you would promote unity and reduce division among learners.",
+                "qseg": [
+                  {
+                    "t": "Imagine you are the head prefect of your school. Suggest five practical ways you would promote unity and reduce division among learners.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "9.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "\"Peace begins with the choices we make every day.\" Discuss this statement with reference to the teachings learnt in this topic.",
+                "qseg": [
+                  {
+                    "t": "\"Peace begins with the choices we make every day.\" Discuss this statement with reference to the teachings learnt in this topic.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "10.",
+                "depth": 0
+              }
+            ],
+            "extra": []
+          }
+        }
+      ]
+    },
+    {
+      "find": "In groups, discuss the teachings of Christianity (Deuteronomy 24 vs. 10-18, Mark 3 vs. 1-6, 1 Corinthians 10 vs. 24-25, Matthew 22 vs.22 vs. 37-40), Hinduism (B. Gita 5:25), Islam (Quran 2:256), Zambia Traditional Religion (proverbs…)",
+      "with": [
+        {
+          "para": "*In groups or individually, read Deuteronomy 24:10–18, Mark 3:1–6, 1 Corinthians 10:24–25 and Matthew 22:22, 37–40 (Christianity), Bhagavad Gita 5:25 (Hinduism), Qur’an 2:256 (Islam) and proverbs from Zambian Traditional Religion.*"
+        }
+      ]
+    },
+    {
+      "find": "END OF TOPIC 2 ASSESSMENT",
+      "with": [
+        {
+          "raw": {
+            "t": "assessment",
+            "title": "END OF TOPIC 2 ASSESSMENT",
+            "intro": [],
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Instructions: Answer all the questions.",
+                "qseg": [
+                  {
+                    "t": "Instructions: Answer all the questions.",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Define the following terms:",
+                "qseg": [
+                  {
+                    "t": "Define the following terms:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Freedom",
+                "qseg": [
+                  {
+                    "t": "Freedom",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Community",
+                "qseg": [
+                  {
+                    "t": "Community",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Explain three ways in which freedom protects human dignity in the community.",
+                "qseg": [
+                  {
+                    "t": "Explain three ways in which freedom protects human dignity in the community.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Describe two ways freedom can be misused and two ways it can be used responsibly to build unity.",
+                "qseg": [
+                  {
+                    "t": "Describe two ways freedom can be misused and two ways it can be used responsibly to build unity.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain how freedom and community depend on each other.",
+                "qseg": [
+                  {
+                    "t": "Explain how freedom and community depend on each other.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Discuss four ways collaboration strengthens freedom in community life.",
+                "qseg": [
+                  {
+                    "t": "Discuss four ways collaboration strengthens freedom in community life.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain the relationship between freedom and the laws of the community.",
+                "qseg": [
+                  {
+                    "t": "Explain the relationship between freedom and the laws of the community.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Describe how teamwork can be practised at school and in the community.",
+                "qseg": [
+                  {
+                    "t": "Describe how teamwork can be practised at school and in the community.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "State one teaching on freedom from each of the following:",
+                "qseg": [
+                  {
+                    "t": "State one teaching on freedom from each of the following:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Christianity",
+                "qseg": [
+                  {
+                    "t": "Christianity",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Hinduism",
+                "qseg": [
+                  {
+                    "t": "Hinduism",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Islam",
+                "qseg": [
+                  {
+                    "t": "Islam",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "c)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Zambian Traditional Religion",
+                "qseg": [
+                  {
+                    "t": "Zambian Traditional Religion",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "d)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Read the case study and answer the questions that follow:",
+                "qseg": [
+                  {
+                    "t": "Read the case study and answer the questions that follow:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "9.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "During a school debate, some learners shouted insults at speakers who disagreed with them, saying they had freedom of speech.",
+                "qseg": [
+                  {
+                    "t": "During a school debate, some learners shouted insults at speakers who disagreed with them, saying they had freedom of speech.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Identify how freedom was misused.",
+                "qseg": [
+                  {
+                    "t": "Identify how freedom was misused.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Explain four ways the learners can use their freedom of speech responsibly.",
+                "qseg": [
+                  {
+                    "t": "Explain four ways the learners can use their freedom of speech responsibly.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Some young people in your community hold loud parties late at night, saying they are free to do what they want. Using the teachings of the four religions, advise them on how to use their freedom without harming others.",
+                "qseg": [
+                  {
+                    "t": "Some young people in your community hold loud parties late at night, saying they are free to do what they want. Using the teachings of the four religions, advise them on how to use their freedom without harming others.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "10.",
+                "depth": 0
+              }
+            ],
+            "extra": []
+          }
+        }
+      ]
+    },
+    {
+      "find": "In groups, explore teachings on ambitions and hope in Christianity, Hinduism, Islam and Zambian Traditional Religion. For Christianity, read Luke 12:16–21 and Luke 12:22–34. For Hinduism, Islam and Zambian Traditional Religion, discuss appropriate religious teachings, stories, practices or proverbs that relate to ambitions and hope. Identify what each religion teaches about working towards goals, dealing with difficulties and caring for others. Present your findings to the class.",
+      "with": [
+        {
+          "para": "*(Christianity: Luke 12:16–21 and 12:22–34; Hinduism; Islam; Zambian Traditional Religion)*"
+        },
+        {
+          "para": "*In groups, explore teachings on ambitions and hope in Christianity, Hinduism, Islam and Zambian Traditional Religion. For Christianity, read Luke 12:16–21 and Luke 12:22–34. For Hinduism, Islam and Zambian Traditional Religion, discuss appropriate religious teachings, stories, practices or proverbs that relate to ambitions and hope. Identify what each religion teaches about working towards goals, dealing with difficulties and caring for others. Present your findings to the class.*"
+        }
+      ]
+    },
+    {
+      "find": "END OF TOPIC 4 ASSESSMENT",
+      "with": [
+        {
+          "raw": {
+            "t": "assessment",
+            "title": "END OF TOPIC 4 ASSESSMENT",
+            "intro": [],
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Instructions: Answer all the questions.",
+                "qseg": [
+                  {
+                    "t": "Instructions: Answer all the questions.",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Define ambition in your own words.",
+                "qseg": [
+                  {
+                    "t": "Define ambition in your own words.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "State two positive effects of ambition.",
+                "qseg": [
+                  {
+                    "t": "State two positive effects of ambition.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Mention two negative effects of ambition.",
+                "qseg": [
+                  {
+                    "t": "Mention two negative effects of ambition.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain how making healthy choices and managing your emotions can help you achieve your ambition.",
+                "qseg": [
+                  {
+                    "t": "Explain how making healthy choices and managing your emotions can help you achieve your ambition.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Give one example of an ambition that promotes honesty, unity or patriotism in Zambia.",
+                "qseg": [
+                  {
+                    "t": "Give one example of an ambition that promotes honesty, unity or patriotism in Zambia.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Define hope in your own words.",
+                "qseg": [
+                  {
+                    "t": "Define hope in your own words.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain how hope strengthens ambition.",
+                "qseg": [
+                  {
+                    "t": "Explain how hope strengthens ambition.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "State two attributes of hope and explain their importance.",
+                "qseg": [
+                  {
+                    "t": "State two attributes of hope and explain their importance.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Give one example of how talking to a trusted adult when you feel discouraged can help you keep hope.",
+                "qseg": [
+                  {
+                    "t": "Give one example of how talking to a trusted adult when you feel discouraged can help you keep hope.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "9.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain how the right to education and freedom of choice can influence a learner’s ambitions and hope.",
+                "qseg": [
+                  {
+                    "t": "Explain how the right to education and freedom of choice can influence a learner’s ambitions and hope.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "10.",
+                "depth": 0
+              }
+            ],
+            "extra": []
+          }
+        }
+      ]
+    },
+    {
+      "find": "- Christianity (Exodus 22 vs. 21-27, 2 Samuel 12 vs. 1-13, Mark 12 vs. 38 – 40, Luke 5 vs. 21 – 48, James 2 vs. 1 – 19)",
+      "with": [
+        {
+          "para": "*In groups or individually, read Exodus 22:21–27, 2 Samuel 12:1–13, Mark 12:38–40, Matthew 5:21–48 and James 2:1–19 (Christianity), Bhagavad Gita 3:25 on non-violence, humility and honest living (Hinduism), Qur’an 4:58 and 4:135 (Islam) and the Zambian traditional view of justice as reconciliation, compensation and harmony rather than revenge. Identify the values promoted by each religion and discuss how the teachings encourage fairness, honesty, equality, respect and peaceful relationships. Present your findings to the class.*"
+        }
+      ]
+    },
+    {
+      "find": "Instructions: In groups, examine the teachings on work in Christianity, Hinduism, Islam, and Zambian Traditional Religion.",
+      "with": [
+        {
+          "para": "*In groups or individually, examine the teachings on work in Christianity, Hinduism, Islam and Zambian Traditional Religion. Identify what each religion teaches about the value of work, the attitude people should have towards work and the responsibilities of workers. Discuss the similarities and differences among the teachings and present your findings to the class.*"
+        }
+      ]
+    },
+    {
+      "find": "END OF TOPIC 6 ASSESSMENT",
+      "with": [
+        {
+          "raw": {
+            "t": "assessment",
+            "title": "END OF TOPIC 6 ASSESSMENT",
+            "intro": [],
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Instructions: Answer all the questions.",
+                "qseg": [
+                  {
+                    "t": "Instructions: Answer all the questions.",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Distinguish between formal work and informal work, giving two examples of each.",
+                "qseg": [
+                  {
+                    "t": "Distinguish between formal work and informal work, giving two examples of each.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain four ways in which work contributes to the development of individuals and society.",
+                "qseg": [
+                  {
+                    "t": "Explain four ways in which work contributes to the development of individuals and society.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "State three reasons why people work apart from earning money, and give one example for each.",
+                "qseg": [
+                  {
+                    "t": "State three reasons why people work apart from earning money, and give one example for each.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Define vocation and give two examples of vocations in your community.",
+                "qseg": [
+                  {
+                    "t": "Define vocation and give two examples of vocations in your community.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain how vocation promotes responsibility and service.",
+                "qseg": [
+                  {
+                    "t": "Explain how vocation promotes responsibility and service.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Isaac is a poultry farmer, Chisomo is a teacher, and Walusungu owns a grocery shop. Explain how their occupations depend on one another and contribute to community development.",
+                "qseg": [
+                  {
+                    "t": "Isaac is a poultry farmer, Chisomo is a teacher, and Walusungu owns a grocery shop. Explain how their occupations depend on one another and contribute to community development.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Identify five practical ways in which young people can reduce dependence on formal employment.",
+                "qseg": [
+                  {
+                    "t": "Identify five practical ways in which young people can reduce dependence on formal employment.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Define investment and explain why it is important to invest part of what you earn from work.",
+                "qseg": [
+                  {
+                    "t": "Define investment and explain why it is important to invest part of what you earn from work.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Give two examples of entrepreneurial activities in Zambia and explain how training in business skills can help them to grow.",
+                "qseg": [
+                  {
+                    "t": "Give two examples of entrepreneurial activities in Zambia and explain how training in business skills can help them to grow.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "9.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Discuss the importance of positive attitudes towards work such as honesty, punctuality, cooperation, discipline, and commitment. Explain how these attitudes benefit individuals, organisations, and the nation.",
+                "qseg": [
+                  {
+                    "t": "Discuss the importance of positive attitudes towards work such as honesty, punctuality, cooperation, discipline, and commitment. Explain how these attitudes benefit individuals, organisations, and the nation.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "10.",
+                "depth": 0
+              }
+            ],
+            "extra": []
+          }
         }
       ]
     }
@@ -1191,7 +2232,7 @@
                   "(c) Jesus called Levi, a tax collector, to become His disciple (Luke 5:27–30)."
                 ],
                 [
-                  "(iv) Zambia Traditional Religion",
+                  "(iv) Zambian Traditional Religion",
                   "(d) A person should see the connection between oneself and other living beings (Bhagavad Gita 6:29)."
                 ]
               ]
@@ -2180,6 +3221,38 @@
           }
         }
       ]
+    },
+    {
+      "before": "Discrimination – Treating people unfairly",
+      "text": "Dharma – One’s duty or responsibility to live rightly in Hinduism."
+    },
+    {
+      "after": "Discrimination – Treating people unfairly",
+      "text": "Division – The separation of people into opposing groups because of disagreements, prejudice, selfish interests or differences."
+    },
+    {
+      "before": "Hope – A positive expectation",
+      "text": "Hatred – A strong feeling of dislike, hostility or bitterness towards another person or group."
+    },
+    {
+      "before": "Reconciliation – Restoring friendly relationships",
+      "text": "Nepotism – Giving unfair advantages or opportunities to relatives instead of selecting people fairly according to their abilities."
+    },
+    {
+      "before": "Reconciliation – Restoring friendly relationships",
+      "text": "Penance – Taking action to correct or make amends for a wrong that has been committed."
+    },
+    {
+      "before": "Restorative justice – A form of justice",
+      "text": "Repentance – Recognising that one has done wrong, feeling sorry and deciding to change."
+    },
+    {
+      "before": "Social and Emotional Learning (SEL) –",
+      "text": "Sin – Any thought, word or action that goes against God’s will or accepted moral values."
+    },
+    {
+      "before": "Ministry of Education (2023)",
+      "text": "**Holy Bible: New International Version** (2011). London: Hodder & Stoughton."
     }
   ],
   "//removeWhereNext": "Pairs with the four 'In this section, you will:' lines inserted above (see //subtext): the old 'In this sub-topic, you will:' line in front of each is dropped.",
@@ -2201,12 +3274,7 @@
       "next": "In this section, you will:"
     }
   ],
-  "unboldBlock": [
-    "- Christianity (Exodus 22",
-    "- Hinduism (non-violence as only path",
-    "- Islam (respect for workers",
-    "- Zambian Traditional Religion (Justice is not concerned"
-  ],
+  "unboldBlock": [],
   "//unboldBlock": "CDC round, printed page 112: 'This Activity 9 should not be in bold' - the four religion lines in Learning Activity 9 of Topic 2.5.",
   "//boldCaptions": "CDC round, printed page 24: 'The captions under illustrations should be put in bold. (For all)'. Every figure caption is set bold (still italic).",
   "boldCaptions": true,
@@ -2237,6 +3305,52 @@
       "find": "A community has received funds to construct a health centre",
       "marker": "10.",
       "depth": 0
+    }
+  ],
+  "//round1": "Proofread round 1 (Francis Siakumena, 27 Oct 2026, 223 comments). Comment 2 asks for these throughout: no comma before the last and/or of a list (serialComma), no word breaks (hyphenate), italics rather than bold or colour for scripture references and key terms (emphasis), curly quotes (curlyQuotes), \"Zambian Traditional Religion\", \"well-being\", \"learnt\", captions \"Fig. N: Caption\" with no full stop (captionStop), learning activity titles in title case, \"Instructions: Answer all the questions.\" under every assessment heading.",
+  "hyphenate": false,
+  "curlyQuotes": true,
+  "serialComma": false,
+  "emphasis": "italic",
+  "captionStop": false,
+  "justifyQuestions": true,
+  "keepExercisesWhole": "60mm",
+  "tocSubSize": "10pt",
+  "headingCase": {
+    "to": "title",
+    "apply": [
+      "boxTitle"
+    ],
+    "keep": [
+      "Using"
+    ]
+  },
+  "orIndividuallyExcept": [
+    "Put yourselves in pairs",
+    "role-play situations in which learners experience"
+  ],
+  "remove": [
+    "Bhagavad Gita (2015) Bhagavad Gita",
+    "British and Foreign Bible Society (2011)",
+    "Curriculum Development Centre (2024)",
+    "Zambia Educational Publishing House (2024)"
+  ],
+  "serialCommaKeep": [
+    "work together, and explain how people can collaborate"
+  ],
+  "forceFreshPage": [
+    {
+      "find": "EXERCISE 2",
+      "near": "Give three positive effects and three negative effects of having"
+    },
+    {
+      "find": "END OF TOPIC 6 ASSESSMENT"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "find": "Specific Competence",
+      "near": "2.5.1.2 Demonstrate how good governance"
     }
   ]
 }

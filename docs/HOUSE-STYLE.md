@@ -200,7 +200,9 @@ off, so a change only touches the books that opt in. Keys:
 | `theme` | force a theme by name, bypassing `autoTheme()`'s file-name guess (a TG whose title doesn't match its sibling LB's pattern, say) |
 | `synthesiseCover` | force the engine to build a fresh cover from title/subject/booktype/author even when a cover-ish page was detected (its line shapes didn't match what the theme expects) |
 | `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey. This is now the **default for any TG** (filename carries "TG" or "teacher"), so most books never need to set it; use `blackWhite: false` for the rare TG that must stay in colour, or `blackWhite: true` to force it on a Learner's Book (which otherwise keeps its colour) |
+| `hyphenate` | `false`: no word is broken across two lines with a hyphen anywhere in the book (a reviewer marked every "repro-duced" break); `true` turns hyphenation back on for a theme that switches it off. A compound that must not split at its own hyphen ("semi-transparent") takes a word joiner after the hyphen via `editAll` (`"semi-⁠transparent"`) |
 | `orIndividually` | `false` switches off the standing rule that writes "or individually" into an activity body offering only group or pair work. Use it when a reviewer strikes that phrase out — it switches the whole book rather than the instances they happened to mark, so the book does not then say it two ways |
+| `orIndividuallyExcept` | `["substring", …]`: keep the "or individually" rule but leave the activities whose body contains a listed substring as the manuscript wrote them — for a reviewer who strikes the phrase from a few activities while writing it into their own new ones |
 
 **Text (whole-block)**
 
@@ -232,6 +234,10 @@ off, so a change only touches the books that opt in. Keys:
 | `unbold` / `unitalic` | drop bold / italics from a run whose trimmed text matches |
 | `unboldBlock` | drop bold from EVERY run of any block containing the substring — "this paragraph should carry no bold at all", for a manuscript that bolds a whole cross-cutting-issue sentence inside a facilitation paragraph. It takes the punctuation fragments Word split off the bolded stretch too, which `unbold`, matching a run by its exact text, cannot |
 | `unitalicBlock` | the mirror of `unboldBlock` for italics — drop italics from every run of any block containing the substring. For a manuscript that sets one Teaching Step in italic among ten roman siblings |
+| `curlyQuotes` | `true`: every straight " and ' in the book becomes a curly quotation mark or apostrophe (“ ” ‘ ’), across runs without losing their formatting (src/typeset/prose-rules.js) |
+| `serialComma` | `false`: no comma before the last "and"/"or" of a list ("A, B, and C" → "A, B and C"). A comma counts as closing a list when its sentence already has an earlier comma; `serialCommaKeep: ["…"]` names a clause-joining comma that test would wrongly take (a reviewer's own wording) |
+| `emphasis` | `"italic"`: in the body (first TOPIC/UNIT heading up to the GLOSSARY/REFERENCES) scripture references and key terms are set in italics — a bold or author-coloured run becomes italic in body colour, and a chapter-and-verse reference typed upright ("Bhagavad Gita 3:8", also in table cells) is italicised. A label ending in a colon ("Scenario:") and a wholly bold line stay as they are |
+| `captionStop` | `false`: no full stop at the end of a figure caption |
 | `boldToItalic` | drop bold **and** set italic on a matching run |
 | `recolor` | recolour runs by existing colour and/or exact text (`{ from?, to, text?, bold? }`) |
 | `italiciseFrom` | italicise the value after a label prefix (GENERAL/SPECIFIC COMPETENCE…), label stays roman |
@@ -261,6 +267,7 @@ off, so a change only touches the books that opt in. Keys:
 | `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |
 | `tocDepth` | how many heading levels the table of contents lists (default 2: top-level + one sub-level) |
+| `tocSubSize` | a smaller size for contents entries below the top level (e.g. `"10pt"`), so every sub-topic fits one contents line |
 | `tocUnitsOnly` | `false` also lists front/back matter (Authors, Foreword, References, …) in the TOC, not just units/topics |
 
 **Lists / questions / tables**
@@ -268,6 +275,7 @@ off, so a change only touches the books that opt in. Keys:
 | Key | What it does |
 |---|---|
 | `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off) |
+| `justifyQuestions` | `true`: exercise/assessment questions are justified like the body text instead of ragged (a reviewer's "align this straight"); leave it off for a book with fill-in-the-blank questions |
 | `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph |
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
