@@ -90,6 +90,7 @@ off, so a change only touches the books that opt in. Keys:
 | `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey. This is now the **default for any TG** (filename carries "TG" or "teacher"), so most books never need to set it; use `blackWhite: false` for the rare TG that must stay in colour, or `blackWhite: true` to force it on a Learner's Book (which otherwise keeps its colour) |
 | `hyphenate` | `false`: no word is broken across two lines with a hyphen anywhere in the book (a reviewer marked every "repro-duced" break); `true` turns hyphenation back on for a theme that switches it off. A compound that must not split at its own hyphen ("semi-transparent") takes a word joiner after the hyphen via `editAll` (`"semi-\u2060transparent"`) |
 | `tocTitle` | the contents page heading in the book's own words (a local-language book's own contents heading, e.g. Kiikaonde "Biji mu Kachi") instead of the theme's "Table of Contents" |
+| `coverWords.grade` / `coverWords.authors` | with `localLabels`: the book's own grade word and author label on the cover, title page and header, where the word list leads with another (Luvale Grade 1 LB: "Mango", "Vausonekele") |
 | `titleAgeLine` | an age line set under the book type on the **title page only** (an ECE reviewer's "YAAKA 4-5"); the cover and spine are untouched |
 
 **Text (whole-block)**
@@ -118,7 +119,7 @@ off, so a change only touches the books that opt in. Keys:
 |---|---|
 | `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block |
 | `editAnswer` | like `editAll`, but rewrites a qa part's own **answer** text (`.a`/`.aseg`) instead of its question — for a stray leftover option letter the manuscript's answer itself carries (e.g. "C use of basso continuo" on a question that isn't even multiple-choice) |
-| `subtext` | replace a substring in **every run** containing it, keeping its bold/italic/colour |
+| `subtext` | replace a substring in **every run** containing it, keeping its bold/italic/colour; `titles: true` also reaches box titles and plain-text headings (a book-wide spelling fix such as Luvale "Tongola" → "Tombola") |
 | `retext` | change a run whose trimmed text equals `from` to `to`, keeping bold/italic/colour |
 | `unbold` / `unitalic` | drop bold / italics from a run whose trimmed text matches |
 | `boldToItalic` | drop bold **and** set italic on a matching run |
@@ -154,6 +155,8 @@ off, so a change only touches the books that opt in. Keys:
 | `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph |
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
+| `tableHeaders` | `false`: no table in the book has a heading row, so no first row gets the header band (a reading book's letter, syllable and word grids); reaches tables inside boxes too |
+| `numberLabels` | `[{ label, from, until?, start? }]` — number every bare `label` heading ("Mulimo:", "Mulimo", "Mulimo 8") in reading order between the block containing `from` and the next containing `until` ("Mulimo 1:" … "Mulimo 21:" through a phonics run) |
 
 **Images:** generate with **gpt-image-2, `quality: "high"`** (raised from the
 old `"low"` cost-saving default — print sharpness now wins over the small

@@ -171,6 +171,31 @@
       "from": "Tala hamivwimbimbi uli mwishi.",
       "to": "Tala hamuvwimbimbi uli mwishi.",
       "titles": true
+    },
+    {
+      "from": "Chilongeselo 38: vw VW",
+      "to": "Chilongeselo 38: Chivumo vw VW",
+      "titles": true
+    },
+    {
+      "from": "Chivumo: hy HY",
+      "to": "Chivumo hy HY",
+      "titles": true
+    },
+    {
+      "from": "Chilongeselo 45: vy VY",
+      "to": "Chilongeselo 45: Chivumo vy VY",
+      "titles": true
+    },
+    {
+      "from": "Chilongeselo 22: Chivumo ch",
+      "to": "Chilongeselo 22: Chivumo ch CH",
+      "titles": true
+    },
+    {
+      "from": "Chilongeselo 24: Chivumo ph",
+      "to": "Chilongeselo 24: Chivumo ph PH",
+      "titles": true
     }
   ],
   "edit": [
@@ -368,28 +393,29 @@
     }
   ],
   "dropBreaks": [
-    3,
-    5,
+    2,
+    4,
+    7,
+    8,
     9,
-    10,
-    11,
-    15,
+    12,
+    14,
     17,
-    21,
-    22,
-    28,
+    18,
+    23,
+    25,
+    29,
     30,
-    35,
-    36,
-    40,
-    55,
+    33,
+    46,
+    47,
+    49,
+    51,
+    53,
+    57,
     58,
-    61,
-    63,
-    68,
-    69,
-    79,
-    81
+    66,
+    68
   ],
   "replaceExact": [
     {
@@ -427,5 +453,86 @@
       "with": "Mulimo wakuhakilako:",
       "all": true
     }
-  ]
+  ],
+  "hyphenate": false,
+  "images": {
+    "713f31b6a71529cf21fb5a5ed6be37bd46ec9857.png": {
+      "src": "LUVALE GRADE 1 LB-hires/713f31b6a71529cf21fb5a5ed6be37bd46ec9857.png"
+    },
+    "12ae241ff6ad2641e3979a14e2df38cb91568006.png": {
+      "src": "LUVALE GRADE 1 LB-hires/12ae241ff6ad2641e3979a14e2df38cb91568006.png"
+    },
+    "dc5487328ce64fbae52c2cef9913ef0fa9439f76.png": {
+      "src": "LUVALE GRADE 1 LB-hires/dc5487328ce64fbae52c2cef9913ef0fa9439f76.png"
+    },
+    "e1b2841a5a8e830d48907c53e14512d99f202915.png": {
+      "src": "LUVALE GRADE 1 LB-hires/e1b2841a5a8e830d48907c53e14512d99f202915.png"
+    },
+    "2ecf1d357febe2c434604e290d376c60167b1091.png": {
+      "src": "LUVALE GRADE 1 LB-hires/2ecf1d357febe2c434604e290d376c60167b1091.png"
+    },
+    "677f032149d17734f3ba8661e0394c11ebd88d48.png": {
+      "src": "LUVALE GRADE 1 LB-hires/677f032149d17734f3ba8661e0394c11ebd88d48.png"
+    },
+    "b1c1e6d89d4ae90d1f8d226b0e433c5e780b74cf.png": {
+      "src": "LUVALE GRADE 1 LB-hires/b1c1e6d89d4ae90d1f8d226b0e433c5e780b74cf.png"
+    },
+    "76856995fcee9271b72994a7ddb21bf2b2211af1.png": {
+      "src": "LUVALE GRADE 1 LB-hires/76856995fcee9271b72994a7ddb21bf2b2211af1.png"
+    },
+    "cd34bc2d950d600df09680ae1ddaf2bed5323de8.png": {
+      "src": "LUVALE GRADE 1 LB-hires/cd34bc2d950d600df09680ae1ddaf2bed5323de8.png"
+    },
+    "6ad98fa2310e951b384d5861df90b5ac0cb0ac51.png": {
+      "src": "LUVALE GRADE 1 LB-hires/6ad98fa2310e951b384d5861df90b5ac0cb0ac51.png"
+    },
+    "06a7c792bdfe2d15ccece8dfed72773c7b9595dd.png": {
+      "src": "LUVALE GRADE 1 LB-hires/06a7c792bdfe2d15ccece8dfed72773c7b9595dd.png"
+    },
+    "b29c8d5958cd7fb5d8d41ecdab9b63a973752bc2.png": {
+      "src": "LUVALE GRADE 1 LB-hires/b29c8d5958cd7fb5d8d41ecdab9b63a973752bc2.png"
+    },
+    "ba0fef5d2b64103ccd0e8a10d31a89adfb34c2df.png": {
+      "src": "LUVALE GRADE 1 LB-hires/ba0fef5d2b64103ccd0e8a10d31a89adfb34c2df.png"
+    },
+    "38578407249b9f0e3560d255c8c1950e01ea1130.png": {
+      "src": "LUVALE GRADE 1 LB-hires/38578407249b9f0e3560d255c8c1950e01ea1130.png"
+    },
+    "95c294821178fbf9f00f168da3ddbf33e3623609.png": {
+      "src": "LUVALE GRADE 1 LB-hires/95c294821178fbf9f00f168da3ddbf33e3623609.png"
+    },
+    "fe77c2130a93e137c7009a0e678339c19378a8db.png": {
+      "src": "LUVALE GRADE 1 LB-hires/fe77c2130a93e137c7009a0e678339c19378a8db.png"
+    },
+    "551eacb39d2507c66f317ad7dde962356bf42b91.png": {
+      "src": "LUVALE GRADE 1 LB-hires/551eacb39d2507c66f317ad7dde962356bf42b91.png"
+    },
+    "8fad8b4b89d3dadd1743d4485ec81a5a7acd5d00.png": {
+      "src": "LUVALE GRADE 1 LB-hires/8fad8b4b89d3dadd1743d4485ec81a5a7acd5d00.png"
+    },
+    "22905420de5034d912ab1c60d3aa6d1a1f406533.png": {
+      "src": "LUVALE GRADE 1 LB-hires/22905420de5034d912ab1c60d3aa6d1a1f406533.png"
+    },
+    "54b91cb375349267a95a99a9b4d5d20673d2a36f.png": {
+      "src": "LUVALE GRADE 1 LB-hires/54b91cb375349267a95a99a9b4d5d20673d2a36f.png"
+    },
+    "32e947de7c95e03c1e7685d70021e0554f844441.png": {
+      "src": "LUVALE GRADE 1 LB-hires/32e947de7c95e03c1e7685d70021e0554f844441.png"
+    },
+    "2e569794bd61fa17ea571d358bc99e37afc8ca5b.png": {
+      "src": "LUVALE GRADE 1 LB-hires/2e569794bd61fa17ea571d358bc99e37afc8ca5b.png"
+    },
+    "d3d748381eadaf43425d47ba8ffd68d6cddac102.png": {
+      "src": "LUVALE GRADE 1 LB-hires/d3d748381eadaf43425d47ba8ffd68d6cddac102.png"
+    },
+    "5789d379b7f27c422d3fa9e42ca351005ced25c2.png": {
+      "src": "LUVALE GRADE 1 LB-hires/5789d379b7f27c422d3fa9e42ca351005ced25c2.png"
+    },
+    "dc4a6a110b6b1733e374908961dfa4e4b5132042.png": {
+      "src": "LUVALE GRADE 1 LB-hires/dc4a6a110b6b1733e374908961dfa4e4b5132042.png"
+    },
+    "8f832856f7dab832968c7095e44e50c7be340398.png": {
+      "src": "LUVALE GRADE 1 LB-hires/8f832856f7dab832968c7095e44e50c7be340398.png"
+    }
+  }
 }
