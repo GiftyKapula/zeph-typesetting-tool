@@ -307,6 +307,8 @@ function mapBlock(b, math, isLB) {
       return { type: "figure", file: b.file, w: b.w, h: b.h, tall: !!b.tall, caption: b.caption || "" };
     case "imagerow":
       return { type: "imagerow", images: (b.images || []).map((im) => ({ file: im.file, w: im.w, tall: !!im.tall, caption: im.caption || "" })) };
+    case "match":   // picture-to-word matching: a two-column picture | word table in the e-book
+      return { type: "table", rows: mapRows((b.rows || []).map((r) => [{ text: "", imgs: [{ file: r.file, w: 200 }] }, { text: r.word || "", imgs: [] }]), math), noHeader: true };
     case "activity":
       return { type: "activity", title: b.title || "", body: mapBody(b.body, math, isLB) };
     case "fact":

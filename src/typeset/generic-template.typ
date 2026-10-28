@@ -2452,6 +2452,21 @@
 // Side-by-side images, aspect preserved (no stretching), one caption each.
 // 2-3 images: a UNIFORM height so they line up and their labels align.
 // More than that (a gallery): proportional widths that always fit the page.
+// A picture-to-word matching exercise kept the way the author laid it out: each picture
+// on the left, a word on the right of the same line (in the author's scrambled order),
+// and open space between them for the learner to draw the joining line. No table rules,
+// which a line drawn across the page would have to cross.
+#let matchpics(rows) = {
+  v(4pt)
+  block(breakable: false, width: 100%, grid(columns: (38%, 1fr, auto), row-gutter: 6mm, align: horizon,
+    ..rows.map(r => (
+      image(r.file, width: 100%, height: 30mm, fit: "contain"),
+      [],
+      pad(right: 6mm, text(size: fs(16pt))[#r.word]),
+    )).flatten()))
+  v(4pt)
+}
+
 #let imagerow(imgs) = {
   v(3pt)
   if imgs.len() <= 3 {
@@ -2839,6 +2854,7 @@
   // stay together (see the checklist grouping) can be rendered inside a single block.
   let one(it) = {
       if it.k == "table" { dtable(it.r, noHeader: it.at("nohdr", default: false)) }
+      else if it.k == "match" { matchpics(it.rows) }
       else if it.k == "img" {
         if it.images.len() == 1 { figimg(it.images.at(0).file, it.images.at(0).w, it.images.at(0).tall, it.images.at(0).cap, hmm: it.images.at(0).at("hmm", default: 0)) }
         else { imagerow(it.images) }

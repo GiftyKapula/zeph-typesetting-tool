@@ -438,7 +438,23 @@ async function typesetOne(docxPath, themeName) {
   // picture). Registered as media here, since applyOverrides has no access to it.
   // { images: [{ image, w, cap }, …] } — a row of pictures side by side, each with an
   // optional caption under it (the "1)", "2)" … of a match-the-words exercise).
-  for (const it of ov.insertText || []) for (const spec of it.items || []) {
+  // { match: [{ image, word }, …] } — a picture-to-word matching exercise: each picture on
+  // the left with a word across from it on the right, in the author's (scrambled) order.
+  // replaceBlocks `with` items take the same picture specs (to rebuild a box's own body).
+  const addMedia = (rel) => {
+    const src = resolveBookPath(docxPath, rel || "");
+    if (!fs.existsSync(src)) { console.warn("!  insertText image not found:", src); return null; }
+    const name = "ins_" + path.basename(src);
+    if (!media.some((m) => m.name === name)) media.push({ src, name });
+    return name;
+  };
+  const specs = [...(ov.insertText || []).flatMap((it) => it.items || []), ...(ov.replaceBlocks || []).flatMap((rb) => rb.with || [])];
+  for (const spec of specs) {
+    if (spec && Array.isArray(spec.match)) {
+      const rows = spec.match.map((m) => ({ file: addMedia(m.image), word: m.word || "" })).filter((r) => r.file);
+      if (rows.length) spec.raw = { t: "match", rows };
+      continue;
+    }
     if (spec && Array.isArray(spec.images)) {
       const row = [];
       for (const im of spec.images) {
