@@ -78,14 +78,56 @@
       "all": true
     },
     {
-      "find": "C.   KUTACHIKA KUDIZA KUSONEKA",
-      "text": "Kutachika Kudiza Kusoneka",
+      "find": "Zhakwila 1: Mwakukwatila mukanda mwaloña",
+      "text": "Zhakwila 1: Mwakukwatila mukanda mwaloña.",
+      "as": "head"
+    },
+    {
+      "find": "Mutu Wansañu: Chizala",
+      "text": "Chizala",
       "as": "head",
       "all": true
     },
     {
-      "find": "Zhakwila 1: Mwakukwatila mukanda mwaloña",
-      "text": "Zhakwila 1: Mwakukwatila mukanda mwaloña.",
+      "find": "Mutu Wansañu: Kuhanjeka",
+      "text": "Kuhanjeka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu: Yivumina",
+      "text": "Yivumina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu: Nyevulu",
+      "text": "Nyevulu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila: Kwila nyidimu yakuvuñuzhola nyinu (kuhemesha nyinu, kuchaka ndambu, kuloña wanda, kutabola yipapilu).",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila: Kusombolola yivumina yakufuma kutunyama twawutadi yivumina yidi neyi moo, mee, kokolilko…",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila: Kuhosha hayuma yamwekanaña muyisaka (kulanda, kuchechi, yidika, wundimi).",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila: Kusombolola yivumina yafumaña kuyuma yamboka (yisekeli, zhiñoma .....)",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila 1: Kutiyilila kukaheka kapela kanashimunewi nakwakula malwihu mukuhosha.",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila: Kuleña yuma yamboka amboka yidi neyi makondi, ma olenji, mangu, tunyama, yuma yamwitala.",
       "as": "head"
     }
   ],
@@ -298,6 +340,110 @@
     {
       "find": "mangu, tunyama,",
       "with": "mbuma,"
+    },
+    {
+      "find": "MUTU WANSAÑU: KULUMBULULA",
+      "with": "Kulumbulula"
+    },
+    {
+      "find": "hamwevulu (kawa,",
+      "with": "hamwevulu (kawa, mpembi, kamesha, kasumbi, nguli)."
+    },
+    {
+      "find": "Kweseka Kwaha Kapetulu 1",
+      "with": "KWESEKA KWAHA KAPETULU 1"
+    },
+    {
+      "find": "Zhakwila 2: Kushitiyilila kuheka kapela kanatañewi",
+      "with": "Zhakwila 2: Kutiyilila kukaheka kapela kanakutañewa"
+    },
+    {
+      "find": "Kufwikizha kutaña kufuma kwiwulu",
+      "with": "Fwikizhaku kutaña kufuma kwiwulu"
+    },
+    {
+      "find": "Kutena mazhina ayuma yawenimbu",
+      "with": "Tenaku mazhina ayuma yawenimbu"
+    },
+    {
+      "find": "Shimununenu tuheka",
+      "with": "Shimununaku tuheka"
+    },
+    {
+      "find": "nshimbi zhaha shikola",
+      "with": "nshimbi zhashikola"
+    },
+    {
+      "find": "kulombola kwapela,",
+      "with": "kulombola kwapela."
+    },
+    {
+      "find": "zhiñoma .....)",
+      "with": "zhiñoma…)"
+    },
+    {
+      "find": "Zhakwila 1: Kudiza mwakushakamina",
+      "with": "Zhakwila: Kudiza mwakushakamina"
+    },
+    {
+      "find": "Zhakwila: Kushimuna mazhina awantu",
+      "with": "Zhakwila 1: Kushimuna mazhina awantu"
+    },
+    {
+      "find": "Zhakwila1: Kushimuna wusoku",
+      "with": "Zhakwila 2: Kushimuna wusoku"
+    },
+    {
+      "find": "Zhakwila 1: Kutena tunyama",
+      "with": "Zhakwila: Kutena tunyama"
+    },
+    {
+      "find": "Zhakwila: Kuhosha hayuma yamwekanaña",
+      "with": "Zhakwila 1: Kuhosha hayuma yamwekanaña"
+    },
+    {
+      "find": "Zhakwila 1: Kuhosha hayuma yakeñawu",
+      "with": "Zhakwila 2: Kuhosha hayuma yakeñawu"
+    },
+    {
+      "find": "Zhakwila 1: Kushimuna yuma yabula",
+      "with": "Zhakwila 3: Kushimuna yuma yabula"
+    },
+    {
+      "find": "Zhakwila: Kuhosha hanshimbi zhahetala",
+      "with": "Zhakwila 1: Kuhosha hanshimbi zhahetala"
+    },
+    {
+      "find": "Zhakwila: Kuhosha hanshimbi zhashikola",
+      "with": "Zhakwila 2: Kuhosha hanshimbi zhashikola"
+    },
+    {
+      "find": "Zhakwila1: Kulondela",
+      "with": "Zhakwila 2: Kulondela"
+    },
+    {
+      "find": "Zhakwila1: Kwambula",
+      "with": "Zhakwila: Kwambula"
+    },
+    {
+      "find": "Zhakwila: Kufundulula nsona kuzatisha",
+      "with": "Zhakwila 1: Kufundulula nsona kuzatisha"
+    },
+    {
+      "find": "Zhakwila: Kulomba kwapela",
+      "with": "Zhakwila 1: Kulomba kwapela"
+    },
+    {
+      "find": "Zhakwila: Kulumbulula yuma yawanikaña",
+      "with": "Zhakwila 1: Kulumbulula yuma yawanikaña"
+    },
+    {
+      "find": "Zhakwila: Kulumbulula yuma yidi",
+      "with": "Zhakwila 2: Kulumbulula yuma yidi"
+    },
+    {
+      "find": "Zhakwila 2: Kulumbulula mwekenu",
+      "with": "Zhakwila 3: Kulumbulula mwekenu"
     }
   ],
   "_note_dup": "p21 printed the same pencil picture twice on one page: image19 after the Zhakwila (where every other activity puts its picture) and image20, the same picture again under the illustrator note. Keep the first.",
@@ -306,7 +452,8 @@
   ],
   "deleteExact": [
     "ART/W A picture of print words accompanied by pictures (mango, house, tree, car).",
-    "ART/W pictures of domestic animals producing different sounds cow, goat, chicken (3)"
+    "ART/W pictures of domestic animals producing different sounds cow, goat, chicken (3)",
+    "mpembi, kamesha, kasumbi,nguli)."
   ],
   "images": {
     "image72.jpeg": {
@@ -619,6 +766,10 @@
     {
       "find": "Mutu WANSAÑU: ",
       "with": ""
+    },
+    {
+      "find": "yisela…..)",
+      "with": "yisela…)"
     }
   ],
   "_note_r1_pages": "Round 1 page breaks: with the labels gone, four strand lines (Kapetulu 5 and 7 Kusoneka, 8 and 10 Kutaña) fell at a page foot with only their topic name under them; each opens the next page with its activity.",
@@ -638,6 +789,52 @@
     {
       "find": "Kutachika Kudiza Kutaña",
       "near": "Kulumbulula nyevulu"
+    }
+  ],
+  "_note_r2_tidy": "Clean-up after round 1 (user: fix everything before it goes back for proofreading): one look for every activity and topic line (the ones typed as plain paragraphs set as bold headings like the rest), Zhakwila numbered 1, 2, 3 within a strand or sub-topic when it has more than one and plain Zhakwila: when it has one, every Mudimu with its colon, every Mudimu task in the -aku form the book uses everywhere else, one spelling per word (zhashikola), stray spacing and dots, a split line joined, the stray C. on the Kapetulu 5 test item.",
+  "replaceBlocks": [
+    {
+      "find": "Mudimu: Tenaku mazhina awantu amuchisaka chanyanya.",
+      "with": [
+        {
+          "head": "Mudimu:"
+        },
+        {
+          "para": "Tenaku mazhina awantu amuchisaka chanyanya."
+        }
+      ]
+    },
+    {
+      "find": "C.Fundululaku nyifunda.",
+      "with": [
+        {
+          "listitem": "Fundululaku nyifunda.",
+          "marker": "3."
+        }
+      ]
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "Mudimu",
+      "with": "Mudimu:",
+      "all": true
+    },
+    {
+      "find": "Itezhaku kwizhina deyi",
+      "with": "Itezhaku kwizhina deyi."
+    },
+    {
+      "find": "Fundululaku nyifunda",
+      "with": "Fundululaku nyifunda."
+    },
+    {
+      "find": "Fundululaku nsona",
+      "with": "Fundululaku nsona."
+    },
+    {
+      "find": "Leñaku yuma yamboka",
+      "with": "Leñaku yuma yamboka."
     }
   ]
 }
