@@ -1,5 +1,5 @@
 {
-  "_note": "Luvale wordings found in the manuscripts themselves (not on an author's form). LUVALE ECE 3-4 TG cover: 'EARLY CHILDHOOD EDUCATION (ECE)', 'VAMYAKA 3 – 4', 'MUKANDA WAMULONGESHI', author label 'Ausonekele'. Early Childhood Education Level: 'Seteko ya Chinangwilo Chavanyike', composed 2026-10-08 from attested words (Seteko = level, from the word list; chinangwilo = education and vanyike = young children, both used in this manuscript) and approved by the typesetter; not yet confirmed by a Luvale author.",
+  "_note": "Luvale wordings found in the manuscripts themselves (not on an author's form). LUVALE ECE 3-4 TG cover: 'EARLY CHILDHOOD EDUCATION (ECE)', 'VAMYAKA 3 – 4', 'MUKANDA WAMULONGESHI', author label 'Ausonekele'. Early Childhood Education Level: 'Seteko ya Chinangwilo Chavanyike', composed 2026-10-08 from attested words (Seteko = level, from the word list; chinangwilo = education and vanyike = young children, both used in this manuscript) and approved by the typesetter; not yet confirmed by a Luvale author. LUVALE GRADE 1 TG (rebuilt from its PDF, 2026-10-28): grade word 'Mango' ('Mango 1' on its cover and in its text; 'Guledi' does not occur), chapter word 'KAPETULU'. Primary Education Level: 'Seteko ya Pulaimali', composed 2026-10-28 (Seteko = level, as in the ECE/secondary levels; Pulaimali as in Silozi/Kaonde) and chosen by the user; not yet confirmed by a Luvale author.",
   "source": "LUVALE ECE 3-4 TG (manuscript)",
   "header": {
     "language": "Luvale",
@@ -26,6 +26,18 @@
     [
       "Preface",
       "Kwaula"
+    ],
+    [
+      "Primary Education Level",
+      "Seteko ya Pulaimali"
+    ],
+    [
+      "Grade",
+      "Mango"
+    ],
+    [
+      "Unit",
+      "Kapetulu"
     ]
   ]
 }
