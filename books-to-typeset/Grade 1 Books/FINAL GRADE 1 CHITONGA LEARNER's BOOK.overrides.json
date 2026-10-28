@@ -241,7 +241,10 @@
     "image60.jpeg",
     "image61.jpeg",
     "image62.jpeg",
-    "image63.jpeg"
+    "image63.jpeg",
+    "image55.jpeg",
+    "image56.jpeg",
+    "image57.jpeg"
   ],
   "insertPictures": [
     {
@@ -494,6 +497,71 @@
           }
         }
       ]
+    },
+    {
+      "find": "ludweba",
+      "with": [
+        {
+          "listitem": "bbola",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "bbola",
+      "with": [
+        {
+          "listitem": "ludweba",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "musankwa",
+      "with": [
+        {
+          "listitem": "musimbi",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "find": "musimbi",
+      "with": [
+        {
+          "listitem": "musankwa",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "busu",
+      "with": [
+        {
+          "match": [
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image55.png",
+              "word": "busu"
+            },
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image56.png",
+              "word": "cinkwa"
+            },
+            {
+              "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/image57.png",
+              "word": "tomato"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "cinkwa",
+      "with": []
+    },
+    {
+      "find": "tomato",
+      "with": []
     }
   ],
   "renameNear": [
@@ -571,6 +639,11 @@
       "find": "CAKUCITA 2: Kubala akuzyiba",
       "near": "CAKUCITA 2: Kubala akuzyiba twaambo",
       "to": "CAKUCITA 4: Kubala akuzyiba twaambo"
+    },
+    {
+      "find": "CAKUCITA 1:",
+      "near": "Lemba mabala osanwe ajanwa mucakucita 1.",
+      "to": "CAKUCITA 1: Kujana mabala kwiinda mukulanga mwaandaanina"
     }
   ],
   "pageBreakBefore": [
@@ -857,7 +930,7 @@
           "head": "MIBUZYO YAKUMANINZYA CIPATI 9"
         },
         {
-          "listitem": "Kuzwa mucipikicca capegwa anselelo, sala tuvwuumina tutalisya mabala apegwa.",
+          "listitem": "Lemba tuvwuumina tutalisya mabala apegwa.",
           "marker": "1."
         },
         {
@@ -883,10 +956,6 @@
         {
           "listitem": "zuza",
           "marker": "f."
-        },
-        {
-          "image": "FINAL GRADE 1 CHITONGA LEARNER's BOOK-hires/bread-tomato-mealiemeal.png",
-          "w": 480
         }
       ]
     },
@@ -1015,7 +1084,7 @@
           "para": "2. puna\tpepa\tpeta\tbulo"
         },
         {
-          "para": "3. nyama\tnyemu\tngoma\tnyika"
+          "para": "3. nyama\tnyemu\tmbuto\tnyika"
         },
         {
           "para": "4. bbala\tccuka\tbbuku\tbbila"

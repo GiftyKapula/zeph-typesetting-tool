@@ -53,6 +53,8 @@ const colgridArg = (b) => `rows: ${arr(b.rows, (r) => `(marker: ${S(r.marker || 
 
 const EMPTY_CELL = { text: "", imgs: [] };
 
+// a picture-to-word matching exercise ({ t: "match", rows: [{ file, word }] })
+const matchArr = (rows) => arr(rows || [], (r) => `(file: ${S("_media/" + r.file)}, word: ${S(r.word || "")})`);
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 
 // Rich table cell: text plus any images it contains (and rich segments with
@@ -156,6 +158,7 @@ function markSubLists(blks) {
 
 const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
   b.t === "table" ? `(k: "table", r: ${rowArr(b.rows)}${b.noHeader ? ", nohdr: true" : ""})`
+  : b.t === "match" ? `(k: "match", rows: ${matchArr(b.rows)})`
   : (b.t === "img" || b.t === "imagerow") ? `(k: "img", images: ${imgArr(b.images)})`
   : b.t === "image" ? `(k: "img", images: ${imgArr([{ file: b.file, w: b.w, tall: b.tall, caption: b.caption, hmm: b.hmm }])})`
   : (b.t === "head" || b.t === "label" || b.t === "h3") ? `(k: "head", t: ${S(b.text || "")}${b.align === "center" ? ", center: true" : ""})`
@@ -294,6 +297,7 @@ function emit(blocks) {
         out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
+      case "match": out += `#matchpics(${matchArr(b.rows)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
       case "activity": out += `#activity(${titleContent(b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "fact": out += `#fact(${bodyArr(b.body)})\n`; break;
