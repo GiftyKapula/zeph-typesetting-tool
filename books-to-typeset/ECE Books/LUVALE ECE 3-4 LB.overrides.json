@@ -21,7 +21,8 @@
       "src": "LUVALE ECE 3-4 LB-hires/image54.png"
     },
     "image55.jpeg": {
-      "src": "LUVALE ECE 3-4 LB-hires/image55.png"
+      "src": "LUVALE ECE 3-4 LB-hires/image55.png",
+      "w": 400
     },
     "image56.png": {
       "src": "LUVALE ECE 3-4 LB-hires/image56.png"
@@ -54,13 +55,15 @@
       "src": "LUVALE ECE 3-4 LB-hires/image45.png"
     },
     "image47.jpeg": {
-      "src": "LUVALE ECE 3-4 LB-hires/image47.png"
+      "src": "LUVALE ECE 3-4 LB-hires/image47.png",
+      "w": 470
     },
     "image36.jpeg": {
       "src": "LUVALE ECE 3-4 LB-hires/image36.png"
     },
     "image49.jpeg": {
-      "src": "LUVALE ECE 3-4 LB-hires/image49.png"
+      "src": "LUVALE ECE 3-4 LB-hires/image49.png",
+      "w": 430
     },
     "image35.jpeg": {
       "src": "LUVALE ECE 3-4 LB-hires/image35.png"
@@ -75,7 +78,8 @@
       "src": "LUVALE ECE 3-4 LB-hires/image32.png"
     },
     "image7.jpeg": {
-      "src": "LUVALE ECE 3-4 LB-hires/image7.png"
+      "src": "LUVALE ECE 3-4 LB-hires/image7.png",
+      "w": 480
     },
     "image8.jpeg": {
       "src": "LUVALE ECE 3-4 LB-hires/image8.png"
@@ -141,13 +145,15 @@
       "src": "LUVALE ECE 3-4 LB-hires/image44.png"
     },
     "image46.jpeg": {
-      "src": "LUVALE ECE 3-4 LB-hires/image46.png"
+      "src": "LUVALE ECE 3-4 LB-hires/image46.png",
+      "w": 470
     },
     "image41.jpeg": {
       "src": "LUVALE ECE 3-4 LB-hires/image41.png"
     },
     "image6.jpeg": {
-      "src": "LUVALE ECE 3-4 LB-hires/image6.png"
+      "src": "LUVALE ECE 3-4 LB-hires/image6.png",
+      "w": 480
     },
     "image12.jpeg": {
       "src": "LUVALE ECE 3-4 LB-hires/image12.png"
@@ -178,6 +184,9 @@
     },
     "image23.jpeg": {
       "src": "LUVALE ECE 3-4 LB-hires/image23.png"
+    },
+    "image60.png": {
+      "hmm": 80
     }
   },
   "remove": [
@@ -248,6 +257,29 @@
       "text": "Mutwe Wachihande: Kulomba lisesa",
       "as": "head",
       "all": true
+    },
+    {
+      "find": "Chala",
+      "text": "CHALA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "CHALA",
+      "text": "CHALA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "JINDONGI",
+      "text": "JINDONGI",
+      "as": "head"
+    },
+    {
+      "find": "KWIVWILILA NAKUHANJIKA",
+      "text": "KWIVWILILA NAKUHANJIKA",
+      "as": "h2",
+      "all": true
     }
   ],
   "edit": [
@@ -295,6 +327,16 @@
   "moveBefore": [
     {
       "find": "VYAKULINGA",
+      "near": "Kumbulula kulijina lyove nge vanalivuluka",
+      "before": "Kumbulula kulijina lyove nge vanalivuluka"
+    },
+    {
+      "find": "VYAKULINGA",
+      "near": "Linangule twamiso yamwenemwene.",
+      "before": "Linangule twamiso yamwenemwene."
+    },
+    {
+      "find": "VYAKULINGA",
       "near": "Vuluka majina avathanga jove.",
       "before": "Vuluka majina avathanga jove."
     },
@@ -336,5 +378,19 @@
   ],
   "unlist": [
     "Vuluka majina avathanga jove atanu."
+  ],
+  "editAll": [
+    {
+      "find": "KUHANJIKA NAKWIVWILILA",
+      "with": "KWIVWILILA NAKUHANJIKA"
+    },
+    {
+      "find": "KUHANJIKA NAKWVIVWILILA",
+      "with": "KWIVWILILA NAKUHANJIKA"
+    },
+    {
+      "find": "VYAKULINGA  ",
+      "with": "VYAKULINGA "
+    }
   ]
 }
