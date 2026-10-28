@@ -136,6 +136,41 @@
       "from": "Kukopolola vasona vali mwishi.",
       "to": "Kukopolola vasona",
       "titles": true
+    },
+    {
+      "from": "mwamitetetela",
+      "to": "mwamitetekela",
+      "titles": true
+    },
+    {
+      "from": "cnakusoneka",
+      "to": "nakusoneka",
+      "titles": true
+    },
+    {
+      "from": "mwatanga vavonavumo",
+      "to": "mwatanga vasonavumo",
+      "titles": true
+    },
+    {
+      "from": "hamuvwimbimb.",
+      "to": "hamuvwimbimbi.",
+      "titles": true
+    },
+    {
+      "from": "Tanjiika",
+      "to": "Tanjika",
+      "titles": true
+    },
+    {
+      "from": "Veya vali umuvwimbimbi?",
+      "to": "Veya vali mumuvwimbimbi?",
+      "titles": true
+    },
+    {
+      "from": "Tala hamivwimbimbi uli mwishi.",
+      "to": "Tala hamuvwimbimbi uli mwishi.",
+      "titles": true
     }
   ],
   "edit": [
@@ -332,7 +367,30 @@
       ]
     }
   ],
-  "dropBreaks": [],
+  "dropBreaks": [
+    3,
+    5,
+    9,
+    10,
+    11,
+    15,
+    17,
+    21,
+    22,
+    28,
+    30,
+    35,
+    36,
+    40,
+    55,
+    58,
+    61,
+    63,
+    68,
+    69,
+    79,
+    81
+  ],
   "replaceExact": [
     {
       "find": "Mulimo",
