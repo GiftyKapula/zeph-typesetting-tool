@@ -3063,7 +3063,11 @@ async function importDocx(docxPath, opts = {}) {
       // hmm: force the on-page display HEIGHT (mm). Needed to enlarge a `tall`
       // picture, which the template otherwise pins to a fixed height regardless of w.
       const forceH = ovrEntry && ovrEntry.hmm ? ovrEntry.hmm : 0;
-      out.push({ file: name, w: dispW, h: dispH, tall: aspect > 1.05, caption: rawFigCaptions[base] || "", hmm: forceH, floatingBelowText: !!rec.floatingBelowText, side: rec.side || null, voff: rec.voff || 0 });
+      // `side: false` takes a picture the author floated beside the text out of the
+      // two-column layout, so it prints as an ordinary full-width figure — for a reviewer's
+      // "enlarge this diagram" on a side picture, which the side column caps at half width.
+      const side = ovrEntry && ovrEntry.side === false ? null : (rec.side || null);
+      out.push({ file: name, w: dispW, h: dispH, tall: aspect > 1.05, caption: rawFigCaptions[base] || "", hmm: forceH, floatingBelowText: !!rec.floatingBelowText, side, voff: rec.voff || 0 });
     }
     return out;
   };
