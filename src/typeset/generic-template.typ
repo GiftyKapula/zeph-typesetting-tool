@@ -3376,6 +3376,20 @@
       gkind.at(i) = "list"
       for x in range(i + 1, j) { mark.at(x) = -2 }
       i = j
+    } else if (body.at(i).k == "para" and i + 1 < n and body.at(i + 1).k == "list"
+        and txt(body.at(i)).trim().ends-with(":")) {
+      // ---- keep a LEAD-IN PARAGRAPH with the SHORT list it introduces ----
+      // The same element as a heading + list, written as a run-in paragraph
+      // ("Expected findings/observations: Learners should obtain:"). Physics Form 2 TG
+      // page 74 ended on the lead-in and "1. Boyle's law: 200 cm³", the other three
+      // results overleaf. Braced at its two ends like the heading case, so a long list
+      // still breaks in its middle.
+      let j = i + 1
+      while j < n and body.at(j).k == "list" { j = j + 1 }
+      mark.at(i) = j
+      gkind.at(i) = "list"
+      for x in range(i + 1, j) { mark.at(x) = -2 }
+      i = j
     } else if (body.at(i).k == "head" and i + 1 < n and body.at(i + 1).k == "para"
         and body.at(i).at("t", default: "").trim().match(regex("^\\(?(?:[0-9]{1,2}|[a-zA-Z])[.)]\\s+\\S")) != none) {
       // ---- keep a QUESTION with its options and its ANSWER ----

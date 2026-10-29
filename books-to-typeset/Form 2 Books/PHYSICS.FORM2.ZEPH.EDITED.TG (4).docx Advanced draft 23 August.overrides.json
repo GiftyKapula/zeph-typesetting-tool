@@ -1946,7 +1946,15 @@
     "Thunder – Natural",
     "Loudspeaker – Artificial",
     "Birdsong – Natural",
-    "Motor vehicle – Artificial"
+    "Motor vehicle – Artificial",
+    {
+      "find": "T = θ + 273",
+      "after": "adding or subtracting 273"
+    },
+    {
+      "find": "Sea and land breezes",
+      "after": "Car radiators"
+    }
   ],
   "forceFreshPage": [
     {
