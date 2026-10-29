@@ -7807,7 +7807,9 @@ function normaliseQuestionMarkBold(blocks) {
       const nx = blocks[j];
       if (!nx) continue;
       const gap = nx.t === "h1" && TOPIC_RE.test(nx.text || "") ? "2.8pt"
-        : (nx.t === "para" || nx.t === "listitem") ? "5.5pt" : null;
+        : (nx.t === "para" || nx.t === "listitem") ? "5.5pt"
+        // a sub-topic head (h2) brings only ~6pt of its own (LB Units One and Two)
+        : nx.t === "h2" ? "8.5pt" : null;
       if (gap) blocks.splice(j, 0, { t: "vspace", h: gap });
     }
   }
