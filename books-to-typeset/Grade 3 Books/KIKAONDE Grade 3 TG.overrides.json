@@ -2,7 +2,7 @@
   "_note_manuscript": "No Word manuscript of this book exists here: it was typeset elsewhere and came back as the reviewer's marked PDF '2. B5 KIKAONDE GRADE 3 TG ZEPH FOR REVIEW 2026.pdf' (Word export, 105 pages, no pictures inside). The .docx beside this file was rebuilt from that PDF's text layer on 2026-10-29: KIPUNGU = Heading 1, MUTWE = Heading 2, MUTWE MUCHE / MUTWE-KACHE = Heading 3, the author's typed numbers as Word lists. Its old contents page is left out (the engine builds its own).",
   "localLabels": true,
   "keepFrontOrder": true,
-  "_note_cover": "The reviewer's cover photo has English words on the blackboard and wall charts ('MATH & SCIENCE! 4th GRADE - GROWING TOGETHER', 'AFRICA'). House rule: use only a word-free part. Cut x 400-1032, y 150-554 of the 1032x787 original (the shapes row of the blackboard, four children at the table, the teacher) at the cover card's 1.564:1 shape; Real-ESRGAN x4 to 2528x1616. Left out: the two boys on the far left, the maps and the lettered blackboard.",
+  "_note_cover": "Cover picture: the user's own picture Downloads/tg1.jpeg (chosen 2026-10-29), used whole: 1080x720, Real-ESRGAN x4 to 4320x2880, then down to 2560x1707 (over 500 DPI on the card). The cover card (1.564:1) trims about 2% off its top and bottom.",
   "coverImage": "KIKAONDE Grade 3 TG-hires/cover.png",
   "_note_authors": "The reviewer's cover names one author, 'G. MUSHIPI'.",
   "authors": [
