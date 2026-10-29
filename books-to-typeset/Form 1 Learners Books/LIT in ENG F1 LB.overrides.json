@@ -21,6 +21,22 @@
     {
       "find": "DISTINGUISHING FORMS OF WRITTEN LITERATURE",
       "with": "FORMS OF WRITTEN LITERATURE"
+    },
+    {
+      "find": "Authors",
+      "with": "AUTHORS"
+    },
+    {
+      "find": "Preface",
+      "with": "PREFACE"
+    },
+    {
+      "find": "Foreword",
+      "with": "FOREWORD"
+    },
+    {
+      "find": "Acknowledgements",
+      "with": "ACKNOWLEDGEMENTS"
     }
   ],
   "images": {
@@ -3227,8 +3243,8 @@
       "before": "What is Literature?"
     },
     {
-      "find": "Foreword",
-      "before": "Preface"
+      "find": "FOREWORD",
+      "before": "PREFACE"
     }
   ],
   "moveBefore": [
@@ -4445,12 +4461,13 @@
       "to": "Kalima and Kahinga"
     }
   ],
-  "//frontMatter": "Front matter set to the house rules (user, 29 Oct 2026: 'follow the house rules'): Foreword before Preface (HOUSE-STYLE §3 order); copyright page on the Silozi G4 LB model - each label bold on its own line with the name plain below it, the publisher group (address as on this book's Teacher's Guide), then ISBN; the four authors set alike (bold 'Surname, Name:' then post, school, province), Moono's two lines joined; each signatory block name bold, title and organisation plain, ~16 mm signature space above (§3); the Foreword's five 'Each unit contains' labels all bold.",
+  "//frontMatter": "Front matter set to the house rules (user, 29 Oct 2026: 'follow the house rules'): Foreword before Preface (HOUSE-STYLE §3 order); copyright page on the Silozi G4 LB model - each label bold on its own line with the name plain below it, the publisher group (address as on this book's Teacher's Guide), then ISBN; the four authors set alike (bold 'Surname, Name:' then post, school, province), Moono's two lines joined; each signatory block name bold, title and organisation plain, ~16 mm signature space above (§3); the Foreword's five 'Each unit contains' labels all bold. Contents moved up to follow the copyright page (tocBefore), and the four front-matter titles set in capitals like the Teacher's Guide and the ICT Form 2 LB.",
   "deleteExact": [
     "Musonda Girls Provincial STEM School Luapula Province - English Paper 1 Examiner.",
     "Permanent Secretary - Administration MINISTRY OF EDUCATION"
   ],
   "pageBreakBefore": [
     "This book is your companion on a journey of discovery"
-  ]
+  ],
+  "tocBefore": "AUTHORS"
 }

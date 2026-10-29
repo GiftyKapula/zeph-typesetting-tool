@@ -263,6 +263,7 @@ off, so a change only touches the books that opt in. Keys:
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |
 | `tocDepth` | how many heading levels the table of contents lists (default 2: top-level + one sub-level) |
 | `tocUnitsOnly` | `false` also lists front/back matter (Authors, Foreword, References, …) in the TOC, not just units/topics |
+| `tocBefore` | move the table of contents to just before the heading whose whole text is given (e.g. `"AUTHORS"`) — for a manuscript that typed its contents after the Acknowledgements; house order puts it straight after the copyright page. The contents has no text of its own, so no other move key can reach it |
 
 **Lists / questions / tables**
 
