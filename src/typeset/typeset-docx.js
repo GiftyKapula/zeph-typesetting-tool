@@ -2167,7 +2167,14 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
             if (!cell || typeof cell.text !== "string") continue;
-            if (cell.text.trim() === ec.find) { cell.text = ec.with; n++; continue; }
+            // A cell whose runs are kept (bold header, a run with math) prints from `segs`,
+            // so a whole-cell match must rewrite them too, or the PDF keeps the old text
+            // while the override counts as applied (Physics Form 2 LB: "Ideal Gas Equation").
+            if (cell.text.trim() === ec.find) {
+              cell.text = ec.with;
+              if (Array.isArray(cell.segs) && cell.segs.length) cell.segs = [{ ...cell.segs.find((s) => !s.m) || cell.segs[0], t: ec.with, m: false }];
+              n++; continue;
+            }
             if (cell.text.includes(ec.find)) {
               cell.text = cell.text.split(ec.find).join(ec.with);
               // The cell's RUNS are what gets drawn, and an edit rarely sits inside one

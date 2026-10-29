@@ -85,7 +85,7 @@
     },
     {
       "file": "imp_image12.",
-      "text": "Figure 10: A tweezer, class 3 lever"
+      "text": "Figure 10: Tweezers, a class 3 lever"
     },
     {
       "file": "imp_image13.",
@@ -157,11 +157,11 @@
     },
     {
       "file": "imp_image31.",
-      "text": "Figure 32: Graph of volume against temperature in kelvins"
+      "text": "Figure 32: Graph of volume against temperature in kelvin"
     },
     {
       "file": "imp_image32.",
-      "text": "Figure 33: Graph of pressure against temperature in kelvins"
+      "text": "Figure 33: Graph of pressure against temperature in kelvin"
     },
     {
       "file": "imp_image33.",
@@ -218,7 +218,103 @@
     },
     {
       "find": "Identify types of waste in local environment",
-      "with": "Identify types of waste in the local environment."
+      "with": "Identify types of waste in the local environment"
+    },
+    {
+      "find": "in the designated place.",
+      "with": "in the designated place"
+    },
+    {
+      "find": "in environmental management.",
+      "with": "in environmental management"
+    },
+    {
+      "find": "Identify a clean environment.",
+      "with": "Identify a clean environment"
+    },
+    {
+      "find": "Melting Point (\"\"^(\"0\")C)",
+      "with": "Melting Point (°C)"
+    },
+    {
+      "find": "Boiling Point (\"\"^(\"0\")C)",
+      "with": "Boiling Point (°C)"
+    },
+    {
+      "find": "-114",
+      "with": "−114"
+    },
+    {
+      "find": "-39",
+      "with": "−39"
+    },
+    {
+      "find": "-219",
+      "with": "−219"
+    },
+    {
+      "find": "-183",
+      "with": "−183"
+    },
+    {
+      "find": "-210",
+      "with": "−210"
+    },
+    {
+      "find": "-196",
+      "with": "−196"
+    },
+    {
+      "find": "2 470",
+      "with": "2470"
+    },
+    {
+      "find": "1 085",
+      "with": "1085"
+    },
+    {
+      "find": "2 562",
+      "with": "2562"
+    },
+    {
+      "find": "1 538",
+      "with": "1538"
+    },
+    {
+      "find": "2 862",
+      "with": "2862"
+    },
+    {
+      "find": "1 064",
+      "with": "1064"
+    },
+    {
+      "find": "2 856",
+      "with": "2856"
+    },
+    {
+      "find": "1 749",
+      "with": "1749"
+    },
+    {
+      "find": "Ideal Gas Equation",
+      "with": "Combined Gas Law"
+    },
+    {
+      "find": "Compression ignition engine",
+      "with": "Compression Ignition Engine"
+    },
+    {
+      "find": "Rotary engine",
+      "with": "Rotary Engine"
+    },
+    {
+      "find": "Depends on the mass, specific heat capacity and temperature of the substance",
+      "with": "Depends on the mass, specific heat capacity and temperature change of the substance"
+    },
+    {
+      "find": "Charles' Law",
+      "with": "Charles’ Law"
     },
     {
       "find": "frac(V_(1), T_(1))",
@@ -260,7 +356,7 @@
     },
     {
       "find": "all contributors - for",
-      "with": "all contributors – for"
+      "with": "all contributors for"
     },
     {
       "find": "acknowledges the authors for their dedication",
@@ -391,10 +487,6 @@
       "with": "Mount Makulu"
     },
     {
-      "find": "pressure to solve real-life problems ",
-      "with": "pressure to solve real-life problems."
-    },
-    {
       "find": "relationship between force and area.",
       "with": "relationship between force and area"
     },
@@ -471,12 +563,12 @@
       "with": "the most suitable uses of alcohol and mercury"
     },
     {
-      "find": "The kelvin scale is the SI unit of temperature.",
+      "find": "The Kelvin scale is the SI unit of temperature.",
       "with": "The kelvin is the SI unit of temperature."
     },
     {
-      "find": "T = Ѳ +273",
-      "with": "T = Ѳ + 273"
+      "find": "T = θ +273",
+      "with": "T = θ + 273"
     },
     {
       "find": "in a thermometer, fuel expanding",
@@ -551,10 +643,6 @@
       "with": "Good and Bad Absorbers"
     },
     {
-      "find": "2.2.6.1. Solve practical",
-      "with": "2.2.6.1 Solve practical"
-    },
-    {
       "find": "explain its role in each case",
       "with": "explain its role in each case."
     },
@@ -595,8 +683,8 @@
       "with": "against harmful effects of each"
     },
     {
-      "find": "containers filled with air, water and a metal rod",
-      "with": "containers filled with air and water, and a metal rod"
+      "find": "a vacuum jar and containers filled with air, water and a metal rod",
+      "with": "a vacuum jar, containers filled with air and water, and a metal rod"
     },
     {
       "find": "produces sound in any two of the following:",
@@ -621,6 +709,86 @@
     {
       "find": "or excessively loud enough",
       "with": "or loud enough"
+    },
+    {
+      "find": "Ep = Gravitational Potential Energy in joules",
+      "with": "Ep = gravitational potential energy in joules"
+    },
+    {
+      "find": "input power of 1 000 W",
+      "with": "input power of 1000 W"
+    },
+    {
+      "find": "important concept in physics",
+      "with": "important concept in Physics"
+    },
+    {
+      "find": "the momentum of the football is 6 kg m/s",
+      "with": "the momentum of the football is 6 kg m/s."
+    },
+    {
+      "find": "the distance moved by the effort is measured from the midpoint of the fulcrum to the point where the effort acts, while the distance moved by the load is measured",
+      "with": "the effort arm (the distance of the effort from the fulcrum) is measured from the midpoint of the fulcrum to the point where the effort acts, while the load arm (the distance of the load from the fulcrum) is measured"
+    },
+    {
+      "find": "Relationship Between Force and Area",
+      "with": "Relationship between Force and Area"
+    },
+    {
+      "find": "Relationship Between Celsius and Kelvin Scales",
+      "with": "Relationship between Celsius and Kelvin Scales"
+    },
+    {
+      "find": "drawing pins, coins, or blocks of wood.",
+      "with": "drawing pins or coins."
+    },
+    {
+      "find": "between force and area Repeat",
+      "with": "between force and area. Repeat"
+    },
+    {
+      "find": "monitoring the boiling of liquids in a laboratory",
+      "with": "monitoring the boiling of liquids during food preparation"
+    },
+    {
+      "find": "This change in density is used in devices such as hydrometers and contributes to",
+      "with": "This change in density contributes to"
+    },
+    {
+      "find": "R, using the ideal gas equation",
+      "with": "R, using the ideal gas equation, PV = nRT"
+    },
+    {
+      "find": "estimate the annual saving.",
+      "with": "estimate the annual saving if the vehicle travels 20 000 km in a year."
+    },
+    {
+      "find": "Terms used in the Measurement of Heat",
+      "with": "Terms Used in the Measurement of Heat"
+    },
+    {
+      "find": "(JK⁻¹)",
+      "with": "(J K⁻¹)"
+    },
+    {
+      "find": "a Physics textbook",
+      "with": "a physics textbook"
+    },
+    {
+      "find": "its specific heat capacity and its temperature.",
+      "with": "its specific heat capacity and its change in temperature."
+    },
+    {
+      "find": "absorbs 1.34 × 10⁵ J of heat",
+      "with": "absorbs 1.336 × 10⁵ J of heat"
+    },
+    {
+      "find": "Noise becomes noise pollution when",
+      "with": "Sound becomes noise pollution when"
+    },
+    {
+      "find": "Where:",
+      "with": "where:"
     },
     {
       "find": "input (driver) gear",
@@ -1857,6 +2025,31 @@
       ]
     },
     {
+      "find": "Given:",
+      "next": "Force, F = 15N",
+      "with": [
+        {
+          "raw": {
+            "t": "head",
+            "text": "Solution"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Given:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Force, F = 15N",
       "with": [
         {
@@ -2551,12 +2744,6 @@
                 "b": false,
                 "it": false,
                 "c": null
-              },
-              {
-                "t": " in symbols,",
-                "b": false,
-                "it": false,
-                "c": null
               }
             ]
           }
@@ -2577,7 +2764,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "P = ",
+                "t": "In symbols, P = ",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3261,6 +3448,24 @@
       ]
     },
     {
+      "find": "2.1.2.1 Apply the principles of linear momentum in everyday life ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.1.2.1 Apply the principles of linear momentum in everyday life. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "The tendency of a moving object to continue moving and resist changes to its motion is an important concept in physics. Objects with greater mass or higher speed tend to continue moving unless a larger force is applied to stop them or change their direction. This explains why a fast-moving bicycle is more difficult to stop than a slowly moving one and why a loaded wheelbarrow requires more effort to stop than an empty one.",
       "with": [
         {
@@ -3736,7 +3941,7 @@
                 "c": null
               },
               {
-                "t": ", the objects stick together or move with a common velocity after impact, and some kinetic energy is changed into other forms such as heat and sound. Examples include railway wagons coupling together and some vehicle collisions.",
+                "t": ", the objects may bounce apart or stick together and move with a common velocity, but some kinetic energy is changed into other forms such as heat and sound. Examples include railway wagons coupling together and some vehicle collisions.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3779,6 +3984,24 @@
                 "t": "Speed is the rate at which an object covers a distance. Speed enables people and goods to reach destinations more quickly while excessive speeding can have serious consequences for road users.",
                 "b": false,
                 "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.1.3.1 Build simple machines to solve real life problems",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.1.3.1 Build simple machines to solve real life problems.",
+                "b": false,
+                "it": true,
                 "c": null
               }
             ]
@@ -4010,7 +4233,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "(a) the mechanical advantage of the wheelbarrow.",
+                "t": "(a) the mechanical advantage of the inclined plane.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -5046,6 +5269,24 @@
       ]
     },
     {
+      "find": "2.1.4.1 Apply the principles of pressure to solve real-life problems ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.1.4.1 Apply the principles of pressure to solve real-life problems. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Use any suitable materials available in your school or local environment, such as books, wooden blocks, bricks, chairs, rulers, sponges, nails, drawing pins, or knives, to investigate how pressure depends on the force applied and the area over which the force acts. Compare the effects of applying the same force over large and small surface areas, record your observations, and discuss why sharp objects produce greater pressure than blunt objects. From your findings, describe pressure, identify its SI unit.",
       "with": [
         {
@@ -5585,7 +5826,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "P = 3 000 N/m² or P = 3 000 Pa",
+                "t": "P = 3000 N/m² or P = 3000 Pa",
                 "b": false,
                 "it": false,
                 "c": null
@@ -5880,6 +6121,24 @@
       ]
     },
     {
+      "find": "When an object is immersed in a liquid, it appears to lose some of its weight. This observation suggests that the liquid exerts an upward force on the object. In the following activity, you will investigate this phenomenon and use experimental evidence to demonstrate Archimedes' Principle.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "When an object is immersed in a liquid, it appears to lose some of its weight. This observation suggests that the liquid exerts an upward force on the object. In the following activity, you will investigate this phenomenon and use experimental evidence to demonstrate Archimedes’ Principle.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Working in small groups or individually, use a Eureka (overflow) can, a measuring cylinder, a spring balance, water and a solid object that sinks in water to investigate Archimedes' Principle. Measure the weight of the object in air and then when it is completely immersed in water. Collect the displaced water, determine its weight and compare it with the loss in weight of the immersed object. Record your observations and use the results to explain Archimedes' Principle.",
       "with": [
         {
@@ -5887,7 +6146,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "Working in small groups or individually, use a Eureka (overflow) can, a measuring cylinder, a spring balance, water and a solid object that sinks in water to investigate Archimedes' Principle. Fill the Eureka can with water until water flows out through the spout and stops dripping, ensuring that the water level is at the level of the spout. Place an empty measuring cylinder below the spout to collect the displaced water. Measure the weight of the solid object in air using the spring balance and record the reading. Carefully lower the object into the water until it is completely immersed, without allowing it to touch the sides or bottom of the Eureka can. Collect all the water displaced through the spout in the measuring cylinder. Remove the measuring cylinder and measure the weight of the displaced water using the spring balance. Record the reading. Calculate the loss in weight of the object by subtracting its weight when immersed in water from its weight in air. Compare the loss in weight of the object with the weight of the displaced water. Record your observations and use the results to explain Archimedes' Principle.",
+                "t": "Working in small groups or individually, use a Eureka (overflow) can, a measuring cylinder, a spring balance, water and a solid object that sinks in water to investigate Archimedes’ Principle. Fill the Eureka can with water until water flows out through the spout and stops dripping, ensuring that the water level is at the level of the spout. Place an empty measuring cylinder below the spout to collect the displaced water. Measure the weight of the solid object in air using the spring balance and record the reading. Carefully lower the object into the water until it is completely immersed, without allowing it to touch the sides or bottom of the Eureka can. Collect all the water displaced through the spout in the measuring cylinder. Remove the measuring cylinder and measure the weight of the displaced water using the spring balance. Record the reading. Calculate the loss in weight of the object by subtracting its weight when immersed in water from its weight in air. Compare the loss in weight of the object with the weight of the displaced water. Record your observations and use the results to explain Archimedes’ Principle.",
                 "b": false,
                 "it": true,
                 "c": null
@@ -5898,6 +6157,66 @@
             "numId": null,
             "lvl": null,
             "marker": null
+          }
+        }
+      ]
+    },
+    {
+      "find": "The apparent loss in weight of an object is equal to the upthrust exerted by the fluid. During the experiment, the loss in weight of the object was found to be equal to the weight of the fluid displaced by the object. This observation led to the formulation of Archimedes' Principle.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The apparent loss in weight of an object is equal to the upthrust exerted by the fluid. During the experiment, the loss in weight of the object was found to be equal to the weight of the fluid displaced by the object. This observation led to the formulation of Archimedes’ Principle.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Archimedes' Principle states that:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Archimedes’ Principle",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " states that:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Archimedes' Principle explains why some objects float while others sink. An object floats when it is in equilibrium, that is, when the upthrust acting on it is equal to its weight. It sinks when its weight is greater than the upthrust acting on it.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Archimedes’ Principle explains why some objects float while others sink. An object floats when it is in equilibrium, that is, when the upthrust acting on it is equal to its weight. It sinks when its weight is greater than the upthrust acting on it.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -5935,6 +6254,24 @@
               },
               {
                 "t": " when completely immersed in water. Calculate:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "(b) According to Archimedes' Principle,",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "(b) According to Archimedes’ Principle,",
                 "b": false,
                 "it": false,
                 "c": null
@@ -6016,10 +6353,10 @@
         {
           "raw": {
             "kind": "q",
-            "q": "Using Archimedes' Principle, explain why some objects float while others sink in water.                                                                                                                     [2]",
+            "q": "Using Archimedes’ Principle, explain why some objects float while others sink in water.                                                                                                                     [2]",
             "qseg": [
               {
-                "t": "Using Archimedes' Principle, explain why some objects float while others sink in water.                                                                                                                     [2]",
+                "t": "Using Archimedes’ Principle, explain why some objects float while others sink in water.                                                                                                                     [2]",
                 "b": false,
                 "it": true,
                 "c": null
@@ -6221,6 +6558,46 @@
       ]
     },
     {
+      "find": "State Archimedes' Principle.                                                                           [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "State Archimedes’ Principle.                                                                           [1]",
+            "qseg": [
+              {
+                "t": "State Archimedes’ Principle.                                                                           [1]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "c)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.1.1. Analyse the impact of simple kinetic theory of matter on technological innovations",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.1.1 Analyse the impact of simple kinetic theory of matter on technological innovations.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Working individually, observe samples of a solid, a liquid, and a gas available in your surroundings, such as a stone, water, and air in a balloon. Compare how each substance behaves when handled. Draw simple particle diagrams to show the arrangement and movement of particles in each state of matter. Using your observations and the diagrams, describe the main ideas of the kinetic theory of matter and explain how the arrangement and movement of particles differ in solids, liquids, and gases.",
       "with": [
         {
@@ -6239,6 +6616,24 @@
             "numId": null,
             "lvl": null,
             "marker": null
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.2.1. Measure temperature using appropriate instruments ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.2.1 Measure temperature using appropriate instruments. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -6418,6 +6813,29 @@
       ]
     },
     {
+      "find": "Tabulate your observations, identify how changes in pressure and the presence of impurities affect the boiling and melting points of the substances and draw conclusions from your findings. Present your results to the class.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Tabulate your observations, identify how changes in pressure and the presence of impurities affect the boiling and melting points of the substances and draw conclusions from your findings. Present your results to the class.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "Tabulate your observations, identify how changes in pressure and the presence of impurities affect the boiling and melting points of the substances and draw conclusions from your findings. Present your results to the class.",
+            "isList": false,
+            "numId": null,
+            "lvl": null,
+            "marker": null
+          }
+        }
+      ]
+    },
+    {
       "find": "To calibrate an unmarked thermometer, the thermometer bulb is first placed in pure melting ice, and the level of the liquid column is marked as the lower fixed point (0 °C). The bulb is then immersed in pure boiling water and the level of the liquid column is marked as the upper fixed point (100 °C).",
       "with": [
         {
@@ -6473,7 +6891,73 @@
             "t": "para",
             "segs": [
               {
-                "t": "Temperature can be expressed on different scales. In the following activity, you will explore how the Celsius and kelvin scales are related.",
+                "t": "Temperature can be expressed on different scales. In the following activity, you will explore how the Celsius and Kelvin scales are related.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Temperature can be measured using different scales. The two most commonly used scales in science are the Celsius scale and the kelvin scale.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Temperature can be measured using different scales. The two most commonly used scales in science are the Celsius scale and the Kelvin scale.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "The kelvin scale is the SI unit of temperature. It begins at absolute zero (0 K), which is the lowest possible temperature at which particles possess the least possible kinetic energy. Unlike the Celsius scale, the kelvin scale does not use the degree (°) symbol.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The Kelvin scale is the SI unit of temperature. It begins at ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "absolute zero",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " (0 K), which is the lowest possible temperature at which particles possess the least possible kinetic energy. Unlike the Celsius scale, the Kelvin scale does not use the degree (°) symbol.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "In symbols,              T = Ѳ +273",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "In symbols,              T = θ +273",
                 "b": false,
                 "it": false,
                 "c": null
@@ -6491,7 +6975,25 @@
             "t": "para",
             "segs": [
               {
-                "t": "or                            Ѳ = T − 273",
+                "t": "or                            θ = T − 273",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "The kelvin scale is widely used in scientific calculations because it starts at absolute zero and does not have negative temperatures under ordinary conditions. The Celsius scale is commonly used in everyday life for measuring weather conditions, body temperature, and the temperatures of substances.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The Kelvin scale is widely used in scientific calculations because it starts at absolute zero and does not have negative temperatures under ordinary conditions. The Celsius scale is commonly used in everyday life for measuring weather conditions, body temperature, and the temperatures of substances.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -6661,10 +7163,10 @@
         {
           "raw": {
             "kind": "q",
-            "q": "Explain why the kelvin scale is preferred over the Celsius scale in scientific investigations.                                                                                                         [2]",
+            "q": "Explain why the Kelvin scale is preferred over the Celsius scale in scientific investigations.                                                                                                         [2]",
             "qseg": [
               {
-                "t": "Explain why the kelvin scale is preferred over the Celsius scale in scientific investigations.                                                                                                         [2]",
+                "t": "Explain why the Kelvin scale is preferred over the Celsius scale in scientific investigations.                                                                                                         [2]",
                 "b": false,
                 "it": true,
                 "c": null
@@ -6673,6 +7175,24 @@
             "a": "",
             "marker": "d)",
             "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.3.1. Demonstrate the expansion of solids, liquids and gases ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.3.1 Demonstrate the expansion of solids, liquids and gases. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -6952,6 +7472,129 @@
       ]
     },
     {
+      "find": "Substance      Melting Point (°C)      Boiling Point (°C)",
+      "with": [
+        {
+          "raw": {
+            "kind": "table",
+            "header": true,
+            "rows": [
+              [
+                {
+                  "text": "Substance",
+                  "imgs": []
+                },
+                {
+                  "text": "Melting point (°C)",
+                  "imgs": []
+                },
+                {
+                  "text": "Boiling point (°C)",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "A",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "100",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "B",
+                  "imgs": []
+                },
+                {
+                  "text": "−39",
+                  "imgs": []
+                },
+                {
+                  "text": "357",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "C",
+                  "imgs": []
+                },
+                {
+                  "text": "80",
+                  "imgs": []
+                },
+                {
+                  "text": "218",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "D",
+                  "imgs": []
+                },
+                {
+                  "text": "−114",
+                  "imgs": []
+                },
+                {
+                  "text": "78",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A                                 0                       100",
+      "with": []
+    },
+    {
+      "find": "B                               -39                      357",
+      "with": []
+    },
+    {
+      "find": "C                                80                      218",
+      "with": []
+    },
+    {
+      "find": "D                              -114                       78",
+      "with": []
+    },
+    {
+      "find": "Charles' law: Charles' law states that the volume of the fixed mass of a gas is directly proportional to its absolute temperature at constant pressure.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Charles’ law: ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Charles’ law states that the volume of the fixed mass of a gas is directly proportional to its absolute temperature at constant pressure.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "frac(V_(1), T_(1)) = frac(V_(2), T_(2))      ",
       "with": [
         {
@@ -7020,6 +7663,30 @@
       ]
     },
     {
+      "find": "Combined gas law: The combined gas law combines Boyle’s law, Charles' law and Gay-Lussac’s law into one equation.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Combined gas law: ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "The combined gas law combines Boyle’s law, Charles’ law and Gay-Lussac’s law into one equation.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "frac(P_(1) V_(1), T_(1)) =frac(P_(2) V_(2), T_(2))",
       "with": [
         {
@@ -7046,6 +7713,24 @@
                 "display": false,
                 "b": false,
                 "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.4.1. Demonstrate how various internal combustion engines operate ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.4.1 Demonstrate how various internal combustion engines operate. ",
+                "b": false,
+                "it": true,
                 "c": null
               }
             ]
@@ -7273,6 +7958,24 @@
             "a": "",
             "marker": "(iv)",
             "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.5.1. Apply the concepts of heat transfer",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.5.1 Apply the concepts of heat transfer.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -7835,6 +8538,24 @@
                 "a": "",
                 "marker": "e)",
                 "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.6.1. Solve practical and numerical problems involving measurements of heat ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.6.1 Solve practical and numerical problems involving measurements of heat. ",
+                "b": false,
+                "it": true,
+                "c": null
               }
             ]
           }
@@ -8583,6 +9304,42 @@
       ]
     },
     {
+      "find": "2.3.1.1. Solve practical and numerical problems involving wave motion ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.3.1.1 Solve practical and numerical problems involving wave motion. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Waves are described using specific terms that help us understand their characteristics and behaviour. These terms include crest, trough, equilibrium position, amplitude, wavelength, frequency and wave-front",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Waves are described using specific terms that help us understand their characteristics and behaviour. These terms include crest, trough, equilibrium position, amplitude, wavelength, frequency and wave-front.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "     f = frac(1, T)",
       "with": [
         {
@@ -8933,6 +9690,24 @@
       ]
     },
     {
+      "find": "2.3.2.1 Interpret information related to electromagnetic waves ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.3.2.1 Interpret information related to electromagnetic waves. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "All electromagnetic waves travel at the same speed in a vacuum, which is approximately 3.0 × 10⁸ ms⁻¹. However, their speed decreases when they travel through materials such as water or glass.",
       "with": [
         {
@@ -9037,6 +9812,24 @@
             "a": "",
             "marker": "1.",
             "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.4.1.1 Manipulate devices to demonstrate fundamental properties of sound ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.4.1.1 Manipulate devices to demonstrate fundamental properties of sound. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -9648,6 +10441,24 @@
       ]
     },
     {
+      "find": "Noise pollution also affects learning and communication. In schools, excessive noise can reduce learners' concentration, making it difficult to understand lessons and communicate effectively. Learners should recognise excessive noise as a possible threat to their well-being and identify practical ways of reducing exposure and creating a calm learning environment. In workplaces, high noise levels can interfere with verbal communication, reduce efficiency and increase the risk of accidents because warning signals may not be heard clearly.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Noise pollution also affects learning and communication. In schools, excessive noise can reduce learners’ concentration, making it difficult to understand lessons and communicate effectively. Learners should recognise excessive noise as a possible threat to their well-being and identify practical ways of reducing exposure and creating a calm learning environment. In workplaces, high noise levels can interfere with verbal communication, reduce efficiency and increase the risk of accidents because warning signals may not be heard clearly.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Thunder                                                                                                           [1]",
       "with": [
         {
@@ -9893,7 +10704,7 @@
         {
           "img": "media/phys-f2-lb/a12.png",
           "caption": "Figure 22: Illustration of how depth of the liquid affects pressure",
-          "w": 300
+          "w": 480
         }
       ]
     },
@@ -9968,6 +10779,14 @@
       ]
     },
     {
+      "after": "railway wagons coupling together and some vehicle collisions",
+      "blocks": [
+        {
+          "move": "imp_image6"
+        }
+      ]
+    },
+    {
       "after": "Sea and land breezes are natural convection currents",
       "blocks": [
         {
@@ -9992,18 +10811,18 @@
   ],
   "images": {
     "image3.png": {
-      "hmm": 44
+      "hmm": 48
     },
     "image8.jpeg": {
       "hmm": 50
     },
     "image4.png": {
       "side": false,
-      "hmm": 52
+      "w": 420
     },
     "image6.png": {
       "side": false,
-      "hmm": 52
+      "w": 420
     },
     "image10.png": {
       "src": "media/phys-f2-lb/a9.png",
@@ -10027,7 +10846,7 @@
     },
     "image17.jpeg": {
       "src": "media/phys-f2-lb/a10.png",
-      "hmm": 38
+      "w": 470
     },
     "image20.jpeg": {
       "src": "media/phys-f2-lb/a20.png"
