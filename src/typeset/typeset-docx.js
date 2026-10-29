@@ -955,6 +955,9 @@ async function typesetOne(docxPath, themeName) {
   // coverHeroPortrait: true — a portrait cover picture gets a tall card (form1 cover) instead of
   // the wide 132x78mm band, which can only keep a strip of an upright picture
   if (ov.coverHeroPortrait) themeOverrides.coverHeroPortrait = true;
+  // coverHeroWhole: true — the wide card (form1 cover) takes its height from the picture instead
+  // of cropping it to 78mm, so a 3:2 picture shows whole (132x88mm)
+  if (ov.coverHeroWhole) themeOverrides.coverHeroWhole = true;
   // keepBoxMm: boxes shorter than this stay whole on one page (default 180 mm); a lower value lets
   // mid-size activity boxes split rather than leave half a page empty before them
   if (ov.keepBoxMm) themeOverrides.keepBoxMm = Number(ov.keepBoxMm);

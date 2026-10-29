@@ -432,7 +432,7 @@ function themeTypst(theme, overrides = {}) {
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},
   tocUnitsOnly: ${t.tocUnitsOnly ? "true" : "false"}, coverStyle: ${q(t.coverStyle || "")}, boxStyle: ${q(t.boxStyle || "")}, tocDepth: ${t.tocDepth || 2}, mono: ${t.mono ? "true" : "false"},
   ${t.tableSize ? `tableSize: ${t.tableSize},\n  ` : ""}
-  ${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.keepBoxMm ? `keepBoxMm: ${t.keepBoxMm},\n  ` : ""}${t.keepBoxesWhole ? `keepBoxesWhole: true,\n  ` : ""}${t.coverHeroPortrait ? `coverHeroPortrait: true,\n  ` : ""}${t.keepTableMm ? `keepTableMm: ${t.keepTableMm},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
+  ${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.keepBoxMm ? `keepBoxMm: ${t.keepBoxMm},\n  ` : ""}${t.keepBoxesWhole ? `keepBoxesWhole: true,\n  ` : ""}${t.coverHeroPortrait ? `coverHeroPortrait: true,\n  ` : ""}${t.coverHeroWhole ? `coverHeroWhole: true,\n  ` : ""}${t.keepTableMm ? `keepTableMm: ${t.keepTableMm},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
 )\n`;
 }
 
