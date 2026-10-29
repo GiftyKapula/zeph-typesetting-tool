@@ -277,7 +277,7 @@
           if literary {
             block(width: 100%, height: 14pt, {
               set text(bottom-edge: "baseline")
-              place(bottom + left, dy: -9.3pt, hgrid)
+              place(bottom + left, dy: -5.1pt, hgrid)
               place(bottom + left, hline)
             })
           } else { hgrid; v(-3pt); hline }
@@ -2364,7 +2364,7 @@
     block(breakable: false, width: 100%)[
       #set par(spacing: 0pt)
       #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
-      #v(9.5pt)
+      #v(5.7pt)
       // drawn like the running header's rule (0.6pt in the primary colour), not the pale
       // table rule colour — the user marked the header line as the one to match
       #line(length: 100%, stroke: 0.6pt + T.primary)]
@@ -2379,9 +2379,9 @@
       // spacing uniform everywhere"): the running header's text-to-rule gap above and
       // below the title, and the sub-topics' rule-to-text gap after it.
       #line(length: 22%, stroke: 0.6pt + T.accent)
-      #v(-4.1pt)
+      #v(-8.3pt)
       #text(fill: T.primary, size: hm(16pt), weight: "bold", tracking: 0.5pt)[#t]
-      #v(-4.5pt)
+      #v(-8.3pt)
       #line(length: 22%, stroke: 0.6pt + T.accent)
     ])
     v(-0.3pt)
@@ -2527,7 +2527,7 @@
       #grid(columns: (auto, 1fr), column-gutter: 7pt, align: (horizon, horizon),
         rotate(45deg, rect(fill: T.accent, width: 4pt, height: 4pt)),
         text(fill: T.primary, size: hs(14pt), weight: "bold", style: "italic")[#t])
-      #v(-1.4pt) // title-to-rule as the running header (was 12pt)
+      #v(-5.6pt) // title-to-rule as the running header
       #line(length: 100%, stroke: 0.5pt + T.accent.lighten(12%))]
   } else if panel {
     // a solid colour "chip", sized to the text
