@@ -25,7 +25,7 @@
     },
     {
       "find": "R = 2.5 × 10³ J mol⁻¹ K⁻¹",
-      "with": "R = 8.31 J mol⁻¹ K⁻¹"
+      "with": "R = 8.33 J mol⁻¹ K⁻¹"
     },
     {
       "find": "Lead the to discuss how heating curves",
@@ -327,7 +327,10 @@
           "text": "*= K82.50* [1]"
         },
         {
-          "text": "*Therefore, the hybrid vehicle saves K82.50 per 100 km.* [1]"
+          "text": "*Fuel saved in a year = (20 000 ÷ 100) × 3 L = 600 L*"
+        },
+        {
+          "text": "*Annual saving = 600 × K27.50 = K16 500* [1]"
         }
       ]
     },
@@ -1840,6 +1843,18 @@
     {
       "from": "Q = 45",
       "to": "H = 45"
+    },
+    {
+      "from": "1.34 × 10⁵",
+      "to": "1.336 × 10⁵"
+    },
+    {
+      "from": "3.35 × 10⁵",
+      "to": "3.34 × 10⁵"
+    },
+    {
+      "from": "crop growth in greenhouses. [1]",
+      "to": "crop growth in greenhouses. [2]"
     }
   ],
   "mathBodyFont": true,
