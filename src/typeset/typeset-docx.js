@@ -120,6 +120,7 @@ async function typesetOne(docxPath, themeName) {
   importOpts.tabGap = !!ov.glossaryColumns;           // a single tab still separates two glossary columns
   importOpts.exerciseBullets = !!ov.exerciseBullets; // keep Word bullets inside exercises as bullets
   importOpts.answerListNumbered = ov.answerListNumbered || [];
+  importOpts.activityTitles = ov.activityTitles || [];   // box titles this book uses for an activity
   let { blocks, media, tmp } = await importDocx(docxPath, importOpts);
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
@@ -279,6 +280,10 @@ async function typesetOne(docxPath, themeName) {
       const hits = blocks.filter((b) => isCand(b) && re.test(b.text));
       if (hits.length) byWord.set(w, hits);
     }
+    // a book has more than one unit: a unit word met just once, when another is met
+    // several times, is a sub-topic that happens to start with it (Kiikaonde G3 LB
+    // "Kishina Kata" = main idea, beside eleven KIPUNGU units)
+    if ([...byWord.values()].some((h) => h.length > 1)) for (const [w, h] of byWord) if (h.length === 1) byWord.delete(w);
     if (byWord.size) {
       const [w, hits] = [...byWord.entries()].sort((a, b) => a[1].length - b[1].length)[0];
       const promote = hits.filter((b) => b.t !== "h1");
@@ -991,11 +996,14 @@ async function typesetOne(docxPath, themeName) {
     if (ov.coverWords && ov.coverWords.grade) labels.grade = ov.coverWords.grade;
     if (ov.coverWords && ov.coverWords.authors) labels.authors = ov.coverWords.authors;
     themeOverrides.labels = labels;
+    // the book's own book-type words (coverWords.booktype, already on its cover and title
+    // page) win over the word list's first form in the running header too
+    const ownType = ov.coverWords && ov.coverWords.booktype;
     const tr = (s) => s
       .replace(/\bgrade\b/i, (m) => labels.grade || m)
       .replace(/\bform\b/i, (m) => labels.form || m)
-      .replace(/teacher['’]?s\s+guide/i, (m) => labels.tg || m)
-      .replace(/learner['’]?s\s+book/i, (m) => labels.lb || m);
+      .replace(/teacher['’]?s\s+guide/i, (m) => ownType || labels.tg || m)
+      .replace(/learner['’]?s\s+book/i, (m) => ownType || labels.lb || m);
     if (themeOverrides.hdrtab) themeOverrides.hdrtab = titleCase(tr(themeOverrides.hdrtab));
     const lvlId = { "Early Childhood Education Level": "level_ece", "Primary Education Level": "level_primary",
       "Secondary Education Ordinary Level": "level_ordinary", "Secondary Education Advanced Level": "level_advanced" }[eduLevel];

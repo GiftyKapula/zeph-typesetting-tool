@@ -1,0 +1,323 @@
+{
+  "localLabels": true,
+  "authors": [
+    "G. Mushipi"
+  ],
+  "hyphenate": false,
+  "activityTitles": [
+    "MWINGILO",
+    "MWIINGILO",
+    "MWIMGILO"
+  ],
+  "tocTitle": "BIJIIMO",
+  "_note_source": "No Word manuscript exists: the .docx was rebuilt from the reviewer's marked PDF 'GRADE 3 LB KIKAONDE ZEPH.pdf' (Word/PDFMaker export, 109 pp). Round 1 = 116 reviewer comments (zeph grade-3-kiikaonde-lb, #1934-#2049); every correction lives in this file.",
+  "_note_activity": "The numbered MWINGILO boxes are learning activities (activityTitles), and the reviewer renamed them KYAKUUBA (pp 42-106) / BYAKUUBA (pp 15-38). One spelling per word: KYAKUUBA (the singular, and the more frequent form) for every box. MWINGILO WA KUUBA / WA KUNZUBO lines are not boxes and were not marked.",
+  "subtext": [
+    {
+      "from": "MWINGILO 1:",
+      "to": "KYAKUUBA 1:",
+      "titles": true
+    },
+    {
+      "from": "MWINGILO 2:",
+      "to": "KYAKUUBA 2:",
+      "titles": true
+    },
+    {
+      "from": "MWINGILO 3:",
+      "to": "KYAKUUBA 3:",
+      "titles": true
+    },
+    {
+      "from": "MWINGILO 4:",
+      "to": "KYAKUUBA 4:",
+      "titles": true
+    },
+    {
+      "from": "MWINGILO 5:",
+      "to": "KYAKUUBA 5:",
+      "titles": true
+    },
+    {
+      "from": "MWINGILO:",
+      "to": "KYAKUUBA:",
+      "titles": true
+    },
+    {
+      "from": "KUMWISHA",
+      "to": "KUMVWISHA",
+      "titles": true
+    },
+    {
+      "from": "nsumbu",
+      "to": "nsambu",
+      "titles": true
+    },
+    {
+      "from": "mafumu-tulume",
+      "to": "bisopelo",
+      "titles": true
+    },
+    {
+      "from": "mafumu tulume",
+      "to": "bisopelo",
+      "titles": true
+    },
+    {
+      "from": "MAFUMU TULUME",
+      "to": "BISOPELO",
+      "titles": true
+    },
+    {
+      "from": "mwinsambo",
+      "to": "mwisambo",
+      "titles": true
+    },
+    {
+      "from": "MWINSAMBO",
+      "to": "MWISAMBO",
+      "titles": true
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "NTATWILO",
+      "with": "NTENDEKELO"
+    }
+  ],
+  "edit": [
+    {
+      "find": "telekai ku jishimikila ne kukumbula mepuzho apa kanwatu",
+      "with": "telekai ku jishimikila jisa kwimitangila mufunjishi wenu ne kukumbula mepuzho apa kanwatu"
+    },
+    {
+      "find": "kumwesha nasambu ya bafunda",
+      "with": "kumwesha nsambu ya bafunda"
+    },
+    {
+      "find": "uno mwingilomu buuku wobe",
+      "with": "uno mwingilo mu buuku wobe"
+    },
+    {
+      "find": "2. Baana baij na nsanbu ya kufunda.",
+      "with": "2. Baanabajinansambuyakufunda"
+    },
+    {
+      "find": "kutolaula biswasha",
+      "with": "kutolaula biswaswa"
+    },
+    {
+      "find": "Kunemba Byamba Na Kusendelela",
+      "with": "Kunemba Byambo Na Kusendelela"
+    },
+    {
+      "find": "Mukuba ba mwibgijisha",
+      "with": "Mukuba ba mwingijisha"
+    },
+    {
+      "find": "Mufunjishi wapwizhe bafunda.",
+      "with": "Mufunjishi waipwizhe bafunda."
+    },
+    {
+      "find": "Mpalawamilunga",
+      "with": "Mpalalawamilunga"
+    },
+    {
+      "find": "kulama sukuulu na butoto",
+      "with": "kulama sukuulu na butooto"
+    },
+    {
+      "find": "Mulusa uji lusekelo",
+      "with": "Mulusa uji na lusekelo"
+    },
+    {
+      "find": "kwimukwsha kuyaka amba bblume",
+      "with": "kwimukwsha kuyuka amba babalume"
+    }
+  ],
+  "remove": [
+    "Baji baji na nsambu bakoma bulongo."
+  ],
+  "_note_alphabet": "The two bold alphabet lines read as one heading (the capital line was dropped as its duplicate): set back as two bold lines, with the z the reviewer added to each.",
+  "replaceBlocks": [
+    {
+      "find": "a b ch d e f g h i j k l m n o p s t u v w y",
+      "with": [
+        {
+          "para": "**a b ch d e f g h i j k l m n o p s t u v w y z**"
+        },
+        {
+          "para": "**A B CH D E F G H I J K L M N O P S T U V W Y Z**"
+        }
+      ]
+    },
+    {
+      "find": "Luusa lonsetu lwa panyiwa ku bene bena buuku. Nanchi kafwako muntu nangwatu umo waswishiwa kufyatulula uno buuku, kibese kya uno buuku, kumulama mu jishinda jiji jonse, kwingijisha malaiti, kukopolola nangwa kulama mawi kwakubula luusa lwa bene bena buuku ine.",
+      "with": []
+    },
+    {
+      "find": "Wapitulukilemo:",
+      "with": []
+    },
+    {
+      "find": "James Kantontoka",
+      "with": []
+    },
+    {
+      "find": "Cover and Book Layout:",
+      "with": []
+    },
+    {
+      "find": "Ng`ambi Teddy (B.Sc)",
+      "with": []
+    },
+    {
+      "find": "Wafyatwilwe naba:",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road",
+      "with": []
+    },
+    {
+      "find": "P.O. Box 32708",
+      "with": []
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "ISBN: …………………………………",
+      "with": []
+    },
+    {
+      "find": "© Zambia Educational Publishing House (2026)",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House (2026)",
+          "center": true
+        },
+        {
+          "para": "Luusa lonsetu lwa panyiwa ku bene bena buuku. Nanchi kafwako muntu nangwatu umo waswishiwa kufyatulula uno buuku, kibese kya uno buuku, kumulama mu jishinda jiji jonse, kwingijisha malaiti, kukopolola nangwa kulama mawi kwakubula luusa lwa bene bena buuku ine.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Wapitulukilemo:**",
+          "center": true
+        },
+        {
+          "para": "James Kantontoka",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Wafyatwilwe naba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Printed by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    }
+  ],
+  "_note_imprint": "Copyright page set out like the house model (Silozi G4 LB / Luvale G1 LB): bold label over plain value, publisher group, then ISBN and printer.",
+  "coverWords": {
+    "booktype": "Buuku wa Kufundamo"
+  },
+  "subject": "Kikaonde",
+  "_note_subject": "The book spells its language KIKAONDE (its own cover, title page and text), so the cover and headers do too.",
+  "images": {
+    "39a5704427471fbdf51c9acb6c8bc3c86284a5b5.png": {
+      "src": "KIIKAONDE GRADE 3 LB-hires/39a5704427471fbdf51c9acb6c8bc3c86284a5b5.png",
+      "hmm": 36
+    },
+    "517664af58fd02fc703c6531d5b3837960c72197.png": {
+      "src": "KIIKAONDE GRADE 3 LB-hires/517664af58fd02fc703c6531d5b3837960c72197.png",
+      "hmm": 36
+    },
+    "af255efe5524a51c1c4d621571bf2895fa1f1566.png": {
+      "src": "KIIKAONDE GRADE 3 LB-hires/af255efe5524a51c1c4d621571bf2895fa1f1566.png"
+    },
+    "09bba92999bd9a0be7d447fc4a501924a0468234.png": {
+      "src": "KIIKAONDE GRADE 3 LB-hires/09bba92999bd9a0be7d447fc4a501924a0468234.png"
+    },
+    "dfaa10979b4e293f6ba6f9e237b0299f6fd2b230.png": {
+      "hmm": 36
+    },
+    "1248f45c01b3f14266e7cd151a7ec86a376443aa.png": {
+      "hmm": 36
+    }
+  },
+  "_note_images": "p80 (printed 65): the four animal photos at 36 mm high so the last exercise line (4. kabwa) stays on the page instead of carrying over alone.",
+  "dropBreaks": [
+    35,
+    37
+  ],
+  "_note_dropBreaks": "35: KUTANGA follows the two-line end of BICHOMEKO (was alone on p111); 37: NCHIKAMENO follows on the part-empty page, so the unit-9 test no longer leaves three lines alone on p121.",
+  "coverImage": "KIIKAONDE GRADE 3 LB-hires/cover.png",
+  "_note_cover": "Cover picture = the reviewed PDF cover photo, whole (user chose 2026-10-29, blackboard words included; no word-free crop keeps the children and teacher), Real-ESRGAN 4x then 2560px."
+}
