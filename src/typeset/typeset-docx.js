@@ -7785,6 +7785,16 @@ function normaliseQuestionMarkBold(blocks) {
     // runs a line or two over its page at the default.
     fmSpacing: ov.fmSpacing || ((THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em"),
   }, detectName);
+  // `backCover: true` — the house back cover (logo, "Published by", ISBN box) for a
+  // portrait layout outside the series/science family, which never gets one from
+  // applySeriesFront. Having it is also what lets the printer's cover spread (and its
+  // spine) be written for a long book. Opt-in: the Literature in English Form 1 TG
+  // reached 125 pages with no back cover and so no spine.
+  if (ov.backCover && !seriesLike && variant !== "syllabus" && !blocks.some((b) => b.t === "backcover")) {
+    const cov = blocks.find((b) => b.t === "cover");
+    if (cov) blocks.push({ t: "backcover", lines: cov.lines, logo: cov.logo });
+    else console.warn("!  backCover: the book has no cover to pair it with");
+  }
 
   // `backmatterSpacing` ({ leading, spacing }, e.g. { "leading": "0.6em", "spacing": "0.7em" }):
   // one tighter paragraph setting for the back matter — GLOSSARY and REFERENCES alike, never
@@ -8077,6 +8087,14 @@ function normaliseQuestionMarkBold(blocks) {
   // Form 2 Teacher's Guide had to keep the cover it was proofread with: a tan D9A46A
   // field carrying the theme's own 8A4A2E. Opt-in; applied after coverColor.
   if (ov.coverPrimary) themeOverrides.covPrimary = String(ov.coverPrimary).replace(/^#/, "");
+  // A `backCover` portrait book: the back and spine read covSignature, but a portrait
+  // front paints its field from covPrimary (see above), so the two came out different
+  // colours — a pink back and spine beside the Literature in English TG's maroon front.
+  // Give them the front's own field, lettered light as the front is.
+  if (ov.backCover && !seriesLike && variant !== "syllabus") {
+    themeOverrides.covSignature = themeOverrides.covPrimary || (THEMES[theme] || {}).primary;
+    themeOverrides.backInk = "ffffff";
+  }
   // ---- British English, and a report on the prose ---------------------------
   // These books are written in British English and nothing enforced it, so a
   // manuscript that spelt "colour" on one page and "color" on the next printed both.
