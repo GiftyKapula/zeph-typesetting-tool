@@ -525,6 +525,7 @@ function emit(blocks) {
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
+      case "parspacing": out += `#set par(spacing: ${b.v})\n`; break;
       case "listitem": out += listitemCall(b); break;
       case "figcaption": {
         const fc = `#figcaption(${S(b.text)})\n`;
@@ -7779,7 +7780,17 @@ function normaliseQuestionMarkBold(blocks) {
     // runs a line or two over its page at the default.
     fmSpacing: ov.fmSpacing || ((THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em"),
   }, detectName);
-  else if (variant === "literary") blocks = groupSignatories(blocks);
+  else if (variant === "literary") {
+    blocks = groupSignatories(blocks);
+    // The house front-matter paragraph gap (the series books' 1.9em) from the first
+    // front-matter section to the first unit, then back to the body spacing (0.86em).
+    const unitAt = blocks.findIndex((b) => b.t === "h1" && /^(UNIT|TOPIC|CHAPTER)\b/i.test(b.text || ""));
+    const fmAt = blocks.findIndex((b, i) => b.t === "h1" && (unitAt < 0 || i < unitAt));
+    if (fmAt >= 0 && unitAt > fmAt) {
+      blocks.splice(unitAt, 0, { t: "parspacing", v: "0.86em" });
+      blocks.splice(fmAt + 1, 0, { t: "parspacing", v: ov.fmSpacing || "1.9em" });
+    }
+  }
   // `backCover: true` — the house back cover (logo, "Published by", ISBN box) for a
   // portrait layout outside the series/science family, which never gets one from
   // applySeriesFront. Having it is also what lets the printer's cover spread (and its

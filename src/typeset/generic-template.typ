@@ -2344,6 +2344,18 @@
         #line(length: 100%, stroke: 0.6pt + T.rulec)]
       v(7pt)
     }
+  } else if literary and not isUnitTitle(t) {
+    // Front matter (Authors / Preface / Foreword / ...) in the HOUSE look the series books
+    // use — left-aligned capitals in the cover colour over a thin rule — not the centred
+    // literary title: the user checked the Literature in English Form 1 TG against the
+    // Physics Form 2 LB and wanted its front matter to read the same.
+    v(6pt)
+    block(breakable: false, width: 100%)[
+      #set par(spacing: 0pt)
+      #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
+      #v(8pt)
+      #line(length: 100%, stroke: 0.6pt + T.rulec)]
+    v(7pt)
   } else if literary {
     // centred chapter title flanked by thin gold rules — a literary look
     v(12pt, weak: true)
