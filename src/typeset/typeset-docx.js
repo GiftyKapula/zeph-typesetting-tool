@@ -987,11 +987,14 @@ async function typesetOne(docxPath, themeName) {
       if (w) labels[k] = w;
     }
     themeOverrides.labels = labels;
+    // the book's own book-type words (coverWords.booktype, already on its cover and title
+    // page) win over the word list's first form in the running header too
+    const ownType = ov.coverWords && ov.coverWords.booktype;
     const tr = (s) => s
       .replace(/\bgrade\b/i, (m) => labels.grade || m)
       .replace(/\bform\b/i, (m) => labels.form || m)
-      .replace(/teacher['’]?s\s+guide/i, (m) => labels.tg || m)
-      .replace(/learner['’]?s\s+book/i, (m) => labels.lb || m);
+      .replace(/teacher['’]?s\s+guide/i, (m) => ownType || labels.tg || m)
+      .replace(/learner['’]?s\s+book/i, (m) => ownType || labels.lb || m);
     if (themeOverrides.hdrtab) themeOverrides.hdrtab = titleCase(tr(themeOverrides.hdrtab));
     const lvlId = { "Early Childhood Education Level": "level_ece", "Primary Education Level": "level_primary",
       "Secondary Education Ordinary Level": "level_ordinary", "Secondary Education Advanced Level": "level_advanced" }[eduLevel];
@@ -1211,6 +1214,28 @@ async function typesetOne(docxPath, themeName) {
       } else if (b.t !== "vspace") k = 0;
     }
     console.log(`   lessonLabels: ${n} lesson label line(s) set`);
+  }
+  // restartSteps: true — every run of numbered steps starts again at 1 after a heading or
+  // an all-bold label line (an activity label), where the author let the numbers run on
+  // from one activity into the next ("Activity 2 / 4. …"). Only the numbers change: a plain
+  // paragraph, a typed "- " bullet or a lettered sub-item between two steps keeps the run
+  // going, and nothing is nested or relabelled (lessonLabels does that too; this is the
+  // narrow form).
+  if (ov.restartSteps) {
+    // (a lettered section line of a test, "A)", "B) Bakopolole …", "c.", also starts a new run)
+    const plainOf = (b) => (Array.isArray(b.segs) ? b.segs.map((s) => s.t || "").join("") : String(b.text || "")).trim();
+    const isLabel = (b) => /^(head|label|h[123])$/.test(b.t) ||
+      (b.t === "para" && Array.isArray(b.segs) && b.segs.some((s) => (s.t || "").trim()) && b.segs.every((s) => s.b || !(s.t || "").trim())) ||
+      (b.t === "para" && /^\(?[A-Za-z][.)](\s|$)/.test(plainOf(b)));
+    let k = 0, n = 0;
+    for (const b of blocks) {
+      if (b.t === "listitem") {
+        const mk = String(b.marker || "").trim();
+        const m = mk.match(/^\d+([.)])$/);
+        if (m) { k++; if (mk !== `${k}${m[1]}`) { b.marker = `${k}${m[1]}`; n++; } }
+      } else if (isLabel(b)) k = 0;
+    }
+    console.log(`   restartSteps: ${n} step number(s) restarted`);
   }
   // A picture book (untableImages) has no boxes: an activity box left with no body (its
   // picture follows it) is just the activity's heading, like every other one.

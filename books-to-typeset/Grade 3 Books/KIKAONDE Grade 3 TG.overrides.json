@@ -1,0 +1,538 @@
+{
+  "_note_manuscript": "No Word manuscript of this book exists here: it was typeset elsewhere and came back as the reviewer's marked PDF '2. B5 KIKAONDE GRADE 3 TG ZEPH FOR REVIEW 2026.pdf' (Word export, 105 pages, no pictures inside). The .docx beside this file was rebuilt from that PDF's text layer on 2026-10-29: KIPUNGU = Heading 1, MUTWE = Heading 2, MUTWE MUCHE / MUTWE-KACHE = Heading 3, the author's typed numbers as Word lists. Its old contents page is left out (the engine builds its own).",
+  "localLabels": true,
+  "keepFrontOrder": true,
+  "_note_cover": "Cover picture: the user's own picture Downloads/tg1.jpeg (chosen 2026-10-29), used whole: 1080x720, Real-ESRGAN x4 to 4320x2880, then down to 2560x1707 (over 500 DPI on the card). The cover card (1.564:1) trims about 2% off its top and bottom.",
+  "coverImage": "KIKAONDE Grade 3 TG-hires/cover.png",
+  "_note_authors": "The reviewer's cover names one author, 'G. MUSHIPI'.",
+  "authors": [
+    "G. Mushipi"
+  ],
+  "_note_coversInBook": "Delivered as one PDF: the back | front cover sheet is page 1 (house delivery format).",
+  "coversInBook": true,
+  "_note_coverWords": "The book's own words: its cover and title page say 'BUUKU WA MUFUNJISHI' (not the word list's first form 'Buuku wa kutangijila mufunjishi'), its contents page is headed 'BIJIMO'. The back cover's publisher line uses the book's own imprint word, 'Wafyatwilwe naba'.",
+  "coverWords": {
+    "booktype": "Buuku wa Mufunjishi",
+    "contents": "BIJIMO",
+    "printedBy": "Wafyatwilwe naba"
+  },
+  "_note_imprint": "Copyright page in the house layout (Silozi G4 LB model): bold label on its own line, the name plain beneath, groups 3 mm apart, ISBN last. Labels stay in the book's own Kiikaonde. 'Pepela wa pangye ne Ngashikilo ya Buuku' is the book's cover-and-layout label; the credit is the house one, Ng`ambi Teddy (B.Sc). The stray 'a' typed under that line is dropped.",
+  "deleteRun": [
+    {
+      "from": "© Zambia Educational Publishing House (2026)",
+      "to": "Wafyatwilwe naba:"
+    },
+    {
+      "from": "1",
+      "to": "mushingi",
+      "maxSpan": 4
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House (2026)",
+          "center": true
+        },
+        {
+          "para": "Luusa lonsetu lwa panyiwa ku bene bena buuku. Nanchi kafwako muntu nangwatu umo waswishiwa kufyatula uno buuku, kibese kya uno buuku, kumulama mu jishinda jiji jonse, kwingijisha malaiti, kukopolola nangwa kulama mawi kwakubula luusa lwa bene bena buuku ine.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Wapitulukilemo:**",
+          "center": true
+        },
+        {
+          "para": "James Kantontoka",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Pepela wa pangye ne Ngashikilo ya Buuku:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Wafyatwilwe naba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Lusaka",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Leka bafunda.",
+      "with": []
+    },
+    {
+      "find": "Banembe kipelu kyafwainwa",
+      "with": [
+        {
+          "listitem": "sukuulu, bukishinka, mushingi",
+          "marker": "1."
+        },
+        {
+          "listitem": "Banembe kipelu kyafwainwa",
+          "marker": "2."
+        }
+      ]
+    }
+  ],
+  "_note_round1": "Proofread round 1 (reviewer's marked PDF, 193 comments, zeph grade-3-kiikaonde-tg). Page numbers below are the reviewer's PDF pages.",
+  "_note_gradual": "45 comments, every one in the book (p14-p103; p75 and p89 are the second halves of the p74 and p88 blocks): delete the 'Gradual Release Model' line, the NDONDA ... label under it and its NAUBA / TWAUBA / WAUBA paragraph. The MASHINDA heading above stays, as marked, except on p67 where the reviewer's highlight takes it too.",
+  "remove": [
+    "Gradual Release Model",
+    "NDONDA YA MFUNJISHISHO",
+    "NDONDA MWAKUFUNJISHISHA",
+    "NDONDA YA LUFUNJISHO",
+    "TWAUBA",
+    {
+      "find": "MASHINDA A KU FUNJISHISHAMO",
+      "after": "Buuku wakufundamo, kachi paji nkalata."
+    }
+  ],
+  "_note_edits": "Word corrections marked by the reviewer, each at its own spot.",
+  "edit": [
+    {
+      "find": "NTATWILO",
+      "with": "NTENDEKELO"
+    },
+    {
+      "find": "Mwesha kikope kibena kwamba pa nsambu ya baana.",
+      "with": "Ambila bafunda bateleke kujishimikila jo usa kutanga."
+    },
+    {
+      "find": "apa kanwatu mu kalasi",
+      "with": "apa kanwatu ku kalasi"
+    },
+    {
+      "find": "Bafunda mu tubipanyi, besambe",
+      "with": "Buula bafunda mu tubipanyi, besambe"
+    },
+    {
+      "find": "Bibena kubibiwa mujishimikila",
+      "with": "Ipuzha bafunda bambe bibena kubibiwa mujishimikila"
+    },
+    {
+      "find": "Kintu kyo bafujilako",
+      "with": "Buula bafunda bambe kintu kyo bafujilako"
+    },
+    {
+      "find": "Bafunda basatu basatu, bafwanyikizhe",
+      "with": "Buula bafunda basatu basatu, bafwanyikizhe"
+    },
+    {
+      "find": "Umo akaye pa kifulokya Bupe",
+      "with": "Buula bafunda umo akaye pa kifulokya Bupe"
+    },
+    {
+      "find": "Kyowafunjiloka",
+      "with": "Kyowafunjilako"
+    },
+    {
+      "find": "Mwesha bafunda bya kutanchika byambo mundonda ya mafumu tulume.",
+      "with": "Mwesha bafunda bya kutanchika byambo mundonda ya bisopelo."
+    },
+    {
+      "find": "kunemba bulongo na kusendelela",
+      "with": "kunemba bulongo na kisopelo kimo kimo"
+    },
+    {
+      "find": "pepala baji byambo",
+      "with": "pepala paji byambo"
+    },
+    {
+      "find": "Mashimikila a apipishiwa",
+      "with": "Mashimikila a ipipishiwa"
+    },
+    {
+      "find": "Mwingilo 2",
+      "with": "Kyakuuba 3",
+      "after": "Ipuzha bafunda kukumbula mepuzho apakanwatu."
+    },
+    {
+      "find": "TEACHING METHOD",
+      "with": "MASHINDA AKUFUNJISHISHAMO"
+    },
+    {
+      "find": "bakaye mwinsambo uji",
+      "with": "bakaye kisela kya mwisambo uji"
+    },
+    {
+      "find": "na mo byapusena",
+      "with": "na mo byapusena mu buuku wakufundamo",
+      "after": "Ambila bafunda bapingishepo byambo"
+    },
+    {
+      "find": "kyapusana na amba",
+      "with": "kyapusana na kya amba"
+    },
+    {
+      "find": "ndumbulwilo ya bila",
+      "with": "ndumbulwilo ya biila"
+    },
+    {
+      "find": "ku kalasi yense.",
+      "with": "ku kalasi yonse."
+    },
+    {
+      "find": "kwimbiala bafunda",
+      "with": "kwambila bafunda"
+    },
+    {
+      "find": "mutwe wa kabuuku.",
+      "with": "mutwe wa ka buuku."
+    },
+    {
+      "find": "kwibepuzha bsa",
+      "with": "kwibepuzha bisa"
+    },
+    {
+      "find": "Mutanchi wa mafumu tulume a mu Kikaonde",
+      "with": "Mutanchi wa bisopelo bya mu Kikaonde"
+    }
+  ],
+  "_note_editAll": "p15 'MIKUMBU KU MINGILO / MWINGILO' -> BYAKUUBA: the same heading, word for word, recurs in every unit; the word fix goes to all eleven.",
+  "editAll": [
+    {
+      "find": "KU MINGILO / MWINGILO",
+      "with": "KU BYAKUUBA"
+    },
+    {
+      "find": "MWINSAMBO",
+      "with": "MWISAMBO"
+    },
+    {
+      "find": "Mwingilo 2 ne 3",
+      "with": "Byakuuba 2 ne 3"
+    },
+    {
+      "find": "Mwingilo 1:",
+      "with": "Kyakuuba 1:"
+    },
+    {
+      "find": "Mwingilo 2:",
+      "with": "Kyakuuba 2:"
+    },
+    {
+      "find": "Mwingilo 3:",
+      "with": "Kyakuuba 3:"
+    },
+    {
+      "find": "MWINGILO 1:",
+      "with": "Kyakuuba 1:"
+    },
+    {
+      "find": "Mwingilo1",
+      "with": "Kyakuuba 1"
+    },
+    {
+      "find": "Mingilo 1",
+      "with": "Kyakuuba 1"
+    },
+    {
+      "find": "Mwingila 2",
+      "with": "Kyakuuba 2"
+    },
+    {
+      "find": "Mwingilo 1",
+      "with": "Kyakuuba 1"
+    },
+    {
+      "find": "Mwingilo 2",
+      "with": "Kyakuuba 2"
+    },
+    {
+      "find": "Mwingilo 3",
+      "with": "Kyakuuba 3"
+    },
+    {
+      "find": "Mwingilo 4",
+      "with": "Kyakuuba 4"
+    },
+    {
+      "find": "Mwingilo 5",
+      "with": "Kyakuuba 5"
+    },
+    {
+      "find": "bulonngo",
+      "with": "bulongo"
+    },
+    {
+      "find": "Gildedi",
+      "with": "Giledi"
+    },
+    {
+      "find": "mashimikla",
+      "with": "mashimikila"
+    },
+    {
+      "find": "MASHIMIKLA",
+      "with": "MASHIMIKILA"
+    },
+    {
+      "find": "jishikikila",
+      "with": "jishimikila"
+    },
+    {
+      "find": "jishimikla",
+      "with": "jishimikila"
+    },
+    {
+      "find": "jshimikila",
+      "with": "jishimikila"
+    },
+    {
+      "find": "jimishikila",
+      "with": "jishimikila"
+    },
+    {
+      "find": "kusantaula ishimikila",
+      "with": "kusantaula jishimikila"
+    },
+    {
+      "find": "kibababa",
+      "with": "kibaaba"
+    },
+    {
+      "find": "Mwesho bya",
+      "with": "Mwesha bya"
+    },
+    {
+      "find": "Bufunda basa",
+      "with": "Bafunda basa"
+    },
+    {
+      "find": "mikimbu",
+      "with": "mikumbu"
+    },
+    {
+      "find": "nsumbu",
+      "with": "nsambu"
+    },
+    {
+      "find": "Ambiala",
+      "with": "Ambila"
+    },
+    {
+      "find": "kwingjisha",
+      "with": "kwingijisha"
+    },
+    {
+      "find": "kwingijsha",
+      "with": "kwingijisha"
+    },
+    {
+      "find": "ksendelela",
+      "with": "kusendelela"
+    },
+    {
+      "find": "kusendelele",
+      "with": "kusendelela"
+    },
+    {
+      "find": "bukinshinka",
+      "with": "bukishinka"
+    },
+    {
+      "find": "Bukushinka",
+      "with": "Bukishinka"
+    },
+    {
+      "find": "MIMGILO",
+      "with": "MINGILO"
+    },
+    {
+      "find": "kululmbulula",
+      "with": "kulumbulula"
+    },
+    {
+      "find": "kukumbaula",
+      "with": "kukumbula"
+    },
+    {
+      "find": "Luno ufunjisho",
+      "with": "Luno lufunjisho"
+    },
+    {
+      "find": "Lumwaňano",
+      "with": "Lumvwaňano"
+    },
+    {
+      "find": "LWESKO",
+      "with": "LWESEKO"
+    },
+    {
+      "find": "Tangjila",
+      "with": "Tangijila"
+    },
+    {
+      "find": "Mufunishi",
+      "with": "Mufunjishi"
+    },
+    {
+      "find": "nnembelo",
+      "with": "nembelo"
+    },
+    {
+      "find": "lufunjsho",
+      "with": "lufunjisho"
+    },
+    {
+      "find": "kupichla",
+      "with": "kupichila"
+    },
+    {
+      "find": "akosomba",
+      "with": "akusomba"
+    },
+    {
+      "find": "kwingjila",
+      "with": "kwingijila"
+    },
+    {
+      "find": "kwingijla",
+      "with": "kwingijila"
+    },
+    {
+      "find": "Lumblwila",
+      "with": "Lumbulwila"
+    },
+    {
+      "find": "jusukuulu",
+      "with": "kusukuulu"
+    },
+    {
+      "find": "Kusukulu",
+      "with": "Kusukuulu"
+    },
+    {
+      "find": "Kusukuula",
+      "with": "Kusukuulu"
+    },
+    {
+      "find": "NCHIKAMEENO",
+      "with": "NCHIKAMENO"
+    },
+    {
+      "find": "kalashi",
+      "with": "kalasi"
+    },
+    {
+      "find": "machaati",
+      "with": "machati"
+    },
+    {
+      "find": "byombo",
+      "with": "byambo"
+    },
+    {
+      "find": "Mabuuka",
+      "with": "Mabuuku"
+    },
+    {
+      "find": "KUMWISHA",
+      "with": "KUMVWISHA"
+    },
+    {
+      "find": "nkubwilo",
+      "with": "nkabwilo"
+    },
+    {
+      "find": "Nkubwilo",
+      "with": "Nkabwilo"
+    },
+    {
+      "find": "Santaulu",
+      "with": "Santaula"
+    },
+    {
+      "find": "bipulu",
+      "with": "bipelu"
+    },
+    {
+      "find": "bisompelo",
+      "with": "bisopelo"
+    },
+    {
+      "find": "kotolamo",
+      "with": "kutolamo"
+    },
+    {
+      "find": "kuyukakukumbula",
+      "with": "kuyuka kukumbula"
+    },
+    {
+      "find": "bafunda bibiji babiji",
+      "with": "bafunda babiji babiji"
+    },
+    {
+      "find": "mafumu tulume",
+      "with": "bisopelo"
+    },
+    {
+      "find": "MAFUMU TULUME",
+      "with": "BISOPELO"
+    },
+    {
+      "find": "Kyakuuba 1:",
+      "with": "Kyakuuba 1"
+    },
+    {
+      "find": "Kyakuuba 2:",
+      "with": "Kyakuuba 2"
+    },
+    {
+      "find": "Kyakuuba 3:",
+      "with": "Kyakuuba 3"
+    }
+  ],
+  "_note_spelling": "Spelling the reviewer corrected, carried to every place the same slip occurs: mwinsambo -> mwisambo (p36, p53), mubuuku -> mu buuku (p36), kumbula -> kukumbula (p28).",
+  "subtext": [
+    {
+      "from": "mwinsambo",
+      "to": "mwisambo"
+    },
+    {
+      "from": "mubuuku",
+      "to": "mu buuku"
+    },
+    {
+      "from": " kumbula ",
+      "to": " kukumbula "
+    }
+  ],
+  "_note_kyakuuba": "Activity label Mwingilo -> Kyakuuba: the reviewer marked 120 of the book's 124 labels; the other four (p25 'Mwingilo1', p30, p31, p32 answer labels) are the same word and follow. Numbers stay as typed: on p26 the reviewer's 'Kyakuuba 1 / 2' would repeat the 'Kyakuuba 1' already on p25 (another note on the same line says plain 'Kyakuuba'). The duplicated 'Mwingilo 2' on p30 becomes 'Kyakuuba 3' (edit above). p84 'Mwingilo 2 ne 3' -> 'Byakuuba 2 ne 3' (plural, as marked). Done with editAll (one-line bold labels are heading-type blocks that retext does not reach); the longer forms come first so \"Mwingilo 2 ne 3\" is not caught by \"Mwingilo 2\". \"Kipamo kya Mwingilo wa Lufundo\" (the Ministry) is untouched.",
+  "_note_slips": "Unmarked slips, fixed at the user's request (2026-10-29, 'fix the unmarked slips too'): (1) one-off misspellings of a word the book spells one way everywhere else (house rule: one spelling per word), only where the stem itself is wrong, never a noun-class form such as batane/batange; 'kufyatuluala' -> 'kufyatula' as on the Kiikaonde Grade 1 TG's own copyright page. (2) 'mafumu tulume' -> 'bisopelo' in the four places the reviewer did not mark, matching the one they did (p19), with the concord 'bya' after bisopelo. (3) the colon after four activity labels dropped (121 of 125 have none). (4) restartSteps: each activity's steps start at 1 (42 activities ran on from the one before). (5) Unit 2 test, KUNEMBA answers: a bare bold \"1\" over three words typed one per line, then \"3.\" with no 2 - set as \"1. sukuulu, bukishinka, mushingi\" and \"2. Banembe kipelu kyafwainwa\".",
+  "restartSteps": true
+}
