@@ -2465,6 +2465,28 @@
       ]
     },
     {
+      "find": "Two toy cars, A and B, move towards each other on a smooth track. Car A has a mass of 2 kg and moves at 6 m/s to the right. Car B has a mass of 1 kg and moves at 2 m/s to the left. After colliding, the cars bounce apart. Car A moves at 2 m/s to the left after the collision.",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Two toy cars, A and B, move towards each other on a smooth track. Car A has a mass of 2 kg and moves at 6 m/s to the right. Car B has a mass of 1 kg and moves at 2 m/s to the left. After colliding, the cars bounce apart. Car A moves at 2 m/s to the right after the collision.",
+            "qseg": [
+              {
+                "t": "Two toy cars, A and B, move towards each other on a smooth track. Car A has a mass of 2 kg and moves at 6 m/s to the right. Car B has a mass of 1 kg and moves at 2 m/s to the left. After colliding, the cars bounce apart. Car A moves at 2 m/s to the right after the collision.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "1.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
       "find": "Speed is the rate at which an object covers a distance. While speed enables people and goods to reach destinations more quickly, excessive speeding can have serious consequences for road users.",
       "with": [
         {
@@ -3618,6 +3640,28 @@
                 "c": null
               }
             ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A group of learners used a wheelbarrow to transport sand for a school gardening project. The wheelbarrow lifted a load of 480 N using an effort of 160 N. During the process, the handles moved 1.8 m while the load was raised by 0.6 m.",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A group of learners used a wheelbarrow to transport sand for a school gardening project. The wheelbarrow lifted a load of 480 N using an effort of 200 N. During the process, the handles moved 1.8 m while the load was raised by 0.6 m.",
+            "qseg": [
+              {
+                "t": "A group of learners used a wheelbarrow to transport sand for a school gardening project. The wheelbarrow lifted a load of 480 N using an effort of 200 N. During the process, the handles moved 1.8 m while the load was raised by 0.6 m.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "1.",
+            "depth": 0
           }
         }
       ]
