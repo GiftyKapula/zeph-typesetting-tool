@@ -290,6 +290,12 @@ function boxKindFromTitle(t) {
   // Expected Answers that way, and the whole box (twenty paragraphs) never printed.
   // Only a lone stop qualifies, so "Exercise. Moving your body…" stays prose.
   if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|\.\s*$|$)/i.test(s) || /^ACTIVITY\s*:?\s*\d/i.test(s)) return "exercise";
+  // A numbered answer key — "Expected Answers to Exercise 5" — is a box of its own, not
+  // a sub-head of the activity above it. Unrecognised, every one of the seventeen in
+  // the Literature in English Form 1 TG was swallowed by the box before it, its answers
+  // numbered on from that box's questions. The number is required, so the bare divider
+  // "Expected Answers" inside a box (isSectionDivider) is left alone.
+  if (/^(EXPECTED|SUGGESTED|POSSIBLE|MODEL)\s+ANSWERS?\s+(TO|FOR)\s+(EXERCISE|ACTIVITY|ASSESSMENT)\s*\d/i.test(s)) return "exercise";
   if (/^(U?Mulimo|Mwingilo|Zocitila|Zoc[hk]?ita|Zakueza|Mudimu)\b/i.test(s)) return "exercise";
   // --- Key points / Did you know ---
   if (/^(KEY POINTS|Key Points to Remember|Mau ofunika kudziwa)/i.test(s)) return "keypoints";

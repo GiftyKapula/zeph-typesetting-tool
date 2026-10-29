@@ -1455,7 +1455,8 @@
   // back still print as one sheet. `lines` stays in the signature so every existing call
   // site keeps working.
   let signature = T.at("covSignature", default: T.signature)
-  let onfield = if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
+  // `backInk`: a backCover book on a DARK portrait field gets light lettering, as on its front.
+  let onfield = if T.at("backInk", default: none) != none { T.backInk } else if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
     // Publisher block: the logo over "Published by / Zambia Educational Publishing
@@ -1489,8 +1490,8 @@
   let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
   let name = subjectName(lines, grade, booktype)
   let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\s+\d+")); if m != none { m.text } else { "" } } else { "" }
-  let onfield = if science { white } else { T.primary.darken(30%) }
-  let accentc = if science { T.accent } else { T.primary }
+  let onfield = if T.at("backInk", default: none) != none { T.backInk } else if science { white } else { T.primary.darken(30%) }
+  let accentc = if science or T.at("backInk", default: none) != none { T.accent } else { T.primary }
   let w = width * 1mm
   // `spineStyle: "badge"` (opt-in, per book): the spine the Food and Nutrition Form 2
   // Teacher's Guide had on its proofread copy — the subject large, the form/grade white
