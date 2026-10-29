@@ -625,6 +625,10 @@
     {
       "find": "input (driver) gear",
       "with": "input (driving) gear"
+    },
+    {
+      "find": "metre rule",
+      "with": "meter rule"
     }
   ],
   "mergePara": [
