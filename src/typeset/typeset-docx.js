@@ -525,6 +525,7 @@ function emit(blocks) {
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
+      case "parspacing": out += `#set par(spacing: ${b.v})\n`; break;
       case "listitem": out += listitemCall(b); break;
       case "figcaption": {
         const fc = `#figcaption(${S(b.text)})\n`;
@@ -1415,40 +1416,11 @@ function formatGrade3EngFrontMatter(blocks, detectName) {
   }
 }
 
-function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } = {}, detectName = "") {
-  formatGrade3EngFrontMatter(blocks, detectName);
-  const isUnit = (x) => x.t === "h1" && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "");
-  // Front-matter section names — English plus local-language equivalents
-  // (e.g. Lunda: ANSONEKI=Authors, MAZU ATACHI=Foreword, KULEMA …WUNU=Preface,
-  // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction). "HOW TO USE THIS
-  // GUIDE/BOOK", "ABBREVIATIONS" and a "SUGGESTED TEACHING METHODOLOGY" list
-  // are common Teacher's-Guide front-matter sections too, often typed with
-  // direct bold/size formatting instead of a named Word Heading style (a
-  // manuscript that styles most of its front matter properly can still slip
-  // into hand-formatting for one or two sections) — without recognising them
-  // here they fall through as a plain bold `head` block that looks like a
-  // heading but never gets its own page or a Table of Contents entry.
-  // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
-  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
-  // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
-  // or one the source put in a bulleted list) to a real heading so it gets its
-  // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
-  // sometimes styles a front-matter section as a Word "Heading2" (inconsistent with
-  // its own Heading1 use elsewhere for Authors/Foreword/etc.), which the importer
-  // takes at face value and emits as an h2/h3 sub-head block. Left unpromoted, that
-  // heading renders as a plain in-flow sub-head with no page break before it — so it
-  // silently lands wherever the preceding section's text happens to end, stranded at
-  // the foot of that page instead of starting its own.
-  const fmText = (x) => (x.segs ? x.segs.map((s) => s.t).join("") : (x.text || "")).trim();
-  const firstUnit0 = blocks.findIndex(isUnit);
-  let b = blocks.map((x, i) =>
-    (firstUnit0 < 0 || i < firstUnit0) && !x.noPromote &&
-    (x.t === "label" || x.t === "head" || x.t === "listitem" || x.t === "para" || x.t === "h2" || x.t === "h3") &&
-    FM.test(fmText(x))
-      ? { t: "h1", text: fmText(x) } : x);
-  // we place our own table of contents, so drop any auto/imported one
-  b = b.filter((x) => x.t !== "toc");
-
+// The Foreword / Preface / Acknowledgement signatory: room for a hand signature, then
+// the name bold and the title plain, kept as one block (HOUSE-STYLE §3). Lifted out of
+// applySeriesFront so the literary layout gets it too — the Literature in English Form 1
+// TG printed every signatory line bold italic, two of them alone on the next page.
+function groupSignatories(b) {
   // leave signature room before the signatory's name on Foreword/Preface/Ack.
   // The name can arrive as a plain paragraph OR (when bold in the source) as a
   // `head` block, so accept both.
@@ -1544,6 +1516,44 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
     }
     b = withSig;
   }
+  return b;
+}
+
+function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } = {}, detectName = "") {
+  formatGrade3EngFrontMatter(blocks, detectName);
+  const isUnit = (x) => x.t === "h1" && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "");
+  // Front-matter section names — English plus local-language equivalents
+  // (e.g. Lunda: ANSONEKI=Authors, MAZU ATACHI=Foreword, KULEMA …WUNU=Preface,
+  // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction). "HOW TO USE THIS
+  // GUIDE/BOOK", "ABBREVIATIONS" and a "SUGGESTED TEACHING METHODOLOGY" list
+  // are common Teacher's-Guide front-matter sections too, often typed with
+  // direct bold/size formatting instead of a named Word Heading style (a
+  // manuscript that styles most of its front matter properly can still slip
+  // into hand-formatting for one or two sections) — without recognising them
+  // here they fall through as a plain bold `head` block that looks like a
+  // heading but never gets its own page or a Table of Contents entry.
+  // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
+  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
+  // or one the source put in a bulleted list) to a real heading so it gets its
+  // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
+  // sometimes styles a front-matter section as a Word "Heading2" (inconsistent with
+  // its own Heading1 use elsewhere for Authors/Foreword/etc.), which the importer
+  // takes at face value and emits as an h2/h3 sub-head block. Left unpromoted, that
+  // heading renders as a plain in-flow sub-head with no page break before it — so it
+  // silently lands wherever the preceding section's text happens to end, stranded at
+  // the foot of that page instead of starting its own.
+  const fmText = (x) => (x.segs ? x.segs.map((s) => s.t).join("") : (x.text || "")).trim();
+  const firstUnit0 = blocks.findIndex(isUnit);
+  let b = blocks.map((x, i) =>
+    (firstUnit0 < 0 || i < firstUnit0) && !x.noPromote &&
+    (x.t === "label" || x.t === "head" || x.t === "listitem" || x.t === "para" || x.t === "h2" || x.t === "h3") &&
+    FM.test(fmText(x))
+      ? { t: "h1", text: fmText(x) } : x);
+  // we place our own table of contents, so drop any auto/imported one
+  b = b.filter((x) => x.t !== "toc");
+
+  b = groupSignatories(b);
 
   // number the lessons (h2) within each body unit (1, 2, 3…), restarting per
   // unit, by baking the number into the heading text — so it shows in BOTH the
@@ -7796,6 +7806,17 @@ function normaliseQuestionMarkBold(blocks) {
     // runs a line or two over its page at the default.
     fmSpacing: ov.fmSpacing || ((THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em"),
   }, detectName);
+  else if (variant === "literary") {
+    blocks = groupSignatories(blocks);
+    // The house front-matter paragraph gap (the series books' 1.9em) from the first
+    // front-matter section to the first unit, then back to the body spacing (0.86em).
+    const unitAt = blocks.findIndex((b) => b.t === "h1" && /^(UNIT|TOPIC|CHAPTER)\b/i.test(b.text || ""));
+    const fmAt = blocks.findIndex((b, i) => b.t === "h1" && (unitAt < 0 || i < unitAt));
+    if (fmAt >= 0 && unitAt > fmAt) {
+      blocks.splice(unitAt, 0, { t: "parspacing", v: "0.86em" });
+      blocks.splice(fmAt + 1, 0, { t: "parspacing", v: ov.fmSpacing || "1.9em" });
+    }
+  }
   // `backCover: true` — the house back cover (logo, "Published by", ISBN box) for a
   // portrait layout outside the series/science family, which never gets one from
   // applySeriesFront. Having it is also what lets the printer's cover spread (and its
