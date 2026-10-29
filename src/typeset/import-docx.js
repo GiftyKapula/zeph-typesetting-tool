@@ -2179,8 +2179,13 @@ function makeBox(kind, blocks) {
     if (openEnded && nxt && nxt.t === "para") {
       const tail = (nxt.plain || "").trim();
       const bold = (nxt.segs || []).some((s) => s && !s.m && (s.t || "").trim() && s.b);
+      // …nor an answer-key label: "EXERCISE 2 " + "Expected Responses" is a box heading
+      // over the line that opens its answers, not one title (Physics Form 2 TG — six of
+      // its exercises printed "EXERCISE 2 Expected Responses" on one line once this join
+      // came in, beside the rest of the book's "EXERCISE N" / "Expected Responses").
+      const answersLabel = /^(?:(?:possible|expected|suggested|sample|model)\s+)?(?:answers?|responses?|solutions?)$/i.test(tail);
       if (tail && bold && tail.split(/\s+/).length <= 5 && !/[.!?:]$/.test(tail)
-          && tail !== tail.toUpperCase() && !boxKindFromTitle(tail)) {
+          && tail !== tail.toUpperCase() && !boxKindFromTitle(tail) && !answersLabel) {
         titleText = titleText + " " + tail;
         joinIdx = titleIdx + 1;
       }
@@ -3535,6 +3540,13 @@ async function importDocx(docxPath, opts = {}) {
       // that closes several topics this way: a single book-end glossary keeps its
       // existing handling, so no book laid out before this rule changes.
       if (glossaryPerTopic && BOX_BACKMATTER_LINE.test(ty.trim())) break;
+      // The book-end GLOSSARY / REFERENCES straight after the LAST End-of-Topic
+      // Assessment ends it too: an assessment runs on to the next section (below), and a
+      // plain body-size "GLOSSARY" line is not one, so the Physics Form 2 Teacher's Guide
+      // printed its whole glossary and reference list inside the grey assessment panel
+      // (CDC: "remove the bold line on the left and grey colour"). No answer key is ever
+      // a line reading just "GLOSSARY" or "REFERENCES", so for an assessment it is safe.
+      if (kind === "assessment" && BOX_BACKMATTER_LINE.test(ty.trim())) break;
       if (restoredBanner.has(j)) break; // the next topic's banner, typed without "TOPIC"
       if (boxKindFromTitle(ty) && boldFirstRun(y)) break;        // the next box label
       // learn the box's own body size from the first sized line it takes in

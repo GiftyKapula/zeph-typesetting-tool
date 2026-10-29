@@ -75,7 +75,7 @@ const partsArr = (parts) => arr(parts, (p) =>
   p.kind === "colsum" ? `(kind: "colsum", rows: ${strArr(p.rows || [])}, answer: ${strArr(p.answerRows || [])}, marker: ${S(p.marker || "")})`
   : p.kind === "table" ? `(kind: "table", r: ${rowArr(p.rows)}, marker: ${S(p.marker || "")}${p.sheet ? ", sheet: true" : ""}${p.header ? ", hdr: true" : ""})`
   : p.kind === "image" ? `(kind: "image", images: ${imgArr(p.images)}, marker: ${S(p.marker || "")})`
-  : p.kind === "lead" ? `(kind: "lead", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, indent: ${p.indent ? "true" : "false"}${p.align ? `, align: ${S(p.align)}` : ""}${p.whole ? ", whole: true" : ""})`
+  : p.kind === "lead" ? `(kind: "lead", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, indent: ${p.indent ? "true" : "false"}${p.align ? `, align: ${S(p.align)}` : ""}${p.whole ? ", whole: true" : ""}${p.keepNext ? ", keep: true" : ""})`
   // a run of space-separated columns inside an exercise (e.g. a place-value chart:
   // "352 ___ ___ ___") that columnizeLists turned into a grid — emit it as a colgrid
   // part so qaparts renders the aligned columns instead of dropping to an empty q.
@@ -1887,7 +1887,13 @@ function applyOverrides(blocks, ov) {
     blocks.splice(i + 1, 0, { t: "para", segs: [{ t: f.text, b: false, it: false, c: null }], align: "center" });
   }
   for (const r of ov.replace || []) {
-    const b = flat.find((x) => blockPlain(x).includes(r.find));
+    // `after`: take the first match AFTER the block containing `after` — for a paragraph
+    // the manuscript repeats word for word in several activities (the Physics Form 2 TG
+    // gives three thermometer activities one identical Procedure), where the first match
+    // is the wrong one.
+    const from = r.after ? flat.findIndex((x) => blockPlain(x).includes(r.after)) : -1;
+    if (r.after && from < 0) { console.warn("!  replace 'after' not matched:", r.after); continue; }
+    const b = flat.find((x, i) => i > from && blockPlain(x).includes(r.find));
     // Warn when nothing matched, the way edit/editAll/setMarker/fixExercise already do.
     // This was silent, so an override whose `find` drifted from the manuscript by one
     // space or a changed word simply did nothing and the book built clean — the edit
@@ -1901,7 +1907,31 @@ function applyOverrides(blocks, ov) {
     // untouched siblings. Reviewers write their replacements as "**Procedure:** ..."
     // already, so this renders what they actually asked for. Text with no markers
     // parses to a single plain run, exactly as before.
-    setBlockSegs(b, mkSegs(r.with));
+    // `with` may also be an ARRAY of lines: the first rewrites the block, the rest are
+    // set straight after it in the SAME body (an activity's, a box's, or the page) —
+    // "- text" as a bullet, "1. text" as a numbered item, anything else a paragraph.
+    // A reviewer's rewrite of an activity's "Expected findings/observations:" often
+    // turns one sentence into a short list, which a one-block replace cannot hold.
+    const lines = Array.isArray(r.with) ? r.with : [r.with];
+    setBlockSegs(b, mkSegs(lines[0]));
+    if (lines.length > 1) {
+      let host = null;
+      const walk = (arr) => {
+        if (host) return;
+        if (arr.includes(b)) { host = arr; return; }
+        for (const x of arr) if (x && typeof x === "object")
+          for (const k of Object.keys(x)) if (Array.isArray(x[k]) && x[k].some((y) => y && typeof y === "object")) walk(x[k]);
+      };
+      walk(blocks);
+      if (!host) { console.warn("!  replace: no body found for extra lines of", r.find); continue; }
+      const listId = `rep_${r.find.slice(0, 12)}`;
+      const extra = lines.slice(1).map((ln) => {
+        const m = /^(?:(-)|(\d+\.))\s+(.*)$/s.exec(ln);
+        if (!m) return { t: "para", segs: mkSegs(ln) };
+        return { t: "para", segs: mkSegs(m[3]), isList: true, numId: listId, lvl: 0, marker: m[1] ? "•" : m[2] };
+      });
+      host.splice(host.indexOf(b) + 1, 0, ...extra);
+    }
   }
   // setCaption: [{ near|file, index, text }] — set the caption of an image. Match by
   // `near` (an existing caption's text, on a lone image or any image in a row) or by
@@ -2478,8 +2508,12 @@ function applyOverrides(blocks, ov) {
   // keeping the formatting of the surrounding runs (e.g. trim one sentence from a
   // paragraph without flattening the bold names elsewhere in it).
   for (const e of ov.edit || []) {
-    const b = flat.find((x) => blockPlain(x).includes(e.find));
+    if (!e.find) { console.warn("!  edit with an empty find skipped"); continue; }
+    // `after` as in `replace`: the first match after the block containing it
+    const from = e.after ? flat.findIndex((x) => blockPlain(x).includes(e.after)) : -1;
+    const b = e.after && from < 0 ? null : flat.find((x, i) => i > from && blockPlain(x).includes(e.find));
     if (b) editBlockText(b, e.find, e.with || "");
+    else console.warn("!  edit not matched:", e.find);
   }
   // editAll: [{ find, with }] — like edit, but applied to EVERY block that contains the
   // substring (not just the first). For a recurring phrase the same across the whole
@@ -3016,7 +3050,11 @@ function applyOverrides(blocks, ov) {
     // Guide, Topic 1.1).
     const rnTk = titleKey(blocks[i]);
     if (!segKey(blocks[i]) && typeof blocks[i].text !== "string" && rnTk && typeof blocks[i][rnTk] === "string") {
-      blocks[i][rnTk] = rn.to;
+      // $math$ in `to` becomes the title's formatted runs (a title carrying a formula);
+      // without it any old formula runs go, or the old title would keep printing
+      blocks[i][rnTk] = rn.to.replace(/\$([^$]*)\$/g, "$1");
+      const segsKey = blocks[i].headingSegs ? "headingSegs" : "titleSegs";
+      if (rn.to.includes("$")) blocks[i][segsKey] = mkSegs(rn.to); else delete blocks[i][segsKey];
     } else {
       blocks[i].text = rn.to;
       delete blocks[i].segs;
@@ -3059,17 +3097,23 @@ function applyOverrides(blocks, ov) {
     };
     const isBox = (b) => b && (b.t === "activity" || b.t === "exercise" || b.t === "assessment");
     const boxTitle = (b) => (b.t === "exercise" ? b.heading : b.title) || "";
-    let lo = 0, hi = blocks.length;
+    let lo = 0, hi = blocks.length, na = -1;
     if (fp.near) {
-      const na = blocks.findIndex((b) => deepText(b).includes(fp.near));
+      na = blocks.findIndex((b) => deepText(b).includes(fp.near));
       if (na < 0) { console.warn("!  forceFreshPage `near` not matched:", fp.near); continue; }
       lo = Math.max(0, na - 15); hi = Math.min(blocks.length, na + 15);
     }
-    let done = false;
+    // with `near`, the matching box NEAREST it (the box holding the text itself when it
+    // matches): a generic `find` like "EXERCISE" used to take the first exercise in the
+    // window, an earlier one (Physics Form 2 TG: Exercise 10 forced instead of 12)
+    let best = -1;
     for (let i = lo; i < hi; i++) {
-      if (isBox(blocks[i]) && boxTitle(blocks[i]).includes(fp.find)) { blocks[i].forceFreshPage = true; done = true; break; }
+      if (!isBox(blocks[i]) || !boxTitle(blocks[i]).includes(fp.find)) continue;
+      if (na < 0) { best = i; break; }
+      if (best < 0 || Math.abs(i - na) < Math.abs(best - na)) best = i;
     }
-    if (!done) console.warn("!  forceFreshPage not matched:", fp.find, fp.near ? `near ${fp.near}` : "");
+    if (best >= 0) blocks[best].forceFreshPage = true;
+    else console.warn("!  forceFreshPage not matched:", fp.find, fp.near ? `near ${fp.near}` : "");
   }
   // dropMath: ["exact math source", …] — delete any MATH segment whose trimmed Typst
   // source exactly equals the entry. For excising a stray equation the manuscript
@@ -3097,8 +3141,12 @@ function applyOverrides(blocks, ov) {
   // by-book on purpose: binding every such stem pushes whole answers over and empties
   // pages (tried on the Hospitality Management Form 3 TG, Exercise 3 of 3.5.2).
   for (const k of ov.keepWithNext || []) {
-    const b = flat.find((x) => blockPlain(x).includes(k));
-    if (b) b.keepNext = true; else console.warn("!  keepWithNext not matched:", k);
+    // { find, after }: the first match AFTER a block containing `after` — for a line the
+    // book repeats ("Pressure = Force ÷ Area" opens two questions of one assessment)
+    const find = typeof k === "string" ? k : k.find;
+    const from = typeof k === "object" && k.after ? flat.findIndex((x) => blockPlain(x).includes(k.after)) : -1;
+    const b = typeof k === "object" && k.after && from < 0 ? null : flat.find((x, i) => i > from && blockPlain(x).includes(find));
+    if (b) b.keepNext = true; else console.warn("!  keepWithNext not matched:", find);
   }
   for (const sm of ov.setMarker || []) {
     const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
@@ -3387,7 +3435,7 @@ function applyOverrides(blocks, ov) {
         if (mk && p.kind === "lead") { p.kind = "q"; p.a = p.a || ""; p.aseg = p.aseg || []; }
       });
     }
-    // addParts: [{ text, marker?, depth?, at? }] — insert answer lines the manuscript
+    // addParts: [{ text, marker?, depth?, at?, keep? }] — insert answer lines the manuscript
     // never carried. A proofreader who finds a question whose answer key is simply
     // missing writes the answer out in their note; until now there was no way to get it
     // into the box, because every other primitive can only rewrite parts that already
@@ -3400,6 +3448,8 @@ function applyOverrides(blocks, ov) {
         kind: "q", marker: ap.marker || "", depth: ap.depth != null ? ap.depth : 0,
         q: String(ap.text || ""), qseg: mkSegs(String(ap.text || "")),
         a: "", aseg: [],
+        // keep: true binds this line to the next (keepWithNext runs before addParts)
+        ...(ap.keep ? { keepNext: true } : {}),
       };
       if (ap.at != null && ap.at >= 0 && ap.at <= parts.length) parts.splice(ap.at, 0, part);
       else parts.push(part);
@@ -7170,6 +7220,9 @@ async function typesetOne(docxPath, themeName) {
   reformatAcronyms(blocks);
   normaliseCaptionLabels(blocks);
   normaliseRunColours(blocks, ov.keepRunColours);
+  uniformLetterMarkers(blocks, ov.keepMarkerStyles);
+  dashBullets(blocks);
+  spaceAnswerSigns(blocks);
   formatGlossary(blocks, ov.glossaryTitle);
   displayifyColumnMath(blocks);
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
@@ -7990,6 +8043,13 @@ function normaliseQuestionMarkBold(blocks) {
   if (gnum === "2" && eduLevel === "Primary Education Level") themeOverrides.coverStyle = "grade2";
   // a book may pin a specific cover style (e.g. to A/B-test a Grade 2 cover variant)
   if (ov.coverStyle) themeOverrides.coverStyle = ov.coverStyle;
+  // mathBodyFont: true — set equations in the body face (words, digits, operators and
+  // single-letter variables), keeping the math font only for fraction bars, roots and
+  // other symbols the body face lacks. Without it a fraction of words ("Power Output
+  // over Power input") or "v = d/t" prints in a serif beside Arial text; CDC marked it
+  // "maintain the same font" (Physics Form 2 TG). Opt-in: math-heavy books keep the
+  // math face until someone has looked at them.
+  if (ov.mathBodyFont) themeOverrides.mathBodyFont = true;
   const coverB = blocks.find((b) => b.t === "cover");
   if (coverB && coverB.lines && coverB.lines.length) {
     const gl = coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
@@ -8360,3 +8420,93 @@ async function main() {
 if (require.main === module) main();
 
 module.exports = { emit, importDocx };
+
+// HOUSE STYLE: one letter-marker style per book. An answer key lettered "a) b) c)"
+// in most boxes and "(a) (b) (c)" in a few — or both in ONE box, where a reviewer
+// added parts in their own style — reads as two different elements. Every lettered
+// marker (a–h only, so a roman "(i)" is never mistaken for a letter) takes the style
+// the book uses most; "2. (a)" becomes "2. a)", "(c) (i)" becomes "c) (i)".
+// Physics Form 2 TG (2026-10-29): four boxes mixed the two. Off with keepMarkerStyles.
+function uniformLetterMarkers(blocks, off) {
+  if (off) return;
+  const PAREN = /\(([a-h])\)/g, BARE = /(^|[\s.])([a-h])\)/g;
+  const parts = [];
+  // A letter typed as a line's whole TEXT ("(b)" over its bullets, "2." + "(a)") is that
+  // line's marker, so it numbers and aligns like every other lettered answer.
+  const LONE = /^\s*(\(?[a-h]\))\s*$/;
+  (function walk(arr) {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.parts)) for (const p of b.parts) {
+        if (!p || (p.kind !== "lead" && p.kind !== "q")) continue;
+        const m = LONE.exec(p.q || "");
+        if (!m || (p.qseg || []).some((s) => s.m)) continue;
+        const mk = p.marker || "";
+        if (mk && !/^\d+\.$/.test(mk)) continue;
+        p.marker = mk ? `${mk} ${m[1]}` : m[1];
+        p.kind = "q"; p.q = ""; p.qseg = []; p.a = p.a || ""; p.aseg = p.aseg || [];
+        p.depth = mk ? 0 : 1;
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  })(blocks);
+  (function walk(arr) {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.parts)) for (const p of b.parts) if (p && typeof p.marker === "string") parts.push(p);
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  })(blocks);
+  let paren = 0, bare = 0;
+  for (const p of parts) { paren += (p.marker.match(PAREN) || []).length; bare += (p.marker.match(BARE) || []).length; }
+  if (!paren || !bare) return;
+  for (const p of parts) {
+    p.marker = bare >= paren
+      ? p.marker.replace(PAREN, "$1)")
+      : p.marker.replace(BARE, (m, pre, l) => pre + "(" + l + ")");
+  }
+}
+// An answer line the writer bulleted by hand with a hyphen glued to its first word
+// ("-Conduction is the transfer…") prints the hyphen as text, beside real "•" bullets
+// in the same box. Such a line becomes a bulleted sub-part. A minus sign (−), a
+// negative number ("-2") or a spaced dash is left alone.
+function dashBullets(blocks) {
+  (function walk(arr) {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.parts)) for (const p of b.parts) {
+        if (!p || (p.kind !== "lead" && p.kind !== "q")) continue;
+        // test the line's whole text: the hyphen is often a run of its own (bold "-" then
+        // "Convection is…"), so the first run alone reads just "-"
+        const first = (p.qseg || []).find((x) => !x.m && (x.t || "").trim());
+        if (!first || !/^\s*-/.test(first.t) || !/^\s*-(?=[A-Za-z])/.test(p.q || "")) continue;
+        // after a marker of its own ("a) -During…") the dash is simply dropped
+        if ((p.marker || "") !== "") { first.t = first.t.replace(/^\s*-/, ""); p.q = (p.q || "").replace(/^\s*-/, ""); continue; }
+        first.t = first.t.replace(/^\s*-/, "");
+        p.q = (p.q || "").replace(/^\s*-/, "");
+        p.kind = "q"; p.marker = "•"; p.depth = 1; p.a = p.a || ""; p.aseg = p.aseg || [];
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  })(blocks);
+}
+// Answer-key working lines typed with the signs glued on ("=3", "W =20×5",
+// "=5000−4000") print beside neatly spaced ones ("= 1.8 ÷ 0.6") in the same box.
+// In exercise/assessment parts (text runs only, never math) every "=" gets one space
+// either side, and "×", "÷" and "−" between two numbers do too.
+function spaceAnswerSigns(blocks) {
+  const fix = (t) => t
+    .replace(/([^\s=<>≤≥≠!])=/g, "$1 =").replace(/=(?=[^\s=])/g, "= ")
+    .replace(/(\d)\s*([×÷−])\s*(?=\d)/g, "$1 $2 ");
+  (function walk(arr) {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.parts)) for (const p of b.parts) {
+        if (!p) continue;
+        for (const s of p.qseg || []) if (!s.m && typeof s.t === "string" && /[=×÷−]/.test(s.t)) s.t = fix(s.t);
+        if (typeof p.q === "string") p.q = fix(p.q);
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  })(blocks);
+}
