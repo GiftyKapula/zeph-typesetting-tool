@@ -2353,11 +2353,11 @@
     block(breakable: false, width: 100%)[
       #set par(spacing: 0pt)
       #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
-      #v(8pt)
+      #v(9.5pt)
       #line(length: 100%, stroke: 0.6pt + T.rulec)]
-    // the first line of text sits ~28pt below the rule, as in the Physics Form 2 LB
-    // (the series books get the rest of that gap from their 1.9em front-matter spacing)
-    v(14pt)
+    // spaced like the book's own sub-topic heads: ~8.5pt from the title to its rule and
+    // ~14pt from the rule to the first line of text (the front-matter paragraph spacing
+    // supplies that gap, so nothing is added here)
   } else if literary {
     // centred chapter title flanked by thin gold rules — a literary look
     v(12pt, weak: true)
