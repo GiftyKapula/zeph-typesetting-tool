@@ -7,13 +7,13 @@
         "**HCCI** - Homogeneous Charge Compression Ignition",
         "**RTD** - Resistance Temperature Detector"
       ]
+    },
+    {
+      "before": "Illustrated by: Kashanda Kasaila",
+      "text": " "
     }
   ],
   "edit": [
-    {
-      "find": "Edited by: Stella Libongani",
-      "with": "Edited by: Edward Mubanga and Stella Libongani"
-    },
     {
       "find": "Temperature verses Heat Energy",
       "with": "Temperature versus Heat Energy"
@@ -28,7 +28,7 @@
     },
     {
       "find": "= 20 × 20 × 2.5",
-      "with": "= 20 × 10 × 2.5"
+      "with": "= 50 × 10 × 2.5"
     },
     {
       "find": "Calculating pressure in liquids and gas",
@@ -41,6 +41,42 @@
     {
       "find": "Let learners to explain how sound is used, identify its benefits, provide real-life examples, and present their findings to the class.",
       "with": ""
+    },
+    {
+      "find": "= 500J",
+      "with": "= 1,250J"
+    },
+    {
+      "find": "Paraffin: 32,000 Pa",
+      "with": "Paraffin: 48,000 Pa"
+    },
+    {
+      "find": "Mercury: 68,000 Pa",
+      "with": "Mercury: 816,000 Pa"
+    },
+    {
+      "find": "Efficien]cy",
+      "with": "Efficiency"
+    },
+    {
+      "find": "kinetic energy [1], move faster",
+      "with": "kinetic energy, move faster"
+    },
+    {
+      "find": "own characteristic sound.                                                                                             [2]",
+      "with": "own characteristic sound.                                                                                             [1]"
+    },
+    {
+      "find": "Joule – The SI unit of work and energy.",
+      "with": "Joule – The SI unit of work and energy. It is the amount of work done when a force of 1 N moves an object 1 m in the direction of the force."
+    },
+    {
+      "find": "Newton – The SI unit of force.",
+      "with": "Newton – The SI unit of force. It is the force needed to give a mass of 1 kg an acceleration of 1 m/s²."
+    },
+    {
+      "find": "Watt – The SI unit of power.",
+      "with": "Watt – The SI unit of power. It is the rate at which energy is used or transferred."
     }
   ],
   "fixExercise": [
@@ -199,11 +235,457 @@
         null,
         null,
         "(b)",
-        "•",
-        "•",
-        "•",
-        "•",
-        "(c)"
+        "(c) (i)",
+        "(ii)",
+        "(iii)",
+        "(iv)",
+        "(d)"
+      ]
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "Useful Output Energy",
+      "markers": [
+        null,
+        "1. a)"
+      ],
+      "addParts": [
+        {
+          "marker": "2. a)",
+          "text": "*Gravitational potential energy  [2]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Eₚ = mgh*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Eₚ = 200 × 10 × 6  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Eₚ = 12 000 J  [1]*"
+        },
+        {
+          "marker": "b)",
+          "depth": 1,
+          "text": "*Kinetic energy  [2]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Eₖ = ½mv²*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Eₖ = ½ × 200 × 8²  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Eₖ = 6 400 J  [1]*"
+        },
+        {
+          "marker": "c)",
+          "depth": 1,
+          "text": "*Efficiency  [2]*",
+          "keep": true
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*",
+          "keep": true
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Efficiency = (Useful output energy ÷ Input energy) × 100%*",
+          "keep": true
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*",
+          "keep": true
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Efficiency = (12 000 ÷ 16 000) × 100%  [1]*",
+          "keep": true
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Efficiency = 75%  [1]*"
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "12 000, 20",
+      "markers": [
+        null,
+        "1. a)"
+      ],
+      "addParts": [
+        {
+          "marker": "2. a)",
+          "text": "*Given:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*W = 36 000 J*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*t = 2 × 60 = 120 s*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = W/t*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 36 000/120  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 300 W  [1]*"
+        },
+        {
+          "marker": "b)",
+          "depth": 1,
+          "text": "*The pump transfers 300 J of energy per second.  [1]*"
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "Output Power",
+      "markers": [
+        null,
+        "1. a)"
+      ],
+      "addParts": [
+        {
+          "marker": "2. a)",
+          "text": "*Useful power output  [2]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Power = Work ÷ Time*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Time = 3 × 60 = 180 s*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 360,000 ÷ 180  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 2,000 W  [1]*"
+        },
+        {
+          "marker": "b)",
+          "depth": 1,
+          "text": "*Input power  [2]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Input power = Electrical energy supplied ÷ Time*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 500,000 ÷ 180  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 2,777.8 W  [1]*"
+        },
+        {
+          "marker": "c)",
+          "depth": 1,
+          "text": "*Efficiency  [2]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Efficiency = (Useful energy output ÷ Input energy) × 100%*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Efficiency = (360,000 ÷ 500,000) × 100%  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Efficiency = 72%  [1]*"
+        },
+        {
+          "marker": "d)",
+          "depth": 1,
+          "text": "*Some of the electrical energy supplied is wasted as heat and sound due to friction and electrical resistance in the pump.  [1]*"
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE 12",
+      "near": "ρAhg",
+      "markers": [
+        null,
+        "1. a)"
+      ],
+      "addParts": [
+        {
+          "marker": "2. a)",
+          "text": "*Given:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*ρ = 1,000 kg/m³*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*g = 10 N/kg*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*h = 4.0 m*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = ρgh*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 1,000 × 10 × 4.0  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 40,000 Pa  [1]*"
+        },
+        {
+          "marker": "b)",
+          "depth": 1,
+          "text": "*Given:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*ρ = 1,000 kg/m³*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*g = 10 N/kg*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*h = 6.0 m*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Formula:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = ρgh*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Substitution:*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 1,000 × 10 × 6.0  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*P = 60,000 Pa  [1]*"
+        },
+        {
+          "marker": "c)",
+          "depth": 1,
+          "text": "*The pressure increases from 40,000 Pa to 60,000 Pa as the depth increases from 4.0 m to 6.0 m.  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*This shows that liquid pressure increases with depth.  [1]*"
+        },
+        {
+          "marker": "d)",
+          "depth": 1,
+          "text": "*The pressure depends on the height of the water column above the point being considered, not the height of the tank above the ground.  [1]*"
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE 13",
+      "near": "Weight in air",
+      "markers": [
+        null,
+        "1. a)"
+      ],
+      "addParts": [
+        {
+          "marker": "2. a)",
+          "text": "*Upthrust = Weight in air − Apparent weight in water*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Upthrust = 15 − 9  [1]*"
+        },
+        {
+          "marker": "",
+          "depth": 1,
+          "text": "*Upthrust = 6 N  [1]*"
+        },
+        {
+          "marker": "b)",
+          "depth": 1,
+          "text": "*Water exerts an upward force (upthrust) on the metal block, reducing its apparent weight.  [1]*"
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "Hottest substance",
+      "markers": [
+        null,
+        null,
+        null,
+        "b) (i)",
+        null,
+        "(ii)",
+        null,
+        "c)",
+        "d)"
+      ]
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "Clinical thermometer.",
+      "markers": [
+        null,
+        "a) (i)",
+        "(ii)",
+        "b) (i)",
+        null,
+        null,
+        "(ii)",
+        null,
+        null,
+        "(iii)",
+        null,
+        null,
+        "c)",
+        null,
+        "d)"
       ]
     }
   ],
@@ -300,7 +782,7 @@
   "replace": [
     {
       "find": "Help learners understand that work is done when an applied force causes an object",
-      "with": "Work is done when a force causes a displacement and has a component in the direction of the displacement. The work done depends on the component of the force acting along the displacement of the object."
+      "with": "Guide learners to appreciate that work is done when a force causes a displacement and has a component in the direction of the displacement. Emphasise that the work done depends on the component of the force acting along the displacement of the object."
     },
     {
       "find": "instruct the learners to attach the spring balance to the toy car",
@@ -377,6 +859,182 @@
     {
       "find": "Hybrid vehicles contribute to environmental sustainability by reducing dependence on fossil fuels.",
       "with": "-Hybrid vehicles contribute to environmental sustainability by reducing dependence on fossil fuels. Any two of the above [2]"
+    },
+    {
+      "find": "Edited by:",
+      "with": "**Edited by:** Edward Mubanga and Stella Libongani"
+    },
+    {
+      "find": "Illustrated by: Kashanda Kasaila",
+      "with": "**Illustrated by:** Kashanda Kasaila"
+    },
+    {
+      "find": "Lead learners to investigate how machines convert input power",
+      "with": "Lead learners to investigate how machines convert input power into useful output power and recognise that some power is always lost to the surroundings as heat and sound due to friction and other resistive forces. Demonstrate that power efficiency measures how effectively a machine converts input power into useful output power and explain that machines with higher efficiency waste less power. Emphasise that using energy-efficient machines conserves electricity, reduces operating costs and minimises environmental pollution associated with energy production. Assist learners in calculating power efficiency using the relationship:"
+    },
+    {
+      "find": "Relate the concept of simple machines to everyday activities",
+      "with": "Relate the concept of simple machines to everyday activities by using familiar examples from the home, school, farm and industry. Guide learners to appreciate that simple machines make work easier by changing the size or direction of a force, enabling tasks to be performed with less effort. Draw learners’ attention to common examples such as wheelbarrows, ramps, pulleys, scissors and screwdrivers, and encourage them to identify other simple machines used in their local communities. Emphasise the importance of using simple machines correctly to prevent accidents, reduce physical strain and improve workplace safety."
+    },
+    {
+      "find": "Guide learners in appreciating the applications of pressure",
+      "with": "Guide learners in appreciating the applications of pressure by leading a discussion on how pressure is used in devices that transmit, measure and apply force. Describe the operation and uses of hydraulic devices such as hydraulic presses, hydraulic brakes and hydraulic car jacks, highlighting the importance of proper maintenance and safe operation. Help learners understand the uses of pressure-measuring instruments such as manometers and mercury barometers, and explain how accurate pressure measurements support weather forecasting and disaster risk reduction. Encourage learners to appreciate how pressure is applied to solve real-life problems in transportation, construction, manufacturing, medicine and other fields, while promoting road safety, occupational health and safety, and environmental protection. Emphasise the importance of accurate weather forecasts in preparing for extreme weather events and protecting lives and property."
+    },
+    {
+      "find": "Help learners to appreciate the properties of mercury and alcohol",
+      "with": "Help learners appreciate the properties of mercury and alcohol as thermometric liquids by discussing their advantages, limitations and applications. Guide learners to understand that both liquids respond to changes in temperature by expanding and contracting, but differ in their freezing points, boiling points, visibility, response rates and safety. Assist learners in comparing the two thermometric liquids and determining the most appropriate one for different temperature measurements. Emphasise the importance of handling thermometers safely, particularly those containing mercury, and explain how proper disposal prevents environmental contamination and protects human health."
+    },
+    {
+      "find": "Help learners appreciate the different rates of thermal expansion",
+      "with": "Help learners appreciate the different rates of thermal expansion by understanding that the extent of expansion varies from one material to another. Lead them to compare the rates of expansion of common solids, liquids and gases and discuss their practical applications, including bimetallic strips, expansion joints, rivets, loosening metal lids and liquid-in-glass thermometers. Encourage learners to explain how differences in thermal expansion influence the selection of materials used in engineering and construction. Emphasise the importance of providing expansion joints in structures such as bridges and buildings to prevent damage caused by temperature changes, promote infrastructure safety and reduce material wastage."
+    },
+    {
+      "find": "Encourage learners to investigate the applications of heat transfer",
+      "with": "Encourage learners to investigate the applications of heat transfer by exploring how the principles of conduction, convection and radiation are applied to solve everyday problems and improve the efficiency of heating and cooling systems. Lead a discussion on the operation of food warmers, vacuum flasks, refrigerators, heating elements and car radiators, as well as the formation of sea and land breezes and the use of suitable clothing to regulate body temperature. Highlight how different materials are selected according to their thermal properties to either promote or reduce heat transfer in homes, industries and transportation. Emphasise the importance of energy-efficient heating and cooling systems in conserving electricity, reducing operating costs and minimising environmental pollution. Encourage learners to identify additional examples from their local environment and explain how heat transfer principles contribute to environmental sustainability, climate adaptation and the development of efficient technologies."
+    },
+    {
+      "find": "Ensure the thermometer bulb is completely surrounded by the melting ice",
+      "with": "**Teacher tips:** *Before learners begin the experiment, emphasise the safety precautions for handling boiling water. Demonstrate how to use suitable tongs to handle the hot container and warn learners against touching the hot water or container with bare hands. Guide learners to position the thermometer bulb correctly in the melting ice and boiling water without touching the sides or bottom of the container. Ensure that learners divide the fundamental interval accurately into 100 equal divisions and compare their readings with those of a laboratory thermometer.*"
+    },
+    {
+      "find": "heat absorbed by the aluminium pot = 126 000 J",
+      "with": [
+        "**Expected findings/observations:** *Learners should obtain the following values:*",
+        "1. *Heat absorbed by the aluminium pot = 126,000 J (1.26 × 10⁵ J).*",
+        "2. *Heat required to melt the ice = 167,000 J (1.67 × 10⁵ J).*",
+        "3. *Heat required to convert the water into steam = 3.39 × 10⁶ J.*",
+        "4. *Water is an effective coolant because it has a high specific heat capacity, allowing it to absorb a large amount of heat with a relatively small increase in temperature.*",
+        "5. *Applications of latent heat include refrigeration, air conditioning and cooling by evaporation of sweat.*"
+      ]
+    },
+    {
+      "find": "Bucket, rope, weighing balance",
+      "with": "**Required materials:** *Bucket, sand, rope, weighing balance, metre rule and stopwatch.*"
+    },
+    {
+      "find": "Ask them to measure the mass of the bucket using",
+      "with": "**Procedure:** *Fill the bucket about three-quarters full with sand and measure the total mass using a weighing balance. Calculate its weight using W = mg. Attach the rope and lift the bucket through a measured vertical height, recording the time taken using a stopwatch. Calculate the work done using Work done = Force × distance and the power developed using P = W/t. Repeat the activity with the bucket half-filled and then quarter-filled with sand, keeping the lifting height constant for all trials. Record the results in a table and compare the power developed.*"
+    },
+    {
+      "find": "Ensure learners lift the bucket safely",
+      "with": "**Teacher tips:** *Guide learners to measure the vertical height accurately and keep it constant throughout the investigation. Ensure that the bucket is lifted steadily and safely, with learners avoiding standing beneath the suspended bucket. Remind learners to use the total mass of the bucket and sand when calculating weight. Explain that the weight of the bucket acts as the lifting force and that the distance used in calculating work is the vertical height.*"
+    },
+    {
+      "find": "Learners should observe that power increases when more work",
+      "with": [
+        "**Expected findings/observations:**",
+        "- *The bucket containing more sand has a greater mass and weight.*",
+        "- *A greater weight requires more work to lift the bucket through the same height.*",
+        "- *If the lifting time is similar, the more heavily loaded bucket requires greater power.*",
+        "- *Power increases when more work is done in the same time and decreases when the same work takes longer.*"
+      ]
+    },
+    {
+      "find": "power depends on the amount of work done and the time taken to do the work",
+      "with": "**Conclusion:** *Power is the rate at which work is done. It depends on the amount of work done and the time taken to do it.*"
+    },
+    {
+      "find": "Books, wooden blocks, bricks, chairs",
+      "with": "**Required materials:** *Rectangular wooden block, soft sponge or clay, ruler, calculator and observation sheet.*"
+    },
+    {
+      "find": "Guide them to apply similar forces over different surface areas",
+      "with": "**Procedure:** *Guide learners to work individually, in pairs or in groups. Ask them to place a rectangular wooden block on a soft sponge or clay and press it gently with their hands. Let them observe and record the effect produced on the surface. Instruct them to repeat the activity by applying a greater force to the same block and record the changes observed. Next, ask learners to place the block on different faces so that the same force acts over different contact areas. Guide them to measure the length and width of each contact surface using a ruler and calculate its area. Ask learners to compare the effects produced when the same force acts over different areas. Finally, provide the relationship P = F ÷ A and guide learners to identify the SI units of force and area. Let them substitute these units into the formula to establish the SI unit of pressure and state its name and symbol.*"
+    },
+    {
+      "find": "Ensure learners handle sharp objects such as knives",
+      "with": "**Teacher tips:** *Ensure learners use the same block when investigating the effect of changing force and contact area. Guide them to vary one factor at a time and observe the changes carefully. Remind learners that force is measured in newtons (N), while area is measured in square metres (m²). Assist them in expressing the unit of pressure as N/m² and identifying its equivalent name and symbol.*"
+    },
+    {
+      "find": "the same force produces greater pressure over a smaller surface area",
+      "with": [
+        "**Expected findings/observations:**",
+        "- *The sponge or clay is compressed more when a greater force is applied to the block.*",
+        "- *When the same force acts over a smaller contact area, the indentation is greater.*",
+        "- *When the same force acts over a larger contact area, the indentation is smaller.*",
+        "- *Learners identify the SI unit of force as the newton (N) and the SI unit of area as the square metre (m²).*",
+        "- *Substituting the units into P = F ÷ A gives N/m², which is equivalent to the pascal (Pa).*"
+      ]
+    },
+    {
+      "find": "pressure increases with increasing force and decreases with increasing surface area",
+      "with": "**Conclusion:** *Learners should conclude that pressure is the force acting per unit area. They should establish that the SI unit of pressure is the pascal (Pa), where 1 Pa = 1 N/m².*"
+    },
+    {
+      "find": "Eureka (overflow) can, measuring cylinder, spring balance, water, solid object",
+      "with": "**Required materials:** *Eureka (overflow) can, measuring cylinder, spring balance, water and a solid object that sinks in water.*"
+    },
+    {
+      "find": "to measure the weight of a solid object in air and when fully immerse",
+      "with": "**Procedure:** *Fill the Eureka can with water until it flows out through the spout and stops dripping. Place an empty measuring cylinder below the spout. Measure and record the weight of the solid object in air using a spring balance. Carefully immerse the object completely in the water without allowing it to touch the sides or bottom of the can. Collect the displaced water in the measuring cylinder and measure its weight using the spring balance. Calculate the loss in weight of the object by subtracting its weight in water from its weight in air. Compare the loss in weight with the weight of the displaced water and record the findings.*"
+    },
+    {
+      "find": "Ensure the object is completely immersed without touching the container",
+      "with": "**Teacher tips:** *Explain how to set up the Eureka can correctly and allow excess water to stop dripping before immersing the object. Ensure that the object is completely immersed and does not touch the can. Remind learners to collect all the displaced water and read the spring balance at eye level. Guide learners to compare the loss in weight of the object with the weight of the displaced water.*"
+    },
+    {
+      "find": "the object appears to weigh less when immersed in water",
+      "with": [
+        "**Expected findings/observations:**",
+        "- *The object's weight in water is less than its weight in air.*",
+        "- *The object experiences an upthrust equal to the loss in its weight.*",
+        "- *The weight of the displaced water is approximately equal to the loss in weight of the object.*"
+      ]
+    },
+    {
+      "find": "an immersed object experiences an upthrust equal to the weight",
+      "with": "**Conclusion:** *Archimedes' Principle states that a body wholly or partially immersed in a fluid experiences an upthrust equal to the weight of the fluid displaced.*"
+    },
+    {
+      "find": "Samples of a solid (e.g. stone)",
+      "with": "**Required materials:** *Particle-motion simulation or samples of solids, liquids and gases, paper, pencil and observation sheet.*"
+    },
+    {
+      "find": "Ask learners to work individually and observe samples of a solid",
+      "with": "**Procedure:** *Guide learners to work individually or in small groups to observe particle motion using a simulation or suitable observations. Ask them to draw and compare particle arrangements in solids, liquids and gases, noting their spacing, movement and forces of attraction. Let them investigate or discuss how heating affects particle motion and record their findings.*"
+    },
+    {
+      "find": "Encourage learners to observe carefully and draw clear particle diagrams",
+      "with": "**Teacher tips:** *Emphasise that solid particles vibrate about fixed positions, liquid particles move past one another, and gas particles move freely. Explain that heating increases the average kinetic energy of particles. Ensure any dust or smoke observations are conducted safely.*"
+    },
+    {
+      "find": "particles in solids are closely packed and vibrate about fixed positions",
+      "with": [
+        "**Expected findings/observations:**",
+        "- *Solid particles are closely packed and vibrate about fixed positions.*",
+        "- *Liquid particles are close together but move past one another.*",
+        "- *Gas particles are widely spaced and move freely in random directions.*",
+        "- *Heating increases the average kinetic energy of particles.*"
+      ]
+    },
+    {
+      "find": "the arrangement and movement of particles explain the different properties",
+      "with": "**Conclusion:** *Learners should conclude that matter consists of tiny particles in continuous random motion, and that particle arrangement and movement explain the properties of solids, liquids and gases.*"
+    },
+    {
+      "find": "Beans, bottle tops, marbles, beads",
+      "with": "**Required materials:** *Beans, bottle tops, marbles, seeds or small stones, trays, paper and pens.*"
+    },
+    {
+      "find": "to construct simple models showing the arrangement of particles",
+      "with": "**Procedure:** *Ask learners to arrange the materials to represent particles in solids, liquids and gases. Compare their arrangement, spacing, movement and forces of attraction. Where available, use a particle-motion simulation and compare its observations with the models. Let learners present their findings.*"
+    },
+    {
+      "find": "Encourage learners to use similar materials and, where possible",
+      "with": "**Teacher tips:** *Emphasise that solid particles vibrate about fixed positions, liquid particles move past one another, and gas particles move freely and randomly. Explain that forces of attraction are generally strongest in solids and weakest in gases.*"
+    },
+    {
+      "find": "Learners should model solids as having closely packed particles",
+      "with": [
+        "**Expected findings/observations:**",
+        "- *Solids have closely packed particles and strong forces of attraction.*",
+        "- *Liquids have closely spaced particles that move past one another.*",
+        "- *Gases have widely spaced particles that move freely and randomly.*"
+      ]
+    },
+    {
+      "find": "the molecular model explains the different properties",
+      "with": "**Conclusion:** *Differences in particle arrangement, spacing, movement and forces of attraction explain the properties of solids, liquids and gases.*"
     }
   ],
   "setMarker": [
@@ -389,12 +1047,81 @@
       "find": "A pulley. It changes the direction of the applied force",
       "marker": "(d)",
       "depth": 0
+    },
+    {
+      "find": "Sound cannot travel through a vacuum because it is a mechan",
+      "marker": "(b)",
+      "depth": 0
+    },
+    {
+      "find": "Solids → Liquids → Gases",
+      "marker": "(c)",
+      "depth": 0
+    },
+    {
+      "find": "Omnidirectional sound spreads in all directions",
+      "marker": "(d)",
+      "depth": 0
+    },
+    {
+      "find": "Classifying sound into different types helps",
+      "marker": "(f)",
+      "depth": 0
     }
   ],
   "textFix": [
     {
       "find": "Measuring heat capacity c =",
       "with": "Measuring heat capacity C ="
+    }
+  ],
+  "subtext": [
+    {
+      "from": "metre rule",
+      "to": "meter rule"
+    },
+    {
+      "from": "Ep = mgh",
+      "to": "Eₚ = mgh"
+    },
+    {
+      "from": "Ek = ½mv²",
+      "to": "Eₖ = ½mv²"
+    }
+  ],
+  "mathBodyFont": true,
+  "unlist": [
+    "Giancoli, D. C. (2021)",
+    "Halliday, D., Resnick, R.",
+    "Hewitt, P. G. (2024)",
+    "Serway, R. A., & Jewett",
+    "Zambia Institute of Education. (2023)"
+  ],
+  "keepWithNext": [
+    {
+      "find": "Pressure = Force ÷ Area",
+      "after": "it experiences an upthrust equal to the weight of the fluid"
+    },
+    "= 150 ÷ 0.01",
+    "= 15,000 Pa",
+    "Force = Pressure × Area",
+    "= 15,000 × 0.20",
+    "= 3000 N",
+    "Pascal’s Principle.",
+    "Omnidirectional sound spreads in all directions",
+    "Thunder – Natural",
+    "Loudspeaker – Artificial",
+    "Birdsong – Natural",
+    "Motor vehicle – Artificial"
+  ],
+  "forceFreshPage": [
+    {
+      "find": "END OF TOPIC ASSESSMENT",
+      "near": "Heat is transferred from a hot object to a cold object"
+    },
+    {
+      "find": "EXERCISE 1",
+      "near": "In a guitar, the vibrating part"
     }
   ]
 }

@@ -178,6 +178,15 @@
   // centred) so a reader can scan a working straight down the page. Typst centres
   // block equations by default, so force them left; dispmath then handles the width.
   show math.equation.where(block: true): set align(left)
+  // mathBodyFont (opt-in, per book): equations in the body face. Words, digits and
+  // operators take it from the font list; a single-letter variable is set as plain
+  // body text in the surrounding style (Typst would otherwise draw it as a math-italic
+  // serif glyph the body face lacks). Fraction bars, roots etc. keep the math font.
+  show math.equation: it => if T.at("mathBodyFont", default: false) {
+    set text(font: (T.bodyFont, "New Computer Modern Math"))
+    show regex("^[A-Za-z]$"): l => context math.upright(text(font: T.bodyFont, style: text.style, l))
+    it
+  } else { it }
   // Fractions must READ at body size. Typst renders an inline fraction in "text"
   // style, shrinking the numerator/denominator to script size (~70%) — so "0.2/12"
   // came out visibly smaller than the 12pt prose around it. Force every fraction
@@ -1826,6 +1835,11 @@
       let prev = if i > 0 { ss.at(i - 1) } else { none }
       let next = if i + 1 < ss.len() { ss.at(i + 1) } else { none }
       if inlineMath(prev) or inlineMath(next) { v(4pt, weak: true); linebreak() } else { seg(s) }
+    } else if T.at("mathBodyFont", default: false) and inlineMath(s) {
+      // an inline equation inside an italic run (an answer key's "P = W/t") takes the
+      // run's italic, so its body-face letters match the words around them
+      let prevText = ss.slice(0, i).rev().find(x => not x.at("m", default: false) and x.at("t", default: "").trim() != "")
+      if prevText != none and prevText.at("it", default: false) { text(style: "italic", seg(s)) } else { seg(s) }
     } else { seg(s) }
   }).join()
 }
@@ -3836,7 +3850,8 @@
       // introduces the lines after it and must not be the last thing on a page. The
       // Hospitality Management Form 3 TG ended pages on both. Sticky moves nothing else.
       // `whole` (a short scenario passage an override set) keeps the passage on one page.
-      if it.q.trim().ends-with(":") { block(sticky: true, breakable: false, width: 100%)[#leadrow] }
+      // `keep` (keepWithNext) binds a working line to the next, like a colon lead-in.
+      if it.q.trim().ends-with(":") or it.at("keep", default: false) { block(sticky: true, breakable: false, width: 100%)[#leadrow] }
       else if it.at("whole", default: false) { block(breakable: false, width: 100%)[#leadrow] } else { leadrow }
       v(2pt)
     }

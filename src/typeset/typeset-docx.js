@@ -75,7 +75,7 @@ const partsArr = (parts) => arr(parts, (p) =>
   p.kind === "colsum" ? `(kind: "colsum", rows: ${strArr(p.rows || [])}, answer: ${strArr(p.answerRows || [])}, marker: ${S(p.marker || "")})`
   : p.kind === "table" ? `(kind: "table", r: ${rowArr(p.rows)}, marker: ${S(p.marker || "")}${p.sheet ? ", sheet: true" : ""}${p.header ? ", hdr: true" : ""})`
   : p.kind === "image" ? `(kind: "image", images: ${imgArr(p.images)}, marker: ${S(p.marker || "")})`
-  : p.kind === "lead" ? `(kind: "lead", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, indent: ${p.indent ? "true" : "false"}${p.align ? `, align: ${S(p.align)}` : ""}${p.whole ? ", whole: true" : ""})`
+  : p.kind === "lead" ? `(kind: "lead", q: ${S(p.q)}, qseg: ${segArr(p.qseg || [])}, indent: ${p.indent ? "true" : "false"}${p.align ? `, align: ${S(p.align)}` : ""}${p.whole ? ", whole: true" : ""}${p.keepNext ? ", keep: true" : ""})`
   // a run of space-separated columns inside an exercise (e.g. a place-value chart:
   // "352 ___ ___ ___") that columnizeLists turned into a grid — emit it as a colgrid
   // part so qaparts renders the aligned columns instead of dropping to an empty q.
@@ -1897,7 +1897,31 @@ function applyOverrides(blocks, ov) {
     // untouched siblings. Reviewers write their replacements as "**Procedure:** ..."
     // already, so this renders what they actually asked for. Text with no markers
     // parses to a single plain run, exactly as before.
-    setBlockSegs(b, mkSegs(r.with));
+    // `with` may also be an ARRAY of lines: the first rewrites the block, the rest are
+    // set straight after it in the SAME body (an activity's, a box's, or the page) —
+    // "- text" as a bullet, "1. text" as a numbered item, anything else a paragraph.
+    // A reviewer's rewrite of an activity's "Expected findings/observations:" often
+    // turns one sentence into a short list, which a one-block replace cannot hold.
+    const lines = Array.isArray(r.with) ? r.with : [r.with];
+    setBlockSegs(b, mkSegs(lines[0]));
+    if (lines.length > 1) {
+      let host = null;
+      const walk = (arr) => {
+        if (host) return;
+        if (arr.includes(b)) { host = arr; return; }
+        for (const x of arr) if (x && typeof x === "object")
+          for (const k of Object.keys(x)) if (Array.isArray(x[k]) && x[k].some((y) => y && typeof y === "object")) walk(x[k]);
+      };
+      walk(blocks);
+      if (!host) { console.warn("!  replace: no body found for extra lines of", r.find); continue; }
+      const listId = `rep_${r.find.slice(0, 12)}`;
+      const extra = lines.slice(1).map((ln) => {
+        const m = /^(?:(-)|(\d+\.))\s+(.*)$/s.exec(ln);
+        if (!m) return { t: "para", segs: mkSegs(ln) };
+        return { t: "para", segs: mkSegs(m[3]), isList: true, numId: listId, lvl: 0, marker: m[1] ? "•" : m[2] };
+      });
+      host.splice(host.indexOf(b) + 1, 0, ...extra);
+    }
   }
   // setCaption: [{ near|file, index, text }] — set the caption of an image. Match by
   // `near` (an existing caption's text, on a lone image or any image in a row) or by
@@ -3060,8 +3084,12 @@ function applyOverrides(blocks, ov) {
   // by-book on purpose: binding every such stem pushes whole answers over and empties
   // pages (tried on the Hospitality Management Form 3 TG, Exercise 3 of 3.5.2).
   for (const k of ov.keepWithNext || []) {
-    const b = flat.find((x) => blockPlain(x).includes(k));
-    if (b) b.keepNext = true; else console.warn("!  keepWithNext not matched:", k);
+    // { find, after }: the first match AFTER a block containing `after` — for a line the
+    // book repeats ("Pressure = Force ÷ Area" opens two questions of one assessment)
+    const find = typeof k === "string" ? k : k.find;
+    const from = typeof k === "object" && k.after ? flat.findIndex((x) => blockPlain(x).includes(k.after)) : -1;
+    const b = typeof k === "object" && k.after && from < 0 ? null : flat.find((x, i) => i > from && blockPlain(x).includes(find));
+    if (b) b.keepNext = true; else console.warn("!  keepWithNext not matched:", find);
   }
   for (const sm of ov.setMarker || []) {
     const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
@@ -3350,7 +3378,7 @@ function applyOverrides(blocks, ov) {
         if (mk && p.kind === "lead") { p.kind = "q"; p.a = p.a || ""; p.aseg = p.aseg || []; }
       });
     }
-    // addParts: [{ text, marker?, depth?, at? }] — insert answer lines the manuscript
+    // addParts: [{ text, marker?, depth?, at?, keep? }] — insert answer lines the manuscript
     // never carried. A proofreader who finds a question whose answer key is simply
     // missing writes the answer out in their note; until now there was no way to get it
     // into the box, because every other primitive can only rewrite parts that already
@@ -3363,6 +3391,8 @@ function applyOverrides(blocks, ov) {
         kind: "q", marker: ap.marker || "", depth: ap.depth != null ? ap.depth : 0,
         q: String(ap.text || ""), qseg: mkSegs(String(ap.text || "")),
         a: "", aseg: [],
+        // keep: true binds this line to the next (keepWithNext runs before addParts)
+        ...(ap.keep ? { keepNext: true } : {}),
       };
       if (ap.at != null && ap.at >= 0 && ap.at <= parts.length) parts.splice(ap.at, 0, part);
       else parts.push(part);
@@ -7944,6 +7974,13 @@ function normaliseQuestionMarkBold(blocks) {
   if (gnum === "2" && eduLevel === "Primary Education Level") themeOverrides.coverStyle = "grade2";
   // a book may pin a specific cover style (e.g. to A/B-test a Grade 2 cover variant)
   if (ov.coverStyle) themeOverrides.coverStyle = ov.coverStyle;
+  // mathBodyFont: true — set equations in the body face (words, digits, operators and
+  // single-letter variables), keeping the math font only for fraction bars, roots and
+  // other symbols the body face lacks. Without it a fraction of words ("Power Output
+  // over Power input") or "v = d/t" prints in a serif beside Arial text; CDC marked it
+  // "maintain the same font" (Physics Form 2 TG). Opt-in: math-heavy books keep the
+  // math face until someone has looked at them.
+  if (ov.mathBodyFont) themeOverrides.mathBodyFont = true;
   const coverB = blocks.find((b) => b.t === "cover");
   if (coverB && coverB.lines && coverB.lines.length) {
     const gl = coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
