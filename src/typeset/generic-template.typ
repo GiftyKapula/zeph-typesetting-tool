@@ -2384,7 +2384,7 @@
       #v(-8.3pt)
       #line(length: 22%, stroke: 0.6pt + T.accent)
     ])
-    v(4.9pt) // rule-to-text ~14.5pt, as under every other heading rule
+    v(-0.3pt)
   } else if panel {
     // editorial banner: thin top rule, title, thick accent rule beneath
     v(10pt, weak: true)
