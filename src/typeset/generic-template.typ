@@ -901,8 +901,29 @@
           #text(size: 16pt, weight: "bold", fill: white.transparentize(8%))[#upper(lbl(booktype))]
         ]])
       ])
+      // portrait picture (coverHeroPortrait): a tall card 92mm wide, starting just under the
+      // book type and overlapping the band's foot. Its height comes from the picture's own
+      // shape, so nothing is trimmed (a 0.71:1 picture gives ~130mm)
+      #let tallHero = hero != none and T.at("coverHeroPortrait", default: false)
+      // coverHeroWhole: the wide 132mm card takes its height from the picture instead of
+      // cropping it to 78mm (a 3:2 picture gives 88mm)
+      #let wholeHero = hero != none and not tallHero and T.at("coverHeroWhole", default: false)
       // straight, thick-framed hero (soft drop plate behind for depth)
-      #if hero != none [
+      #if tallHero [
+        #context {
+          let pic = image("_media/" + hero.file, width: 92mm)
+          let h = measure(pic).height
+          place(top + center, dy: 76mm, box(width: 92mm, height: h, radius: 5mm, fill: deep))
+          place(top + center, dy: 73mm, box(width: 92mm, height: h, radius: 5mm, clip: true, stroke: 5pt + white, pic))
+        }
+      ] else if wholeHero [
+        #context {
+          let pic = image("_media/" + hero.file, width: 132mm)
+          let h = measure(pic).height
+          place(top + center, dy: 109mm, box(width: 132mm, height: h, radius: 5mm, fill: deep))
+          place(top + center, dy: 106mm, box(width: 132mm, height: h, radius: 5mm, clip: true, stroke: 5pt + white, pic))
+        }
+      ] else if hero != none [
         #place(top + center, dy: 109mm, box(width: 132mm, height: 78mm, radius: 5mm, fill: deep))
         #place(top + center, dy: 106mm, box(width: 132mm, height: 78mm, radius: 5mm, clip: true, stroke: 5pt + white)[
           #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")])
@@ -913,13 +934,13 @@
       ]
       // authors
       #if byline.len() > 0 [
-        #place(top + center, dy: 197mm, block(width: 160mm)[#align(center)[
+        #place(top + center, dy: if tallHero { 211mm } else if wholeHero { 202mm } else { 197mm }, block(width: 160mm)[#align(center)[
           #text(size: 9pt, weight: "bold", fill: T.primary, tracking: 3pt)[#authlabel(byline)]
           #v(2mm)
           #text(size: 9.5pt, weight: "bold", fill: deep)[#byline.join("  •  ")]]])
       ]
-      // publisher + logo
-      #place(bottom + center, dy: -13mm, align(center)[
+      // publisher + logo (a little lower under a tall card, to clear the byline)
+      #place(bottom + center, dy: if tallHero or wholeHero { -8mm } else { -13mm }, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
         #text(size: 10.5pt, weight: "bold", fill: T.primary)[Zambia Educational Publishing House]
       ])

@@ -1,0 +1,226 @@
+{
+  "_comment": [
+    "Lunda Grade 1 Teacher's Guide — per-book overrides.",
+    "",
+    "Sibling of LUNDA GRADE 1 LB (same author, same 14 CHIBALU units, same",
+    "numbering). Anything decided for one of the two should hold for the other.",
+    "",
+    "Every `find` string below is copied from the IMPORTED text (the engine's own",
+    "_last-docx.typ dump), not from the manuscript.md rendering, so the characters",
+    "are the ones the engine actually sees."
+  ],
+  "_note_authors": [
+    "The manuscript names the same person two ways: its own title-page line reads",
+    "'C.K. KABALAKANYA' while the ANSONEKI page gives him in full as 'Charles",
+    "Kazembe Kabalakanya, Managing Director/CEO Wa Charle-Charle General Dealers",
+    "Company Limited'. House style is one form per person, the fullest one, so the",
+    "cover and title-page byline carry the full name rather than the initials the",
+    "author happened to type on his own cover page. The Learner's Book carries the",
+    "identical override."
+  ],
+  "authors": [
+    "Charles Kazembe Kabalakanya"
+  ],
+  "_note_localLabels": [
+    "Cover, title page and spine words in Lunda, as the Lunda Grade 1 LB prints them (no English on a local-language cover)."
+  ],
+  "localLabels": true,
+  "_note_coverWords": [
+    "Book type as the manuscript's own cover prints it, \"MUKANDA WA NTAÑISHI\" (also on the 6 Oct build and the author's returned FINAL BOOK), not the word list's \"MUKANDA WAKULOMBOLA NTAÑISHI\". Back cover \"Published by\", the house standard."
+  ],
+  "coverWords": {
+    "booktype": "MUKANDA WA NTAÑISHI",
+    "printedBy": "Published by"
+  },
+  "_note_boxActivities": [
+    "The author typed every activity as a bold heading ('Zhakwila 1: Kubakula ni",
+    "kuzhika mukanda') with its instructions as plain paragraphs under it, rather",
+    "than in the shaded single-cell table other books use. Left alone the engine",
+    "renders them as ordinary headings, so an activity is indistinguishable from",
+    "the section headings around it, and the three casings the author used —",
+    "'ZHAKWILA 1: …' (p4), 'Zhakwila 2: Kuhema chisela chayibalu yansañu' (p3),",
+    "'Zhakwila 2: Kumwekesha Mwazatikilaña ni Mwatalisha Mazu' (p122) — print as",
+    "three different-looking elements for one thing.",
+    "",
+    "boxActivities boxes all 151 of them and lets uniformBoxLabelCase settle the",
+    "label on one case throughout, which is how the sibling Kiikaonde Grade 1",
+    "Teacher's Guide renders (there via the kaonde THEME flag). It is set per-book",
+    "rather than on the lunda theme because that theme is shared with the Lunda",
+    "Grade 1 Learner's Book, which should not take a Teacher's Guide's boxing."
+  ],
+  "boxActivities": true,
+  "_note_asHead": [
+    "AUTHOR SLIP CORRECTED, one activity. Every other activity in the book is a",
+    "bold heading of its own with its instruction in the paragraph below. In the",
+    "KUTIYILILA KUNSAÑU lesson of CHIBALU 1 the author ran the two together on one",
+    "line — a bold 'Zhakwila 1:' followed by plain text — so the block imported as",
+    "a paragraph and was the ONE activity of 151 that did not box, printing as",
+    "loose body text while its 150 siblings printed in shaded boxes. Promoting it",
+    "to a heading lets it box with the rest. (Its trailing full stop, and five more",
+    "like it, are dropped by tidyHeadings — which until now never reached a BOX",
+    "title, only a plain heading's text; that is fixed in the engine, not here.)"
+  ],
+  "asHead": [
+    "Zhakwila 1: Kutiyilila kunsañu yakutiya hela yakutaña (mpanji yawankakulula, tuheka, niyishimu) nikwakula malwihu."
+  ],
+  "_note_numbering": [
+    "AUTHOR NUMBERING CORRECTED, one sub-topic. The book runs MUTU WANSAÑU WENENI",
+    "N.N -> MUTU WANSAÑU WANYANYA N.N.N everywhere, and its topic numbers are a",
+    "stable syllabus map (1.4 is CHISELA in every unit that uses it). In CHIBALU 12",
+    "the sub-topic under 'MUTU WANSAÑU WENENI 1.4: CHISELA' was typed 'MUTU WANSAÑU",
+    "WANYANYA 1.41', a missing dot — the only sub-topic in the book whose number is",
+    "not three parts. Set to 1.4.1, the child of the topic directly above it.",
+    "",
+    "Its competence line is numbered 1.3.3.1 and is NOT touched: these are syllabus",
+    "strand codes, they legitimately repeat and run out of sequence across the book",
+    "(as in the Kiikaonde Grade 1 Teacher's Guide), and nothing in the manuscript",
+    "settles which of the two the author meant to change."
+  ],
+  "replace": [
+    {
+      "find": "MUTU WANSAÑU WANYANYA 1.41",
+      "with": "MUTU WANSAÑU WANYANYA 1.4.1: KUHEMA CHISELA"
+    }
+  ],
+  "_note_spelling": [
+    "AUTHOR SPELLING CORRECTED. Each of these is a single slip against the author's",
+    "own overwhelming usage elsewhere in the same book, counted over the imported",
+    "text:",
+    "",
+    "  Yilezhi 171 : Yileji 1          — the word that opens most activity steps",
+    "  atudizi 453 : atidizi 1         — 'learners', the book's commonest noun",
+    "  toñozhok- stem, 206 times, never with a doubled o : atooñozhoki 1",
+    "  Ñakwilu 13 : Nakwilu 1          — the n-tilde lost altogether",
+    "",
+    "AUTHOR PUNCTUATION CORRECTED, one section code. The book carries 211 numbered",
+    "section codes and 210 of them end '1.3.3.1:'; the competence code in CHIBALU 1's",
+    "first sub-topic is the only one typed '1.1.1.1.:', a dot before the colon. It sits",
+    "a few pages from its siblings, so the two spellings print in plain sight.",
+    "",
+    "The engine folds the look-alike acute/caron forms (ń, ň) onto the language's",
+    "own ñ by itself, but a plain ASCII 'N' cannot be folded automatically — it is",
+    "a real letter in Lunda — so that one is corrected here.",
+    "",
+    "'Ñakwilu Yinafuukulewi' (4) is set to 'Ñakwilu Yinafukulewi' (7): the single-u",
+    "form is both the author's majority for THIS label and the spelling on his own",
+    "returned ZEPH Lunda word form, which is where src/typeset/lexicon/lunda.json",
+    "takes 'Ñakwilu Yinafukulewi' from.",
+    "",
+    "NOT corrected, and worth a Lunda speaker's eye: the teaching-aids label is",
+    "spelt 'Yikuyuñulu Yinafuukulewi' with a double u in all 70 of its instances,",
+    "while the possible-answers label beside it takes the single-u 'Yinafukulewi'.",
+    "Both are uniform within their own label, so neither is a slip by the counting",
+    "test, but they are the same participle spelt two ways. Left as the author has",
+    "it rather than guessed at."
+  ],
+  "subtext": [
+    {
+      "from": "kutaña.Yilezhi",
+      "to": "kutaña. Yilezhi"
+    },
+    {
+      "from": "Yileji atidizi atooñozhoki",
+      "to": "Yilezhi atudizi atoñozhoki"
+    },
+    {
+      "from": "Nakwilu Yinafuukulewi",
+      "to": "Ñakwilu Yinafukulewi"
+    },
+    {
+      "from": "Ñakwilu Yinafuukulewi",
+      "to": "Ñakwilu Yinafukulewi"
+    },
+    {
+      "from": "Kwilukisha 1.1.1.1.:",
+      "to": "Kwilukisha 1.1.1.1:"
+    }
+  ],
+  "_note_strandcase": [
+    "AUTHOR CASE CORRECTED, the front-matter strand list. 'Kulumbula mwaya yibalu",
+    "ya ntanjikilu' introduces the syllabus strands one by one, and the author typed",
+    "its four sub-headings in two different cases — 'Kuhosha nakutiyilila' and",
+    "'Kutaña (chakubula kumamatila)' in sentence case, then 'MAZU' and 'KUSONEKA",
+    "(CHITUÑI)' in full caps. Four siblings in one list must not print two ways, so",
+    "the two caps ones are set to the sentence case the list opens with. The",
+    "ALL-CAPS banners inside the body (KUHOSHA NAKUTIYILILA, KUTAÑA, MAZU, KUSONEKA,",
+    "KUTAÑA NAKANAÑACHIMA) are a different element in a different place and keep",
+    "their caps.",
+    "",
+    "Each of the two is anchored so it reaches ONLY the front-matter heading:",
+    "'KUSONEKA (CHITUÑI' is a prefix no body banner shares (those are a bare",
+    "'KUSONEKA'), while a bare 'MAZU' is shared by 16 body banners and, as a prefix,",
+    "by all 70 'Mazu Alema' key-word headings — so it matches on the whole text",
+    "exactly and takes the first one, which is this front-matter strand."
+  ],
+  "recase": [
+    {
+      "startsWith": "KUSONEKA (CHITUÑI",
+      "to": "sentence"
+    }
+  ],
+  "_note_mazuEdit": [
+    "The front-matter strand MAZU is singled out with edit + after (main has no recase find/first): the first block containing MAZU after the Kutaña strand heading is that strand, not MAZU ATACHI or a body banner."
+  ],
+  "edit": [
+    {
+      "find": "MAZU",
+      "with": "Mazu",
+      "after": "Kutaña (chakubula kumamatila)"
+    }
+  ],
+  "_note_references": [
+    "The reference list prints seven citations, but the author pressed Return after",
+    "the URL in four of them, so '(Accessed: 25 January 2026). (For … context)' fell",
+    "into a paragraph of its own and those four printed as two blocks while the",
+    "other three printed as one. Rejoined so every citation is one paragraph."
+  ],
+  "mergePara": [
+    {
+      "find": "UNICEF (2025) National Youth Policy of Zambia"
+    },
+    {
+      "find": "Kasisi Agricultural Training Centre (2026)"
+    },
+    {
+      "find": "Road Transport and Safety Agency (2026)"
+    },
+    {
+      "find": "Government of the Republic of Zambia & Zambia Statistics Agency"
+    }
+  ],
+  "_note_images": [
+    "PRINT RESOLUTION. The cover picture is the only photograph in the book, and the",
+    "author placed it twice — once on the front cover and once on the back of the cover",
+    "spread. Both placements are the SAME bitmap (word/media/image1.png and image2.png",
+    "are byte-identical, one sha256), and both printed at 197 DPI, well under the 300",
+    "DPI CLAUDE.md requires at final print size.",
+    "",
+    "Upscaled with Real-ESRGAN (realesrgan-x4plus, -t 128) and resampled back down to",
+    "the pixels the target needs, by tools/upscale-images.js:",
+    "",
+    "  image2.png  1024px @ 197 DPI  ->  1607px @ ~309 DPI   (front cover)",
+    "  image1.png  1024px @ 197 DPI  ->  1607px @ ~309 DPI   (cover spread, back)",
+    "",
+    "Only one ESRGAN pass was run. The second entry is the first one’s output copied",
+    "across: the inputs are the same bytes, the model and tile size are the same, so the",
+    "second pass could only have produced the same file.",
+    "",
+    "Only `src` is set, so nothing moves on the page: the printed size comes from Word’s",
+    "own extent, not from the file’s pixel width."
+  ],
+  "images": {
+    "image2.png": {
+      "src": "LUNDA GRADE 1 TG-hires/image2.png"
+    },
+    "image1.png": {
+      "src": "lunda-g1-tg-cover.png"
+    }
+  },
+  "_note_cover": [
+    "COVER PICTURE (2026-10-29): replaced by the picture the user supplied as \"use.jpeg\": five learners outside a school, among them a boy in a wheelchair, a boy with albinism and a girl with a hearing aid. It is landscape (1080x720, 3:2), so the cover is back on the wide card, and coverHeroWhole makes that card 132x88mm, the picture's own shape, so nothing is trimmed (the fixed 78mm band would cut off the wheelchair's wheels and the shoes). It replaces the portrait 23.jpeg of 2026-10-28 and its tall card (coverHeroPortrait, now dropped).",
+    "  supplied  lunda-g1-tg-cover-src.jpeg  1080x720",
+    "  print     lunda-g1-tg-cover.png       1620x1080, Real-ESRGAN x4 (-s 4) then resampled down, 312 DPI at 132mm",
+    "It replaces image1.png, which is the FRONT cover picture (the engine’s hero; the older note below has image1/image2 the other way round). image2.png keeps its upscale."
+  ],
+  "coverHeroWhole": true
+}
