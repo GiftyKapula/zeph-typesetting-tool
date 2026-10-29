@@ -13,5 +13,8 @@
       "near": "1.2.2.3.2."
     },
     "3. Charts and Posters"
-  ]
+  ],
+  "//backCover": "House rule: over 112 interior pages gets a spine. The literary layout made no back cover, so no cover spread was written; backCover adds the house back cover and with it the spread (user asked for the spine, 2026-10-29).",
+  "backCover": true,
+  "//cleanup": "Same day, user: \"fix everything that needs to be fixed\" - a full read of the text (about 190 typo/grammar/spacing/glued-line fixes), Prose activities numbered 1-6 (were 1,2,3,2,3,3), the idioms table cell that repeated answers 3-5 trimmed, two duplicated fragments in the stanza/paragraph table removed. Applied in the rebuild too: C:/z/lit-work/cleanup.mjs (runs round1.mjs first)."
 }
