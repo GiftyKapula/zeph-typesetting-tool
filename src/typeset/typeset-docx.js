@@ -894,6 +894,10 @@ function boxifyActivities(blocks, opts = {}) {
         const items = t.split(/\s+[–—-]\s+/);
         return items.length >= 3 && items.every((w) => w.trim() && w.trim().split(/\s+/).length <= 3);
       })();
+      // A lone "SUMMARY" heading is the lesson's own closing section, never box content:
+      // the Literature in English Form 1 TG had a dozen of them swallowed by the
+      // assessment or answer box above, their points numbered on from its questions.
+      if (isHead(y) && /^SUMMARY:?$/.test(((y.text || blockPlain(y)) || "").trim())) break;
       if (altActPending && !isHead(y)) { body.push(y); j++; altActDone = true; break; }
       if (!passageHead && !leadAbsorb && !phaseHead && !altActHead && !answerLine && !questionLine && !wordBankLine) {
         if (y.t === "h1" || y.t === "h2" || y.t === "h3") break;     // topic / sub-topic / sub-sub-heading
