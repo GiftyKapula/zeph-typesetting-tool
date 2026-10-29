@@ -2118,6 +2118,10 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     if (!done) console.warn("!  replaceBlocks not matched:", rb.find);
   }
+  // `flat` was taken before the blocks above were swapped, so every later `edit`/`editAll`/
+  // `unbold`… on a replaced block edited the discarded original and still reported a match
+  // (Physics Form 2 LB: Exercise 3's "The School uses…" survived an editAll). Re-take it.
+  if ((ov.replaceBlocks || []).length) { flat.length = 0; flat.push(...allTextBlocks(blocks)); }
   // deleteRun: [{ from, to }] — delete a CONTIGUOUS run of sibling blocks, from the
   // first block whose trimmed text === `from` through the first block at/after it whose
   // trimmed text === `to` (inclusive). Use to remove a multi-paragraph teaching block a
@@ -2163,7 +2167,14 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
             if (!cell || typeof cell.text !== "string") continue;
-            if (cell.text.trim() === ec.find) { cell.text = ec.with; n++; continue; }
+            // A cell whose runs are kept (bold header, a run with math) prints from `segs`,
+            // so a whole-cell match must rewrite them too, or the PDF keeps the old text
+            // while the override counts as applied (Physics Form 2 LB: "Ideal Gas Equation").
+            if (cell.text.trim() === ec.find) {
+              cell.text = ec.with;
+              if (Array.isArray(cell.segs) && cell.segs.length) cell.segs = [{ ...cell.segs.find((s) => !s.m) || cell.segs[0], t: ec.with, m: false }];
+              n++; continue;
+            }
             if (cell.text.includes(ec.find)) {
               cell.text = cell.text.split(ec.find).join(ec.with);
               // The cell's RUNS are what gets drawn, and an edit rarely sits inside one
@@ -3942,7 +3953,10 @@ function reformatAcronyms(blocks) {
     // The abbreviation is the leading run; the meaning follows after a whitespace
     // gap (often its own padding runs). Keep the meaning's original runs so the
     // writer's bold capitals (e.g. **A**ntidiuretic **H**ormone) are preserved.
-    let abbr = (segs[0].t || "").trim().replace(/:+$/, "");
+    // A writer who bolds the dash with the abbreviation ("**HCCI –** Homogeneous…") left it
+    // in the leading run, and the house colon was added after it: "HCCI –: …" (Physics
+    // Form 2 LB). Strip a trailing dash as well as a colon.
+    let abbr = (segs[0].t || "").trim().replace(/[\s:–—-]+$/, "");
     if (!abbr) continue;
     let k = 1;
     while (k < segs.length && segs[k].t.trim() === "") k++;   // skip padding spaces
@@ -5086,6 +5100,12 @@ function ensureOrIndividually(blocks) {
       if (!b || typeof b !== "object") continue;
       if (b.t === "activity") {
         const bodyArr = Array.isArray(b.body) ? b.body : [];
+        // An activity that already gives learners their own individual route ("Alternatively,
+        // as an individual, use…") must not also be told "in groups or individually" — the
+        // Physics Form 2 LB's Learning Activity 10 then said it twice.
+        const ownIndividualRoute = bodyArr.some((sub) => sub && Array.isArray(sub.segs)
+          && /\bas an individual\b|\bindividually,? (?:use|carry|do|complete)\b/i.test(sub.segs.map((s) => s.t || "").join("")));
+        if (ownIndividualRoute) continue;
         for (const sub of bodyArr) {
           if (sub && Array.isArray(sub.segs)) {
             for (let i = 0; i < sub.segs.length; i++) {

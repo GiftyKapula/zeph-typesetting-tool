@@ -1,11 +1,6 @@
 {
   "coverImage": "cover-waves-sound.png",
-  "retext": [
-    {
-      "from": "Stella Libongani",
-      "to": "Edward Mubanga and Stella Libongani"
-    }
-  ],
+  "retext": [],
   "edit": [
     {
       "find": "Efficiency of a Simple machine",
@@ -33,7 +28,7 @@
     },
     {
       "find": "outside conditions are unfavourable.",
-      "with": "outside conditions are unfavourable. This provides an analogy model of the natural greenhouse and what it does to the inhabitants of the Earth."
+      "with": "outside conditions are unfavourable. A greenhouse therefore provides a model of the natural greenhouse effect and how it affects life on Earth."
     },
     {
       "find": "Analyse the following scenarios and determine whether work is done or not.",
@@ -90,7 +85,7 @@
     },
     {
       "file": "imp_image12.",
-      "text": "Figure 10: A tweezer, class 3 lever"
+      "text": "Figure 10: Tweezers, a class 3 lever"
     },
     {
       "file": "imp_image13.",
@@ -162,11 +157,11 @@
     },
     {
       "file": "imp_image31.",
-      "text": "Figure 32: Graph of volume against temperature in kelvins"
+      "text": "Figure 32: Graph of volume against temperature in kelvin"
     },
     {
       "file": "imp_image32.",
-      "text": "Figure 33: Graph of pressure against temperature in kelvins"
+      "text": "Figure 33: Graph of pressure against temperature in kelvin"
     },
     {
       "file": "imp_image33.",
@@ -182,7 +177,7 @@
     },
     {
       "file": "imp_image37.",
-      "text": "Figure 37: An analogy model of the atmospheric greenhouse effect"
+      "text": "Figure 37: A model of the atmospheric greenhouse effect"
     },
     {
       "file": "imp_image39.",
@@ -190,11 +185,11 @@
     },
     {
       "file": "imp_image41.",
-      "text": "Figure 40: Amplitude and wavelength of a wave"
+      "text": "Figure 40: A longitudinal wave"
     },
     {
       "file": "imp_image42.",
-      "text": "Figure 41: A longitudinal wave"
+      "text": "Figure 41: Amplitude and wavelength of a wave"
     },
     {
       "file": "imp_image43.",
@@ -212,6 +207,730 @@
   "keepWithNext": [
     "Table 2: Comparison of internal combustion engines"
   ],
+  "editCell": [
+    {
+      "find": "Solving puzzle in groups",
+      "with": "Solve puzzles in groups"
+    },
+    {
+      "find": "Dispose trash",
+      "with": "Dispose of trash"
+    },
+    {
+      "find": "Identify types of waste in local environment",
+      "with": "Identify types of waste in the local environment"
+    },
+    {
+      "find": "in the designated place.",
+      "with": "in the designated place"
+    },
+    {
+      "find": "in environmental management.",
+      "with": "in environmental management"
+    },
+    {
+      "find": "Identify a clean environment.",
+      "with": "Identify a clean environment"
+    },
+    {
+      "find": "Melting Point (\"\"^(\"0\")C)",
+      "with": "Melting Point (°C)"
+    },
+    {
+      "find": "Boiling Point (\"\"^(\"0\")C)",
+      "with": "Boiling Point (°C)"
+    },
+    {
+      "find": "-114",
+      "with": "−114"
+    },
+    {
+      "find": "-39",
+      "with": "−39"
+    },
+    {
+      "find": "-219",
+      "with": "−219"
+    },
+    {
+      "find": "-183",
+      "with": "−183"
+    },
+    {
+      "find": "-210",
+      "with": "−210"
+    },
+    {
+      "find": "-196",
+      "with": "−196"
+    },
+    {
+      "find": "2 470",
+      "with": "2470"
+    },
+    {
+      "find": "1 085",
+      "with": "1085"
+    },
+    {
+      "find": "2 562",
+      "with": "2562"
+    },
+    {
+      "find": "1 538",
+      "with": "1538"
+    },
+    {
+      "find": "2 862",
+      "with": "2862"
+    },
+    {
+      "find": "1 064",
+      "with": "1064"
+    },
+    {
+      "find": "2 856",
+      "with": "2856"
+    },
+    {
+      "find": "1 749",
+      "with": "1749"
+    },
+    {
+      "find": "Ideal Gas Equation",
+      "with": "Combined gas law"
+    },
+    {
+      "find": "Compression ignition engine",
+      "with": "Compression Ignition Engine"
+    },
+    {
+      "find": "Rotary engine",
+      "with": "Rotary Engine"
+    },
+    {
+      "find": "Depends on the mass, specific heat capacity and temperature of the substance",
+      "with": "Depends on the mass, specific heat capacity and temperature change of the substance"
+    },
+    {
+      "find": "Charles' Law",
+      "with": "Charles’ law"
+    },
+    {
+      "find": "Boyle’s Law",
+      "with": "Boyle’s law"
+    },
+    {
+      "find": "Gay-Lussac’s Law",
+      "with": "Gay-Lussac’s law"
+    },
+    {
+      "find": "frac(V_(1), T_(1))",
+      "with": "V_(1) slash T_(1)"
+    },
+    {
+      "find": "frac(V_(2), T_(2))",
+      "with": "V_(2) slash T_(2)"
+    },
+    {
+      "find": "frac(P_(1), T_(1))",
+      "with": "P_(1) slash T_(1)"
+    },
+    {
+      "find": "frac(P_(2), T_(2))",
+      "with": "P_(2) slash T_(2)"
+    },
+    {
+      "find": "frac(P_(1) V_(1), T_(1))",
+      "with": "P_(1) V_(1) slash T_(1)"
+    },
+    {
+      "find": "frac(P_(2) V_(2), T_(2))",
+      "with": "P_(2) V_(2) slash T_(2)"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "Board chairperson",
+      "with": "Board Chairperson"
+    },
+    {
+      "find": "ZEPH shareholders - the Ministry",
+      "with": "ZEPH shareholders – the Ministry"
+    },
+    {
+      "find": "National Planning - for",
+      "with": "National Planning – for"
+    },
+    {
+      "find": "all contributors - for",
+      "with": "all contributors for"
+    },
+    {
+      "find": "acknowledges the authors for their dedication",
+      "with": "acknowledges the author for his dedication"
+    },
+    {
+      "find": "Where, Ep",
+      "with": "where Ep"
+    },
+    {
+      "find": "kilograms(kg)",
+      "with": "kilograms (kg)"
+    },
+    {
+      "find": "second(m/s)",
+      "with": "second (m/s)"
+    },
+    {
+      "find": "(Take g = 10 m/s²)",
+      "with": "(Take g = 10 N/kg)"
+    },
+    {
+      "find": "Law of conservation of energy in mechanical energy",
+      "with": "Law of Conservation of Energy in mechanical energy"
+    },
+    {
+      "find": "Change the amount of mechanical energy",
+      "with": "Change the Amount of Mechanical Energy"
+    },
+    {
+      "find": "The School uses an electric water pump",
+      "with": "A school uses an electric water pump"
+    },
+    {
+      "find": "important for farmers to use machines",
+      "with": "important for the school to use machines"
+    },
+    {
+      "find": "Work in pairs or individually, use an electric fan",
+      "with": "Working in pairs or individually, use an electric fan"
+    },
+    {
+      "find": "Linear Momentum in Real World Scenarios",
+      "with": "Linear Momentum in Real-World Scenarios"
+    },
+    {
+      "find": "linear momentum in real world scenarios",
+      "with": "linear momentum in real-world scenarios"
+    },
+    {
+      "find": "as an individual, Use a toy car",
+      "with": "as an individual, use a toy car"
+    },
+    {
+      "find": "From learning activity 11",
+      "with": "From Learning Activity 11"
+    },
+    {
+      "find": "where; ",
+      "with": "where: "
+    },
+    {
+      "find": "m = mass in kilogram (kg)",
+      "with": "m = mass in kilograms (kg)"
+    },
+    {
+      "find": "calculated using the equation;",
+      "with": "calculated using the equation:"
+    },
+    {
+      "find": "Elastic and Inelastic Collision",
+      "with": "Elastic and Inelastic Collisions"
+    },
+    {
+      "find": "Demonstrating the law of conservation of momentum",
+      "with": "Demonstrating the Law of Conservation of Momentum"
+    },
+    {
+      "find": "Demonstrating an understanding the effects",
+      "with": "Demonstrating an understanding of the effects"
+    },
+    {
+      "find": "can lead to car crash",
+      "with": "can lead to a car crash"
+    },
+    {
+      "find": "to solve real life problems",
+      "with": "to solve real-life problems"
+    },
+    {
+      "find": "Types of Simple Machine",
+      "with": "Types of Simple Machines"
+    },
+    {
+      "find": "inclined plane, wedge, or screw, gears and explain",
+      "with": "inclined plane, wedge, screw or gears and explain"
+    },
+    {
+      "find": "Examples include; steering wheels",
+      "with": "Examples include: steering wheels"
+    },
+    {
+      "find": "Common examples include: Loading ramps, Wheelchair and ramps.",
+      "with": "Common examples include loading ramps and wheelchair ramps."
+    },
+    {
+      "find": "Examples include: Knife, Axe and Chisel.",
+      "with": "Examples include knives, axes and chisels."
+    },
+    {
+      "find": "Examples include: Wood screws",
+      "with": "Examples include wood screws"
+    },
+    {
+      "find": "called the driver gear",
+      "with": "called the driving gear"
+    },
+    {
+      "find": "Velocity Ratio (VR) of a simple machine.",
+      "with": "Velocity Ratio (VR) of a simple machine"
+    },
+    {
+      "find": "Mt. Makulu",
+      "with": "Mount Makulu"
+    },
+    {
+      "find": "relationship between force and area.",
+      "with": "relationship between force and area"
+    },
+    {
+      "find": "the equation for pressure in a fluid is;",
+      "with": "the equation for pressure in a fluid is:"
+    },
+    {
+      "find": "Calculating pressure in liquids and gas",
+      "with": "Calculating pressure in liquids and gases"
+    },
+    {
+      "find": "P = 80 000Pa",
+      "with": "P = 80 000 Pa"
+    },
+    {
+      "find": "Archimedes Principle",
+      "with": "Archimedes’ Principle"
+    },
+    {
+      "find": "upthrust and floatation",
+      "with": "upthrust and flotation"
+    },
+    {
+      "find": "has four number of ropes",
+      "with": "has four ropes"
+    },
+    {
+      "find": "construction and manufacturing,",
+      "with": "construction and manufacturing."
+    },
+    {
+      "find": "can be concluded from a range",
+      "with": "can be inferred from a range"
+    },
+    {
+      "find": "Examples include: The smell of perfume",
+      "with": "Examples include: the smell of perfume"
+    },
+    {
+      "find": "different designs, they operate",
+      "with": "different designs; they operate"
+    },
+    {
+      "find": "available in your school, examine their features",
+      "with": "available in your school and examine their features"
+    },
+    {
+      "find": "are discussed below;",
+      "with": "are discussed below:"
+    },
+    {
+      "find": "Calibrating unmarked thermometer",
+      "with": "Calibrating an unmarked thermometer"
+    },
+    {
+      "find": "Work in pairs or indivually.",
+      "with": "Work in pairs or individually."
+    },
+    {
+      "find": "arrangement of particles this affects",
+      "with": "arrangement of particles, and this affects"
+    },
+    {
+      "find": "as Thermometric",
+      "with": "as Thermometric Liquids"
+    },
+    {
+      "find": "for use in a liquid-in-glass thermometers",
+      "with": "for use in liquid-in-glass thermometers"
+    },
+    {
+      "find": "the most suitable situations of alcohol and mercury",
+      "with": "the most suitable uses of alcohol and mercury"
+    },
+    {
+      "find": "The Kelvin scale is the SI unit of temperature.",
+      "with": "The kelvin is the SI unit of temperature."
+    },
+    {
+      "find": "T = θ +273",
+      "with": "T = θ + 273"
+    },
+    {
+      "find": "in a thermometer, fuel expanding",
+      "with": "in a thermometer and fuel expanding"
+    },
+    {
+      "find": "Expansion of various solids, liquids and gases",
+      "with": "Expansion of Various Solids, Liquids and Gases"
+    },
+    {
+      "find": "the volume of the fixed mass of a gas",
+      "with": "the volume of a fixed mass of a gas"
+    },
+    {
+      "find": "ships, and many other automobiles",
+      "with": "ships and many other machines"
+    },
+    {
+      "find": "compression ignition, rotary engines",
+      "with": "compression ignition and rotary engines"
+    },
+    {
+      "find": "aircraftand",
+      "with": "aircraft and"
+    },
+    {
+      "find": "compares the 3 types of engines",
+      "with": "compares the three types of engines"
+    },
+    {
+      "find": "In learning activity 20, you will explore the operation of the internal combustion.",
+      "with": "In Learning Activity 20, you will explore the operation of the internal combustion engine."
+    },
+    {
+      "find": "Creating a model of internal combustion engine",
+      "with": "Creating a model of an internal combustion engine"
+    },
+    {
+      "find": "Efficiency of Diesel and Petrol Engine",
+      "with": "Efficiency of Diesel and Petrol Engines"
+    },
+    {
+      "find": "Comparing efficiency of diesel and petrol engine",
+      "with": "Comparing the efficiency of diesel and petrol engines"
+    },
+    {
+      "find": "Working in pairs or individually. Use online resources",
+      "with": "Working in pairs or individually, use online resources"
+    },
+    {
+      "find": "convection: convection is",
+      "with": "convection: Convection is"
+    },
+    {
+      "find": "radiation: radiation is",
+      "with": "radiation: Radiation is"
+    },
+    {
+      "find": "sea and land breeze, heating elements, car radiators.",
+      "with": "sea and land breezes, heating elements and car radiators"
+    },
+    {
+      "find": "during learning activity 27",
+      "with": "during Learning Activity 27"
+    },
+    {
+      "find": "Good and bad Absorbers",
+      "with": "Good and Bad Absorbers"
+    },
+    {
+      "find": "explain its role in each case",
+      "with": "explain its role in each case."
+    },
+    {
+      "find": "They help determining",
+      "with": "They help to determine"
+    },
+    {
+      "find": "one disadvantage of the greenhouse effect.       [2]",
+      "with": "one disadvantage of the greenhouse effect.       [3]"
+    },
+    {
+      "find": "Differences between Temperature and Heat Energy",
+      "with": "Differences between temperature and heat energy"
+    },
+    {
+      "find": "or use a mobile phone",
+      "with": "or used a mobile phone"
+    },
+    {
+      "find": "frequency and wavefront",
+      "with": "frequency and wave-front"
+    },
+    {
+      "find": "transverse and longitudinal wave",
+      "with": "transverse and longitudinal waves"
+    },
+    {
+      "find": "which are outlined below;",
+      "with": "which are outlined below:"
+    },
+    {
+      "find": "receivers and antennae.",
+      "with": "receivers and antennas."
+    },
+    {
+      "find": "against harmful effect of each",
+      "with": "against harmful effects of each"
+    },
+    {
+      "find": "a vacuum jar and containers filled with air, water and a metal rod",
+      "with": "a vacuum jar, containers filled with air and water, and a metal rod"
+    },
+    {
+      "find": "produces sound in any two of the following:",
+      "with": "produces sound in each of the following:"
+    },
+    {
+      "find": "Total distance = 2 × Distance to the wall",
+      "with": "Total distance = 2 × distance to the wall"
+    },
+    {
+      "find": "compsonents",
+      "with": "components"
+    },
+    {
+      "find": "Discussing application of sound",
+      "with": "Discussing applications of sound"
+    },
+    {
+      "find": "and intervention measure",
+      "with": "and intervention measures"
+    },
+    {
+      "find": "or excessively loud enough",
+      "with": "or loud enough"
+    },
+    {
+      "find": "Ep = Gravitational Potential Energy in joules",
+      "with": "Ep = gravitational potential energy in joules"
+    },
+    {
+      "find": "input power of 1 000 W",
+      "with": "input power of 1000 W"
+    },
+    {
+      "find": "important concept in physics",
+      "with": "important concept in Physics"
+    },
+    {
+      "find": "the momentum of the football is 6 kg m/s",
+      "with": "the momentum of the football is 6 kg m/s."
+    },
+    {
+      "find": "the distance moved by the effort is measured from the midpoint of the fulcrum to the point where the effort acts, while the distance moved by the load is measured",
+      "with": "the effort arm (the distance of the effort from the fulcrum) is measured from the midpoint of the fulcrum to the point where the effort acts, while the load arm (the distance of the load from the fulcrum) is measured"
+    },
+    {
+      "find": "Relationship Between Force and Area",
+      "with": "Relationship between Force and Area"
+    },
+    {
+      "find": "Relationship Between Celsius and Kelvin Scales",
+      "with": "Relationship between Celsius and Kelvin Scales"
+    },
+    {
+      "find": "drawing pins, coins, or blocks of wood.",
+      "with": "drawing pins or coins."
+    },
+    {
+      "find": "between force and area Repeat",
+      "with": "between force and area. Repeat"
+    },
+    {
+      "find": "monitoring the boiling of liquids in a laboratory",
+      "with": "monitoring the boiling of liquids during food preparation"
+    },
+    {
+      "find": "This change in density is used in devices such as hydrometers and contributes to",
+      "with": "This change in density contributes to"
+    },
+    {
+      "find": "R, using the ideal gas equation",
+      "with": "R, using the ideal gas equation, PV = nRT"
+    },
+    {
+      "find": "estimate the annual saving.",
+      "with": "estimate the annual saving if the vehicle travels 20 000 km in a year."
+    },
+    {
+      "find": "Terms used in the Measurement of Heat",
+      "with": "Terms Used in the Measurement of Heat"
+    },
+    {
+      "find": "(JK⁻¹)",
+      "with": "(J K⁻¹)"
+    },
+    {
+      "find": "a Physics textbook",
+      "with": "a physics textbook"
+    },
+    {
+      "find": "its specific heat capacity and its temperature.",
+      "with": "its specific heat capacity and its change in temperature."
+    },
+    {
+      "find": "absorbs 1.34 × 10⁵ J of heat",
+      "with": "absorbs 1.336 × 10⁵ J of heat"
+    },
+    {
+      "find": "Noise becomes noise pollution when",
+      "with": "Sound becomes noise pollution when"
+    },
+    {
+      "find": "Where:",
+      "with": "where:"
+    },
+    {
+      "find": "input (driver) gear",
+      "with": "input (driving) gear"
+    },
+    {
+      "find": "the basics of Mechanics",
+      "with": "the basics of mechanics"
+    },
+    {
+      "find": "When a larger force is applied, the object generally moves a greater distance, resulting in more work being done.",
+      "with": "When a larger force is applied over the same displacement, more work is done."
+    },
+    {
+      "find": "It can be calculated using the equation,",
+      "with": "It can be calculated using the equation:"
+    },
+    {
+      "find": "The momentum of each trolley.",
+      "with": "the momentum of each trolley."
+    },
+    {
+      "find": "The total momentum of the system.",
+      "with": "the total momentum of the system."
+    },
+    {
+      "find": "law of conservation of momentum",
+      "with": "Law of Conservation of Momentum"
+    },
+    {
+      "find": "This means that the total momentum before a collision is equal to the total momentum after a collision. This supports the Law",
+      "with": "This is described by the Law"
+    },
+    {
+      "find": "State the type of collision illustrated in this scenario.",
+      "with": "Using the kinetic energy before and after the collision, state the type of collision illustrated in this scenario."
+    },
+    {
+      "find": "destinations more quickly while excessive",
+      "with": "destinations more quickly, while excessive"
+    },
+    {
+      "find": "driver gear having 20 teeth",
+      "with": "driving gear having 20 teeth"
+    },
+    {
+      "find": "on that point and consequently, the pressure.",
+      "with": "on that point and, consequently, the pressure."
+    },
+    {
+      "find": "the formula for pressure of fluids",
+      "with": "the formula for pressure in fluids"
+    },
+    {
+      "find": "explain how the density of the fluid and how the depth affect the pressure exerted",
+      "with": "explain how the density of the fluid affects the pressure exerted at the same depth"
+    },
+    {
+      "find": "–10 °C",
+      "with": "−10 °C"
+    },
+    {
+      "find": "–273 °C",
+      "with": "−273 °C"
+    },
+    {
+      "find": "It begins at absolute zero (0 K)",
+      "with": "The Kelvin scale begins at absolute zero (0 K)"
+    },
+    {
+      "find": "Temperature in kelvin = Celsius + 273",
+      "with": "Temperature in kelvin = temperature in degrees Celsius + 273"
+    },
+    {
+      "find": "samples of different pure substances such as ice, candle wax, naphthalene, and water",
+      "with": "samples of different substances such as ice, candle wax, naphthalene and water"
+    },
+    {
+      "find": "classified according to the method of ignition used to ignite the fuel-air mixture",
+      "with": "classified according to the method of ignition and their design"
+    },
+    {
+      "find": "Intake Stroke:",
+      "with": "Intake stroke:"
+    },
+    {
+      "find": "Compression Stroke:",
+      "with": "Compression stroke:"
+    },
+    {
+      "find": "Exhaust Stroke:",
+      "with": "Exhaust stroke:"
+    },
+    {
+      "find": "Hybrid Engine:",
+      "with": "Hybrid engine:"
+    },
+    {
+      "find": "Homogeneous Charge Compression Ignition (HCCI) Engine:",
+      "with": "Homogeneous charge compression ignition (HCCI) engine:"
+    },
+    {
+      "find": "Electric Motor:",
+      "with": "Electric motor:"
+    },
+    {
+      "find": "Hydrogen Fuel Cell Engine:",
+      "with": "Hydrogen fuel cell engine:"
+    },
+    {
+      "find": "However, water in the bucket has more thermal energy because it has a greater mass of water",
+      "with": "However, the water in the bucket has more thermal energy because it has a greater mass"
+    },
+    {
+      "find": "generated waves by moving one end up and down and then pushing and pulling it back and forth.",
+      "with": "generated waves by moving one end up and down. The learner then pushed and pulled one end of a slinky spring back and forth."
+    },
+    {
+      "find": "Identify the type of wave produced when the rope was moved:",
+      "with": "Identify the type of wave produced when:"
+    },
+    {
+      "find": "with those of another pair",
+      "with": "with those of others"
+    },
+    {
+      "find": "Understanding properties of sound",
+      "with": "Understanding the properties of sound"
+    },
+    {
+      "find": "investigated how pitch, loudness and timbre affect the quality of sound",
+      "with": "investigated how overtones and waveform affect the quality (timbre) of sound"
+    },
+    {
+      "find": "another group uses a slinky spring.",
+      "with": "another group pushes and pulls a slinky spring along its length."
+    },
+    {
+      "find": "metre rule",
+      "with": "meter rule"
+    }
+  ],
   "mergePara": [
     {
       "find": "Barometers are widely used in weather forecasting"
@@ -221,6 +940,155 @@
     "image14.png"
   ],
   "replaceBlocks": [
+    {
+      "find": "ISBN…………………………………",
+      "with": []
+    },
+    {
+      "find": "",
+      "next": "Edited by: Stella Libongani ",
+      "with": []
+    },
+    {
+      "find": "Edited by: Stella Libongani ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Edited by:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Edward Mubanga and Stella Libongani",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Illustrated by: Kashanda Kasaila",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Illustrated by:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Kasaila Kashanda",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Light industrial Area",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Light Industrial Area",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center",
+            "hyphenate": false
+          }
+        }
+      ]
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Lusaka, Zambia",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center",
+            "hyphenate": false
+          }
+        },
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "8mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "ISBN:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "…………………………………",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        }
+      ]
+    },
     {
       "find": "Mechanical energy is the sum of an object’s potential energy and kinetic energy. It represents the total energy an object possesses due to its position and motion.",
       "with": [
@@ -1253,13 +2121,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "Therefore:",
-                "b": true,
-                "it": false,
-                "c": null
-              },
-              {
-                "t": " W = 480 J",
+                "t": "therefore W = 480 J",
                 "b": false,
                 "it": false,
                 "c": null
@@ -1295,6 +2157,67 @@
       ]
     },
     {
+      "find": "Given:",
+      "next": "Force, F = 15N",
+      "with": [
+        {
+          "raw": {
+            "t": "head",
+            "text": "Solution"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Given:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Force, F = 15N",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Force, F = 15 N",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Displacement, s = 4m",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Displacement, s = 4 m",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "W = 60 J",
       "with": [
         {
@@ -1324,6 +2247,69 @@
             "numId": null,
             "lvl": null,
             "marker": null
+          }
+        }
+      ]
+    },
+    {
+      "find": "E_(p) = mgh,",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "E",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"p\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = mgh",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "             m = mass in kilograms (kg) ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "             m = mass in kilograms (kg) ",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "              g = gravitational field strength in newtons per kilogram (N/kg)",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -1479,7 +2465,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "A farmer stores water in a tank mounted 8 m above the ground. A 5 kg metallic bucket is lifted to the top of the tank platform. Later, the metallic bucket accidentally falls and reaches a speed of 10 m/s just before hitting the ground. Using this information:",
+                "t": "A farmer stores water in a tank mounted 8 m above the ground. A 5 kg metallic bucket is lifted to the top of the tank platform. Later, the metallic bucket accidentally falls and reaches a speed of 12 m/s just before hitting the ground. Using this information:",
                 "b": false,
                 "it": false,
                 "c": null
@@ -1518,7 +2504,7 @@
             "t": "listitem",
             "segs": [
               {
-                "t": "Calculate the kinetic energy of the metallic bucket when it is moving at 10 m/s.",
+                "t": "Calculate the kinetic energy of the metallic bucket when it is moving at 12 m/s.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -1548,6 +2534,120 @@
             "marker": "(c)",
             "numId": "3",
             "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Velocity (v) = 10 m/s",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Velocity (v) = 12 m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "E\"\"_(\"k\") = ½ × 5 × (10)²",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "E",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"k\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = ½ × 5 × (12)²",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "E\"\"_(\"k\") = ½ × 5 × 100",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "E",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"k\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = ½ × 5 × 144",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "E\"\"_(\"k\") = 250 J",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "E",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"k\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = 360 J",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -1616,15 +2716,47 @@
       ]
     },
     {
+      "find": "Efficiency (ɳ)  = frac(\"Useful Output Energy\", \"energy input\") × 100%",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Efficiency (η) = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"Useful output energy\"), #text(font: \"Arial\", \"Energy input\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " × 100%",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "The School uses an electric water pump to transfer water from a borehole to an elevated storage tank. During operation, the pump receives 5,000 J of electrical energy and converts 4,000 J into useful mechanical energy that lifts the water to the tank.",
       "with": [
         {
           "raw": {
             "kind": "q",
-            "q": "The School uses an electric water pump to transfer water from a borehole to an elevated storage tank. During operation, the pump receives 5,000 J of electrical energy and converts 4,000 J into useful mechanical energy that lifts the water to the tank.",
+            "q": "The School uses an electric water pump to transfer water from a borehole to an elevated storage tank. During operation, the pump receives 5000 J of electrical energy and converts 4000 J into useful mechanical energy that lifts the water to the tank.",
             "qseg": [
               {
-                "t": "The School uses an electric water pump to transfer water from a borehole to an elevated storage tank. During operation, the pump receives 5,000 J of electrical energy and converts 4,000 J into useful mechanical energy that lifts the water to the tank.",
+                "t": "The School uses an electric water pump to transfer water from a borehole to an elevated storage tank. During operation, the pump receives 5000 J of electrical energy and converts 4000 J into useful mechanical energy that lifts the water to the tank.",
                 "b": false,
                 "it": true,
                 "c": null
@@ -1823,7 +2955,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "Use a bucket filled with sand and vary the amount of sand to make the investigation more realistic. Use a bucket, rope, weighing balance, metre rule and stopwatch. Fill the bucket with sand to about three-quarters full. Measure the mass of the bucket and sand using the weighing balance and calculate its weight using W = mg. Attach the rope to the bucket and raise it through a known vertical height. The height through which the bucket is lifted must remain the same for all trials. Use the stopwatch to record the time taken to lift the bucket through this height. Calculate the work done using W = F × s, and then determine the power developed using P = W/t. Repeat the activity using the bucket half-filled and then quarter-filled with sand, ensuring that the same vertical height is maintained in every trial. Record the results in a table and compare the power developed for each amount of sand. Based on your findings, explain how the amount of work done and the time taken affect the power developed by a mechanical system.",
+                "t": "Use a bucket, sand, a rope, a weighing balance, a metre rule and a stopwatch, and vary the amount of sand to make the investigation more realistic. Fill the bucket with sand to about three-quarters full. Measure the mass of the bucket and sand using the weighing balance and calculate its weight using W = mg. Attach the rope to the bucket and raise it through a known vertical height. The height through which the bucket is lifted must remain the same for all trials. Use the stopwatch to record the time taken to lift the bucket through this height. Calculate the work done using W = F × s, and then determine the power developed using P = W/t. Repeat the activity using the bucket half-filled and then quarter-filled with sand, ensuring that the same vertical height is maintained in every trial. Record the results in a table and compare the power developed for each amount of sand. Based on your findings, explain how the amount of work done and the time taken affect the power developed by a mechanical system.",
                 "b": false,
                 "it": true,
                 "c": null
@@ -1834,6 +2966,64 @@
             "numId": null,
             "lvl": null,
             "marker": null
+          }
+        }
+      ]
+    },
+    {
+      "find": "Power = frac(\"Work Done\", \"time taken\")  in symbols, ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Power = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"Work done\"), #text(font: \"Arial\", \"Time taken\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "P =  frac(W, t)",
+      "with": [
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "In symbols, P = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"W\"), #text(font: \"Arial\", \"t\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -1863,8 +3053,25 @@
       ]
     },
     {
+      "find": "For example, if a crane does 6,000 J of work in 30 seconds, the power developed is:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "For example, if a crane does 6000 J of work in 30 seconds, the power developed is:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "P =  frac(W, t)",
-      "next": "P =  frac(6000 J, 30 s)",
       "with": [
         {
           "raw": {
@@ -1934,6 +3141,64 @@
           "raw": {
             "t": "head",
             "text": "P = 200 W or P = 200 J/s"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Power can also be calculated using energy transferred:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Power can also be calculated using energy transferred:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "P = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"E\"), #text(font: \"Arial\", \"t\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "where E is the energy transferred in joules (J) and t is the time taken in seconds (s).",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -2153,7 +3418,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "For example, if a machine receives an input power of 1 000W and produces a useful output power of 800 W, then the efficiency can be found as:",
+                "t": "For example, if a machine receives an input power of 1 000 W and produces a useful output power of 800 W, then the efficiency can be found as:",
                 "b": false,
                 "it": false,
                 "c": null
@@ -2171,7 +3436,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "ɳ = ",
+                "t": "η = ",
                 "b": false,
                 "it": false,
                 "c": null
@@ -2209,7 +3474,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "ɳ = ",
+                "t": "η = ",
                 "b": false,
                 "it": false,
                 "c": null
@@ -2245,7 +3510,7 @@
         {
           "raw": {
             "t": "head",
-            "text": "ɳ = 80%"
+            "text": "η = 80%"
           }
         }
       ]
@@ -2357,6 +3622,92 @@
             "marker": "d)",
             "depth": 1
           }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A school borehole pump receives an input power of 2000 W and delivers a useful output power of 1500 W.",
+            "qseg": [
+              {
+                "t": "A school borehole pump receives an input power of 2000 W and delivers a useful output power of 1500 W.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "2.",
+            "depth": 0
+          }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Calculate the efficiency of the pump.   [2]",
+            "qseg": [
+              {
+                "t": "Calculate the efficiency of the pump.   [2]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "a)",
+            "depth": 1
+          }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Calculate the power wasted.   [1]",
+            "qseg": [
+              {
+                "t": "Calculate the power wasted.   [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "b)",
+            "depth": 1
+          }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Suggest one reason why the efficiency of the pump is less than 100%.   [1]",
+            "qseg": [
+              {
+                "t": "Suggest one reason why the efficiency of the pump is less than 100%.   [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "c)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.1.2.1 Apply the principles of linear momentum in everyday life ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.1.2.1 Apply the principles of linear momentum in everyday life. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
         }
       ]
     },
@@ -2404,15 +3755,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "p = momentum in kilogram.metres per second (kgms",
-                "b": false,
-                "it": false,
-                "c": null
-              },
-              {
-                "t": "\"\"^(\"-1\")",
-                "m": true,
-                "display": false,
+                "t": "p = momentum in kilogram metres per second (kg m/s",
                 "b": false,
                 "it": false,
                 "c": null
@@ -2424,6 +3767,172 @@
                 "c": null
               }
             ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "v = velocity in metres per second (ms\"\"^(\"-1\"))",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "v = velocity in metres per second (m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": ")",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A football of mass 0.5 kg is kicked and moves at a velocity of 12 m/s.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A football of mass 0.5 kg is kicked and moves at a velocity of 12 m/s. Calculate its momentum.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "p = 6 kgms\"\"^(\"-1\")",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "p = 6 kg m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Therefore, the momentum of the football is 6 kgms\"\"^(\"-1\")",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Therefore, the momentum of the football is 6 kg m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A wheelbarrow carrying bags of cement has a total mass of 50 kg and moves at a velocity of 2 ms\"\"^(\"-1\").",
+      "with": [
+        {
+          "raw": {
+            "kind": "lead",
+            "q": "A wheelbarrow carrying bags of cement has a total mass of 50 kg and moves at a velocity of 2 m/s.",
+            "qseg": [
+              {
+                "t": "A wheelbarrow carrying bags of cement has a total mass of 50 kg and moves at a velocity of 2 m/s",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": ".",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "indent": false
+          }
+        }
+      ]
+    },
+    {
+      "find": "If the velocity of the wheelbarrow is increased to 4ms\"\"^(\"-1\"), calculate its new momentum.                                                                                                            [2]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "If the velocity of the wheelbarrow is increased to 4 m/s, calculate its new momentum.                                                                                                            [2]",
+            "qseg": [
+              {
+                "t": "If the velocity of the wheelbarrow is increased to 4 m/s",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": ", calculate its new momentum.                                                                                                            [2]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "b)",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Explain why the wheelbarrow moving at 4 ms\"\"^(\"-1\")is more difficult to stop than when it is moving at 2 ms\"\"^(\"-1\").                                                                                                [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Explain why the wheelbarrow moving at 4 m/sis more difficult to stop than when it is moving at 2 m/s.                                                                                                [1]",
+            "qseg": [
+              {
+                "t": "Explain why the wheelbarrow moving at 4 m/s",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "is more difficult to stop than when it is moving at 2 m/s",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": ".                                                                                                [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "d)",
+            "depth": 0
           }
         }
       ]
@@ -2455,6 +3964,230 @@
             "segs": [
               {
                 "t": "v₂ =  velocity of object 2",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A trolley of mass 4 kg moves at a velocity of 3 ms\"\"^(\"-1\"), while another trolley of mass 2 kg moves at a velocity of 5 ms\"\"^(\"-1\") in the same direction. Calculate:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A trolley of mass 4 kg moves at a velocity of 3 m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": ", while another trolley of mass 2 kg moves at a velocity of 5 m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " in the same direction. Calculate:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "p₁ = 4 kg × 3 ms\"\"^(\"-1\")",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "p₁ = 4 kg × 3 m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "p₁ = 12 kgms\"\"^(\"-1\")",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "p₁ = 12 kg m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "p₂ = 10 kg ms\"\"^(\"-1\")",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "p₂ = 10 kg m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "= 12 kg ms\"\"^(\"-1\") + 10 kg ms\"\"^(\"-1\")",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "= 12 kg m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " + 10 kg m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "= 22 kg ms\"\"^(\"-1\")",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "= 22 kg m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "During a school sports day, two learners are pushing trolleys loaded with equipment. The first trolley has a mass of 5 kg and moves at a velocity of 4 ms\"\"^(\"-1\"). The second trolley has a mass of 3 kg and moves in the same direction at a velocity of 2 ms\"\"^(\"-1\").",
+      "with": [
+        {
+          "raw": {
+            "kind": "lead",
+            "q": "During a school sports day, two learners are pushing trolleys loaded with equipment. The first trolley has a mass of 5 kg and moves at a velocity of 4 m/s. The second trolley has a mass of 3 kg and moves in the same direction at a velocity of 2 m/s.",
+            "qseg": [
+              {
+                "t": "During a school sports day, two learners are pushing trolleys loaded with equipment. The first trolley has a mass of 5 kg and moves at a velocity of 4 ",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": ". The second trolley has a mass of 3 kg and moves in the same direction at a velocity of 2 m/s",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": ".",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "indent": false
+          }
+        }
+      ]
+    },
+    {
+      "find": "In an elastic collision, the objects separate after impact and continue moving independently. Examples include collisions between billiard balls and steel ball bearings. ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "In an ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "elastic collision",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": ", the objects separate after impact and continue moving independently, and the total kinetic energy of the objects is conserved. Examples include collisions between billiard balls and steel ball bearings. ",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "In an inelastic collision, the objects stick together or move with a common velocity after impact. Examples include railway wagons coupling together and some vehicle collisions.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "In an ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "inelastic collision",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": ", the objects may bounce apart or stick together and move with a common velocity, but some kinetic energy is changed into other forms such as heat and sound. Examples include railway wagons coupling together and some vehicle collisions.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -2497,6 +4230,24 @@
                 "t": "Speed is the rate at which an object covers a distance. Speed enables people and goods to reach destinations more quickly while excessive speeding can have serious consequences for road users.",
                 "b": false,
                 "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.1.3.1 Build simple machines to solve real life problems",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.1.3.1 Build simple machines to solve real life problems.",
+                "b": false,
+                "it": true,
                 "c": null
               }
             ]
@@ -2728,7 +4479,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "(a) the mechanical advantage of the wheelbarrow.",
+                "t": "(a) the mechanical advantage of the inclined plane.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3202,6 +4953,26 @@
       ]
     },
     {
+      "find": "A group of learners at Mt. Makulu Secondary School used a wheelbarrow to transport bags of fertiliser from the school store to the school garden. One bag exerted a load of 360N, and one learner applied an effort of 120N to lift and move it. During the process, the handles of the wheelbarrow moved 1.8 m, while the load was raised by 0.6 m.",
+      "with": [
+        {
+          "raw": {
+            "kind": "lead",
+            "q": "A group of learners at Mt. Makulu Secondary School used a wheelbarrow to transport bags of fertiliser from the school store to the school garden. One bag exerted a load of 360 N, and one learner applied an effort of 150 N to lift and move it. During the process, the handles of the wheelbarrow moved 1.8 m, while the load was raised by 0.6 m.",
+            "qseg": [
+              {
+                "t": "A group of learners at Mt. Makulu Secondary School used a wheelbarrow to transport bags of fertiliser from the school store to the school garden. One bag exerted a load of 360 N, and one learner applied an effort of 150 N to lift and move it. During the process, the handles of the wheelbarrow moved 1.8 m, while the load was raised by 0.6 m.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "indent": false
+          }
+        }
+      ]
+    },
+    {
       "find": "The efficiency of a simple machine can be expressed in terms of its Mechanical Advantage (MA) and Velocity Ratio (VR). This relationship provides a simple method of calculating the efficiency of any machine. Since some energy is always lost due to friction, heat and sound no machine is 100% efficient. The efficiency of a machine is therefore always less than 100%.",
       "with": [
         {
@@ -3330,6 +5101,84 @@
       ]
     },
     {
+      "find": "frac(\"distance moved by the load\", \"distance moved by the effort\")  = frac(1, V R)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"distance moved by the load\"), #text(font: \"Arial\", \"distance moved by the effort\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"1\"), #text(font: \"Arial\", \"VR\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Efficiency = frac(M A, V R) × 100%",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Efficiency =",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"MA\"), #text(font: \"Arial\", \"VR\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "× 100%",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Example",
       "next": "A wheelbarrow has a Mechanical Advantage (MA) of 4 and a Velocity Ratio (VR) of 5.",
       "with": [
@@ -3349,7 +5198,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "ɳ = ",
+                "t": "η = ",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3387,7 +5236,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "ɳ = ",
+                "t": "η = ",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3425,7 +5274,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "ɳ = 0.8 × 100%",
+                "t": "η = 0.8 × 100%",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3437,7 +5286,6 @@
     },
     {
       "find": "ɳ = 80%",
-      "next": "EXERCISE 10",
       "with": [
         {
           "raw": {
@@ -3450,7 +5298,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "ɳ = 80%",
+                "t": "η = 80%",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3667,6 +5515,24 @@
       ]
     },
     {
+      "find": "2.1.4.1 Apply the principles of pressure to solve real-life problems ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.1.4.1 Apply the principles of pressure to solve real-life problems. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Use any suitable materials available in your school or local environment, such as books, wooden blocks, bricks, chairs, rulers, sponges, nails, drawing pins, or knives, to investigate how pressure depends on the force applied and the area over which the force acts. Compare the effects of applying the same force over large and small surface areas, record your observations, and discuss why sharp objects produce greater pressure than blunt objects. From your findings, describe pressure, identify its SI unit.",
       "with": [
         {
@@ -3710,6 +5576,114 @@
               },
               {
                 "t": " named after the French scientist Blaise Pascal. One pascal is defined as the pressure exerted when a force of 1 newton acts uniformly over an area of 1 square metre.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "P = frac(F, A)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "P = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"F\"), #text(font: \"Arial\", \"A\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "P = frac(F, A)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "P = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"F\"), #text(font: \"Arial\", \"A\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "P = frac(240 N, (0.08 m)^(2))",
+      "with": [
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "P = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"240 N\"), #text(font: \"Arial\", \"0.08 m²\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "P = 3000 Pa",
+      "with": [
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "P = 3000 Pa",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3786,6 +5760,32 @@
       ]
     },
     {
+      "find": "P = frac(F, A)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "P = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"F\"), #text(font: \"Arial\", \"A\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "F=W",
       "with": [
         {
@@ -3810,6 +5810,164 @@
     {
       "find": "W=mg ",
       "with": []
+    },
+    {
+      "find": "P = frac(F, A)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "P = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"F\"), #text(font: \"Arial\", \"A\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "& = frac(W, A) \\ & = frac(m g, A) \\ & = frac(rho V g, A) \\ & = frac(rho A h g, A) \\ & = rho g h",
+      "with": [
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "= ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"W\"), #text(font: \"Arial\", \"A\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "= ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"mg\"), #text(font: \"Arial\", \"A\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "= ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"ρVg\"), #text(font: \"Arial\", \"A\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "= ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"ρAhg\"), #text(font: \"Arial\", \"A\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "vspace",
+            "h": "1.5mm"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "= ρgh",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "find": "Fluid pressure acts equally in all directions at the same depth and is independent of the shape or size of the container. This principle explains why the walls of dams are made thicker at the bottom, why divers experience greater pressure as they descend into water, and why water flows with greater force from holes made lower in a container.",
@@ -3914,7 +6072,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "P = 3 000 N/m² or P = 3 000 Pa",
+                "t": "P = 3000 N/m² or P = 3000 Pa",
                 "b": false,
                 "it": false,
                 "c": null
@@ -3955,7 +6113,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "Mercury has a density of 13,600 kg/m³. Calculate the pressure exerted at a depth of 6 m. Take the gravitational field strength as 10 N/kg. ",
+                "t": "Mercury has a density of 13 600 kg/m³. Calculate the pressure exerted at a depth of 6 m. Take the gravitational field strength as 10 N/kg. ",
                 "b": false,
                 "it": true,
                 "c": null
@@ -4131,6 +6289,57 @@
             "marker": "d)",
             "depth": 1
           }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A water storage tank on the roof of a school holds water to a depth of 2.5 m. The density of water is 1000 kg/m³. Take the gravitational field strength as 10 N/kg.",
+            "qseg": [
+              {
+                "t": "A water storage tank on the roof of a school holds water to a depth of 2.5 m. The density of water is 1000 kg/m³. Take the gravitational field strength as 10 N/kg.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "2.",
+            "depth": 0
+          }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Calculate the pressure exerted by the water at the bottom of the tank.   [2]",
+            "qseg": [
+              {
+                "t": "Calculate the pressure exerted by the water at the bottom of the tank.   [2]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "a)",
+            "depth": 1
+          }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Explain why the outlet pipe is fitted at the bottom of the tank.   [1]",
+            "qseg": [
+              {
+                "t": "Explain why the outlet pipe is fitted at the bottom of the tank.   [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "b)",
+            "depth": 1
+          }
         }
       ]
     },
@@ -4158,6 +6367,24 @@
       ]
     },
     {
+      "find": "When an object is immersed in a liquid, it appears to lose some of its weight. This observation suggests that the liquid exerts an upward force on the object. In the following activity, you will investigate this phenomenon and use experimental evidence to demonstrate Archimedes' Principle.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "When an object is immersed in a liquid, it appears to lose some of its weight. This observation suggests that the liquid exerts an upward force on the object. In the following activity, you will investigate this phenomenon and use experimental evidence to demonstrate Archimedes’ Principle.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Working in small groups or individually, use a Eureka (overflow) can, a measuring cylinder, a spring balance, water and a solid object that sinks in water to investigate Archimedes' Principle. Measure the weight of the object in air and then when it is completely immersed in water. Collect the displaced water, determine its weight and compare it with the loss in weight of the immersed object. Record your observations and use the results to explain Archimedes' Principle.",
       "with": [
         {
@@ -4165,7 +6392,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "Working in small groups or individually, use a Eureka (overflow) can, a measuring cylinder, a spring balance, water and a solid object that sinks in water to investigate Archimedes' Principle. Fill the Eureka can with water until water flows out through the spout and stops dripping, ensuring that the water level is at the level of the spout. Place an empty measuring cylinder below the spout to collect the displaced water. Measure the weight of the solid object in air using the spring balance and record the reading. Carefully lower the object into the water until it is completely immersed, without allowing it to touch the sides or bottom of the Eureka can. Collect all the water displaced through the spout in the measuring cylinder. Remove the measuring cylinder and measure the weight of the displaced water using the spring balance. Record the reading. Calculate the loss in weight of the object by subtracting its weight when immersed in water from its weight in air. Compare the loss in weight of the object with the weight of the displaced water. Record your observations and use the results to explain Archimedes' Principle.",
+                "t": "Working in small groups or individually, use a Eureka (overflow) can, a measuring cylinder, a spring balance, water and a solid object that sinks in water to investigate Archimedes’ Principle. Fill the Eureka can with water until water flows out through the spout and stops dripping, ensuring that the water level is at the level of the spout. Place an empty measuring cylinder below the spout to collect the displaced water. Measure the weight of the solid object in air using the spring balance and record the reading. Carefully lower the object into the water until it is completely immersed, without allowing it to touch the sides or bottom of the Eureka can. Collect all the water displaced through the spout in the measuring cylinder. Remove the measuring cylinder and measure the weight of the displaced water using the spring balance. Record the reading. Calculate the loss in weight of the object by subtracting its weight when immersed in water from its weight in air. Compare the loss in weight of the object with the weight of the displaced water. Record your observations and use the results to explain Archimedes’ Principle.",
                 "b": false,
                 "it": true,
                 "c": null
@@ -4181,15 +6408,135 @@
       ]
     },
     {
+      "find": "The apparent loss in weight of an object is equal to the upthrust exerted by the fluid. During the experiment, the loss in weight of the object was found to be equal to the weight of the fluid displaced by the object. This observation led to the formulation of Archimedes' Principle.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The apparent loss in weight of an object is equal to the upthrust exerted by the fluid. During the experiment, the loss in weight of the object was found to be equal to the weight of the fluid displaced by the object. This observation led to the formulation of Archimedes’ Principle.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Archimedes' Principle states that:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Archimedes’ Principle",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " states that:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Archimedes' Principle explains why some objects float while others sink. An object floats when it is in equilibrium, that is, when the upthrust acting on it is equal to its weight. It sinks when its weight is greater than the upthrust acting on it.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Archimedes’ Principle explains why some objects float while others sink. An object floats when it is in equilibrium, that is, when the upthrust acting on it is equal to its weight. It sinks when its weight is greater than the upthrust acting on it.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A metal block weighs 25N in air and 18N when completely immersed in water. Calculate:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A metal block weighs ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "25 N",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " in air and ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "18 N",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " when completely immersed in water. Calculate:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "(b) According to Archimedes' Principle,",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "(b) According to Archimedes’ Principle,",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "A fishing community wants to design a floating platform to transport goods across a river. Before using the platform, the builders test a wooden block in water. The block weighs 120 N in air. When it is completely immersed in water, its apparent weight is 75 N.",
       "with": [
         {
           "raw": {
             "kind": "q",
-            "q": "A fishing community wants to design a floating platform to transport goods across a river. Before using the platform, the builders test a wooden block in water. The block weighs 120 N in air. When it is completely immersed in water, its apparent weight is 75 N.",
+            "q": "A fishing community wants to design a floating platform to transport goods across a river. Before using the platform, the builders test a concrete block in water. The block weighs 120 N in air. When it is completely immersed in water, its apparent weight is 75 N.",
             "qseg": [
               {
-                "t": "A fishing community wants to design a floating platform to transport goods across a river. Before using the platform, the builders test a wooden block in water. The block weighs 120 N in air. When it is completely immersed in water, its apparent weight is 75 N.",
+                "t": "A fishing community wants to design a floating platform to transport goods across a river. Before using the platform, the builders test a concrete block in water. The block weighs 120 N in air. When it is completely immersed in water, its apparent weight is 75 N.",
                 "b": false,
                 "it": true,
                 "c": null
@@ -4208,10 +6555,10 @@
         {
           "raw": {
             "kind": "q",
-            "q": "Calculate the upthrust acting on the wooden block.                                              [2]",
+            "q": "Calculate the upthrust acting on the concrete block.                                              [2]",
             "qseg": [
               {
-                "t": "Calculate the upthrust acting on the wooden block.                                              [2]",
+                "t": "Calculate the upthrust acting on the concrete block.                                              [2]",
                 "b": false,
                 "it": true,
                 "c": null
@@ -4252,10 +6599,10 @@
         {
           "raw": {
             "kind": "q",
-            "q": "Using Archimedes' Principle, explain why some objects float while others sink in water.                                                                                                                     [2]",
+            "q": "Using Archimedes’ Principle, explain why some objects float while others sink in water.                                                                                                                     [2]",
             "qseg": [
               {
-                "t": "Using Archimedes' Principle, explain why some objects float while others sink in water.                                                                                                                     [2]",
+                "t": "Using Archimedes’ Principle, explain why some objects float while others sink in water.                                                                                                                     [2]",
                 "b": false,
                 "it": true,
                 "c": null
@@ -4293,6 +6640,74 @@
             "marker": "d)",
             "depth": 1
           }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A stone weighs 30 N in air and 18 N when it is completely immersed in water.",
+            "qseg": [
+              {
+                "t": "A stone weighs 30 N in air and 18 N when it is completely immersed in water.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "2.",
+            "depth": 0
+          }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Calculate the upthrust acting on the stone.   [2]",
+            "qseg": [
+              {
+                "t": "Calculate the upthrust acting on the stone.   [2]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "a)",
+            "depth": 1
+          }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Determine the weight of the water displaced by the stone.   [1]",
+            "qseg": [
+              {
+                "t": "Determine the weight of the water displaced by the stone.   [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "b)",
+            "depth": 1
+          }
+        },
+        {
+          "raw": {
+            "kind": "q",
+            "q": "State Archimedes’ Principle.   [1]",
+            "qseg": [
+              {
+                "t": "State Archimedes’ Principle.   [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "c)",
+            "depth": 1
+          }
         }
       ]
     },
@@ -4323,6 +6738,112 @@
       "with": []
     },
     {
+      "find": "A learner pushes a wheelbarrow with a force of 250 N through a distance of 12m. Calculate the work done by the learner.                                                              [2]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A learner pushes a wheelbarrow with a force of 250 N through a distance of 12 m. Calculate the work done by the learner.                                                              [2]",
+            "qseg": [
+              {
+                "t": "A learner pushes a wheelbarrow with a force of 250 N through a distance of 12 m. Calculate the work done by the learner.                                                              [2]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "1.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "A water pump does 18,000 J of work in 30 s. Calculate its power output.           [2]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A water pump does 18 000 J of work in 30 s. Calculate its power output.           [2]",
+            "qseg": [
+              {
+                "t": "A water pump does 18 000 J of work in 30 s. Calculate its power output.           [2]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "2.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "A machine uses 5,000 J of input energy to produce 4,000 J of useful output energy. Calculate the efficiency of the machine.                                                 [2]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A machine uses 5000 J of input energy to produce 4000 J of useful output energy. Calculate the efficiency of the machine.                                                 [2]",
+            "qseg": [
+              {
+                "t": "A machine uses 5000 J of input energy to produce 4000 J of useful output energy. Calculate the efficiency of the machine.                                                 [2]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "3.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "State Archimedes' Principle.                                                                           [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "State Archimedes’ Principle.                                                                           [1]",
+            "qseg": [
+              {
+                "t": "State Archimedes’ Principle.                                                                           [1]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "c)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.1.1. Analyse the impact of simple kinetic theory of matter on technological innovations",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.1.1 Analyse the impact of simple kinetic theory of matter on technological innovations.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Working individually, observe samples of a solid, a liquid, and a gas available in your surroundings, such as a stone, water, and air in a balloon. Compare how each substance behaves when handled. Draw simple particle diagrams to show the arrangement and movement of particles in each state of matter. Using your observations and the diagrams, describe the main ideas of the kinetic theory of matter and explain how the arrangement and movement of particles differ in solids, liquids, and gases.",
       "with": [
         {
@@ -4341,6 +6862,84 @@
             "numId": null,
             "lvl": null,
             "marker": null
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.2.1. Measure temperature using appropriate instruments ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.2.1 Measure temperature using appropriate instruments. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A laboratory thermometer is used to measure the temperature of substances during scientific experiments. It usually has a range of about –10°C to 110°C and does not have a constriction in the capillary tube. It should be kept upright while taking a reading.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "laboratory thermometer",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " is used to measure the temperature of substances during scientific experiments. It usually has a range of about –10 °C to 110 °C and does not have a constriction in the capillary tube. It should be kept upright while taking a reading.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A clinical thermometer is used to measure human body temperature. It has a narrow constriction just above the bulb that prevents the liquid from flowing back immediately after the thermometer is removed from the body. Its temperature range is usually 35°C to 42°C.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "clinical thermometer",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " is used to measure human body temperature. It has a narrow constriction just above the bulb that prevents the liquid from flowing back immediately after the thermometer is removed from the body. Its temperature range is usually 35 °C to 42 °C.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -4460,6 +7059,29 @@
       ]
     },
     {
+      "find": "Tabulate your observations, identify how changes in pressure and the presence of impurities affect the boiling and melting points of the substances and draw conclusions from your findings. Present your results to the class.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Tabulate your observations, identify how changes in pressure and the presence of impurities affect the boiling and melting points of the substances and draw conclusions from your findings. Present your results to the class.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "Tabulate your observations, identify how changes in pressure and the presence of impurities affect the boiling and melting points of the substances and draw conclusions from your findings. Present your results to the class.",
+            "isList": false,
+            "numId": null,
+            "lvl": null,
+            "marker": null
+          }
+        }
+      ]
+    },
+    {
       "find": "To calibrate an unmarked thermometer, the thermometer bulb is first placed in pure melting ice, and the level of the liquid column is marked as the lower fixed point (0 °C). The bulb is then immersed in pure boiling water and the level of the liquid column is marked as the upper fixed point (100 °C).",
       "with": [
         {
@@ -4490,6 +7112,134 @@
             "segs": [
               {
                 "t": "During the activity, you observed that both thermometers responded to changes in temperature, but their behaviour was not identical. Mercury forms a distinct, shiny column that does not wet the glass, making it easy to read accurately. It also expands uniformly with temperature changes. However, mercury freezes at about −39 °C and is poisonous if the thermometer breaks. Mercury spills can contaminate the environment and pose serious health risks. Therefore, mercury thermometers must be handled carefully and disposed of safely. Alcohol thermometers are usually coloured to make the liquid easier to see. Alcohol has a much lower freezing point than mercury, allowing it to measure very low temperatures. However, alcohol wets the glass, making the liquid column less distinct and sometimes more difficult to read accurately. It also has a lower boiling point, making it unsuitable for measuring very high temperatures. The choice of thermometric liquid depends on the intended use. Alcohol thermometers are suitable for measuring low temperatures, such as in weather stations and refrigerators, while mercury thermometers have traditionally been used in laboratories for accurate measurements over a moderate to high temperature range. However, alcohol thermometers and other safer alternatives should be preferred where appropriate to minimise health risks and environmental pollution.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Alcohol thermometers are usually coloured to make the liquid easier to see. Alcohol has a much lower freezing point than mercury, allowing it to measure very low temperatures. However, alcohol wets the glass, making the liquid column less distinct and sometimes more difficult to read accurately. It also has a lower boiling point, making it unsuitable for measuring very high temperatures.",
+      "with": []
+    },
+    {
+      "find": "The choice of thermometric liquid depends on the intended use. Alcohol thermometers are suitable for measuring low temperatures, such as in weather stations and refrigerators, while mercury thermometers are more suitable for laboratory work and other applications that require accurate measurements over a moderate to high temperature range.",
+      "with": []
+    },
+    {
+      "find": "Mercury and alcohol are the two most common thermometric liquids used in liquid-in-glass thermometers. Each possesses unique properties that make it more suitable than the other for specific temperature measurements and applications.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Temperature can be expressed on different scales. In the following activity, you will explore how the Celsius and Kelvin scales are related.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Temperature can be measured using different scales. The two most commonly used scales in science are the Celsius scale and the kelvin scale.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Temperature can be measured using different scales. The two most commonly used scales in science are the Celsius scale and the Kelvin scale.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "The kelvin scale is the SI unit of temperature. It begins at absolute zero (0 K), which is the lowest possible temperature at which particles possess the least possible kinetic energy. Unlike the Celsius scale, the kelvin scale does not use the degree (°) symbol.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The Kelvin scale is the SI unit of temperature. It begins at ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "absolute zero",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " (0 K), which is the lowest possible temperature at which particles possess the least possible kinetic energy. Unlike the Celsius scale, the Kelvin scale does not use the degree (°) symbol.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "In symbols,              T = Ѳ +273",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "In symbols,              T = θ +273",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Or                            Ѳ = T − 273",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "or                            θ = T − 273",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "The kelvin scale is widely used in scientific calculations because it starts at absolute zero and does not have negative temperatures under ordinary conditions. The Celsius scale is commonly used in everyday life for measuring weather conditions, body temperature, and the temperatures of substances.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The Kelvin scale is widely used in scientific calculations because it starts at absolute zero and does not have negative temperatures under ordinary conditions. The Celsius scale is commonly used in everyday life for measuring weather conditions, body temperature, and the temperatures of substances.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -4659,10 +7409,10 @@
         {
           "raw": {
             "kind": "q",
-            "q": "Explain why the kelvin scale is preferred over the Celsius scale in scientific investigations.                                                                                                         [2]",
+            "q": "Explain why the Kelvin scale is preferred over the Celsius scale in scientific investigations.                                                                                                         [2]",
             "qseg": [
               {
-                "t": "Explain why the kelvin scale is preferred over the Celsius scale in scientific investigations.                                                                                                         [2]",
+                "t": "Explain why the Kelvin scale is preferred over the Celsius scale in scientific investigations.                                                                                                         [2]",
                 "b": false,
                 "it": true,
                 "c": null
@@ -4671,6 +7421,24 @@
             "a": "",
             "marker": "d)",
             "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.3.1. Demonstrate the expansion of solids, liquids and gases ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.3.1 Demonstrate the expansion of solids, liquids and gases. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -4867,6 +7635,356 @@
       "with": []
     },
     {
+      "find": "The graph shows that the volume of water decreases as it cools from 10°C to 4°C. At 4°C, water has its minimum volume. Below 4 °C, the volume increases as the temperature decreases to 0 °C.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The graph shows that the volume of water decreases as it cools from 10 °C to 4 °C. At 4 °C, water has its minimum volume. Below 4 °C, the volume increases as the temperature decreases to 0 °C.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "For gases, fill identical flasks with air and carbon dioxide, each fitted with identical balloons. Place the flasks in the same hot water bath and compare",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "For gases, fill identical flasks with air and carbon dioxide, each fitted with identical balloons. Place the flasks in the same hot water bath and compare the sizes of the balloons.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "For gases, fill identical flasks with air and carbon dioxide, each fitted with identical balloons. Place the flasks in the same hot water bath and compare",
+            "isList": false,
+            "numId": null,
+            "lvl": null,
+            "marker": null
+          }
+        }
+      ]
+    },
+    {
+      "find": "Alcohol expands more than mercury for the same increase in temperature, making it suitable for measuring very low temperatures. Mercury expands more uniformly and is suitable for measuring higher temperatures.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Alcohol expands more than mercury for the same increase in temperature and has a much lower freezing point, making it suitable for measuring very low temperatures. Mercury expands more uniformly and is suitable for measuring higher temperatures.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Expansion of gases: Gases expand more than both solids and liquids because their particles are far apart and move freely. Different gases expand at almost the same rate when heated through the same temperature interval, provided they are under the same conditions of pressure and volume.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Expansion of gases: ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Gases expand more than both solids and liquids because their particles are far apart and move freely. Different gases expand at almost the same rate when heated through the same temperature interval, provided they are under the same conditions of pressure.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Substance      Melting Point (°C)      Boiling Point (°C)",
+      "with": [
+        {
+          "raw": {
+            "kind": "table",
+            "header": true,
+            "rows": [
+              [
+                {
+                  "text": "Substance",
+                  "imgs": []
+                },
+                {
+                  "text": "Melting point (°C)",
+                  "imgs": []
+                },
+                {
+                  "text": "Boiling point (°C)",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "A",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "100",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "B",
+                  "imgs": []
+                },
+                {
+                  "text": "−39",
+                  "imgs": []
+                },
+                {
+                  "text": "357",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "C",
+                  "imgs": []
+                },
+                {
+                  "text": "80",
+                  "imgs": []
+                },
+                {
+                  "text": "218",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "D",
+                  "imgs": []
+                },
+                {
+                  "text": "−114",
+                  "imgs": []
+                },
+                {
+                  "text": "78",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A                                 0                       100",
+      "with": []
+    },
+    {
+      "find": "B                               -39                      357",
+      "with": []
+    },
+    {
+      "find": "C                                80                      218",
+      "with": []
+    },
+    {
+      "find": "D                              -114                       78",
+      "with": []
+    },
+    {
+      "find": "Charles' law: Charles' law states that the volume of the fixed mass of a gas is directly proportional to its absolute temperature at constant pressure.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Charles’ law: ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Charles’ law states that the volume of the fixed mass of a gas is directly proportional to its absolute temperature at constant pressure.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "frac(V_(1), T_(1)) = frac(V_(2), T_(2))      ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"V₁\"), #text(font: \"Arial\", \"T₁\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"V₂\"), #text(font: \"Arial\", \"T₂\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "frac(P_(1), T_(1)) = frac(P_(2), T_(2))",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"P₁\"), #text(font: \"Arial\", \"T₁\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"P₂\"), #text(font: \"Arial\", \"T₂\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Combined gas law: The combined gas law combines Boyle’s law, Charles' law and Gay-Lussac’s law into one equation.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Combined gas law: ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "The combined gas law combines Boyle’s law, Charles’ law and Gay-Lussac’s law into one equation.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "frac(P_(1) V_(1), T_(1)) =frac(P_(2) V_(2), T_(2))",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"P₁V₁\"), #text(font: \"Arial\", \"T₁\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"P₂V₂\"), #text(font: \"Arial\", \"T₂\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.4.1. Demonstrate how various internal combustion engines operate ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.4.1 Demonstrate how various internal combustion engines operate. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "a spark ignition engine;                                                                              [1]",
       "with": [
         {
@@ -4928,6 +8046,182 @@
             "a": "",
             "marker": "(iii)",
             "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "Hybrid Engine: A hybrid engine combines an internal combustion engine with an electric motor. The vehicle can be powered by either of the two, the electric motor or both. Hybrid engines consume less fuel, produce lower exhaust emissions, and improve fuel economy, making them more environmentally friendly than conventional engines.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Hybrid Engine: ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "A hybrid engine combines an internal combustion engine with an electric motor. The vehicle can be powered by the internal combustion engine, the electric motor or both. Hybrid engines consume less fuel, produce lower exhaust emissions, and improve fuel economy, making them more environmentally friendly than conventional engines.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A hybrid vehicle uses 5L of fuel to travel 100 km, while a petrol vehicle uses 8L of fuel to travel the same distance.",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A hybrid vehicle uses 5 L of fuel to travel 100 km, while a petrol vehicle uses 8 L of fuel to travel the same distance.",
+            "qseg": [
+              {
+                "t": "A hybrid vehicle uses 5 L of fuel to travel 100 km, while a petrol vehicle uses 8 L of fuel to travel the same distance.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "e)",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Calculate the amount of fuel saved by using the hybrid vehicle over 100km.                                                                                                                      [2]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Calculate the amount of fuel saved by using the hybrid vehicle over 100 km.                                                                                                                      [2]",
+            "qseg": [
+              {
+                "t": "Calculate the amount of fuel saved by using the hybrid vehicle over 100 km.   ",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "                                                                                                                  [2]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(i)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "Calculate the percentage reduction in fuel consumption.                            [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Calculate the percentage reduction in fuel consumption.                            [1]",
+            "qseg": [
+              {
+                "t": "Calculate the percentage reduction in fuel consumption.                            [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(ii)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "Explain how using hybrid vehicles helps to reduce environmental pollution.                                                                                                                                [2]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Explain how using hybrid vehicles helps to reduce environmental pollution. [2]",
+            "qseg": [
+              {
+                "t": "Explain how using hybrid vehicles helps to reduce environmental pollution.             ",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "                                                                                                                  [2]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(iii)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "If fuel costs K27.50 per litre, calculate the money saved over 100km and estimate the annual saving.                                                                       [2] ",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "If fuel costs K27.50 per litre, calculate the money saved over 100 km and estimate the annual saving.                                                                       [2] ",
+            "qseg": [
+              {
+                "t": "If fuel costs K27.50 per litre, calculate the money saved over 100 km and estimate the annual saving.                                                                       [2] ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(iv)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.2.5.1. Apply the concepts of heat transfer",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.5.1 Apply the concepts of heat transfer.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -5214,8 +8508,8 @@
                   }
                 ],
                 "a": "",
-                "marker": "e)",
-                "depth": 0
+                "marker": "(i)",
+                "depth": 1
               },
               {
                 "kind": "q",
@@ -5229,23 +8523,23 @@
                   }
                 ],
                 "a": "",
-                "marker": "f)",
-                "depth": 0
+                "marker": "(ii)",
+                "depth": 1
               },
               {
                 "kind": "q",
-                "q": "sea and land breezes;                                                                                       [4]",
+                "q": "sea and land breezes;                                                                                       [2]",
                 "qseg": [
                   {
-                    "t": "sea and land breezes;                                                                                       [4]",
+                    "t": "sea and land breezes;                                                                                       [2]",
                     "b": false,
                     "it": true,
                     "c": null
                   }
                 ],
                 "a": "",
-                "marker": "g)",
-                "depth": 0
+                "marker": "(iii)",
+                "depth": 1
               },
               {
                 "kind": "q",
@@ -5259,8 +8553,8 @@
                   }
                 ],
                 "a": "",
-                "marker": "h)",
-                "depth": 0
+                "marker": "(iv)",
+                "depth": 1
               }
             ]
           }
@@ -5497,6 +8791,211 @@
       ]
     },
     {
+      "find": "2.2.6.1. Solve practical and numerical problems involving measurements of heat ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.2.6.1 Solve practical and numerical problems involving measurements of heat. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Heat capacity is the amount of heat required to raise the temperature of an entire body by 1°C (or 1K). It depends on both the mass and the type of material. The SI unit of heat capacity is joule per kelvin (JK⁻¹).",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Heat capacity",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " is the amount of heat required to raise the temperature of an entire body by 1 °C (or 1 K). It depends on both the mass and the type of material. The SI unit of heat capacity is joule per kelvin (JK⁻¹).",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Specific heat capacity is the amount of heat required to raise the temperature of 1 kilogram of a substance by 1°C (or 1K). It is a characteristic property of a material and is measured in joules per kilogram per kelvin (J kg⁻¹K⁻¹). Substances with a high specific heat capacity require more heat to produce the same temperature rise than those with a low specific heat capacity.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Specific heat capacity",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " is the amount of heat required to raise the temperature of 1 kilogram of a substance by 1 °C (or 1 K). It is a characteristic property of a material and is measured in joules per kilogram per kelvin (J kg⁻¹K⁻¹). Substances with a high specific heat capacity require more heat to produce the same temperature rise than those with a low specific heat capacity.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A 2 kg aluminium cooking pot is heated from 25°C to 95°C. Given that the specific heat capacity of aluminium is 900 J kg⁻¹ °C⁻¹, calculate the amount of heat absorbed by the pot.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A 2 kg aluminium cooking pot is heated from 25 °C to 95 °C. Given that the specific heat capacity of aluminium is 900 J kg⁻¹ °C⁻¹, calculate the amount of heat absorbed by the pot.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "A 2 kg aluminium cooking pot is heated from 25°C to 95°C. Given that the specific heat capacity of aluminium is 900 J kg⁻¹ °C⁻¹, calculate the amount of heat absorbed by the pot.",
+            "isList": true,
+            "numId": "48",
+            "lvl": 0,
+            "marker": "1."
+          }
+        }
+      ]
+    },
+    {
+      "find": "A 0.5 kg block of ice at 0°C melts completely. Given that the specific latent heat of fusion of ice is 3.34 × 10⁵ J kg⁻¹, calculate the amount of heat required to melt the ice.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A 0.5 kg block of ice at 0 °C melts completely. Given that the specific latent heat of fusion of ice is 3.34 × 10⁵ J kg⁻¹, calculate the amount of heat required to melt the ice.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "A 0.5 kg block of ice at 0°C melts completely. Given that the specific latent heat of fusion of ice is 3.34 × 10⁵ J kg⁻¹, calculate the amount of heat required to melt the ice.",
+            "isList": true,
+            "numId": "48",
+            "lvl": 0,
+            "marker": "2."
+          }
+        }
+      ]
+    },
+    {
+      "find": "A 1.5 kg mass of water at 100°C is converted completely into steam. Given that the specific latent heat of vaporisation of water is 2.26 × 10⁶ J kg⁻¹, calculate the amount of heat required.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A 1.5 kg mass of water at 100 °C is converted completely into steam. Given that the specific latent heat of vaporisation of water is 2.26 × 10⁶ J kg⁻¹, calculate the amount of heat required.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "A 1.5 kg mass of water at 100°C is converted completely into steam. Given that the specific latent heat of vaporisation of water is 2.26 × 10⁶ J kg⁻¹, calculate the amount of heat required.",
+            "isList": true,
+            "numId": "48",
+            "lvl": 0,
+            "marker": "3."
+          }
+        }
+      ]
+    },
+    {
+      "find": "Q = mcΔT",
+      "with": [
+        {
+          "raw": {
+            "t": "head",
+            "text": "H = mcΔT"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Q is the heat energy (J)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "H",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " is the heat energy (J)",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Q = mL",
+      "with": [
+        {
+          "raw": {
+            "t": "head",
+            "text": "H = mL"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Q is the heat energy (J)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "H",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " is the heat energy (J)",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "EXERCISE 14",
       "with": [
         {
@@ -5506,10 +9005,10 @@
             "parts": [
               {
                 "kind": "lead",
-                "q": "A school plans to prepare hot drinking water for learners during a sports competition. Water with a mass of 5 kg is heated from 20°C to 80°C using an electric heater. Later, 2 kg of the water at 100°C is converted completely into steam for sterilising laboratory equipment. The specific heat capacity of water is 4,200 J kg⁻¹ °C⁻¹, while the specific latent heat of vaporisation of water is 2.26 × 10⁶ J kg⁻¹.",
+                "q": "A school plans to prepare hot drinking water for learners during a sports competition. Water with a mass of 5 kg is heated from 20 °C to 80 °C using an electric heater. Later, 2 kg of the water at 100 °C is converted completely into steam for sterilising laboratory equipment. The specific heat capacity of water is 4200 J kg⁻¹ °C⁻¹, while the specific latent heat of vaporisation of water is 2.26 × 10⁶ J kg⁻¹.",
                 "qseg": [
                   {
-                    "t": "A school plans to prepare hot drinking water for learners during a sports competition. Water with a mass of 5 kg is heated from 20°C to 80°C using an electric heater. Later, 2 kg of the water at 100°C is converted completely into steam for sterilising laboratory equipment. The specific heat capacity of water is 4,200 J kg⁻¹ °C⁻¹, while the specific latent heat of vaporisation of water is 2.26 × 10⁶ J kg⁻¹.",
+                    "t": "A school plans to prepare hot drinking water for learners during a sports competition. Water with a mass of 5 kg is heated from 20 °C to 80 °C using an electric heater. Later, 2 kg of the water at 100 °C is converted completely into steam for sterilising laboratory equipment. The specific heat capacity of water is 4200 J kg⁻¹ °C⁻¹, while the specific latent heat of vaporisation of water is 2.26 × 10⁶ J kg⁻¹.",
                     "b": false,
                     "it": true,
                     "c": null
@@ -5519,10 +9018,10 @@
               },
               {
                 "kind": "q",
-                "q": "Calculate the amount of heat required to raise the temperature of the 5 kg of water from 20°C to 80°C.                                                                                                 [2]",
+                "q": "Calculate the amount of heat required to raise the temperature of the 5 kg of water from 20 °C to 80 °C.                                                                                                 [2]",
                 "qseg": [
                   {
-                    "t": "Calculate the amount of heat required to raise the temperature of the 5 kg of water from 20°C to 80°C.                                                                                                 [2]",
+                    "t": "Calculate the amount of heat required to raise the temperature of the 5 kg of water from 20 °C to 80 °C.                                                                                                 [2]",
                     "b": false,
                     "it": true,
                     "c": null
@@ -5534,10 +9033,10 @@
               },
               {
                 "kind": "q",
-                "q": "Calculate the amount of heat required to convert the 2 kg of water at 100°C completely into steam.                                                                                           [2]",
+                "q": "Calculate the amount of heat required to convert the 2 kg of water at 100 °C completely into steam.                                                                                           [2]",
                 "qseg": [
                   {
-                    "t": "Calculate the amount of heat required to convert the 2 kg of water at 100°C completely into steam.                                                                                           [2]",
+                    "t": "Calculate the amount of heat required to convert the 2 kg of water at 100 °C completely into steam.                                                                                           [2]",
                     "b": false,
                     "it": true,
                     "c": null
@@ -5598,6 +9097,173 @@
       ]
     },
     {
+      "find": "Two objects can have the same temperature but different amounts of heat energy. For example, a cup of hot water and a bucket of hot water may both be at 60°C. However, water in the bucket has more thermal energy because it has a greater mass of water.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Two objects can have the same temperature but different amounts of heat energy. For example, a cup of hot water and a bucket of hot water may both be at 60 °C. However, water in the bucket has more thermal energy because it has a greater mass of water.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 34: Measuring heat capacity C = frac(H, Delta T) and specific heat capacity c = frac(H, m Delta T) of solids and liquids",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 34: Measuring heat capacity (C = H/ΔT) and specific heat capacity (c = H/mΔT) of solids and liquids",
+            "titleSegs": [
+              {
+                "t": "LEARNING ACTIVITY 34: Measuring heat capacity (",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "C = H/ΔT",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": ") and specific heat capacity (",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "c = H/mΔT",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": ") of solids and liquids",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Work in small groups or individually. Use a calorimeter or insulated container, a metal block, water, a thermometer, a balance, an electric heater, a power supply, a stopwatch and connecting wires. Measure the mass of the metal block and the water, then heat each separately for a known period while recording the initial and final temperatures. Calculate the heat supplied using the electrical energy transferred, then determine the heat capacity of each sample using the appropriate equation. Next, calculate the specific heat capacity of the metal block and the water. Compare your results with standard values obtained from a physics textbook or reliable online resources and describe possible reasons for any differences between the measured and accepted values.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Work in small groups or individually. Use a calorimeter or insulated container, a metal block, water, a thermometer, a balance, an electric heater, a power supply, a stopwatch and connecting wires. Measure the mass of the metal block and the water, then heat each separately for a known period while recording the initial and final temperatures. Calculate the heat supplied using the electrical energy transferred, then determine the heat capacity of each sample using the appropriate equation. Next, calculate the specific heat capacity of the metal block and the water. Compare your results with standard values obtained from a physics textbook or reliable online resources and describe possible reasons for any differences between the measured and accepted values.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Heat capacity is the amount of heat required to raise the temperature of an entire body by 1 K or 1°C. It depends on the mass and the nature of the material. The SI unit of heat capacity is joule per kelvin (J K⁻¹).",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Heat capacity is the amount of heat required to raise the temperature of an entire body by 1 K or 1 °C. It depends on the mass and the nature of the material. The SI unit of heat capacity is joule per kelvin (J K⁻¹).",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "C = frac(H, Delta T)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "C = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"H\"), #text(font: \"Arial\", \"ΔT\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Specific heat capacity is the amount of heat required to raise the temperature of 1 kg of a substance by 1 K or 1°C. It is a characteristic property of a material and does not depend on the mass of the substance. The SI unit of specific heat capacity is joule per kilogram per kelvin (J kg⁻¹ K⁻¹).",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Specific heat capacity is the amount of heat required to raise the temperature of 1 kg of a substance by 1 K or 1 °C. It is a characteristic property of a material and does not depend on the mass of the substance. The SI unit of specific heat capacity is joule per kilogram per kelvin (J kg⁻¹ K⁻¹).",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "c = frac(H, m Delta T)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "c = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"H\"), #text(font: \"Arial\", \"mΔT\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "EXERCISE 15",
       "with": [
         {
@@ -5607,10 +9273,10 @@
             "parts": [
               {
                 "kind": "lead",
-                "q": "An engineering company is comparing two materials for use in manufacturing cooking pots. During a laboratory test, a 2kg aluminium block is supplied with 162,000J of heat, causing its temperature to rise from 25°C to 115°C. In another test, a 5kg metal object absorbs 45,000J of heat and its temperature increases by 30°C.",
+                "q": "An engineering company is comparing two materials for use in manufacturing cooking pots. During a laboratory test, a 2 kg aluminium block is supplied with 162 000 J of heat, causing its temperature to rise from 25 °C to 115 °C. In another test, a 5 kg metal object absorbs 45 000 J of heat and its temperature increases by 30 °C.",
                 "qseg": [
                   {
-                    "t": "An engineering company is comparing two materials for use in manufacturing cooking pots. During a laboratory test, a 2kg aluminium block is supplied with 162,000J of heat, causing its temperature to rise from 25°C to 115°C. In another test, a 5kg metal object absorbs 45,000J of heat and its temperature increases by 30°C.",
+                    "t": "An engineering company is comparing two materials for use in manufacturing cooking pots. During a laboratory test, a 2 kg aluminium block is supplied with 162 000 J of heat, causing its temperature to rise from 25 °C to 115 °C. In another test, a 5 kg metal object absorbs 45 000 J of heat and its temperature increases by 30 °C.",
                     "b": false,
                     "it": true,
                     "c": null
@@ -5692,6 +9358,83 @@
                 "a": "",
                 "marker": "e)",
                 "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 35: Determining the latent heat of fusion (H = mLf) and latent heat of vapourisation ( H = mL\"\"_(\"v\")) of substances",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 35: Determining the latent heat of fusion (H = mLf) and latent heat of vaporisation (H = mLv) of substances",
+            "titleSegs": [
+              {
+                "t": "LEARNING ACTIVITY 35: Determining the latent heat of fusion (",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "H = mL",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"f\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": ") and latent heat of vaporisation (",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "H = mL",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"v\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": ") of substances",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Use a balance, crushed ice, water, a beaker, an electric heater, a power supply, a stopwatch, connecting wires and reliable online resources or a physics textbook. Measure the mass of the ice that melts and the mass of the water that is converted into steam during heating. Determine the amount of heat supplied in each case and use the appropriate equations to calculate the latent heat of fusion and the latent heat of vaporisation of the substance. Compare your calculated values with accepted values from reference sources and discuss possible reasons for any differences.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Use a balance, crushed ice, water, a beaker, an electric heater, a power supply, a stopwatch, connecting wires and reliable online resources or a physics textbook. Measure the mass of the ice that melts and the mass of the water that is converted into steam during heating. Determine the amount of heat supplied in each case and use the appropriate equations to calculate the latent heat of fusion and the latent heat of vaporisation of the substance. Compare your calculated values with accepted values from reference sources and discuss possible reasons for any differences.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
               }
             ]
           }
@@ -5785,6 +9528,90 @@
       ]
     },
     {
+      "find": "A 3 kg block of copper is heated from 20°C to 80°C. Given that the specific heat capacity of copper is 390 J kg⁻¹ °C⁻¹, calculate the amount of heat absorbed by the block.                                                                                                              [2]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A 3 kg block of copper is heated from 20 °C to 80 °C. Given that the specific heat capacity of copper is 390 J kg⁻¹ °C⁻¹, calculate the amount of heat absorbed by the block.                                                                                                              [2]",
+            "qseg": [
+              {
+                "t": "A 3 kg block of copper is heated from 20 °C to 80 °C. Given that the specific heat capacity of copper is 390 J kg⁻¹ °C⁻¹, calculate the amount of heat absorbed by the block.                                                                                                              [2]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "7.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.3.1.1. Solve practical and numerical problems involving wave motion ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.3.1.1 Solve practical and numerical problems involving wave motion. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Waves are described using specific terms that help us understand their characteristics and behaviour. These terms include crest, trough, equilibrium position, amplitude, wavelength, frequency and wave-front",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Waves are described using specific terms that help us understand their characteristics and behaviour. These terms include crest, trough, equilibrium position, amplitude, wavelength, frequency and wave-front.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "     f = frac(1, T)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "f = ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "display(frac(#text(font: \"Arial\", \"1\"), #text(font: \"Arial\", \"T\")))",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "Waves are classified according to the edirection in which the particles of the medium vibrate relative to the direction of wave travel. The two main types of waves are transverse waves and longitudinal waves.",
       "with": [
         {
@@ -5795,6 +9622,457 @@
                 "t": "Waves are classified according to the direction in which the particles of the medium vibrate relative to the direction of wave travel. The two main types of waves are transverse waves and longitudinal waves.",
                 "b": false,
                 "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "wavelength;                                                                                                  [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "wavelength;                                                                                                  [1]",
+            "qseg": [
+              {
+                "t": "wavelength;                                                                                                  [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(i)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "amplitude; and                                                                                             [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "amplitude; and                                                                                             [1]",
+            "qseg": [
+              {
+                "t": "amplitude; and                                                                                             [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(ii)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "frequency.                                                                                                    [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "frequency.                                                                                                    [1]",
+            "qseg": [
+              {
+                "t": "frequency.                                                                                                    [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(iii)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "Distinguish between longitudinal waves and transverse waves.                           [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Distinguish between longitudinal waves and transverse waves.                           [1]",
+            "qseg": [
+              {
+                "t": "Distinguish between longitudinal waves and transverse waves.                           [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "b)",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Identify the type of wave produced when the rope was moved: ",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Identify the type of wave produced when the rope was moved:",
+            "qseg": [
+              {
+                "t": "Identify the type of wave produced when the rope was moved: ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "c)",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "up and down; and                                                                                        [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "the rope was moved up and down; and                                                                                        [1]",
+            "qseg": [
+              {
+                "t": "the rope was moved up and down; and                                                                                        [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(i)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "back and forth.                                                                                             [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "the slinky spring was pushed and pulled back and forth.                                                                                             [1]",
+            "qseg": [
+              {
+                "t": "the slinky spring was pushed and pulled back and forth.                                                                                             [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(ii)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "Explain why sound waves are classified as longitudinal waves.                            [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Explain why sound waves are classified as longitudinal waves.                            [1]",
+            "qseg": [
+              {
+                "t": "Explain why sound waves are classified as longitudinal waves.                            [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "d)",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Suggest one example of a transverse wave and one example of a longitudinal wave found in everyday life.                                                                                   [2]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Suggest one example of a transverse wave and one example of a longitudinal wave found in everyday life.                                                                                   [2]",
+            "qseg": [
+              {
+                "t": "Suggest one example of a transverse wave and one example of a longitudinal wave found in everyday life.                                                                                   [2]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "e)",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "A wave travels at a speed of 360 m s⁻¹ and has a frequency of 120 Hz. Determine its wavelength.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A wave travels at a speed of 360 m/s and has a frequency of 120 Hz. Determine its wavelength.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "A wave travels at a speed of 360 m s⁻¹ and has a frequency of 120 Hz. Determine its wavelength.",
+            "isList": true,
+            "numId": "60",
+            "lvl": 0,
+            "marker": "2."
+          }
+        }
+      ]
+    },
+    {
+      "find": "A wave travels at 240 ms⁻¹ and has a wavelength of 8 m. Calculate its frequency.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "A wave travels at 240 m/s and has a wavelength of 8 m. Calculate its frequency.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "A wave travels at 240 ms⁻¹ and has a wavelength of 8 m. Calculate its frequency.",
+            "isList": true,
+            "numId": "60",
+            "lvl": 0,
+            "marker": "5."
+          }
+        }
+      ]
+    },
+    {
+      "find": "The speed of a wave is the distance travelled by the wave per unit time. It depends on the properties of the medium through which the wave travels and is measured in metres per second (ms⁻¹).",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The speed of a wave is the distance travelled by the wave per unit time. It depends on the properties of the medium through which the wave travels and is measured in metres per second (m/s).",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "v is the wave speed (m s⁻¹)",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "v",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " is the wave speed (m/s)",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "A telecommunications company is testing a new communication system that uses radio waves to transmit information between two stations. During one test, the radio waves travel at a speed of 3.0 × 10⁸ m s⁻¹ and have a frequency of 1.5 × 10⁸ Hz. In another test, a sound wave travels through air at a speed of 340 m s⁻¹ and has a wavelength of 0.68 m.",
+      "with": [
+        {
+          "raw": {
+            "kind": "lead",
+            "q": "A telecommunications company is testing a new communication system that uses radio waves to transmit information between two stations. During one test, the radio waves travel at a speed of 3.0 × 10⁸ m/s and have a frequency of 1.5 × 10⁸ Hz. In another test, a sound wave travels through air at a speed of 340 m/s and has a wavelength of 0.68 m.",
+            "qseg": [
+              {
+                "t": "A telecommunications company is testing a new communication system that uses radio waves to transmit information between two stations. During one test, the radio waves travel at a speed of 3.0 × 10⁸ m/s and have a frequency of 1.5 × 10⁸ Hz. In another test, a sound wave travels through air at a speed of 340 m/s and has a wavelength of 0.68 m.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "indent": false
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.3.2.1 Interpret information related to electromagnetic waves ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.3.2.1 Interpret information related to electromagnetic waves. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "All electromagnetic waves travel at the same speed in a vacuum, which is approximately 3.0 × 10⁸ ms⁻¹. However, their speed decreases when they travel through materials such as water or glass.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "All electromagnetic waves travel at the same speed in a vacuum, which is approximately 3.0 × 10⁸ m/s. However, their speed decreases when they travel through materials such as water or glass.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Each type of electromagnetic wave is produced by a particular source and has uses based on its properties. Although all electromagnetic waves travel at the same speed in a vacuum and share common properties, their different wavelengths, frequencies and energies make them suitable for different purposes.",
+      "next": "Radio waves are produced by radio and television transmitters. They have the longest wavelengths and the lowest frequenc",
+      "with": []
+    },
+    {
+      "find": "medical imaging of broken bones; and                                                       [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "medical imaging of broken bones; and                                                       [1]",
+            "qseg": [
+              {
+                "t": "medical imaging of broken bones; and                                                       [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(i)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "communication over long distances.                                                           [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "communication over long distances.                                                           [1]",
+            "qseg": [
+              {
+                "t": "communication over long distances.                                                           [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(ii)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "A mobile communication company is installing a new radio transmitter. During testing, the engineers use radio waves with a frequency of 1.0 × 10⁸ Hz. The radio waves travel at a speed of 3.0 × 10⁸ m s⁻¹ in air. At the same time, the company reminds its employees to observe safety precautions when working near transmitting equipment.",
+      "with": [
+        {
+          "raw": {
+            "kind": "lead",
+            "q": "A mobile communication company is installing a new radio transmitter. During testing, the engineers use radio waves with a frequency of 1.0 × 10⁸ Hz. The radio waves travel at a speed of 3.0 × 10⁸ m/s in air. At the same time, the company reminds its employees to observe safety precautions when working near transmitting equipment.",
+            "qseg": [
+              {
+                "t": "A mobile communication company is installing a new radio transmitter. During testing, the engineers use radio waves with a frequency of 1.0 × 10⁸ Hz. The radio waves travel at a speed of 3.0 × 10⁸ m/s in air. At the same time, the company reminds its employees to observe safety precautions when working near transmitting equipment.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "indent": false
+          }
+        }
+      ]
+    },
+    {
+      "find": "During a school science exhibition, learners produce waves on a rope. The waves travel at a speed of 300 m s⁻¹ and have a frequency of 60 Hz.",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "During a school science exhibition, learners produce waves on a rope. The waves travel at a speed of 300 m/s and have a frequency of 60 Hz.",
+            "qseg": [
+              {
+                "t": "During a school science exhibition, learners produce waves on a rope. The waves travel at a speed of 300 m/s and have a frequency of 60 Hz.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "1.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "2.4.1.1 Manipulate devices to demonstrate fundamental properties of sound ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "2.4.1.1 Manipulate devices to demonstrate fundamental properties of sound. ",
+                "b": false,
+                "it": true,
                 "c": null
               }
             ]
@@ -5957,6 +10235,29 @@
       ]
     },
     {
+      "find": "Work in small groups or individually. Conduct experiments to determine the speed of sound in air using the direct method, the echo method and a computer-based method. For the echo method, stand at least 100 m away from a large wall, cliff or other reflecting surface so that a distinct echo can be heard. For the computer-based method, use two microphones connected to a computer or data logger running sound analysis software such as Audacity, Phyphox or Logger Pro. Place the microphones a known distance apart and produce a sharp sound midway between them or near one microphone. Use the software to determine the time taken for the sound to travel between the microphones. Measure the required distances, calculate the speed of sound for each method, compare the results obtained, identify possible sources of error and discuss which method provides the most accurate measurement. ",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Work in small groups or individually. Conduct experiments to determine the speed of sound in air using the direct method, the echo method and a computer-based method. For the echo method, stand at least 100 m away from a large wall, cliff or other reflecting surface so that a distinct echo can be heard. For the computer-based method, use two microphones connected to a computer or data logger running sound analysis software such as Audacity, Phyphox or Logger Pro. Place the microphones a known distance apart and produce a sharp sound near one microphone. Use the software to determine the time taken for the sound to travel between the microphones. Measure the required distances, calculate the speed of sound for each method, compare the results obtained, identify possible sources of error and discuss which method provides the most accurate measurement. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "plain": "Work in small groups or individually. Conduct experiments to determine the speed of sound in air using the direct method, the echo method and a computer-based method. For the echo method, stand at least 100 m away from a large wall, cliff or other reflecting surface so that a distinct echo can be heard. For the computer-based method, use two microphones connected to a computer or data logger running sound analysis software such as Audacity, Phyphox or Logger Pro. Place the microphones a known distance apart and produce a sharp sound midway between them or near one microphone. Use the software to determine the time taken for the sound to travel between the microphones. Measure the required distances, calculate the speed of sound for each method, compare the results obtained, identify possible sources of error and discuss which method provides the most accurate measurement.",
+            "isList": false,
+            "numId": null,
+            "lvl": null,
+            "marker": null
+          }
+        }
+      ]
+    },
+    {
       "find": "Speed = frac(\"distance travelled\", \"time taken\")  ",
       "with": [
         {
@@ -6005,6 +10306,36 @@
                 "t": "display(frac(#text(font: \"Arial\", \"d\"), #text(font: \"Arial\", \"t\")))",
                 "m": true,
                 "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "The echo method uses the reflection of sound from a large wall, cliff or other hard obstacle. The observer should stand at least 100m from the reflecting surface to ensure that the echo is heard distinctly. The measured time is the time taken for the sound to travel to the obstacle and back. Therefore, the total distance travelled by the sound is twice the measured distance.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "The ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "echo method",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " uses the reflection of sound from a large wall, cliff or other hard obstacle. The observer should stand at least 100 m from the reflecting surface to ensure that the echo is heard distinctly. The measured time is the time taken for the sound to travel to the obstacle and back. Therefore, the total distance travelled by the sound is twice the measured distance.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -6200,8 +10531,288 @@
       ]
     },
     {
+      "find": "A group of learners investigated the speed of sound in air using three different methods: the direct method, the echo method and a computer-based method. During the echo experiment, they stood 120m from a large wall. One learner clapped two wooden blocks together, and the echo was heard 0.70s later. In the computer-based experiment, two microphones were placed 10.2m apart. Sound analysis software measured a time interval of 0.030s for the sound to travel from the first microphone to the second.",
+      "with": [
+        {
+          "raw": {
+            "kind": "lead",
+            "q": "A group of learners investigated the speed of sound in air using three different methods: the direct method, the echo method and a computer-based method. During the echo experiment, they stood 120 m from a large wall. One learner clapped two wooden blocks together, and the echo was heard 0.70 s later. In the computer-based experiment, two microphones were placed 10.2 m apart. Sound analysis software measured a time interval of 0.030 s for the sound to travel from the first microphone to the second.",
+            "qseg": [
+              {
+                "t": "A group of learners investigated the speed of sound in air using three different methods: the direct method, the echo method and a computer-based method. During the echo experiment, they stood 120 m from a large wall. One learner clapped two wooden blocks together, and the echo was heard 0.70 s later. In the computer-based experiment, two microphones were placed 10.2 m apart. Sound analysis software measured a time interval of 0.030 s for the sound to travel from the first microphone to the second.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "indent": false
+          }
+        }
+      ]
+    },
+    {
       "find": "Constructive",
       "with": []
+    },
+    {
+      "find": "A learner is listening to different sounds produced in the following situations, classify each sound as either a musical sound or noise:",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "A learner is listening to different sounds produced in the following situations. Classify each sound as either a musical sound or noise:",
+            "qseg": [
+              {
+                "t": "A learner is listening to different sounds produced in the following situations. Classify each sound as either a musical sound or noise:",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "c)",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "a flute playing a sustained note;                                                                  [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "a flute playing a sustained note;                                                                  [1]",
+            "qseg": [
+              {
+                "t": "a flute playing a sustained note;                                                                  [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(i)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "a car horn producing a steady tone;                                                            [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "a car horn producing a steady tone;                                                            [1]",
+            "qseg": [
+              {
+                "t": "a car horn producing a steady tone;                                                            [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(ii)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "a ringing bell immediately after it is struck;                                                  [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "a ringing bell immediately after it is struck;                                                  [1]",
+            "qseg": [
+              {
+                "t": "a ringing bell immediately after it is struck;                                                  [1]",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(iii)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "a drilling machine operating while making an irregular sound.                    [1]                                                                              ",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "a drilling machine operating while making an irregular sound.                    [1]",
+            "qseg": [
+              {
+                "t": "a drilling machine operating while making an irregular sound.                    [1]                                                                              ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(iv)",
+            "depth": 1
+          }
+        }
+      ]
+    },
+    {
+      "find": "Compare the characteristics of musical sound and noise.                                     [2] ",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Compare the characteristics of musical sound and noise.                                     [2]",
+            "qseg": [
+              {
+                "t": "Compare the characteristics of musical sound and noise.                                     [2] ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "d)",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Noise pollution also affects learning and communication. In schools, excessive noise can reduce learners' concentration, making it difficult to understand lessons and communicate effectively. Learners should recognise excessive noise as a possible threat to their well-being and identify practical ways of reducing exposure and creating a calm learning environment. In workplaces, high noise levels can interfere with verbal communication, reduce efficiency and increase the risk of accidents because warning signals may not be heard clearly.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Noise pollution also affects learning and communication. In schools, excessive noise can reduce learners’ concentration, making it difficult to understand lessons and communicate effectively. Learners should recognise excessive noise as a possible threat to their well-being and identify practical ways of reducing exposure and creating a calm learning environment. In workplaces, high noise levels can interfere with verbal communication, reduce efficiency and increase the risk of accidents because warning signals may not be heard clearly.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Thunder                                                                                                           [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Thunder                                                                                                           [1]",
+            "qseg": [
+              {
+                "t": "Thunder                                                                                                           [1]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(i)",
+            "depth": 2
+          }
+        }
+      ]
+    },
+    {
+      "find": "Loudspeaker                                                                                                   [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Loudspeaker                                                                                                   [1]",
+            "qseg": [
+              {
+                "t": "Loudspeaker                                                                                                   [1]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(ii)",
+            "depth": 2
+          }
+        }
+      ]
+    },
+    {
+      "find": "Birdsong                                                                                                         [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Birdsong                                                                                                         [1]",
+            "qseg": [
+              {
+                "t": "Birdsong                                                                                                         [1]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(iii)",
+            "depth": 2
+          }
+        }
+      ]
+    },
+    {
+      "find": "Motor vehicle                                                                                                  [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Motor vehicle                                                                                                  [1]",
+            "qseg": [
+              {
+                "t": "Motor vehicle                                                                                                  [1]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "(iv)",
+            "depth": 2
+          }
+        }
+      ]
+    },
+    {
+      "find": "Give one reason why classifying sound into different types is important.            [1]",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Give one reason why classifying sound into different types is important.            [1]",
+            "qseg": [
+              {
+                "t": "Give one reason why classifying sound into different types is important.            [1]",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "marker": "f)",
+            "depth": 1
+          }
+        }
+      ]
     },
     {
       "find": "Joule – The SI unit of work and energy.",
@@ -6241,7 +10852,7 @@
                 "c": null
               },
               {
-                "t": " – The SI unit of force; one newton is the force needed to accelerate a 1 kg mass by 1 m/s².",
+                "t": " – The SI unit of force; one newton is the force needed to give a 1 kg mass an acceleration of 1 m/s².",
                 "b": false,
                 "it": false,
                 "c": null
@@ -6329,7 +10940,7 @@
         {
           "img": "media/phys-f2-lb/a19.png",
           "caption": "Figure 18: Determination of velocity ratio of a screw",
-          "w": 560
+          "w": 380
         }
       ]
     },
@@ -6414,6 +11025,14 @@
       ]
     },
     {
+      "after": "railway wagons coupling together and some vehicle collisions",
+      "blocks": [
+        {
+          "move": "imp_image6"
+        }
+      ]
+    },
+    {
       "after": "Sea and land breezes are natural convection currents",
       "blocks": [
         {
@@ -6437,6 +11056,12 @@
     "ZZTMPPIC"
   ],
   "images": {
+    "image3.png": {
+      "hmm": 48
+    },
+    "image8.jpeg": {
+      "hmm": 50
+    },
     "image4.png": {
       "side": false,
       "w": 420
@@ -6478,7 +11103,7 @@
     },
     "image22.png": {
       "side": false,
-      "w": 330
+      "hmm": 58
     },
     "image23.png": {
       "side": false,
@@ -6513,31 +11138,5 @@
       "side": false,
       "w": 470
     }
-  },
-  "editCell": [
-    {
-      "find": "frac(V_(1), T_(1))",
-      "with": "V_(1) slash T_(1)"
-    },
-    {
-      "find": "frac(V_(2), T_(2))",
-      "with": "V_(2) slash T_(2)"
-    },
-    {
-      "find": "frac(P_(1), T_(1))",
-      "with": "P_(1) slash T_(1)"
-    },
-    {
-      "find": "frac(P_(2), T_(2))",
-      "with": "P_(2) slash T_(2)"
-    },
-    {
-      "find": "frac(P_(1) V_(1), T_(1))",
-      "with": "P_(1) V_(1) slash T_(1)"
-    },
-    {
-      "find": "frac(P_(2) V_(2), T_(2))",
-      "with": "P_(2) V_(2) slash T_(2)"
-    }
-  ]
+  }
 }
