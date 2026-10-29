@@ -2354,7 +2354,9 @@
       #set par(spacing: 0pt)
       #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
       #v(9.5pt)
-      #line(length: 100%, stroke: 0.6pt + T.rulec)]
+      // drawn like the running header's rule (0.6pt in the primary colour), not the pale
+      // table rule colour — the user marked the header line as the one to match
+      #line(length: 100%, stroke: 0.6pt + T.primary)]
     // spaced like the book's own sub-topic heads: ~8.5pt from the title to its rule and
     // ~14pt from the rule to the first line of text (the front-matter paragraph spacing
     // supplies that gap, so nothing is added here)
