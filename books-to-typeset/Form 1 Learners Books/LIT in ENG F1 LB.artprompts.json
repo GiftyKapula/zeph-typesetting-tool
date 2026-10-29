@@ -1,0 +1,13 @@
+{
+  "_note": "Proofreading round 1 (29 Oct 2026) asked for these two pictures to be replaced with age-appropriate ones for Form One learners. Not generated yet: the OpenAI account had no image credits. Run: node tools/genimage.js \"books-to-typeset/Form 1 Learners Books/LIT in ENG F1 LB.docx\" — it adds the images entries itself. image15 keeps its caption 'Learners composing songs', image21 'Children reciting poems'.",
+  "figures": {
+    "image15.png": {
+      "aspect": "landscape",
+      "prompt": "Four Zambian secondary-school learners aged 13 to 14 (Form One), two boys and two girls, in Zambian secondary school uniform, sitting together under a big shady tree in the school grounds, composing a song about saving water. One girl writes song lyrics in an exercise book, a boy taps a rhythm on a small drum, the others clap and sing. One of the learners is albino and wears a sun hat. A water bottle beside them. Teenagers, not young children."
+    },
+    "image21.png": {
+      "aspect": "landscape",
+      "prompt": "Form One learners aged 13 to 14 in a Zambian secondary school classroom reciting poems: two boys and two girls in school uniform standing at the front of the class, each holding an open poetry book, one girl reciting with an expressive hand gesture while the others follow the lines. Classmates seated at desks watch, a chalkboard behind them. One of the reciting learners wears a visible hearing aid. Teenagers, not young children."
+    }
+  }
+}
