@@ -250,6 +250,28 @@
     {
       "find": "sound pollution and intervention measure",
       "with": "sound pollution and intervention measures"
+    },
+    {
+      "find": "Moving the rope back and forth produces a longitudinal wave",
+      "with": "Pushing and pulling the slinky spring back and forth produces a longitudinal wave"
+    },
+    {
+      "find": "Overtones.",
+      "after": "Fundamental frequency.",
+      "with": "Relative strength of the overtones."
+    },
+    {
+      "find": "Fundamental frequency.",
+      "after": "quality of sound are",
+      "with": "Overtones."
+    },
+    {
+      "find": "pressure increases with increasing fluid density and depth.",
+      "with": "at the same depth, the pressure increases with the density of the fluid."
+    },
+    {
+      "find": "fluid pressure is directly proportional to the density and depth of the fluid.",
+      "with": "at the same depth, fluid pressure is directly proportional to the density of the fluid."
     }
   ],
   "fixExercise": [
