@@ -59,13 +59,16 @@
       "src": "LIT in ENG F1 LB-hires/image13.png"
     },
     "image4.png": {
-      "src": "LIT in ENG F1 LB-hires/image4.png"
+      "src": "LIT in ENG F1 LB-hires/image4.png",
+      "w": 360
     },
     "image6.png": {
-      "src": "LIT in ENG F1 LB-hires/image6.png"
+      "src": "LIT in ENG F1 LB-hires/image6.png",
+      "w": 360
     },
     "image5.jpg": {
-      "src": "LIT in ENG F1 LB-hires/image5.png"
+      "src": "LIT in ENG F1 LB-hires/image5.png",
+      "w": 360
     },
     "image8.png": {
       "src": "LIT in ENG F1 LB-hires/image8.png"
@@ -84,6 +87,63 @@
   "//plot-diagram": "Printed page 109's plot diagram (media image19.jpg) was REDRAWN, not upscaled. The manuscript's own bitmap is a screenshot of a third-party graphic: a tiled 'ELEMENTS OF FICTION' watermark runs diagonally across the header about eight times and cuts through the PLOT title, and seven opaque grey rectangles sit on top of the artwork obscuring words in all six definition boxes - Conflict, Exposition, Climax, Rising Action, Falling Action and Resolution. It is greyscale and soft. Upscaling it (which had already been done, to 1625px / 308 DPI) only sharpened the watermark and the grey blocks. Because this is Freytag's pyramid - the diagram Unit Three teaches from, and which the pages after it build on - the page could not be taught from as it stood. The replacement is drawn in TYPST, and its source is kept beside it as 'LIT in ENG F1 LB-art/plot-diagram.typ' so it can be corrected rather than redrawn. It carries the same six element names and the same six definitions, transcribed from the legible parts of the original. No third-party artwork is involved, so there is no licensing question. It is drawn at the width it is PLACED at in the book (134mm, the B5 text column), which is the point of it: an earlier node-canvas attempt was drawn oversized and scaled down, which landed its annotations near 6pt on the page. Rendered at 400 DPI, 2111px across, well over the 300 DPI floor. Nothing here is engine work: it is one book's bad source picture.",
   "//round1": "Proofreading round 1 (commented PDF returned 29 Oct 2026, 84 comments; zeph lit-in-eng-f1-lb round 1). Two reviewers marked the proof; where they gave different wording for the same spot the one that matches the picture or the section was taken (captions), and where both asked for the same new activity under different numbers the activities around it were numbered in sequence (Folktales: Activity 3 Telling, 4 Analysing, 5 Acting Out). Pictures: image7 re-laid two panels across so its six panels print about 1.5x larger (asked: 'the illustrations are small, enlarge them'); image18's signpost relettered Mongu/Katete/Mansa (asked); image20 replaced by Form One learners reading in class (the Teacher's Guide's own artwork; asked: 'age appropriate such as form one learners in class'). image15 and image21 were also asked to be replaced with age-appropriate pictures; that needs new artwork (OpenAI image credits ran out), so they are unchanged for now.",
   "insertBlocks": [
+    {
+      "before": "b) Logic Riddles: Riddles that require r",
+      "drop": 13,
+      "blocks": [
+        {
+          "listitem": "Logic Riddles: Riddles that require reasoning and logical thinking to find the answer.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "Enigmas: Riddles that use hidden meanings or puzzling descriptions.",
+          "marker": "c)"
+        },
+        {
+          "listitem": "Brain Teasers: Short puzzles that challenge the brain and encourage creative thinking.",
+          "marker": "d)"
+        },
+        {
+          "listitem": "Observation Riddles: Riddles based on careful observation of objects, people, or situations.",
+          "marker": "e)"
+        },
+        {
+          "listitem": "Word Riddles: Riddles that involve clever use of words, sounds, or meanings.",
+          "marker": "f)"
+        },
+        {
+          "head": "Functions of Riddles You Will Learn"
+        },
+        {
+          "listitem": "Entertainment: Riddles make people happy, excited, and interested.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "Enhancing Observation: Riddles help learners pay attention to details in their surroundings.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "Sharpening Thinking: Riddles develop reasoning and problem-solving skills.",
+          "marker": "c)"
+        },
+        {
+          "listitem": "Training Memory: Riddles help learners remember ideas, words, and information.",
+          "marker": "d)"
+        },
+        {
+          "listitem": "Boosting Creativity: Riddles encourage imagination and creative thinking.",
+          "marker": "e)"
+        },
+        {
+          "listitem": "Improving Communication: Riddles help learners develop speaking and listening skills.",
+          "marker": "f)"
+        },
+        {
+          "listitem": "Promoting Social Interaction: Riddles bring people together through discussion and group activities.",
+          "marker": "g)"
+        }
+      ]
+    },
     {
       "before": "Forms of Oral Literature",
       "exact": true,
@@ -205,6 +265,72 @@
           "marker": "1."
         }
       ]
+    },
+    {
+      "near": "ACTIVITY 2: Distinguishing Forms of written Literature",
+      "before": "EXERCISE Scenario",
+      "exact": true,
+      "drop": 12,
+      "blocks": [
+        {
+          "para": "@@U3EX1@@"
+        }
+      ]
+    },
+    {
+      "near": "END OF UNIT ASSESSMENT",
+      "before": "End of Topic Assessment:",
+      "exact": true,
+      "drop": 41,
+      "blocks": [
+        {
+          "para": "@@TOPIC@@"
+        }
+      ]
+    },
+    {
+      "near": "ACTIVITY 2: Using idioms in context",
+      "before": "EXERCISE",
+      "exact": true,
+      "drop": 4,
+      "blocks": [
+        {
+          "para": "@@IDEX@@"
+        }
+      ]
+    },
+    {
+      "near": "Activity 1: Discussing Riddles and Types of Riddles",
+      "before": "Activity 2: Discussing the Functions of Riddles",
+      "exact": true,
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "@@RID2@@"
+        }
+      ]
+    },
+    {
+      "near": "Activity 3: Relating the importance of Literature to your pe",
+      "before": "EXERCISE",
+      "exact": true,
+      "drop": 16,
+      "blocks": [
+        {
+          "para": "@@U1EX2@@"
+        }
+      ]
+    },
+    {
+      "near": "Activity 2: Distinguishing Literature as a subject from Engl",
+      "before": "EXERCISE",
+      "exact": true,
+      "drop": 3,
+      "blocks": [
+        {
+          "para": "@@U1EX1@@"
+        }
+      ]
     }
   ],
   "replaceBlocks": [
@@ -212,10 +338,10 @@
       "find": "@@EX1@@",
       "with": [
         {
-          "exercise": "EXERCISE 1",
+          "exercise": "EXERCISE 2",
           "parts": [
             {
-              "lead": "Every Friday evening, 12-year-old Mwewa and her younger brother Tunde visit their grandmother, Mama Ngozi, who lives in their village. As the family gathers around the cooking fire, Mama Ngozi tells them folktales she heard from her own grandmother stories about clever tortoises, greedy hyenas, brave hunters, and magical rivers. Mwewa loves these evenings because the stories make her laugh, teach her important lessons about honesty and kindness, and help her understand her community’s values. One evening, Mama Ngozi asks Mwewa to retell a story to her cousins, and Mwewa realises that folktales are not just entertaining they are a gift passed down through generations to teach, unite, and inspire.",
+              "lead": "Every Friday evening, 12-year-old Mwewa and her younger brother Tunde visit their grandmother, Mama Ngozi, who lives in their village. As the family gathers around the cooking fire, Mama Ngozi tells them folktales she heard from her own grandmother: stories about clever tortoises, greedy hyenas, brave hunters, and magical rivers. Mwewa loves these evenings because the stories make her laugh, teach her important lessons about honesty and kindness, and help her understand her community’s values. One evening, Mama Ngozi asks Mwewa to retell a story to her cousins, and Mwewa realises that folktales are not just entertaining; they are a gift passed down through generations to teach, unite, and inspire.",
               "indent": false
             },
             {
@@ -354,7 +480,7 @@
       "find": "@@SONG4@@",
       "with": [
         {
-          "exercise": "Activity 4: Making presentations of composed songs",
+          "exercise": "Activity 8: Making presentations of composed songs",
           "parts": [
             {
               "lead": "In your group, present to the class the song you have composed.",
@@ -662,10 +788,10 @@
               },
               {
                 "kind": "lead",
-                "q": "Practice speaking clearly and showing respect in your discussion",
+                "q": "Practise speaking clearly and showing respect in your discussion",
                 "qseg": [
                   {
-                    "t": "Practice speaking clearly and showing respect in your discussion",
+                    "t": "Practise speaking clearly and showing respect in your discussion",
                     "b": false,
                     "it": false,
                     "c": null
@@ -774,7 +900,7 @@
       "find": "@@EX7@@",
       "with": [
         {
-          "exercise": "EXERCISE 7",
+          "exercise": "EXERCISE 9",
           "parts": [
             {
               "lead": "Write your answers in your exercise book.",
@@ -1331,6 +1457,1505 @@
           }
         }
       ]
+    },
+    {
+      "find": "@@U1EX1@@",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Your school has been invited to present at the 2026 Local Trade Fair on the theme \"Cultural Diversity.\" You need to create a clear and simple 5-minute presentation that answers: \"How Literature embodies diversity.\"",
+                "qseg": [
+                  {
+                    "t": "Your school has been invited to present at the 2026 Local Trade Fair on the theme \"Cultural Diversity.\" You need to create a clear and simple 5-minute presentation that answers: \"How Literature embodies diversity.\" ",
+                    "b": false,
+                    "it": true,
+                    "c": "0F1115"
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Explain the difference between Literature and English Language as subjects, using the story of Chipo and Kasapo as an example.",
+                "qseg": [
+                  {
+                    "t": "Explain the difference between Literature and English Language as subjects, using the story of Chipo and Kasapo as an example.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Design a 2-minute sketch for the trade fair that uses a Zambian folktale to teach the audience why preserving cultural identity is important. Briefly describe the characters, setting, and lesson of your skit.",
+                "qseg": [
+                  {
+                    "t": "Design a 2-minute sketch for the trade fair that uses a Zambian folktale to teach the audience why preserving cultural identity is important. Briefly describe the characters, setting, and lesson of your skit.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "2.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "@@U1EX2@@",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 2",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Read the following scenario and answer the questions that follow.",
+                "qseg": [
+                  {
+                    "t": "Read the following scenario and answer the questions that follow.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "The Story of the Lost Drum",
+                "qseg": [
+                  {
+                    "t": "The Story of the Lost Drum",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "In the village of Mutondo, a terrible drought had lasted for three months. The river had dried up, crops were dying and the people were growing desperate and quarrelsome. Every family blamed the others for the misfortune.",
+                "qseg": [
+                  {
+                    "t": "In the village of Mutondo, a terrible drought had lasted for three months. The river had dried up, crops were dying and the people were growing desperate and quarrelsome. Every family blamed the others for the misfortune.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "One evening, the village elders gathered under the ancient baobab tree. Among them was old Banda, the storyteller. He said, \"Tonight, instead of arguing, let me tell you a story my grandfather told me.\"",
+                "qseg": [
+                  {
+                    "t": "One evening, the village elders gathered under the ancient baobab tree. Among them was old Banda, the storyteller. He said, \"Tonight, instead of arguing, let me tell you a story my grandfather told me.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "He began:",
+                "qseg": [
+                  {
+                    "t": "He began:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "\"Long ago, when animals could speak, the drum was the heart of the village. Every morning, the drum would sound to wake the people. Every evening, it would call them together for celebration. But one day, a jealous spirit hid the drum in a cave guarded by a fierce lion. The village fell silent. People stopped cooperating. They forgot how to dance together and began fighting over food. Only a brave young girl named Thandi dared to find the drum. She did not fight the lion. Instead, she sang a song of peace, and the lion fell asleep. She returned with the drum, and the village was restored. They learned that unity, not fighting, was their true strength.\"",
+                "qseg": [
+                  {
+                    "t": "\"Long ago, when animals could speak, the drum was the heart of the village. Every morning, the drum would sound to wake the people. Every evening, it would call them together for celebration. But one day, a jealous spirit hid the drum in a cave guarded by a fierce lion. The village fell silent. People stopped cooperating. They forgot how to dance together and began fighting over food. Only a brave young girl named Thandi dared to find the drum. She did not fight the lion. Instead, she sang a song of peace, and the lion fell asleep. She returned with the drum, and the village was restored. They learned that unity, not fighting, was their true strength.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "The villagers listened in silence. The story reminded them of their own quarrels. One man stood up and said, \"We are acting like those selfish people in the story. We must work together.\"",
+                "qseg": [
+                  {
+                    "t": "The villagers listened in silence. The story reminded them of their own quarrels. One man stood up and said, \"We are acting like those selfish people in the story. We must work together.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "That night, the villagers shared the little food they had and planned how to dig a new well together. The children sang the song from the story. The elders discussed how the tale had been told for generations to teach cooperation. Young people began to respect their elders again, understanding that the story carried wisdom from the past.",
+                "qseg": [
+                  {
+                    "t": "That night, the villagers shared the little food they had and planned how to dig a new well together. The children sang the song from the story. The elders discussed how the tale had been told for generations to teach cooperation. Young people began to respect their elders again, understanding that the story carried wisdom from the past.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "The next morning, the village agreed to unite. Within a week, they had dug a new well, and water returned. They celebrated with dancing and singing - just like in the story.",
+                "qseg": [
+                  {
+                    "t": "The next morning, the village agreed to unite. Within a week, they had dug a new well, and water returned. They celebrated with dancing and singing - just like in the story.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "One young boy, Mwansa, who had been selfish and always fought with his siblings, reflected on the tale. He realised he had been behaving like the villagers before they listened to the story. He decided to change and began sharing his food with his younger brother.",
+                "qseg": [
+                  {
+                    "t": "One young boy, Mwansa, who had been selfish and always fought with his siblings, reflected on the tale. He realised he had been behaving like the villagers before they listened to the story. He decided to change and began sharing his food with his younger brother.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "A visitor from a nearby village who had witnessed the celebration asked, \"How did you solve your problems so quickly?\" A village elder smiled and replied, \"A story reminded us who we are.\"",
+                "qseg": [
+                  {
+                    "t": "A visitor from a nearby village who had witnessed the celebration asked, \"How did you solve your problems so quickly?\" A village elder smiled and replied, \"A story reminded us who we are.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "List three functions of literature shown in the story of the lost drum.",
+                "qseg": [
+                  {
+                    "t": "List three functions of literature shown in the story of the lost drum.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain how the story helped the villagers stop quarrelling and work together.",
+                "qseg": [
+                  {
+                    "t": "Explain how the story helped the villagers stop quarrelling and work together.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Imagine you are Mwansa. How would you use the lesson from the story to solve a conflict in your own family or school?",
+                "qseg": [
+                  {
+                    "t": "Imagine you are Mwansa. How would you use the lesson from the story to solve a conflict in your own family or school?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Compare the function of entertainment with the function of moral teaching in this story. Which one had a greater impact on the villagers? Give reasons.",
+                "qseg": [
+                  {
+                    "t": "Compare the function of entertainment with the function of moral teaching in this story. Which one had a greater impact on the villagers? Give reasons.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Design a short folktale (5–7 sentences) that would teach your community the importance of honesty. Explain what function your story serves and why it would be effective.",
+                "qseg": [
+                  {
+                    "t": "Design a short folktale (5–7 sentences) that would teach your community the importance of honesty. Explain what function your story serves and why it would be effective.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "5.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "@@RID2@@",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "Activity 3: Discussing the Functions of Riddles",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Riddles are not only used for fun. They also help people think carefully, improve observation, sharpen memory, and encourage creativity and imagination.",
+                "qseg": [
+                  {
+                    "t": "Riddles are not only used for fun. They also help people think carefully, improve observation, sharpen memory, and encourage creativity and imagination.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Talk to family members or elders about why riddles are important in the community. Ask them when riddles are usually asked and what skills people develop by solving them.",
+                "qseg": [
+                  {
+                    "t": "Talk to family members or elders about why riddles are important in the community. Ask them when riddles are usually asked and what skills people develop by solving them.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Work in groups to discuss the benefits of riddles in everyday life. Think about how riddles improve thinking, observation, communication, memory, and problem-solving skills. Share your findings with classmates through presentations, role play, storytelling, singing, or competitions.",
+                "qseg": [
+                  {
+                    "t": "Work in groups to discuss the benefits of riddles in everyday life. Think about how riddles improve thinking, observation, communication, memory, and problem-solving skills. Share your findings with classmates through presentations, role play, storytelling, singing, or competitions.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "You may also collect riddles from different communities and compare the ideas, lessons, and thinking skills found in them.",
+                "qseg": [
+                  {
+                    "t": "You may also collect riddles from different communities and compare the ideas, lessons, and thinking skills found in them.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "@@IDEX@@",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 11",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Scenario: Preparing for the End-of-Term Examination",
+                "qseg": [
+                  {
+                    "t": "Scenario: Preparing for the End-of-Term Examination",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Three friends, Kai, Mumba and Mwiza are studying together in the school library before their end-of-term examination.",
+                "qseg": [
+                  {
+                    "t": "Three friends, Kai, Mumba and Mwiza are studying together in the school library before their end-of-term examination.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Kai: Have you finished revising for the English test?",
+                "qseg": [
+                  {
+                    "t": "Kai: Have you finished revising for the English test?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Mumba: Yes, most of it. The comprehension questions were a piece of cake.",
+                "qseg": [
+                  {
+                    "t": "Mumba: Yes, most of it. The comprehension questions were a piece of cake.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Mwiza: Lucky you! I had to burn the midnight oil to finish my revision.",
+                "qseg": [
+                  {
+                    "t": "Mwiza: Lucky you! I had to burn the midnight oil to finish my revision.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Kai: Don’t worry. If we work together, we can kill two birds with one stone by revising English and Literature at the same time.",
+                "qseg": [
+                  {
+                    "t": "Kai: Don’t worry. If we work together, we can kill two birds with one stone by revising English and Literature at the same time.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Mumba: That’s true. Remember, actions speak louder than words. We should spend more time studying than talking.",
+                "qseg": [
+                  {
+                    "t": "Mumba: That’s true. Remember, actions speak louder than words. We should spend more time studying than talking.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Mwiza: I agree. By the way, has anyone seen the timetable?",
+                "qseg": [
+                  {
+                    "t": "Mwiza: I agree. By the way, has anyone seen the timetable?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Kai: Yes, I have it. Don’t spill the beans about the surprise quiz our teacher mentioned. Some learners don’t know about it yet.",
+                "qseg": [
+                  {
+                    "t": "Kai: Yes, I have it. Don’t spill the beans about the surprise quiz our teacher mentioned. Some learners don’t know about it yet.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Mumba: I won’t. Now let’s begin revising. The ball is in our court if we want to pass.",
+                "qseg": [
+                  {
+                    "t": "Mumba: I won’t. Now let’s begin revising. The ball is in our court if we want to pass.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Mwiza: You are right. Let’s work hard and make our parents proud.",
+                "qseg": [
+                  {
+                    "t": "Mwiza: You are right. Let’s work hard and make our parents proud.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Questions",
+                "qseg": [
+                  {
+                    "t": "Questions",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "From the scenario, identify the idioms used in the conversation.",
+                "qseg": [
+                  {
+                    "t": "From the scenario, identify the idioms used in the conversation.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain the meaning of the identified idioms.",
+                "qseg": [
+                  {
+                    "t": "Explain the meaning of the identified idioms.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Assess the overall dialogue. Do you think the students used the idioms effectively to communicate their situation? Defend your position by stating whether their statements are accurate or contradictory.",
+                "qseg": [
+                  {
+                    "t": "Assess the overall dialogue. Do you think the students used the idioms effectively to communicate their situation? Defend your position by stating whether their statements are accurate or contradictory.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "3.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "@@TOPIC@@",
+      "with": [
+        {
+          "raw": {
+            "t": "assessment",
+            "title": "End of Topic Assessment:",
+            "intro": [],
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "The Zambia National Day of Prayer and Fasting is approaching. Your school will participate in a cultural event celebrating Zambia’s heritage. Your class has been working on composing and presenting praises about Zambian heroes, values, and traditions. Now it is time to show what you have learned. Your teacher has given you this assessment to demonstrate your understanding of praises, how to recite them, how to analyse them, and how to create your own.",
+                "qseg": [
+                  {
+                    "t": "The Zambia National Day of Prayer and Fasting is approaching. Your school will participate in a cultural event celebrating Zambia’s heritage. Your class has been working on composing and presenting praises about Zambian heroes, values, and traditions. Now it is time to show what you have learned. Your teacher has given you this assessment to demonstrate your understanding of praises, how to recite them, how to analyse them, and how to create your own.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "PRAISES",
+                "qseg": [
+                  {
+                    "t": "PRAISES",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Define praises in your own words.",
+                "qseg": [
+                  {
+                    "t": "Define praises in your own words.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Read this statement: \"Your group must compose and present original praises about someone or something you admire.\" Explain three important things your group must do to complete this task successfully.",
+                "qseg": [
+                  {
+                    "t": "Read this statement: \"Your group must compose and present original praises about someone or something you admire.\" Explain three important things your group must do to complete this task successfully.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Look at these two sentences:",
+                "qseg": [
+                  {
+                    "t": "Look at these two sentences:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "\"The crocodile sleeps beneath the water.\"",
+                "qseg": [
+                  {
+                    "t": "\"The crocodile sleeps beneath the water.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "\"You are the mighty crocodile, guardian of our river!\"",
+                "qseg": [
+                  {
+                    "t": "\"You are the mighty crocodile, guardian of our river!\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Which sentence is a praise and which is not? Explain your answer by describing what makes a sentence a praise.",
+                "qseg": [
+                  {
+                    "t": "Which sentence is a praise and which is not? Explain your answer by describing what makes a sentence a praise.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Create your own praise about the Zambezi River. Your praise must include at least two comparisons using \"like\" or \"as\" and show emotion.",
+                "qseg": [
+                  {
+                    "t": "Create your own praise about the Zambezi River. Your praise must include at least two comparisons using \"like\" or \"as\" and show emotion.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Your classmate Thokozile is nervous about reciting praises in front of the school. Give her four specific pieces of advice about how to use her voice, body, and expressions to make her presentation powerful and confident.",
+                "qseg": [
+                  {
+                    "t": "Your classmate Thokozile is nervous about reciting praises in front of the school. Give her four specific pieces of advice about how to use her voice, body, and expressions to make her presentation powerful and confident.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Imagine you have been asked to recite this praise at a school ceremony:",
+                "qseg": [
+                  {
+                    "t": "Imagine you have been asked to recite this praise at a school ceremony:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "\"Kenneth Kaunda, father of our nation,\nYour courage cut the chains of colonialism,\nYour wisdom built a house of unity!\"",
+                "qseg": [
+                  {
+                    "t": "\"Kenneth Kaunda, father of our nation,",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Your courage cut the chains of colonialism,",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Your wisdom built a house of unity!\"",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Describe exactly how you would perform this praise. Include details about your volume, pace, tone, gestures, and facial expressions. Explain why you would use each element.",
+                "qseg": [
+                  {
+                    "t": "Describe exactly how you would perform this praise. Include details about your volume, pace, tone, gestures, and facial expressions. Explain why you would use each element.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Analyse this praise by completing the table below:",
+                "qseg": [
+                  {
+                    "t": "Analyse this praise by completing the table below:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "\"I am stronger than the baobab tree, my roots run deep in this land.\"",
+                "qseg": [
+                  {
+                    "t": "\"I am stronger than the baobab tree, my roots run deep in this land.\"",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "table",
+                "header": true,
+                "rows": [
+                  [
+                    {
+                      "text": "Element",
+                      "imgs": [],
+                      "segs": null
+                    },
+                    {
+                      "text": "Your Analysis",
+                      "imgs": [],
+                      "segs": null
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Message",
+                      "imgs": [],
+                      "segs": null
+                    },
+                    {
+                      "text": "",
+                      "imgs": [],
+                      "segs": null
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Literal Meaning",
+                      "imgs": [],
+                      "segs": null
+                    },
+                    {
+                      "text": "",
+                      "imgs": [],
+                      "segs": null
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Figurative Meaning",
+                      "imgs": [],
+                      "segs": null
+                    },
+                    {
+                      "text": "",
+                      "imgs": [],
+                      "segs": null
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Context",
+                      "imgs": [],
+                      "segs": null
+                    },
+                    {
+                      "text": "",
+                      "imgs": [],
+                      "segs": null
+                    }
+                  ]
+                ]
+              },
+              {
+                "kind": "q",
+                "q": "Your group has composed a praise about a hero. The praise says: \"You are the sun that never sets on our nation.\"",
+                "qseg": [
+                  {
+                    "t": "Your group has composed a praise about a hero. The praise says: \"You are the sun that never sets on our nation.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Explain what this means literally and figuratively. Then explain why this is an effective praise and how it makes the listener feel.",
+                "qseg": [
+                  {
+                    "t": "Explain what this means literally and figuratively. Then explain why this is an effective praise and how it makes the listener feel.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Compare two types of praises: praises about nature and praises about heroes. In what ways are they similar? In what ways are they different? Give examples to support your answer.",
+                "qseg": [
+                  {
+                    "t": "Compare two types of praises: praises about nature and praises about heroes. In what ways are they similar? In what ways are they different? Give examples to support your answer.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "9.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Your class has been given this challenge: \"By the end of this unit, each group must compose and present original praises about someone or something you admire.\"",
+                "qseg": [
+                  {
+                    "t": "Your class has been given this challenge: \"By the end of this unit, each group must compose and present original praises about someone or something you admire.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "10.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Plan how your group will work together to complete this challenge. Describe:",
+                "qseg": [
+                  {
+                    "t": "Plan how your group will work together to complete this challenge. Describe:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "How will you help group members who have never heard praises before?",
+                "qseg": [
+                  {
+                    "t": "How will you help group members who have never heard praises before?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "How will you choose your subject?",
+                "qseg": [
+                  {
+                    "t": "How will you choose your subject?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "How will you compose your praise?",
+                "qseg": [
+                  {
+                    "t": "How will you compose your praise?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "c)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "How will you prepare your presentation?",
+                "qseg": [
+                  {
+                    "t": "How will you prepare your presentation?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "d)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "How will you explain the meaning and message to the audience?",
+                "qseg": [
+                  {
+                    "t": "How will you explain the meaning and message to the audience?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "e)",
+                "depth": 1
+              },
+              {
+                "kind": "lead",
+                "q": "RIDDLES",
+                "qseg": [
+                  {
+                    "t": "RIDDLES",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Scenario",
+                "qseg": [
+                  {
+                    "t": "Scenario",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "It is Friday afternoon, and your teacher, Mr Mate, has just finished teaching a two-week unit on riddles. He reminds the class that riddles are short puzzles or clever questions that challenge people to think carefully, observe closely, and connect ideas from everyday life. He explains that riddles entertain, sharpen thinking, improve memory, boost creativity, and promote social interaction. To conclude the topic, he gives each learner an individual class exercise. He says, \"Today, you will answer questions that move from simply remembering what a riddle is, to explaining its types and functions, applying your knowledge by solving riddles, analysing their features, evaluating their importance, and even creating your own riddles. This exercise will show how well you can think critically, solve problems, and use your creativity: skills that are essential in real life.\"",
+                "qseg": [
+                  {
+                    "t": "It is Friday afternoon, and your teacher, Mr Mate, has just finished teaching a two-week unit on riddles. He reminds the class that riddles are short puzzles or clever questions that challenge people to think carefully, observe closely, and connect ideas from everyday life. He explains that riddles entertain, sharpen thinking, improve memory, boost creativity, and promote social interaction. To conclude the topic, he gives each learner an individual class exercise. He says, \"Today, you will answer questions that move from simply remembering what a riddle is, to explaining its types and functions, applying your knowledge by solving riddles, analysing their features, evaluating their importance, and even creating your own riddles. This exercise will show how well you can think critically, solve problems, and use your creativity: skills that are essential in real life.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Read each question carefully and answer as precisely as possible. Your answers will demonstrate your ability to remember, understand, apply, analyse, evaluate, and create knowledge about riddles.",
+                "qseg": [
+                  {
+                    "t": "Read each question carefully and answer as precisely as possible. Your answers will demonstrate your ability to remember, understand, apply, analyse, evaluate, and create knowledge about riddles.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "State any five functions of riddles in traditional societies.",
+                "qseg": [
+                  {
+                    "t": "State any five functions of riddles in traditional societies.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain the importance of oral literature (including riddles) in modern times.",
+                "qseg": [
+                  {
+                    "t": "Explain the importance of oral literature (including riddles) in modern times.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Why are riddles used in traditional societies? Provide at least three reasons with examples.",
+                "qseg": [
+                  {
+                    "t": "Why are riddles used in traditional societies? Provide at least three reasons with examples.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Solve the following riddles and explain how you arrived at each answer:",
+                "qseg": [
+                  {
+                    "t": "Solve the following riddles and explain how you arrived at each answer:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "\"What has keys but cannot open locks?\"",
+                "qseg": [
+                  {
+                    "t": "\"What has keys but cannot open locks?\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "\"What goes up but never comes down?\"",
+                "qseg": [
+                  {
+                    "t": "\"What goes up but never comes down?\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "In your own words, create two original riddles of your own. Provide the correct answers and briefly explain what each riddle means.",
+                "qseg": [
+                  {
+                    "t": "In your own words, create two original riddles of your own. Provide the correct answers and briefly explain what each riddle means.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Compare and contrast folktales and riddles. In your answer, discuss at least three similarities and three differences in terms of their purpose, structure, and how they are shared.",
+                "qseg": [
+                  {
+                    "t": "Compare and contrast folktales and riddles. In your answer, discuss at least three similarities and three differences in terms of their purpose, structure, and how they are shared.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "When solving riddles, which learning domain is engaged? Explain how riddles develop thinking, observation, memory, and communication skills, giving specific examples.",
+                "qseg": [
+                  {
+                    "t": "When solving riddles, which learning domain is engaged? Explain how riddles develop thinking, observation, memory, and communication skills, giving specific examples.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Which values are promoted through riddles in your community? Choose three values, explain each one, and justify why these values are important for young people today.",
+                "qseg": [
+                  {
+                    "t": "Which values are promoted through riddles in your community? Choose three values, explain each one, and justify why these values are important for young people today.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Evaluate the role of riddles in modern education. Do you think riddles are still relevant in today’s world of technology and social media? Give reasons for your answer.",
+                "qseg": [
+                  {
+                    "t": "Evaluate the role of riddles in modern education. Do you think riddles are still relevant in today’s world of technology and social media? Give reasons for your answer.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "9.",
+                "depth": 0
+              }
+            ],
+            "extra": []
+          }
+        }
+      ]
+    },
+    {
+      "find": "@@U3EX1@@",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Scenario",
+                "qseg": [
+                  {
+                    "t": "Scenario",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "A rural community launches a \"Written Heritage Project\" to archive local folktales, poems, and plays in a digital library. Elders dictate oral stories while youths transcribe, edit, and categorise them into prose, poetry, and drama. Tensions arise when a transcribed folktale is published online without the elder’s consent, igniting debates about authorship, cultural ownership, and the shift from communal oral tradition to fixed written text, challenging the community to balance preservation with ethical responsibility. The community now faces a dispute: The published digital folktale is claimed by both the elder’s family and the young transcriber, who added poetic lines and a dramatic dialogue. Meanwhile, a local school wants to use the text as a literary example, but elders argue it no longer represents their oral tradition. How should the community resolve authorship, genre classification, and educational use while respecting both written and oral values?",
+                "qseg": [
+                  {
+                    "t": "A rural community launches a \"Written Heritage Project\" to archive local folktales, poems, and plays in a digital library. Elders dictate oral stories while youths transcribe, edit, and categorise them into prose, poetry, and drama. Tensions arise when a transcribed folktale is published online without the elder’s consent, igniting debates about authorship, cultural ownership, and the shift from communal oral tradition to fixed written text, challenging the community to balance preservation with ethical responsibility. The community now faces a dispute: The published digital folktale is claimed by both the elder’s family and the young transcriber, who added poetic lines and a dramatic dialogue. Meanwhile, a local school wants to use the text as a literary example, but elders argue it no longer represents their oral tradition. How should the community resolve authorship, genre classification, and educational use while respecting both written and oral values?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Questions",
+                "qseg": [
+                  {
+                    "t": "Questions",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "List three main genres of written literature and give one example of each.",
+                "qseg": [
+                  {
+                    "t": "List three main genres of written literature and give one example of each.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "What are two key features that distinguish written literature from oral literature?",
+                "qseg": [
+                  {
+                    "t": "What are two key features that distinguish written literature from oral literature?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain why written literature is considered a \"permanent record\" compared to oral literature.",
+                "qseg": [
+                  {
+                    "t": "Explain why written literature is considered a \"permanent record\" compared to oral literature.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "In your own words, describe the primary purpose of non-literary texts versus literary texts.",
+                "qseg": [
+                  {
+                    "t": "In your own words, describe the primary purpose of non-literary texts versus literary texts.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Given the community’s digital folktale, identify whether it is literary, non-literary, or digital text and justify your answer.",
+                "qseg": [
+                  {
+                    "t": "Given the community’s digital folktale, identify whether it is literary, non-literary, or digital text and justify your answer.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "If you were the transcriber, how would you categorise the added poetic lines and dramatic dialogue within the three genres? Provide a reason.",
+                "qseg": [
+                  {
+                    "t": "If you were the transcriber, how would you categorise the added poetic lines and dramatic dialogue within the three genres? Provide a reason.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Compare the advantages and disadvantages of written versus oral literature in preserving cultural traditions.",
+                "qseg": [
+                  {
+                    "t": "Compare the advantages and disadvantages of written versus oral literature in preserving cultural traditions.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Examine the conflict in the scenario: what underlying issues cause the dispute over authorship and genre classification?",
+                "qseg": [
+                  {
+                    "t": "Examine the conflict in the scenario: what underlying issues cause the dispute over authorship and genre classification?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Assess whether the school should use the modified folktale as a literary text. Defend your position with evidence from the features of written literature.",
+                "qseg": [
+                  {
+                    "t": "Assess whether the school should use the modified folktale as a literary text. Defend your position with evidence from the features of written literature.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "9.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Judge the most ethical way to resolve ownership of the digital text, considering both the elder’s oral contribution and the transcriber’s written additions.",
+                "qseg": [
+                  {
+                    "t": "Judge the most ethical way to resolve ownership of the digital text, considering both the elder’s oral contribution and the transcriber’s written additions.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "10.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "moveSectionBefore": [
@@ -1458,7 +3083,7 @@
     },
     {
       "find": "Hit the nail on its head .",
-      "with": "Hit the nail on its head."
+      "with": "Hit the nail on the head."
     },
     {
       "find": "In pairs discuss prose and its structure by answering the questions below.",
@@ -1471,16 +3096,716 @@
     {
       "find": "In groups review performed poems by answering the questions below.",
       "with": "In groups, perform \"A Shattered Dream\" before the class. Then review the performed poem by answering the questions below."
+    },
+    {
+      "find": "help you practice what you have learned",
+      "with": "help you practise what you have learned"
+    },
+    {
+      "find": "ask questions, practice regularly",
+      "with": "ask questions, practise regularly"
+    },
+    {
+      "find": "Mr Milimo from University of Zambia",
+      "with": "Mr Milimo from the University of Zambia"
+    },
+    {
+      "find": "His coordination and review was helpful",
+      "with": "His coordination and review were helpful"
+    },
+    {
+      "find": "Share definitions with the rest of the class",
+      "with": "Share definitions with the rest of the class."
+    },
+    {
+      "find": "Example, a story about honesty",
+      "with": "example, a story about honesty"
+    },
+    {
+      "find": "In pairs, determine the importance of literature in terms of the following",
+      "with": "In pairs, determine the importance of literature in terms of the following:"
+    },
+    {
+      "find": "Self -Introspection",
+      "with": "Self-introspection"
+    },
+    {
+      "find": "script writing, Journalism.",
+      "with": "scriptwriting, journalism."
+    },
+    {
+      "find": "Ms. Nambao",
+      "with": "Ms Nambao"
+    },
+    {
+      "find": "Mr.Mungalu",
+      "with": "Mr Mungalu"
+    },
+    {
+      "find": "Zambian society today preservation of culture",
+      "with": "Zambian society today: preservation of culture"
+    },
+    {
+      "find": "through the word of mouth",
+      "with": "by word of mouth"
+    },
+    {
+      "find": "They take recognizance of",
+      "with": "They take cognisance of"
+    },
+    {
+      "find": "oral literature folktales, proverbs",
+      "with": "oral literature: folktales, proverbs"
+    },
+    {
+      "find": "Mr Mutakela, sits",
+      "with": "Mr Mutakela sits"
+    },
+    {
+      "find": "perseverance showing how",
+      "with": "perseverance, showing how"
+    },
+    {
+      "find": "own grandmother stories about",
+      "with": "own grandmother: stories about"
+    },
+    {
+      "find": "not just entertaining they are a gift",
+      "with": "not just entertaining; they are a gift"
+    },
+    {
+      "find": "Riddles help think deeply",
+      "with": "Riddles help you think deeply"
+    },
+    {
+      "find": "short wise sayings proverbs to solve",
+      "with": "short wise sayings, proverbs, to solve"
+    },
+    {
+      "find": "help solve the Problem.",
+      "with": "help solve the problem."
+    },
+    {
+      "find": "they practice analytical thinking",
+      "with": "they practise analytical thinking"
+    },
+    {
+      "find": "These use wits and humour",
+      "with": "These use wit and humour"
+    },
+    {
+      "find": "the smartest steady effort wins",
+      "with": "the smartest; steady effort wins"
+    },
+    {
+      "find": "shown in the bubble speech above",
+      "with": "shown in the speech bubbles above"
+    },
+    {
+      "find": "applied to a modern school life",
+      "with": "applied to modern school life"
+    },
+    {
+      "find": "They help speakers’ express",
+      "with": "They help speakers express"
+    },
+    {
+      "find": "Practice speaking clearly",
+      "with": "Practise speaking clearly"
+    },
+    {
+      "find": "young learners like you feel stressed",
+      "with": "young learners like you, feel stressed"
+    },
+    {
+      "find": "teaches them to care for nature?",
+      "with": "teaches them to care for nature."
+    },
+    {
+      "find": "Practice singing it together.",
+      "with": "Practise singing it together."
+    },
+    {
+      "find": "you have a problem some group members",
+      "with": "you have a problem: some group members"
+    },
+    {
+      "find": "not empty flattery it is truth",
+      "with": "not empty flattery; it is truth"
+    },
+    {
+      "find": "Give each other feedback what did they do well?",
+      "with": "Give each other feedback: what did they do well?"
+    },
+    {
+      "find": "Rythm",
+      "with": "Rhythm"
+    },
+    {
+      "find": "My mother is the heart of our home\" is",
+      "with": "\"My mother is the heart of our home\" is"
+    },
+    {
+      "find": "In pairs Create a simple dialogue",
+      "with": "In pairs, create a simple dialogue"
+    },
+    {
+      "find": "End- of- Term",
+      "with": "End-of-Term"
+    },
+    {
+      "find": "There friends",
+      "with": "Three friends"
+    },
+    {
+      "find": "their end of term examination",
+      "with": "their end-of-term examination"
+    },
+    {
+      "find": "Kai: have you finished revising for English test?",
+      "with": "Kai: Have you finished revising for the English test?"
+    },
+    {
+      "find": "Mumba: yes, most of it.",
+      "with": "Mumba: Yes, most of it."
+    },
+    {
+      "find": "a piece of a cake.",
+      "with": "a piece of cake."
+    },
+    {
+      "find": "to finish my revision",
+      "with": "to finish my revision."
+    },
+    {
+      "find": "By the way has anyone",
+      "with": "By the way, has anyone"
+    },
+    {
+      "find": "Kai: yes, I have it.",
+      "with": "Kai: Yes, I have it."
+    },
+    {
+      "find": "I won’t. now let’s",
+      "with": "I won’t. Now let’s"
+    },
+    {
+      "find": "Mwiza: you are right.",
+      "with": "Mwiza: You are right."
+    },
+    {
+      "find": "feverish and weak she was clearly",
+      "with": "feverish and weak; she was clearly"
+    },
+    {
+      "find": "a blessing in disguise, it would force",
+      "with": "a blessing in disguise; it would force"
+    },
+    {
+      "find": "a short diary entry sentences)",
+      "with": "a short diary entry"
+    },
+    {
+      "find": "use your creativity skills that are essential",
+      "with": "use your creativity: skills that are essential"
+    },
+    {
+      "find": "and is read by people",
+      "with": "and are read by people"
+    },
+    {
+      "find": "three categories, literary texts, non-literary text and digital text.",
+      "with": "three categories: literary texts, non-literary texts and digital texts."
+    },
+    {
+      "find": "Newspaper articles",
+      "with": "newspaper articles"
+    },
+    {
+      "find": "requires ability to read",
+      "with": "requires the ability to read"
+    },
+    {
+      "find": "written literature by answering the questions below?",
+      "with": "written literature by answering the questions below."
+    },
+    {
+      "find": "difference between Literary texts",
+      "with": "difference between literary texts"
+    },
+    {
+      "find": "In groups Distinguish forms",
+      "with": "In groups, distinguish forms"
+    },
+    {
+      "find": "fixed written text challenging the community",
+      "with": "fixed written text, challenging the community"
+    },
+    {
+      "find": "ordinary day to day writing",
+      "with": "ordinary day-to-day writing"
+    },
+    {
+      "find": "essays, and article.",
+      "with": "essays, and articles."
+    },
+    {
+      "find": "A prose texts may be work of fiction or non-fiction. Fiction is imaginary while non-fiction is a true story",
+      "with": "A prose text may be a work of fiction or non-fiction. Fiction is imaginary while non-fiction is a true story."
+    },
+    {
+      "find": "by answering he following questions",
+      "with": "by answering the following questions"
+    },
+    {
+      "find": "Explain what is exposition in a prose text.",
+      "with": "Explain what exposition is in a prose text."
+    },
+    {
+      "find": "form One C",
+      "with": "Form One C"
+    },
+    {
+      "find": "Sililo, loves this spot",
+      "with": "Sililo loves this spot"
+    },
+    {
+      "find": "May I know your name dear!”",
+      "with": "May I know your name, dear?”"
+    },
+    {
+      "find": "Wampa,my darling",
+      "with": "Wampa, my darling"
+    },
+    {
+      "find": "About what?” She asked",
+      "with": "About what?” she asked"
+    },
+    {
+      "find": "girls’ only desks, Mr!” she looked up",
+      "with": "girls-only desks, Mr?” She looked up"
+    },
+    {
+      "find": "staring direct in his eyes",
+      "with": "staring directly into his eyes"
+    },
+    {
+      "find": "Like a flush of lightning",
+      "with": "Like a flash of lightning"
+    },
+    {
+      "find": "exclaimed, \"dare to move me",
+      "with": "exclaimed, \"Dare to move me"
+    },
+    {
+      "find": "“I always sit here.” He shouted,",
+      "with": "“I always sit here,” he shouted,"
+    },
+    {
+      "find": "**:**",
+      "with": "****"
+    },
+    {
+      "find": "passionate. \" Madam,",
+      "with": "passionate. \"Madam,"
+    },
+    {
+      "find": "place to concentrate, this place",
+      "with": "place to concentrate; this place"
+    },
+    {
+      "find": "You too, want to be part of this problem. “Yes Wampa,”",
+      "with": "Do you, too, want to be part of this problem?” “Yes, Wampa,”"
+    },
+    {
+      "find": "“No madam.” he replied.",
+      "with": "“No, madam,” he replied."
+    },
+    {
+      "find": "So, how do you welcome them?”",
+      "with": "“So, how do you welcome them?”"
+    },
+    {
+      "find": "“No mum.”",
+      "with": "“No, madam.”"
+    },
+    {
+      "find": "Ok, so you know that you have violated the school rules right?”",
+      "with": "“OK, so you know that you have violated the school rules, right?”"
+    },
+    {
+      "find": "“Yes mum.”",
+      "with": "“Yes, madam.”"
+    },
+    {
+      "find": "competitive demeanor",
+      "with": "competitive demeanour"
+    },
+    {
+      "find": "learned to appreciate their company",
+      "with": "learned to appreciate each other’s company"
+    },
+    {
+      "find": "Mwewaderie",
+      "with": "camaraderie"
+    },
+    {
+      "find": "story above- The Desk Dilemma.",
+      "with": "story above, The Desk Dilemma."
+    },
+    {
+      "find": "fiction or non fiction? Explain",
+      "with": "fiction or non-fiction? Explain."
+    },
+    {
+      "find": "did well at form four",
+      "with": "did well in Form Four"
+    },
+    {
+      "find": "He felt his legs shaking, “I am finished Nkisu. I am gone,” He, muttered.",
+      "with": "He felt his legs shaking. “I am finished, Nkisu. I am gone,” he muttered."
+    },
+    {
+      "find": "education and justice of second chances",
+      "with": "education and the justice of second chances"
+    },
+    {
+      "find": "as the head spoke “I’m willing",
+      "with": "as the head spoke. “I’m willing"
+    },
+    {
+      "find": "Mrs Mbumba and Nkisu’s faces, nodding their heads in agreement, they looked at Vitumbiku",
+      "with": "Mrs Mbumba’s and Nkisu’s faces. Nodding their heads in agreement, they looked at Vitumbiko"
+    },
+    {
+      "find": "come here to work but learn",
+      "with": "come here to work but to learn"
+    },
+    {
+      "find": "Dumbfound and unable",
+      "with": "Dumbfounded and unable"
+    },
+    {
+      "find": "heads crest fallen",
+      "with": "heads crestfallen"
+    },
+    {
+      "find": "after about a minute. With their heads bowed.",
+      "with": "after about a minute, with their heads bowed."
+    },
+    {
+      "find": "walked into the assembly hall. The room",
+      "with": "walked into the assembly hall, the room"
+    },
+    {
+      "find": "the usual no nonsense man that they know him to be",
+      "with": "the usual no-nonsense man that they knew him to be"
+    },
+    {
+      "find": "he began, with a pause, he looked",
+      "with": "he began. With a pause, he looked"
+    },
+    {
+      "find": "You all know about the assault, and as Mandevu Secondary School, we do not tolerate indiscipline. Fighting is against our school disciplinary code of conduct and the punishment for that is expulsion from school. However, having gone through your petition, the disciplinary committee decided to give him a second chance by punishing him for two weeks but he refused to do the punishment. He paused to wait for the learners’ reaction, but he was greeted with dead silence. “Instead of appreciating your effort,” and the olive branch we extended to him, he promised to sue us. And true to his words, Mandevu Secondary School has been sued by Vitumbiko.” “As I am speaking right now, he has served us with a summon to appear in the High Court of Zambia on Monday next week.”",
+      "with": "“You all know about the assault, and as Mandevu Secondary School, we do not tolerate indiscipline. Fighting is against our school disciplinary code of conduct and the punishment for that is expulsion from school. However, having gone through your petition, the disciplinary committee decided to give him a second chance by punishing him for two weeks but he refused to do the punishment. He paused to wait for the learners’ reaction, but he was greeted with dead silence. “Instead of appreciating your effort,” and the olive branch we extended to him, he promised to sue us. And true to his words, Mandevu Secondary School has been sued by Vitumbiko.” “As I am speaking right now, he has served us with a summon to appear in the High Court of Zambia on Monday next week.”"
+    },
+    {
+      "find": "refused to do the punishment. He paused",
+      "with": "refused to do the punishment.” He paused"
+    },
+    {
+      "find": "“Instead of appreciating your effort,” and the olive branch",
+      "with": "“Instead of appreciating your effort and the olive branch"
+    },
+    {
+      "find": "sued by Vitumbiko.” “As I",
+      "with": "sued by Vitumbiko. As I"
+    },
+    {
+      "find": "a summon to appear",
+      "with": "a summons to appear"
+    },
+    {
+      "find": "School unions",
+      "with": "school unions"
+    },
+    {
+      "find": "ground breaking case",
+      "with": "groundbreaking case"
+    },
+    {
+      "find": "When judge Kasimbi",
+      "with": "When Judge Kasimbi"
+    },
+    {
+      "find": "the court martial signalled",
+      "with": "the court marshal signalled"
+    },
+    {
+      "find": "(suing through his father,) Vingobe Banda v",
+      "with": "(suing through his father, Vingobe Banda) v"
+    },
+    {
+      "find": "to be answered are; whether",
+      "with": "to be answered are: whether"
+    },
+    {
+      "find": "expel the Petitioner",
+      "with": "expel the petitioner"
+    },
+    {
+      "find": "plus counseling",
+      "with": "plus counselling"
+    },
+    {
+      "find": "What Vitumbiko did, is",
+      "with": "What Vitumbiko did is"
+    },
+    {
+      "find": "not be able assert",
+      "with": "not be able to assert"
+    },
+    {
+      "find": "scared a when he heard prison",
+      "with": "scared when he heard the word prison"
+    },
+    {
+      "find": "comes with responsibilities.” “We live",
+      "with": "comes with responsibilities. We live"
+    },
+    {
+      "find": "violate other pupil’s right",
+      "with": "violate other pupils’ right"
+    },
+    {
+      "find": "disturbs the majority pupils",
+      "with": "disturbs the majority of pupils"
+    },
+    {
+      "find": "“Yes sir”",
+      "with": "“Yes, sir.”"
+    },
+    {
+      "find": "punishment, and that punishment. The bible in proverbs",
+      "with": "punishment, and accept that punishment. The Bible in Proverbs"
+    },
+    {
+      "find": "understand that If we",
+      "with": "understand that if we"
+    },
+    {
+      "find": "bear its own costs”",
+      "with": "bear its own costs.”"
+    },
+    {
+      "find": "Instead, he shall be an advocate",
+      "with": "Instead, he would be an advocate"
+    },
+    {
+      "find": "he had a change of thought, instead",
+      "with": "he had a change of heart; instead"
+    },
+    {
+      "find": "the different place in which story tales place.",
+      "with": "the different places in which the story takes place."
+    },
+    {
+      "find": "Vitumbikos’s shoes, how would",
+      "with": "Vitumbiko’s shoes. How would"
+    },
+    {
+      "find": "Practice saying your lines",
+      "with": "Practise saying your lines"
+    },
+    {
+      "find": "key message -theme.",
+      "with": "key message (theme)."
+    },
+    {
+      "find": "lighthearted",
+      "with": "light-hearted"
+    },
+    {
+      "find": "Poetry is genre of literature",
+      "with": "Poetry is a genre of literature"
+    },
+    {
+      "find": "from a Greek word poiem;,",
+      "with": "from the Greek word poiema,"
+    },
+    {
+      "find": "enjabment",
+      "with": "enjambment"
+    },
+    {
+      "find": "or emphasis words or ideas",
+      "with": "or emphasise words or ideas"
+    },
+    {
+      "find": "form a unite.",
+      "with": "form a unit."
+    },
+    {
+      "find": "divided into stanza that",
+      "with": "divided into stanzas that"
+    },
+    {
+      "find": "paragraphs in a prose.",
+      "with": "paragraphs in prose."
+    },
+    {
+      "find": "Couplet two line stanza",
+      "with": "Couplet: two-line stanza"
+    },
+    {
+      "find": "Tercet three line stanza",
+      "with": "Tercet: three-line stanza"
+    },
+    {
+      "find": "Quatrain four line stanza",
+      "with": "Quatrain: four-line stanza"
+    },
+    {
+      "find": "cinquaine: five line stanza",
+      "with": "Cinquain: five-line stanza"
+    },
+    {
+      "find": "six line stanza",
+      "with": "six-line stanza"
+    },
+    {
+      "find": "seven line stanza",
+      "with": "seven-line stanza"
+    },
+    {
+      "find": "eight line stanza",
+      "with": "eight-line stanza"
+    },
+    {
+      "find": "poem one above? Explain your answer",
+      "with": "poem one above? Explain your answer."
+    },
+    {
+      "find": "how many stanzas the Shadows of innocence has?",
+      "with": "how many stanzas Shadows of Innocence has."
+    },
+    {
+      "find": "the theme in the Shadow of innocence.",
+      "with": "the theme in Shadows of Innocence."
+    },
+    {
+      "find": "said to state and develops",
+      "with": "said to state and develop"
+    },
+    {
+      "find": "The most common type of rhymes are end rhymes which",
+      "with": "The most common type of rhyme is end rhyme, which"
+    },
+    {
+      "find": "Internal lines occur",
+      "with": "Internal rhymes occur"
+    },
+    {
+      "find": "Define and identify end rhymes in the poem above",
+      "with": "Define and identify end rhymes in the poem above."
+    },
+    {
+      "find": "Define and identify internal rhymes",
+      "with": "Define and identify internal rhymes."
+    },
+    {
+      "find": "Explain the purpose of rhymes in a poem",
+      "with": "Explain the purpose of rhymes in a poem."
+    },
+    {
+      "find": "You are an Angel. (This means you poses good characteristic associated with an Angel.)",
+      "with": "You are an angel. (This means you possess good characteristics associated with an angel.)"
+    },
+    {
+      "find": "He has a heart of a stone.",
+      "with": "He has a heart of stone."
+    },
+    {
+      "find": "characteristics that makes you",
+      "with": "characteristics that make you"
+    },
+    {
+      "find": "of a poem starts with the same",
+      "with": "of a poem start with the same"
+    },
+    {
+      "find": "In the shattered dream, what theme is poet exploring?",
+      "with": "In \"A Shattered Dream\", what theme is the poet exploring?"
+    },
+    {
+      "find": "Identify imagery, if any, used in the poem and discuss its purpose",
+      "with": "Identify imagery, if any, used in the poem and discuss its purpose."
+    },
+    {
+      "find": "What tone and mood is permeating",
+      "with": "What tone and mood are permeating"
+    },
+    {
+      "find": "Define mood and identify the mood created by the poet in the poem above",
+      "with": "Define mood and identify the mood created by the poet in the poem above."
+    },
+    {
+      "find": "Read the following scenario and answer the questions that follow",
+      "with": "Read the following scenario and answer the questions that follow."
+    },
+    {
+      "find": "How does she and her team",
+      "with": "How do she and her team"
+    },
+    {
+      "find": "Nonfiction:",
+      "with": "Non-fiction:"
+    },
+    {
+      "find": "fosters empathy",
+      "with": "Fosters empathy"
+    },
+    {
+      "find": "understanding other culture)",
+      "with": "understanding other cultures)"
+    },
+    {
+      "find": "praises special words that show",
+      "with": "praises: special words that show"
+    },
+    {
+      "find": "holy ground.”  He replied.",
+      "with": "holy ground,” he replied."
+    },
+    {
+      "find": "passing outside.”  shouted",
+      "with": "passing outside,” shouted"
+    },
+    {
+      "find": "go and apologises",
+      "with": "go and apologise"
+    },
+    {
+      "find": "head-teacher’s office",
+      "with": "headteacher’s office"
+    },
+    {
+      "find": "A shattered Dream",
+      "with": "A Shattered Dream"
+    },
+    {
+      "find": "Practice using the correct voice",
+      "with": "Practise using the correct voice"
     }
   ],
   "forceFreshPage": [
     {
-      "find": "EXERCISE 7"
+      "find": "EXERCISE 9"
     }
   ],
   "splitBoxTitle": [
     {
-      "find": "Activity 1: Analysing songs",
+      "find": "Analysing songs (meaning",
       "at": "Now it is your turn"
     }
   ],
@@ -1578,7 +3903,7 @@
       "depth": 1
     },
     {
-      "find": "Practice saying your lines with expression.",
+      "find": "saying your lines with expression.",
       "marker": "c)",
       "depth": 1
     },
@@ -1591,6 +3916,11 @@
       "find": "Can you use simple props or costumes to make your play more interesting?",
       "marker": "e)",
       "depth": 1
+    },
+    {
+      "find": "state two moral lessons that can be learned",
+      "marker": "14.",
+      "depth": 0
     }
   ],
   "fixExercise": [
@@ -1630,7 +3960,7 @@
     },
     {
       "match": "Activity 2: Presentation of composed Praises Guidelines:",
-      "heading": "Activity 2: Presentation of composed Praises",
+      "heading": "Activity 8: Presentation of composed Praises",
       "addParts": [
         {
           "text": "In your group, present your composed praise to the class using the guidelines below:",
@@ -1641,25 +3971,7 @@
     {
       "match": "EXERCISE",
       "near": "Define praises in your own words",
-      "heading": "EXERCISE 8"
-    },
-    {
-      "match": "EXERCISE",
-      "near": "Preparing for the End- of- Term",
-      "heading": "EXERCISE 9"
-    },
-    {
-      "match": "EXERCISE Scenario",
-      "heading": "EXERCISE 1",
-      "markers": [
-        ""
-      ],
-      "addParts": [
-        {
-          "text": "**Scenario**",
-          "at": 0
-        }
-      ]
+      "heading": "EXERCISE 10"
     },
     {
       "match": "EXERCISE",
@@ -1686,14 +3998,175 @@
           "marker": "5)",
           "at": 5
         }
-      ]
+      ],
+      "heading": "Activity 3: Reviewing performed poems"
     },
     {
       "match": "EXERCISE",
       "near": "Maya’s team",
       "heading": "EXERCISE 4"
+    },
+    {
+      "match": "Activity: 2 Determining the importance of literature.",
+      "heading": "Activity 2: Determining the importance of literature"
+    },
+    {
+      "match": "Activity 3: In pairs, discuss the type of Oral Literature Prominent in your community.",
+      "heading": "Activity 3: In pairs, discuss the type of oral literature prominent in your community"
+    },
+    {
+      "match": "EXERCISES 2",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "Activity 1: In groups, attempt the following riddles?",
+      "heading": "Activity 1: In groups, attempt the following riddles"
+    },
+    {
+      "match": "Activity 1: Discussing Riddles and Types of Riddles",
+      "heading": "Activity 2: Discussing Riddles and Types of Riddles"
+    },
+    {
+      "match": "ACTIVITY 3: Solving Riddles",
+      "heading": "Activity 4: Solving Riddles"
+    },
+    {
+      "match": "EXERCISE",
+      "near": "Answer ALL questions in your exercise book",
+      "heading": "EXERCISE 7"
+    },
+    {
+      "match": "Activity 1: Analysing songs (meaning, language, message, structure, stylistic features, occasion) Now it is your turn to be a musician and a poet! Understanding songs is not just about listening it is about feeling the message, understanding the words, and bringing the song to life. When you sing a song, you become part of a tradition that is thousands of years old. Let’s learn how to really understand a song and share it with others!",
+      "heading": "Activity 3: Analysing songs (meaning, language, message, structure, stylistic features, occasion) Now it is your turn to be a musician and a poet! Understanding songs is not just about listening; it is about feeling the message, understanding the words, and bringing the song to life. When you sing a song, you become part of a tradition that is thousands of years old. Let’s learn how to really understand a song and share it with others!"
+    },
+    {
+      "match": "Activity 2: Making a presentation",
+      "heading": "Activity 4: Making a presentation"
+    },
+    {
+      "match": "EXERCISE",
+      "near": "Read this situation and answer the questions that follow",
+      "heading": "EXERCISE 8"
+    },
+    {
+      "match": "Activity 1: Performing Different Types of Songs",
+      "heading": "Activity 5: Performing Different Types of Songs"
+    },
+    {
+      "match": "Activity 2: Reviewing Performed Songs",
+      "heading": "Activity 6: Reviewing Performed Songs"
+    },
+    {
+      "match": "Activity 3: Composing Songs",
+      "heading": "Activity 7: Composing Songs"
+    },
+    {
+      "match": "Activity 1: Reciting Self-Praise",
+      "heading": "Activity 3: Reciting Self-Praise"
+    },
+    {
+      "match": "ACTIVITY 2: Discussing Recited Praises",
+      "heading": "Activity 4: Discussing Recited Praises"
+    },
+    {
+      "match": "ACTIVITY 3: Analysing Praises",
+      "heading": "Activity 5: Analysing Praises"
+    },
+    {
+      "match": "ACTIVITY 3: Presenting Analysed Praises",
+      "heading": "Activity 6: Presenting Analysed Praises"
+    },
+    {
+      "match": "Activity 1: Composing Praises",
+      "heading": "Activity 7: Composing Praises"
+    },
+    {
+      "match": "Activity 3: Reviewing presented Praises",
+      "heading": "Activity 9: Reviewing presented Praises"
+    },
+    {
+      "match": "ACTIVITY 3: Discussing elements of a short story.",
+      "heading": "Activity 3: Discussing elements of a short story"
+    },
+    {
+      "match": "Activity 3: Performing poems",
+      "heading": "Activity 2: Performing poems"
+    },
+    {
+      "match": "ACTIVITY 5",
+      "heading": "Activity 4: Performing a favourite poem"
     }
   ],
   "//backCover": "121 pages, so the house rule wants a back cover and a spine. backCover is the opt-in key the Literature in English Form 1 TG round adds to the engine (worktree C:/z/lit-f1-tg, not yet merged on 29 Oct 2026); until it lands this key is read by nothing and the book prints without a back cover, as before.",
-  "backCover": true
+  "backCover": true,
+  "setHeading": [
+    {
+      "find": "Functions of Riddles You Will Learn",
+      "as": "h2"
+    },
+    {
+      "find": "PRAISES",
+      "as": "h2"
+    },
+    {
+      "find": "Praises",
+      "as": "label",
+      "near": "A praise means showing strong approval"
+    },
+    {
+      "find": "Practise Together",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Work in pairs.",
+      "as": "label"
+    },
+    {
+      "find": "Scenario",
+      "as": "label",
+      "near": "In the compound where you live"
+    },
+    {
+      "find": "FORMS OF WRITTEN LITERATURE",
+      "as": "label",
+      "near": "Written literature comes in three main forms"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "From the folktale you wrote in question 5",
+      "with": "From the folktale you wrote in question 9"
+    }
+  ],
+  "//round1b": "Same day, user: 'fix everything'. On top of the 84 comments: activities numbered 1..n inside each sub-topic (as Unit One and Folktales already were, and as the reviewer's own 'Activity 8' for songs implies), exercises 1..n through each unit (Unit Two now 1-11, so the reviewers' 7/8/9 became 9/10/11 after the two unnumbered songs exercises); five boxes rebuilt so their questions are inside them (Unit One Exercises 1 and 2, idioms Exercise 11 - whose dialogue lines had been numbered as questions - Unit Two's End of Topic Assessment, whose PRAISES and RIDDLES sections had fallen out of the box and into the contents, and Unit Three Exercise 1); a stray caption removed from the riddles Activity 3; the riddle type and function lists made real lists; the PRAISES sub-topic a heading like SONGS and IDIOMS.",
+  "//contents": "The contents lists the units and their sub-topics and story titles as the authors typed them; the round-1 rename of DISTINGUISHING FORMS OF WRITTEN LITERATURE made the later, identical heading a duplicate, so that one is a label now, and so are the in-section labels Scenario, Work in pairs. and Practice Together (x3), which are not sub-topics.",
+  "//pictureWidths": "image4, image5 and image6 (the nyau dancer, One Zambia One Nation, reading in free time) at three-quarters of the column: at full width none of them shared a page with text, which left pages 15-18 each a third to a half empty.",
+  "textFix": [
+    {
+      "find": "Societal Contexts",
+      "with": "societal contexts"
+    },
+    {
+      "find": "Mr. ",
+      "with": "Mr "
+    },
+    {
+      "find": "Mrs. ",
+      "with": "Mrs "
+    },
+    {
+      "find": "meter",
+      "with": "metre"
+    },
+    {
+      "find": "Meter:",
+      "with": "Metre:"
+    },
+    {
+      "find": "Practice Together",
+      "with": "Practise Together"
+    }
+  ],
+  "//copyedit": "Copy-edit read of the whole book (29 Oct 2026, user: 'fix everything'): spelling (British -ise/-our/practise/metre), agreement, missing articles and full stops, dialogue punctuation in the stories, run-on sentences, 'Mwewaderie' (a find-and-replace accident) -> 'camaraderie'. Each `edit` find was checked to occur once in the manuscript."
 }
