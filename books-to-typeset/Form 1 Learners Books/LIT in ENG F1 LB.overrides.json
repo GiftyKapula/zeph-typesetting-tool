@@ -5,6 +5,22 @@
     {
       "find": "UNIT THREE",
       "with": "UNIT THREE: WRITTEN LITERATURE"
+    },
+    {
+      "find": "The Cultural Festival",
+      "with": "Forms of Oral Literature"
+    },
+    {
+      "find": "USE OF PROVERBS",
+      "with": "PROVERBS"
+    },
+    {
+      "find": "Songs",
+      "with": "SONGS"
+    },
+    {
+      "find": "DISTINGUISHING FORMS OF WRITTEN LITERATURE",
+      "with": "FORMS OF WRITTEN LITERATURE"
     }
   ],
   "images": {
@@ -24,10 +40,11 @@
       "src": "LIT in ENG F1 LB-hires/image11.png"
     },
     "image7.jpg": {
-      "src": "LIT in ENG F1 LB-hires/image7.png"
+      "src": "LIT in ENG F1 LB-hires/image7-enlarged.png",
+      "hmm": 160
     },
     "image18.jpg": {
-      "src": "LIT in ENG F1 LB-hires/image18.png"
+      "src": "LIT in ENG F1 LB-hires/image18-relettered.png"
     },
     "image3.jpg": {
       "src": "LIT in ENG F1 LB-hires/image3.png"
@@ -57,12 +74,1626 @@
       "src": "LIT in ENG F1 LB-hires/image1.png"
     },
     "image20.jpg": {
-      "src": "LIT in ENG F1 LB-hires/image20.png"
+      "src": "LIT in ENG F1 LB-hires/image20-form1-class.png"
     },
     "image9.png": {
       "src": "LIT in ENG F1 LB-hires/image9.png"
     }
   },
   "//manuscript-correction": "APPLIED DIRECTLY TO THE .docx, and it must be re-applied if that file is ever re-converted from the original. The manuscript bolds every activity label but two - 'Activity 1: In groups, attempt the following riddles?' and 'ACTIVITY: 4 Composing Short Stories' were typed as ordinary body text - so the engine, which starts a callout box on a bold or heading-styled label, did not box them: the riddles label printed as a loose line above its table, and Activity 4 was swallowed into Activity 3's box together with its own four questions. Both runs now carry <w:b/><w:bCs/>, which is all the other 62 labels in the book have. This cannot be done with an override: the box is built at IMPORT time, before overrides run, and the only override that reaches it (boxifyLoose, via boxActivities) rebuilt just one of the two and as a framedsection rather than the exercise box its siblings use. It must not be fixed in src/typeset/ either: a scan of every manuscript in books-to-typeset shows that dropping the bold requirement engine-wide would turn the sentence 'Key points include:' into a Key Points box in Geography For Teachers and newly boxify up to 111 paragraphs in Home Ecnomics Grade 4 TG. A copy of the file as it was is kept beside it as 'LIT in ENG F1 LB.docx.bak-before-bold'. The author should bold both labels in the next issue.",
-  "//plot-diagram": "Printed page 109's plot diagram (media image19.jpg) was REDRAWN, not upscaled. The manuscript's own bitmap is a screenshot of a third-party graphic: a tiled 'ELEMENTS OF FICTION' watermark runs diagonally across the header about eight times and cuts through the PLOT title, and seven opaque grey rectangles sit on top of the artwork obscuring words in all six definition boxes - Conflict, Exposition, Climax, Rising Action, Falling Action and Resolution. It is greyscale and soft. Upscaling it (which had already been done, to 1625px / 308 DPI) only sharpened the watermark and the grey blocks. Because this is Freytag's pyramid - the diagram Unit Three teaches from, and which the pages after it build on - the page could not be taught from as it stood. The replacement is drawn in TYPST, and its source is kept beside it as 'LIT in ENG F1 LB-art/plot-diagram.typ' so it can be corrected rather than redrawn. It carries the same six element names and the same six definitions, transcribed from the legible parts of the original. No third-party artwork is involved, so there is no licensing question. It is drawn at the width it is PLACED at in the book (134mm, the B5 text column), which is the point of it: an earlier node-canvas attempt was drawn oversized and scaled down, which landed its annotations near 6pt on the page. Rendered at 400 DPI, 2111px across, well over the 300 DPI floor. Nothing here is engine work: it is one book's bad source picture."
+  "//plot-diagram": "Printed page 109's plot diagram (media image19.jpg) was REDRAWN, not upscaled. The manuscript's own bitmap is a screenshot of a third-party graphic: a tiled 'ELEMENTS OF FICTION' watermark runs diagonally across the header about eight times and cuts through the PLOT title, and seven opaque grey rectangles sit on top of the artwork obscuring words in all six definition boxes - Conflict, Exposition, Climax, Rising Action, Falling Action and Resolution. It is greyscale and soft. Upscaling it (which had already been done, to 1625px / 308 DPI) only sharpened the watermark and the grey blocks. Because this is Freytag's pyramid - the diagram Unit Three teaches from, and which the pages after it build on - the page could not be taught from as it stood. The replacement is drawn in TYPST, and its source is kept beside it as 'LIT in ENG F1 LB-art/plot-diagram.typ' so it can be corrected rather than redrawn. It carries the same six element names and the same six definitions, transcribed from the legible parts of the original. No third-party artwork is involved, so there is no licensing question. It is drawn at the width it is PLACED at in the book (134mm, the B5 text column), which is the point of it: an earlier node-canvas attempt was drawn oversized and scaled down, which landed its annotations near 6pt on the page. Rendered at 400 DPI, 2111px across, well over the 300 DPI floor. Nothing here is engine work: it is one book's bad source picture.",
+  "//round1": "Proofreading round 1 (commented PDF returned 29 Oct 2026, 84 comments; zeph lit-in-eng-f1-lb round 1). Two reviewers marked the proof; where they gave different wording for the same spot the one that matches the picture or the section was taken (captions), and where both asked for the same new activity under different numbers the activities around it were numbered in sequence (Folktales: Activity 3 Telling, 4 Analysing, 5 Acting Out). Pictures: image7 re-laid two panels across so its six panels print about 1.5x larger (asked: 'the illustrations are small, enlarge them'); image18's signpost relettered Mongu/Katete/Mansa (asked); image20 replaced by Form One learners reading in class (the Teacher's Guide's own artwork; asked: 'age appropriate such as form one learners in class'). image15 and image21 were also asked to be replaced with age-appropriate pictures; that needs new artwork (OpenAI image credits ran out), so they are unchanged for now.",
+  "insertBlocks": [
+    {
+      "before": "Forms of Oral Literature",
+      "exact": true,
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "Folktales are traditional stories passed down from one generation to another by word of mouth. They entertain listeners and teach moral lessons, values and beliefs."
+        }
+      ]
+    },
+    {
+      "near": "Activity 2: Discussing the Functions of Folktales",
+      "before": "EXERCISE 1",
+      "exact": true,
+      "drop": 9,
+      "blocks": [
+        {
+          "para": "@@EX1@@"
+        }
+      ]
+    },
+    {
+      "before": "ACTIVITY 1: Telling Folktales",
+      "exact": true,
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "@@TELL@@"
+        },
+        {
+          "para": "@@ANAL@@"
+        }
+      ]
+    },
+    {
+      "before": "During the school holiday, Chanda visited",
+      "blocks": [
+        {
+          "move": "imp_image7"
+        }
+      ]
+    },
+    {
+      "before": "Activity 1: Using Proverbs in different contexts",
+      "exact": true,
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "@@PROV@@"
+        }
+      ]
+    },
+    {
+      "before": "Activity 1: Discussing different functions of Literature",
+      "exact": true,
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "@@FUNC@@"
+        }
+      ]
+    },
+    {
+      "before": "ACTIVITY 4: Composing Short Stories",
+      "exact": true,
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "@@STORY@@"
+        }
+      ]
+    },
+    {
+      "before": "Present Your Song: Perform your composed song",
+      "drop": 5,
+      "blocks": [
+        {
+          "para": "@@SONG4@@"
+        }
+      ]
+    },
+    {
+      "near": "Here is an example of a composed song",
+      "before": "EXERCISE",
+      "exact": true,
+      "drop": 4,
+      "blocks": [
+        {
+          "para": "@@EX7@@"
+        }
+      ]
+    },
+    {
+      "after": "PRAISES",
+      "exact": true,
+      "blocks": [
+        {
+          "para": "Praises are expressions of admiration, approval or gratitude directed to a person or thing, such as God, chiefs, heroes, politicians, parents, beauty, nature or oneself (self-praises). A praise shows strong approval or admiration using beautiful, artistic words."
+        }
+      ]
+    },
+    {
+      "after": "Written literature comes in three main forms. These are prose, poetry and drama.",
+      "blocks": [
+        {
+          "para": "**Prose:** written text organised in paragraphs and chapters, for example novels and short stories."
+        },
+        {
+          "para": "**Drama:** a script meant to be performed on stage, for example plays."
+        },
+        {
+          "para": "**Poetry:** a piece of writing that uses aesthetic (beautiful) language, arranged in lines and stanzas, for example poems."
+        },
+        {
+          "para": "In groups, distinguish the three forms of written literature (prose, drama and poetry) and answer the question below."
+        },
+        {
+          "listitem": "Briefly describe each of the three forms of written literature.",
+          "marker": "1."
+        }
+      ]
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "@@EX1@@",
+      "with": [
+        {
+          "exercise": "EXERCISE 1",
+          "parts": [
+            {
+              "lead": "Every Friday evening, 12-year-old Mwewa and her younger brother Tunde visit their grandmother, Mama Ngozi, who lives in their village. As the family gathers around the cooking fire, Mama Ngozi tells them folktales she heard from her own grandmother stories about clever tortoises, greedy hyenas, brave hunters, and magical rivers. Mwewa loves these evenings because the stories make her laugh, teach her important lessons about honesty and kindness, and help her understand her community’s values. One evening, Mama Ngozi asks Mwewa to retell a story to her cousins, and Mwewa realises that folktales are not just entertaining they are a gift passed down through generations to teach, unite, and inspire.",
+              "indent": false
+            },
+            {
+              "lead": "*Answer the following questions individually in your exercise book.*",
+              "indent": false
+            },
+            {
+              "lead": "Question",
+              "indent": false
+            },
+            {
+              "q": "List any four types of folktales and briefly define each.",
+              "marker": "1."
+            },
+            {
+              "q": "After listening to a folktale shared by your teacher, identify its type and give a reason for your answer.",
+              "marker": "2."
+            },
+            {
+              "q": "Retell a folktale from your community in your own words, using at least three characters and a clear setting.",
+              "marker": "3."
+            },
+            {
+              "q": "Draw your favourite folktale character. Beneath your drawing, describe the character’s behaviour and explain why you like or dislike them.",
+              "marker": "4."
+            },
+            {
+              "q": "Compare any two folktales you know. Explain one similarity and one difference between them.",
+              "marker": "5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@TELL@@",
+      "with": [
+        {
+          "exercise": "Activity 3: Telling Folktales",
+          "parts": [
+            {
+              "lead": "Storytelling is an important way of preserving culture and passing knowledge from one generation to another. Telling folktales helps you improve speaking confidence, listening skills, creativity, memory, and self-expression. In pairs tell the following folktales:",
+              "indent": false
+            },
+            {
+              "q": "Fairy tales",
+              "marker": "a)"
+            },
+            {
+              "q": "Fables",
+              "marker": "b)"
+            },
+            {
+              "q": "Trickster tales",
+              "marker": "c)"
+            },
+            {
+              "q": "Animal tales",
+              "marker": "d)"
+            },
+            {
+              "q": "Legends",
+              "marker": "e)"
+            },
+            {
+              "q": "Hero tales",
+              "marker": "f)"
+            },
+            {
+              "q": "Myths",
+              "marker": "g)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@ANAL@@",
+      "with": [
+        {
+          "exercise": "Activity 4: Analysing Folktales",
+          "parts": [
+            {
+              "lead": "Analysing folktales helps you understand the deeper meaning of stories. It allows you to identify lessons, understand character behaviour, and explain how events are connected in a story.",
+              "indent": false
+            },
+            {
+              "lead": "In groups, choose a folktale you know or one provided by your teacher and analyse it in terms of the following:",
+              "indent": false
+            },
+            {
+              "q": "Themes",
+              "marker": "a)"
+            },
+            {
+              "q": "Moral lessons",
+              "marker": "b)"
+            },
+            {
+              "q": "Characters",
+              "marker": "c)"
+            },
+            {
+              "q": "Plot structure (beginning, middle and end)",
+              "marker": "d)"
+            },
+            {
+              "lead": "**Instructions:** In groups, listen to a Zambian folktale played by your teacher and answer the following questions.",
+              "indent": false
+            },
+            {
+              "q": "Who are the main characters in the folktale?",
+              "marker": "1."
+            },
+            {
+              "q": "Where and when does the story take place?",
+              "marker": "2."
+            },
+            {
+              "q": "What happens at the beginning, in the middle and at the end of the story?",
+              "marker": "3."
+            },
+            {
+              "q": "What is the main message or idea in the folktale?",
+              "marker": "4."
+            },
+            {
+              "q": "What lesson can we learn from the story?",
+              "marker": "5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@SONG4@@",
+      "with": [
+        {
+          "exercise": "Activity 4: Making presentations of composed songs",
+          "parts": [
+            {
+              "lead": "In your group, present to the class the song you have composed.",
+              "indent": false
+            },
+            {
+              "q": "Present Your Song: Perform your composed song for the class. Remember to:",
+              "marker": "1."
+            },
+            {
+              "q": "Sing clearly",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "Show emotion",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "Use actions or dance",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "Work as a team",
+              "marker": "d)",
+              "depth": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@PROV@@",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "Activity 1: Using Proverbs in different contexts",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Study the following proverbs and their meanings:",
+                "a": "",
+                "marker": "1.",
+                "depth": 0,
+                "qseg": [
+                  {
+                    "t": "Study the following proverbs and their meanings:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "kind": "q",
+                "q": "A tree is known by its fruit (A person is judged by their actions)",
+                "qseg": [
+                  {
+                    "t": "A tree is known by its fruit ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "(A person is judged by their actions)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Many hands make light work (Working together makes tasks easier)",
+                "qseg": [
+                  {
+                    "t": "Many hands make light work ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "(Working together makes tasks easier)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "A wise person learns from the mistakes of others (Learn from others to avoid errors)",
+                "qseg": [
+                  {
+                    "t": "A wise person learns from the mistakes of others (",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "Learn from others to avoid errors)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "c)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "The sun does not forget a village just because it is small (Everyone matters, no matter how small)",
+                "qseg": [
+                  {
+                    "t": "The sun does not forget a village just because it is small",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " (Everyone matters, no matter how small) ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "d)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "One finger cannot lift a stone (We need each other)",
+                "qseg": [
+                  {
+                    "t": "One finger cannot lift a stone ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "(We need each other)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "e)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Smooth seas do not make skilful sailors (Challenges make us stronger)",
+                "qseg": [
+                  {
+                    "t": "Smooth seas do not make skilful sailors",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " (Challenges make us stronger)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "f)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "With your group, create a short role play that shows a discussion about national values. Use at least two proverbs in your role play.",
+                "qseg": [
+                  {
+                    "t": "With your group, create a short role play that shows a discussion about national values. Use at least two proverbs in your role play.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Choose a scenario for your role play from these ideas:",
+                "qseg": [
+                  {
+                    "t": "Choose a scenario for your role play from these ideas:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Learners discussing the importance of honesty after someone is caught cheating",
+                "qseg": [
+                  {
+                    "t": "Learners discussing the importance of honesty after someone is caught cheating",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "A family discussing how to work together to solve a problem",
+                "qseg": [
+                  {
+                    "t": "A family discussing how to work together to solve a problem",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "A community meeting discussing how to keep the village clean and safe",
+                "qseg": [
+                  {
+                    "t": "A community meeting discussing how to keep the village clean and safe",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Friends discussing how to show patriotism during Independence Day celebrations",
+                "qseg": [
+                  {
+                    "t": "Friends discussing how to show patriotism during Independence Day celebrations",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Plan your role play",
+                "qseg": [
+                  {
+                    "t": "Plan your role play",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Decide who will play each character",
+                "qseg": [
+                  {
+                    "t": "Decide who will play each character",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Write a short script that includes appropriate discussion phrases and proverbs",
+                "qseg": [
+                  {
+                    "t": "Write a short script that includes appropriate discussion phrases and proverbs",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Practice speaking clearly and showing respect in your discussion",
+                "qseg": [
+                  {
+                    "t": "Practice speaking clearly and showing respect in your discussion",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Use gestures and facial expressions to make your role play interesting",
+                "qseg": [
+                  {
+                    "t": "Use gestures and facial expressions to make your role play interesting",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Perform your role play for the class. After each performance, the audience should identify the proverbs used and explain what they mean.",
+                "qseg": [
+                  {
+                    "t": "Perform your role play for the class. After each performance, the audience should identify the proverbs used and explain what they mean.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "In pairs, create a short conversation using at least one proverb appropriately.",
+                "qseg": [
+                  {
+                    "t": "In pairs, create a short conversation using at least one proverb appropriately.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Tell a short story that illustrates the meaning of the following proverb: \"Where there is a will, there is a way.\"",
+                "qseg": [
+                  {
+                    "t": "Tell a short story that illustrates the meaning of the following proverb: \"Where there is a will, there is a way.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "A friend tells you that the use of proverbs when debating is useless, as proverbs do not earn you extra marks. You do not agree with your friend, so you challenge them to a short debate. Use a proverb to support your argument on a topic such as \"Hard work is the key to success\", and explain the value of proverbs in a debate.",
+                "qseg": [
+                  {
+                    "t": "A friend tells you that the use of proverbs when debating is useless, as proverbs do not earn you extra marks. You do not agree with your friend, so you challenge them to a short debate. Use a proverb to support your argument on a topic such as \"Hard work is the key to success\", and explain the value of proverbs in a debate.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Write a short essay of one paragraph with the title \"A stitch in time saves nine.\" Use the proverb to support your ideas on the importance of studying in good time.",
+                "qseg": [
+                  {
+                    "t": "Write a short essay of one paragraph with the title \"A stitch in time saves nine.\" Use the proverb to support your ideas on the importance of studying in good time.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "9.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "@@EX7@@",
+      "with": [
+        {
+          "exercise": "EXERCISE 7",
+          "parts": [
+            {
+              "lead": "Write your answers in your exercise book.",
+              "indent": false
+            },
+            {
+              "q": "Complete the table by giving one example of each type of song and the values it teaches:",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Type of Song",
+                  "Example",
+                  "Values Taught"
+                ],
+                [
+                  "Traditional",
+                  "",
+                  ""
+                ],
+                [
+                  "Religious",
+                  "",
+                  ""
+                ],
+                [
+                  "Modern",
+                  "",
+                  ""
+                ],
+                [
+                  "Patriotic/National",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Read the following description of a song performance and write a review using the \"Two Stars and a Wish\" method:",
+              "marker": "2."
+            },
+            {
+              "lead": "*\"The group sang 'Bonse Aba' in beautiful harmony. Their voices were strong, and they added a simple dance that matched the rhythm perfectly. However, some members looked nervous and forgot to smile.\"*",
+              "indent": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@FUNC@@",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "Activity 1: Discussing different functions of Literature",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "In groups, read the two paragraphs below and identify a sentence that points you to the following as functions of Literature:",
+                "qseg": [
+                  {
+                    "t": "In groups, read the two paragraphs below and identify a sentence that points you to the following as functions of Literature:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Recreation:",
+                "qseg": [
+                  {
+                    "t": "Recreation:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Education:",
+                "qseg": [
+                  {
+                    "t": "Education:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Moral teaching:",
+                "qseg": [
+                  {
+                    "t": "Moral teaching:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Preservation of Culture:",
+                "qseg": [
+                  {
+                    "t": "Preservation of Culture:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Promoting empathy:",
+                "qseg": [
+                  {
+                    "t": "Promoting empathy:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Social awareness:",
+                "qseg": [
+                  {
+                    "t": "Social awareness:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "One Saturday afternoon during the holiday, Nalishebo travelled to the village to visit her grandmother. The village was peaceful and surrounded by green trees, singing birds and fresh air. It was an opportunity for Nalishebo to fully learn the house chores such as sweeping and fetching water from quite a distant place. After helping her grandmother sweep the yard and fetch water from the nearby well, they sat together under a large mango tree to rest. As they enjoyed roasted groundnuts and cool water, grandmother smiled and said, \"Today, I will tell you one of the stories my grandmother used to tell me when I was your age.\"",
+                "qseg": [
+                  {
+                    "t": "            One Saturday afternoon during the holiday, Nalishebo travelled to the village to visit her grandmother. The village was peaceful and surrounded by green trees, singing birds and fresh air. It was an opportunity for Nalishebo to fully learn the house chores such as sweeping and fetching water from quite a distant place. After helping her grandmother sweep the yard and fetch water from the nearby well, they sat together under a large mango tree to rest. As they enjoyed roasted groundnuts and cool water, grandmother smiled and said, \"Today, I will tell you one of the stories my grandmother used to tell me when I was your age.\"",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "The story was about a clever hare who always used his intelligence to outsmart a greedy hyena. The hyena was selfish and wanted to keep all the food for himself while the hare believed that everyone should have a share. Each time the hyena tried to trick the other animals, the hare found a clever way to teach him a lesson. Nalishebo laughed loudly at the funny tricks the hare played on the hyena. She clapped her hands with excitement whenever the hyena was outwitted. The story entertained her and helped her relax after a busy week of studying at school. When the story ended, Nalishebo eagerly asked her grandmother to tell another one because she was enjoying every moment.",
+                "qseg": [
+                  {
+                    "t": "       The story was about a clever hare who always used his intelligence to outsmart a greedy hyena. The hyena was selfish and wanted to keep all the food for himself while the hare believed that everyone should have a share. Each time the hyena tried to ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "trick ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "the other animals, the hare found a clever way to teach him a lesson. Nalishebo laughed loudly at the funny tricks the hare played on the hyena. She clapped her hands with excitement whenever the hyena was outwitted. The story entertained her and helped her relax after a busy week of studying at school. When the story ended, Nalishebo eagerly asked her grandmother to tell another one because she was enjoying every moment.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "As they continued talking, grandmother explained that the story was more than just something to make people laugh. She asked Nalishebo what lessons she had learned from it. Nalishebo replied that she had learned the importance of honesty, kindness and sharing with others. Grandmother nodded and explained that people who are greedy often create problems for themselves just as the hyena did in the story. Nalishebo realised that good behaviour brings peace and happiness while selfishness leads to disappointment.",
+                "qseg": [
+                  {
+                    "t": "       As they continued talking, grandmother explained that the story was more than just something to make people laugh. She asked Nalishebo what lessons she had learned from it. Nalishebo replied that she had learned the importance of honesty, kindness and sharing with others. Grandmother nodded and explained that people who are greedy often create problems for themselves just as the hyena did in the story. Nalishebo realised that good behaviour brings peace and happiness while selfishness leads to disappointment.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "The story also helped Nalishebo learn more about her culture. It included traditional songs that the animals sang during celebrations, village customs that encouraged cooperation and beliefs that had been passed down from one generation to another. As her grandmother sang one of the old songs, Nalishebo happily joined in. She felt proud of her cultural heritage and understood why it was important to preserve such stories for future generations.",
+                "qseg": [
+                  {
+                    "t": "The story also helped Nalishebo learn more about her culture. It included traditional songs that the animals sang during celebrations, village customs that encouraged cooperation and beliefs that had been passed down from one generation to another. As her grandmother sang one of the old songs, Nalishebo happily joined in. She felt proud of her cultural heritage and understood why it was important to preserve such stories for future generations.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Some parts of the story made Nalishebo feel sad. She felt sympathy for the smaller animals that were bullied and treated unfairly by the greedy hyena. She admired the hare for standing up for those who could not defend themselves. The story inspired her to be kind, fair and ready to help people who were in need. She promised herself that she would always treat others with respect and never take advantage of anyone.",
+                "qseg": [
+                  {
+                    "t": "      Some parts of the story made Nalishebo feel sad. She felt sympathy for the smaller animals that were bullied and treated unfairly by the greedy hyena. She admired the hare for standing up for those who could not defend themselves. The story inspired her to be kind, fair and ready to help people who were in need. She promised herself that she would always treat others with respect and never take advantage of anyone.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "On Monday morning, Nalishebo returned to school full of excitement. During her Literature lesson, the teacher asked the class to share stories they had heard during the weekend. Nalishebo confidently narrated the story of the clever hare and the greedy hyena. Her classmates listened carefully, laughed at the humorous parts and discussed the important lessons they learned from it. Together, they concluded that literature does more than entertain people. It also educates, preserves culture, develops empathy, teaches moral values and helps people understand life and society better.",
+                "qseg": [
+                  {
+                    "t": "On Monday morning, Nalishebo returned to school full of excitement. During her Literature lesson, the teacher asked the class to share stories they had heard during the weekend. Nalishebo confidently narrated the story of the clever hare and the greedy hyena. Her classmates listened carefully, laughed at the humorous parts and discussed the important lessons they learned from it. Together, they concluded that literature does more than entertain people. It also educates, preserves culture, develops empathy, teaches moral values and helps people understand life and society better.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "In pairs, discuss how literature helps people in society. Explain how literature:",
+                "qseg": [
+                  {
+                    "t": "In pairs, discuss how literature helps people in society. Explain how literature:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Entertains people.",
+                "qseg": [
+                  {
+                    "t": "Entertains people.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Promotes national unity and integration.",
+                "qseg": [
+                  {
+                    "t": "Promotes national unity and integration.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Empowers people economically.",
+                "qseg": [
+                  {
+                    "t": "Empowers people economically.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Develops artistic and verbal skills.",
+                "qseg": [
+                  {
+                    "t": "Develops artistic and verbal skills.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Promotes critical and analytical thinking.",
+                "qseg": [
+                  {
+                    "t": "Promotes critical and analytical thinking.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Transmits culture from one generation to another.",
+                "qseg": [
+                  {
+                    "t": "Transmits culture from one generation to another.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "6.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "@@STORY@@",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "ACTIVITY 4: Composing Short Stories",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "In pairs compose short stories based on the following themes",
+                "qseg": [
+                  {
+                    "t": "In pairs compose short stories based on the following themes",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Gender",
+                "qseg": [
+                  {
+                    "t": "Gender",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "a.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Climate change",
+                "qseg": [
+                  {
+                    "t": "Climate change",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "b.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Corruption",
+                "qseg": [
+                  {
+                    "t": "Corruption",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "c.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Governance",
+                "qseg": [
+                  {
+                    "t": "Governance               ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "d.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Your short story should:",
+                "qseg": [
+                  {
+                    "t": "Your short story should:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "have a suitable title;",
+                "qseg": [
+                  {
+                    "t": "have a suitable title;",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "a.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "introduce the characters and the setting in the exposition;",
+                "qseg": [
+                  {
+                    "t": "introduce the characters and the setting in the exposition;",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "b.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "build up the conflict through the rising action to a climax;",
+                "qseg": [
+                  {
+                    "t": "build up the conflict through the rising action to a climax;",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "c.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "show how the conflict is resolved (falling action and resolution);",
+                "qseg": [
+                  {
+                    "t": "show how the conflict is resolved (falling action and resolution);",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "d.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "bring out a clear lesson on the theme you have chosen.",
+                "qseg": [
+                  {
+                    "t": "bring out a clear lesson on the theme you have chosen.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "aseg": [],
+                "marker": "e.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "When you have finished, read your story to the class.",
+                "qseg": [
+                  {
+                    "t": "When you have finished, read your story to the class.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "moveSectionBefore": [
+    {
+      "find": "The Meaning of Literature",
+      "until": "The Two Classrooms",
+      "before": "What is Literature?"
+    }
+  ],
+  "moveBefore": [
+    {
+      "find": "Prose structure",
+      "before": "ACTIVITY 1: Discussing prose and its structure"
+    },
+    {
+      "find": "imp_image19",
+      "before": "ACTIVITY 1: Discussing prose and its structure"
+    }
+  ],
+  "setCaption": [
+    {
+      "file": "imp_image3.",
+      "text": "Functions of Literature"
+    },
+    {
+      "file": "imp_image4.",
+      "text": "A nyau dancer entertaining the audience"
+    },
+    {
+      "file": "imp_image5.",
+      "text": "Different Zambian tribes coming together to show unity"
+    },
+    {
+      "file": "imp_image6.",
+      "text": "Reading a short story during free time",
+      "near": "Reading a short story during free time."
+    },
+    {
+      "file": "imp_image7.",
+      "text": "The various forms of Oral Literature",
+      "near": "A picture depicting the various Forms of literature"
+    },
+    {
+      "file": "imp_image8.",
+      "text": "A grandfather presenting folktales to his grandchildren"
+    },
+    {
+      "file": "imp_image9.",
+      "text": "A grandfather taking his grandchildren through folktales",
+      "near": "A grandfather taking his grandchildren through folktales"
+    },
+    {
+      "file": "imp_image11.",
+      "text": "An elder sharing a proverb with children at the community garden",
+      "near": "Children listening to stories"
+    },
+    {
+      "file": "imp_image12.",
+      "text": "A grandmother sharing a proverb with her granddaughter"
+    },
+    {
+      "file": "imp_image13.",
+      "text": "Types of proverbs"
+    },
+    {
+      "file": "imp_image14.",
+      "text": "Learners discussing songs under a tree"
+    },
+    {
+      "file": "imp_image15.",
+      "text": "Learners composing songs",
+      "near": "Learners composing songs"
+    },
+    {
+      "file": "imp_image16.",
+      "text": "A learner reciting praises before her classmates and teachers"
+    },
+    {
+      "file": "imp_image18.",
+      "text": "Common idioms and their meanings"
+    },
+    {
+      "file": "imp_image19.",
+      "text": "The structure of a plot in prose"
+    },
+    {
+      "file": "imp_image20.",
+      "text": "Learners reading short stories in class"
+    },
+    {
+      "file": "imp_image21.",
+      "text": "Children reciting poems"
+    }
+  ],
+  "removeWhereNext": [
+    {
+      "find": "A grandfather presenting folktales to his grandchildren",
+      "next": "Imagine sitting with family members"
+    },
+    {
+      "find": "Children reciting poems",
+      "next": "ELEMENTS OF POETRY"
+    }
+  ],
+  "edit": [
+    {
+      "find": "In pairs discuss the folktales and types of folktales.",
+      "with": "Explain what a folktale is and discuss the following folktales:"
+    },
+    {
+      "find": "Read the scenario below. In your groups, prepare a discussion to address the challenge.",
+      "with": "In your groups, read the scenario below and prepare a discussion to address the challenge."
+    },
+    {
+      "find": "Your task:",
+      "with": "Your group should:"
+    },
+    {
+      "find": "\"Mukwai, ule-bepa, tonse-fye-aba-fye, abana ba Zambia\".",
+      "with": "\"Bonse tuli bena Zambia\" (translated as \"we are all Zambians\")."
+    },
+    {
+      "find": "In groups discuss the recited praises above. Pick any of your choice.",
+      "with": "In groups, discuss the praises recited in Activity 2. Pick any of your choice."
+    },
+    {
+      "find": "Hit the nail on its head .",
+      "with": "Hit the nail on its head."
+    },
+    {
+      "find": "In pairs discuss prose and its structure by answering the questions below.",
+      "with": "In pairs, study the prose structure diagram above and discuss prose and its structure by answering the questions below."
+    },
+    {
+      "find": "In groups perform the poem above",
+      "with": "In groups, perform Poem Three above, Poem Four below, or any other poem on a cross-cutting issue such as drug abuse, climate change, corruption, human rights or teenage pregnancy. Read the poem several times and discuss its meaning before you perform it. Share the lines or stanzas among the members of your group. Use a clear voice and suitable volume, pace and tone to bring out the message of the poem. Use gestures and facial expressions to show the feelings in the poem. Perform the poem before the class."
+    },
+    {
+      "find": "In groups review performed poems by answering the questions below.",
+      "with": "In groups, perform \"A Shattered Dream\" before the class. Then review the performed poem by answering the questions below."
+    }
+  ],
+  "forceFreshPage": [
+    {
+      "find": "EXERCISE 7"
+    }
+  ],
+  "splitBoxTitle": [
+    {
+      "find": "Activity 1: Analysing songs",
+      "at": "Now it is your turn"
+    }
+  ],
+  "insertHead": [
+    {
+      "before": "Activity 1: Discussing Praises",
+      "head": "Praising Family Members and a Chief",
+      "as": "h2"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "Identify and discuss the different elements of drama from above.",
+      "marker": "a)",
+      "depth": 1
+    },
+    {
+      "find": "Think about characters, setting, and staging.",
+      "marker": "b)",
+      "depth": 1
+    },
+    {
+      "find": "Who are the characters? What are they doing?",
+      "marker": "c)",
+      "depth": 1
+    },
+    {
+      "find": "What does the setting look like? Where do you think the play is set?",
+      "marker": "d)",
+      "depth": 1
+    },
+    {
+      "find": "What do you think the play is about? (Theme)",
+      "marker": "e)",
+      "depth": 1
+    },
+    {
+      "find": "What is the plot?",
+      "marker": "a)",
+      "depth": 1
+    },
+    {
+      "find": "Who are the main characters?",
+      "marker": "b)",
+      "depth": 1
+    },
+    {
+      "find": "What is the main conflict or problem?",
+      "marker": "c)",
+      "depth": 1
+    },
+    {
+      "find": "What do you think the theme (main message) of the story is?",
+      "marker": "d)",
+      "depth": 1
+    },
+    {
+      "find": "Now you need to create a simple script. Don’t worry if you’ve never done this before!",
+      "marker": "a)",
+      "depth": 1
+    },
+    {
+      "find": "Create the Characters: Who are the people in your play? Give them names, and think about what they are like.",
+      "marker": "b)",
+      "depth": 1
+    },
+    {
+      "find": "Create the Setting: Where and when does your play take place?",
+      "marker": "c)",
+      "depth": 1
+    },
+    {
+      "find": "Create the Conflict: What is the problem in your play? What are the characters arguing about or struggling with?",
+      "marker": "d)",
+      "depth": 1
+    },
+    {
+      "find": "Write the Dialogue: Write the conversation between your characters. Make sure it sounds like something people would really say.",
+      "marker": "e)",
+      "depth": 1
+    },
+    {
+      "find": "Use the Elements: Make sure your script includes some of the elements we discussed in the first activity. For example, can you include a symbol or an element of irony?",
+      "marker": "f)",
+      "depth": 1
+    },
+    {
+      "find": "After you have your script, it’s time to rehearse.",
+      "marker": "a)",
+      "depth": 1
+    },
+    {
+      "find": "Decide which group member will play which character.",
+      "marker": "b)",
+      "depth": 1
+    },
+    {
+      "find": "Practice saying your lines with expression.",
+      "marker": "c)",
+      "depth": 1
+    },
+    {
+      "find": "Think about where everyone will stand on stage.",
+      "marker": "d)",
+      "depth": 1
+    },
+    {
+      "find": "Can you use simple props or costumes to make your play more interesting?",
+      "marker": "e)",
+      "depth": 1
+    }
+  ],
+  "fixExercise": [
+    {
+      "match": "Activity 1: Discussing Folktales and Types of Folktales",
+      "addParts": [
+        {
+          "text": "Fairy tales",
+          "marker": "a)",
+          "depth": 1
+        },
+        {
+          "text": "Fables",
+          "marker": "b)",
+          "depth": 1
+        },
+        {
+          "text": "Trickster tales",
+          "marker": "c)",
+          "depth": 1
+        }
+      ]
+    },
+    {
+      "match": "Activity 3: Acting Out Folktales",
+      "heading": "Activity 5: Acting Out Folktales"
+    },
+    {
+      "match": "EXERCISE",
+      "near": "Michelo was a clever",
+      "heading": "EXERCISE 5"
+    },
+    {
+      "match": "EXERCISE",
+      "near": "Youth for Values",
+      "heading": "EXERCISE 6"
+    },
+    {
+      "match": "Activity 2: Presentation of composed Praises Guidelines:",
+      "heading": "Activity 2: Presentation of composed Praises",
+      "addParts": [
+        {
+          "text": "In your group, present your composed praise to the class using the guidelines below:",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE",
+      "near": "Define praises in your own words",
+      "heading": "EXERCISE 8"
+    },
+    {
+      "match": "EXERCISE",
+      "near": "Preparing for the End- of- Term",
+      "heading": "EXERCISE 9"
+    },
+    {
+      "match": "EXERCISE Scenario",
+      "heading": "EXERCISE 1",
+      "markers": [
+        ""
+      ],
+      "addParts": [
+        {
+          "text": "**Scenario**",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE",
+      "near": "Who is the main character in this story",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE:",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "Activity 4: Reviewing performed poems",
+      "markers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        "6)"
+      ],
+      "addParts": [
+        {
+          "text": "How is the poem organised? Comment on the number of stanzas and the number of lines in each stanza.",
+          "marker": "5)",
+          "at": 5
+        }
+      ]
+    },
+    {
+      "match": "EXERCISE",
+      "near": "Maya’s team",
+      "heading": "EXERCISE 4"
+    }
+  ],
+  "//backCover": "121 pages, so the house rule wants a back cover and a spine. backCover is the opt-in key the Literature in English Form 1 TG round adds to the engine (worktree C:/z/lit-f1-tg, not yet merged on 29 Oct 2026); until it lands this key is read by nothing and the book prints without a back cover, as before.",
+  "backCover": true
 }

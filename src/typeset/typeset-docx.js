@@ -1907,6 +1907,21 @@ function applyOverrides(blocks, ov) {
         }
       }
     }
+    // A picture inside an activity/exercise box is an image PART (`kind: "image"`), not a
+    // block, so `flat` never lists it and a `file` match found nothing — the box's own
+    // picture could not be captioned at all. Look for it there too.
+    if (!b && sc.file) {
+      let part = null;
+      const walk = (arr) => {
+        for (const x of arr || []) {
+          if (!x || typeof x !== "object" || part) continue;
+          if (x.kind === "image" && (x.images || []).some((im) => (im.file || "").includes(sc.file))) { part = x; return; }
+          for (const k of Object.keys(x)) if (Array.isArray(x[k])) walk(x[k]);
+        }
+      };
+      walk(blocks);
+      if (part) { part.images.find((m) => (m.file || "").includes(sc.file)).caption = sc.text; continue; }
+    }
     if (!b) { console.warn("!  setCaption not matched:", sc.near || sc.file); continue; }
     if (b.t === "imagerow") {
       let idx = sc.index || 0;
