@@ -7,6 +7,10 @@
       "with": "UNIT THREE: WRITTEN LITERATURE"
     },
     {
+      "find": "UNIT TWO – ORAL LITERATURE",
+      "with": "UNIT TWO: ORAL LITERATURE"
+    },
+    {
       "find": "The Cultural Festival",
       "with": "Forms of Oral Literature"
     },
@@ -345,6 +349,83 @@
       "blocks": [
         {
           "para": "@@U1EX1@@"
+        }
+      ]
+    },
+    {
+      "near": "Why the Parrot Talks",
+      "before": "EXERCISE 1",
+      "exact": true,
+      "drop": 30,
+      "blocks": [
+        {
+          "para": "@@EXOL1@@"
+        }
+      ]
+    },
+    {
+      "near": "Activity 1: Discussing Praises",
+      "before": "Activity 2: Reciting Praises",
+      "exact": true,
+      "drop": 2,
+      "blocks": [
+        {
+          "para": "@@RECITE@@"
+        }
+      ]
+    },
+    {
+      "near": "Discussing Recited Praises",
+      "before": "ACTIVITY 3: Analysing Praises",
+      "exact": true,
+      "drop": 12,
+      "blocks": [
+        {
+          "para": "@@ANALYSE@@"
+        }
+      ]
+    },
+    {
+      "near": "@@ANALYSE@@",
+      "before": "ACTIVITY 3: Presenting Analysed Praises",
+      "exact": true,
+      "drop": 4,
+      "blocks": [
+        {
+          "para": "@@PRESENT@@"
+        }
+      ]
+    },
+    {
+      "near": "Activity 1: Composing Praises",
+      "before": "Activity 1: Composing Praises",
+      "exact": true,
+      "drop": 22,
+      "blocks": [
+        {
+          "para": "@@COMPOSE@@"
+        }
+      ]
+    },
+    {
+      "near": "Presentation of composed Praises",
+      "before": "Activity 3: Reviewing presented Praises",
+      "exact": true,
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "@@REVIEWP@@"
+        }
+      ]
+    },
+    {
+      "near": "@@REVIEWP@@",
+      "before": "EXERCISE",
+      "exact": true,
+      "drop": 2,
+      "blocks": [
+        {
+          "para": "@@EXPRAISE@@"
         }
       ]
     }
@@ -3225,6 +3306,595 @@
           }
         }
       ]
+    },
+    {
+      "find": "@@EXOL1@@",
+      "with": [
+        {
+          "exercise": "EXERCISE 1",
+          "parts": [
+            {
+              "lead": "*Read each of the following expressions and determine which form of oral literature each represents. Provide a short explanation for your answer.*",
+              "indent": false
+            },
+            {
+              "lead": "**The Exhibition Disaster**",
+              "indent": false
+            },
+            {
+              "lead": "The District Cultural Exhibition was only two days away. Monze Secondary School’s Literature Club had been selected to represent the school. Their display stand would showcase Zambian oral literature: folktales, proverbs, riddles, idioms, myths, and beliefs.",
+              "indent": false
+            },
+            {
+              "lead": "On the final day of preparation, disaster struck. A strong wind blew through the classroom, scattering all the display cards. The cards had been carefully prepared with examples of oral literature, but now they were mixed up on the floor. The students rushed to pick them up, but they could not remember which examples belonged to which category.",
+              "indent": false
+            },
+            {
+              "lead": "**The Confusion**",
+              "indent": false
+            },
+            {
+              "lead": "One student held up a card reading: \"A bird in the hand is worth two in the bush.\"",
+              "indent": false
+            },
+            {
+              "lead": "Another picked up: \"What has keys but cannot open locks?\"",
+              "indent": false
+            },
+            {
+              "lead": "A third found: \"Once there was a tortoise who wanted to fly and tricked the birds to help him.\"",
+              "indent": false
+            },
+            {
+              "lead": "A fourth read: \"He spilled the beans about the surprise party.\"",
+              "indent": false
+            },
+            {
+              "lead": "A fifth found: \"A pregnant woman must not eat eggs.\"",
+              "indent": false
+            },
+            {
+              "lead": "The team panicked. They argued about whether these were folktales, proverbs, riddles, idioms, or beliefs. Some members thought everything was just a \"story.\" Others believed proverbs and idioms were the same thing.",
+              "indent": false
+            },
+            {
+              "lead": "**The Challenge**",
+              "indent": false
+            },
+            {
+              "lead": "The club president, Chanda, knew the judges would visit their stand the next day and ask questions. If the team could not correctly identify and explain each item, their school would lose the competition.",
+              "indent": false
+            },
+            {
+              "lead": "Chanda gathered everyone and said: \"We must learn the different forms of oral literature tonight. We need to know their features, purposes, and examples. Let’s help each other understand so we can win tomorrow.\"",
+              "indent": false
+            },
+            {
+              "lead": "**Your Task**",
+              "indent": false
+            },
+            {
+              "lead": "As a member of the Literature Club, you must study the different forms of oral literature. You need to identify, explain, analyse, and defend each example so that your school can win the competition.",
+              "indent": false
+            },
+            {
+              "lead": "**Questions**",
+              "indent": false
+            },
+            {
+              "q": "Define oral literature and list any four forms of oral literature found in the story.",
+              "marker": "1."
+            },
+            {
+              "q": "Read the examples from the story and identify the form of oral literature each represents. Explain why each belongs to that form.",
+              "marker": "2."
+            },
+            {
+              "q": "\"A bird in the hand is worth two in the bush.\"",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "\"What has keys but cannot open locks?\"",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "\"Once there was a tortoise who wanted to fly and tricked the birds to help him.\"",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "\"He spilled the beans about the surprise party.\"",
+              "marker": "d)",
+              "depth": 1
+            },
+            {
+              "q": "\"A pregnant woman must not eat eggs.\"",
+              "marker": "e)",
+              "depth": 1
+            },
+            {
+              "q": "Imagine you are at the exhibition. The judges ask you: \"Why are riddles and proverbs important in Zambian culture?\" What would you say? Use examples from the story to support your answer.",
+              "marker": "3."
+            },
+            {
+              "q": "Compare and contrast the following two expressions from the story:",
+              "marker": "4."
+            },
+            {
+              "lead": "\"A bird in the hand is worth two in the bush.\" (Proverb)",
+              "indent": true
+            },
+            {
+              "lead": "\"He spilled the beans about the surprise party.\" (Idiom)",
+              "indent": true
+            },
+            {
+              "lead": "How are they similar? How are they different in terms of purpose, meaning, and usage?",
+              "indent": true
+            },
+            {
+              "q": "Some people argue that forms like myths and superstitions (e.g., \"A pregnant woman must not eat eggs\") are outdated and should not be taught in schools. Do you agree or disagree? Evaluate this statement. Justify your answer with at least three reasons based on the functions of oral literature.",
+              "marker": "5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@RECITE@@",
+      "with": [
+        {
+          "exercise": "Activity 2: Reciting Praises",
+          "parts": [
+            {
+              "lead": "**Step 1: How to Recite Praises**",
+              "indent": false
+            },
+            {
+              "lead": "When you recite a praise, you must use your voice, your body, and your emotions to bring the words to life!",
+              "indent": false
+            },
+            {
+              "lead": "**Key Elements of Praises:**",
+              "indent": false
+            },
+            {
+              "table": [
+                [
+                  "Element",
+                  "What It Means",
+                  "Example"
+                ],
+                [
+                  "Volume",
+                  "How loud or soft you speak",
+                  "Speak loudly to show power and strength"
+                ],
+                [
+                  "Pace",
+                  "How fast or slow you speak",
+                  "Speak slowly for important, thoughtful parts"
+                ],
+                [
+                  "Tone",
+                  "The feeling in your voice",
+                  "Sound proud, happy, or grateful"
+                ],
+                [
+                  "Gestures",
+                  "Movements of your hands and body",
+                  "Raise your hands when praising the sky"
+                ],
+                [
+                  "Facial Expressions",
+                  "How your face shows emotion",
+                  "Smile when praising beauty; look serious when praising a hero"
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@ANALYSE@@",
+      "with": [
+        {
+          "exercise": "ACTIVITY 3: Analysing Praises",
+          "parts": [
+            {
+              "lead": "**Step 1: What Does It Mean to Analyse a Praise?**",
+              "indent": false
+            },
+            {
+              "lead": "**Analysis** means looking at something closely and thinking about its meaning, message, and context.",
+              "indent": false
+            },
+            {
+              "lead": "**Three Things to Analyse:**",
+              "indent": false
+            },
+            {
+              "q": "Message: What is the praise trying to say?",
+              "marker": "1."
+            },
+            {
+              "q": "Meaning: What do the words really mean (literal and hidden)?",
+              "marker": "2."
+            },
+            {
+              "q": "Context: Why was this praise created? Who is it for?",
+              "marker": "3."
+            },
+            {
+              "lead": "**Example 1:**",
+              "indent": false
+            },
+            {
+              "lead": "*\"You are the bright sun that warms our village, dear mother.\"*",
+              "indent": false
+            },
+            {
+              "table": [
+                [
+                  "Element",
+                  "Analysis"
+                ],
+                [
+                  "Message",
+                  "The speaker is showing love and gratitude to their mother."
+                ],
+                [
+                  "Literal Meaning",
+                  "The mother is being compared to the sun."
+                ],
+                [
+                  "Figurative Meaning",
+                  "Just as the sun gives light and warmth, the mother gives love, care, and life to the family."
+                ],
+                [
+                  "Context",
+                  "This praise could be from a child to their mother during a family ceremony. It shows how much the mother is valued."
+                ]
+              ]
+            },
+            {
+              "lead": "**Example 2:**",
+              "indent": false
+            },
+            {
+              "lead": "*\"The eagle watches from the sky, seeing all, knowing all.\"*",
+              "indent": false
+            },
+            {
+              "table": [
+                [
+                  "Element",
+                  "Analysis"
+                ],
+                [
+                  "Message",
+                  "The speaker is praising someone’s wisdom and vision."
+                ],
+                [
+                  "Literal Meaning",
+                  "The person sees everything like an eagle."
+                ],
+                [
+                  "Figurative Meaning",
+                  "The person is wise, observant, and sees what others miss."
+                ],
+                [
+                  "Context",
+                  "This could be about a chief or a leader who is expected to be wise and all-knowing."
+                ]
+              ]
+            },
+            {
+              "lead": "Work in pairs and analyse this praise:",
+              "indent": false
+            },
+            {
+              "lead": "*\"I am stronger than the baobab tree, my roots run deep in this land.\"*",
+              "indent": false
+            },
+            {
+              "lead": "Discuss:",
+              "indent": false
+            },
+            {
+              "q": "What is the message of this praise?",
+              "marker": "1."
+            },
+            {
+              "q": "What does it mean literally?",
+              "marker": "2."
+            },
+            {
+              "q": "What does it mean figuratively (hidden meaning)?",
+              "marker": "3."
+            },
+            {
+              "q": "Who might say this and why?",
+              "marker": "4."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@PRESENT@@",
+      "with": [
+        {
+          "exercise": "ACTIVITY 3: Presenting Analysed Praises",
+          "parts": [
+            {
+              "q": "Each group chooses one praise from those we have studied.",
+              "marker": "1."
+            },
+            {
+              "q": "Analyse it together using the table below:",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Element",
+                  "Your Analysis"
+                ],
+                [
+                  "Message",
+                  ""
+                ],
+                [
+                  "Literal Meaning",
+                  ""
+                ],
+                [
+                  "Figurative Meaning",
+                  ""
+                ],
+                [
+                  "Context",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Prepare a short presentation to share your analysis with the class.",
+              "marker": "3."
+            },
+            {
+              "q": "During your presentation, recite the praise first, then explain your analysis.",
+              "marker": "4."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@COMPOSE@@",
+      "with": [
+        {
+          "exercise": "Activity 1: Composing Praises",
+          "parts": [
+            {
+              "lead": "**The Ingredients of a Good Praise:**",
+              "indent": false
+            },
+            {
+              "q": "**Subject:** Who or what are you praising? (e.g., a hero, a parent, nature, God, yourself)",
+              "marker": "1."
+            },
+            {
+              "q": "**Imagery:** Use words that create pictures in the listener’s mind.",
+              "marker": "2."
+            },
+            {
+              "q": "**Comparisons:** Use similes and metaphors (like \"brave as a lion\").",
+              "marker": "3."
+            },
+            {
+              "q": "**Repetition:** Repeat important words for effect.",
+              "marker": "4."
+            },
+            {
+              "q": "**Emotion:** Show how you really feel.",
+              "marker": "5."
+            },
+            {
+              "q": "**Rhythm:** Use a flowing, musical rhythm.",
+              "marker": "6."
+            },
+            {
+              "lead": "**Example: Composing a Praise About a Hero**",
+              "indent": false
+            },
+            {
+              "lead": "**Subject:** Kenneth Kaunda",
+              "indent": false
+            },
+            {
+              "lead": "**Brainstorming Words:**\nFreedom, courage, wisdom, peace, independence, Zambia, lion, father, unity",
+              "indent": false
+            },
+            {
+              "lead": "**Creating Comparisons:**",
+              "indent": false
+            },
+            {
+              "q": "Brave as a lion",
+              "marker": "1."
+            },
+            {
+              "q": "Wise as an elder",
+              "marker": "2."
+            },
+            {
+              "q": "Father of the nation",
+              "marker": "3."
+            },
+            {
+              "q": "Shield of the people",
+              "marker": "4."
+            },
+            {
+              "lead": "**Writing the Praise:**",
+              "indent": false
+            },
+            {
+              "lead": "*\"Kenneth Kaunda, father of our nation,*\n*You are the lion that roared for freedom,*\n*Your courage cut the chains of colonialism,*\n*Your wisdom built a house of unity!*",
+              "indent": false
+            },
+            {
+              "lead": "*We sing your praise through the valleys,*\n*We shout your name from the mountains,*\n*Peace-maker, liberator, hero of the land!*\n*Your legacy lives in the heart of Zambia!\"*",
+              "indent": false
+            },
+            {
+              "lead": "**Compose Your Own Praise!**",
+              "indent": false
+            },
+            {
+              "q": "Choose one subject from the list below:",
+              "marker": "1."
+            },
+            {
+              "q": "A Zambian hero (e.g., Kenneth Kaunda, Simon Mwansa Kapwepwe, Harry Mwaanga Nkumbula)",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "Your mother or father",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "A natural wonder (e.g., Victoria Falls, Zambezi River, a beautiful mountain)",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "Yourself (a self-praise)",
+              "marker": "d)",
+              "depth": 1
+            },
+            {
+              "q": "Brainstorm words connected to your subject.",
+              "marker": "2."
+            },
+            {
+              "q": "Create comparisons (use \"like\" or \"as\").",
+              "marker": "3."
+            },
+            {
+              "q": "Write your praise using the steps above.",
+              "marker": "4."
+            },
+            {
+              "q": "Revise your praise to make it more powerful.",
+              "marker": "5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@REVIEWP@@",
+      "with": [
+        {
+          "exercise": "Activity 3: Reviewing presented Praises",
+          "parts": [
+            {
+              "lead": "In your group, take turns answering these questions:",
+              "indent": false
+            },
+            {
+              "table": [
+                [
+                  "Question",
+                  "Why We Ask This"
+                ],
+                [
+                  "What did you like most about this praise?",
+                  "To find the first star"
+                ],
+                [
+                  "What else was good about the presentation?",
+                  "To find the second star"
+                ],
+                [
+                  "What could make this praise even better?",
+                  "To find the wish"
+                ]
+              ]
+            },
+            {
+              "lead": "**Important Rule: Everyone in your group must share at least ONE thought!**",
+              "indent": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "@@EXPRAISE@@",
+      "with": [
+        {
+          "exercise": "EXERCISE",
+          "parts": [
+            {
+              "q": "Define praises in your own words.",
+              "marker": "1."
+            },
+            {
+              "q": "Write **True** or **False** to the following statements.",
+              "marker": "2."
+            },
+            {
+              "lead": "Praises can only be about God. (True / False)",
+              "indent": true
+            },
+            {
+              "lead": "\"My mother is the heart of our home\" is an example of a praise. (True / False)",
+              "indent": true
+            },
+            {
+              "q": "Name three types of praises.",
+              "marker": "3."
+            },
+            {
+              "q": "Why are praises important in Zambian culture?",
+              "marker": "4."
+            },
+            {
+              "q": "Analyse this praise: \"You are the eagle that watches over our village, wise chief.\"",
+              "marker": "5."
+            },
+            {
+              "table": [
+                [
+                  "Element",
+                  "Your Analysis"
+                ],
+                [
+                  "Message",
+                  ""
+                ],
+                [
+                  "Meaning",
+                  ""
+                ],
+                [
+                  "Context",
+                  ""
+                ]
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "moveSectionBefore": [
@@ -4194,6 +4864,86 @@
       "find": "state two moral lessons that can be learned",
       "marker": "14.",
       "depth": 0
+    },
+    {
+      "find": "Written Literature is created and preserved i",
+      "marker": "1."
+    },
+    {
+      "find": "Written Literature can be stored, archived, a",
+      "marker": "2."
+    },
+    {
+      "find": "With written Literature, readers engage with",
+      "marker": "3."
+    },
+    {
+      "find": "Written Literature is attributed to a specifi",
+      "marker": "4."
+    },
+    {
+      "find": "Written Literature requires the ability to re",
+      "marker": "5."
+    },
+    {
+      "find": "Who is the main character in this story?",
+      "marker": "1.",
+      "depth": 0
+    },
+    {
+      "find": "What is the conflict of the story?",
+      "marker": "2.",
+      "depth": 0
+    },
+    {
+      "find": "Identify the different places in which the st",
+      "marker": "3.",
+      "depth": 0
+    },
+    {
+      "find": "Discuss the plot twist in the headteacher’s o",
+      "marker": "4.",
+      "depth": 0
+    },
+    {
+      "find": "Explore how the author develops the conflict",
+      "marker": "5.",
+      "depth": 0
+    },
+    {
+      "find": "What themes can you identify in the story abo",
+      "marker": "6.",
+      "depth": 0
+    },
+    {
+      "find": "What moral lesson is the story teaching?",
+      "marker": "7.",
+      "depth": 0
+    },
+    {
+      "find": "Imagine yourself in Vitumbiko’s shoes. How wo",
+      "marker": "8.",
+      "depth": 0
+    },
+    {
+      "find": "In \"A Shattered Dream\", what theme is the poe",
+      "marker": "1.",
+      "depth": 0
+    },
+    {
+      "find": "Identify imagery, if any, used in the poem an",
+      "marker": "2.",
+      "depth": 0
+    },
+    {
+      "find": "What tone and mood are permeating the poem?",
+      "marker": "3.",
+      "depth": 0
+    },
+    {
+      "find": "What is personification? Identify personifica",
+      "marker": "4.",
+      "depth": 0
     }
   ],
   "fixExercise": [
@@ -4263,12 +5013,12 @@
         null,
         null,
         null,
-        "6)"
+        "6."
       ],
       "addParts": [
         {
           "text": "How is the poem organised? Comment on the number of stanzas and the number of lines in each stanza.",
-          "marker": "5)",
+          "marker": "5.",
           "at": 5
         }
       ],
@@ -4471,5 +5221,11 @@
     }
   ],
   "fmSpacing": "1.3em",
-  "//frontMatterHouse": "2026-10-29, second pass (user compared the front matter with the Physics Form 2 LB): the manuscript's 'Preface' is the Ministry text and its 'Foreword' ZEPH's, so they are renamed (house: Foreword = Ministry, signed by the PS; Preface = ZEPH, signed by the Board Chairperson) and stand in that order without a move; Acknowledgement (singular) = the house ZEPH five-paragraph text, as on the Teacher's Guide, with this book's thanks to Mr Milimo, CDC and ECZ folded in; signatories 'Name (Ms)/(Dr)/(PhD)', set by the engine; fmSpacing 1.3em as on the TG."
+  "//frontMatterHouse": "2026-10-29, second pass (user compared the front matter with the Physics Form 2 LB): the manuscript's 'Preface' is the Ministry text and its 'Foreword' ZEPH's, so they are renamed (house: Foreword = Ministry, signed by the PS; Preface = ZEPH, signed by the Board Chairperson) and stand in that order without a move; Acknowledgement (singular) = the house ZEPH five-paragraph text, as on the Teacher's Guide, with this book's thanks to Mr Milimo, CDC and ECZ folded in; signatories 'Name (Ms)/(Dr)/(PhD)', set by the engine; fmSpacing 1.3em as on the TG.",
+  "//exercise1Oral": "2026-10-29 final check: Unit Two Exercise 1 boxed whole. The manuscript boxed only its one-line instruction; the scenario it refers to (The Exhibition Disaster / The Confusion / The Challenge / Your Task) and questions 1-5 printed as open text, and the two story titles showed in the contents as sections. Rebuilt as one exercise (insertBlocks marker + replaceBlocks), like Unit One's Exercise 2 (The Story of the Lost Drum); wording as the book already had it.",
+  "//unitTwo": "2026-10-29: Unit Two typed with a dash (UNIT TWO – ORAL LITERATURE) while Units One and Three use a colon; set alike (banner, running header, contents).",
+  "//recitePraises": "2026-10-29 final check: Activity 2 (Reciting Praises) printed its Step 1 lines as numbered questions 1-3 and its Key Elements table outside the box. Rebuilt: Step 1, its sentence and the table inside the box; Step 2 stays outside as the lead-in to the praise activities after it.",
+  "//praiseBoxes": "2026-10-29 final check: Activities 5 (Analysing Praises) and 6 (Presenting Analysed Praises) ended their boxes at the first table, so both worked examples, the pair-work praise and steps 3-4 printed outside. Rebuilt whole (marker + replaceBlocks); headings keep the manuscript wording so fixExercise still renumbers them.",
+  "//praiseBoxes2": "2026-10-29 final check, same fault: Activity 7 (Composing Praises) boxed only its ingredients - the worked example and the Compose Your Own Praise task printed outside; Activity 9 (Reviewing presented Praises) had its Question / Why We Ask This table flattened into numbered lines (\"praise?To find the first star\"); Exercise 10 left its analysis table outside. All three rebuilt whole. Rhythm and the mother line are corrected in the rebuilt boxes themselves (the edit entries do not reach box parts).",
+  "//parenMarkers": "2026-10-29 final check: three lists in Unit Three (Differences Between Written and Oral Literature, Exercise 2, Activity 3 Reviewing performed poems) numbered 1) 2) 3) where every other list in the book reads 1. 2. 3.; set alike."
 }
