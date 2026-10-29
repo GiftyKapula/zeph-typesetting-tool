@@ -987,11 +987,14 @@ async function typesetOne(docxPath, themeName) {
       if (w) labels[k] = w;
     }
     themeOverrides.labels = labels;
+    // the book's own book-type words (coverWords.booktype, already on its cover and title
+    // page) win over the word list's first form in the running header too
+    const ownType = ov.coverWords && ov.coverWords.booktype;
     const tr = (s) => s
       .replace(/\bgrade\b/i, (m) => labels.grade || m)
       .replace(/\bform\b/i, (m) => labels.form || m)
-      .replace(/teacher['’]?s\s+guide/i, (m) => labels.tg || m)
-      .replace(/learner['’]?s\s+book/i, (m) => labels.lb || m);
+      .replace(/teacher['’]?s\s+guide/i, (m) => ownType || labels.tg || m)
+      .replace(/learner['’]?s\s+book/i, (m) => ownType || labels.lb || m);
     if (themeOverrides.hdrtab) themeOverrides.hdrtab = titleCase(tr(themeOverrides.hdrtab));
     const lvlId = { "Early Childhood Education Level": "level_ece", "Primary Education Level": "level_primary",
       "Secondary Education Ordinary Level": "level_ordinary", "Secondary Education Advanced Level": "level_advanced" }[eduLevel];
