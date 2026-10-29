@@ -2355,7 +2355,9 @@
       #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
       #v(8pt)
       #line(length: 100%, stroke: 0.6pt + T.rulec)]
-    v(7pt)
+    // the first line of text sits ~28pt below the rule, as in the Physics Form 2 LB
+    // (the series books get the rest of that gap from their 1.9em front-matter spacing)
+    v(14pt)
   } else if literary {
     // centred chapter title flanked by thin gold rules — a literary look
     v(12pt, weak: true)
