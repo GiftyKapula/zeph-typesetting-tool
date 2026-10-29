@@ -28,7 +28,7 @@
     },
     {
       "find": "outside conditions are unfavourable.",
-      "with": "outside conditions are unfavourable. This provides an analogy model of the natural greenhouse and what it does to the inhabitants of the Earth."
+      "with": "outside conditions are unfavourable. A greenhouse therefore provides a model of the natural greenhouse effect and how it affects life on Earth."
     },
     {
       "find": "Analyse the following scenarios and determine whether work is done or not.",
@@ -177,7 +177,7 @@
     },
     {
       "file": "imp_image37.",
-      "text": "Figure 37: An analogy model of the atmospheric greenhouse effect"
+      "text": "Figure 37: A model of the atmospheric greenhouse effect"
     },
     {
       "file": "imp_image39.",
@@ -210,7 +210,7 @@
   "editCell": [
     {
       "find": "Solving puzzle in groups",
-      "with": "Solving puzzles in groups"
+      "with": "Solve puzzles in groups"
     },
     {
       "find": "Dispose trash",
@@ -298,7 +298,7 @@
     },
     {
       "find": "Ideal Gas Equation",
-      "with": "Combined Gas Law"
+      "with": "Combined gas law"
     },
     {
       "find": "Compression ignition engine",
@@ -314,7 +314,15 @@
     },
     {
       "find": "Charles' Law",
-      "with": "Charles’ Law"
+      "with": "Charles’ law"
+    },
+    {
+      "find": "Boyle’s Law",
+      "with": "Boyle’s law"
+    },
+    {
+      "find": "Gay-Lussac’s Law",
+      "with": "Gay-Lussac’s law"
     },
     {
       "find": "frac(V_(1), T_(1))",
@@ -397,10 +405,6 @@
     {
       "find": "Work in pairs or individually, use an electric fan",
       "with": "Working in pairs or individually, use an electric fan"
-    },
-    {
-      "find": "linear momentum in everyday life",
-      "with": "linear momentum in everyday life."
     },
     {
       "find": "Linear Momentum in Real World Scenarios",
@@ -603,10 +607,6 @@
       "with": "In Learning Activity 20, you will explore the operation of the internal combustion engine."
     },
     {
-      "find": "Power stroke:",
-      "with": "Power Stroke:"
-    },
-    {
       "find": "Creating a model of internal combustion engine",
       "with": "Creating a model of an internal combustion engine"
     },
@@ -793,6 +793,138 @@
     {
       "find": "input (driver) gear",
       "with": "input (driving) gear"
+    },
+    {
+      "find": "the basics of Mechanics",
+      "with": "the basics of mechanics"
+    },
+    {
+      "find": "When a larger force is applied, the object generally moves a greater distance, resulting in more work being done.",
+      "with": "When a larger force is applied over the same displacement, more work is done."
+    },
+    {
+      "find": "It can be calculated using the equation,",
+      "with": "It can be calculated using the equation:"
+    },
+    {
+      "find": "The momentum of each trolley.",
+      "with": "the momentum of each trolley."
+    },
+    {
+      "find": "The total momentum of the system.",
+      "with": "the total momentum of the system."
+    },
+    {
+      "find": "law of conservation of momentum",
+      "with": "Law of Conservation of Momentum"
+    },
+    {
+      "find": "This means that the total momentum before a collision is equal to the total momentum after a collision. This supports the Law",
+      "with": "This is described by the Law"
+    },
+    {
+      "find": "State the type of collision illustrated in this scenario.",
+      "with": "Using the kinetic energy before and after the collision, state the type of collision illustrated in this scenario."
+    },
+    {
+      "find": "destinations more quickly while excessive",
+      "with": "destinations more quickly, while excessive"
+    },
+    {
+      "find": "driver gear having 20 teeth",
+      "with": "driving gear having 20 teeth"
+    },
+    {
+      "find": "on that point and consequently, the pressure.",
+      "with": "on that point and, consequently, the pressure."
+    },
+    {
+      "find": "the formula for pressure of fluids",
+      "with": "the formula for pressure in fluids"
+    },
+    {
+      "find": "explain how the density of the fluid and how the depth affect the pressure exerted",
+      "with": "explain how the density of the fluid affects the pressure exerted at the same depth"
+    },
+    {
+      "find": "–10 °C",
+      "with": "−10 °C"
+    },
+    {
+      "find": "–273 °C",
+      "with": "−273 °C"
+    },
+    {
+      "find": "It begins at absolute zero (0 K)",
+      "with": "The Kelvin scale begins at absolute zero (0 K)"
+    },
+    {
+      "find": "Temperature in kelvin = Celsius + 273",
+      "with": "Temperature in kelvin = temperature in degrees Celsius + 273"
+    },
+    {
+      "find": "samples of different pure substances such as ice, candle wax, naphthalene, and water",
+      "with": "samples of different substances such as ice, candle wax, naphthalene and water"
+    },
+    {
+      "find": "classified according to the method of ignition used to ignite the fuel-air mixture",
+      "with": "classified according to the method of ignition and their design"
+    },
+    {
+      "find": "Intake Stroke:",
+      "with": "Intake stroke:"
+    },
+    {
+      "find": "Compression Stroke:",
+      "with": "Compression stroke:"
+    },
+    {
+      "find": "Exhaust Stroke:",
+      "with": "Exhaust stroke:"
+    },
+    {
+      "find": "Hybrid Engine:",
+      "with": "Hybrid engine:"
+    },
+    {
+      "find": "Homogeneous Charge Compression Ignition (HCCI) Engine:",
+      "with": "Homogeneous charge compression ignition (HCCI) engine:"
+    },
+    {
+      "find": "Electric Motor:",
+      "with": "Electric motor:"
+    },
+    {
+      "find": "Hydrogen Fuel Cell Engine:",
+      "with": "Hydrogen fuel cell engine:"
+    },
+    {
+      "find": "However, water in the bucket has more thermal energy because it has a greater mass of water",
+      "with": "However, the water in the bucket has more thermal energy because it has a greater mass"
+    },
+    {
+      "find": "generated waves by moving one end up and down and then pushing and pulling it back and forth.",
+      "with": "generated waves by moving one end up and down. The learner then pushed and pulled one end of a slinky spring back and forth."
+    },
+    {
+      "find": "Identify the type of wave produced when the rope was moved:",
+      "with": "Identify the type of wave produced when:"
+    },
+    {
+      "find": "with those of another pair",
+      "with": "with those of others"
+    },
+    {
+      "find": "Understanding properties of sound",
+      "with": "Understanding the properties of sound"
+    },
+    {
+      "find": "investigated how pitch, loudness and timbre affect the quality of sound",
+      "with": "investigated how overtones and waveform affect the quality (timbre) of sound"
+    },
+    {
+      "find": "another group uses a slinky spring.",
+      "with": "another group pushes and pulls a slinky spring along its length."
     },
     {
       "find": "metre rule",
@@ -2333,7 +2465,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "A farmer stores water in a tank mounted 8 m above the ground. A 5 kg metallic bucket is lifted to the top of the tank platform. Later, the metallic bucket accidentally falls and reaches a speed of 10 m/s just before hitting the ground. Using this information:",
+                "t": "A farmer stores water in a tank mounted 8 m above the ground. A 5 kg metallic bucket is lifted to the top of the tank platform. Later, the metallic bucket accidentally falls and reaches a speed of 12 m/s just before hitting the ground. Using this information:",
                 "b": false,
                 "it": false,
                 "c": null
@@ -2372,7 +2504,7 @@
             "t": "listitem",
             "segs": [
               {
-                "t": "Calculate the kinetic energy of the metallic bucket when it is moving at 10 m/s.",
+                "t": "Calculate the kinetic energy of the metallic bucket when it is moving at 12 m/s.",
                 "b": false,
                 "it": false,
                 "c": null
@@ -2402,6 +2534,120 @@
             "marker": "(c)",
             "numId": "3",
             "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Velocity (v) = 10 m/s",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Velocity (v) = 12 m/s",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "E\"\"_(\"k\") = ½ × 5 × (10)²",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "E",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"k\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = ½ × 5 × (12)²",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "E\"\"_(\"k\") = ½ × 5 × 100",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "E",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"k\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = ½ × 5 × 144",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "E\"\"_(\"k\") = 250 J",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "E",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "\"\"_(\"k\")",
+                "m": true,
+                "display": false,
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " = 360 J",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
           }
         }
       ]
@@ -2709,7 +2955,7 @@
             "t": "para",
             "segs": [
               {
-                "t": "Use a bucket filled with sand and vary the amount of sand to make the investigation more realistic. Use a bucket, rope, weighing balance, metre rule and stopwatch. Fill the bucket with sand to about three-quarters full. Measure the mass of the bucket and sand using the weighing balance and calculate its weight using W = mg. Attach the rope to the bucket and raise it through a known vertical height. The height through which the bucket is lifted must remain the same for all trials. Use the stopwatch to record the time taken to lift the bucket through this height. Calculate the work done using W = F × s, and then determine the power developed using P = W/t. Repeat the activity using the bucket half-filled and then quarter-filled with sand, ensuring that the same vertical height is maintained in every trial. Record the results in a table and compare the power developed for each amount of sand. Based on your findings, explain how the amount of work done and the time taken affect the power developed by a mechanical system.",
+                "t": "Use a bucket, sand, a rope, a weighing balance, a metre rule and a stopwatch, and vary the amount of sand to make the investigation more realistic. Fill the bucket with sand to about three-quarters full. Measure the mass of the bucket and sand using the weighing balance and calculate its weight using W = mg. Attach the rope to the bucket and raise it through a known vertical height. The height through which the bucket is lifted must remain the same for all trials. Use the stopwatch to record the time taken to lift the bucket through this height. Calculate the work done using W = F × s, and then determine the power developed using P = W/t. Repeat the activity using the bucket half-filled and then quarter-filled with sand, ensuring that the same vertical height is maintained in every trial. Record the results in a table and compare the power developed for each amount of sand. Based on your findings, explain how the amount of work done and the time taken affect the power developed by a mechanical system.",
                 "b": false,
                 "it": true,
                 "c": null
@@ -9499,10 +9745,10 @@
         {
           "raw": {
             "kind": "q",
-            "q": "up and down; and                                                                                        [1]",
+            "q": "the rope was moved up and down; and                                                                                        [1]",
             "qseg": [
               {
-                "t": "up and down; and                                                                                        [1]",
+                "t": "the rope was moved up and down; and                                                                                        [1]",
                 "b": false,
                 "it": true,
                 "c": null
@@ -9521,10 +9767,10 @@
         {
           "raw": {
             "kind": "q",
-            "q": "back and forth.                                                                                             [1]",
+            "q": "the slinky spring was pushed and pulled back and forth.                                                                                             [1]",
             "qseg": [
               {
-                "t": "back and forth.                                                                                             [1]",
+                "t": "the slinky spring was pushed and pulled back and forth.                                                                                             [1]",
                 "b": false,
                 "it": true,
                 "c": null

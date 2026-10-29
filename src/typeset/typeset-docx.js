@@ -5100,6 +5100,12 @@ function ensureOrIndividually(blocks) {
       if (!b || typeof b !== "object") continue;
       if (b.t === "activity") {
         const bodyArr = Array.isArray(b.body) ? b.body : [];
+        // An activity that already gives learners their own individual route ("Alternatively,
+        // as an individual, use…") must not also be told "in groups or individually" — the
+        // Physics Form 2 LB's Learning Activity 10 then said it twice.
+        const ownIndividualRoute = bodyArr.some((sub) => sub && Array.isArray(sub.segs)
+          && /\bas an individual\b|\bindividually,? (?:use|carry|do|complete)\b/i.test(sub.segs.map((s) => s.t || "").join("")));
+        if (ownIndividualRoute) continue;
         for (const sub of bodyArr) {
           if (sub && Array.isArray(sub.segs)) {
             for (let i = 0; i < sub.segs.length; i++) {
