@@ -20,5 +20,5 @@
   "fmSpacing": "1.3em",
   "//fmSpacing": "Front matter in the house look (user compared it with the Physics Form 2 LB, 2026-10-29): paragraph gap 1.3em, the most that keeps the Foreword to two pages.",
   "//frontMatter": "2026-10-29: front matter set to the house model (Physics Form 2 LB): Foreword = Ministry text, Preface = ZEPH text; Acknowledgement = the house ZEPH five-paragraph text adapted to this book (user: \"yes use the house acknowledgement\"), with the authors' thanks to Vision Milimo, CDC and ECZ folded in. Done in the rebuild (C:/z/lit-work/cleanup.mjs).",
-  "//preface": "The PREFACE was the Learner's Book's word for word; rewritten in the teacher's voice naming the Teacher's Guide (user, 2026-10-29), in the rebuild (cleanup.mjs). Its Foreword page break is no longer needed."
+  "//preface": "The PREFACE was the Learner's Book's word for word; rewritten in the teacher's voice naming the Teacher's Guide (user, 2026-10-29), in the rebuild (cleanup.mjs). Its Foreword page break is no longer needed. The FOREWORD (Ministry text) reworded for teachers the same way (user: \"reword the foreword for teachers\")."
 }
