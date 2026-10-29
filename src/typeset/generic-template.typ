@@ -2353,9 +2353,14 @@
     block(breakable: false, width: 100%)[
       #set par(spacing: 0pt)
       #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
-      #v(8pt)
-      #line(length: 100%, stroke: 0.6pt + T.rulec)]
-    v(7pt)
+      #v(9.5pt)
+      // drawn exactly like the running-header rule above it (0.6pt, the book's primary
+      // colour): the pale rulec line looked faint beside the header, and the user marked
+      // the header rule as the one to match.
+      #line(length: 100%, stroke: 0.6pt + T.primary)]
+    // spaced like the book's own sub-topic heads: ~8.5pt from the title to its rule and
+    // ~14pt from the rule to the first line of text (the front-matter paragraph spacing
+    // supplies that gap, so nothing is added here)
   } else if literary {
     // centred chapter title flanked by thin gold rules — a literary look
     v(12pt, weak: true)
