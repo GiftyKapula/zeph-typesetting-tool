@@ -28,15 +28,15 @@
     },
     {
       "find": "Preface",
-      "with": "PREFACE"
-    },
-    {
-      "find": "Foreword",
       "with": "FOREWORD"
     },
     {
+      "find": "Foreword",
+      "with": "PREFACE"
+    },
+    {
       "find": "Acknowledgements",
-      "with": "ACKNOWLEDGEMENTS"
+      "with": "ACKNOWLEDGEMENT"
     }
   ],
   "images": {
@@ -448,10 +448,7 @@
       "find": "Noriana Muneku Ms.",
       "with": [
         {
-          "vspace": "16mm"
-        },
-        {
-          "para": "**Ms Noriana Muneku**\nPermanent Secretary – Administration\nMINISTRY OF EDUCATION"
+          "para": "Noriana Muneku (Ms)\nPermanent Secretary (Administration)\nMINISTRY OF EDUCATION"
         }
       ]
     },
@@ -594,10 +591,7 @@
       "find": "Beatrice Chirwa Dr.\nBoard Chairperson\nZAMBIA EDUCATIONAL PUBLISHING HOUSE",
       "with": [
         {
-          "vspace": "16mm"
-        },
-        {
-          "para": "**Dr Beatrice Chirwa**\nBoard Chairperson\nZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+          "para": "Beatrice Chirwa (Dr)\nBoard Chairperson\nZAMBIA EDUCATIONAL PUBLISHING HOUSE"
         }
       ]
     },
@@ -605,10 +599,7 @@
       "find": "Agness Mumba Wilkins PhD\nManaging Director/Chief Executive Officer\nZAMBIA EDUCATIONAL PUBLISHING HOUSE",
       "with": [
         {
-          "vspace": "16mm"
-        },
-        {
-          "para": "**Agness Mumba Wilkins PhD**\nManaging Director/Chief Executive Officer\nZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+          "para": "Agness Mumba Wilkins (PhD)\nManaging Director/Chief Executive Officer\nZAMBIA EDUCATIONAL PUBLISHING HOUSE"
         }
       ]
     },
@@ -3241,10 +3232,6 @@
       "find": "The Meaning of Literature",
       "until": "The Two Classrooms",
       "before": "What is Literature?"
-    },
-    {
-      "find": "FOREWORD",
-      "before": "PREFACE"
     }
   ],
   "moveBefore": [
@@ -4469,5 +4456,20 @@
   "pageBreakBefore": [
     "This book is your companion on a journey of discovery"
   ],
-  "tocBefore": "AUTHORS"
+  "tocBefore": "AUTHORS",
+  "replaceSection": [
+    {
+      "heading": "ACKNOWLEDGEMENT",
+      "until": "Agness Mumba Wilkins",
+      "items": [
+        "The Zambia Educational Publishing House (ZEPH) wishes to express its sincere appreciation to all institutions and individuals whose contributions made the publication of the Literature in English Form 1 Learner's Book possible.",
+        "Special gratitude is extended to the ZEPH shareholders—the Ministry of Education and the Ministry of Finance and National Planning—for their policy guidance, oversight and financial support during the development and production of this book. Appreciation is also accorded to the ZEPH Board of Directors for providing strategic leadership and governance.",
+        "Special recognition is given to the reviewers, curriculum specialists, subject experts and all contributors—for their valuable technical input and constructive feedback—and to the Curriculum Development Centre and the Examinations Council of Zambia for their guidance and support. The Publishing House also acknowledges Mr. Lackson Lungu for his guidance in ensuring full alignment of the content with the national Competence-Based Curriculum (CBC).",
+        "We extend our appreciation to Mr. Vision Milimo of the University of Zambia for coordinating and reviewing this work, and to all staff involved in the editorial, production and coordination processes, with special recognition to Mr. James Chiwele for his role in ensuring the successful completion of this publication.",
+        "Finally, ZEPH acknowledges the authors for their dedication and professional contribution in producing a quality learning resource that equips learners with the knowledge, skills, values and attitudes needed to understand and appreciate Literature in English and become informed, responsible and productive citizens of Zambia."
+      ]
+    }
+  ],
+  "fmSpacing": "1.3em",
+  "//frontMatterHouse": "2026-10-29, second pass (user compared the front matter with the Physics Form 2 LB): the manuscript's 'Preface' is the Ministry text and its 'Foreword' ZEPH's, so they are renamed (house: Foreword = Ministry, signed by the PS; Preface = ZEPH, signed by the Board Chairperson) and stand in that order without a move; Acknowledgement (singular) = the house ZEPH five-paragraph text, as on the Teacher's Guide, with this book's thanks to Mr Milimo, CDC and ECZ folded in; signatories 'Name (Ms)/(Dr)/(PhD)', set by the engine; fmSpacing 1.3em as on the TG."
 }
