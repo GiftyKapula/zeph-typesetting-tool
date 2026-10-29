@@ -2118,6 +2118,10 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     if (!done) console.warn("!  replaceBlocks not matched:", rb.find);
   }
+  // `flat` was taken before the blocks above were swapped, so every later `edit`/`editAll`/
+  // `unbold`… on a replaced block edited the discarded original and still reported a match
+  // (Physics Form 2 LB: Exercise 3's "The School uses…" survived an editAll). Re-take it.
+  if ((ov.replaceBlocks || []).length) { flat.length = 0; flat.push(...allTextBlocks(blocks)); }
   // deleteRun: [{ from, to }] — delete a CONTIGUOUS run of sibling blocks, from the
   // first block whose trimmed text === `from` through the first block at/after it whose
   // trimmed text === `to` (inclusive). Use to remove a multi-paragraph teaching block a
@@ -3942,7 +3946,10 @@ function reformatAcronyms(blocks) {
     // The abbreviation is the leading run; the meaning follows after a whitespace
     // gap (often its own padding runs). Keep the meaning's original runs so the
     // writer's bold capitals (e.g. **A**ntidiuretic **H**ormone) are preserved.
-    let abbr = (segs[0].t || "").trim().replace(/:+$/, "");
+    // A writer who bolds the dash with the abbreviation ("**HCCI –** Homogeneous…") left it
+    // in the leading run, and the house colon was added after it: "HCCI –: …" (Physics
+    // Form 2 LB). Strip a trailing dash as well as a colon.
+    let abbr = (segs[0].t || "").trim().replace(/[\s:–—-]+$/, "");
     if (!abbr) continue;
     let k = 1;
     while (k < segs.length && segs[k].t.trim() === "") k++;   // skip padding spaces
