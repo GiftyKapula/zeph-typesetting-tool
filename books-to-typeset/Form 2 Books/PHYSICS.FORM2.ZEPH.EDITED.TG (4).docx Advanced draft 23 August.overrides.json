@@ -9,8 +9,13 @@
       ]
     },
     {
-      "before": "Illustrated by: Kashanda Kasaila",
+      "before": "Illustrated by:",
       "text": " "
+    },
+    {
+      "before": "Guide learners in exploring the concept of heat transfer by helping them",
+      "text": "Heat Transfer",
+      "as": "head"
     }
   ],
   "edit": [
@@ -76,7 +81,162 @@
     },
     {
       "find": "Watt – The SI unit of power.",
-      "with": "Watt – The SI unit of power. It is the rate at which energy is used or transferred."
+      "with": "Watt – The SI unit of power. One watt is the power when one joule of energy is used or transferred per second."
+    },
+    {
+      "find": "[1 mark for floating and 1 mark for sinking]",
+      "with": "An object floats when the upthrust on it equals its weight, which happens when it displaces its own weight of water before it is fully immersed. An object sinks when its weight is greater than the upthrust on it when fully immersed, that is, greater than the weight of water it displaces.  [2]"
+    },
+    {
+      "find": "10 = (2 × -2) + (1 × v₂)",
+      "with": "10 = (2 × 2) + (1 × v₂)"
+    },
+    {
+      "find": "10 = -4 + v₂",
+      "with": "10 = 4 + v₂"
+    },
+    {
+      "find": "v₂ = 14 m/s",
+      "with": "v₂ = 6 m/s (to the right)"
+    },
+    {
+      "find": "Elastic collision.",
+      "with": "Inelastic collision: kinetic energy is not conserved (38 J before the collision, 22 J after)."
+    },
+    {
+      "find": "= 3",
+      "after": "= 480 ÷ 160",
+      "with": "= 2.4"
+    },
+    {
+      "find": "= 480 ÷ 160",
+      "with": "= 480 ÷ 200"
+    },
+    {
+      "find": "= 3 ÷ 3 × 100%",
+      "with": "= 2.4 ÷ 3 × 100%"
+    },
+    {
+      "find": "= 100%",
+      "after": "= 2.4 ÷ 3 × 100%",
+      "with": "= 80%"
+    },
+    {
+      "find": "showing that in elastic collisions the objects separate after impact, whereas in inelastic collisions they move together with a common velocity",
+      "with": "showing that in an elastic collision both momentum and kinetic energy are conserved, whereas in an inelastic collision momentum is conserved but some kinetic energy is changed into other forms such as heat and sound; in a perfectly inelastic collision the objects stick together and move with a common velocity"
+    },
+    {
+      "find": "Learners should observe that objects separate after an elastic collision, while they move together after an inelastic collision.",
+      "with": "Learners should observe that the objects bounce apart in some collisions, while in others they stick together and move with a common velocity."
+    },
+    {
+      "find": "They should also observe that water travels farther than cooking oil from corresponding holes because water has a higher density.",
+      "with": "They should also recognise that, at the same depth, the pressure in water is greater than in cooking oil because water has a higher density."
+    },
+    {
+      "find": "Calculate its weight using W = mg.",
+      "with": "Calculate its weight using weight = mg."
+    },
+    {
+      "find": "P = 600W, The power would increase",
+      "with": "P = 600 W. The power would increase"
+    },
+    {
+      "find": "Momentum is directly proportional to velocity (p=mv)(p = mv)(p=mv).",
+      "with": "Momentum is directly proportional to velocity (p = mv)."
+    },
+    {
+      "find": "and wavefronts indicate the direction of wave propagation",
+      "with": "and wavefronts are perpendicular to the direction of wave propagation"
+    },
+    {
+      "find": "why it needs air to travel",
+      "with": "why it needs a material medium to travel"
+    },
+    {
+      "find": "Radio waves → Microwaves → Infrared rays → Visible light → Ultraviolet rays → X-rays → Gamma rays",
+      "with": "Radio waves → Microwaves → Infrared radiation → Visible light → Ultraviolet radiation → X-rays → Gamma rays"
+    },
+    {
+      "find": "the heat required to raise 1 kg of a substance by 1 K",
+      "with": "the heat required to raise the temperature of 1 kg of a substance by 1 °C"
+    },
+    {
+      "find": "so less energy is required for the water to boil.",
+      "with": "so the water boils at a lower temperature."
+    },
+    {
+      "find": "and does not have negative temperatures under ordinary conditions",
+      "with": "and has no negative temperatures"
+    },
+    {
+      "find": "W =20×5",
+      "with": "W = 20 × 5  [1]"
+    },
+    {
+      "find": "=100J",
+      "with": "= 100 J  [1]"
+    },
+    {
+      "find": "Accept alternative wording",
+      "with": "(Accept alternative wording.)"
+    },
+    {
+      "find": "(e)(i) Thunder",
+      "with": "e) (i) Thunder"
+    },
+    {
+      "find": "any two correct properties",
+      "with": "(Accept any two correct properties.)"
+    },
+    {
+      "find": "absorbs less solar energy [1]. Adding a ceiling",
+      "with": "absorbs less solar energy. [1] Adding a ceiling"
+    },
+    {
+      "find": "Demonstrate correctly expansion",
+      "with": "Demonstrate correctly the expansion"
+    },
+    {
+      "find": "Types of Simple Machine",
+      "with": "Types of Simple Machines"
+    },
+    {
+      "find": "Suitability of Alcohol and Mercury as Thermometric",
+      "with": "Suitability of Alcohol and Mercury as Thermometric Liquids"
+    },
+    {
+      "find": "Efficiency of Diesel and Petrol Engine",
+      "with": "Efficiency of Diesel and Petrol Engines"
+    },
+    {
+      "find": "Two properties of radio waves that are common to all electromagnetic waves are",
+      "with": "Two properties of radio waves that are common to all electromagnetic waves are:"
+    },
+    {
+      "find": "wave produced by the slinky spring is a longitudinal wave.",
+      "with": "wave produced by the slinky spring is a longitudinal wave.  [2]"
+    },
+    {
+      "find": "propagation, producing compressions and rarefactions.",
+      "after": "wave produced by the slinky spring is a longitudinal wave",
+      "with": "propagation, producing compressions and rarefactions.  [2]"
+    },
+    {
+      "find": "accurately and compare different waves.",
+      "with": "accurately and compare different waves.  [1]"
+    },
+    {
+      "find": "Any two of the above",
+      "with": "Any one of the above"
+    },
+    {
+      "find": "[easy to master                  2 ]",
+      "with": "(Award 2 marks if the mnemonic is easy to master.)  [2]"
+    },
+    {
+      "find": "[good flow                          2]",
+      "with": "(Award 2 marks if the mnemonic flows well.)  [2]"
     }
   ],
   "fixExercise": [
@@ -277,7 +437,7 @@
         {
           "marker": "",
           "depth": 1,
-          "text": "*Eₚ = 12 000 J  [1]*"
+          "text": "*Eₚ = 12,000 J  [1]*"
         },
         {
           "marker": "b)",
@@ -307,7 +467,7 @@
         {
           "marker": "",
           "depth": 1,
-          "text": "*Eₖ = 6 400 J  [1]*"
+          "text": "*Eₖ = 6,400 J  [1]*"
         },
         {
           "marker": "c)",
@@ -336,7 +496,7 @@
         {
           "marker": "",
           "depth": 1,
-          "text": "*Efficiency = (12 000 ÷ 16 000) × 100%  [1]*",
+          "text": "*Efficiency = (12,000 ÷ 16,000) × 100%  [1]*",
           "keep": true
         },
         {
@@ -361,7 +521,7 @@
         {
           "marker": "",
           "depth": 1,
-          "text": "*W = 36 000 J*"
+          "text": "*W = 36,000 J*"
         },
         {
           "marker": "",
@@ -386,7 +546,7 @@
         {
           "marker": "",
           "depth": 1,
-          "text": "*P = 36 000/120  [1]*"
+          "text": "*P = 36,000/120  [1]*"
         },
         {
           "marker": "",
@@ -687,6 +847,36 @@
         null,
         "d)"
       ]
+    },
+    {
+      "match": "EXERCISE 11",
+      "near": "Heat transfer is the movement of thermal energy from a region",
+      "heading": "EXERCISE 10"
+    },
+    {
+      "match": "EXERCISE 12",
+      "near": "The kinetic theory of matter explains that particles in a hot",
+      "heading": "EXERCISE 11"
+    },
+    {
+      "match": "EXERCISE 13",
+      "near": "Heat enters the house by radiation when the roof absorbs",
+      "heading": "EXERCISE 12"
+    },
+    {
+      "match": "EXERCISE 14",
+      "near": "(80 − 20)",
+      "heading": "EXERCISE 13"
+    },
+    {
+      "match": "EXERCISE 15",
+      "near": "specific heat capacity of the aluminium block",
+      "heading": "EXERCISE 14"
+    },
+    {
+      "match": "EXERCISE 16",
+      "near": "specific latent heat of fusion of the ice",
+      "heading": "EXERCISE 15"
     }
   ],
   "editAll": [
@@ -805,24 +995,13 @@
       "with": "**Procedure:** *Have learners source suitable materials locally and work individually, in pairs or in groups to design and construct any simple machine of their choice. They may construct a lever, pulley, wheel and axle, inclined plane, wedge, screw or another suitable simple machine. Ask learners to test their machines by using them to perform a simple task and observe how the machine changes the effort required, direction of force or distance through which the effort is applied. Have learners record their observations, identify the type of simple machine constructed and explain how it makes work easier.*"
     },
     {
-      "find": "Ensure the ramp is stable and the activity is conducted in a safe area",
-      "with": "**Teacher tips:** *Encourage learners to select materials that are safe and suitable for construction. Ensure that cutting tools and other potentially hazardous materials are handled safely. Encourage creativity and allow learners to modify their designs after testing them. Emphasise that the constructed machine should be stable and functional.*"
-    },
-    {
-      "find": "objects released from greater heights generally move faster",
-      "with": "**Expected findings/observations:** *Learners should observe that different simple machines can change the size or direction of the applied force or the distance through which the effort is applied. They should recognise that simple machines can make tasks easier by providing a mechanical advantage.*"
-    },
-    {
-      "find": "increased speed generally results in greater stopping distances",
-      "with": "**Conclusion:** *Learners should use their observations and testing results to explain how the simple machine they constructed makes work easier.*"
-    },
-    {
       "find": "Laboratory thermometer, beakers, heat source, tripod stand, wire gauze, ice, candle wax, butter, water, stopwatch",
       "with": "**Required materials:** *Laboratory thermometer, beakers, heat source, tripod stand, wire gauze, and samples such as ice, candle wax, butter and water.*"
     },
     {
       "find": "Guide learners to work individually, in pairs or in groups using the available thermometers. Ask them to measure and record the temperature",
-      "with": "**Procedure:** *Have learners work individually, in pairs or in groups to heat each substance gradually while recording its temperature at regular intervals. Ask them to identify and record the temperatures at which each substance begins to melt or boil. Have learners tabulate and compare their results and discuss similarities and differences in the melting and boiling points of the substances. Encourage learners to relate their observations to the properties of the substances and present their findings to the class.*"
+      "with": "**Procedure:** *Have learners work individually, in pairs or in groups to heat each substance gradually while recording its temperature at regular intervals. Ask them to identify and record the temperatures at which each substance begins to melt or boil. Have learners tabulate and compare their results and discuss similarities and differences in the melting and boiling points of the substances. Encourage learners to relate their observations to the properties of the substances and present their findings to the class.*",
+      "after": "Laboratory thermometer, beakers, heat source, tripod stand"
     },
     {
       "find": "Ensure learners heat the substances gently and safely",
@@ -841,20 +1020,23 @@
       "with": "**Teacher tips:** *Prohibit learners from directly handling mercury thermometers or any mercury spill. Where mercury thermometers are used, they should be handled only by the teacher or authorised laboratory personnel. Ensure thermometers are given sufficient time to stabilise before readings are taken and avoid touching the thermometer bulbs. In the event of breakage or a mercury spill, stop the activity, restrict access to the area and follow the institution’s approved mercury spill and hazardous-materials disposal protocol. Do not permit learners to sweep, touch or attempt to clean up the spill.*"
     },
     {
-      "find": "Help learners appreciate that materials differ in their ability to transfer",
+      "find": "Guide learners in comparing good and bad conductors of heat by explaining",
       "with": "Help learners appreciate that materials differ in their ability to absorb and emit radiant heat. Explain that dull, dark surfaces are generally good absorbers and good emitters of radiant heat, while shiny, light-coloured surfaces are generally poorer absorbers and poorer emitters. Use practical examples such as the use of dull black surfaces in solar heating devices and shiny surfaces in thermal insulation to help learners relate absorptivity and emissivity to everyday applications. Encourage learners to discuss how the surface properties of materials influence the absorption and emission of thermal radiation."
     },
     {
       "find": "Ensure the ramp is stable and the activity is conducted in a safe area",
-      "with": "**Teacher tips:** *Encourage learners to select materials that are safe and suitable for construction. Ensure that cutting tools and other potentially hazardous materials are handled safely. Encourage creativity and allow learners to modify their designs after testing them. Emphasise that the constructed machine should be stable and functional.*"
+      "with": "**Teacher tips:** *Encourage learners to select materials that are safe and suitable for construction. Ensure that cutting tools and other potentially hazardous materials are handled safely. Encourage creativity and allow learners to modify their designs after testing them. Emphasise that the constructed machine should be stable and functional.*",
+      "after": "Locally available materials such as wood, cardboard, nails"
     },
     {
       "find": "objects released from greater heights generally move faster",
-      "with": "**Expected findings/observations:** *Learners should observe that different simple machines can change the size or direction of the applied force or the distance through which the effort is applied. They should recognise that simple machines can make tasks easier by providing a mechanical advantage.*"
+      "with": "**Expected findings/observations:** *Learners should observe that different simple machines can change the size or direction of the applied force or the distance through which the effort is applied. They should recognise that simple machines can make tasks easier by providing a mechanical advantage.*",
+      "after": "Locally available materials such as wood, cardboard, nails"
     },
     {
       "find": "increased speed generally results in greater stopping distances",
-      "with": "**Conclusion:** *Learners should use their observations and testing results to explain how the simple machine they constructed makes work easier.*"
+      "with": "**Conclusion:** *Learners should use their observations and testing results to explain how the simple machine they constructed makes work easier.*",
+      "after": "Locally available materials such as wood, cardboard, nails"
     },
     {
       "find": "Hybrid vehicles contribute to environmental sustainability by reducing dependence on fossil fuels.",
@@ -866,7 +1048,7 @@
     },
     {
       "find": "Illustrated by: Kashanda Kasaila",
-      "with": "**Illustrated by:** Kashanda Kasaila"
+      "with": "**Illustrated by:** Kasaila Kashanda"
     },
     {
       "find": "Lead learners to investigate how machines convert input power",
@@ -1035,17 +1217,37 @@
     {
       "find": "the molecular model explains the different properties",
       "with": "**Conclusion:** *Differences in particle arrangement, spacing, movement and forces of attraction explain the properties of solids, liquids and gases.*"
+    },
+    {
+      "find": "Ask them to measure and record the temperatures of cold water, room air, warm water and the human body",
+      "after": "infrared thermometer (if available), cold water, warm water, hot water",
+      "with": "**Procedure:** *Provide learners with temperature data from various sources, such as their own thermometer readings, weather reports, clinical records and temperature tables or graphs, and let them work individually, in pairs or in groups. Ask them to read the data, identify the highest and lowest temperatures, calculate temperature differences and describe any trends. Guide learners to explain what the data show and to use them to make decisions, such as choosing a suitable storage temperature for food.*"
+    },
+    {
+      "find": "Ensure learners use each thermometer correctly and safely",
+      "after": "infrared thermometer (if available), cold water, warm water, hot water",
+      "with": "**Teacher tips:** *Ensure learners read scales and units carefully and always include the unit (°C) in their answers. Guide them to distinguish between a single reading, a range and a trend, and relate the data to everyday situations such as weather, health and food storage.*"
+    },
+    {
+      "find": "Learners should observe that different thermometers are designed for specific purposes",
+      "after": "infrared thermometer (if available), cold water, warm water, hot water",
+      "with": "**Expected findings/observations:** *Learners should read temperature values correctly from the data, identify the highest and lowest temperatures, calculate temperature differences and describe how temperature changes over time or from one place to another.*"
+    },
+    {
+      "find": "Learners should conclude that different thermometers are designed for different applications",
+      "after": "infrared thermometer (if available), cold water, warm water, hot water",
+      "with": "**Conclusion:** *Learners should conclude that temperature data can be interpreted to compare conditions, identify trends and make informed decisions in everyday life.*"
     }
   ],
   "setMarker": [
     {
       "find": "The wheelbarrow reduces the effort required to move the fer",
-      "marker": "(c)",
+      "marker": "c)",
       "depth": 0
     },
     {
       "find": "A pulley. It changes the direction of the applied force",
-      "marker": "(d)",
+      "marker": "d)",
       "depth": 0
     },
     {
@@ -1055,12 +1257,12 @@
     },
     {
       "find": "Solids → Liquids → Gases",
-      "marker": "(c)",
+      "marker": "c)",
       "depth": 0
     },
     {
       "find": "Omnidirectional sound spreads in all directions",
-      "marker": "(d)",
+      "marker": "d)",
       "depth": 0
     },
     {
@@ -1087,6 +1289,638 @@
     {
       "from": "Ek = ½mv²",
       "to": "Eₖ = ½mv²"
+    },
+    {
+      "from": "J kg⁻¹ K⁻¹",
+      "to": "J kg⁻¹ °C⁻¹"
+    },
+    {
+      "from": "J K⁻¹",
+      "to": "J °C⁻¹"
+    },
+    {
+      "from": "kelvin scale is the SI unit of temperature, that it begins",
+      "to": "kelvin is the SI unit of temperature, that the Kelvin scale begins"
+    },
+    {
+      "from": "is the SI unit of temperature, starts at absolute zero",
+      "to": "uses the SI unit of temperature (the kelvin), starts at absolute zero"
+    },
+    {
+      "from": "H = VIt",
+      "to": "Q = VIt"
+    },
+    {
+      "from": "H = mLf",
+      "to": "Q = mLf"
+    },
+    {
+      "from": "H = 162",
+      "to": "Q = 162"
+    },
+    {
+      "from": "H = 45",
+      "to": "Q = 45"
+    },
+    {
+      "from": "H = 3.34",
+      "to": "Q = 3.34"
+    },
+    {
+      "from": "H = 1.13",
+      "to": "Q = 1.13"
+    },
+    {
+      "from": "H = 1.34",
+      "to": "Q = 1.34"
+    },
+    {
+      "from": " H = mL",
+      "to": " Q = mL"
+    },
+    {
+      "from": "C = H ÷ ΔT",
+      "to": "C = Q ÷ ΔT"
+    },
+    {
+      "from": "L = H ÷ m",
+      "to": "L = Q ÷ m"
+    },
+    {
+      "from": "ɳ",
+      "to": "η"
+    },
+    {
+      "from": "Let them to justify",
+      "to": "Let them justify"
+    },
+    {
+      "from": "Demonstrating an understanding the effects",
+      "to": "Demonstrating an understanding of the effects"
+    },
+    {
+      "from": "demonstrate principles of upthrust and floatation",
+      "to": "demonstrate the principles of upthrust and flotation"
+    },
+    {
+      "from": "mass’ effect",
+      "to": "mass’s effect"
+    },
+    {
+      "from": "The principle of linear momentum in everyday life accordingly",
+      "to": "The principles of linear momentum in everyday life accordingly"
+    },
+    {
+      "from": "The principle of pressure to solve real-life problems accordingly",
+      "to": "The principles of pressure to solve real-life problems accordingly"
+    },
+    {
+      "from": "real life",
+      "to": "real-life"
+    },
+    {
+      "from": "Demonstrating the Law of conservation",
+      "to": "Demonstrating the law of conservation"
+    },
+    {
+      "from": "and greater kinetic energy at the bottom",
+      "to": "and maximum kinetic energy at the bottom"
+    },
+    {
+      "from": "(Newton meter)",
+      "to": "(newton meter)"
+    },
+    {
+      "from": "Light industrial Area",
+      "to": "Light Industrial Area"
+    },
+    {
+      "from": "made the publication of the Physics Form 2 Learner’s Book possible",
+      "to": "made the publication of the Physics Form 2 Teacher’s Guide possible"
+    },
+    {
+      "from": "ZEPH acknowledges the authors for",
+      "to": "ZEPH acknowledges the author for"
+    },
+    {
+      "from": "vapourisation",
+      "to": "vaporisation"
+    },
+    {
+      "from": "Facilitate formation of learner pairs, small groups or individually to solve wave problems",
+      "to": "Organise learners to work individually, in pairs, or in small groups to solve wave problems"
+    },
+    {
+      "from": "Facilitate learners to work",
+      "to": "Have learners work"
+    },
+    {
+      "from": "Assist them appreciate",
+      "to": "Assist them to appreciate"
+    },
+    {
+      "from": "Assist learners appreciate",
+      "to": "Assist learners to appreciate"
+    },
+    {
+      "from": "Assist learners grasp",
+      "to": "Assist learners to grasp"
+    },
+    {
+      "from": "assisting them understand",
+      "to": "assisting them to understand"
+    },
+    {
+      "from": "helping them understand",
+      "to": "helping them to understand"
+    },
+    {
+      "from": "allowing them explore",
+      "to": "allowing them to explore"
+    },
+    {
+      "from": "Help learners in relating",
+      "to": "Help learners relate"
+    },
+    {
+      "from": "Help learners’ understand",
+      "to": "Help learners understand"
+    },
+    {
+      "from": "Help learners' understand",
+      "to": "Help learners understand"
+    },
+    {
+      "from": "waves and appreciate how these properties",
+      "to": "waves and to appreciate how these properties"
+    },
+    {
+      "from": "from different objects and identify the part that vibrates",
+      "to": "from different objects and identifying the part that vibrates"
+    },
+    {
+      "from": "against harmful effect of each",
+      "to": "against the harmful effects of each"
+    },
+    {
+      "from": "Discussing application of sound",
+      "to": "Discussing applications of sound"
+    },
+    {
+      "from": "the vibrating part is the strings",
+      "to": "the vibrating parts are the strings"
+    },
+    {
+      "from": "the vibrating part is the prongs",
+      "to": "the vibrating parts are the prongs"
+    },
+    {
+      "from": "wave-forms",
+      "to": "waveforms"
+    },
+    {
+      "from": "clapboards",
+      "to": "clappers"
+    },
+    {
+      "from": "library. let learners",
+      "to": "library. Let learners"
+    },
+    {
+      "from": "transfers heat rapidly while Wood is",
+      "to": "transfers heat rapidly, while wood is"
+    },
+    {
+      "from": "and Evaporation of sweat",
+      "to": "and evaporation of sweat"
+    },
+    {
+      "from": "for use in a liquid-in-glass thermometers",
+      "to": "for use in liquid-in-glass thermometers"
+    },
+    {
+      "from": "Calibrating unmarked thermometer",
+      "to": "Calibrating an unmarked thermometer"
+    },
+    {
+      "from": "Creating a model of internal combustion engine",
+      "to": "Creating a model of an internal combustion engine"
+    },
+    {
+      "from": "Comparing efficiency of diesel and petrol engine",
+      "to": "Comparing the efficiency of diesel and petrol engines"
+    },
+    {
+      "from": "demonstrate correctly the operations of various internal combustion engine",
+      "to": "Demonstrate correctly the operation of various internal combustion engines"
+    },
+    {
+      "from": "Demonstrate correctly expansion",
+      "to": "Demonstrate correctly the expansion"
+    },
+    {
+      "from": "compression ignition, rotary engines",
+      "to": "compression ignition and rotary engines"
+    },
+    {
+      "from": "sea and land breeze, heating elements, car radiators.",
+      "to": "sea and land breezes, heating elements and car radiators"
+    },
+    {
+      "from": "Demonstrating greenhouse effects",
+      "to": "Demonstrating the greenhouse effect"
+    },
+    {
+      "from": "Water contracts to 4 °C and",
+      "to": "Water contracts as it is cooled to 4 °C and"
+    },
+    {
+      "from": "Any other correct applications",
+      "to": "Accept any other correct application."
+    },
+    {
+      "from": "Accept any correct applications",
+      "to": "Accept any other correct application."
+    },
+    {
+      "from": "Celsius and kelvin",
+      "to": "Celsius and Kelvin"
+    },
+    {
+      "from": "the kelvin scale",
+      "to": "the Kelvin scale"
+    },
+    {
+      "from": "= 50 – 38",
+      "to": "= 50 − 38"
+    },
+    {
+      "from": "Charles' law",
+      "to": "Charles’s law"
+    },
+    {
+      "from": "Gay-Lussac’s Law.",
+      "to": "Gay-Lussac’s law."
+    },
+    {
+      "from": "spark-ignition, compression-ignition",
+      "to": "spark ignition, compression ignition"
+    },
+    {
+      "from": "Terms used in the Measurement of Heat",
+      "to": "Terms Used in the Measurement of Heat"
+    },
+    {
+      "from": "Relationship between",
+      "to": "Relationship Between"
+    },
+    {
+      "from": "Matter which Change",
+      "to": "Matter Which Change"
+    },
+    {
+      "from": "Bad and Good Conductors of Heat",
+      "to": "Good and Bad Conductors of Heat"
+    },
+    {
+      "from": "individually, in pairs or ",
+      "to": "individually, in pairs, or "
+    },
+    {
+      "from": "ro]oms",
+      "to": "rooms"
+    },
+    {
+      "from": "the amount of Mechanical",
+      "to": "the Amount of Mechanical"
+    },
+    {
+      "from": "Calculations involving Simple Machines",
+      "to": "Calculations Involving Simple Machines"
+    },
+    {
+      "from": "Pressure and its Associated Units",
+      "to": "Pressure and Its Associated Units"
+    },
+    {
+      "from": "Model that uses the Principle of Pressure",
+      "to": "Model That Uses the Principle of Pressure"
+    },
+    {
+      "from": "Real World Scenarios",
+      "to": "Real-World Scenarios"
+    },
+    {
+      "from": "real world scenarios",
+      "to": "real-world scenarios"
+    },
+    {
+      "from": "Elastic and Inelastic Collision",
+      "to": "Elastic and Inelastic Collisions"
+    },
+    {
+      "from": "Archimedes' Principle",
+      "to": "Archimedes’ Principle"
+    },
+    {
+      "from": "Archimedes Principle",
+      "to": "Archimedes’ Principle"
+    },
+    {
+      "from": "Velocity Ratio (VR) of a simple machine.",
+      "to": "Velocity Ratio (VR) of a simple machine"
+    },
+    {
+      "from": "relationship between force and area.",
+      "to": "relationship between force and area"
+    },
+    {
+      "from": "technological innovation",
+      "to": "technological innovations"
+    },
+    {
+      "from": "=3L",
+      "to": "= 3 L"
+    },
+    {
+      "from": "W=Fs",
+      "to": "W = Fs"
+    },
+    {
+      "from": "W=10×8",
+      "to": "W = 10 × 8"
+    },
+    {
+      "from": "W=80J",
+      "to": "W = 80 J"
+    },
+    {
+      "from": "=5000−4000",
+      "to": "= 5000 − 4000"
+    },
+    {
+      "from": "=1000J",
+      "to": "= 1000 J"
+    },
+    {
+      "from": "p=mv",
+      "to": "p = mv"
+    },
+    {
+      "from": "P=mv",
+      "to": "p = mv"
+    },
+    {
+      "from": "p= mv",
+      "to": "p = mv"
+    },
+    {
+      "from": "p= 50",
+      "to": "p = 50"
+    },
+    {
+      "from": "p =5",
+      "to": "p = 5"
+    },
+    {
+      "from": "p =3",
+      "to": "p = 3"
+    },
+    {
+      "from": "1,250J",
+      "to": "1,250 J"
+    },
+    {
+      "from": "= 72J",
+      "to": "= 72 J"
+    },
+    {
+      "from": "= 288J",
+      "to": "= 288 J"
+    },
+    {
+      "from": "= 300W",
+      "to": "= 300 W"
+    },
+    {
+      "from": "kgm/s",
+      "to": "kg m/s"
+    },
+    {
+      "from": "12 000",
+      "to": "12,000"
+    },
+    {
+      "from": "16 000",
+      "to": "16,000"
+    },
+    {
+      "from": "36 000",
+      "to": "36,000"
+    },
+    {
+      "from": "6 400",
+      "to": "6,400"
+    },
+    {
+      "from": "1 500",
+      "to": "1,500"
+    },
+    {
+      "from": "1 200",
+      "to": "1,200"
+    },
+    {
+      "from": "70 200",
+      "to": "70,200"
+    },
+    {
+      "from": "162 000",
+      "to": "162,000"
+    },
+    {
+      "from": "45 000",
+      "to": "45,000"
+    },
+    {
+      "from": "20 000 Hz",
+      "to": "20,000 Hz"
+    },
+    {
+      "from": "0°C",
+      "to": "0 °C"
+    },
+    {
+      "from": "0 °C",
+      "to": "0 °C"
+    },
+    {
+      "from": "1°C",
+      "to": "1 °C"
+    },
+    {
+      "from": "1 °C",
+      "to": "1 °C"
+    },
+    {
+      "from": "2°C",
+      "to": "2 °C"
+    },
+    {
+      "from": "2 °C",
+      "to": "2 °C"
+    },
+    {
+      "from": "3°C",
+      "to": "3 °C"
+    },
+    {
+      "from": "3 °C",
+      "to": "3 °C"
+    },
+    {
+      "from": "4°C",
+      "to": "4 °C"
+    },
+    {
+      "from": "4 °C",
+      "to": "4 °C"
+    },
+    {
+      "from": "5°C",
+      "to": "5 °C"
+    },
+    {
+      "from": "5 °C",
+      "to": "5 °C"
+    },
+    {
+      "from": "6°C",
+      "to": "6 °C"
+    },
+    {
+      "from": "6 °C",
+      "to": "6 °C"
+    },
+    {
+      "from": "7°C",
+      "to": "7 °C"
+    },
+    {
+      "from": "7 °C",
+      "to": "7 °C"
+    },
+    {
+      "from": "8°C",
+      "to": "8 °C"
+    },
+    {
+      "from": "8 °C",
+      "to": "8 °C"
+    },
+    {
+      "from": "9°C",
+      "to": "9 °C"
+    },
+    {
+      "from": "9 °C",
+      "to": "9 °C"
+    },
+    {
+      "from": "T − 273",
+      "to": "T − 273"
+    },
+    {
+      "from": "=2 ",
+      "to": "= 2 "
+    },
+    {
+      "from": "=3 ",
+      "to": "= 3 "
+    },
+    {
+      "from": "=4 ",
+      "to": "= 4 "
+    },
+    {
+      "from": "=5 ",
+      "to": "= 5 "
+    },
+    {
+      "from": "2.2.1.1. ",
+      "to": "2.2.1.1 "
+    },
+    {
+      "from": "2.2.2.1. ",
+      "to": "2.2.2.1 "
+    },
+    {
+      "from": "2.2.3.1. ",
+      "to": "2.2.3.1 "
+    },
+    {
+      "from": "2.2.4.1. ",
+      "to": "2.2.4.1 "
+    },
+    {
+      "from": "2.2.5.1. ",
+      "to": "2.2.5.1 "
+    },
+    {
+      "from": "2.2.6.1. ",
+      "to": "2.2.6.1 "
+    },
+    {
+      "from": "2.3.1.1. ",
+      "to": "2.3.1.1 "
+    },
+    {
+      "from": "work, energy and power concepts.",
+      "to": "work, energy and power concepts"
+    },
+    {
+      "from": "Analytical thinking, collaboration, critical thinking, communication and problem solving",
+      "to": "Analytical Thinking; Collaboration; Critical Thinking; Communication; Problem Solving"
+    },
+    {
+      "from": "learners will learn to:`",
+      "to": "learners will learn to:"
+    },
+    {
+      "from": "Learners should conclude that pressure affects the boiling point of liquids",
+      "to": "They should find that pressure affects the boiling point of liquids"
+    },
+    {
+      "from": "Learners should conclude that mercury thermometers are more suitable",
+      "to": "They should find that mercury thermometers are more suitable"
+    },
+    {
+      "from": "They should conclude that these technologies improve fuel efficiency",
+      "to": "They should find that these technologies improve fuel efficiency"
+    },
+    {
+      "from": "Physics: Principles with Applications",
+      "to": "Physics: Principles with applications"
+    },
+    {
+      "from": "Fundamentals of Physics",
+      "to": "Fundamentals of physics"
+    },
+    {
+      "from": "Conceptual Physics",
+      "to": "Conceptual physics"
+    },
+    {
+      "from": "Physics for Scientists and Engineers",
+      "to": "Physics for scientists and engineers"
+    },
+    {
+      "from": "Zambia Education Curriculum Framework (Revised)",
+      "to": "Zambia education curriculum framework (Rev. ed.)"
+    },
+    {
+      "from": "technologies such as hybrid, homogeneous charge compression ignition",
+      "to": "technologies such as hybrid and homogeneous charge compression ignition (HCCI) engines"
     }
   ],
   "mathBodyFont": true,
@@ -1122,6 +1956,50 @@
     {
       "find": "EXERCISE 1",
       "near": "In a guitar, the vibrating part"
+    },
+    {
+      "find": "EXERCISE",
+      "near": "Weight in air − Apparent weight"
+    },
+    {
+      "find": "EXERCISE",
+      "near": "Heat enters the house by radiation when the roof absorbs"
+    },
+    {
+      "find": "EXERCISE",
+      "near": "specific heat capacity of the aluminium block"
     }
+  ],
+  "editCell": [
+    {
+      "find": "• Solving puzzle in groups",
+      "with": "• Solve puzzles in groups"
+    },
+    {
+      "find": "• Dispose trash in the designated place.",
+      "with": "• Dispose of trash in the designated place"
+    },
+    {
+      "find": "• Adhere to best practices in environmental management.",
+      "with": "• Adhere to best practices in environmental management"
+    },
+    {
+      "find": "• Identify a clean environment.",
+      "with": "• Identify a clean environment"
+    },
+    {
+      "find": "• Identify types of waste in local environment",
+      "with": "• Identify types of waste in the local environment"
+    }
+  ],
+  "renameNear": [
+    {
+      "find": "LEARNING ACTIVITY 35",
+      "near": "LEARNING ACTIVITY 35",
+      "to": "LEARNING ACTIVITY 35: Determining the latent heat of fusion ($Q = m L_f$) and latent heat of vaporisation ($Q = m L_v$) of substances"
+    }
+  ],
+  "pageBreakBefore": [
+    "Determination of Pressure"
   ]
 }
