@@ -12,13 +12,13 @@
       "find": "Drama",
       "near": "1.2.2.3.2."
     },
-    "3. Charts and Posters",
-    "This book is your companion on a journey"
+    "3. Charts and Posters"
   ],
   "//backCover": "House rule: over 112 interior pages gets a spine. The literary layout made no back cover, so no cover spread was written; backCover adds the house back cover and with it the spread (user asked for the spine, 2026-10-29).",
   "backCover": true,
   "//cleanup": "Same day, user: \"fix everything that needs to be fixed\" - a full read of the text (about 190 typo/grammar/spacing/glued-line fixes), Prose activities numbered 1-6 (were 1,2,3,2,3,3), the idioms table cell that repeated answers 3-5 trimmed, two duplicated fragments in the stanza/paragraph table removed. Applied in the rebuild too: C:/z/lit-work/cleanup.mjs (runs round1.mjs first).",
   "fmSpacing": "1.3em",
   "//fmSpacing": "Front matter in the house look (user compared it with the Physics Form 2 LB, 2026-10-29): paragraph gap 1.3em, the most that keeps the Foreword to two pages.",
-  "//frontMatter": "2026-10-29: front matter set to the house model (Physics Form 2 LB): Foreword = Ministry text, Preface = ZEPH text; Acknowledgement = the house ZEPH five-paragraph text adapted to this book (user: \"yes use the house acknowledgement\"), with the authors' thanks to Vision Milimo, CDC and ECZ folded in. Done in the rebuild (C:/z/lit-work/cleanup.mjs)."
+  "//frontMatter": "2026-10-29: front matter set to the house model (Physics Form 2 LB): Foreword = Ministry text, Preface = ZEPH text; Acknowledgement = the house ZEPH five-paragraph text adapted to this book (user: \"yes use the house acknowledgement\"), with the authors' thanks to Vision Milimo, CDC and ECZ folded in. Done in the rebuild (C:/z/lit-work/cleanup.mjs).",
+  "//preface": "The PREFACE was the Learner's Book's word for word; rewritten in the teacher's voice naming the Teacher's Guide (user, 2026-10-29), in the rebuild (cleanup.mjs). Its Foreword page break is no longer needed."
 }
