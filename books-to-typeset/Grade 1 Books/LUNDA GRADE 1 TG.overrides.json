@@ -61,111 +61,23 @@
     "title, only a plain heading's text; that is fixed in the engine, not here.)"
   ],
   "asHead": [
-    "Zhakwila 1: Kutiyilila kunsañu yakutiya hela yakutaña (mpanji yawankakulula, tuheka, niyishimu) nikwakula malwihu."
-  ],
-  "_note_numbering": [
-    "AUTHOR NUMBERING CORRECTED, one sub-topic. The book runs MUTU WANSAÑU WENENI",
-    "N.N -> MUTU WANSAÑU WANYANYA N.N.N everywhere, and its topic numbers are a",
-    "stable syllabus map (1.4 is CHISELA in every unit that uses it). In CHIBALU 12",
-    "the sub-topic under 'MUTU WANSAÑU WENENI 1.4: CHISELA' was typed 'MUTU WANSAÑU",
-    "WANYANYA 1.41', a missing dot — the only sub-topic in the book whose number is",
-    "not three parts. Set to 1.4.1, the child of the topic directly above it.",
-    "",
-    "Its competence line is numbered 1.3.3.1 and is NOT touched: these are syllabus",
-    "strand codes, they legitimately repeat and run out of sequence across the book",
-    "(as in the Kiikaonde Grade 1 Teacher's Guide), and nothing in the manuscript",
-    "settles which of the two the author meant to change."
-  ],
-  "replace": [
-    {
-      "find": "MUTU WANSAÑU WANYANYA 1.41",
-      "with": "MUTU WANSAÑU WANYANYA 1.4.1: KUHEMA CHISELA"
-    }
+    "Zhakwila 1: Kutiyilila kunsañu yakutiya hela yakutaña (mpanji yawankakulula, tuheka, niyishimu) nikwakula malwihu"
   ],
   "_note_spelling": [
     "AUTHOR SPELLING CORRECTED. Each of these is a single slip against the author's",
     "own overwhelming usage elsewhere in the same book, counted over the imported",
     "text:",
     "",
-    "  Yilezhi 171 : Yileji 1          — the word that opens most activity steps",
-    "  atudizi 453 : atidizi 1         — 'learners', the book's commonest noun",
-    "  toñozhok- stem, 206 times, never with a doubled o : atooñozhoki 1",
-    "  Ñakwilu 13 : Nakwilu 1          — the n-tilde lost altogether",
     "",
-    "AUTHOR PUNCTUATION CORRECTED, one section code. The book carries 211 numbered",
-    "section codes and 210 of them end '1.3.3.1:'; the competence code in CHIBALU 1's",
-    "first sub-topic is the only one typed '1.1.1.1.:', a dot before the colon. It sits",
-    "a few pages from its siblings, so the two spellings print in plain sight.",
     "",
     "The engine folds the look-alike acute/caron forms (ń, ň) onto the language's",
-    "own ñ by itself, but a plain ASCII 'N' cannot be folded automatically — it is",
-    "a real letter in Lunda — so that one is corrected here.",
     "",
-    "'Ñakwilu Yinafuukulewi' (4) is set to 'Ñakwilu Yinafukulewi' (7): the single-u",
-    "form is both the author's majority for THIS label and the spelling on his own",
-    "returned ZEPH Lunda word form, which is where src/typeset/lexicon/lunda.json",
-    "takes 'Ñakwilu Yinafukulewi' from.",
-    "",
-    "NOT corrected, and worth a Lunda speaker's eye: the teaching-aids label is",
-    "spelt 'Yikuyuñulu Yinafuukulewi' with a double u in all 70 of its instances,",
-    "while the possible-answers label beside it takes the single-u 'Yinafukulewi'.",
-    "Both are uniform within their own label, so neither is a slip by the counting",
-    "test, but they are the same participle spelt two ways. Left as the author has",
-    "it rather than guessed at."
+    ""
   ],
   "subtext": [
     {
       "from": "kutaña.Yilezhi",
       "to": "kutaña. Yilezhi"
-    },
-    {
-      "from": "Yileji atidizi atooñozhoki",
-      "to": "Yilezhi atudizi atoñozhoki"
-    },
-    {
-      "from": "Nakwilu Yinafuukulewi",
-      "to": "Ñakwilu Yinafukulewi"
-    },
-    {
-      "from": "Ñakwilu Yinafuukulewi",
-      "to": "Ñakwilu Yinafukulewi"
-    },
-    {
-      "from": "Kwilukisha 1.1.1.1.:",
-      "to": "Kwilukisha 1.1.1.1:"
-    }
-  ],
-  "_note_strandcase": [
-    "AUTHOR CASE CORRECTED, the front-matter strand list. 'Kulumbula mwaya yibalu",
-    "ya ntanjikilu' introduces the syllabus strands one by one, and the author typed",
-    "its four sub-headings in two different cases — 'Kuhosha nakutiyilila' and",
-    "'Kutaña (chakubula kumamatila)' in sentence case, then 'MAZU' and 'KUSONEKA",
-    "(CHITUÑI)' in full caps. Four siblings in one list must not print two ways, so",
-    "the two caps ones are set to the sentence case the list opens with. The",
-    "ALL-CAPS banners inside the body (KUHOSHA NAKUTIYILILA, KUTAÑA, MAZU, KUSONEKA,",
-    "KUTAÑA NAKANAÑACHIMA) are a different element in a different place and keep",
-    "their caps.",
-    "",
-    "Each of the two is anchored so it reaches ONLY the front-matter heading:",
-    "'KUSONEKA (CHITUÑI' is a prefix no body banner shares (those are a bare",
-    "'KUSONEKA'), while a bare 'MAZU' is shared by 16 body banners and, as a prefix,",
-    "by all 70 'Mazu Alema' key-word headings — so it matches on the whole text",
-    "exactly and takes the first one, which is this front-matter strand."
-  ],
-  "recase": [
-    {
-      "startsWith": "KUSONEKA (CHITUÑI",
-      "to": "sentence"
-    }
-  ],
-  "_note_mazuEdit": [
-    "The front-matter strand MAZU is singled out with edit + after (main has no recase find/first): the first block containing MAZU after the Kutaña strand heading is that strand, not MAZU ATACHI or a body banner."
-  ],
-  "edit": [
-    {
-      "find": "MAZU",
-      "with": "Mazu",
-      "after": "Kutaña (chakubula kumamatila)"
     }
   ],
   "_note_references": [
@@ -222,5 +134,72 @@
     "  print     lunda-g1-tg-cover.png       1620x1080, Real-ESRGAN x4 (-s 4) then resampled down, 312 DPI at 132mm",
     "It replaces image1.png, which is the FRONT cover picture (the engine’s hero; the older note below has image1/image2 the other way round). image2.png keeps its upscale."
   ],
-  "coverHeroWhole": true
+  "coverHeroWhole": true,
+  "_note_round1": [
+    "AUTHOR'S FINAL BOOK RETURN (2026-10-29, zeph round 1, 38 changes). The author converted our 6 Oct typeset PDF to Word and edited it in place ('Lunda Grade 1 TG  FINAL BOOK.pdf'). Every edit is written into the manuscript itself (paragraph by paragraph, matched word for word against the returned PDF), so the overrides that used to make some of the same corrections are gone: replace 1.41 -> 1.4.1, recase/edit of the front-matter strands MAZU / KUSONEKA (CHITUÑI), and the Yileji / Nakwilu / 1.1.1.1.: subtexts. The author also dropped the full stop after 'nikwakula malwihu', so asHead follows.",
+    "Kept as the author has it: in CHIBALU 11 the returned PDF shows Zhakwila 2 (with its table) below Zhakwila 3; that is the Word conversion floating the table (CHIBALU 12-14 keep 1, 2, 3), so the order 1, 2, 3 is kept. 'Ñakwilu Yinafuukulewi' left in the author's new boxes is still folded onto 'Yinafukulewi' by the subtext below (one spelling per word)."
+  ],
+  "_note_wordFix": [
+    "ONE SPELLING (2026-10-29). In the FINAL BOOK return the author changed 'Yinafuukulewi' to 'Yinafukulewi' in 56 places (both 'Yikuyuñulu' and 'Ñakwilu' labels) and left 21 with the double u. The single-u form is now the book's majority, and it is the spelling of the ZEPH Lunda word form, so wordFix takes the 21 leftovers onto it (house rule: one spelling per word, the book's most frequent)."
+  ],
+  "wordFix": {
+    "Yinafuukulewi": "Yinafukulewi"
+  },
+  "_note_indentLists": [
+    "Lists indented, as the sibling Learner's Book has them (indentLists): the author's new Mudimu and KWESEKA KWAHACHIBALU boxes nest roman sub-items (i., ii.) under a numbered question, which only reads right with the numbered items one step in and the romans one step further."
+  ],
+  "indentLists": true,
+  "_note_tables": [
+    "CHIBALU 11, lesson 1.8.2: the author's m/b + vowel chart has no heading row (its heading is the bold line above it), so its first pair is not banded as a header."
+  ],
+  "tables": [
+    {
+      "match": "m + a = ma",
+      "noHeader": true,
+      "rows": [
+        [
+          "m + a = ma",
+          "b + a = ba"
+        ],
+        [
+          "m + e = me",
+          "b + e = be"
+        ],
+        [
+          "m + i = mi",
+          "b + i = bi"
+        ],
+        [
+          "m + o = mo",
+          "b + o = bo"
+        ],
+        [
+          "m + u = mu",
+          "b + u = bu"
+        ]
+      ]
+    },
+    {
+      "match": "Mb + a = mba",
+      "noHeader": true,
+      "rows": [
+        [
+          "Mb + a = mba",
+          "Ns + e = nse"
+        ],
+        [
+          "Nk + a = nka",
+          "Mb + u = mbu"
+        ],
+        [
+          "Mw + e = mwe",
+          "Mb + i = mbi"
+        ],
+        [
+          "Mp + o = mpo",
+          ""
+        ]
+      ]
+    }
+  ]
 }
