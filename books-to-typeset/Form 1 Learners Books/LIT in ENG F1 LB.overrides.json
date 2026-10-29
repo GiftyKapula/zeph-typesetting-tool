@@ -335,6 +335,268 @@
   ],
   "replaceBlocks": [
     {
+      "find": "ISBN:…………………………………",
+      "with": [
+        {
+          "para": "**Edited by:**",
+          "center": true
+        },
+        {
+          "para": "Vision Milimo",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**First Published by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………………",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Daka Malangizo Alexander -Subject Teacher, St Francis and Clare Secondary-Lusaka Province.",
+      "with": [
+        {
+          "para": "**Daka, Malangizo Alexander:** Subject Teacher, St Francis and Clare Secondary, Lusaka Province."
+        }
+      ]
+    },
+    {
+      "find": "Kasongo Yvonne: Head of Department Languages, Chisokone Secondary School- Luapula Province.",
+      "with": [
+        {
+          "para": "**Kasongo, Yvonne:** Head of Department: Languages, Chisokone Secondary School, Luapula Province."
+        }
+      ]
+    },
+    {
+      "find": "Moono Richwell-Head of Department-Languages and Literature",
+      "with": [
+        {
+          "para": "**Moono, Richwell:** Head of Department: Languages and Literature, Musonda Girls Provincial STEM School, Luapula Province; English Paper 1 Examiner."
+        }
+      ]
+    },
+    {
+      "find": "Siankanga Clive- Acting Head of Department-Languages-Highland Secondary Lusaka Province-English Paper 1 Examiner.",
+      "with": [
+        {
+          "para": "**Siankanga, Clive:** Acting Head of Department: Languages, Highland Secondary, Lusaka Province; English Paper 1 Examiner."
+        }
+      ]
+    },
+    {
+      "find": "Noriana Muneku Ms.",
+      "with": [
+        {
+          "vspace": "16mm"
+        },
+        {
+          "para": "**Ms Noriana Muneku**\nPermanent Secretary – Administration\nMINISTRY OF EDUCATION"
+        }
+      ]
+    },
+    {
+      "find": "Introduction: Tells you what you will be learning.",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Introduction:",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " Tells you what you will be learning.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "1.",
+            "numId": "49",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Teaching Notes: Provides clear explanations of key concepts and terms.",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Teaching Notes:",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " Provides clear explanations of key concepts and terms.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "2.",
+            "numId": "49",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Activities and Exercises: Tasks to help you practice what you have learned.",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Activities and Exercises:",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " Tasks to help you practise what you have learned.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "3.",
+            "numId": "49",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Scenarios: Real-life situations to help you apply your knowledge.",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Scenarios:",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " Real-life situations to help you apply your knowledge.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "4.",
+            "numId": "49",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "End of Unit Assessment: Questions to test your understanding.",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "End of Unit Assessment:",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " Questions to test your understanding.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "5.",
+            "numId": "49",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Beatrice Chirwa Dr.\nBoard Chairperson\nZAMBIA EDUCATIONAL PUBLISHING HOUSE",
+      "with": [
+        {
+          "vspace": "16mm"
+        },
+        {
+          "para": "**Dr Beatrice Chirwa**\nBoard Chairperson\nZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+        }
+      ]
+    },
+    {
+      "find": "Agness Mumba Wilkins PhD\nManaging Director/Chief Executive Officer\nZAMBIA EDUCATIONAL PUBLISHING HOUSE",
+      "with": [
+        {
+          "vspace": "16mm"
+        },
+        {
+          "para": "**Agness Mumba Wilkins PhD**\nManaging Director/Chief Executive Officer\nZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+        }
+      ]
+    },
+    {
       "find": "@@EX1@@",
       "with": [
         {
@@ -2963,6 +3225,10 @@
       "find": "The Meaning of Literature",
       "until": "The Two Classrooms",
       "before": "What is Literature?"
+    },
+    {
+      "find": "Foreword",
+      "before": "Preface"
     }
   ],
   "moveBefore": [
@@ -3796,6 +4062,10 @@
     {
       "find": "Practice using the correct voice",
       "with": "Practise using the correct voice"
+    },
+    {
+      "find": "How this Book is organised",
+      "with": "How this book is organised"
     }
   ],
   "forceFreshPage": [
@@ -4168,5 +4438,19 @@
       "with": "Practise Together"
     }
   ],
-  "//copyedit": "Copy-edit read of the whole book (29 Oct 2026, user: 'fix everything'): spelling (British -ise/-our/practise/metre), agreement, missing articles and full stops, dialogue punctuation in the stories, run-on sentences, 'Mwewaderie' (a find-and-replace accident) -> 'camaraderie'. Each `edit` find was checked to occur once in the manuscript."
+  "//copyedit": "Copy-edit read of the whole book (29 Oct 2026, user: 'fix everything'): spelling (British -ise/-our/practise/metre), agreement, missing articles and full stops, dialogue punctuation in the stories, run-on sentences, 'Mwewaderie' (a find-and-replace accident) -> 'camaraderie'. Each `edit` find was checked to occur once in the manuscript.",
+  "deleteRun": [
+    {
+      "from": "Edited by: Vision Milimo",
+      "to": "Kalima and Kahinga"
+    }
+  ],
+  "//frontMatter": "Front matter set to the house rules (user, 29 Oct 2026: 'follow the house rules'): Foreword before Preface (HOUSE-STYLE §3 order); copyright page on the Silozi G4 LB model - each label bold on its own line with the name plain below it, the publisher group (address as on this book's Teacher's Guide), then ISBN; the four authors set alike (bold 'Surname, Name:' then post, school, province), Moono's two lines joined; each signatory block name bold, title and organisation plain, ~16 mm signature space above (§3); the Foreword's five 'Each unit contains' labels all bold.",
+  "deleteExact": [
+    "Musonda Girls Provincial STEM School Luapula Province - English Paper 1 Examiner.",
+    "Permanent Secretary - Administration MINISTRY OF EDUCATION"
+  ],
+  "pageBreakBefore": [
+    "This book is your companion on a journey of discovery"
+  ]
 }
