@@ -266,10 +266,21 @@
           v(3pt); line(length: 100%, stroke: 1.1pt + T.primary)
         } else {
           set text(size: 8.5pt, fill: T.primary)
-          grid(columns: (1fr, auto),
+          // literary: the header text stands on its baseline a fixed distance above the rule
+          // on every page - the same ~8.5pt gap the front-matter titles and sub-topic heads
+          // keep above their rules, so text-to-rule spacing is uniform throughout. The grid's
+          // own depth used to vary (front-matter pages ~7pt above the rule, body ~3.5pt).
+          let hgrid = grid(columns: (1fr, auto),
             align(left)[#smallcaps[#title]],
             align(right)[#smallcaps[#topicnow()]])
-          v(-3pt); line(length: 100%, stroke: 0.6pt + if modern { T.accent } else { T.primary })
+          let hline = line(length: 100%, stroke: 0.6pt + if modern { T.accent } else { T.primary })
+          if literary {
+            block(width: 100%, height: 14pt, {
+              set text(bottom-edge: "baseline")
+              place(bottom + left, dy: -9.3pt, hgrid)
+              place(bottom + left, hline)
+            })
+          } else { hgrid; v(-3pt); hline }
         }
       }
     },
