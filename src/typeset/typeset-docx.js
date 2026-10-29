@@ -1504,7 +1504,11 @@ function groupSignatories(b) {
           // The signatory's name (the first line) is always bold; an all-caps
           // organisation line (e.g. "ZAMBIA EDUCATIONAL PUBLISHING HOUSE") is bold
           // too; the title line (e.g. "Board Chairperson") is always regular weight.
-          lines.push(sigLine(plainOfBlk(b[j]), j === i));
+          // A block may hold several lines joined by Word line breaks ("Permanent
+          // Secretary (Administration)\nMINISTRY OF EDUCATION"): judge each on its own,
+          // or the organisation word on one line uppercases and bolds the title line too.
+          plainOfBlk(b[j]).split("\n").map((l) => l.trim()).filter(Boolean)
+            .forEach((l, k) => lines.push(sigLine(l, j === i && k === 0)));
           j++;
         }
         withSig.push({ t: "signature", lines });
@@ -1905,6 +1909,21 @@ function applyOverrides(blocks, ov) {
   // has NO caption, e.g. a figure whose number was baked into the picture and has been
   // cropped out). `index` picks which image in a row (default 0); `text` is written.
   for (const sc of ov.setCaption || []) {
+    // A picture set beside the text sits inside a `sidefig`, whose `images` the flat
+    // block list does not reach — so neither `file` nor `near` could find it, and a
+    // side picture's caption could not be corrected at all.
+    const sideIm = (function find(arr) {
+      for (const x of arr || []) {
+        if (!x || typeof x !== "object") continue;
+        if (x.t === "sidefig") {
+          const im = (x.images || []).find((m) => sc.file ? (m.file || "").includes(sc.file) : (m.caption || "").includes(sc.near));
+          if (im) return im;
+        }
+        for (const k of ["body", "parts"]) if (Array.isArray(x[k])) { const r = find(x[k]); if (r) return r; }
+      }
+      return null;
+    })(blocks);
+    if (sideIm) { sideIm.caption = sc.text; continue; }
     let b = flat.find((x) => sc.file
       ? ((x.t === "image" && (x.file || "").includes(sc.file)) || (x.t === "imagerow" && (x.images || []).some((im) => (im.file || "").includes(sc.file))))
       : ((x.t === "imagerow" && (x.images || []).some((im) => (im.caption || "").includes(sc.near))) || (typeof x.caption === "string" && x.caption.includes(sc.near))));
@@ -2078,14 +2097,21 @@ function applyOverrides(blocks, ov) {
   const wsNorm = (s) => s.replace(/\s+/g, " ").trim();
   for (const rb of ov.replaceBlocks || []) {
     const news = (rb.with || []).map(mkBlock).filter(Boolean);
-    if (!news.length) { console.warn("!  replaceBlocks empty/unknown spec:", rb.find); continue; }
+    // `with: []` deletes the matched block — the one way to strike a line whose words
+    // recur elsewhere ("and" between two formulas), which `remove`/`deleteExact` would
+    // take out everywhere.
+    const del = Array.isArray(rb.with) && rb.with.length === 0;
+    if (!news.length && !del) { console.warn("!  replaceBlocks empty/unknown spec:", rb.find); continue; }
     const want = wsNorm(rb.find);
+    // `next`: only the copy whose following sibling contains this text — for a line that
+    // recurs word for word ("Example", "Solution", "[2]") where only one is meant.
+    const nextOk = (arr, i) => rb.next == null || (arr[i + 1] && wsNorm(blockPlain(arr[i + 1])).includes(wsNorm(rb.next)));
     let done = false;
     const walk = (arr) => {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
-        if (wsNorm(blockPlain(b)) === want) { arr.splice(i, 1, ...news); done = true; return; }
+        if (wsNorm(blockPlain(b)) === want && nextOk(arr, i)) { arr.splice(i, 1, ...news); done = true; return; }
         for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key]);
       }
     };
