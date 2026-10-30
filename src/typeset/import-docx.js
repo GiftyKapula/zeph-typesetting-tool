@@ -945,7 +945,9 @@ function markerFor(n, template) {
   let s;
   if (/^\d+$/.test(core)) s = String(n);
   else if (/^[IVXLCDM]+$/.test(core)) s = toRoman(n).toUpperCase();
-  else if (/^[ivxlcdm]{2,}$/.test(core)) s = toRoman(n);
+  // The template is the run's FIRST marker, so a lone "i" opens i, ii, iii — a lettered run
+  // would have opened at "a" (the Luvale G1 TG tests: "2. i. p / ii. w / iii. a" came out a/b/c)
+  else if (/^(?:[ivxlcdm]{2,}|i)$/.test(core)) s = toRoman(n);
   else if (/^[A-Z]$/.test(core)) s = String.fromCharCode(64 + n);
   else s = toLetter(n);
   return s + suf;

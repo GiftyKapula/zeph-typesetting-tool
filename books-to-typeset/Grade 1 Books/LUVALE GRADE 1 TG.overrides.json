@@ -1,0 +1,231 @@
+{
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "coverImage": "luvale-g1-tg-cover.png",
+  "authors": [
+    "Chilunda Gift",
+    "Musanji Kayombo"
+  ],
+  "tocTitle": "VILIMO",
+  "replaceBlocks": [
+    {
+      "find": "ISBN:…………………………………",
+      "with": []
+    },
+    {
+      "find": "Vausononwene kuli:…………………………….",
+      "with": []
+    },
+    {
+      "find": "Vawalile kuli: …………………………",
+      "with": []
+    },
+    {
+      "find": "Vaufwatwile chakavanga kuli vaka:",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road",
+      "with": []
+    },
+    {
+      "find": "P.O. Box 32708",
+      "with": []
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "Lusesa lwose vanalukanyisa. Chijila kufwatulula, kunungulula chipwe kulama chihanda chamukanda ou mujila navahasa kufwatula cheka chakuzeneka lusesa kuli venyawo chipwe vaufwatwile.",
+      "with": [
+        {
+          "para": "© Ministry of Education, 2026",
+          "center": true
+        },
+        {
+          "para": "Lusesa lwose vanalukanyisa. Chijila kufwatulula, kunungulula chipwe kulama chihanda chamukanda ou mujila navahasa kufwatula cheka chakuzeneka lusesa kuli venyawo chipwe vaufwatwile.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Vausononwene kuli:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Vawalile kuli:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Vaufwatwile chakavanga kuli vaka:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Printed by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "match": "\"ch \"",
+      "noHeader": true,
+      "rows": [
+        [
+          "a",
+          "m",
+          "n",
+          "i",
+          "k"
+        ],
+        [
+          "s",
+          "p",
+          "e",
+          "t",
+          "w"
+        ],
+        [
+          "p",
+          "t",
+          "u",
+          "o",
+          "k"
+        ],
+        [
+          "ch",
+          "ph",
+          "kh",
+          "sh",
+          "ng"
+        ]
+      ]
+    },
+    {
+      "match": "k + a",
+      "noHeader": true,
+      "rows": [
+        [
+          "k + a = ka",
+          "kh + e = khe"
+        ],
+        [
+          "m + e = me",
+          "ny + i = nyi"
+        ],
+        [
+          "t + a = ta",
+          "ng + a = nga"
+        ],
+        [
+          "y + a = ya",
+          "tw + i = twi"
+        ]
+      ]
+    },
+    {
+      "match": "pho",
+      "noHeader": true,
+      "rows": [
+        [
+          "pe",
+          "ku",
+          "lo",
+          "hu"
+        ],
+        [
+          "zu",
+          "mi",
+          "se",
+          "na"
+        ],
+        [
+          "cha",
+          "pho",
+          "twa",
+          "shi"
+        ],
+        [
+          "nyi",
+          "nge",
+          "pya",
+          "mwe"
+        ]
+      ]
+    }
+  ]
+}
