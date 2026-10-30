@@ -13,7 +13,10 @@
     "",
     "COPYRIGHT. The manuscript has the copyright line twice, the first cut short (\"© Curriculum Development Centre, 202\"); that one goes.",
     "REFERENCES (setHeading, keep). As in Computer Science: each course's reading sits under its course name, and the reading labels",
-    "(styled anything from Heading 1 to plain) are small bold labels under it, out of the contents."
+    "(styled anything from Heading 1 to plain) are small bold labels under it, out of the contents.",
+    "",
+    "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25): 392 comments. 350 'Remove Boldface' -- the manuscript sets activities/standards in Word's Strong style with bold switched off by hand; the importer now honours that (engine). The rest below.",
+    "PAGE BREAKS: 1.1.4.3.1, 1.3.1.1.2 and 1.3.6.1.2 each carry one 3-line bullet onto the next page. Keeping them whole was tried (2026-10-26): it left pages 49-61% empty and a 2-line carry-over at 1.3.6.1.4, so they stay split."
   ],
   "subject": "Information and Communication Technology",
   "level": "Secondary School Teachers' Diploma",
@@ -86,6 +89,138 @@
       "as": "label",
       "all": true,
       "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Collaborative Learning and Pair Programming:",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Competency-Based (Mastery) Learning",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Curriculum Integration",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Flipped Classroom",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Guest Speakers and Industry Exposure",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Inquiry-Based Learning",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Interactive Discussions and Tutorials",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Interactive Coding Platforms",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Peer Teaching and Code Reviews",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Portfolio Development",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Problem-Based Learning",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Project-Based Learning (PBL)",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Real-World Applications and Case Studies",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Demonstrations and Practical Laboratory Sessions",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Simulations and Virtual Laboratories",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Research and Independent Learning",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Reflective Practice and Presentations",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Role Play and Educational Simulations",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Visual, Audio, and Digital Instructional Resources",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), contents p. v: 'Remove these from the table of content' -- the teaching methods under 1.4 are labels, out of the contents",
+      "find": "Work-Based Learning and Industry Attachment",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p. xvii: 'Time Allocation -- change font color to black and boldface'. Typed as a blue list item '1.5'; set as the 1.5 section head, like 1.6 Assessment beside it",
+      "find": "Time Allocation",
+      "as": "h2",
+      "text": "1.5 Time Allocation"
+    },
+    {
+      "_why": "Numbering check: Rationale is the section between 1.1 and 1.3 but carried no number",
+      "find": "Rationale",
+      "as": "h2",
+      "text": "1.2 Rationale"
     }
   ],
   "splitRow": [
@@ -117,6 +252,256 @@
   "keepRowWhole": [
     {
       "startsWith": "2.2.8.4"
+    },
+    {
+      "_why": "Page-break check after round 1: the row left one bullet alone at the top of p31; kept whole",
+      "startsWith": "1.1.7.1.2"
+    }
+  ],
+  "coverColour": "996ab5",
+  "_coverColour": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), M. C. Mabbola: the ICT syllabi colour theme of CDC's Computer Science Form 1-4 syllabus (library.cdcrepository.info id=248) -- its cover purple, sampled #996ab5.",
+  "recolor": [
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p. xvii: 'formative and summative -- change font color to black and boldface'",
+      "from": "0070C0",
+      "to": "000000",
+      "text": "formative",
+      "bold": true
+    },
+    {
+      "_why": "as above",
+      "from": "0070C0",
+      "to": "000000",
+      "text": "summative",
+      "bold": true
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p. viii: '1.1 Introduction -- move this to the next page (ix)'",
+      "find": "1.1 Introduction"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p93 (1.7.3.3.1): 'delete the words \"and effectively\"'",
+      "from": "analysed accurately and effectively",
+      "to": "analysed accurately"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p93 (1.7.3.3.2): 'change to ...' (reply on the thread)",
+      "from": "Deadlock management techniques analysed and applied to evaluate their effectiveness in maintaining efficient system performance",
+      "to": "Deadlock management techniques to evaluate their effectiveness in maintaining efficient system performance analysed and applied correctly"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p89 (1.7.1.2): rewrite (two comments, same wording)",
+      "from": "Types of operating systems analysed and differentiated based on their features, capabilities, and applications in different computing environments",
+      "to": "Types of operating systems analysed and differentiated correctly based on their features, capabilities and applications in different computing environments"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p33 (1.1.9.2): rewrite",
+      "from": "Algorithms designed correctly using pseudocode and flowcharts",
+      "to": "Algorithms using pseudocodes and flowcharts designed correctly"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p33 (1.1.9.2.1): 'Change this to plural \"pseudocodes\"' (the comment names only the word; taken as the competence, as in the reviewer's own rewrite of the standard)",
+      "from": "Design algorithms using pseudocode and flowcharts",
+      "to": "Design algorithms using pseudocodes and flowcharts"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p35: rewrite",
+      "from": "Basic programming concepts, including variables, loops, and functions, are correctly applied to develop simple computer programs that solve given problems",
+      "to": "Basic programming concepts, including variables, loops, and functions applied correctly to develop simple computer programs that solve problems"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p56: rewrite",
+      "from": "Efficient input systems designed by applying appropriate layouts, data coding methods, and validation techniques accurately to ensure reliable data entry",
+      "to": "Efficient input systems designed correctly using appropriate layouts, data coding methods and validation techniques to ensure reliable data entry"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p70: rewrite",
+      "from": "Appropriate network topologies analysed and designed correctly by selecting suitable structures based on efficiency, scalability, and reliability requirements",
+      "to": "Network topologies analysed and designed correctly by selecting appropriate structures based on efficiency, scalability and reliability"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p80 (activity): rewrite",
+      "from": "Identifying examples of intelligent agents in everyday life and their applications",
+      "to": "Identifying examples of intelligent agents (Reactive, Simple Reflex, Model-Based, Goal-Based, Utility-Based and Learning Agents) in everyday life and their applications"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p82: rewrite",
+      "from": "Different categories of machine learning analysed and explained with their real-world applications",
+      "to": "Different categories of machine learning analysed and explained correctly in relation to their applications in real-world contexts"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p83: rewrite",
+      "from": "AI applications applied and evaluated for enhancing teaching, learning, assessment, and problem-solving in educational contexts",
+      "to": "AI applications applied and evaluated correctly to enhance teaching, learning, assessment and problem-solving in educational contexts"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p83: rewrite",
+      "from": "Effective prompts designed and refined to improve the accuracy, relevance, and quality of AI-generated responses",
+      "to": "Effective prompts designed and refined correctly to improve the accuracy, relevance and quality of AI-generated responses"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p83: rewrite",
+      "from": "Limitations of LLMs evaluated through identifying inaccuracies, validating outputs, and applying responsible use practices",
+      "to": "Limitations of large language models (LLMs) evaluated correctly by identifying inaccuracies, validating outputs and applying appropriate verification techniques"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p86: rewrite",
+      "from": "A simple AI-based solution designed, developed, and evaluated using appropriate tools and data",
+      "to": "A simple AI-based solution designed, developed and evaluated correctly using appropriate tools and data"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p90: rewrite",
+      "from": "Kernel types and their role in managing system resources explained correctly",
+      "to": "Different types of kernels explained and their roles in managing system resources analysed correctly"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments), p94 (1.7.4.1.1): the reviewer highlighted \"in\" in \"compared based on their in operating systems\" -- the manuscript dropped a word there. Restored from the competence above it (\"...and their application in operating systems\") and the same standard in the Computer Science syllabus (\"...based on their application in operating systems\").",
+      "from": "compared based on their in operating systems",
+      "to": "compared based on their application in operating systems"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p95: rewrite",
+      "from": "Paging and segmentation concepts as memory management techniques explained correctly, including the division and mapping of logical memory to physical memory",
+      "to": "Paging and segmentation techniques explained correctly in relation to the division and mapping of logical memory to physical memory"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p95/96 (1.7.4.3.1 competence): rewrite",
+      "from": "Explain the concept, operation, and importance of virtual memory in improving system performance through memory management techniques",
+      "to": "Explain the concept, operation and importance of virtual memory in improving system performance through effective memory management"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p96: rewrite",
+      "from": "The concept and operation of virtual memory, including paging and swapping, explained correctly in relation to improving system performance and multitasking",
+      "to": "The concept, operation and importance of virtual memory explained correctly in relation to its role in improving system performance through effective memory management"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p97: rewrite",
+      "from": "Common file systems analysed and compared based on their features, performance, compatibility, and suitability for different computing environments",
+      "to": "Common file systems analysed and compared correctly based on their features, performance, compatibility and suitability for different computing environments"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p99: rewrite",
+      "from": "Common operating system security threats are identified, classified, and appropriate protection measures are applied correctly",
+      "to": "Common operating system security threats analysed and appropriate measures applied correctly to protect systems from vulnerabilities"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p100: rewrite",
+      "from": "Features, architecture, and applications of different operating systems explored, and suitable operating systems selected appropriately based on user and system requirements",
+      "to": "Features, architecture and applications of different operating systems explored, and suitable operating systems selected correctly based on user and system requirements"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p104: rewrite",
+      "from": "The principles of the CIA triad (Confidentiality, Integrity, and Availability) in information security explained and applied correctly",
+      "to": "The principles of the CIA triad (Confidentiality, Integrity and Availability) explained and applied correctly to secure information systems"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p105: rewrite",
+      "from": "Different types of cyber threats and attacks, their impacts, and preventive measures analysed correctly",
+      "to": "Different types of cyber threats and attacks analysed correctly in terms of their impacts and appropriate preventive measures for protecting computer systems"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p105: rewrite",
+      "from": "Social engineering tactics, including phishing attacks, identified, analysed, and appropriate prevention measures applied",
+      "to": "Social engineering tactics, including phishing attacks, analysed correctly, and appropriate measures applied to prevent and respond to online threats"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p107: rewrite",
+      "from": "Different types of encryption techniques and their roles in securing data analysed and applied correctly",
+      "to": "Different encryption techniques analysed and applied correctly to secure data in communication systems"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p113: rewrite",
+      "from": "The evolution of the web from static to dynamic systems explained accurately",
+      "to": "The evolution of the web from static to dynamic systems explained correctly, and the features of modern web applications analysed accurately"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p114: rewrite",
+      "from": "The skills and responsibilities required for web development identified correctly",
+      "to": "Skills and responsibilities required for web development explored appropriately"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p118: 'Delete this word \"functionality\"' (the comment names only the word; the one place in that stretch where it reads as a stray)",
+      "from": "Testing and debugging multimedia functionality in different web browsers",
+      "to": "Testing and debugging multimedia in different web browsers"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p119: rewrite",
+      "from": "The purpose of CSS in styling and controlling the appearance, layout, and presentation of web pages explained accurately",
+      "to": "The purpose and role of CSS in controlling the presentation and layout of web pages explained correctly"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p119: rewrite",
+      "from": "CSS selectors and properties applied correctly to style and format web page elements",
+      "to": "Appropriate CSS selectors and properties applied correctly to style and format web page elements"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p119: 'delete this word \"are\"' (two such comments; the two standards in that stretch that still had 'are')",
+      "from": "Web page layouts are implemented correctly",
+      "to": "Web page layouts implemented correctly"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p120: 'delete this word \"are\"'",
+      "from": "Media queries are used correctly",
+      "to": "Media queries used correctly"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p122 (2.2.5.2.1 competence): rewrite",
+      "from": "Use JavaScript variables and operators to handle data",
+      "to": "Use JavaScript variables and operators to handle and manipulate data"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p125: rewrite",
+      "from": "Web development frameworks such as Bootstrap or W3.CSS are applied correctly to create responsive and well-structured web pages",
+      "to": "Web development frameworks, such as Bootstrap or W3.CSS, applied correctly to design responsive and well-structured web pages"
+    },
+    {
+      "_why": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25), p131: rewrite",
+      "from": "Web project requirements analysed and plans developed by defining objectives, resources, and system specifications",
+      "to": "Web project requirements analysed and project plans developed correctly by defining objectives, resources and system specifications"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities): the notebook tool is Jupyter",
+      "from": "(Jupiter, PyCharm",
+      "to": "(Jupyter, PyCharm"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities): the editor is VS Code",
+      "from": "VS-Codes",
+      "to": "VS Code"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities): Python is a name (capital P, as everywhere else in the book)",
+      "from": "Exploring python syntax",
+      "to": "Exploring Python syntax"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities)",
+      "from": "configuring python, IDEs",
+      "to": "configuring Python, IDEs"
+    },
+    {
+      "_why": "Typo check after round 1 (manuscript slips in tool names, 1.2 Python activities)",
+      "from": "Creating python projects",
+      "to": "Creating Python projects"
+    },
+    {
+      "_why": "Grammar check after round 1 (manuscript slips): capital C mid-sentence (1.2.3.1.1)",
+      "from": "design and Code programs",
+      "to": "design and code programs"
+    },
+    {
+      "_why": "Grammar check after round 1 (manuscript slips): programs ... use",
+      "from": "Creating programs that uses loops",
+      "to": "Creating programs that use loops"
+    },
+    {
+      "_why": "Grammar check after round 1 (manuscript slips): programs ... use",
+      "from": "Developing programs that uses arrays",
+      "to": "Developing programs that use arrays"
     }
   ]
 }
