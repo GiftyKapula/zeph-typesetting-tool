@@ -248,7 +248,8 @@ Old binary `.doc` files won't parse — convert with LibreOffice first:
   on one sheet, for the printer). The spine shows the book name and the level, the
   book type when the spine is long enough, and the ZEPH logo at the foot. Its width is
   pages × 0.055 mm + 1 mm (80 gsm paper); set `"spineMmPerPage"` in a book's
-  overrides for other paper. Landscape syllabus books are not included.
+  overrides for other paper. Landscape syllabus books are not included. `"spine": true`
+  gives a thinner book (112 pages or fewer) a spine too, when the publisher wants one.
 - **Trim allowance**: the printer trims covers by 2 mm on every side, so the cover spread is 2 mm larger
   all round: each cover is scaled up evenly (about 1.6%) from its spine edge so its own artwork fills the margin (no spliced strips, so no joins inside a cover). Change
   with `"coverTrimMm"` per book.

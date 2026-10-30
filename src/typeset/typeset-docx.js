@@ -1711,7 +1711,7 @@ async function typesetOne(docxPath, themeName) {
     const spreadPath = path.join(bookDir, `${base} - cover spread.pdf`);
     // (a book of 112 pages or fewer has NO spine, but with coversInBook it still opens
     // on the back | front cover sheet, the two covers meeting at the fold)
-    const hasSpine = pages > 112;
+    const hasSpine = pages > 112 || ov.spine === true;   // (`spine: true` — a thinner book the publisher still wants a spine on)
     if (hasSpine || ov.coversInBook) {
       const cov = blocks.find((b) => b.t === "cover") || {};
       const lines = cov.lines || [];

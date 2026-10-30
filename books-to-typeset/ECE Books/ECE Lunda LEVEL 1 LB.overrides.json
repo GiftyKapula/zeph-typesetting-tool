@@ -1,6 +1,10 @@
 {
   "_note_cover": "The manuscript's cover picture (image1.png, 1226x1283, no lettering) is byte-identical to the TG's, so the cover reuses the TG's word-free 122:78 crop, Real-ESRGAN upscaled to 2452x1568 (~510 DPI at 122mm).",
   "coverImage": "lunda-ece-level1-tg-cover-hires.png",
+  "coversInBook": true,
+  "_note_round1": "Proofreading round 1 (2026-10-28): the proofreader returned the proof as a Word file edited in place (no comments, no tracked changes), saved 26 Oct; the changes were found by diffing it against the 9 Oct proof PDF. Keys marked round 1 carry them.",
+  "titleAgeLine": "YAAKA 3-4",
+  "tocTitle": "Yuma Yidi Mukachi",
   "keepFrontOrder": true,
   "localLabels": true,
   "authors": [
@@ -15,74 +19,115 @@
       "as": "h1"
     },
     {
-      "before": "Mutu Wansañu Wanyanya:  Tuheka Twapela.",
-      "head": "Mutu Wansañu: Kutiyilila Nakanañachima."
+      "before": "Kwataku mukanda.",
+      "head": "Mudimu:"
     },
     {
-      "before": "Kwataku mukanda.",
+      "before": "Shimunaku izhina debwambu deyi.",
+      "head": "Zhakwila: Kushimuna izhina debwambu deyi"
+    },
+    {
+      "before": "Shimunaku izhina debwambu deyi.",
       "head": "Mudimu:"
     }
   ],
   "_note_toc": "The contents page lists only headings it knows as units, not KAPETULU, so it came out empty: list every section heading (ANSONEKI + the 11 chapters), as in the TG.",
   "tocUnitsOnly": false,
-  "_note_strands": "The A./B./C. strand lines (KUHOSHA NAKUTIYILILA / KUTACHIKA KUDIZA KUTAÑA / KUTACHIKA KUDIZA KUSONEKA) come in as Word auto-lettered list items or as typed-letter paragraphs, so they printed as list lines and stranded at page feet. Make every one a heading, lettered as the manuscript letters them (KUHOSHA is always A, KUTAÑA B, KUSONEKA C - Chapter 6 auto-lettered its KUSONEKA line B). Two headings Word glued onto the next line are split back apart (Chapter 1's 'Zhakwila 1 ... Mudimu:', Chapter 11's 'B. KUTACHIKA KUDIZA KUTAÑA Mutu WANSAÑU: ...').",
+  "_note_strands": "The A./B./C. strand lines (KUHOSHA NAKUTIYILILA / KUTACHIKA KUDIZA KUTAÑA / KUTACHIKA KUDIZA KUSONEKA) come in as Word auto-lettered list items or as typed-letter paragraphs, so they printed as list lines and stranded at page feet. Make every one a heading, lettered as the manuscript letters them (KUHOSHA is always A, KUTAÑA B, KUSONEKA C - Chapter 6 auto-lettered its KUSONEKA line B). Two headings Word glued onto the next line are split back apart (Chapter 1's 'Zhakwila 1 ... Mudimu:', Chapter 11's 'B. KUTACHIKA KUDIZA KUTAÑA Mutu WANSAÑU: ...'). Round 1: the proofreader set the three strand lines in title case without their A./B./C. letters (a few kept a letter, or became Kusoka; set alike).",
   "setHeading": [
     {
       "find": "KUHOSHA NAKUTIYILILA",
-      "text": "A. KUHOSHA NAKUTIYILILA",
+      "text": "Kuhosha Nakutiyilila",
       "as": "head",
       "all": true
     },
     {
       "find": "A. KUHOSHA NAKUTIYILILA",
-      "text": "A. KUHOSHA NAKUTIYILILA",
+      "text": "Kuhosha Nakutiyilila",
       "as": "head",
       "all": true
     },
     {
       "find": "KUTACHIKA KUDIZA KUTAÑA",
-      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "text": "Kutachika Kudiza Kutaña",
       "as": "head",
       "all": true
     },
     {
       "find": "B. KUTACHIKA KUDIZA KUTAÑA",
-      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "text": "Kutachika Kudiza Kutaña",
       "as": "head",
       "all": true
     },
     {
       "find": "B.KUTACHIKA KUDIZA KUTAÑA",
-      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "text": "Kutachika Kudiza Kutaña",
       "as": "head",
       "all": true
     },
     {
       "find": "KUTACHIKA KUDIZA KUSONEKA",
-      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "text": "Kutachika Kudiza Kusoneka",
       "as": "head",
       "all": true
     },
     {
       "find": "C. KUTACHIKA KUDIZA KUSONEKA",
-      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
+      "text": "Kutachika Kudiza Kusoneka",
       "as": "head",
       "all": true
     },
     {
-      "find": "C.   KUTACHIKA KUDIZA KUSONEKA",
-      "text": "C. KUTACHIKA KUDIZA KUSONEKA",
-      "as": "head",
-      "all": true
-    },
-    {
-      "find": "B. KUTACHIKA KUDIZA KUTAÑA Mutu WANSAÑU: Kutiyilila Nakanañachima.",
-      "text": "B. KUTACHIKA KUDIZA KUTAÑA",
+      "find": "Zhakwila 1: Mwakukwatila mukanda mwaloña",
+      "text": "Zhakwila 1: Mwakukwatila mukanda mwaloña.",
       "as": "head"
     },
     {
-      "find": "Zhakwila 1: Mwakukwatila mukanda mwaloña Mudimu:",
-      "text": "Zhakwila 1: Mwakukwatila mukanda mwaloña.",
+      "find": "Mutu Wansañu: Chizala",
+      "text": "Chizala",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu: Kuhanjeka",
+      "text": "Kuhanjeka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu: Yivumina",
+      "text": "Yivumina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Mutu Wansañu: Nyevulu",
+      "text": "Nyevulu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Zhakwila: Kwila nyidimu yakuvuñuzhola nyinu (kuhemesha nyinu, kuchaka ndambu, kuloña wanda, kutabola yipapilu).",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila: Kusombolola yivumina yakufuma kutunyama twawutadi yivumina yidi neyi moo, mee, kokolilko…",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila: Kuhosha hayuma yamwekanaña muyisaka (kulanda, kuchechi, yidika, wundimi).",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila: Kusombolola yivumina yafumaña kuyuma yamboka (yisekeli, zhiñoma .....)",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila 1: Kutiyilila kukaheka kapela kanashimunewi nakwakula malwihu mukuhosha.",
+      "as": "head"
+    },
+    {
+      "find": "Zhakwila: Kuleña yuma yamboka amboka yidi neyi makondi, ma olenji, mangu, tunyama, yuma yamwitala.",
       "as": "head"
     }
   ],
@@ -100,13 +145,305 @@
     "ART/W pictures showing learners greeting",
     "ART/W A picture showing different items",
     "A picture showing simple words nona",
-    "Pictures of people in church praying."
+    "Pictures of people in church praying.",
+    "Kuhituluka nawatudizi",
+    "Wansañu Wanyan",
+    "wansañu wanyan",
+    "Zhakulondela",
+    {
+      "find": "Yivumina",
+      "after": "KAPETULU 6"
+    }
   ],
   "_note_typo": "One 'Wansañu' typed with ṅ (n with a dot above) instead of ñ.",
   "edit": [
     {
       "find": "Mutu Wansaṅu Wanyanaya 1",
       "with": "Mutu Wansañu Wanyanaya 1"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanaya 2: Mazhina amabwambu",
+      "with": "Mazhina amabwambu"
+    },
+    {
+      "find": "Mutu wansañu wanyanya:  Mazhina atunyama",
+      "with": "Mazhina atunyama"
+    },
+    {
+      "find": "Mutu wansañu wanyanya : Nshimbi Zhapela",
+      "with": "Nshimbi"
+    },
+    {
+      "find": "MUTU WANSAÑU:  KWIMUSHA",
+      "with": "Kwimusha"
+    },
+    {
+      "find": " (Izhina dami yami, iyami…)",
+      "with": ""
+    },
+    {
+      "find": "Mudimu: Shimunaku izhina debwambu deyi kuzatisha mazu adi neyi (iwu diyi, awa diwu, wena diwu).",
+      "with": "Shimunaku izhina debwambu deyi."
+    },
+    {
+      "find": "asatu- asatu",
+      "with": "awana-awana"
+    },
+    {
+      "find": "Shimunenu wusoku",
+      "with": "Shimunaku wusoku"
+    },
+    {
+      "find": "muchiaka chanyanya",
+      "with": "muchisaka chanyanya"
+    },
+    {
+      "find": " (left to right)",
+      "with": "."
+    },
+    {
+      "find": "Kushimuna hanyidimu",
+      "with": "Kushimuna nyidimu"
+    },
+    {
+      "find": "zhiñinza    zhansona",
+      "with": "ñinza zhansona"
+    },
+    {
+      "find": "neyi mapesu,",
+      "with": "neyi mapensulu,"
+    },
+    {
+      "find": "twawanikaṅa hamukala",
+      "with": "twawanikaña hamukala."
+    },
+    {
+      "find": "yivumina yakufuma kutunyama",
+      "with": "yivumina yafumaña kutunyama"
+    },
+    {
+      "find": "kokolilko",
+      "with": "kokoliko"
+    },
+    {
+      "find": "yivumina yawatunya twawutadi",
+      "with": "yivumina yatunyama twawutadi"
+    },
+    {
+      "find": "nampinji zhidi mumwevulu",
+      "with": "nampinji zhidi hamwevulu"
+    },
+    {
+      "find": "kuchechi,",
+      "with": "kuchipompelu,"
+    },
+    {
+      "find": "muchiisaka chenu",
+      "with": "muchisaka chenu"
+    },
+    {
+      "find": "Kufundululaku nyifunda.",
+      "with": "Kufundulula nyifunda."
+    },
+    {
+      "find": "hamwevulu mwahita chisaka",
+      "with": "hamwevulu."
+    },
+    {
+      "find": "Kufundululaku mashepu apela",
+      "with": "Kufundulula mashepu apela"
+    },
+    {
+      "find": "KAPETULU 7: KOZAMBA",
+      "with": "KAPETULU 7: KOZOMBA"
+    },
+    {
+      "find": " (antañishi, Inakulombaku kuya hanzhi)",
+      "with": ""
+    },
+    {
+      "find": " (kuya moloka, kufunta….)",
+      "with": ""
+    },
+    {
+      "find": "Kufundulula zhinsona kuzatisha",
+      "with": "Kufundulula nsona kuzatisha"
+    },
+    {
+      "find": "Fundululeku zhinsona",
+      "with": "Fundululaku nsona"
+    },
+    {
+      "find": "kanashimunewi nakwakula malwihu mukuhosha.",
+      "with": "kanakushimunewa nakwakula malwihu amukuhosha."
+    },
+    {
+      "find": "Tiyililaku kukaheka kapela nakwakula malwihu mukuhosha.",
+      "with": "Tiyililaku kukaheka kapela nakwakula malwihu amukuhosha."
+    },
+    {
+      "find": "kapela kanatañewi kulonda",
+      "with": "kapela kanakutañewa kulonda"
+    },
+    {
+      "find": "Zhakwila:Kukopolola",
+      "with": "Zhakwila: Kukopolola"
+    },
+    {
+      "find": "YITUMBU MUNZHILA YALUWA",
+      "with": "YITUMBU NIYUMA YASHETANA MUNZHILA YALUWA"
+    },
+    {
+      "find": "Zhakwila: Kuvumisha yivumina",
+      "with": "Zhakwila: Kutena yivumina"
+    },
+    {
+      "find": "Mwekeshaku kuvumisha yivumina",
+      "with": "Mwekeshaku kutena yivumina"
+    },
+    {
+      "find": "Amwekeshi kutena yivumina yansona",
+      "with": "Tenaku iyi yivumina yansona."
+    },
+    {
+      "find": "Kopololaku mashepu mumukanda",
+      "with": "Kopololaku awa mashepu mumukanda"
+    },
+    {
+      "find": "KUTAÑA HAZHAMALI",
+      "with": "KUTAÑA NSAÑU ZHAMALI"
+    },
+    {
+      "find": "Tenaku mpinji yatelela kulomba",
+      "with": "Tenaku mpinji yatelela kulomba."
+    },
+    {
+      "find": "mwekenu yawantu adi mumwevulu.",
+      "with": "mwekenu yawantu adi hamwevulu."
+    },
+    {
+      "find": "Shimuni mwekenu yawantu adi munyevulu.",
+      "with": "Shimunaku mwekenu yawantu adi hamwevulu."
+    },
+    {
+      "find": "Kwakula malwihu mukuhosha ahakaheka Kapela",
+      "with": "Kwakula malwihu amukuhosha ahakaheka kapela"
+    },
+    {
+      "find": "Akulaku malwihu ahakaheka mukuhosha hohu.",
+      "with": "Akulaku malwihu amukuhosha hohu ahakaheka."
+    },
+    {
+      "find": "yamboka amboka yidi",
+      "with": "yamboka yidi"
+    },
+    {
+      "find": "mangu, tunyama,",
+      "with": "mbuma,"
+    },
+    {
+      "find": "MUTU WANSAÑU: KULUMBULULA",
+      "with": "Kulumbulula"
+    },
+    {
+      "find": "hamwevulu (kawa,",
+      "with": "hamwevulu (kawa, mpembi, kamesha, kasumbi, nguli)."
+    },
+    {
+      "find": "Kweseka Kwaha Kapetulu 1",
+      "with": "KWESEKA KWAHA KAPETULU 1"
+    },
+    {
+      "find": "Zhakwila 2: Kushitiyilila kuheka kapela kanatañewi",
+      "with": "Zhakwila 2: Kutiyilila kukaheka kapela kanakutañewa"
+    },
+    {
+      "find": "Kufwikizha kutaña kufuma kwiwulu",
+      "with": "Fwikizhaku kutaña kufuma kwiwulu"
+    },
+    {
+      "find": "Kutena mazhina ayuma yawenimbu",
+      "with": "Tenaku mazhina ayuma yawenimbu"
+    },
+    {
+      "find": "Shimununenu tuheka",
+      "with": "Shimununaku tuheka"
+    },
+    {
+      "find": "nshimbi zhaha shikola",
+      "with": "nshimbi zhashikola"
+    },
+    {
+      "find": "kulombola kwapela,",
+      "with": "kulombola kwapela."
+    },
+    {
+      "find": "zhiñoma .....)",
+      "with": "zhiñoma…)"
+    },
+    {
+      "find": "Zhakwila 1: Kudiza mwakushakamina",
+      "with": "Zhakwila: Kudiza mwakushakamina"
+    },
+    {
+      "find": "Zhakwila: Kushimuna mazhina awantu",
+      "with": "Zhakwila 1: Kushimuna mazhina awantu"
+    },
+    {
+      "find": "Zhakwila1: Kushimuna wusoku",
+      "with": "Zhakwila 2: Kushimuna wusoku"
+    },
+    {
+      "find": "Zhakwila 1: Kutena tunyama",
+      "with": "Zhakwila: Kutena tunyama"
+    },
+    {
+      "find": "Zhakwila: Kuhosha hayuma yamwekanaña",
+      "with": "Zhakwila 1: Kuhosha hayuma yamwekanaña"
+    },
+    {
+      "find": "Zhakwila 1: Kuhosha hayuma yakeñawu",
+      "with": "Zhakwila 2: Kuhosha hayuma yakeñawu"
+    },
+    {
+      "find": "Zhakwila 1: Kushimuna yuma yabula",
+      "with": "Zhakwila 3: Kushimuna yuma yabula"
+    },
+    {
+      "find": "Zhakwila: Kuhosha hanshimbi zhahetala",
+      "with": "Zhakwila 1: Kuhosha hanshimbi zhahetala"
+    },
+    {
+      "find": "Zhakwila: Kuhosha hanshimbi zhashikola",
+      "with": "Zhakwila 2: Kuhosha hanshimbi zhashikola"
+    },
+    {
+      "find": "Zhakwila1: Kulondela",
+      "with": "Zhakwila 2: Kulondela"
+    },
+    {
+      "find": "Zhakwila1: Kwambula",
+      "with": "Zhakwila: Kwambula"
+    },
+    {
+      "find": "Zhakwila: Kufundulula nsona kuzatisha",
+      "with": "Zhakwila 1: Kufundulula nsona kuzatisha"
+    },
+    {
+      "find": "Zhakwila: Kulomba kwapela",
+      "with": "Zhakwila 1: Kulomba kwapela"
+    },
+    {
+      "find": "Zhakwila: Kulumbulula yuma yawanikaña",
+      "with": "Zhakwila 1: Kulumbulula yuma yawanikaña"
+    },
+    {
+      "find": "Zhakwila: Kulumbulula yuma yidi",
+      "with": "Zhakwila 2: Kulumbulula yuma yidi"
+    },
+    {
+      "find": "Zhakwila 2: Kulumbulula mwekenu",
+      "with": "Zhakwila 3: Kulumbulula mwekenu"
     }
   ],
   "_note_dup": "p21 printed the same pencil picture twice on one page: image19 after the Zhakwila (where every other activity puts its picture) and image20, the same picture again under the illustrator note. Keep the first.",
@@ -115,7 +452,8 @@
   ],
   "deleteExact": [
     "ART/W A picture of print words accompanied by pictures (mango, house, tree, car).",
-    "ART/W pictures of domestic animals producing different sounds cow, goat, chicken (3)"
+    "ART/W pictures of domestic animals producing different sounds cow, goat, chicken (3)",
+    "mpembi, kamesha, kasumbi,nguli)."
   ],
   "images": {
     "image72.jpeg": {
@@ -406,5 +744,136 @@
     "image74.jpeg": {
       "src": "ECE Lunda LEVEL 1 LB-hires/image74.png"
     }
-  }
+  },
+  "coverWords": {
+    "printedBy": "Published by"
+  },
+  "_note_backcover": "Back cover: ZEPH logo + Published by / Zambia Educational Publishing House + ISBN box (house standard, as the Lunda L2 TG). coversInBook: the back | front cover sheet is the first page of the book (one PDF).",
+  "_note_r1_labels": "Round 1: the Learner's Book loses the teacher-facing labels. Every \"Mutu Wansañu:\" label goes, the topic name stays (Kapetulu 6 reading Yivumina and Kapetulu 7 Zhakulondela go whole); every \"Mutu Wansañu Wanyanya\" line goes, except three kept as the proofreader kept them: Mazhina amabwambu, Mazhina atunyama, Nshimbi.",
+  "editAll": [
+    {
+      "find": "Mutu Wansañu: ",
+      "with": ""
+    },
+    {
+      "find": "MUTU WANSAÑU: ",
+      "with": ""
+    },
+    {
+      "find": "Mutu wansañu: ",
+      "with": ""
+    },
+    {
+      "find": "Mutu WANSAÑU: ",
+      "with": ""
+    },
+    {
+      "find": "yisela…..)",
+      "with": "yisela…)"
+    }
+  ],
+  "_note_r1_pages": "Round 1 page breaks: with the labels gone, four strand lines (Kapetulu 5 and 7 Kusoneka, 8 and 10 Kutaña) fell at a page foot with only their topic name under them; each opens the next page with its activity.",
+  "pageBreakBefore": [
+    {
+      "find": "Kutachika Kudiza Kusoneka",
+      "near": "Kufundulula nyifunda."
+    },
+    {
+      "find": "Kutachika Kudiza Kusoneka",
+      "near": "Kufundulula nsona kuzatisha"
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña",
+      "near": "Kutena yivumina yidi kukutachika kwamazu apela"
+    },
+    {
+      "find": "Kutachika Kudiza Kutaña",
+      "near": "Kulumbulula nyevulu"
+    }
+  ],
+  "_note_r2_tidy": "Clean-up after round 1 (user: fix everything before it goes back for proofreading): one look for every activity and topic line (the ones typed as plain paragraphs set as bold headings like the rest), Zhakwila numbered 1, 2, 3 within a strand or sub-topic when it has more than one and plain Zhakwila: when it has one, every Mudimu with its colon, every Mudimu task in the -aku form the book uses everywhere else, one spelling per word (zhashikola), stray spacing and dots, a split line joined, the stray C. on the Kapetulu 5 test item.",
+  "replaceBlocks": [
+    {
+      "find": "Mudimu: Tenaku mazhina awantu amuchisaka chanyanya.",
+      "with": [
+        {
+          "head": "Mudimu:"
+        },
+        {
+          "para": "Tenaku mazhina awantu amuchisaka chanyanya."
+        }
+      ]
+    },
+    {
+      "find": "C.Fundululaku nyifunda.",
+      "with": [
+        {
+          "listitem": "Fundululaku nyifunda.",
+          "marker": "3."
+        }
+      ]
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "Mudimu",
+      "with": "Mudimu:",
+      "all": true
+    },
+    {
+      "find": "Itezhaku kwizhina deyi",
+      "with": "Itezhaku kwizhina deyi."
+    },
+    {
+      "find": "Fundululaku nyifunda",
+      "with": "Fundululaku nyifunda."
+    },
+    {
+      "find": "Fundululaku nsona",
+      "with": "Fundululaku nsona."
+    },
+    {
+      "find": "Leñaku yuma yamboka",
+      "with": "Leñaku yuma yamboka."
+    }
+  ],
+  "_note_spine": "User 2026-10-28: this book has a spine although it is under 112 pages (spine: true).",
+  "spine": true,
+  "_note_imprint": "The manuscript has no copyright page. Built as the Lunda ECE Level 2 TG has it (house model): the series' Lunda rights paragraph from the Level 2 LB manuscript, bold labels with plain values, layout credit = house default.",
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House (2026)",
+    "rights": "Ñovu zhezhima haniwu mukanda zhidi mumakasa awenawu antu awusoneka. Kosi chibalu chaniwu mukanda hela chimu chinatweshi kwidishewa cheñiku, kuhembewa munzhila yiwunatweshi kwikala waswayi kuwana nakwidisha cheñi hela kutemeshewa kwacheñiku nakuzatisha makina amaana amaha, kufwatulewa, kukopewa hela nzhila zhikwawu, chakubula kusambila kwitezhewa kudi aka Zambia Educational Publishing House.",
+    "groups": [
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Ng`ambi Teddy (B.Sc)"
+        ]
+      },
+      {
+        "label": "First Published 2026 by:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road",
+          "P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "ISBN:",
+        "lines": [
+          "……………………………"
+        ]
+      },
+      {
+        "label": "Printed by:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "imprintSpacing": "0.3em",
+  "imprintGap": "3mm"
 }
