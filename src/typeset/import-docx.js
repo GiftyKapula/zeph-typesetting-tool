@@ -40,6 +40,9 @@ let COLON_HEADINGS = false;
 // opts.exerciseBullets (per book): a Word bullet inside an exercise stays a bullet under the
 // current item. Off by default so books already proofread keep their a./b. rendering.
 let EXERCISE_BULLETS = false;
+// activityTitles (sidecar): box-title words this book uses for a learning activity, e.g.
+// a Kiikaonde LB whose numbered "MWINGILO 1:" boxes are activities, not exercises
+let ACTIVITY_TITLES = [];
 // opts.tabGap (per book, set by glossaryColumns): a Word tab always leaves a gap of at least
 // two spaces, so a word list separated by ONE tab still splits into its two columns.
 let TAB_GAP = false;
@@ -115,6 +118,8 @@ function fixBoxTitleSpelling(s) {
 // Activity, Mudimu = Exercise) — add a book's labels here as new books arrive.
 function boxKindFromTitle(t) {
   const s = t.replace(/^\s+/, "");
+  // (only "WORD 1" / "WORD:" — "MWINGILO WA KUUBA" stays what the word list says)
+  if (ACTIVITY_TITLES.some((w) => new RegExp(`^${w}\\s*(\\d|:)`, "i").test(s))) return "activity";
   // Labels in English + Zambian local languages (see local-language-glossary).
   // Order matters: multi-word/specific labels before bare ones (e.g. Kaonde
   // "Mwingilo wakuuba" = activity must beat "Mwingilo" = exercise).
@@ -1923,6 +1928,7 @@ function groupAssessments(blocks) {
 async function importDocx(docxPath, opts = {}) {
   COLON_HEADINGS = !!opts.colonHeadings;
   EXERCISE_BULLETS = !!opts.exerciseBullets;
+  ACTIVITY_TITLES = Array.isArray(opts.activityTitles) ? opts.activityTitles : [];
   TAB_GAP = !!opts.tabGap;
   ANSWER_NUMBERED = Array.isArray(opts.answerListNumbered) ? opts.answerListNumbered : [];
   SECTION_RE = COLON_HEADINGS ? SECTION_COLON : SECTION_STRICT;

@@ -157,6 +157,7 @@ off, so a change only touches the books that opt in. Keys:
 | `tables` | rebuild a badly-built table as an explicit grid |
 | `tableHeaders` | `false`: no table in the book has a heading row, so no first row gets the header band (a reading book's letter, syllable and word grids); reaches tables inside boxes too |
 | `numberLabels` | `[{ label, from, until?, start? }]` — number every bare `label` heading ("Mulimo:", "Mulimo", "Mulimo 8") in reading order between the block containing `from` and the next containing `until` ("Mulimo 1:" … "Mulimo 21:" through a phonics run) |
+| `activityTitles` | `["MWINGILO", …]` — box-title words this book uses for a learning **activity**: a box titled "WORD 1:" or "WORD:" is an activity box (contents left as typed) instead of what the local-language word list says (Kiikaonde "Mwingilo" = exercise, which renumbers its contents). A heading such as "MWINGILO WA KUUBA" is not matched |
 
 **Images:** generate with **gpt-image-2, `quality: "high"`** (raised from the
 old `"low"` cost-saving default — print sharpness now wins over the small
