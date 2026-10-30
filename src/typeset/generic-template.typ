@@ -275,10 +275,21 @@
           v(3pt); line(length: 100%, stroke: 1.1pt + T.primary)
         } else {
           set text(size: 8.5pt, fill: T.primary)
-          grid(columns: (1fr, auto),
+          // literary: the header text stands on its baseline a fixed distance above the rule
+          // on every page - the same ~8.5pt gap the front-matter titles and sub-topic heads
+          // keep above their rules, so text-to-rule spacing is uniform throughout. The grid's
+          // own depth used to vary (front-matter pages ~7pt above the rule, body ~3.5pt).
+          let hgrid = grid(columns: (1fr, auto),
             align(left)[#smallcaps[#title]],
             align(right)[#smallcaps[#topicnow()]])
-          v(-3pt); line(length: 100%, stroke: 0.6pt + if modern { T.accent } else { T.primary })
+          let hline = line(length: 100%, stroke: 0.6pt + if modern { T.accent } else { T.primary })
+          if literary {
+            block(width: 100%, height: 14pt, {
+              set text(bottom-edge: "baseline")
+              place(bottom + left, dy: -5.1pt, hgrid)
+              place(bottom + left, hline)
+            })
+          } else { hgrid; v(-3pt); hline }
         }
       }
     },
@@ -2367,10 +2378,9 @@
     block(breakable: false, width: 100%)[
       #set par(spacing: 0pt)
       #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
-      #v(9.5pt)
-      // drawn exactly like the running-header rule above it (0.6pt, the book's primary
-      // colour): the pale rulec line looked faint beside the header, and the user marked
-      // the header rule as the one to match.
+      #v(5.7pt)
+      // drawn like the running header's rule (0.6pt in the primary colour), not the pale
+      // table rule colour — the user marked the header line as the one to match
       #line(length: 100%, stroke: 0.6pt + T.primary)]
     // spaced like the book's own sub-topic heads: ~8.5pt from the title to its rule and
     // ~14pt from the rule to the first line of text (the front-matter paragraph spacing
@@ -2379,13 +2389,16 @@
     // centred chapter title flanked by thin gold rules — a literary look
     v(12pt, weak: true)
     align(center, block(breakable: false, width: 100%)[
+      // One spacing for every heading rule in the book (user, 2026-10-29: "make the
+      // spacing uniform everywhere"): the running header's text-to-rule gap above and
+      // below the title, and the sub-topics' rule-to-text gap after it.
       #line(length: 22%, stroke: 0.6pt + T.accent)
-      #v(4pt)
+      #v(-8.3pt)
       #text(fill: T.primary, size: hm(16pt), weight: "bold", tracking: 0.5pt)[#t]
-      #v(4pt)
+      #v(-8.3pt)
       #line(length: 22%, stroke: 0.6pt + T.accent)
     ])
-    v(8pt)
+    v(-0.3pt)
   } else if panel {
     // editorial banner: thin top rule, title, thick accent rule beneath
     v(10pt, weak: true)
@@ -2528,7 +2541,7 @@
       #grid(columns: (auto, 1fr), column-gutter: 7pt, align: (horizon, horizon),
         rotate(45deg, rect(fill: T.accent, width: 4pt, height: 4pt)),
         text(fill: T.primary, size: hs(14pt), weight: "bold", style: "italic")[#t])
-      #v(2pt)
+      #v(-5.6pt) // title-to-rule as the running header
       #line(length: 100%, stroke: 0.5pt + T.accent.lighten(12%))]
   } else if panel {
     // a solid colour "chip", sized to the text

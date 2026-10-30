@@ -894,6 +894,10 @@ function boxifyActivities(blocks, opts = {}) {
         const items = t.split(/\s+[–—-]\s+/);
         return items.length >= 3 && items.every((w) => w.trim() && w.trim().split(/\s+/).length <= 3);
       })();
+      // A lone "SUMMARY" heading is the lesson's own closing section, never box content:
+      // the Literature in English Form 1 TG had a dozen of them swallowed by the
+      // assessment or answer box above, their points numbered on from its questions.
+      if (isHead(y) && /^SUMMARY:?$/.test(((y.text || blockPlain(y)) || "").trim())) break;
       if (altActPending && !isHead(y)) { body.push(y); j++; altActDone = true; break; }
       if (!passageHead && !leadAbsorb && !phaseHead && !altActHead && !answerLine && !questionLine && !wordBankLine) {
         if (y.t === "h1" || y.t === "h2" || y.t === "h3") break;     // topic / sub-topic / sub-sub-heading
@@ -7888,6 +7892,24 @@ function normaliseQuestionMarkBold(blocks) {
     if (fmAt >= 0 && unitAt > fmAt) {
       blocks.splice(unitAt, 0, { t: "parspacing", v: "0.86em" });
       blocks.splice(fmAt + 1, 0, { t: "parspacing", v: ov.fmSpacing || "1.9em" });
+    }
+    // The rule under a unit title sits ~14.5pt above whatever follows, as under every
+    // other heading rule (user, 2026-10-29: "make the spacing uniform everywhere"). The
+    // template's own trailing space suits a following heading, which brings its own
+    // room above it; a topic banner or plain text brings less, so top them up here.
+    // Measured at 3x on the Literature in English Form 1 TG (Units 2, 3) and LB.
+    for (let i = 0; i < blocks.length; i++) {
+      const u = blocks[i];
+      if (!(u.t === "h1" && /^UNIT\b/i.test(u.text || "") && !TOPIC_RE.test(u.text || ""))) continue;
+      let j = i + 1;
+      while (j < blocks.length && blocks[j].t === "parspacing") j++;
+      const nx = blocks[j];
+      if (!nx) continue;
+      const gap = nx.t === "h1" && TOPIC_RE.test(nx.text || "") ? "2.8pt"
+        : (nx.t === "para" || nx.t === "listitem") ? "5.5pt"
+        // a sub-topic head (h2) brings only ~6pt of its own (LB Units One and Two)
+        : nx.t === "h2" ? "8.5pt" : null;
+      if (gap) blocks.splice(j, 0, { t: "vspace", h: gap });
     }
   }
   // `backCover: true` — the house back cover (logo, "Published by", ISBN box) for a
