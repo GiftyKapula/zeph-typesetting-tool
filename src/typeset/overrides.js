@@ -1101,10 +1101,25 @@ function applyOverrides(blocks, ov) {
   // flattens the replacement to roman) this keeps formatting, so it is safe on text
   // that may fall inside italic/bold runs — e.g. a manuscript typo like "fourfigure"
   // that must become "four figure" both in body prose and inside an italic activity.
+  // (`titles: true` — a book-wide spelling fix: also reach box titles and plain-text
+  // headings, which carry their words in a string rather than in runs)
   for (const st of ov.subtext || []) {
     let n = 0;
     for (const b of flat) for (const s of b.segs || []) {
       if (!s.m && s.t && s.t.includes(st.from)) { s.t = s.t.split(st.from).join(st.to); n++; }
+    }
+    if (st.titles) {
+      const seen = new Set();
+      const walk = (o) => {
+        if (!o || typeof o !== "object" || seen.has(o)) return;
+        seen.add(o);
+        if (Array.isArray(o)) { o.forEach(walk); return; }
+        const tk = titleKey(o);
+        if (tk && typeof o[tk] === "string" && o[tk].includes(st.from)) { o[tk] = o[tk].split(st.from).join(st.to); delete o.titleSegs; n++; }
+        if (typeof o.text === "string" && !o.segs && o.text.includes(st.from)) { o.text = o.text.split(st.from).join(st.to); n++; }
+        for (const k of Object.keys(o)) if (o[k] && typeof o[k] === "object") walk(o[k]);
+      };
+      walk(blocks);
     }
     if (!n) console.warn("!  subtext not matched:", st.from);
   }
@@ -1217,6 +1232,25 @@ function applyOverrides(blocks, ov) {
   // removes the heading's text, leaving it blank rather than deleting the block, so
   // reading-passage content that was wrongly given an activity label can be unlabelled
   // without disturbing surrounding blocks).
+  // numberLabels: [{ label, from, until?, start? }] — number every "<label>" heading
+  // ("Mulimo:", "Mulimo", "Mulimo 8") in a run of the book, in reading order: from the
+  // first top-level block containing `from` up to (not incl.) the first after it
+  // containing `until` (or the end). A reviewer who wants each lesson's exercises
+  // numbered straight through a long phonics run ("Mulimo 1:" … "Mulimo 21:").
+  for (const nl of ov.numberLabels || []) {
+    const a = blocks.findIndex((b) => blockPlain(b).includes(nl.from));
+    if (a < 0) { console.warn("!  numberLabels: from not matched:", nl.from); continue; }
+    let z = nl.until ? blocks.findIndex((b, i) => i > a && blockPlain(b).includes(nl.until)) : blocks.length;
+    if (z < 0) { console.warn("!  numberLabels: until not matched:", nl.until); continue; }
+    const re = new RegExp(`^${nl.label}\\s*\\d*\\s*:?$`, "i");
+    let n = nl.start != null ? nl.start : 1;
+    for (let i = a; i < z; i++) {
+      const b = blocks[i];
+      if (!(b.t === "head" || b.t === "label") || !re.test(blockPlain(b).trim())) continue;
+      b.text = `${nl.label} ${n++}:`; delete b.segs;
+    }
+    console.log(`   numberLabels: "${nl.label}" ${nl.start != null ? nl.start : 1}-${n - 1} from "${nl.from}"`);
+  }
   for (const rn of ov.renameNear || []) {
     const na = blocks.findIndex((b) => blockPlain(b).includes(rn.near));
     let i = -1;
@@ -1828,6 +1862,22 @@ function applyOverrides(blocks, ov) {
     for (const row of t.rows) richRows.push(row.map((c) => ({ text: c, imgs: [] })));
     // (`noHeader: true` — the table has no heading row, so its first row is not styled as one)
     if (!replaceTableRows(blocks, t.match, richRows, t.noHeader ? { noHeader: true } : null)) console.warn("!  table override not matched:", t.match);
+  }
+  // tableHeaders: false — no table in this book has a heading row (a reading book's
+  // letter, syllable and word grids), so no first row gets the header band. Reaches
+  // tables nested in boxes and exercise parts too.
+  if (ov.tableHeaders === false) {
+    let n = 0;
+    const seen = new Set();
+    const walk = (o) => {
+      if (!o || typeof o !== "object" || seen.has(o)) return;
+      seen.add(o);
+      if (Array.isArray(o)) { o.forEach(walk); return; }
+      if (o.t === "table" && Array.isArray(o.rows)) { o.noHeader = true; n++; }
+      for (const k of Object.keys(o)) if (k !== "rows") walk(o[k]);
+    };
+    walk(blocks);
+    console.log(`   tableHeaders: false — ${n} table(s) set without a heading row`);
   }
   // replaceSection: [{ heading, until?, rename?, items: [...] }] — swap the whole body
   // of a section (from the heading down to, but NOT including, the next section) for

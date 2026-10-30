@@ -1,0 +1,743 @@
+{
+  "localLabels": true,
+  "coverImage": "luvale-g1-lb-cover.png",
+  "authors": [
+    "Chilunda Gift",
+    "Musanji Kayombo"
+  ],
+  "coverWords": {
+    "grade": "Mango",
+    "authors": "Vausonekele"
+  },
+  "tocTitle": "VILIMO",
+  "tableHeaders": false,
+  "subtext": [
+    {
+      "from": "Kutongola",
+      "to": "Kutombola",
+      "titles": true
+    },
+    {
+      "from": "kutongola",
+      "to": "kutombola",
+      "titles": true
+    },
+    {
+      "from": "Tongola",
+      "to": "Tombola",
+      "titles": true
+    },
+    {
+      "from": "Shimbu Kanda Kutanga",
+      "to": "Vyakutanga",
+      "titles": true
+    },
+    {
+      "from": "mukwoloka",
+      "to": "mwakwoloka",
+      "titles": true
+    },
+    {
+      "from": "kufuma mujimbu",
+      "to": "kufuma mumujimbu",
+      "titles": true
+    },
+    {
+      "from": "Mwakukwachila mikanda",
+      "to": "Mwakukwachila mukanda",
+      "titles": true
+    },
+    {
+      "from": "Kwambulula mijimbu wamumutwe",
+      "to": "Kwambulula mujimbu wamumutwe",
+      "titles": true
+    },
+    {
+      "from": "chinaputukila nalizu",
+      "to": "chinaputukila kulizu",
+      "titles": true
+    },
+    {
+      "from": "chivumo chinakumishila kulizu",
+      "to": "chivumo chakukumishila kulizu",
+      "titles": true
+    },
+    {
+      "from": "Majina Akutamo",
+      "to": "Majina Avene",
+      "titles": true
+    },
+    {
+      "from": "unalingaula",
+      "to": "unalinangula",
+      "titles": true
+    },
+    {
+      "from": "Kangumbwesela",
+      "to": "Kangumbesela",
+      "titles": true
+    },
+    {
+      "from": "Kupaanjika vyuma",
+      "to": "Kupandamisa vyuma",
+      "titles": true
+    },
+    {
+      "from": "Kupanjika vyuma",
+      "to": "Kupandamisa vyuma",
+      "titles": true
+    },
+    {
+      "from": "Panjika vyuma",
+      "to": "Pandamisa vyuma",
+      "titles": true
+    },
+    {
+      "from": "lumbununwiso",
+      "to": "lumbunwiso",
+      "titles": true
+    },
+    {
+      "from": "Soneka mukuku ivali",
+      "to": "Soneka mikuku ivali",
+      "titles": true
+    },
+    {
+      "from": "Kalumba",
+      "to": "Kalumbu",
+      "titles": true
+    },
+    {
+      "from": "vamuhanyne",
+      "to": "vamuhanyine",
+      "titles": true
+    },
+    {
+      "from": "avyuma kala",
+      "to": "avyuma khala",
+      "titles": true
+    },
+    {
+      "from": "Chilongeselo 7: Chivumo kh KH",
+      "to": "Chilongeselo 8: Chivumo kh KH",
+      "titles": true
+    },
+    {
+      "from": "Chivumo: ny NY",
+      "to": "Chivumo ny NY",
+      "titles": true
+    },
+    {
+      "from": "vanakuahane",
+      "to": "vanakuhane",
+      "titles": true
+    },
+    {
+      "from": "Kukopolola vasona vali mwishi.",
+      "to": "Kukopolola vasona",
+      "titles": true
+    },
+    {
+      "from": "mwamitetetela",
+      "to": "mwamitetekela",
+      "titles": true
+    },
+    {
+      "from": "cnakusoneka",
+      "to": "nakusoneka",
+      "titles": true
+    },
+    {
+      "from": "mwatanga vavonavumo",
+      "to": "mwatanga vasonavumo",
+      "titles": true
+    },
+    {
+      "from": "hamuvwimbimb.",
+      "to": "hamuvwimbimbi.",
+      "titles": true
+    },
+    {
+      "from": "Tanjiika",
+      "to": "Tanjika",
+      "titles": true
+    },
+    {
+      "from": "Veya vali umuvwimbimbi?",
+      "to": "Veya vali mumuvwimbimbi?",
+      "titles": true
+    },
+    {
+      "from": "Tala hamivwimbimbi uli mwishi.",
+      "to": "Tala hamuvwimbimbi uli mwishi.",
+      "titles": true
+    },
+    {
+      "from": "Chilongeselo 38: vw VW",
+      "to": "Chilongeselo 38: Chivumo vw VW",
+      "titles": true
+    },
+    {
+      "from": "Chivumo: hy HY",
+      "to": "Chivumo hy HY",
+      "titles": true
+    },
+    {
+      "from": "Chilongeselo 45: vy VY",
+      "to": "Chilongeselo 45: Chivumo vy VY",
+      "titles": true
+    },
+    {
+      "from": "Chilongeselo 22: Chivumo ch",
+      "to": "Chilongeselo 22: Chivumo ch CH",
+      "titles": true
+    },
+    {
+      "from": "Chilongeselo 24: Chivumo ph",
+      "to": "Chilongeselo 24: Chivumo ph PH",
+      "titles": true
+    }
+  ],
+  "edit": [
+    {
+      "find": "Chishimo cha Kapeza",
+      "with": "Chishimo cha Kapeza na Mbwanda"
+    },
+    {
+      "find": "Vuluka mazu ali mumikuku.",
+      "with": "Vuluka mazu ali mumikuku ili helu."
+    },
+    {
+      "find": "nalhandununa",
+      "with": "nalihandununa"
+    },
+    {
+      "find": "Watela kuhanjika ngwove ika?",
+      "with": "Watela kuhanjika ngwove ika navakulwane?"
+    },
+    {
+      "find": "Kasoka asoka musoka.",
+      "with": "Kasoka asaka musoka."
+    },
+    {
+      "find": "Kusekana cheji kunehanga mali.",
+      "with": "Kusekasana cheji kunehanga mali."
+    },
+    {
+      "find": "mazu alwavo ali nachivumo",
+      "with": "mazu akwavo ali nachivumo"
+    },
+    {
+      "find": "Vuluka majina avyuma kala akwavo.",
+      "with": "Vuluka majina akwavo avyuma khala."
+    },
+    {
+      "find": "vasonavumo vano.",
+      "with": "vasonavumo vano vali mwishi."
+    },
+    {
+      "find": "Tala hamuvwimbimbi mwishi.",
+      "with": "Tala hamuvwimbimbi uli mwishi."
+    },
+    {
+      "find": "Hula nakumbulula tushimutwiji.",
+      "with": "Hula nakukumbulula tushimutwiji."
+    },
+    {
+      "find": "Zachisa mivwimbimbi uli mwishi.",
+      "with": "Zachisa muvwimbimbi uli mwishi."
+    },
+    {
+      "find": "Kopolola vasona mumukanda wove.",
+      "with": "Kopolola vasona vali mwishi mumukanda wove."
+    }
+  ],
+  "renameNear": [
+    {
+      "find": "Mulimo",
+      "near": "Seha Khaka",
+      "to": "Mulimo 1:"
+    },
+    {
+      "find": "Mulimo",
+      "near": "Handununa mazu ali mumikuku.",
+      "to": "Mulimo 1:"
+    },
+    {
+      "find": "Mulimo",
+      "near": "Sakula sepa lyove umwe.",
+      "to": "Mulimo 1:"
+    },
+    {
+      "find": "Mulimo",
+      "near": "Lumbununa kupwa chavisemi jove.",
+      "to": "Mulimo 2:"
+    },
+    {
+      "find": "Mulimo A",
+      "near": "Tunga mazu kuzachisa vasonavumo vanakuhane.",
+      "to": "Mulimo 1:"
+    },
+    {
+      "find": "Mulimo",
+      "near": "Tunga mazu ekha amumutwe wove.",
+      "to": "Mulimo 2:"
+    },
+    {
+      "find": "Kulumbununa",
+      "near": "Lumbununa vathu.",
+      "to": "Jilumbunwiso"
+    },
+    {
+      "find": "Kulumbununa",
+      "near": "Lumbununa vihela.",
+      "to": "Jilumbunwiso"
+    },
+    {
+      "find": "Vitalilo",
+      "near": "Tunga mazu atatu (3)",
+      "to": "Chitalilo:"
+    },
+    {
+      "find": "Vitalilo",
+      "near": "1. Tata (",
+      "to": "Chitalilo:"
+    }
+  ],
+  "numberLabels": [
+    {
+      "label": "Mulimo",
+      "from": "Chilongeselo 1: Chivumo a A",
+      "until": "Majina Avyuma kala"
+    },
+    {
+      "label": "Mulimo",
+      "from": "Chilongeselo 20",
+      "until": "Majina Avyuma kala"
+    }
+  ],
+  "insertText": [
+    {
+      "after": "Kwata mulinji wamukanda.",
+      "near": "Nangakana mazu.",
+      "items": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "Vyakulinga 4: Kukwata mukanda mukwalamika",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Kwatenu mukanda mukwalamika.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "activity",
+            "title": "Vyakulinga 5: Kutombola vihanda vyamukanda",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Tombolenu vihanda vyamukanda.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "activity",
+            "title": "Vyakulinga 6: Kuhema vihemo vyakulilongesa kutambukisa meso kufuma kwilu kuneha kwishi (kauvi kuwanda, kajila kuuswa)",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Hemenu vihemo mulilongese kutambukisa meso kufuma kuchimoswe kutawala kuchilyo na kufuma kwilu kuneha kwishi (kavuvi ku kuwanda, kajila kuuswa…).",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "head": "Mulimo:"
+        },
+        {
+          "listitem": "Kwata mukanda mukwalamika.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Tombola vihanda vyamukanda.",
+          "marker": "2."
+        }
+      ]
+    }
+  ],
+  "dropBreaks": [
+    2,
+    4,
+    7,
+    8,
+    9,
+    12,
+    14,
+    17,
+    18,
+    23,
+    25,
+    29,
+    30,
+    33,
+    46,
+    47,
+    49,
+    51,
+    53,
+    57,
+    58,
+    66,
+    68
+  ],
+  "replaceExact": [
+    {
+      "find": "Mulimo",
+      "with": "Mulimo:",
+      "all": true
+    },
+    {
+      "find": "Mulimo 1",
+      "with": "Mulimo 1:",
+      "all": true
+    },
+    {
+      "find": "Mulimo 2",
+      "with": "Mulimo 2:",
+      "all": true
+    },
+    {
+      "find": "Mulimo1:",
+      "with": "Mulimo 1:",
+      "all": true
+    },
+    {
+      "find": "Mulimo 3 A",
+      "with": "Mulimo 3:",
+      "all": true
+    },
+    {
+      "find": "Mulimo B:",
+      "with": "Mulimo 4:",
+      "all": true
+    },
+    {
+      "find": "Mulimo wakuhakilako",
+      "with": "Mulimo wakuhakilako:",
+      "all": true
+    }
+  ],
+  "hyphenate": false,
+  "images": {
+    "713f31b6a71529cf21fb5a5ed6be37bd46ec9857.png": {
+      "src": "LUVALE GRADE 1 LB-hires/713f31b6a71529cf21fb5a5ed6be37bd46ec9857.png"
+    },
+    "12ae241ff6ad2641e3979a14e2df38cb91568006.png": {
+      "src": "LUVALE GRADE 1 LB-hires/12ae241ff6ad2641e3979a14e2df38cb91568006.png"
+    },
+    "dc5487328ce64fbae52c2cef9913ef0fa9439f76.png": {
+      "src": "LUVALE GRADE 1 LB-hires/dc5487328ce64fbae52c2cef9913ef0fa9439f76.png"
+    },
+    "e1b2841a5a8e830d48907c53e14512d99f202915.png": {
+      "src": "LUVALE GRADE 1 LB-hires/e1b2841a5a8e830d48907c53e14512d99f202915.png"
+    },
+    "2ecf1d357febe2c434604e290d376c60167b1091.png": {
+      "src": "LUVALE GRADE 1 LB-hires/2ecf1d357febe2c434604e290d376c60167b1091.png"
+    },
+    "677f032149d17734f3ba8661e0394c11ebd88d48.png": {
+      "src": "LUVALE GRADE 1 LB-hires/677f032149d17734f3ba8661e0394c11ebd88d48.png"
+    },
+    "b1c1e6d89d4ae90d1f8d226b0e433c5e780b74cf.png": {
+      "src": "LUVALE GRADE 1 LB-hires/b1c1e6d89d4ae90d1f8d226b0e433c5e780b74cf.png"
+    },
+    "76856995fcee9271b72994a7ddb21bf2b2211af1.png": {
+      "src": "LUVALE GRADE 1 LB-hires/76856995fcee9271b72994a7ddb21bf2b2211af1.png"
+    },
+    "cd34bc2d950d600df09680ae1ddaf2bed5323de8.png": {
+      "src": "LUVALE GRADE 1 LB-hires/cd34bc2d950d600df09680ae1ddaf2bed5323de8.png"
+    },
+    "6ad98fa2310e951b384d5861df90b5ac0cb0ac51.png": {
+      "src": "LUVALE GRADE 1 LB-hires/6ad98fa2310e951b384d5861df90b5ac0cb0ac51.png"
+    },
+    "06a7c792bdfe2d15ccece8dfed72773c7b9595dd.png": {
+      "src": "LUVALE GRADE 1 LB-hires/06a7c792bdfe2d15ccece8dfed72773c7b9595dd.png"
+    },
+    "b29c8d5958cd7fb5d8d41ecdab9b63a973752bc2.png": {
+      "src": "LUVALE GRADE 1 LB-hires/b29c8d5958cd7fb5d8d41ecdab9b63a973752bc2.png"
+    },
+    "ba0fef5d2b64103ccd0e8a10d31a89adfb34c2df.png": {
+      "src": "LUVALE GRADE 1 LB-hires/ba0fef5d2b64103ccd0e8a10d31a89adfb34c2df.png"
+    },
+    "38578407249b9f0e3560d255c8c1950e01ea1130.png": {
+      "src": "LUVALE GRADE 1 LB-hires/38578407249b9f0e3560d255c8c1950e01ea1130.png"
+    },
+    "95c294821178fbf9f00f168da3ddbf33e3623609.png": {
+      "src": "LUVALE GRADE 1 LB-hires/95c294821178fbf9f00f168da3ddbf33e3623609.png"
+    },
+    "fe77c2130a93e137c7009a0e678339c19378a8db.png": {
+      "src": "LUVALE GRADE 1 LB-hires/fe77c2130a93e137c7009a0e678339c19378a8db.png"
+    },
+    "551eacb39d2507c66f317ad7dde962356bf42b91.png": {
+      "src": "LUVALE GRADE 1 LB-hires/551eacb39d2507c66f317ad7dde962356bf42b91.png"
+    },
+    "8fad8b4b89d3dadd1743d4485ec81a5a7acd5d00.png": {
+      "src": "LUVALE GRADE 1 LB-hires/8fad8b4b89d3dadd1743d4485ec81a5a7acd5d00.png"
+    },
+    "22905420de5034d912ab1c60d3aa6d1a1f406533.png": {
+      "src": "LUVALE GRADE 1 LB-hires/22905420de5034d912ab1c60d3aa6d1a1f406533.png"
+    },
+    "54b91cb375349267a95a99a9b4d5d20673d2a36f.png": {
+      "src": "LUVALE GRADE 1 LB-hires/54b91cb375349267a95a99a9b4d5d20673d2a36f.png"
+    },
+    "32e947de7c95e03c1e7685d70021e0554f844441.png": {
+      "src": "LUVALE GRADE 1 LB-hires/32e947de7c95e03c1e7685d70021e0554f844441.png"
+    },
+    "2e569794bd61fa17ea571d358bc99e37afc8ca5b.png": {
+      "src": "LUVALE GRADE 1 LB-hires/2e569794bd61fa17ea571d358bc99e37afc8ca5b.png"
+    },
+    "d3d748381eadaf43425d47ba8ffd68d6cddac102.png": {
+      "src": "LUVALE GRADE 1 LB-hires/d3d748381eadaf43425d47ba8ffd68d6cddac102.png"
+    },
+    "5789d379b7f27c422d3fa9e42ca351005ced25c2.png": {
+      "src": "LUVALE GRADE 1 LB-hires/5789d379b7f27c422d3fa9e42ca351005ced25c2.png"
+    },
+    "dc4a6a110b6b1733e374908961dfa4e4b5132042.png": {
+      "src": "LUVALE GRADE 1 LB-hires/dc4a6a110b6b1733e374908961dfa4e4b5132042.png"
+    },
+    "8f832856f7dab832968c7095e44e50c7be340398.png": {
+      "src": "LUVALE GRADE 1 LB-hires/8f832856f7dab832968c7095e44e50c7be340398.png"
+    },
+    "6a9196113a41c657068753459665c31fc8e6d458.png": {
+      "src": "LUVALE GRADE 1 LB-hires/6a9196113a41c657068753459665c31fc8e6d458.png"
+    },
+    "d1c9af4ac615d4d8f2abd4da3a3fb43351ba9659.png": {
+      "src": "LUVALE GRADE 1 LB-hires/d1c9af4ac615d4d8f2abd4da3a3fb43351ba9659.png"
+    },
+    "e4fdad28d0a348255eadcd77380956a1c0ecdc1b.png": {
+      "src": "LUVALE GRADE 1 LB-hires/e4fdad28d0a348255eadcd77380956a1c0ecdc1b.png"
+    },
+    "c161bf878640cb096dfc2f900c11be7819e1923b.png": {
+      "src": "LUVALE GRADE 1 LB-hires/c161bf878640cb096dfc2f900c11be7819e1923b.png"
+    },
+    "7360bea33049fbb6257db77cafd02393a33df8b0.png": {
+      "src": "LUVALE GRADE 1 LB-hires/7360bea33049fbb6257db77cafd02393a33df8b0.png"
+    },
+    "761095f95ef107f404606cbbcfc00ac7f5bcfd08.png": {
+      "src": "LUVALE GRADE 1 LB-hires/761095f95ef107f404606cbbcfc00ac7f5bcfd08.png"
+    },
+    "b14c317c3b725ce4c3bd1cbe8564da363809d969.png": {
+      "src": "LUVALE GRADE 1 LB-hires/b14c317c3b725ce4c3bd1cbe8564da363809d969.png"
+    },
+    "b73f3c8e8bc32e1933f6fa40f859140e7c72bfee.png": {
+      "src": "LUVALE GRADE 1 LB-hires/b73f3c8e8bc32e1933f6fa40f859140e7c72bfee.png"
+    },
+    "4f3054b59fd08f053be558f95140e36c3997bc67.png": {
+      "src": "LUVALE GRADE 1 LB-hires/4f3054b59fd08f053be558f95140e36c3997bc67.png"
+    },
+    "a8c8b0fad763a26bd04ae5471fd2449df3dbc5ac.png": {
+      "src": "LUVALE GRADE 1 LB-hires/a8c8b0fad763a26bd04ae5471fd2449df3dbc5ac.png"
+    },
+    "0146dd0bbba3de4e05114ca2a25c4af5ef76cfb3.png": {
+      "src": "LUVALE GRADE 1 LB-hires/0146dd0bbba3de4e05114ca2a25c4af5ef76cfb3.png"
+    },
+    "1a0b44063c21e64a155210bcb4801cf5c053365f.png": {
+      "src": "LUVALE GRADE 1 LB-hires/1a0b44063c21e64a155210bcb4801cf5c053365f.png"
+    },
+    "54da22122b2fcc831b50e72418cdd3c3464a0e05.png": {
+      "src": "LUVALE GRADE 1 LB-hires/54da22122b2fcc831b50e72418cdd3c3464a0e05.png"
+    },
+    "f1f9c5c083d3c60afc5be447fbcc1f3f6c1d88c2.png": {
+      "src": "LUVALE GRADE 1 LB-hires/f1f9c5c083d3c60afc5be447fbcc1f3f6c1d88c2.png"
+    },
+    "ef054be55ee52e6f864e02379521b9bc1aec4833.png": {
+      "src": "LUVALE GRADE 1 LB-hires/ef054be55ee52e6f864e02379521b9bc1aec4833.png"
+    },
+    "587078ac398b3e3b70fca73902a45f367a86814c.png": {
+      "src": "LUVALE GRADE 1 LB-hires/587078ac398b3e3b70fca73902a45f367a86814c.png"
+    },
+    "8c04d71775c20fcbf4fce8cdf6aa60cc7dab3c41.png": {
+      "src": "LUVALE GRADE 1 LB-hires/8c04d71775c20fcbf4fce8cdf6aa60cc7dab3c41.png"
+    },
+    "fa552dd5422adc7f6484f2e93479abe616c48da7.png": {
+      "src": "LUVALE GRADE 1 LB-hires/fa552dd5422adc7f6484f2e93479abe616c48da7.png"
+    },
+    "5c8bce6c2731ea66811d161da4ac9d4c9b97da87.png": {
+      "src": "LUVALE GRADE 1 LB-hires/5c8bce6c2731ea66811d161da4ac9d4c9b97da87.png"
+    },
+    "e97bc9482751e542850c25df78632ae76dd944db.png": {
+      "src": "LUVALE GRADE 1 LB-hires/e97bc9482751e542850c25df78632ae76dd944db.png"
+    },
+    "a0a1258646bd87af959e2484d61ff22cc0ad5a62.png": {
+      "src": "LUVALE GRADE 1 LB-hires/a0a1258646bd87af959e2484d61ff22cc0ad5a62.png"
+    },
+    "e017977f35ddf89395e94bbee6dc0335b26c4120.png": {
+      "src": "LUVALE GRADE 1 LB-hires/e017977f35ddf89395e94bbee6dc0335b26c4120.png"
+    },
+    "e9067fedf5a3da9ffbfe1b81fc5bca30a0e102bf.png": {
+      "src": "LUVALE GRADE 1 LB-hires/e9067fedf5a3da9ffbfe1b81fc5bca30a0e102bf.png"
+    },
+    "559caee3643e03b4d6ffa6a5f6d8264d4c89a399.png": {
+      "src": "LUVALE GRADE 1 LB-hires/559caee3643e03b4d6ffa6a5f6d8264d4c89a399.png"
+    },
+    "52e193fa6de1e822386a16c082951be5ce868f6f.png": {
+      "src": "LUVALE GRADE 1 LB-hires/52e193fa6de1e822386a16c082951be5ce868f6f.png"
+    },
+    "49fc6f89eba4b84617f688500cfaf294a0da57ef.png": {
+      "src": "LUVALE GRADE 1 LB-hires/49fc6f89eba4b84617f688500cfaf294a0da57ef.png"
+    },
+    "c7a7a49609c052f0fb17a3c65f00e7d05e30ef36.png": {
+      "src": "LUVALE GRADE 1 LB-hires/c7a7a49609c052f0fb17a3c65f00e7d05e30ef36.png"
+    },
+    "8b949d66eceba147b27384adea6ab5f9ecdf23c8.png": {
+      "src": "LUVALE GRADE 1 LB-hires/8b949d66eceba147b27384adea6ab5f9ecdf23c8.png"
+    },
+    "1d89e106ad8f6519884047ac6529f83c95aa23b3.png": {
+      "src": "LUVALE GRADE 1 LB-hires/1d89e106ad8f6519884047ac6529f83c95aa23b3.png"
+    },
+    "9a3f8ac4568746f412913c5dfa2b4cbb3062856f.png": {
+      "src": "LUVALE GRADE 1 LB-hires/9a3f8ac4568746f412913c5dfa2b4cbb3062856f.png"
+    },
+    "259e058c90c37dd8b158ba73a47de07e70e114cc.png": {
+      "src": "LUVALE GRADE 1 LB-hires/259e058c90c37dd8b158ba73a47de07e70e114cc.png"
+    },
+    "75fad6d39c46d5c2b7a198d816135859b95bbd16.png": {
+      "src": "LUVALE GRADE 1 LB-hires/75fad6d39c46d5c2b7a198d816135859b95bbd16.png"
+    },
+    "7c8a3e3a72adaa6c3998559b708a34592f9a2e2e.png": {
+      "src": "LUVALE GRADE 1 LB-hires/7c8a3e3a72adaa6c3998559b708a34592f9a2e2e.png"
+    },
+    "095585bd9d81cdb833bbd940d477f476d6c4ebf8.png": {
+      "src": "LUVALE GRADE 1 LB-hires/095585bd9d81cdb833bbd940d477f476d6c4ebf8.png"
+    }
+  },
+  "replaceBlocks": [
+    {
+      "find": "ISBN: …………………………………",
+      "with": []
+    },
+    {
+      "find": "Vaufwatwile chakavanga kuli vaka:",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road",
+      "with": []
+    },
+    {
+      "find": "P.O. Box 32708",
+      "with": []
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "© Zambia Educational Publishing House (2026)",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House (2026)",
+          "center": true
+        },
+        {
+          "para": "Lusesa lwose vanalukanyisa. Chijila kufwatulula, kunungulula chipwe kulama chihanda chamukanda ou mujila navahasa kufwatula cheka chakuzeneka lusesa kuli venyawo chipwe vaufwatwile.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Vaufwatwile chakavanga kuli vaka:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "4mm"
+        },
+        {
+          "para": "**Printed by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    }
+  ]
+}

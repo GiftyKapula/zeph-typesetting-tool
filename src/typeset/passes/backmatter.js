@@ -317,10 +317,44 @@ function fillLayoutCredit(blocks) {
           { t: "para", segs: [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }], align: b.align || "center" },
           { t: "vspace", h: "4mm" });
       }
+      found = true;
       return;
     }
   };
+  let found = false;
   walk(blocks);
+  if (found) return;
+  // No "Cover and Book Layout" line anywhere (a manuscript whose imprint page never had
+  // one): create it where the house imprint puts it — after the editor / illustrator
+  // credits, before the publisher group ("First published by:" + address). The label is
+  // bold on its own line with the name plain underneath, like the other credits.
+  const top = blocks.slice(0, 120);
+  const copy = top.findIndex((b) => /^\s*©/.test(blockPlain(b)));
+  if (copy < 0) return;
+  const ZEPH = /^\s*zambia educational publishing house\s*$/i;
+  let at = -1;
+  for (let i = copy + 1; i < Math.min(copy + 40, blocks.length); i++) {
+    const t = blockPlain(blocks[i]).trim();
+    if (blocks[i].t === "h1" || blocks[i].t === "bodystart") break;
+    if (!ZEPH.test(t) && /publish/i.test(t) && t.length <= LABEL_MAXLEN) { at = i; break; }
+    if (ZEPH.test(t)) {
+      // the publisher's name: start the group at its label line ("…kuli vaka:") if it has one
+      at = i;
+      for (let j = i - 1; j > copy; j--) {
+        const p = blockPlain(blocks[j]).trim();
+        if (p === "" || blocks[j].t === "vspace") continue;
+        if (/:\s*$/.test(p) && p.length <= LABEL_MAXLEN) at = j;
+        break;
+      }
+      break;
+    }
+  }
+  if (at < 0) return;
+  const align = blocks[at].align || blocks[copy].align || "center";
+  blocks.splice(at, 0,
+    { t: "para", segs: [{ t: "Cover and Book Layout:", b: true, it: false, c: null }], align },
+    { t: "para", segs: [{ t: LAYOUT_CREDIT, b: false, it: false, c: null }], align },
+    { t: "vspace", h: "5mm" });
 }
 
 // Bold the leading name of EACH author bio in the AUTHORS section (many
