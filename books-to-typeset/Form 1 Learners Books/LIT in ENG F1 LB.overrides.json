@@ -45,7 +45,7 @@
   ],
   "images": {
     "image21.png": {
-      "src": "LIT in ENG F1 LB-hires/image21.png"
+      "src": "LIT in ENG F1 LB-hires/image21-poems-new.png"
     },
     "image19.jpg": {
       "src": "LIT in ENG F1 LB-art/plot-diagram.png"
@@ -70,7 +70,7 @@
       "src": "LIT in ENG F1 LB-hires/image3.png"
     },
     "image15.png": {
-      "src": "LIT in ENG F1 LB-hires/image15.png",
+      "src": "LIT in ENG F1 LB-hires/image15-songs-new.png",
       "w": 420
     },
     "image16.png": {
@@ -106,7 +106,7 @@
   },
   "//manuscript-correction": "APPLIED DIRECTLY TO THE .docx, and it must be re-applied if that file is ever re-converted from the original. The manuscript bolds every activity label but two - 'Activity 1: In groups, attempt the following riddles?' and 'ACTIVITY: 4 Composing Short Stories' were typed as ordinary body text - so the engine, which starts a callout box on a bold or heading-styled label, did not box them: the riddles label printed as a loose line above its table, and Activity 4 was swallowed into Activity 3's box together with its own four questions. Both runs now carry <w:b/><w:bCs/>, which is all the other 62 labels in the book have. This cannot be done with an override: the box is built at IMPORT time, before overrides run, and the only override that reaches it (boxifyLoose, via boxActivities) rebuilt just one of the two and as a framedsection rather than the exercise box its siblings use. It must not be fixed in src/typeset/ either: a scan of every manuscript in books-to-typeset shows that dropping the bold requirement engine-wide would turn the sentence 'Key points include:' into a Key Points box in Geography For Teachers and newly boxify up to 111 paragraphs in Home Ecnomics Grade 4 TG. A copy of the file as it was is kept beside it as 'LIT in ENG F1 LB.docx.bak-before-bold'. The author should bold both labels in the next issue.",
   "//plot-diagram": "Printed page 109's plot diagram (media image19.jpg) was REDRAWN, not upscaled. The manuscript's own bitmap is a screenshot of a third-party graphic: a tiled 'ELEMENTS OF FICTION' watermark runs diagonally across the header about eight times and cuts through the PLOT title, and seven opaque grey rectangles sit on top of the artwork obscuring words in all six definition boxes - Conflict, Exposition, Climax, Rising Action, Falling Action and Resolution. It is greyscale and soft. Upscaling it (which had already been done, to 1625px / 308 DPI) only sharpened the watermark and the grey blocks. Because this is Freytag's pyramid - the diagram Unit Three teaches from, and which the pages after it build on - the page could not be taught from as it stood. The replacement is drawn in TYPST, and its source is kept beside it as 'LIT in ENG F1 LB-art/plot-diagram.typ' so it can be corrected rather than redrawn. It carries the same six element names and the same six definitions, transcribed from the legible parts of the original. No third-party artwork is involved, so there is no licensing question. It is drawn at the width it is PLACED at in the book (134mm, the B5 text column), which is the point of it: an earlier node-canvas attempt was drawn oversized and scaled down, which landed its annotations near 6pt on the page. Rendered at 400 DPI, 2111px across, well over the 300 DPI floor. Nothing here is engine work: it is one book's bad source picture.",
-  "//round1": "Proofreading round 1 (commented PDF returned 29 Oct 2026, 84 comments; zeph lit-in-eng-f1-lb round 1). Two reviewers marked the proof; where they gave different wording for the same spot the one that matches the picture or the section was taken (captions), and where both asked for the same new activity under different numbers the activities around it were numbered in sequence (Folktales: Activity 3 Telling, 4 Analysing, 5 Acting Out). Pictures: image7 re-laid two panels across so its six panels print about 1.5x larger (asked: 'the illustrations are small, enlarge them'); image18's signpost relettered Mongu/Katete/Mansa (asked); image20 replaced by Form One learners reading in class (the Teacher's Guide's own artwork; asked: 'age appropriate such as form one learners in class'). image15 and image21 were also asked to be replaced with age-appropriate pictures; that needs new artwork (OpenAI image credits ran out), so they are unchanged for now.",
+  "//round1": "Proofreading round 1 (commented PDF returned 29 Oct 2026, 84 comments; zeph lit-in-eng-f1-lb round 1). Two reviewers marked the proof; where they gave different wording for the same spot the one that matches the picture or the section was taken (captions), and where both asked for the same new activity under different numbers the activities around it were numbered in sequence (Folktales: Activity 3 Telling, 4 Analysing, 5 Acting Out). Pictures: image7 re-laid two panels across so its six panels print about 1.5x larger (asked: 'the illustrations are small, enlarge them'); image18's signpost relettered Mongu/Katete/Mansa (asked); image20 replaced by Form One learners reading in class (the Teacher's Guide's own artwork; asked: 'age appropriate such as form one learners in class'). image15 (songs) and image21 (poems) were also asked to be replaced with age-appropriate pictures; the replacements came from the client on 31 Oct 2026 (Literature in English LB ilustrations.docx), upscaled 4x for print, poems caption as given there.",
   "insertBlocks": [
     {
       "before": "b) Logic Riddles: Riddles that require r",
@@ -4320,7 +4320,7 @@
     },
     {
       "file": "imp_image21.",
-      "text": "Children reciting poems"
+      "text": "Learners reciting poems"
     }
   ],
   "removeWhereNext": [
