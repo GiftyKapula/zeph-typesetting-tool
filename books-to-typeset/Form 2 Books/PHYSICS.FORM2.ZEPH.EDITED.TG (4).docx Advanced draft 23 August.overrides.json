@@ -1,5 +1,6 @@
 {
-  "coverImage": "cover-simple-machines.png",
+  "//coverImage": "Round 2 (31 Oct 2026), reviewer comment on the proofreading copy: change the cover, using the Learner Book cover modified - a teacher and learners looking at what the LB image shows. The user supplied that picture (pyzc.jpeg, 1280x853): a teacher and a learner in a wheelchair pointing at the LB cover waves scene on a wall screen, with no words in it. It replaces cover-simple-machines.png. Cut to the hero window exact 144:78 (1280x693 from y=25), which keeps both heads whole and the whole screen and loses the feet and the bottom of the wheelchair wheels. Upscaled 4x with Real-ESRGAN and resampled to 2400x1300 (423 DPI at the 144mm printed width; the raw cut is 226 DPI). The engine crops nothing.",
+  "coverImage": "physics-form2-tg-cover.png",
   "insertText": [
     {
       "after": "ZCBC - Zambian Competence-Based Curriculum",
