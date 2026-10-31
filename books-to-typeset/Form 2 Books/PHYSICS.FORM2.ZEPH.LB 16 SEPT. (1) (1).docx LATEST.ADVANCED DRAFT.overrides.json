@@ -347,6 +347,34 @@
     {
       "find": "frac(P_(2) V_(2), T_(2))",
       "with": "P_(2) V_(2) slash T_(2)"
+    },
+    {
+      "find": "P_(1) V_(1) slash T_(1)",
+      "with": "#text(font: \"Arial\", style: \"italic\", \"P\")\"\"_(\"1\")#text(font: \"Arial\", style: \"italic\", \"V\")\"\"_(\"1\") #text(font: \"Arial\", \"/\") #text(font: \"Arial\", style: \"italic\", \"T\")\"\"_(\"1\")"
+    },
+    {
+      "find": "P_(2) V_(2) slash T_(2)",
+      "with": "#text(font: \"Arial\", style: \"italic\", \"P\")\"\"_(\"2\")#text(font: \"Arial\", style: \"italic\", \"V\")\"\"_(\"2\") #text(font: \"Arial\", \"/\") #text(font: \"Arial\", style: \"italic\", \"T\")\"\"_(\"2\")"
+    },
+    {
+      "find": "V_(1) slash T_(1)",
+      "with": "#text(font: \"Arial\", style: \"italic\", \"V\")\"\"_(\"1\") #text(font: \"Arial\", \"/\") #text(font: \"Arial\", style: \"italic\", \"T\")\"\"_(\"1\")"
+    },
+    {
+      "find": "V_(2) slash T_(2)",
+      "with": "#text(font: \"Arial\", style: \"italic\", \"V\")\"\"_(\"2\") #text(font: \"Arial\", \"/\") #text(font: \"Arial\", style: \"italic\", \"T\")\"\"_(\"2\")"
+    },
+    {
+      "find": "P_(1) slash T_(1)",
+      "with": "#text(font: \"Arial\", style: \"italic\", \"P\")\"\"_(\"1\") #text(font: \"Arial\", \"/\") #text(font: \"Arial\", style: \"italic\", \"T\")\"\"_(\"1\")"
+    },
+    {
+      "find": "P_(2) slash T_(2)",
+      "with": "#text(font: \"Arial\", style: \"italic\", \"P\")\"\"_(\"2\") #text(font: \"Arial\", \"/\") #text(font: \"Arial\", style: \"italic\", \"T\")\"\"_(\"2\")"
+    },
+    {
+      "find": "Cancer treatment, sterilisation, food",
+      "with": "Cancer treatment, sterilisation, food"
     }
   ],
   "editAll": [
@@ -927,6 +955,10 @@
       "with": "another group pushes and pulls a slinky spring along its length."
     },
     {
+      "find": "at 4 m/sis more difficult",
+      "with": "at 4 m/s is more difficult"
+    },
+    {
       "find": "metre rule",
       "with": "meter rule"
     }
@@ -938,6 +970,9 @@
   ],
   "removeImages": [
     "image14.png"
+  ],
+  "pageBreakBefore": [
+    "PROPERTIES AND APPLICATION OF SOUND"
   ],
   "replaceBlocks": [
     {
@@ -7089,7 +7124,85 @@
             "t": "para",
             "segs": [
               {
-                "t": "To calibrate an unmarked thermometer, the thermometer bulb is first placed in pure melting ice, and the level of the liquid column is marked as the lower fixed point (0 °C). The bulb is then immersed in pure boiling water and the level of the liquid column is marked as the upper fixed point (100 °C). The distance between the two fixed points is called the fundamental interval. This interval is divided into 100 equal parts, each representing 1 °C. The resulting scale is known as the Celsius scale. Once the fixed points have been established, the temperature of an object can be determined by comparing the level of the liquid column with the calibrated scale. For example, if the liquid column is halfway between the 0 °C and 100 °C marks, the temperature is 50 °C. If it is one-quarter of the distance from 0 °C to 100 °C, the temperature is 25 °C. Similarly, if the liquid column is three-quarters of the distance between the fixed points, the temperature is 75 °C. For an uncalibrated thermometer whose lower and upper fixed points are known, the temperature can also be calculated using: Temperature = (distance from the 0 °C mark ÷ distance between the fixed points) × 100 °C For example, if the distance between the two fixed points is 20 cm and the liquid column rises 6 cm above the 0 °C mark: Temperature = (6 cm ÷ 20 cm) × 100 °C Temperature = 30 °C",
+                "t": "To calibrate an unmarked thermometer, the thermometer bulb is first placed in pure melting ice, and the level of the liquid column is marked as the lower fixed point (0 °C). The bulb is then immersed in pure boiling water and the level of the liquid column is marked as the upper fixed point (100 °C). The distance between the two fixed points is called the fundamental interval. This interval is divided into 100 equal parts, each representing 1 °C. The resulting scale is known as the Celsius scale.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Once the fixed points have been established, the temperature of an object can be determined by comparing the level of the liquid column with the calibrated scale. For example, if the liquid column is halfway between the 0 °C and 100 °C marks, the temperature is 50 °C. If it is one-quarter of the distance from 0 °C to 100 °C, the temperature is 25 °C. Similarly, if the liquid column is three-quarters of the distance between the fixed points, the temperature is 75 °C.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "For an uncalibrated thermometer whose lower and upper fixed points are known, the temperature can also be calculated using:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Temperature = (distance from the 0 °C mark ÷ distance between the fixed points) × 100 °C",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "For example, if the distance between the two fixed points is 20 cm and the liquid column rises 6 cm above the 0 °C mark:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Temperature = (6 cm ÷ 20 cm) × 100 °C",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Temperature = 30 °C",
                 "b": false,
                 "it": false,
                 "c": null
@@ -7815,6 +7928,452 @@
     {
       "find": "D                              -114                       78",
       "with": []
+    },
+    {
+      "find": "LEARNING ACTIVITY 18: Demonstrating the use of equations on gas laws to solve numerical problems",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 18: Demonstrating the use of equations on gas laws to solve numerical problems",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Study the gas laws and their corresponding equations given below. Discuss the quantity that remains constant in each law and identify the variables that change.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Study the gas laws and their corresponding equations given below. Discuss the quantity that remains constant in each law and identify the variables that change.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              },
+              {
+                "t": "table",
+                "rows": [
+                  [
+                    {
+                      "text": "Gas Law",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Gas Law",
+                          "b": true,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Equation",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Equation",
+                          "b": true,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Constant Quantity",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Constant Quantity",
+                          "b": true,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Boyle’s Law",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Boyle’s Law",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "P\"\"_(\"1\")V\"\"_(\"1\") = P\"\"_(\"2\")V\"\"_(\"2\")",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "P",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "\"\"_(\"1\")",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "V",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "\"\"_(\"1\")",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": " ",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "= P",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "\"\"_(\"2\")",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "V",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "\"\"_(\"2\")",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Temperature",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Temperature",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Charles' Law",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Charles' Law",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "frac(V_(1), T_(1)) = frac(V_(2), T_(2))",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "frac(V_(1), T_(1))",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": " ",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "= ",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "frac(V_(2), T_(2))",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Pressure",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Pressure",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Gay-Lussac’s Law",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Gay-Lussac’s Law",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "frac(P_(1), T_(1)) = frac(P_(2), T_(2))",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "frac(P_(1), T_(1))",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": " = ",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "frac(P_(2), T_(2))",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Volume",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Volume",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Ideal Gas Equation",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Ideal Gas Equation",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "frac(P_(1) V_(1), T_(1)) =frac(P_(2) V_(2), T_(2))",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "frac(P_(1) V_(1), T_(1))",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": " =",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "frac(P_(2) V_(2), T_(2))",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "None",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "None",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Note: Temperatures must always be converted to kelvin (K) before substituting into the equations.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Note: Temperatures must always be converted to kelvin (K) before substituting into the equations.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Use the equations above to solve the following numerical problems.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Use the equations above to solve the following numerical problems.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "A gas occupies 500 cm³ at a pressure of 100 kPa. If the pressure is increased to 250 kPa while the temperature remains constant, calculate the new volume of the gas. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "A gas occupies 500 cm³ at a pressure of 100 kPa. If the pressure is increased to 250 kPa while the temperature remains constant, calculate the new volume of the gas.",
+                "isList": true,
+                "numId": "38",
+                "lvl": 0,
+                "marker": "1."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "A gas occupies 2.5 L at 27 °C. If it is heated to 127 °C at constant pressure, determine its new volume. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "A gas occupies 2.5 L at 27 °C. If it is heated to 127 °C at constant pressure, determine its new volume.",
+                "isList": true,
+                "numId": "38",
+                "lvl": 0,
+                "marker": "2."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "The pressure of a fixed mass of gas is 120 kPa at 20 °C. If the gas is heated to 80 °C at constant volume, calculate the new pressure. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "The pressure of a fixed mass of gas is 120 kPa at 20 °C. If the gas is heated to 80 °C at constant volume, calculate the new pressure.",
+                "isList": true,
+                "numId": "38",
+                "lvl": 0,
+                "marker": "3."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "A gas occupies a volume of 0.020 m³ at a pressure of 150 kPa and a temperature of 300 K. If the gas contains 1.2 mol, calculate the value of the universal gas constant, R, using the ideal gas equation. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "A gas occupies a volume of 0.020 m³ at a pressure of 150 kPa and a temperature of 300 K. If the gas contains 1.2 mol, calculate the value of the universal gas constant, R, using the ideal gas equation.",
+                "isList": true,
+                "numId": "38",
+                "lvl": 0,
+                "marker": "4."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Compare your answers with those of others, discuss any differences in your methods, and explain why each gas law was appropriate for the problem solved. Present your solutions and the steps followed to the class.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Compare your answers with those of others, discuss any differences in your methods, and explain why each gas law was appropriate for the problem solved. Present your solutions and the steps followed to the class.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "find": "Charles' law: Charles' law states that the volume of the fixed mass of a gas is directly proportional to its absolute temperature at constant pressure.",

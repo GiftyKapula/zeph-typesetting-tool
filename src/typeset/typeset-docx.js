@@ -5360,6 +5360,18 @@ const MARK_BRACKET = /\[\s*\d+(?:\s*marks?)?\s*\]/i;
 // the previous seg/paragraph, not a spot to inject a stray leading space of our own.
 const glueMarkTail = (t) => t.replace(/([ \t]*)(\[\s*\d+(?:\s*marks?)?\s*\])/gi,
   (m, sp, bracket, offset) => offset === 0 ? bracket : " " + bracket);
+// A quantity is one unit of meaning, so a line break must never fall inside it. The
+// Physics Form 2 Learner's Book broke fourteen of them across lines with a plain
+// space — "4.0 / m", "110 / °C", "20 / 000 km", "1.0 / × 10⁸ Hz" — each leaving a
+// reader to find half a number at the end of one line and its unit at the start of
+// the next. Glue with a non-breaking space: a number to the SI unit after it, the
+// groups of a spaced thousands figure ("20 000"), and the parts of a "× 10ⁿ" power.
+const UNIT_AFTER_NUMBER = /(\d) (?=(?:°C|°F|K|kg|g|mg|km|cm|mm|m|N|kN|J|kJ|MJ|W|kW|MW|Pa|kPa|Hz|kHz|MHz|s|ms|min|h|L|ml|mL|mol|dB|V|A|Ω|cm³|m³|cm²|m²|%)(?![A-Za-z]))/g;
+const glueQuantities = (t) => t
+  .replace(/(\d) (?=\d{3}(?!\d))/g, "$1\u00a0")
+  .replace(UNIT_AFTER_NUMBER, "$1\u00a0")
+  .replace(/(\d) ×(?= \d)/g, "$1\u00a0×")
+  .replace(/× (?=10)/g, "×\u00a0");
 // House style: a mark allocation sits flush against the right edge of the text
 // column, not glued inline right after the sentence — see splitMarksToFr below,
 // which runs last (right before the Typst source is built) and turns the single
@@ -5397,6 +5409,7 @@ function normaliseSpacing(blocks) {
     for (const s of segs) {
       if (!s || typeof s.t !== "string") continue;
       s.t = glueMarkTail(s.t.replace(/[ \t]{3,}/g, " ").replace(/\t/g, " "));
+      if (!s.m) s.t = glueQuantities(s.t);
     }
     if (typeof segs[0].t === "string") segs[0].t = segs[0].t.replace(/^[ \t]+/, "");
     const last = segs[segs.length - 1];
