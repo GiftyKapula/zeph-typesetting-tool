@@ -132,5 +132,54 @@
       "find": "Mudimu",
       "near": "Kudihi kumwatela kunatila mazhilu"
     }
+  ],
+  "_comment_forceFreshPage": [
+    "The Ch 14 Kuzatisha Nsañu Yiwunatiyi Kwiluka Mazu box broke after its instruction, carrying its three sentences to the next page; it starts a fresh page whole."
+  ],
+  "forceFreshPage": [
+    {
+      "find": "Kuzatisha Nsañu Yiwunatiyi Kwiluka Mazu",
+      "near": "Yikobelu chinatami"
+    }
+  ],
+  "_comment_alignLeft": [
+    "The glossary (CHIKUÑULWILU CHAMAZU) and reference entries are set ragged right: justified, the long English terms and URLs opened wide gaps between words."
+  ],
+  "alignLeft": [
+    "Analytical thinking",
+    "Activity",
+    "Appropriate",
+    "Accordingly",
+    "Communication",
+    "Conversation",
+    "Component",
+    "Concept of print",
+    "Cursive writing",
+    "Critical thinking",
+    "Creativity and innovation",
+    "Character",
+    "Correctly",
+    "Creatively",
+    "Digital literacy",
+    "Directionality",
+    "Discussion",
+    "Exercise",
+    "Expected standard",
+    "General competences",
+    "Hook",
+    "Introduction",
+    "Identify print",
+    "Key terms",
+    "Maponya, F.",
+    "Parliament of Zambia",
+    "Smith, L.",
+    "UNICEF (2025)",
+    "(Accessed: 25 January 2026). (For entrepreneurship",
+    "Kasisi Agricultural",
+    "(Accessed: 25 January 2026). (For farming",
+    "Road Transport and Safety",
+    "(Accessed: 25 January 2026). (For transport",
+    "Government of the Republic",
+    "(Accessed: 25 January 2026). (For broad"
   ]
 }
