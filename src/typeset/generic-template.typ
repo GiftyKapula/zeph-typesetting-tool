@@ -2549,6 +2549,11 @@
   v(5pt)
 }
 #let head(t, al: none, black: false, col: none) = {
+  // Never hyphenated or justified, like every other heading level: the Physics Form 2
+  // Learner's Book broke "Creating Devices to Demonstrate Longitudinal and Trans- /
+  // verse Waves" here, the one heading level that still let a word split.
+  set text(hyphenate: false)
+  set par(justify: false)
   if serieslike { v(13pt, weak: true) } else { v(5pt) }
   let body = if serieslike {
     // activities/exercises in teal, other bold sub-subheads in ink (like the ref);
