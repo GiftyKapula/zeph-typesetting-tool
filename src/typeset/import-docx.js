@@ -750,9 +750,20 @@ let imgResolve = () => [];
 // document's numbering). Returns { numId, lvl, marker } or null for non-list paras.
 let listResolve = () => null;
 
+// A cell is often read more than once (cellText/cellParas to decide what kind of table
+// it is, then cellRich to build it), and every read of a Word-numbered paragraph moves
+// that list's counter on: a 5-item list typed 1-5 in a box came out 6-10 (Icibemba G4
+// TG). So each cell is read ONCE per document and later reads get a copy of that result.
+// Cleared per import, where listResolve is set.
+let cellCache = new Map();
+function cellBlocks(tcXml) {
+  if (!cellCache.has(tcXml)) cellCache.set(tcXml, cellBlocksOnce(tcXml));
+  return structuredClone(cellCache.get(tcXml));
+}
+
 // Ordered content of a cell: paragraphs, images AND nested tables, in order.
 // Returns [{t:"para",…} | {t:"img",images} | {t:"table",rows}].
-function cellBlocks(tcXml) {
+function cellBlocksOnce(tcXml) {
   const { masked, tables } = maskTables(tcXml);
   const out = [];
   const parts = masked.match(/@@TBL\d+@@|<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || [];
@@ -2257,6 +2268,7 @@ async function importDocx(docxPath, opts = {}) {
   };
   // Expose list level + marker for cell paragraphs (questions/sub-questions in
   // exercise & assessment tables), so their real numbering is preserved.
+  cellCache = new Map();
   listResolve = (x) => {
     if (!/<w:numPr>/.test(x)) return null;
     const numId = (x.match(/<w:numId\s+w:val="(\d+)"/) || [])[1];
