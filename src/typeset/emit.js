@@ -23,7 +23,11 @@ const arr = (xs, el) => (xs.length ? "(" + xs.map(el).join(", ") + ",)" : "()");
 // An underscore answer line that ENDS the run (25+ underscores, only spaces/punctuation
 // after it) becomes U+2064: a rule drawn to the end of the line, so "Toloko ______…" is one
 // line instead of a line plus a stub wrapped onto the next.
-const zwspBlanks = (t) => t.replace(/\s*_{25,}[\s.,;:]*$/, "⁤").replace(/_+/g, (run) => {
+// Several such runs in a row at the end (a learner's writing lines typed as underscores
+// separated by spaces) become one rule per line: the first fills out the current line,
+// each of the others a full line of its own — instead of ragged broken underscore lines.
+const zwspBlanks = (t) => t.replace(/(?:\s*_{20,}){2,}[\s.,;:]*$/, (m) => m.match(/_{20,}/g).map((_, k) => (k ? "\n⁤" : "⁤")).join(""))
+  .replace(/\s*_{25,}[\s.,;:]*$/, "⁤").replace(/_+/g, (run) => {
   const SAFE_ATOMIC_MAX = 50;
   return run.length <= SAFE_ATOMIC_MAX ? run : Array.from(run).join("\u200B");
 }).replace(/\s*[.\u2026]{25,}/g, "\u2063");
@@ -306,7 +310,9 @@ function emit(blocks) {
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
       case "match": out += `#matchpics(${matchArr(b.rows)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
-      case "activity": out += `#activity(${titleContent(b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
+      // a title that is only a label and its number ("IFYAKUCITA 1:", "ACTIVITY 2.") drops the
+      // stray colon/full stop, so it reads like its sibling boxes
+      case "activity": out += `#activity(${titleContent(typeof b.title === "string" ? b.title.replace(/^(\S+\s+\d+)\s*[:.]\s*$/, "$1") : b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "fact": out += `#fact(${bodyArr(b.body)})\n`; break;
       case "keypoints": out += `#keypoints(${b.title ? titleContent(b.title, b.titleSegs) : "none"}, ${strArr(b.points)})\n`; break;
       case "exercise": out += `#exercise(${titleContent(b.heading, b.headingSegs)}, ${partsArr(b.parts || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
