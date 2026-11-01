@@ -551,10 +551,14 @@ function paraSegs(pXml) {
     // word still can't wrap there, the way the author intended.
     let tm = "";
     for (const mm of run.matchAll(
-      /<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>|<w:noBreakHyphen\b[^>]*\/?>|<w:softHyphen\b[^>]*\/?>/g,
+      /<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>|<w:noBreakHyphen\b[^>]*\/?>|<w:softHyphen\b[^>]*\/?>|<w:tab\b[^>]*\/?>/g,
     )) {
       if (mm[1] !== undefined) tm += mm[1];
       else if (/^<w:br\b/.test(mm[0])) tm += "\n";
+      // A tab becomes its spaces WHERE IT SITS in the run. Appending them at the end
+      // glued a run that opens with a tab onto the run before ("Mpanji" + "<tab>Kuhanjeka"
+      // printed "MpanjiKuhanjeka").
+      else if (/^<w:tab\b/.test(mm[0])) tm += "\t";
       else if (/^<w:noBreakHyphen\b/.test(mm[0])) tm += "‑"; // U+2011 - keeps "Water-saving" from wrapping there
       // <w:softHyphen/> is an invisible optional hyphenation point (only shows if
       // Word actually breaks the line there) — dropping it is correct, not lossy.
@@ -564,7 +568,7 @@ function paraSegs(pXml) {
     let t = decode(tm)
       .replace(/[​-‍﻿]/g, "")   // drop zero-width junk (breaks ^label matching)
       .replace(/ *— */g, " - ");     // em dash -> spaced hyphen (house style)
-    if (tabs) t = t + " ".repeat(TAB_GAP ? Math.max(2, tabs) : tabs);                // tabs -> spaces (no column artefacts)
+    if (tabs) t = t.replace(/\t+/g, (m) => " ".repeat(TAB_GAP ? Math.max(2, m.length) : m.length)); // tabs -> spaces (no column artefacts)
     const rpr = (run.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     // Hidden text (<w:vanish/>) — Word itself never displays or prints this run.
     // The recurring case in these manuscripts is "Top of Form"/"Bottom of Form",

@@ -201,5 +201,89 @@
         ]
       ]
     }
+  ],
+  "_comment_pageBreakBefore": [
+    "1 Nov 2026 read-through: six end-of-chapter tests (Ch 1, 2, 6, 8, 10, 13) left one or two questions at a page foot and carried the rest, and the Ch 5 Kwimusha Mudimu left question 1 at a page foot; each now starts a fresh page."
+  ],
+  "pageBreakBefore": [
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "CHIBALU 3:"
+    },
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "CHIBALU 2:"
+    },
+    {
+      "find": "Mudimu",
+      "near": "Wuñendi hichumanyi"
+    },
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "i. Muntu"
+    },
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "CHIBALU 9:"
+    },
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "CHIBALU 11:"
+    },
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "CHIBALU 14:"
+    }
+  ],
+  "_comment_splitBefore": [
+    "The references (KWAFUMINI NSAÑU) are separate entries in the author's FINAL BOOK; three ran into the entry before them."
+  ],
+  "splitBefore": [
+    {
+      "find": "Kasisi Agricultural Training Centre (2026)"
+    },
+    {
+      "find": "Road Transport and Safety Agency (2026)"
+    },
+    {
+      "find": "Photos"
+    }
+  ],
+  "_comment_alignLeft": [
+    "Glossary and reference entries set ragged right, as in the Learner's Book: justified, the long English terms and URLs opened wide gaps."
+  ],
+  "alignLeft": [
+    "Analytical thinking",
+    "Activity",
+    "Appropriate",
+    "Accordingly",
+    "Communication",
+    "Conversation",
+    "Component",
+    "Concept of print",
+    "Cursive writing",
+    "Critical thinking",
+    "Creativity and innovation",
+    "Character",
+    "Correctly",
+    "Creatively",
+    "Digital literacy",
+    "Directionality",
+    "Discussion",
+    "Exercise",
+    "Expected standard",
+    "General Competences",
+    "Hook",
+    "Introduction",
+    "Identify print",
+    "Key terms",
+    "Maponya, F.",
+    "Parliament of Zambia",
+    "Smith, L.",
+    "UNICEF (2025)",
+    "Kasisi Agricultural",
+    "Road Transport and Safety",
+    "Government of the Republic",
+    "Photos"
   ]
 }
