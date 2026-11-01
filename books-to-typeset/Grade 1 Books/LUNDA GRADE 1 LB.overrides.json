@@ -107,12 +107,12 @@
     "Ch 7 Talilenu nakusoneka Mazu ('2. Kulanda / 3. Maliketi'), Ch 11 Kutuña Yikunku Yamazu (its grid), Ch 12 Kuhimpa",
     "Nikufumishaku ('3. Kudila / 4. Kutukana'). The first 'Kutuña Mazu Akuhosha' in the book is Ch 6's.",
     "Also Ch 11 Kutaña Chati and Ch 12 Kwiluka Yikunku Yamazu Yidi Mwizu: their tables went to the next page without them.",
-    "31 Oct: three end-of-chapter tests start a fresh page so that none is split - Ch 5 (question 1 alone at a page foot), Ch 9 (questions 3-4 carried) and Ch 11 (question 5 alone at the top of a page). The Ch 14 reading-lesson Mudimu (Kudihi kumwatela...) also starts a fresh page: its question 2 sat alone at the top of the next page."
+    "31 Oct: three end-of-chapter tests start a fresh page so that none is split - Ch 5 (question 1 alone at a page foot), Ch 9 (questions 3-4 carried) and Ch 11 (question 5 alone at the top of a page). The Ch 14 reading-lesson Mudimu (Kudihi kumwatela...) also starts a fresh page: its question 2 sat alone at the top of the next page.",
+    "1 Nov: read-through of the For Printing PDF. The Ch 11 Kutuña Yikunku Yamazu break now goes before its KUTAÑA heading stack (the box-only break left KUTAÑA / YIVUMINA YAMAZU stranded at a page foot). The Ch 8 and Ch 10 tests start a fresh page (question 1 sat alone at a page foot). The Ch 9 and Ch 10 MAZU / MAZHINA lessons start a fresh page so their question stays with the picture it asks about. The Ch 11 sound-lesson Mudimu starts a fresh page (question 2 was carried), and Ch 12 Kusumbwisha Mazhina starts a fresh page (its table was carried)."
   ],
   "pageBreakBefore": [
     "Zhakwila 3: Kutuña Mazu Akuhosha",
     "Zhakwila 1: Talilenu nakusoneka Mazu",
-    "Zhakwila 1: Kutuña Yikunku Yamazu",
     "Zhakwila 2: Kuhimpa Nikufumishaku",
     "Zhakwila 2: Kutaña Chati Yayikunku Yamazu",
     "Zhakwila 3: Kwiluka Yikunku Yamazu Yidi Mwizu",
@@ -131,6 +131,34 @@
     {
       "find": "Mudimu",
       "near": "Kudihi kumwatela kunatila mazhilu"
+    },
+    {
+      "find": "KUTAÑA",
+      "near": "Zhakwila 1: Kutuña Yikunku Yamazu"
+    },
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "CHIBALU 9:"
+    },
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "CHIBALU 11:"
+    },
+    {
+      "find": "MAZU",
+      "near": "Maliya wahindukili nantetemena hachimu"
+    },
+    {
+      "find": "MAZU",
+      "near": "Kawañu wafumini kushikola"
+    },
+    {
+      "find": "Mudimu",
+      "near": "Zhakwila 3: Kuhema Chisela Chamazhina Awumu"
+    },
+    {
+      "find": "Zhakwila 2: Kusumbwisha Mazhina",
+      "near": "Zhakwila 4: Kuchinda Yikunku Yamazu"
     }
   ],
   "_comment_forceFreshPage": [
