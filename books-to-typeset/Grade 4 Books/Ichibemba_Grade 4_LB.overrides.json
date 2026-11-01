@@ -942,6 +942,10 @@
     {
       "find": "Ukubelenga ukwabula ukutama-ntama",
       "with": "Ukubelenga ukwabula ukutamantama"
+    },
+    {
+      "find": "abasambi balalanshanya pa kuleemba",
+      "with": "mwalalanshanya pa kuleemba"
     }
   ],
   "editAll": [
@@ -1618,10 +1622,6 @@
       "with": "UKUSOBOLOLA ICIBEMBA"
     },
     {
-      "find": "D. KUMFWIKISHA ILYASHI",
-      "with": "D. UKUMFWIKISHA ILYASHI"
-    },
-    {
       "find": "A. UKUBELENGA MU MUTALALILA",
       "with": "A: UKUBELENGA MU MUTALALILA"
     },
@@ -1834,6 +1834,10 @@
     {
       "from": "Ukubelenga bwino na kulungika amashiwi",
       "to": "Ukubelenga busaka-busaka na kulungika amashiwi"
+    },
+    {
+      "from": "Biikeni",
+      "to": "Bikeni"
     }
   ],
   "replaceExact": [
@@ -1915,7 +1919,8 @@
     {
       "find": "Ifyakupiminako",
       "near": "Ukuibimbamo."
-    }
+    },
+    "Muli ili sambililo, mwalalanshanya pa kulemba"
   ],
   "_note_round1": "Round 1 = the 155 reviewer comments in the author's 31 Oct PDF (zeph grade-4-icibemba-lb, #2836-#2990). Topic codes after UMUTWE throughout (#2882); topic titles to the syllabus names the reviewer gave, the same name for every 4.2.2 (UMWAKUSANGA ILYASHI); units renumbered from the second ICIPANDE 7 (= 8) on, so 8->9, 9->10, 10->11; duplicated pp 94-95 and 99 removed; letter type + punctuation; colours numbered; glossary on a new page. Book-wide: Ameepusho/ilipusho, Abaana, Ifilekabilwa ukwishiba, Imibombele Ileenekelwa, mukwikatisha, UKUPANGA ILYASHI.",
   "editCell": [
@@ -1939,6 +1944,159 @@
   "images": {
     "de99f900461ac37b58d580ef9c29d55c5abb0949.png": {
       "hmm": 72
+    },
+    "f7e82ca95bb49a4d4e52a90d60147fa1c834ca2e.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/f7e82ca95bb49a4d4e52a90d60147fa1c834ca2e.png"
+    },
+    "31d39c2b3cd611a0ea93d8aec10d1d439fd35c25.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/31d39c2b3cd611a0ea93d8aec10d1d439fd35c25.png"
+    },
+    "19e434143a68e4373abca733ec5484a5c1b02705.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/19e434143a68e4373abca733ec5484a5c1b02705.png"
+    },
+    "26331c6608741b780a936a69c3c81d0b98662ca9.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/26331c6608741b780a936a69c3c81d0b98662ca9.png"
+    },
+    "03afb2d830ed7e5d6c2dd246aa1102af790cbe57.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/03afb2d830ed7e5d6c2dd246aa1102af790cbe57.png"
+    },
+    "2ae292630e85b3754b4d06ba2b0b2ae8777a91a0.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/2ae292630e85b3754b4d06ba2b0b2ae8777a91a0.png"
+    },
+    "592d8f40960061337180a1e385d4993afb7b7965.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/592d8f40960061337180a1e385d4993afb7b7965.png"
+    },
+    "6fb7d2aad201eeeb9618fa0d6275eb82f6581900.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/6fb7d2aad201eeeb9618fa0d6275eb82f6581900.png"
+    },
+    "ffddef9de23a060f04bab96bc90cfce736fd6afd.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/ffddef9de23a060f04bab96bc90cfce736fd6afd.png"
+    },
+    "9781669a64af8dcbebf6dd5458a6f1de31eee664.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/9781669a64af8dcbebf6dd5458a6f1de31eee664.png"
+    },
+    "c89734a423830f1bcf3b10710ab6aa9d5112033e.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/c89734a423830f1bcf3b10710ab6aa9d5112033e.png"
+    },
+    "26ab2d403c6b04a68fb15ec50053286e1e351f7b.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/26ab2d403c6b04a68fb15ec50053286e1e351f7b.png"
+    },
+    "000eb7352b14a30218266f9f9472e4e5ea2e4bc7.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/000eb7352b14a30218266f9f9472e4e5ea2e4bc7.png"
+    },
+    "d842f4373369f8716968e65df3c4fe4e9738c15c.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/d842f4373369f8716968e65df3c4fe4e9738c15c.png"
+    },
+    "f25032b223d307f64ce233f04133efdb5773b633.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/f25032b223d307f64ce233f04133efdb5773b633.png"
+    },
+    "c441b969e60ff1bdaa3ebc153579c5d226857ddc.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/c441b969e60ff1bdaa3ebc153579c5d226857ddc.png"
+    },
+    "8edea19209f3a540e5cfc93413763444cc3781ba.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/8edea19209f3a540e5cfc93413763444cc3781ba.png"
+    },
+    "dfd98f72487f9026ee781fb41e76b19572d0b626.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/dfd98f72487f9026ee781fb41e76b19572d0b626.png"
+    },
+    "2aa95c505463570fa2a17d4390ccb9518cb68a90.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/2aa95c505463570fa2a17d4390ccb9518cb68a90.png"
+    },
+    "6063c5deb771a6b72152cb46bbd75dd28f85e074.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/6063c5deb771a6b72152cb46bbd75dd28f85e074.png"
+    },
+    "bae77afab21f930233cb1c6f0038a712c964ec33.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/bae77afab21f930233cb1c6f0038a712c964ec33.png"
+    },
+    "44673a42003d5905e137d40954b341a9ed41030f.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/44673a42003d5905e137d40954b341a9ed41030f.png"
+    },
+    "0b241bfc4712bc75e6c6d17586344395f0391c93.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/0b241bfc4712bc75e6c6d17586344395f0391c93.png"
+    },
+    "7b36e4a9f2097a81e2931f0f285eeb33431eda88.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/7b36e4a9f2097a81e2931f0f285eeb33431eda88.png"
+    },
+    "10996681ffb3d072d702d4e107e7d5067c6bc5d7.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/10996681ffb3d072d702d4e107e7d5067c6bc5d7.png"
+    },
+    "9f28f9bc780ada8f8d89c1f5c04543a44853ae35.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/9f28f9bc780ada8f8d89c1f5c04543a44853ae35.png"
+    },
+    "5340e655fc376c3536fe45fcc8007cabf8367b6f.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/5340e655fc376c3536fe45fcc8007cabf8367b6f.png"
+    },
+    "38ca398dacc025674900150c0d2f956a16b85ad4.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/38ca398dacc025674900150c0d2f956a16b85ad4.png"
+    },
+    "14fac83de59ea3f69570859b329d498527bc40ee.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/14fac83de59ea3f69570859b329d498527bc40ee.png"
+    },
+    "49df4a5f011488eac478fa690fee7e9c3cc708ec.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/49df4a5f011488eac478fa690fee7e9c3cc708ec.png"
+    },
+    "5d2a9ba111db8f85579ab6b45ac0c3bfeee67741.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/5d2a9ba111db8f85579ab6b45ac0c3bfeee67741.png"
+    },
+    "dc3d0f285ed078e44b5d7fed649dc978db7eddf8.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/dc3d0f285ed078e44b5d7fed649dc978db7eddf8.png"
+    },
+    "34a00190310e143f8215ca7b538169d978374d98.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/34a00190310e143f8215ca7b538169d978374d98.png"
+    },
+    "eb67fc80140968a308f303b63267be6a14856153.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/eb67fc80140968a308f303b63267be6a14856153.png"
+    },
+    "f2d4c88d797bf469a6cbe5ee1af8f3f6e266da6e.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/f2d4c88d797bf469a6cbe5ee1af8f3f6e266da6e.png"
+    },
+    "e87a12d69ac3f1e549b1f7bebf13fe8c6adf244e.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/e87a12d69ac3f1e549b1f7bebf13fe8c6adf244e.png"
+    },
+    "76554ade343c698d23dcce92c5f6ad12d0bc4a40.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/76554ade343c698d23dcce92c5f6ad12d0bc4a40.png"
+    },
+    "31e01130396a3e81b28dbe8051be0454ef0e6125.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/31e01130396a3e81b28dbe8051be0454ef0e6125.png"
+    },
+    "73f27db463e2e33a36a22043d687fea029dcc08f.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/73f27db463e2e33a36a22043d687fea029dcc08f.png"
+    },
+    "d177bc1df3a19454fc7d508c3aa1eaa3406ca0da.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/d177bc1df3a19454fc7d508c3aa1eaa3406ca0da.png"
+    },
+    "747f5b063016bdc30664c030ff48f8a95a28df63.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/747f5b063016bdc30664c030ff48f8a95a28df63.png"
+    },
+    "94734b5a4119cf4ad269a986689cf5b3648b6a16.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/94734b5a4119cf4ad269a986689cf5b3648b6a16.png"
+    },
+    "7757e262377a582eb49e8a1f064926fe12aa0fae.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/7757e262377a582eb49e8a1f064926fe12aa0fae.png"
+    },
+    "410803e510374e6e53b6f3534ac8cce7c385e181.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/410803e510374e6e53b6f3534ac8cce7c385e181.png"
+    },
+    "c05b29a39ff9d057a0380c3ed80a9e41766443ee.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/c05b29a39ff9d057a0380c3ed80a9e41766443ee.png"
+    },
+    "29e42b165a85aaaccaceef8a6d3d838b0758bd76.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/29e42b165a85aaaccaceef8a6d3d838b0758bd76.png"
+    },
+    "3a518a9a2893efa11d798920915cb4d98917e4ce.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/3a518a9a2893efa11d798920915cb4d98917e4ce.png"
+    },
+    "59ea7590357e06a5ae7484ca06cd5d68979bec12.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/59ea7590357e06a5ae7484ca06cd5d68979bec12.png"
+    },
+    "f4a4b725e692d28cb6133f68fed83c83bcd450c9.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/f4a4b725e692d28cb6133f68fed83c83bcd450c9.png"
+    },
+    "72c1e2fef62b85af9c99eca8f3c99baed205b3f9.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/72c1e2fef62b85af9c99eca8f3c99baed205b3f9.png"
+    },
+    "385d7d1b79fbfedd6e548b5818e873372011dcf2.png": {
+      "src": "Ichibemba_Grade 4_LB-hires/385d7d1b79fbfedd6e548b5818e873372011dcf2.png"
     }
   },
   "removeImages": [
