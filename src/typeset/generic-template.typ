@@ -2135,7 +2135,9 @@
   // restricted to units (some books want a units-only contents page).
   // (`unit`: the engine knows this heading opens a top-level section — a local-language
   // topic title such as "MUTU WANSAÑU 1.1: …" that the English word test above misses)
-  if outlined and (unit or isUnitTitle(t) or not tocUnitsOnly) { mark(1, t) }
+  // The contents entry ties the label to its number with a no-break space, as the unit
+  // banner does, so a long title can't wrap as "CHIBALU / 1: KUTAÑA ..." in the TOC.
+  if outlined and (unit or isUnitTitle(t) or not tocUnitsOnly) { mark(1, t.replace(regex("^(\S+) (\d)"), m => m.captures.at(0) + "\u{a0}" + m.captures.at(1))) }
   curtopic.update(t)
   if boxstyle == "labcard" {
     let u = upper(t)
