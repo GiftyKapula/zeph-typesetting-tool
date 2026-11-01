@@ -1326,7 +1326,13 @@ function applyOverrides(blocks, ov) {
   for (const ul of ov.unlist || []) {
     const sub = typeof ul === "string" ? ul : ul.find;
     const from = afterIndex(flat, ul.after);
-    const b = flat.find((x, i) => i >= from && x.t === "listitem" && blockPlain(x).includes(sub));
+    let b = flat.find((x, i) => i >= from && x.t === "listitem" && blockPlain(x).includes(sub));
+    // (a stray number on one line inside an activity box: box bodies are not in `flat`)
+    if (!b && !ul.after) {
+      const isItem = (x) => x.t === "listitem" || (x.t === "para" && x.isList && x.marker);
+      const walk = (arr) => { for (const x of arr || []) { if (b || !x || typeof x !== "object") continue; if (isItem(x) && blockPlain(x).includes(sub)) { b = x; return; } for (const k of Object.keys(x)) if (k !== "segs" && Array.isArray(x[k])) walk(x[k]); } };
+      walk(blocks);
+    }
     if (!b) { console.warn("!  unlist not matched:", sub); continue; }
     b.t = "para"; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
   }

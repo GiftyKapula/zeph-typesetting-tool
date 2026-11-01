@@ -980,10 +980,15 @@ async function typesetOne(docxPath, themeName) {
   // Opt-in per book ("localLabels": true) once its words are checked: some word lists
   // give a long phrase for the level (Lunda's carries "Fomu 1 -4", which the cover would
   // then read as the form line), so this is not switched on for every language at once.
+  // "localLabels": { "grade": "Geledi", ... } (an object keyed by word-list id) switches
+  // the same thing on but spells a label the way THIS book does where it differs from
+  // the word list's first form (Icibemba G4 TG prints "GELEDI"; the list has "Giledi").
   if (getLang() && ov.localLabels) {
+    const own = typeof ov.localLabels === "object" ? ov.localLabels : {};
+    const word = (id) => own[id] || LEXI.label(id);
     const labels = {};
     for (const [k, id] of [["grade", "grade"], ["form", "form"], ["tg", "teachers_guide"], ["lb", "learners_book"], ["authors", "authors_label"]]) {
-      const w = LEXI.label(id);
+      const w = word(id);
       if (w) labels[k] = w;
     }
     themeOverrides.labels = labels;
@@ -995,7 +1000,7 @@ async function typesetOne(docxPath, themeName) {
     if (themeOverrides.hdrtab) themeOverrides.hdrtab = titleCase(tr(themeOverrides.hdrtab));
     const lvlId = { "Early Childhood Education Level": "level_ece", "Primary Education Level": "level_primary",
       "Secondary Education Ordinary Level": "level_ordinary", "Secondary Education Advanced Level": "level_advanced" }[eduLevel];
-    const lvl = lvlId && LEXI.label(lvlId);
+    const lvl = lvlId && word(lvlId);
     if (lvl) {
       const subj = ov.subject || (THEMES[theme] || {}).subject;
       if (subj) themeOverrides.hdrleft = lvl + " " + subj;
