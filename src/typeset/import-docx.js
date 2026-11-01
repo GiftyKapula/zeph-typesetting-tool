@@ -1769,7 +1769,9 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, noBoxes, flat) {
   // demoting ordinary sentences that merely begin with a label word. In the
   // "flat" (series) layout there are no boxes, so Activity/Exercise lines are
   // headings, not labels — skip this demotion there.
-  if (!noBoxes && plain.length <= 40 && boxKindFromTitle(plain)) return { t: "label", text: plain };
+  // A Word list item is never a box title: "3. Umulimo imo mu ilyashi." (an answer line in
+  // the Icibemba G4 LB) opened an exercise that swallowed the rest of its test section.
+  if (!noBoxes && plain.length <= 40 && !/<w:numPr>/.test(pXml) && boxKindFromTitle(plain)) return { t: "label", text: plain };
   // Series layout: an Activity / Exercise / Task / Assessment line (English or a
   // local language) is always a heading, even if the source didn't bold the whole
   // line — so they style consistently. (Table-wrapped boxes are still kept.)
@@ -2793,6 +2795,7 @@ async function importDocx(docxPath, opts = {}) {
     const text = textOf(x);
     const kind = text && boxKindFromTitle(text);
     if (!kind || !boldFirstRun(x)) continue;
+    if (/<w:numPr>/.test(x)) continue;   // a numbered list item is never a box title (see classifyPara)
     const bodyIdx = [];
     let lastContent = -1;
     for (let j = i + 1; j < parts.length; j++) {

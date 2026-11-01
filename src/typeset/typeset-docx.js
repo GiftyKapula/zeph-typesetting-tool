@@ -1664,6 +1664,10 @@ async function typesetOne(docxPath, themeName) {
     breakPoints = points;
     console.log(`   dropBreaks: ${drop.size} of ${points.length} body page break(s) dropped`);
   }
+  // tocHeads: true — list the Heading 3 topics/sub-topics in the contents too (level 3,
+  // under their strand). They render as plain heads, which the outline never sees; the
+  // Icibemba G4 LB reviewer asked for its missing sub-topic ("4.6.3.2 Landilwa") there.
+  if (ov.tocHeads) for (const b of blocks) if (b.t === "h3" && b.text) b.toc = 3;
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
 
   // Include OS system fonts so specialty faces like Bradley Hand ITC (used for
