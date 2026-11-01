@@ -91,7 +91,149 @@
     "Bomfwa": "Bomfya",
     "amshiwi": "amashiwi",
     "Mulsangwa": "Mulesangwa",
-    "mulsangwa": "mulesangwa"
+    "mulsangwa": "mulesangwa",
+    "apose ama no kufyo": "apose amaano kufyo",
+    "kufyo balecita.": "kufyo balecita",
+    "ukubeleenga": "ukubelenga",
+    "Ukubeleenga": "Ukubelenga",
+    "UKUBELEENGA": "UKUBELENGA",
+    "ukuleemba": "ukulemba",
+    "Ukuleemba": "Ukulemba",
+    "UKULEEMBA": "UKULEMBA",
+    "mabuumba": "mabumba",
+    "Mabuumba": "Mabumba",
+    "MABUUMBA": "MABUMBA",
+    "imisela": "imiseela",
+    "Imisela": "Imiseela",
+    "IMISELA": "IMISEELA",
+    "iifilekabilwa": "ifilekabilwa",
+    "Iifilekabilwa": "Ifilekabilwa",
+    "IIFILEKABILWA": "IFILEKABILWA",
+    "ifileekabilwa": "ifilekabilwa",
+    "Ifileekabilwa": "Ifilekabilwa",
+    "IFILEEKABILWA": "IFILEKABILWA",
+    "kubeleenga": "kubelenga",
+    "Kubeleenga": "Kubelenga",
+    "KUBELEENGA": "KUBELENGA",
+    "icilangililoo": "icilangililo",
+    "Icilangililoo": "Icilangililo",
+    "ICILANGILILOO": "ICILANGILILO",
+    "balebeleenga": "balebelenga",
+    "Balebeleenga": "Balebelenga",
+    "BALEBELEENGA": "BALEBELENGA",
+    "babeleenga": "babelenga",
+    "Babeleenga": "Babelenga",
+    "BABELEENGA": "BABELENGA",
+    "babeleenge": "babelenge",
+    "Babeleenge": "Babelenge",
+    "BABELEENGE": "BABELENGE",
+    "ubwapusaana": "ubwapusana",
+    "Ubwapusaana": "Ubwapusana",
+    "UBWAPUSAANA": "UBWAPUSANA",
+    "yesambiliilo": "yesambililo",
+    "Yesambiliilo": "Yesambililo",
+    "YESAMBILIILO": "YESAMBILILO",
+    "cilaafwilisha": "cilafwilisha",
+    "Cilaafwilisha": "Cilafwilisha",
+    "CILAAFWILISHA": "CILAFWILISHA",
+    "leemba": "lemba",
+    "Leemba": "Lemba",
+    "LEEMBA": "LEMBA",
+    "ifikankaala": "ifikankala",
+    "Ifikankaala": "Ifikankala",
+    "IFIKANKAALA": "IFIKANKALA",
+    "ayalaanga": "ayalanga",
+    "Ayalaanga": "Ayalanga",
+    "AYALAANGA": "AYALANGA",
+    "ayaliinga": "ayalinga",
+    "Ayaliinga": "Ayalinga",
+    "AYALIINGA": "AYALINGA",
+    "beleenga": "belenga",
+    "Beleenga": "Belenga",
+    "BELEENGA": "BELENGA",
+    "abeleenga": "abelenga",
+    "Abeleenga": "Abelenga",
+    "ABELEENGA": "ABELENGA",
+    "alebeleenga": "alebelenga",
+    "Alebeleenga": "Alebelenga",
+    "ALEBELEENGA": "ALEBELENGA",
+    "ayaleembwa": "ayalembwa",
+    "Ayaleembwa": "Ayalembwa",
+    "AYALEEMBWA": "AYALEMBWA",
+    "caleembwa": "calembwa",
+    "Caleembwa": "Calembwa",
+    "CALEEMBWA": "CALEMBWA",
+    "bakaleemba": "bakalemba",
+    "Bakaleemba": "Bakalemba",
+    "BAKALEEMBA": "BAKALEMBA",
+    "ukupoosa": "ukuposa",
+    "Ukupoosa": "Ukuposa",
+    "UKUPOOSA": "UKUPOSA",
+    "busuuma": "busuma",
+    "Busuuma": "Busuma",
+    "BUSUUMA": "BUSUMA",
+    "ukuceeceeta": "ukuceceta",
+    "Ukuceeceeta": "Ukuceceta",
+    "UKUCEECEETA": "UKUCECETA",
+    "ameepusho": "amepusho",
+    "Ameepusho": "Amepusho",
+    "AMEEPUSHO": "AMEPUSHO",
+    "amakadi": "amakaadi",
+    "Amakadi": "Amakaadi",
+    "AMAKADI": "AMAKAADI",
+    "imibele": "imibeele",
+    "Imibele": "Imibeele",
+    "IMIBELE": "IMIBEELE",
+    "mibele": "mibeele",
+    "Mibele": "Mibeele",
+    "MIBELE": "MIBEELE",
+    "amabuuku": "amabuku",
+    "Amabuuku": "Amabuku",
+    "AMABUUKU": "AMABUKU",
+    "mabuuku": "mabuku",
+    "Mabuuku": "Mabuku",
+    "MABUUKU": "MABUKU",
+    "buuku": "buku",
+    "Buuku": "Buku",
+    "BUUKU": "BUKU",
+    "calo": "caalo",
+    "Calo": "Caalo",
+    "CALO": "CAALO",
+    "icalo": "icaalo",
+    "Icalo": "Icaalo",
+    "ICALO": "ICAALO",
+    "ubuumi": "ubumi",
+    "Ubuumi": "Ubumi",
+    "UBUUMI": "UBUMI",
+    "buumi": "bumi",
+    "Buumi": "Bumi",
+    "BUUMI": "BUMI",
+    "muuntu": "muntu",
+    "Muuntu": "Muntu",
+    "MUUNTU": "MUNTU",
+    "baantu": "bantu",
+    "Baantu": "Bantu",
+    "BAANTU": "BANTU",
+    "baambi": "bambi",
+    "Baambi": "Bambi",
+    "BAAMBI": "BAMBI",
+    "kwaasuka": "kwasuka",
+    "Kwaasuka": "Kwasuka",
+    "KWAASUKA": "KWASUKA",
+    "peesamba": "pesamba",
+    "Peesamba": "Pesamba",
+    "PEESAMBA": "PESAMBA",
+    "kulafwa": "kulaafwa",
+    "Kulafwa": "Kulaafwa",
+    "KULAFWA": "KULAAFWA",
+    "imiiti": "imiti",
+    "Imiiti": "Imiti",
+    "IMIITI": "IMITI",
+    "mabula": "mabuula",
+    "Mabula": "Mabuula",
+    "MABULA": "MABUULA",
+    "Inono": "Inoono",
+    "INONO": "INOONO"
   },
   "edit": [
     {
@@ -378,7 +520,7 @@
     },
     {
       "find": "Lolenisheni abasambi ukulanda mu mabumba pakuti bafwilishanye.",
-      "with": "Biika abasambi mu mabuumba pakuti baafwilishanye.",
+      "with": "Biika abasambi mu mabumba pakuti baafwilishanye.",
       "after": "Ukusambilila ukubomfya dikishonali."
     },
     {
@@ -668,6 +810,11 @@
     3,
     4,
     6,
+    7,
+    8,
+    9,
+    10,
+    12,
     13,
     14,
     16,
@@ -687,13 +834,519 @@
     38,
     39,
     40,
+    41,
     42,
     43,
     44,
     45,
-    46
+    46,
+    47
   ],
   "_note_dropBreaks": "Every strand opens a new page; where the page before it held only a few lines (a third or less), that break is dropped so the strand follows on (numbers from _breaks.json).",
   "_note_fmSpacing": "Front-matter paragraph gap 1.2em (house 1.9em): the acknowledgements otherwise spill their two-line signatory onto a page of its own.",
-  "fmSpacing": "1.2em"
+  "fmSpacing": "1.2em",
+  "boldFind": [
+    {
+      "find": "Noriana Muneku (Ms.)"
+    },
+    {
+      "find": "Agness Mumba Wilkins (PhD)"
+    },
+    {
+      "find": "Beatrice Chirwa (Dr)"
+    }
+  ],
+  "_note_signatory": "Front-matter signatories alike: the name bold (user asked for Noriana Muneku, 2026-11-01; the other two follow), the post plain, the institution bold - MINISTRY OF EDUCATION is a bold signature line in the manuscript, not a heading.",
+  "asPara": [
+    {
+      "find": "MINISTRY OF EDUCATION",
+      "bold": true
+    }
+  ],
+  "_note_uniform": "Uniformity pass (user, 2026-11-01): every variant of a recurring heading gets one wording and one style - lesson-part labels in heading style with no colon (IFYAKUBOMFYA PAKUFUNDA, IFYAKUKONKA PAKUFUNDA, ISHIWI LYANTANSHI KULI KAFUNDISHA, IMIFUNDILE, UBULONDOLOSHI BWA UMUTWE UNOONO, UKWESHA ABASAMBI MUKATI NA PAMPELA YA ISAMBILILO, UKUSONDWELELA ISAMBILILO, AMASUKO KU FYAKUCITA ...), topics 'UMUTWE: 4.1.7 TITLE', sub-topics 'UMUTWE UNOONO: ...', one name per strand. Generated by C:/z/bg4/norm.js.",
+  "setHeading": [
+    {
+      "find": "UBULONDOLOSHI BWA UMUTWE UNOONO:",
+      "text": "UBULONDOLOSHI BWA UMUTWE UNOONO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUBOMFYA PA KUFUNDA",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "all": true
+    },
+    {
+      "find": "ISHIWI ILYANTANSHI KULI KAFUNDISHA",
+      "text": "ISHIWI LYANTANSHI KULI KAFUNDISHA",
+      "all": true
+    },
+    {
+      "find": "ISHIWI ILYANTANSHI KULI KAFUNDISHA:",
+      "text": "ISHIWI LYANTANSHI KULI KAFUNDISHA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKWESHA BASAMBI MUKATI NA PAMPELA YA ISAMBILILO:",
+      "text": "UKWESHA ABASAMBI MUKATI NA PAMPELA YA ISAMBILILO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKUSONDWELELA ISAMBILILO:",
+      "text": "UKUSONDWELELA ISAMBILILO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFILEFWAIKWA PA KUFUNDA:",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUKONKA PA KUFUNDA",
+      "text": "IFYAKUKONKA PAKUFUNDA",
+      "all": true
+    },
+    {
+      "find": "UKWESHA ABASAMBI MUKATI NA PAMPELA YA ISAMBILILO:",
+      "text": "UKWESHA ABASAMBI MUKATI NA PAMPELA YA ISAMBILILO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKUBELENGA NA UKUMFWIKISHA",
+      "text": "UKUMFWIKISHA ILYASHI",
+      "all": true
+    },
+    {
+      "find": "UMUTWE:4.2.3 UKUBELENGA NA UKUMFWIKISHA",
+      "text": "UMUTWE: 4.2.3 UKUBELENGA NA UKUMFWIKISHA",
+      "all": true
+    },
+    {
+      "find": "IFYAKUKONKA PAKUFUNDA:",
+      "text": "IFYAKUKONKA PAKUFUNDA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UBULONDOLOSHI BWA MUTWE UNOONO",
+      "text": "UBULONDOLOSHI BWA UMUTWE UNOONO",
+      "all": true
+    },
+    {
+      "find": "UKWESHIWA KWA PAMPELA YA ISAMBILILO:",
+      "text": "UKWESHIWA KWA PAMPELA YA ISAMBILILO",
+      "all": true
+    },
+    {
+      "find": "IFYAKUBOMFYA PAKUFUNDA:",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UMUTWE 4.3.2 UKUPALANA KWA MASHIWI",
+      "text": "UMUTWE: 4.3.2 UKUPALANA KWA MASHIWI",
+      "all": true
+    },
+    {
+      "find": "IMIFUNDILE:",
+      "text": "IMIFUNDILE",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ULUTAMPULO 1:",
+      "text": "ULUTAMPULO 1",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ULUTAMPULO 3: UKUSUSONDWELELA",
+      "text": "ULUTAMPULO 3: UKUSONDWELELA",
+      "all": true
+    },
+    {
+      "find": "UKWESHA MUKATI NA PAMPELA YA ISAMBILILO",
+      "text": "UKWESHA ABASAMBI MUKATI NA PAMPELA YA ISAMBILILO",
+      "all": true
+    },
+    {
+      "find": "UKWESHA PAMPELA YA ISAMBILILO:",
+      "text": "UKWESHA PAMPELA YA ISAMBILILO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3:",
+      "text": "IFYAKUCITA 3",
+      "all": true
+    },
+    {
+      "find": "ISHIWI LYANTASHI KULI KAFUNDISHA",
+      "text": "ISHIWI LYANTANSHI KULI KAFUNDISHA",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 2. Pakati kakubeleenga",
+      "text": "Ulutampulo 2 – Pakati kakubeleenga",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 3. Ukusumina",
+      "text": "Ulutampulo 3 – Ukusumina",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1:",
+      "text": "IFYAKUCITA 1",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2:",
+      "text": "IFYAKUCITA 2",
+      "all": true
+    },
+    {
+      "find": "UKUSONDWELELA",
+      "text": "UKUSONDWELELA ISAMBILILO",
+      "all": true
+    },
+    {
+      "find": "ISHIWI LYANTANSHI KULI KAFUNDISHA:",
+      "text": "ISHIWI LYANTANSHI KULI KAFUNDISHA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 2. Pakati ka kubelenga",
+      "text": "Ulutampulo 2 – Pakati ka kubelenga",
+      "all": true
+    },
+    {
+      "find": "AMASUKO KU IFYAKUCITA",
+      "text": "AMASUKO KU FYAKUCITA",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 4:",
+      "text": "IFYAKUCITA 4",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 1.",
+      "text": "Ulutampulo 1",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 2 . Pakati kakubeleenga",
+      "text": "Ulutampulo 2 – Pakati kakubeleenga",
+      "all": true
+    },
+    {
+      "find": "UKUSONDWELELA KWA ISAMBILILO",
+      "text": "UKUSONDWELELA ISAMBILILO",
+      "all": true
+    },
+    {
+      "find": "IFILEKABILWA UKWISHIBA MUKWESHIWA:",
+      "text": "IFILEKABILWA UKWISHIBA MUKWESHIWA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUBOMFYA",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "all": true
+    },
+    {
+      "find": "Intampulo 1 – Ukulanshanya",
+      "text": "Ulutampulo 1 – Ukulanshanya",
+      "all": true
+    },
+    {
+      "find": "Intampulo 2 – Umulimo wa Ibumba",
+      "text": "Ulutampulo 2 – Umulimo wa Ibumba",
+      "all": true
+    },
+    {
+      "find": "Intampulo 3 – Umulimo wa Babili",
+      "text": "Ulutampulo 3 – Umulimo wa Babili",
+      "all": true
+    },
+    {
+      "find": "Intampulo 4 – Ukupanga Amashiwi",
+      "text": "Ulutampulo 4 – Ukupanga Amashiwi",
+      "all": true
+    },
+    {
+      "find": "UKUSONDWELELA UMUTWE",
+      "text": "UKUSONDWELELA ISAMBILILO",
+      "all": true
+    },
+    {
+      "find": "IFYA KUBOMFYA PAKUFUNDA",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "all": true
+    },
+    {
+      "find": "AMASUKO KUFYAKUCITA",
+      "text": "AMASUKO KU FYAKUCITA",
+      "all": true
+    },
+    {
+      "find": "Intampulo 1: Ukulanshanya",
+      "text": "Ulutampulo 1: Ukulanshanya",
+      "all": true
+    },
+    {
+      "find": "Intampulo 2: Umulimo wa Bumba",
+      "text": "Ulutampulo 2: Umulimo wa Bumba",
+      "all": true
+    },
+    {
+      "find": "Intampulo 3: Ukubomba kwa babili",
+      "text": "Ulutampulo 3: Ukubomba kwa babili",
+      "all": true
+    },
+    {
+      "find": "Intampulo 4: Ukupanga Amashiwi",
+      "text": "Ulutampulo 4: Ukupanga Amashiwi",
+      "all": true
+    },
+    {
+      "find": "IFILEENEKELWA UKWISHIBA:",
+      "text": "IFILEKABILWA UKWISHIBA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFILEENEKALWA UKWISHIBA:",
+      "text": "IFILEKABILWA UKWISHIBA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUBOMFYA PA KUFUNDA:",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ULUTAMPULO 4: UKUSUSONDWELELA",
+      "text": "ULUTAMPULO 4: UKUSONDWELELA",
+      "all": true
+    },
+    {
+      "find": "MIFUNDILE:",
+      "text": "IMIFUNDILE",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYA KUBOMFYA PA KUSAMBILILA",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "all": true
+    },
+    {
+      "find": "Imibombele ileenekelwa ukufuma ku basambi:",
+      "text": "IMIBOMBELE ILEENEKELWA UKUFUMA KU BASAMBI",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IMIBOMBELE ILEENEKELWA ukufuma ku basambi:",
+      "text": "IMIBOMBELE ILEENEKELWA UKUFUMA KU BASAMBI",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKUMFWIKISHA",
+      "text": "UKUMFWIKISHA ILYASHI",
+      "all": true
+    },
+    {
+      "find": "UMUTWE: 4.4.1: UKUMFWIKISHA IFILELANDWA",
+      "text": "UMUTWE: 4.4.1 UKUMFWIKISHA IFILELANDWA",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: 4.4.1.1 Ukumfwa Ifilelandwa",
+      "text": "UMUTWE UNOONO: 4.4.1.1 Ukumfwa Ifilelandwa",
+      "all": true
+    },
+    {
+      "find": "UBULONDOLOSHI BWA MUTWE UNOONO:",
+      "text": "UBULONDOLOSHI BWA UMUTWE UNOONO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKWESHIWA ABASAMBI MUKATI NA PAMPELA YA ISAMBILILO",
+      "text": "UKWESHA ABASAMBI MUKATI NA PAMPELA YA ISAMBILILO",
+      "all": true
+    },
+    {
+      "find": "IMIBOMBELE ILEENEKELWA UKUFUMA KU BASAMBI:",
+      "text": "IMIBOMBELE ILEENEKELWA UKUFUMA KU BASAMBI",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UMUTWE :4.1.7 INTAMBI",
+      "text": "UMUTWE: 4.1.7 INTAMBI",
+      "all": true
+    },
+    {
+      "find": "IFILEKABILWA UKWISHIBA:",
+      "text": "IFILEKABILWA UKWISHIBA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 1",
+      "text": "IFYAKUCITA 1",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 2",
+      "text": "IFYAKUCITA 2",
+      "all": true
+    },
+    {
+      "find": "UKWESHA BASAMBI:",
+      "text": "UKWESHA BASAMBI",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 1: Ipusheni:",
+      "text": "Ulutampulo 1: Ipusheni",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKWESHA ABASAMBI:",
+      "text": "UKWESHA ABASAMBI",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "AMAANO BASANGAMO:",
+      "text": "AMAANO BASANGAMO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKUMFWA",
+      "text": "UKUMFWIKISHA ILYASHI",
+      "all": true
+    },
+    {
+      "find": "IFILEFWAIKWA PA KUFUNDA",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "all": true
+    },
+    {
+      "find": "Ifyakukonka pa kufunda",
+      "text": "IFYAKUKONKA PAKUFUNDA",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 1:",
+      "text": "Ulutampulo 1",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 2. Iya cibili – ukutambisha ifikope",
+      "text": "Ulutampulo 2 – Iya cibili – ukutambisha ifikope",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 4. Iya bune –Ukushimika ilyashi",
+      "text": "Ulutampulo 4 – Iya bune –Ukushimika ilyashi",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 5. Iya busano- ukupanga ilyashi ilipya",
+      "text": "Ulutampulo 5 – Iya busano- ukupanga ilyashi ilipya",
+      "all": true
+    },
+    {
+      "find": "UKUSOBOLO ICIBEMBA",
+      "text": "UKUSOBOLOLA ICIBEMBA",
+      "all": true
+    },
+    {
+      "find": "Ulutampulo 3: UKUSUSONDWELELA",
+      "text": "Ulutampulo 3: UKUSONDWELELA",
+      "all": true
+    },
+    {
+      "find": "IFYAKUBOMFYA:",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IMIFUNDILE :",
+      "text": "IMIFUNDILE",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKWESHA MUKATI NA PAMPELA YA ISAMBILILO:",
+      "text": "UKWESHA ABASAMBI MUKATI NA PAMPELA YA ISAMBILILO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKWISHIBA AMASHIWI",
+      "text": "AMASHIWI",
+      "all": true
+    },
+    {
+      "find": "UMUTWE: 4.4.1 UKUMFWA NA UKWASUKA.",
+      "text": "UMUTWE: 4.4.1 UKUMFWA NA UKWASUKA",
+      "all": true
+    },
+    {
+      "find": "IFYA KUBOMFYA",
+      "text": "IFYAKUBOMFYA PAKUFUNDA",
+      "all": true
+    },
+    {
+      "find": "UKUSOBOLOLA AMASHIWI",
+      "text": "UKUSOBOLOLA ICIBEMBA",
+      "all": true
+    },
+    {
+      "find": "Uluntampulo 1:",
+      "text": "Ulutampulo 1",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ULUTAMPULO 1: Intendekelo",
+      "text": "Ulutampulo 1: Intendekelo",
+      "all": true
+    },
+    {
+      "find": "ULUTAMPULO 2: IFYAKUCITA 1 – Ukupilibula Amashiwi",
+      "text": "Ulutampulo 2: IFYAKUCITA 1 – Ukupilibula Amashiwi",
+      "all": true
+    },
+    {
+      "find": "ILUTAMPULO 1:",
+      "text": "ULUTAMPULO 1",
+      "as": "head",
+      "all": true
+    }
+  ],
+  "_note_spelling": "One spelling per word (house standard, user's uniformity request 2026-11-01): a word the book spells several ways takes its most frequent form (wordFix after the round-1 keys) - e.g. ukubelenga, ukulemba, amepusho, amakaadi, imibeele, amabuku, ubumi, caalo. The reviewer's own spellings always win (abaana, amaano, saana, inoono, uukalamba); possible different words (lelo/leelo, kale/kaale, ukuba/ukuuba) and near-ties left as written. Generated by C:/z/bg4/spell.js."
 }
