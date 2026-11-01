@@ -3,7 +3,7 @@
   "subject": "Icibemba",
   "_note_localLabels": "Labels in the book's own spelling: GELEDI (the word list has Giledi), ICITABO CAKWA KAFUNDISHA; the cover's author label is the word list's Bakalemba (no English on the cover).",
   "keepFrontOrder": true,
-  "_note_cover": "Cover picture: the photo on the authors' own cover (507x312 in the PDF), word-free, Real-ESRGAN x4 to 2028x1248.",
+  "_note_cover": "Cover picture: the user's own picture Downloads/tg.jpeg (chosen 2026-11-01), used whole: 1280x853, Real-ESRGAN x4 to 5120x3412, then down to 2560x1706.",
   "coverImage": "ICIBEMBA GRADE 4 TG-hires/cover.png",
   "authors": [
     "E. Bwalya",
