@@ -1580,13 +1580,16 @@
   let tgap = T.at("tocGap", default: 10pt)
   // and a wrapped title breaks between words, never mid-word ("BU- / TEELEDE")
   set text(hyphenate: false)
-  show outline.entry: it => { v(5pt, weak: true); upper(it) }
+  // (a two-line entry is never split across two contents pages)
+  show outline.entry: it => { v(5pt, weak: true); block(breakable: false)[#upper(it)] }
   let tdepth = T.at("tocDepth", default: 2)
+  // A unit's entry never sits alone at the foot of a contents page with its strands
+  // overleaf (sticky: kept with the entry below it) — Icibemba G4 LB, ICIPANDE 7.
   if serieslike {
-    show outline.entry.where(level: 1): it => { v(tgap, weak: true); text(fill: iaccent, weight: "bold")[#upper(it)] }
+    show outline.entry.where(level: 1): it => { v(tgap, weak: true); block(sticky: true)[#text(fill: iaccent, weight: "bold")[#upper(it)]] }
     outline(title: none, depth: tdepth, indent: 1.2em)
   } else {
-    show outline.entry.where(level: 1): it => { v(tgap, weak: true); strong(upper(it)) }
+    show outline.entry.where(level: 1): it => { v(tgap, weak: true); block(sticky: true)[#strong(upper(it))] }
     outline(title: none, depth: tdepth, indent: 1.2em)
   }
 }

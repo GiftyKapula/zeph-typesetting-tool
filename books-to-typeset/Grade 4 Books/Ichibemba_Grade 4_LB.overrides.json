@@ -1,0 +1,2130 @@
+{
+  "localLabels": true,
+  "coversInBook": true,
+  "subject": "Icibemba",
+  "authors": [
+    "E. Bwalya",
+    "V. N. Mwandama",
+    "S. Mwila",
+    "M. Nambao (Dr.)",
+    "C. Whiscals"
+  ],
+  "hyphenate": false,
+  "activityTitles": [
+    "IFYAKUCITA"
+  ],
+  "tocTitle": "Ifili mu Citabo",
+  "coverWords": {
+    "authors": "ABALEMBELE",
+    "printedBy": "Calembelwe naba",
+    "contents": "Ifili mu Citabo",
+    "grade": "Geledi"
+  },
+  "coverImage": "Ichibemba_Grade 4_LB-hires/cover.png",
+  "_note_source": "No Word manuscript exists: the .docx was rebuilt from the author's corrected PDF 'Ichibemba_Grade 4_LB_Corrections made 31.10.26 E.Bwalya.pdf' (Word/PDFMaker export, 177 pp incl. the cover spread). The 155 reviewer comments in that PDF are logged in zeph (grade-4-icibemba-lb round 1) and NOT applied yet.",
+  "_note_cover": "Cover picture: the user's own picture Downloads/lb.jpeg (chosen 2026-11-01), used whole: 1280x853, Real-ESRGAN x4 in two overlapping halves to 5120x3412, then down to 2560x1706. Cover words from the manuscript's cover: ICIBEMBA / ICITABO CA MUSAMBI / GELEDI 4.",
+  "authorLabel": "Abalembele",
+  "_note_labels": "Cover/title labels: GELEDI, the book's own majority spelling (10 Geledi : 3 Giledi; the word list leads with Giledi). ABALEMBELE / Calembelwe naba as on the Icibemba ECE LB (the manuscript cover has the English NAMES OF WRITERS).",
+  "replaceBlocks": [
+    {
+      "find": "© Zambia Educational Publishing House, 2026",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House, 2026",
+          "center": true
+        },
+        {
+          "para": "Insambu shonse shasungwa. Fyonse ifilembelwe, tafifwile fya lembululwa, ukusungwa umo fingafumishiwa nangu ukusabankanishiwa munshila iili yonse ukwabula ukupoka insambu ukufuma kuba fumishe ici citabo.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Abapitulwiikemo niba:**",
+          "center": true
+        },
+        {
+          "para": "………………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Abalengele niba:**",
+          "center": true
+        },
+        {
+          "para": "………………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Abapekeenye imimonekele ya citabo:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Ukusabankanya umuku wa kubalipo:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Icitabo Cipekanishiwe Naba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "25th February 2026",
+      "with": [
+        {
+          "para": "**Kalata wakuya ku cibusa**"
+        },
+        {
+          "para": "25th February 2026."
+        }
+      ]
+    },
+    {
+      "find": "Lusaka",
+      "with": [
+        {
+          "para": "Lusaka."
+        }
+      ]
+    },
+    {
+      "find": "Muli shani?",
+      "with": [
+        {
+          "para": "Muli shani."
+        }
+      ]
+    },
+    {
+      "find": "Mwila Chisanga",
+      "with": [
+        {
+          "para": "Mwila Chisanga."
+        }
+      ]
+    },
+    {
+      "find": "Ilya kashika",
+      "with": [
+        {
+          "listitem": "Ilya kashika",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "Ilya makumbi-makumbi",
+      "with": [
+        {
+          "listitem": "Ilya makumbi-makumbi",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Ilya mutuntula",
+      "with": [
+        {
+          "listitem": "Ilya mutuntula",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "ILyashika + Makumbi-makumbi = Icifufya",
+      "with": [
+        {
+          "listitem": "Ilyakashika + Makumbi-makumbi = Icifufya",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "Makumbi-makumbi + Ilya mutuntula = Katapa-katapa",
+      "with": [
+        {
+          "listitem": "Makumbi-makumbi + Ilya mutuntula = Katapa-katapa",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Ilya kashika + Ilya mutuntula = Macungwa-macungwa",
+      "with": [
+        {
+          "listitem": "Ilya kashika + Ilya mutuntula = Macungwa-macungwa",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "findTable": "IFYAKUCTA 1",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "IFYAKUCITA 1",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Bomfya itebulo apalembwa ifili mucitabo ukufwaya ifili mucitabo",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "head",
+                "text": "IFYAKUCITA 2"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Bomfya amashiwi ayaba pa mpela ayalondolola ubupilibulo",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "head",
+                "text": "IFYAKUCITA 3"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Bomfya icitabo icakwata ubupilibulo bwa mashiwi (Dictionary)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "head",
+                "text": "IFYAKUCITA 4"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Fwailisha ilyashi ilyalungama (Scanning)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "head",
+                "text": "IFYAKUCITA 5"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Fwailisha pakumfwa kwa pa bwelu (Skimming)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "findTable": "d. Ceceteni bwino",
+      "with": [
+        {
+          "listitem": "Ceceteni bwino ilyashi lyalembwa ukwabula ukubelenga fyonse.",
+          "marker": "d."
+        },
+        {
+          "listitem": "Belengeni bwangu-bwangu pakwishiba umulolele amashiwi.",
+          "marker": "e."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 1",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "IFYAKUCITA 1",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Mu mabumba, lumbuleni amashina ya nshiku shamu mulungu mu Cibemba.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Mu mabumba,lumbuleni amashina ya nshiku shamu mulungu mu Cibemba.",
+      "with": []
+    },
+    {
+      "findTable": "3. Ni lilali Mwansa",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "marker": "3.",
+            "segs": [
+              {
+                "t": "Ni lilali Mwansa aleteya umupila ne fibusa fyakwe?",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "listitem",
+            "marker": "4.",
+            "segs": [
+              {
+                "t": "Ni kwi Mwansa na banankwe bachimfishe mu bwangalalo bwamupila wakumakasa?",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "listitem",
+            "marker": "5.",
+            "segs": [
+              {
+                "t": "Cinshi calengele ukuti Mwansa akaane ukupoka ubupe?",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "head",
+            "text": "IFYAKUCITA 3"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Ukucila pakucimfya ubwangalo bwakuteya umupila, londolola umweo wakwa Mwansa uo aikele ukulinganya na umulumendo mukalamba uwalefwaya ukumupela imiti ikola.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "head",
+            "text": "IFYAKUCITA 4"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Supawila ilyashi mukulemba ifintu ifyalengele ukuti Mwansa nebumba lyakwe likose ukufika naku kucimfya.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "head",
+            "text": "IFYAKUCITA 5"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Belenga ilyashi elyo ufwailemo amashiwi yabulilemo.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Mu ncende ya Kawambwa, mwaleikala umulumendo uwe shina lya __________. Atemenwe ukuteya umupila ne fibusa fyakwe nga bafuma ku __________.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Ubushiku bumo, umulumendo umukalamba aeseshe ukupeela Mwansa icipe ico taishibe bwino-bwino ukuti apeepe. Umulumendo alondolwele ukuti ici cikalenga ukuti ube __________.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "findTable": "Mwansa aibukishe ifyo bakafundisha",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Mwansa aibukishe ifyo bakafundisha wakwe basosele ukuti imiti ikola no bwalwa kuti fyaonaula umubili na __________ bwenu.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Mwansa atile, “Awe, natasha. Ndefwaya ukuba kateya wamupila umusuma.” Ifibusa fyakwe nafyo fyalisuminishenye ukutaluka ku miti ikola ne fya kupangapanga no kulya ifya kulya __________.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "findTable": "Chipo ali ne myaka 9",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Chipo ali ne myaka 9 mu Geledi 4.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Mwansa ali ne myaka 10 mu Geledi 5.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Tandi ali ne myaka 8 mu Geledi 3.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "head",
+            "text": "Tebulo Lya Mano"
+          }
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "Ishina",
+                  "imgs": []
+                },
+                {
+                  "text": "Imyaka",
+                  "imgs": []
+                },
+                {
+                  "text": "Geledi",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Chipo",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "10",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "3",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "IFILEKABILWA UKWISHIBA: 4.6.13.1.1 Ubupilibulo bwa imilumbe Icilangililo: Ubupilibulo bwa imilumbe ishi:",
+      "with": [
+        {
+          "label": "Ifilekabilwa ukwishiba:"
+        },
+        {
+          "para": "*Ubupilibulo bwa imilumbe*"
+        },
+        {
+          "label": "Icilangililo:"
+        },
+        {
+          "para": "Ubupilibulo bwa imilumbe ishi:"
+        }
+      ]
+    },
+    {
+      "find": "IFILEKABILWA UKWISHIBA: 4.6.13.1.1 Ukwishiba insoselo Icilangililo: Ukwishiba insoselo ishi:",
+      "with": [
+        {
+          "label": "Ifilekabilwa ukwishiba:"
+        },
+        {
+          "para": "*Ukwishiba insoselo*"
+        },
+        {
+          "label": "Icilangililo:"
+        },
+        {
+          "para": "Ukwishiba insoselo ishi:"
+        }
+      ]
+    }
+  ],
+  "_note_imprint": "Copyright page set out like the house model (Silozi G4 LB): bold label over plain value, in the manuscript's own Icibemba labels; the layout line (Abapekeenye imimonekele ya citabo) carries Ng`ambi Teddy (B.Sc). Editor, illustrator and ISBN stay as dots, as in the manuscript.",
+  "edit": [
+    {
+      "find": "4.3 UKWISHIBA AMASHIWI",
+      "with": "4.3 UKWISHIBA UMWAKUSANGA ILYASHI",
+      "after": "ICIPANDE 4."
+    },
+    {
+      "find": "Ukubelenga bwino na kulungika amashiwi",
+      "with": "Ukubelenga busaka-busaka na kulungika amashiwi"
+    },
+    {
+      "find": "Lyakwelenganya na ilyakwelenganya fye",
+      "with": "Lyakwelenganya na ilyakwelenganyafye"
+    },
+    {
+      "find": "ukubomfya ibibombelo ifyatwa",
+      "with": "ukubomfya ifibombelo ifyatwa"
+    },
+    {
+      "find": "Ukubomfya Amashiwi Ayakwata Ubupilibulo Bumo Bwine",
+      "with": "Ukubomfya Amashiwi Ayakwata Ubupilibulo bumo bwine"
+    },
+    {
+      "find": "Mwila ali uwa nsansa ilyo amwene cibusa wakwe uwo batemwana",
+      "with": "Mwila aali uwa nsansa ilyo amwene cibusa wakwe uo batemwana"
+    },
+    {
+      "find": "inkalamo ya yebele inama",
+      "with": "inkalamo ya ebele inama"
+    },
+    {
+      "find": "Ukubelenga amslyashi busaka-busaka",
+      "with": "Ukubelenga ilyashi busaka-busaka"
+    },
+    {
+      "find": "Palanyeni amashiwi muli teebulo",
+      "with": "Palanyeni amashiwi mwi teebulo"
+    },
+    {
+      "find": "londololeni mashiwi mu ciputulwa A na B yapusene.",
+      "with": "londololeni amashiwi mu ciputulwa A na B ayapusene."
+    },
+    {
+      "find": "ubukulu akasubau",
+      "with": "ubukulu akasuba"
+    },
+    {
+      "find": "ubushiku Bwipi",
+      "with": "ubushiku bwipi"
+    },
+    {
+      "find": "uukwete uukwete",
+      "with": "uukwete"
+    },
+    {
+      "find": "Elenganya ifi ngacita mulyashi ilo kafundisha",
+      "with": "Elenganya ifingacitika mulyashi ilyo kafundisha"
+    },
+    {
+      "find": "Lolesha pacikope pambali na ukwasuka amepusho ayali pesamba.",
+      "with": "Lolesha pa cikope ca fili mu citabo na ukwasuka amepusho ayali pesamba."
+    },
+    {
+      "find": "Libuula nshi apali",
+      "with": "Libuulanshi apali"
+    },
+    {
+      "find": "lyashi nshi ilili pe bula",
+      "with": "Lyashinshi ilili pe bula"
+    },
+    {
+      "find": "Lyashi nshi mwingabelenga",
+      "with": "Lyashinshi mwingabelenga"
+    },
+    {
+      "find": "Mulandu nshi ubutantiko",
+      "with": "Mulandunshi ubutantiko"
+    },
+    {
+      "find": "Ukusuntinkana",
+      "with": "Ukwampana",
+      "after": "4.3.2 UMUTWE: UKUSUNTINKANA KWA AMASHIWI"
+    },
+    {
+      "find": "na ukumfwika cimocine lelo yapusana ubupilibulo.",
+      "with": "na ukumfwika cimo-cine lelo yapusana ubupilibulo."
+    },
+    {
+      "find": "ukuposako amono kuciputulwa",
+      "with": "ukuposako amaano kuciputulwa"
+    },
+    {
+      "find": "Ubushiku bumo, umumulumendo umukalamba",
+      "with": "Ubushiku bumo, umulumendo umukalamba"
+    },
+    {
+      "find": "iyalekana lekana pa milandu",
+      "with": "yalekana lekana pa milandu"
+    },
+    {
+      "find": "Nini akwata ibala?",
+      "with": "Naani akwata ibala?"
+    },
+    {
+      "find": "Nikwi kuli ibala?",
+      "with": "Nikwi kwali ibala?"
+    },
+    {
+      "find": "ililelanda panfyo kalemba",
+      "with": "ililelanda pafyo kalemba"
+    },
+    {
+      "find": "Ifishangapendwa:",
+      "with": "Ifishingapendwa:"
+    },
+    {
+      "find": "Ifibikoshi →",
+      "with": "Ifibokoshi →"
+    },
+    {
+      "find": "Ukubelengela bwino na kuteka umutima.",
+      "with": "Ukubelengela bwino na ukuteeka umutima."
+    },
+    {
+      "find": "cipilibula ukuba uwa penena.",
+      "with": "cipilibula ukuba uwa pena."
+    },
+    {
+      "find": "Leemba amanabala ukufuma cimo",
+      "with": "Leemba amanambala ukufuma cimo"
+    },
+    {
+      "find": "Bushe uletontonya ukuti",
+      "with": "Bushe uletontonkanya ukuti"
+    },
+    {
+      "find": "lyacitikile ni kwisa?",
+      "with": "lyacitikile kwisa?"
+    },
+    {
+      "find": "fitatu ifisangangwa mwilyashi.",
+      "with": "fitatu ifisangwa mwilyashi."
+    },
+    {
+      "find": "pa cintu wa sangilweko nga kamboni,",
+      "with": "pa cintu wa sangilweko nga kambone,"
+    },
+    {
+      "find": "ukwabula ukumantamabta nga kamboni",
+      "with": "ukwabula ukutamantama nga kambone"
+    },
+    {
+      "find": "ukwangalila mu isamba lya ici icimuti",
+      "with": "ukwangalila mwisamba lya ici cimuti"
+    },
+    {
+      "find": "ukwipusha-ipusha pa fintu",
+      "with": "ukwipushaipusha pa fintu"
+    },
+    {
+      "find": "maano yacifyalilwa ayene-yeene.",
+      "with": "maano yacifyalilwa ayeneyene."
+    },
+    {
+      "find": "Umukulu tapusa kebo, aposa akabwe",
+      "with": "Umukulu tapusa kebo, apusa akabwe"
+    },
+    {
+      "find": "balalanshanya pa kuleemba mucikula-kula. Amashiwi yacikula-kula",
+      "with": "balalanshanya pa kuleemba mucikulakula. Amashiwi yacikulakula"
+    },
+    {
+      "find": "Belengeni umulangu ulembelwe",
+      "with": "Belengeni umulandu ulembelwe"
+    },
+    {
+      "find": "Pa numa yakumfwa ku ilyashi, yasuka amepusho",
+      "with": "Pa numa yakumfwa ku ilyashi, asuka amepusho"
+    },
+    {
+      "find": "Ukusanga ifikankala fili mu ilyashi",
+      "with": "Sanga ifikankala fili mu ilyashi"
+    },
+    {
+      "find": "Lemba ka ka kalata akepi",
+      "with": "Lemba ka kalata akepi"
+    },
+    {
+      "find": "ilipusho ililekabila ubwasuko bwako citikile, uko cili: ni kwi?",
+      "with": "ilipusho ililekabila ubwasuko bwakucitikile, uko cili: ni kwi?"
+    },
+    {
+      "find": "Muli ili isambililo, abasambi balaishiba ubukankala bwa ntambi",
+      "with": "Muli ili isambililo, mwalaishiba ubukankala bwa ntambi",
+      "after": "ICIPANDE 7: AMASAMBILILO YA KUSANSHAMO"
+    },
+    {
+      "find": "Umfwikisha ifilebelengwa nangu ifyo uleshimikilwa",
+      "with": "Ukumfwikisha ifilebelengwa nangu ifyo uleshimikilwa"
+    },
+    {
+      "find": "mu mushi uwali unono uwashingulwike",
+      "with": "mu mushi uwali unoono uwashingulwike"
+    },
+    {
+      "find": "Mutale aleipusha ba mama bakwe",
+      "with": "Mutale aleipusha banakulu"
+    },
+    {
+      "find": "Mu mabuUmba,pangeni akaSELA",
+      "with": "Mu mabuumba, pangeni akasela"
+    },
+    {
+      "find": "Kwaliba ayakankala naashili ayakankala",
+      "with": "Kwaliba ayakankala nayashili ayakankala",
+      "after": "UMUTWE UNOONO: 4.3.1.1 Ubupilibulo bwa Ishiwi"
+    },
+    {
+      "find": "wakwafwa umobe ngali mu bwafya.",
+      "with": "wakwafwa umunobe ngali mu bwafya."
+    },
+    {
+      "find": "akacola kalimutepekelesha,",
+      "with": "akacola kalimutepelesha,"
+    },
+    {
+      "find": "Bomfwa bakacita abali peesamba",
+      "with": "Bomfya bakacita abali peesamba"
+    },
+    {
+      "find": "Ukulondolola lishiwi lintu tubomfya",
+      "with": "Londolola lishiwi lintu tubomfya"
+    },
+    {
+      "find": "icikope mu muntontonkanya.",
+      "with": "icikope mu mumatontonkanyo."
+    },
+    {
+      "find": "kabili saca tabalepita iyo",
+      "with": "kabili basaaca tabalepita iyo"
+    },
+    {
+      "find": "Ukulemga amashiwi bwino-bwino.",
+      "with": "Ukulemba amashiwi bwino-bwino."
+    },
+    {
+      "find": "\"Ikasuba kalatula ulucelo.",
+      "with": "\"Akasuba kalatula ulucelo."
+    },
+    {
+      "find": "pa kwasuka amasuko ayalungama. Ku ca kumwenako,",
+      "with": "pa kwasuka amasuko ayalungama. Kucakumwenako,"
+    },
+    {
+      "find": "Chanda atemwa umupila wa ku makasa ne insolo.",
+      "with": "Chanda atemwa umupila wa ku makasa ne isolo."
+    },
+    {
+      "find": "Chanda likes to play football and insolo.",
+      "with": "Chanda likes to play football and isolo."
+    },
+    {
+      "find": "Cilubo: Ifishitilwe nangula",
+      "with": "Cilubo: Ifishicitilwe nangula"
+    },
+    {
+      "find": "Umulwo: Ubusuma.",
+      "with": "Umulyo: Ubusuma."
+    },
+    {
+      "find": "IFYABOMFESHIWE PA KULEMBA IFILI MUCITABO",
+      "with": "IFYABOMFESHIWE PA KULEMBA ICITABO"
+    },
+    {
+      "find": "nangu panonoMu mabumba,",
+      "with": "nangu panoono. Mu mabumba,"
+    },
+    {
+      "find": "balecitila fiilya. Bambuya wakwe balisekele",
+      "with": "balecitila fiilya. Banakulu balisekele"
+    },
+    {
+      "find": "Ku bakalamba mushi",
+      "with": "Ku bakalamba ba mushi"
+    },
+    {
+      "find": "IFYAKUCITA 2",
+      "with": "IFYAKUCITA 1",
+      "after": "UMUTWE UNOONO 4.6.3.2 Landilwa"
+    },
+    {
+      "find": "Belengeni amalembo bwino bwino",
+      "with": "i. Belengeni amalembo bwino-bwino"
+    },
+    {
+      "find": "Ukubelenga ukwabula ukutama-ntama",
+      "with": "Ukubelenga ukwabula ukutamantama"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "4.1.4 UMUTWE: UBWANGALO",
+      "with": "UMUTWE: 4.1.4 UTUSELA"
+    },
+    {
+      "find": "4.1.4.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.1.4.1"
+    },
+    {
+      "find": "4.1.4.2 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.1.4.2"
+    },
+    {
+      "find": "4.2.2 UMUTWE: UMO TUSANGA ILYASHI",
+      "with": "UMUTWE: 4.2.2 UMWAKUSANGA ILYASHI"
+    },
+    {
+      "find": "4.2.2.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.2.2.1"
+    },
+    {
+      "find": "4.3.2 UMUTWE: UKUSUNTINKANA KWA AMASHIWI",
+      "with": "UMUTWE: 4.3.2 UKWAMPANA KWA MASHIWI"
+    },
+    {
+      "find": "4.3.2 UMUTWE: UKUSUNTINKANA KWA MASHIWI",
+      "with": "UMUTWE: 4.3.2 UKWAMPANA KWA MASHIWI"
+    },
+    {
+      "find": "4.3.2.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.3.2.1"
+    },
+    {
+      "find": "4.4.2 UMUTWE: UKUBELENGA NA UKWISHIBA",
+      "with": "UMUTWE: 4.4.2 UKUBELENGA NA UKWISHIBA"
+    },
+    {
+      "find": "4.4.2.1 Umutwe Unoono: Ukubelenga Ukwashika",
+      "with": "Umutwe Unoono: 4.4.2.1 Ukubelenga na Ukwashika"
+    },
+    {
+      "find": "4.4.2.2 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.4.2.2"
+    },
+    {
+      "find": "4.5.4 UMUTWE: UKUPANGA ILYASHI",
+      "with": "UMUTWE: 4.5.4 UKUPANGA ILYASHI"
+    },
+    {
+      "find": "4.5.4.2 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.5.4.2"
+    },
+    {
+      "find": "4.6.5 UMUTWE: AMASHINA",
+      "with": "UMUTWE: 4.6.5 AMASHINA"
+    },
+    {
+      "find": "4.6.5.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.6.5.1"
+    },
+    {
+      "find": "4.6.6 UMUTWE: UKUSUMINISHANYA KWA MASHIWI",
+      "with": "UMUTWE: 4.6.6 UKUSUMINISHANYA KWA MASHIWI"
+    },
+    {
+      "find": "4.6.6.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.6.6.1"
+    },
+    {
+      "find": "4.1.8 UMUTWE: UKULONDOLOLA",
+      "with": "UMUTWE: 4.1.8 UKULONDOLOLA"
+    },
+    {
+      "find": "4.1.8.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.1.8.1"
+    },
+    {
+      "find": "4.2.1 UMUTWE: UKUBELENGA BWINO",
+      "with": "UMUTWE: 4.2.1 UKUBELENGA BWINO"
+    },
+    {
+      "find": "4.2.1.1 Umutwe Unoono:Ukubelenga",
+      "with": "Umutwe Unoono: 4.2.1.1 Ukubelenga"
+    },
+    {
+      "find": "4.4.1 UMUTWE: UKUMFWA NA UKWASUKA.",
+      "with": "UMUTWE: 4.4.1 UKUMFWA NA UKWASUKA"
+    },
+    {
+      "find": "4.4.1.1 Umutwe Unoono:Ukulanda",
+      "with": "Umutwe Unoono: 4.4.1.1 Ukulanda"
+    },
+    {
+      "find": "4.5.6 UMUTWE: UKULEMBA KWA MILIMO",
+      "with": "UMUTWE: 4.5.6 UKULEMBA KWA MILIMO"
+    },
+    {
+      "find": "4.5.6.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.5.6.1"
+    },
+    {
+      "find": "4.5.7 UMUTWE: UKULEMBA IFILESOSWA",
+      "with": "UMUTWE: 4.5.7 UKULEMBA IFILESOSWA"
+    },
+    {
+      "find": "4.5.7.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.5.7.1"
+    },
+    {
+      "find": "4.6.1.12 UMUTWE: AMASHIWI TUBOMFYA MUKULANDA",
+      "with": "UMUTWE: 4.6.12 AMASHIWI TUBOMFYA MUKULANDA"
+    },
+    {
+      "find": "4.6.12.1 Umutwe Unoono:",
+      "with": "Umutwe Unoono: 4.6.12.1"
+    },
+    {
+      "find": "4.6.13 UMUTWE: AMAPINDA",
+      "with": "UMUTWE: 4.6.13 AMAPINDA"
+    },
+    {
+      "find": "4.6.13.1 Umutwe Unoono:Ukwilula",
+      "with": "Umutwe Unoono: 4.6.13.1 Ukwilula"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.1.2.1 Inshisha sha Kukonka",
+      "with": "UMUTWE UNOONO 4.1.2.1 Inshila sha Kukonka"
+    },
+    {
+      "find": "UMUTWE 4.5.2 UKUBELENGA IFILEMBO CIMO CIMO",
+      "with": "UMUTWE 4.5.2 UKUSOPELA"
+    },
+    {
+      "find": "UMUTWE 4.6.2 AMATONI YA MUKULEMBA",
+      "with": "UMUTWE 4.6.2 AMATONI"
+    },
+    {
+      "find": "UMUTWE: 4.1.3 IMIBEELE",
+      "with": "UMUTWE: 4.1.3 IFYO UMUNTU ALEUMFWA"
+    },
+    {
+      "find": "Umutwe Unoono: 4.1.3.1 Ukulanga Imibeele",
+      "with": "Umutwe Unoono: 4.1.3.1 Ukulanga Ifyo Umuntu Aleumfwa"
+    },
+    {
+      "find": "UMUTWE: 4.2.2 UKUBELENGA UBUSAKA",
+      "with": "UMUTWE: 4.2.1 UKUBELENGA BUSAKA-BUSAKA"
+    },
+    {
+      "find": "Umutwe Unoono: 4.2.2.1 Ukubelenga",
+      "with": "Umutwe Unoono: 4.2.1.1 Ukubelenga"
+    },
+    {
+      "find": "UMUTWE: 4.4.2 UKUBELEENGA BUSAKA-BUSAKA",
+      "with": "UMUTWE: 4.4.2 UKUBELENGA ILYASHI"
+    },
+    {
+      "find": "Umutwe Unoono: 4.3.1.1 Ubupilibulo Bwa Ishiwi",
+      "with": "Umutwe Unoono: 4.3.1.1 Ubupilibulo bwa Ishiwi"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.3.1 Paragraph",
+      "with": "Umutwe Unoono: 4.5.3.1 Icipandwa"
+    },
+    {
+      "find": "UMUTWE: 4.1.6 UKUBELEENGA ILYASHI",
+      "with": "UMUTWE: 4.1.6 UKUPEELA AKASEBO MUKULANDAFYE"
+    },
+    {
+      "find": "UMUTWE: 4.2.2 IFYAPEKANISHIWA NA IFYALEMBWA",
+      "with": "UMUTWE: 4.2.2 UMWAKUSANGA ILYASHI"
+    },
+    {
+      "find": "UMUTWE: 4.4.2.2 UKUBELENGA NA UKUMFWIKISHA.",
+      "with": "UMUTWE: 4.4.2.2 UKUBELENGA MUKUIPAKISHA"
+    },
+    {
+      "find": "UMUTWE: 4.5.1 AMASHIWI YAMUCIKULAKULA",
+      "with": "UMUTWE: 4.5.1 ILEMBO"
+    },
+    {
+      "find": "UMUTWE: 4.5.4 UKULEEMBA ILYASHI",
+      "with": "UMUTWE: 4.5.4 UKUPANGA ILYASHI"
+    },
+    {
+      "find": "UMUTWE: 4.5.4 UKULEMBA ILYASHI",
+      "with": "UMUTWE: 4.5.4 UKUPANGA ILYASHI"
+    },
+    {
+      "find": "UMUTWE 4.5.4 UKELMBA ILYASHI",
+      "with": "UMUTWE 4.5.4 UKUPANGA ILYASHI"
+    },
+    {
+      "find": "UMUTWE: 4.2.2 UKUBELENGA BWINO",
+      "with": "UMUTWE: 4.2.2 UMWAKUSANGA ILYASHI"
+    },
+    {
+      "find": "D. KUMFWIKISHA ILYASHI",
+      "with": "D. UKUMFWIKISHA ILYASHI"
+    },
+    {
+      "find": "UMUTWE: 4.1.8UKUMFWA NA UKWASUKA",
+      "with": "UMUTWE: 4.1 UKUMFWA NA UKWASUKA"
+    },
+    {
+      "find": "UMUTWE 4.2.1 UKUBELENGA BWINO",
+      "with": "UMUTWE 4.2.1 UKUBELENGA BUSAKA-BUSAKA"
+    },
+    {
+      "find": "UMUTWE:4.1.7 UKUSUNGA INCENDE NA UBUMI BUSUMA",
+      "with": "UMUTWE: 4.1.7 IFISHILANO NA INTAMBI SHA CIKAYA"
+    },
+    {
+      "find": "UMUTWE: 4.2.2 IFYAPEKANISHIWA",
+      "with": "UMUTWE: 4.2.2 UMWAKUSANGA ILYASHI"
+    },
+    {
+      "find": "UMUTWE: 4.5.5 UKULEMBA MU KWIPIFYA",
+      "with": "UMUTWE: 4.5.5 UKULEMBA MU KUSUPAWILA"
+    },
+    {
+      "find": "UMUTWE: 4.2.2 IFISHINKA FYA KUBOMFYA",
+      "with": "UMUTWE: 4.2.2 UMWAKUSANGA ILYASHI"
+    },
+    {
+      "find": "ICIPANDE 10: AMANGALO",
+      "with": "ICIPANDE 11: AMANGALO"
+    },
+    {
+      "find": "ICIPANDE 9: IMYENDELE NA IMILANSHANISHE",
+      "with": "ICIPANDE 10: IMYENDELE NA IMILANSHANISHE"
+    },
+    {
+      "find": "ICIPANDE 8: INCENDE SHESU",
+      "with": "ICIPANDE 9: INCENDE SHESU"
+    },
+    {
+      "find": "ICIPANDE 7: AMASAMBILILO YA KUSANSHAMO",
+      "with": "ICIPANDE 8: AMASAMBILILO YA KUSANSHAMO"
+    },
+    {
+      "find": "A: UKUBELENGA MUKWIMYA ISHIWI",
+      "with": "A: UKUBELENGA MUKWIKATISHA"
+    },
+    {
+      "find": "B: UKUBELENGA ABABILI",
+      "with": "B: UKUBELENGA BABILI"
+    },
+    {
+      "find": "B: UKULINGANISHA AMASHIWI AYAPALANA",
+      "with": "B: UKUPALANYA AMASHIWI AYAKWATA UBUPILIBULO BUMO BWINE"
+    },
+    {
+      "find": "A: UKUKUTIKISHA UKUUMFWA",
+      "with": "A: UKUKUTIKISHA UKUMFWA"
+    },
+    {
+      "find": "C: AMASHIWI AYAKULANDWA PAKANWA",
+      "with": "C: AMASHIWI AYAKULANDWA"
+    },
+    {
+      "find": "D: IMISEELA YAKULANDA PAKANWA",
+      "with": "D: IMISEELA YAKULANDA"
+    },
+    {
+      "find": "E: UKULANSHANYA PAKANWA",
+      "with": "E: UKULANSHANYA"
+    },
+    {
+      "find": "E: UKULANSHANYA KWA PAKANWA",
+      "with": "E: UKULANSHANYA"
+    },
+    {
+      "find": "Imibombelwe Ileenekelwa",
+      "with": "Imibombele Ileenekelwa"
+    },
+    {
+      "find": "Imilembele Ileekelwa:",
+      "with": "Imibombele Ileenekelwa:"
+    },
+    {
+      "find": "Ifileekelwa ukwishiba",
+      "with": "Ifilekabilwa ukwishiba"
+    },
+    {
+      "find": "Ifileenekelwa ukwishiba",
+      "with": "Ifilekabilwa ukwishiba"
+    },
+    {
+      "find": "Ifileekabilwa ukwishiba",
+      "with": "Ifilekabilwa ukwishiba"
+    },
+    {
+      "find": "IFILECETEKELWA UKWISHIBA",
+      "with": "IFILEKABILWA UKWISHIBA"
+    },
+    {
+      "find": "Ifilekabilwa ukwishishiba",
+      "with": "Ifilekabilwa ukwishiba"
+    },
+    {
+      "find": "FILEKABILWA UKWISHIBA:",
+      "with": "IFILEKABILWA UKWISHIBA:"
+    },
+    {
+      "find": "Ifipusho fyakumwenako:",
+      "with": "Ameepusho yakumwenako:"
+    },
+    {
+      "find": "Ifipusho fyaasukwa bwino.",
+      "with": "Ameepusho yaasukwa bwino."
+    },
+    {
+      "find": "Ifipusho:",
+      "with": "Ameepusho:"
+    },
+    {
+      "find": "icipusho cimo",
+      "with": "ilipusho limo"
+    },
+    {
+      "find": "Amapusho ya yasukwa bwino",
+      "with": "Ameepusho ya yasukwa bwino"
+    },
+    {
+      "find": "mukwima ishiwi",
+      "with": "mukwikatisha"
+    },
+    {
+      "find": "mukwimya ishiwi",
+      "with": "mukwikatisha"
+    },
+    {
+      "find": "mu kwimya ishiwi",
+      "with": "mukwikatisha"
+    },
+    {
+      "find": "Abana balelemba",
+      "with": "Abaana balelemba"
+    },
+    {
+      "find": "bashimike ilyashi",
+      "with": "shimikeni ilyashi"
+    },
+    {
+      "find": "Bapange akasela mu mabuumba ukubomfya ilyashi bomfwile.",
+      "with": "Pangeni akasela mu mabuumba ukubomfya ilyashi mwaumfwile."
+    },
+    {
+      "find": "ilyapusana-pusana",
+      "with": "ilyapusanapusana"
+    },
+    {
+      "find": "ayapusana-pusana",
+      "with": "ayapusanapusana"
+    },
+    {
+      "find": "icisuma akabili icawama",
+      "with": "icisuma kabili icawama"
+    },
+    {
+      "find": "nga wasakanya aya.",
+      "with": "nga wasankanya aya."
+    },
+    {
+      "find": "ak kashikila",
+      "with": "akakashikila"
+    },
+    {
+      "find": "Caba nga fikya fine",
+      "with": "Caba nga filya fine"
+    },
+    {
+      "find": "Ubupusano bwabapo wakutila",
+      "with": "Ubupusano bwabapo bwakutiila"
+    },
+    {
+      "find": "icakulemvelako",
+      "with": "icakulembelako"
+    },
+    {
+      "find": "Imibomfeshe y aba tungi ba ncende:",
+      "with": "Imibomfeshe yaba tungi ba ncende."
+    },
+    {
+      "find": "-Twatentemwike lupili",
+      "with": "-Twatentemwike ulupili"
+    },
+    {
+      "find": "ne insolo.",
+      "with": "ne isolo."
+    },
+    {
+      "find": "ukufunya mu Cisungu",
+      "with": "ukufumya mu Cisungu"
+    },
+    {
+      "find": "Umutwe unoono: 4.1.1.1 Ukushimika ilyashi",
+      "with": "Umutwe Unoono: 4.1.1.1 Ukushimika Ilyashi"
+    },
+    {
+      "find": "Umutwe unoono: 4.2.1.1 ukubelenga mukwikatisha.",
+      "with": "Umutwe Unoono: 4.2.1.1 Ukubelenga Mukwikatisha"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.1 Ukulanda Na Ukumfwa",
+      "with": "Umutwe Unoono: 4.4.1.1 Ukulanda na Ukumfwa"
+    },
+    {
+      "find": "Umutwe Unoono:4.6.1.1 Inshita ya Nomba, inshita ya kale na iyaku ntanshi",
+      "with": "Umutwe Unoono: 4.6.1.1 Inshita ya Nomba, Inshita ya Kale na Iyaku Ntanshi"
+    },
+    {
+      "find": "UMUTWE 4.1.2 AMASHIWI NA UBULONDOLOSHI",
+      "with": "UMUTWE: 4.1.2 AMASHIWI NA UBULONDOLOSHI"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.1.2.1 Inshila sha Kukonka",
+      "with": "Umutwe Unoono: 4.1.2.1 Inshila sha Kukonka"
+    },
+    {
+      "find": "UMUTWE 4.2.2 UMWAKUSANGA ILYASHI",
+      "with": "UMUTWE: 4.2.2 UMWAKUSANGA ILYASHI"
+    },
+    {
+      "find": "Umutwe Unoono 4.2.2.1 Ifitabo",
+      "with": "Umutwe Unoono: 4.2.2.1 Ifitabo"
+    },
+    {
+      "find": "UMUTWE 4.3.2 UKWAMPANA KWA MASHIWI",
+      "with": "UMUTWE: 4.3.2 UKWAMPANA KWA MASHIWI"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.3.2.1 Amashiwi Ayakwata Ubupilibulo Bumo Bwine",
+      "with": "Umutwe Unoono: 4.3.2.1 Amashiwi Ayakwata Ubupilibulo Bumo Bwine"
+    },
+    {
+      "find": "UMUTWE 4.4.2 UKUBELENGA ILYASHI",
+      "with": "UMUTWE: 4.4.2 UKUBELENGA ILYASHI"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.4.2.1 Ukusoma Ifilembelwe",
+      "with": "Umutwe Unoono: 4.4.2.1 Ukusoma Ifilembelwe"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.4.2.2 Ukubelenga Ifingi",
+      "with": "Umutwe Unoono: 4.4.2.2 Ukubelenga Ifingi"
+    },
+    {
+      "find": "UMUTWE 4.5.2 UKUSOPELA",
+      "with": "UMUTWE: 4.5.2 UKUSOPELA"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.5.2.1 Amashiwi",
+      "with": "Umutwe Unoono: 4.5.2.1 Amashiwi"
+    },
+    {
+      "find": "UMUTWE 4.6.2 AMATONI",
+      "with": "UMUTWE: 4.6.2 AMATONI"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.6.2.1 Ukubika Amatoni Mu Kulemba",
+      "with": "Umutwe Unoono: 4.6.2.1 Ukubika Amatoni mu Kulemba"
+    },
+    {
+      "find": "UMUTWE 4.6.3 ILANDILE NA LANDILWA",
+      "with": "UMUTWE: 4.6.3 ILANDILE NA LANDILWA"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.6.3.1 Ilandile",
+      "with": "Umutwe Unoono: 4.6.3.1 Ilandile"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.6.3.2 Landilwa",
+      "with": "Umutwe Unoono: 4.6.3.2 Landilwa"
+    },
+    {
+      "find": "UMUTWE UNOONO: 4.3.2.2 Amashiwi ayakwata ubupilibulo",
+      "with": "Umutwe Unoono: 4.3.2.2 Amashiwi Ayakwata Ubupilibulo"
+    },
+    {
+      "find": "Umutwe Unoono: 4.4.2.2 ukumfwikisha ku mashiwi",
+      "with": "Umutwe Unoono: 4.4.2.2 Ukumfwikisha ku Mashiwi"
+    },
+    {
+      "find": "UMUTWE: 4. 5.3 UBUTANTIKO BWAFINTU",
+      "with": "UMUTWE: 4.5.3 UBUTANTIKO BWAFINTU"
+    },
+    {
+      "find": "UMUTWE UNOONO: 4.6.4.1 Ukubomfya Amashiwi Yakulanga Apo Icintu Cili",
+      "with": "Umutwe Unoono: 4.6.4.1 Ukubomfya Amashiwi Yakulanga Apo Icintu Cili"
+    },
+    {
+      "find": "Umutwe Unoono: 4.1.4.2 Ukwangala ifili mwilyashi.",
+      "with": "Umutwe Unoono: 4.1.4.2 Ukwangala Ifili Mwilyashi"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.4.2 Ukulemba Kwa Kulondolola",
+      "with": "Umutwe Unoono: 4.5.4.2 Ukulemba kwa Kulondolola"
+    },
+    {
+      "find": "Umutwe Unoono: 4.6.5.1 Amashina ya fipendwa na ifishinga",
+      "with": "Umutwe Unoono: 4.6.5.1 Amashina ya Fipendwa na Ifishinga"
+    },
+    {
+      "find": "Umutwe Unoono: 4.6.6.1 Usuminishanya Kwa Umutwe Na Ishiwi Lyamilimo",
+      "with": "Umutwe Unoono: 4.6.6.1 Usuminishanya kwa Umutwe na Ishiwi Lyamilimo"
+    },
+    {
+      "find": "Umutwe unoono: 4.1.5.1 Ukulanshanya Ukwalinga",
+      "with": "Umutwe Unoono: 4.1.5.1 Ukulanshanya Ukwalinga"
+    },
+    {
+      "find": "Umutwe unoono: 4.2.1.1 Ukubelenga",
+      "with": "Umutwe Unoono: 4.2.1.1 Ukubelenga"
+    },
+    {
+      "find": "Umutwe unoono: 4.3.3.1 Amanambala Yakubalilapo",
+      "with": "Umutwe Unoono: 4.3.3.1 Amanambala Yakubalilapo"
+    },
+    {
+      "find": "Umutwe unoono: 4.4.1.1 Ilyashi Lyakulanda",
+      "with": "Umutwe Unoono: 4.4.1.1 Ilyashi Lyakulanda"
+    },
+    {
+      "find": "Umutwe unoono: 4.5.4.2 Ukulemba Ilyashi lya Kulondolola Incende",
+      "with": "Umutwe Unoono: 4.5.4.2 Ukulemba Ilyashi lya Kulondolola Incende"
+    },
+    {
+      "find": "Umutwe unoono: 4.6.7.1 Ubutali bwa Vawelo elyo na Vawelo",
+      "with": "Umutwe Unoono: 4.6.7.1 Ubutali bwa Vawelo elyo na Vawelo"
+    },
+    {
+      "find": "Umutwe unoono: 4.1.6.1Ifintu Ifyacitike ifyo Wamwene",
+      "with": "Umutwe Unoono: 4.1.6.1 Ifintu Ifyacitike Ifyo Wamwene"
+    },
+    {
+      "find": "Umutwe Unoono: 4.3.5.1 Inshiku sha Mu Mulungu",
+      "with": "Umutwe Unoono: 4.3.4.1 Inshiku sha mu Mulungu"
+    },
+    {
+      "find": "Umutwe Unoono: 4.4.2.2.1 Ukubelenga kwa kumfwikisha",
+      "with": "Umutwe Unoono: 4.4.2.2.1 Ukubelenga kwa Kumfwikisha"
+    },
+    {
+      "find": "Ukubeleenga ifitabo ifyapusana pusana",
+      "with": "Ukubelenga ifitabo ifyapusanapusana"
+    },
+    {
+      "find": "UKULEEMBA",
+      "with": "UKULEMBA"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.4.3 Ukuleemba Lipoti Iyayanguka",
+      "with": "Umutwe Unoono: 4.5.4.3 Ukulemba Lipoti Iyayanguka"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.1.1 Ukuleemba mucikulakula",
+      "with": "Umutwe Unoono: 4.5.1.1 Ukulemba Mucikulakula"
+    },
+    {
+      "find": "Umutwe Unoono: 4.1.8.1 Ukumfwa ku ishiwi na ukwasuka",
+      "with": "Umutwe Unoono: 4.1.8.1 Ukumfwa ku Ishiwi na Ukwasuka"
+    },
+    {
+      "find": "Umutwe Unoono: 4.6.9.1 Tungi Wa Ncende",
+      "with": "Umutwe Unoono: 4.6.9.1 Tungi wa Ncende"
+    },
+    {
+      "find": "UMUTWE 4.1.7 IFISHILANO NA INTAMBI SHA CIKAYA",
+      "with": "UMUTWE: 4.1.7 IFISHILANO NA INTAMBI SHA CIKAYA"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.1.7.1 Umucinshi",
+      "with": "Umutwe Unoono: 4.1.7.1 Umucinshi"
+    },
+    {
+      "find": "UMUTWE 4.2.1 UKUBELENGA BUSAKA-BUSAKA",
+      "with": "UMUTWE: 4.2.1 UKUBELENGA BUSAKA-BUSAKA"
+    },
+    {
+      "find": "UMUTWE UNOONO: 4.2.2.1 Ifitabo",
+      "with": "Umutwe Unoono: 4.2.2.1 Ifitabo"
+    },
+    {
+      "find": "UMUTWE UNOONO: 4.3.1.1 Ubupilibulo bwa Ishiwi",
+      "with": "Umutwe Unoono: 4.3.1.1 Ubupilibulo bwa Ishiwi"
+    },
+    {
+      "find": "UMUTWE UNOONO: 4.2.2.1 UKUBELENGA KWA KUMFWIKISHA",
+      "with": "Umutwe Unoono: 4.2.2.1 Ukubelenga kwa Kumfwikisha"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.5.1 Ukwipifya kwa kutantika amashiwi",
+      "with": "Umutwe Unoono: 4.5.5.1 Ukwipifya kwa Kutantika Amashiwi"
+    },
+    {
+      "find": "Umutwe unoono: 4.6.11.1 Ukulumbula nangu ukushila Bakacita",
+      "with": "Umutwe Unoono: 4.6.11.1 Ukulumbula nangu Ukushila Bakacita"
+    },
+    {
+      "find": "Umutwe Unoono: 4.2.1.1 Ukubelenga Kwa Pakanwa.",
+      "with": "Umutwe Unoono: 4.2.1.1 Ukubelenga kwa Pakanwa"
+    },
+    {
+      "find": "Umutwe Unoono: 4.4.1.1 Ukulanda Na Ukumfwikisha",
+      "with": "Umutwe Unoono: 4.4.1.1 Ukulanda na Ukumfwikisha"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.6.1 Ifishibisho Na Ukongola abantu.",
+      "with": "Umutwe Unoono: 4.5.6.1 Ifishibisho na Ukongola Abantu"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.7.1 Amashiwi Na Imiseela",
+      "with": "Umutwe Unoono: 4.5.7.1 Amashiwi na Imiseela"
+    },
+    {
+      "find": "Umutwe Unoono: 4.6.12.1 Amashiwi Ayomfwisha Bwino.",
+      "with": "Umutwe Unoono: 4.6.12.1 Amashiwi Ayomfwisha Bwino"
+    },
+    {
+      "find": "UMUTWE: 4.19 IMISHIKAKULO",
+      "with": "UMUTWE: 4.1.9 IMISHIKAKULO"
+    },
+    {
+      "find": "UMUTWE Unoono: 4.1.9.2 Amalumbo Ayayanguka",
+      "with": "Umutwe Unoono: 4.1.9.2 Amalumbo Ayayanguka"
+    },
+    {
+      "find": "Umutwe Unoono: 4.3.2.2 Amashiwi ayakwata ubupilibulo",
+      "with": "Umutwe Unoono: 4.3.2.2 Amashiwi Ayakwata Ubupilibulo"
+    },
+    {
+      "find": "Umutwe Unoono: 4.4.2.2 Ukubelenga ukwakulisha",
+      "with": "Umutwe Unoono: 4.4.2.2 Ukubelenga Ukwakulisha"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.8.1 Amashiwi Na Ifikomo",
+      "with": "Umutwe Unoono: 4.5.8.1 Amashiwi na Ifikomo"
+    },
+    {
+      "find": "Umutwe Unoono: 4.5.9 Ifyebo Fya Bumi Bwa Muntu Na Amatebulo",
+      "with": "Umutwe Unoono: 4.5.9.1 Ifyebo fya Bumi bwa Muntu na Amatebulo"
+    },
+    {
+      "find": "UKWASUKA AMEPUSHO.",
+      "with": "UKWASUKA AMEEPUSHO"
+    },
+    {
+      "find": "K. UKUBELEENGA",
+      "with": "K. UKUBELENGA"
+    },
+    {
+      "find": "IFAYAKUCITA 1",
+      "with": "IFYAKUCITA 1"
+    },
+    {
+      "find": "IFYAKUCITA: Mu mabuumba, tantikeni imiseela pakuti iipange ilyashi ilya londoloka. Mulembe ilyashi muli palagalafu imofye.",
+      "with": "IFYAKUCITA: Mu mabumba, tantikeni imiseela pakuti iipange ilyashi ilya londoloka. Mulembe ilyashi muli palagalafu imofye."
+    },
+    {
+      "find": "IFYAKUCITA 1: Babili babili, fwayeni apali amashiwi ayalelanga apo icintu nangu ifintu fibeleele mu miseela iili pesamba:",
+      "with": "IFYAKUCITA 1: Babili-babili, fwayeni apali amashiwi ayalelanga apo icintu nangu ifintu fibeleele mu miseela iili pesamba:"
+    },
+    {
+      "find": "IFYAKUCITA 1 Lolesha pa cikope ca fili mu citabo na ukwasuka amepusho ayali pesamba.",
+      "with": "IFYAKUCITA 1 Lolesha pa cikope ca fili mu citabo na ukwasuka ameepusho ayali pesamba."
+    },
+    {
+      "find": "UKUSOBOLO ICIBEMBA",
+      "with": "UKUSOBOLOLA ICIBEMBA"
+    },
+    {
+      "find": "D. KUMFWIKISHA ILYASHI",
+      "with": "D. UKUMFWIKISHA ILYASHI"
+    },
+    {
+      "find": "A. UKUBELENGA MU MUTALALILA",
+      "with": "A: UKUBELENGA MU MUTALALILA"
+    },
+    {
+      "find": "B. UKULANDA PA FYAKUNTANSHI",
+      "with": "B: UKULANDA PA FYAKUNTANSHI"
+    },
+    {
+      "find": "C. UKUSUPAWILA AMASHIWI",
+      "with": "C: UKUSUPAWILA AMASHIWI"
+    },
+    {
+      "find": "D. UKUBELENGA NA UKUFWAILAMO",
+      "with": "D: UKUBELENGA NA UKUFWAILAMO"
+    },
+    {
+      "find": "A. UKWISHIBA IMILEMBELE YA ILYASHI",
+      "with": "A: UKWISHIBA IMILEMBELE YA ILYASHI"
+    }
+  ],
+  "subtext": [
+    {
+      "from": "Abana ",
+      "to": "Abaana "
+    },
+    {
+      "from": " abana ",
+      "to": " abaana "
+    },
+    {
+      "from": "beleeng",
+      "to": "beleng"
+    },
+    {
+      "from": "Beleeng",
+      "to": "Beleng"
+    },
+    {
+      "from": "BELEENG",
+      "to": "BELENG"
+    },
+    {
+      "from": "uleebelenga",
+      "to": "ulebelenga"
+    },
+    {
+      "from": "leemb",
+      "to": "lemb"
+    },
+    {
+      "from": "Leemb",
+      "to": "Lemb"
+    },
+    {
+      "from": "LEEMB",
+      "to": "LEMB"
+    },
+    {
+      "from": "imisela",
+      "to": "imiseela"
+    },
+    {
+      "from": "Imisela",
+      "to": "Imiseela"
+    },
+    {
+      "from": "abaantu",
+      "to": "abantu"
+    },
+    {
+      "from": "mabuumba",
+      "to": "mabumba"
+    },
+    {
+      "from": "Mabuumba",
+      "to": "Mabumba"
+    },
+    {
+      "from": "amepusho",
+      "to": "ameepusho"
+    },
+    {
+      "from": "Amepusho",
+      "to": "Ameepusho"
+    },
+    {
+      "from": "ukutama-ntama",
+      "to": "ukutamantama"
+    },
+    {
+      "from": "ifitaba ifyapusa-pusana",
+      "to": "ifitabo ifyapusanapusana"
+    },
+    {
+      "from": "pusana-pusana",
+      "to": "pusanapusana"
+    },
+    {
+      "from": "pusana pusana",
+      "to": "pusanapusana"
+    },
+    {
+      "from": "cimocine",
+      "to": "cimo-cine"
+    },
+    {
+      "from": "Cimocine",
+      "to": "Cimo-cine"
+    },
+    {
+      "from": "babili babili",
+      "to": "babili-babili"
+    },
+    {
+      "from": "Babili babili",
+      "to": "Babili-babili"
+    },
+    {
+      "from": "bwino bwino",
+      "to": "bwino-bwino"
+    },
+    {
+      "from": "Bwino bwino",
+      "to": "Bwino-bwino"
+    },
+    {
+      "from": "busaka busaka",
+      "to": "busaka-busaka"
+    },
+    {
+      "from": "BUSAKA BUSAKA",
+      "to": "BUSAKA-BUSAKA"
+    },
+    {
+      "from": " cimo cimo",
+      "to": " cimo-cimo"
+    },
+    {
+      "from": " umo umo",
+      "to": " umo-umo"
+    },
+    {
+      "from": " cine cine",
+      "to": " cine-cine"
+    },
+    {
+      "from": "bwangu bwangu",
+      "to": "bwangu-bwangu"
+    },
+    {
+      "from": "batatu batatu",
+      "to": "batatu-batatu"
+    },
+    {
+      "from": "abasambi balaishiba",
+      "to": "mwalaishiba"
+    },
+    {
+      "from": "abasambi balalanshanya",
+      "to": "mwalalanshanya"
+    },
+    {
+      "from": "abasambi balabelenga",
+      "to": "mwalabelenga"
+    },
+    {
+      "from": "abasambi balabeleega",
+      "to": "mwalabelenga"
+    },
+    {
+      "from": "Ukusuntinkana kwa mashiwi",
+      "to": "Ukwampana kwa mashiwi"
+    },
+    {
+      "from": "naashili",
+      "to": "nayashili"
+    },
+    {
+      "from": "ayapusanapuna",
+      "to": "ayapusanapusana"
+    },
+    {
+      "from": "IFYAKUTA 2.",
+      "to": "IFYAKUCITA 2"
+    },
+    {
+      "from": "IFYAKUCITA 3.",
+      "to": "IFYAKUCITA 3"
+    },
+    {
+      "from": "IFYAKUCTA 1",
+      "to": "IFYAKUCITA 1"
+    },
+    {
+      "from": "1.Lumbula",
+      "to": "1. Lumbula"
+    },
+    {
+      "from": "2.Insoselo",
+      "to": "2. Insoselo"
+    },
+    {
+      "from": "iyapusa-pusa",
+      "to": "iyapusanapusana"
+    },
+    {
+      "from": "Muma buumba, Lembeni",
+      "to": "Mu mabumba, lembeni"
+    },
+    {
+      "from": "Ukubelenga bwino na kulungika amashiwi",
+      "to": "Ukubelenga busaka-busaka na kulungika amashiwi"
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "Ubwangalo ni inshita iyo abana bapanga ifyakucita no kuipanga nga abantu abambi pakulangisha ilyashi ilili mwisambililo.",
+      "with": "Ubwangalo ni inshita iyo abaana bapanga ifyakucita no kuipanga nga abantu bambi pakulangisha ilyashi ilili mwisambililo."
+    },
+    {
+      "find": "Ilyashi ukwangalwa bwino-bwino.",
+      "with": "Akasela ukulingana na ifili mulyashi kaangalwa bwino-bwino."
+    },
+    {
+      "find": "Amashiwi ayalungama yapitulwikwemo bwino-bwinoukulingana ne fyo.bwino.",
+      "with": "Amashiwi ayalungama yapitulwikwemo bwino-bwino."
+    },
+    {
+      "find": "Ifilebelengelwe ukusupawilwa bwino.",
+      "with": "Ifibelengelwe yasupawilwa bwino."
+    },
+    {
+      "find": "Amashina ayapendelwa na ayashipendelwa ayaishibikwa bwino.",
+      "with": "Amashina ayapendelwa na ayashipendelwa yaishibikwa bwino."
+    },
+    {
+      "find": "Amashina yapilibwilwe bwino ukufuma ku finono ukuya ku bungwi.",
+      "with": "Amashina ukufuma kufinoono ukuya kubwingi yapilibulwa bwino."
+    },
+    {
+      "find": "Amashiwi ayapangwa bwino ukubomfya amashina ayapendelwa na ayashipendelwa.",
+      "with": "Amashiwi ukubomfya amashina ayapendwa na yashipendwa yapangwa bwino."
+    },
+    {
+      "find": "Ukuposa amaano ukufyo uleumfwa kwa;iwama. Kabili umusambi ukuba uwacenjela mu kushimika na ukulemba kulanga ilyashi.",
+      "with": "Ukuposa amaano kufyo uleumfwa kwaliwama. Kabili umusambi ukuba uwacenjela mu kushimika na ukulemba kulanga ilyashi."
+    }
+  ],
+  "remove": [
+    "4.3.2 WORD RELATIONSHIPS",
+    "4.3.2.2 Antonyms",
+    "4.3.2.1.1 Use synonyms",
+    "Ifyakucita 1: Identifying synonyms",
+    "Antonyms correctly identified",
+    "Replacing antonyms done correctly",
+    "Antonyms matched correctly",
+    "Sentences correctly rewritten using antonyms",
+    "UMUTWE: UKUBELENGA ILYASHI"
+  ],
+  "removeRange": [
+    {
+      "after": "ICIPANDE 8: AMASAMBILILO YA KUSANSHAMO",
+      "from": "4.3 UKWISHIBA AMASHIWI",
+      "to": "4.4 UKUMFWIKISHA"
+    },
+    {
+      "after": "Umutwe Unoono: 4.5.4.4 Ukulemba Kalata",
+      "from": "Ifilekabilwa ukwishiba:",
+      "to": "ICIPANDE 9: INCENDE SHESU"
+    }
+  ],
+  "pageBreakBefore": [
+    "UBUPILIBULO BWA MASHIWI YAMO-YAMO AYALI MULI ICI CITABO",
+    "Lembeni amashiwi ayalungama:",
+    {
+      "find": "Imibombele ileenekelwa:",
+      "near": "Amashiwi na inshila shakukonka shasangwa"
+    },
+    {
+      "find": "IFYAKUCITA 3",
+      "near": "Umutwe Unoono: 4.4.1.1 Ilyashi Lyakulanda"
+    },
+    {
+      "find": "UKULEMBA",
+      "near": "Umutwe Unoono: 4.5.4.3 Ukulemba Lipoti Iyayanguka"
+    },
+    {
+      "find": "Ifyakupiminako",
+      "near": "Ukuipusha ameepusho."
+    },
+    {
+      "find": "Ifyakupiminako",
+      "near": "Ukuibimbamo."
+    }
+  ],
+  "_note_round1": "Round 1 = the 155 reviewer comments in the author's 31 Oct PDF (zeph grade-4-icibemba-lb, #2836-#2990). Topic codes after UMUTWE throughout (#2882); topic titles to the syllabus names the reviewer gave, the same name for every 4.2.2 (UMWAKUSANGA ILYASHI); units renumbered from the second ICIPANDE 7 (= 8) on, so 8->9, 9->10, 10->11; duplicated pp 94-95 and 99 removed; letter type + punctuation; colours numbered; glossary on a new page. Book-wide: Ameepusho/ilipusho, Abaana, Ifilekabilwa ukwishiba, Imibombele Ileenekelwa, mukwikatisha, UKUPANGA ILYASHI.",
+  "editCell": [
+    {
+      "find": "playing football and insolo.",
+      "with": "playing football and isolo."
+    },
+    {
+      "find": "Leemba aya amanambala",
+      "with": "Lemba aya amanambala"
+    },
+    {
+      "find": "Leemba amashiwi yatatu",
+      "with": "Lemba amashiwi yatatu"
+    },
+    {
+      "find": "Leemba imiseela itatu",
+      "with": "Lemba imiseela itatu"
+    }
+  ],
+  "images": {
+    "de99f900461ac37b58d580ef9c29d55c5abb0949.png": {
+      "hmm": 72
+    }
+  },
+  "removeImages": [
+    "d34d94cfd7d91c11290b92759e76cf524c157e46.png"
+  ],
+  "_note_pictures": "p102 picture removed (#2936: not about the topic). ICIPANDE 10 opener at 72 mm high so its text stays on the page.",
+  "tocDepth": 3,
+  "tocHeads": true,
+  "uniformLabel": [
+    {
+      "prefix": "Ifilekabilwa ukwishiba",
+      "text": "Ifilekabilwa ukwishiba:"
+    },
+    {
+      "prefix": "Iifilekabilwa ukwishiba",
+      "text": "Ifilekabilwa ukwishiba:"
+    },
+    {
+      "prefix": "Ifileenekelwa ukwishiba",
+      "text": "Ifilekabilwa ukwishiba:"
+    },
+    {
+      "prefix": "Ifileekelwa ukwishiba",
+      "text": "Ifilekabilwa ukwishiba:"
+    },
+    {
+      "prefix": "Icilangililo",
+      "text": "Icilangililo:"
+    },
+    {
+      "prefix": "Icilangilo",
+      "text": "Icilangililo:"
+    },
+    {
+      "prefix": "Imibombele ileenekelwa",
+      "text": "Imibombele ileenekelwa:"
+    },
+    {
+      "prefix": "Imibomele ileenekelwa",
+      "text": "Imibombele ileenekelwa:"
+    },
+    {
+      "prefix": "Imibombelwe ileenekelwa",
+      "text": "Imibombele ileenekelwa:"
+    },
+    {
+      "prefix": "Imibombelo ileenekelwa",
+      "text": "Imibombele ileenekelwa:"
+    },
+    {
+      "prefix": "Ifilecetekelwa ukwishiba",
+      "text": "Ifilekabilwa ukwishiba:"
+    },
+    {
+      "prefix": "Ifilekabilwa ukwishishiba",
+      "text": "Ifilekabilwa ukwishiba:"
+    },
+    {
+      "prefix": "Ifileekabilwa ukwishiba",
+      "text": "Ifilekabilwa ukwishiba:"
+    },
+    {
+      "prefix": "Imilembele ileekelwa",
+      "text": "Imibombele ileenekelwa:"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "Icilangililo: 1",
+      "text": "Icilangililo 1:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Icilangililo 1",
+      "text": "Icilangililo 1:",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Icilangilo 2",
+      "text": "Icilangililo 2:",
+      "as": "label",
+      "all": true
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "Bikeni amatoni ya bomba mu kulemba mu miseela"
+    }
+  ],
+  "extendBox": [
+    {
+      "near": "Ceceteni bwino ilyashi",
+      "count": 2
+    },
+    {
+      "near": "Ni lilali Mwansa aleteya",
+      "count": 13
+    },
+    {
+      "near": "Chipo ali ne myaka 9 mu Geledi 4.",
+      "count": 5
+    }
+  ],
+  "retext": [
+    {
+      "from": "Ifyakucita 2",
+      "to": "IFYAKUCITA 2"
+    },
+    {
+      "from": "IFYAKUCITA 1:",
+      "to": "IFYAKUCITA 1"
+    },
+    {
+      "from": "IFYAKUCITA 1.",
+      "to": "IFYAKUCITA 1"
+    },
+    {
+      "from": "IFYAKUCITA 2:",
+      "to": "IFYAKUCITA 2"
+    },
+    {
+      "from": "IFYAKUCITA 2.",
+      "to": "IFYAKUCITA 2"
+    },
+    {
+      "from": "IFYAKUCITA 3:",
+      "to": "IFYAKUCITA 3"
+    },
+    {
+      "from": "IFYAKUCITA 3.",
+      "to": "IFYAKUCITA 3"
+    },
+    {
+      "from": "IFYAKUCITA 4:",
+      "to": "IFYAKUCITA 4"
+    },
+    {
+      "from": "IFYAKUCITA 4.",
+      "to": "IFYAKUCITA 4"
+    },
+    {
+      "from": "IFYAKUCITA 5:",
+      "to": "IFYAKUCITA 5"
+    },
+    {
+      "from": "IFYAKUCITA 5.",
+      "to": "IFYAKUCITA 5"
+    },
+    {
+      "from": "IFYAKUCITA 6:",
+      "to": "IFYAKUCITA 6"
+    },
+    {
+      "from": "IFYAKUCITA 6.",
+      "to": "IFYAKUCITA 6"
+    }
+  ],
+  "tableToBox": [
+    {
+      "findTable": "Bomfya apalembwa ubupilibulo",
+      "into": "prev"
+    },
+    {
+      "findTable": "Ukuyemba uwacuma",
+      "into": "prev"
+    },
+    {
+      "findTable": "Lolesha pacikope. Lemba icishibo",
+      "into": "prev"
+    },
+    {
+      "findTable": "2. Sanga amashina aya",
+      "into": "prev"
+    },
+    {
+      "findTable": "IFAYAKUCITA 1"
+    },
+    {
+      "findTable": "Sala ishiwi ililungeme",
+      "titleFromPrev": true
+    },
+    {
+      "findTable": "Ukwilula amapinda aya nono",
+      "lead": 1
+    }
+  ]
+}
