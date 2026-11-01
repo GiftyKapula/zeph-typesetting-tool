@@ -1,0 +1,126 @@
+{
+  "localLabels": true,
+  "coversInBook": true,
+  "subject": "Icibemba",
+  "authors": [
+    "E. Bwalya",
+    "V. N. Mwandama",
+    "S. Mwila",
+    "M. Nambao (Dr.)",
+    "C. Whiscals"
+  ],
+  "hyphenate": false,
+  "activityTitles": [
+    "IFYAKUCITA"
+  ],
+  "tocTitle": "Ifili mu Citabo",
+  "coverWords": {
+    "authors": "ABALEMBELE",
+    "printedBy": "Calembelwe naba",
+    "contents": "Ifili mu Citabo",
+    "grade": "Geledi"
+  },
+  "coverImage": "Ichibemba_Grade 4_LB-hires/cover.png",
+  "_note_source": "No Word manuscript exists: the .docx was rebuilt from the author's corrected PDF 'Ichibemba_Grade 4_LB_Corrections made 31.10.26 E.Bwalya.pdf' (Word/PDFMaker export, 177 pp incl. the cover spread). The 155 reviewer comments in that PDF are logged in zeph (grade-4-icibemba-lb round 1) and NOT applied yet.",
+  "_note_cover": "Cover picture = word-free crop of the classroom photo on the PDF's own cover (no lettering in the crop). Cover words from the manuscript's cover: ICIBEMBA / ICITABO CA MUSAMBI / GELEDI 4.",
+  "authorLabel": "Abalembele",
+  "_note_labels": "Cover/title labels: GELEDI, the book's own majority spelling (10 Geledi : 3 Giledi; the word list leads with Giledi). ABALEMBELE / Calembelwe naba as on the Icibemba ECE LB (the manuscript cover has the English NAMES OF WRITERS).",
+  "replaceBlocks": [
+    {
+      "find": "© Zambia Educational Publishing House, 2026",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House, 2026",
+          "center": true
+        },
+        {
+          "para": "Insambu shonse shasungwa. Fyonse ifilembelwe, tafifwile fya lembululwa, ukusungwa umo fingafumishiwa nangu ukusabankanishiwa munshila iili yonse ukwabula ukupoka insambu ukufuma kuba fumishe ici citabo.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Abapitulwiikemo niba:**",
+          "center": true
+        },
+        {
+          "para": "………………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Abalengele niba:**",
+          "center": true
+        },
+        {
+          "para": "………………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Abapekeenye imimonekele ya citabo:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Ukusabankanya umuku wa kubalipo:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Icitabo Cipekanishiwe Naba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    }
+  ],
+  "_note_imprint": "Copyright page set out like the house model (Silozi G4 LB): bold label over plain value, in the manuscript's own Icibemba labels; the layout line (Abapekeenye imimonekele ya citabo) carries Ng`ambi Teddy (B.Sc). Editor, illustrator and ISBN stay as dots, as in the manuscript."
+}

@@ -986,6 +986,10 @@ async function typesetOne(docxPath, themeName) {
       const w = LEXI.label(id);
       if (w) labels[k] = w;
     }
+    // coverWords.grade: the book's own grade word where the word list leads with
+    // another (Luvale lists "Guledi" first; the Grade 1 LB's own cover says "MANGO")
+    if (ov.coverWords && ov.coverWords.grade) labels.grade = ov.coverWords.grade;
+    if (ov.coverWords && ov.coverWords.authors) labels.authors = ov.coverWords.authors;
     themeOverrides.labels = labels;
     const tr = (s) => s
       .replace(/\bgrade\b/i, (m) => labels.grade || m)
