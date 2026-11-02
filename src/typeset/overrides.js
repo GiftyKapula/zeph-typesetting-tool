@@ -45,6 +45,62 @@ function applyOverrides(blocks, ov) {
     blocks.splice(i, 1, ...out);
   }
   const flat = allTextBlocks(blocks);
+  // tableToBox: [{ findTable, into?: "prev", titleFromPrev?: true, title? }] — an activity the
+  // author typed into a one-cell table (a grey frame) instead of the book's activity box.
+  // The cell's lines become box content: a short all-bold line -> box sub-head, "1." / "a)"
+  // -> list item (marker kept), anything else -> paragraph, the cell's pictures last.
+  // `into: "prev"` appends it all to the box right before the table (its continuation);
+  // otherwise a new box, titled by the cell's first line when that is a bold "WORD N",
+  // else by the heading right before the table (`titleFromPrev`), else `title`. Runs
+  // first, and the new blocks join `flat`, so edit/subtext/editAll reach the freed text.
+  for (const tb of ov.tableToBox || []) {
+    const want = tb.findTable.replace(/\s+/g, " ").trim();
+    let done = false;
+    const walk = (arr) => {
+      for (let i = 0; i < arr.length && !done; i++) {
+        const b = arr[i];
+        if (!b || typeof b !== "object") continue;
+        const cell = b.t === "table" && Array.isArray(b.rows) && b.rows.length === 1 && Array.isArray(b.rows[0]) && b.rows[0].length === 1 && b.rows[0][0];
+        if (!cell || !(cell.text || "").replace(/\s+/g, " ").trim().startsWith(want)) {
+          for (const key of Object.keys(b)) if (Array.isArray(b[key]) && key !== "rows" && !done) walk(b[key]);
+          continue;
+        }
+        const segs = Array.isArray(cell.segs) && cell.segs.length ? cell.segs : [{ t: cell.text || "", b: false, it: false, c: null }];
+        const lines = [[]];
+        for (const s of segs) String(s.t || "").split("\n").forEach((p, k) => { if (k) lines.push([]); if (p) lines[lines.length - 1].push({ ...s, t: p }); });
+        const body = [];
+        for (const ln of lines) {
+          const txt = ln.map((s) => s.t).join("").trim();
+          if (!txt) continue;
+          if (ln.filter((s) => s.t.trim()).every((s) => s.b) && txt.length <= 60) { body.push({ t: "head", text: txt }); continue; }
+          const lm = txt.match(/^(\d+[.)]|[a-z][.)])\s*/);
+          // drop the marker (and leading spaces) from the front of the line's runs
+          let skip = lm ? ln.map((s) => s.t).join("").indexOf(lm[0]) + lm[0].length : ln.map((s) => s.t).join("").search(/\S/);
+          const out = [];
+          for (const s of ln) { if (skip >= s.t.length) { skip -= s.t.length; continue; } out.push({ ...s, t: s.t.slice(skip) }); skip = 0; }
+          body.push(lm ? { t: "listitem", marker: lm[1], segs: out } : { t: "para", segs: out });
+        }
+        for (const im of cell.imgs || []) body.push({ t: "image", file: im.file, w: im.w });
+        if (tb.into === "prev") {
+          const prev = arr[i - 1];
+          if (!prev || !Array.isArray(prev.body)) { console.warn("!  tableToBox: no box before", tb.findTable); done = true; return; }
+          prev.body.push(...body); arr.splice(i, 1);
+        } else {
+          // `lead: n`: the cell's first n lines introduce the activity — they go above the box
+          const lead = body.splice(0, tb.lead || 0);
+          let title = tb.title || "";
+          if (body[0] && body[0].t === "head" && /^\S+\s+\d+\s*[:.]?$/.test(body[0].text)) title = body.shift().text;
+          else if (tb.titleFromPrev && arr[i - 1] && arr[i - 1].t === "head") { title = arr[i - 1].text; arr.splice(i - 1, 1); i--; }
+          const box = { t: "activity", title, body };
+          arr.splice(i, 1, ...lead, box); flat.push(box, ...lead);
+        }
+        flat.push(...body);
+        done = true;
+      }
+    };
+    walk(blocks);
+    if (!done) console.warn("!  tableToBox not matched:", tb.findTable);
+  }
   // textFix: [{ find, with }] — a blunt, whole-tree literal replacement applied to
   // EVERY text string anywhere in the block tree: segment runs, plain-text mirrors
   // (an exercise part's `q` alongside its `qseg`), headings, captions and table
@@ -273,14 +329,20 @@ function applyOverrides(blocks, ov) {
     // spec mistake. When the deleted block sat between two blank gaps (an imprint name line
     // between blank paragraphs), one gap goes too, so no double gap is left behind.
     const del = Array.isArray(rb.with) && rb.with.length === 0;
-    if (!news.length && !del) { console.warn("!  replaceBlocks empty/unknown spec:", rb.find); continue; }
-    const want = wsNorm(rb.find);
+    if (!news.length && !del) { console.warn("!  replaceBlocks empty/unknown spec:", rb.find || rb.findTable); continue; }
+    const want = wsNorm(rb.find || "");
+    // `findTable`: match a TABLE (which has no text of its own) by the opening words of
+    // its first cell — e.g. a one-cell table the author typed a run of activities into,
+    // to be swapped for a proper activity box (a `raw` block)
+    const cell0 = (b) => { const c = b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0]) && b.rows[0][0];
+      return c ? wsNorm(typeof c === "string" ? c : (c.text || "")) : null; };
+    const hits = (b) => rb.findTable ? (cell0(b) || "").startsWith(wsNorm(rb.findTable)) : wsNorm(blockPlain(b)) === want;
     let done = false;
     const walk = (arr) => {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
-        if (wsNorm(blockPlain(b)) === want) {
+        if (hits(b)) {
           arr.splice(i, 1, ...news);
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
           done = true; return;
@@ -289,7 +351,7 @@ function applyOverrides(blocks, ov) {
       }
     };
     walk(blocks);
-    if (!done) console.warn("!  replaceBlocks not matched:", rb.find);
+    if (!done) console.warn("!  replaceBlocks not matched:", rb.find || rb.findTable);
   }
   // deleteRun: [{ from, to }] — delete a CONTIGUOUS run of sibling blocks, from the
   // first block whose trimmed text === `from` through the first block at/after it whose
@@ -442,6 +504,50 @@ function applyOverrides(blocks, ov) {
       if (!sh.all) break;
     }
     if (!n) console.warn("!  setHeading not matched:", sh.find);
+  }
+  // uniformLabel: [{ prefix, text }] — one look for a recurring section label the
+  // manuscript typed several ways (a bold heading here, a run-in bold lead there, an
+  // orange label elsewhere, sometimes with a stray topic code "4.1.4.1.1" before or
+  // after it). Every top-level block that OPENS with `prefix` (case-insensitive) and
+  // then ends, or goes on with ":" or a dotted code, becomes a label reading `text`;
+  // any words run in after the label move to a paragraph of their own just below,
+  // keeping their bold/italic. A sentence that merely starts with the word is left.
+  for (const ul of ov.uniformLabel || []) {
+    const esc = ul.prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const code = "\\d+(?:\\.\\d+)+\\.?";
+    const re = new RegExp(`^\\s*(?:${code}\\s*)?${esc}\\s*(?:(?::\\s*(?:${code})?)|(?:${code})|$)\\s*`, "i");
+    let n = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!b || !["para", "head", "label"].includes(b.t)) continue;
+      const m = blockPlain(b).match(re);
+      if (!m) continue;
+      let tail = [];
+      if (b.t === "para" && Array.isArray(b.segs)) {
+        let skip = m[0].length;
+        for (const s of b.segs) {
+          const t = typeof s.t === "string" ? s.t : "";
+          if (skip >= t.length) { skip -= t.length; continue; }
+          tail.push({ ...s, t: t.slice(skip) }); skip = 0;
+        }
+      } else {
+        const rest = blockPlain(b).slice(m[0].length);
+        if (rest.trim()) tail = [{ t: rest, b: false, it: false, c: null }];
+      }
+      if (tail.map((s) => s.t).join("").trim()) {
+        // the original block object stays (as the run-in words) so later primitives that
+        // scan the pre-built `flat` list (edit, subtext, …) still reach that text
+        for (const k of ["text", "marker", "isList", "numId", "lvl"]) delete b[k];
+        b.t = "para"; b.segs = tail;
+        blocks.splice(i, 0, { t: "label", text: ul.text }); i++;
+      } else {
+        b.t = "label"; b.text = ul.text;
+        delete b.segs; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
+      }
+      n++;
+    }
+    if (!n) console.warn("!  uniformLabel not matched:", ul.prefix);
+    else console.log(`   uniformLabel "${ul.prefix}": ${n}`);
   }
   // renumberLessons: true — repair scrambled lesson numbering. Grade-2 units repeat the
   // same strand headings ("LISTENING AND SPEAKING: LESSON N", "READING AND WRITING:
@@ -673,9 +779,15 @@ function applyOverrides(blocks, ov) {
   // extendBox: [{ title, count }] — move the `count` blocks that follow a box (an activity/
   // exercise/… whose title contains `title`) into the end of its body: a converted PDF can
   // leave an activity's last paragraphs (its safety notes, its expected responses) outside it.
+  // `near` instead of `title` (every box called "IFYAKUCITA 1"): the box sitting right
+  // before the first block whose text contains `near` takes that block and the rest
   for (const eb of ov.extendBox || []) {
-    const i = blocks.findIndex((b) => Array.isArray(b.body) && typeof b.title === "string" && b.title.includes(eb.title));
-    if (i < 0) { console.warn("!  extendBox not matched:", eb.title); continue; }
+    let i = -1;
+    if (eb.near) {
+      const a = blocks.findIndex((b) => blockPlain(b).includes(eb.near));
+      if (a > 0 && Array.isArray(blocks[a - 1].body)) i = a - 1;
+    } else i = blocks.findIndex((b) => Array.isArray(b.body) && typeof b.title === "string" && b.title.includes(eb.title));
+    if (i < 0) { console.warn("!  extendBox not matched:", eb.title || eb.near); continue; }
     blocks[i].body.push(...blocks.splice(i + 1, eb.count || 1));
   }
   // splitBox: [{ at }] — the inverse of extendBox: one activity box swallowed the next

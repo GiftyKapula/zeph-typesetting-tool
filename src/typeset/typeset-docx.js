@@ -474,7 +474,7 @@ async function typesetOne(docxPath, themeName) {
     if (!media.some((m) => m.name === name)) media.push({ src, name });
     spec.raw = { t: "image", file: name, w: spec.w || 601, tall: false };
   }
-  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.uniformLabel || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing) { applyOverrides(blocks, ov); }
   // glossaryColon: true — in the glossary, a term is followed by a colon, not the hyphen
   // the author typed: "Bacikombo- Caamba bamukowa" -> "Bacikombo: Caamba bamukowa".
   if (ov.glossaryColon) {
@@ -991,6 +991,10 @@ async function typesetOne(docxPath, themeName) {
       const w = word(id);
       if (w) labels[k] = w;
     }
+    // coverWords.grade: the book's own grade word where the word list leads with
+    // another (Luvale lists "Guledi" first; the Grade 1 LB's own cover says "MANGO")
+    if (ov.coverWords && ov.coverWords.grade) labels.grade = ov.coverWords.grade;
+    if (ov.coverWords && ov.coverWords.authors) labels.authors = ov.coverWords.authors;
     themeOverrides.labels = labels;
     const tr = (s) => s
       .replace(/\bgrade\b/i, (m) => labels.grade || m)
@@ -1665,6 +1669,10 @@ async function typesetOne(docxPath, themeName) {
     breakPoints = points;
     console.log(`   dropBreaks: ${drop.size} of ${points.length} body page break(s) dropped`);
   }
+  // tocHeads: true — list the Heading 3 topics/sub-topics in the contents too (level 3,
+  // under their strand). They render as plain heads, which the outline never sees; the
+  // Icibemba G4 LB reviewer asked for its missing sub-topic ("4.6.3.2 Landilwa") there.
+  if (ov.tocHeads) for (const b of blocks) if (b.t === "h3" && b.text) b.toc = 3;
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
 
   // Include OS system fonts so specialty faces like Bradley Hand ITC (used for
