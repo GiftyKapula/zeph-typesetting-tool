@@ -507,6 +507,8 @@ JSZip.loadAsync(fs.readFileSync(IN)).then(async (z) => {
     z.file("word/numbering.xml", nx);
     log("   lists restarted at a):", restarted);
   }
+  // Sub-Topic 3.3.2 heading "Benefits Of Good" set as "Benefits of Good", matching the LB - the user's instruction, 19 Oct 2026
+  body = body.replace(/Benefits Of Good Customer Care/g, "Benefits of Good Customer Care");
   z.file("word/document.xml", head + body + tail);
   fs.writeFileSync(OUT, await z.generateAsync({ type: "nodebuffer", compression: "DEFLATE" }));
   log("written", OUT);
