@@ -44,3 +44,9 @@ contact sheet before sending.
 1. Each book changes only its own overrides. Engine changes are opt-in options.
 2. After any engine change, rebuild the affected folders with `batch.mjs`. Every book that drops below the gate is checked before going further.
 3. The workflow database (`data/zeph.db`) waits up to 20 s for a lock, so parallel builds don't fail with "database is locked".
+
+## Releasing a book
+
+`npm run release -- "<book>.docx"` releases a book for print **only when its latest QA
+qualifies**, records `"releasedForPrint": true` and the date in its overrides, and makes its
+marketing posters. See [POSTERS.md](POSTERS.md).

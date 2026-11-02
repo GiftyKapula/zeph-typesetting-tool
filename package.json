@@ -14,7 +14,11 @@
     "lexicon:import": "node tools/lexicon/import-forms.js",
     "art:gen": "node tools/genimage.js",
     "qa": "node tools/qa/qa.mjs",
-    "batch": "node tools/qa/batch.mjs"
+    "batch": "node tools/qa/batch.mjs",
+    "release": "node tools/poster/release.mjs",
+    "poster": "node tools/poster/poster.mjs",
+    "poster:all": "node tools/poster/poster.mjs --all",
+    "test": "node --test \"test/**/*.test.mjs\""
   },
   "keywords": [
     "typesetting",

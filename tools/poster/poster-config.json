@@ -1,0 +1,63 @@
+{
+  "_note": "The poster's fixed wording, copied from the approved sample advert (Downloads/example poster.jpeg, 2026-11-02). Change wording here, not in the layout code. Contacts are ZEPH's own published sales lines from the sample - NEVER take numbers from admin/ (authors' private forms).",
+  "headline": "GREAT NEWS",
+  "audience": [
+    "FOR PARENTS, LEARNERS",
+    "AND TEACHERS"
+  ],
+  "badgeCbc": "CBC Aligned",
+  "badgeApproved": [
+    "Approved for",
+    "use in schools"
+  ],
+  "availability": [
+    "Available soon in all",
+    "ZEPH bookstores."
+  ],
+  "gift": [
+    "Give your child the gift of",
+    "educational success",
+    "this Christmas!"
+  ],
+  "preorder": "To pre-order or receive an availability alert,",
+  "whatsappLabel": "WhatsApp:",
+  "whatsappNumbers": [
+    "097 171 7126",
+    "076 180 9404"
+  ],
+  "website": "www.zephbooks.com",
+  "tagline": [
+    "Zambia’s Leading National Publisher",
+    "of Competence-Based Curriculum Textbooks."
+  ],
+  "fonts": [
+    "Segoe UI",
+    "Arial"
+  ],
+  "formats": [
+    {
+      "name": "1080x1350",
+      "kind": "png",
+      "w": 1080,
+      "h": 1350,
+      "hd": 2
+    },
+    {
+      "name": "1080x1080",
+      "kind": "png",
+      "w": 1080,
+      "h": 1080,
+      "hd": 2
+    },
+    {
+      "name": "A4",
+      "kind": "pdf",
+      "w": 595.28,
+      "h": 841.89,
+      "bleedMm": 3,
+      "safeMm": 5,
+      "minPpi": 300
+    }
+  ],
+  "_note_formats": "Social: platform-native sizes plus an HD copy at twice the pixels (sharper on high-density phones; Facebook/WhatsApp scale it down). Print: A4 with 3 mm bleed all round, a 5 mm safe zone inside the trim, TrimBox/BleedBox set, fonts embedded, the cover at 300 ppi or more."
+}
