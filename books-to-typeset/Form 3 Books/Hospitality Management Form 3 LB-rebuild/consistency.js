@@ -441,6 +441,8 @@ o.subtext = [...base,
   S('for each risk,,', 'for each risk,'),
   S('Involves stealing property', 'This involves stealing property'),
   S('help increase customer satisfaction, loyalty and create', 'help increase customer satisfaction and loyalty and create'),
+  // the food safety plan was defined twice in a row; the second paragraph now builds on the first
+  S('A food safety plan is a set of organised practices that help ensure food remains safe from preparation to consumption. It includes', 'In practice, the plan organises the practices that keep food safe from preparation to consumption. It includes'),
   // ---- figure captions: no closing full stop (as nine of the fifteen had), single spaces
   S('and pest control.', 'and pest control'),
   S('supported according to their needs.', 'supported according to their needs'),
@@ -501,6 +503,12 @@ o.endStop = [
   'Present your security plan to the class', 'contributed to the conflict', 'the conflict was resoled',
   'Identification of areas that require security', 'Possible security risks in each area', 'Security measures to reduce or prevent the risk',
 ];
+
+// Topic 8 opener: the sign in the picture read RESTURANT; relettered RESTAURANT (only that word repainted)
+o.images['image42.jpeg'] = { src: 'Hospitality Management Form 3 LB-hires/image42-relettered.png' };
+// Figure 13 (teamwork photo) set a little shorter so the last question of Topic 5's assessment
+// no longer sits alone on its own page
+o.images['image35.png'] = { ...(o.images['image35.png'] || {}), hmm: 48 };
 
 o.retext = [{ from: 'G', to: 'A g' }, { from: 'o', to: '' }, { from: 'scenarios:', to: 'Scenarios:' }, { from: 'Protocol:', to: 'Protocols:' }];
 

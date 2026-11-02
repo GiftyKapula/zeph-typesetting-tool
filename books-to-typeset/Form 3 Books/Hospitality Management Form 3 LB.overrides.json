@@ -71,7 +71,8 @@
       "src": "Hospitality Management Form 3 LB-hires/image9.png"
     },
     "image35.png": {
-      "src": "Hospitality Management Form 3 LB-hires/image35.png"
+      "src": "Hospitality Management Form 3 LB-hires/image35.png",
+      "hmm": 48
     },
     "image37.png": {
       "src": "Hospitality Management Form 3 LB-hires/image37.png"
@@ -110,7 +111,7 @@
       "src": "Hospitality Management Form 3 LB-hires/image23.png"
     },
     "image42.jpeg": {
-      "src": "Hospitality Management Form 3 LB-hires/image42.png"
+      "src": "Hospitality Management Form 3 LB-hires/image42-relettered.png"
     },
     "image36.jpeg": {
       "src": "Hospitality Management Form 3 LB-hires/image36.png"
@@ -2242,6 +2243,10 @@
     {
       "from": "help increase customer satisfaction, loyalty and create",
       "to": "help increase customer satisfaction and loyalty and create"
+    },
+    {
+      "from": "A food safety plan is a set of organised practices that help ensure food remains safe from preparation to consumption. It includes",
+      "to": "In practice, the plan organises the practices that keep food safe from preparation to consumption. It includes"
     },
     {
       "from": "and pest control.",
