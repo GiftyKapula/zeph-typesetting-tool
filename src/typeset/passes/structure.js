@@ -314,7 +314,7 @@ function fixStrayBodyH1s(blocks) {
   // (a local-language book's own Unit/Topic and section words count too)
   const isStray = (b) => {
     const t = (b.text || "").trim();
-    return b.t === "h1" && !b.top && !UNIT.test(t) && !FRONTBACK.test(t) && !FRONTBACK_LEAD.test(t) && !FRONTBACK_TRAIL.test(t)
+    return b.t === "h1" && !b.top && !b.keepSection && !UNIT.test(t) && !FRONTBACK.test(t) && !FRONTBACK_LEAD.test(t) && !FRONTBACK_TRAIL.test(t)
       && !LEXI.isTopSection(t) && !LEXI.isFrontSection(t) && !LEXI.isBackSection(t) && !LEXI.isContents(t);
   };
   const seen = new Set();

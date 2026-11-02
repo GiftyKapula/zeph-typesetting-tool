@@ -27,7 +27,7 @@ const OUTPUT_DIR = process.env.ZEPH_OUTPUT_DIR ? path.resolve(process.env.ZEPH_O
 const { S, emit } = require("./emit.js");
 const { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor } = require("./naming.js");
 const { blockPlain, setBlockText } = require("./blocktext.js");
-const { applyOverrides } = require("./overrides.js");
+const { applyOverrides, oneActivityPerBox } = require("./overrides.js");
 const { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly } = require("./passes/structure.js");
 const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatter } = require("./passes/series-front.js");
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
@@ -664,6 +664,7 @@ async function typesetOne(docxPath, themeName) {
   normaliseCompetenceLabels(blocks);
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
+  if (ov.oneActivityPerBox) oneActivityPerBox(blocks, ov, true);
   // (a converted book again, now the boxes made from headings exist: each takes back its
   // own instructions and "Expected Responses" left after it)
   if (ov.joinBrokenLines) boxLooseActivities(blocks);

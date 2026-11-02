@@ -807,6 +807,17 @@ function applyOverrides(blocks, ov) {
     }
     if (!done) console.warn("!  splitBox not matched:", sb.at);
   }
+  // oneActivityPerBox: true — every activity in a box of its own, titled "WORD N" (WORD =
+  // `activityTitles`, e.g. IFYAKUCITA). A converted manuscript types activities three ways:
+  // a proper box, a bold "IFYAKUCITA 2" line inside the PREVIOUS activity's box, or a bold
+  // heading with the instruction run in ("IFYAKUCITA 1: Asuka ameepusho…") and no box at all.
+  // Box titles lose run-in words / a missing space ("IFYAKUCITA1"); a bold "WORD N" line
+  // inside a box starts a new box; a loose "WORD N" heading/para becomes a box holding its
+  // run-in words and the paragraphs, lists, tables and pictures after it, up to the next
+  // heading, label, box or activity line. `oneActivityPerBox: { keepLabels: ["Icilangililo"] }`
+  // lets the named labels (an activity's own worked example) stay inside the box.
+  // (runs last — see the end of applyOverrides — after every other option has seen the
+  // manuscript's own boxes)
   // collapseSpaces: true — a book converted from a PDF carries the old layout's doubled
   // spaces ("Use  simple farm tools"); reduce every run of spaces in the text to one,
   // across run boundaries too (math runs untouched). Runs after edit/editAll, so their
@@ -892,8 +903,10 @@ function applyOverrides(blocks, ov) {
   // back-matter sections (GLOSSARY OF TERMS, REFERENCES) the manuscript left as small
   // bold inline headings.
   for (const h of ov.asSection || []) {
-    const b = flat.find((x) => (x.t === "head" || x.t === "label" || x.t === "h2" || x.t === "h3") && (x.text || "").trim() === h);
-    if (b) b.t = "h1"; else console.warn("!  asSection not matched:", h);
+    // (an h1 too: a front-matter heading the lexicon does not know would otherwise be
+    // demoted to a sub-heading by fixStrayBodyH1s; keepSection stops that)
+    const b = flat.find((x) => (x.t === "head" || x.t === "label" || x.t === "h1" || x.t === "h2" || x.t === "h3") && (x.text || "").trim() === h);
+    if (b) { b.t = "h1"; b.keepSection = true; } else console.warn("!  asSection not matched:", h);
   }
   // styleSection: [{ find, rename? } | "text", …] — give a plain inline heading the styled
   // SECTION-heading look (accent title + rule) WITHOUT a page break and WITHOUT a contents
@@ -2075,6 +2088,84 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     console.log(`   tidySpacing: ${n} spacing slip(s) tidied`);
   }
+  if (ov.oneActivityPerBox) oneActivityPerBox(blocks, ov);
+}
+
+// oneActivityPerBox (see the note in applyOverrides) — also run again (again = true) after
+// boxifyActivities, which can box a "WORD 1" heading together with the activities after it.
+function oneActivityPerBox(blocks, ov, again = false) {
+  if (!Array.isArray(ov.activityTitles) || !ov.activityTitles.length) return;
+  {
+    const words = ov.activityTitles.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+    const TRE = new RegExp(`^\\s*(${words})\\s*(\\d+)?\\s*[:.]?\\s*`, "i");
+    const tidy = (m) => m[1].toUpperCase() + (m[2] ? " " + m[2] : "");
+    // the words after a matched label, as runs keeping their italic (the label's bold dropped)
+    const runIn = (b, len) => {
+      if (!Array.isArray(b.segs)) { const r = blockPlain(b).slice(len); return r.trim() ? [{ t: r, b: false, it: false, c: null }] : []; }
+      const out = []; let skip = len;
+      for (const s of b.segs) { const t = typeof s.t === "string" ? s.t : ""; if (skip >= t.length) { skip -= t.length; continue; } out.push({ ...s, t: t.slice(skip), b: false }); skip = 0; }
+      return out.map((s) => s.t).join("").trim() ? out : [];
+    };
+    const boldLead = (b) => { const s = (b.segs || []).find((x) => (x.t || "").trim()); return !!(s && s.b); };
+    // an activity line: a heading/label, or a paragraph whose first words are bold
+    const actLine = (b) => {
+      if (!b || !["head", "label", "para"].includes(b.t)) return null;
+      const m = blockPlain(b).match(TRE);
+      if (!m || (b.t === "para" && !boldLead(b))) return null;
+      // (no number: only the word in capitals — "IFYAKUCITA:" — is an activity; "Ifyakucita: …" is
+      // a glossary entry)
+      if (!m[2] && m[1] !== m[1].toUpperCase()) return null;
+      return m;
+    };
+    const para = (segs) => ({ t: "para", segs });
+    // { keepLabels: ["Icilangililo"] } — labels that belong INSIDE an activity (its worked
+    // example), so a loose activity keeps gathering past them; any other label ends it
+    const keep = ((ov.oneActivityPerBox && ov.oneActivityPerBox.keepLabels) || []).map((w) => w.toLowerCase());
+    const allBold = (x) => x.t === "para" && Array.isArray(x.segs) && x.segs.filter((s) => (s.t || "").trim()).every((s) => s.b) && blockPlain(x).trim().length <= 60;
+    let fixedTitles = 0, split = 0, made = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b.t === "activity" && typeof b.title === "string" && !b.titleSegs) {
+        const m = b.title.match(TRE);
+        // (no number, typed in ordinary case, words after the colon: not an activity title — the
+        // importer boxed a glossary that starts with the word; leave that box to the later passes)
+        if (m && !m[2] && m[1] !== m[1].toUpperCase() && b.title.slice(m[0].length).trim()) continue;
+        // (the second run, after boxifyActivities, only splits: titles were settled the first time,
+        // and a later pass may have capitalised that glossary box's title)
+        if (again && m && !m[2]) continue;
+        if (m) {
+          const rest = b.title.slice(m[0].length).trim();
+          if (rest || b.title !== tidy(m)) { b.title = tidy(m); fixedTitles++; }
+          if (rest) b.body.unshift(para([{ t: rest, b: false, it: false, c: null }]));
+        }
+        const k = b.body.findIndex((x, n) => n > 0 && actLine(x));
+        if (k > 0) {
+          const rest = b.body.splice(k), head = rest.shift(), hm = actLine(head);
+          const tail = runIn(head, hm[0].length);
+          if (tail.length) rest.unshift(para(tail));
+          blocks.splice(i + 1, 0, { t: "activity", title: tidy(hm), body: rest });
+          split++;
+        }
+        continue;
+      }
+      const m = actLine(b);
+      if (!m) continue;
+      const body = [];
+      const tail = runIn(b, m[0].length);
+      if (tail.length) body.push(para(tail));
+      let j = i + 1;
+      while (j < blocks.length) {
+        const x = blocks[j];
+        const keepLabel = x.t === "label" && keep.some((w) => blockPlain(x).trim().toLowerCase().startsWith(w));
+        if (!["para", "listitem", "table", "image", "imagerow", "img", "match"].includes(x.t) && !keepLabel) break;
+        if (actLine(x) || allBold(x)) break;
+        body.push(x); j++;
+      }
+      blocks.splice(i, j - i, { t: "activity", title: tidy(m), body });
+      made++;
+    }
+    console.log(`   oneActivityPerBox: ${fixedTitles} title(s) tidied, ${split} box(es) split, ${made} loose activit(y/ies) boxed`);
+  }
 }
 
 // Find a table (top-level, inside a box/activity body, or as an exercise/
@@ -2089,4 +2180,4 @@ function replaceTableRows(blocks, match, rows, extra) {
   return false;
 }
 
-module.exports = { applyOverrides, replaceTableRows };
+module.exports = { applyOverrides, replaceTableRows, oneActivityPerBox };
