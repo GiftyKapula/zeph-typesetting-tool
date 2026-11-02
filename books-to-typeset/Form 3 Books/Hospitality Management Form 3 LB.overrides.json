@@ -164,6 +164,25 @@
       ]
     },
     {
+      "find": "Scenario:",
+      "next": "Your sister is having a wedding party",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Scenarios:",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "find": "a) The type of communication barrier present.",
       "with": [
         {
@@ -1905,6 +1924,354 @@
       "to": "reduced waste and attention"
     },
     {
+      "from": "entrepreneurship respond to the evolving needs",
+      "to": "entrepreneurship responds to the evolving needs"
+    },
+    {
+      "from": "and entrepreneurship within their communities",
+      "to": "and entrepreneurship within your communities"
+    },
+    {
+      "from": "In the hospitality industry such as hotels, restaurants, kitchens, laundries and catering units",
+      "to": "In hospitality settings such as hotels, restaurants, kitchens, laundries and catering units"
+    },
+    {
+      "from": "back pain, fatigue, and repetitive",
+      "to": "back pain, fatigue and repetitive"
+    },
+    {
+      "from": "and food contamination, such as, when a food handler",
+      "to": "and food contamination, such as when a food handler"
+    },
+    {
+      "from": "in injuries such as, cutting fingers",
+      "to": "in injuries such as cutting fingers"
+    },
+    {
+      "from": "Safety Equipment in Hospitality Industry",
+      "to": "Safety Equipment in the Hospitality Industry"
+    },
+    {
+      "from": "some workers ignore wearing gloves",
+      "to": "some workers do not wear gloves"
+    },
+    {
+      "from": "legal action, or disciplinary",
+      "to": "legal action or disciplinary"
+    },
+    {
+      "from": "prepares you on what to do",
+      "to": "prepares you for what to do"
+    },
+    {
+      "from": "Limpo is a Manager at Chiposvil lodge",
+      "to": "Limpo is a manager at Chiposvil Lodge"
+    },
+    {
+      "from": "The other half to demonstrate one by one the correct way of washing hands.",
+      "to": "The other half then demonstrates, one by one, the correct way of washing hands."
+    },
+    {
+      "from": "there is always a way in which you can tell the spoilage",
+      "to": "there is always a way in which you can tell that it has spoiled"
+    },
+    {
+      "from": "These methods help preserve food for a short time, but food may still go bad if kept for long periods even in the fridge.",
+      "to": "They work only for a short time, however: food may still go bad if kept for long periods, even in a fridge."
+    },
+    {
+      "from": "One of the strategies of preventing food spoilage",
+      "to": "One of the strategies for preventing food spoilage"
+    },
+    {
+      "from": "Families include parents, children, and sometimes",
+      "to": "Families include parents, children and sometimes"
+    },
+    {
+      "from": "respectful to all age groups and persons with disability",
+      "to": "respectful to all age groups and persons with disabilities"
+    },
+    {
+      "from": "These advantages are broad some of which include:",
+      "to": "These advantages are broad; some of them are:"
+    },
+    {
+      "from": "Saves time and resources that would be spent",
+      "to": "This saves time and resources that would be spent"
+    },
+    {
+      "from": "Helps retain customers even in competitive markets",
+      "to": "This helps retain customers even in competitive markets"
+    },
+    {
+      "from": "Creates a positive working environment",
+      "to": "This creates a positive working environment"
+    },
+    {
+      "from": "Involves giving individual attention to guests",
+      "to": "This involves giving individual attention to guests"
+    },
+    {
+      "from": "Means adjusting facilities or equipment",
+      "to": "This means adjusting facilities or equipment"
+    },
+    {
+      "from": "Refers to adjusting service times",
+      "to": "This refers to adjusting service times"
+    },
+    {
+      "from": "Refers to respecting different cultures",
+      "to": "This refers to respecting different cultures"
+    },
+    {
+      "from": "written comments or ideas anonymously and mobile apps",
+      "to": "written comments or ideas anonymously, and mobile apps"
+    },
+    {
+      "from": "quick online surveys and social media polls on platforms",
+      "to": "quick online surveys, and social media polls on platforms"
+    },
+    {
+      "from": "in the following manner: (you may choose any other way of presenting information).",
+      "to": "in the following manner (you may choose any other way of presenting information):"
+    },
+    {
+      "from": "steps to control and resolve them.",
+      "to": "steps to control and resolve problems."
+    },
+    {
+      "from": "Internet connectivity was erratic, couldn’t submit",
+      "to": "Internet connectivity was erratic; I couldn’t submit"
+    },
+    {
+      "from": "but the staff delays responding",
+      "to": "but the staff delay responding"
+    },
+    {
+      "from": "Offer a quick suitable solution",
+      "to": "Offer a quick, suitable solution"
+    },
+    {
+      "from": "relate to customers and with one another",
+      "to": "relate to customers and to one another"
+    },
+    {
+      "from": "when you used any of the skill(s)",
+      "to": "when you used any of these skills"
+    },
+    {
+      "from": "Zambian customs (e.g., greetings",
+      "to": "Zambian customs (e.g. greetings"
+    },
+    {
+      "from": "and their impact in tourism experiences",
+      "to": "and their impact on tourism experiences"
+    },
+    {
+      "from": "Should follow once the issue is understood",
+      "to": "This should follow once the issue is understood"
+    },
+    {
+      "from": "confirm the facts and where possible, involve",
+      "to": "confirm the facts and, where possible, involve"
+    },
+    {
+      "from": "Involves recording complaint details",
+      "to": "This involves recording complaint details"
+    },
+    {
+      "from": "“please…” ",
+      "to": "“please…”. "
+    },
+    {
+      "from": "hotels, restaurants, and transport services",
+      "to": "hotels, restaurants and transport services"
+    },
+    {
+      "from": "tour operators, and travel",
+      "to": "tour operators and travel"
+    },
+    {
+      "from": "false advertising, and unsafe",
+      "to": "false advertising and unsafe"
+    },
+    {
+      "from": "reflect on the scenarios below noting",
+      "to": "reflect on the scenarios below, noting"
+    },
+    {
+      "from": "swelling, itching, redness, or blistering",
+      "to": "swelling, itching, redness or blistering"
+    },
+    {
+      "from": "improper removal of makeup as well as possible",
+      "to": "improper removal of makeup, as well as possible"
+    },
+    {
+      "from": "Work in groups at setup stations",
+      "to": "Work in groups at set-⁠up stations"
+    },
+    {
+      "from": "specific areas you want to hide such as",
+      "to": "specific areas you want to hide, such as"
+    },
+    {
+      "from": "There are many shapes of faces and understanding",
+      "to": "There are many shapes of faces, and understanding"
+    },
+    {
+      "from": "has its unique characteristics and understanding",
+      "to": "has its unique characteristics, and understanding"
+    },
+    {
+      "from": "considered the most flexible with balanced",
+      "to": "considered the most flexible, with balanced"
+    },
+    {
+      "from": "Techniques of highlights for a face are divided into four key techniques:",
+      "to": "There are four key highlighting techniques:"
+    },
+    {
+      "from": "The process is quick and with regular care, keeps",
+      "to": "The process is quick and, with regular care, keeps"
+    },
+    {
+      "from": "They give an instant attractive and dramatic look",
+      "to": "They give an instant, attractive and dramatic look"
+    },
+    {
+      "from": "produces too much oil which makes",
+      "to": "produces too much oil, which makes"
+    },
+    {
+      "from": "can irritate the skin while exfoliating too little",
+      "to": "can irritate the skin, while exfoliating too little"
+    },
+    {
+      "from": "once or twice a week depending on skin type",
+      "to": "once or twice a week, depending on skin type"
+    },
+    {
+      "from": "Over-⁠drying should be avoided as it",
+      "to": "Over-⁠drying should be avoided, as it"
+    },
+    {
+      "from": "clean and tidy at all times, use a clean towel and cape",
+      "to": "clean and tidy at all times and use a clean towel and cape"
+    },
+    {
+      "from": "suitable ventilation and temperature, clear communication.",
+      "to": "suitable ventilation and temperature and clear communication."
+    },
+    {
+      "from": "according to the client’s skin type as earlier learnt",
+      "to": "according to the client’s skin type, as learnt earlier"
+    },
+    {
+      "from": "Divide yourselves into two groups; one for the motion",
+      "to": "Divide yourselves into two groups: one for the motion"
+    },
+    {
+      "from": "responsibly, ethically and respectfully without an attitude in the workplace",
+      "to": "responsibly, ethically and respectfully in the workplace"
+    },
+    {
+      "from": "Use the guest private information from the previous activity in the following scenarios. You may create any other.",
+      "to": "Use the guests’ private information from the previous activity in the following scenarios. You may also create others."
+    },
+    {
+      "from": "Using the guest private information learnt previously",
+      "to": "Using the guests’ private information from previous activities"
+    },
+    {
+      "from": "such as who, what, when and where and is usually",
+      "to": "such as who, what, when and where, and is usually"
+    },
+    {
+      "from": "Online Reservation System:",
+      "to": "Online Reservation Systems:"
+    },
+    {
+      "from": "to one learner in a group that they will read and the message will be whispered from one learner to the other.",
+      "to": "to one learner in each group, who will read it and whisper it to the next learner, and so on."
+    },
+    {
+      "from": "compare if it was the same message",
+      "to": "check whether it is the same message"
+    },
+    {
+      "from": "Occur when differences in position",
+      "to": "These occur when differences in position"
+    },
+    {
+      "from": "uncomfortable speaking to senior staff or employees",
+      "to": "uncomfortable speaking to senior staff, or employees"
+    },
+    {
+      "from": "Caused by unclear procedures",
+      "to": "These are caused by unclear procedures"
+    },
+    {
+      "from": "Conflict is not always negative as it",
+      "to": "Conflict is not always negative, as it"
+    },
+    {
+      "from": "Work in groups and for each situation, analyse",
+      "to": "Work in groups and, for each situation, analyse"
+    },
+    {
+      "from": "Respond calmly to prevent escalation and follow safety procedures and seek",
+      "to": "Respond calmly to prevent escalation, follow safety procedures and seek"
+    },
+    {
+      "from": "Meeting or clearly explaining limitations helps",
+      "to": "Meeting expectations, or clearly explaining limitations, helps"
+    },
+    {
+      "from": "accurate understanding before responding",
+      "to": "accurate understanding before responding."
+    },
+    {
+      "from": "for each risk,,",
+      "to": "for each risk,"
+    },
+    {
+      "from": "Involves stealing property",
+      "to": "This involves stealing property"
+    },
+    {
+      "from": "help increase customer satisfaction, loyalty and create",
+      "to": "help increase customer satisfaction and loyalty and create"
+    },
+    {
+      "from": "and pest control.",
+      "to": "and pest control"
+    },
+    {
+      "from": "supported according to their needs.",
+      "to": "supported according to their needs"
+    },
+    {
+      "from": "to a client with visual impairment.",
+      "to": "to a client with visual impairment"
+    },
+    {
+      "from": "Figure 13.   Teamwork  promotes",
+      "to": "Figure 13. Teamwork promotes"
+    },
+    {
+      "from": "positive professional relationships in the hospitality industry.",
+      "to": "positive professional relationships in the hospitality industry"
+    },
+    {
+      "from": "respectful and effective communication with guests.",
+      "to": "respectful and effective communication with guests"
+    },
+    {
+      "from": "promote hospitality services and support business growth.",
+      "to": "promote hospitality services and support business growth"
+    },
+    {
       "from": "A short-written message",
       "to": "A short written message"
     },
@@ -1920,6 +2287,10 @@
   "splitBefore": [
     {
       "find": "Skin Irritation:"
+    },
+    {
+      "find": "Present your work using a role play.",
+      "in": "How best could the situation"
     },
     {
       "find": "Scenario 1:",
@@ -2056,6 +2427,10 @@
     {
       "from": "scenarios:",
       "to": "Scenarios:"
+    },
+    {
+      "from": "Protocol:",
+      "to": "Protocols:"
     }
   ],
   "fixExercise": [
@@ -2138,6 +2513,16 @@
       "match": "EXERCISE 3",
       "near": "uest arrives at a lodge",
       "italic": true
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "Cooked food is left uncovered",
+      "romanToLetters": true
+    },
+    {
+      "match": "END OF TOPIC ASSESSMENT",
+      "near": "A regular guest prefers a quiet",
+      "romanToLetters": true
     },
     {
       "match": "END OF TOPIC ASSESSMENT",

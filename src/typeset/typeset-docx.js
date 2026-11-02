@@ -547,7 +547,7 @@ function emit(blocks) {
         const nb = nextB;
         const big = (b.w || 0) >= 400 || b.tall;
         const sticky = !big && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
-        out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
+        out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption.replace(/ {2,}/g, " ")) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
@@ -2914,7 +2914,7 @@ function applyOverrides(blocks, ov) {
         if (!a || !b || typeof a.t !== "string" || typeof b.t !== "string" || a.m || b.m) continue;
         // (a run of closing punctuation alone takes the formatting of the word it
         // closes: "…when it is broken" + a bold "." printed a bold full stop)
-        if ((/^\s+$/.test(b.t) && !b.u) || /^[,.;:?!]+$/.test(b.t) || same(a, b)) { a.t += b.t; segs.splice(i, 1); i--; }
+        if ((/^\s+$/.test(b.t) && !b.u) || /^[,.;:?!]+\s*$/.test(b.t) || same(a, b)) { a.t += b.t; segs.splice(i, 1); i--; }
       }
     };
     const tidy = (segs) => {
@@ -3573,6 +3573,12 @@ function applyOverrides(blocks, ov) {
     // whose scenario or questions arrived in roman, wholly or in patches)
     // (`italic: false` sets a box roman, like the book's assessments)
     if (fx.italic !== undefined) for (const p of parts) for (const s of p.qseg || []) if (!s.m && typeof s.t === "string") s.it = !!fx.italic;
+    // romanToLetters: true — sub-parts numbered i. ii. iii. take the book's a) b) c)
+    // instead (same depth), for a box the writer numbered differently from the rest
+    if (fx.romanToLetters) {
+      const R = { "i.": "a)", "ii.": "b)", "iii.": "c)", "iv.": "d)", "v.": "e)", "vi.": "f)" };
+      for (const p of parts) if (R[p.marker]) p.marker = R[p.marker];
+    }
     if (Array.isArray(fx.markers)) {
       parts.forEach((p, idx) => {
         if (idx >= fx.markers.length) return;
