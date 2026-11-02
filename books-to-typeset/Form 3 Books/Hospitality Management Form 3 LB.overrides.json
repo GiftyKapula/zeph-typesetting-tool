@@ -162,6 +162,33 @@
           }
         }
       ]
+    },
+    {
+      "find": "a) The type of communication barrier present.",
+      "with": [
+        {
+          "listitem": "*The type of communication barrier present.*",
+          "marker": "a)"
+        }
+      ]
+    },
+    {
+      "find": "b) How the barrier affect interaction",
+      "with": [
+        {
+          "listitem": "*How the barrier affects interaction.*",
+          "marker": "b)"
+        }
+      ]
+    },
+    {
+      "find": "c) Communication strategies used to manage the barrier during service delivery",
+      "with": [
+        {
+          "listitem": "*Communication strategies used to manage the barrier during service delivery.*",
+          "marker": "c)"
+        }
+      ]
     }
   ],
   "subtext": [
@@ -320,10 +347,6 @@
     {
       "from": "word-of-mouth",
       "to": "word-⁠of-⁠mouth"
-    },
-    {
-      "from": "short-written",
-      "to": "short-⁠written"
     },
     {
       "from": "end-of-topic",
@@ -552,22 +575,1653 @@
     {
       "from": "T-zone",
       "to": "T-⁠zone"
+    },
+    {
+      "from": "Health Hazards in the Work Place",
+      "to": "Health Hazards in the Workplace"
+    },
+    {
+      "from": "Examination of Common Mistake",
+      "to": "Examination of Common Mistakes"
+    },
+    {
+      "from": "Engagement in Interpersonal Skill",
+      "to": "Engagement in Interpersonal Skills"
+    },
+    {
+      "from": "Impact of Cultural Difference in Tourism",
+      "to": "Impact of Cultural Differences in Tourism"
+    },
+    {
+      "from": "Example of Business Plan Template",
+      "to": "Example of a Business Plan Template"
+    },
+    {
+      "from": "Business Plan template",
+      "to": "Business plan template"
+    },
+    {
+      "from": "Development of Security Protocol",
+      "to": "Development of a Security Protocol"
+    },
+    {
+      "from": "Steps on Contouring",
+      "to": "Steps in Contouring"
+    },
+    {
+      "from": "Identify types of customers and their specific needs",
+      "to": "Identifying types of customers and their specific needs"
+    },
+    {
+      "from": "Identify the problems associated with makeup",
+      "to": "Identifying the problems associated with makeup"
+    },
+    {
+      "from": "Applying of makeup",
+      "to": "Applying makeup"
+    },
+    {
+      "from": "Identify different shapes of faces",
+      "to": "Identifying different shapes of faces"
+    },
+    {
+      "from": "Practise written communication skill",
+      "to": "Practising written communication skills"
+    },
+    {
+      "from": "Practise the use of technological communication",
+      "to": "Practising the use of technological communication"
+    },
+    {
+      "from": "handling service failure exercise",
+      "to": "handling service failure"
+    },
+    {
+      "from": "Discussing cultural difference and their impact in tourism experience",
+      "to": "Discussing cultural differences and their impact on the tourism experience"
+    },
+    {
+      "from": "Researching on different strategies",
+      "to": "Researching different strategies"
+    },
+    {
+      "from": "Explaining the cause of food spoilage",
+      "to": "Explaining the causes of food spoilage"
+    },
+    {
+      "from": "Creating scenario depicting",
+      "to": "Creating a scenario depicting"
+    },
+    {
+      "from": "to practice security responses",
+      "to": "to practise security responses"
+    },
+    {
+      "from": "Role playing",
+      "to": "Role-⁠playing"
+    },
+    {
+      "from": "Discussing consequences of breaching confidentiality in",
+      "to": "Discussing consequences of breaching confidentiality in a hospitality facility"
+    },
+    {
+      "from": "Triangular-⁠shaped Face",
+      "to": "Triangular-⁠Shaped Face"
+    },
+    {
+      "from": "from form 1 and form 2",
+      "to": "from Form 1 and Form 2"
+    },
+    {
+      "from": "builds on entrepreneurship skill,",
+      "to": "builds on entrepreneurship skills,"
+    },
+    {
+      "from": "the key competencies covered",
+      "to": "the key competences covered"
+    },
+    {
+      "from": "Manag front office",
+      "to": "Manage front office"
+    },
+    {
+      "from": "Familiarise with the Star rating",
+      "to": "Familiarise yourself with the star rating"
+    },
+    {
+      "from": "Explore on international cuisines",
+      "to": "Explore international cuisines"
+    },
+    {
+      "from": "In this chapter, you will learn",
+      "to": "In this topic, you will learn"
+    },
+    {
+      "from": "the causes of the health hazards in hospitality workplace",
+      "to": "the causes of health hazards in the hospitality workplace"
+    },
+    {
+      "from": "Unsafe working environment increases",
+      "to": "An unsafe working environment increases"
+    },
+    {
+      "from": "health hazards and the effects in the workplace",
+      "to": "health hazards and their effects in the workplace"
+    },
+    {
+      "from": "Name the item, simulate a scenario",
+      "to": "Name the item and simulate a scenario"
+    },
+    {
+      "from": "An Occupational Health and Safety (OHS) Act No. 36 of 2010 provides for the occupational health and Safety policy which is",
+      "to": "The Occupational Health and Safety (OHS) Act No. 36 of 2010 provides for the occupational health and safety policy, which is"
+    },
+    {
+      "from": "but the Supervisor is busy",
+      "to": "but the supervisor is busy"
+    },
+    {
+      "from": "the required Safety induction",
+      "to": "the required safety induction"
+    },
+    {
+      "from": "the provisions of the act in",
+      "to": "the provisions of the Act in"
+    },
+    {
+      "from": "Purpose and Scop",
+      "to": "Purpose and Scope"
+    },
+    {
+      "from": "participate in a simulation of fire drill",
+      "to": "participate in a simulation of a fire drill"
+    },
+    {
+      "from": "an example of fire evacuation plan",
+      "to": "an example of a fire evacuation plan"
+    },
+    {
+      "from": "Present your work to class",
+      "to": "Present your work to the class"
+    },
+    {
+      "from": "Biological contamination, this includes",
+      "to": "Biological contamination: this includes"
+    },
+    {
+      "from": "Chemical contamination, this comes",
+      "to": "Chemical contamination: this comes"
+    },
+    {
+      "from": "Physical contamination, this involves foreign objects like hair, glass or dust",
+      "to": "Physical contamination: this involves foreign objects like hair, glass or dust."
+    },
+    {
+      "from": "bacteria, viruses and parasites",
+      "to": "bacteria, viruses and parasites."
+    },
+    {
+      "from": "discus with your family",
+      "to": "discuss with your family"
+    },
+    {
+      "from": "Compile your notes with explanation why",
+      "to": "Compile your notes with explanations of why"
+    },
+    {
+      "from": "prevent food related",
+      "to": "prevent food-⁠related"
+    },
+    {
+      "from": "Half of the class will one by one practice how to wash hands",
+      "to": "Half of the class will, one by one, practise how to wash hands"
+    },
+    {
+      "from": "the other half of class to observe the activity",
+      "to": "the other half of the class observes the activity"
+    },
+    {
+      "from": "if all the pupils washed",
+      "to": "if all the learners washed"
+    },
+    {
+      "from": "A number of spoiled food stuff will be displayed",
+      "to": "A number of spoiled foodstuffs will be displayed"
+    },
+    {
+      "from": "whether the food stuff is spoiled",
+      "to": "whether the foodstuff is spoiled"
+    },
+    {
+      "from": "bacteria, yeasts, and",
+      "to": "bacteria, yeasts and"
+    },
+    {
+      "from": "discoloration",
+      "to": "discolouration"
+    },
+    {
+      "from": "Recognising food spoilage, helps",
+      "to": "Recognising food spoilage helps"
+    },
+    {
+      "from": "carry out research on method of preserving",
+      "to": "carry out research on methods of preserving"
+    },
+    {
+      "from": "for your environment to carry out research",
+      "to": "for your environment to carry out research:"
+    },
+    {
+      "from": "such as; storing food",
+      "to": "such as storing food"
+    },
+    {
+      "from": "how temperature affect the rate",
+      "to": "how temperature affects the rate"
+    },
+    {
+      "from": "bservations on the difference in the food stuff",
+      "to": "observations on the difference in the foodstuffs"
+    },
+    {
+      "from": "observed in the food stuffs",
+      "to": "observed in the foodstuffs"
+    },
+    {
+      "from": "Zambia Education Publishing House",
+      "to": "Zambia Educational Publishing House"
+    },
+    {
+      "from": "Isabel and Florence are local customers, they walk in for a meal",
+      "to": "Isabel and Florence are local customers; they walk in for a meal."
+    },
+    {
+      "from": "Kalolo is a person with disability, he arrives and wants a service",
+      "to": "Kalolo is a person with a disability; he arrives and wants a service."
+    },
+    {
+      "from": "his Grandmother Matowe",
+      "to": "his grandmother Matowe"
+    },
+    {
+      "from": "Be in groups and pick one scenario above, respond to the needs of the customers using a role play.",
+      "to": "In groups, pick one scenario above and respond to the needs of the customers using a role play."
+    },
+    {
+      "from": "can affect their meetings which may be virtual; or ability to send reports",
+      "to": "can affect their meetings, which may be virtual, or their ability to send reports"
+    },
+    {
+      "from": "directors and chief executive officers and ministers",
+      "to": "directors, chief executive officers and ministers"
+    },
+    {
+      "from": "Examples of VIP guests are; ministers",
+      "to": "Examples of VIP guests are ministers"
+    },
+    {
+      "from": "Examples of events include; kitchen",
+      "to": "Examples of events include kitchen"
+    },
+    {
+      "from": "highlighting what was done well and suggest improvements",
+      "to": "highlighting what was done well and suggesting improvements"
+    },
+    {
+      "from": "you learned how to assess",
+      "to": "you learnt how to assess"
+    },
+    {
+      "from": "An elderly tourist with limited mobility visiting a hotel",
+      "to": "An elderly tourist with limited mobility is visiting a hotel"
+    },
+    {
+      "from": "without being aware.",
+      "to": "without you being aware of it."
+    },
+    {
+      "from": "judgments",
+      "to": "judgements"
+    },
+    {
+      "from": "the first step toward reducing",
+      "to": "the first step towards reducing"
+    },
+    {
+      "from": "reflect on the following questions",
+      "to": "reflect on the following questions:"
+    },
+    {
+      "from": "What new skill have you learnt about treating customers",
+      "to": "What new skill have you learnt about treating customers?"
+    },
+    {
+      "from": "as a future hospitality worker or facility owner",
+      "to": "as a future hospitality worker or facility owner?"
+    },
+    {
+      "from": "recommend the business to other",
+      "to": "recommend the business to others."
+    },
+    {
+      "from": "Having learned about specific needs for customers, you will need to tailor the service which means",
+      "to": "Having learnt about the specific needs of customers, you will need to tailor the service, which means a"
+    },
+    {
+      "from": "Two elderly woman, international tourists, one on walking aid arrives at 05:00 hours in the morning check in is at 10:00 hours",
+      "to": "Two elderly women, international tourists, one using a walking aid, arrive at 05:00 hours; check-⁠in is at 10:00 hours."
+    },
+    {
+      "from": "is having a workshop and want traditional foods",
+      "to": "is having a workshop and wants traditional foods."
+    },
+    {
+      "from": "A business man meeting",
+      "to": "A businessman meeting"
+    },
+    {
+      "from": "A couple recently got married arrives for a romantic dinner After each role play, the class to discuss the following:",
+      "to": "A recently married couple arrives for a romantic dinner. After each role play, discuss the following as a class:"
+    },
+    {
+      "from": "Conduct mock survey on customer satisfaction, giving each other chance",
+      "to": "Conduct a mock survey on customer satisfaction, giving each other a chance"
+    },
+    {
+      "from": "present to the class,",
+      "to": "present to the class."
+    },
+    {
+      "from": "Decide what you want to know for example, food",
+      "to": "Decide what you want to know, for example, food"
+    },
+    {
+      "from": "feedback quickly and effectively",
+      "to": "feedback quickly and effectively."
+    },
+    {
+      "from": "the quality of their services satisfaction.",
+      "to": "the quality of their services."
+    },
+    {
+      "from": "assess customer satisfaction, the next step is to design a structured plan. This prepares you and systems",
+      "to": "assess customer satisfaction. The next step is to design a structured plan. This prepares staff and systems"
+    },
+    {
+      "from": "Share your plan with your classmate in",
+      "to": "Share your plan with your classmates in"
+    },
+    {
+      "from": "steps to control and resolve.",
+      "to": "steps to control and resolve them."
+    },
+    {
+      "from": "share your ideas, further, discuss also the benefits",
+      "to": "share your ideas. Further, discuss the benefits"
+    },
+    {
+      "from": "Understanding these mistakes help",
+      "to": "Understanding these mistakes helps"
+    },
+    {
+      "from": "She then suggested that I go to another place where I could get one said I should move to another place where I could find one.",
+      "to": "She then suggested that I go to another place where I could find one."
+    },
+    {
+      "from": "returned my greeting while facing",
+      "to": "returned my greeting while facing down."
+    },
+    {
+      "from": "My beddings were dirty",
+      "to": "My bedding was dirty"
+    },
+    {
+      "from": "Common mistake in customer service include",
+      "to": "Common mistakes in customer service include"
+    },
+    {
+      "from": "he is told that the food has finished",
+      "to": "he is told that the food has finished."
+    },
+    {
+      "from": "Sipho finds that his room is smelling of old furniture",
+      "to": "Sipho finds that his room smells of old furniture"
+    },
+    {
+      "from": "complain of monotonous meals",
+      "to": "complain of monotonous meals."
+    },
+    {
+      "from": "When they politely point it out",
+      "to": "When she politely points it out"
+    },
+    {
+      "from": "with few friends, while eating, the table collapses and all drinks, food and cake fall down and are destroyed",
+      "to": "with a few friends. While eating, the table collapses and all the drinks, food and cake fall down and are destroyed."
+    },
+    {
+      "from": "shower room gets flooded",
+      "to": "shower room gets flooded."
+    },
+    {
+      "from": "resolve complaints professionally present your work to the class",
+      "to": "resolve complaints professionally. Present your work to the class."
+    },
+    {
+      "from": "without interrupting, this shows",
+      "to": "without interrupting; this shows"
+    },
+    {
+      "from": "acknowledge the problem, this helps reduce customer anger",
+      "to": "acknowledge the problem; this helps reduce customer anger."
+    },
+    {
+      "from": "to correct the issue, this improves",
+      "to": "to correct the issue; this improves"
+    },
+    {
+      "from": "customers' experiences",
+      "to": "customers’ experiences"
+    },
+    {
+      "from": "relate with customers",
+      "to": "relate to customers"
+    },
+    {
+      "from": "skills that you kmow",
+      "to": "skills that you know"
+    },
+    {
+      "from": "practice interpersonal skills",
+      "to": "practise interpersonal skills"
+    },
+    {
+      "from": "which responds to mistakes",
+      "to": "which respond to mistakes"
+    },
+    {
+      "from": "conflict or disaster arises. preventing conflicts from escalating and maintaining",
+      "to": "conflict or disaster arises. They help prevent conflicts from escalating and maintain"
+    },
+    {
+      "from": "one is smoking making the other uncomfortable",
+      "to": "one is smoking, making the other uncomfortable."
+    },
+    {
+      "from": "after making reservation for a room, they arrive and is told",
+      "to": "after making a reservation for a room, they arrive and are told"
+    },
+    {
+      "from": "discuss the following scenarios",
+      "to": "discuss the following scenarios:"
+    },
+    {
+      "from": "jmkA tourist",
+      "to": "A tourist"
+    },
+    {
+      "from": "experience, discuss also the possible misunderstanding that may occur",
+      "to": "experience. Discuss also the possible misunderstandings that may occur"
+    },
+    {
+      "from": "in others, it’s reserved",
+      "to": "in others, it is reserved"
+    },
+    {
+      "from": "where some will be tourist and the other tourism staff",
+      "to": "where some will be tourists and others tourism staff"
+    },
+    {
+      "from": "discuss if the handling of complaint was effective, if not, how best should the complaint have been handled.",
+      "to": "discuss whether the complaint was handled effectively and, if not, how it should have been handled."
+    },
+    {
+      "from": "handling complaints in Tourism and Hospitality",
+      "to": "handling complaints in tourism and hospitality:"
+    },
+    {
+      "from": "helps to diffuse anger",
+      "to": "helps to defuse anger"
+    },
+    {
+      "from": "After apology, you need",
+      "to": "After apologising, you need"
+    },
+    {
+      "from": "Place the napkin on lap, use it to wipe mouth",
+      "to": "Place the napkin on your lap, use it to wipe your mouth"
+    },
+    {
+      "from": "Hold fork in left hand, knife in right. Use fork to bring food to mouth",
+      "to": "Hold the fork in the left hand and the knife in the right. Use the fork to bring food to your mouth"
+    },
+    {
+      "from": "Serving order should be, serve guests first, then yourself. Place utensils parallel on plate",
+      "to": "The serving order should be: serve guests first, then yourself. Place utensils parallel on the plate"
+    },
+    {
+      "from": "Explain why you place a napkin on the lap",
+      "to": "Explain why you place a napkin on your lap."
+    },
+    {
+      "from": "talked with your food in the mouth",
+      "to": "talked with food in your mouth"
+    },
+    {
+      "from": "when eating uncomfortable, what should",
+      "to": "when eating uncomfortable. What should"
+    },
+    {
+      "from": "on the economy, social, environment and culture",
+      "to": "on the economy, society, the environment and culture"
+    },
+    {
+      "from": "congestion, crime, and strain",
+      "to": "congestion, crime and strain"
+    },
+    {
+      "from": "Study the following scenarios",
+      "to": "Study the following scenarios:"
+    },
+    {
+      "from": "A tourist’s flight is delayed and miss a tour",
+      "to": "A tourist’s flight is delayed and they miss a tour"
+    },
+    {
+      "from": "A guest is served with expired food work in groups and identify",
+      "to": "A guest is served expired food. Work in groups and identify:"
+    },
+    {
+      "from": "meet health and safety standard",
+      "to": "meet health and safety standards."
+    },
+    {
+      "from": "before buying such as pricing, inclusion, risk and cultural norms",
+      "to": "before buying, such as pricing, inclusions, risks and cultural norms."
+    },
+    {
+      "from": "Keep documents for example receipts and contracts for reference",
+      "to": "Keep documents, for example receipts and contracts, for reference"
+    },
+    {
+      "from": "observe consumer protection laws",
+      "to": "observe consumer protection laws?"
+    },
+    {
+      "from": "present your work to the class explaining how consumer protection mechanism build trust",
+      "to": "Present your work to the class, explaining how consumer protection mechanisms build trust"
+    },
+    {
+      "from": "is achieved through different ways, these include",
+      "to": "is achieved in different ways, which include"
+    },
+    {
+      "from": "Ministry Of Tourism",
+      "to": "Ministry of Tourism"
+    },
+    {
+      "from": "Licenses and grades",
+      "to": "Licences and grades"
+    },
+    {
+      "from": "when serving quests",
+      "to": "when serving guests"
+    },
+    {
+      "from": "Guest arrives at a lodge using a wheelchair",
+      "to": "A guest arrives at a lodge using a wheelchair"
+    },
+    {
+      "from": "shares her friends mascara wand, who",
+      "to": "shares the mascara wand of her friend, who"
+    },
+    {
+      "from": "with makeup some of which are",
+      "to": "with makeup, some of which are"
+    },
+    {
+      "from": "Occur when makeup blocks",
+      "to": "These occur when makeup blocks"
+    },
+    {
+      "from": "acne, blackheads, or whiteheads",
+      "to": "acne, blackheads or whiteheads"
+    },
+    {
+      "from": "or a housekeeping attendant, work in groups and:",
+      "to": "or a housekeeping attendant. Work in groups and:"
+    },
+    {
+      "from": "Express Creativity",
+      "to": "Expresses Creativity"
+    },
+    {
+      "from": "Enhance Features",
+      "to": "Enhances Features"
+    },
+    {
+      "from": "with different makeup products, each group will be assigned",
+      "to": "with different makeup products. Each group will be assigned"
+    },
+    {
+      "from": "Think of it as in painting a wall, you need",
+      "to": "Think of it like painting a wall: you need"
+    },
+    {
+      "from": "shades and types; liquid, cream or powder, to suit",
+      "to": "shades and types (liquid, cream or powder) to suit"
+    },
+    {
+      "from": "naturally catch light for instance, the tops",
+      "to": "naturally catch the light, for instance the tops"
+    },
+    {
+      "from": "cupid’s bow",
+      "to": "Cupid’s bow"
+    },
+    {
+      "from": "It helps define features in particular, cheekbones",
+      "to": "It helps define features, in particular the cheekbones"
+    },
+    {
+      "from": "A square face has a strong jawline, angular feature, a forehead",
+      "to": "A square face has a strong jawline, angular features and a forehead"
+    },
+    {
+      "from": "A heart shaped face",
+      "to": "A heart-⁠shaped face"
+    },
+    {
+      "from": "create illusion of bigger eyes",
+      "to": "create the illusion of bigger eyes"
+    },
+    {
+      "from": "Below are illustrations on how",
+      "to": "Below are illustrations of how"
+    },
+    {
+      "from": "enhanced lips. (Picture",
+      "to": "enhanced lips (Picture"
+    },
+    {
+      "from": "(Picture courtesy Annie",
+      "to": "(Picture courtesy of Annie"
+    },
+    {
+      "from": "Present your chart to the class explaining",
+      "to": "Present your chart to the class, explaining"
+    },
+    {
+      "from": "cheekbones, jawline, and forehead",
+      "to": "cheekbones, jawline and forehead"
+    },
+    {
+      "from": "contour the sides of the forehead",
+      "to": "Contour the sides of the forehead"
+    },
+    {
+      "from": "Apply couture makeup",
+      "to": "Apply contour makeup"
+    },
+    {
+      "from": "is a game-⁠changer in makeup, it adds dimension, brightness and a healthy glow to the skin",
+      "to": "is a game-⁠changer in makeup; it adds dimension, brightness and a healthy glow to the skin."
+    },
+    {
+      "from": "Your mother is going for work",
+      "to": "Your mother is going to work"
+    },
+    {
+      "from": "with your friends, you want some highlights",
+      "to": "with your friends and you want some highlights"
+    },
+    {
+      "from": "the Minister of education and your Headteacher asks",
+      "to": "the Minister of Education and your headteacher asks"
+    },
+    {
+      "from": "Use provided products and choose one scenario. work in groups as makeup artists to tailor highlight.",
+      "to": "Use the products provided and choose one scenario. Work in groups as makeup artists to tailor a highlight."
+    },
+    {
+      "from": "are dived into four key techniques",
+      "to": "are divided into four key techniques"
+    },
+    {
+      "from": "group with the best model to demonstrate to the class explaining each",
+      "to": "group with the best model demonstrates to the class, explaining each"
+    },
+    {
+      "from": "look shiny especially on the forehead nose and chin",
+      "to": "look shiny, especially on the forehead, nose and chin"
+    },
+    {
+      "from": "large pores blackheads and acne",
+      "to": "large pores, blackheads and acne"
+    },
+    {
+      "from": "lack moisture so it is important",
+      "to": "lack moisture, so it is important"
+    },
+    {
+      "from": "feels tight rough or flaky",
+      "to": "feels tight, rough or flaky"
+    },
+    {
+      "from": "show fine lines red patches",
+      "to": "show fine lines, red patches"
+    },
+    {
+      "from": "caused by genetics harsh products",
+      "to": "caused by genetics, harsh products"
+    },
+    {
+      "from": "After washing the skin may",
+      "to": "After washing, the skin may"
+    },
+    {
+      "from": "a smooth texture small pores and an even healthy appearance",
+      "to": "a smooth texture, small pores and an even, healthy appearance"
+    },
+    {
+      "from": "Even though it is balanced normal skin",
+      "to": "Even though it is balanced, normal skin"
+    },
+    {
+      "from": "Explain Why you think that’s the correct order",
+      "to": "Explain why you think that is the correct order"
+    },
+    {
+      "from": "removes dirt oil and impurities",
+      "to": "removes dirt, oil and impurities"
+    },
+    {
+      "from": "dryness or irritation so it is",
+      "to": "dryness or irritation, so it is"
+    },
+    {
+      "from": "look brighter smoother and more",
+      "to": "look brighter, smoother and more"
+    },
+    {
+      "from": "This balance and preps your skin",
+      "to": "This balances and preps your skin"
+    },
+    {
+      "from": "irritating ingredients opt for",
+      "to": "irritating ingredients; opt for"
+    },
+    {
+      "from": "the skin soft hydrated and healthy",
+      "to": "the skin soft, hydrated and healthy"
+    },
+    {
+      "from": "too heavy or too light which",
+      "to": "too heavy or too light, which"
+    },
+    {
+      "from": "research on the appropriate treatment",
+      "to": "research the appropriate treatment"
+    },
+    {
+      "from": "After the research,. Present your work to the class using a chart",
+      "to": "After the research, present your work to the class using a chart."
+    },
+    {
+      "from": "treatments for different skin type:",
+      "to": "treatments for different skin types:"
+    },
+    {
+      "from": "hydrating facial treatments gentle exfoliation",
+      "to": "hydrating facial treatments, gentle exfoliation"
+    },
+    {
+      "from": "feel softer look plumper",
+      "to": "feel softer, look plumper"
+    },
+    {
+      "from": "oil from pores gentle exfoliation",
+      "to": "oil from pores, gentle exfoliation"
+    },
+    {
+      "from": "reduces shine breakouts and",
+      "to": "reduces shine, breakouts and"
+    },
+    {
+      "from": "products are recommended including",
+      "to": "products are recommended, including"
+    },
+    {
+      "from": "dry areas usually with",
+      "to": "dry areas, usually with"
+    },
+    {
+      "from": "combination of products which",
+      "to": "combination of products, which"
+    },
+    {
+      "from": "the makeup for example; daily wear, work or special occasion",
+      "to": "the makeup, for example daily wear, work or a special occasion"
+    },
+    {
+      "from": "agree on the desired look Consultation",
+      "to": "agree on the desired look. Consultation"
+    },
+    {
+      "from": "for hygiene and sanitation;",
+      "to": "for hygiene and sanitation:"
+    },
+    {
+      "from": "at all given time",
+      "to": "at all times"
+    },
+    {
+      "from": "Additionally, wear gloves, avoid sharing",
+      "to": "Additionally, wear gloves and avoid sharing"
+    },
+    {
+      "from": "clear communication, explain each step before performing it",
+      "to": "clear communication. Explain each step before performing it"
+    },
+    {
+      "from": "confirm the client is comfortable, ensure skin is fully prepared",
+      "to": "confirm that the client is comfortable and the skin is fully prepared"
+    },
+    {
+      "from": "perform the cleansing, toning and moisturising The following tools and products: Facial cleanser soap, clean water, cotton wool or pads, toner",
+      "to": "perform cleansing, toning and moisturising using the following tools and products: facial cleanser or soap, clean water, cotton wool or pads, toner"
+    },
+    {
+      "from": "moisturiser, clean towel makeup sponge, hand sanitiser or soap. Demonstrate",
+      "to": "moisturiser, a clean towel, a makeup sponge and hand sanitiser or soap. Demonstrate"
+    },
+    {
+      "from": "dirt, sweat, oil, and makeup",
+      "to": "dirt, sweat, oil and makeup"
+    },
+    {
+      "from": "clean water, and cotton",
+      "to": "clean water and cotton"
+    },
+    {
+      "from": "evening out the complexion, and adding",
+      "to": "evening out the complexion and adding"
+    },
+    {
+      "from": "Set up stations for each makeup step: primer, camouflage, base/ foundation, lipstick)",
+      "to": "Set up stations for each makeup step (primer, camouflage, base/foundation, lipstick)."
+    },
+    {
+      "from": "Products: primer, concealer, foundation, lipstick",
+      "to": "Products: primer, concealer, foundation, lipstick."
+    },
+    {
+      "from": "applicators mirrors and models (if possible or use any volunteers, if learners are used, they must wash off after the lesson) Teacher’s book)",
+      "to": "applicators, mirrors and models (if possible; otherwise use volunteers, and if learners are used, they must wash the makeup off after the lesson)."
+    },
+    {
+      "from": "Work in groups and each to be assigned a particular step, in your groups:",
+      "to": "Work in groups; each group is assigned a particular step. In your groups:"
+    },
+    {
+      "from": "for their assigned station",
+      "to": "for your assigned station"
+    },
+    {
+      "from": "red spots, and uneven",
+      "to": "red spots and uneven"
+    },
+    {
+      "from": "while the cheek often feel tight and flaky",
+      "to": "while the cheeks often feel tight and flaky."
+    },
+    {
+      "from": "un professional",
+      "to": "unprofessional"
+    },
+    {
+      "from": "pocks her ears",
+      "to": "pokes her ears"
+    },
+    {
+      "from": "A waitress chewing gum while attending to guests",
+      "to": "A waitress chews gum while attending to guests."
+    },
+    {
+      "from": "A staff sneezes in front of guests, does not hold mouth neither does he excuse himself",
+      "to": "A staff member sneezes in front of guests, does not cover his mouth and does not excuse himself."
+    },
+    {
+      "from": "neatly dressed, and wearing",
+      "to": "neatly dressed and wearing"
+    },
+    {
+      "from": "A house keeper",
+      "to": "A housekeeper"
+    },
+    {
+      "from": "continues chatting with friends, and",
+      "to": "continues chatting with friends and"
+    },
+    {
+      "from": "apologises, and quickly",
+      "to": "apologises and quickly"
+    },
+    {
+      "from": "Professional conduct in hospitality industry is",
+      "to": "Professional conduct in the hospitality industry is"
+    },
+    {
+      "from": "integrity and fairness maintain credibility",
+      "to": "integrity and fairness maintains credibility"
+    },
+    {
+      "from": "using good communication and team work",
+      "to": "using good communication and teamwork"
+    },
+    {
+      "from": "Where you carry out the planned activities",
+      "to": "This is where you carry out the planned activities"
+    },
+    {
+      "from": "This involve discussing",
+      "to": "This involves discussing"
+    },
+    {
+      "from": "and lessons learned",
+      "to": "and lessons learnt"
+    },
+    {
+      "from": "technical skills in hospitality”",
+      "to": "technical skills in hospitality.”"
+    },
+    {
+      "from": "include neat appearance and good hygiene. Polite and effective communication.",
+      "to": "include neat appearance, good hygiene and polite, effective communication."
+    },
+    {
+      "from": "helps you bridges the gap",
+      "to": "helps you bridge the gap"
+    },
+    {
+      "from": "show how the behaviour affects customer and the business",
+      "to": "show how the behaviour affects the customer and the business"
+    },
+    {
+      "from": "Give brief reason for each",
+      "to": "Give a brief reason for each"
+    },
+    {
+      "from": "inquiries",
+      "to": "enquiries"
+    },
+    {
+      "from": "when it is broken",
+      "to": "when it is broken"
+    },
+    {
+      "from": "in public; work in groups",
+      "to": "in public. Work in groups"
+    },
+    {
+      "from": "experience embarrassment emotional",
+      "to": "experience embarrassment, emotional"
+    },
+    {
+      "from": "disciplinary action including suspension or dismissal and damage",
+      "to": "disciplinary action, including suspension or dismissal, and damage"
+    },
+    {
+      "from": "For the establishment such breaches",
+      "to": "For the establishment, such breaches"
+    },
+    {
+      "from": "as a legal ethical and professional",
+      "to": "as a legal, ethical and professional"
+    },
+    {
+      "from": "work in group and design",
+      "to": "work in groups and design"
+    },
+    {
+      "from": "a professional legal and ethical responsibility",
+      "to": "a professional, legal and ethical responsibility"
+    },
+    {
+      "from": "communicate effectively ensuring smooth service delivery and positive guest experience",
+      "to": "and communicate effectively, ensuring smooth service delivery and a positive guest experience"
+    },
+    {
+      "from": "Whatever form it is, requires clarity",
+      "to": "Whatever its form, it requires clarity"
+    },
+    {
+      "from": "Announcing staff meeting",
+      "to": "Announcing a staff meeting"
+    },
+    {
+      "from": "Encouraging guests to: turn off taps when not in use, reuse towels, when possible, report leaking taps or toilets",
+      "to": "Encouraging guests to turn off taps when not in use, reuse towels when possible and report leaking taps or toilets"
+    },
+    {
+      "from": "Announce a training for staff",
+      "to": "Announcing a training session for staff"
+    },
+    {
+      "from": "Requesting for cleaning materials",
+      "to": "Requesting cleaning materials"
+    },
+    {
+      "from": "communicate instantly with guests, mastering technological",
+      "to": "communicate instantly with guests. Mastering technological"
+    },
+    {
+      "from": "or create your own, create a communication plan",
+      "to": "or create your own, and develop a communication plan"
+    },
+    {
+      "from": "Common Forms of technological",
+      "to": "Common forms of technological"
+    },
+    {
+      "from": "complaints, enquiries, and official",
+      "to": "complaints, enquiries and official"
+    },
+    {
+      "from": "brief announcements and customer updates Instagram, for advertising rooms, meal and events using photos and videos and TikTok",
+      "to": "brief announcements and customer updates; Instagram, for advertising rooms, meals and events using photos and videos; and TikTok"
+    },
+    {
+      "from": "sharing updates, promoting events, or engaging",
+      "to": "sharing updates, promoting events or engaging"
+    },
+    {
+      "from": "Allow guests to book rooms, tables, or services",
+      "to": "These allow guests to book rooms, tables or services"
+    },
+    {
+      "from": "Be in groups and play a communication game",
+      "to": "In groups, play a communication game"
+    },
+    {
+      "from": "barriers to communication and present to the class",
+      "to": "barriers to communication and present them to the class"
+    },
+    {
+      "from": "Occur when people do not share",
+      "to": "These occur when people do not share"
+    },
+    {
+      "from": "on the message. sound can also",
+      "to": "on the message. Sound can also"
+    },
+    {
+      "from": "sending messages, it involves",
+      "to": "sending messages; it involves"
+    },
+    {
+      "from": "traditions and customs. Cultural awareness. It helps you",
+      "to": "traditions and customs. It helps you"
+    },
+    {
+      "from": "maintaining eye contact, ask clarifying questions, paraphrase and summarise and responding",
+      "to": "maintaining eye contact, asking clarifying questions, paraphrasing and summarising, and responding"
+    },
+    {
+      "from": "Some people are slow speakers, others have stammer and some suffer with cross words or letters in their speech, dealing with such and any other, needs you to pay extra attention, avoid interruptions and remain patient, in this manner, you will resolve issues professionally.",
+      "to": "Some people are slow speakers, others have a stammer and some mix up words or letters in their speech. Dealing with such guests requires you to pay extra attention, avoid interruptions and remain patient. In this manner, you will resolve issues professionally."
+    },
+    {
+      "from": "When empathy is considered while communicating it builds trust, connection, resolves conflicts and improves relationship",
+      "to": "When empathy is shown while communicating, it builds trust and connection, resolves conflicts and improves the relationship"
+    },
+    {
+      "from": "nodding, or responding",
+      "to": "nodding or responding"
+    },
+    {
+      "from": "a scenario that involve communication",
+      "to": "a scenario that involves communication"
+    },
+    {
+      "from": "responds coldly causing tension between them",
+      "to": "responds coldly, causing tension between them."
+    },
+    {
+      "from": "without explaining the reason and insults the manager causing tension",
+      "to": "without being given a reason and insults the manager, causing tension."
+    },
+    {
+      "from": "an exquisite hotel and thrown out",
+      "to": "an exquisite hotel and is thrown out"
+    },
+    {
+      "from": "A gust struggles",
+      "to": "A guest struggles"
+    },
+    {
+      "from": "becomes impatient and dismissive resulting in frustration on both sides",
+      "to": "becomes impatient and dismissive, resulting in frustration on both sides."
+    },
+    {
+      "from": "when messages are misunderstood emotions rise",
+      "to": "when messages are misunderstood, emotions rise"
+    },
+    {
+      "from": "In hospitality conflicts may",
+      "to": "In hospitality, conflicts may"
+    },
+    {
+      "from": "from unclear communication poor listening",
+      "to": "from unclear communication, poor listening"
+    },
+    {
+      "from": "also applicable to hospitality industry",
+      "to": "also applicable to the hospitality industry"
+    },
+    {
+      "from": "Think of a real-⁠life conflict encountered in school, community or hospitality setting",
+      "to": "Think of a real-⁠life conflict encountered in school, the community or a hospitality setting"
+    },
+    {
+      "from": "How the conflict was resoled",
+      "to": "How the conflict was resolved"
+    },
+    {
+      "from": "Share your analysis to the class",
+      "to": "Share your analysis with the class"
+    },
+    {
+      "from": "strategies suitable to real hospitality environment",
+      "to": "strategies suitable for real hospitality environments"
+    },
+    {
+      "from": "On one side of each card describe",
+      "to": "On one side of each card, describe"
+    },
+    {
+      "from": "On the other side write",
+      "to": "On the other side, write"
+    },
+    {
+      "from": "After completing the cards groups",
+      "to": "After completing the cards, groups"
+    },
+    {
+      "from": "strategies in conflict situation.",
+      "to": "strategies in conflict situations."
+    },
+    {
+      "from": "information as well as build trust",
+      "to": "information as well as builds trust"
+    },
+    {
+      "from": "your plan should include:",
+      "to": "Your plan should include:"
+    },
+    {
+      "from": "Identifying these risks, establishments",
+      "to": "By identifying these risks, establishments"
+    },
+    {
+      "from": "Some key security protocols include, access control; controlling who enters the establishment and specific areas within it. CCTV surveillance, monitoring the establishment’s premises. Emergency response plans: procedures for responding to emergencies such as fires or medical emergencies and communication protocols that state how to communicate with guests, staff and emergency services.",
+      "to": "Some key security protocols include access control (controlling who enters the establishment and specific areas within it), CCTV surveillance (monitoring the establishment’s premises), emergency response plans (procedures for responding to emergencies such as fires or medical emergencies) and communication protocols (stating how to communicate with guests, staff and emergency services)."
+    },
+    {
+      "from": "This can be achieved through; providing a secure environment, including secure rooms and safe deposit boxes. Training staff on security procedures and emergency response; Implementing measures to prevent accidents and injuries, such as fire safety measures and first aid kits; Communicating with guests and staff about security concerns and procedures.",
+      "to": "This can be achieved by providing a secure environment, including secure rooms and safe deposit boxes; training staff on security procedures and emergency response; implementing measures to prevent accidents and injuries, such as fire safety measures and first aid kits; and communicating with guests and staff about security concerns and procedures."
+    },
+    {
+      "from": "Some measures to protect assets include; Securing valuable items in safe deposit boxes or vaults; Implementing access controls to sensitive areas; Monitoring and controlling access to digital assets, such as data and online systems; Training staff on asset protection procedures",
+      "to": "Some measures to protect assets include securing valuable items in safe deposit boxes or vaults; implementing access controls to sensitive areas; monitoring and controlling access to digital assets, such as data and online systems; and training staff on asset protection procedures."
+    },
+    {
+      "from": "observe their security practices.",
+      "to": "observe its security practices."
+    },
+    {
+      "from": "practices. work in groups, compile your findings and write a short report on: What you observed",
+      "to": "practices. Work in groups, compile your findings and write a short report on what you observed"
+    },
+    {
+      "from": "Suspicious person loitering",
+      "to": "A suspicious person loitering"
+    },
+    {
+      "from": "open the room claiming they lost their key",
+      "to": "open the room, claiming they lost their key."
+    },
+    {
+      "from": "A VIP guest is visiting the facility",
+      "to": "A VIP guest is visiting the facility."
+    },
+    {
+      "from": "Your facility operates a bureau de change",
+      "to": "Your facility operates a bureau de change."
+    },
+    {
+      "from": "A couple fighting",
+      "to": "A couple is fighting."
+    },
+    {
+      "from": "A guest found dead in a room",
+      "to": "A guest is found dead in a room."
+    },
+    {
+      "from": "What could be improve.",
+      "to": "What could be improved?"
+    },
+    {
+      "from": "decision-⁠making skills and enhance your ability",
+      "to": "decision-⁠making skills and enhances your ability"
+    },
+    {
+      "from": "some of security scenarios to learn:",
+      "to": "some of the security scenarios to learn about:"
+    },
+    {
+      "from": "As learnt earlier under health and safety topic",
+      "to": "As learnt earlier in the Health and Safety topic"
+    },
+    {
+      "from": "identify where it may occur. For each risk, identified suggest",
+      "to": "identify where they may occur. For each risk identified, suggest"
+    },
+    {
+      "from": "Use the security risks identified earlier, work in groups and for each risk",
+      "to": "Using the security risks identified earlier, work in groups and, for each risk,"
+    },
+    {
+      "from": "the key asserts that need",
+      "to": "the key assets that need"
+    },
+    {
+      "from": "asserts to be protected and staff roles and responsibilities Present your protocol",
+      "to": "assets to be protected and staff roles and responsibilities. Present your protocol"
+    },
+    {
+      "from": "Focus on protection, safety and continuity of operations. Guide the design of procedures and staff responsibilities. Should be specific",
+      "to": "They focus on protection, safety and continuity of operations, guide the design of procedures and staff responsibilities, and should be specific"
+    },
+    {
+      "from": "helps priorities security controls",
+      "to": "helps prioritise security controls"
+    },
+    {
+      "from": "monitoring CCTV, or evacuating",
+      "to": "monitoring CCTV or evacuating"
+    },
+    {
+      "from": "into effective action, as in a real hospitality environment",
+      "to": "into effective action, as in a real hospitality environment."
+    },
+    {
+      "from": "demonstrate how it should be applied in real-⁠life situation",
+      "to": "demonstrate how it should be applied in a real-⁠life situation"
+    },
+    {
+      "from": "The classmates to discuss effectiveness of each role play and make suggestions of what could be done better.",
+      "to": "Classmates discuss the effectiveness of each role play and suggest what could be done better."
+    },
+    {
+      "from": "Mitigation strategies include. securing",
+      "to": "Mitigation strategies include securing"
+    },
+    {
+      "from": "Prioritising employee safety, hospitality",
+      "to": "By prioritising employee safety, hospitality"
+    },
+    {
+      "from": "During an incidence,",
+      "to": "During an incident,"
+    },
+    {
+      "from": "store room",
+      "to": "storeroom"
+    },
+    {
+      "from": "a hospitality enterprise The business concept and mission statement define the purpose and direction of the venture",
+      "to": "a hospitality enterprise. The business concept and mission statement define the purpose and direction of the venture."
+    },
+    {
+      "from": "focus on nurturing operations of your venture and drive growth",
+      "to": "focus on nurturing the operations of your venture and driving growth"
+    },
+    {
+      "from": "Nurturing and growing a business involve improving",
+      "to": "Nurturing and growing a business involves improving"
+    },
+    {
+      "from": "requires strong focus",
+      "to": "requires a strong focus"
+    },
+    {
+      "from": "strong visual content help showcase",
+      "to": "strong visual content helps showcase"
+    },
+    {
+      "from": "reduced waste, and attention",
+      "to": "reduced waste and attention"
+    },
+    {
+      "from": "A short-written message",
+      "to": "A short written message"
+    },
+    {
+      "from": "not following health and safety rules ",
+      "to": "not following health and safety rules."
+    },
+    {
+      "from": "work in groups and:",
+      "to": "Work in groups and:"
     }
   ],
   "splitBefore": [
     {
       "find": "Skin Irritation:"
+    },
+    {
+      "find": "Scenario 1:",
+      "in": "not following health and safety rules"
+    },
+    {
+      "find": "Work in groups and:",
+      "in": "shower room gets flooded"
+    },
+    {
+      "find": "Present your work to the class.",
+      "in": "resolve complaints professionally"
+    },
+    {
+      "find": "After each role play, discuss the following as a class:",
+      "in": "romantic dinner"
+    },
+    {
+      "find": "Work in groups and identify:",
+      "in": "served expired food"
+    },
+    {
+      "find": "Present your work to the class",
+      "in": "Consumer responsibility"
+    },
+    {
+      "find": "Present your work to the class, explaining how consumer",
+      "in": "observe consumer protection laws"
+    },
+    {
+      "find": "Present your security plan to the class",
+      "in": "maintaining safety and security"
     }
+  ],
+  "//compounds": "Reviewer (round 1) marked \"co- worker\" split at a line end: every hyphenated compound in the book gets a word joiner after its hyphen, so none breaks across two lines.",
+  "//consistency": "Consistency pass (2 Nov 2026): every typo, grammar slip, missing full stop, glued sentence, mis-numbered exercise, inconsistent heading/activity title and stray space found in a full read of the book. Engine helpers used: tidyPunctSpace, endStop, splitBefore `in`, sigGap.",
+  "tidyPunctSpace": true,
+  "splitSubParts": true,
+  "sigGap": "22mm",
+  "endStop": [
+    "the importance of fire drills",
+    "present to the class",
+    "and best practices",
+    "reputation of the hospitality establishment",
+    "during a fire emergency",
+    "by softening the wider forehead",
+    "Present your work to the class",
+    "Present your findings to the class",
+    "support sustainable growth",
+    "in the hospitality industry",
+    "professional hospitality workplace",
+    "standards in hospitality and tourism",
+    "present your advice to the school",
+    "in a restaurant or hotel",
+    "personal grooming, professionalism and customer confidence",
+    "She arrives at your hospitality facility",
+    "when leaving the room",
+    "Announcing a team building outing",
+    "Announcing staff meeting",
+    "Announce a training for staff",
+    "Applying for a job in a hospitality facility",
+    "from stores",
+    "or toilets",
+    "It improves communication and performance",
+    "Identify common service failures in the scenario",
+    "Demonstrate appropriate responses to service failures",
+    "Describe why appropriate makeup is important in that role",
+    "Draw the face shape on a chart",
+    "appropriate for that face shape",
+    "balance the facial features",
+    "serving guests food",
+    "who are slow at their work",
+    "when taking orders",
+    "in a workplace",
+    "conduct in the workplace",
+    "important in hospitality work",
+    "arrive for a day’s business meeting",
+    "venue for his wedding",
+    "lodge for a weekend",
+    "visiting your facility",
+    "does not take salted foods",
+    "take food with oil",
+    "A guest smokes",
+    "arrives for dinner",
+    "a private meeting",
+    "allergic to strong scents",
+    "does not match the booking description",
+    "it is not authentic",
+    "miss a tour",
+    "add some glow to her look",
+    "wants a natural highlight",
+    "you want some highlights",
+    "some highlights on her face",
+    "Take notes on key tips and considerations",
+    "discuss all the necessary steps required to prepare a client for makeup",
+    "Identify two immediate first aid actions you should take",
+    "Explain the correct action that should be taken",
+    "Share with your family at home and implement your plans",
+    "Follow up to ensure the customer is satisfied",
+    "calm throughout the interaction",
+    "Explain what food safety means in a hospitality facility",
+    "give one example of each",
+    "important when handling food",
+    "success of a hospitality business",
+    "with respect and dignity",
+    "Identify the service failure in this situation",
+    "handle the complaint professionally",
+    "because of their appearance",
+    "Identify the issue demonstrated by the staff member",
+    "this behaviour can have on the business",
+    "staff can take to avoid this problem",
+    "responsibility in a hospitality setting",
+    "at home or in your community",
+    "important for customer satisfaction",
+    "ensuring tourism benefits local communities",
+    "Present your work to class",
+    "Present using a role play",
+    "Present your security plan to the class",
+    "contributed to the conflict",
+    "the conflict was resoled",
+    "Identification of areas that require security",
+    "Possible security risks in each area",
+    "Security measures to reduce or prevent the risk"
+  ],
+  "retext": [
+    {
+      "from": "G",
+      "to": "A g"
+    },
+    {
+      "from": "o",
+      "to": ""
+    },
+    {
+      "from": "scenarios:",
+      "to": "Scenarios:"
+    }
+  ],
+  "fixExercise": [
+    {
+      "match": "EXERCISE 5",
+      "near": "A hotel has noticed that although",
+      "markers": [
+        "lead",
+        "1.",
+        "2.",
+        "3.",
+        "4."
+      ]
+    },
+    {
+      "match": "EXERCISE 6",
+      "near": "A restaurant receives several customer reviews",
+      "markers": [
+        "lead",
+        "1.",
+        "2.",
+        "3.",
+        "4."
+      ]
+    },
+    {
+      "match": "EXERCISE 11",
+      "near": "A guest books and pays",
+      "markers": [
+        "lead",
+        "1.",
+        "2.",
+        "3."
+      ]
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "newly recruited",
+      "markers": [
+        null,
+        "lead",
+        "1.",
+        "2.",
+        "3.",
+        "4."
+      ]
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "two clients are observed",
+      "markers": [
+        null,
+        "lead",
+        "1.",
+        "2.",
+        "3.",
+        "4."
+      ]
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "uses the same knife",
+      "markers": [
+        null,
+        "1.",
+        "2."
+      ]
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "elderly tourist with limited mobility",
+      "markers": [
+        null,
+        "1.",
+        "2."
+      ],
+      "italic": true
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "uest arrives at a lodge",
+      "italic": true
+    },
+    {
+      "match": "END OF TOPIC ASSESSMENT",
+      "near": "to protect consumer health",
+      "italic": false
+    },
+    {
+      "match": "EXERCISE 8",
+      "near": "the tour started 30 minutes",
+      "italic": true
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "grooming preparations",
+      "italic": true
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "During a busy dinner service",
+      "italic": true
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "A lodge receives guests",
+      "italic": true
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "Use the hospitality business idea",
+      "italic": true
+    }
+  ],
+  "removeWhereNext": [
+    {
+      "find": "This brings in disability inclusion",
+      "next": "During a staff meeting"
+    },
+    {
+      "find": "This naturally assesses respect",
+      "next": "A guest complains angrily about a service received"
+    },
+    {
+      "find": "Hospitality facility",
+      "next": "Imagine that you have shared a guest"
+    },
+    {
+      "find": "Down.",
+      "next": "I complained about dust"
+    }
+  ],
+  "moveBefore": [
+    {
+      "find": "Encourages Career Growth:",
+      "before": "You are working at a busy hotel"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "When customers are satisfied, employees feel proud"
+    }
+  ],
+  "remove": [
+    "Response Behaviour",
+    "Short Message Service",
+    "Unique Selling Proposition"
   ],
   "insertText": [
     {
-      "before": "Agness Mumba Wilkins (PhD)",
-      "blocks": [
-        {
-          "vspace": "16mm"
-        }
+      "before": "Circuit Television",
+      "text": "**CCPC**: Competition and Consumer Protection Commission"
+    },
+    {
+      "before": "Personal Protective Equipment",
+      "text": [
+        "**NRC**: National Registration Card",
+        "**OHS**: Occupational Health and Safety"
+      ]
+    },
+    {
+      "after": "Very Important Person",
+      "text": [
+        "**ZEPH**: Zambia Educational Publishing House",
+        "**ZTA**: Zambia Tourism Agency"
       ]
     }
-  ],
-  "//compounds": "Reviewer (round 1) marked \"co- worker\" split at a line end: every hyphenated compound in the book gets a word joiner after its hyphen, so none breaks across two lines."
+  ]
 }
