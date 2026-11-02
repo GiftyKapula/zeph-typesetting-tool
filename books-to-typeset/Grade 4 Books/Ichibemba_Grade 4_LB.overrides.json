@@ -2889,6 +2889,30 @@
     {
       "find": "ishalekana lekana",
       "with": "ishalekana-lekana"
+    },
+    {
+      "find": "4.6.14 INSOSELO",
+      "with": "4.6.15 INSOSELO"
+    },
+    {
+      "find": "4.6.14.1 Ukwishibisha Insoselo",
+      "with": "4.6.15.1 Ukwishibisha Insoselo"
+    },
+    {
+      "find": "4.6.13 IMILUMBE",
+      "with": "4.6.14 IMILUMBE"
+    },
+    {
+      "find": "4.6.13.1 Ukusobolola Imilumbe",
+      "with": "4.6.14.1 Ukusobolola Imilumbe"
+    },
+    {
+      "find": "4.4.2.2 UKUBELENGA MUKUIPAKISHA",
+      "with": "4.4.2 UKUBELENGA MUKUIPAKISHA"
+    },
+    {
+      "find": "4.4.2.2.1 Ukubelenga kwa Kumfwikisha",
+      "with": "4.4.2.1 Ukubelenga kwa Kumfwikisha"
     }
   ],
   "subtext": [
