@@ -86,13 +86,13 @@
       "src": "Hospitality Management Form 3 LB-hires/image40.png"
     },
     "image38.jpeg": {
-      "src": "Hospitality Management Form 3 LB-hires/image38.png"
+      "src": "Hospitality Management Form 3 LB-hires/image38-round1.png"
     },
     "image22.jpeg": {
       "src": "Hospitality Management Form 3 LB-hires/image22.png"
     },
     "image4.jpeg": {
-      "src": "Hospitality Management Form 3 LB-hires/image4.png"
+      "src": "Hospitality Management Form 3 LB-hires/image4-round1.png"
     },
     "image5.jpeg": {
       "src": "Hospitality Management Form 3 LB-hires/image5.png"
@@ -129,5 +129,60 @@
   "//headListSpacing": "A heading kept on the page with the short list under it (Benefits of Technological Communication) sat 3pt closer to the text above than every other heading; this gives it the same space.",
   "headListSpacing": true,
   "//writingColumns": "The Customer Profile Template's empty Response column (learners write in it) was squeezed until its header broke as Re-sponse.",
-  "writingColumns": true
+  "writingColumns": true,
+  "//round1": "Proofreading round 1 (2 Nov 2026): the reviewer's 30 highlights on the post-CDC PDF plus the addendum's two replacement pictures. 25 highlights say \"do not cut word\" -> hyphenate: false; the rest are the keys below.",
+  "hyphenate": false,
+  "//image38": "Addendum: Topic 3.7 opener (four pictures) replaced by the one collage the author supplied; the other three are removed.",
+  "removeImages": [
+    "image39.jpeg",
+    "image40.jpeg",
+    "image41.jpeg"
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Phyllis Simasiku holds a Master’s degree in Women’s Law (MWL) from the University of Zimbabwe, Southern and Eastern African Regional Centre for Women’s Law, Harare, Zimbabwe, a Bachelor of Arts with Education, University of Zambia, Lusaka and a Certificate in Global Development Agenda (Gender Sensitive Planning and Implementation) International Training Centre of the ILO/UNIFEM. She has over twenty-five years of professional experience in secondary education, school management and education consultancy. She has worked extensively with the Ministry of Education and international organisations including UNICEF, CARE International-Zambia and Save the Children Norway in advancing quality, equitable and inclusive education programmes. She is currently serving as Deputy Headteacher at Edgar Lungu National STEM Secondary School in Petauke, Eastern Province-Zambia",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Phyllis Simasiku ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "is an experienced educationist, author and reviewer of teaching and learning materials. She is currently serving as Deputy Headteacher at Edgar Lungu National STEM Secondary School in Petauke, Eastern Province.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "subtext": [
+    {
+      "from": "co-worker",
+      "to": "coworker"
+    }
+  ],
+  "splitBefore": [
+    {
+      "find": "Skin Irritation:"
+    }
+  ],
+  "insertText": [
+    {
+      "before": "Agness Mumba Wilkins (PhD)",
+      "blocks": [
+        {
+          "vspace": "16mm"
+        }
+      ]
+    }
+  ]
 }

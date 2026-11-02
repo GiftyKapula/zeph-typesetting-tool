@@ -8108,6 +8108,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // "hyphenate": false — no word broken across two lines (a reviewer marked every
+  // "profes-sional" break); otherwise the theme's own setting
+  if (ov.hyphenate !== undefined) themeOverrides.hyphenate = !!ov.hyphenate;
   // Figure captions in bold (still italic, same size) — a reviewer's "captions under
   // illustrations should be put in bold, for all". Opt-in per book.
   if (ov.boldCaptions) themeOverrides.capBold = true;
