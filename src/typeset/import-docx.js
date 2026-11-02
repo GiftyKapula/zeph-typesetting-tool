@@ -3688,7 +3688,12 @@ async function importDocx(docxPath, opts = {}) {
         const oneCell = single ? rows[0][0] : null;
         if (oneCell && !oneCell.text && oneCell.imgs && oneCell.imgs.length) {
           blocks.push(oneCell.imgs.length === 1 ? { t: "image", ...oneCell.imgs[0] } : { t: "imagerow", images: oneCell.imgs });
-        } else if (rows.some((r) => r.some((c) => c.text || (c.imgs && c.imgs.length)))) {
+        // A cell whose only content is a NESTED table has no text of its own (`text`
+        // leaves sub-tables out), so it counts by its `subs` too. Without that, a data
+        // table the author set inside a 1x1 wrapper vanished from the book whole — the
+        // Geography Form 1 LB's "Implications for Resources and Needs" table printed its
+        // heading over nothing. unwrapLayoutTables() then lifts the inner table out.
+        } else if (rows.some((r) => r.some((c) => c.text || (c.imgs && c.imgs.length) || (c.subs && c.subs.length)))) {
           blocks.push({ t: "table", rows });
         }
       }

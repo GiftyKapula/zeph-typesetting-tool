@@ -7414,9 +7414,11 @@ function reconcileCaptionLists(blocks) {
     if (inRun(i)) continue;
     const plain = blockPlain(blocks[i]);
     if (!plain) continue;
-    const cm = plain.trim().match(/^(Figure|Table)\s+(\d+)\s*:\s*(.+)$/i);
+    // "Fig 3:" is the same caption as "Figure 3:" — the Geography Form 1 LB labels every
+    // figure that way, and its list was left with the manuscript's stale numbers.
+    const cm = plain.trim().match(/^(Figure|Fig\.?|Table)\s+(\d+)\s*:\s*(.+)$/i);
     if (!cm) continue;
-    caps[cm[1].toUpperCase()].push({ num: cm[2], title: cm[3].trim() });
+    caps[/^fig/i.test(cm[1]) ? "FIGURE" : "TABLE"].push({ num: cm[2], title: cm[3].trim() });
   }
   for (const r of runs) {
     const list = caps[r.kind];
@@ -8108,6 +8110,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // A larger book-type line on the front cover ("LEARNER'S BOOK"), e.g. "24pt" — a
+  // reviewer's "increase font size" there (Geography Form 1 LB, CDC 2026-11). Opt-in.
+  if (ov.coverBooktypeSize) themeOverrides.covBooktypeSize = ov.coverBooktypeSize;
   // Figure captions in bold (still italic, same size) — a reviewer's "captions under
   // illustrations should be put in bold, for all". Opt-in per book.
   if (ov.boldCaptions) themeOverrides.capBold = true;
