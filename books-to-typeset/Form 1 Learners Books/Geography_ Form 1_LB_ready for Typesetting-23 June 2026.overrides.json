@@ -2487,8 +2487,8 @@
                   }
                 ],
                 "a": "",
-                "marker": "3.",
-                "depth": 0
+                "marker": "a)",
+                "depth": 1
               },
               {
                 "kind": "q",
@@ -2502,8 +2502,8 @@
                   }
                 ],
                 "a": "",
-                "marker": "4.",
-                "depth": 0
+                "marker": "b)",
+                "depth": 1
               },
               {
                 "kind": "q",
@@ -2517,8 +2517,8 @@
                   }
                 ],
                 "a": "",
-                "marker": "5.",
-                "depth": 0
+                "marker": "c)",
+                "depth": 1
               },
               {
                 "kind": "lead",
@@ -2545,7 +2545,7 @@
                   }
                 ],
                 "a": "",
-                "marker": "6.",
+                "marker": "3.",
                 "depth": 0
               },
               {
@@ -2560,7 +2560,7 @@
                   }
                 ],
                 "a": "",
-                "marker": "7.",
+                "marker": "4.",
                 "depth": 0
               },
               {
@@ -2575,7 +2575,7 @@
                   }
                 ],
                 "a": "",
-                "marker": "8.",
+                "marker": "5.",
                 "depth": 0
               },
               {
@@ -2608,7 +2608,7 @@
                   }
                 ],
                 "a": "",
-                "marker": "9.",
+                "marker": "6.",
                 "depth": 0
               }
             ]
@@ -2623,7 +2623,7 @@
         {
           "raw": {
             "t": "exercise",
-            "heading": "EXERCISE 1",
+            "heading": "EXERCISE 4",
             "parts": [
               {
                 "kind": "q",
@@ -2731,10 +2731,10 @@
               },
               {
                 "kind": "q",
-                "q": ". Case Study: Population vs. Resources",
+                "q": "Case Study: Population vs. Resources",
                 "qseg": [
                   {
-                    "t": ". Case Study: Population vs. Resources",
+                    "t": "Case Study: Population vs. Resources",
                     "b": true,
                     "it": false,
                     "c": null
@@ -2846,6 +2846,1542 @@
           }
         }
       ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "Evidence of the Earth’s Shape",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Choose the correct answer:",
+                "qseg": [
+                  {
+                    "t": "Choose the correct answer: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "The Earth is shaped like a:",
+                "qseg": [
+                  {
+                    "t": "The Earth is shaped like a: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Cube",
+                "qseg": [
+                  {
+                    "t": "Cube ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "i)",
+                "depth": 2
+              },
+              {
+                "kind": "q",
+                "q": "Sphere",
+                "qseg": [
+                  {
+                    "t": "Sphere ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "ii)",
+                "depth": 2
+              },
+              {
+                "kind": "q",
+                "q": "Triangle",
+                "qseg": [
+                  {
+                    "t": "Triangle ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "iii)",
+                "depth": 2
+              },
+              {
+                "kind": "q",
+                "q": "Flat plate",
+                "qseg": [
+                  {
+                    "t": "Flat plate",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "iv)",
+                "depth": 2
+              },
+              {
+                "kind": "q",
+                "q": "The Earth is slightly flattened at the:",
+                "qseg": [
+                  {
+                    "t": "The Earth is slightly flattened at the: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Poles",
+                "qseg": [
+                  {
+                    "t": "Poles ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "i)",
+                "depth": 2
+              },
+              {
+                "kind": "q",
+                "q": "Equator",
+                "qseg": [
+                  {
+                    "t": "Equator ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "ii)",
+                "depth": 2
+              },
+              {
+                "kind": "q",
+                "q": "Centre",
+                "qseg": [
+                  {
+                    "t": "Centre ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "iii)",
+                "depth": 2
+              },
+              {
+                "kind": "q",
+                "q": "Oceans",
+                "qseg": [
+                  {
+                    "t": "Oceans",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "iv)",
+                "depth": 2
+              },
+              {
+                "kind": "q",
+                "q": "Draw and label a simple diagram to show the shape of the Earth.",
+                "qseg": [
+                  {
+                    "t": "Draw and label a simple diagram to show the shape of the Earth.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain in one sentence why people long ago thought the Earth was flat.",
+                "qseg": [
+                  {
+                    "t": "Explain in one sentence why people long ago thought the Earth was flat.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 6",
+      "next": "Calculations of Time and Longitude in Different Si",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 5",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Use simple coordinates (e.g., grid references like A3 or B5) to locate any two places on a classroom or textbook map.",
+                "qseg": [
+                  {
+                    "t": "Use simple coordinates (e.g., grid references like A3 or B5) to locate any two places on a classroom or textbook map.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Describe the location of your school using any method: landmarks, directions, distance, or coordinates.",
+                "qseg": [
+                  {
+                    "t": "Describe the location of your school using any method: landmarks, directions, distance, or coordinates.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain why it is important to know different ways of locating places.",
+                "qseg": [
+                  {
+                    "t": "Explain why it is important to know different ways of locating places.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "Longitude Calculation Using Time Given",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Part 1: Local Time Calculations",
+                "qseg": [
+                  {
+                    "t": "Part 1: Local Time Calculations",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Problem 1: If the local time at London (0°) is 12:00 noon, what is the local time at Addis Ababa (45°E)?",
+                "qseg": [
+                  {
+                    "t": "Problem 1:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " If the local time at London (0°) is 12:00 noon, what is the local time at Addis",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " ",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "Ababa (45°E)?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Problem 2: If it is 10:00 AM at 30°E, what is the time at 15°W?",
+                "qseg": [
+                  {
+                    "t": "Problem 2:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " If it is 10:00 AM at 30°E, what is the time at 15°W?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Part 2: Standard Time & Time Zones",
+                "qseg": [
+                  {
+                    "t": "Part 2: Standard Time & Time Zones",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Standard Time is the uniform time set for a whole country based on a specific \"Standard Meridian.\"",
+                "qseg": [
+                  {
+                    "t": "Standard Time is the uniform time set for a whole country based on a specific \"Standard Meridian.\"",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Exercise: Zambia uses Central Africa Time (CAT), which is based on the 30°E meridian.",
+                "qseg": [
+                  {
+                    "t": "Exercise:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " Zambia uses ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "Central Africa Time (CAT)",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": ",",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " which is based on the ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "30°E",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " meridian.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "If the Greenwich Mean Time (GMT) is 08:00 AM, calculate the Standard Time for Zambia.",
+                "qseg": [
+                  {
+                    "t": "If the Greenwich Mean Time (GMT) is ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "08:00 AM",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": ",",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " calculate the Standard Time for Zambia.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Part 3: Mixed Practice Table",
+                "qseg": [
+                  {
+                    "t": "Part 3: Mixed Practice Table",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Fill in the missing times in the table below:",
+                "qseg": [
+                  {
+                    "t": "Fill in the missing times in the table below",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": ":",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "image",
+                "images": [
+                  {
+                    "file": "imp_image13.png",
+                    "w": 517.0666666666667,
+                    "h": 127.26666666666667,
+                    "tall": false,
+                    "caption": "",
+                    "hmm": 0,
+                    "floatingBelowText": false,
+                    "side": null,
+                    "voff": 0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 2",
+      "next": "Position of the Midday Sun (Angle of Elevation)",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 2",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Describe how you would help a family and community use latitude and distance calculations in their daily lives.",
+                "qseg": [
+                  {
+                    "t": "Describe how you would help a family and community use latitude and distance calculations in their daily lives.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "Impact of Climate Change",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Classification Exercise",
+                "qseg": [
+                  {
+                    "t": "Classification Exercise",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Indicate if each of the following activities is either Natural Causes or Human Causes:",
+                "qseg": [
+                  {
+                    "t": "Indicate if each of the following activities is either Natural Causes or Human Causes: ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Volcanic Eruptions: They release ash and sulfur dioxide that can temporarily cool the Earth.",
+                "qseg": [
+                  {
+                    "t": "Volcanic Eruptions:",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " They release ash and sulfur dioxide that can temporarily cool the Earth.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Burning Fossil Fuels: Activities like driving cars and generating electricity release",
+                "qseg": [
+                  {
+                    "t": "Burning Fossil Fuels:",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " Activities like driving cars and generating electricity release ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Orbital Changes: Slight shifts in Earth’s orbit affect how much solar energy we receive.",
+                "qseg": [
+                  {
+                    "t": "Orbital Changes:",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " Slight shifts in Earth’s orbit affect how much solar energy we receive.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Deforestation: Removing trees reduces the \"sinks\" that absorb Carbon dioxide",
+                "qseg": [
+                  {
+                    "t": "Deforestation:",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " Removing trees reduces the \"sinks\" that absorb Carbon dioxide",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Livestock Farming: Ruminants like cows produce methane during digestion.",
+                "qseg": [
+                  {
+                    "t": "Livestock Farming:",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " Ruminants like cows produce methane during digestion.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Solar Variation: Changes in the sun’s energy output over time.",
+                "qseg": [
+                  {
+                    "t": "Solar Variation:",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " Changes in the sun’s energy output over time. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Matching: Greenhouse Gases & Sources",
+                "qseg": [
+                  {
+                    "t": "Matching: Greenhouse Gases & Sources",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Match the gas to its primary human-driven:",
+                "qseg": [
+                  {
+                    "t": "M",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "atch the gas to its primary human-driven:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "table",
+                "rows": [
+                  [
+                    {
+                      "text": "Gas",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Gas",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Human driven primary cause",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Human driven primary cause",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "1. Carbon Dioxide (CO\"\"_(\"2\") )",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "1.",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": " Carbon Dioxide (CO",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "\"\"_(\"2\")",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": " )",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Burning coal, oil, and gas for energy",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Burning coal, oil, and gas for energy",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "2. Methane (CH\"\"_(\"4\")):",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "2. ",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "Methane (CH",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "\"\"_(\"4\")",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "):",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "            ",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Landfill waste decomposition and rice \"paddy\" fields",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Landfill waste decomposition and rice \"paddy\" fields",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "3. Nitrous Oxide (N\"\"_(\"2\")O):",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "3. ",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "Nitrous Oxide (N",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "\"\"_(\"2\")",
+                          "m": true,
+                          "display": false,
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "O):",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "    ",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Use of chemical fertilisers in large-scale agriculture",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Use of chemical fertilisers in large-scale agriculture",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "4. CFCs:",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "4. ",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "CFCs:",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        },
+                        {
+                          "t": "       ",
+                          "b": false,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Old refrigerators and aerosol sprays.",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Old refrigerators and aerosol sprays. ",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              },
+              {
+                "kind": "q",
+                "q": "Short-Answer Analysis",
+                "qseg": [
+                  {
+                    "t": "Short-Answer Analysis",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "The \"Blanket\" Effect: Explain why the Enhanced Greenhouse Effect is different from the natural one.",
+                "qseg": [
+                  {
+                    "t": "The \"Blanket\" Effect:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " Explain why the ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "Enhanced Greenhouse Effect",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " is different from the natural one. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "The Role of Trees: Why does burning a forest contribute to climate change in two ways?",
+                "qseg": [
+                  {
+                    "t": "The Role of Trees:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " Why does burning a forest contribute to climate change in two ways? ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Historical Context: Identify the period in history when human-driven climate change began to accelerate rapidly.",
+                "qseg": [
+                  {
+                    "t": "Historical Context:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " Identify the period in history when human-driven climate change began to accelerate rapidly. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "c)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Critical Thinking Scenario",
+                "qseg": [
+                  {
+                    "t": "Critical Thinking Scenario",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Imagine a town clears a large forest to build a coal-fired power plant. Describe three different ways this specific project contributes to global warming.",
+                "qseg": [
+                  {
+                    "t": "Imagine a town clears a large forest to build a coal-fired power plant. Describe three different ways this specific project contributes to global warming",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": ".",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 12:",
+      "next": "Since you’ve mastered how to stop the problem (mit",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 12: Identify mitigation ways of adapting to climate risks and disasters",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "In groups, identify ways of adapting to climate risks and disasters.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "In groups, identify ways of adapting to climate risks and disasters.",
+                "isList": true,
+                "numId": "152",
+                "lvl": 0,
+                "marker": "•"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "1.5.1.1. Demonstrate understanding of population composition.",
+      "next": "Population Concepts",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "1.5.1.1. Demonstrate understanding of population composition. ",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "1.5.3.1. Address challenges of rapid population.",
+      "next": "Analysing the Causes of Rapid Population Growth in",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "1.5.3.1. Address challenges of rapid population.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "General Competences:",
+      "next": "Citizenship and Problem Solving.",
+      "with": []
+    },
+    {
+      "find": "Citizenship and Problem Solving.",
+      "next": "Specific Competence:",
+      "with": []
+    },
+    {
+      "find": "EXERCISE 2",
+      "next": "Engaging in Practices that Ensure Efficiency Use o",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 5",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Cause and Effect: Population Pressure",
+                "qseg": [
+                  {
+                    "t": "Cause and Effect: Population Pressure",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Draw a line (or match) the Population Change to its Environmental Result:",
+                "qseg": [
+                  {
+                    "t": "Draw a line (or match) the ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "Population Change",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " to its ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "Environmental Result",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": ":",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "table",
+                "rows": [
+                  [
+                    {
+                      "text": "Population Change",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Population Change",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Impact on Resources",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "   ",
+                          "b": true,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "Impact on Resources",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "High Birth Rates",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "High Birth Rates",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Increased demand for charcoal, leading to rapid deforestation.",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "   Increased demand for ",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "charcoal",
+                          "b": true,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": ", leading to rapid deforestation.",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Urban Migration",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Urban Migration",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Rapid depletion of clean water in cities and more sewage pollution.",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "  Rapid depletion of ",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "clean water",
+                          "b": true,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": " in cities and more sewage pollution.",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Agricultural Expansion",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Agricultural Expansion",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Loss of wildlife habitats as forests are cleared for food.",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "   Loss of ",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "wildlife habitats",
+                          "b": true,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": " as forests are cleared for food.",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Industrial Growth",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "Industrial Growth",
+                          "b": true,
+                          "it": false,
+                          "c": null
+                        }
+                      ]
+                    },
+                    {
+                      "text": "Faster extraction of non-renewable minerals (copper, coal).",
+                      "imgs": [],
+                      "segs": [
+                        {
+                          "t": "  Faster extraction of ",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": "non-renewable minerals",
+                          "b": true,
+                          "it": true,
+                          "c": null
+                        },
+                        {
+                          "t": " (copper, coal).",
+                          "b": false,
+                          "it": true,
+                          "c": null
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              },
+              {
+                "kind": "q",
+                "q": "The \"Technological Gap\" Analysis",
+                "qseg": [
+                  {
+                    "t": "The \"Technological Gap\" Analysis",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Explain how technology changes the relationship between population and resources.",
+                "qseg": [
+                  {
+                    "t": "Explain how ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "technology",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " changes the relationship between population and resources.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Task: Suggest one technology that helps a large population save water.",
+                "qseg": [
+                  {
+                    "t": "Task:",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " Suggest one technology that helps a large population save water. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Critical Thinking: \"The Tragedy of the Commons\"",
+                "qseg": [
+                  {
+                    "t": "Critical Thinking: \"The Tragedy of the Commons\"",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "When a resource (like a lake) is shared by a growing population, everyone wants to catch as many fish as possible.",
+                "qseg": [
+                  {
+                    "t": "When a resource (like a lake) is shared by a growing population, everyone wants to catch as many fish as possible.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Question: What happens if the population grows but there are no rules on fishing?",
+                "qseg": [
+                  {
+                    "t": "Question:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " What happens if the population grows but there are no rules on fishing?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Short Answer Challenge",
+                "qseg": [
+                  {
+                    "t": "Short Answer Challenge",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "\"A large population is a resource in itself.\" Explain this statement.",
+                "qseg": [
+                  {
+                    "t": "\"A large population is a resource in itself.\" Explain this statement.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "authors": [
@@ -2860,7 +4396,7 @@
       "with": "This course aims to nurture curiosity, develop critical thinking and foster responsible citizenship in all learners."
     }
   ],
-  "fmSpacing": "1.25em",
+  "fmSpacing": "1.0em",
   "removeRange": [
     {
       "from": "LIST OF FIGURES",
@@ -2938,12 +4474,35 @@
     {
       "from": "3.Give two effects",
       "to": "3. Give two effects"
+    },
+    {
+      "from": "lifestyles lo local",
+      "to": "lifestyles to local"
     }
   ],
   "moveBefore": [
     {
       "find": "focuses on explaining the causes of climate change and the impacts it has",
       "before": "LEARNING ACTIVITY 11: Sharing information with family"
+    }
+  ],
+  "tableNoHeader": [
+    "Equatorial diameter"
+  ],
+  "backmatterSpacing": {
+    "leading": "0.6em",
+    "spacing": "0.7em"
+  },
+  "keepWithNext": [
+    "The 7 Main Elements",
+    "Match the element to its correct definition in the table below"
+  ],
+  "mergePara": [
+    {
+      "find": "164b645dfe7b3cc6bba4abfd6dee376d.jpg"
+    },
+    {
+      "find": "population_natural_resources-0.jpg"
     }
   ],
   "images": {
@@ -2955,6 +4514,9 @@
     },
     "image28.png": {
       "hmm": 100
+    },
+    "image33.jpeg": {
+      "hmm": 78
     }
   }
 }
