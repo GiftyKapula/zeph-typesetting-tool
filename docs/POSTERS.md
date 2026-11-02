@@ -125,14 +125,22 @@ in `poster-qa.json`.
 | contrast | any text against its background is below WCAG 4.5:1 (3:1 for large text) |
 | distortion | the cover is placed more than 0.5 % off its own proportions |
 | resolution | (print) the cover is under 300 pixels per inch at its printed size |
-| fields | the subject, level or book type is missing, or the cover or logo is missing |
+| fields | the cover's words lack the subject, level or book type, or the cover or logo is missing |
 
 Warnings: text the fitting had to shrink below 60 % of its design size, a cover that may not
 stand out from the background, and a book with no author names on its cover. The poster then
 shows none; that is allowed, because some books are published without author credits.
 
-Long text never overflows: it shrinks to fit, and a long author list goes on two lines.
-Still look at the 1080 × 1350 PNG before posting it.
+Long text never overflows: it shrinks to fit. Still look at the 1080 × 1350 PNG before
+posting it.
+
+**Author names.** The book is shown as large as the layout allows (about 56 % of the width),
+and there is no caption under it: the title, level and author names are the ones printed on
+the cover itself, as in the approved sample. `poster-qa.json` reports how tall the cover's
+author names come out (`authorText`), measured from the cover's own text. On the
+Icibemba Grade 4 TG they are 11 px on the 1080 × 1350 (22 px in HD), 9 px on the square and
+6.4 pt on the A4 print. A warning appears below 12 px, or 6 pt on the print: readable when
+zoomed, but small on a phone screen.
 
 ## Changing the wording
 

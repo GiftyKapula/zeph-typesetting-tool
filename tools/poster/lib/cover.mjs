@@ -27,7 +27,7 @@ export function frontPanel(page1, page2) {
 
 // Render the front cover. Returns { png, width, height, aspect, pixels } where `pixels`
 // is a small RGBA copy (about 120 px wide) for the colour analysis.
-export async function renderFrontCover(pdfPath, { targetWidth = 1600 } = {}) {
+export async function renderFrontCover(pdfPath, { targetWidth = 1600, authors = [] } = {}) {
   const doc = await pdfjs.getDocument({ data: new Uint8Array(fs.readFileSync(pdfPath)), verbosity: 0 }).promise;
   const p1 = await doc.getPage(1);
   const v1 = p1.getViewport({ scale: 1 });
@@ -46,9 +46,22 @@ export async function renderFrontCover(pdfPath, { targetWidth = 1600 } = {}) {
   const w = Math.round(fp.w * scale), h = Math.round(fp.h * scale);
   const out = createCanvas(w, h);
   out.getContext("2d").drawImage(full, Math.round(fp.x * scale), Math.round(fp.y * scale), w, h, 0, 0, w, h);
+  // how tall the author names are printed on the cover, as a share of the cover's height
+  // (read from page 1's own text, inside the front panel) — the poster QA turns this into
+  // pixels on the poster to tell whether the names can be read
+  let authorShare = null;
+  const names = (authors || []).map((a) => a.toLowerCase().replace(/\s+/g, " ").trim()).filter(Boolean);
+  if (names.length) {
+    const tc = await p1.getTextContent();
+    const sizes = tc.items.filter((it) => {
+      const x = it.transform[4], s = (it.str || "").toLowerCase().replace(/\s+/g, " ").trim();
+      return s.length > 1 && x >= fp.x - 1 && x <= fp.x + fp.w && names.some((n) => n.includes(s) || s.includes(n));
+    }).map((it) => Math.hypot(it.transform[2], it.transform[3]));
+    if (sizes.length) authorShare = Math.min(...sizes) / fp.h;
+  }
   const sw = 120, sh = Math.max(1, Math.round(sw * h / w));
   const small = createCanvas(sw, sh);
   small.getContext("2d").drawImage(out, 0, 0, sw, sh);
   await doc.destroy();
-  return { png: out.toBuffer("image/png"), width: w, height: h, aspect: h / w, pixels: small.getContext("2d").getImageData(0, 0, sw, sh).data, spread: fp.spread };
+  return { png: out.toBuffer("image/png"), width: w, height: h, aspect: h / w, pixels: small.getContext("2d").getImageData(0, 0, sw, sh).data, spread: fp.spread, authorShare };
 }

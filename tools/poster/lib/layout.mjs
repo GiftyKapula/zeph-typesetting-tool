@@ -53,47 +53,40 @@ export function buildPoster({ W, H, bleed = 0 }, theme, fields, cfg, cover, logo
   out.push(`#set text(font: ${font}, top-edge: "ascender", bottom-edge: "descender")`);
 
   // ---- the book (right column) -----------------------------------------------------------
-  const colX = (0.52 - 0.04 * tall) * W, colW = W - colX - 40 * u;
-  const capH = (fields.authors.length > 3 ? 96 : 64) * u, top = 36 * u + extra * 0.08;
-  const avail = topBottom - top - capH - 22 * u;
-  const bw = Math.min(colW / 1.06 * 0.96, avail / 1.03 / cover.aspect, (0.46 + 0.05 * tall) * W);
+  // As big as the page allows, so the words printed on the cover (the authors too) can be
+  // read: the book takes 56 % of the width and the left column's call-out scales to fit.
+  // No caption under it — the cover itself carries the title, level and authors (as in the
+  // approved sample).
+  const colX = (0.44 - 0.02 * tall) * W, colW = W - colX - 22 * u;
+  const top = 26 * u + extra * 0.05;
+  const avail = topBottom - top - 8 * u;
+  const bw = Math.min(colW / 1.06, avail / 1.03 / cover.aspect);
   const bh = bw * cover.aspect;
-  const bookX = colX + (colW - bw * 1.06) / 2, bookY = top + (avail - bh * 1.03) / 2;
+  const bookX = colX + (colW - bw * 1.06) / 2 + 0.02 * bw, bookY = top + (avail - bh * 1.03) / 2;
   const cx = bookX + bw / 2, cy = bookY + bh / 2;
   // soft glow behind the book: halo colour fading into the background at that height
-  out.push(`#place(dx: ${pt(cx - bw * 1.05)}, dy: ${pt(cy - bh * 0.72)}, ellipse(width: ${pt(bw * 2.1)}, height: ${pt(bh * 1.44)}, fill: gradient.radial((${C(theme.halo)}, 0%), (${C(mix(theme.halo, bgAt(cy), 0.55))}, 45%), (${C(bgAt(cy))}, 100%))))`);
+  out.push(`#place(dx: ${pt(cx - bw * 0.95)}, dy: ${pt(cy - bh * 0.66)}, ellipse(width: ${pt(bw * 1.9)}, height: ${pt(bh * 1.32)}, fill: gradient.radial((${C(theme.halo)}, 0%), (${C(mix(theme.halo, bgAt(cy), 0.55))}, 45%), (${C(bgAt(cy))}, 100%))))`);
   out.push(`#place(dx: ${pt(bookX)}, dy: ${pt(bookY)}, book(${S(cover.file)}, ${pt(bw)}, ${pt(bh)}, ${C(theme.band)}, ${C(cover.spine || theme.band)}))`);
-  const capY = bookY + bh * 1.03 + 14 * u;
-  const line1 = [fields.subject, fields.level, fields.booktype].filter(Boolean).join("  ·  ");
-  box("book-title", colX, capY, colW, 32 * u, fitT(colW, 27 * u, theme.ink, line1, "bold"),
-    { fg: theme.ink, bg: bgAt(capY), align: "center + horizon", size: 27 * u, text: line1 });
-  if (fields.authors.length) {
-    // a long author list goes on two lines rather than shrinking
-    const a = fields.authors, label = `${fields.authorsLabel}: `;
-    const lines = a.length > 3 ? [label + a.slice(0, Math.ceil(a.length / 2)).join(", ") + ",", a.slice(Math.ceil(a.length / 2)).join(", ")] : [label + a.join(", ")];
-    box("book-authors", colX, capY + 32 * u, colW, 30 * u * lines.length,
-      `stack(spacing: ${pt(2 * u)}, ${lines.map((l) => fitT(colW, 21 * u, theme.ink, l)).join(", ")})`,
-      { fg: theme.ink, bg: bgAt(capY + 32 * u), align: "center + horizon", size: 21 * u, text: lines.join(" ") });
-  }
 
-  // ---- call-out (left column, top) -------------------------------------------------------
-  const x0 = 34 * u, y0 = 60 * u + extra * 0.12;
-  out.push(`#place(dx: ${pt(x0)}, dy: ${pt(y0 + 20 * u)}, megaphone(${pt(190 * u)}, ${C(theme.tag)}, ${C(mix(theme.tag, "#000000", 0.35))}, ${C(theme.accent)}))`);
-  box("headline", x0 + 205 * u, y0 + 40 * u, 340 * u, 86 * u,
-    `box(width: 100%, height: 100%, fill: ${C(theme.tag)}, radius: ${pt(10 * u)}, inset: (x: ${pt(18 * u)}), align(center + horizon, ${fitT(304 * u, 60 * u, "#ffffff", cfg.headline, "black")}))`,
-    { fg: "#ffffff", bg: theme.tag, rotate: -5, size: 60 * u, text: cfg.headline, large: true });
-  box("audience", x0 + 120 * u, y0 + 138 * u, 440 * u, 118 * u,
-    `box(width: 100%, height: 100%, fill: ${C(theme.accent)}, radius: ${pt(10 * u)}, inset: (x: ${pt(16 * u)}), align(center + horizon, stack(spacing: ${pt(6 * u)}, ${cfg.audience.map((l) => fitT(408 * u, 40 * u, theme.bannerInk, l, "black")).join(", ")})))`,
-    { fg: theme.bannerInk, bg: theme.accent, rotate: -5, size: 40 * u, text: cfg.audience.join(" "), large: true });
+  // ---- call-out (left column, top), scaled to the column -----------------------------------
+  const x0 = 30 * u, y0 = 50 * u + extra * 0.12;
+  const k = Math.min(1, (colX - 16 * u - x0) / (575 * u)), uc = u * k;
+  out.push(`#place(dx: ${pt(x0)}, dy: ${pt(y0 + 20 * uc)}, megaphone(${pt(190 * uc)}, ${C(theme.tag)}, ${C(mix(theme.tag, "#000000", 0.35))}, ${C(theme.accent)}))`);
+  box("headline", x0 + 205 * uc, y0 + 40 * uc, 340 * uc, 86 * uc,
+    `box(width: 100%, height: 100%, fill: ${C(theme.tag)}, radius: ${pt(10 * uc)}, inset: (x: ${pt(18 * uc)}), align(center + horizon, ${fitT(304 * uc, 60 * uc, "#ffffff", cfg.headline, "black")}))`,
+    { fg: "#ffffff", bg: theme.tag, rotate: -5, size: 60 * uc, text: cfg.headline, large: true });
+  box("audience", x0 + 120 * uc, y0 + 138 * uc, 440 * uc, 118 * uc,
+    `box(width: 100%, height: 100%, fill: ${C(theme.accent)}, radius: ${pt(10 * uc)}, inset: (x: ${pt(16 * uc)}), align(center + horizon, stack(spacing: ${pt(6 * uc)}, ${cfg.audience.map((l) => fitT(408 * uc, 40 * uc, theme.bannerInk, l, "black")).join(", ")})))`,
+    { fg: theme.bannerInk, bg: theme.accent, rotate: -5, size: 40 * uc, text: cfg.audience.join(" "), large: true });
 
   // ---- badges (left column, lower) -------------------------------------------------------
-  const leftW = colX - x0 - 10 * u;
-  const bs = 168 * u * (1 + 0.06 * tall), by = y0 + 300 * u + extra * 0.42;
+  const leftW = colX - x0 - 14 * u;
+  const bs = 150 * u * (1 + 0.06 * tall), by = y0 + 300 * uc + 40 * u + extra * 0.42;
   const b1 = x0 + leftW * 0.25 - bs / 2, b2 = x0 + leftW * 0.75 - bs / 2;
   out.push(`#place(dx: ${pt(b1)}, dy: ${pt(by)}, cbcSeal(${pt(bs)}, ${C(theme.badge)}, white, ${font}))`);
   out.push(`#place(dx: ${pt(b2)}, dy: ${pt(by)}, tickBadge(${pt(bs)}, ${C(theme.badge)}))`);
   out.push(`#place(dx: ${pt(x0 + leftW * 0.5)}, dy: ${pt(by + 10 * u)}, line(length: ${pt(bs + 70 * u)}, angle: 90deg, stroke: ${pt(2 * u)} + ${C(theme.ink)}.transparentize(55%)))`);
-  const ly = by + bs + 12 * u, lw = leftW * 0.48;
+  const ly = by + bs + 12 * u, lw = leftW * 0.43;
   box("badge-cbc", x0 + leftW * 0.25 - lw / 2, ly, lw, 40 * u, fitT(lw, 34 * u, theme.ink, cfg.badgeCbc, "bold"),
     { fg: theme.ink, bg: bgAt(ly), align: "center + horizon", size: 34 * u, text: cfg.badgeCbc, large: true });
   box("badge-approved", x0 + leftW * 0.75 - lw / 2, ly, lw, 80 * u,

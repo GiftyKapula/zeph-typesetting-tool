@@ -12,7 +12,7 @@
 
 import { contrast, separation, rgbOf } from "./colour.mjs";
 
-const norm = (s) => String(s || "").toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, " ").trim();
+
 
 export function checkPoster({ format, inspected, regions, fields, cover, coverMean, theme, book }) {
   const blockers = [], warnings = [];
@@ -68,16 +68,23 @@ export function checkPoster({ format, inspected, regions, fields, cover, coverMe
   const sep = separation(coverMean, theme.bg1);
   if (contrast(coverMean, theme.bg1) < 1.6 && sep < 2.2) warnings.push(`cover may not stand out from the background (separation ${sep})`);
 
-  // fields
-  const all = norm(inspected.texts.map((t) => t.str).join(" "));
+  // fields: they reach the poster ON THE COVER (the words are read from the cover itself),
+  // so each must be there in the cover's words and the cover must be placed
   for (const [k, v] of [["subject", fields.subject], ["level", fields.level], ["book type", fields.booktype]]) {
-    if (!v) blockers.push(`${k} missing from the book's data`);
-    else if (!all.includes(norm(v))) blockers.push(`${k} "${v}" not found on the poster`);
+    if (!v) blockers.push(`${k} missing from the cover's words`);
   }
   if (!fields.authors.length) warnings.push("no author names on the cover — the poster shows none");
-  else for (const a of fields.authors) if (!all.includes(norm(a))) warnings.push(`author "${a}" not found on the poster`);
 
-  return { format: format.name, qualifies: blockers.length === 0, blockers, warnings };
+  // how big the cover's own author names come out on the poster
+  let authorText = null;
+  if (pic && cover.authorShare) {
+    const h = cover.authorShare * pic.h;   // points on the poster page
+    authorText = format.kind === "pdf" ? { pt: +h.toFixed(1), mm: +(h / MM).toFixed(2) } : { px: +h.toFixed(1), pxHD: +(h * (format.hd || 1)).toFixed(1) };
+    if (format.kind === "pdf" && h < 6) warnings.push(`author names on the printed cover are only ${h.toFixed(1)} pt`);
+    if (format.kind === "png" && h < 12) warnings.push(`author names on the cover are only ${h.toFixed(1)} px tall (${(h * (format.hd || 1)).toFixed(0)} px in HD) — readable when zoomed`);
+  }
+
+  return { format: format.name, qualifies: blockers.length === 0, blockers, warnings, authorText };
 }
 
 export function summary(res) {

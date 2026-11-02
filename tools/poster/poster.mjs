@@ -54,7 +54,7 @@ export async function makePosters(docx, { theme: themeArg } = {}) {
   const dir = marketingDir(book.base);
   fs.mkdirSync(dir, { recursive: true });
 
-  const cover = await renderFrontCover(book.pdf, { targetWidth: 2000 });
+  const cover = await renderFrontCover(book.pdf, { targetWidth: 2400, authors: book.fields.authors });
   const coverInfo = { mean: meanColour(cover.pixels), dominant: dominantColours(cover.pixels, 5) };
   const { theme, ranked, forced } = pickTheme(coverInfo, themeArg || book.ov.posterTheme);
   const logoImg = await loadImage(LOGO);
