@@ -70,3 +70,16 @@ test("print: a cover too small for 300 ppi is a blocker", async () => {
   const r = checkPoster({ format: f, inspected, regions: lay.regions, fields: FIELDS, cover: small, coverMean: [27, 87, 115], theme: THEME });
   assert.ok(r.blockers.some((b) => /px per inch/.test(b)));
 });
+
+test("3D book: one finished picture, placed at its own proportions, poster passes QA", async () => {
+  const { bookMockup } = await import("../../tools/poster/lib/mockup.mjs");
+  const flat = fakeCover();
+  const m = await bookMockup(flat.png, { spine: "#1b5773" });
+  assert.ok(m.aspect > 1 && m.nearShare > 0.8 && m.nearShare < 1);
+  const f = CFG.formats[0];
+  const shown = { ...flat, aspect: m.aspect, width: m.width, png: m.png };
+  const lay = buildPoster({ W: f.w, H: f.h }, THEME, FIELDS, CFG, { file: "cover.png", aspect: m.aspect, spine: "#1b5773", mockup: true }, { file: "logo.png", aspect: 596 / 924 });
+  const inspected = await inspectPdf(compilePdf(lay.src, { "cover.png": m.png, "logo.png": LOGO }));
+  const r = checkPoster({ format: f, inspected, regions: lay.regions, fields: FIELDS, cover: shown, coverMean: [27, 87, 115], theme: THEME });
+  assert.deepEqual(r.blockers, []);
+});

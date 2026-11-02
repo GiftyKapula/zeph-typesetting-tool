@@ -81,6 +81,25 @@ manuscript text, or interior pages. Nothing is uploaded and no network call is m
 (`test/poster/confidential.test.mjs`) fails if the poster code ever reaches for `admin/`, the
 network, or a page other than the cover.
 
+## The book: flat or 3D
+
+Two styles of book, to choose per book:
+
+| Style | Look |
+|---|---|
+| `flat` (default) | the book standing square-on, with page edges and a shadow; the largest cover, so the cover's words (authors too) read best |
+| `3d` | the book turned towards the viewer, as in the approved sample: spine on the left, page block on the right, soft shadow; a little smaller |
+
+```bash
+npm run poster -- "<book>.docx" --book 3d
+```
+```json
+"posterBook": "3d"
+```
+
+The 3D files are named `… - poster 3D 1080x1350.png` and so on (with `poster-qa-3d.json`), so
+both styles can sit side by side while you choose.
+
 ## Colours
 
 The background is chosen so the **cover stands out**. The tool measures the cover's colours

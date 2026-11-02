@@ -60,13 +60,16 @@ export function buildPoster({ W, H, bleed = 0 }, theme, fields, cfg, cover, logo
   const colX = (0.44 - 0.02 * tall) * W, colW = W - colX - 22 * u;
   const top = 26 * u + extra * 0.05;
   const avail = topBottom - top - 8 * u;
-  const bw = Math.min(colW / 1.06, avail / 1.03 / cover.aspect);
+  // (a 3D book — lib/mockup.mjs — is one finished picture with its own shadow and edges)
+  const frame = cover.mockup ? 1 : 1.06, frameH = cover.mockup ? 1 : 1.03;
+  const bw = Math.min(colW / frame, avail / frameH / cover.aspect);
   const bh = bw * cover.aspect;
-  const bookX = colX + (colW - bw * 1.06) / 2 + 0.02 * bw, bookY = top + (avail - bh * 1.03) / 2;
+  const bookX = colX + (colW - bw * frame) / 2 + (cover.mockup ? 0 : 0.02 * bw), bookY = top + (avail - bh * frameH) / 2;
   const cx = bookX + bw / 2, cy = bookY + bh / 2;
   // soft glow behind the book: halo colour fading into the background at that height
   out.push(`#place(dx: ${pt(cx - bw * 0.95)}, dy: ${pt(cy - bh * 0.66)}, ellipse(width: ${pt(bw * 1.9)}, height: ${pt(bh * 1.32)}, fill: gradient.radial((${C(theme.halo)}, 0%), (${C(mix(theme.halo, bgAt(cy), 0.55))}, 45%), (${C(bgAt(cy))}, 100%))))`);
-  out.push(`#place(dx: ${pt(bookX)}, dy: ${pt(bookY)}, book(${S(cover.file)}, ${pt(bw)}, ${pt(bh)}, ${C(theme.band)}, ${C(cover.spine || theme.band)}))`);
+  if (cover.mockup) out.push(`#place(dx: ${pt(bookX)}, dy: ${pt(bookY)}, image(${S(cover.file)}, width: ${pt(bw)}, height: ${pt(bh)}, fit: "stretch"))`);
+  else out.push(`#place(dx: ${pt(bookX)}, dy: ${pt(bookY)}, book(${S(cover.file)}, ${pt(bw)}, ${pt(bh)}, ${C(theme.band)}, ${C(cover.spine || theme.band)}))`);
 
   // ---- call-out (left column, top), scaled to the column -----------------------------------
   const x0 = 30 * u, y0 = 50 * u + extra * 0.12;
