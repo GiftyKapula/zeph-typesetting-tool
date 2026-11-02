@@ -72,7 +72,16 @@ export async function inspectPdf(pdfBuf) {
     if (fn === O.save) stack.push(ctm);
     else if (fn === O.restore) ctm = stack.pop() || [1, 0, 0, 1, 0, 0];
     else if (fn === O.transform) ctm = mul(ctm, args);
-    else if (fn === O.paintFormXObjectBegin) { stack.push(ctm); if (Array.isArray(args[0]) && args[0].length === 6) ctm = mul(ctm, args[0]); }
+    else if (fn === O.paintFormXObjectBegin) {
+      stack.push(ctm);
+      if (Array.isArray(args[0]) && args[0].length === 6) ctm = mul(ctm, args[0]);
+      // an embedded PDF page (the vector front cover) arrives as a form with a bounding box
+      const bb = args[1];
+      if (bb && bb.length === 4) {
+        const w = Math.abs(bb[2] - bb[0]) * Math.hypot(ctm[0], ctm[1]), h = Math.abs(bb[3] - bb[1]) * Math.hypot(ctm[2], ctm[3]);
+        if (w > 20 && h > 20) images.push({ w, h, x: ctm[4] + bb[0] * ctm[0], y: v.height - (ctm[5] + bb[3] * ctm[3]), form: true });
+      }
+    }
     else if (fn === O.paintFormXObjectEnd) ctm = stack.pop() || [1, 0, 0, 1, 0, 0];
     else if (fn === O.paintImageXObject || fn === O.paintInlineImageXObject || fn === O.paintImageXObjectRepeat) {
       const w = Math.hypot(ctm[0], ctm[1]), h = Math.hypot(ctm[2], ctm[3]);

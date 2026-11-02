@@ -24,6 +24,18 @@ export function checkPoster({ format, inspected, regions, fields, cover, coverMe
   const MM = 72 / 25.4;
   const safe = format.kind === "pdf" ? (format.bleedMm || 0) * MM + (format.safeMm || 0) * MM : 0;
 
+  // the cover's own words (a vector cover brings its text along) are the book's, not the
+  // poster's: they are checked for size below, not for boxes and overlaps
+  // (a vector cover is page 1 clipped to its front panel: the hidden back cover's words are
+  // in the file too, so the poster's text is told apart by its known wording, not position)
+  const n = (s) => String(s || "").toLowerCase().replace(/[’']/g, "'").replace(/s+/g, " ").trim();
+  const known = n(regions.map((r) => r.text || "").join(" ") + " CBC COMPETENCE BASED CURRICULUM");
+  const onCover = (t) => book && t.x + t.w / 2 >= book.x && t.x + t.w / 2 <= book.x + book.w && t.y + t.h / 2 >= book.y && t.y + t.h / 2 <= book.y + book.h;
+  const isPoster = (t) => !onCover(t) && known.includes(n(t.str));
+  const coverTexts = inspected.texts.filter(onCover);
+  inspected = { ...inspected, texts: inspected.texts.filter(isPoster),
+    images: inspected.images.filter((i) => i.x >= -1 && i.y >= -1 && i.x + i.w <= W + 1 && i.y + i.h <= H + 1) };
+
   // overflow + shrinking
   for (const t of inspected.texts) {
     if (t.x < -tol || t.y < -tol || t.x + t.w > W + tol || t.y + t.h > H + tol) { blockers.push(`text off the page: "${t.str.slice(0, 40)}"`); continue; }
@@ -54,12 +66,14 @@ export function checkPoster({ format, inspected, regions, fields, cover, coverMe
   }
 
   // the cover: proportions, resolution, separation from the background
-  const pic = [...inspected.images].sort((a, b) => b.w * b.h - a.w * a.h)[0];
+  // the cover: of the large pictures (over 5 % of the page), the one closest to its proportions
+  const big = inspected.images.filter((i) => i.w * i.h > 0.05 * W * H);
+  const pic = [...big].sort((a, b) => Math.abs(a.h / a.w / cover.aspect - 1) - Math.abs(b.h / b.w / cover.aspect - 1))[0];
   if (!pic) blockers.push("cover picture missing");
   else {
     const placed = pic.h / pic.w, err = Math.abs(placed / cover.aspect - 1);
     if (err > 0.005) blockers.push(`cover distorted: placed ${placed.toFixed(4)}, cover ${cover.aspect.toFixed(4)} (${(err * 100).toFixed(2)} % off)`);
-    if (format.kind === "pdf") {
+    if (format.kind === "pdf" && !pic.form) {   // (a vector cover has no pixels to count)
       const ppi = cover.width / (pic.w / 72);
       if (ppi < (format.minPpi || 300)) blockers.push(`cover only ${Math.round(ppi)} px per inch at print size (needs ${format.minPpi || 300})`);
     }
@@ -77,8 +91,12 @@ export function checkPoster({ format, inspected, regions, fields, cover, coverMe
 
   // how big the cover's own author names come out on the poster
   let authorText = null;
-  if (pic && cover.authorShare) {
-    const h = cover.authorShare * pic.h;   // points on the poster page
+  // measured on the poster itself when the cover is vector (its words are real text there),
+  // otherwise from the cover's own proportions
+  const names = fields.authors.map((n) => n.toLowerCase().replace(/s+/g, " ").trim());
+  const nameSizes = coverTexts.filter((t) => { const s = t.str.toLowerCase().replace(/s+/g, " ").trim(); return s.length > 1 && names.some((n) => n.includes(s) || s.includes(n)); }).map((t) => t.size);
+  if (pic && (nameSizes.length || cover.authorShare)) {
+    const h = nameSizes.length ? Math.min(...nameSizes) : cover.authorShare * pic.h;   // points on the poster page
     authorText = format.kind === "pdf" ? { pt: +h.toFixed(1), mm: +(h / MM).toFixed(2) } : { px: +h.toFixed(1), pxHD: +(h * (format.hd || 1)).toFixed(1) };
     if (format.kind === "pdf" && h < 6) warnings.push(`author names on the printed cover are only ${h.toFixed(1)} pt`);
     if (format.kind === "png" && h < 12) warnings.push(`author names on the cover are only ${h.toFixed(1)} px tall (${(h * (format.hd || 1)).toFixed(0)} px in HD) — readable when zoomed`);
@@ -88,7 +106,7 @@ export function checkPoster({ format, inspected, regions, fields, cover, coverMe
 }
 
 export function summary(res) {
-  const L = [`${res.qualifies ? "✓ POSTER OK" : "✗ POSTER NOT OK"}  ${res.book}  — theme ${res.theme}`];
+  const L = [`${res.qualifies ? "✓ POSTER OK" : "✗ POSTER NOT OK"}  ${res.book}${res.set ? `  — poster ${res.set} (${res.bookStyle === "3d" ? "3D book" : "flat book"})` : ""}  — theme ${res.theme}`];
   for (const f of res.formats) {
     L.push(`   ${f.qualifies ? "✓" : "✗"} ${f.format}`);
     f.blockers.forEach((b) => L.push(`      BLOCKER  ${b}`));

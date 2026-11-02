@@ -59,9 +59,19 @@ export async function renderFrontCover(pdfPath, { targetWidth = 1600, authors = 
     }).map((it) => Math.hypot(it.transform[2], it.transform[3]));
     if (sizes.length) authorShare = Math.min(...sizes) / fp.h;
   }
+  // the front cover as a one-page VECTOR PDF (page 1 only, clipped to the front panel): the
+  // flat poster places this, so the cover's own words stay sharp at any size
+  const { PDFDocument } = require("pdf-lib");
+  const src = await PDFDocument.load(fs.readFileSync(pdfPath), { updateMetadata: false });
+  const one = await PDFDocument.create();
+  const H1 = v1.height;
+  const [emb] = await one.embedPdf(src, [0]);        // page index 0 = page 1, nothing else
+  const page = one.addPage([fp.w, fp.h]);
+  page.drawPage(emb, { x: -fp.x, y: -(H1 - fp.y - fp.h), width: v1.width, height: H1 });
+  const vector = Buffer.from(await one.save());
   const sw = 120, sh = Math.max(1, Math.round(sw * h / w));
   const small = createCanvas(sw, sh);
   small.getContext("2d").drawImage(out, 0, 0, sw, sh);
   await doc.destroy();
-  return { png: out.toBuffer("image/png"), width: w, height: h, aspect: h / w, pixels: small.getContext("2d").getImageData(0, 0, sw, sh).data, spread: fp.spread, authorShare };
+  return { png: out.toBuffer("image/png"), width: w, height: h, aspect: h / w, pixels: small.getContext("2d").getImageData(0, 0, sw, sh).data, spread: fp.spread, authorShare, vector };
 }

@@ -61,7 +61,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       process.exit(1);
     }
     console.log(`\n✓ RELEASED FOR PRINT${r.forced ? ` (forced: ${force})` : ""} — recorded in the overrides`);
-    console.log(summary(r.posters));
+    for (const s of r.posters.sets) console.log(summary(s));
     process.exit(r.posters.qualifies ? 0 : 1);
   } catch (e) { console.error(`✗ ${e.message}`); process.exit(1); }
 }

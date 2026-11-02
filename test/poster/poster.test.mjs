@@ -52,7 +52,7 @@ test("poster QA catches a stretched cover", async () => {
 
 test("poster QA catches text over its box, text over text, low contrast and missing fields", () => {
   const format = { name: "t", kind: "png" };
-  const regions = [{ id: "a", x: 0, y: 0, w: 100, h: 20, fg: "#777777", bg: "#888888", size: 12 }];
+  const regions = [{ id: "a", x: 0, y: 0, w: 100, h: 20, fg: "#777777", bg: "#888888", size: 12, text: "far too long a line on top of it" }];
   const inspected = { width: 400, height: 400, images: [],
     texts: [{ str: "far too long a line", x: 10, y: 2, w: 160, h: 12, size: 12, angle: 0 },
             { str: "on top of it", x: 20, y: 4, w: 60, h: 12, size: 12, angle: 0 }] };

@@ -42,19 +42,29 @@ Remakes the posters, for example after changing the wording or the colour theme.
 does every book whose overrides say `"releasedForPrint": true`. `poster` works on any typeset
 book (it notes when the book is not released yet), so you can preview before releasing.
 
-## What you get
+## What you get: two posters per book
 
-Everything goes to `output/_marketing/<book name>/`:
+Every Learner's Book and Teacher's Guide gets **two separate posters**, so you can choose:
+
+| Set | Book on the poster |
+|---|---|
+| **A** | the book standing square-on, the largest it can be. The cover is placed as the real **vector** page from the book's PDF, so its words, the author names too, stay sharp at any size and in print |
+| **B** | the book turned towards the viewer as in the approved sample (spine, page edges, shadow). This needs a picture of the cover, so it is a little softer and a little smaller |
+
+Everything goes to `output/_marketing/<book name>/`. Each set has the same files, with
+`A` or `B` in the name:
 
 | File | Size | Use |
 |---|---|---|
-| `… - poster 1080x1350.png` | 1080 × 1350 px (4:5) | WhatsApp status, Facebook / Instagram feed |
-| `… - poster 1080x1350 HD.png` | 2160 × 2700 px | the same, sharp on high-density phones |
-| `… - poster 1080x1080.png` | 1080 × 1080 px | square posts |
-| `… - poster 1080x1080 HD.png` | 2160 × 2160 px | the same, HD |
-| `… - poster A4 print.pdf` | A4 + 3 mm bleed | the printer |
-| `front-cover.png` | about 2000 px wide | the cover picture the poster used |
-| `poster-qa.json` | | the poster QA (below) |
+| `… - poster A 1080x1350.png` | 1080 × 1350 px (4:5) | WhatsApp status, Facebook / Instagram feed |
+| `… - poster A 1080x1350 HD.png` | 2160 × 2700 px | the same, sharp; **post this one**: the cover's small words stay crisp |
+| `… - poster A 1080x1080.png` | 1080 × 1080 px | square posts |
+| `… - poster A 1080x1080 HD.png` | 2160 × 2160 px | the same, HD |
+| `… - poster A A4 print.pdf` | A4 + 3 mm bleed | the printer |
+| `poster-qa-A.json` | | the poster QA for set A (and `-B` for set B) |
+| `front-cover.png` | 3000 px wide | the cover picture set B uses |
+
+To make one set only: `npm run poster -- "<book>.docx" --book flat` (A) or `--book 3d` (B).
 
 **Print file specification.** A4 (210 × 297 mm) with 3 mm bleed on every side (sheet
 216 × 303 mm). Backgrounds and bands run into the bleed, and all text stays at least 5 mm
@@ -80,25 +90,6 @@ printed size. The PDF is RGB; most print shops convert it, but ask if yours need
 manuscript text, or interior pages. Nothing is uploaded and no network call is made. A test
 (`test/poster/confidential.test.mjs`) fails if the poster code ever reaches for `admin/`, the
 network, or a page other than the cover.
-
-## The book: flat or 3D
-
-Two styles of book, to choose per book:
-
-| Style | Look |
-|---|---|
-| `flat` (default) | the book standing square-on, with page edges and a shadow; the largest cover, so the cover's words (authors too) read best |
-| `3d` | the book turned towards the viewer, as in the approved sample: spine on the left, page block on the right, soft shadow; a little smaller |
-
-```bash
-npm run poster -- "<book>.docx" --book 3d
-```
-```json
-"posterBook": "3d"
-```
-
-The 3D files are named `… - poster 3D 1080x1350.png` and so on (with `poster-qa-3d.json`), so
-both styles can sit side by side while you choose.
 
 ## Colours
 
