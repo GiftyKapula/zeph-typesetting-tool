@@ -14,11 +14,6 @@
   "//orIndividually": "The editor's note asks for her corrected copy to be followed exactly; the standing 'or individually' insertion would add words she did not write (as in the Learner's Book).",
   "orIndividually": false,
   "//mergePara": "The author biography breaks after \"Edgar Lungu National STEM\" where a line of the old layout ended, leaving \"Secondary School in Petauke…\" as a paragraph of its own.",
-  "mergePara": [
-    {
-      "find": "Deputy Headteacher at Edgar Lungu National STEM"
-    }
-  ],
   "//subtext": "Slips in the manuscript, corrected keeping each run's formatting. Sub-topic titles as the contents page and the Learner's Book spell them (\"Heath Hazards\" → Health; 3.6.3 \"Conflict Resolution\"); \"ASSESSEMENT\". Typos: Reparating, Rouching, Soilage, actiity, recal, bellow, conture (contour), firs, gust (guest), huma, qualitiy, sowing (showing), taters (tatters), throbbing (strobing, the highlighting technique), Sugested, Manag. Hyphens the PDF-to-Word conversion dropped at old line ends: competence-based, decision-making, natural-looking, non-verbal, service-driven, well-defined, follow-up. Grammar: customer(s) are central, elderly women, the others act, Reinforce that, emergency response, Business Venture (the heading means a business undertaking), others where safe, protects guests, her friend’s, learners practise, Importance of treating, information or visit, scenario-based training exercises. Sub-competence numbers typed with commas (3.1.2,1. / 3,4,1,1.) or without a space. Stray full stops inside a sentence (\"place. unnecessary\", \"body. posture\") and doubled ones. The Acknowledgement closed on a comma. Doubled spaces collapsed. Lines the conversion glued together (and the rebuild script now splits) needed their own capital or full stop: \"Key Teaching Points\", \"Possible learner response:\", \"Reinforce best practices\", \"Add important skills\", \"Key skills\", \"Guide learners to see…\", \"…reduce bias.\". A stray \"6.\" before one of the unnumbered customer scenarios; \"What was done well,\" took a question mark after its comma; \"Possible Challenges,\"; \"complaint .respectfully\"; the Learning Activity title \"…handling service failure exercise\" (the word twice); \"responsibility and problem.\" lost the end of \"problem-solving\" at an old line end. From the second proof: \"triangle and diamond,\"; \"learner’s/learners Book\" → Learner’s Book as everywhere else; practice → practise where it is the verb; \"Reinforce that…\", \"and is thrown out\", \"Responding to…\" (small word lower case as in every other heading), programmes, \"communities benefit\" (verb, not possessive); a TIPS bullet typed with a question mark; lower-case labels.",
   "subtext": [
     {
@@ -180,10 +175,6 @@
     {
       "from": "3.3.6.1.Demonstrate",
       "to": "3.3.6.1. Demonstrate"
-    },
-    {
-      "from": "skin types..",
-      "to": "skin types."
     },
     {
       "from": "protects guest.",
@@ -360,6 +351,462 @@
     {
       "from": "key skills: (learners",
       "to": "Key skills: (learners"
+    },
+    {
+      "from": "Butterworth-Heinemann",
+      "to": "Butterworth-⁠Heinemann"
+    },
+    {
+      "from": "cross-contamination",
+      "to": "cross-⁠contamination"
+    },
+    {
+      "from": "Cross-contamination",
+      "to": "Cross-⁠contamination"
+    },
+    {
+      "from": "context-appropriate",
+      "to": "context-⁠appropriate"
+    },
+    {
+      "from": "dispute-resolution",
+      "to": "dispute-⁠resolution"
+    },
+    {
+      "from": "complaint-handling",
+      "to": "complaint-⁠handling"
+    },
+    {
+      "from": "solution-oriented",
+      "to": "solution-⁠oriented"
+    },
+    {
+      "from": "self-presentation",
+      "to": "self-⁠presentation"
+    },
+    {
+      "from": "competence-based",
+      "to": "competence-⁠based"
+    },
+    {
+      "from": "disease-carrying",
+      "to": "disease-⁠carrying"
+    },
+    {
+      "from": "Travellers-Value",
+      "to": "Travellers-⁠Value"
+    },
+    {
+      "from": "Customers-Should",
+      "to": "Customers-⁠Should"
+    },
+    {
+      "from": "Customer-service",
+      "to": "Customer-⁠service"
+    },
+    {
+      "from": "customer-service",
+      "to": "customer-⁠service"
+    },
+    {
+      "from": "solution-focused",
+      "to": "solution-⁠focused"
+    },
+    {
+      "from": "learner-centred",
+      "to": "learner-⁠centred"
+    },
+    {
+      "from": "problem-solving",
+      "to": "problem-⁠solving"
+    },
+    {
+      "from": "self-employment",
+      "to": "self-⁠employment"
+    },
+    {
+      "from": "decision-making",
+      "to": "decision-⁠making"
+    },
+    {
+      "from": "Tourists-Expect",
+      "to": "Tourists-⁠Expect"
+    },
+    {
+      "from": "healthy-looking",
+      "to": "healthy-⁠looking"
+    },
+    {
+      "from": "self-assessment",
+      "to": "self-⁠assessment"
+    },
+    {
+      "from": "Closed-Circuit",
+      "to": "Closed-⁠Circuit"
+    },
+    {
+      "from": "hazard-control",
+      "to": "hazard-⁠control"
+    },
+    {
+      "from": "non-compliance",
+      "to": "non-⁠compliance"
+    },
+    {
+      "from": "well-explained",
+      "to": "well-⁠explained"
+    },
+    {
+      "from": "well-justified",
+      "to": "well-⁠justified"
+    },
+    {
+      "from": "Child-friendly",
+      "to": "Child-⁠friendly"
+    },
+    {
+      "from": "self-awareness",
+      "to": "self-⁠awareness"
+    },
+    {
+      "from": "child-friendly",
+      "to": "child-⁠friendly"
+    },
+    {
+      "from": "quick-response",
+      "to": "quick-⁠response"
+    },
+    {
+      "from": "re-demonstrate",
+      "to": "re-⁠demonstrate"
+    },
+    {
+      "from": "over-treatment",
+      "to": "over-⁠treatment"
+    },
+    {
+      "from": "scenario-based",
+      "to": "scenario-⁠based"
+    },
+    {
+      "from": "cost-effective",
+      "to": "cost-⁠effective"
+    },
+    {
+      "from": "access-control",
+      "to": "access-⁠control"
+    },
+    {
+      "from": "project-based",
+      "to": "project-⁠based"
+    },
+    {
+      "from": "fault-finding",
+      "to": "fault-⁠finding"
+    },
+    {
+      "from": "food-handling",
+      "to": "food-⁠handling"
+    },
+    {
+      "from": "Families-Need",
+      "to": "Families-⁠Need"
+    },
+    {
+      "from": "Guests-Expect",
+      "to": "Guests-⁠Expect"
+    },
+    {
+      "from": "Guests-Depend",
+      "to": "Guests-⁠Depend"
+    },
+    {
+      "from": "Customer-care",
+      "to": "Customer-⁠care"
+    },
+    {
+      "from": "well-reasoned",
+      "to": "well-⁠reasoned"
+    },
+    {
+      "from": "Barrier-Based",
+      "to": "Barrier-⁠Based"
+    },
+    {
+      "from": "sign-language",
+      "to": "sign-⁠language"
+    },
+    {
+      "from": "lost-property",
+      "to": "lost-⁠property"
+    },
+    {
+      "from": "stock-control",
+      "to": "stock-⁠control"
+    },
+    {
+      "from": "high-security",
+      "to": "high-⁠security"
+    },
+    {
+      "from": "non-essential",
+      "to": "non-⁠essential"
+    },
+    {
+      "from": "word-of-mouth",
+      "to": "word-⁠of-⁠mouth"
+    },
+    {
+      "from": "well-prepared",
+      "to": "well-⁠prepared"
+    },
+    {
+      "from": "Step-by-step",
+      "to": "Step-⁠by-⁠step"
+    },
+    {
+      "from": "step-by-step",
+      "to": "step-⁠by-⁠step"
+    },
+    {
+      "from": "food-contact",
+      "to": "food-⁠contact"
+    },
+    {
+      "from": "colour-coded",
+      "to": "colour-⁠coded"
+    },
+    {
+      "from": "ready-to-eat",
+      "to": "ready-⁠to-⁠eat"
+    },
+    {
+      "from": "hand-washing",
+      "to": "hand-⁠washing"
+    },
+    {
+      "from": "Disability-A",
+      "to": "Disability-⁠A"
+    },
+    {
+      "from": "Impairment-A",
+      "to": "Impairment-⁠A"
+    },
+    {
+      "from": "high-quality",
+      "to": "high-⁠quality"
+    },
+    {
+      "from": "well-dressed",
+      "to": "well-⁠dressed"
+    },
+    {
+      "from": "face-to-face",
+      "to": "face-⁠to-⁠face"
+    },
+    {
+      "from": "well-managed",
+      "to": "well-⁠managed"
+    },
+    {
+      "from": "work-related",
+      "to": "work-⁠related"
+    },
+    {
+      "from": "well-groomed",
+      "to": "well-⁠groomed"
+    },
+    {
+      "from": "even-looking",
+      "to": "even-⁠looking"
+    },
+    {
+      "from": "Self-control",
+      "to": "Self-⁠control"
+    },
+    {
+      "from": "eco-friendly",
+      "to": "eco-⁠friendly"
+    },
+    {
+      "from": "well-planned",
+      "to": "well-⁠planned"
+    },
+    {
+      "from": "food-quality",
+      "to": "food-⁠quality"
+    },
+    {
+      "from": "poor-quality",
+      "to": "poor-⁠quality"
+    },
+    {
+      "from": "Law-related",
+      "to": "Law-⁠related"
+    },
+    {
+      "from": "food-safety",
+      "to": "food-⁠safety"
+    },
+    {
+      "from": "large-group",
+      "to": "large-⁠group"
+    },
+    {
+      "from": "Customer-An",
+      "to": "Customer-⁠An"
+    },
+    {
+      "from": "Allergies-A",
+      "to": "Allergies-⁠A"
+    },
+    {
+      "from": "Children-An",
+      "to": "Children-⁠An"
+    },
+    {
+      "from": "Focus-group",
+      "to": "Focus-⁠group"
+    },
+    {
+      "from": "self-esteem",
+      "to": "self-⁠esteem"
+    },
+    {
+      "from": "oil-control",
+      "to": "oil-⁠control"
+    },
+    {
+      "from": "report-back",
+      "to": "report-⁠back"
+    },
+    {
+      "from": "E-Business",
+      "to": "E-⁠Business"
+    },
+    {
+      "from": "Time-bound",
+      "to": "Time-⁠bound"
+    },
+    {
+      "from": "real-world",
+      "to": "real-⁠world"
+    },
+    {
+      "from": "Food-borne",
+      "to": "Food-⁠borne"
+    },
+    {
+      "from": "food-borne",
+      "to": "food-⁠borne"
+    },
+    {
+      "from": "High-Class",
+      "to": "High-⁠Class"
+    },
+    {
+      "from": "Customer-A",
+      "to": "Customer-⁠A"
+    },
+    {
+      "from": "day-to-day",
+      "to": "day-⁠to-⁠day"
+    },
+    {
+      "from": "single-use",
+      "to": "single-⁠use"
+    },
+    {
+      "from": "non-verbal",
+      "to": "non-⁠verbal"
+    },
+    {
+      "from": "staff-only",
+      "to": "staff-⁠only"
+    },
+    {
+      "from": "sub-topic",
+      "to": "sub-⁠topic"
+    },
+    {
+      "from": "Sub-Topic",
+      "to": "Sub-⁠Topic"
+    },
+    {
+      "from": "long-term",
+      "to": "long-⁠term"
+    },
+    {
+      "from": "co-worker",
+      "to": "co-⁠worker"
+    },
+    {
+      "from": "Follow-Up",
+      "to": "Follow-⁠Up"
+    },
+    {
+      "from": "follow-up",
+      "to": "follow-⁠up"
+    },
+    {
+      "from": "Long-term",
+      "to": "Long-⁠term"
+    },
+    {
+      "from": "Coca-Cola",
+      "to": "Coca-⁠Cola"
+    },
+    {
+      "from": "role-play",
+      "to": "role-⁠play"
+    },
+    {
+      "from": "Follow-up",
+      "to": "Follow-⁠up"
+    },
+    {
+      "from": "real-life",
+      "to": "real-⁠life"
+    },
+    {
+      "from": "skin-care",
+      "to": "skin-⁠care"
+    },
+    {
+      "from": "check-out",
+      "to": "check-⁠out"
+    },
+    {
+      "from": "hands-on",
+      "to": "hands-⁠on"
+    },
+    {
+      "from": "check-in",
+      "to": "check-⁠in"
+    },
+    {
+      "from": "Build-up",
+      "to": "Build-⁠up"
+    },
+    {
+      "from": "well-lit",
+      "to": "well-⁠lit"
+    },
+    {
+      "from": "Walk-in",
+      "to": "Walk-⁠in"
+    },
+    {
+      "from": "make-up",
+      "to": "make-⁠up"
+    },
+    {
+      "from": "Make-up",
+      "to": "Make-⁠up"
+    },
+    {
+      "from": "T-zone",
+      "to": "T-⁠zone"
     }
   ],
   "//retext": "A label whose first letter the conversion lost at an old line start (\"ips\" in the Face Mapping answers, between \"Highlighter…\" and \"Lip liner…\").",
@@ -411,7 +858,6 @@
   "fmSpacing": "1.5em",
   "//pageBreakBefore": "Page breaks so nothing is stranded: the Preface ended with its signature alone on a page (its last paragraph now goes over with it); the References ended with two entries alone (four go over); the Topic 3.6 assessment ended with two lines alone (the break comes before answer 10 b)). Exercise 11 (Sub-topic 3.3.6) opened at the foot of a page with only its first question stem, the answer over the leaf: it starts on the next page.",
   "pageBreakBefore": [
-    "Use this guide to enrich your teaching",
     "The employee could establish the facts",
     "Walker, J.R.",
     "EXERCISE 11"
@@ -419,5 +865,70 @@
   "//keepWithNext": "Exercise 3 of Sub-topic 3.5.2: question 2 (\"Responding to the caller\") ended a page with its answer overleaf.",
   "keepWithNext": [
     "Responding to the caller"
-  ]
+  ],
+  "//round1": "proofread round 1 (2 Nov 2026): new bio, Foreword and Preface from the reviewer's notes (p7-9); p10 closing line struck out; no word cut at a line end",
+  "replaceBlocks": [
+    {
+      "find": "Phyllis Simasiku holds a Master’s degree in Women’s Law (MWL) from the University of Zimbabwe, Southern and Eastern African Regional Centre for Women’s Law, Harare, Zimbabwe, a Bachelor of Arts with Education, University of Zambia, Lusaka and a Certificate in Global Development Agenda (Gender Sensitive Planning and Implementation) International Training Centre of the ILO/UNIFEM. She has over twenty-five years of professional experience in secondary education, school management and education consultancy. She has worked extensively with the Ministry of Education and international organisations including UNICEF, CARE International-Zambia and Save the Children Norway in advancing quality, equitable and inclusive education programmes. She is currently serving as Deputy Headteacher at Edgar Lungu National STEM",
+      "with": [
+        {
+          "para": "Phyllis Simasiku is an experienced educationist, author and reviewer of teaching and learning materials. She is currently serving as Deputy Headteacher at Edgar Lungu National STEM Secondary School in Petauke, Eastern Province."
+        }
+      ]
+    },
+    {
+      "find": "Secondary School in Petauke, Eastern Province-Zambia",
+      "with": []
+    },
+    {
+      "find": "The Ministry of Education has introduced the Form 3 Hospitality Management Teacher’s Guide to enhance the quality of teaching and learning in line with Zambia’s competence-based curriculum. Developed with the support of the Zambia Educational Publishing House (ZEPH), this guide is intended to assist teachers in delivering practical, learner-centred lessons with clear and measurable outcomes.",
+      "with": [
+        {
+          "para": "The Ministry of Education, in collaboration with the Zambia Educational Publishing House (ZEPH), is pleased to present this Form 3 Hospitality Management Teacher’s Guide, developed to support the implementation of the Competence-Based Curriculum. The Guide complements the Learner’s Book and builds on knowledge, skills, values and attitudes acquired in earlier grades. It provides practical guidance on lesson preparation, learner-centred teaching approaches, learning activities and assessment strategies covering health and safety, customer care, security, food safety and professional conduct. Through inclusive, participatory and hands-on learning experiences, teachers are encouraged to develop learners’ critical thinking, problem-solving, communication, collaboration, responsibility and ethical conduct while promoting safety and effective use of locally available resources. The Ministry commends ZEPH and all stakeholders who contributed to this publication and encourages teachers to use the Guide effectively to develop learners’ practical competences, preparing them for further education, employment, entrepreneurship and meaningful participation in Zambia’s hospitality industry and national development."
+        }
+      ]
+    },
+    {
+      "find": "The guide complements the Form 3 Hospitality Management Learner’s Book and builds on the knowledge, skills and attitudes learners have acquired in earlier grades. It provides structured support for lesson preparation, suggested teaching and learning activities, assessment strategies and guidance on integrating values and life skills within hospitality contexts. Teachers are assisted in facilitating learning in areas such as health and safety, customer care, security, food safety and professional conduct.",
+      "with": []
+    },
+    {
+      "find": "Hospitality Management is a vital subject that promotes responsibility, teamwork, hygiene, communication skills and respect for clients and colleagues. The guide therefore encourages participatory, inclusive and practice-oriented approaches that actively involve learners while taking into account diversity, safety requirements and the use of locally available resources.",
+      "with": []
+    },
+    {
+      "find": "The Ministry extends appreciation to ZEPH, curriculum specialists, teachers and other stakeholders who contributed to the development of this guide. Teachers are encouraged to use this resource effectively to enrich classroom practice, assess competencies accurately and prepare learners for further training, employment and entrepreneurship in the hospitality industry. It is hoped that this guide will support the development of confident, skilled and ethical citizens who contribute meaningfully to national development.",
+      "with": []
+    },
+    {
+      "find": "This Form 3 Hospitality Management Teacher’s Guide has been developed to make the teacher’s work more focused, practical and effective. It builds on the foundations laid in Forms 1 and 2 while introducing learners to more advanced areas of hospitality, including cosmetology and entrepreneurship, as well as emerging topics such as health and safety, customer care, professional conduct and security within hospitality environments.",
+      "with": [
+        {
+          "para": "This Form 3 Hospitality Management Teacher’s Guide has been developed to support the effective implementation of the Competence-Based Curriculum, building on knowledge, skills, values and attitudes acquired in Forms 1 and 2. It provides practical guidance on teaching key areas of hospitality, including cosmetology, entrepreneurship, health and safety, customer care, professional conduct and security. The Guide promotes learner-centred approaches such as collaborative learning, project-based learning, hands-on practice, inquiry-based learning, modelling and simulation, guest lectures and the flipped classroom. Through practical activities and realistic workplace scenarios, teachers are supported in developing learners’ creativity, innovation, critical thinking, problem-solving, communication, teamwork, emotional intelligence and environmental responsibility. Emphasis is placed on nurturing professionalism, integrity, respect, hygiene consciousness and quality service delivery while connecting classroom learning to hospitality establishments and community enterprises. The Guide also provides assessment strategies and learner support to help teachers monitor progress, evaluate competences and prepare learners for further education, employment and entrepreneurship in the hospitality industry."
+        }
+      ]
+    },
+    {
+      "find": "The guide promotes learner-centred and competence-based teaching. It recommends a variety of methodologies appropriate to hospitality training, including collaborative learning, project-based tasks, hands-on practice, inquiry approaches, modelling and simulation, guest lectures and the flipped classroom. These approaches ensure that learners actively participate in their learning while developing industry-relevant knowledge and practical ability.",
+      "with": []
+    },
+    {
+      "find": "Through the suggested activities, learners are guided to strengthen key skills required in the modern hospitality sector. These include creativity and innovation, environmental sustainability awareness, emotional intelligence, communication, teamwork and problem-solving. Emphasis is placed on applying learning to real workplace situations so that learners are better prepared for further training, employment or self-employment.",
+      "with": []
+    },
+    {
+      "find": "Values and attitudes are equally important in hospitality practice. The guide therefore supports teachers in nurturing responsibility, respect, integrity, hygiene consciousness and a strong service ethic. Practical examples and realistic scenarios help connect classroom experiences to hotels, lodges, restaurants and tourism enterprises within the community.",
+      "with": []
+    },
+    {
+      "find": "Clear direction on assessment and learner support is provided to help teachers monitor progress and evaluate competencies accurately. This resource is meant to strengthen your delivery of lessons and your confidence in preparing learners for the expectations of the hospitality industry.",
+      "with": []
+    },
+    {
+      "find": "Use this guide to enrich your teaching, promote professionalism and inspire learners to develop the skills, attitudes and creativity needed for success in hospitality.",
+      "with": []
+    }
+  ],
+  "hyphenate": false,
+  "//compounds": "every hyphenated compound takes a word joiner after its hyphen, so no line ends in a hyphen (round 1, as the LB)"
 }
