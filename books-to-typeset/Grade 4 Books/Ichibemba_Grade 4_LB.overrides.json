@@ -2857,6 +2857,38 @@
     {
       "find": "nda”.Amapinda",
       "with": "nda”. Amapinda"
+    },
+    {
+      "find": "Mu mabuma,",
+      "with": "Mu mabumba,"
+    },
+    {
+      "find": "UMUTWE 4.4.1 UKUMFWIKISHA ILYASHI",
+      "with": "UMUTWE: 4.4.1 UKUMFWIKISHA ILYASHI"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.4.1.1 Ukumfwikisha",
+      "with": "Umutwe Unoono: 4.4.1.1 Ukumfwikisha"
+    },
+    {
+      "find": "UMUTWE 4.5.4 UKUPANGA ILYASHI",
+      "with": "UMUTWE: 4.5.4 UKUPANGA ILYASHI"
+    },
+    {
+      "find": "UMUTWE UNOONO 4.5.4.4 Ukulemba Kalata",
+      "with": "Umutwe Unoono: 4.5.4.4 Ukulemba Kalata"
+    },
+    {
+      "find": "Shimikenki umulandu",
+      "with": "Shimikeni umulandu"
+    },
+    {
+      "find": "Ifielmbelwe fyabelngwa",
+      "with": "Ifilembelwe fyabelengwa"
+    },
+    {
+      "find": "ishalekana lekana",
+      "with": "ishalekana-lekana"
     }
   ],
   "subtext": [
@@ -3271,8 +3303,8 @@
       "to": "4.4 UKUMFWIKISHA"
     },
     {
-      "after": "Umutwe Unoono: 4.5.4.4 Ukulemba Kalata",
-      "from": "Ifilekabilwa ukwishiba:",
+      "after": "Ifyalacitika kuntanshi ya ilyashi fyalandwa bwino",
+      "from": "Ifilekabilwa ukwishiba",
       "to": "ICIPANDE 9: INCENDE SHESU"
     }
   ],
@@ -3292,6 +3324,14 @@
     {
       "find": "B: UKULONDOLOLA ILYASHI",
       "near": "Ukubwekeshapo ukulondolola"
+    },
+    {
+      "find": "Pamo, bapeele aka kana",
+      "near": "Ukumfwikisha ilyashi lilebelengwa"
+    },
+    {
+      "find": "Ifyakupiminako",
+      "near": "Bushe isukulu lyenu limoneka shani"
     }
   ],
   "_note_round1": "Round 1 = the 155 reviewer comments in the author's 31 Oct PDF (zeph grade-4-icibemba-lb, #2836-#2990). Topic codes after UMUTWE throughout (#2882); topic titles to the syllabus names the reviewer gave, the same name for every 4.2.2 (UMWAKUSANGA ILYASHI); units renumbered from the second ICIPANDE 7 (= 8) on, so 8->9, 9->10, 10->11; duplicated pp 94-95 and 99 removed; letter type + punctuation; colours numbered; glossary on a new page. Book-wide: Ameepusho/ilipusho, Abaana, Ifilekabilwa ukwishiba, Imibombele Ileenekelwa, mukwikatisha, UKUPANGA ILYASHI.",
@@ -3803,6 +3843,9 @@
     {
       "findTable": "Ukwilula amapinda aya nono",
       "lead": 1
+    },
+    {
+      "findTable": "IFAYAKUCITA 1"
     }
   ],
   "oneActivityPerBox": {
@@ -3888,5 +3931,7 @@
         ]
       ]
     }
-  ]
+  ],
+  "boxStripe": false,
+  "_note_round3": "Unit 8 restored 2026-11-02 (C:/z/bg4c/gen4.cjs): the p99-duplicate removeRange re-anchored to Unit 8's letter, so Unit 8 keeps 4.1, 4.2, 4.4 and 4.5 as the reviewer asked (#2940); its headings, activity title and three typos made like the rest of the book."
 }
