@@ -256,11 +256,14 @@ function emit(blocks) {
         // list (Lunda Grade 1 LB: "KUTAÑA" 9pt under "2. Yakudanyi yahanaña ñovu?").
         let pb = bi - 1; while (pb >= 0 && blocks[pb].t === "vspace") pb--;
         if (pb >= 0 && (blocks[pb].t === "listitem" || (blocks[pb].t === "para" && blocks[pb].marker && blocks[pb].isList))) out += `#afterlist()\n`;
-        if (b.toc) out += `#tocentry(${b.toc}, ${S(b.text)})\n`;   // tocHeads (typeset-docx.js)
         const h = `#head(${S(b.text)}${b.align === "center" ? `, al: "center"` : ""}${b.black ? `, black: true` : ""}${b.headColor ? `, col: ${S(b.headColor)}` : ""})\n`;
         // A short figure label ("(a) Histogram", "Figure 1") right before its picture
         // must not be orphaned at a page break — stick it to the image that follows.
         out += (nextIsImg && FIGLABEL.test((b.text || "").trim()) && (b.text || "").trim().length <= 60) ? stickyWrap(h) : h;
+        // tocHeads (typeset-docx.js): the contents anchor goes AFTER the heading. Placed before
+        // it, the anchor stayed at the foot of the old page whenever the heading moved to the
+        // top of the next one, and the contents listed that heading a page early.
+        if (b.toc) out += `#tocentry(${b.toc}, ${S(b.text)})\n`;
         break;
       }
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
