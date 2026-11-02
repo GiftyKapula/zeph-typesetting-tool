@@ -1369,5 +1369,6 @@
       "find": "Mu mabumba ya babili-babili, lanshanyeni amashiwi yatatu",
       "next": "Ifyasuko ifingaba"
     }
-  ]
+  ],
+  "boxStripe": false
 }
