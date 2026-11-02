@@ -2,19 +2,28 @@
   "setHeading": [
     {
       "find": "POPULATION",
-      "near": "1.5.1. Population Composition",
+      "near": "Sub-Topic: 1.5.1 Population Composition",
       "text": "TOPIC 1.5: POPULATION",
       "as": "h1"
-    },
-    {
-      "find": "1.5.1. Population Composition",
-      "text": "Subtopic 1.5.1. Population Composition",
-      "as": "h2"
     },
     {
       "find": "1.6. SETTLEMENTS",
       "text": "TOPIC 1.6: SETTLEMENTS",
       "as": "h1"
+    },
+    {
+      "find": "Sub-Topic: 1.3.1.: Weather and Climate",
+      "text": "Sub-Topic: 1.3.1 Weather and Climate",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 1.4.1.: Natural Resources",
+      "text": "Sub-Topic 1.4.1 Natural Resources",
+      "as": "h2"
+    },
+    {
+      "find": "Factor Influencing Weather and Climate",
+      "as": "head"
     }
   ],
   "setMarker": [
@@ -38,5 +47,2914 @@
       "find": "The class does a gallery walk, moving around the room to read and compare each group’s findings.",
       "marker": "iii)"
     }
-  ]
+  ],
+  "replaceBlocks": [
+    {
+      "find": "KEY COMPETENCES TO BE DEVELOPED",
+      "with": [
+        {
+          "raw": {
+            "t": "h1",
+            "text": "GENERAL COMPETENCES TO BE DEVELOPED"
+          }
+        }
+      ]
+    },
+    {
+      "find": "LIST OF TABLES",
+      "with": [
+        {
+          "h1": "LIST OF FIGURES"
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 1",
+            "title": "Various Branches of Geography",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 2",
+            "title": "The Earth in the Solar System",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 3",
+            "title": "Shape of the Earth",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 4",
+            "title": "Movement of the Earth",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 5",
+            "title": "Earth’s Movements and Seasons",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 6",
+            "title": "Longitudes and Latitudes",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 7",
+            "title": "The International Date Line",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 8",
+            "title": "Time Zones",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 9",
+            "title": "Layers of the Atmosphere",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 10",
+            "title": "Weather and Climate",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 11",
+            "title": "Types of Natural Resources",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 12",
+            "title": "Renewable and Non-renewable Natural Resources",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 13",
+            "title": "Population and Natural Resources",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 14",
+            "title": "The Three Rs (Recycle, Reuse & Reduce) of Waste",
+            "page": ""
+          }
+        },
+        {
+          "raw": {
+            "t": "loentry",
+            "num": "Fig 16",
+            "title": "Effects of rapid population growth",
+            "page": ""
+          }
+        },
+        {
+          "h1": "LIST OF TABLES"
+        }
+      ]
+    },
+    {
+      "find": "Subtopic 1.1.1.: Introduction to Geography",
+      "next": "General Competences:",
+      "with": [
+        {
+          "raw": {
+            "t": "h2",
+            "text": "Subtopic 1.1.1. Geography"
+          }
+        }
+      ]
+    },
+    {
+      "find": "General Competences:",
+      "next": "Creativity and Innovation, Critical thinking, Digi",
+      "with": []
+    },
+    {
+      "find": "Creativity and Innovation, Critical thinking, Digital and Environmental sustainability.",
+      "next": "Specific Competence:",
+      "with": []
+    },
+    {
+      "find": "General Competences:",
+      "next": "Critical thinking, Collaboration, Problem solving ",
+      "with": []
+    },
+    {
+      "find": "Critical thinking, Collaboration, Problem solving and Digital skills.",
+      "next": "Specific Competence",
+      "with": []
+    },
+    {
+      "find": "Key Competences:",
+      "next": "Critical thinking, communication skills, creativit",
+      "with": []
+    },
+    {
+      "find": "Critical thinking, communication skills, creativity and innovations and digital skills.",
+      "next": "Specific Competence",
+      "with": []
+    },
+    {
+      "find": "General Competences:",
+      "next": "Critical thinking, problem-solving, environmental ",
+      "with": []
+    },
+    {
+      "find": "Critical thinking, problem-solving, environmental sustainability, creativity and innovation and collaboration",
+      "next": "Specific Competence:",
+      "with": []
+    },
+    {
+      "find": "General Competences:",
+      "next": "Analytical thinking, Citizenship and Environmental",
+      "with": []
+    },
+    {
+      "find": "Analytical thinking, Citizenship and Environmental Sustainability.",
+      "next": "Specific Competence:",
+      "with": []
+    },
+    {
+      "find": "General Competences:",
+      "next": "Problem solving and Analytical thinking",
+      "with": []
+    },
+    {
+      "find": "Problem solving and Analytical thinking",
+      "next": "Specific Competence:",
+      "with": []
+    },
+    {
+      "find": "General Competences:",
+      "next": "Collaboration, Citizenship, Analytical thinking, D",
+      "with": []
+    },
+    {
+      "find": "Collaboration, Citizenship, Analytical thinking, Digital and Problem Solving.",
+      "next": "Specific Competence:",
+      "with": []
+    },
+    {
+      "find": "In this subtopic, you will learn to:",
+      "next": "Demonstrate understanding of Geography.",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "In this subtopic, you will learn to:",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Demonstrate understanding of Geography.",
+      "next": "Discussing Geography",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Demonstrate understanding of Geography.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "1.1.1.1.",
+            "numId": "41",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Analysing the Importance of Studying Geography (Conservation of the Environment, spatial and navigational skills…)",
+      "next": "The table below summarises the importance of study",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 3: Analysing the Importance of Studying Geography (Conservation of the Environment, spatial and navigational skills…)",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Task Summary:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " In small groups, you will investigate how Geography influences your everyday lives by gathering real examples and analysing why studying Geography matters.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "Task Summary: In small groups, you will investigate how Geography influences your everyday lives by gathering real examples and analysing why studying Geography matters.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Steps to the Activity:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Steps to the Activity:",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "List down ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "five things you did today",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " (e.g., walking to class, checking the weather, using water, eating breakfast). Highlight which of these actions connect to Geography.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "List down five things you did today (e.g., walking to class, checking the weather, using water, eating breakfast). Highlight which of these actions connect to Geography.",
+                "isList": true,
+                "numId": "124",
+                "lvl": 0,
+                "marker": "1."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Conduct an ‘Evidence Hunt’",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "Conduct an ‘Evidence Hunt’",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "In small groups of 5 or 6, walk around the school grounds or classroom and identify ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "visible signs of Geography",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": ", such as:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "In small groups of 5 or 6, walk around the school grounds or classroom and identify visible signs of Geography, such as:",
+                "isList": true,
+                "numId": "43",
+                "lvl": 0,
+                "marker": "2."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Landforms (hills, mounds, slopes)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "Landforms (hills, mounds, slopes)",
+                "isList": true,
+                "numId": "33",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Weather conditions",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "Weather conditions",
+                "isList": true,
+                "numId": "33",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Human features (roads, buildings, drainages)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "Human features (roads, buildings, drainages)",
+                "isList": true,
+                "numId": "33",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Resource use (water points, bins, orchards, gardens).",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "Resource use (water points, bins, orchards, gardens).",
+                "isList": true,
+                "numId": "33",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Synthesis Poster ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "Synthesis Poster",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "In your groups, create a ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "mini‑poster",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " titled ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "“Why Studying Geography Matters”",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " using your evidence. The poster must include:",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "In your groups, create a mini‑poster titled “Why Studying Geography Matters” using your evidence. The poster must include:",
+                "isList": true,
+                "numId": "43",
+                "lvl": 0,
+                "marker": "3."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "At least ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "3 real examples",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " from your observations",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "At least 3 real examples from your observations",
+                "isList": true,
+                "numId": "167",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "A short explanation of ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "why Geography is important",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "A short explanation of why Geography is important",
+                "isList": true,
+                "numId": "167",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "One global challenge Geography helps you understand",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "One global challenge Geography helps you understand",
+                "isList": true,
+                "numId": "167",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "How does Geography help people make better decisions?",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "plain": "How does Geography help people make better decisions?",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "Observing Celestial Activities as a Hobby for Educ",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Part A: Short Answer Questions",
+                "qseg": [
+                  {
+                    "t": "Part A: Short Answer Questions",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Answer the following in one or two sentences.",
+                "qseg": [
+                  {
+                    "t": "Answer the following in one or two sentences.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Define Solar System.",
+                "qseg": [
+                  {
+                    "t": "Define Solar System.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Explain why Earth is the only planet known to support life.",
+                "qseg": [
+                  {
+                    "t": "Explain why Earth is the only planet known to support life.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "What is the difference between a Meteoroid and a Meteorite?",
+                "qseg": [
+                  {
+                    "t": "What is the difference between a Meteoroid and a Meteorite?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "Earth Movements and Planning for Specific Events",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Part 1: Identifying Effects",
+                "qseg": [
+                  {
+                    "t": "Part 1: Identifying Effects",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "The two movements of the Earth have very different impacts on our lives. Categorise the following effects by placing them under the correct heading: Rotation or Revolution.",
+                "qseg": [
+                  {
+                    "t": "The two movements of the Earth have very different impacts on our lives. Categorise the following effects by placing them under the correct heading: Rotation or Revolution. ",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Day and Night cycle",
+                "qseg": [
+                  {
+                    "t": "Day and Night cycle",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "•",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "The Four Seasons (Spring, Summer, Autumn, Winter)",
+                "qseg": [
+                  {
+                    "t": "The Four Seasons (Spring, Summer, Autumn, Winter)",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "•",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "The deflection of winds (Coriolis Effect)",
+                "qseg": [
+                  {
+                    "t": "The deflection of winds (Coriolis Effect)",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "•",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Changing lengths of day and night throughout the year",
+                "qseg": [
+                  {
+                    "t": "Changing lengths of day and night throughout the year",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "•",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Rising and setting of the sun",
+                "qseg": [
+                  {
+                    "t": "Rising and setting of the sun",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "•",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Differences in time zones across the globe.",
+                "qseg": [
+                  {
+                    "t": "Differences in time zones across the globe.",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "•",
+                "depth": 1
+              },
+              {
+                "kind": "image",
+                "images": [
+                  {
+                    "file": "imp_image8.png",
+                    "w": 513.7333333333333,
+                    "h": 138.46666666666667,
+                    "tall": false,
+                    "caption": "",
+                    "hmm": 0,
+                    "floatingBelowText": false,
+                    "side": null,
+                    "voff": 0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "The International Date Line",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Why do lines of latitude become smaller as they move toward the poles?",
+                "qseg": [
+                  {
+                    "t": "Why do lines of latitude become smaller as they move toward the poles?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 2",
+      "next": "Locating Places on the Globe Using Latitudes and L",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 2",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Practical \"Time Traveller\" Problems",
+                "qseg": [
+                  {
+                    "t": "Practical \"Time Traveller\" Problems",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Use the National Ocean Service’s crossing rules to solve these scenarios:",
+                "qseg": [
+                  {
+                    "t": "Use the National Ocean Service’s crossing rules to solve these scenarios:",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Scenario A: A traveller flies from Japan (West of IDL) to Hawaii (East of IDL) on a Tuesday. What day is it when they land in Hawaii?",
+                "qseg": [
+                  {
+                    "t": "Scenario A:",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " ",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "A traveller flies from Japan (West of IDL) to Hawaii (East of IDL) on a Tuesday. What day is it when they land in Hawaii?",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Locating places using Geographical Information System (GIS)",
+      "next": "GIS is a computer-based system that integrate geog",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 4: Locating places on the globe using Geographic Information Systems (GIS)",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "In groups, discuss the how to locate places using GIS.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "In groups, discuss the how to locate places using GIS.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Calculate local time and standard time using longitudes",
+      "next": "Standard time is where each country adopts the loc",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 1: Calculate local time and standard time using longitudes",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "In groups work out the following activities:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "In groups work out the following activities:",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": " If the local time at Place ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "A",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": " located along Greenwich 0",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "\"\"^(\"o\")",
+                    "m": true,
+                    "display": false,
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " is 12:00 hours, what will be the time at the following cities?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "If the local time at Place A located along Greenwich 0\"\"^(\"o\") is 12:00 hours, what will be the time at the following cities?",
+                "isList": false,
+                "numId": null,
+                "lvl": null
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Chipata 32",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "\"\"^(\"o\")",
+                    "m": true,
+                    "display": false,
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "E",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Chipata 32\"\"^(\"o\")E",
+                "isList": true,
+                "numId": "152",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Kitwe 28",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "\"\"^(\"o\")",
+                    "m": true,
+                    "display": false,
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " E",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Kitwe 28\"\"^(\"o\") E",
+                "isList": true,
+                "numId": "152",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Lusaka 28",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "\"\"^(\"o\")",
+                    "m": true,
+                    "display": false,
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "E",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Lusaka 28\"\"^(\"o\")E",
+                "isList": true,
+                "numId": "152",
+                "lvl": 0,
+                "marker": "•"
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Chinsali 32",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "\"\"^(\"o\")",
+                    "m": true,
+                    "display": false,
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "E",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Chinsali 32\"\"^(\"o\")E",
+                "isList": true,
+                "numId": "152",
+                "lvl": 0,
+                "marker": "•"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 3",
+      "next": "Use Latitudes to Calculate Distance",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 3",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Part 1: Travel & Communication Scenarios",
+                "qseg": [
+                  {
+                    "t": "Part 1: Travel & Communication Scenarios",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "lead",
+                "q": "Solve these real-world problems using the Time and Date World Clock rules:",
+                "qseg": [
+                  {
+                    "t": "Solve these real-world problems using the Time and Date World Clock rules:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "The International Football Match: A match starts in London (0°) at 8:00 PM. If you are in Lusaka, Zambia (30°E), what time should you turn on your TV to catch the start?",
+                "qseg": [
+                  {
+                    "t": "The International Football Match: A match starts in London (0°) at 8:00 PM. If you are in Lusaka, Zambia (30°E), what time should you turn on your TV to catch the start?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Business Call: A manager in New York (75°W) wants to call a partner in Tokyo (135°E). If it is 9:00 AM on Monday in New York, what day and time is it in Tokyo?",
+                "qseg": [
+                  {
+                    "t": "Business Call: A manager in New York (75°W) wants to call a partner in Tokyo (135°E). If it is 9:00 AM on Monday in New York, what day and time is it in Tokyo?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Flight Duration: A plane leaves Nairobi (45°E) at 10:00 AM and flies for 6 hours to a city located at 15°E.",
+                "qseg": [
+                  {
+                    "t": "Flight Duration: A plane leaves Nairobi (45°E) at 10:00 AM and flies for 6 hours to a city located at 15°E.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Step 1: What is the time difference between the two cities?",
+                "qseg": [
+                  {
+                    "t": "Step 1: What is the time difference between the two cities?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Step 2: What time will the local clock show when the plane lands?",
+                "qseg": [
+                  {
+                    "t": "Step 2: What time will the local clock show when the plane lands?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Part 2: Time Zone Logic",
+                "qseg": [
+                  {
+                    "t": "Part 2: Time Zone Logic",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Why do some countries, like India or China, have only one time zone despite being very wide?",
+                "qseg": [
+                  {
+                    "t": "Why do some countries, like India or China, have only one time zone despite being very wide?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "If you travel West across the International Date Line, what do you do to your calendar?",
+                "qseg": [
+                  {
+                    "t": "If you travel West across the International Date Line, what do you do to your calendar?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Which countries use \"Daylight Saving Time\" (shifting clocks forward in summer)?",
+                "qseg": [
+                  {
+                    "t": "Which countries use \"Daylight Saving Time\" (shifting clocks forward in summer)?",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "6.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Calculating the position of the midday sun (Angle of Elevation) at a given latitude at different times of the year",
+      "next": "The angle of elevation is the angle between the ho",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 1: Calculating the position of the midday sun (Angle of Elevation) at a given latitude at different times of the year",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "As a class, calculate the angel of elevation of midday sun of the following given locations.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "As a class, calculate the angel of elevation of midday sun of the following given locations.",
+                "isList": false,
+                "numId": null,
+                "lvl": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": ". protect the Earth’ s atmosphere",
+      "next": "Layers of the Atmosphere",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Protect the Earth’s atmosphere.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "1.2.5.1.",
+            "numId": "60",
+            "lvl": 3
+          }
+        }
+      ]
+    },
+    {
+      "find": "Factors that Influence Weather and Climate",
+      "next": "There are various geographical factors that influe",
+      "with": [
+        {
+          "raw": {
+            "t": "head",
+            "text": "Factors that influence weather and climate include:"
+          }
+        }
+      ]
+    },
+    {
+      "find": "There are various geographical factors that influence weather and climate of an area or region. These factors determine the variations in climatic conditions of one place from another. Among them are the following:",
+      "next": "Altitude /Relief",
+      "with": []
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Identify factors influencing weather and climate",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "There are various geographical factors that influence weather and climate of an area or region. These factors determine the variations in climatic conditions of one place from another.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 3: Identify factors influencing weather and climate",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "In groups, identify factors that influence weather and climate.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "In groups, identify factors that influence weather and climate.",
+                "isList": true,
+                "numId": "130",
+                "lvl": 0,
+                "marker": "•"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Altitude /Relief",
+      "next": "High lands or hilly areas experience high amounts ",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Altitude",
+                "b": true,
+                "it": false,
+                "c": null,
+                "u": true
+              },
+              {
+                "t": " /Relief ",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "i.",
+            "numId": "192",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Continentality /Distance from the sea",
+      "next": "Areas near large water bodies such as lakes, seas ",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Continentality",
+                "b": true,
+                "it": false,
+                "c": null,
+                "u": true
+              },
+              {
+                "t": " /Distance from the sea",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "ii.",
+            "numId": "182",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Aspect or slope:",
+      "next": "This is the direction a slope faces with respect t",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Aspect",
+                "b": true,
+                "it": false,
+                "c": null,
+                "u": true
+              },
+              {
+                "t": " or slope:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "iii.",
+            "numId": "181",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Inter Tropical Convergence Zone (ITCZ)",
+      "next": "It is a zone of low pressure lying within the trop",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Inter Tropical Convergence Zone (ITCZ)",
+                "b": true,
+                "it": false,
+                "c": null,
+                "u": true
+              },
+              {
+                "t": " ",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "iv.",
+            "numId": "181",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Latitude",
+      "next": "High latitude areas are cooler/experience lower te",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Latitude",
+                "b": true,
+                "it": false,
+                "c": null,
+                "u": true
+              },
+              {
+                "t": " ",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "v.",
+            "numId": "181",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Cloud cover",
+      "next": "Cloud cover reduces the amount of solar radiation ",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Cloud cover",
+                "b": true,
+                "it": false,
+                "c": null,
+                "u": true
+              },
+              {
+                "t": " ",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "vi.",
+            "numId": "193",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Local winds",
+      "next": "Warm winds blowing over an area bring the warming ",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Local winds",
+                "b": true,
+                "it": false,
+                "c": null,
+                "u": true
+              },
+              {
+                "t": " ",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "marker": "vii.",
+            "numId": "147",
+            "lvl": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 2",
+      "next": "Sharing Climate Change Causes and Impacts with Fam",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 2",
+            "parts": [
+              {
+                "kind": "lead",
+                "q": "Short answers",
+                "qseg": [
+                  {
+                    "t": "Short answers",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": false
+              },
+              {
+                "kind": "q",
+                "q": "Discuss the impact of climate change under the following categories:",
+                "qseg": [
+                  {
+                    "t": "Discuss the impact of climate change under the following categories:",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Human impacts",
+                "qseg": [
+                  {
+                    "t": "Human impacts",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Social impacts",
+                "qseg": [
+                  {
+                    "t": "Social impacts ",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Environmental impacts",
+                "qseg": [
+                  {
+                    "t": "Environmental impacts",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "c)",
+                "depth": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Practise mitigation measures to climate change.",
+      "next": "In this subtopic, you will focus on efforts aimed ",
+      "with": [
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Practise mitigation measures to climate change.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "1.3.3.1.",
+            "numId": "53",
+            "lvl": 3
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "Engaging Mitigation Measures to Climate Change",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Which energy source is considered a \"clean\" alternative for mitigation because it produces no CO\"\"_(\"2\") during operation?",
+                "qseg": [
+                  {
+                    "t": "Which energy source is considered a \"clean\" alternative for mitigation because it produces no ",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "CO",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\"\"_(\"2\")",
+                    "m": true,
+                    "display": false,
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " ",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "during operation?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "How does \"Afforestation\" help in mitigating climate change?",
+                "qseg": [
+                  {
+                    "t": "How does \"Afforestation\" help in mitigating climate change?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Which is a \"National Level\" mitigation strategy?\n",
+                "qseg": [
+                  {
+                    "t": "Which is a \"National Level\" mitigation strategy?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Which transport choice has the lowest carbon footprint for a daily commute?",
+                "qseg": [
+                  {
+                    "t": "Which transport choice has the lowest carbon footprint for a daily commute?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "B: Brief Answer type of questions",
+                "qseg": [
+                  {
+                    "t": "B: Brief Answer type of questions",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "What measures would you adopt at each of the following levels?",
+                "qseg": [
+                  {
+                    "t": "What measures would you adopt at each of the following levels? ",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "School level",
+                "qseg": [
+                  {
+                    "t": "School level",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Family level",
+                "qseg": [
+                  {
+                    "t": "Family level",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "b)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Community level.",
+                "qseg": [
+                  {
+                    "t": "Community level.",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "c)",
+                "depth": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "Engaging in Adaptation Measures to Climate Change",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Adaptation Action Sort",
+                "qseg": [
+                  {
+                    "t": "Adaptation Action Sort",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Decide which climate \"threat\" each of these adaptation measures is designed to fix:",
+                "qseg": [
+                  {
+                    "t": "Decide which climate \"threat\" each of these adaptation measures is designed to fix:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Building Check Dams: Used to catch rainwater and prevent soil erosion during heavy storms. (Target: ………………………)",
+                "qseg": [
+                  {
+                    "t": "Building Check Dams:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " Used to catch rainwater and prevent soil erosion during heavy storms. (Target: ………………………)",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Growing Drought-Tolerant Crops: Using seeds like sorghum or millet that need very little water. (Target: ……………….)",
+                "qseg": [
+                  {
+                    "t": "Growing Drought-Tolerant Crops:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " Using seeds like sorghum or millet that need very little water. (Target: ……………….)",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Building Houses on Stilts: Raising homes above the ground level. (Target:…)",
+                "qseg": [
+                  {
+                    "t": "Building Houses on Stilts:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " Raising homes above the ground level. (Target:…)",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Early Warning Systems: Using radio and SMS to tell villagers a storm is coming. (Target………………….)",
+                "qseg": [
+                  {
+                    "t": "Early Warning Systems:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " Using radio and SMS to tell villagers a storm is coming. (Target………………….)",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Climate Adaptation Quiz",
+                "qseg": [
+                  {
+                    "t": "Climate Adaptation Quiz",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Which is the best example of adaptation in a region experiencing frequent droughts?\n",
+                "qseg": [
+                  {
+                    "t": "Which is the best example of adaptation in a region experiencing frequent droughts?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "What is the purpose of an \"Early Warning System\" in climate adaptation?",
+                "qseg": [
+                  {
+                    "t": "What is the purpose of an \"Early Warning System\" in climate adaptation?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Why is \"Rainwater Harvesting\" (collecting rain from rooftops) considered a good adaptation strategy?",
+                "qseg": [
+                  {
+                    "t": "Why is \"Rainwater Harvesting\" (collecting rain from rooftops) considered a good adaptation strategy?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Which is a \"Natural Adaptation\" (using nature to protect humans)?\n",
+                "qseg": [
+                  {
+                    "t": "Which is a \"Natural Adaptation\" (using nature to protect humans)?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1 & 2",
+      "next": "Responsible Use of Renewable and Nob-renewable Nat",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1 & 2",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Which best defines a \"Renewable Resource\"?\n",
+                "qseg": [
+                  {
+                    "t": "Which best defines a \"Renewable Resource\"?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Fossil fuels like coal and petroleum are classified as \"Non-renewable\" because:",
+                "qseg": [
+                  {
+                    "t": "Fossil fuels like coal and petroleum are classified as \"Non-renewable\" because:",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Which natural resource is essential for the production of Hydro-Electric Power (HEP)?",
+                "qseg": [
+                  {
+                    "t": "Which natural resource is essential for the production of Hydro-Electric Power (HEP)?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Which is considered an \"Inexhaustible\" resource (it will never run out no matter how much we use)?\n",
+                "qseg": [
+                  {
+                    "t": "Which is considered an \"Inexhaustible\" resource (it will never run out no matter how much we use)?",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "\n",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Short answers: Give examples of:",
+                "qseg": [
+                  {
+                    "t": "Short answers:",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " ",
+                    "b": true,
+                    "it": true,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "Give examples of:",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Renewable natural resources",
+                "qseg": [
+                  {
+                    "t": "Renewable natural resources",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "a)",
+                "depth": 1
+              },
+              {
+                "kind": "q",
+                "q": "Non- renewable natural resource",
+                "qseg": [
+                  {
+                    "t": "Non- renewable natural resource",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "b)",
+                "depth": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 3",
+      "next": "Sub-Topic 1.4.2: Population and Natural Resources",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 3",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "Identify whether the following actions represent Responsible or Irresponsible utilisation:",
+                "qseg": [
+                  {
+                    "t": "Identify whether the following actions represent ",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "Responsible",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " or ",
+                    "b": false,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "Irresponsible",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " utilisation:",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "1.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Selective Logging: Cutting only mature trees in a forest while leaving younger ones to grow:………………….",
+                "qseg": [
+                  {
+                    "t": "Selective Logging:",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " Cutting only mature trees in a forest while leaving younger ones to grow:………………….",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Overfishing: Catching fish faster than they can reproduce:…………………….",
+                "qseg": [
+                  {
+                    "t": "Overfishing:",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " Catching fish faster than they can reproduce:…………………….",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Crop Rotation: Changing the types of crops grown in a field to keep the soil fertile………",
+                "qseg": [
+                  {
+                    "t": "Crop Rotation:",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " Changing the types of crops grown in a field to keep the soil fertile………",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Open-Cast Mining without Land Reclamation: Leaving giant pits in the ground after minerals are extracted:…………………………….",
+                "qseg": [
+                  {
+                    "t": "Open-Cast Mining without Land Reclamation",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": ":",
+                    "b": true,
+                    "it": true,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " Leaving giant pits in the ground after minerals are extracted:…………………………….",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "The \"Three R’s”:  Indicate either, Reuse, recycle or reduce against each of the following",
+                "qseg": [
+                  {
+                    "t": "The \"Three R’s”:  Indicate either, Reuse, recycle or reduce against each of the following",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "2.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Using less of a resource (e.g., carpooling to save petrol):…………………...",
+                "qseg": [
+                  {
+                    "t": "Using less of a resource (e.g., carpooling to save petrol):…………………...",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "3.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Using a resource again for the same or a new purpose (e.g., using old glass jars for storage):…………………………………",
+                "qseg": [
+                  {
+                    "t": "Using a resource again for the same or a new purpose (e.g., using old glass jars for storage):…………………………………",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "4.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Processing waste into new products (e.g., turning old aluminium cans into new ones):………………….",
+                "qseg": [
+                  {
+                    "t": "Processing waste into new products (e.g., turning old aluminium cans into new ones):………………….",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "5.",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Responsible Utilisation Quiz",
+                "qseg": [
+                  {
+                    "t": "Responsible Utilisation Quiz",
+                    "b": true,
+                    "it": false,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Which is a responsible way to manage a \"Non-Renewable\" resource like copper?",
+                "qseg": [
+                  {
+                    "t": "Which is a responsible way to manage a \"Non-Renewable\" resource like copper?",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "6.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "In forestry, \"Reforestation\" is a responsible practice because it:",
+                "qseg": [
+                  {
+                    "t": "In forestry, \"Reforestation\" is a responsible practice because it:",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "7.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "Which \"R\" of waste management involves using an item again for a different purpose instead of throwing it away?",
+                "qseg": [
+                  {
+                    "t": "Which \"R\" of waste management involves using an item again for a different purpose instead of throwing it away?",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "8.",
+                "depth": 0
+              },
+              {
+                "kind": "q",
+                "q": "To responsibly manage \"Water\" (a renewable resource) during a shortage, a community should:",
+                "qseg": [
+                  {
+                    "t": "To responsibly manage \"Water\" (a renewable resource) during a shortage, a community",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " ",
+                    "b": true,
+                    "it": true,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": "should:",
+                    "b": false,
+                    "it": true,
+                    "c": "0A0A0A"
+                  },
+                  {
+                    "t": " ",
+                    "b": true,
+                    "it": true,
+                    "c": "0A0A0A"
+                  }
+                ],
+                "a": "",
+                "marker": "9.",
+                "depth": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "EXERCISE 1",
+      "next": "To master the connection between people and nature",
+      "with": [
+        {
+          "raw": {
+            "t": "exercise",
+            "heading": "EXERCISE 1",
+            "parts": [
+              {
+                "kind": "q",
+                "q": "The \"Cause and Effect\" Analysis",
+                "qseg": [
+                  {
+                    "t": "The \"Cause and Effect\" Analysis",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "1)",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "Explain how a rapidly growing population impacts the following resources:",
+                "qseg": [
+                  {
+                    "t": "Explain how a rapidly growing population impacts the following resources:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Forests:  ………………………………………………………………………………………",
+                "qseg": [
+                  {
+                    "t": "Forests:  ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "………………………………………………………………………………………",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Arable Land: …………………………………………………………………………………",
+                "qseg": [
+                  {
+                    "t": "Arable Land:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " …………………………………………………………………………………",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Water: ………………………….…………………………………………………………….",
+                "qseg": [
+                  {
+                    "t": "Water:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " ………………………….…………………………………………………………….",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Minerals: ……………………………………………………………………………………..",
+                "qseg": [
+                  {
+                    "t": "Minerals:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " ……………………………………………………………………………………..",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": ". Case Study: Population vs. Resources",
+                "qseg": [
+                  {
+                    "t": ". Case Study: Population vs. Resources",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "2)",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "In many developing regions, \"Population Pressure\" leads to a cycle of poverty. Using the Population Reference Bureau (PRB) insights, answer the following:",
+                "qseg": [
+                  {
+                    "t": "In many developing regions, \"Population Pressure\" leads to a cycle of poverty. Using the Population Reference Bureau (PRB) insights, answer the following: ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Scenario: A village’s population doubles in 10 years, but its land area stays the same.",
+                "qseg": [
+                  {
+                    "t": "Scenario:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " A village’s population doubles in 10 years, but its land area stays the same. ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Question A: What will happen to the size of the farm plots for each family?",
+                "qseg": [
+                  {
+                    "t": "Question A:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " What will happen to the size of the farm plots for each family? ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "lead",
+                "q": "Question B: How might this affect the local forest?",
+                "qseg": [
+                  {
+                    "t": "Question B:",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": " How might this affect the local forest? ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              },
+              {
+                "kind": "q",
+                "q": "Discussion Question (Structured Answer)",
+                "qseg": [
+                  {
+                    "t": "Discussion Question (Structured Answer)",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "a": "",
+                "marker": "3)",
+                "depth": 0
+              },
+              {
+                "kind": "lead",
+                "q": "\"Is a large population always bad for natural resources?\"",
+                "qseg": [
+                  {
+                    "t": "\"Is a large population always bad for natural resources?\"",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "indent": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "authors": [
+    "Njira Mtonga",
+    "Nzila Osma Siabalima",
+    "Mirriam Mhone-Muzona"
+  ],
+  "coverBooktypeSize": "24pt",
+  "edit": [
+    {
+      "find": "This course aims to nurture curiosity, develop critical",
+      "with": "This course aims to nurture curiosity, develop critical thinking and foster responsible citizenship in all learners."
+    }
+  ],
+  "fmSpacing": "1.25em",
+  "removeRange": [
+    {
+      "from": "LIST OF FIGURES",
+      "to": "LIST OF FIGURES"
+    }
+  ],
+  "setCaption": [
+    {
+      "near": "Fig 22. Renewable",
+      "text": "Fig 12: Renewable and Non-renewable Natural Resources"
+    },
+    {
+      "near": "Fig 33. Population",
+      "text": "Fig 13: Population and Natural Resources"
+    },
+    {
+      "near": "Fig 14: Map of Zambia",
+      "text": "Fig 15: Map of Zambia (2025) showing population density (source: www.geo-ref.net)"
+    },
+    {
+      "near": "Fig 14: Effects of rapid",
+      "text": "Fig 16: Effects of rapid population growth"
+    },
+    {
+      "near": "Earth' s Movements",
+      "text": "Fig 5: Earth’s Movements and Seasons"
+    }
+  ],
+  "boldFind": [
+    {
+      "find": "Important latitudes:"
+    }
+  ],
+  "subtext": [
+    {
+      "from": "real -world",
+      "to": "real-world"
+    },
+    {
+      "from": "three categorises.",
+      "to": "three categories."
+    },
+    {
+      "from": "1.Planting",
+      "to": "1. Planting"
+    },
+    {
+      "from": "1.Cutting",
+      "to": "1. Cutting"
+    },
+    {
+      "from": "2.Using",
+      "to": "2. Using"
+    },
+    {
+      "from": "3.Overfishing",
+      "to": "3. Overfishing"
+    },
+    {
+      "from": "4.Recycling",
+      "to": "4. Recycling"
+    },
+    {
+      "from": "5.Burning",
+      "to": "5. Burning"
+    },
+    {
+      "from": "1.State",
+      "to": "1. State"
+    },
+    {
+      "from": "2.Explain why forests",
+      "to": "2. Explain why forests"
+    },
+    {
+      "from": "3.Give two effects",
+      "to": "3. Give two effects"
+    }
+  ],
+  "moveBefore": [
+    {
+      "find": "focuses on explaining the causes of climate change and the impacts it has",
+      "before": "LEARNING ACTIVITY 11: Sharing information with family"
+    }
+  ],
+  "images": {
+    "image10.jpeg": {
+      "hmm": 52
+    },
+    "image24.png": {
+      "hmm": 82
+    },
+    "image28.png": {
+      "hmm": 100
+    }
+  }
 }
