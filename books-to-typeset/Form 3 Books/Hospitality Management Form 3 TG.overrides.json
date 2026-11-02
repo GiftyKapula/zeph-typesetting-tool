@@ -807,6 +807,10 @@
     {
       "from": "T-zone",
       "to": "T-⁠zone"
+    },
+    {
+      "from": "END OF TOPIC ASSESSMENT SUGGESTED ANSWERS",
+      "to": "END OF TOPIC ASSESSMENT – SUGGESTED ANSWERS"
     }
   ],
   "//retext": "A label whose first letter the conversion lost at an old line start (\"ips\" in the Face Mapping answers, between \"Highlighter…\" and \"Lip liner…\").",

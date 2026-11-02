@@ -410,6 +410,35 @@ JSZip.loadAsync(fs.readFileSync(IN)).then(async (z) => {
   // Activity 1: scenarios n) and o) are the same waiter scenario)
   let lastT = "";
   const PARA = /<w:p(?=[\s>])[^>]*>(?:(?!<\/w:p>)[\s\S])*<\/w:p>/g;
+  // The end-of-topic answer key is headed three ways (a small "END OF TOPIC ASSESSMENT"
+  // line over a "Suggested Answers" / "POSSIBLE ANSWERS" / "SUGGESTED RESPONSES" heading,
+  // or all of it as one heading; once "ASSESSEMENT"). Reviewer, round 2: "harmonise the
+  // style for END OF TOPIC ASSESSMENT - SUGGESTED ANSWERS" -> one heading, one wording,
+  // as the plain headings she left alone. Written without the dash: with it the engine
+  // reads the line as an assessment-box title and strips the tail. The sidecar's
+  // `subtext` puts the dash back once the line is classified.
+  {
+    const EOT = "END OF TOPIC ASSESSMENT SUGGESTED ANSWERS";
+    const KEY = /^(?:SUGGESTED|POSSIBLE)\s+(?:ANSWERS|RESPONSES)$/i, LINE = /^END OF TOPIC ASSESS?E?MENT$/i;
+    const retext = (p) => {
+      const runs = p.match(/<w:r(?=[\s>])[\s\S]*?<\/w:r>/g) || [];
+      const first = runs.find((r) => T(r).trim()) || "<w:r></w:r>";
+      const rPr = (first.match(/<w:rPr>[\s\S]*?<\/w:rPr>/) || [""])[0];
+      let out = p; runs.forEach((r) => { out = out.replace(r, ""); });
+      return out.replace(/<\/w:p>$/, `<w:r>${rPr}<w:t xml:space="preserve">${esc(EOT)}</w:t></w:r></w:p>`);
+    };
+    const ps = [...body.matchAll(PARA)].map((m) => ({ a: m.index, b: m.index + m[0].length, p: m[0] }));
+    const edits = []; let n = 0;
+    for (let i = 0; i < ps.length; i++) {
+      const t = T(ps[i].p).replace(/\s+/g, " ").trim();
+      if (/^END OF TOPIC ASSESS?E?MENT\s+(?:SUGGESTED|POSSIBLE)\s+(?:ANSWERS|RESPONSES)$/i.test(t)) { edits.push([ps[i].a, ps[i].b, retext(ps[i].p)]); n++; continue; }
+      if (!LINE.test(t)) continue;
+      let j = i + 1; while (j < ps.length && !T(ps[j].p).trim()) j++;
+      if (j < ps.length && KEY.test(T(ps[j].p).trim())) { edits.push([ps[i].a, ps[j].b, retext(ps[j].p)]); n++; i = j; }
+    }
+    for (const [a, b, s] of edits.reverse()) body = body.slice(0, a) + s + body.slice(b);
+    log(`end-of-topic answer headings harmonised: ${n}`);
+  }
   // an answer-key item typed as a Word heading ("4. Strategic partnerships" among plain
   // "3." and "6." in Topic 3.8's assessment; item 1 in Topic 3.3's): a plain line like
   // its siblings
@@ -425,11 +454,19 @@ JSZip.loadAsync(fs.readFileSync(IN)).then(async (z) => {
     (m, a, b, c) => (T(b + "1" + c).trim() === "1" ? (odd++, a + b + "i." + c) : m));
   // an item number standing alone, its "a)" part on the next line ("6." / "a) Two risks…"),
   // which a page break can strand at the foot of a page: one line, as "2. a) …" already is
-  body = body.replace(/(<w:p(?=[\s>])[^>]*>(?:(?!<\/w:p>)[\s\S])*<\/w:p>)(<w:p(?=[\s>])[^>]*>(?:(?!<\/w:p>)[\s\S])*<\/w:p>)/g, (m, a, b) => {
-    if (!/^\d+\.$/.test(T(a).trim()) || !/^a\)\s/.test(T(b).trim()) || /<w:numPr>/.test(a)) return m;
-    const runs = (b.match(/<w:r(?=[\s>])[\s\S]*?<\/w:r>/g) || []).join("");
-    odd++; return a.replace(/<\/w:p>$/, `<w:r><w:t xml:space="preserve"> </w:t></w:r>${runs}</w:p>`);
-  });
+  // (every neighbouring pair is checked: a /g match over pairs only saw the ones at even
+  // positions, so taking a paragraph out above flipped which of them got joined)
+  {
+    const ps = [...body.matchAll(PARA)].map((m) => ({ a: m.index, b: m.index + m[0].length, p: m[0] }));
+    const edits = [];
+    for (let i = 0; i + 1 < ps.length; i++) {
+      const [x, y] = [ps[i], ps[i + 1]];
+      if (x.b !== y.a || !/^\d+\.$/.test(T(x.p).trim()) || !/^a\)\s/.test(T(y.p).trim()) || /<w:numPr>/.test(x.p)) continue;
+      const runs = (y.p.match(/<w:r(?=[\s>])[\s\S]*?<\/w:r>/g) || []).join("");
+      edits.push([x.a, y.b, x.p.replace(/<\/w:p>$/, `<w:r><w:t xml:space="preserve"> </w:t></w:r>${runs}</w:p>`)]); odd++; i++;
+    }
+    for (const [a, b, s] of edits.reverse()) body = body.slice(0, a) + s + body.slice(b);
+  }
   // a full stop typed twice across two runs ("2." + "." Emergency help…)
   body = body.replace(PARA, (p) => {
     const runs = p.match(/<w:r(?=[\s>])[\s\S]*?<\/w:r>/g) || [];
