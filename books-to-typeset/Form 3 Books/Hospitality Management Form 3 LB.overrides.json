@@ -168,6 +168,390 @@
     {
       "from": "co-worker",
       "to": "coworker"
+    },
+    {
+      "from": "hospitality-related",
+      "to": "hospitality-⁠related"
+    },
+    {
+      "from": "Triangular-shaped",
+      "to": "Triangular-⁠shaped"
+    },
+    {
+      "from": "competency-based",
+      "to": "competency-⁠based"
+    },
+    {
+      "from": "learner-friendly",
+      "to": "learner-⁠friendly"
+    },
+    {
+      "from": "competence-based",
+      "to": "competence-⁠based"
+    },
+    {
+      "from": "customer-service",
+      "to": "customer-⁠service"
+    },
+    {
+      "from": "service-oriented",
+      "to": "service-⁠oriented"
+    },
+    {
+      "from": "customer-focused",
+      "to": "customer-⁠focused"
+    },
+    {
+      "from": "Non-confidential",
+      "to": "Non-⁠confidential"
+    },
+    {
+      "from": "Well-established",
+      "to": "Well-⁠established"
+    },
+    {
+      "from": "Customer-Centric",
+      "to": "Customer-⁠Centric"
+    },
+    {
+      "from": "learner-centred",
+      "to": "learner-⁠centred"
+    },
+    {
+      "from": "problem-solving",
+      "to": "problem-⁠solving"
+    },
+    {
+      "from": "self-employment",
+      "to": "self-⁠employment"
+    },
+    {
+      "from": "Self-confidence",
+      "to": "Self-⁠confidence"
+    },
+    {
+      "from": "community-based",
+      "to": "community-⁠based"
+    },
+    {
+      "from": "self-expression",
+      "to": "self-⁠expression"
+    },
+    {
+      "from": "non-comedogenic",
+      "to": "non-⁠comedogenic"
+    },
+    {
+      "from": "healthy-looking",
+      "to": "healthy-⁠looking"
+    },
+    {
+      "from": "privacy-related",
+      "to": "privacy-⁠related"
+    },
+    {
+      "from": "decision-making",
+      "to": "decision-⁠making"
+    },
+    {
+      "from": "Closed-Circuit",
+      "to": "Closed-⁠Circuit"
+    },
+    {
+      "from": "child-friendly",
+      "to": "child-⁠friendly"
+    },
+    {
+      "from": "Diamond-Shaped",
+      "to": "Diamond-⁠Shaped"
+    },
+    {
+      "from": "semi-permanent",
+      "to": "semi-⁠permanent"
+    },
+    {
+      "from": "health-related",
+      "to": "health-⁠related"
+    },
+    {
+      "from": "Non-judgmental",
+      "to": "Non-⁠judgmental"
+    },
+    {
+      "from": "non-judgmental",
+      "to": "non-⁠judgmental"
+    },
+    {
+      "from": "scenario-based",
+      "to": "scenario-⁠based"
+    },
+    {
+      "from": "well-developed",
+      "to": "well-⁠developed"
+    },
+    {
+      "from": "access-control",
+      "to": "access-⁠control"
+    },
+    {
+      "from": "food-handling",
+      "to": "food-⁠handling"
+    },
+    {
+      "from": "Word-of-mouth",
+      "to": "Word-⁠of-⁠mouth"
+    },
+    {
+      "from": "well-prepared",
+      "to": "well-⁠prepared"
+    },
+    {
+      "from": "Barrier-Based",
+      "to": "Barrier-⁠Based"
+    },
+    {
+      "from": "cross-cutting",
+      "to": "cross-⁠cutting"
+    },
+    {
+      "from": "high-pressure",
+      "to": "high-⁠pressure"
+    },
+    {
+      "from": "word-of-mouth",
+      "to": "word-⁠of-⁠mouth"
+    },
+    {
+      "from": "short-written",
+      "to": "short-⁠written"
+    },
+    {
+      "from": "end-of-topic",
+      "to": "end-⁠of-⁠topic"
+    },
+    {
+      "from": "hand-washing",
+      "to": "hand-⁠washing"
+    },
+    {
+      "from": "food-related",
+      "to": "food-⁠related"
+    },
+    {
+      "from": "well-dressed",
+      "to": "well-⁠dressed"
+    },
+    {
+      "from": "high-quality",
+      "to": "high-⁠quality"
+    },
+    {
+      "from": "well-trained",
+      "to": "well-⁠trained"
+    },
+    {
+      "from": "eco-friendly",
+      "to": "eco-⁠friendly"
+    },
+    {
+      "from": "step-by-step",
+      "to": "step-⁠by-⁠step"
+    },
+    {
+      "from": "front-office",
+      "to": "front-⁠office"
+    },
+    {
+      "from": "well-defined",
+      "to": "well-⁠defined"
+    },
+    {
+      "from": "Heart-Shaped",
+      "to": "Heart-⁠Shaped"
+    },
+    {
+      "from": "game-changer",
+      "to": "game-⁠changer"
+    },
+    {
+      "from": "long-lasting",
+      "to": "long-⁠lasting"
+    },
+    {
+      "from": "well-groomed",
+      "to": "well-⁠groomed"
+    },
+    {
+      "from": "alcohol-free",
+      "to": "alcohol-⁠free"
+    },
+    {
+      "from": "Role-playing",
+      "to": "Role-⁠playing"
+    },
+    {
+      "from": "face-to-face",
+      "to": "face-⁠to-⁠face"
+    },
+    {
+      "from": "law-related",
+      "to": "law-⁠related"
+    },
+    {
+      "from": "open-minded",
+      "to": "open-⁠minded"
+    },
+    {
+      "from": "eco-tourism",
+      "to": "eco-⁠tourism"
+    },
+    {
+      "from": "self-esteem",
+      "to": "self-⁠esteem"
+    },
+    {
+      "from": "over-shaped",
+      "to": "over-⁠shaped"
+    },
+    {
+      "from": "pH-balanced",
+      "to": "pH-⁠balanced"
+    },
+    {
+      "from": "over-drying",
+      "to": "over-⁠drying"
+    },
+    {
+      "from": "Over-drying",
+      "to": "Over-⁠drying"
+    },
+    {
+      "from": "real-world",
+      "to": "real-⁠world"
+    },
+    {
+      "from": "food-borne",
+      "to": "food-⁠borne"
+    },
+    {
+      "from": "E-Business",
+      "to": "E-⁠Business"
+    },
+    {
+      "from": "Non-verbal",
+      "to": "Non-⁠verbal"
+    },
+    {
+      "from": "Time-bound",
+      "to": "Time-⁠bound"
+    },
+    {
+      "from": "High-Class",
+      "to": "High-⁠Class"
+    },
+    {
+      "from": "self-aware",
+      "to": "self-⁠aware"
+    },
+    {
+      "from": "short-term",
+      "to": "short-⁠term"
+    },
+    {
+      "from": "cool-toned",
+      "to": "cool-⁠toned"
+    },
+    {
+      "from": "warm-toned",
+      "to": "warm-⁠toned"
+    },
+    {
+      "from": "day-to-day",
+      "to": "day-⁠to-⁠day"
+    },
+    {
+      "from": "time-bound",
+      "to": "time-⁠bound"
+    },
+    {
+      "from": "staff-only",
+      "to": "staff-⁠only"
+    },
+    {
+      "from": "well-being",
+      "to": "well-⁠being"
+    },
+    {
+      "from": "real-life",
+      "to": "real-⁠life"
+    },
+    {
+      "from": "Follow-up",
+      "to": "Follow-⁠up"
+    },
+    {
+      "from": "long-term",
+      "to": "long-⁠term"
+    },
+    {
+      "from": "follow-up",
+      "to": "follow-⁠up"
+    },
+    {
+      "from": "Coca-Cola",
+      "to": "Coca-⁠Cola"
+    },
+    {
+      "from": "role-play",
+      "to": "role-⁠play"
+    },
+    {
+      "from": "skin-care",
+      "to": "skin-⁠care"
+    },
+    {
+      "from": "check-out",
+      "to": "check-⁠out"
+    },
+    {
+      "from": "high-risk",
+      "to": "high-⁠risk"
+    },
+    {
+      "from": "hands-on",
+      "to": "hands-⁠on"
+    },
+    {
+      "from": "check-in",
+      "to": "check-⁠in"
+    },
+    {
+      "from": "well-lit",
+      "to": "well-⁠lit"
+    },
+    {
+      "from": "Oil-free",
+      "to": "Oil-⁠free"
+    },
+    {
+      "from": "build-up",
+      "to": "build-⁠up"
+    },
+    {
+      "from": "Start-up",
+      "to": "Start-⁠up"
+    },
+    {
+      "from": "Walk-in",
+      "to": "Walk-⁠in"
+    },
+    {
+      "from": "walk-in",
+      "to": "walk-⁠in"
+    },
+    {
+      "from": "T-zone",
+      "to": "T-⁠zone"
     }
   ],
   "splitBefore": [
@@ -184,5 +568,6 @@
         }
       ]
     }
-  ]
+  ],
+  "//compounds": "Reviewer (round 1) marked \"co- worker\" split at a line end: every hyphenated compound in the book gets a word joiner after its hyphen, so none breaks across two lines."
 }
