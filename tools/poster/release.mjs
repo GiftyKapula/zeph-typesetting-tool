@@ -15,9 +15,33 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { qa, summary as qaSummary } from "../qa/qa.mjs";
+import { createRequire } from "module";
 import { bookInfo, readOverrides } from "./lib/book.mjs";
 
+const require = createRequire(import.meta.url);
 const today = () => new Date().toISOString().slice(0, 10);
+
+// zeph: the book moves to "approved" (released for print) and the released PDF is kept as a
+// version. The book is found by its manuscript as zeph registered it, else by its derived id.
+// Returns the zeph id, or null when zeph does not know the book.
+export function recordInZeph(book) {
+  const { db } = require("../db.js");
+  const { metaForDocx, hashFile } = require("../lib/meta.js");
+  const byPath = db.prepare("SELECT book_id FROM version WHERE kind='manuscript' AND stored_path=? ORDER BY id DESC LIMIT 1").get(book.docx);
+  const byName = db.prepare("SELECT DISTINCT book_id FROM version WHERE kind='manuscript' AND original_name=?").all(path.basename(book.docx));
+  const id = byPath?.book_id || (byName.length === 1 ? byName[0].book_id : null)
+    || db.prepare("SELECT id FROM book WHERE id=?").get(metaForDocx(book.docx).id)?.id;
+  if (!id) return null;
+  const now = new Date().toISOString().replace("T", " ").slice(0, 19);
+  db.prepare("UPDATE book SET state='approved', updated_at=? WHERE id=?").run(now, id);
+  if (book.pdf) {
+    const hash = hashFile(book.pdf);
+    if (!db.prepare("SELECT id FROM version WHERE book_id=? AND kind='typeset_pdf' AND hash=?").get(id, hash))
+      db.prepare("INSERT INTO version (book_id,kind,original_name,stored_path,hash,note,ingested_at) VALUES (?,?,?,?,?,?,?)")
+        .run(id, "typeset_pdf", path.basename(book.pdf), book.pdf, hash, `released for print ${today()}`, now);
+  }
+  return id;
+}
 
 // The QA result to release on: qa.json when it is newer than the PDF, otherwise a fresh run.
 export async function latestQa(book, { runQa = qa } = {}) {
@@ -30,7 +54,7 @@ export async function latestQa(book, { runQa = qa } = {}) {
 }
 
 // Decide and record. Returns { released, reason, qa }.
-export async function release(docx, { force = null, runQa, posters } = {}) {
+export async function release(docx, { force = null, runQa, posters, zeph = recordInZeph } = {}) {
   const book = bookInfo(docx);
   const { result, ran } = await latestQa(book, { runQa });
   if (!result.qualifies && !force) return { released: false, qa: result, ran, reason: "QA does not qualify" };
@@ -40,8 +64,9 @@ export async function release(docx, { force = null, runQa, posters } = {}) {
   if (!result.qualifies) ov.releaseForced = { reason: force, score: result.score, blockers: result.blockers || [], date: today() };
   else delete ov.releaseForced;
   fs.writeFileSync(ovPath, JSON.stringify(ov, null, 2) + "\n");
+  const zephId = zeph ? zeph(book) : null;
   const made = posters ? await posters(book.docx) : null;
-  return { released: true, qa: result, ran, posters: made, forced: !result.qualifies };
+  return { released: true, qa: result, ran, posters: made, forced: !result.qualifies, zephId };
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
@@ -61,6 +86,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       process.exit(1);
     }
     console.log(`\n✓ RELEASED FOR PRINT${r.forced ? ` (forced: ${force})` : ""} — recorded in the overrides`);
+    console.log(r.zephId ? `  zeph: ${r.zephId} -> approved` : "  zeph: this book is not in zeph.db (npm run zeph -- import, then: npm run zeph -- state <id> approved)");
+    if (r.posters.skipped) console.log(`  posters: none — ${r.posters.skipped}`);
     for (const s of r.posters.sets) console.log(summary(s));
     process.exit(r.posters.qualifies ? 0 : 1);
   } catch (e) { console.error(`✗ ${e.message}`); process.exit(1); }

@@ -28,6 +28,14 @@ You can give the `.docx` or its `.overrides.json`; the book must have been types
    "releasedAt": "2026-11-02"
    ```
    then makes the posters. Commit the overrides change: it is the record of the release.
+4. Moves the book to **`approved`** in zeph (`npm run zeph -- show <id>`) and keeps the
+   released PDF as a version (note "released for print <date>"). zeph finds the book by its
+   registered manuscript. If zeph does not know the book, the release still goes ahead and
+   the command prints how to add it.
+
+**Syllabuses get no posters.** A CDC syllabus is not sold, so `release` and `poster` skip the
+posters for a landscape book and say so. The release itself (QA gate, overrides, zeph) works
+as for any book.
 
 A book may go out below the gate only with a written reason, which is kept in the overrides:
 

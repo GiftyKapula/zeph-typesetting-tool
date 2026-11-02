@@ -222,6 +222,12 @@ export async function qa(docx, opts = {}) {
 
   const body = pages.filter((p) => !(p.W > p.H * 1.2));            // drop the cover spread
   const headTexts = new Set(info.heads.map((h) => h.text.replace(/\s+/g, " ").trim().toLowerCase()));
+  // the running head in whatever language the book is in ("Geledi 4 Icitabo Cakwa Kafundisha"):
+  // a line in the top band that repeats on at least a quarter of the numbered pages
+  const numberedPages = body.filter((p) => p.pn);
+  const headBand = new Map();
+  for (const p of numberedPages) for (const t of new Set(lines(p).filter((l) => l.y > p.H * 0.88).map((l) => l.text.replace(/\s+/g, " ").trim()))) headBand.set(t, (headBand.get(t) || 0) + 1);
+  const runHeads = new Set([...headBand].filter(([, n]) => n >= Math.max(3, numberedPages.length / 4)).map(([t]) => t));
 
   for (const pg of body) {
     const it = pg.items;
@@ -265,10 +271,11 @@ export async function qa(docx, opts = {}) {
     const nxt = body[body.indexOf(pg) + 1];
     // (the running head is not the page's first line: "Primary Education Level Science" too)
     const RUNHEAD = /secondary education|primary education|early childhood|teacher'?s guide|learner'?s book|^~/i;
-    const nxtTop = nxt ? lines(nxt).find((l) => !RUNHEAD.test(l.text)) : null;
+    const isHead = (l) => RUNHEAD.test(l.text) || runHeads.has(l.text.replace(/\s+/g, " ").trim());
+    const nxtTop = nxt ? lines(nxt).find((l) => !isHead(l)) : null;
     // (a topic banner spells its parts on separate lines — "T O P I C", "5.4", the name —
     // so look for the banner's name among the next page's first few lines)
-    const nxtFirst = nxt ? lines(nxt).filter((l) => !RUNHEAD.test(l.text)).slice(0, 14).map((l) => l.text.trim().toLowerCase()) : [];
+    const nxtFirst = nxt ? lines(nxt).filter((l) => !isHead(l)).slice(0, 14).map((l) => l.text.trim().toLowerCase()) : [];
     const opensTopic = info.heads.some((h) => h.kind === "topicbanner" && nxtFirst.some((t) => t === h.text.toLowerCase() || t.endsWith(" " + h.text.toLowerCase())));
     // (an unnumbered next page — a term page, blank verso or the back cover — is a break too)
     const opensSection = (!!nxt && !nxt.pn) || opensTopic || !!nxtTop && info.heads.some((h) => /^(sectionhead|subhead|termpage)$/.test(h.kind) && h.text.toLowerCase().startsWith(nxtTop.text.trim().toLowerCase().slice(0, 15)));

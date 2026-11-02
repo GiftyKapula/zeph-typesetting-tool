@@ -61,9 +61,11 @@ export async function makePosters(docx, { theme: themeArg, bookStyle } = {}) {
   if (!book.pdf) throw new Error(`no typeset PDF for "${book.base}" — build the book first`);
   if (bookStyle && !STYLES[bookStyle]) throw new Error(`unknown book style "${bookStyle}" (flat or 3d)`);
   const dir = marketingDir(book.base);
-  fs.mkdirSync(dir, { recursive: true });
 
   const cover = await renderFrontCover(book.pdf, { targetWidth: 3000, authors: book.fields.authors });
+  // a landscape book is a CDC syllabus: it is not sold, so it gets no advert
+  if (cover.aspect < 1) return { book: book.base, sets: [], qualifies: true, skipped: "a landscape syllabus — posters are made for Learner's Books and Teacher's Guides" };
+  fs.mkdirSync(dir, { recursive: true });
   const coverInfo = { mean: meanColour(cover.pixels), dominant: dominantColours(cover.pixels, 5) };
   const { theme, ranked, forced } = pickTheme(coverInfo, themeArg || book.ov.posterTheme);
   const logoImg = await loadImage(LOGO);
@@ -130,6 +132,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
     try {
       if (!all) { const info = bookInfo(b); if (!info.released) console.log(`(note: ${info.base} is not marked released for print)`); }
       const r = await makePosters(b, { theme, bookStyle });
+      if (r.skipped) { console.log(`– ${r.book}: no posters, ${r.skipped}`); continue; }
       for (const s of r.sets) console.log(summary(s));
       console.log(`   -> ${path.relative(ROOT, marketingDir(r.book))}`);
       if (!r.qualifies) bad++;

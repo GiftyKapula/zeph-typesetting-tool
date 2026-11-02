@@ -7,7 +7,10 @@ import path from "path";
 // a throw-away book: books-to-typeset/<name>.docx (+ sidecar) and output/<Grade>/<name>/
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "zeph-release-"));
 process.env.ZEPH_OUTPUT_DIR = path.join(tmp, "output");      // before qa.mjs is loaded
+process.env.ZEPH_DB = path.join(tmp, "zeph.db");               // never the real zeph.db
 const { release, latestQa } = await import("../../tools/poster/release.mjs");
+const { createRequire } = await import("module");
+const { db: zdb } = createRequire(import.meta.url)("../../tools/db.js");
 const { bookInfo } = await import("../../tools/poster/lib/book.mjs");
 
 function book(name, qaJson, { qaOlder = false } = {}) {
@@ -66,10 +69,27 @@ test("--force releases below the gate and records why", async () => {
   assert.equal(ov(d).releaseForced.score, 97.1);
 });
 
+test("release moves the book to 'approved' in zeph and keeps the released PDF as a version", async () => {
+  const d = book("Zeph Book Grade 4 TG", PASS);
+  zdb.prepare("INSERT INTO book (id,title,state) VALUES (?,?,?)").run("zeph-book-tg", "Zeph Book", "applying-corrections");
+  zdb.prepare("INSERT INTO version (book_id,kind,original_name,stored_path) VALUES (?,?,?,?)").run("zeph-book-tg", "manuscript", path.basename(d), d);
+  const r = await release(d, { posters: async () => ({ qualifies: true, sets: [] }) });
+  assert.equal(r.zephId, "zeph-book-tg");
+  assert.equal(zdb.prepare("SELECT state FROM book WHERE id=?").get("zeph-book-tg").state, "approved");
+  assert.match(zdb.prepare("SELECT note FROM version WHERE book_id=? AND kind='typeset_pdf'").get("zeph-book-tg").note, /^released for print/);
+});
+
+test("a book zeph does not know is still released; zeph is left alone", async () => {
+  const d = book("Unknown Book Grade 4 TG", PASS);
+  const r = await release(d, { posters: async () => ({ qualifies: true, sets: [] }) });
+  assert.equal(r.released, true);
+  assert.equal(r.zephId, null);
+});
+
 test("no typeset PDF: release refuses", async () => {
   const d = path.join(tmp, "books", "Never Built Grade 4 TG.docx");
   fs.writeFileSync(d, "x");
   await assert.rejects(() => release(d), /no typeset PDF/);
 });
 
-test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
+test.after(() => { zdb.close(); fs.rmSync(tmp, { recursive: true, force: true }); });
