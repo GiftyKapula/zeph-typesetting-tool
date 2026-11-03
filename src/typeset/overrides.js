@@ -45,6 +45,62 @@ function applyOverrides(blocks, ov) {
     blocks.splice(i, 1, ...out);
   }
   const flat = allTextBlocks(blocks);
+  // tableToBox: [{ findTable, into?: "prev", titleFromPrev?: true, title? }] — an activity the
+  // author typed into a one-cell table (a grey frame) instead of the book's activity box.
+  // The cell's lines become box content: a short all-bold line -> box sub-head, "1." / "a)"
+  // -> list item (marker kept), anything else -> paragraph, the cell's pictures last.
+  // `into: "prev"` appends it all to the box right before the table (its continuation);
+  // otherwise a new box, titled by the cell's first line when that is a bold "WORD N",
+  // else by the heading right before the table (`titleFromPrev`), else `title`. Runs
+  // first, and the new blocks join `flat`, so edit/subtext/editAll reach the freed text.
+  for (const tb of ov.tableToBox || []) {
+    const want = tb.findTable.replace(/\s+/g, " ").trim();
+    let done = false;
+    const walk = (arr) => {
+      for (let i = 0; i < arr.length && !done; i++) {
+        const b = arr[i];
+        if (!b || typeof b !== "object") continue;
+        const cell = b.t === "table" && Array.isArray(b.rows) && b.rows.length === 1 && Array.isArray(b.rows[0]) && b.rows[0].length === 1 && b.rows[0][0];
+        if (!cell || !(cell.text || "").replace(/\s+/g, " ").trim().startsWith(want)) {
+          for (const key of Object.keys(b)) if (Array.isArray(b[key]) && key !== "rows" && !done) walk(b[key]);
+          continue;
+        }
+        const segs = Array.isArray(cell.segs) && cell.segs.length ? cell.segs : [{ t: cell.text || "", b: false, it: false, c: null }];
+        const lines = [[]];
+        for (const s of segs) String(s.t || "").split("\n").forEach((p, k) => { if (k) lines.push([]); if (p) lines[lines.length - 1].push({ ...s, t: p }); });
+        const body = [];
+        for (const ln of lines) {
+          const txt = ln.map((s) => s.t).join("").trim();
+          if (!txt) continue;
+          if (ln.filter((s) => s.t.trim()).every((s) => s.b) && txt.length <= 60) { body.push({ t: "head", text: txt }); continue; }
+          const lm = txt.match(/^(\d+[.)]|[a-z][.)])\s*/);
+          // drop the marker (and leading spaces) from the front of the line's runs
+          let skip = lm ? ln.map((s) => s.t).join("").indexOf(lm[0]) + lm[0].length : ln.map((s) => s.t).join("").search(/\S/);
+          const out = [];
+          for (const s of ln) { if (skip >= s.t.length) { skip -= s.t.length; continue; } out.push({ ...s, t: s.t.slice(skip) }); skip = 0; }
+          body.push(lm ? { t: "listitem", marker: lm[1], segs: out } : { t: "para", segs: out });
+        }
+        for (const im of cell.imgs || []) body.push({ t: "image", file: im.file, w: im.w });
+        if (tb.into === "prev") {
+          const prev = arr[i - 1];
+          if (!prev || !Array.isArray(prev.body)) { console.warn("!  tableToBox: no box before", tb.findTable); done = true; return; }
+          prev.body.push(...body); arr.splice(i, 1);
+        } else {
+          // `lead: n`: the cell's first n lines introduce the activity — they go above the box
+          const lead = body.splice(0, tb.lead || 0);
+          let title = tb.title || "";
+          if (body[0] && body[0].t === "head" && /^\S+\s+\d+\s*[:.]?$/.test(body[0].text)) title = body.shift().text;
+          else if (tb.titleFromPrev && arr[i - 1] && arr[i - 1].t === "head") { title = arr[i - 1].text; arr.splice(i - 1, 1); i--; }
+          const box = { t: "activity", title, body };
+          arr.splice(i, 1, ...lead, box); flat.push(box, ...lead);
+        }
+        flat.push(...body);
+        done = true;
+      }
+    };
+    walk(blocks);
+    if (!done) console.warn("!  tableToBox not matched:", tb.findTable);
+  }
   // textFix: [{ find, with }] — a blunt, whole-tree literal replacement applied to
   // EVERY text string anywhere in the block tree: segment runs, plain-text mirrors
   // (an exercise part's `q` alongside its `qseg`), headings, captions and table
@@ -273,14 +329,20 @@ function applyOverrides(blocks, ov) {
     // spec mistake. When the deleted block sat between two blank gaps (an imprint name line
     // between blank paragraphs), one gap goes too, so no double gap is left behind.
     const del = Array.isArray(rb.with) && rb.with.length === 0;
-    if (!news.length && !del) { console.warn("!  replaceBlocks empty/unknown spec:", rb.find); continue; }
-    const want = wsNorm(rb.find);
+    if (!news.length && !del) { console.warn("!  replaceBlocks empty/unknown spec:", rb.find || rb.findTable); continue; }
+    const want = wsNorm(rb.find || "");
+    // `findTable`: match a TABLE (which has no text of its own) by the opening words of
+    // its first cell — e.g. a one-cell table the author typed a run of activities into,
+    // to be swapped for a proper activity box (a `raw` block)
+    const cell0 = (b) => { const c = b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0]) && b.rows[0][0];
+      return c ? wsNorm(typeof c === "string" ? c : (c.text || "")) : null; };
+    const hits = (b) => rb.findTable ? (cell0(b) || "").startsWith(wsNorm(rb.findTable)) : wsNorm(blockPlain(b)) === want;
     let done = false;
     const walk = (arr) => {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
-        if (wsNorm(blockPlain(b)) === want) {
+        if (hits(b)) {
           arr.splice(i, 1, ...news);
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
           done = true; return;
@@ -289,7 +351,7 @@ function applyOverrides(blocks, ov) {
       }
     };
     walk(blocks);
-    if (!done) console.warn("!  replaceBlocks not matched:", rb.find);
+    if (!done) console.warn("!  replaceBlocks not matched:", rb.find || rb.findTable);
   }
   // deleteRun: [{ from, to }] — delete a CONTIGUOUS run of sibling blocks, from the
   // first block whose trimmed text === `from` through the first block at/after it whose
@@ -442,6 +504,50 @@ function applyOverrides(blocks, ov) {
       if (!sh.all) break;
     }
     if (!n) console.warn("!  setHeading not matched:", sh.find);
+  }
+  // uniformLabel: [{ prefix, text }] — one look for a recurring section label the
+  // manuscript typed several ways (a bold heading here, a run-in bold lead there, an
+  // orange label elsewhere, sometimes with a stray topic code "4.1.4.1.1" before or
+  // after it). Every top-level block that OPENS with `prefix` (case-insensitive) and
+  // then ends, or goes on with ":" or a dotted code, becomes a label reading `text`;
+  // any words run in after the label move to a paragraph of their own just below,
+  // keeping their bold/italic. A sentence that merely starts with the word is left.
+  for (const ul of ov.uniformLabel || []) {
+    const esc = ul.prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const code = "\\d+(?:\\.\\d+)+\\.?";
+    const re = new RegExp(`^\\s*(?:${code}\\s*)?${esc}\\s*(?:(?::\\s*(?:${code})?)|(?:${code})|$)\\s*`, "i");
+    let n = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!b || !["para", "head", "label"].includes(b.t)) continue;
+      const m = blockPlain(b).match(re);
+      if (!m) continue;
+      let tail = [];
+      if (b.t === "para" && Array.isArray(b.segs)) {
+        let skip = m[0].length;
+        for (const s of b.segs) {
+          const t = typeof s.t === "string" ? s.t : "";
+          if (skip >= t.length) { skip -= t.length; continue; }
+          tail.push({ ...s, t: t.slice(skip) }); skip = 0;
+        }
+      } else {
+        const rest = blockPlain(b).slice(m[0].length);
+        if (rest.trim()) tail = [{ t: rest, b: false, it: false, c: null }];
+      }
+      if (tail.map((s) => s.t).join("").trim()) {
+        // the original block object stays (as the run-in words) so later primitives that
+        // scan the pre-built `flat` list (edit, subtext, …) still reach that text
+        for (const k of ["text", "marker", "isList", "numId", "lvl"]) delete b[k];
+        b.t = "para"; b.segs = tail;
+        blocks.splice(i, 0, { t: "label", text: ul.text }); i++;
+      } else {
+        b.t = "label"; b.text = ul.text;
+        delete b.segs; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
+      }
+      n++;
+    }
+    if (!n) console.warn("!  uniformLabel not matched:", ul.prefix);
+    else console.log(`   uniformLabel "${ul.prefix}": ${n}`);
   }
   // renumberLessons: true — repair scrambled lesson numbering. Grade-2 units repeat the
   // same strand headings ("LISTENING AND SPEAKING: LESSON N", "READING AND WRITING:
@@ -673,9 +779,15 @@ function applyOverrides(blocks, ov) {
   // extendBox: [{ title, count }] — move the `count` blocks that follow a box (an activity/
   // exercise/… whose title contains `title`) into the end of its body: a converted PDF can
   // leave an activity's last paragraphs (its safety notes, its expected responses) outside it.
+  // `near` instead of `title` (every box called "IFYAKUCITA 1"): the box sitting right
+  // before the first block whose text contains `near` takes that block and the rest
   for (const eb of ov.extendBox || []) {
-    const i = blocks.findIndex((b) => Array.isArray(b.body) && typeof b.title === "string" && b.title.includes(eb.title));
-    if (i < 0) { console.warn("!  extendBox not matched:", eb.title); continue; }
+    let i = -1;
+    if (eb.near) {
+      const a = blocks.findIndex((b) => blockPlain(b).includes(eb.near));
+      if (a > 0 && Array.isArray(blocks[a - 1].body)) i = a - 1;
+    } else i = blocks.findIndex((b) => Array.isArray(b.body) && typeof b.title === "string" && b.title.includes(eb.title));
+    if (i < 0) { console.warn("!  extendBox not matched:", eb.title || eb.near); continue; }
     blocks[i].body.push(...blocks.splice(i + 1, eb.count || 1));
   }
   // splitBox: [{ at }] — the inverse of extendBox: one activity box swallowed the next
@@ -695,6 +807,17 @@ function applyOverrides(blocks, ov) {
     }
     if (!done) console.warn("!  splitBox not matched:", sb.at);
   }
+  // oneActivityPerBox: true — every activity in a box of its own, titled "WORD N" (WORD =
+  // `activityTitles`, e.g. IFYAKUCITA). A converted manuscript types activities three ways:
+  // a proper box, a bold "IFYAKUCITA 2" line inside the PREVIOUS activity's box, or a bold
+  // heading with the instruction run in ("IFYAKUCITA 1: Asuka ameepusho…") and no box at all.
+  // Box titles lose run-in words / a missing space ("IFYAKUCITA1"); a bold "WORD N" line
+  // inside a box starts a new box; a loose "WORD N" heading/para becomes a box holding its
+  // run-in words and the paragraphs, lists, tables and pictures after it, up to the next
+  // heading, label, box or activity line. `oneActivityPerBox: { keepLabels: ["Icilangililo"] }`
+  // lets the named labels (an activity's own worked example) stay inside the box.
+  // (runs last — see the end of applyOverrides — after every other option has seen the
+  // manuscript's own boxes)
   // collapseSpaces: true — a book converted from a PDF carries the old layout's doubled
   // spaces ("Use  simple farm tools"); reduce every run of spaces in the text to one,
   // across run boundaries too (math runs untouched). Runs after edit/editAll, so their
@@ -780,8 +903,10 @@ function applyOverrides(blocks, ov) {
   // back-matter sections (GLOSSARY OF TERMS, REFERENCES) the manuscript left as small
   // bold inline headings.
   for (const h of ov.asSection || []) {
-    const b = flat.find((x) => (x.t === "head" || x.t === "label" || x.t === "h2" || x.t === "h3") && (x.text || "").trim() === h);
-    if (b) b.t = "h1"; else console.warn("!  asSection not matched:", h);
+    // (an h1 too: a front-matter heading the lexicon does not know would otherwise be
+    // demoted to a sub-heading by fixStrayBodyH1s; keepSection stops that)
+    const b = flat.find((x) => (x.t === "head" || x.t === "label" || x.t === "h1" || x.t === "h2" || x.t === "h3") && (x.text || "").trim() === h);
+    if (b) { b.t = "h1"; b.keepSection = true; } else console.warn("!  asSection not matched:", h);
   }
   // styleSection: [{ find, rename? } | "text", …] — give a plain inline heading the styled
   // SECTION-heading look (accent title + rule) WITHOUT a page break and WITHOUT a contents
@@ -1326,7 +1451,13 @@ function applyOverrides(blocks, ov) {
   for (const ul of ov.unlist || []) {
     const sub = typeof ul === "string" ? ul : ul.find;
     const from = afterIndex(flat, ul.after);
-    const b = flat.find((x, i) => i >= from && x.t === "listitem" && blockPlain(x).includes(sub));
+    let b = flat.find((x, i) => i >= from && x.t === "listitem" && blockPlain(x).includes(sub));
+    // (a stray number on one line inside an activity box: box bodies are not in `flat`)
+    if (!b && !ul.after) {
+      const isItem = (x) => x.t === "listitem" || (x.t === "para" && x.isList && x.marker);
+      const walk = (arr) => { for (const x of arr || []) { if (b || !x || typeof x !== "object") continue; if (isItem(x) && blockPlain(x).includes(sub)) { b = x; return; } for (const k of Object.keys(x)) if (k !== "segs" && Array.isArray(x[k])) walk(x[k]); } };
+      walk(blocks);
+    }
     if (!b) { console.warn("!  unlist not matched:", sub); continue; }
     b.t = "para"; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
   }
@@ -1957,6 +2088,84 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     console.log(`   tidySpacing: ${n} spacing slip(s) tidied`);
   }
+  if (ov.oneActivityPerBox) oneActivityPerBox(blocks, ov);
+}
+
+// oneActivityPerBox (see the note in applyOverrides) — also run again (again = true) after
+// boxifyActivities, which can box a "WORD 1" heading together with the activities after it.
+function oneActivityPerBox(blocks, ov, again = false) {
+  if (!Array.isArray(ov.activityTitles) || !ov.activityTitles.length) return;
+  {
+    const words = ov.activityTitles.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+    const TRE = new RegExp(`^\\s*(${words})\\s*(\\d+)?\\s*[:.]?\\s*`, "i");
+    const tidy = (m) => m[1].toUpperCase() + (m[2] ? " " + m[2] : "");
+    // the words after a matched label, as runs keeping their italic (the label's bold dropped)
+    const runIn = (b, len) => {
+      if (!Array.isArray(b.segs)) { const r = blockPlain(b).slice(len); return r.trim() ? [{ t: r, b: false, it: false, c: null }] : []; }
+      const out = []; let skip = len;
+      for (const s of b.segs) { const t = typeof s.t === "string" ? s.t : ""; if (skip >= t.length) { skip -= t.length; continue; } out.push({ ...s, t: t.slice(skip), b: false }); skip = 0; }
+      return out.map((s) => s.t).join("").trim() ? out : [];
+    };
+    const boldLead = (b) => { const s = (b.segs || []).find((x) => (x.t || "").trim()); return !!(s && s.b); };
+    // an activity line: a heading/label, or a paragraph whose first words are bold
+    const actLine = (b) => {
+      if (!b || !["head", "label", "para"].includes(b.t)) return null;
+      const m = blockPlain(b).match(TRE);
+      if (!m || (b.t === "para" && !boldLead(b))) return null;
+      // (no number: only the word in capitals — "IFYAKUCITA:" — is an activity; "Ifyakucita: …" is
+      // a glossary entry)
+      if (!m[2] && m[1] !== m[1].toUpperCase()) return null;
+      return m;
+    };
+    const para = (segs) => ({ t: "para", segs });
+    // { keepLabels: ["Icilangililo"] } — labels that belong INSIDE an activity (its worked
+    // example), so a loose activity keeps gathering past them; any other label ends it
+    const keep = ((ov.oneActivityPerBox && ov.oneActivityPerBox.keepLabels) || []).map((w) => w.toLowerCase());
+    const allBold = (x) => x.t === "para" && Array.isArray(x.segs) && x.segs.filter((s) => (s.t || "").trim()).every((s) => s.b) && blockPlain(x).trim().length <= 60;
+    let fixedTitles = 0, split = 0, made = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b.t === "activity" && typeof b.title === "string" && !b.titleSegs) {
+        const m = b.title.match(TRE);
+        // (no number, typed in ordinary case, words after the colon: not an activity title — the
+        // importer boxed a glossary that starts with the word; leave that box to the later passes)
+        if (m && !m[2] && m[1] !== m[1].toUpperCase() && b.title.slice(m[0].length).trim()) continue;
+        // (the second run, after boxifyActivities, only splits: titles were settled the first time,
+        // and a later pass may have capitalised that glossary box's title)
+        if (again && m && !m[2]) continue;
+        if (m) {
+          const rest = b.title.slice(m[0].length).trim();
+          if (rest || b.title !== tidy(m)) { b.title = tidy(m); fixedTitles++; }
+          if (rest) b.body.unshift(para([{ t: rest, b: false, it: false, c: null }]));
+        }
+        const k = b.body.findIndex((x, n) => n > 0 && actLine(x));
+        if (k > 0) {
+          const rest = b.body.splice(k), head = rest.shift(), hm = actLine(head);
+          const tail = runIn(head, hm[0].length);
+          if (tail.length) rest.unshift(para(tail));
+          blocks.splice(i + 1, 0, { t: "activity", title: tidy(hm), body: rest });
+          split++;
+        }
+        continue;
+      }
+      const m = actLine(b);
+      if (!m) continue;
+      const body = [];
+      const tail = runIn(b, m[0].length);
+      if (tail.length) body.push(para(tail));
+      let j = i + 1;
+      while (j < blocks.length) {
+        const x = blocks[j];
+        const keepLabel = x.t === "label" && keep.some((w) => blockPlain(x).trim().toLowerCase().startsWith(w));
+        if (!["para", "listitem", "table", "image", "imagerow", "img", "match"].includes(x.t) && !keepLabel) break;
+        if (actLine(x) || allBold(x)) break;
+        body.push(x); j++;
+      }
+      blocks.splice(i, j - i, { t: "activity", title: tidy(m), body });
+      made++;
+    }
+    console.log(`   oneActivityPerBox: ${fixedTitles} title(s) tidied, ${split} box(es) split, ${made} loose activit(y/ies) boxed`);
+  }
 }
 
 // Find a table (top-level, inside a box/activity body, or as an exercise/
@@ -1971,4 +2180,4 @@ function replaceTableRows(blocks, match, rows, extra) {
   return false;
 }
 
-module.exports = { applyOverrides, replaceTableRows };
+module.exports = { applyOverrides, replaceTableRows, oneActivityPerBox };

@@ -13,7 +13,7 @@
   "renumberActivities": "subtopic",
   "imprint": {
     "copyright": "© Zambia Educational Publishing House (2026)",
-    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without the prior written permission of the copyright owner or publisher.",
+    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the copyright owner or publisher.",
     "isbn": "…………………………",
     "groups": [
       {
@@ -109,7 +109,8 @@
     "SOlOf panel",
     "sublimation",
     "are named as such.",
-    "HIV"
+    "HIV",
+    "State two similarities between the human skeletal system and that of other vertebrates."
   ],
   "removeRange": [
     {
@@ -225,7 +226,20 @@
       "items": [
         {
           "listitem": "*Suggest a reason why some vertebrate animals may have hollow bones.*",
-          "marker": "4."
+          "marker": "1."
+        },
+        {
+          "listitem": "*State two similarities between the human skeletal system and that of other vertebrates.*",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "after": "Using an example, explain how long bones help in movement.",
+      "items": [
+        {
+          "listitem": "*State two similarities between the human skeletal system and that of other vertebrates.*",
+          "marker": "5."
         }
       ]
     }
@@ -368,6 +382,10 @@
     {
       "find": "Different types of inclines",
       "before": "After talking in your group"
+    },
+    {
+      "find": "Fig 52: Healthy and unhealthy chicks",
+      "before": "Good poultry health requires proper feeding"
     }
   ],
   "keepScaffold": true,
@@ -970,15 +988,6 @@
       ]
     },
     {
-      "find": "State two similarities between the human skeletal system and that of other vertebrates.",
-      "with": [
-        {
-          "listitem": "*State two similarities between the human skeletal system and that of other vertebrates.*",
-          "marker": "5."
-        }
-      ]
-    },
-    {
       "find": "State two physical changes in boys and two physical changes in girls during puberty.",
       "with": [
         {
@@ -1031,6 +1040,59 @@
           "marker": "1."
         }
       ]
+    },
+    {
+      "find": "l.In your own words, what is personal hygiene?",
+      "with": [
+        {
+          "listitem": "*In your own words, what is personal hygiene?*",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "l.From your group discussion, list five inclined planes you see in everyday life",
+      "with": [
+        {
+          "listitem": "*From your group discussion, list five inclined planes you see in everyday life*",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "Materials which do not allow electricity to flow through them such as plastic and wood are called bad conductors. They are also called insulators.",
+      "with": []
+    },
+    {
+      "find": "Materials which allow electricity to go through them such as copper and aluminium. These are called good conductors.",
+      "with": [
+        {
+          "para": "Materials which allow electricity to go through them such as copper and aluminium. These are called good conductors."
+        },
+        {
+          "para": "Materials which do not allow electricity to flow through them such as plastic and wood are called bad conductors. They are also called insulators."
+        }
+      ]
+    },
+    {
+      "find": "Safety Measures when Using Electricity",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Safety Measures when using Electricity"
+          }
+        }
+      ]
+    },
+    {
+      "find": "I.How can people reduce flooding?",
+      "with": [
+        {
+          "listitem": "*How can people reduce flooding?*",
+          "marker": "1."
+        }
+      ]
     }
   ],
   "renumberFigures": true,
@@ -1067,6 +1129,35 @@
     },
     "image140.png": {
       "src": "media/sci5-lb/fig-dc-motor.png"
+    },
+    "image97.jpeg": {
+      "src": "media/sci5-lb/fig22-bmi-test.jpeg",
+      "w": 371
+    },
+    "image93.jpeg": {
+      "src": "media/sci5-lb/fig18-child-muac.jpeg"
+    },
+    "image95.jpeg": {
+      "src": "media/sci5-lb/fig20-food-portions.jpeg"
+    },
+    "image89.jpeg": {
+      "src": "media/sci5-lb/fig14-food-label.jpeg",
+      "w": 439
+    },
+    "image129.jpeg": {
+      "src": "media/sci5-lb/chicks-brooder.jpeg",
+      "w": 393
+    },
+    "image87.jpeg": {
+      "src": "media/sci5-lb/fig12-grease-spot.jpeg"
+    },
+    "image82.png": {
+      "src": "media/sci5-lb/fig8-social-emotional-AB.jpeg",
+      "w": 456
+    },
+    "image84.jpeg": {
+      "src": "media/sci5-lb/fig10-menstrual-hygiene.jpeg",
+      "w": 321
     }
   },
   "setCaption": [
@@ -1249,6 +1340,22 @@
     {
       "find": "Now that you] know",
       "with": "Now that you know"
+    },
+    {
+      "find": "about 217ato 4 servings",
+      "with": "about 2 to 4 servings"
+    },
+    {
+      "find": "overweight, or obese",
+      "with": "overweight or obese"
+    },
+    {
+      "find": "raw materials, and also",
+      "with": "raw materials and also"
+    },
+    {
+      "find": "(clouds forming), and precipitation",
+      "with": "(clouds forming) and precipitation"
     }
   ],
   "tables": [
@@ -1450,5 +1557,15 @@
       "bold": true
     }
   ],
-  "hyphenate": false
+  "hyphenate": false,
+  "setMarker": [
+    {
+      "find": "Explain two ways in which the human skeletal system differs",
+      "marker": "3."
+    },
+    {
+      "find": "Name one vertebrate animal that has hollow bones.",
+      "marker": "4."
+    }
+  ]
 }

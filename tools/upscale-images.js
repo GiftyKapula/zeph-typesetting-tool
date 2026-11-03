@@ -377,8 +377,13 @@ async function main() {
   const ov = fs.existsSync(ovPath) ? JSON.parse(fs.readFileSync(ovPath, "utf8")) : {};
   ov.images = ov.images || {};
   for (const { j, outFile } of done) {
-    // relative to the .docx, which is how import-docx.js resolves an override path
-    ov.images[j.name] = { src: path.relative(path.dirname(opt.docx), outFile).replace(/\\/g, "/") };
+    // relative to the .docx, which is how import-docx.js resolves an override path.
+    // MERGE, never replace: an image may already carry a hand-written setting that has
+    // nothing to do with its resolution — a forced on-page width (`w`) or height (`hmm`)
+    // someone chose by looking at the page. Overwriting the whole entry silently threw
+    // that away, and the next build quietly went back to the size the typesetter had
+    // already rejected. Only `src` is this tool's to set.
+    ov.images[j.name] = { ...(ov.images[j.name] || {}), src: path.relative(path.dirname(opt.docx), outFile).replace(/\\/g, "/") };
   }
   fs.writeFileSync(ovPath, JSON.stringify(ov, null, 2) + "\n");
   console.log(`\nwrote ${done.length} override(s) to ${path.basename(ovPath)}`);

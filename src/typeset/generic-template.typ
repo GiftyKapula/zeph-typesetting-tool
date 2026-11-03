@@ -1580,13 +1580,16 @@
   let tgap = T.at("tocGap", default: 10pt)
   // and a wrapped title breaks between words, never mid-word ("BU- / TEELEDE")
   set text(hyphenate: false)
-  show outline.entry: it => { v(5pt, weak: true); upper(it) }
+  // (a two-line entry is never split across two contents pages)
+  show outline.entry: it => { v(5pt, weak: true); block(breakable: false)[#upper(it)] }
   let tdepth = T.at("tocDepth", default: 2)
+  // A unit's entry never sits alone at the foot of a contents page with its strands
+  // overleaf (sticky: kept with the entry below it) — Icibemba G4 LB, ICIPANDE 7.
   if serieslike {
-    show outline.entry.where(level: 1): it => { v(tgap, weak: true); text(fill: iaccent, weight: "bold")[#upper(it)] }
+    show outline.entry.where(level: 1): it => { v(tgap, weak: true); block(sticky: true)[#text(fill: iaccent, weight: "bold")[#upper(it)]] }
     outline(title: none, depth: tdepth, indent: 1.2em)
   } else {
-    show outline.entry.where(level: 1): it => { v(tgap, weak: true); strong(upper(it)) }
+    show outline.entry.where(level: 1): it => { v(tgap, weak: true); block(sticky: true)[#strong(upper(it))] }
     outline(title: none, depth: tdepth, indent: 1.2em)
   }
 }
@@ -2296,6 +2299,13 @@
   }
   v(5pt)
 }
+// Emitted before a head that follows a list item (emit.js). In the series layout the
+// head's own gap is a weak 13pt, and a list item ends with no spacing below it, so a
+// strand heading sat closer to the list than the list's own lines sit to each other.
+// Weak, so it merges with the head's gap (the larger wins) and vanishes at a page top;
+// 28pt puts the heading as far below the list as it sits below an activity box (24pt
+// glyph to glyph, measured). Other layouts unchanged.
+#let afterlist() = if serieslike { v(28pt, weak: true) }
 #let head(t, al: none, black: false, col: none) = {
   if serieslike { v(13pt, weak: true) } else { v(5pt) }
   let body = if serieslike {

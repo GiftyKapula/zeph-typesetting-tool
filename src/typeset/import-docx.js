@@ -750,9 +750,20 @@ let imgResolve = () => [];
 // document's numbering). Returns { numId, lvl, marker } or null for non-list paras.
 let listResolve = () => null;
 
+// A cell is often read more than once (cellText/cellParas to decide what kind of table
+// it is, then cellRich to build it), and every read of a Word-numbered paragraph moves
+// that list's counter on: a 5-item list typed 1-5 in a box came out 6-10 (Icibemba G4
+// TG). So each cell is read ONCE per document and later reads get a copy of that result.
+// Cleared per import, where listResolve is set.
+let cellCache = new Map();
+function cellBlocks(tcXml) {
+  if (!cellCache.has(tcXml)) cellCache.set(tcXml, cellBlocksOnce(tcXml));
+  return structuredClone(cellCache.get(tcXml));
+}
+
 // Ordered content of a cell: paragraphs, images AND nested tables, in order.
 // Returns [{t:"para",…} | {t:"img",images} | {t:"table",rows}].
-function cellBlocks(tcXml) {
+function cellBlocksOnce(tcXml) {
   const { masked, tables } = maskTables(tcXml);
   const out = [];
   const parts = masked.match(/@@TBL\d+@@|<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || [];
@@ -1771,11 +1782,20 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, noBoxes, flat) {
   // demoting ordinary sentences that merely begin with a label word. In the
   // "flat" (series) layout there are no boxes, so Activity/Exercise lines are
   // headings, not labels — skip this demotion there.
-  if (!noBoxes && plain.length <= 40 && boxKindFromTitle(plain)) return { t: "label", text: plain };
+  // A Word list item is never a box title: "3. Umulimo imo mu ilyashi." (an answer line in
+  // the Icibemba G4 LB) opened an exercise that swallowed the rest of its test section.
+  if (!noBoxes && plain.length <= 40 && !/<w:numPr>/.test(pXml) && boxKindFromTitle(plain)) return { t: "label", text: plain };
   // Series layout: an Activity / Exercise / Task / Assessment line (English or a
   // local language) is always a heading, even if the source didn't bold the whole
   // line — so they style consistently. (Table-wrapped boxes are still kept.)
-  if (noBoxes && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
+  // ...but a DOT LEADER says the line is a contents or glossary entry, not a title:
+  // the word is the thing being listed, not a heading over what follows. The Lunda
+  // Grade 1 Learner's Book's English-to-Lunda glossary set "Activity......... Zhakwila"
+  // and "Exercise......... Mudimu" as maroon sub-headings while its thirty neighbouring
+  // entries stayed body text. Four or more dots followed by more text is unmistakably a
+  // leader; a heading that merely trails off in an ellipsis is untouched.
+  const dotLeader = /\.{4,}\s*\S/.test(plain);
+  if (noBoxes && !dotLeader && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
   // Trust the manuscript's own Word heading style — EXCEPT when the "heading" reads as
   // body prose: a manuscript occasionally applies Heading1 to a whole paragraph by
   // mistake (a Foreword/Preface/bio paragraph, a body sentence under a topic), which
@@ -2250,6 +2270,7 @@ async function importDocx(docxPath, opts = {}) {
   };
   // Expose list level + marker for cell paragraphs (questions/sub-questions in
   // exercise & assessment tables), so their real numbering is preserved.
+  cellCache = new Map();
   listResolve = (x) => {
     if (!/<w:numPr>/.test(x)) return null;
     const numId = (x.match(/<w:numId\s+w:val="(\d+)"/) || [])[1];
@@ -2788,6 +2809,7 @@ async function importDocx(docxPath, opts = {}) {
     const text = textOf(x);
     const kind = text && boxKindFromTitle(text);
     if (!kind || !boldFirstRun(x)) continue;
+    if (/<w:numPr>/.test(x)) continue;   // a numbered list item is never a box title (see classifyPara)
     const bodyIdx = [];
     let lastContent = -1;
     for (let j = i + 1; j < parts.length; j++) {
@@ -3205,7 +3227,16 @@ async function importDocx(docxPath, opts = {}) {
       const a = blocks[i], b = blocks[i + 1];
       if (!isHeadBlk(a) || !isHeadBlk(b)) continue;
       const at = headText(a).trim();
-      if (!/\b(IN|OF|AND|THE|TO|FOR|ON|OR|AN?|WITH|&)$/i.test(at)) continue;
+      // The connector must be a WORD of its own, not the tail of a longer one. `\b`
+      // cannot tell the difference once the heading is written in a local language:
+      // JavaScript's word boundary counts only [A-Za-z0-9_], so it sees one between
+      // "Ñ" and "A" and reads the Lunda heading "KUTAÑA" as ending in the English
+      // article "A" — gluing it to whatever heading came next. The Lunda Grade 1
+      // Learner's Book lost 14 heading stacks that way ("KUTAÑA" + "NSONEKELU
+      // YAMUKANDA" printed as one line while every neighbouring stack printed as
+      // two). A Unicode-aware lookbehind asks the real question: is the character
+      // before the connector a letter or a digit in ANY script?
+      if (!/(?<![\p{L}\p{N}])(IN|OF|AND|THE|TO|FOR|ON|OR|AN?|WITH|&)$/iu.test(at)) continue;
       const bt = headText(b).trim();
       if (!bt || bt.length > 40) continue;     // the tail should be a short fragment
       a.text = (at + " " + bt).replace(/\s+/g, " ");
