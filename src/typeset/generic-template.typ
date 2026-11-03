@@ -1702,9 +1702,9 @@
 // It keeps the document footer (so the page number shows), only dropping the header.
 // toc: a contents label to file at this page (a YEAR / FORM / GRADE divider is the
 // top-level contents entry its topics nest under).
-#let divider(txt, toc: none) = {
+#let divider(txt, toc: none, toclvl: 1) = {
   page(paper: "a4", flipped: true, header: none)[
-    #if toc != none { tocentry(1, toc) }
+    #if toc != none { tocentry(toclvl, toc) }
     #place(center + horizon, block(width: 205mm)[
       #set align(center)
       #line(length: 100%, stroke: 2.4pt + T.ink)
@@ -1822,7 +1822,10 @@
     v(6pt)
   }
 }
-#let subhead(t, nobrk: false, top: false) = {
+// course: a heading inside one course of a several-course book (markCourses) -- the
+// course is the top-level contents entry, its competences and years file one level
+// under it, and its other sub-sections (Course description, Time Allocation…) stay out
+#let subhead(t, nobrk: false, top: false, course: false) = {
   // In a SYLLABUS only the YEAR banners start on their own page; the front-matter
   // sub-sections (Methodologies, Assessment, CBA, Time Allocation…) FLOW as normal
   // headings under their parent section (Introduction), so they don't page-break.
@@ -1839,13 +1842,14 @@
   // each year's matrix, so the book says in large type which level the pages that
   // follow are for. It replaces the banner that used to sit over the matrix's first
   // page; the matrix starts at the head of the next page.
-  if isyear { divider(t, toc: if tocUnitsOnly { none } else { t }); return }
+  if isyear { divider(t, toc: if tocUnitsOnly { none } else { t }, toclvl: if course { 2 } else { 1 }); return }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
   // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them;
   // so is a year's Key Competences heading (`top`, set at build time), which comes just
   // before its YEAR page and was otherwise filed under the previous year's last topic.
   if not tocUnitsOnly {
-    if isyear or top { mark(1, t) } else { mark(2, t) }
+    if course { if top { mark(2, t) } }
+    else if isyear or top { mark(1, t) } else { mark(2, t) }
   }
   // Clear space ABOVE a heading — a syllabus front-matter sub-section needs real
   // separation from the paragraph before it (the weak 7pt collapsed to almost nothing).
