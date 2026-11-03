@@ -461,8 +461,14 @@
           #body])
       // full-width title band across the whole spread
       // (stopping either side of the spine, which stays the plain subject colour)
-      #place(top + left, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
-      #place(top + left, dx: fdx, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+      // with no spine, ONE strip across the spread: two panels meeting edge to edge left a
+      // hairline seam down the middle of a coloured band (Civic Education's CDC peach)
+      #if sw > 0mm {
+        place(top + left, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+        place(top + left, dx: fdx, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+      } else {
+        place(top + left, dy: bandTop, rect(width: 2 * panelW, height: bandH, fill: band, stroke: none))
+      }
       // ---- SPINE: only the book's name and its level, as the front cover words them,
       // read top-to-bottom, the name first at the head and the level after it (user,
       // 2026-10-14), with the CDC badge upright at its foot; type scaled to the spine ----
@@ -511,7 +517,7 @@
           // rivers ("CURRICULUM,    INSTRUCTIONAL    STRATEGIES    AND"), which reads
           // as broken on a cover. Ragged-right centred is what the CDC references show.
           let mk(s) = block(width: tw, par(justify: false, align(center,
-            text(font: T.displayFont, size: s, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS])))
+            text(font: T.at("covTitleFont", default: T.displayFont), size: s, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS])))
           let pick = 13pt
           for s in (31pt, 28pt, 25pt, 22pt, 20pt, 18pt, 16pt, 15pt, 14pt, 13pt) {
             if measure(mk(s)).height <= avail { pick = s; break }
