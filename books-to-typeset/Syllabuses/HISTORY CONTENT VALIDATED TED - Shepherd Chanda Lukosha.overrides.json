@@ -28,7 +28,11 @@
     "DIRECTOR'S NAME: 'Charles Makala (Dr.)' in this manuscript; set as 'Charles Ndakala",
     "(Dr.)', as in the Music Content and Music Methods syllabuses (publisher's decision).",
     "",
-    "ISBN: none given; the imprint shows a blank ISBN line (publisher's decision)."
+    "ISBN: none given; the imprint shows a blank ISBN line (publisher's decision).",
+    "",
+    "2026-10-23 proofread round 1 (reviewer's PDF from the Mailo folder, '... - typeset.pdf';",
+    "its copies (1) are the same file): 18 comments, all made -- see the PROOFREAD rules in",
+    "`edit`, `cellSubtext` and `editCell`. Page numbers in the rules are the reviewer's PDF's."
   ],
   "level": "Secondary Teachers' Diploma",
   "year": 2025,
@@ -74,6 +78,90 @@
       "_why": "Year 2's competences heading worded as Year 1's ('Key Competences to be developed at Year one'). Keeps 'at year two', which the editCell `under` rules below look for.",
       "find": "Competences to be developed at year two",
       "with": "Key Competences to be developed at year two"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p8: 'After the word House, put the acronym in brackets ZEPH'.",
+      "find": "Zambia Educational Publishing House for",
+      "with": "Zambia Educational Publishing House (ZEPH) for"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p8: 'Insert a full stop after the word syllabus'.",
+      "find": "overall direction of the syllabus",
+      "with": "overall direction of the syllabus."
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p9: 'Delete the phrase Education (ECE)'.",
+      "find": "Early Childhood Education (ECE), Primary",
+      "with": "Early Childhood, Primary"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p9: 's' added to 'student'; 'practically' marked 'Delete the word'.",
+      "find": "ensures student can apply what they learn practically.",
+      "with": "ensures students can apply what they learn."
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "PROOFREAD 2026-10-23, p18 (1.3.4.1 expected standard): 'Change the phrase to: Abbreviations BC/BCE and AD/CE used to denote historical periods correctly'.",
+      "from": "Use of abbreviations (BC/BCE and AD/CE) to denote historical periods demonstrated correctly",
+      "to": "Abbreviations BC/BCE and AD/CE used to denote historical periods correctly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p18 (1.3.4.1 competence): 'Remove the brackets'.",
+      "from": "Use abbreviations (BC/BCE and AD/CE)",
+      "to": "Use abbreviations BC/⁠BCE and AD/⁠CE",
+      "_to_why": "A word joiner after each slash (follow-up, 2026-10-23): the line broke inside 'BC/ BCE'."
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p20 (1.7.2.1): 'Insert the phrase into Zambia after the word migrations'.",
+      "from": "Bantu migrations analysed accordingly",
+      "to": "Bantu migrations into Zambia analysed accordingly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p22 (1.9.1.2): 'by' marked 'delete the highlighted word'.",
+      "from": "in diversity by using knowledge",
+      "to": "in diversity using knowledge"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p22 (1.8.4 sub-topic): 'Insert the word about after the word learning'.",
+      "from": "in learning heritage sites",
+      "to": "in learning about heritage sites",
+      "all": true
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p23 (1.10.3.1): 'Insert the phrase in Zambia after' commerce.",
+      "from": "modern day commerce accordingly",
+      "to": "modern day commerce in Zambia accordingly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p24 (1.11.1.1): 'utilised' -> 'used'.",
+      "from": "Digital resources utilised to",
+      "to": "Digital resources used to"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p25 (1.13.4.1 expected standard): 'in the' -> 'during'.",
+      "from": "Socio-economic development in the colonial period analysed",
+      "to": "Socio-economic development during colonial period analysed"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p25 (1.13.4.1 competence): 'the' marked 'delete highlighted word'. Matched with the manuscript's own (Word list) number, 1.1.1.7, as the activity beside it says the same words and keeps its 'the'.",
+      "from": "1.1.1.7 Analyse socio-economic development during the colonial period",
+      "to": "1.1.1.7 Analyse socio-economic development during colonial period"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p26 (1.15.1.1): 'Insert the word peaceful after the word of'.",
+      "from": "Methods of conflict resolution promoted",
+      "to": "Methods of peaceful conflict resolution promoted"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p30 (2.2.1.1): 'Insert the phrase for independence after the word struggle'.",
+      "from": "liberation struggle analysed accordingly",
+      "to": "liberation struggle for independence analysed accordingly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p30 (2.1.3.1): 'United Nations' -> 'UN', and 'the' at the beginning of the sentence.",
+      "from": "Work of the United Nations in maintaining world peace",
+      "to": "The work of the UN in maintaining world peace"
     }
   ],
   "editCell": [

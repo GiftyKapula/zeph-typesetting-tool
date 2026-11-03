@@ -54,7 +54,7 @@ const EMPTY_CELL = { text: "", imgs: [] };
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 // Rich table cell: text plus any images it contains (and rich segments with
 // math when the cell holds an equation).
-const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""}${c.cont ? ", cont: true" : ""})`;
+const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""}${c.cont ? ", cont: true" : ""}${c.tight ? ", tight: true" : ""})`;
 const normRows = (rows) => { const n = Math.max(0, ...rows.map((r) => r.length)); return rows.map((r) => r.concat(Array(n - r.length).fill(EMPTY_CELL))); };
 const rowArr = (rows) => arr(normRows(rows), (r) => arr(r, cellArr));
 const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0}, tall: ${im.tall ? "true" : "false"}, cap: ${im.caption ? S(im.caption) : "none"}, hmm: ${im.hmm || 0})`);
@@ -1448,8 +1448,9 @@ function applyOverrides(blocks, ov) {
   // a title and an italic gloss, and several clauses may share one cell. Give enough of
   // the text after the number to single the clause out ("1.3.1. Developmental domains"
   // -> "1.4.1. Developmental domains"); whitespace is matched loosely and the match may
-  // run across runs — the replacement takes the styling of the run it starts in. Warns
-  // when nothing matches, and when more than one cell does (unless `all`).
+  // run across runs — the replacement takes the styling of the run it starts in, or the
+  // weight given by `bold`. Warns when nothing matches, and when more than one cell does
+  // (unless `all`).
   for (const cs of ov.cellSubtext || []) {
     if (!cs || typeof cs.from !== "string" || !cs.from.trim()) continue;
     const re = new RegExp(cs.from.trim().split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("\\s+"));
@@ -1461,17 +1462,26 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           for (const row of b.rows) if (Array.isArray(row)) for (const cell of row) {
             if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
+            // A cell with no formatting at all comes from the importer with no runs (it
+            // renders from `text`); `bold` needs runs to set, so start from one plain run.
+            if (cs.bold != null && !(Array.isArray(cell.segs) && cell.segs.length))
+              cell.segs = [{ t: cell.text, b: false, it: false, c: null }];
             cell.text = cell.text.replace(re, () => to);
             if (Array.isArray(cell.segs) && cell.segs.length && !cell.segs.some((s) => s.m || typeof s.t !== "string")) {
               const m = cell.segs.map((s) => s.t).join("").match(re);
               if (m) {
                 const start = m.index, end = m.index + m[0].length;
                 let pos = 0, put = false;
-                cell.segs = cell.segs.map((s) => {
+                // `bold: true|false` gives the replacement a weight of its own (a reviewer's
+                // "should be in bold" on a method label typed plain), splitting the run so
+                // the text around it keeps its weight.
+                cell.segs = cell.segs.flatMap((s) => {
                   const a = pos, z = pos + s.t.length; pos = z;
-                  if (z <= start || a >= end) return s;
+                  if (z <= start || a >= end) return [s];
                   const mid = put ? "" : to; put = true;
-                  return { ...s, t: s.t.slice(0, Math.max(0, start - a)) + mid + s.t.slice(Math.min(s.t.length, end - a)) };
+                  const head = s.t.slice(0, Math.max(0, start - a)), tail = s.t.slice(Math.min(s.t.length, end - a));
+                  if (cs.bold == null || !mid) return [{ ...s, t: head + mid + tail }];
+                  return [{ ...s, t: head }, { ...s, t: mid, b: !!cs.bold }, { ...s, t: tail }];
                 }).filter((s) => s.t !== "");
               }
             }
@@ -1484,6 +1494,78 @@ function applyOverrides(blocks, ov) {
     walkT(blocks);
     if (!n) console.warn("!  cellSubtext not matched:", cs.from);
     else if (n > 1 && !cs.all) console.warn(`!  cellSubtext matched ${n} cells:`, cs.from);
+  }
+  // methodLabels: true — set every teaching-method label in the matrix alike, flush left
+  // without a bullet. A label is a short line wholly in bold ("Role Play:", "Group
+  // Presentations"). Typed with a bullet it kept it in a cell that mixes bulleted and plain
+  // lines, but came out flush left as a method in a cell bulleted throughout — so one book
+  // showed both. Its bullet is taken off (the template sets an unbulleted bold line in a
+  // bulleted cell as a method). A bold label with its first activity run on after the colon
+  // ("Field Study: Identifying …") is split there, the activity behind a bullet of its own.
+  // Works on the runs (they carry the bold) and makes the same change in `text`, matched
+  // by the label: the runs keep spaces the text has tidied ("•  Recording").
+  if (ov.methodLabels) {
+    let n = 0;
+    const words = (t) => t.trim().split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("\\s+");
+    // replace characters [a, z) of the runs with `ins`, styled like the run at `a`
+    const splice = (segs, a, z, ins, style) => {
+      let pos = 0, put = false;
+      const out = segs.flatMap((s) => {
+        const sa = pos, sz = pos + s.t.length; pos = sz;
+        if (sz <= a || sa >= z) return [s];
+        const head = s.t.slice(0, Math.max(0, a - sa)), tail = s.t.slice(Math.min(s.t.length, z - sa));
+        const mid = put || !ins ? [] : [{ ...s, ...style, t: ins }]; put = true;
+        return [{ ...s, t: head }, ...mid, { ...s, t: tail }];
+      }).filter((s) => s.t !== "");
+      return out;
+    };
+    const walkM = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+          for (const row of b.rows.slice(1)) if (Array.isArray(row)) for (const cell of row) {
+            if (!cell || typeof cell.text !== "string" || !Array.isArray(cell.segs) || !cell.segs.length) continue;
+            if (cell.segs.some((s) => s.m || typeof s.t !== "string")) continue;
+            const joined = cell.segs.map((s) => s.t).join("");
+            const boldAt = cell.segs.flatMap((s) => Array.from(s.t, () => !!s.b));
+            const isBold = (a, z) => Array.from(joined.slice(a, z)).every((ch, i) => !/[A-Za-z0-9]/.test(ch) || boldAt[a + i]);
+            const edits = []; // [a, z, ins, label, kind]
+            let ls = 0;
+            for (const line of joined.split("\n")) {
+              // a label on its own line, behind a bullet
+              const m = line.match(/^(\s*[•▪◦●·‣∙]\s*)(\S[^\n]{1,45}?)\s*$/);
+              // a label (bulleted or not) with its first activity after the colon
+              const r = line.match(/^(\s*(?:[•▪◦●·‣∙]\s*)?)([A-Z][^\n:]{1,40}:)([ \t]+)(\S.*)$/);
+              if (m && isBold(ls + m[1].length, ls + m[1].length + m[2].length) && /[A-Za-z]/.test(m[2])) {
+                edits.push([ls, ls + m[1].length, "", m[2], "own"]);
+              } else if (r) {
+                const la = ls + r[1].length, lz = la + r[2].length, ra = lz + r[3].length;
+                if (isBold(la, lz) && !isBold(ra, ra + r[4].length)) {
+                  edits.push([lz, ra, "\n• ", r[2], "split"]);
+                  if (r[1]) edits.push([ls, la, "", r[2], "own"]);
+                }
+              }
+              ls += line.length + 1;
+            }
+            if (!edits.length) continue;
+            let segs = cell.segs;
+            for (const [a, z, ins] of edits.slice().sort((x, y) => y[0] - x[0]))
+              segs = splice(segs, a, z, ins, { b: false, it: false });
+            cell.segs = segs;
+            for (const [, , , label, kind] of edits) {
+              const L = words(label);
+              cell.text = kind === "own"
+                ? cell.text.replace(new RegExp("(^|\\n)[ \\t]*[•▪◦●·‣∙][ \\t]*(" + L + ")"), "$1$2")
+                : cell.text.replace(new RegExp("(" + L + ")[ \\t]+"), "$1\n• ");
+            }
+            n += edits.length;
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkM(b[k]);
+      }
+    };
+    walkM(blocks);
+    console.log(`   methodLabels: ${n} label(s) set as methods`);
   }
   // removeRow: [{ find }] — delete a whole TABLE ROW, matched by any one of its cells
   // whose trimmed text equals `find` (or starts with it, with `startsWith` instead).
@@ -3164,6 +3246,31 @@ function splitRows(blocks, ov) {
 // carries one bullet into an otherwise empty row overleaf (Inclusive ECE 2.2.5). Matched
 // like removeRow: any one cell's whole trimmed text, or its opening text. Header excluded.
 // Runs on the finished blocks, after the syllabus passes that rebuild matrix cells.
+// tightTable: [{ find }] — set the stacked lines of every body cell of the table holding a
+// cell whose trimmed text contains `find` closer together (4pt between lines instead of 5pt).
+// For a one-page chart that a correction has made a line too tall, so its last row would
+// otherwise go overleaf on its own (Music Content's scope and sequence chart, 2026-10-20).
+function tightTables(blocks, ov) {
+  for (const tt of ov.tightTable || []) {
+    const want = String(tt.find || "");
+    let n = 0;
+    const walkT = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")
+            && want && b.rows.some((r) => Array.isArray(r) && r.some((c) => c && typeof c.text === "string" && c.text.includes(want)))) {
+          b.rows.slice(1).forEach((row) => { if (Array.isArray(row)) row.forEach((c) => { if (c && typeof c === "object") c.tight = true; }); });
+          n++;
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
+      }
+    };
+    walkT(blocks);
+    if (!n) console.warn("!  tightTable not matched:", want);
+    else console.log(`   tightTable ${want}: ${n} table(s)`);
+  }
+}
+
 function keepRowsWhole(blocks, ov) {
   for (const kr of ov.keepRowWhole || []) {
     const want = kr.find != null ? String(kr.find) : null;
@@ -3305,6 +3412,12 @@ const numOrWord = (s) => +s || NUMWORD.indexOf(String(s).toLowerCase()) + 1;
 // between the two -- the bullet then opened the next page with nothing beside it, and
 // keepRowWhole on the competence could not hold it. Its lines join the activities cell of
 // the row above -- or, when it only repeats a line already there word for word, it goes.
+// The same goes for a row that carries an expected standard too, its competence cell
+// still blank, when that standard carries on a sentence from the row above
+// (Entrepreneurship 1.1.3.1: "programmes (e.g., CEEC, ZDA, CDF)" beside "business
+// financing shown correctly", the standard above ending "…Education, and"): it is the
+// competence above run on, and the rule drawn over it cut that competence in two. Each
+// of its cells joins its own cell above.
 // Matrix tables only; a row carrying a picture is left alone.
 function foldActivityRows(blocks) {
   let n = 0;
@@ -3314,12 +3427,39 @@ function foldActivityRows(blocks) {
     if (!H.some((h) => /TOPIC/.test(h))) continue;
     const act = H.findIndex((h) => /ACT.?VIT/.test(h));
     if (act < 0) continue;
+    const comp = H.findIndex((h) => /COMPETEN/.test(h));
+    const std = comp < 0 ? -1 : H.findIndex((h) => /STANDARD/.test(h));
     const blank = (c) => !c || (!String(c.text || "").trim() && !(c.imgs || []).length);
+    // runOn: text that opens with a small letter after a line left mid-clause is that
+    // line's own end ("…economic empowerment" / "programmes (e.g., CEEC…)"): a space, not
+    // a new line (which, in a cell whose every line is a bullet, made it a bullet of its own)
+    const join = (u, c, runOn) => {
+      const ut = String(u.text || "");
+      const sep = runOn && /[A-Za-z,]$/.test(ut.trimEnd()) && /^[a-z]/.test(String(c.text || "").trimStart()) ? " " : "\n";
+      u.text = !ut ? c.text : sep === " " ? ut.trimEnd() + " " + String(c.text).trimStart() : ut + "\n" + c.text;
+      if (Array.isArray(u.segs) || Array.isArray(c.segs)) {
+        const segs = (x) => Array.isArray(x.segs) && x.segs.length ? x.segs : [{ t: String(x.text || ""), b: false, it: false, c: null }];
+        u.segs = ut ? [...segs(u), { t: sep, b: false, it: false, c: null }, ...segs(c)] : segs(c);
+      }
+    };
     for (let ri = b.rows.length - 1; ri >= 2; ri--) {
       const row = b.rows[ri], up = b.rows[ri - 1];
       if (!Array.isArray(row) || !Array.isArray(up) || row.length !== up.length || row.length !== H.length) continue;
       const c = row[act], u = up[act];
       if (blank(c) || (c.imgs || []).length || !u || (u.imgs || []).length) continue;
+      // activities and a standard but no competence, under a row that has one, the standard
+      // carrying on mid-sentence (it opens with a small letter): run on. A standard of its
+      // own (RE Content 2.3.1.1: "Understanding the concept of wealth…" under "…of work…")
+      // is the author's own row and keeps its rule.
+      if (std >= 0 && /^[a-z]/.test(String(row[std] && row[std].text || "").trimStart())
+          && !(row[std].imgs || []).length && up[std] && !(up[std].imgs || []).length
+          && !blank(up[comp]) && row.every((x, ci) => ci === act || ci === std || blank(x))) {
+        join(u, c, true);
+        join(up[std], row[std], true);
+        b.rows.splice(ri, 1);
+        n++;
+        continue;
+      }
       if (!row.every((x, ci) => ci === act || blank(x))) continue;
       const ut = String(u.text || "");
       // the row only repeats the cell's last activity word for word (Civic Education
@@ -3330,16 +3470,12 @@ function foldActivityRows(blocks) {
         b.rows.splice(ri, 1);
         continue;
       }
-      u.text = ut ? ut + "\n" + c.text : c.text;
-      if (Array.isArray(u.segs) || Array.isArray(c.segs)) {
-        const segs = (x) => Array.isArray(x.segs) && x.segs.length ? x.segs : [{ t: String(x.text || ""), b: false, it: false, c: null }];
-        u.segs = ut ? [...segs(u), { t: "\n", b: false, it: false, c: null }, ...segs(c)] : segs(c);
-      }
+      join(u, c);
       b.rows.splice(ri, 1);
       n++;
     }
   }
-  if (n) console.log(`   activity-only rows joined to the row above: ${n}`);
+  if (n) console.log(`   rows with no competence joined to the row above: ${n}`);
 }
 
 // A Key Competences row typed twice, word for word, in the same table (Business Studies,
@@ -3559,7 +3695,15 @@ function mergeSplitMatrices(blocks) {
     if (!(nb && nb.t === "table" && Array.isArray(nb.rows) && nb.rows.length && (nb.rows[0] || []).length === blocks[i].rows[0].length)) continue;
     const same = hdr(nb) === hdr(blocks[i]);
     const noHdr = mat && !/\bTOPIC\b/.test(hdr(nb));
-    if (!same && !noHdr) continue;
+    // …and a numbered COMPETENCE | DESCRIPTORS table whose rows run on in pieces with no
+    // header, each its own Word table (Geography Content's Year 2: rows 1-6, then 7, 8, 9
+    // and 10 one table each, which printed as four loose boxes in title case). Only when
+    // the piece's S/N carries on the count of the table above.
+    const sn = (r) => { const m = String((r && r[0] && r[0].text) || "").trim().match(/^(\d+)\.?$/); return m ? +m[1] : null; };
+    const prev = blocks[i].rows[blocks[i].rows.length - 1];
+    const runOn = !mat && /COMPETEN/.test(hdr(blocks[i])) && /DESCRIPT/.test(hdr(blocks[i]))
+      && sn(prev) != null && sn(nb.rows[0]) === sn(prev) + 1;
+    if (!same && !noHdr && !runOn) continue;
     blocks[i].rows.push(...nb.rows.slice(same ? 1 : 0));
     blocks.splice(i + 1, j - i);
     merged++; i--;
@@ -5446,7 +5590,7 @@ async function typesetOne(docxPath, themeName) {
   }
 
   if (variant === "syllabus") mergeSplitMatrices(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.methodLabels || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -6869,6 +7013,7 @@ function normaliseQuestionMarkBold(blocks) {
       let inside = false;
       for (const b of blocks) { if (b.course) inside = true; else if (inside && b.t === "h2") b.inCourse = true; }
     }
+    tightTables(blocks, ov);
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }

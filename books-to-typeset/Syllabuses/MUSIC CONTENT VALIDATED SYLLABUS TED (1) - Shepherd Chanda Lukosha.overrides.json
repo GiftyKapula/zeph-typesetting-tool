@@ -33,7 +33,14 @@
     "",
     "2026-10-13 clean-up (user: 'correct all the issues'): ENTREPRENEURSHIP descriptor written (CDC to confirm);",
     "  '[name the genres]' -> 'selected genres'; 2.3.3 titled 'Modal and Whole-Tone Scales'; reviewer's note in 2.19.3.1",
-    "  resolved; Outcomes unbolded (as Music Methods); 'Kelvin Mambwe, (PhD)' comma dropped."
+    "  resolved; Outcomes unbolded (as Music Methods); 'Kelvin Mambwe, (PhD)' comma dropped.",
+    "",
+    "2026-10-20 proofread round 1 (reviewer's PDF '... - Shepher_261020_102400.pdf', 3 comments):",
+    "  * p9 Aims: 'Musical Arts' -> 'Musical Arts Education'; 'trainee' deleted ('reflective teachers').",
+    "  * p48 scope chart: School Experience unnumbered, School Experience 2 moved to Term 2, so the chart's",
+    "    Year 2 numbers now match the matrix (2.1-2.19). Same rule carried to Year 1 to harmonise it too:",
+    "    Education Foundation 1 and 3 (no matrix topic) unnumbered; World Music 2 (matrix 1.18) added; Year 1",
+    "    now runs 1.1-1.26 as the matrix does. Chart titles otherwise as typed."
   ],
   "subject": "Musical Arts Education Content",
   "level": "Secondary Teachers' Diploma",
@@ -131,6 +138,16 @@
       "_why": "Comma before the degree, as no other syllabus signs it (\"Kelvin Mambwe (PhD)\").",
       "find": "Kelvin Mambwe, (PhD)",
       "with": "Kelvin Mambwe (PhD)"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-20, p9: 'Change from Musical Arts to Musical Arts Education.'",
+      "find": "This course in Musical Arts aims",
+      "with": "This course in Musical Arts Education aims"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-20, p9: 'trainee' marked 'Delete'.",
+      "find": "creative, and reflective trainee teachers equipped",
+      "with": "creative, and reflective teachers equipped"
     }
   ],
   "editCell": [
@@ -208,6 +225,42 @@
       "_why": "CAPITAL LETTER. As above.",
       "pattern": "(?<=applied appropriatelys*\ns*)mixing and mastering",
       "with": "Mixing and mastering"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-20, p48: scope chart harmonised with the matrix numbering (see _comment). Year 1 Term 1: Education Foundation 1 has no matrix topic, so unnumbered.",
+      "row": "Term 1",
+      "col": 1,
+      "with": "• 1.1 Foundations of Music Theory 1\n• 1.2 Foundations of Music Theory 2\n• 1.3 Foundations of Music Theory 3\n• 1.4 Pitch and Scales\n• 1.5 Pitch and Scales\n• 1.6 Pitch and Scales\n• 1.7 Intervals\n• 1.8 Voice Training 1\n• 1.9 Voice Training 2\n• 1.10 Zambian Musical Arts\n• 1.11 Solfege and Notation 1\n• Education Foundation 1"
+    },
+    {
+      "_why": "Year 2 Term 1: School Experience 1 unnumbered (reviewer); the rest renumbered to the matrix.",
+      "row": "Term 1",
+      "col": 2,
+      "with": "• School Experience 1\n• 2.1 Harmony 3\n• 2.2 Form and Analysis 2\n• 2.3 Melody and Composition 2\n• 2.4 Instrumental Techniques 2\n• 2.5 Climate Change\n• 2.6 Musician Wellness"
+    },
+    {
+      "_why": "Year 1 Term 2: numbered as the matrix (1.12 Historical Sources ... 1.20 Education Foundation 2); World Music 2 is matrix topic 1.18 and was missing from the chart.",
+      "row": "Term 2",
+      "col": 1,
+      "with": "• 1.12 Historical Sources\n• 1.13 Advanced Rhythm\n• 1.14 Conducting\n• 1.15 Harmony 1\n• 1.16 Musical Appreciation\n• 1.17 World Music 1\n• 1.18 World Music 2\n• 1.19 Dance and Movement\n• 1.20 Education Foundation 2"
+    },
+    {
+      "_why": "Year 2 Term 2: renumbered to the matrix; School Experience 2 moved here from Term 3, unnumbered (reviewer).",
+      "row": "Term 2",
+      "col": 2,
+      "with": "• 2.7 Advanced Music History\n• 2.8 Harmony 4\n• 2.9 Counterpoint\n• 2.10 Fugue\n• 2.11 Music Technology 2\n• 2.12 Orchestration\n• 2.13 Research Methods in Music\n• School Experience 2"
+    },
+    {
+      "_why": "Year 1 Term 3: Education Foundation 3 has no matrix topic, so unnumbered.",
+      "row": "Term 3",
+      "col": 1,
+      "with": "• 1.21 Harmony 2\n• 1.22 Form and Analysis 1\n• 1.23 Melody and Composition 1\n• 1.24 Instrumental Techniques 1\n• 1.25 Climate Change\n• 1.26 Musician Wellness\n• Education Foundation 3"
+    },
+    {
+      "_why": "Year 2 Term 3: School Experience 2 moved to Term 2; renumbered to the matrix.",
+      "row": "Term 3",
+      "col": 2,
+      "with": "• 2.14 Music Entrepreneurship\n• 2.15 Music Therapy\n• 2.16 World Music 2\n• 2.17 Civic Education\n• 2.18 Advanced Pedagogy\n• 2.19 Graduation Recital and Portfolio"
     }
   ],
   "unbold": [
@@ -216,5 +269,11 @@
     "Design and develop appropriate teaching and learning materials for Musical Arts.",
     "Apply entrepreneurial knowledge and skills in music-related activities and ventures.",
     "Demonstrate performance, creativity, coordination, observation, and self-expression through vocal, instrumental, and other musical activities."
+  ],
+  "tightTable": [
+    {
+      "_why": "The scope chart gained a line in round 1 (World Music 2) and its Term 3 row went overleaf alone; lines set 4pt apart (not 5pt) keep the chart on one page.",
+      "find": "Foundations of Music Theory 1"
+    }
   ]
 }

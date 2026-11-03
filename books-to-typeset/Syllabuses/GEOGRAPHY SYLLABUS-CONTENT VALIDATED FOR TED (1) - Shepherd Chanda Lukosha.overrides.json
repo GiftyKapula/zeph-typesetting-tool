@@ -1,4 +1,14 @@
 {
-  "_comment": "Matrix numbers are Word auto-list numbers that restart and run on across merged cells; renumberMatrix counts them afresh from the table structure.",
-  "renumberMatrix": true
+  "_comment": [
+    "Matrix numbers are Word auto-list numbers that restart and run on across merged cells; renumberMatrix counts them afresh from the table structure.",
+    "TITLE / LEVEL / YEAR (2026-10-16). As the manuscript's cover and Course Name say: Geography Content, Secondary Teachers' Diploma; 2025 from the copyright line. Without them the cover read 'GEOGRAPHY -CONTENT FOR SYLLABUS / TEACHERS' DIPLOMA' (taken from the file name).",
+    "STRAY LABEL (2026-10-16). The course outline's last item, '3. General Competences and Descriptors:', is a label for the competences table, which opens arabic page 1 under its own heading 'Competences to be developed:' after the level page; the label stood alone on a page of its own, so it goes."
+  ],
+  "subject": "Geography Content",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2025,
+  "renumberMatrix": true,
+  "remove": [
+    "General Competences and Descriptors:"
+  ]
 }

@@ -1,5 +1,12 @@
 {
-  "_comment": "Matrix numbers are Word auto-list numbers that restart and run on across merged cells (1.4, 1.4, 1.6 …; 1.25.x competences under sub-topic 1.32.x); renumberMatrix counts them afresh from the table structure. The matrix runs both years as one table with no YEAR TWO heading: the YEAR 2 banner goes before the author's own topic 2.1, Harmonic Structures.",
+  "_comment": [
+    "Matrix numbers are Word auto-list numbers that restart and run on across merged cells (1.4, 1.4, 1.6 …; 1.25.x competences under sub-topic 1.32.x); renumberMatrix counts them afresh from the table structure. The matrix runs both years as one table with no YEAR TWO heading: the YEAR 2 banner goes before the author's own topic 2.1, Harmonic Structures.",
+    "TITLE / LEVEL / YEAR (2026-10-16). As the manuscript's cover says: EXPRESSIVE ARTS SYLLABUS, Primary Teachers' Diploma; 2025 from the copyright line. Without them the cover read 'EXPRESSIVE ARTS EDUCATION SYLLABUS / TEACHERS' DIPLOMA' (taken from the file name).",
+    "HAND-TYPED CONTENTS (2026-10-16). Under the template's ISBN line (978-9982-54-066-7, the same number as in Music Methods: not this book's) the manuscript has its own contents as a table with its Word page numbers; it printed after the generated contents for two and a half pages. Both go, as in Music Methods; the imprint keeps its blank ISBN line."
+  ],
+  "subject": "Expressive Arts",
+  "level": "Primary Teachers' Diploma",
+  "year": 2025,
   "renumberMatrix": true,
   "insertRow": [
     {
@@ -13,6 +20,19 @@
       "_why": "A stray '2' typed against the competence text: '2.10.1.1 2Create fixtures for games'.",
       "pattern": " 2(?=Create fixtures for games)",
       "with": " "
+    }
+  ],
+  "removeRange": [
+    {
+      "_why": "the template ISBN line and the hand-typed contents table under it (see _comment)",
+      "from": "ISBN: 978-9982-54-066-7",
+      "to": "Preface"
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "its last two activities ran alone onto the last page (2026-10-16)",
+      "startsWith": "2.14.2.1"
     }
   ]
 }

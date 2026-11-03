@@ -57,8 +57,15 @@
     "  * RECOMMENDED REFERENCES: the last entry stops mid-word ('Jones and Bartlett P'), and",
     "    the entries mix bold, bold-italic and plain titles. Set as written. Several",
     "    PRESCRIBED REFERENCES carry notes to self ('Authors not specified in search', 'not",
-    "    in search results', 'Year of Publication')."
+    "    in search results', 'Year of Publication').",
+    "",
+    "2026-10-23 proofread round 1 (reviewer's PDF from the Mailo folder; its copies (1)-(3) are the",
+    "same file): 14 comments, all made -- see the PROOFREAD rules. The three Biomechanics standards",
+    "above are now worded by the reviewer. The cover title reads PHYSICAL EDUCATION AND SPORT",
+    "CONTENT SYLLABUS (`subject`). Page numbers in the rules are the reviewer's PDF's."
   ],
+  "subject": "Physical Education and Sport Content",
+  "_subject_why": "PROOFREAD 2026-10-23, p1 (cover title): 'PHYSICAL EDUCATION AND SPORT CONTENT SYLLABUS' -- the name it was received under (see FILE NAME).",
   "isbn": "978-9982-54-066-7",
   "coverColour": "1f5c3a",
   "_coverColour_why": "Cover and back-cover field: a deep playing-field green. Left to the engine's pick from the subject name it came out blue, close to Guidance and Counselling's navy and Devices and Materials Production's indigo.",
@@ -92,6 +99,75 @@
       "_why": "The first letter of the header is missing in the manuscript.",
       "find": "OPIC",
       "with": "TOPIC"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "PROOFREAD 2026-10-23, p6: 'To read as competences by removing the i'.",
+      "find": "pedagogical competencies",
+      "with": "pedagogical competences"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p10: 'to read ... they should fulfil all the requirements...'.",
+      "find": "the student must fulfil all the requirements",
+      "with": "they should fulfil all the requirements"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p11: 'should read as sub-topics, specific competence and learning activities are arranged ...' (competences, as the book spells it).",
+      "find": "The topics, sub-topics and specific competencies are arranged",
+      "with": "The topics, sub-topics, specific competences and learning activities are arranged"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "PROOFREAD 2026-10-23, p22: reworded by the reviewer.",
+      "from": "Pool orientation and Pool hygiene discussed and practiced effectively",
+      "to": "Pool orientation and pool hygiene conducted and discussed effectively"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p23: 'Replace the statement with Various activities of health related fitness performed correctly'.",
+      "from": "Various activities of Health related components of physical fitness performed correctly",
+      "to": "Various activities of health related fitness performed correctly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p23: 'demonstrate' -> 'demonstrated'.",
+      "from": "Coaching and officiating roles demonstrate perfectly",
+      "to": "Coaching and officiating roles demonstrated perfectly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p23: 'Add the word Basic before the word water'.",
+      "from": "Water safety practices and survival skills demonstrated comprehensively",
+      "to": "Basic water safety practices and survival skills demonstrated comprehensively"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p24: 'Replace with statement, skill related components of Physical Fitness activities performed appropriately'.",
+      "from": "Activities of skill related components of physical fitness identified and performed appropriately",
+      "to": "Skill related components of Physical Fitness activities performed appropriately"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p25 (1.10.3.1 Levers): the standard belonged to speed; reviewer's wording.",
+      "from": "Speed in sporting activities illustrated correctly",
+      "to": "Role of levers in human movement and sports performance analysed correctly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p25 (1.10.4.1): the unfinished standard, finished by the reviewer.",
+      "from": "Factors affecting balance and stability in sport",
+      "to": "Factors affecting balance and stability in sport evaluated accordingly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p26: the unfinished standard, finished by the reviewer ('Biomehanical' in the note).",
+      "from": "Biomechanical principles into Physical integrated accordingly",
+      "to": "Biomechanical principles into Physical Education teaching and coaching integrated accordingly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p29: reworded by the reviewer.",
+      "from": "Psychological strategies to enhance performance in sports practiced effectively",
+      "to": "Psychological strategies to enhance performance in sports applied correctly"
+    },
+    {
+      "_why": "PROOFREAD 2026-10-23, p30: reworded by the reviewer ('entrepreneursship', 'skillfully' in the note; British 'skilfully' as the book spells).",
+      "from": "Sports entrepreneurship projects designed successfully",
+      "to": "Project in sports entrepreneurship designed skilfully"
     }
   ],
   "keepRowWhole": [
