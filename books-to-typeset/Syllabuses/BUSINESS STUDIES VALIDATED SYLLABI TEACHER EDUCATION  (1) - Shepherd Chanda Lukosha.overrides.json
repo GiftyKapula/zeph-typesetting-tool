@@ -16,12 +16,16 @@
     "Year 1). Counted afresh from the table structure, Year.Topic within each course.",
     "",
     "COVER. Deep burgundy (coverColour): the subject's own pick, #3d3d7a, is all but the indigo of Devices and",
-    "Material Production (#35306b); #7a1f3d is the one colour of the set no other syllabus uses."
+    "Material Production (#35306b); #7a1f3d is the one colour of the set no other syllabus uses.",
+    "",
+    "ROUND 1 (2026-11-03): 113 Google Drive comments by Sylvia Shata Katongo and Harriet Kalapa (24 and 28 Oct 2026),",
+    "placed from the highlights in the reviewed copy and the comment e-mails. Cover green (#2e7d32: 'change colour cover",
+    "to green'; #1f5c3a is already Guidance and Counselling's and PE and Sport's). p108: Aghion and Howitt deleted (remove)."
   ],
   "subject": "Business Studies",
   "level": "Secondary School Teachers' Diploma",
   "year": 2025,
-  "coverColour": "7a1f3d",
+  "coverColour": "2e7d32",
   "renumberMatrix": true,
   "courses": [
     "FINANCIAL ACCOUNTING",
@@ -33,7 +37,8 @@
   ],
   "remove": [
     "YEAR 1 TO YEAR 2",
-    "YEAR 1 – 2"
+    "YEAR 1 – 2",
+    "Aghion, P. and Howitt, P. (2023)"
   ],
   "setHeading": [
     {
@@ -89,6 +94,20 @@
       "_why": "typo, Commerce competences header",
       "find": "DISCRIPTORS",
       "with": "DESCRIPTORS"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p38: 'insert … Income and Expenditure Account prepared correctly'",
+      "row": "1.14.3.1. Prepare Income and Expenditure Account",
+      "col": 4,
+      "with": "• Income and Expenditure Account prepared correctly",
+      "bold": false
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p39: 'insert; Statement of Financial Position prepared correctly'",
+      "row": "1.14.4.1. Prepare Statement of Financial Position",
+      "col": 4,
+      "with": "• Statement of Financial Position prepared correctly",
+      "bold": false
     }
   ],
   "editAll": [
@@ -135,7 +154,7 @@
   "keepRowWhole": [
     {
       "_why": "Business Law's last row: split by the page, it carried three lines onto the last page alone",
-      "startsWith": "2.7.4.1 Demonstrating Knowledge of corporate failure"
+      "startsWith": "2.7.4.1 Demonstrate Knowledge of corporate failure"
     }
   ],
   "setMarker": [
@@ -149,6 +168,445 @@
     {
       "_why": "split by the page, Graduation Requirements carried its last two lines overleaf",
       "find": "Graduation Requirements"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p7: 'capitalise s and l'",
+      "find": "at the Secondary school level.",
+      "with": "at the Secondary School Level."
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p8: 'Change to Petronella M. Samutete (Ms.)' (the current Director)",
+      "find": "Charles Ndakala (Dr.)",
+      "with": "Petronella M. Samutete (Ms.)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p9: 'capitalise c'",
+      "find": "The study of commerce in",
+      "with": "The study of Commerce in"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p11: 'add; comma, Mathematics'",
+      "find": "including English Language and at least",
+      "with": "including English Language, Mathematics and at least"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p49: 'capitalise c'",
+      "find": "This course provides both",
+      "with": "This Course provides both"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p77: 'aiming' -> 'with the aim'",
+      "find": "practical skills aiming to prepare",
+      "with": "practical skills with the aim to prepare"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p77: 'Delete with'",
+      "find": "cultivate in trainee teachers with pedagogical, andragogical",
+      "with": "cultivate in trainee teachers pedagogical, andragogical"
+    },
+    {
+      "_why": "the same sentence in the Rationale (p9) carries the same slip: a word fix, so carried",
+      "find": "cultivate in trainee teachers with pedagogical, andragogic and",
+      "with": "cultivate in trainee teachers pedagogical, andragogic and"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p77: 'insert well between as and active'",
+      "find": "empowered as active participants",
+      "with": "empowered as well as active participants"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p77: comma after 'practice' -> full stop, 'This syllabus'",
+      "find": "blend of theory and practice, this syllabus explores",
+      "with": "blend of theory and practice. This syllabus explores"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p77: 'delete the before digital'",
+      "find": "by reflecting the digital transformation",
+      "with": "by reflecting digital transformation"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p77: 'developing' -> 'develop'",
+      "find": "collaborative discussions and developing practical strategies",
+      "with": "collaborative discussions and develop practical strategies"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p77: 'insert the words in learners after mind-set'",
+      "find": "foster a growth mind-set.",
+      "with": "foster a growth mind-set in learners."
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p77: 'insert and between inclusive and student'",
+      "find": "for inclusive, student centered",
+      "with": "for inclusive and student centered"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p108: Mankiw (2023) -> 2021",
+      "find": "Mankiw, N.G. (2023)",
+      "with": "Mankiw, N.G. (2021)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p108: Samuelson and Nordhaus (2023) -> 2010",
+      "find": "Samuelson, P.A. and Nordhaus, W.D. (2023)",
+      "with": "Samuelson, P.A. and Nordhaus, W.D. (2010)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p108: Todaro and Smith (2023) -> 2020",
+      "find": "Todaro, M.P. and Smith, S.C. (2023)",
+      "with": "Todaro, M.P. and Smith, S.C. (2020)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p139: full stop after 'development'; 'Educational Institutions promote…', no comma",
+      "find": "key to national development education, institutions promote",
+      "with": "key to national development. Educational Institutions promote"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p17: the descriptor typed three times: delete the repeats",
+      "from": "• Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities) • Draw up the Statement of Financial Position using the accounting equation method (Assets = Capital + Liabilities) • Draw up",
+      "to": "• Draw up"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p18: Financial Education: delete both 'Prepare the Statement of Profit or Loss'",
+      "from": "• Prepare the Statement of Profit or Loss • Prepare the Statement of Profit or Loss • Provide",
+      "to": "• Provide"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p31: 'Accruals and Prepayments' -> 'Accrued Expense[s] and Incomes'",
+      "from": "Accruals and Prepayments",
+      "to": "Accrued Expenses and Incomes"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p42: Entrepreneurship + Financial Education: delete 'Prepare Statement of Profit or Loss and Appropriation'",
+      "from": "• Prepare Statement of Profit or Loss and Appropriation • Prepare Financial Statements using Net Worth Method",
+      "to": "• Prepare Financial Statements using Net Worth Method",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p42: Problem Solving: three lines -> 'Calculate Accounting Ratios'",
+      "from": "• Prepare Revised Cash Book • Prepare Bank Reconciliation Statement • Correct errors not revealed by the Trial Balance",
+      "to": "• Calculate Accounting Ratios"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p79: 'insert lesson after Accounts'",
+      "from": "effectively manage a modern Commerce and Principles of Accounts",
+      "to": "effectively manage a modern Commerce and Principles of Accounts lesson"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p83: delete the bullet, 'of a' between qualities and Commerce",
+      "from": "• Brainstorming on personal qualities Commerce and Principles of Accounts teacher",
+      "to": "• Brainstorming on personal qualities of a Commerce and Principles of Accounts teacher"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p84: 'Financial Accounting' -> 'Principles of Accounts'",
+      "from": "in the teaching of Commerce and Financial Accounting",
+      "to": "in the teaching of Commerce and Principles of Accounts"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p85: 'learning,' -> 'Learning'",
+      "from": "Case Studies, Guided learning, Surveys",
+      "to": "Case Studies, Guided Learning, Surveys"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p85: 'team teaching' -> 'Team Teaching'; 'Role play' -> 'Role Play'",
+      "from": "Storytelling, team teaching, Role play, demonstration",
+      "to": "Storytelling, Team Teaching, Role Play, demonstration"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p85: 'Peer teaching' -> 'Peer Teaching'",
+      "from": "Guest Lectures, Peer teaching, etc.)",
+      "to": "Guest Lectures, Peer Teaching, etc.)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p85: 'teaching' -> 'Teaching'",
+      "from": "• teaching as above, and the teacher centred",
+      "to": "• Teaching as above, and the teacher centred"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p85: 'add closing bracket'",
+      "from": "Approaches (Student/Learner centred",
+      "to": "Approaches (Student/Learner centred)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p85: 'to use' -> 'used'; 'to use' -> 'to be used'",
+      "from": "Debating the criteria to use to determine the selection of a teaching method, approach and technique to use in",
+      "to": "Debating the criteria used to determine the selection of a teaching method, approach and technique to be used in"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p85: 'Financial Accounting' -> 'Principles of Accounts'",
+      "from": "in teaching Commerce and Financial Accounting applied correctly",
+      "to": "in teaching Commerce and Principles of Accounts applied correctly"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p89: 'Financial Accounting' -> 'Principles of Accounts' (1.4.2.1) -- and the same slip in the Brainstorming line of 1.4.1.1 (a word fix, so carried)",
+      "from": "Resources used in teaching Commerce and Financial Accounting",
+      "to": "Resources used in teaching Commerce and Principles of Accounts",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p89: capitalise t, l, m and r",
+      "from": "of various types of teaching and learning materials and resources",
+      "to": "of various types of Teaching and Learning Materials and Resources"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p89: capitalise t, l, m; insert 'and Resources'",
+      "from": "inspection of various teaching and learning materials",
+      "to": "inspection of various Teaching and Learning Materials and Resources"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p89: 'insert demonstrated between Accounts and correctly'",
+      "from": "Commerce and Principles of Accounts correctly",
+      "to": "Commerce and Principles of Accounts demonstrated correctly"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p90: 'preparation' -> 'preparing'",
+      "from": "the stages in preparation to teach",
+      "to": "the stages in preparing to teach"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p93: 'Account' -> 'Accounts' (and the same slip in 1.5.5.1, p92)",
+      "from": "in teaching Commerce and Principles of Account • Analysing the relationship",
+      "to": "in teaching Commerce and Principles of Accounts\n• Analysing the relationship",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p93: 'insert in before Commerce'",
+      "from": "as a Teaching Resource Commerce",
+      "to": "as a Teaching Resource in Commerce"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p93: 'delete the'; 'environment' + s",
+      "from": "of types of the learning environment to enhance",
+      "to": "of types of learning environments to enhance"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p93: 'environment' + s",
+      "from": "Exploring types of learning environment (i.e.",
+      "to": "Exploring types of learning environments (i.e."
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p97: 'insert in before Commerce, and use lowercase a in and' (and 'of')",
+      "from": "test items Commerce And Principles Of Accounts",
+      "to": "test items in Commerce and Principles of Accounts"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p97: 'insert in before Commerce'",
+      "from": "good test and test items Commerce and Principles of Accounts exhibited",
+      "to": "good test and test items in Commerce and Principles of Accounts exhibited"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p98: 'insert exhibited before accurately'",
+      "from": "marking and scoring test items accurately",
+      "to": "marking and scoring test items exhibited accurately"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p98: 'mark' -> 'marking'; 'score test' -> 'scoring of'",
+      "from": "Marking schemes, mark and score test items",
+      "to": "Marking schemes, marking and scoring of test items"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p99: 'add process at the end'",
+      "from": "Evaluation in the teaching and learning",
+      "to": "Evaluation in the teaching and learning process"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p99: 'insert the before teaching'",
+      "from": "effective evaluation in teaching and learning process",
+      "to": "effective evaluation in the teaching and learning process"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p100: space before the bracket",
+      "from": "Conducting Peer Teaching(Practical)",
+      "to": "Conducting Peer Teaching (Practical)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p100: 'italicise practical'",
+      "from": "Micro Teaching(Practical)",
+      "to": "Micro Teaching (Practical)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p100: 'italicise practical'",
+      "from": "Macro Teaching(Practical)",
+      "to": "Macro Teaching (Practical)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p100: 'italicise school based'",
+      "from": "Teaching Practice(School based)",
+      "to": "Teaching Practice (School based)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p100: italics: '(Practical)' (Peer Teaching's too, so the three lines match)",
+      "from": "(Practical)",
+      "to": "(Practical)",
+      "italic": true,
+      "every": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p100: italics: '(School based)'",
+      "from": "(School based)",
+      "to": "(School based)",
+      "italic": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p101: 'delete this is'",
+      "from": "Accounts(this is for demonstration purpose only)",
+      "to": "Accounts (for demonstration purpose only)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p102: 'the' before teaching; capitalise l and p",
+      "from": "Action Research in Teaching and learning processes",
+      "to": "Action Research in the Teaching and Learning Processes"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p102: 'insert the before teaching'",
+      "from": "Conduct Action Research in teaching Commerce",
+      "to": "Conduct Action Research in the teaching of Commerce"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p102: 'capitalise r'",
+      "from": "conducting Action research in",
+      "to": "conducting Action Research in"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p102: 'delete on'",
+      "from": "Conducting Action Research on in the",
+      "to": "Conducting Action Research in the"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p102: 'insert the between in and teaching'",
+      "from": "Action Research in teaching Commerce and Principles of Accounts conducted",
+      "to": "Action Research in the teaching of Commerce and Principles of Accounts conducted"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Harriet Kalapa) p102: stray 'Prepare Financial Statements using Net Worth Method': delete",
+      "from": "Commerce and Principles of Accounts Prepare Financial Statements using Net Worth Method",
+      "to": "Commerce and Principles of Accounts"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p117: 'add of after the word [dis]advantages'",
+      "from": "Advantages and Disadvantages Monopolistic Competition",
+      "to": "Advantages and Disadvantages of Monopolistic Competition"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p119: 'the terms used in' -> 'variants of'",
+      "from": "Discussing the terms used in National Income",
+      "to": "Discussing variants of National Income"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p119: delete 'Sectors' and '(two, three, four)'",
+      "from": "Real and Nominal Income Sectors in an economy (two, three, four)",
+      "to": "Real and Nominal Income in an economy"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p120: 'policy rate, Reserve ration…' -> 'reserve requirements…'",
+      "from": "(OMO, policy rate, Reserve ration…)",
+      "to": "(OMO, reserve requirements…)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p125: 'an' -> 'and'; comma after 'Infrastructure'",
+      "from": "monetary Indicators an Non-monetary indicators (Quality of the Nation’s Infrastructure Share",
+      "to": "monetary Indicators and Non-monetary indicators (Quality of the Nation’s Infrastructure, Share"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p133: 'of': delete",
+      "from": "Interpret of logarithms",
+      "to": "Interpret logarithms"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p135: 'Application of Inequalities' -> 'Introduction to Inequalities' (e-mail 24 Oct 12:53)",
+      "from": "Application of Inequalities",
+      "to": "Introduction to Inequalities"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p135: competence -> 'Exhibit knowledge of the use of inequalities'",
+      "from": "Exhibit knowledge of relating linear programming to production scheduling and Trim loss",
+      "to": "Exhibit knowledge of the use of inequalities"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p135: 'on set of' -> 'types of'",
+      "from": "presenting on set of inequalities",
+      "to": "presenting on types of inequalities"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p135: -> 'Graphing inequality on a number line'",
+      "from": "Plotting solution set of inequalities on the X-Y plane",
+      "to": "Graphing inequality on a number line"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p135: two bullets -> 'Demonstrating the use of inequalities in business'",
+      "from": "• Applying graphical solutions to linear programming problems • Relating linear programming to production scheduling and Trim loss.",
+      "to": "• Demonstrating the use of inequalities in business"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p135: standard -> 'Knowledge of the use of inequalities exhibited accordingly'",
+      "from": "Knowledge of relating linear programming to production scheduling and Trim loss exhibited appropriately",
+      "to": "Knowledge of the use of inequalities exhibited accordingly"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p145: 'on': delete",
+      "from": "Discussing on other types of law",
+      "to": "Discussing other types of law"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p145: 'on': delete",
+      "from": "Researching or discussing on the British Act",
+      "to": "Researching or discussing the British Act"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p149: 'add a closing bracket after 1; 2021)'",
+      "from": "law of agency (Smith v Johns 2021,",
+      "to": "law of agency (Smith v Johns 2021)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p150: space between 'situation' and the bracket",
+      "from": "the Zambian situation(shareholder",
+      "to": "the Zambian situation (shareholder"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p150: 'Demonstrating' -> 'Demonstrate'",
+      "from": "Demonstrating Knowledge of corporate failure",
+      "to": "Demonstrate Knowledge of corporate failure"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p150: 'on': delete",
+      "from": "Discussing on liquidation",
+      "to": "Discussing liquidation"
+    }
+  ],
+  "removeRow": [
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p31: row 1.10.3 typed one column out ('transposed'): rebuilt, see insertRow",
+      "startsWith": "1.10.3. Record Prepaid Expenses"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p122: 'Delete the entire row and content' (2.11.4 Public Finance, which 2.12 gives again)",
+      "startsWith": "2.11.4 Public Finance"
+    }
+  ],
+  "insertRow": [
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p31: 1.10.3 set out as the reviewer asks: sub-topic, competence, activities, standard each in its own column",
+      "startsWith": "1.10.4. Bad Debts",
+      "cells": [
+        "",
+        "1.10.3. Prepaid Expenses and Incomes",
+        "1.10.3.1. Record Prepaid Expenses and Incomes in Financial Statements",
+        "**Discovery method**\n• Explaining Prepaid Expenses and Incomes\n**Demonstration/Problem solving**\n• Preparing Ledger accounts for prepaid Expenses and Incomes\n• Calculating Prepaid Expenses and Incomes\n• Recording Prepaid Expenses and Incomes in the Financial Statements",
+        "• Prepaid Expenses and Incomes in Financial Statements recorded correctly"
+      ]
+    },
+    {
+      "_why": "ROUND 1 (Drive, Sylvia Shata Katongo, 28 Oct) p122: 'insert a row before this topic to capture a topic that has been omitted' -- 2.11 INFLATION in her words; the topics after it renumber themselves (2.11 -> 2.12 ... 2.13 -> 2.14: her other 17 comments of that day)",
+      "startsWith": "2.11 INTERNATIO",
+      "cells": [
+        "2.11 INFLATION",
+        "2.11.1 Measuring Inflation",
+        "2.11.1.1 Analyse the Effects of Inflation",
+        "**Group Discussion**\n• Explaining Inflation\n• Discussing the types of inflation (demand-pull inflation, cost-push inflation…)\n• Describing forms of inflation (deflation, hyper, galloping, creeping, stagflation…)\n• Describing ways of measuring inflation rates (CPI, PPI, GDP deflator)\n**Researching**\n• Researching the Effects of Inflation (lower purchasing power, higher interest rates, slower economic growth, lenders and borrowers, retirees, weak trade unions…)\n• Describing economic theories of inflation (The Quantity Theory of Money, Phillips Curve…)\n**Demonstration**\n• Illustrating aggregate demand, aggregate supply and inflation\n• Evaluating Government intervention to counter inflation (Fiscal, Monetary, Prices and Incomes, Supply-Side Policies…)",
+        "• Effects of Inflation analysed correctly"
+      ]
     }
   ]
 }

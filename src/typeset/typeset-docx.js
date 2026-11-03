@@ -1449,7 +1449,7 @@ function applyOverrides(blocks, ov) {
   // the text after the number to single the clause out ("1.3.1. Developmental domains"
   // -> "1.4.1. Developmental domains"); whitespace is matched loosely and the match may
   // run across runs — the replacement takes the styling of the run it starts in, or the
-  // weight given by `bold`. Warns when nothing matches, and when more than one cell does
+  // weight given by `bold` and the slant given by `italic`. Warns when nothing matches, and when more than one cell does
   // (unless `all`).
   for (const cs of ov.cellSubtext || []) {
     if (!cs || typeof cs.from !== "string" || !cs.from.trim()) continue;
@@ -1464,24 +1464,33 @@ function applyOverrides(blocks, ov) {
             if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
             // A cell with no formatting at all comes from the importer with no runs (it
             // renders from `text`); `bold` needs runs to set, so start from one plain run.
-            if (cs.bold != null && !(Array.isArray(cell.segs) && cell.segs.length))
+            const styled = cs.bold != null || cs.italic != null;
+            if (styled && !(Array.isArray(cell.segs) && cell.segs.length))
               cell.segs = [{ t: cell.text, b: false, it: false, c: null }];
-            cell.text = cell.text.replace(re, () => to);
+            // `every`: every occurrence inside the cell, not just the first (Business Studies
+            // 1.10.1.1: "(Practical)" three times in one activities cell, each to be italic)
+            const reAll = new RegExp(re.source, "g");
+            cell.text = cell.text.replace(cs.every ? reAll : re, () => to);
             if (Array.isArray(cell.segs) && cell.segs.length && !cell.segs.some((s) => s.m || typeof s.t !== "string")) {
-              const m = cell.segs.map((s) => s.t).join("").match(re);
-              if (m) {
+              const joined = cell.segs.map((s) => s.t).join("");
+              const hits = cs.every ? [...joined.matchAll(reAll)].reverse() : [joined.match(re)].filter(Boolean);
+              for (const m of hits) {
                 const start = m.index, end = m.index + m[0].length;
                 let pos = 0, put = false;
                 // `bold: true|false` gives the replacement a weight of its own (a reviewer's
                 // "should be in bold" on a method label typed plain), splitting the run so
-                // the text around it keeps its weight.
+                // the text around it keeps its weight. `italic` likewise (Business Studies
+                // "Teaching (Practical)": "italize practical", the rest of the line upright).
                 cell.segs = cell.segs.flatMap((s) => {
                   const a = pos, z = pos + s.t.length; pos = z;
                   if (z <= start || a >= end) return [s];
                   const mid = put ? "" : to; put = true;
                   const head = s.t.slice(0, Math.max(0, start - a)), tail = s.t.slice(Math.min(s.t.length, end - a));
-                  if (cs.bold == null || !mid) return [{ ...s, t: head + mid + tail }];
-                  return [{ ...s, t: head }, { ...s, t: mid, b: !!cs.bold }, { ...s, t: tail }];
+                  if (!styled || !mid) return [{ ...s, t: head + mid + tail }];
+                  const own = { ...s, t: mid };
+                  if (cs.bold != null) own.b = !!cs.bold;
+                  if (cs.italic != null) own.it = !!cs.italic;
+                  return [{ ...s, t: head }, own, { ...s, t: tail }];
                 }).filter((s) => s.t !== "");
               }
             }
@@ -1619,7 +1628,15 @@ function applyOverrides(blocks, ov) {
           if (at > 0) {
             // `cells`: an ordinary row, one cell each (a Key Competences row the manuscript
             // left out); otherwise one cell merged across the table
-            const row = Array.isArray(ir.cells) ? ir.cells.map((t) => ({ text: String(t), imgs: [], segs: null }))
+            // a cell may mark bold runs **so** -- the method labels of an activities cell
+            // (Business Studies Economics 2.11 Inflation, a topic the reviewer supplied whole)
+            const cellOf = (t) => {
+              t = String(t);
+              if (!t.includes("**")) return { text: t, imgs: [], segs: null };
+              const segs = t.split("**").map((x, i) => ({ t: x, b: i % 2 === 1, it: false, c: null })).filter((x) => x.t);
+              return { text: t.split("**").join(""), imgs: [], segs };
+            };
+            const row = Array.isArray(ir.cells) ? ir.cells.map(cellOf)
               : [{ text: String(ir.text || ""), imgs: [], segs: null }];
             b.rows.splice(at, 0, row);
             done = true;
@@ -3447,6 +3464,19 @@ function foldActivityRows(blocks) {
       if (!Array.isArray(row) || !Array.isArray(up) || row.length !== up.length || row.length !== H.length) continue;
       const c = row[act], u = up[act];
       if (blank(c) || (c.imgs || []).length || !u || (u.imgs || []).length) continue;
+      // activities and a standard but no competence, under a row whose competence has no
+      // standard of its own: one competence typed over two rows, its standard only on the
+      // second (Business Studies, Business Law 2.4.1.1 "Exhibit knowledge of a Business
+      // Contract": the reviewer, "delete the border line in columns 3, 4 and 5"). One row.
+      if (std >= 0 && comp >= 0 && up[comp] && !blank(up[comp]) && blank(up[std])
+          && row[std] && !blank(row[std]) && !(row[std].imgs || []).length
+          && row.every((x, ci) => ci === act || ci === std || blank(x))) {
+        join(u, c, false);
+        up[std] = row[std];
+        b.rows.splice(ri, 1);
+        n++;
+        continue;
+      }
       // activities and a standard but no competence, under a row that has one, the standard
       // carrying on mid-sentence (it opens with a small letter): run on. A standard of its
       // own (RE Content 2.3.1.1: "Understanding the concept of wealth…" under "…of work…")
