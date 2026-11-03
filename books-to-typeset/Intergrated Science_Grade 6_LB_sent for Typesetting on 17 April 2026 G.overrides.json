@@ -40,6 +40,10 @@
     {
       "from": "habits)",
       "to": "habits"
+    },
+    {
+      "from": "Sustainable Enery",
+      "to": "Sustainable Energy"
     }
   ],
   "edit": [
@@ -159,7 +163,7 @@
     },
     {
       "file": "image98",
-      "text": "Fig 90: Sound pitch"
+      "text": "Fig 90: Sound loudness"
     }
   ],
   "insertBlocks": [
