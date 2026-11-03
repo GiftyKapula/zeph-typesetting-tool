@@ -102,6 +102,14 @@
       "src": "LUNDA GRADE 1 LB-hires/r3pic11.png"
     }
   },
+  "_comment_removeImages": [
+    "Ch 9 KUTAÑA NAKANAÑACHIMA / WALALA WANSAÑU: the author's Word file (CORRECTED BOOK, 3 Nov) has no picture here,",
+    "and nothing in the lesson refers to one (Zhakwila 1 retells the story that follows). Ch 10 YINJIKIZHILU YAPELA and Ch 11 KUBOKA",
+    "keep theirs: their activities ask about the picture ('nsañu yidi mumwevulu')."
+  ],
+  "removeImages": [
+    "image74.png"
+  ],
   "_comment_cover": [
     "COVER PICTURE. The manuscript opened with the same cartoon group photo the",
     "Teacher’s Guide uses, which showed no learner with a disability — against the",
@@ -155,7 +163,8 @@
     "Also Ch 11 Kutaña Chati and Ch 12 Kwiluka Yikunku Yamazu Yidi Mwizu: their tables went to the next page without them.",
     "31 Oct: three end-of-chapter tests start a fresh page so that none is split - Ch 5 (question 1 alone at a page foot), Ch 9 (questions 3-4 carried) and Ch 11 (question 5 alone at the top of a page). The Ch 14 reading-lesson Mudimu (Kudihi kumwatela...) also starts a fresh page: its question 2 sat alone at the top of the next page.",
     "1 Nov: read-through of the For Printing PDF. The Ch 11 Kutuña Yikunku Yamazu break now goes before its KUTAÑA heading stack (the box-only break left KUTAÑA / YIVUMINA YAMAZU stranded at a page foot). The Ch 8 and Ch 10 tests start a fresh page (question 1 sat alone at a page foot). The Ch 9 and Ch 10 MAZU / MAZHINA lessons start a fresh page so their question stays with the picture it asks about. The Ch 11 sound-lesson Mudimu starts a fresh page (question 2 was carried), and Ch 12 Kusumbwisha Mazhina starts a fresh page (its table was carried).",
-    "3 Nov: the author's picture round made nine doubled pictures one full-width picture and swapped eleven for the author's own, so the pages reflowed. Ch 5 WALALA, Ch 11, Ch 13 and Ch 14 noun lessons start a fresh page (each picture fell at a page foot with its question carried over, or its activity box carried one or two lines); the Ch 7 test starts a fresh page (question 1 alone at a page foot); the Ch 7 Talilenu nakusoneka Mazu break is gone (the box now fits under its picture)."
+    "3 Nov: the author's picture round made nine doubled pictures one full-width picture and swapped eleven for the author's own, so the pages reflowed. Ch 5 WALALA, Ch 11, Ch 13 and Ch 14 noun lessons start a fresh page (each picture fell at a page foot with its question carried over, or its activity box carried one or two lines); the Ch 7 test starts a fresh page (question 1 alone at a page foot); the Ch 7 Talilenu nakusoneka Mazu break is gone (the box now fits under its picture).",
+    "3 Nov (Ch 9 picture removed): the story questions Malwihu start a fresh page - Malwihu and question 1 were left alone at the page foot."
   ],
   "pageBreakBefore": [
     "Zhakwila 3: Kutuña Mazu Akuhosha",
@@ -225,6 +234,10 @@
     {
       "find": "MAZU",
       "near": "Honda"
+    },
+    {
+      "find": "Malwihu",
+      "near": "Hinyi wahindukili nantetemena"
     }
   ],
   "_comment_forceFreshPage": [
