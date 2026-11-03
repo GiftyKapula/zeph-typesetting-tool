@@ -2576,6 +2576,7 @@ function groupAssessments(blocks) {
         const y = blocks[j];
         const plain = y.segs ? plainOf(y.segs).trim() : (y.text || "").trim();
         if (SECTION_RE.test(plain)) break; // a new section ends the assessment
+        if (/^TERM\s+(ONE|TWO|THREE|[1-3])\s*$/i.test(plain)) break; // so does a school-term divider
         run.push(y);
         j++;
       }
@@ -3532,6 +3533,7 @@ async function importDocx(docxPath, opts = {}) {
       // "Specific Competence"), which the same manuscript sets at body size.
       if (bodySize && !isTbl(y) && ty && boldFirstRun(y) && sizeOf(y) > bodySize && !boxKindFromTitle(ty)) break;
       if (SECTION_RE.test(ty)) break; // a numbered heading (no Word style)
+      if (/^TERM\s+(ONE|TWO|THREE|[1-3])\s*$/i.test(ty.trim())) break; // a school-term divider opens the next unit
       // A topic's own "Glossary of Terms" / "Suggested References", typed as a plain
       // body-size line straight after its End-of-Topic Assessment. Nothing above ends
       // the assessment there (it is not bold, styled or larger), so five of the six

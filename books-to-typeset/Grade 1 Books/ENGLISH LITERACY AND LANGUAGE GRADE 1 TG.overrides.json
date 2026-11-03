@@ -1,0 +1,42 @@
+{
+  "//": "Rebuilt 2026-11-03 from the reviewer's marked PDF (ENGLISH LITERACY AND LANGUAGE GRADE 1 TEACHER'S GUIDE - Printing.pdf): no Word manuscript existed. Cover picture: the user's change.jpeg (the same scene without lettering), Real-ESRGAN x4 then 2560px; the template letters the cover.",
+  "subject": "English Literacy and Language",
+  "layoutCredit": "Chikondi Robinson Ng'ambi",
+  "coverImage": "ENGLISH LITERACY AND LANGUAGE GRADE 1 TG-hires/cover-change.png",
+  "boxActivities": true,
+  "boxHeads": [
+    {
+      "find": "Possible Answers",
+      "kind": "act"
+    },
+    {
+      "find": "End of Unit Assessment – Possible Answers",
+      "kind": "act"
+    },
+    {
+      "find": "Exercise",
+      "kind": "act"
+    }
+  ],
+  "boxInner": [
+    "GREETINGS AND RESPONSE",
+    "Reading and writing"
+  ],
+  "authors": [
+    "Yvonne Kasongo"
+  ],
+  "pageBreakBefore": [
+    {
+      "find": "LESSON 4",
+      "near": "revision consonant blend"
+    },
+    {
+      "find": "LESSON 4",
+      "near": "I like mangoes and banana"
+    }
+  ],
+  "//pageBreakBefore": "Units 22 and 23 end with a Lesson 4 that started low on a page and left 3-5 lines on the next; each starts a fresh page and prints whole.",
+  "coverColor": "ffd23d",
+  "coverPrimary": "1f3a93",
+  "//coverColor": "Cover (2026-11-03, the user's change.jpeg): the classroom's yellow wall for the field, the uniforms' navy for the lettering, badge and corners. The old navy field (from the finished cover's back) hid the template's title."
+}
