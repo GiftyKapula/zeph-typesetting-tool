@@ -1,9 +1,187 @@
 {
   "images": {
-    "image7.jpeg": { "src": "media/fig4-teenage-pregnancy-classroom-landscape.png", "w": 700 },
-    "image10.png": { "src": "media/fig7-community-sensitisation.jpeg", "w": 700 },
-    "image13.jpeg": { "src": "media/fig9-good-nutrition.png", "w": 700 },
-    "image18.jpeg": { "src": "media/fig14-tb-doctor.png", "w": 700 },
-    "image26.jpeg": { "src": "media/fig22-reuse-plastic.png", "w": 700 }
-  }
+    "image7.jpeg": {
+      "src": "media/fig4-teenage-pregnancy-classroom-landscape.png",
+      "w": 700
+    },
+    "image10.png": {
+      "src": "media/fig7-community-sensitisation.jpeg",
+      "w": 700
+    },
+    "image13.jpeg": {
+      "src": "media/fig9-good-nutrition.png",
+      "w": 700
+    },
+    "image18.jpeg": {
+      "src": "media/fig14-cleaning-tb-room.png",
+      "w": 700
+    },
+    "image26.jpeg": {
+      "src": "media/fig22-reuse-plastic.png",
+      "w": 700
+    },
+    "image21.jpeg": {
+      "src": "media/fig17-virus-bacteria-fungi.png",
+      "w": 700
+    },
+    "image84.png": {
+      "src": "media/fig75-cooking-on-firewood.png",
+      "w": 560
+    }
+  },
+  "keepScaffold": true,
+  "remove": [
+    "Specific Competence",
+    "Specific competence",
+    "In this Sub-topic, you will learner to",
+    "In this section, you will:"
+  ],
+  "subtext": [
+    {
+      "from": "habits)",
+      "to": "habits"
+    }
+  ],
+  "edit": [
+    {
+      "find": "ACTIVITY 4: Analysing",
+      "with": "ACTIVITY 1: Analysing"
+    },
+    {
+      "find": "ACTIVITY 5: Investigating different ways",
+      "with": "ACTIVITY 2: Investigating different ways"
+    },
+    {
+      "find": "ACTIVITY 6: Designing prototypes",
+      "with": "ACTIVITY 3: Designing prototypes"
+    },
+    {
+      "find": "ACTIVITY 1: Describing water conservation",
+      "with": "ACTIVITY 4: Describing water conservation"
+    },
+    {
+      "find": "ACTIVITY 2: Investigating ways in which water is wasted",
+      "with": "ACTIVITY 5: Investigating ways in which water is wasted"
+    },
+    {
+      "find": "ACTIVITY 3: Practising Ways",
+      "with": "ACTIVITY 6: Practising Ways"
+    }
+  ],
+  "fixExercise": [
+    {
+      "match": "EXERCISE 4",
+      "near": "Identify centralised and decentralised",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "A community needs to boil water",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 6",
+      "near": "A new settlement has no nearby tap water",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 1",
+      "near": "Why is it important to turn off taps",
+      "heading": "EXERCISE 4"
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "How does leaving taps running",
+      "heading": "EXERCISE 5"
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "How can families save water at home",
+      "heading": "EXERCISE 6"
+    }
+  ],
+  "setCaption": [
+    {
+      "file": "image18",
+      "text": "Fig 14: Cleaning a TB patient's room"
+    },
+    {
+      "file": "image21",
+      "text": "Fig 17: Basic structures of a virus, bacteria and fungi"
+    },
+    {
+      "file": "image84",
+      "text": "Fig 75: Cooking on firewood is a challenge"
+    },
+    {
+      "file": "image87",
+      "text": "Fig 78: A scissor is a common simple machine"
+    },
+    {
+      "near": "effort and pivot of simple machines",
+      "text": "Fig 79: Load, effort and pivot of simple machines"
+    },
+    {
+      "near": "Fig 79: Classes of levers",
+      "text": "Fig 80: Classes of levers"
+    },
+    {
+      "near": "Fig 80: The galaxy",
+      "text": "Fig 81: The galaxy"
+    },
+    {
+      "near": "The Sun is the source of all light",
+      "text": "Fig 82: The Sun is the source of all light"
+    },
+    {
+      "near": "Solar and lunar eclipses",
+      "text": "Fig 83: Solar and lunar eclipses"
+    },
+    {
+      "near": "ormation of eclipses",
+      "text": "Fig 84: Formation of eclipses"
+    },
+    {
+      "near": "se of robots",
+      "text": "Fig 85: Use of robots"
+    },
+    {
+      "near": "ypes of robots",
+      "text": "Fig 86: Types of robots"
+    },
+    {
+      "near": "ound loadness",
+      "text": "Fig 91: Uses of sound"
+    },
+    {
+      "file": "image100",
+      "text": "Fig 92: Magnets"
+    },
+    {
+      "file": "image98",
+      "text": "Fig 90: Sound pitch"
+    }
+  ],
+  "insertBlocks": [
+    {
+      "after": "Permanent magnets are composed of hard magnetic materials",
+      "drop": 1,
+      "blocks": [
+        {
+          "para": "In contrast, temporary magnets exhibit magnetism only under specific conditions."
+        }
+      ]
+    },
+    {
+      "before": "imp_image98",
+      "drop": 1,
+      "blocks": [
+        {
+          "img": "media/fig89-sound-pitch.png",
+          "w": 560,
+          "caption": "Fig 89: Sound pitch"
+        }
+      ]
+    }
+  ]
 }
