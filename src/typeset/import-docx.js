@@ -2401,10 +2401,23 @@ async function importDocx(docxPath, opts = {}) {
   };
   const imagesOf = (x) => {
     const recs = [];
+    // A FLOATING picture pasted twice into one paragraph at the very same place (same
+    // picture, size and position) is drawn by Word as one picture, the copy exactly on top
+    // of the original — so the author never sees the repeat. Laid out here it came out as
+    // two half-width copies side by side (Lunda G1 LB: nine pictures). Keep the first only.
+    // Inline repeats are left alone: Word does show those side by side (a counting row).
+    const stacked = new Set();
     for (const dm of x.matchAll(/<w:drawing\b[\s\S]*?<\/w:drawing>/g)) {
       const d = dm[0];
       let rid = (d.match(/<a:blip[^>]*r:embed="([^"]+)"/) || [])[1];
       if (!rid) continue;
+      if (/<wp:anchor\b/.test(d)) {
+        const place = [/<wp:extent\b[^>]*\/>/, /<wp:positionH\b[\s\S]*?<\/wp:positionH>/, /<wp:positionV\b[\s\S]*?<\/wp:positionV>/]
+          .map((re) => (d.match(re) || [""])[0]).join("|");
+        const key = `${rels[rid] || rid}|${place}`;
+        if (stacked.has(key)) continue;
+        stacked.add(key);
+      }
       // A GROUP of pictures (a figure the author built from two or three images placed
       // together — a radio over a battery and a solar panel, two inclined-plane photos side
       // by side) only ever showed its first picture. Draw them all, where the group places
