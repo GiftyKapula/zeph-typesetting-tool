@@ -15,15 +15,18 @@ try { canvasLib = require("canvas"); } catch (_) { /* enhancement disabled */ }
 function isRaster(name) { return /\.(png|jpe?g)$/i.test(name); }
 
 // Measure the image: average luminance, share of genuinely dark ("ink") pixels,
-// and share of transparent pixels — enough to tell faint line-art from a photo.
+// share of transparent pixels, and share of strongly coloured pixels — enough to tell
+// faint line-art from a photo or from coloured clip-art.
 function analyze(data, w, h) {
-  let n = 0, sum = 0, dark = 0, transp = 0;
+  let n = 0, sum = 0, dark = 0, transp = 0, colour = 0;
   for (let i = 0; i < data.length; i += 4) {
     if (data[i + 3] < 16) { transp++; continue; }
-    const lum = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+    const r = data[i], g = data[i + 1], b = data[i + 2];
+    const lum = 0.299 * r + 0.587 * g + 0.114 * b;
     n++; sum += lum; if (lum < 60) dark++;
+    if (Math.max(r, g, b) - Math.min(r, g, b) > 60) colour++;
   }
-  return { mean: n ? sum / n : 0, darkPct: n ? 100 * dark / n : 0, transpPct: 100 * transp / (w * h) };
+  return { mean: n ? sum / n : 0, darkPct: n ? 100 * dark / n : 0, transpPct: 100 * transp / (w * h), colourPct: n ? 100 * colour / n : 0 };
 }
 
 // A pixel-value lookup that moves each channel `k`× further from white (255).
@@ -51,7 +54,10 @@ function enhanceLineArt(srcPath, destPath, fs) {
     const st = analyze(id.data, w, h);
     // Faint line-art: a near-white canvas (mean high), little transparency, and few
     // already-dark pixels. Photos (low mean) and cut-outs (transparent) are excluded.
-    const qualifies = st.mean > 225 && st.transpPct < 5 && st.darkPct < 20;
+    // So is coloured clip-art on white: the push works channel by channel, which
+    // crushes a mid-tone colour to black (the Grade 1 CTS LB's paper-items table
+    // printed its green Zambian flag black and its pink mask red; the CDC flagged it).
+    const qualifies = st.mean > 225 && st.transpPct < 5 && st.darkPct < 20 && st.colourPct < 3;
     if (!qualifies) return false;
     // The fainter the drawing, the stronger the push.
     const k = st.darkPct < 3 ? 2.4 : st.darkPct < 8 ? 1.9 : 1.5;

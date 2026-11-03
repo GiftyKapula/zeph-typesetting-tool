@@ -189,10 +189,6 @@
       "to": "another is a "
     },
     {
-      "from": "Sketch a Money box in your exercise book",
-      "to": "Sketch a money box in your exercise book."
-    },
-    {
       "from": "ACTIVITY 3: Making Different Pictures",
       "to": "ACTIVITY 6: Making Different Pictures"
     },
@@ -215,6 +211,14 @@
     {
       "from": "(c) Sack race.",
       "to": "(c) Sack race.\n(d) Standing long jump.\n(e) Bean-bag throw."
+    },
+    {
+      "from": "Objects Found at Home and School",
+      "to": "Objects Found at Home and in the School"
+    },
+    {
+      "from": "c) Rope",
+      "to": "c) Bean-bag"
     }
   ],
   "//coverImage": "The cover hero. The picture the manuscript itself put on the cover showed four learners, none of them with a visible disability, which the house rule requires wherever human beings appear, covers included. This replacement shows six: three boys and three girls, so the gender count is even, and three of them carry a disability between them — an albino learner, a wheelchair user, and a girl wearing a hearing aid. What they are doing is the book’s own subject: drawing, colouring, building with blocks, and writing, in a classroom whose chalkboard and bookshelf say the same. The source picture is a full portrait cover graphic with its own decorative bands top and bottom and a row of topic vignettes below the table; the grade3 cover frames its hero in a 138x82mm landscape window with fit: \"cover\", so the whole portrait would have been cropped to a thin horizontal slice through the middle, cutting every head off. Only the photograph is used, cropped to exactly that window’s 138:82 so the frame trims nothing further, chosen to clear the Zambian flag above and to leave the standing girl’s hair whole. It is then taken through Real-ESRGAN to 1679px, which is 309 DPI at 138mm.",
@@ -233,7 +237,7 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image10-relabelled.png"
     },
     "image73.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image73.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image73-cdcflag.png"
     },
     "image20.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image20.png"
@@ -281,7 +285,7 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image3.png"
     },
     "image6.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image6.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image6-library.png"
     },
     "image7.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image7.png"
@@ -404,7 +408,7 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image78.png"
     },
     "image79.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image79.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/cdc-structures.png"
     },
     "image80.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image80.png"
@@ -425,10 +429,12 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image19.png"
     },
     "image33.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image33.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image33-bright.png",
+      "hmm": 105
     },
     "image34.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image34.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image34-bright.png",
+      "hmm": 125
     },
     "image44.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image44.png"
@@ -437,10 +443,12 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image45.png"
     },
     "image51.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image51.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image51-bright.png",
+      "hmm": 110
     },
     "image53.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image53.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image53-bright.png",
+      "hmm": 100
     },
     "image63.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image63.png"
@@ -449,7 +457,8 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image65.png"
     },
     "image66.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image66.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image66-bright.png",
+      "hmm": 125
     },
     "image67.png": {
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image67.png"
@@ -458,10 +467,12 @@
       "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image68.png"
     },
     "image70.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image70.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image70-bright.png",
+      "hmm": 95
     },
     "image71.png": {
-      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image71.png"
+      "src": "Grade 1 CTS Learners Book Ready  for Typesetting-30-09-26-hires/image71-bright.png",
+      "hmm": 110
     }
   },
   "//insertBlocks": "CDC return, October 2026 (Downloads\\CTS: \"Creative and Technology Studies Grade 1 Learners Book _CDC CORRECTIONS _Oct 2026.docx\" and the CDC-marked PDF). Everything the CDC added is inserted here rather than typed into the manuscript, so each addition stays reviewable: Topic 5 Patterns rebuilt as the CDC's five activities (fingerprint, scribble, line, splash, tear) with their pictures, replacing the single fingerprint activity; Topic 16 gains the paper house, paper mask and Zambian flag activities after Activity 2 (the three items Activity 1 already names), so collage and modelling become Activity/Exercise 6 and 7; the four safety notes and the LET'S DO sections the CDC wrote (cleaning, printed p63; drawing needlework tools, p118, which had repeated Activity 1's LET'S DO word for word; the pincushion, p120); the CDC's higher-order questions at the fifteen places it named, numbered on from the existing questions; and the CDC's twenty END-OF-TOPIC assessments, one at the end of every topic. Decided with the user: only the set-of-20 Topic 5 assessment (not the shorter one inside the Patterns draft); no \"Topic 1.x\" subtitle under the assessment headings; the p118 LET'S DO combines the PDF comment (Observe ...) with the docx version (Draw ...). Topic 18's assessment gets the \"Choose the correct answer.\" line the CDC gave the other nineteen. Slips in the CDC text corrected: colors, favorite, \"mage\" (made), \"LT'S LOOK\", \"needwork\", \"tin\" capitalised like its sibling options. Fitness Exercise 1 had numbered its option row \"2.\"; it is Q1's options, as the CDC's own listing of the exercise shows.",
@@ -1807,7 +1818,7 @@
           "marker": "9."
         },
         {
-          "listitem": "Arrange your drawing materials neatly after using them.",
+          "listitem": "Why should you arrange your drawing materials neatly after using them?",
           "marker": "10."
         }
       ]
@@ -3140,6 +3151,24 @@
           "marker": "10."
         }
       ]
+    },
+    {
+      "before": "Sketch a Money box in your exercise book",
+      "drop": 1,
+      "blocks": [
+        {
+          "listitem": "What is sketching?",
+          "marker": "1."
+        },
+        {
+          "listitem": "Name two simple objects that can be sketched.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Sketch one simple object.",
+          "marker": "3."
+        }
+      ]
     }
   ],
   "edit": [
@@ -3177,5 +3206,6 @@
     }
   ],
   "//cdcComments": "CDC PDF comments (Oct 2026) applied through subtext/edit/retext/tables: \"Arrange desks and chairs\" (printed p2), \"money box\" (p16), \"Name the tool shown\" (p31), the lower-case options \"polite\"/\"thieves\" (p60), \"Power button\" (p71), \"Draw one dance from a culture\" (p89), every bare \"LET’S TALK\" made \"LET’S TALK AND LEARN\" (p100 and its two siblings), the entrepreneurs word bank \"shop owner, market trader, transporter\" (p154, which printed \"shop owner\" twice), and \"Standing long jump\" and \"Bean-bag throw\" added to both event lists of Field and Track Events, as the CDC asked and its new p107 picture shows. The three CDC entries made obsolete here (Thieves(b), the widows/Sweeping/Collecting cleaning-list fixes) were dropped because the CDC rewrote those lines.",
-  "//imagesCdc": "CDC Oct 2026: image10 (posture, printed p14) has its corner labels re-lettered A-D in reading order (they read D, A, C, B); image55 (the games matching table, p102) is the CDC's replacement, which names Solo instead of \"Traditional game\" (a type of game, not a name); image58 (field and track events, p107) is the CDC's replacement that adds the standing long jump and the bean-bag throw. All the CDC pictures are Real-ESRGAN upscales of the ones in its corrections .docx."
+  "//imagesCdc": "CDC Oct 2026: image10 (posture, printed p14) has its corner labels re-lettered A-D in reading order (they read D, A, C, B); image55 (the games matching table, p102) is the CDC's replacement, which names Solo instead of \"Traditional game\" (a type of game, not a name); image58 (field and track events, p107) is the CDC's replacement that adds the standing long jump and the bean-bag throw. All the CDC pictures are Real-ESRGAN upscales of the ones in its corrections .docx.",
+  "//imagesCdc2": "CDC return 2 (Nov 2026). \"Enlarge and brighten the picture\" on seven activity pictures: each is a fresh Real-ESRGAN x4 of the manuscript picture at 300 DPI for 125 mm, with a levels stretch and midtone lift (gamma 0.72). On-page height (hmm, was 95 mm): customer service image34 and needlework items image66 125 mm; cultures image51 and lines with instruments image71 110 mm; Drama role-play image33 105 mm; landmarks map image53 100 mm; lines free hand image70 stays 95 mm (brightened only). Each was taken as large as its page allows without leaving a third-empty page or splitting the exercise after it. From the CDC corrections sheet: image6 (Practising Safety Rules in Specialised Rooms) has its garage panel replaced by the CDC library picture; image73 (paper items matching table) gets the CDC flag picture in row 4; image79 (Identifying Types of Structures) is the CDC replacement, cropped of its screenshot border. All made by C:/z/cts-tmp/r1img.js."
 }
