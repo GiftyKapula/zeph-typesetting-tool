@@ -1,9 +1,8 @@
 {
-  "//": "Rebuilt 2026-11-03 from the reviewer's marked PDF (ENGLISH LITERACY AND LANGUAGE GRADE 1 TEACHER'S GUIDE - Printing.pdf): no Word manuscript existed. The cover is the finished picture from that PDF, lettering included.",
+  "//": "Rebuilt 2026-11-03 from the reviewer's marked PDF (ENGLISH LITERACY AND LANGUAGE GRADE 1 TEACHER'S GUIDE - Printing.pdf): no Word manuscript existed. Cover picture: the user's change.jpeg (the same scene without lettering), Real-ESRGAN x4 then 2560px; the template letters the cover.",
   "subject": "English Literacy and Language",
   "layoutCredit": "Chikondi Robinson Ng'ambi",
-  "coverImage": "ENGLISH LITERACY AND LANGUAGE GRADE 1 TG-hires/cover.png",
-  "finishedCover": true,
+  "coverImage": "ENGLISH LITERACY AND LANGUAGE GRADE 1 TG-hires/cover-change.png",
   "boxActivities": true,
   "boxHeads": [
     {
@@ -26,8 +25,6 @@
   "authors": [
     "Yvonne Kasongo"
   ],
-  "coverColor": "0f1c66",
-  "//coverColor": "The back cover and spine take the navy of the cover designer's own back cover (the reviewer's PDF), beside the finished front picture.",
   "pageBreakBefore": [
     {
       "find": "LESSON 4",
@@ -38,5 +35,8 @@
       "near": "I like mangoes and banana"
     }
   ],
-  "//pageBreakBefore": "Units 22 and 23 end with a Lesson 4 that started low on a page and left 3-5 lines on the next; each starts a fresh page and prints whole."
+  "//pageBreakBefore": "Units 22 and 23 end with a Lesson 4 that started low on a page and left 3-5 lines on the next; each starts a fresh page and prints whole.",
+  "coverColor": "ffd23d",
+  "coverPrimary": "1f3a93",
+  "//coverColor": "Cover (2026-11-03, the user's change.jpeg): the classroom's yellow wall for the field, the uniforms' navy for the lettering, badge and corners. The old navy field (from the finished cover's back) hid the template's title."
 }
