@@ -21,12 +21,22 @@
   ],
   "boxInner": [
     "GREETINGS AND RESPONSE",
-    "Listening and speaking",
     "Reading and writing"
   ],
   "authors": [
     "Yvonne Kasongo"
   ],
   "coverColor": "0f1c66",
-  "//coverColor": "The back cover and spine take the navy of the cover designer's own back cover (the reviewer's PDF), beside the finished front picture."
+  "//coverColor": "The back cover and spine take the navy of the cover designer's own back cover (the reviewer's PDF), beside the finished front picture.",
+  "pageBreakBefore": [
+    {
+      "find": "LESSON 4",
+      "near": "revision consonant blend"
+    },
+    {
+      "find": "LESSON 4",
+      "near": "I like mangoes and banana"
+    }
+  ],
+  "//pageBreakBefore": "Units 22 and 23 end with a Lesson 4 that started low on a page and left 3-5 lines on the next; each starts a fresh page and prints whole."
 }
