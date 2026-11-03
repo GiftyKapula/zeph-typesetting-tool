@@ -48,13 +48,58 @@
       "hmm": 165
     },
     "image20.png": {
-      "hmm": 165
+      "hmm": 165,
+      "src": "LUNDA GRADE 1 LB-hires/image20.png"
     },
     "image30.png": {
-      "hmm": 165
+      "hmm": 165,
+      "src": "LUNDA GRADE 1 LB-hires/image30.png"
     },
     "image32.png": {
-      "hmm": 155
+      "hmm": 155,
+      "src": "LUNDA GRADE 1 LB-hires/image32.png"
+    },
+    "image97.png": {
+      "hmm": 85
+    },
+    "r3pic9.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic9.png"
+    },
+    "image73.png": {
+      "src": "LUNDA GRADE 1 LB-hires/image73.png"
+    },
+    "image16.png": {
+      "src": "LUNDA GRADE 1 LB-hires/image16.png"
+    },
+    "r3pic4.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic4.png"
+    },
+    "r3pic1.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic1.png"
+    },
+    "r3pic3.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic3.png"
+    },
+    "r3pic6.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic6.png"
+    },
+    "r3pic8.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic8.png"
+    },
+    "r3pic7.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic7.png"
+    },
+    "r3pic10.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic10.png"
+    },
+    "r3pic2.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic2.png"
+    },
+    "r3pic5.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic5.png"
+    },
+    "r3pic11.png": {
+      "src": "LUNDA GRADE 1 LB-hires/r3pic11.png"
     }
   },
   "_comment_cover": [
@@ -89,7 +134,8 @@
     "2026-10-31: the author's second pass (\"FINAL BOOK\", a Word PDF of 27 Oct 2026) written into the manuscript the same way:",
     "the Ch 11-14 noun lessons renamed IZHINA AWUMU NI AMAVULU (mazhina awumu / aamavulu), YISHIMUTWIZHI -> TUHEKA (Kaheka:),",
     "MWALUMBULUKILA IZU -> MAZU, KWESEKA KWAHACHIBALU tests for Ch 8-14, more Mudimu exercises in Ch 10-14, Ch 5 retitled ÑENDELU,",
-    "two writing lessons retitled KUSONEKA NSONA, Kukopolola for Kukopa, and spellings (yiwunamoni, yinjikizhilu, chidikwikala, Iha)."
+    "two writing lessons retitled KUSONEKA NSONA, Kukopolola for Kukopa, and spellings (yiwunamoni, yinjikizhilu, chidikwikala, Iha).",
+    "2026-11-03: the author's picture instructions (LUNDA LB BOOK CHANGING PICTURES INSTRUCTION.pdf, against the Word file 'CORRECTED BOOK.docx') written into the manuscript: nine pictures the manuscript held twice in one paragraph (Word stacks the two copies, the engine set them side by side small) kept once; eleven pictures in Ch 5-11 that reused Ch 5's art replaced by the author's own from the Word file (the Ch 6 dancing picture with Word's 4% side crop); IZHINA AWUMU NI AMAVULU -> MAZHINA AWUMU NI AMAVULU (Ch 11-14)."
   ],
   "_comment_hyphenate": [
     "A Grade 1 reader: no word is broken across two lines. Typst has no Lunda patterns, so its breaks were",
@@ -108,11 +154,11 @@
     "Nikufumishaku ('3. Kudila / 4. Kutukana'). The first 'Kutuña Mazu Akuhosha' in the book is Ch 6's.",
     "Also Ch 11 Kutaña Chati and Ch 12 Kwiluka Yikunku Yamazu Yidi Mwizu: their tables went to the next page without them.",
     "31 Oct: three end-of-chapter tests start a fresh page so that none is split - Ch 5 (question 1 alone at a page foot), Ch 9 (questions 3-4 carried) and Ch 11 (question 5 alone at the top of a page). The Ch 14 reading-lesson Mudimu (Kudihi kumwatela...) also starts a fresh page: its question 2 sat alone at the top of the next page.",
-    "1 Nov: read-through of the For Printing PDF. The Ch 11 Kutuña Yikunku Yamazu break now goes before its KUTAÑA heading stack (the box-only break left KUTAÑA / YIVUMINA YAMAZU stranded at a page foot). The Ch 8 and Ch 10 tests start a fresh page (question 1 sat alone at a page foot). The Ch 9 and Ch 10 MAZU / MAZHINA lessons start a fresh page so their question stays with the picture it asks about. The Ch 11 sound-lesson Mudimu starts a fresh page (question 2 was carried), and Ch 12 Kusumbwisha Mazhina starts a fresh page (its table was carried)."
+    "1 Nov: read-through of the For Printing PDF. The Ch 11 Kutuña Yikunku Yamazu break now goes before its KUTAÑA heading stack (the box-only break left KUTAÑA / YIVUMINA YAMAZU stranded at a page foot). The Ch 8 and Ch 10 tests start a fresh page (question 1 sat alone at a page foot). The Ch 9 and Ch 10 MAZU / MAZHINA lessons start a fresh page so their question stays with the picture it asks about. The Ch 11 sound-lesson Mudimu starts a fresh page (question 2 was carried), and Ch 12 Kusumbwisha Mazhina starts a fresh page (its table was carried).",
+    "3 Nov: the author's picture round made nine doubled pictures one full-width picture and swapped eleven for the author's own, so the pages reflowed. Ch 5 WALALA, Ch 11, Ch 13 and Ch 14 noun lessons start a fresh page (each picture fell at a page foot with its question carried over, or its activity box carried one or two lines); the Ch 7 test starts a fresh page (question 1 alone at a page foot); the Ch 7 Talilenu nakusoneka Mazu break is gone (the box now fits under its picture)."
   ],
   "pageBreakBefore": [
     "Zhakwila 3: Kutuña Mazu Akuhosha",
-    "Zhakwila 1: Talilenu nakusoneka Mazu",
     "Zhakwila 2: Kuhimpa Nikufumishaku",
     "Zhakwila 2: Kutaña Chati Yayikunku Yamazu",
     "Zhakwila 3: Kwiluka Yikunku Yamazu Yidi Mwizu",
@@ -159,6 +205,26 @@
     {
       "find": "Zhakwila 2: Kusumbwisha Mazhina",
       "near": "Zhakwila 4: Kuchinda Yikunku Yamazu"
+    },
+    {
+      "find": "KUTAÑA NAKANAÑACHIMA",
+      "near": "Zhakwila 1: Kwiluka Yitoñozhoka Hohu Munsañu"
+    },
+    {
+      "find": "MAZU",
+      "near": "Zhakwila 1: Kutuña Mazhina Aamavulu"
+    },
+    {
+      "find": "KWESEKA KWAHACHIBALU",
+      "near": "Kulanda nakulandulula hichumanyi"
+    },
+    {
+      "find": "MAZU",
+      "near": "Kushakama mwawunyonzhi"
+    },
+    {
+      "find": "MAZU",
+      "near": "Honda"
     }
   ],
   "_comment_forceFreshPage": [
@@ -209,5 +275,8 @@
     "(Accessed: 25 January 2026). (For transport",
     "Government of the Republic",
     "(Accessed: 25 January 2026). (For broad"
+  ],
+  "_comment_imageSizeCh13": [
+    "image97.png (Ch 13 KUTAÑA CHAKUBULA KUMAMATA classroom) is printed 85mm tall so it and its question fit under the Mudimu at the page foot."
   ]
 }
