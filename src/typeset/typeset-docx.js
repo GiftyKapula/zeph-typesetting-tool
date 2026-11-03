@@ -6779,6 +6779,16 @@ function normaliseQuestionMarkBold(blocks) {
     for (const k of ["signature", "covSignature", "covPrimary", "covPrimary2", "covAccent"]) themeOverrides[k] = col;
     console.log("   syllabus cover colour: #" + col + (ov.coverColour ? " (sidecar)" : " (from the subject)"));
   }
+  // The title band and the title itself, for a syllabus cover matched to CDC's own edition
+  // of the subject (Civic Education Content, M. C. Mabbola: "align this page cover to the
+  // secondary school syllabus" -- CDC's has a peach band and a condensed dark title).
+  // coverBand / coverTitleColour: 6-digit hex; coverTitleFont: a font family name.
+  if (variant === "syllabus") {
+    const hex = (v) => { const h = String(v || "").replace(/^#/, "").toLowerCase(); return /^[0-9a-f]{6}$/.test(h) ? h : null; };
+    if (ov.coverBand != null) { if (hex(ov.coverBand)) themeOverrides.covBand = hex(ov.coverBand); else console.warn("!  coverBand is not a 6-digit hex value:", ov.coverBand); }
+    if (ov.coverTitleColour != null) { if (hex(ov.coverTitleColour)) themeOverrides.covTitle = hex(ov.coverTitleColour); else console.warn("!  coverTitleColour is not a 6-digit hex value:", ov.coverTitleColour); }
+    if (ov.coverTitleFont) themeOverrides.covTitleFont = String(ov.coverTitleFont);
+  }
   if (ov.subject) themeOverrides.subject = ov.subject;
   // …and on a generic-theme syllabus the footer masthead follows the sidecar's subject
   // and year, as a named syllabus theme's does ("<Subject> Syllabus <year>").
