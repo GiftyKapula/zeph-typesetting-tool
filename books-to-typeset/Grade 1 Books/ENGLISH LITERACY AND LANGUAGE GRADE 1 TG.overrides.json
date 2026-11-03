@@ -1,0 +1,32 @@
+{
+  "//": "Rebuilt 2026-11-03 from the reviewer's marked PDF (ENGLISH LITERACY AND LANGUAGE GRADE 1 TEACHER'S GUIDE - Printing.pdf): no Word manuscript existed. The cover is the finished picture from that PDF, lettering included.",
+  "subject": "English Literacy and Language",
+  "layoutCredit": "Chikondi Robinson Ng'ambi",
+  "coverImage": "ENGLISH LITERACY AND LANGUAGE GRADE 1 TG-hires/cover.png",
+  "finishedCover": true,
+  "boxActivities": true,
+  "boxHeads": [
+    {
+      "find": "Possible Answers",
+      "kind": "act"
+    },
+    {
+      "find": "End of Unit Assessment – Possible Answers",
+      "kind": "act"
+    },
+    {
+      "find": "Exercise",
+      "kind": "act"
+    }
+  ],
+  "boxInner": [
+    "GREETINGS AND RESPONSE",
+    "Listening and speaking",
+    "Reading and writing"
+  ],
+  "authors": [
+    "Yvonne Kasongo"
+  ],
+  "coverColor": "0f1c66",
+  "//coverColor": "The back cover and spine take the navy of the cover designer's own back cover (the reviewer's PDF), beside the finished front picture."
+}

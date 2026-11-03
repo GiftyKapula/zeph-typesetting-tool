@@ -365,11 +365,22 @@ function proseIssues(line) {
 // A doubled pair may differ in case ("learners Learners"), in which case the FIRST
 // spelling wins — it is the one the sentence was running with.
 const DOUBLE_OK = new Set(["had", "that"]);
+// An early-grade phonics book repeats on purpose. A letter-sound drill ("th th th",
+// "rR rR rR", "CH CH") and an animal sound ("Moo moo", "Quack quack", "Mbaa mbaa") are
+// the lesson itself, and the English Literacy and Language Grade 1 Teacher's Guide lost
+// eleven of them to this rule ("Moo moo" printed as "Moo"). So a pair is left alone when
+// the word has no vowel (a letter cluster, not a word), mixes case inside itself (rR),
+// is a known animal sound or syllable, or is one of three or more repeats in a row.
+const SOUND_WORDS = new Set(["moo", "meow", "miaow", "woof", "baa", "mbaa", "quack", "oink", "cluck", "tweet", "buzz", "hiss", "neigh", "kuku", "ha", "ho", "hee", "tick", "tock", "choo", "knock", "bow", "wow", "pa", "ma", "la", "na", "clap", "tap"]);
+const isDrillWord = (w) => !/[aeiouy]/i.test(w) || (/[A-Z]/.test(w.slice(1)) && /[a-z]/.test(w)) || SOUND_WORDS.has(w.toLowerCase());
 function fixProse(text) {
   const hits = [];
   let out = String(text ?? "");
-  out = out.replace(/\b([A-Za-z]{2,})(\s+)(\1)\b/gi, (m, a, sp, b) => {
+  out = out.replace(/\b([A-Za-z]{2,})(\s+)(\1)\b/gi, (m, a, sp, b, off, all) => {
     if (a.toLowerCase() !== b.toLowerCase()) return m;
+    if (isDrillWord(a)) return m;
+    const esc = a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (new RegExp(`^\\s+${esc}\\b`, "i").test(all.slice(off + m.length)) || new RegExp(`\\b${esc}\\s+$`, "i").test(all.slice(0, off))) return m;
     if (DOUBLE_OK.has(a.toLowerCase())) return m;
     // Both capitalised alike is a title that repeats on purpose — the song "Twinkle
     // Twinkle Little Star" lost a word in the Literature in English Form 1 TG.

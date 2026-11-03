@@ -211,6 +211,31 @@ function markSubLists(blks) {
     top = p.n; sub = 0;                                                    // a top-level item
     if (b.numId != null) { topId = b.numId; topLvl = b.lvl != null ? b.lvl : null; }
   }
+  // ---- a bullet nested in Word sits under the bullet above it ----------------------
+  // The pass above nests only NUMBERED sub-lists. A plain bullet list nested in Word —
+  // "• Identify the sound /a/ in the following words:" with "◦ At ◦ Am ◦ Cat" one level
+  // in, all one list — printed every word flush with its lead, a single column of
+  // bullets (English Literacy and Language Grade 1 TG, every phonics lesson). Only the
+  // case Word states outright: the SAME list (numId) as the item directly above, at a
+  // deeper level, with nothing in between. Separate lists at different levels (the ICT
+  // Form 2 TG's ilvl-0 and ilvl-1 runs either side of a bold lead-in) are not touched.
+  {
+    let prev = null;
+    for (const b of blks) {
+      if (!b || typeof b !== "object") continue;
+      if (!isList(b)) { prev = null; continue; }
+      const mk = ((b.marker) || "").trim();
+      const bullet = !mk || !/[0-9a-z]/i.test(mk);
+      if (bullet && prev && b.numId != null && b.numId === prev.numId && b.lvl != null && prev.lvl != null && b.lvl > prev.lvl) {
+        b._sub = Math.max(b._sub || 0, (prev._sub || 0) + (b.lvl - prev.lvl));
+      } else if (bullet && prev && b.numId != null && b.numId === prev.numId && b.lvl != null && prev.lvl != null && b.lvl === prev.lvl && prev._sub) {
+        b._sub = Math.max(b._sub || 0, prev._sub);
+      } else if (bullet && prev && b.numId != null && b.numId === prev.numId && b.lvl != null && prev.lvl != null && b.lvl < prev.lvl && prev._sub) {
+        b._sub = Math.max(0, prev._sub - (prev.lvl - b.lvl)) || undefined;
+      }
+      prev = b;
+    }
+  }
   // ---- a list introduced by an item ending ":" sits one level under it ------------
   // "iii. Learners classify the utensils into:" followed by "1. Serving utensils, 2. …",
   // or "ii. Categorise each … into one of the following:" followed by "a. … b. … c.":
@@ -314,6 +339,23 @@ function emit(blocks) {
   // 1 belonged to which question. Same pass, same 18pt step as inside a box, so a
   // nested list reads the same wherever it sits.
   blocks = markSubLists(blocks);
+  // A school-term divider ("TERM ONE", "TERM 2") typed straight above a unit banner
+  // belongs on the unit's page. The banner starts a new page, so the divider was left
+  // alone at the foot of the page before it — under the ACKNOWLEDGEMENT signature, or
+  // swallowed into the previous unit's answer box as "3. TERM 2" (English Literacy and
+  // Language Grade 1 TG). Carry it onto the banner's page, set as a head above it.
+  {
+    const TERMRE = /^TERM\s+(ONE|TWO|THREE|[1-3])\s*$/i;
+    const txt = (b) => (typeof b.text === "string" ? b.text : (b.segs || []).map((s) => s.t || "").join("")).trim();
+    blocks = blocks.filter((b, i) => {
+      let j = i + 1;
+      while (blocks[j] && (blocks[j].t === "bodystart" || blocks[j].t === "showpage" || blocks[j].t === "toc")) j++;   // the body opens between them
+      const nx = blocks[j];
+      if (!b || !nx || nx.t !== "h1" || !["head", "label", "para", "h2", "h3", "listitem"].includes(b.t) || !TERMRE.test(txt(b))) return true;
+      nx.termLine = txt(b);
+      return false;
+    });
+  }
   let out = "";
   // Tracks whether the current run still belongs under a numbered list item, so a
   // following stand-alone equation is indented under that step rather than reset to
@@ -415,8 +457,9 @@ function emit(blocks) {
         // purely about the contents entry; rebuild it from the parts the regex has
         // already split out, so every topic in every book reads the same.
         const topicfull = m ? `TOPIC ${m[1].replace(/[.:]+$/, "")}: ${m[2].trim()}` : "";
-        if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(topicfull)}${b.nobreak ? ", nobrk: true" : ""})\n`;
-        else out += `#sectionhead(${S(b.text)})\n`;
+        if (b.termLine) out += `#pagebreak(weak: true)\n#head(${S(b.termLine)})\n`;
+        if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(topicfull)}${b.nobreak || b.termLine ? ", nobrk: true" : ""})\n`;
+        else out += `#sectionhead(${S(b.text)}${b.termLine ? ", brk: false" : ""})\n`;
         // `backmatterSpacing` (set as bmSpacing by its override pass): the glossary and the
         // references take one tighter line/entry spacing, so a section running a line or two
         // past its page fits without either section looking different from the other.
@@ -678,8 +721,13 @@ function boxifyActivities(blocks, opts = {}) {
   // though they are not the usual ACTIVITY/EXERCISE/ASSESSMENT words (e.g. a Grade-2
   // "Dictation (Spelling)" strand that should box its following blanks). Default kind
   // is "ex". Matched on exact trimmed plain text.
-  const { looseStarts = false, mergeColon = false, boxHeads = [] } = opts;
+  // `boxInner` (per-book): heading texts that stay INSIDE an open box instead of
+  // ending it — a bold label in the middle of an activity ("GREETINGS AND RESPONSE"
+  // above a set of exchanges) that reads like a fresh content heading. Exact trimmed
+  // plain text, like boxHeads.
+  const { looseStarts = false, mergeColon = false, boxHeads = [], boxInner = [] } = opts;
   const boxHeadMap = new Map(boxHeads.map((h) => [String(h.find).replace(/\s+/g, " ").trim(), h.kind || "ex"]));
+  const boxInnerSet = new Set(boxInner.map((t) => String(t).replace(/\s+/g, " ").trim()));
   // Real section headings are ALL-CAPS and either numbered ("EXERCISE 1",
   // "LEARNING ACTIVITY 2") or the whole line is the assessment title
   // ("END-OF-TOPIC ASSESSMENT"). This must NOT match glossary entries like
@@ -729,7 +777,8 @@ function boxifyActivities(blocks, opts = {}) {
   // really an exercise box that should frame the answers below it. Recognise it FIRST,
   // tolerating the dash type, plural/typo forms ("Exercises", "EXERCSE"), case and a
   // trailing period, so every answer key is boxed like the other exercises.
-  const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
+  // "Possible" is the same heading as "Expected" ("Assessments – Possible Answers").
+  const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*(EXPECTED|POSSIBLE)\s+(ANSWER|RESPONSE)/i;
   const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : null);
   const INTERNAL = /^(teaching and learning materials|teacher.?s?\s*facilitation procedure|facilitation procedure|teacher.?s?\s*notes?|take note of responses|expected responses?|possible answers?|materials?|answers?|procedure)\b/i;
   // The recurring teaching PHASES inside a single activity (the 3Ps / lesson-cycle
@@ -737,8 +786,12 @@ function boxifyActivities(blocks, opts = {}) {
   // Conclusion, plus common variants). They are sub-steps of ONE activity, not a new
   // section, so an "act" box must ABSORB them and keep running to the next real
   // activity/topic/lesson — otherwise the box ends at the first phase heading and the
-  // rest of the activity spills out unboxed.
-  const ACTPHASE = /^(introduction|presentation|present|practi[sc]e|production|produce|conclusion|development|application|reflection|closure|warm[\s-]?up|starter|plenary|main\s+activity|lesson\s+development)\s*:?\s*$/i;
+  // rest of the activity spills out unboxed. The PLP steps (phonics, fluency,
+  // vocabulary, comprehension, writing) are the same kind of cycle in the primary
+  // English books: the English Literacy and Language Grade 1 Teacher's Guide runs
+  // "Phonics / Vocabulary / Writing" inside one activity, and each sub-head closed the
+  // box after its first step.
+  const ACTPHASE = /^(introduction|presentation|present|practi[sc]e|production|produce|conclusion|development|application|reflection|closure|warm[\s-]?up|starter|plenary|main\s+activity|lesson\s+development|phonics|fluency|vocabulary|comprehension|writing)\s*:?\s*$/i;
   // An "ALTERNATIVE (LEARNING) ACTIVITY: …" heading (e.g. "…: INDIVIDUAL WORK") is an
   // extension of the SAME activity for learners working alone — it must stay inside the
   // box above it, not end it and float out as a stray heading.
@@ -840,6 +893,7 @@ function boxifyActivities(blocks, opts = {}) {
       if (altActDone) break;
       if (BOXBLOCK.has(y.t)) break;                                  // a pre-built box (exercise/activity/…) always ends this one
       if (isLessonBanner(y)) break;                                  // "<STRAND>: LESSON N" always starts a new lesson
+      if (/^TERM\s+(ONE|TWO|THREE|[1-3])\s*$/i.test(blockPlain(y).trim())) break;   // a school-term divider opens the next unit
       if (isHeaderPara(y)) break;                                    // a bold inline section header
       if (isHead(y) && BACKMATTER.test(ht(y))) break;               // never absorb back matter (GLOSSARY/
       //   REFERENCES/…) into a box — even an "End of Topic Assessment" that otherwise runs to the topic
@@ -895,11 +949,13 @@ function boxifyActivities(blocks, opts = {}) {
         return items.length >= 3 && items.every((w) => w.trim() && w.trim().split(/\s+/).length <= 3);
       })();
       if (altActPending && !isHead(y)) { body.push(y); j++; altActDone = true; break; }
-      if (!passageHead && !leadAbsorb && !phaseHead && !altActHead && !answerLine && !questionLine && !wordBankLine) {
+      const innerHead = boxInnerSet.size > 0 && boxInnerSet.has(blockPlain(y).replace(/\s+/g, " ").trim());
+      if (!passageHead && !leadAbsorb && !phaseHead && !altActHead && !answerLine && !questionLine && !wordBankLine && !innerHead) {
         if (y.t === "h1" || y.t === "h2" || y.t === "h3") break;     // topic / sub-topic / sub-sub-heading
         if (isHead(y)) {
           const yt = ht(y);
           if (kindOf(yt)) break;                                     // the next box starts
+          if (boxHeadMap.has(yt.replace(/\s+/g, " "))) break;         // …or a per-book box head does
           // Activities/exercises end at a fresh content heading. An "End of Topic
           // Assessment" runs to the END of the topic, though — its interior SECTION
           // labels and little matching-table headers ("Organ Work", "Disease Symptom")
@@ -1503,7 +1559,8 @@ function groupSignatories(b) {
         withSig.push({ t: "sigspace" });
         let j = i;
         const lines = [];
-        while (j < b.length && isText(b[j])) {
+        // A school-term divider ("TERM ONE") typed under the last signatory is not part of it.
+        while (j < b.length && isText(b[j]) && !/^TERM\s+(ONE|TWO|THREE|[1-3])\s*$/i.test(plainOfBlk(b[j]).trim())) {
           // The signatory's name (the first line) is always bold; an all-caps
           // organisation line (e.g. "ZAMBIA EDUCATIONAL PUBLISHING HOUSE") is bold
           // too; the title line (e.g. "Board Chairperson") is always regular weight.
@@ -7687,7 +7744,7 @@ function normaliseQuestionMarkBold(blocks) {
   // by the theme-colour greying below); `blackWhite: false` opts a rare TG back out.
   const wantsBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBookName(base));
   if (wantsBlackWhite) clearAllInlineColor(blocks);
-  const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [] };
+  const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [], boxInner: ov.boxInner || [] };
   // Unlike the rest of proofPolish()'s lesson-field normalisation, "General/Specific
   // Competence(s)" case is a house-style rule for every book, not just the boxActivities
   // ones — see normaliseCompetenceLabels() above.
@@ -8360,6 +8417,11 @@ function normaliseQuestionMarkBold(blocks) {
     const pinned = String(ov.coverColor).replace(/^#/, "");
     themeOverrides.covSignature = pinned;
     themeOverrides.covPrimary = pinned;
+    // A dark pinned field takes light lettering on the back cover and spine: the English
+    // Literacy and Language Grade 1 TG's navy 0F1C66 (its cover designer's own back)
+    // printed "Published by" and the spine title in near-black on navy.
+    const rgb = [0, 2, 4].map((k) => parseInt(pinned.slice(k, k + 2), 16) / 255);
+    if (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2] < 0.3) themeOverrides.backInk = "ffffff";
   }
   // `coverPrimary`: pin the colour the cover draws ON its field — the title lettering
   // (darkened by the template), the grade badge, the rule, the corner triangles and the
