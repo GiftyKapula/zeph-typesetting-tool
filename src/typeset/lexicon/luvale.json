@@ -31,9 +31,12 @@
     "level_ece": [
       "Seteko ya Chinangwilo Chavanyike"
     ],
+    "level_primary": [
+      "Seteko ya Pulaimali"
+    ],
     "grade": [
-      "Guledi",
-      "Mango"
+      "Mango",
+      "Guledi"
     ],
     "form": [
       "Fwomu"
@@ -62,7 +65,8 @@
       "Kujimbula"
     ],
     "unit": [
-      "Chihanda"
+      "Chihanda",
+      "Kapetulu"
     ],
     "topic": [
       "Chihande"
