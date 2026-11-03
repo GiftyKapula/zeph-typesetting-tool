@@ -41,14 +41,16 @@
     "  image32.png  1086x1206  aspect 1.11  ->  155mm tall, 140mm wide",
     "",
     "Printing them this size drops them below 300 DPI, so all four are upscaled — see",
-    "the upscale entries written by tools/upscale-images.js alongside this comment."
+    "the upscale entries written by tools/upscale-images.js alongside this comment.",
+    "",
+    "3 Nov: image20.png 165 -> 135mm. With the Ch 2 box title now capitalised (Kubakula Ni Kuzhika Mukanda) it wraps, and at 165mm the picture no longer fitted on the page with its lesson heading and box: it was pushed onto a page of its own, and at 145mm its one-line instruction still slipped over."
   ],
   "images": {
     "image7.png": {
       "hmm": 165
     },
     "image20.png": {
-      "hmm": 165,
+      "hmm": 135,
       "src": "LUNDA GRADE 1 LB-hires/image20.png"
     },
     "image30.png": {
@@ -288,6 +290,61 @@
     "(Accessed: 25 January 2026). (For transport",
     "Government of the Republic",
     "(Accessed: 25 January 2026). (For broad"
+  ],
+  "_comment_textFix": [
+    "3 Nov read-through: activity titles set the way the book sets most of them - every word with a capital (8 'Na' and",
+    "one 'Ni' already had one; 'ni'/'hela' x6 and five titles with small words brought in line) and no full stop at the end",
+    "(7 titles had one). One double space in the Ch 14 Kuhosha Tukasa Madimi instruction."
+  ],
+  "textFix": [
+    {
+      "find": "Kubakula ni kuzhika mukanda",
+      "with": "Kubakula Ni Kuzhika Mukanda"
+    },
+    {
+      "find": "Kubakula mapeji amukanda",
+      "with": "Kubakula Mapeji Amukanda"
+    },
+    {
+      "find": "Kutalisha Mukanda kumbidi",
+      "with": "Kutalisha Mukanda Kumbidi"
+    },
+    {
+      "find": "Talilenu nakusoneka Mazu",
+      "with": "Talilenu Nakusoneka Mazu"
+    },
+    {
+      "find": "Kutaña zhinsona Zhambuka",
+      "with": "Kutaña Zhinsona Zhambuka"
+    },
+    {
+      "find": "Yakusoneka hela Yakuleña",
+      "with": "Yakusoneka Hela Yakuleña"
+    },
+    {
+      "find": "Mwazatikilaña ni Mwatalisha Mazu",
+      "with": "Mwazatikilaña Ni Mwatalisha Mazu"
+    },
+    {
+      "find": "Aamavulu Mwizhina Dawumu.",
+      "with": "Aamavulu Mwizhina Dawumu"
+    },
+    {
+      "find": "Kuzatisha Mazu Akulumbulula Antu.",
+      "with": "Kuzatisha Mazu Akulumbulula Antu"
+    },
+    {
+      "find": "Kuzatisha Mazu Akulumbulula Iluña.",
+      "with": "Kuzatisha Mazu Akulumbulula Iluña"
+    },
+    {
+      "find": "Kuzatisha Mazu Akulumbulula Yuma.",
+      "with": "Kuzatisha Mazu Akulumbulula Yuma"
+    },
+    {
+      "find": "Mumazanvu  dizenu",
+      "with": "Mumazanvu dizenu"
+    }
   ],
   "_comment_imageSizeCh13": [
     "image97.png (Ch 13 KUTAÑA CHAKUBULA KUMAMATA classroom) is printed 85mm tall so it and its question fit under the Mudimu at the page foot."
