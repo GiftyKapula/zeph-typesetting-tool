@@ -108,6 +108,13 @@
       "col": 4,
       "with": "• Statement of Financial Position prepared correctly",
       "bold": false
+    },
+    {
+      "_why": "ROUND 1 follow-up (user: fix them) p123: 2.12.4 Government's role carried Public Finance's standard (shifted from the deleted 2.11.4); worded from its own competence, as the book words its standards",
+      "row": "2.11.5.1 Show knowledge of government’s role in an economy",
+      "col": 4,
+      "with": "• Knowledge of government’s role in an economy shown accordingly",
+      "bold": false
     }
   ],
   "editAll": [
@@ -573,6 +580,11 @@
       "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p150: 'on': delete",
       "from": "Discussing on liquidation",
       "to": "Discussing liquidation"
+    },
+    {
+      "_why": "ROUND 1 follow-up (user: fix them) p31: typo, 1.10.2.1 activities",
+      "from": "Ledger accounts foraccrued expenses",
+      "to": "Ledger accounts for accrued expenses"
     }
   ],
   "removeRow": [
