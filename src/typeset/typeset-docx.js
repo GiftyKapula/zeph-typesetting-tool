@@ -429,8 +429,10 @@ function emit(blocks) {
       // Relief" for one of its twenty-one sub-topics, and that lone colon survived into
       // the heading and the contents ("SUB-TOPIC 2.1.4: RELIEF" standing among
       // "SUB-TOPIC 2.1.5 DRAINAGE FEATURES" and the rest). A colon there is the same
-      // slip as a full stop, so both go.
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:](\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
+      // slip as a full stop, so both go — and so does the pair: Geography Form 1 TG
+      // (Nov 2026) types "Subtopic 1.1.1.: Geography", which a one-character strip left
+      // as "SUB-TOPIC 1.1.1.:" in the heading and the contents.
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:]+(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
