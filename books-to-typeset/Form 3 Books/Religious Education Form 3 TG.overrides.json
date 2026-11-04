@@ -445,6 +445,122 @@
     {
       "from": "Practical Solutions At School Level:",
       "to": "Practical Solutions at School Level:"
+    },
+    {
+      "from": "Item 1. Mr. Nsono",
+      "to": "Item 1. Mr Nsono"
+    },
+    {
+      "from": "cyberbullying",
+      "to": "cyber bullying"
+    },
+    {
+      "from": "long term",
+      "to": "long-term"
+    },
+    {
+      "from": "long- term",
+      "to": "long-term"
+    },
+    {
+      "from": "real- life",
+      "to": "real-life"
+    },
+    {
+      "from": "real life",
+      "to": "real-life"
+    },
+    {
+      "from": "self reliance",
+      "to": "self-reliance"
+    },
+    {
+      "from": "self management",
+      "to": "self-management"
+    },
+    {
+      "from": "ecofriendly",
+      "to": "eco-friendly"
+    },
+    {
+      "from": "nonverbal",
+      "to": "non-verbal"
+    },
+    {
+      "from": "faith driven",
+      "to": "faith-driven"
+    },
+    {
+      "from": "small scale",
+      "to": "small-scale"
+    },
+    {
+      "from": "day to day",
+      "to": "day-to-day"
+    },
+    {
+      "from": "community level",
+      "to": "community-level"
+    },
+    {
+      "from": "Present Day Positive",
+      "to": "Present-Day Positive"
+    },
+    {
+      "from": "present day positive",
+      "to": "present-day positive"
+    },
+    {
+      "from": "Present day leisure",
+      "to": "Present-day leisure"
+    },
+    {
+      "from": "problem solving skills",
+      "to": "problem-solving skills"
+    },
+    {
+      "from": "Problem solving skills",
+      "to": "Problem-solving skills"
+    },
+    {
+      "from": "Describing Problem Solving",
+      "to": "Describing problem-solving"
+    },
+    {
+      "from": "Christianity Teachings on Suffering",
+      "to": "Christian Teachings on Suffering"
+    },
+    {
+      "from": "Islam Teachings on Suffering",
+      "to": "Islamic Teachings on Suffering"
+    },
+    {
+      "from": "Islam –Allah",
+      "to": "Islam – Allah"
+    },
+    {
+      "from": "The benefits of spending leisure time constructively. Formation of clubs and activities where each learner can choose freely to participate in.",
+      "to": "Explain the benefits of spending leisure time constructively, and form clubs and activities in which each learner can choose freely to participate."
+    },
+    {
+      "from": "by encouraging others to participate",
+      "to": "By encouraging others to participate."
+    },
+    {
+      "from": "participating in a Quiz: it improves",
+      "to": "Participating in a quiz: it improves"
+    },
+    {
+      "from": "high – performing",
+      "to": "high-performing"
+    },
+    {
+      "from": "the Holy Qur",
+      "to": "The Holy Qur"
+    },
+    {
+      "from": "Development Centre,",
+      "to": "Development Centre."
     }
   ],
   "//editAll": "\"Competences to be developed : citizenship\" (Topic 1) has a space before its colon, split across runs so subtext cannot reach it.",
@@ -486,8 +602,16 @@
       "with": ")."
     },
     {
-      "find": "(2013) Religious",
-      "with": "(2013). Religious"
+      "find": "(2013) ",
+      "with": "(2013). "
+    },
+    {
+      "find": "Grades 9.",
+      "with": "Grade 9."
+    },
+    {
+      "find": "Grades 11.",
+      "with": "Grade 11."
     }
   ],
   "//tables": "Learning Activity 12's answer box (Topic 3, printed page 49) was typed as a three-cell Word table, splitting 'Competences to be developed: communication, emotional intelligence, collaboration' across the cells so it printed as a broken three-column grid ('Expected Responses … intelligence, collaboration | communication, | emotional'). Rebuilt as the one-cell box every other answer box in the book is, with the competences line whole and in the manuscript's own order.",
@@ -601,7 +725,7 @@
       ]
     }
   ],
-  "//round1": "Proofread round 1 (4 Nov 2026): the reviewer's highlighted PDF plus 'Correction and Instructions RE Form 3 Teachers Guide.docx'. AUTHOR CONFIRMATION items are left as typed until approved; only their direct wording fixes are made.",
+  "//round1": "Proofread round 1 (4 Nov 2026): the reviewer's highlighted PDF plus 'Correction and Instructions RE Form 3 Teachers Guide.docx'. Teddy then said 'fix everything', so the AUTHOR CONFIRMATION wordings are applied as the reviewer suggested them.",
   "//listKeepMarker": "The reviewer asked for bullets on response lists (printed pp. 9, 91) and one bullet style throughout; the manuscript has them, the engine dropped them when the list left the activity box.",
   "listKeepMarker": true,
   "//orIndividuallyKeep": "The reviewer dictated 'Ask learners to work in pairs' for Topic 2 Learning Activity 1.",
@@ -837,6 +961,162 @@
     {
       "find": "stewardship of resources and",
       "with": "stewardship of resources and intergenerational responsibility over individualistic accumulation."
+    },
+    {
+      "find": "has called for the meeting of Prefects and Captains in the school to discuss on how so many of the learners in school spend a lot of time sleeping after the official learning time.",
+      "with": "has called a meeting of prefects and captains to discuss why so many learners spend a lot of time sleeping after official learning time."
+    },
+    {
+      "find": "parental love within the family;",
+      "with": "parental love shown by parents to their children;"
+    },
+    {
+      "find": "filial love shown by parents to their children",
+      "with": "filial love shown by children to their parents"
+    },
+    {
+      "find": "Having a strong faith or spiritual beliefs will help you to reduce stress, increase confidence and improve coping skills, contributing to your overall emotional stability.",
+      "with": "For some people, faith and spiritual practices can provide comfort, hope and support when coping with stress."
+    },
+    {
+      "find": "Islam teaches that the sufferings come from God who has all power. Suffering is regarded as decreed by God, who has all-power. Muslims are taught to accept suffering patiently, trusting that God will reward endurance.",
+      "with": "In Islam, suffering is understood as part of God’s decree. Muslims are encouraged to respond with patience, trust in God and perseverance."
+    },
+    {
+      "find": "An entrepreneur is the activity of setting up",
+      "with": "Entrepreneurship is the activity of setting up"
+    },
+    {
+      "find": "generating financial prosperity through generating practices that prioritise",
+      "with": "generating financial prosperity through practices that prioritise"
+    },
+    {
+      "find": "you as a pastor has refused to have the body to be brought",
+      "with": "you as a pastor have refused to have the body brought"
+    },
+    {
+      "find": "on the main values of friendship and they are shown",
+      "with": "on the main values of friendship and how they are shown"
+    },
+    {
+      "find": "later emphasise on the correct answers",
+      "with": "later emphasise the correct answers"
+    },
+    {
+      "find": "why they should be loyal and devoted themselves to a group",
+      "with": "why they should be loyal and devoted to a group"
+    },
+    {
+      "find": "takes up the upper hand",
+      "with": "takes the upper hand"
+    },
+    {
+      "find": "build online communities and form digital communities and interact with friends, family, business and other world forming digital communities through platforms",
+      "with": "build online communities and interact with friends, family and businesses through platforms"
+    },
+    {
+      "find": "generate content, form text, photos and videos and creating space",
+      "with": "generate content such as text, photos and videos and create space"
+    },
+    {
+      "find": "platforms are purely academic content",
+      "with": "platforms are purely for academic content"
+    },
+    {
+      "find": "Overall, the main lesson, is that",
+      "with": "Overall, the main lesson is that"
+    },
+    {
+      "find": "information on pornography, drugs and many other harmful information may hinder them to having",
+      "with": "information on pornography, drugs and many other harmful topics may hinder them from having"
+    },
+    {
+      "find": "others cannot afford, especially",
+      "with": "others cannot afford them, especially"
+    },
+    {
+      "find": "leaving some people being unable",
+      "with": "leaving some people unable"
+    },
+    {
+      "find": "cleaning the school surrounding,",
+      "with": "cleaning the school surroundings,"
+    },
+    {
+      "find": "bars, night club, or clubs",
+      "with": "bars, night clubs or clubs"
+    },
+    {
+      "find": "internet-based application and websites",
+      "with": "internet-based applications and websites"
+    },
+    {
+      "find": "emphasises on honesty",
+      "with": "emphasises honesty"
+    },
+    {
+      "find": "emphasise on communal wealth",
+      "with": "emphasise communal wealth"
+    },
+    {
+      "find": "emphasise balance on worship",
+      "with": "emphasise balance in worship"
+    },
+    {
+      "find": "faith offers you with solace",
+      "with": "faith offers you solace"
+    },
+    {
+      "find": "beyond material pursuits and connect you",
+      "with": "beyond material pursuits and connecting you"
+    },
+    {
+      "find": "Faith is a multiple concept",
+      "with": "Faith is a multidimensional concept"
+    },
+    {
+      "find": "(For example: guilty, distraction, being too busy)!",
+      "with": "(For example: guilt, distraction, being too busy.)"
+    },
+    {
+      "find": "fixed dated rituals",
+      "with": "fixed-date rituals"
+    },
+    {
+      "find": "research in their community of the prayer categories",
+      "with": "research in their community the prayer categories"
+    },
+    {
+      "find": "Prayer may be in form of words",
+      "with": "Prayer may be in the form of words"
+    },
+    {
+      "find": "Entrepreneurs generate wealth not only for yourself",
+      "with": "Entrepreneurs generate wealth not only for themselves"
+    },
+    {
+      "find": "through both your financial successes",
+      "with": "through both personal financial success"
+    },
+    {
+      "find": "include the following;",
+      "with": "include the following:"
+    },
+    {
+      "find": "apply in strategic financial management;",
+      "with": "apply in strategic financial management:"
+    },
+    {
+      "find": "in different ways; physically",
+      "with": "in different ways: physically"
+    },
+    {
+      "find": "may react to suffering;",
+      "with": "may react to suffering:"
+    },
+    {
+      "find": "Invite one representative from each pair to present their",
+      "with": "Invite one representative from each pair to present their description to the class, and facilitate the discussion to guide learners towards a correct and clear understanding of admission practices."
     }
   ],
   "editAnswer": [
@@ -863,6 +1143,30 @@
     {
       "find": "• Learners organising",
       "with": "Learners organising"
+    },
+    {
+      "find": "Planting trees to reduce carbon dioxide, gardening to promote local food production; both help improve environmental sustainability.",
+      "with": "Tree planting helps absorb carbon dioxide as trees grow, while gardening can support local food production and environmental sustainability."
+    },
+    {
+      "find": "The types of love are agape, filial, civic, and parental.",
+      "with": "The types of love are agape, civic, marital and filial."
+    },
+    {
+      "find": "Civic is friendship love shown when close friends care for one another.",
+      "with": "Civic is love for the community, shown when people volunteer to serve others."
+    },
+    {
+      "find": "Filial is family love shown when parents care for their children.",
+      "with": "Filial is the love children show their parents."
+    },
+    {
+      "find": "Is a media that allows you communicate with others digitally.",
+      "with": "It is a medium that allows you to communicate with others digitally."
+    },
+    {
+      "find": "Playing the guitar- playing",
+      "with": "Playing the guitar – playing"
     }
   ],
   "insertHead": [
@@ -962,7 +1266,7 @@
     },
     {
       "find": "iv.",
-      "in": "iii. Physical suffering"
+      "in": "Physical suffering – hunger"
     }
   ],
   "setMarker": [
@@ -1016,6 +1320,31 @@
     {
       "find": "intergenerational responsibility over individualistic accumulation",
       "next": "Islam: Earn and spend"
+    },
+    {
+      "find": "description to the class, and facilitate the discussion",
+      "next": "Possible Responses"
+    }
+  ],
+  "replace": [
+    {
+      "find": "Edited by:",
+      "with": "**Edited by:**\nxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "find": "Illustrated by:",
+      "with": "**Illustrated by:**\nxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "find": "Cover designed by:",
+      "with": "**Cover designed by:**"
+    }
+  ],
+  "//pageBreakBefore": "Topic 2 left one two-line reference alone on printed page 35; the whole reference list now starts that page.",
+  "pageBreakBefore": [
+    {
+      "find": "Suggested References",
+      "near": "Zoom meeting"
     }
   ]
 }
