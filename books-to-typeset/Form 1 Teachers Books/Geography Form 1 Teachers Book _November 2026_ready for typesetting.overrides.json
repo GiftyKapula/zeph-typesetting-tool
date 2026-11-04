@@ -646,5 +646,27 @@
     "Critical Thinking Scenario",
     "Differentiate between rotation and revolution.",
     "linear distance between Mbala"
+  ],
+  "subtext": [
+    {
+      "from": " - ",
+      "to": " – "
+    },
+    {
+      "from": "wellbeing",
+      "to": "well-being"
+    },
+    {
+      "from": "Re-use",
+      "to": "Reuse"
+    },
+    {
+      "from": "Inter Tropical Convergence Zone",
+      "to": "Inter-Tropical Convergence Zone"
+    },
+    {
+      "from": "problem-solving",
+      "to": "problem solving"
+    }
   ]
 }
