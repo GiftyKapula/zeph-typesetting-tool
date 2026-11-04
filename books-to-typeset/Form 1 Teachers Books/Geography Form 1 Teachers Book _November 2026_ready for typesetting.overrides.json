@@ -120,12 +120,8 @@
     },
     {
       "find": "Difference in latitude:",
-      "after": "Harare 17",
+      "after": "Zimbabwe and Cairo",
       "with": "Difference in latitude: 30° − 17° = 13°"
-    },
-    {
-      "find": "Answer: 2. Differentiate between rotation and revolution",
-      "with": "Answer:"
     },
     {
       "find": ". Case Study: Population vs. Resources",
@@ -162,6 +158,54 @@
     {
       "find": "Locating places on the globe using Geographical Information System (GIS)",
       "with": "Locating places on the globe using Geographic Information Systems (GIS)"
+    },
+    {
+      "find": "Calculating Longitude Using Time Given",
+      "with": "Calculate longitude using time given"
+    },
+    {
+      "find": "Sharing information with family and community members on the role of the atmosphere",
+      "with": "Sharing with family and community members on the role of the atmosphere"
+    },
+    {
+      "find": "Distinguishing weather from climate",
+      "with": "Distinguishing between weather and climate"
+    },
+    {
+      "find": "Identifying the various elements of weather and climate",
+      "with": "Identify various elements of weather and climate"
+    },
+    {
+      "find": "Identifying factors influencing weather and climate",
+      "with": "Identify factors influencing weather and climate"
+    },
+    {
+      "find": "Analysing the impact of climate change",
+      "with": "Analyse the impact of climate change"
+    },
+    {
+      "find": "Identifying mitigation measures to climate change",
+      "with": "Identify mitigation measures to climate change"
+    },
+    {
+      "find": "Engaging in mitigation measures to climate change",
+      "with": "Engaging mitigation measures to climate change"
+    },
+    {
+      "find": "Identifying mitigation ways of adapting to climate risks and disasters",
+      "with": "Identify mitigation ways of adapting to climate risks and disasters"
+    },
+    {
+      "find": "Identifying the different natural resources.",
+      "with": "Identifying different natural resources."
+    },
+    {
+      "find": "Describing the types of natural resources.",
+      "with": "Describing types of natural resources."
+    },
+    {
+      "find": "Utilising renewable and non- renewable natural resources responsibly.",
+      "with": "Utilising renewable and non- renewable of natural resources responsibly."
     }
   ],
   "editAnswer": [
@@ -192,6 +236,10 @@
     {
       "find": "Part 2 : Multiple Choice – Time Zone Logic",
       "with": "Part 2: Time Zone Logic"
+    },
+    {
+      "find": "what would happen to our crops and our skin?\"",
+      "with": "what would happen to our crops and our skin?\"\nHuman skin would suffer severe sunburns, eye damage, and a much higher risk of skin cancer.\nCrops would be damaged because too much UV light harms leaves, reduces growth, and lowers food production.\nAnimals would also be affected, especially those with sensitive skin or eyes.\nThe community would face health problems, reduced harvests, and greater food insecurity."
     }
   ],
   "setHeading": [
@@ -496,24 +544,70 @@
       "with": []
     },
     {
-      "find": "True or False Challenge:",
-      "with": []
-    },
-    {
-      "find": "In the Troposphere, the higher you go, the colder it gets. (True / False) …True",
-      "with": []
-    },
-    {
-      "find": "In the Stratosphere, it gets warmer as you go higher because of the Ozone. (True / False) …. True",
+      "find": "In this subtopic, learners will learn to:",
       "with": []
     },
     {
       "find": "The Mesosphere is the hottest layer of all. (True / False) …False.",
-      "with": []
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "The Mesosphere is the hottest layer of all. (True / False) …False.",
+            "qseg": [
+              {
+                "t": "The ",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Mesosphere",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": " is the hottest layer of all. (True / False) …",
+                "b": false,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "False.",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "",
+            "aseg": [],
+            "marker": "c)",
+            "depth": 1
+          }
+        }
+      ]
     },
     {
-      "find": "In this subtopic, learners will learn to:",
-      "with": []
+      "find": "Answer: 2. Differentiate between rotation and revolution",
+      "with": [
+        {
+          "raw": {
+            "kind": "lead",
+            "q": "Answer:",
+            "qseg": [
+              {
+                "t": "Answer:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "indent": true,
+            "keepNext": true
+          }
+        }
+      ]
     }
   ],
   "tables": [
@@ -549,6 +643,8 @@
   ],
   "fmSpacing": "0.6em",
   "keepWithNext": [
-    "Critical Thinking Scenario"
+    "Critical Thinking Scenario",
+    "Differentiate between rotation and revolution.",
+    "linear distance between Mbala"
   ]
 }
