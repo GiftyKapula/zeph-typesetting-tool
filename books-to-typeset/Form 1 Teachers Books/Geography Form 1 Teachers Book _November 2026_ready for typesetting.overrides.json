@@ -649,8 +649,8 @@
   ],
   "subtext": [
     {
-      "from": " - ",
-      "to": " – "
+      "from": " – ",
+      "to": " - "
     },
     {
       "from": "wellbeing",
@@ -667,6 +667,10 @@
     {
       "from": "problem-solving",
       "to": "problem solving"
+    },
+    {
+      "from": "Human-Environment",
+      "to": "Human–Environment"
     }
   ]
 }
