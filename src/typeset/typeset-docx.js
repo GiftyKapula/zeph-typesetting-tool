@@ -429,8 +429,10 @@ function emit(blocks) {
       // Relief" for one of its twenty-one sub-topics, and that lone colon survived into
       // the heading and the contents ("SUB-TOPIC 2.1.4: RELIEF" standing among
       // "SUB-TOPIC 2.1.5 DRAINAGE FEATURES" and the rest). A colon there is the same
-      // slip as a full stop, so both go.
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:](\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
+      // slip as a full stop, so both go — and so does the pair: Geography Form 1 TG
+      // (Nov 2026) types "Subtopic 1.1.1.: Geography", which a one-character strip left
+      // as "SUB-TOPIC 1.1.1.:" in the heading and the contents.
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:]+(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
@@ -7575,9 +7577,11 @@ function reconcileCaptionLists(blocks) {
     if (inRun(i)) continue;
     const plain = blockPlain(blocks[i]);
     if (!plain) continue;
-    const cm = plain.trim().match(/^(Figure|Table)\s+(\d+)\s*:\s*(.+)$/i);
+    // "Fig 3:" is the same caption as "Figure 3:" — the Geography Form 1 LB labels every
+    // figure that way, and its list was left with the manuscript's stale numbers.
+    const cm = plain.trim().match(/^(Figure|Fig\.?|Table)\s+(\d+)\s*:\s*(.+)$/i);
     if (!cm) continue;
-    caps[cm[1].toUpperCase()].push({ num: cm[2], title: cm[3].trim() });
+    caps[/^fig/i.test(cm[1]) ? "FIGURE" : "TABLE"].push({ num: cm[2], title: cm[3].trim() });
   }
   for (const r of runs) {
     const list = caps[r.kind];
@@ -8274,6 +8278,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // A larger book-type line on the front cover ("LEARNER'S BOOK"), e.g. "24pt" — a
+  // reviewer's "increase font size" there (Geography Form 1 LB, CDC 2026-11). Opt-in.
+  if (ov.coverBooktypeSize) themeOverrides.covBooktypeSize = ov.coverBooktypeSize;
   // "hyphenate": false — no word broken across two lines (a reviewer marked every
   // "profes-sional" break); otherwise the theme's own setting
   if (ov.hyphenate !== undefined) themeOverrides.hyphenate = !!ov.hyphenate;

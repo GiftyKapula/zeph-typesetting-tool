@@ -734,7 +734,7 @@
           #box(fill: amber, inset: (x: 13pt, y: 6pt), radius: 4pt)[
             #text(size: 28pt, weight: "bold", fill: T.primary.darken(8%), tracking: 1pt)[#upper(formtxt)]] ]
         #v(5mm)
-        #text(size: 18pt, weight: "bold", fill: white)[#upper(booktype)]
+        #text(size: T.at("covBooktypeSize", default: 18pt), weight: "bold", fill: white)[#upper(booktype)]
       ]]
       #place(top + center, dy: 22mm, mastheadBlock)
       // hero photo (straight, white frame) when present; otherwise a central
@@ -1432,6 +1432,9 @@
 // ---- back cover (series): the last page, echoing the front cover's geometry.
 // The ISBN/barcode are added by the press later, so we only RESERVE a clean
 // box for them and otherwise carry the book identity + publisher branding. ----
+// a field dark enough that lettering darkened from it would vanish into it (the Geography
+// Form 1 LB back cover printed "Published by" dark green on its dark green field)
+#let darkfield(c) = { let k = rgb(c).components(); (k.at(0) * 0.299 + k.at(1) * 0.587 + k.at(2) * 0.114) < 45% }
 #let backcover(lines, logo, isbn) = {
   // keep the cover palette even in a black-and-white interior (see cover()).
   let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
@@ -1465,7 +1468,7 @@
   // site keeps working.
   let signature = T.at("covSignature", default: T.signature)
   // `backInk`: a backCover book on a DARK portrait field gets light lettering, as on its front.
-  let onfield = if T.at("backInk", default: none) != none { T.backInk } else if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
+  let onfield = if T.at("backInk", default: none) != none { T.backInk } else if science or darkfield(signature) { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
     // Publisher block: the logo over "Published by / Zambia Educational Publishing
@@ -1499,8 +1502,8 @@
   let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
   let name = subjectName(lines, grade, booktype)
   let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\s+\d+")); if m != none { m.text } else { "" } } else { "" }
-  let onfield = if T.at("backInk", default: none) != none { T.backInk } else if science { white } else { T.primary.darken(30%) }
-  let accentc = if science or T.at("backInk", default: none) != none { T.accent } else { T.primary }
+  let onfield = if T.at("backInk", default: none) != none { T.backInk } else if science or darkfield(T.signature) { white } else { T.primary.darken(30%) }
+  let accentc = if science or T.at("backInk", default: none) != none or darkfield(T.signature) { T.accent } else { T.primary }
   let w = width * 1mm
   // `spineStyle: "badge"` (opt-in, per book): the spine the Food and Nutrition Form 2
   // Teacher's Guide had on its proofread copy — the subject large, the form/grade white
@@ -2687,8 +2690,12 @@
 // the page it lands on, and each list entry looks its own number up. The manuscript's
 // number survives only as the fallback for a figure that has no caption to find.
 #let capnum(t) = {
-  let m = str(t).matches(regex("^\\s*(Figure|Table)\\s+([0-9]+(?:\\.[0-9]+)*)"))
-  if m.len() > 0 { (lower(m.first().captures.at(0)), m.first().captures.at(1)) } else { none }
+  // "Fig 3" / "Fig. 3" is the same label as "Figure 3" (Geography Form 1 LB)
+  let m = str(t).matches(regex("^\\s*(Figure|Fig\\.?|Table)\\s+([0-9]+(?:\\.[0-9]+)*)"))
+  if m.len() > 0 {
+    let kind = if lower(m.first().captures.at(0)).starts-with("fig") { "figure" } else { "table" }
+    (kind, m.first().captures.at(1))
+  } else { none }
 }
 #let capmark(t) = {
   let k = capnum(t)
