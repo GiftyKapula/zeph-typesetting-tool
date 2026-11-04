@@ -134,6 +134,34 @@
     {
       "find": "Exercise B: Find the distance between the following places",
       "with": "Exercise C: Find the distance between the following places"
+    },
+    {
+      "find": "Key Competences:",
+      "with": "General Competences:"
+    },
+    {
+      "find": "1.1.1.: Introduction to Geography",
+      "with": "1.1.1.: Geography"
+    },
+    {
+      "find": ".  Protect the Earth’s atmosphere.",
+      "with": "Protect the Earth’s atmosphere."
+    },
+    {
+      "find": ": Analyse the relationship between population and natural resources.",
+      "with": "Analyse the relationship between population and natural resources."
+    },
+    {
+      "find": "1.5.1.1. Demonstrate understanding of population composition.",
+      "with": "Demonstrate understanding of population composition."
+    },
+    {
+      "find": "1.5.3.1. Address challenges of rapid population.",
+      "with": "Address challenges of rapid population."
+    },
+    {
+      "find": "Locating places on the globe using Geographical Information System (GIS)",
+      "with": "Locating places on the globe using Geographic Information Systems (GIS)"
     }
   ],
   "editAnswer": [
@@ -160,6 +188,10 @@
     {
       "find": " Rapid population growth increases the number of people who are available to work, giving Zambia a larger labour force for farms, mines, factories, and services. If these people receive education and skills training, they can support higher production and economic growth. For example, a growing number of trained youths can work in the mining sector, helping to expand copper production and increase national income.",
       "with": ""
+    },
+    {
+      "find": "Part 2 : Multiple Choice – Time Zone Logic",
+      "with": "Part 2: Time Zone Logic"
     }
   ],
   "setHeading": [
@@ -167,6 +199,11 @@
       "find": "1.5. POPULATION",
       "text": "TOPIC 1.5: POPULATION",
       "as": "h1"
+    },
+    {
+      "find": "Two Main Branches of Geography",
+      "text": "Two Main Branches of Geography",
+      "as": "head"
     }
   ],
   "setMarker": [
@@ -198,6 +235,36 @@
     {
       "find": "Calculate the distance from the",
       "marker": "4.",
+      "depth": 0
+    },
+    {
+      "find": "Demonstrate understanding of Geography.",
+      "marker": "1.1.1.1."
+    },
+    {
+      "find": "Protect the Earth’s atmosphere.",
+      "marker": "1.2.5.1."
+    },
+    {
+      "find": "Practise mitigation measures to climate change.",
+      "marker": "1.3.3.1."
+    },
+    {
+      "find": "Demonstrate understanding of population composition.",
+      "marker": "1.5.1.1."
+    },
+    {
+      "find": "Address challenges of rapid population.",
+      "marker": "1.5.3.1."
+    },
+    {
+      "find": "The \"Temperature Rollercoaster\"",
+      "marker": "2.",
+      "depth": 0
+    },
+    {
+      "find": "Community Application: \"Protecting the Shield\"",
+      "marker": "3.",
       "depth": 0
     }
   ],
@@ -288,6 +355,165 @@
     {
       "find": "Equator: The great circle drawn around the Earth equidistant from the poles, dividing it into the Northern and Southern Hemispheres.",
       "with": []
+    },
+    {
+      "find": "Weather: The short-term state of the atmosphere at a specific time and place, described by factors like temperature, rain, and wind.",
+      "with": [
+        {
+          "para": "**Weather**: The short-term state of the atmosphere at a specific time and place, described by factors like temperature, rain, and wind."
+        },
+        {
+          "para": "**City**: A large permanent and densely populated human settlement with administratively defined boundaries with advanced services, industries and transport systems."
+        },
+        {
+          "para": "**Farmstead**: These are individual farms where families live and work on agricultural land."
+        },
+        {
+          "para": "**Hamlet**: A very small cluster of houses, usually just a few families."
+        },
+        {
+          "para": "**Homestead**: This is a single-family living on its own land, often isolated."
+        },
+        {
+          "para": "**Linear**: These are houses and buildings usually arranged along a road, river or railway line."
+        },
+        {
+          "para": "**Nucleated**: Settlement pattern where buildings are clustered closely together, usually around a central feature like a church, cross road or water source."
+        },
+        {
+          "para": "**Town**: This is larger than a village with shops, schools and local government offices."
+        },
+        {
+          "para": "**Urbanisation**: The process in which increasing numbers of people move from rural areas into towns and cities."
+        },
+        {
+          "para": "**Village**: This is larger than a hamlet, with more families and basic services like a school or market."
+        }
+      ]
+    },
+    {
+      "find": "Why do some countries, like India or China, have only one time zone despite being very wide? A) To save electricity. B) For national unity and easier scheduling of trains and flights. C) Because the sun stays in the same place over large countries.",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Why do some countries, like India or China, have only one time zone despite being very wide?",
+            "qseg": [
+              {
+                "t": "Why do some countries, like India or China, have only one time zone despite being very wide?",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "For national unity and easier scheduling of trains and flights.",
+            "aseg": [
+              {
+                "t": "For national unity and easier scheduling of trains and flights.",
+                "b": true,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "4.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "If you travel West across the International Date Line, what do you do to your calendar?  A) Move it forward by one day. B) Move it back by one day. C) Change the month.",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "If you travel West across the International Date Line, what do you do to your calendar?",
+            "qseg": [
+              {
+                "t": "If you travel West across the International Date Line, what do you do to your calendar?",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "Move it back by one day.",
+            "aseg": [
+              {
+                "t": "Move it back by one day.",
+                "b": true,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "5.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Which of these uses \"Daylight Saving Time\" (shifting clocks forward in summer)?",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Which countries use \"Daylight Saving Time\" (shifting clocks forward in summer)?",
+            "qseg": [
+              {
+                "t": "Which countries use \"Daylight Saving Time\" (shifting clocks forward in summer)?",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "a": "Most European countries.",
+            "aseg": [
+              {
+                "t": "Most European countries.",
+                "b": true,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "6.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Most European Countries",
+      "next": "Zambia",
+      "with": []
+    },
+    {
+      "find": "Zambia",
+      "next": "Kenya",
+      "with": []
+    },
+    {
+      "find": "Kenya",
+      "with": []
+    },
+    {
+      "find": "True or False Challenge:",
+      "with": []
+    },
+    {
+      "find": "In the Troposphere, the higher you go, the colder it gets. (True / False) …True",
+      "with": []
+    },
+    {
+      "find": "In the Stratosphere, it gets warmer as you go higher because of the Ozone. (True / False) …. True",
+      "with": []
+    },
+    {
+      "find": "The Mesosphere is the hottest layer of all. (True / False) …False.",
+      "with": []
+    },
+    {
+      "find": "In this subtopic, learners will learn to:",
+      "with": []
     }
   ],
   "tables": [
@@ -320,5 +546,9 @@
         ]
       ]
     }
+  ],
+  "fmSpacing": "0.6em",
+  "keepWithNext": [
+    "Critical Thinking Scenario"
   ]
 }
