@@ -5306,7 +5306,7 @@ function convertTableActivities(blocks) {
   walk(blocks);
 }
 
-function ensureOrIndividually(blocks) {
+function ensureOrIndividually(blocks, keep = []) {
   const walk = (arr) => {
     if (!Array.isArray(arr)) return;
     for (const b of arr) {
@@ -5346,7 +5346,7 @@ function ensureOrIndividually(blocks) {
                 // individually…". House style only needs ONE "individually" per
                 // sentence/segment, so skip the whole segment once it already contains
                 // the word anywhere, rather than checking only right after each trigger.
-                if (!/\bindividually\b/i.test(s.t)) {
+                if (!/\bindividually\b/i.test(s.t) && !keep.some((k) => s.t.includes(k))) {
                   s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
                 }
                 if (s.t.trimEnd().endsWith("individually")) {
@@ -7192,6 +7192,7 @@ async function typesetOne(docxPath, themeName) {
   importOpts.removeImages = ov.removeImages || [];
   HEAD_LIST_SPACING = !!ov.headListSpacing;
   importOpts.romanSubParts = !!ov.romanSubParts;
+  importOpts.boxAllRows = !!ov.boxAllRows;
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
@@ -7665,7 +7666,10 @@ function normaliseQuestionMarkBold(blocks) {
   // which is the fault its reviewer objected to most often, so this is a per-book
   // switch rather than three surgical edits: off, the activities read exactly as the
   // manuscript wrote them, and every other book keeps the rule.
-  if (ov.orIndividually !== false) ensureOrIndividually(blocks);
+  // `orIndividuallyKeep: ["…"]` leaves a run containing that wording alone, for a reviewer
+  // who has dictated one activity's exact words ("Ask learners to work in pairs") while
+  // the rule stays on for the rest of the book.
+  if (ov.orIndividually !== false) ensureOrIndividually(blocks, ov.orIndividuallyKeep || []);
   normaliseQuestionMarkBold(blocks);
   fillLayoutCredit(blocks, ov.layoutCredit || LAYOUT_CREDIT);  // credit the typesetter on the "Cover and Book Layout:" line
   labelIntroductions(blocks);
@@ -7733,6 +7737,21 @@ function normaliseQuestionMarkBold(blocks) {
   // …and, where a book has been asked for a specific heading case rather than its own
   // majority, settle that for every box title and sub-topic head at once.
   applyHeadingCase(blocks, ov.headingCase);
+  // `listKeepMarker: true`: a bulleted list the manuscript typed under "Possible Responses"
+  // leaves its activity box with the label as paragraphs that still carry `marker`, and
+  // #para prints no marker, so the bullets vanished (RE Form 3 TG, printed page 9). Opt-in:
+  // other books were reviewed with these lists bare.
+  if (ov.listKeepMarker) {
+    for (const b of blocks) {
+      if (b && b.t === "para" && b.isList && b.marker === "•" && Array.isArray(b.segs)) b.t = "listitem";
+    }
+  }
+  // `asBullet: ["start of line", …]`: a line that should be a bullet but was typed, or split
+  // off by `splitBefore`, as a plain paragraph.
+  for (const k of ov.asBullet || []) {
+    const b = blocks.find((x) => x && x.t === "para" && blockPlain(x).trim().startsWith(k));
+    if (b) { b.t = "listitem"; b.marker = "•"; } else console.warn("!  asBullet not matched:", k);
+  }
   // Runs after applyOverrides() above, so a unit heading corrected by an override is the
   // one compared against the sub-heading below it.
   dropUnitTitleEcho(blocks);

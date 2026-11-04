@@ -1,4 +1,6 @@
 {
+  "//coverImage": "Round 1, at Teddy's request: a fresh one-pass Canva picture with a blank board (media MAHZ-9d0lPg, 1680x944), exported at 1920x1080 and cropped 1:1 to the cover panel, no AI upscaling, about 334 PPI. Repeated Canva edits plus Real-ESRGAN had smeared an earlier version; the chalk map was tried and dropped.",
+  "coverImage": "Religious Education Form 3 TG-art/cover-classroom.png",
   "//synthesiseCover": "The manuscript's cover page is three stacked copies of the title block ('RELIGIOUS' / 'EDUCATION' / 'FORM 3' on separate lines, twice with a stray 'Form' + '3' split), so the detected cover read 'RELIGIOUS' as the whole title, printed 'FORM 3' twice and put the imprint line 'Zambia Education Publishing House Lusaka' where the authors go. Built fresh from title/subject/book type instead.",
   "synthesiseCover": true,
   "//authors": "The cover byline is one string of initials ('E.B. Mumba, S.M. Maseka, M.S. Yamba and E. N. Zimba'), which the author filter drops as too long, so the cover read AUTHORS with nobody under it. Kept in the manuscript cover's order, with each name as the AUTHORS bios spell it in full.",
@@ -31,6 +33,534 @@
     {
       "from": "Competences to  be developed",
       "to": "Competences to be developed"
+    },
+    {
+      "from": "Zambia Education Publishing House",
+      "to": "Zambia Educational Publishing House"
+    },
+    {
+      "from": "Geography and Religious (Kwame",
+      "to": "Geography and Religious Education (Kwame"
+    },
+    {
+      "from": "Diploma English and",
+      "to": "Diploma in English and"
+    },
+    {
+      "from": "Teacher’ College",
+      "to": "Teachers College"
+    },
+    {
+      "from": "M Ed.",
+      "to": "M.Ed."
+    },
+    {
+      "from": "BA.ED.",
+      "to": "B.A.Ed."
+    },
+    {
+      "from": "fieldtrips",
+      "to": "field trips"
+    },
+    {
+      "from": "Brian storming",
+      "to": "Brainstorming"
+    },
+    {
+      "from": "brain storm",
+      "to": "brainstorm"
+    },
+    {
+      "from": "life time",
+      "to": "lifetime"
+    },
+    {
+      "from": "leaners",
+      "to": "learners"
+    },
+    {
+      "from": "Passible",
+      "to": "Possible"
+    },
+    {
+      "from": "Supreme-Being",
+      "to": "Supreme Being"
+    },
+    {
+      "from": "Greater-Being",
+      "to": "Greater Being"
+    },
+    {
+      "from": "GreaterBeing",
+      "to": "Greater Being"
+    },
+    {
+      "from": "Deuteronomy 8:15–24",
+      "to": "Deuteronomy 8:15–20"
+    },
+    {
+      "from": "Online prayers meetings",
+      "to": "online prayer meetings"
+    },
+    {
+      "from": "‘Online’",
+      "to": "‘online’"
+    },
+    {
+      "from": "Online interaction",
+      "to": "online interaction"
+    },
+    {
+      "from": "others Online",
+      "to": "others online"
+    },
+    {
+      "from": "vast amount of Online",
+      "to": "vast amount of online"
+    },
+    {
+      "from": "and Online businesses",
+      "to": "and online businesses"
+    },
+    {
+      "from": "information Online",
+      "to": "information online"
+    },
+    {
+      "from": "dishonest Online",
+      "to": "dishonest online"
+    },
+    {
+      "from": "Twitters, Instagram and Tiktok",
+      "to": "Twitter, Instagram and TikTok"
+    },
+    {
+      "from": "appropriated language",
+      "to": "appropriate language"
+    },
+    {
+      "from": "of slam",
+      "to": "of Islam"
+    },
+    {
+      "from": "oneway",
+      "to": "one way"
+    },
+    {
+      "from": "one-way stress",
+      "to": "one way stress"
+    },
+    {
+      "from": "mention and analysis each",
+      "to": "mention and analyse each"
+    },
+    {
+      "from": "wealthy and happiness",
+      "to": "wealth and happiness"
+    },
+    {
+      "from": "fulfillment",
+      "to": "fulfilment"
+    },
+    {
+      "from": "neighborhoods",
+      "to": "neighbourhoods"
+    },
+    {
+      "from": "counseling",
+      "to": "counselling"
+    },
+    {
+      "from": "Reading programs",
+      "to": "Reading programmes"
+    },
+    {
+      "from": "training programs",
+      "to": "training programmes"
+    },
+    {
+      "from": "wellbeing",
+      "to": "well-being"
+    },
+    {
+      "from": "RigVeda",
+      "to": "Rig-Veda"
+    },
+    {
+      "from": "(Quran 18:46)",
+      "to": "(Qur’an 18:46)"
+    },
+    {
+      "from": "Quran (2004)",
+      "to": "Qur’an (2004)"
+    },
+    {
+      "from": "and practice hobbies",
+      "to": "and practise hobbies"
+    },
+    {
+      "from": "you practice at",
+      "to": "you practise at"
+    },
+    {
+      "from": "to practice these",
+      "to": "to practise these"
+    },
+    {
+      "from": "and practice consistent",
+      "to": "and practise consistent"
+    },
+    {
+      "from": "Zambian tradition leisure",
+      "to": "Zambian traditional leisure"
+    },
+    {
+      "from": "learner’s book )",
+      "to": "Learner’s Book)"
+    },
+    {
+      "from": "Grades 8- 9",
+      "to": "Grades 8–9"
+    },
+    {
+      "from": "Mark 8:34-35",
+      "to": "Mark 8:34–35"
+    },
+    {
+      "from": "2 Corinthians 4:16-18",
+      "to": "2 Corinthians 4:16–18"
+    },
+    {
+      "from": "Luke 22:39-46",
+      "to": "Luke 22:39–46"
+    },
+    {
+      "from": "Matthew 5:1-10",
+      "to": "Matthew 5:1–10"
+    },
+    {
+      "from": "Amos 8:4-6",
+      "to": "Amos 8:4–6"
+    },
+    {
+      "from": "10:17-30",
+      "to": "10:17–30"
+    },
+    {
+      "from": "Luke 12:13-34",
+      "to": "Luke 12:13–34"
+    },
+    {
+      "from": "1 Timothy 6:6-10",
+      "to": "1 Timothy 6:6–10"
+    },
+    {
+      "from": "James 5:1-6",
+      "to": "James 5:1–6"
+    },
+    {
+      "from": "Competences to be Developed",
+      "to": "Competences to be developed"
+    },
+    {
+      "from": "Competencies  to be developed",
+      "to": "Competences to be developed"
+    },
+    {
+      "from": "Competences  to be developed",
+      "to": "Competences to be developed"
+    },
+    {
+      "from": "Competence to be developed",
+      "to": "Competences to be developed"
+    },
+    {
+      "from": "Competences Developed",
+      "to": "Competences to be developed"
+    },
+    {
+      "from": "Specific competencies",
+      "to": "Specific Competences"
+    },
+    {
+      "from": "In this sub-topic learners",
+      "to": "In this sub-topic, learners"
+    },
+    {
+      "from": "In this section, learners will:",
+      "to": "In this sub-topic, learners will learn to:"
+    },
+    {
+      "from": "Possible responses",
+      "to": "Possible Responses"
+    },
+    {
+      "from": "possible Responses",
+      "to": "Possible Responses"
+    },
+    {
+      "from": "Possible answers",
+      "to": "Possible Answers"
+    },
+    {
+      "from": "Ways in which Leisure Time is abused",
+      "to": "Ways in which Leisure Time is Abused"
+    },
+    {
+      "from": "Importance of being loyal and devoted to Groups and Institutions",
+      "to": "Importance of Being Loyal and Devoted to Groups and Institutions"
+    },
+    {
+      "from": "The Influence of Digital literacy on Leisure",
+      "to": "The Influence of Digital Literacy on Leisure"
+    },
+    {
+      "from": "Negative Influence of Digital Literacy on leisure",
+      "to": "Negative Influence of Digital Literacy on Leisure"
+    },
+    {
+      "from": "Negative leisure time activities",
+      "to": "Negative Leisure Time Activities"
+    },
+    {
+      "from": "Significance of faith in life",
+      "to": "Significance of Faith in Life"
+    },
+    {
+      "from": "Importance of communication in friendship and Love",
+      "to": "Importance of Communication in Friendship and Love"
+    },
+    {
+      "from": "Situations that may require Collaboration",
+      "to": "Situations that May Require Collaboration"
+    },
+    {
+      "from": "Values on which Friendship and Love are based",
+      "to": "Values on which Friendship and Love are Based"
+    },
+    {
+      "from": "Types of suffering",
+      "to": "Types of Suffering"
+    },
+    {
+      "from": "Admission Practices in the four Religions",
+      "to": "Admission Practices in the Four Religions"
+    },
+    {
+      "from": "Significance of Prayer in one’s Life",
+      "to": "Significance of Prayer in One’s Life"
+    },
+    {
+      "from": "Problem Solving and Stress Management Skills",
+      "to": "Problem-Solving and Stress Management Skills"
+    },
+    {
+      "from": "Peoples’ Reaction to Suffering",
+      "to": "People’s Reactions to Suffering"
+    },
+    {
+      "from": "Problem solving Skills in Suffering",
+      "to": "Problem-Solving Skills in Suffering"
+    },
+    {
+      "from": "Religious Teaching on Friendship",
+      "to": "Religious Teachings on Friendship"
+    },
+    {
+      "from": "Religious teaching on friendship",
+      "to": "Religious teachings on friendship"
+    },
+    {
+      "from": "Tell the significance of prayer",
+      "to": "Explain the significance of prayer"
+    },
+    {
+      "from": "Exhibit Loyalty and devotion in society",
+      "to": "Exhibit loyalty and devotion in society"
+    },
+    {
+      "from": "oneself if in friendship and love",
+      "to": "oneself in friendships and loving relationships"
+    },
+    {
+      "from": "Item 1. Analyse the impact",
+      "to": "Analyse the impact"
+    },
+    {
+      "from": "Asking God to heal a sick friend ii. ii) Saying “thank you” for good results iii. Iii) Sitting quietly to hear God’s guidance ",
+      "to": "(i) Asking God to heal a sick friend\n(ii) Saying “thank you” for good results\n(iii) Sitting quietly to hear God’s guidance\n"
+    },
+    {
+      "from": "i.Intercession ii. Thanksgiving iii. Listening",
+      "to": "(i) Intercession (ii) Thanksgiving (iii) Listening"
+    },
+    {
+      "from": "i.Hunger",
+      "to": "i. Hunger"
+    },
+    {
+      "from": "i.Identify",
+      "to": "i. Identify"
+    },
+    {
+      "from": "Critical Thinking, Analytical",
+      "to": "critical thinking, analytical"
+    },
+    {
+      "from": "Analytical Thinking, Emotional",
+      "to": "analytical thinking, emotional"
+    },
+    {
+      "from": "Intelligence, Collaboration, Communication",
+      "to": "intelligence, collaboration, communication"
+    },
+    {
+      "from": "Specific Competences:",
+      "to": "Specific Competences"
+    },
+    {
+      "from": "Specific Competence",
+      "to": "Specific Competences"
+    },
+    {
+      "from": "Competencess",
+      "to": "Competences"
+    },
+    {
+      "from": "prayer in the four religion",
+      "to": "prayer in the four religions"
+    },
+    {
+      "from": "religionss",
+      "to": "religions"
+    },
+    {
+      "from": "school feeding program",
+      "to": "school feeding programme"
+    },
+    {
+      "from": "community support programs",
+      "to": "community support programmes"
+    },
+    {
+      "from": "Practical Solutions At School Level:",
+      "to": "Practical Solutions at School Level:"
+    },
+    {
+      "from": "Item 1. Mr. Nsono",
+      "to": "Item 1. Mr Nsono"
+    },
+    {
+      "from": "cyberbullying",
+      "to": "cyber bullying"
+    },
+    {
+      "from": "long term",
+      "to": "long-term"
+    },
+    {
+      "from": "long- term",
+      "to": "long-term"
+    },
+    {
+      "from": "real- life",
+      "to": "real-life"
+    },
+    {
+      "from": "real life",
+      "to": "real-life"
+    },
+    {
+      "from": "self reliance",
+      "to": "self-reliance"
+    },
+    {
+      "from": "self management",
+      "to": "self-management"
+    },
+    {
+      "from": "ecofriendly",
+      "to": "eco-friendly"
+    },
+    {
+      "from": "nonverbal",
+      "to": "non-verbal"
+    },
+    {
+      "from": "faith driven",
+      "to": "faith-driven"
+    },
+    {
+      "from": "small scale",
+      "to": "small-scale"
+    },
+    {
+      "from": "day to day",
+      "to": "day-to-day"
+    },
+    {
+      "from": "community level",
+      "to": "community-level"
+    },
+    {
+      "from": "Present Day Positive",
+      "to": "Present-Day Positive"
+    },
+    {
+      "from": "present day positive",
+      "to": "present-day positive"
+    },
+    {
+      "from": "Present day leisure",
+      "to": "Present-day leisure"
+    },
+    {
+      "from": "problem solving skills",
+      "to": "problem-solving skills"
+    },
+    {
+      "from": "Problem solving skills",
+      "to": "Problem-solving skills"
+    },
+    {
+      "from": "Describing Problem Solving",
+      "to": "Describing problem-solving"
+    },
+    {
+      "from": "Christianity Teachings on Suffering",
+      "to": "Christian Teachings on Suffering"
+    },
+    {
+      "from": "Islam Teachings on Suffering",
+      "to": "Islamic Teachings on Suffering"
+    },
+    {
+      "from": "Islam –Allah",
+      "to": "Islam – Allah"
+    },
+    {
+      "from": "The benefits of spending leisure time constructively. Formation of clubs and activities where each learner can choose freely to participate in.",
+      "to": "Explain the benefits of spending leisure time constructively, and form clubs and activities in which each learner can choose freely to participate."
+    },
+    {
+      "from": "by encouraging others to participate",
+      "to": "By encouraging others to participate."
+    },
+    {
+      "from": "participating in a Quiz: it improves",
+      "to": "Participating in a quiz: it improves"
+    },
+    {
+      "from": "high – performing",
+      "to": "high-performing"
+    },
+    {
+      "from": "the Holy Qur",
+      "to": "The Holy Qur"
+    },
+    {
+      "from": "Development Centre,",
+      "to": "Development Centre."
     }
   ],
   "//editAll": "\"Competences to be developed : citizenship\" (Topic 1) has a space before its colon, split across runs so subtext cannot reach it.",
@@ -38,6 +568,50 @@
     {
       "find": "developed : ",
       "with": "developed: "
+    },
+    {
+      "find": "include;",
+      "with": "include:"
+    },
+    {
+      "find": "citizenship, collaboration, communication.",
+      "with": "citizenship, collaboration, communication"
+    },
+    {
+      "find": "citizenship, communication, collaboration.",
+      "with": "citizenship, communication, collaboration"
+    },
+    {
+      "find": "collaboration, communication, critical thinking.",
+      "with": "collaboration, communication, critical thinking"
+    },
+    {
+      "find": "citizenship, collaboration, critical thinking.",
+      "with": "citizenship, collaboration, critical thinking"
+    },
+    {
+      "find": "Communication, Collaboration",
+      "with": "communication, collaboration"
+    },
+    {
+      "find": "Emotional intelligence, collaboration",
+      "with": "emotional intelligence, collaboration"
+    },
+    {
+      "find": ") .",
+      "with": ")."
+    },
+    {
+      "find": "(2013) ",
+      "with": "(2013). "
+    },
+    {
+      "find": "Grades 9.",
+      "with": "Grade 9."
+    },
+    {
+      "find": "Grades 11.",
+      "with": "Grade 11."
     }
   ],
   "//tables": "Learning Activity 12's answer box (Topic 3, printed page 49) was typed as a three-cell Word table, splitting 'Competences to be developed: communication, emotional intelligence, collaboration' across the cells so it printed as a broken three-column grid ('Expected Responses … intelligence, collaboration | communication, | emotional'). Rebuilt as the one-cell box every other answer box in the book is, with the competences line whole and in the manuscript's own order.",
@@ -47,7 +621,7 @@
       "rows": [
         [
           {
-            "text": "Expected Responses\n• Prevents misunderstandings\n• Builds trust\n• Helps express feelings\n• Strengthens relationships\nCompetences to be developed: communication, emotional intelligence, collaboration",
+            "text": "Expected Responses\n• Prevents misunderstandings\n• Builds trust\n• Helps express feelings\n• Strengthens relationships\nCompetences to be developed: communication, critical thinking, collaboration",
             "segs": [
               {
                 "t": "Expected Responses",
@@ -140,7 +714,7 @@
                 "c": null
               },
               {
-                "t": " communication, emotional intelligence, collaboration",
+                "t": " communication, critical thinking, collaboration",
                 "b": false,
                 "it": true,
                 "c": null
@@ -150,5 +724,629 @@
         ]
       ]
     }
-  ]
+  ],
+  "//round1": "Proofread round 1 (4 Nov 2026): the reviewer's highlighted PDF plus 'Correction and Instructions RE Form 3 Teachers Guide.docx'. Teddy then said 'fix everything', so the AUTHOR CONFIRMATION wordings are applied as the reviewer suggested them.",
+  "//listKeepMarker": "The reviewer asked for bullets on response lists (printed pp. 9, 91) and one bullet style throughout; the manuscript has them, the engine dropped them when the list left the activity box.",
+  "listKeepMarker": true,
+  "//orIndividuallyKeep": "The reviewer dictated 'Ask learners to work in pairs' for Topic 2 Learning Activity 1.",
+  "orIndividuallyKeep": [
+    "Ask learners to work in pairs"
+  ],
+  "headingCase": {
+    "to": "sentence",
+    "apply": [
+      "boxTitle"
+    ],
+    "keep": [
+      "Zambia",
+      "Zambian",
+      "Traditional",
+      "Religion",
+      "Christianity",
+      "Islam",
+      "Hinduism",
+      "God"
+    ]
+  },
+  "edit": [
+    {
+      "find": "This is your resource- use it",
+      "with": "This is your resource; use it"
+    },
+    {
+      "find": "Resource person",
+      "with": "Resource persons"
+    },
+    {
+      "find": "You write all the possible answers on the board then discuss so that you eliminate non possible answers.",
+      "with": "Write learners’ responses on the board. Discuss them as a class and help learners identify the relevant examples."
+    },
+    {
+      "find": "Let the learner brainstorm",
+      "with": "Ask learners to brainstorm"
+    },
+    {
+      "find": "Ask learners, individually research from the library or google the definition of the terms loyalty and devotion and let them give examples to illustrate their answers.",
+      "with": "Ask learners to research individually, using the library or reliable online sources, the meanings of ‘loyalty’ and ‘devotion’. They should provide examples to illustrate each term."
+    },
+    {
+      "find": "the better interest of himself and the people",
+      "with": "the best interests of the leader and the people"
+    },
+    {
+      "find": "you feel secured",
+      "with": "you feel secure"
+    },
+    {
+      "find": "Loyalty and devotion mean being faithful to what you believe to be important to you: your family, your friends, your Church, your nation and your relationships.",
+      "with": "Loyalty and devotion involve faithfulness and commitment to people, groups, institutions or principles that one considers important."
+    },
+    {
+      "find": "loyal and devoted to.",
+      "with": "loyal and devoted"
+    },
+    {
+      "find": "to which they feel loyal to.",
+      "with": "to which they feel loyal."
+    },
+    {
+      "find": "are a vital quality, it is essential to balance it with",
+      "with": "are important qualities, it is essential to balance them with"
+    },
+    {
+      "find": "Analyse teachings of the four religions in Zambia on admission practices",
+      "with": "Analyse the teachings of the four religions in Zambia on admission practices"
+    },
+    {
+      "find": "Invite a resource person from each religion, especially from Islam, Hindu and Zambian Traditional Religion, to come and give a detailed account on admission practices in their respective religions.",
+      "with": "Invite a representative from each religion to explain its admission practices."
+    },
+    {
+      "find": "Ask the learners to pair themselves up",
+      "with": "Ask learners to work in pairs."
+    },
+    {
+      "find": "going to Church",
+      "with": "going to church"
+    },
+    {
+      "find": "movies on Television",
+      "with": "movies on television"
+    },
+    {
+      "find": "Church and Faith Based Organisations",
+      "with": "church and faith-based organisations"
+    },
+    {
+      "find": "marriage, Churches, schools",
+      "with": "marriage, churches, schools"
+    },
+    {
+      "find": "a Church refuses",
+      "with": "a church refuses"
+    },
+    {
+      "find": "appropriate mitigation measures to climate change",
+      "with": "appropriate measures to mitigate climate change"
+    },
+    {
+      "find": "these can be mitigation measures to climate change",
+      "with": "these can be measures to mitigate climate change"
+    },
+    {
+      "find": "give the proper advice to the Head Teacher how can solve this problem",
+      "with": "advise the Head Teacher on how to address this problem"
+    },
+    {
+      "find": "basket and volley ball grounds",
+      "with": "basketball and volleyball courts"
+    },
+    {
+      "find": "1 Samuel 18–20",
+      "with": "1 Samuel 18:1–4"
+    },
+    {
+      "find": "When you alone communicate with God or the Spirits or Allah or Brahman.",
+      "with": "Private prayer is prayer offered individually, when a person communicates privately with God or the Supreme Being, according to their religious beliefs."
+    },
+    {
+      "find": "prayer are directed",
+      "with": "prayers are directed"
+    },
+    {
+      "find": "Allow learners to do the exercise individually then discuss the answers as a class",
+      "with": "Ask learners to complete the exercise individually, then discuss their answers as a class."
+    },
+    {
+      "find": "Not cheating customers Online",
+      "with": "Dealing honestly with customers when conducting business online"
+    },
+    {
+      "find": "by operate with pure intentions",
+      "with": "by operating with pure intentions"
+    },
+    {
+      "find": "tied not just on you",
+      "with": "tied not just to you"
+    },
+    {
+      "find": "Hinduism teachings include",
+      "with": "The teachings of Hinduism include"
+    },
+    {
+      "find": "source of happiness involves aspirations",
+      "with": "sources of happiness involve aspirations"
+    },
+    {
+      "find": "Sustained happiness is an ongoing practice self-management and intentional living rather than a passive state dependent on external circumstances.",
+      "with": "Sustained happiness involves the ongoing practice of self-management and intentional living, rather than a passive state that depends on external circumstances."
+    },
+    {
+      "find": "strong community bond",
+      "with": "strong community bonds."
+    },
+    {
+      "find": "depending on your beliefs, emotions, and ability to cope with the difficult situations.",
+      "with": "depending on their beliefs, emotions and ability to cope with difficult situations."
+    },
+    {
+      "find": "It involves identifying challenges",
+      "with": "This process involves identifying challenges"
+    },
+    {
+      "find": "a personal problem could you be struggling",
+      "with": "a personal problem could be struggling"
+    },
+    {
+      "find": "community problems help you",
+      "with": "community problems helps you"
+    },
+    {
+      "find": "compare briefly how",
+      "with": "Compare briefly how"
+    },
+    {
+      "find": "The importance of admission practices in Zambian society include the provision of access to services, strengthens identity and belonging, opens opportunities for training, jobs and empowerment and shapes individual and community identity.",
+      "with": "The importance of admission practices in Zambian society includes the provision of access to services, the strengthening of identity and belonging, the opening of opportunities for training, jobs and empowerment and the shaping of individual and community identity."
+    },
+    {
+      "find": "Its significance lies its role",
+      "with": "Its significance lies in its role"
+    },
+    {
+      "find": "Let them, present findings",
+      "with": "Let them present findings"
+    },
+    {
+      "find": "love and trust and among the friends",
+      "with": "love and trust among the friends"
+    },
+    {
+      "find": "These values, help build",
+      "with": "These values help build"
+    },
+    {
+      "find": "impacts people and learners’) understanding",
+      "with": "impacts people’s and learners’ understanding"
+    },
+    {
+      "find": "Allow learners do this exercise",
+      "with": "Allow learners to do this exercise"
+    },
+    {
+      "find": "Give each group 10 minutes do the activity",
+      "with": "Give each group 10 minutes to do the activity."
+    },
+    {
+      "find": "In groups of 5,",
+      "with": "In groups of five or individually,"
+    },
+    {
+      "find": "Put learners in groups of five",
+      "with": "Organise learners into groups of five"
+    },
+    {
+      "find": "Speaking respectfully • Resolving conflicts",
+      "with": "Speaking respectfully Resolving conflicts"
+    },
+    {
+      "find": "Supporting others.",
+      "with": "Supporting others"
+    },
+    {
+      "find": "Possible Answers: ",
+      "with": "",
+      "after": "Identify any three values of friendship"
+    },
+    {
+      "find": "stewardship of resources and",
+      "with": "stewardship of resources and intergenerational responsibility over individualistic accumulation."
+    },
+    {
+      "find": "has called for the meeting of Prefects and Captains in the school to discuss on how so many of the learners in school spend a lot of time sleeping after the official learning time.",
+      "with": "has called a meeting of prefects and captains to discuss why so many learners spend a lot of time sleeping after official learning time."
+    },
+    {
+      "find": "parental love within the family;",
+      "with": "parental love shown by parents to their children;"
+    },
+    {
+      "find": "filial love shown by parents to their children",
+      "with": "filial love shown by children to their parents"
+    },
+    {
+      "find": "Having a strong faith or spiritual beliefs will help you to reduce stress, increase confidence and improve coping skills, contributing to your overall emotional stability.",
+      "with": "For some people, faith and spiritual practices can provide comfort, hope and support when coping with stress."
+    },
+    {
+      "find": "Islam teaches that the sufferings come from God who has all power. Suffering is regarded as decreed by God, who has all-power. Muslims are taught to accept suffering patiently, trusting that God will reward endurance.",
+      "with": "In Islam, suffering is understood as part of God’s decree. Muslims are encouraged to respond with patience, trust in God and perseverance."
+    },
+    {
+      "find": "An entrepreneur is the activity of setting up",
+      "with": "Entrepreneurship is the activity of setting up"
+    },
+    {
+      "find": "generating financial prosperity through generating practices that prioritise",
+      "with": "generating financial prosperity through practices that prioritise"
+    },
+    {
+      "find": "you as a pastor has refused to have the body to be brought",
+      "with": "you as a pastor have refused to have the body brought"
+    },
+    {
+      "find": "on the main values of friendship and they are shown",
+      "with": "on the main values of friendship and how they are shown"
+    },
+    {
+      "find": "later emphasise on the correct answers",
+      "with": "later emphasise the correct answers"
+    },
+    {
+      "find": "why they should be loyal and devoted themselves to a group",
+      "with": "why they should be loyal and devoted to a group"
+    },
+    {
+      "find": "takes up the upper hand",
+      "with": "takes the upper hand"
+    },
+    {
+      "find": "build online communities and form digital communities and interact with friends, family, business and other world forming digital communities through platforms",
+      "with": "build online communities and interact with friends, family and businesses through platforms"
+    },
+    {
+      "find": "generate content, form text, photos and videos and creating space",
+      "with": "generate content such as text, photos and videos and create space"
+    },
+    {
+      "find": "platforms are purely academic content",
+      "with": "platforms are purely for academic content"
+    },
+    {
+      "find": "Overall, the main lesson, is that",
+      "with": "Overall, the main lesson is that"
+    },
+    {
+      "find": "information on pornography, drugs and many other harmful information may hinder them to having",
+      "with": "information on pornography, drugs and many other harmful topics may hinder them from having"
+    },
+    {
+      "find": "others cannot afford, especially",
+      "with": "others cannot afford them, especially"
+    },
+    {
+      "find": "leaving some people being unable",
+      "with": "leaving some people unable"
+    },
+    {
+      "find": "cleaning the school surrounding,",
+      "with": "cleaning the school surroundings,"
+    },
+    {
+      "find": "bars, night club, or clubs",
+      "with": "bars, night clubs or clubs"
+    },
+    {
+      "find": "internet-based application and websites",
+      "with": "internet-based applications and websites"
+    },
+    {
+      "find": "emphasises on honesty",
+      "with": "emphasises honesty"
+    },
+    {
+      "find": "emphasise on communal wealth",
+      "with": "emphasise communal wealth"
+    },
+    {
+      "find": "emphasise balance on worship",
+      "with": "emphasise balance in worship"
+    },
+    {
+      "find": "faith offers you with solace",
+      "with": "faith offers you solace"
+    },
+    {
+      "find": "beyond material pursuits and connect you",
+      "with": "beyond material pursuits and connecting you"
+    },
+    {
+      "find": "Faith is a multiple concept",
+      "with": "Faith is a multidimensional concept"
+    },
+    {
+      "find": "(For example: guilty, distraction, being too busy)!",
+      "with": "(For example: guilt, distraction, being too busy.)"
+    },
+    {
+      "find": "fixed dated rituals",
+      "with": "fixed-date rituals"
+    },
+    {
+      "find": "research in their community of the prayer categories",
+      "with": "research in their community the prayer categories"
+    },
+    {
+      "find": "Prayer may be in form of words",
+      "with": "Prayer may be in the form of words"
+    },
+    {
+      "find": "Entrepreneurs generate wealth not only for yourself",
+      "with": "Entrepreneurs generate wealth not only for themselves"
+    },
+    {
+      "find": "through both your financial successes",
+      "with": "through both personal financial success"
+    },
+    {
+      "find": "include the following;",
+      "with": "include the following:"
+    },
+    {
+      "find": "apply in strategic financial management;",
+      "with": "apply in strategic financial management:"
+    },
+    {
+      "find": "in different ways; physically",
+      "with": "in different ways: physically"
+    },
+    {
+      "find": "may react to suffering;",
+      "with": "may react to suffering:"
+    },
+    {
+      "find": "Invite one representative from each pair to present their",
+      "with": "Invite one representative from each pair to present their description to the class, and facilitate the discussion to guide learners towards a correct and clear understanding of admission practices."
+    }
+  ],
+  "editAnswer": [
+    {
+      "find": "Since the school is the rural district the cutoff points for both the girls and boys should be lower than those in urban areas. There should be also a different cut-off points between girls and boys by having the cutting-off point for girls lower than the boys. This will give opportunity to girls to be in school and prevent poverty, early marriages, and other vices on the girl child.",
+      "with": "Admission criteria should be fair, transparent and consistently applied. Schools should also provide appropriate support to disadvantaged learners to promote equal access to education."
+    },
+    {
+      "find": "Advice Mr. Nsono to have special help to the orphans and vulnerable children by paying half of the school fees or sponsoring two of them per class.",
+      "with": "Advise Mr Nsono to support orphans and vulnerable learners through bursaries, fee reductions or sponsorship, according to the school’s available resources."
+    },
+    {
+      "find": "the Church’s action",
+      "with": "the church’s action"
+    },
+    {
+      "find": "• Faith in oneself",
+      "with": "Faith in oneself"
+    },
+    {
+      "find": "• Members of a church",
+      "with": "Members of a church"
+    },
+    {
+      "find": "• Learners organising",
+      "with": "Learners organising"
+    },
+    {
+      "find": "Planting trees to reduce carbon dioxide, gardening to promote local food production; both help improve environmental sustainability.",
+      "with": "Tree planting helps absorb carbon dioxide as trees grow, while gardening can support local food production and environmental sustainability."
+    },
+    {
+      "find": "The types of love are agape, filial, civic, and parental.",
+      "with": "The types of love are agape, civic, marital and filial."
+    },
+    {
+      "find": "Civic is friendship love shown when close friends care for one another.",
+      "with": "Civic is love for the community, shown when people volunteer to serve others."
+    },
+    {
+      "find": "Filial is family love shown when parents care for their children.",
+      "with": "Filial is the love children show their parents."
+    },
+    {
+      "find": "Is a media that allows you communicate with others digitally.",
+      "with": "It is a medium that allows you to communicate with others digitally."
+    },
+    {
+      "find": "Playing the guitar- playing",
+      "with": "Playing the guitar – playing"
+    }
+  ],
+  "insertHead": [
+    {
+      "head": "The Importance of Admission Practices in Zambian Society",
+      "before": "people are admitted into a variety",
+      "editAnchor": {
+        "find": "The Importance of Admission Practices in Zambian Society ",
+        "with": ""
+      }
+    },
+    {
+      "head": "Groups and Institutions to which People in Zambia are Admitted",
+      "before": "Groups are where two or more",
+      "editAnchor": {
+        "find": "Groups and Institutions to which people in Zambia are admitted ",
+        "with": ""
+      }
+    },
+    {
+      "head": "Groups and Institutions to which People are Loyal and Devoted",
+      "before": "Every person needs an institution",
+      "editAnchor": {
+        "find": "Groups and Institutions to which people are Loyal and Devoted ",
+        "with": ""
+      }
+    },
+    {
+      "head": "Ways of Effective Communication within Friendship and Love",
+      "before": "Effective communication in friendship and love involves",
+      "editAnchor": {
+        "find": "Ways of Effective Communication within Friendship and Love ",
+        "with": ""
+      }
+    },
+    {
+      "head": "The Significance of Using Appropriate Language to Express Oneself",
+      "before": "Using appropriate language is important because",
+      "editAnchor": {
+        "find": "The significance of using appropriate language to express oneself ",
+        "with": ""
+      }
+    },
+    {
+      "head": "Religious Teachings on Faith and Prayer in the Four Religions",
+      "before": "Religious teachings on faith and prayer across the four",
+      "editAnchor": {
+        "find": "Religious Teachings on Faith and Prayer in the four Religions ",
+        "with": ""
+      }
+    }
+  ],
+  "splitBefore": [
+    {
+      "find": "Competences to be",
+      "in": "Club membership admission"
+    },
+    {
+      "find": "Entrepreneurship skills in wealth creation",
+      "in": "Financial management skills in wealth creation"
+    },
+    {
+      "find": "Resolving conflicts",
+      "in": "Speaking respectfully"
+    },
+    {
+      "find": "Possible Responses:",
+      "in": "Give each group 10 minutes"
+    },
+    {
+      "find": "Light Industrial Area",
+      "in": "Zambia Education"
+    },
+    {
+      "find": "ii. School implements",
+      "in": "i. Family develops"
+    },
+    {
+      "find": "ii. Cleaning surroundings",
+      "in": "i. Planting trees"
+    },
+    {
+      "find": "iii. Conserving water",
+      "in": "ii. Cleaning surroundings"
+    },
+    {
+      "find": "ii. Stress and emotional",
+      "in": "i. Hunger"
+    },
+    {
+      "find": "iii. Reduced academic",
+      "in": "ii. Stress and emotional"
+    },
+    {
+      "find": "iv. Potential social",
+      "in": "iii. Reduced academic"
+    },
+    {
+      "find": "iv.",
+      "in": "Physical suffering – hunger"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "Analyse the impact on the company",
+      "marker": "1.",
+      "depth": 0
+    },
+    {
+      "find": "List at least three benefits an individual",
+      "marker": "2.",
+      "depth": 0
+    },
+    {
+      "find": "(i) Asking God to heal",
+      "marker": "",
+      "depth": 1
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "References",
+      "near": "Cheyeka",
+      "text": "Suggested References"
+    },
+    {
+      "find": "Specific Competence",
+      "text": "Specific Competences",
+      "all": true
+    }
+  ],
+  "asBullet": [
+    "Resolving conflicts",
+    "Financial management skills in wealth creation",
+    "Entrepreneurship skills in wealth creation"
+  ],
+  "retext": [
+    {
+      "from": "Thinking,",
+      "to": "thinking,"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "critical thinking, analytical"
+    }
+  ],
+  "//boxAllRows": "Many activity boxes are tables Word split into two rows at a page break; the second row (answers, competences) never printed.",
+  "boxAllRows": true,
+  "removeWhereNext": [
+    {
+      "find": "intergenerational responsibility over individualistic accumulation",
+      "next": "Islam: Earn and spend"
+    },
+    {
+      "find": "description to the class, and facilitate the discussion",
+      "next": "Possible Responses"
+    }
+  ],
+  "replace": [
+    {
+      "find": "Edited by:",
+      "with": "**Edited by:**\nxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "find": "Illustrated by:",
+      "with": "**Illustrated by:**\nxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "find": "Cover designed by:",
+      "with": "**Cover designed by:**"
+    }
+  ],
+  "//pageBreakBefore": "Topic 2 left one two-line reference alone on printed page 35; the whole reference list now starts that page.",
+  "pageBreakBefore": [
+    {
+      "find": "Suggested References",
+      "near": "Zoom meeting"
+    }
+  ],
+  "//embedJpeg": "Keeps the cover picture lossless in the PDF.",
+  "embedJpeg": false
 }
