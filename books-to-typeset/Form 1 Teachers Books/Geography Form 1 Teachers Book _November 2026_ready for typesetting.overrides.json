@@ -1,0 +1,324 @@
+{
+  "authors": [
+    "Mirriam Mhone-Muzona",
+    "Njira Mtonga",
+    "Nzila Osma Siabalima"
+  ],
+  "images": {
+    "image1.png": {
+      "src": "../Form 1 Learners Books/Geography F1 LB-art/geoge-cover.png"
+    }
+  },
+  "removeImages": [
+    "image3.png",
+    "image4.png",
+    "image5.png",
+    "image6.png",
+    "image7.png",
+    "image8.png",
+    "image9.png",
+    "image10.png",
+    "image23.png",
+    "image24.png",
+    "image71.png",
+    "image79.png",
+    "image81.png"
+  ],
+  "imageToText": {
+    "image11.png": "11:00 − 09:00 = 2 hours ahead",
+    "image12.png": "2 × 15° = 30°",
+    "image13.png": "12:00 midnight − 8:00 PM = 4 hours behind",
+    "image14.png": "4 × 15° = 60°",
+    "image15.png": "4 minutes = 1°",
+    "image16.png": "5:00 − 2:00 = 3 hours",
+    "image17.png": "3 × 15° = 45°",
+    "image18.png": "15°E + 45° = 60°E",
+    "image19.png": "(+3) − (−5) = 8 hours difference",
+    "image20.png": "8:00 PM − 1 hour = 7:00 PM",
+    "image21.png": "(+3) − (−5) = 8 hours",
+    "image22.png": "8:00 PM − 8 hours = 12:00 noon",
+    "image25.png": "25° − 10° = 15°",
+    "image26.png": "15° × 111 km = 1665 km",
+    "image27.png": "40° − 15° = 25°",
+    "image28.png": "25° × 111 km = 2775 km",
+    "image29.png": "5° + 12° = 17°",
+    "image30.png": "17° × 111 km = 1887 km",
+    "image31.png": "23.5° − 0° = 23.5°",
+    "image32.png": "23.5° × 111 km = 2608.5 km",
+    "image33.png": "17° + 30° = 47°",
+    "image34.png": "47° × 111 km = 5217 km",
+    "image35.png": "55° + 1° = 56°",
+    "image36.png": "56° × 111 km = 6216 km",
+    "image37.png": "25° + 30° = 55°",
+    "image38.png": "55° × 111 km = 6105 km",
+    "image39.png": "Midday sun angle = 90° − | Latitude − 0° |",
+    "image40.png": "Angle = 90° − | 0° − 0° | = 90°",
+    "image41.png": "Angle = 90° − | 90° − 0° | = 90° − 90° = 0°",
+    "image42.png": "Latitude = −15°, Declination = −23.5°",
+    "image43.png": "Angle = 90° − | −15° − (−23.5°) | = 90° − | 8.5° | = 90° − 8.5° = 81.5°",
+    "image44.png": "Latitude = 51°, Declination = 23.5°",
+    "image45.png": "Angle = 90° − | 51° − 23.5° | = 90° − 27.5° = 62.5°",
+    "image46.png": "Latitude = −23.5°, Declination = −23.5°",
+    "image47.png": "Angle = 90° − | −23.5° − (−23.5°) | = 90° − 0° = 90°",
+    "image48.png": "Midday Sun Angle = 90° − | Latitude − Declination |",
+    "image49.png": "70° = 90° − | Latitude − (−23.5°) |",
+    "image50.png": "| Latitude + 23.5° | = 90° − 70° = 20°",
+    "image51.png": "Latitude + 23.5° = 20°",
+    "image52.png": "Latitude = 20° − 23.5° = −3.5°",
+    "image53.png": "20° = 90° − | Latitude − (−23.5°) |",
+    "image54.png": "| Latitude + 23.5° | = 90° − 20° = 70°",
+    "image55.png": "Latitude + 23.5° = 70°",
+    "image56.png": "Latitude = 70° − 23.5° = 46.5°",
+    "image57.png": "70° = 90° − | Latitude |",
+    "image58.png": "| Latitude | = 90° − 70° = 20°",
+    "image59.png": "45° = 90° − | Latitude |",
+    "image60.png": "| Latitude | = 90° − 45° = 45°",
+    "image61.png": "90° = 90° − | Latitude − 23.5° |",
+    "image62.png": "| Latitude − 23.5° | = 0",
+    "image63.png": "Latitude = 23.5°N",
+    "image64.png": "60° = 90° − | Latitude − (−23.5°) |",
+    "image65.png": "| Latitude + 23.5° | = 90° − 60° = 30°",
+    "image66.png": "Latitude + 23.5° = 30°",
+    "image67.png": "Latitude = 30° − 23.5° = 6.5°S",
+    "image68.png": "Altitude = 90° − | Latitude |",
+    "image69.png": "55° = 90° − | Latitude | ⇒ | Latitude | = 35°",
+    "image70.png": "Altitude = 90° − | Latitude − Declination | = 90° − | 5° − 0° | = 85°",
+    "image72.png": "90° − 1° = 89°",
+    "image73.png": "90° − 13° = 77°",
+    "image74.png": "Altitude = 90° − (Latitude − Declination)",
+    "image75.png": "= 90° − (40° − 23.5°) = 90° − 16.5° = 73.5°",
+    "image76.png": "70° = 90° − (Latitude − 23.5°)",
+    "image77.png": "Latitude − 23.5° = 20°",
+    "image78.png": "Latitude = 43.5°S",
+    "image80.png": "5° × 111 km = 555 km",
+    "image82.png": "13° × 111 km = 1443 km"
+  },
+  "edit": [
+    {
+      "find": "Chipata (32°E): Time difference: minutes hours minutes",
+      "with": "Chipata (32°E): Time difference: 32 × 4 = 128 minutes = 2 hours 8 minutes"
+    },
+    {
+      "find": "Kitwe (28°E): Time difference: minutes hour minutes",
+      "with": "Kitwe (28°E): Time difference: 28 × 4 = 112 minutes = 1 hour 52 minutes"
+    },
+    {
+      "find": "Time difference: hours ahead",
+      "with": "Time difference: 45° ÷ 15° = 3 hours ahead"
+    },
+    {
+      "find": "Total difference: 75° + 135° = 210° → hours",
+      "with": "Total difference: 75° + 135° = 210° → 210 ÷ 15 = 14 hours"
+    },
+    {
+      "find": "Tilt from the ground = .",
+      "with": "Tilt from the ground = 90° − Altitude = 90° − 85° = 5°."
+    },
+    {
+      "find": "Difference in latitude:",
+      "with": "Difference in latitude: 13° − 8° = 5°"
+    },
+    {
+      "find": "Difference in latitude:",
+      "after": "Harare 17",
+      "with": "Difference in latitude: 30° − 17° = 13°"
+    },
+    {
+      "find": "Answer: 2. Differentiate between rotation and revolution",
+      "with": "Answer:"
+    },
+    {
+      "find": ". Case Study: Population vs. Resources",
+      "with": "Case Study: Population vs. Resources"
+    },
+    {
+      "find": "Exercise B: Find the distance between the following places",
+      "with": "Exercise C: Find the distance between the following places"
+    }
+  ],
+  "editAnswer": [
+    {
+      "find": "Time difference: hours ahead",
+      "with": "Time difference: 30° ÷ 15° = 2 hours ahead"
+    },
+    {
+      "find": "45° difference\nTime difference: hours",
+      "with": "45° difference\nTime difference: 45° ÷ 15° = 3 hours"
+    },
+    {
+      "find": "Difference: 30° → hours",
+      "with": "Difference: 30° → 30 ÷ 15 = 2 hours"
+    },
+    {
+      "find": "Difference in longitude: 30°\nTime difference: hours",
+      "with": "Difference in longitude: 30°\nTime difference: 30° ÷ 15° = 2 hours"
+    },
+    {
+      "find": "for defence, policing, and1)",
+      "with": "for defence and policing."
+    },
+    {
+      "find": " Rapid population growth increases the number of people who are available to work, giving Zambia a larger labour force for farms, mines, factories, and services. If these people receive education and skills training, they can support higher production and economic growth. For example, a growing number of trained youths can work in the mining sector, helping to expand copper production and increase national income.",
+      "with": ""
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "1.5. POPULATION",
+      "text": "TOPIC 1.5: POPULATION",
+      "as": "h1"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "Matching: Greenhouse Gases and Sources",
+      "marker": "2.",
+      "depth": 0
+    },
+    {
+      "find": "Short-Answer Analysis",
+      "marker": "3.",
+      "depth": 0
+    },
+    {
+      "find": "Critical Thinking Scenario",
+      "marker": "4.",
+      "depth": 0
+    },
+    {
+      "find": "and City Y is at",
+      "marker": "2.",
+      "depth": 0
+    },
+    {
+      "find": "and Point D is at",
+      "marker": "3.",
+      "depth": 0
+    },
+    {
+      "find": "Calculate the distance from the",
+      "marker": "4.",
+      "depth": 0
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Spot the Difference: Case Studies",
+      "with": [
+        {
+          "raw": {
+            "kind": "q",
+            "q": "Spot the Difference: Case Studies",
+            "qseg": [
+              {
+                "t": "Spot the Difference: Case Studies",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "a": "Read these three scenarios and decide if they describe Weather or Climate:",
+            "aseg": [
+              {
+                "t": "Read these three scenarios and decide if they describe ",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "Weather",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": " or ",
+                "b": false,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "Climate",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": ":",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "2.",
+            "depth": 0
+          }
+        }
+      ]
+    },
+    {
+      "find": "Read these three scenarios and decide if they describe Weather or Climate:",
+      "with": []
+    },
+    {
+      "find": "",
+      "next": "The Sudden Storm",
+      "with": []
+    },
+    {
+      "find": "Atmosphere: The envelope of gases surrounding the Earth, held in place by gravity.",
+      "with": []
+    },
+    {
+      "find": "Atmosphere: The layer of gases surrounding a planet, held in place by its gravity.",
+      "with": []
+    },
+    {
+      "find": "Atmosphere: The thin envelope of gases surrounding the Earth, held in place by gravity.",
+      "with": []
+    },
+    {
+      "find": "Hemisphere: Half of the Earth. The Equator creates the North/South hemispheres, while the Prime Meridian creates the East/West hemispheres.",
+      "with": []
+    },
+    {
+      "find": "Rotation: The spinning of a celestial body on its imaginary internal line called an axis.",
+      "with": []
+    },
+    {
+      "find": "Equator: The great circle drawn around the Earth equidistant from the poles, dividing it into the Northern and Southern Hemispheres.",
+      "with": []
+    }
+  ],
+  "tables": [
+    {
+      "match": "Burning charcoal excessively",
+      "columns": [
+        "Statement",
+        "Answer"
+      ],
+      "rows": [
+        [
+          "1. Cutting down trees without replanting",
+          "U"
+        ],
+        [
+          "2. Using solar energy for cooking",
+          "S"
+        ],
+        [
+          "3. Overfishing in rivers",
+          "U"
+        ],
+        [
+          "4. Recycling plastic bottles",
+          "S"
+        ],
+        [
+          "5. Burning charcoal excessively",
+          "U"
+        ]
+      ]
+    }
+  ]
+}
