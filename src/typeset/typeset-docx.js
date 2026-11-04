@@ -7192,6 +7192,7 @@ async function typesetOne(docxPath, themeName) {
   importOpts.removeImages = ov.removeImages || [];
   HEAD_LIST_SPACING = !!ov.headListSpacing;
   importOpts.romanSubParts = !!ov.romanSubParts;
+  importOpts.boxAllRows = !!ov.boxAllRows;
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);

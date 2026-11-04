@@ -433,6 +433,18 @@
     {
       "from": "religionss",
       "to": "religions"
+    },
+    {
+      "from": "school feeding program",
+      "to": "school feeding programme"
+    },
+    {
+      "from": "community support programs",
+      "to": "community support programmes"
+    },
+    {
+      "from": "Practical Solutions At School Level:",
+      "to": "Practical Solutions at School Level:"
     }
   ],
   "//editAll": "\"Competences to be developed : citizenship\" (Topic 1) has a space before its colon, split across runs so subtext cannot reach it.",
@@ -821,6 +833,10 @@
       "find": "Possible Answers: ",
       "with": "",
       "after": "Identify any three values of friendship"
+    },
+    {
+      "find": "stewardship of resources and",
+      "with": "stewardship of resources and intergenerational responsibility over individualistic accumulation."
     }
   ],
   "editAnswer": [
@@ -919,6 +935,34 @@
     {
       "find": "Light Industrial Area",
       "in": "Zambia Education"
+    },
+    {
+      "find": "ii. School implements",
+      "in": "i. Family develops"
+    },
+    {
+      "find": "ii. Cleaning surroundings",
+      "in": "i. Planting trees"
+    },
+    {
+      "find": "iii. Conserving water",
+      "in": "ii. Cleaning surroundings"
+    },
+    {
+      "find": "ii. Stress and emotional",
+      "in": "i. Hunger"
+    },
+    {
+      "find": "iii. Reduced academic",
+      "in": "ii. Stress and emotional"
+    },
+    {
+      "find": "iv. Potential social",
+      "in": "iii. Reduced academic"
+    },
+    {
+      "find": "iv.",
+      "in": "iii. Physical suffering"
     }
   ],
   "setMarker": [
@@ -964,6 +1008,14 @@
   "mergePara": [
     {
       "find": "critical thinking, analytical"
+    }
+  ],
+  "//boxAllRows": "Many activity boxes are tables Word split into two rows at a page break; the second row (answers, competences) never printed.",
+  "boxAllRows": true,
+  "removeWhereNext": [
+    {
+      "find": "intergenerational responsibility over individualistic accumulation",
+      "next": "Islam: Earn and spend"
     }
   ]
 }
