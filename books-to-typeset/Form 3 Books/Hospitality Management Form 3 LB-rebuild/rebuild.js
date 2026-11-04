@@ -603,7 +603,9 @@ function drawingParts(d) {
   const TEXTFIX = [[/(LEARNING ACTIVITY 2: )L (Performing guest privacy drills)/g, '$1$2'], [/(<w:t(?: [^>]*)?>)([a-h]\))(?=[A-Z])/g, '$1$2 '], [/ENTERPRENEURSHIP/g, 'ENTREPRENEURSHIP'], [/Enterpreneurship/g, 'Entrepreneurship'],
     // "Business Adventure" for "Business Venture" (Sub-Topic 3.8.1, printed page 133) and
     // "your adventure" in the sentence under it — corrected on the user's instruction, 19 Oct 2026
-    [/Business Adventure/g, 'Business Venture'], [/your adventure and drive growth/g, 'your venture and drive growth']];
+    [/Business Adventure/g, 'Business Venture'], [/your adventure and drive growth/g, 'your venture and drive growth'],
+    // Sub-Topic 3.3.2 heading "Benefits Of Good" and "Present your chat" (Contouring LA3, p.69) - the user's instruction, 19 Oct 2026
+    [/Benefits Of Good Customer Care/g, 'Benefits of Good Customer Care'], [/(<w:t>)chat(<\/w:t>)/g, '$1chart$2']];   // "chat" sits in a run of its own
   const fixText = (x) => { for (const [re, to] of TEXTFIX) if (x.search(re) >= 0) { log.push(`text fixed: ${re}`); x = x.replace(re, to); } return x; };
   const body = res.map(xmlOf).map((x) => fixText(x.replace(/<w:p\b[\s\S]*?<\/w:p>/g, (p) => leadFix(wordSplitFix(fixHyphens(p)))))).join('');
   const newDoc = doc.slice(0, bStart) + body + lastSect + doc.slice(doc.lastIndexOf('</w:body>'));

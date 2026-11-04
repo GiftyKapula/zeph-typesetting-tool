@@ -399,7 +399,7 @@ function emit(blocks) {
       // block must keep its own spacing) and reset to normal at the first unit.
       case "showpage": out += `#pagebreak(weak: true)\n#pgvisible.update(true)\n#set par(spacing: ${b.spacing || "1.9em"})\n`; break;
       case "bodystart": out += `#pagebreak(weak: true)\n#counter(page).update(1)\n#set page(numbering: "1")\n#set par(spacing: 0.86em)\n`; break;
-      case "sigspace": out += `#sigspace()\n`; break;
+      case "sigspace": out += b.h ? `#v(${b.h}, weak: true)\n` : `#sigspace()\n`; break;
       case "signature": out += `#signature(${arr(b.lines, (l) => `(text: ${S(l.text)}, bold: ${l.bold ? "true" : "false"})`)})\n`; break;
       case "backcover": out += `#backcover(${strArr(b.lines || [])}, ${b.logo ? `(file: ${S(b.logo.file)})` : "none"}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
       case "h1": {
@@ -549,7 +549,7 @@ function emit(blocks) {
         const nb = nextB;
         const big = (b.w || 0) >= 400 || b.tall;
         const sticky = !big && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
-        out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
+        out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption.replace(/ {2,}/g, " ")) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
@@ -1439,7 +1439,10 @@ function groupSignatories(b) {
   // source glued into one paragraph, e.g. "Noriana Muneku (Ms.)Permanent
   // Secretary…MINISTRY OF EDUCATION").
   const SIGINLINE = /\(\s*(?:dr|ms|mr|mrs|prof|hon|ph\.?\s?d|ed\.?\s?d|m\.?\s?ed|phd)\.?\s*\)/i;
-  const plainOfBlk = (x) => (x.t === "head" || x.t === "label" ? (x.text || "") : (x.segs || []).map((s) => s.t).join("")).trim();
+  // A bold signatory line can also arrive as an h2/h3 (a manuscript that styled the name and
+  // the organisation as Word headings: Hospitality Form 3 LB), so those count as text lines too.
+  const SIGHEAD = new Set(["head", "label", "h2", "h3"]);
+  const plainOfBlk = (x) => (SIGHEAD.has(x.t) ? (x.text || "") : (x.segs || []).map((s) => s.t).join("")).trim();
   // An organisation line in a signatory block (e.g. "Ministry of Education",
   // "Zambia Educational Publishing House") is set BOLD and UPPERCASE — the house
   // style the all-caps orgs already follow. Build one signature line, marking the
@@ -1450,8 +1453,8 @@ function groupSignatories(b) {
     const isOrg = SIGORG.test(txt);
     return { text: isOrg ? txt.toUpperCase() : txt, bold: isName || isAllCaps || isOrg };
   };
-  const isText = (x) => x && (x.t === "para" || x.t === "head" || x.t === "label");
-  const isBold = (x) => x.t === "head" || x.t === "label" || (x.segs ? x.segs.some((s) => s.b) : false);
+  const isText = (x) => x && (x.t === "para" || SIGHEAD.has(x.t));
+  const isBold = (x) => SIGHEAD.has(x.t) || (x.segs ? x.segs.some((s) => s.b) : false);
   {
     let section = "", done = false, withSig = [];
     for (let i = 0; i < b.length; i++) {
@@ -2873,7 +2876,9 @@ function applyOverrides(blocks, ov) {
   // e.g. de-shout a label from ALL CAPS to Title Case ("GENERAL COMPETENCES:"→"General
   // Competences:") while keeping it bold. Runs after any italiciseFrom pass.
   for (const rt of ov.retext || []) {
-    for (const b of flat) for (const s of b.segs || []) {
+    // (a question's or answer's runs too: a stray one-letter run "G" + "uest arrives…"
+    // sat in an exercise question, where walking `.segs` alone never reached it)
+    for (const b of flat) for (const s of [...(b.segs || []), ...(b.qseg || []), ...(b.aseg || [])]) {
       if (!s.m && (s.t || "").trim() === rt.from) s.t = s.t.replace(rt.from, rt.to);
     }
   }
@@ -2890,6 +2895,76 @@ function applyOverrides(blocks, ov) {
   // Needed for Forgiveness", kept it, and "organizations" survived inside an assessment
   // question. A spelling correction that reaches half a book is worse than none, because
   // the book then disagrees with itself in print.
+  // tidyPunctSpace: true — no space before , . ; : ? ! ("health and safety , which",
+  // "include :"). The slip usually sits on a run boundary (a bold term keeps its trailing
+  // space and the comma starts the next run), where no `subtext` can reach it, so walk
+  // every run array in the book, table cells included. Math runs are left alone.
+  // Opt-in per book (Hospitality Form 3 LB had some thirty of them).
+  if (ov.tidyPunctSpace) {
+    const P = /^[,.;:?!]/;
+    // A whole-space run between two runs (a book converted from a PDF breaks a sentence
+    // at every old line end: "…monotonous" + " " + "meals") is folded into the run
+    // before it, and neighbouring runs with the same formatting are joined, so that a
+    // later `subtext` can match wording that crossed one of those old line ends.
+    const same = (a, b) => {
+      const ka = Object.keys(a).filter((k) => k !== "t"), kb = Object.keys(b).filter((k) => k !== "t");
+      return ka.length === kb.length && ka.every((k) => JSON.stringify(a[k]) === JSON.stringify(b[k]));
+    };
+    const join = (segs) => {
+      for (let i = 1; i < segs.length; i++) {
+        const a = segs[i - 1], b = segs[i];
+        if (!a || !b || typeof a.t !== "string" || typeof b.t !== "string" || a.m || b.m) continue;
+        // (a run of closing punctuation alone takes the formatting of the word it
+        // closes: "…when it is broken" + a bold "." printed a bold full stop)
+        if ((/^\s+$/.test(b.t) && !b.u) || /^[,.;:?!]+\s*$/.test(b.t) || same(a, b)) { a.t += b.t; segs.splice(i, 1); i--; }
+      }
+    };
+    const tidy = (segs) => {
+      join(segs);
+      let prev = null;
+      for (const s of segs) {
+        if (!s || typeof s.t !== "string" || s.m) { prev = null; continue; }
+        // (doubled spaces too: "In small  groups", "research on  the")
+        s.t = s.t.replace(/ {2,}/g, " ").replace(/[  ]+(?=[,.;:?!](?!\.\.))/g, "");
+        if (prev && P.test(s.t)) prev.t = prev.t.replace(/[  ]+$/, "");
+        if (s.t) prev = s;
+      }
+    };
+    const walk = (o) => {
+      if (Array.isArray(o)) { o.forEach(walk); return; }
+      if (!o || typeof o !== "object") return;
+      for (const k of ["segs", "qseg", "aseg", "seg"]) if (Array.isArray(o[k])) tidy(o[k]);
+      for (const k of ["text", "q", "a", "plain", "title", "caption"]) if (typeof o[k] === "string") o[k] = o[k].replace(/[  ]+(?=[,.;:?!](?!\.\.))/g, "");
+      for (const v of Object.values(o)) if (v && typeof v === "object") walk(v);
+    };
+    walk(blocks);
+  }
+  // endStop: ["…end of a sentence", …] — add the missing full stop to every paragraph,
+  // list item or question whose text ENDS with that wording and carries no closing
+  // punctuation. Matching the end of the block (not a substring) is what makes it safe
+  // where `subtext` is not: "Present your work to the class" recurs in many activities,
+  // some already closed with a full stop, and a substring swap would double those.
+  for (const want of ov.endStop || []) {
+    let n = 0;
+    const visit = (o) => {
+      if (Array.isArray(o)) { o.forEach(visit); return; }
+      if (!o || typeof o !== "object") return;
+      for (const k of ["segs", "qseg"]) {
+        const segs = o[k];
+        if (!Array.isArray(segs) || !segs.length) continue;
+        const plain = segs.map((s) => (typeof s.t === "string" ? s.t : "")).join("").replace(/\s+$/, "");
+        if (!plain.endsWith(want) || /[.?!:;]["”’)]*$/.test(plain)) continue;
+        const last = [...segs].reverse().find((s) => typeof s.t === "string" && s.t.trim() && !s.m);
+        if (!last) continue;
+        last.t = last.t.replace(/\s+$/, "") + ".";
+        if (k === "qseg" && typeof o.q === "string") o.q = o.q.replace(/\s+$/, "") + ".";
+        n++;
+      }
+      for (const v of Object.values(o)) if (v && typeof v === "object") visit(v);
+    };
+    visit(blocks);
+    if (!n) console.warn("!  endStop not matched:", want);
+  }
   for (const st of ov.subtext || []) {
     let n = 0;
     const inSegs = (segs) => { for (const s of segs || []) {
@@ -3354,7 +3429,23 @@ function applyOverrides(blocks, ov) {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
+        // `in`: only the paragraph whose text also contains this (the split point,
+        // e.g. "Present your work to the class", recurs all over a book)
+        if (sp.in && !blockPlain(b).includes(sp.in)) {
+          for (const key of Object.keys(b)) {
+            if (Array.isArray(b[key]) && b[key].some((x) => x && typeof x === "object" && (x.segs || x.body || x.parts || x.qseg))) { walk(b[key]); if (done) return; }
+          }
+          continue;
+        }
         if ((b.t === "para" || b.t === "listitem") && b.segs) {
+          // the wording may also sit MID-run ("…shower room gets flooded work in groups
+          // and:"), two sentences the manuscript typed into one paragraph: cut that run in
+          // two at the match first, so the split below finds it at a run start
+          const mid = b.segs.findIndex((s) => typeof s.t === "string" && s.t.indexOf(sp.find) > 0);
+          if (mid >= 0 && !b.segs.some((s) => typeof s.t === "string" && s.t.trimStart().startsWith(sp.find))) {
+            const s = b.segs[mid], at = s.t.indexOf(sp.find);
+            b.segs.splice(mid, 1, { ...s, t: s.t.slice(0, at).replace(/\s+$/, "") }, { ...s, t: s.t.slice(at) });
+          }
           const k = b.segs.findIndex((s) => typeof s.t === "string" && s.t.trimStart().startsWith(sp.find));
           // carry the source paragraph's alignment onto the new one, so splitting a
           // centred imprint line ("Cover and Page Design by X") leaves both halves
@@ -3393,12 +3484,66 @@ function applyOverrides(blocks, ov) {
   // left out of the count is included. `parentBefore: "a."` inserts an empty depth-0 "1."
   // parent immediately before the part with that marker (a sub-list a,b,c… whose parent
   // "1." was lost). Tree-aware; first matching exercise only.
+  // splitSubParts: true — a question that carries its own lettered sub-questions typed on
+  // (or broken onto) the same paragraph — "How would you help…? b) Explain… c) Identify…",
+  // "…could affect: a) the guest; and b) the establishment" — is split into one part per
+  // letter, each with its own marker. Only a run of letters in order counts (b, c… after an
+  // "a)" part; a, b… after a numbered question), so "(e.g. a) …" never splits. Run
+  // formatting is kept. Opt-in (Hospitality Form 3 LB: twenty such questions).
+  if (ov.splitSubParts) {
+    const sliceSegs = (segs, from, to) => {
+      const out = []; let pos = 0;
+      for (const s of segs) {
+        const t = typeof s.t === "string" ? s.t : "";
+        const a = Math.max(from, pos), b = Math.min(to, pos + t.length);
+        if (b > a) out.push({ ...s, t: t.slice(a - pos, b - pos) });
+        pos += t.length;
+      }
+      if (out.length) { out[0].t = out[0].t.replace(/^\s+/, ""); out[out.length - 1].t = out[out.length - 1].t.replace(/\s+$/, ""); }
+      return out.filter((s) => s.t !== "");
+    };
+    const visit = (o) => {
+      if (Array.isArray(o)) { o.forEach(visit); return; }
+      if (!o || typeof o !== "object") return;
+      if (Array.isArray(o.parts)) {
+        for (let i = 0; i < o.parts.length; i++) {
+          const p = o.parts[i];
+          if (p.kind !== "q" || !Array.isArray(p.qseg)) continue;
+          const text = p.qseg.map((s) => (typeof s.t === "string" ? s.t : "")).join("");
+          const own = /^([a-z])\)$/.exec(p.marker || "");
+          let want = own ? String.fromCharCode(own[1].charCodeAt(0) + 1) : "a";
+          const cuts = [];
+          const re = /(^|[.?;:,]\s*|\n\s*|\band\s+)([a-z])\)\s+/g;
+          let m;
+          while ((m = re.exec(text))) {
+            if (m[2] !== want) continue;
+            cuts.push({ at: m.index + m[1].length, body: m.index + m[0].length, letter: m[2] });
+            want = String.fromCharCode(want.charCodeAt(0) + 1);
+          }
+          if (!cuts.length || (!own && cuts.length < 2)) continue;
+          const depth = own ? (p.depth || 0) : (p.depth || 0) + 1;
+          const head = sliceSegs(p.qseg, 0, cuts[0].at);
+          const subs = cuts.map((c, k) => {
+            const segs = sliceSegs(p.qseg, c.body, k + 1 < cuts.length ? cuts[k + 1].at : text.length);
+            // the item ends with "; and" / ";" in a run-on list: keep its own wording
+            return { kind: "q", q: segs.map((s) => s.t).join(""), qseg: segs, a: "", aseg: [], marker: c.letter + ")", depth };
+          });
+          if (!head.length && !own) continue;
+          p.qseg = head; p.q = head.map((s) => s.t).join("");
+          o.parts.splice(i + 1, 0, ...subs);
+          i += subs.length;
+        }
+      }
+      for (const v of Object.values(o)) if (v && typeof v === "object") visit(v);
+    };
+    visit(blocks);
+  }
   for (const fx of ov.fixExercise || []) {
     let target = null;
     const walk = (arr) => {
       for (const b of arr) {
         if (!b || typeof b !== "object") continue;
-        if (!target && b.t === "exercise" && (b.heading || "").trim().replace(/\s+/g, " ") === fx.match
+        if (!target && (b.t === "exercise" || b.t === "assessment") && (b.heading || b.title || "").trim().replace(/\s+/g, " ") === fx.match
             && (!fx.near || JSON.stringify(b.parts || []).includes(fx.near))) { target = b; return; }
         for (const k of Object.keys(b)) if (Array.isArray(b[k])) { walk(b[k]); if (target) return; }
       }
@@ -3426,11 +3571,24 @@ function applyOverrides(blocks, ov) {
     // instruction line); a value like "1." numbers it. Used where an author numbers only a
     // sub-list inside the box (e.g. Activity 3's four grouping blanks numbered 1–4, with the
     // surrounding "Imagine…"/"Present…" instructions left as plain sentences).
+    // italic: true — set the whole box in italics like the book's other exercises (a box
+    // whose scenario or questions arrived in roman, wholly or in patches)
+    // (`italic: false` sets a box roman, like the book's assessments)
+    if (fx.italic !== undefined) for (const p of parts) for (const s of p.qseg || []) if (!s.m && typeof s.t === "string") s.it = !!fx.italic;
+    // romanToLetters: true — sub-parts numbered i. ii. iii. take the book's a) b) c)
+    // instead (same depth), for a box the writer numbered differently from the rest
+    if (fx.romanToLetters) {
+      const R = { "i.": "a)", "ii.": "b)", "iii.": "c)", "iv.": "d)", "v.": "e)", "vi.": "f)" };
+      for (const p of parts) if (R[p.marker]) p.marker = R[p.marker];
+    }
     if (Array.isArray(fx.markers)) {
       parts.forEach((p, idx) => {
         if (idx >= fx.markers.length) return;
         const mk = fx.markers[idx];
         if (mk === null) return;      // null leaves this part exactly as-is (skip it)
+        // "lead": the part is the exercise's scenario, numbered as question 1 by mistake —
+        // make it the plain lead-in line every other exercise opens with (flush, unnumbered)
+        if (mk === "lead") { p.kind = "lead"; p.marker = ""; p.depth = 0; return; }
         p.marker = mk; p.depth = 0;
         // a non-empty marker must render as a numbered item: promote a bare "lead" line
         // (e.g. an answer sequence the import left un-numbered) to a proper question part.
@@ -3574,7 +3732,7 @@ function applyOverrides(blocks, ov) {
           arr.splice(i, 1); done = true; return;
         }
         for (const key of Object.keys(b)) {
-          if (Array.isArray(b[key]) && b[key].some((x) => x && typeof x === "object" && (x.segs || x.body || x.parts || typeof x.text === "string"))) { walk(b[key]); if (done) return; }
+          if (Array.isArray(b[key]) && b[key].some((x) => x && typeof x === "object" && (x.segs || x.qseg || x.body || x.parts || typeof x.text === "string"))) { walk(b[key]); if (done) return; }
         }
       }
     };
@@ -3662,7 +3820,10 @@ function applyOverrides(blocks, ov) {
   // activity instead of after it, next to its caption — can be moved back to the
   // manuscript's visual order. Anchors are matched against the CURRENT order, so list
   // moves front-to-back.
-  const mbMatch = (b, needle) => blockPlain(b).includes(needle) || (b.t === "image" && (b.file || "").includes(needle));
+  // (an exercise box is also found by the wording of its scenario/questions: its own
+  // plain text is only its heading, "EXERCISE 1", which every topic repeats)
+  const mbMatch = (b, needle) => blockPlain(b).includes(needle) || (b.t === "image" && (b.file || "").includes(needle))
+    || (Array.isArray(b.parts) && b.parts.some((p) => typeof p.q === "string" && p.q.includes(needle)));
   for (const mv of ov.moveBefore || []) {
     // `near`: disambiguate a `find` that recurs throughout the book (e.g. a generic
     // "Reading Passage" heading repeated every lesson) — locate the UNIQUE `near` text
@@ -7214,7 +7375,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base));
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
@@ -7894,6 +8055,11 @@ function normaliseQuestionMarkBold(blocks) {
       blocks.splice(fmAt + 1, 0, { t: "parspacing", v: ov.fmSpacing || "1.9em" });
     }
   }
+  // `sigGap` (e.g. "20mm"): a taller signing space above every Foreword/Preface/
+  // Acknowledgement signatory than the template's 12 mm, for a reviewer who asked for
+  // more room to sign (Hospitality Form 3 LB, round 1). Opt-in per book.
+  if (ov.sigGap) for (const b of blocks) if (b.t === "sigspace") b.h = ov.sigGap;
+
   // `backCover: true` — the house back cover (logo, "Published by", ISBN box) for a
   // portrait layout outside the series/science family, which never gets one from
   // applySeriesFront. Having it is also what lets the printer's cover spread (and its
@@ -8115,6 +8281,9 @@ function normaliseQuestionMarkBold(blocks) {
   // A larger book-type line on the front cover ("LEARNER'S BOOK"), e.g. "24pt" — a
   // reviewer's "increase font size" there (Geography Form 1 LB, CDC 2026-11). Opt-in.
   if (ov.coverBooktypeSize) themeOverrides.covBooktypeSize = ov.coverBooktypeSize;
+  // "hyphenate": false — no word broken across two lines (a reviewer marked every
+  // "profes-sional" break); otherwise the theme's own setting
+  if (ov.hyphenate !== undefined) themeOverrides.hyphenate = !!ov.hyphenate;
   // Figure captions in bold (still italic, same size) — a reviewer's "captions under
   // illustrations should be put in bold, for all". Opt-in per book.
   if (ov.boldCaptions) themeOverrides.capBold = true;
