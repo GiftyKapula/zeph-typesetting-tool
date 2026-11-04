@@ -1,5 +1,5 @@
 {
-  "//coverImage": "Round 1, at Teddy's request: a fresh one-pass Canva picture (media MAHZ-4ZXmEc, 1680x944), exported at 1920x1080 with no AI upscaling, about 334 PPI on the 146 mm cover panel. Repeated Canva edits plus Real-ESRGAN had smeared the earlier version.",
+  "//coverImage": "Round 1, at Teddy's request: a fresh one-pass Canva picture with a blank board (media MAHZ-9d0lPg, 1680x944), exported at 1920x1080 and cropped 1:1 to the cover panel, no AI upscaling, about 334 PPI. Repeated Canva edits plus Real-ESRGAN had smeared an earlier version; the chalk map was tried and dropped.",
   "coverImage": "Religious Education Form 3 TG-art/cover-classroom.png",
   "//synthesiseCover": "The manuscript's cover page is three stacked copies of the title block ('RELIGIOUS' / 'EDUCATION' / 'FORM 3' on separate lines, twice with a stray 'Form' + '3' split), so the detected cover read 'RELIGIOUS' as the whole title, printed 'FORM 3' twice and put the imprint line 'Zambia Education Publishing House Lusaka' where the authors go. Built fresh from title/subject/book type instead.",
   "synthesiseCover": true,
