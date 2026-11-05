@@ -1,0 +1,1770 @@
+{
+  "_note_manuscript": "The manuscript came in as Word-laid-out text (Downloads/ECE 3-4 TG ICIBEMBA - typeset corrected .docx, saved 5 Nov 2026). Its bullets and exercise numbers exist only in Word's List Bullet / List Number styles, hence styleLists.",
+  "styleLists": true,
+  "grade": "ECE Levo 1",
+  "subject": "Icibemba",
+  "localLabels": true,
+  "keepFrontOrder": true,
+  "coversInBook": true,
+  "_note_cover": "The manuscript's cover picture (image2.png, 1564x1055) is a finished mock-up with ICIBEMBA, the book-type band and the age badge baked in. Word-free crop x 116-944, y 492-1021 at the series card's shape (the teacher and the children), Real-ESRGAN x4 then 2452x1568. Nothing painted; the wall poster 'A' stays in the scene.",
+  "coverImage": "ICIBEMBA ECE 3-4 TG-hires/cover.png",
+  "authors": [
+    "Dr Margaret Nambao"
+  ],
+  "_note_coverWords": "As the sister Icibemba ECE LB.",
+  "coverWords": {
+    "authors": "ABALEMBELE",
+    "contents": "Ifili mu Citabo",
+    "printedBy": "Calembelwe naba"
+  },
+  "titleAgeLine": "IMYAKA 3 - 4",
+  "tocUnitsOnly": false,
+  "termPages": "^TEMU [0-9]+$",
+  "fmSpacing": "1.2em",
+  "_note_labels": "One look for each recurring label: the manuscript types them as headings, run-in leads and loose lines.",
+  "uniformLabel": [
+    {
+      "prefix": "Ubulondoloshi",
+      "text": "Ubulondoloshi:"
+    },
+    {
+      "prefix": "Ubwishibilo",
+      "text": "Ubwishibilo:"
+    },
+    {
+      "prefix": "Ifilefwaikwa Ukwishiba",
+      "text": "Ifilefwaikwa Ukwishiba:"
+    },
+    {
+      "prefix": "Amashiwi Ayalefwaikwa Ukwishiba",
+      "text": "Amashiwi Ayalefwaikwa Ukwishiba:"
+    },
+    {
+      "prefix": "Isambililo",
+      "text": "Isambililo:"
+    },
+    {
+      "prefix": "Ifyakubomfya Pa Kufunda",
+      "text": "Ifyakubomfya Pa Kufunda:"
+    },
+    {
+      "prefix": "Imibombele ileenekelwa",
+      "text": "Imibombele ileenekelwa:"
+    },
+    {
+      "prefix": "Icipimo icileenekelwa",
+      "text": "Icipimo icileenekelwa:"
+    },
+    {
+      "prefix": "IBUKISHENI",
+      "text": "IBUKISHENI:"
+    },
+    {
+      "prefix": "Ukusupawila",
+      "text": "Ukusupawila:"
+    }
+  ],
+  "_note_signatory": "Front-matter signatories alike: name bold, title and office plain.",
+  "asPara": [
+    {
+      "find": "Noriana Muneka (Ms.)",
+      "bold": true
+    },
+    {
+      "find": "Dr Beatrice Chirwa",
+      "bold": true
+    },
+    {
+      "find": "Agness Mumba Wilkins (PhD)",
+      "bold": true
+    },
+    "MINISTRY OF EDUCATION",
+    "ZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+  ],
+  "_note_edit": "Keyboard slips only (capital inside a word, doubled letter or label, stray marks). No Icibemba wording changed: wording queries are left to the author.",
+  "editAll": [
+    {
+      "find": "ukuLanda",
+      "with": "ukulanda"
+    },
+    {
+      "find": "kuLanda",
+      "with": "kulanda"
+    },
+    {
+      "find": "angaLanda",
+      "with": "angalanda"
+    },
+    {
+      "find": "BeIpushanya",
+      "with": "Beipushanya"
+    },
+    {
+      "find": "IIpusha",
+      "with": "Ipusha"
+    },
+    {
+      "find": "ifint;",
+      "with": "ifintu;"
+    },
+    {
+      "find": ".Bacite",
+      "with": "Bacite"
+    },
+    {
+      "find": "IBUKISHENI: ",
+      "with": ""
+    },
+    {
+      "find": ": Ifiunda fya mu kalasi",
+      "with": "Ifiunda fya mu kalasi"
+    },
+    {
+      "find": "ifyo Bacite",
+      "with": "ifyo bacite"
+    },
+    {
+      "find": "ukuti Bakutike",
+      "with": "ukuti bakutike"
+    },
+    {
+      "find": "ukuti Bacite",
+      "with": "ukuti bacite"
+    },
+    {
+      "find": "ifyo Balande",
+      "with": "ifyo balande"
+    },
+    {
+      "find": "abasambi Balondolole",
+      "with": "abasambi balondolole"
+    },
+    {
+      "find": "abasambi Bakonke",
+      "with": "abasambi bakonke"
+    },
+    {
+      "find": "abasambi Bacite",
+      "with": "abasambi bacite"
+    }
+  ],
+  "_note_imprint": "Copyright page in the house order (Silozi G4 LB model): bold label above plain value, the manuscript's own Icibemba labels; layout credit the house default under the English label.",
+  "replaceBlocks": [
+    {
+      "find": "ISBN: …………………………… Abalembele:",
+      "with": []
+    },
+    {
+      "find": "Dr Margaret Nambao (PhD)",
+      "with": []
+    },
+    {
+      "find": "Abapitulwike mucitabo niba:",
+      "with": []
+    },
+    {
+      "find": "……………………………",
+      "with": []
+    },
+    {
+      "find": "Cover and Book layout by:",
+      "with": []
+    },
+    {
+      "find": "Gift Kapula",
+      "with": []
+    },
+    {
+      "find": "Abalembele umuku wakubalilapo niba: Zambia Educational Publishing House Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road, P.O. Box 32708 Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "Calembelwe naba:",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House, 2026",
+      "with": [
+        {
+          "para": "**Abalembele:**",
+          "center": true
+        },
+        {
+          "para": "Dr Margaret Nambao (PhD)",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Abapitulwike mucitabo niba:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Abalembele umuku wakubalilapo niba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Calembelwe naba:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House, 2026",
+          "center": true
+        }
+      ]
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "TEMU 1",
+      "text": "TEMU 1",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 1",
+      "text": "ICIPANDE 1",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "UKUMFWA NA UKULANDA",
+      "text": "UKUMFWA NA UKULANDA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Amashina",
+      "text": "Umutwe: Amashina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ishina Lyandi",
+      "text": "Umutwe Unoono: Ishina Lyandi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukwasuka ishina",
+      "text": "Umutwe Unoono: Ukwasuka ishina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Cila musambi asuke kwishishina lyakwe.",
+      "text": "IFYAKUCITA 1: Cila musambi asuke kwishishina lyakwe.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "(i) Kafundisha",
+      "text": "(i) Kafundisha:",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "(ii) Abasambi:",
+      "text": "(ii) Abasambi:",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ishina lyandi",
+      "text": "Umutwe Unoono: Ishina lyandi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Cila musambi alande Ishina lyakwe",
+      "text": "IFYAKUCITA 2: Cila musambi alande Ishina lyakwe",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ishina lya munandi",
+      "text": "Umutwe Unoono: Ishina lya munandi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Cila musambi alande ishina lya munankwe",
+      "text": "IFYAKUCITA 3: Cila musambi alande ishina lya munankwe",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amashina ya balupwa lwandi",
+      "text": "Umutwe Unoono: Amashina ya balupwa lwandi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 4: Ukulumbula mashina ya balupwa",
+      "text": "IFYAKUCITA 4: Ukulumbula mashina ya balupwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ulupwa lwandi",
+      "text": "Umutwe Unoono: Ulupwa lwandi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 5: Abasambi balande ifyo bayampana mulupwa",
+      "text": "IFYAKUCITA 5: Abasambi balande ifyo bayampana mulupwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKUTAMPA UKUSAMBILILA UKUBELENGA",
+      "text": "UKUTAMPA UKUSAMBILILA UKUBELENGA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ukulanshanya",
+      "text": "Umutwe: Ukulanshanya",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukwikata Ibuuku",
+      "text": "Umutwe Unoono: Ukwikata Ibuuku",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ifyakwikata Ibuuku",
+      "text": "IFYAKUCITA 1: Ifyakwikata Ibuuku",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifyakubika Ibuuku",
+      "text": "Umutwe Unoono: Ifyakubika Ibuuku",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Abasambi basambilile ifyakubika bwino Ibuuku",
+      "text": "IFYAKUCITA 2: Abasambi basambilile ifyakubika bwino Ibuuku",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono 2: Ifyakwikata Ibuuku",
+      "text": "Umutwe Unoono: Ifyakwikata Ibuuku",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukusambilila ifyakwikata Ibuuku",
+      "text": "IFYAKUCITA 3: Ukusambilila ifyakwikata Ibuuku",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukupilibula amapepala/amabula",
+      "text": "Umutwe Unoono: Ukupilibula amapepala/amabula",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 4: Ifyakupilibula amapepala mwi buuku",
+      "text": "IFYAKUCITA 4: Ifyakupilibula amapepala mwi buuku",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ubupilibulo mu fikope",
+      "text": "Umutwe Unoono: Ubupilibulo mu fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 5: Ukulanda ubupilibulo bwa fikope",
+      "text": "IFYAKUCITA 5: Ukulanda ubupilibulo bwa fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKUTAMPA UKUSAMBILILA UKULEMBA",
+      "text": "UKUTAMPA UKUSAMBILILA UKULEMBA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Usambilila ukutampa ukulemba",
+      "text": "Umutwe: Usambilila ukutampa ukulemba",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukwikala Kusuma pakulemba",
+      "text": "Umutwe Unoono: Ukwikala Kusuma pakulemba",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukwikala bwino pa Kulemba",
+      "text": "Umutwe Unoono: Ukwikala bwino pa Kulemba",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ikala bwino pakulemba",
+      "text": "IFYAKUCITA 1: Ikala bwino pakulemba",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "AMASUKO YA UKWESHA PAMPELA YA CIPANDE",
+      "text": "UKWESHA PAMPELA YA CIPANDE",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 2",
+      "text": "ICIPANDE 2",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amashina ya filundwa fya mubili",
+      "text": "Umutwe Unoono: Amashina ya filundwa fya mubili",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulumbula amashina ya filundwa fya mubili",
+      "text": "IFYAKUCITA 1: Ukulumbula amashina ya filundwa fya mubili",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukusonta ifilundwa fya mubili",
+      "text": "Umutwe Unoono: Ukusonta ifilundwa fya mubili",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Basote ifilundwa fya mubili noku filumbula",
+      "text": "IFYAKUCITA 2: Basote ifilundwa fya mubili noku filumbula",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amashina yafintu ifisangwa mu ng’anda",
+      "text": "Umutwe Unoono: Amashina yafintu ifisangwa mu ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukulumbula amashina yafintu ifisangwa mu ng’anda",
+      "text": "IFYAKUCITA 3: Ukulumbula amashina yafintu ifisangwa mu ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amashina yafitekwa",
+      "text": "Umutwe Unoono: Amashina yafitekwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 4: Ukulumbula amashina yafitekwa",
+      "text": "IFYAKUCITA 4: Ukulumbula amashina yafitekwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukumfwikisha ifyalembwa",
+      "text": "Umutwe Unoono: Ukumfwikisha ifyalembwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 5: Abasambi bomfwikisha ifyalembwa",
+      "text": "IFYAKUCITA 5: Abasambi bomfwikisha ifyalembwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ukumfwikisha Ifyalembwa",
+      "text": "Umutwe: Ukumfwikisha Ifyalembwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Iciunda /k/",
+      "text": "Umutwe Unoono: Iciunda /k/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Abasambi balange icikope ca ciunda /k/",
+      "text": "IFYAKUCITA 1: Abasambi balange icikope ca ciunda /k/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Iciunda /m/",
+      "text": "Umutwe Unoono: Iciunda /m/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Abasambi balange icikope ca ciunda /m/",
+      "text": "IFYAKUCITA 2: Abasambi balange icikope ca ciunda /m/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Imilembele",
+      "text": "Umutwe: Imilembele",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukwangusha iminwe",
+      "text": "Umutwe Unoono: Ukwangusha iminwe",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukwangusha iminwe",
+      "text": "IFYAKUCITA 1: Ukwangusha iminwe",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKWESHA PAMPELA YA CIPANDE",
+      "text": "UKWESHA PAMPELA YA CIPANDE",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 3",
+      "text": "ICIPANDE 3",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ukuposhanya",
+      "text": "Umutwe: Ukuposhanya",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukuposhanya panshita ishapusana-pusana",
+      "text": "Umutwe Unoono: Ukuposhanya panshita ishapusana-pusana",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ifya kuposhanya inshita yonse",
+      "text": "IFYAKUCITA 1: Ifya kuposhanya inshita yonse",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ifiunda",
+      "text": "Umutwe: Ifiunda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifiunda ifipangwa ne finama",
+      "text": "Umutwe Unoono: Ifiunda ifipangwa ne finama",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukupashanya Ifiunda ne fikope",
+      "text": "IFYAKUCITA 1: Ukupashanya Ifiunda ne fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifiunda fya mu kalasi",
+      "text": "Umutwe Unoono: Ifiunda fya mu kalasi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukupanga ifiunda ukubomfya ifintu fya mu kalasi",
+      "text": "IFYAKUCITA 2: Ukupanga ifiunda ukubomfya ifintu fya mu kalasi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifiunda /t/",
+      "text": "Umutwe Unoono: Ifiunda /t/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukupashanya ifikope fya ciunda /t/",
+      "text": "IFYAKUCITA 3: Ukupashanya ifikope fya ciunda /t/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Iciunda /b/",
+      "text": "Umutwe Unoono: Iciunda /b/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 4: Ukupashanya ifikope fya ciunda /b/",
+      "text": "IFYAKUCITA 4: Ukupashanya ifikope fya ciunda /b/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifyakwikata Icilembelo",
+      "text": "Umutwe Unoono: Ifyakwikata Icilembelo",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukwikata icilembelo ukubomfya iminwe itatu",
+      "text": "IFYAKUCITA 1: Ukwikata icilembelo ukubomfya iminwe itatu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 4",
+      "text": "ICIPANDE 4",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ificitika mu lupwa",
+      "text": "Umutwe Unoono: Ificitika mu lupwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulondolola ificitica nga ulupwa baya mukushita ifintu kuma sitolo",
+      "text": "IFYAKUCITA 1: Ukulondolola ificitica nga ulupwa baya mukushita ifintu kuma sitolo",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ilyashi lyaficitika ku calici",
+      "text": "Umutwe Unoono: Ilyashi lyaficitika ku calici",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanda ificitika nga ulupwa baya ku chalichi",
+      "text": "IFYAKUCITA 1: Ukulanda ificitika nga ulupwa baya ku chalichi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ilyashi lya pa kusefya",
+      "text": "Umutwe Unoono: Ilyashi lya pa kusefya",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulondolola ilyashi lya ukusefya ubushiku bwakufyalwa.",
+      "text": "IFYAKUCITA 1: Ukulondolola ilyashi lya ukusefya ubushiku bwakufyalwa.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ilyashi lya pa bulimi",
+      "text": "Umutwe Unoono: Ilyashi lya pa bulimi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Balondolole Ilyashi lya pa bulimi",
+      "text": "IFYAKUCITA 1: Balondolole Ilyashi lya pa bulimi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ifyo Natemwa Na Ifyo Nshatemwa",
+      "text": "Umutwe: Ifyo Natemwa Na Ifyo Nshatemwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifyo Natemwa",
+      "text": "Umutwe Unoono: Ifyo Natemwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanda ifyo batemwa",
+      "text": "IFYAKUCITA 1: Ukulanda ifyo batemwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifyo nshatemwa",
+      "text": "Umutwe Unoono: Ifyo nshatemwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanda ifyo nshatemwa",
+      "text": "IFYAKUCITA 1: Ukulanda ifyo nshatemwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanda ifyo bashatemwa",
+      "text": "IFYAKUCITA 1: Ukulanda ifyo bashatemwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifyo Natemwa Na Ifyo Nshatemwa",
+      "text": "Umutwe Unoono: Ifyo Natemwa Na Ifyo Nshatemwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Lanshanyeni babili babibili Ifyo mwatemwa na ifyo mushatemwa",
+      "text": "IFYAKUCITA 1: Lanshanyeni babili babibili Ifyo mwatemwa na ifyo mushatemwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amafunde ya pa ng’anda",
+      "text": "Umutwe Unoono: Amafunde ya pa ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanda amafunde ya pa ng’anda",
+      "text": "IFYAKUCITA 1: Ukulanda amafunde ya pa ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Imibombele ileenekelwa: Amafunde ya pa ng’anda yalondololwa bwino",
+      "text": "Imibombele ileenekelwa: Amafunde ya pa ng’anda yalondololwa bwino",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amafunde ya ku sukulu",
+      "text": "Umutwe Unoono: Amafunde ya ku sukulu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulumbula amafunde ya ku sukulu",
+      "text": "IFYAKUCITA 1: Ukulumbula amafunde ya ku sukulu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ifilundwa",
+      "text": "Umutwe: Ifilundwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: ifilundwa fya mashiwi ayayanguka",
+      "text": "Umutwe Unoono: ifilundwa fya mashiwi ayayanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukupashanya amshiwi na ukulanda filundwa fipelwa",
+      "text": "IFYAKUCITA 1: Ukupashanya amshiwi na ukulanda filundwa fipelwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukupatula Ifilundwa",
+      "text": "IFYAKUCITA 2: Ukupatula Ifilundwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifiunda /n/, /l/",
+      "text": "Umutwe Unoono: Ifiunda /n/, /l/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukulanga icikope ca Iciunda /n/",
+      "text": "IFYAKUCITA 3: Ukulanga icikope ca Iciunda /n/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifiunda /l/",
+      "text": "Umutwe Unoono: Ifiunda /l/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 4: Ukulanga icikope ca ciunda /l/",
+      "text": "IFYAKUCITA 4: Ukulanga icikope ca ciunda /l/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Imilembele iya mishilwa",
+      "text": "Umutwe Unoono: Imilembele iya mishilwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukupanga amapatani aya mishilwa",
+      "text": "IFYAKUCITA 1: Ukupanga amapatani aya mishilwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "TEMU 2",
+      "text": "TEMU 2",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 5",
+      "text": "ICIPANDE 5",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Uluusa",
+      "text": "Umutwe: Uluusa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukwimya ukuboko pakupoka uluusa",
+      "text": "Umutwe Unoono: Ukwimya ukuboko pakupoka uluusa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukupoka Uluusa",
+      "text": "IFYAKUCITA 1: Ukupoka Uluusa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifiunda /c/, /k/",
+      "text": "Umutwe Unoono: Ifiunda /c/, /k/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ifilundwa",
+      "text": "IFYAKUCITA 1: Ifilundwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 2: Ukupashanya ifikope ne ciunda/k/",
+      "text": "IFYAKUCITA 2: Ukupashanya ifikope ne ciunda/k/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: ciunda /c/",
+      "text": "Umutwe Unoono: ciunda /c/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 3: Ukupashanya ifikope ne ciunda /C/",
+      "text": "IFYAKUCITA 3: Ukupashanya ifikope ne ciunda /C/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ilembo",
+      "text": "Umutwe: Ilembo",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Uku konka umulaini ukupanga amapatani",
+      "text": "Umutwe Unoono: Uku konka umulaini ukupanga amapatani",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Konka umulaini ukupanga amapatani",
+      "text": "IFYAKUCITA 1: Konka umulaini ukupanga amapatani",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukulanga amashepu ayapuna pusana",
+      "text": "IFYAKUCITA 2: Ukulanga amashepu ayapuna pusana",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukukonkelesha mu imishilwa ya mashiwi",
+      "text": "Umutwe Unoono: Ukukonkelesha mu imishilwa ya mashiwi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukulanga imishilwa ya ishiwi noku konkeleshamo",
+      "text": "IFYAKUCITA 3: Ukulanga imishilwa ya ishiwi noku konkeleshamo",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 6",
+      "text": "ICIPANDE 6",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ifyakukonka",
+      "text": "Umutwe: Ifyakukonka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amafunde aya yanguka",
+      "text": "Umutwe Unoono: Amafunde aya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Abasambi bakonke amafunde aya yanguka",
+      "text": "IFYAKUCITA 1: Abasambi bakonke amafunde aya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono 2: Amafunde aya yanguka",
+      "text": "Umutwe Unoono: Amafunde aya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukulanga amafunde aya yanguka mukasela",
+      "text": "IFYAKUCITA 2: Ukulanga amafunde aya yanguka mukasela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ubulondoloshi ubwa yanguka",
+      "text": "Umutwe Unoono: Ubulondoloshi ubwa yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukukonka ubulondoloshi ubwa yanguka",
+      "text": "IFYAKUCITA 3: Ukukonka ubulondoloshi ubwa yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukupashanya ifilundwa ku fikope",
+      "text": "Umutwe Unoono: Ukupashanya ifilundwa ku fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukupashanya ifilundwa ku fikope",
+      "text": "IFYAKUCITA 1: Ukupashanya ifilundwa ku fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Iciunda /s/",
+      "text": "Umutwe Unoono: Iciunda /s/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukulanda iciunda /s/",
+      "text": "IFYAKUCITA 2: Ukulanda iciunda /s/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Imibombele ileenekelwa: Iciunda /s/ calandwa bwino",
+      "text": "Imibombele ileenekelwa: Iciunda /s/ calandwa bwino",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: iciunda /f/",
+      "text": "Umutwe Unoono: iciunda /f/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukulanda iciunda /f/ fulwe",
+      "text": "IFYAKUCITA 3: Ukulanda iciunda /f/ fulwe",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Imibombele ileenekelwa: Iciunda /f/ na ishiwi fulwe fyalandwa bwino",
+      "text": "Imibombele ileenekelwa: Iciunda /f/ na ishiwi fulwe fyalandwa bwino",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ukulenga",
+      "text": "Umutwe: Ukulenga",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukulenga kwakukonka mu mishilwa",
+      "text": "Umutwe Unoono: Ukulenga kwakukonka mu mishilwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulenga kwakukonka mu mishilwa",
+      "text": "IFYAKUCITA 1: Ukulenga kwakukonka mu mishilwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 7",
+      "text": "ICIPANDE 7",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "UKUMFWA NA UKULANDA ICIUNDA",
+      "text": "UKUMFWA NA UKULANDA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ilyashi",
+      "text": "Umutwe: Ilyashi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Imilandu iya yanguka",
+      "text": "Umutwe Unoono: Imilandu iya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanda Imilandu iya yanguka",
+      "text": "IFYAKUCITA 1: Ukulanda Imilandu iya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukulondolola imilandu iya yanguka",
+      "text": "IFYAKUCITA 2: Ukulondolola imilandu iya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukwasuka amepusho pa imilandu iya yanguka",
+      "text": "IFYAKUCITA 3: Ukwasuka amepusho pa imilandu iya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: fiunda",
+      "text": "Umutwe: fiunda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifiunda fya /l/ na /n/",
+      "text": "Umutwe Unoono: Ifiunda fya /l/ na /n/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Iciunda fya /l/",
+      "text": "IFYAKUCITA 1: Iciunda fya /l/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "FYAKUCITA 2: Iciunda /n/",
+      "text": "IFYAKUCITA 2: Iciunda /n/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukulenga amashepu",
+      "text": "Umutwe Unoono: Ukulenga amashepu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Abasambi balenge amashepu",
+      "text": "IFYAKUCITA 1: Abasambi balenge amashepu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "TEMU 3",
+      "text": "TEMU 3",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 8",
+      "text": "ICIPANDE 8",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Amashiwi ayomfwika cimo cine",
+      "text": "Umutwe: Amashiwi ayomfwika cimo cine",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amashiwi ayomfwika cimo cine kumpela",
+      "text": "Umutwe Unoono: Amashiwi ayomfwika cimo cine kumpela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanga amashiwi ayomfwika cimo cine kumpela",
+      "text": "IFYAKUCITA 1: Ukulanga amashiwi ayomfwika cimo cine kumpela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ifiunda /p/, /t/",
+      "text": "Umutwe: Ifiunda /p/, /t/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Iciunda /p/",
+      "text": "Umutwe Unoono: Iciunda /p/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Amashiwi Ayalefwaikwa Ukwishiba: Iciunda /p/",
+      "text": "Amashiwi Ayalefwaikwa Ukwishiba: Iciunda /p/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Isambililo: Ukulanda Iciunda /p/",
+      "text": "Isambililo: Ukulanda Iciunda /p/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakubomfya Pa Kufunda: Iciunda /p/, ifikope",
+      "text": "Ifyakubomfya Pa Kufunda: Iciunda /p/, ifikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukupashanya icikope ca iciunda /p/",
+      "text": "IFYAKUCITA 1: Ukupashanya icikope ca iciunda /p/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: iciunda /t/",
+      "text": "Umutwe Unoono: iciunda /t/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukupashanya icikope ca iciunda /t/",
+      "text": "IFYAKUCITA 2: Ukupashanya icikope ca iciunda /t/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Imilaini mu mashiwi",
+      "text": "Umutwe Unoono: Imilaini mu mashiwi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukushila imilaini mu mashiwi",
+      "text": "IFYAKUCITA 1: Ukushila imilaini mu mashiwi",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 9",
+      "text": "ICIPANDE 9",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ipepo",
+      "text": "Umutwe: Ipepo",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ipepo ilya yanguka",
+      "text": "Umutwe Unoono: Ipepo ilya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukupepa ipepo ilya yanguka",
+      "text": "IFYAKUCITA 1: Ukupepa ipepo ilya yanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ifiunda na ifikope",
+      "text": "Umutwe: Ifiunda na ifikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukupashanya iciunda na ifikope",
+      "text": "Umutwe Unoono: Ukupashanya iciunda na ifikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanda iciunda icili pa fikope",
+      "text": "IFYAKUCITA 1: Ukulanda iciunda icili pa fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Iciunda /y/",
+      "text": "Umutwe Unoono: Iciunda /y/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukupashanya Icikope ku ciunda /y/",
+      "text": "IFYAKUCITA 2: Ukupashanya Icikope ku ciunda /y/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ukupenta",
+      "text": "Umutwe: Ukupenta",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukupenta amashepu",
+      "text": "Umutwe Unoono: Ukupenta amashepu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifilefwaikwa Ukwishiba: Ukupenta amashepu",
+      "text": "Ifilefwaikwa Ukwishiba: Ukupenta amashepu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Amashiwi Ayalefwaikwa Ukwishiba : Ukupenta, amashepu",
+      "text": "Amashiwi Ayalefwaikwa Ukwishiba : Ukupenta, amashepu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Abasambi bapente amashepu",
+      "text": "IFYAKUCITA 1: Abasambi bapente amashepu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukupenta ifintu ifyalekana lekana",
+      "text": "Umutwe Unoono: Ukupenta ifintu ifyalekana lekana",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Penteni ifintu ifyalekana lekana",
+      "text": "IFYAKUCITA 2: Penteni ifintu ifyalekana lekana",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 10",
+      "text": "ICIPANDE 10",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ukulondolola",
+      "text": "Umutwe: Ukulondolola",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifintu ifya mu ng’anda",
+      "text": "Umutwe Unoono: Ifintu ifya mu ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulumbula ifintu ifya mu ng’anda",
+      "text": "IFYAKUCITA 1: Ukulumbula ifintu ifya mu ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifikope",
+      "text": "Umutwe Unoono: Ifikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 2: Ukulondola Ifikope",
+      "text": "IFYAKUCITA 2: Ukulondola Ifikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifikope fyabantu",
+      "text": "Umutwe Unoono: Ifikope fyabantu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 3: Ukulondolola fikope fyabantu",
+      "text": "IFYAKUCITA 3: Ukulondolola fikope fyabantu",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ifikope",
+      "text": "Umutwe: Ifikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: iciunda ca fikope",
+      "text": "Umutwe Unoono: iciunda ca fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Isambililo: Abasmbi balange ifiunda fili pa fikope",
+      "text": "Isambililo: Abasmbi balange ifiunda fili pa fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukulanda iciunda cil pa fikope",
+      "text": "IFYAKUCITA 1: Ukulanda iciunda cil pa fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukupenta ifikope fyafintu fya mu ng’anda",
+      "text": "Umutwe Unoono: Ukupenta ifikope fyafintu fya mu ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1: Ukupenta ifikope fyafintu fya mu ng’anda",
+      "text": "IFYAKUCITA 1: Ukupenta ifikope fyafintu fya mu ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "ICIPANDE 11",
+      "text": "ICIPANDE 11",
+      "as": "h1",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ifintu fya mu Ng’anda",
+      "text": "Umutwe Unoono: Ifintu fya mu Ng’anda",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 1: Salapo icintu ca mu ng’anda cimo. Ulande ishina lyaciko no kucilondolola.",
+      "text": "IFYAKUCITA 1: Salapo icintu ca mu ng’anda cimo. Ulande ishina lyaciko no kucilondolola.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 2: Mona pa cikope. Landa amashina yafintu ifili mu cikope.",
+      "text": "IFYAKUCITA 2: Mona pa cikope. Landa amashina yafintu ifili mu cikope.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Abantu abali mu fikope",
+      "text": "Umutwe Unoono: Abantu abali mu fikope",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 7: Londolola umuntu umo uuli pa cikope kuli cibusa.",
+      "text": "IFYAKUCITA 7: Londolola umuntu umo uuli pa cikope kuli cibusa.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKUSAMBILILA UKUTAMPA UKUBELENGA",
+      "text": "UKUTAMPA UKUSAMBILILA UKUBELENGA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe: Ukumfwa Na Ukumfwikisha",
+      "text": "Umutwe: Ukumfwa Na Ukumfwikisha",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Amalyashi ayayanguka",
+      "text": "Umutwe Unoono: Amalyashi ayayanguka",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 1: Umfwa kuli kafundisha ilyo aleshimika ilyashi.",
+      "text": "IFYAKUCITA 1: Umfwa kuli kafundisha ilyo aleshimika ilyashi.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 2: Asuka: “Nani uwali mulyashi?”",
+      "text": "IFYAKUCITA 2: Asuka: “Nani uwali mulyashi?”",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 3: Asuka: “Nikwisa ilyashi lyacitikile?”",
+      "text": "IFYAKUCITA 3: Asuka: “Nikwisa ilyashi lyacitikile?”",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 4: Londolola ifyacitike mu lyashi.",
+      "text": "IFYAKUCITA 4: Londolola ifyacitike mu lyashi.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 5: Lolesha pa cikope ica ilyashi wasuke ilipusho ukufuma kuli Kafundisha obe.",
+      "text": "IFYAKUCITA 5: Lolesha pa cikope ica ilyashi wasuke ilipusho ukufuma kuli Kafundisha obe.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKUSAMBILILA UKUTAMPA UKULEMBA",
+      "text": "UKUTAMPA UKUSAMBILILA UKULEMBA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Umutwe Unoono: Ukulenga",
+      "text": "Umutwe Unoono: Ukulenga",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 1: Lenga na ukupenta inkonde.",
+      "text": "IFYAKUCITA 1: Lenga na ukupenta inkonde.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 2: Lenga na ukupenta olenji.",
+      "text": "IFYAKUCITA 2: Lenga na ukupenta olenji.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "UKWESHA PAMPELA YA ISAMBILILO",
+      "text": "UKWESHA PAMPELA YA CIPANDE",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 1: Lumbula ifintu fibili ifikwete iciunda /y/.",
+      "text": "IFYAKUCITA 1: Lumbula ifintu fibili ifikwete iciunda /y/.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 2: Penta ama apo.",
+      "text": "IFYAKUCITA 2: Penta ama apo.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA – AMASUKO",
+      "text": "IFYAKUCITA – AMASUKO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 1: Umusambi alingile ukulumbula ifintu fibili ifikwete iciunda /y/.",
+      "text": "IFYAKUCITA 1: Umusambi alingile ukulumbula ifintu fibili ifikwete iciunda /y/.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Ifyakucita 2: Umusambi alingile ukupenta ama apo.",
+      "text": "IFYAKUCITA 2: Umusambi alingile ukupenta ama apo.",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kafundisha",
+      "text": "(i) Kafundisha:",
+      "as": "head",
+      "all": true
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "Ishina lya batata niba __________.",
+      "marker": "1."
+    },
+    {
+      "find": "Lumbula ishina lyobe nelyakwa cibu",
+      "marker": "2."
+    },
+    {
+      "find": "Langa ifyakwikata ibuuku bwino. (C",
+      "marker": "3."
+    },
+    {
+      "find": "Sonta icikope icalanga ukwikala bw",
+      "marker": "4."
+    },
+    {
+      "find": "Lumbula ifilundwa fibili fya mubil",
+      "marker": "1."
+    },
+    {
+      "find": "Lumbula ifintu fibili ifisangwa mu",
+      "marker": "2."
+    },
+    {
+      "find": "Lumbula ifitekwa ifili pa cikope.",
+      "marker": "3."
+    },
+    {
+      "find": "Landa iciunda/k/ nangu /m/. (mona",
+      "marker": "4."
+    },
+    {
+      "find": "Lumbula ifya kuposhanya panshita s",
+      "marker": "1."
+    },
+    {
+      "find": "Pashanya iciunda cimo ne cikope. (",
+      "marker": "2."
+    },
+    {
+      "find": "Landa iciunda/t/ nangu /b/.(baland",
+      "marker": "3."
+    },
+    {
+      "find": "Langa ifyakwikata pensulo bwino. (",
+      "marker": "4."
+    },
+    {
+      "find": "Landa iciunda pa mulimo umo wa mu",
+      "marker": "1."
+    },
+    {
+      "find": "Landa iciunda icintu ico watemwa n",
+      "marker": "2."
+    },
+    {
+      "find": "Lumbula ifunde limo lya pa ng’anda",
+      "marker": "3."
+    },
+    {
+      "find": "Panga ipatani ukubomfya imbuto.",
+      "marker": "4."
+    },
+    {
+      "find": "Langa ifyakupoka uluusa.",
+      "marker": "1."
+    },
+    {
+      "find": "Patula ishiwi limo mu filundwa.",
+      "marker": "2."
+    },
+    {
+      "find": "Pashanya /c/ nangu /k/ ku cikope.",
+      "marker": "3."
+    },
+    {
+      "find": "Konka umulaini mu patani.",
+      "marker": "4."
+    },
+    {
+      "find": "Cita ifunde limo lya mu kalasi. (K",
+      "marker": "1."
+    },
+    {
+      "find": "Konka ubulondoloshi ubwakwa kafund",
+      "marker": "2."
+    },
+    {
+      "find": "Lumbula iciunda cakubalilapo mu is",
+      "marker": "3."
+    },
+    {
+      "find": "Landa iciunda /s/ nangu /f/.",
+      "marker": "4."
+    },
+    {
+      "find": "Kutikeni ku lyashi no kulumbula um",
+      "marker": "1."
+    },
+    {
+      "find": "Asuka ilipusho limo pa lyashi.",
+      "marker": "2."
+    },
+    {
+      "find": "Pashanya /l/ nangu /n/.",
+      "marker": "3."
+    },
+    {
+      "find": "Lenga amashepu limo.",
+      "marker": "4."
+    },
+    {
+      "find": "Landa amashiwi ayomfwika cimo cine",
+      "marker": "1."
+    },
+    {
+      "find": "Pashanya iciunda /p/ nangu /t/ ku",
+      "marker": "2."
+    },
+    {
+      "find": "Lenga ici lembo mu milaini.",
+      "marker": "3."
+    },
+    {
+      "find": "Pepa ipepo ilyanguka.",
+      "marker": "1."
+    },
+    {
+      "find": "Londolola icikope.",
+      "marker": "2."
+    },
+    {
+      "find": "Pashanya iciunda /y/.",
+      "marker": "3."
+    },
+    {
+      "find": "Penta amashepu nangu icintu.",
+      "marker": "4."
+    },
+    {
+      "find": "Londolola icintu cimo ca mu ng’and",
+      "marker": "1."
+    },
+    {
+      "find": "Londolola icintu cimo pali icikope",
+      "marker": "2."
+    },
+    {
+      "find": "Londolola umuntu no mulimo alecita",
+      "marker": "3."
+    },
+    {
+      "find": "Penta icintu.",
+      "marker": "4."
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "Iyi imilimo ilesangwa mu citabo ca musambi"
+    }
+  ],
+  "_note_breaks": "Two assessments ran two lines onto an otherwise empty page: start them on the next page whole.",
+  "pageBreakBefore": [
+    {
+      "find": "UKWESHA PAMPELA YA CIPANDE",
+      "near": "Penta amashepu nangu icintu"
+    },
+    {
+      "find": "UKWESHA PAMPELA YA CIPANDE",
+      "near": "Londolola icintu cimo ca mu ng"
+    }
+  ]
+}

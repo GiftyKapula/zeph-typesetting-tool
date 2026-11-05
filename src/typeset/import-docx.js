@@ -2000,6 +2000,21 @@ async function importDocx(docxPath, opts = {}) {
   // the modern <mc:Choice>); otherwise a floating image encoded both ways is
   // imported twice.
   let rawDoc = read("word/document.xml").replace(/<mc:Fallback>[\s\S]*?<\/mc:Fallback>/g, "");
+  // A list can be set by the paragraph STYLE alone (Word's List Bullet / List Number carry
+  // the w:numPr in styles.xml), which every list test below misses because it reads the
+  // paragraph. Opt-in per book: copy the style's numPr onto its paragraphs.
+  if (opts.styleLists) {
+    const styleNum = {};
+    for (const m of read("word/styles.xml").matchAll(/<w:style\b[^>]*w:styleId="([^"]+)"[^>]*>[\s\S]*?<\/w:style>/g)) {
+      const id = (m[0].match(/<w:pPr>[\s\S]*?<w:numId w:val="(\d+)"/) || [])[1];
+      if (id) styleNum[m[1]] = id;
+    }
+    rawDoc = rawDoc.replace(/<w:pPr>(?:(?!<\/w:pPr>)[\s\S])*?<\/w:pPr>/g, (ppr) => {
+      const st = (ppr.match(/<w:pStyle w:val="([^"]+)"\/>/) || [])[1];
+      if (!st || !styleNum[st] || ppr.includes("<w:numPr>")) return ppr;
+      return ppr.replace(/<w:pStyle [^>]*\/>/, (x) => `${x}<w:numPr><w:ilvl w:val="0"/><w:numId w:val="${styleNum[st]}"/></w:numPr>`);
+    });
+  }
   // opts.sourceFix: [["find", "with"], …] — correct the manuscript's text BEFORE anything is
   // recognised from it (a box title typed "ZHAKWALI 2:" instead of "ZHAKWILA 2:" is then
   // boxed like every other activity). Applied inside each Word text run.

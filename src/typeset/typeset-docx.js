@@ -120,6 +120,7 @@ async function typesetOne(docxPath, themeName) {
   importOpts.tabGap = !!ov.glossaryColumns;           // a single tab still separates two glossary columns
   importOpts.exerciseBullets = !!ov.exerciseBullets; // keep Word bullets inside exercises as bullets
   importOpts.answerListNumbered = ov.answerListNumbered || [];
+  importOpts.styleLists = !!ov.styleLists;           // lists set by the paragraph style alone (Word List Bullet / List Number)
   let { blocks, media, tmp } = await importDocx(docxPath, importOpts);
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
