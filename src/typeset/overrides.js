@@ -44,6 +44,100 @@ function applyOverrides(blocks, ov) {
     for (const s of bx.extra || []) out.push(para([{ t: s, b: false, it: false, c: null }]));
     blocks.splice(i, 1, ...out);
   }
+  // spillOut: [{ at }] — the book's LAST exercise/assessment box swallowed the back matter
+  // that follows it (GLOSSARY, REFERENCES typed as plain lines after the final question, so
+  // the box-detector read them as more parts of the box). From the part whose whole trimmed
+  // text is `at`, everything after it leaves the box and becomes ordinary top-level blocks
+  // right after it: the `at` line a heading (asSection/formatGlossary then style it), other
+  // leads paragraphs, questions list items (a numeric marker is restarted from 1 — a
+  // reference list that shared Word's numbering with the question list above it).
+  for (const so of ov.spillOut || []) {
+    const isAt = (p) => p.kind === "lead" && (p.q || "").trim() === so.at;
+    const i = blocks.findIndex((b) => Array.isArray(b.parts) && b.parts.some(isAt));
+    if (i < 0) { console.warn("!  spillOut not matched:", so.at); continue; }
+    const bx = blocks[i];
+    const rest = bx.parts.splice(bx.parts.findIndex(isAt));
+    const out = [];
+    let num = 0;
+    for (const p of rest) {
+      const segs = p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }];
+      if (isAt(p)) out.push({ t: "head", text: so.at });
+      else if (p.kind === "q") {
+        let marker = p.marker || "•";
+        if (/^\d+\.$/.test(marker)) marker = `${++num}.`;
+        out.push({ t: "listitem", segs, marker });
+      } else if (p.kind === "lead") {
+        if (/^[A-Z][A-Z &]{3,}$/.test((p.q || "").trim())) { out.push({ t: "head", text: p.q.trim() }); num = 0; }
+        else out.push({ t: "para", segs });
+      } else if (p.kind === "table") out.push({ t: "table", rows: p.rows });
+      else if (p.kind === "image") out.push({ t: "imagerow", images: p.images });
+    }
+    blocks.splice(i + 1, 0, ...out);
+    console.log(`   spillOut: ${out.length} block(s) moved out of "${bx.title || bx.heading}" from "${so.at}"`);
+  }
+  // partsToTable: [{ find, count, noHeader? }] — lines an author aligned with runs of spaces
+  // ("A      0      100") inside an exercise/assessment box print as ragged text. Starting at
+  // the lead part whose text begins with `find`, the next `count` lead parts (the header row
+  // included) are split on runs of 2+ spaces and replaced by one real table part. The first
+  // row is styled as the header row unless `noHeader`.
+  for (const pt of ov.partsToTable || []) {
+    let done = false;
+    const walk = (arr) => {
+      for (const b of arr) {
+        if (done || !b || typeof b !== "object") continue;
+        if (Array.isArray(b.parts)) {
+          const k = b.parts.findIndex((p) => p.kind === "lead" && (p.q || "").replace(/\s+/g, " ").trim().startsWith(pt.find));
+          if (k >= 0) {
+            const lines = b.parts.slice(k, k + (pt.count || 1));
+            const rows = lines.map((p) => (p.q || "").trim().split(/\s{2,}/).map((c) => ({ text: c, imgs: [] })));
+            b.parts.splice(k, lines.length, { kind: "table", rows, ...(pt.noHeader ? { noHeader: true } : {}) });
+            done = true;
+            return;
+          }
+        }
+        for (const key of Object.keys(b)) if (Array.isArray(b[key]) && key !== "parts") walk(b[key]);
+      }
+    };
+    walk(blocks);
+    if (!done) console.warn("!  partsToTable not matched:", pt.find);
+  }
+  // subLetter: [{ find, count }] — a lettered exercise whose "…of the following:" lead-in
+  // and its short items were typed as ONE run of letters ("a) State … terms: b) wavelength;
+  // c) amplitude; d) frequency. e) Distinguish …"). The part whose text contains `find`
+  // keeps its letter; the next `count` parts become its sub-items, one level deeper and
+  // marked i), ii), iii)…; every later letter in the same list steps back by `count`, so the
+  // lettering reads a) (i)(ii)(iii) b) c). Runs in the order listed, so two lead-ins in
+  // one exercise are fixed top to bottom.
+  const ROMAN = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"];
+  for (const sl of ov.subLetter || []) {
+    let done = false;
+    const walk = (arr) => {
+      for (const b of arr) {
+        if (done || !b || typeof b !== "object") continue;
+        if (Array.isArray(b.parts)) {
+          const k = b.parts.findIndex((p) => p.kind === "q" && (p.q || "").replace(/\s+/g, " ").includes(sl.find));
+          if (k >= 0) {
+            const parent = b.parts[k], d = parent.depth || 0;
+            for (let n = 1; n <= sl.count; n++) {
+              const p = b.parts[k + n];
+              if (!p || p.kind !== "q") { console.warn("!  subLetter ran out of items after:", sl.find); break; }
+              p.depth = d + 1; p.marker = `${ROMAN[n - 1]})`;
+            }
+            for (let m = k + sl.count + 1; m < b.parts.length; m++) {
+              const p = b.parts[m];
+              if (p.kind !== "q" || (p.depth || 0) < d) break;
+              if ((p.depth || 0) === d && /^[a-z]\)$/.test(p.marker || "")) p.marker = `${String.fromCharCode(p.marker.charCodeAt(0) - sl.count)})`;
+            }
+            done = true;
+            return;
+          }
+        }
+        for (const key of Object.keys(b)) if (Array.isArray(b[key]) && key !== "parts") walk(b[key]);
+      }
+    };
+    walk(blocks);
+    if (!done) console.warn("!  subLetter not matched:", sl.find);
+  }
   const flat = allTextBlocks(blocks);
   // tableToBox: [{ findTable, into?: "prev", titleFromPrev?: true, title? }] — an activity the
   // author typed into a one-cell table (a grey frame) instead of the book's activity box.
