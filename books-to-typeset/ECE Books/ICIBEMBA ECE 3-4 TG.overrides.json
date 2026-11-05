@@ -865,22 +865,6 @@
           "center": true
         }
       ]
-    },
-    {
-      "find": "Tusekelele ukusambilisha no kusambilila Icibemba!",
-      "with": [
-        {
-          "para": "Tusekelele ukusambilisha no kusambilila Icibemba!"
-        },
-        {
-          "raw": {
-            "t": "pagebreak"
-          }
-        },
-        {
-          "para": " "
-        }
-      ]
     }
   ],
   "setHeading": [
@@ -2487,18 +2471,24 @@
       "find": "Iyi milimo ilesangwa mu citabo ca musambi"
     }
   ],
-  "_note_breaks": "Two assessments ran two lines onto an otherwise empty page: start them on the next page whole.",
+  "_note_blanks": "Labels the manuscript left empty are filled from the book's own sentences at the same spot in other units; the author should confirm them. Unit 11 activity 7 -> 1: the LB has no activities 3-6 and restarts at 1 under each sub-topic, which is also why Unit 4 stays all 1.",
+  "_note_recto": "No blank pages. TEMU 1 closes the front matter (left-hand page) so folio 1 opens on the right; the tighter list gap brings the end-of-unit assessments back onto their units.",
+  "boxStripe": false,
+  "termInFront": true,
+  "afterListGap": "13pt",
+  "_note_breaks": "Units 5 and 10 ran one line over a full last page, which left a page holding a single assessment line: a break one activity earlier spreads the content instead.",
   "pageBreakBefore": [
     {
-      "find": "UKWESHA PAMPELA YA CIPANDE",
-      "near": "Penta amashepu nangu icintu"
+      "find": "IFYAKUCITA 2: Ukulanga amashepu",
+      "near": "Imilaini ya mapatani yakonkwa bwino"
     },
     {
-      "find": "UKWESHA PAMPELA YA CIPANDE",
-      "near": "Londolola icintu cimo ca mu ng"
+      "find": "IFYAKUCITA 1: Ukulanda iciunda icili pa fikope",
+      "near": "Umutwe Unoono: Iciunda ca fikope"
+    },
+    {
+      "find": "Umutwe Unoono: Ukukonkelesha",
+      "near": "Ipusha abasambi ukukonkamo"
     }
-  ],
-  "_note_blanks": "Labels the manuscript left empty are filled from the book's own sentences at the same spot in other units; the author should confirm them. Unit 11 activity 7 -> 1: the LB has no activities 3-6 and restarts at 1 under each sub-topic, which is also why Unit 4 stays all 1.",
-  "_note_recto": "For print: a blank page after the front matter so folio 1 falls on a right-hand page; the interior is then 76 pages, a multiple of 4.",
-  "boxStripe": false
+  ]
 }

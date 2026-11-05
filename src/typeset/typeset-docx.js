@@ -1140,6 +1140,8 @@ async function typesetOne(docxPath, themeName) {
   // Front-matter sections into the house order (Author … Acronyms); opt out per book.
   // Runs last, once the body-start marker and every heading are final.
   if (!ov.keepFrontOrder && variant !== "syllabus") blocks = orderFrontMatter(blocks);
+  // termInFront: true keeps the first term page as the last front-matter page instead, so a
+  // book with an odd count of front pages opens its unit 1 on a right-hand page with no blank.
   // termPages: "regex" — a heading/line matching it ("TEMU 1" = Term 1 in a Kiikaonde ECE
   // book) gets a page of its own in large type. One that would land just before the body
   // start is moved after it, so the term page opens the arabic-numbered body.
@@ -1158,7 +1160,7 @@ async function typesetOne(docxPath, themeName) {
       const tt = ov.termWord ? t.replace(/^\S+/, ov.termWord).toUpperCase() : t;
       blocks[i] = { t: "termpage", text: tt }; n++;
       const nx = blocks.findIndex((x, k) => k > i && x.t !== "vspace");
-      if (nx > 0 && blocks[nx].t === "bodystart") { const [bs] = blocks.splice(nx, 1); blocks.splice(i, 0, bs); i++; }
+      if (nx > 0 && blocks[nx].t === "bodystart" && !ov.termInFront) { const [bs] = blocks.splice(nx, 1); blocks.splice(i, 0, bs); i++; }
     }
     if (n) console.log(`   termPages: ${n} term page(s)`);
   }
@@ -1675,7 +1677,7 @@ async function typesetOne(docxPath, themeName) {
   // under their strand). They render as plain heads, which the outline never sees; the
   // Icibemba G4 LB reviewer asked for its missing sub-topic ("4.6.3.2 Landilwa") there.
   if (ov.tocHeads) for (const b of blocks) if (b.t === "h3" && b.text) b.toc = 3;
-  const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
+  const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${ov.afterListGap ? `#let afterlist() = v(${ov.afterListGap}, weak: true)\n` : ""}${emit(blocks)}\n`;   // (afterListGap: the room above a heading that follows a list, house 28pt)
 
   // Include OS system fonts so specialty faces like Bradley Hand ITC (used for
   // Grade-2 handwriting exercises) resolve without being bundled in the repo.
