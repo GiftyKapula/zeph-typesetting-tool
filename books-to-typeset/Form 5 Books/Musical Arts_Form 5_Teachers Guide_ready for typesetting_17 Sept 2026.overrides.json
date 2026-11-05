@@ -5,6 +5,7 @@
   ],
   "tocDepth": 2,
   "orIndividually": false,
+  "boxAllRows": true,
   "synthesiseCover": true,
   "images": {
     "image1.jpeg": {
@@ -46,14 +47,6 @@
     ]
   },
   "edit": [
-    {
-      "find": "Edited by: Agness Mumba Wilkins, Annie Zulu Banda and Njira Mtonga",
-      "with": "Edited by: Agness Mumba Wilkins (PhD), Annie Zulu Banda and Njira Mtonga"
-    },
-    {
-      "find": "Mary Mwila and Chipo Namaiko",
-      "with": "Mary Mwila (PhD) and Chipo Namaiko (PhD)"
-    },
     {
       "find": "holds a PhD in Music Education and a Master of Education in",
       "with": "holds a PhD in Music Education (University of Zambia) and a Master of Education in"
@@ -126,6 +119,42 @@
         null,
         "4."
       ]
+    },
+    {
+      "match": "EXERCISE 4 (Assignment)",
+      "near": "eight-bar harmonic progression",
+      "markers": [
+        null,
+        "",
+        ""
+      ]
+    },
+    {
+      "match": "END OF TOPIC 8 ASSESSMENT",
+      "near": "Brother John",
+      "markers": [
+        null,
+        null,
+        "1.1",
+        "1.2",
+        null,
+        "2.",
+        null,
+        "1.",
+        "2.",
+        "3.",
+        "4.",
+        "5.",
+        "6.",
+        "7.",
+        "8."
+      ],
+      "moveParts": [
+        {
+          "from": 1,
+          "to": 2
+        }
+      ]
     }
   ],
   "splitBoxTitle": [
@@ -170,6 +199,14 @@
     {
       "find": "SUGGESSTED TEACHING METHODOLOGY",
       "with": "SUGGESTED TEACHING METHODOLOGY"
+    },
+    {
+      "find": "5.671",
+      "with": "5.7.1"
+    },
+    {
+      "find": "5.5.1Composition",
+      "with": "5.5.1 Composition"
     }
   ],
   "subtext": [
@@ -236,6 +273,14 @@
     {
       "from": "freely available for use and modification",
       "to": "freely available for use and modification."
+    },
+    {
+      "from": "1Piano piece",
+      "to": "Piano piece"
+    },
+    {
+      "from": "2 Guitar piece",
+      "to": "Guitar piece"
     }
   ],
   "unboldBlock": [
@@ -285,6 +330,93 @@
     "environmental awareness"
   ],
   "replaceBlocks": [
+    {
+      "find": "Printed by: Zambia Educational Publishing House",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Edited by:**",
+          "center": true
+        },
+        {
+          "para": "Agness Mumba Wilkins (PhD), Annie Zulu Banda and Njira Mtonga",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Illustrated by:**",
+          "center": true
+        },
+        {
+          "para": "Mary Mwila (PhD) and Chipo Namaiko (PhD)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**First Published by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Printed by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
     {
       "find": "X: Twitter",
       "with": [
@@ -339,5 +471,14 @@
     "assess their ability to select appropriate promotional strategies",
     "throughout the activity",
     "including practical recommendations for improving future"
+  ],
+  "deleteRun": [
+    {
+      "from": "ISBN: ………………………",
+      "to": "Zambia Educational Publishing House Light Industrial Area Chishango Road P.O. Box 32708 Lusaka, Zambia"
+    }
+  ],
+  "keepWithNext": [
+    "Guitar piece: Lightly Row"
   ]
 }
