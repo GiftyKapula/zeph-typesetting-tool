@@ -3595,6 +3595,12 @@ function applyOverrides(blocks, ov) {
         if (mk && p.kind === "lead") { p.kind = "q"; p.a = p.a || ""; p.aseg = p.aseg || []; }
       });
     }
+    // moveParts: [{ from, to }] — move a part to another position in the box, for a picture
+    // Word anchored to the line it illustrates, which imports ahead of that line. Runs after
+    // `markers`, whose indices refer to the original part list.
+    for (const mv of fx.moveParts || []) {
+      if (mv.from >= 0 && mv.from < parts.length) parts.splice(mv.to, 0, parts.splice(mv.from, 1)[0]);
+    }
     // addParts: [{ text, marker?, depth?, at?, keep? }] — insert answer lines the manuscript
     // never carried. A proofreader who finds a question whose answer key is simply
     // missing writes the answer out in their note; until now there was no way to get it

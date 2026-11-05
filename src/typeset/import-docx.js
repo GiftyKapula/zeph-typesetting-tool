@@ -3697,7 +3697,20 @@ async function importDocx(docxPath, opts = {}) {
       // TG lost about fifty paragraphs of answers this way. Opt-in, because other books
       // were reviewed without those rows.
       else if (kind && BOX_ALL_ROWS && cells.every((r) => r.length === 1)) {
-        blocks.push(makeBox(kind, [...firstBlks, ...cells.slice(1).flatMap((r) => cellBlocks(r[0].xml))]));
+        // A later row that opens with its own box title is the next box, not more of this
+        // one: Word kept "END OF TOPIC 8 ASSESSMENT" in the table of the exercise above it,
+        // and folded in, its questions counted on from the exercise's.
+        const groups = [{ kind, rows: [cells[0]] }];
+        for (const r of cells.slice(1)) {
+          const rowLead = (cellBlocks(r[0].xml).find((b) => (b.plain || "").trim()) || {}).plain || "";
+          const rowKind = boxKindFromTitle(rowLead);
+          if (rowKind) groups.push({ kind: rowKind, rows: [r] });
+          else groups[groups.length - 1].rows.push(r);
+        }
+        for (const g of groups) {
+          if (g.kind === "assessment") blocks.push(makeAssessmentTable(g.rows));
+          else blocks.push(makeBox(g.kind, g.rows.flatMap((r) => cellBlocks(r[0].xml))));
+        }
       }
       else if (kind) blocks.push(makeBox(kind, firstBlks));
       else if (single && firstFill && firstFill !== NAVY) blocks.push(makeBox("box", firstBlks));
