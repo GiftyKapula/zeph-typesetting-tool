@@ -371,6 +371,9 @@ function fixProse(text) {
   out = out.replace(/\b([A-Za-z]{2,})(\s+)(\1)\b/gi, (m, a, sp, b) => {
     if (a.toLowerCase() !== b.toLowerCase()) return m;
     if (DOUBLE_OK.has(a.toLowerCase())) return m;
+    // Both capitalised alike is a title that repeats on purpose — the song "Twinkle
+    // Twinkle Little Star" lost a word in the Literature in English Form 1 TG.
+    if (a === b && /^[A-Z][a-z]/.test(a)) return m;
     hits.push(`"${a}${sp}${b}" -> "${a}"`);
     return a;
   });

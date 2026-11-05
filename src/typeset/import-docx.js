@@ -96,6 +96,12 @@ const TOC_TOPIC_RE = /^(TOPIC|UNIT|CHAPTER)\s*:?\s*(\d+(?:\.\d+)*)\s*[:.–—-]
 // from the paragraph style, which is a genuine list.
 const hasListNumbering = (xml) => /<w:numPr>/.test(xml) && !/<w:numId\s+w:val="0"\s*\/?>/.test(xml);
 
+// Symbol-font private-use code points -> Unicode (see the run reader below).
+const SYMBOL_FONT = {
+  "": "°", "": "±", "": "×", "": "÷", "": "≠", "": "≈",
+  "": "≤", "": "≥", "": "−", "": "→", "": "←", "": "•",
+};
+
 const decode = (s) => s
   .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
   .replace(/&apos;/g, "'").replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n))
@@ -290,6 +296,12 @@ function boxKindFromTitle(t) {
   // Expected Answers that way, and the whole box (twenty paragraphs) never printed.
   // Only a lone stop qualifies, so "Exercise. Moving your body…" stays prose.
   if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|\.\s*$|$)/i.test(s) || /^ACTIVITY\s*:?\s*\d/i.test(s)) return "exercise";
+  // A numbered answer key — "Expected Answers to Exercise 5" — is a box of its own, not
+  // a sub-head of the activity above it. Unrecognised, every one of the seventeen in
+  // the Literature in English Form 1 TG was swallowed by the box before it, its answers
+  // numbered on from that box's questions. The number is required, so the bare divider
+  // "Expected Answers" inside a box (isSectionDivider) is left alone.
+  if (/^(EXPECTED|SUGGESTED|POSSIBLE|MODEL)\s+ANSWERS?\s+(TO|FOR)\s+(EXERCISE|ACTIVITY|ASSESSMENT)\s*\d/i.test(s)) return "exercise";
   if (/^(U?Mulimo|Mwingilo|Zocitila|Zoc[hk]?ita|Zakueza|Mudimu)\b/i.test(s)) return "exercise";
   // --- Key points / Did you know ---
   if (/^(KEY POINTS|Key Points to Remember|Mau ofunika kudziwa)/i.test(s)) return "keypoints";
@@ -889,6 +901,12 @@ function paraSegs(pXml) {
       .replace(/([A-Za-z])'([A-Za-z])/g, "$1’$2");
     if (tabs) t = t + " ".repeat(tabs);                // tabs -> spaces (no column artefacts)
     const rpr = (run.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
+    // A character typed in the Symbol font is stored at its private-use code point
+    // (U+F0xx), which our fonts don't carry — Geography Form 1 TG (Nov 2026) typed its
+    // latitudes' degree signs that way ("Maputo 25" + U+F0B0 + "S") and they printed as
+    // a stray arrow. Map the usual Symbol characters to real Unicode, but ONLY in a run
+    // whose font is Symbol: Wingdings uses the same code points for ticks and bullets.
+    if (/<w:rFonts\b[^>]*"Symbol"/.test(rpr)) t = t.replace(/[-]/g, (c) => SYMBOL_FONT[c] || c);
     // Hidden text (<w:vanish/>) — Word itself never displays or prints this run.
     // The recurring case in these manuscripts is "Top of Form"/"Bottom of Form",
     // boilerplate left behind when text was copy-pasted out of a legacy Word form
@@ -2173,8 +2191,13 @@ function makeBox(kind, blocks) {
     if (openEnded && nxt && nxt.t === "para") {
       const tail = (nxt.plain || "").trim();
       const bold = (nxt.segs || []).some((s) => s && !s.m && (s.t || "").trim() && s.b);
+      // …nor an answer-key label: "EXERCISE 2 " + "Expected Responses" is a box heading
+      // over the line that opens its answers, not one title (Physics Form 2 TG — six of
+      // its exercises printed "EXERCISE 2 Expected Responses" on one line once this join
+      // came in, beside the rest of the book's "EXERCISE N" / "Expected Responses").
+      const answersLabel = /^(?:(?:possible|expected|suggested|sample|model)\s+)?(?:answers?|responses?|solutions?)$/i.test(tail);
       if (tail && bold && tail.split(/\s+/).length <= 5 && !/[.!?:]$/.test(tail)
-          && tail !== tail.toUpperCase() && !boxKindFromTitle(tail)) {
+          && tail !== tail.toUpperCase() && !boxKindFromTitle(tail) && !answersLabel) {
         titleText = titleText + " " + tail;
         joinIdx = titleIdx + 1;
       }
@@ -3057,7 +3080,11 @@ async function importDocx(docxPath, opts = {}) {
       // hmm: force the on-page display HEIGHT (mm). Needed to enlarge a `tall`
       // picture, which the template otherwise pins to a fixed height regardless of w.
       const forceH = ovrEntry && ovrEntry.hmm ? ovrEntry.hmm : 0;
-      out.push({ file: name, w: dispW, h: dispH, tall: aspect > 1.05, caption: rawFigCaptions[base] || "", hmm: forceH, floatingBelowText: !!rec.floatingBelowText, side: rec.side || null, voff: rec.voff || 0 });
+      // `side: false` takes a picture the author floated beside the text out of the
+      // two-column layout, so it prints as an ordinary full-width figure — for a reviewer's
+      // "enlarge this diagram" on a side picture, which the side column caps at half width.
+      const side = ovrEntry && ovrEntry.side === false ? null : (rec.side || null);
+      out.push({ file: name, w: dispW, h: dispH, tall: aspect > 1.05, caption: rawFigCaptions[base] || "", hmm: forceH, floatingBelowText: !!rec.floatingBelowText, side, voff: rec.voff || 0 });
     }
     return out;
   };
@@ -3525,6 +3552,13 @@ async function importDocx(docxPath, opts = {}) {
       // that closes several topics this way: a single book-end glossary keeps its
       // existing handling, so no book laid out before this rule changes.
       if (glossaryPerTopic && BOX_BACKMATTER_LINE.test(ty.trim())) break;
+      // The book-end GLOSSARY / REFERENCES straight after the LAST End-of-Topic
+      // Assessment ends it too: an assessment runs on to the next section (below), and a
+      // plain body-size "GLOSSARY" line is not one, so the Physics Form 2 Teacher's Guide
+      // printed its whole glossary and reference list inside the grey assessment panel
+      // (CDC: "remove the bold line on the left and grey colour"). No answer key is ever
+      // a line reading just "GLOSSARY" or "REFERENCES", so for an assessment it is safe.
+      if (kind === "assessment" && BOX_BACKMATTER_LINE.test(ty.trim())) break;
       if (restoredBanner.has(j)) break; // the next topic's banner, typed without "TOPIC"
       if (boxKindFromTitle(ty) && boldFirstRun(y)) break;        // the next box label
       // learn the box's own body size from the first sized line it takes in
@@ -3666,7 +3700,12 @@ async function importDocx(docxPath, opts = {}) {
         const oneCell = single ? rows[0][0] : null;
         if (oneCell && !oneCell.text && oneCell.imgs && oneCell.imgs.length) {
           blocks.push(oneCell.imgs.length === 1 ? { t: "image", ...oneCell.imgs[0] } : { t: "imagerow", images: oneCell.imgs });
-        } else if (rows.some((r) => r.some((c) => c.text || (c.imgs && c.imgs.length)))) {
+        // A cell whose only content is a NESTED table has no text of its own (`text`
+        // leaves sub-tables out), so it counts by its `subs` too. Without that, a data
+        // table the author set inside a 1x1 wrapper vanished from the book whole — the
+        // Geography Form 1 LB's "Implications for Resources and Needs" table printed its
+        // heading over nothing. unwrapLayoutTables() then lifts the inner table out.
+        } else if (rows.some((r) => r.some((c) => c.text || (c.imgs && c.imgs.length) || (c.subs && c.subs.length)))) {
           blocks.push({ t: "table", rows });
         }
       }

@@ -76,7 +76,7 @@
       "find": "BA-Primary"
     }
   ],
-  "//subtext": "Round 2. Two standardisations the proofreader asked for and one spelling. (1) The line introducing each Specific Competence was written four different ways across the book's 22 sub-topics - 'In this sub-topic, you will:' 12 times, 'In this subtopic, you will:' 4, 'In this subtopic, you will learn to:' 4, 'In this sub-topic, you will learn to:' once, 'In this section, you will:' once. The notes 'let it be sub-topic' (page 2) and 'make this standard for all before the specific competences' (page 75) both point at it, so all 22 are normalised to the commonest form. The two other 'In this section, you will ...' sentences are running prose, not lead-ins, and are left alone. (2) 'rumors' -> 'rumours': the note reads 'delete and write like this; rumuors', which is a slip for the British spelling - the book already writes 'rumours' twice against 'rumors' twice, and is consistently -our/-ise throughout (behaviour 55, colour 48, recognise 31, and no American spelling anywhere). (4) The second author's name was printed three ways in one book: 'Mirriam Mhone Muzona' on the cover (set by the authors override, on her own instruction), 'Mirriam Mhone-Muzona' on the imprint page, and 'Mirriam Mhone\\u2011Muzona' - with a non-breaking hyphen - in her own AUTHORS biography. The instruction had only ever reached the cover. Both hyphenated forms are now normalised to the spelling she asked for. (5) Spelling found at the pre-print check, none of it raised by the proofreader. The book is consistently British - behaviour 55, colour 48, recognise 31, organis- 26, apologis- 16 - but carried one 'apologize', one 'organizations', and used the American 'practicing/practice' for the VERB in four places against nine British 'practising'. The noun 'into practice' is correct and is left alone. The sentence ending '...the relationship between freedom and laws in the community' had no full stop, in both places it appears.",
+  "//subtext": "Round 2. Two standardisations the proofreader asked for and one spelling. (1) The line introducing each Specific Competence was written four different ways across the book's 22 sub-topics - 'In this sub-topic, you will:' 12 times, 'In this subtopic, you will:' 4, 'In this subtopic, you will learn to:' 4, 'In this sub-topic, you will learn to:' once, 'In this section, you will:' once. The notes 'let it be sub-topic' (page 2) and 'make this standard for all before the specific competences' (page 75) both point at it, so all 22 are normalised to the commonest form. The two other 'In this section, you will ...' sentences are running prose, not lead-ins, and are left alone. (2) 'rumors' -> 'rumours': the note reads 'delete and write like this; rumuors', which is a slip for the British spelling - the book already writes 'rumours' twice against 'rumors' twice, and is consistently -our/-ise throughout (behaviour 55, colour 48, recognise 31, and no American spelling anywhere). (4) The second author's name was printed three ways in one book: 'Mirriam Mhone Muzona' on the cover (set by the authors override, on her own instruction), 'Mirriam Mhone-Muzona' on the imprint page, and 'Mirriam Mhone\\u2011Muzona' - with a non-breaking hyphen - in her own AUTHORS biography. The instruction had only ever reached the cover. Both hyphenated forms are now normalised to the spelling she asked for. (5) Spelling found at the pre-print check, none of it raised by the proofreader. The book is consistently British - behaviour 55, colour 48, recognise 31, organis- 26, apologis- 16 - but carried one 'apologize', one 'organizations', and used the American 'practicing/practice' for the VERB in four places against nine British 'practising'. The noun 'into practice' is correct and is left alone. The sentence ending '...the relationship between freedom and laws in the community' had no full stop, in both places it appears. CDC round (25 Oct 2026), printed pages 43, 80, 124 and 130 of the CDC copy: \"The word 'sub-topic' should be deleted as it is not a subtopic but a competence (In this section, you will:\". Those four are the Specific Competence lead-ins that sit in the MIDDLE of a sub-topic (after an exercise), not under a sub-topic heading. The book has five such; the fifth (2.5.1.2) is the one the manuscript itself typed 'In this section, you will:', so the old mapping that turned it into 'sub-topic' is dropped and all five now read 'In this section, you will:'. The seventeen lead-ins directly under a sub-topic heading keep 'In this sub-topic, you will:' (round 2's 'let it be sub-topic'). Spelling sweep (CDC round): favoritism -> favouritism (the book also writes favouritism), favoring -> favouring, quarreled -> quarrelled - British spelling, as the rest of the book.",
   "subtext": [
     {
       "from": "In this subtopic",
@@ -84,10 +84,6 @@
     },
     {
       "from": "In this sub-topic, you will learn to:",
-      "to": "In this sub-topic, you will:"
-    },
-    {
-      "from": "In this section, you will:",
       "to": "In this sub-topic, you will:"
     },
     {
@@ -125,6 +121,18 @@
     {
       "from": "the relationship between freedom and laws in the community",
       "to": "the relationship between freedom and laws in the community."
+    },
+    {
+      "from": "favoritism",
+      "to": "favouritism"
+    },
+    {
+      "from": "favoring",
+      "to": "favouring"
+    },
+    {
+      "from": "quarreled",
+      "to": "quarrelled"
     }
   ],
   "//setCaption": "Round 2, printed page 27: 'Take this to the picture above'. The manuscript types the Fig. 4 caption two paragraphs below its picture, so the picture printed with no caption and the caption printed as a stray centred line in the middle of the running text on the next page. setCaption attaches it to the image and clears the loose paragraph.",
@@ -135,11 +143,19 @@
     }
   ],
   "//images": "Every picture is swapped for a Real-ESRGAN x4 upscale so it reaches the 300 DPI print requirement at its printed size. The first eight were done earlier; image3, image4, image9, image10, image12, image14, image15 and image17 were found still under 300 at the pre-print check (274, 275, 275, 256, 275, 275, 299 and 256 DPI respectively) and upscaled in the same way. image10 and image17 were JPEGs in the manuscript and are replaced by PNGs, since JPEG compression artefacts are not print-safe.",
-  "//moveBefore": "Found at the pre-print check, not raised by the proofreader: the glossary runs \"... Retributive justice, Self-esteem, Self-awareness, Social and Emotional Learning ...\". Self-awareness and Self-esteem are transposed - the rest of the 26-term list is alphabetical - and the slip is easy to miss because a page break falls between them. Swapped back.",
+  "//moveBefore": "Found at the pre-print check, not raised by the proofreader: the glossary runs \"... Retributive justice, Self-esteem, Self-awareness, Social and Emotional Learning ...\". Self-awareness and Self-esteem are transposed - the rest of the 26-term list is alphabetical - and the slip is easy to miss because a page break falls between them. Swapped back. CDC round, printed page 40: 'the factors that limit freedom should be separated from the ones that make it possible'. The notes after Learning Activity 4 ran promote, promote, promote, limit, limit, limit, promote, promote. The two promoting factors that came last (access to reliable information; family and community support) are moved up with the other three, and each group gets its own bold label (insertText): 'Factors that promote freedom' and 'Factors that limit freedom'.",
   "moveBefore": [
     {
       "find": "Self-awareness – Understanding one",
       "before": "Self-esteem – The way a person values"
+    },
+    {
+      "find": "Access to reliable information is another important factor",
+      "before": "Factors that limit freedom"
+    },
+    {
+      "find": "Family and community support can also influence freedom",
+      "before": "Factors that limit freedom"
     }
   ],
   "//removeRange": "Round 2, printed pages 155-156: \"Refer to the Learner's Book or attached Activity\" and \"Please get the right activity from the Learners' Book or the attached copy in word\". No Word file was attached, but the manuscript answers the note itself. LEARNING ACTIVITY 18 is the one activity the writer drew no box border around, so the box ran on past the instruction and took in his planning scaffold: a bare list of scripture references under \"1. Christianity\", \"2. Hindu\", \"3. Muslim\" and \"4. Zambian Traditional Religion\", a \"Discussion Task\" repeating word for word the instruction six lines above it, and the unfinished note to himself \"Also add appropriate proverbs ...\". Immediately below the box the same sub-topic sets all of it out as finished learner prose, religion by religion. So the scaffold goes, from \"1. Christianity\" to the end of the box, leaving the activity as its instruction alone - the shape the proofreader asked for on the other sixty activities. Three teachings in the scaffold were NOT repeated in the prose and are carried into it by the edits below, so nothing is lost.",
@@ -148,7 +164,7 @@
       "from": "1. Christianity"
     }
   ],
-  "//edit": "The three teachings the scaffold removed above carried alone, written into the prose in the author's own words. (1) Bhagavad Gita 3:8 was the only scriptural reference for Hinduism anywhere in the sub-topic - the Hindu prose cites none, while Christianity carries five references, Islam carries Qur'an 53:39 and Zambian Traditional Religion carries proverbs. (2) \"Work is a command\" is Islam's framing of work as an obligation rather than a choice; the prose says work is valuable and should be honest but never that it is commanded, and the scaffold's own contrast line (\"emphasis on divine command, communal duty, or personal motives\") points straight back at it. (3) \"Neglecting work results in lack of food\" is the Zambian Traditional Religion consequence; the prose covers responsibility, communal work and cooperation but never what follows from not working.",
+  "//edit": "The three teachings the scaffold removed above carried alone, written into the prose in the author's own words. (1) Bhagavad Gita 3:8 was the only scriptural reference for Hinduism anywhere in the sub-topic - the Hindu prose cites none, while Christianity carries five references, Islam carries Qur'an 53:39 and Zambian Traditional Religion carries proverbs. (2) \"Work is a command\" is Islam's framing of work as an obligation rather than a choice; the prose says work is valuable and should be honest but never that it is commanded, and the scaffold's own contrast line (\"emphasis on divine command, communal duty, or personal motives\") points straight back at it. (3) \"Neglecting work results in lack of food\" is the Zambian Traditional Religion consequence; the prose covers responsibility, communal work and cooperation but never what follows from not working. CDC round (25 Oct 2026), printed page 17: 'Replace the proverb with: matako alaabili tabuli kucumbana (the two buttocks cannot avoid friction) meaning misunderstandings are there; it is normal but should not lead to division or hatred' - set in the paragraph's own pattern (bold proverb, italic meaning in brackets). Also 'good and honesty living' -> 'good and honest living' in Learning Activity 9 of Topic 2.5.",
   "edit": [
     {
       "find": "This encourages you to take pride in doing your duties well.",
@@ -161,6 +177,2066 @@
     {
       "find": "A person is expected to contribute according to their abilities and circumstances rather than remaining unwilling to help others.",
       "with": "A person is expected to contribute according to their abilities and circumstances rather than remaining unwilling to help others. Neglecting work is discouraged because it can result in a lack of food and hardship for the family."
+    },
+    {
+      "find": "\"Luse luba luyando\"",
+      "with": "\"Matako alaabili tabuli kucumbana\""
+    },
+    {
+      "find": "(Love builds friendship.)",
+      "with": "(The two buttocks cannot avoid friction.)"
+    },
+    {
+      "find": " remind people that kindness and love strengthen relationships.",
+      "with": " means that misunderstandings are there; it is normal, but they should not lead to division or hatred."
+    },
+    {
+      "find": "good and honesty living",
+      "with": "good and honest living"
+    },
+    {
+      "find": "GENERAL COMPETENCES TO BE DEVELOPED",
+      "with": "KEY COMPETENCES TO BE DEVELOPED"
+    },
+    {
+      "find": "The Teachings of the Four Religions In Zambia On Freedom In Community",
+      "with": "Religious Teachings on Freedom and Community"
+    },
+    {
+      "find": "Social and Emotional Learning (SEL)",
+      "with": "Social and Emotional Learning"
+    }
+  ],
+  "//replaceBlocks": "CDC round (25 Oct 2026), the separate Word file 'Religious Education Form 2 - Separated Exercises for Topics 1 to 6_Post CDC Comments': every combined exercise ('EXERCISES 1 & 2', 'EXERCISES 3 TO 5', 'EXERCISES 10 - 12' ...) is split so that each Learning Activity is followed by its own exercise of three questions. Each combined exercise is replaced in place by the LAST exercise of its group (it already sat after that activity's notes); the earlier ones go in through insertText. Entries run in book order, so a heading that repeats in several topics ('EXERCISES 1 & 2') is taken topic by topic. Questions are the Word file's own words; italic like the book's other exercises. Two changes: 'quarreled' -> 'quarrelled' (British spelling, as the rest of the book), and the labels '(Knowledge)', '(Skills)', '(Values)' written after the three questions of Topic 2.6 Exercise 3 only are left out as the writer's planning notes. Last entry - CDC printed page 43: Learning Activity 6 of Topic 2.2 'must be guided Learning Activity'. The writer's one-paragraph instruction is set out as numbered steps, in the writer's own words; nothing added.",
+  "replaceBlocks": [
+    {
+      "find": "EXERCISE 8 & 9",
+      "with": [
+        {
+          "exercise": "EXERCISE 9",
+          "italic": true,
+          "parts": [
+            {
+              "q": "State whether each statement is True or False.",
+              "marker": "1."
+            },
+            {
+              "q": "Revenge is the best way of restoring unity after a quarrel.",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "Forgiveness can help two learners who have quarrelled restore their friendship.",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "A learner should help a classmate only if they belong to the same tribe.",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "Dialogue can help people settle disagreements peacefully.",
+              "marker": "d)",
+              "depth": 1
+            },
+            {
+              "q": "Read the situation below. Then write and act out a short role play of six to eight lines in which two learners, one from each class, reconcile using religious values.",
+              "marker": "2."
+            },
+            {
+              "lead": "During a football match between Form 2A and Form 2B, players from both classes begin to insult one another and the match ends in a fight. The next day, learners from the two classes refuse to sit together in the dining hall."
+            },
+            {
+              "q": "Your friend says, \"If someone wrongs you, you must pay them back.\" Do you agree? Explain your answer using the teachings of at least two religions.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 1 & 2",
+      "with": [
+        {
+          "exercise": "EXERCISE 2",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Classify each behaviour below as showing healthy self-esteem or low self-esteem.",
+              "marker": "1."
+            },
+            {
+              "q": "Mwila accepts correction from her teacher and corrects her work.",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "Kalaba refuses to answer questions in class because he fears giving a wrong answer.",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "After getting a low mark, Precious asks her teacher which topics she needs to revise.",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "Lubinda does not join the debate club because he thinks others will laugh at him.",
+              "marker": "d)",
+              "depth": 1
+            },
+            {
+              "q": "Draw a two-column chart comparing healthy self-esteem and low self-esteem. Give one example of each from school, from home and from the community.",
+              "marker": "2."
+            },
+            {
+              "q": "Chipego avoids participating in class because she believes that other learners are more intelligent than she is. Advise Chipego on how she can develop healthy self-esteem and become more confident in participating in school activities.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 4 & 5",
+      "with": [
+        {
+          "exercise": "EXERCISE 5",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain how understanding your own feelings can help you understand the feelings of other people.",
+              "marker": "1."
+            },
+            {
+              "q": "Copy and complete the table to show how a learner can demonstrate each competency during group work.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Competency",
+                  "Example during group work"
+                ],
+                [
+                  "Self-awareness",
+                  ""
+                ],
+                [
+                  "Self-management",
+                  ""
+                ],
+                [
+                  "Social awareness",
+                  ""
+                ],
+                [
+                  "Relationship skills",
+                  ""
+                ],
+                [
+                  "Responsible decision-making",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Mwamba becomes angry whenever his classmates disagree with his ideas during group work. He refuses to listen to them and sometimes leaves the group. Explain how Mwamba can use Social and Emotional Learning competencies to improve the way he relates with his classmates.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 6 & 7",
+      "with": [
+        {
+          "exercise": "EXERCISE 7",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Name the Social and Emotional Learning competency that would help a learner most in each situation:",
+              "marker": "1."
+            },
+            {
+              "q": "receiving correction from a teacher in front of the class",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "disagreeing with a friend over a seat",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "being pressured by friends to copy their homework",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "In groups, write and act out a short role play in which a learner refuses pressure from friends to copy homework. After the role play, list the competencies that were shown.",
+              "marker": "2."
+            },
+            {
+              "q": "Naledi has been struggling with her schoolwork and has become quiet and withdrawn from her friends. Her friend, Mutinta, notices the change and wants to help her. Suggest how Mutinta can use social awareness, relationship skills and responsible decision-making to support Naledi appropriately.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 8 & 9",
+      "with": [
+        {
+          "exercise": "EXERCISE 9",
+          "italic": true,
+          "parts": [
+            {
+              "q": "State two ways in which religious teachings can help a young person deal with failure.",
+              "marker": "1."
+            },
+            {
+              "q": "Design a poster, or write a message of not more than 80 words, to encourage learners who lack confidence. Use at least two religious teachings.",
+              "marker": "2."
+            },
+            {
+              "q": "Chanda has failed an important school test and now believes that she is not intelligent enough to succeed. She has stopped participating in class because she thinks other learners are better than her. Explain how religious teachings on self-esteem can help Chanda develop confidence, recognise her abilities and work towards improving her performance.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 1 & 2",
+      "with": [
+        {
+          "exercise": "EXERCISE 2",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Give three positive effects and three negative effects of having ambitions.",
+              "marker": "1."
+            },
+            {
+              "q": "Design a poster titled \"Pursue Your Ambition Honestly\". Show at least two ways in which a learner can work towards an ambition without harming himself, herself or other people.",
+              "marker": "2."
+            },
+            {
+              "q": "Brian wants to become the best learner in his class. He has started copying other learners' work and refuses to help his classmates because he believes they may perform better than him. Explain the negative effects of Brian's ambition and suggest how he can pursue his ambition in a responsible way.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 3 & 4",
+      "with": [
+        {
+          "exercise": "EXERCISE 4",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Fill in the blank spaces using the words in brackets: (determination, goal, planning)",
+              "marker": "1."
+            },
+            {
+              "q": "A __________ is something that you plan and work towards achieving.",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "__________ means continuing to work towards your goal even when you experience difficulties.",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "__________ involves dividing a large ambition into smaller, achievable goals.",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "Prepare a personal action plan by copying and completing the table below.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "My ambition",
+                  "Three goals I will set",
+                  "Steps I will take",
+                  "Person who can guide me"
+                ],
+                [
+                  "",
+                  "1.",
+                  "",
+                  ""
+                ],
+                [
+                  "",
+                  "2.",
+                  "",
+                  ""
+                ],
+                [
+                  "",
+                  "3.",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Ruth wants to become an entrepreneur but gives up whenever her plans do not work as expected. Advise Ruth on how determination, goal-setting, planning and seeking guidance can help her promote her ambition.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 5 & 6",
+      "with": [
+        {
+          "exercise": "EXERCISE 6",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Give three reasons why creativity and innovation are important in achieving ambitions.",
+              "marker": "1."
+            },
+            {
+              "q": "Copy and complete the table by suggesting a creative or innovative way of dealing with each challenge.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Challenge a young person may face",
+                  "Creative or innovative solution"
+                ],
+                [
+                  "Lack of money to start a project",
+                  ""
+                ],
+                [
+                  "Lack of equipment",
+                  ""
+                ],
+                [
+                  "Few job opportunities in the area",
+                  ""
+                ],
+                [
+                  "Lack of information about careers",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Explain how thinking creatively can help you remain hopeful instead of giving up when you face a challenge to your ambition.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 7 & 8",
+      "with": [
+        {
+          "exercise": "EXERCISE 8",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain what is meant by each of the following parts of a project plan: objectives, resources and expected results.",
+              "marker": "1."
+            },
+            {
+              "q": "Choose one ambition that you have. Copy and complete the project plan below for a simple project that can help you work towards it.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Project part",
+                  "Your plan"
+                ],
+                [
+                  "My ambition",
+                  ""
+                ],
+                [
+                  "Problem or need",
+                  ""
+                ],
+                [
+                  "Project idea",
+                  ""
+                ],
+                [
+                  "Objectives",
+                  ""
+                ],
+                [
+                  "Activities",
+                  ""
+                ],
+                [
+                  "Resources required",
+                  ""
+                ],
+                [
+                  "Expected results",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Imagine that your project does not achieve its expected results. Explain what attitude you would need and how creativity, innovation and evaluation can help you improve the project and continue working towards your ambition.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 9 & 10",
+      "with": [
+        {
+          "exercise": "EXERCISE 10",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Match each attribute of hope in Column A with its meaning in Column B.",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Column A",
+                  "Column B"
+                ],
+                [
+                  "(i) Determination",
+                  "(a) Focusing on possible solutions and better outcomes"
+                ],
+                [
+                  "(ii) Patience",
+                  "(b) Believing that you have the ability to do something or improve"
+                ],
+                [
+                  "(iii) Confidence",
+                  "(c) Continuing to make an effort despite challenges or failure"
+                ],
+                [
+                  "(iv) Positive thinking",
+                  "(d) Waiting calmly while working towards something you want"
+                ],
+                [
+                  "(v) Perseverance",
+                  "(e) Willingness to keep working towards a goal when difficulties arise"
+                ]
+              ]
+            },
+            {
+              "q": "Write a short story of about 100 words about a learner who remains hopeful and achieves a goal through perseverance.",
+              "marker": "2."
+            },
+            {
+              "q": "Think about a goal that you have not yet achieved. Explain how determination, patience and perseverance can help you continue working towards that goal.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 11 & 12",
+      "with": [
+        {
+          "exercise": "EXERCISE 12",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Identify four factors that can influence hope.",
+              "marker": "1."
+            },
+            {
+              "q": "Copy and complete the table below.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Factor",
+                  "How it can strengthen hope",
+                  "How it can weaken hope"
+                ],
+                [
+                  "Family support",
+                  "",
+                  ""
+                ],
+                [
+                  "Friends",
+                  "",
+                  ""
+                ],
+                [
+                  "Personal experiences",
+                  "",
+                  ""
+                ],
+                [
+                  "Challenges",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Musonda has failed twice to achieve her goal of becoming the captain of her school sports team. She now wants to stop participating in sports because she believes that she will never succeed. Advise Musonda on how she can use hope, positive thinking, determination and perseverance to respond to her experience.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 1 & 2",
+      "with": [
+        {
+          "exercise": "EXERCISE 2",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Match each form of justice in Column A with its meaning in Column B.",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Column A",
+                  "Column B"
+                ],
+                [
+                  "(i) Distributive justice",
+                  "(a) Repairing harm and restoring relationships"
+                ],
+                [
+                  "(ii) Procedural justice",
+                  "(b) Responding fairly and appropriately to wrongdoing"
+                ],
+                [
+                  "(iii) Retributive justice",
+                  "(c) Fair distribution of resources, opportunities and responsibilities"
+                ],
+                [
+                  "(iv) Restorative justice",
+                  "(d) Fairness in the processes used to make decisions"
+                ]
+              ]
+            },
+            {
+              "q": "Draw four simple pictures, each showing one form of justice at school. Write a caption under each picture naming the form of justice it shows.",
+              "marker": "2."
+            },
+            {
+              "q": "Two learners have fought over a borrowed pen. One teacher wants to punish them only, while another wants them to talk, apologise and make peace. Explain which approach you would support and why procedural and restorative justice are important in resolving disagreements among learners.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 3 & 4",
+      "with": [
+        {
+          "exercise": "EXERCISE 4",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Arrange the following steps of making an informed decision in the correct order: consider possible consequences, identify the problem, make a responsible decision, listen to different views, gather information, consider fairness and rights.",
+              "marker": "1."
+            },
+            {
+              "q": "Two learners give different accounts of the same disagreement. Write out how you would carry out each step of informed decision-making before deciding what should be done.",
+              "marker": "2."
+            },
+            {
+              "q": "Explain why it is wrong to make a decision about someone based on rumours, and how listening to different views shows respect for others.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 6 & 7",
+      "with": [
+        {
+          "exercise": "EXERCISE 7",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Describe three ways in which good governance can promote social justice in your school or community.",
+              "marker": "1."
+            },
+            {
+              "q": "A school committee has to choose learners to participate in an important educational programme. Draw a flow chart showing a fair selection procedure that uses fairness, transparency, participation and accountability.",
+              "marker": "2."
+            },
+            {
+              "q": "Explain how a lack of accountability by leaders can affect people's access to services, and why citizens should raise their concerns through appropriate channels.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 9 & 10",
+      "with": [
+        {
+          "exercise": "EXERCISE 10",
+          "italic": true,
+          "parts": [
+            {
+              "q": "State how each of the four religions teaches people to respond when they are treated unfairly.",
+              "marker": "1."
+            },
+            {
+              "q": "Copy and complete the table below.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Situation",
+                  "Religious teaching that applies",
+                  "Fair and peaceful response"
+                ],
+                [
+                  "You find a classmate's phone in the library.",
+                  "",
+                  ""
+                ],
+                [
+                  "An older learner is bullying a younger one.",
+                  "",
+                  ""
+                ],
+                [
+                  "Someone asks you to pay money to be served first.",
+                  "",
+                  ""
+                ],
+                [
+                  "Two neighbours are quarrelling over a boundary.",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Read the situation below and answer the question that follows.",
+              "marker": "3."
+            },
+            {
+              "lead": "Chisomo and Mulenga are members of the same school group. During a group activity, some members decide not to allow Chisomo to participate because of his background. Chisomo feels that he has been treated unfairly and wants to leave the group."
+            },
+            {
+              "lead": "Explain how teachings from Christianity, Hinduism, Islam and Zambian Traditional Religion can guide the group members to promote justice, resolve the situation peacefully and restore good relationships."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 1 & 2",
+      "with": [
+        {
+          "exercise": "EXERCISE 2",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Identify four reasons why people work.",
+              "marker": "1."
+            },
+            {
+              "q": "Interview three people in your community who do different kinds of work. Record what work each person does, why they do it and how it benefits other people, then present your findings to the class.",
+              "marker": "2."
+            },
+            {
+              "q": "\"Work is only about earning money.\" Do you agree with this statement? Give two reasons for your answer.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 3 TO 5",
+      "with": [
+        {
+          "exercise": "EXERCISE 5",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Give two reasons why many people depend on formal employment and two challenges that may arise when formal jobs are limited.",
+              "marker": "1."
+            },
+            {
+              "q": "Draw up a personal skills plan. List three practical skills you could develop, where you could learn each one and how each could help you earn a living.",
+              "marker": "2."
+            },
+            {
+              "q": "Many young people in your community are waiting for office jobs but very few are available. Advise them on the attitude they need, and suggest practical ways in which they can explore other forms of work.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 6 & 7",
+      "with": [
+        {
+          "exercise": "EXERCISE 7",
+          "italic": true,
+          "parts": [
+            {
+              "q": "List five things a person should consider when evaluating a work opportunity.",
+              "marker": "1."
+            },
+            {
+              "q": "Choose any two work opportunities available in your community. Copy and complete the table to compare them, then state which one is more suitable for a young person with limited resources.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "",
+                  "Opportunity 1",
+                  "Opportunity 2"
+                ],
+                [
+                  "Skills required",
+                  "",
+                  ""
+                ],
+                [
+                  "Resources needed",
+                  "",
+                  ""
+                ],
+                [
+                  "Possible income",
+                  "",
+                  ""
+                ],
+                [
+                  "Possible challenges",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Explain why a person should avoid work that harms other people, the environment or himself or herself, even if it pays well.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 8 & 9",
+      "with": [
+        {
+          "exercise": "EXERCISE 9",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Differentiate between saving and investment, and give three reasons why people save.",
+              "marker": "1."
+            },
+            {
+              "q": "Prepare a simple savings plan for one month. Show how much you could save each week from pocket money or earnings, what you are saving for and where you will keep the money.",
+              "marker": "2."
+            },
+            {
+              "q": "Read the situation below and answer the questions that follow.",
+              "marker": "3."
+            },
+            {
+              "lead": "Thandiwe earns money from selling fritters after school. She wants to expand her small business but usually spends all the money she makes. Her friend advises her to start saving part of her earnings."
+            },
+            {
+              "q": "Explain how Thandiwe can use saving to turn her work into a source of investment.",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "Suggest practical ways she can manage her money responsibly.",
+              "marker": "b)",
+              "depth": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 10 – 12",
+      "with": [
+        {
+          "exercise": "EXERCISE 12",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Give two reasons why entrepreneurial activities can be regarded as a form of employment.",
+              "marker": "1."
+            },
+            {
+              "q": "Prepare a simple business plan for an entrepreneurial activity you could start. Include the product or service, the customers, the materials needed, the cost of starting and the number of workers you may need.",
+              "marker": "2."
+            },
+            {
+              "q": "Read the situation below and answer the questions that follow.",
+              "marker": "3."
+            },
+            {
+              "lead": "Ethan has learned how to make school bags from locally available materials. He wants to start producing and selling the bags to learners in his community. If the business grows, he hopes to employ two other young people."
+            },
+            {
+              "q": "Suggest ways in which Ethan can develop the activity responsibly.",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "Explain how Ethan should treat the young people he employs.",
+              "marker": "b)",
+              "depth": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 13 & 14",
+      "with": [
+        {
+          "exercise": "EXERCISE 14",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain how ethical behaviour affects the quality of work and productivity at a workplace.",
+              "marker": "1."
+            },
+            {
+              "q": "Copy and complete the table below.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Occupation",
+                  "One example of ethical behaviour",
+                  "One example of unethical behaviour",
+                  "Possible effect of the unethical behaviour"
+                ],
+                [
+                  "Mechanic",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Health worker",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "Market trader",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Read the situation below and answer the question that follows.",
+              "marker": "3."
+            },
+            {
+              "lead": "Mwansa is given responsibility for keeping money collected for a school activity. At the end of the day, he discovers that there is more money than what was recorded. His friend advises him to keep the extra money because nobody is likely to notice."
+            },
+            {
+              "lead": "What should Mwansa do? Explain the values that should guide his decision and how his actions can promote integrity and responsible citizenship."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "EXERCISES 15 & 16",
+      "with": [
+        {
+          "exercise": "EXERCISE 16",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Match each attitude in Column A with its meaning in Column B.",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Column A",
+                  "Column B"
+                ],
+                [
+                  "(i) Punctuality",
+                  "(a) Continuing to work despite difficulties"
+                ],
+                [
+                  "(ii) Perseverance",
+                  "(b) Working with others to achieve a common goal"
+                ],
+                [
+                  "(iii) Cooperation",
+                  "(c) Improving your knowledge and skills as the world of work changes"
+                ],
+                [
+                  "(iv) Responsibility",
+                  "(d) Being present and ready to work at the required time"
+                ],
+                [
+                  "(v) Willingness to learn",
+                  "(e) Taking duties seriously and accepting the consequences of your actions"
+                ]
+              ]
+            },
+            {
+              "q": "Choose two attitudes from Question 1. Keep a one-week record showing how you practised each of them at school, and what difference it made.",
+              "marker": "2."
+            },
+            {
+              "q": "Imagine that you have completed school and are considering formal employment, farming, skilled work or starting a small business. Explain which option you would choose, and show how a positive attitude towards work would help you succeed in it.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "find": "In groups, discuss what collaboration means and identify situations at home, at school and in the community where people need to work together. Explain how people can collaborate while still enjoying their freedom. Share your findings with the class.",
+      "with": [
+        {
+          "listitem": "*In groups, discuss what collaboration means.*",
+          "marker": "1."
+        },
+        {
+          "listitem": "*Identify situations at home, at school and in the community where people need to work together.*",
+          "marker": "2."
+        },
+        {
+          "listitem": "*Explain how people can collaborate while still enjoying their freedom.*",
+          "marker": "3."
+        },
+        {
+          "listitem": "*Share your findings with the class.*",
+          "marker": "4."
+        }
+      ]
+    }
+  ],
+  "//insertText": "CDC round: the first exercise(s) of each split group, from the separated-exercises Word file, each placed 'after the content of Learning Activity N' as the file says - i.e. after that activity's notes, just before the heading that opens the next activity's section. Also: CDC printed page 60, 'Include self-assertiveness' - added as one more factor after Personal integrity, in the CDC's own words and the same style as the other factors (blue italic term).",
+  "insertText": [
+    {
+      "before": "How to Overcome Division in Real Life",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 8",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Match each religion in Column A with the correct teaching in Column B.",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Column A",
+                  "Column B"
+                ],
+                [
+                  "(i) Christianity",
+                  "(a) Muslims are warned against becoming divided after receiving guidance (Qur'an 3:105)."
+                ],
+                [
+                  "(ii) Islam",
+                  "(b) The proverb \"Ubunte bupusana amano\" teaches that unity brings wisdom."
+                ],
+                [
+                  "(iii) Hinduism",
+                  "(c) Jesus called Levi, a tax collector, to become His disciple (Luke 5:27–30)."
+                ],
+                [
+                  "(iv) Zambia Traditional Religion",
+                  "(d) A person should see the connection between oneself and other living beings (Bhagavad Gita 6:29)."
+                ]
+              ]
+            },
+            {
+              "q": "Make a chart with four columns, one for each religion. Under each religion, write two values it teaches for overcoming division and hatred, and display the chart in your classroom.",
+              "marker": "2."
+            },
+            {
+              "q": "Jesus called Levi to be His disciple even though society rejected tax collectors. Explain how this teaching should change the way you treat a classmate whom other learners avoid.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Describing Types of Self-Esteem",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 1",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Define self-esteem and state two things that a person with healthy self-esteem understands about himself or herself.",
+              "marker": "1."
+            },
+            {
+              "q": "Copy and complete the table below about yourself.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Quality I appreciate about myself",
+                  "How it helps me at school, at home or in the community"
+                ],
+                [
+                  "1.",
+                  ""
+                ],
+                [
+                  "2.",
+                  ""
+                ],
+                [
+                  "3.",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "\"Having different abilities makes some people more important than others.\" Do you agree with this statement? Give two reasons for your answer.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Exploring Self-Awareness, Self-Management, Social Awareness, Relationship Skills and Responsible Decision-Making",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 4",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Match each competency in Column A with its meaning in Column B.",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Column A",
+                  "Column B"
+                ],
+                [
+                  "(i) Self-awareness",
+                  "(a) Thinking carefully about the results of a choice before making it"
+                ],
+                [
+                  "(ii) Self-management",
+                  "(b) Understanding and respecting the feelings, needs and views of others"
+                ],
+                [
+                  "(iii) Social awareness",
+                  "(c) Understanding your own feelings, thoughts, strengths and weaknesses"
+                ],
+                [
+                  "(iv) Relationship skills",
+                  "(d) Controlling your emotions and behaviour"
+                ],
+                [
+                  "(v) Responsible decision-making",
+                  "(e) Listening, communicating, cooperating and resolving disagreements peacefully"
+                ]
+              ]
+            },
+            {
+              "q": "Design a poster for your classroom showing the five Social and Emotional Learning competencies. For each competency, draw or describe one example of a learner using it.",
+              "marker": "2."
+            },
+            {
+              "q": "Your friends invite you to leave school early to watch a match in town. Explain which Social and Emotional Learning competency would guide you, what you would decide and why.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Applying Social and Emotional Learning Competencies in Real Life",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 6",
+          "italic": true,
+          "parts": [
+            {
+              "q": "List three personal challenges that learners may experience and three people a learner can approach for guidance.",
+              "marker": "1."
+            },
+            {
+              "q": "Your friend tells you that she is worried about problems at home and cannot concentrate in class. Write a short dialogue of six to eight lines showing how you would listen to her and encourage her to seek help from a trusted adult.",
+              "marker": "2."
+            },
+            {
+              "q": "A classmate shares a personal problem with you and asks you to keep it private. Explain why you should not share it with others as gossip, and when it would be right to tell a trusted adult.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Applying Religious Teachings on Self-Esteem",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 8",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Match each Bible reference in Column A with its teaching in Column B.",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Column A",
+                  "Column B"
+                ],
+                [
+                  "(i) Genesis 1:26–27",
+                  "(a) Be strong and courageous when facing responsibilities."
+                ],
+                [
+                  "(ii) Joshua 1:1–9",
+                  "(b) Live with strength, love and self-control rather than fear."
+                ],
+                [
+                  "(iii) 1 Samuel 16:7",
+                  "(c) Human beings were created in the image of God."
+                ],
+                [
+                  "(iv) 2 Timothy 1:7",
+                  "(d) God looks at the heart, not the outward appearance."
+                ]
+              ]
+            },
+            {
+              "q": "Copy and complete the table below.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Religion",
+                  "One teaching on self-esteem",
+                  "How I can practise it"
+                ],
+                [
+                  "Christianity",
+                  "",
+                  ""
+                ],
+                [
+                  "Hinduism",
+                  "",
+                  ""
+                ],
+                [
+                  "Islam",
+                  "",
+                  ""
+                ],
+                [
+                  "Zambian Traditional Religion",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Islam and Hinduism teach that people should recognise their abilities while remaining humble. Explain how you can appreciate your own strengths without looking down on other learners.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Positive and Negative Effects of Ambitions",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 1",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain the meaning of ambition and give one example of an ambition related to education, one related to a career and one related to the community.",
+              "marker": "1."
+            },
+            {
+              "q": "Write down one ambition that you have. Copy and complete the table to show what you need in order to achieve it.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "My ambition",
+                  "Knowledge I need",
+                  "Skills I need",
+                  "Values I need"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "\"Simply wishing to achieve something is not enough.\" Explain why ambition must be supported by action, and state one commitment you will make towards your own ambition.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Promoting one’s Ambitions",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 3",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Match each factor in Column A with the example in Column B that it best explains.",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Column A",
+                  "Column B"
+                ],
+                [
+                  "(i) Personal interests",
+                  "(a) Mr Phiri, a teacher, notices Kasonde's talent in drawing and guides her towards a career in design."
+                ],
+                [
+                  "(ii) Abilities and talents",
+                  "(b) Natasha wants to become an engineer after seeing the poor roads in her area."
+                ],
+                [
+                  "(iii) Family",
+                  "(c) Mapalo enjoys looking after his family's goats and wants to become a veterinary officer."
+                ],
+                [
+                  "(iv) School",
+                  "(d) Chola admires a nurse at the local clinic and wants to be like her."
+                ],
+                [
+                  "(v) Role models",
+                  "(e) Mubanga's parents encourage him to work hard so that he can study agriculture."
+                ],
+                [
+                  "(vi) Community experiences",
+                  "(f) Kombe is fast on the track and hopes to become a professional athlete."
+                ]
+              ]
+            },
+            {
+              "q": "Interview a parent, guardian, teacher or community member about what influenced his or her ambition. Write down the answers and present them to the class.",
+              "marker": "2."
+            },
+            {
+              "q": "Identify one role model in your life. Explain which of his or her values you would like to copy and why.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Importance of Creativity and Innovation in Ambitions and Hope",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 5",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Distinguish between creativity and innovation, giving one example of each.",
+              "marker": "1."
+            },
+            {
+              "q": "Using locally available materials, design an object that could be useful at your school or home. Draw and label it, then explain how it would be used.",
+              "marker": "2."
+            },
+            {
+              "q": "A classmate laughs at your idea of reusing waste materials to make useful objects. Explain how you would respond and why new ideas from others should be respected.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Designing a Project Based on Your Ambition",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 7",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Arrange the following steps of designing a project in the correct order: implementing the project, identifying a problem or need, evaluating the project, setting objectives, identifying resources, developing a project idea, planning the activities.",
+              "marker": "1."
+            },
+            {
+              "q": "Choose one problem at your school, such as litter or a shortage of seats. Draw a flow chart showing how you would apply each step of project design to solve it.",
+              "marker": "2."
+            },
+            {
+              "q": "Explain why a good project should address a real need and consider the people who will benefit from it.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Attributes of Hope",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 9",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain the meaning of hope and state three things that young people may hope for.",
+              "marker": "1."
+            },
+            {
+              "q": "Make a \"hope chart\" with three things you hope for in the next five years. Next to each one, write one action you can take now to work towards it.",
+              "marker": "2."
+            },
+            {
+              "q": "Write a short journal entry about a time when you faced a disappointment. Explain how hope helped you, or could have helped you, to respond positively.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Analysing Factors That Influence Hope",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 11",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Name the five types of hope and give one example of each.",
+              "marker": "1."
+            },
+            {
+              "q": "Draw a diagram with five branches, one for each type of hope. On each branch, write one hope you have for that area of your life.",
+              "marker": "2."
+            },
+            {
+              "q": "Explain why young people should care about community hope and not only about their personal hopes.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Forms of Justice",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 1",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain the meaning of justice and injustice, giving one example of each.",
+              "marker": "1."
+            },
+            {
+              "q": "Make a chart with two columns headed \"Fair practices\" and \"Unfair practices\". List two examples of each from school, from home and from the community.",
+              "marker": "2."
+            },
+            {
+              "q": "You are a prefect on duty at lunch time, and your friends ask you to let them collect their food first. Explain what you would do and why treating everyone fairly is important.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Describing Steps to Arrive at an Informed Decision",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 3",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Name the form of injustice (bribery, tribalism, corruption or nepotism) shown in each situation.",
+              "marker": "1."
+            },
+            {
+              "q": "An officer asks for K200 before he can process a document that should be issued free of charge.",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "A manager employs her nephew even though he does not meet the job requirements.",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "A club treasurer uses money collected from members to buy himself a phone.",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "A coach selects only players who come from his own ethnic group.",
+              "marker": "d)",
+              "depth": 1
+            },
+            {
+              "q": "In groups, write a short drama script or design a poster that discourages bribery, tribalism, corruption and nepotism in your community.",
+              "marker": "2."
+            },
+            {
+              "q": "Someone in a queue offers you money to let him go ahead of everyone else. Explain what you would do and why.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Importance of Good Governance in Promoting Social Justice",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 6",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Identify the quality of good governance shown in each situation.",
+              "marker": "1."
+            },
+            {
+              "q": "The school displays on the notice board how money from the Parent-Teacher Association was used.",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "Learners vote to choose their class monitor.",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "The head teacher explains to parents why a particular decision was made.",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "School rules are applied in the same way to all learners.",
+              "marker": "d)",
+              "depth": 1
+            },
+            {
+              "q": "Organise a mock election for a class monitor that follows the principles of good governance. Write down the steps you followed and the qualities of good governance each step showed.",
+              "marker": "2."
+            },
+            {
+              "q": "If you were elected class monitor, explain three qualities you would show when making decisions that affect other learners, and why.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Applying Religious Teachings on Justice",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 9",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Match each religious reference in Column A with its teaching in Column B.",
+              "marker": "1."
+            },
+            {
+              "table": [
+                [
+                  "Column A",
+                  "Column B"
+                ],
+                [
+                  "(i) Exodus 22:21–27",
+                  "(a) Return trusts to their owners and judge between people with justice."
+                ],
+                [
+                  "(ii) 2 Samuel 12:1–13",
+                  "(b) Perform your duties responsibly."
+                ],
+                [
+                  "(iii) Mark 12:38–40",
+                  "(c) Do not mistreat strangers, widows and orphans."
+                ],
+                [
+                  "(iv) Qur'an 4:58",
+                  "(d) Even people in authority must be held accountable for wrongdoing."
+                ],
+                [
+                  "(v) Bhagavad Gita 3:25",
+                  "(e) Do not use your position to take advantage of vulnerable people."
+                ]
+              ]
+            },
+            {
+              "q": "Copy and complete the table below.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Religion",
+                  "One teaching on justice",
+                  "Value it promotes"
+                ],
+                [
+                  "Christianity",
+                  "",
+                  ""
+                ],
+                [
+                  "Hinduism",
+                  "",
+                  ""
+                ],
+                [
+                  "Islam",
+                  "",
+                  ""
+                ],
+                [
+                  "Zambian Traditional Religion",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "The prophet Nathan confronted King David about his wrongdoing. Explain what this story teaches about speaking out against wrongdoing by people in authority, and how you should do so respectfully.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Why People Work",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 1",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain the meaning of work. Then classify each occupation as formal or informal work: teacher, street vendor, bank teller, market tailor, nurse, home-based hairdresser, civil servant, small-scale farmer.",
+              "marker": "1."
+            },
+            {
+              "q": "Make a picture chart of the types of work done in your community, using drawings or cut-out pictures. Group them under \"Formal work\" and \"Informal work\".",
+              "marker": "2."
+            },
+            {
+              "q": "Some people believe that informal work is less important than formal work. Do you agree? Give two reasons for your answer.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Interdependence of Work in Modern Zambia",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 3",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain what a vocation is and state three things that may influence a person's choice of vocation.",
+              "marker": "1."
+            },
+            {
+              "q": "Prepare a one-page career profile of a vocation you would like to follow. Include the duties, the skills and qualities needed, the training required and how the vocation serves the community.",
+              "marker": "2."
+            },
+            {
+              "q": "Explain why a person should carry out any vocation honestly and with commitment, even when nobody is watching.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Dependence on Formal Employment",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 4",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain what is meant by interdependence of work and give two examples from modern Zambia.",
+              "marker": "1."
+            },
+            {
+              "q": "Draw a simple diagram showing how a farmer, a transport worker, a trader, a teacher and a health worker depend on one another. Use arrows to show the relationships.",
+              "marker": "2."
+            },
+            {
+              "q": "Since different workers depend on one another, explain why you should respect people in every occupation.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Evaluating Different Work Opportunities",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 6",
+          "italic": true,
+          "parts": [
+            {
+              "q": "List four ways through which people earn money and give one example of each.",
+              "marker": "1."
+            },
+            {
+              "q": "Copy and complete the table below.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Activity",
+                  "Way of earning money (formal employment, self-employment, farming, trading or services)",
+                  "One skill or resource needed"
+                ],
+                [
+                  "Running a barbershop",
+                  "",
+                  ""
+                ],
+                [
+                  "Working as an accountant for a company",
+                  "",
+                  ""
+                ],
+                [
+                  "Rearing chickens for sale",
+                  "",
+                  ""
+                ],
+                [
+                  "Buying tomatoes and reselling them at a market",
+                  "",
+                  ""
+                ],
+                [
+                  "Taking photographs at weddings",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "A friend tells you about an activity that pays well but involves cheating customers. Explain whether you would take part and why honesty matters when earning money.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Reasons for Saving",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 8",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain the meaning of investment and give one example of how a carpenter, a tailor and a farmer can each invest money earned from work.",
+              "marker": "1."
+            },
+            {
+              "q": "You have earned K5,000 from a school holiday business. Copy and complete the budget below. Make sure the amounts add up to K5,000.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Use",
+                  "Amount (K)",
+                  "Reason"
+                ],
+                [
+                  "Immediate needs",
+                  "",
+                  ""
+                ],
+                [
+                  "Savings",
+                  "",
+                  ""
+                ],
+                [
+                  "Investment",
+                  "",
+                  ""
+                ],
+                [
+                  "**Total**",
+                  "**5,000**",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Explain why investing requires patience and self-control rather than spending all your earnings at once.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Entrepreneurial Activities in the Community",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 10",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Explain the meaning of entrepreneurship. Then classify each activity as entrepreneurial work or not entrepreneurial work, giving a reason: making and selling school uniforms; growing vegetables for sale; running a small hair salon; helping a friend with homework without payment.",
+              "marker": "1."
+            },
+            {
+              "q": "Choose one entrepreneur in your community. Draw a simple chart showing how he or she combines money, materials, equipment, skills and time to produce goods or provide services.",
+              "marker": "2."
+            },
+            {
+              "q": "Explain why an entrepreneur should be honest with customers and take only reasonable risks.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Entrepreneurial Activities as a Form of Employment",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 11",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Name three entrepreneurial activities common in Zambian communities and state what each provides.",
+              "marker": "1."
+            },
+            {
+              "q": "Carry out a short survey in your community. Copy and complete the table for five entrepreneurial activities you observe.",
+              "marker": "2."
+            },
+            {
+              "table": [
+                [
+                  "Entrepreneurial activity",
+                  "Goods or services provided",
+                  "Who benefits",
+                  "Skills needed"
+                ],
+                [
+                  "1.",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "2.",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "3.",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "4.",
+                  "",
+                  "",
+                  ""
+                ],
+                [
+                  "5.",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "q": "Explain why community members should support honest local entrepreneurs.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "The Relationship between Ethics and Work",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 13",
+          "italic": true,
+          "parts": [
+            {
+              "q": "Complete the following statements using suitable words:",
+              "marker": "1."
+            },
+            {
+              "q": "__________ involves telling the truth and avoiding deception.",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "__________ means carrying out duties properly and accepting responsibility for one's actions.",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "__________ involves treating other people with dignity.",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "__________ means treating people justly and avoiding favouritism.",
+              "marker": "d)",
+              "depth": 1
+            },
+            {
+              "q": "__________ involves doing what is right even when there is an opportunity to benefit dishonestly.",
+              "marker": "e)",
+              "depth": 1
+            },
+            {
+              "q": "Design a classroom poster showing five ethical values. For each value, draw or describe one example of how a learner can practise it at school.",
+              "marker": "2."
+            },
+            {
+              "q": "You see a classmate taking school property home. Explain what you would do and which ethical values would guide your action.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Importance of Positive Attitudes towards Work",
+      "blocks": [
+        {
+          "exercise": "EXERCISE 15",
+          "italic": true,
+          "parts": [
+            {
+              "q": "State whether each statement shows a positive or a negative attitude towards work:",
+              "marker": "1."
+            },
+            {
+              "q": "\"Farming is for people who did not do well at school.\"",
+              "marker": "a)",
+              "depth": 1
+            },
+            {
+              "q": "\"Any honest work deserves respect.\"",
+              "marker": "b)",
+              "depth": 1
+            },
+            {
+              "q": "\"Only office jobs are real jobs.\"",
+              "marker": "c)",
+              "depth": 1
+            },
+            {
+              "q": "\"Skilled trades can help me become self-reliant.\"",
+              "marker": "d)",
+              "depth": 1
+            },
+            {
+              "q": "Ask five people in your community what they think about farming, skilled trades and entrepreneurship as careers. Record their answers in a table and report whether the attitudes you found were mostly positive or negative.",
+              "marker": "2."
+            },
+            {
+              "q": "Your friend says he would never become a carpenter because it is not a respectable job. Write a short paragraph of about 80 words to help him see the value of skilled work.",
+              "marker": "3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "before": "Practise teamwork in the community",
+      "text": "In this section, you will:"
+    },
+    {
+      "before": "2.4.1.2 Demonstrate creativity",
+      "text": "In this section, you will:"
+    },
+    {
+      "before": "2.6.1.2 Use work as",
+      "text": "In this section, you will:"
+    },
+    {
+      "before": "2.6.1.3 Show that entrepreneurial",
+      "text": "In this section, you will:"
+    },
+    {
+      "before": "Education is an important factor that promotes freedom",
+      "text": "Factors that promote freedom",
+      "as": "head"
+    },
+    {
+      "before": "Poverty, on the other hand, may limit",
+      "text": "Factors that limit freedom",
+      "as": "head"
+    },
+    {
+      "after": "Acting with integrity can strengthen self-respect",
+      "blocks": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Self-assertiveness",
+                "b": false,
+                "it": true,
+                "c": "0000FF"
+              },
+              {
+                "t": " is the ability to express your thoughts, feelings, beliefs and needs openly, honestly and directly while still respecting the rights and boundaries of others.",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "//removeWhereNext": "Pairs with the four 'In this section, you will:' lines inserted above (see //subtext): the old 'In this sub-topic, you will:' line in front of each is dropped.",
+  "removeWhereNext": [
+    {
+      "find": "In this sub-topic, you will:",
+      "next": "In this section, you will:"
+    },
+    {
+      "find": "In this sub-topic, you will:",
+      "next": "In this section, you will:"
+    },
+    {
+      "find": "In this sub-topic, you will:",
+      "next": "In this section, you will:"
+    },
+    {
+      "find": "In this sub-topic, you will:",
+      "next": "In this section, you will:"
+    }
+  ],
+  "unboldBlock": [
+    "- Christianity (Exodus 22",
+    "- Hinduism (non-violence as only path",
+    "- Islam (respect for workers",
+    "- Zambian Traditional Religion (Justice is not concerned"
+  ],
+  "//unboldBlock": "CDC round, printed page 112: 'This Activity 9 should not be in bold' - the four religion lines in Learning Activity 9 of Topic 2.5.",
+  "//boldCaptions": "CDC round, printed page 24: 'The captions under illustrations should be put in bold. (For all)'. Every figure caption is set bold (still italic).",
+  "boldCaptions": true,
+  "//tocDepth": "CDC round: the CDC sent its own TABLE OF CONTENT (Word file 'TABLE OF CONTENT - FORM 2 RELIGIOUS EDUCATION LEARNERS BOOK _POST CDC COMMENTS'), the same list the manuscript typed at its start: every sub-topic is listed under its topic. Depth 2 lists them. The headings are made to read as that list names them: KEY COMPETENCES TO BE DEVELOPED, Sub-Topic 2.2.2 Religious Teachings on Freedom and Community, 2.3.2 Social and Emotional Learning, and Glossary (glossaryTitle). The CDC list writes 'Self-esteem' in 2.3.1 and 2.3.3; the book keeps 'Self-Esteem', the form all ten of its Self-Esteem headings use.",
+  "tocDepth": 2,
+  "glossaryTitle": "GLOSSARY",
+  "//asHead": "With the sub-topics now listed in the contents (see //tocDepth), two ordinary section headings the manuscript typed in Word Heading styles showed up as if they were sub-topics: Practising Unity and Love in Daily Living (Heading 2) and Hindu Teachings on Division and Hatred (Heading 1). Their siblings (Evaluating Christian Teachings..., Exploring Muslim Teachings...) are plain bold headings, and neither is in the CDC contents list, so they are set like their siblings.",
+  "asHead": [
+    "Practising Unity and Love in Daily Living",
+    "Hindu Teachings on Division and Hatred"
+  ],
+  "//tocGap": "With the sub-topics listed, the contents ran one line (REFERENCES) onto a second page; a 5pt gap above each topic (default 10pt) keeps it on one page.",
+  "tocGap": "5pt",
+  "//subtopicRuleClear": "The short rule under a sub-topic title that wraps to two lines (2.1.2, 2.1.4, 2.2.2, 2.4.3, 2.5.2) ran through the first line of text below it. Gives a wrapped title its gap back.",
+  "subtopicRuleClear": true,
+  "//keepWithNext": "Topic 2.4 Exercise 13: the stem 'Read the situation below and answer the question that follows.' ended a page with Chileshe's situation on the next.",
+  "keepWithNext": [
+    "Read the situation below and answer the question that follows."
+  ],
+  "//setMarker": "Round 2 mark not applied until now (CDC copy, printed page 117, End of Topic 5 Assessment): 'Remove the 10 here and change 11 to 10'. The Kalundu case study is the passage Question 9 asks about, not a question: it loses its number (set under the question text), and the community health-centre question becomes 10.",
+  "setMarker": [
+    {
+      "find": "During the election of prefects at Kalundu",
+      "marker": "",
+      "depth": 0
+    },
+    {
+      "find": "A community has received funds to construct a health centre",
+      "marker": "10.",
+      "depth": 0
     }
   ]
 }

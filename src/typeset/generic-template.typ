@@ -44,6 +44,8 @@
 // boxes around it. They differed by 1pt before — invisible on its own, but it put
 // two list families in one book at two different left edges, which is exactly the
 // unevenness the numbering rules elsewhere work to avoid.
+// Figure-caption weight: regular unless the book sets `boldCaptions` (captions stay italic).
+#let capw = if T.at("capBold", default: false) { "bold" } else { "regular" }
 #let boxinx = if boxstyle == "labcard" { 14pt } else if serieslike or panel or literary or modern { 11pt } else { 10pt }
 // A small hexagon (benzene ring) used as the chemistry callout motif.
 #let hexmark(c, sz: 5.2mm, w: 0.9pt) = polygon.regular(vertices: 6, size: sz,
@@ -176,6 +178,15 @@
   // centred) so a reader can scan a working straight down the page. Typst centres
   // block equations by default, so force them left; dispmath then handles the width.
   show math.equation.where(block: true): set align(left)
+  // mathBodyFont (opt-in, per book): equations in the body face. Words, digits and
+  // operators take it from the font list; a single-letter variable is set as plain
+  // body text in the surrounding style (Typst would otherwise draw it as a math-italic
+  // serif glyph the body face lacks). Fraction bars, roots etc. keep the math font.
+  show math.equation: it => if T.at("mathBodyFont", default: false) {
+    set text(font: (T.bodyFont, "New Computer Modern Math"))
+    show regex("^[A-Za-z]$"): l => context math.upright(text(font: T.bodyFont, style: text.style, l))
+    it
+  } else { it }
   // Fractions must READ at body size. Typst renders an inline fraction in "text"
   // style, shrinking the numerator/denominator to script size (~70%) — so "0.2/12"
   // came out visibly smaller than the 12pt prose around it. Force every fraction
@@ -723,7 +734,7 @@
           #box(fill: amber, inset: (x: 13pt, y: 6pt), radius: 4pt)[
             #text(size: 28pt, weight: "bold", fill: T.primary.darken(8%), tracking: 1pt)[#upper(formtxt)]] ]
         #v(5mm)
-        #text(size: 18pt, weight: "bold", fill: white)[#upper(booktype)]
+        #text(size: T.at("covBooktypeSize", default: 18pt), weight: "bold", fill: white)[#upper(booktype)]
       ]]
       #place(top + center, dy: 22mm, mastheadBlock)
       // hero photo (straight, white frame) when present; otherwise a central
@@ -1421,6 +1432,9 @@
 // ---- back cover (series): the last page, echoing the front cover's geometry.
 // The ISBN/barcode are added by the press later, so we only RESERVE a clean
 // box for them and otherwise carry the book identity + publisher branding. ----
+// a field dark enough that lettering darkened from it would vanish into it (the Geography
+// Form 1 LB back cover printed "Published by" dark green on its dark green field)
+#let darkfield(c) = { let k = rgb(c).components(); (k.at(0) * 0.299 + k.at(1) * 0.587 + k.at(2) * 0.114) < 45% }
 #let backcover(lines, logo, isbn) = {
   // keep the cover palette even in a black-and-white interior (see cover()).
   let T = (..T, primary: T.covPrimary, primary2: T.covPrimary2, accent: T.covAccent, signature: T.covSignature, cyan: T.covCyan, ink: T.covInk, rulec: T.covRulec)
@@ -1453,7 +1467,8 @@
   // back still print as one sheet. `lines` stays in the signature so every existing call
   // site keeps working.
   let signature = T.at("covSignature", default: T.signature)
-  let onfield = if science { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
+  // `backInk`: a backCover book on a DARK portrait field gets light lettering, as on its front.
+  let onfield = if T.at("backInk", default: none) != none { T.backInk } else if science or darkfield(signature) { white } else { T.at("covPrimary", default: T.primary).darken(30%) }
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
     // Publisher block: the logo over "Published by / Zambia Educational Publishing
@@ -1487,8 +1502,8 @@
   let booktype = lines.at(lines.len() - 1, default: "Learner’s Book")
   let name = subjectName(lines, grade, booktype)
   let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|grade)\s+\d+")); if m != none { m.text } else { "" } } else { "" }
-  let onfield = if science { white } else { T.primary.darken(30%) }
-  let accentc = if science { T.accent } else { T.primary }
+  let onfield = if T.at("backInk", default: none) != none { T.backInk } else if science or darkfield(T.signature) { white } else { T.primary.darken(30%) }
+  let accentc = if science or T.at("backInk", default: none) != none or darkfield(T.signature) { T.accent } else { T.primary }
   let w = width * 1mm
   // `spineStyle: "badge"` (opt-in, per book): the spine the Food and Nutrition Form 2
   // Teacher's Guide had on its proofread copy — the subject large, the form/grade white
@@ -1823,6 +1838,11 @@
       let prev = if i > 0 { ss.at(i - 1) } else { none }
       let next = if i + 1 < ss.len() { ss.at(i + 1) } else { none }
       if inlineMath(prev) or inlineMath(next) { v(4pt, weak: true); linebreak() } else { seg(s) }
+    } else if T.at("mathBodyFont", default: false) and inlineMath(s) {
+      // an inline equation inside an italic run (an answer key's "P = W/t") takes the
+      // run's italic, so its body-face letters match the words around them
+      let prevText = ss.slice(0, i).rev().find(x => not x.at("m", default: false) and x.at("t", default: "").trim() != "")
+      if prevText != none and prevText.at("it", default: false) { text(style: "italic", seg(s)) } else { seg(s) }
     } else { seg(s) }
   }).join()
 }
@@ -1911,8 +1931,12 @@
   let t = ss.fold("", (acc, s) => acc + if s.at("m", default: false) { "" } else { s.at("t", default: "") }).trim()
   t.len() > 0 and t.len() <= 60 and t.match(regex("^[A-Z]")) != none and t.match(regex("[.?!;,:]$")) == none and t.match(PARA_NUM) == none
 }
-#let para0(ss, align: none, drop: false, hyphenate: true) = {
-  set text(hyphenate: hyphenate)
+#let para0(ss, align: none, drop: false, hyphenate: auto) = {
+  // auto = keep the book's own setting (doc() sets it from the theme). A default of
+  // true here switched hyphenation back ON for every body paragraph of a theme that
+  // turns it off (cts, mathsci, homeecon, primaryeng): Grade 1 CTS printed "pa-per"
+  // across a line end, and the CDC asked for words written in full.
+  set text(hyphenate: hyphenate) if hyphenate != auto
   set par(justify: false) if hasFillBlank(ss)
   if drop and ss.len() > 0 and ss.at(0).at("m", default: false) == false and ss.at(0).t.len() > 0 {
     // Drop capital: lift the first letter of the first run to ~3-line height in the
@@ -2346,6 +2370,23 @@
         #line(length: 100%, stroke: 0.6pt + T.rulec)]
       v(7pt)
     }
+  } else if literary and not isUnitTitle(t) {
+    // Front matter (Authors / Preface / Foreword / ...) in the HOUSE look the series books
+    // use — left-aligned capitals in the cover colour over a thin rule — not the centred
+    // literary title: the user checked the Literature in English Form 1 TG against the
+    // Physics Form 2 LB and wanted its front matter to read the same.
+    v(6pt)
+    block(breakable: false, width: 100%)[
+      #set par(spacing: 0pt)
+      #text(fill: T.primary, size: hm(18pt), weight: "bold")[#upper(t)]
+      #v(9.5pt)
+      // drawn exactly like the running-header rule above it (0.6pt, the book's primary
+      // colour): the pale rulec line looked faint beside the header, and the user marked
+      // the header rule as the one to match.
+      #line(length: 100%, stroke: 0.6pt + T.primary)]
+    // spaced like the book's own sub-topic heads: ~8.5pt from the title to its rule and
+    // ~14pt from the rule to the first line of text (the front-matter paragraph spacing
+    // supplies that gap, so nothing is added here)
   } else if literary {
     // centred chapter title flanked by thin gold rules — a literary look
     v(12pt, weak: true)
@@ -2658,8 +2699,12 @@
 // the page it lands on, and each list entry looks its own number up. The manuscript's
 // number survives only as the fallback for a figure that has no caption to find.
 #let capnum(t) = {
-  let m = str(t).matches(regex("^\\s*(Figure|Table)\\s+([0-9]+(?:\\.[0-9]+)*)"))
-  if m.len() > 0 { (lower(m.first().captures.at(0)), m.first().captures.at(1)) } else { none }
+  // "Fig 3" / "Fig. 3" is the same label as "Figure 3" (Geography Form 1 LB)
+  let m = str(t).matches(regex("^\\s*(Figure|Fig\\.?|Table)\\s+([0-9]+(?:\\.[0-9]+)*)"))
+  if m.len() > 0 {
+    let kind = if lower(m.first().captures.at(0)).starts-with("fig") { "figure" } else { "table" }
+    (kind, m.first().captures.at(1))
+  } else { none }
 }
 #let capmark(t) = {
   let k = capnum(t)
@@ -2681,7 +2726,7 @@
   // `sticky` keeps the picture on the same page as the heading/title that follows it.
   align(center)[#block(breakable: false, sticky: sticky)[
     #img
-    #if cap != none [ #v(2pt) #capmark(cap)#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#cap] ]
+    #if cap != none [ #v(2pt) #capmark(cap)#text(size: fs(8.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#cap] ]
   ]]
   v(3pt)
 }
@@ -2699,7 +2744,7 @@
       #grid(columns: imgs.map(_ => auto), column-gutter: 10pt, align: top + center,
         ..imgs.map(im => block(width: auto)[
           #image(im.at("file"), height: h)
-          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
+          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", weight: capw, fill: rgb("#444"))[#im.at("cap")] ]
         ]))]
     // At a uniform height, two landscape images (e.g. side-by-side formula
     // images) can be wider than the text block and bleed off the margins. If the
@@ -2719,12 +2764,12 @@
       #grid(columns: imgs.map(im => (im.at("w") / total) * 1fr), column-gutter: 6pt, align: top + center,
         ..imgs.map(im => [
           #image(im.at("file"), width: 100%)
-          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(7.5pt), style: "italic", fill: rgb("#444"))[#im.at("cap")] ]
+          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(7.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#im.at("cap")] ]
         ]))]
   }
   v(5pt)
 }
-#let figcaption(t) = { align(center)[#capmark(t)#text(size: fs(8.5pt), style: "italic", fill: rgb("#444"))[#t]]; v(5pt) }
+#let figcaption(t) = { align(center)[#capmark(t)#text(size: fs(8.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#t]]; v(5pt) }
 
 // ---- a List of Figures / List of Tables entry: a bold "Figure N"/"Table N"
 // label + caption on the left, a dotted leader, and a right-aligned page number
@@ -2779,7 +2824,7 @@
   )))
   v(4pt)
 }
-#let dtable(rows, noHeader: false, sheet: false) = if sheet { sheetgrid(rows) } else if rows.len() > 0 and rows.at(0).len() > 0 {
+#let dtable(rows, noHeader: false, sheet: false, forceHeader: false) = if sheet { sheetgrid(rows) } else if rows.len() > 0 and rows.at(0).len() > 0 {
   v(2pt)
   // table text matches the body size (12pt) for readability; very wide tables
   // (5+ columns) step down so they still fit the page width. A theme may set a larger
@@ -2930,7 +2975,8 @@
   // reading as the title of a table that never arrived and burying the fact that those
   // two words were the answers on offer. Require a second row before treating the first
   // as a header.
-  let hdr = rows.len() > 1 and (not noHeader) and rows.at(0).all(c =>
+  // `forceHeader`: the table's source says row 0 is its header (an override-built exercise table)
+  let hdr = (forceHeader and rows.len() > 1) or rows.len() > 1 and (not noHeader) and rows.at(0).all(c =>
     c.imgs.len() == 0 and plainHeaderCell(c)
     and not c.text.contains("\n") and c.text.len() <= 40 and c.text != "")
   let hasimg = rows.any(r => r.any(c => c.imgs.len() > 0))
@@ -3346,6 +3392,20 @@
       gkind.at(i) = "list"
       for x in range(i + 1, j) { mark.at(x) = -2 }
       i = j
+    } else if (body.at(i).k == "para" and i + 1 < n and body.at(i + 1).k == "list"
+        and txt(body.at(i)).trim().ends-with(":")) {
+      // ---- keep a LEAD-IN PARAGRAPH with the SHORT list it introduces ----
+      // The same element as a heading + list, written as a run-in paragraph
+      // ("Expected findings/observations: Learners should obtain:"). Physics Form 2 TG
+      // page 74 ended on the lead-in and "1. Boyle's law: 200 cm³", the other three
+      // results overleaf. Braced at its two ends like the heading case, so a long list
+      // still breaks in its middle.
+      let j = i + 1
+      while j < n and body.at(j).k == "list" { j = j + 1 }
+      mark.at(i) = j
+      gkind.at(i) = "list"
+      for x in range(i + 1, j) { mark.at(x) = -2 }
+      i = j
     } else if (body.at(i).k == "head" and i + 1 < n and body.at(i + 1).k == "para"
         and body.at(i).at("t", default: "").trim().match(regex("^\\(?(?:[0-9]{1,2}|[a-zA-Z])[.)]\\s+\\S")) != none) {
       // ---- keep a QUESTION with its options and its ANSWER ----
@@ -3492,7 +3552,7 @@
       image(im.at("file"), width: 100%)
       if im.at("cap", default: none) != none [
         #v(2pt)
-        #align(center)[#capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", fill: rgb("#444"))[#im.at("cap")]]
+        #align(center)[#capmark(im.at("cap"))#text(size: fs(8pt), style: "italic", weight: capw, fill: rgb("#444"))[#im.at("cap")]]
       ]
     }
   ]
@@ -3507,6 +3567,7 @@
   ]
   v(4pt)
 }
+#let exfits = state("exfits", true)
 #let framedsection(kind, title, body) = {
   let content = renderbody(body)
   // Always breakable (mirrors titledbox's own default). A prior version kept any box
@@ -3527,7 +3588,25 @@
   // same waste the comment above records a reviewer flagging. The widow this would have
   // guarded against is handled where it actually occurs instead: at the box's END, by
   // renderbody binding the last item to the one before it.
-  titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: true)
+  //
+  // The one exception is opt-in, per book (`keepExercisesWhole`, a length): an EXERCISE
+  // or ASSESSMENT box shorter than it is kept whole and moves to the next page rather
+  // than split. Those boxes carry no opening picture, so the cost above does not apply,
+  // and a learner's exercise split across a page turn is what the CDC objected to on
+  // the Grade 1 CTS Learner's Book ("let this part be pushed down", three times).
+  // Measured into a state and read back at the top level, as keepwhole() does.
+  let lim = T.at("keepExercisesWhole", default: none)
+  if lim != none and (kind == "ex" or kind == "asmt") {
+    layout(sz => exfits.update(measure(box(width: sz.width, content)).height < lim))
+    // A box too tall to keep whole still must not OPEN at a page foot with its title
+    // and one question (the CDC's "push it down" again) — keepwhole()'s opening guard.
+    let openkeep = 70mm
+    block(breakable: false, sticky: true)[#v(openkeep)]
+    v(-openkeep)
+    context titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: not exfits.get())
+  } else {
+    titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: true)
+  }
 }
 // The lesson-header metadata (LESSON N + Component / Topic / Sub-Topic / competences /
 // Expected Standard / methodology / vocabulary) grouped and STYLED — NOT boxed. The
@@ -3769,8 +3848,8 @@
       // an answer that is a comparison table may carry a part marker (e.g. "c)")
       let tm = it.at("marker", default: "")
       let sh = it.at("sheet", default: false)
-      if tm != "" { grid(columns: (22pt, 1fr), column-gutter: 6pt, align: (right + top, left + top), text(fill: T.primary, weight: "bold")[#tm], dtable(it.r, sheet: sh)) }
-      else { dtable(it.r, sheet: sh) }
+      if tm != "" { grid(columns: (22pt, 1fr), column-gutter: 6pt, align: (right + top, left + top), text(fill: T.primary, weight: "bold")[#tm], dtable(it.r, sheet: sh, forceHeader: it.at("hdr", default: false))) }
+      else { dtable(it.r, sheet: sh, forceHeader: it.at("hdr", default: false)) }
     }
     else if it.kind == "image" {
       let mk = it.at("marker", default: "")
@@ -3800,7 +3879,10 @@
       // A lead-in that ends in a colon ("For Client A:", "Possible responses include:")
       // introduces the lines after it and must not be the last thing on a page. The
       // Hospitality Management Form 3 TG ended pages on both. Sticky moves nothing else.
-      if it.q.trim().ends-with(":") { block(sticky: true, breakable: false, width: 100%)[#leadrow] } else { leadrow }
+      // `whole` (a short scenario passage an override set) keeps the passage on one page.
+      // `keep` (keepWithNext) binds a working line to the next, like a colon lead-in.
+      if it.q.trim().ends-with(":") or it.at("keep", default: false) { block(sticky: true, breakable: false, width: 100%)[#leadrow] }
+      else if it.at("whole", default: false) { block(breakable: false, width: 100%)[#leadrow] } else { leadrow }
       v(2pt)
     }
     else {
