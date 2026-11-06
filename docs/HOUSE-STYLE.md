@@ -276,6 +276,8 @@ off, so a change only touches the books that opt in. Keys:
 | Key | What it does |
 |---|---|
 | `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off) |
+| `keepListNumbers` | `true`: in an exercise whose answers are numbered by Word, a list restarting at 1 under an answer (Word's or typed by hand) stays that answer's sub-list with its own numbers, instead of joining the answer count |
+| `listAnswers` | with `keepListNumbers`: `["start of item", …]` — items that open a new answer though Word keeps them in the same list as the steps above them |
 | `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph |
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |

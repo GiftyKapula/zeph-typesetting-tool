@@ -1,0 +1,67 @@
+{
+  "_comment": [
+    "ICT Form 2 Teacher's Guide.",
+    "",
+    "The book routes to the shared `compsci` theme (autoTheme matches \\bict\\b), which",
+    "is right for the palette and layout but carries the subject name \"Computer",
+    "Science\". This manuscript is not Computer Science: its own title page reads",
+    "\"INFORMATION AND COMMUNICATION TECHNOLOGY FORM 2\", and it says ICT 121 times",
+    "against Computer Science twice. Without this the cover, title page and running",
+    "header all called the book Computer Science.",
+    "",
+    "Rebuilt 2026-10-23 on the current engine: two empty \"Performance Levels\" headings in Sub-Topic 2.2.1 (no table under them in the manuscript) removed; LEARNINING/Alterative typos corrected; one column split for every rubric (uniformRubrics); glossary and references set a little tighter together (backmatterSpacing) so neither runs two entries onto a page of its own.",
+    "Foreword signatory set like the Preface and Acknowledgement ones (bold name, title and organisation in bold capitals): the manuscript typed it with no bold, and its title in mixed case.",
+    "",
+    "Post-CDC edition (2026-11-06): the .docx is the editor's return with the guide applied: blue text deleted, yellow text kept, highlights cleared. Exercises 8 and 12 lost their screenshots, so the imageToTable grids are gone. \"Is this conversation helpful so far?\" was pasted chatbot text, left out of the .docx.",
+    "keepListNumbers: answers carry Word's own numbers, with steps restarting at 1 as sub-lists, so they match the questions. Exercise 13 (2.2.3): answer 2's number sat on the question line the editor deleted, so \"2.\" was typed back on \"The four slides could be:\" in the .docx.",
+    "End of Topic 2.1 answer 4: Word's \"4.\" sat on the first practice and \"2.\" was typed on the second, so the .docx sets a bare \"4.\" with practices 1 and 2 under it.",
+    "Sub-Topic 2.1.1 Exercise 6: the heading was typed twice in a row; the repeat is left out of the .docx. listAnswers: six items Word keeps in the same list as the steps above them but which open a new answer."
+  ],
+  "subject": "Information and Communication Technology",
+  "backmatterSpacing": {
+    "leading": "0.6em",
+    "spacing": "0.7em"
+  },
+  "subtext": [
+    {
+      "from": "LEARNINING ACTIVITY",
+      "to": "LEARNING ACTIVITY"
+    },
+    {
+      "from": "Alterative Activity",
+      "to": "Alternative Activity"
+    },
+    {
+      "from": "Permanent Secretary (Administration)",
+      "to": "PERMANENT SECRETARY (ADMINISTRATION)"
+    }
+  ],
+  "uniformRubrics": true,
+  "removeWhereNext": [
+    {
+      "find": "Performance Levels",
+      "next": "Teacher Reflection"
+    },
+    {
+      "find": "Performance Levels",
+      "next": "Teacher Reflection"
+    }
+  ],
+  "images": {
+    "image1.jpeg": {
+      "src": "ICT Form 2 Teacher's Guide - ready for typesetting-hires/image1.png"
+    },
+    "image4.png": {
+      "src": "ICT Form 2 Teacher's Guide - ready for typesetting-hires/image4.png"
+    }
+  },
+  "keepListNumbers": true,
+  "listAnswers": [
+    "Muyunda and his team should use cloud",
+    "Advantage:",
+    "The most likely explanation is that the partner",
+    "Uploading the updated report to shared",
+    "Security benefit:",
+    "Sorting book titles alphabetically"
+  ]
+}
