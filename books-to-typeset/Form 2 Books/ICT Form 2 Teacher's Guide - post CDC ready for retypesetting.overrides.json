@@ -17,7 +17,8 @@
     "Sub-Topic 2.1.1 Exercise 6: the heading was typed twice in a row; the repeat is left out of the .docx. listAnswers: six items Word keeps in the same list as the steps above them but which open a new answer.",
     "One look (2026-11-06, user: everything standard, which words bold and which not): boldLabels, one 'Suggested Responses' form, Activity 8's labels without numbers, the REFER lines as the plain sentence under the box, Exercise 9's table body not bold. Numbered steps with a teacher's note under them stay bold: all 38 are.",
     "Topic 2.4's End of Topic Assessment was typed bold from start to end, unlike the other three: plainParts.",
-    "Front matter to the house pattern (2026-11-06, as Musical Arts F5 TG and Home Economics G4 TG): signatories flush left, name bold, title plain in title case, organisation bold capitals; imprint order editor, illustrator, Cover and Book Layout, publisher, ISBN with dots under it, printer; one publisher name, Zambia Educational Publishing House."
+    "Front matter to the house pattern (2026-11-06, as Musical Arts F5 TG and Home Economics G4 TG): signatories flush left, name bold, title plain in title case, organisation bold capitals; imprint order editor, illustrator, Cover and Book Layout, publisher, ISBN with dots under it, printer; one publisher name, Zambia Educational Publishing House.",
+    "House rules pass (2026-11-06): assessment answers italic; label stragglers to the book's majority form; one spelling per word; activity titles without a full stop; author's name as on the title page; ECZ and ZICTA written out correctly. 'Teacher's guidance:' under a step stays run in, like the 40 'Teacher's facilitation:' beside it."
   ],
   "subject": "Information and Communication Technology",
   "backmatterSpacing": {
@@ -40,6 +41,66 @@
     {
       "from": "Cover designed by",
       "to": "Cover and Book Layout"
+    },
+    {
+      "from": "Teacher’s role:",
+      "to": "Teacher’s Role:"
+    },
+    {
+      "from": "This subtopic",
+      "to": "This sub-topic"
+    },
+    {
+      "from": "multi-media",
+      "to": "multimedia"
+    },
+    {
+      "from": "SUM-IF",
+      "to": "SUMIF"
+    },
+    {
+      "from": "un-hiding",
+      "to": "unhiding"
+    },
+    {
+      "from": "Un-hiding",
+      "to": "Unhiding"
+    },
+    {
+      "from": "un-hide",
+      "to": "unhide"
+    },
+    {
+      "from": "Un-hide",
+      "to": "Unhide"
+    },
+    {
+      "from": "competencies",
+      "to": "competences"
+    },
+    {
+      "from": "Editing slides",
+      "to": "editing slides"
+    },
+    {
+      "from": "Creating a budget using spreadsheet",
+      "to": "Creating a budget using a spreadsheet"
+    },
+    {
+      "from": "David M Mbeba",
+      "to": "David Muzikuola Mbeba"
+    },
+    {
+      "from": "Examination Council of Zambia",
+      "to": "Examinations Council of Zambia"
+    },
+    {
+      "from": "Zambia Information and Communication Authority",
+      "to": "Zambia Information and Communications Technology Authority"
+    },
+    {
+      "from": "Here are the two software applications that Mary could",
+      "to": "Here are the two software applications that Mary could use."
     }
   ],
   "uniformRubrics": true,
@@ -80,7 +141,12 @@
     "Suggested Responses",
     "Teacher’s Role",
     "Pre-requisites",
-    "Learning Activity"
+    "Learning Activity",
+    "Remediation and Extension",
+    "Likely Difficulties and Support",
+    "Inclusive Adaptations",
+    "Class Presentation",
+    "Assessment Rubrics"
   ],
   "boxTailOut": [
     {
@@ -102,6 +168,34 @@
     {
       "from": "Suggested Responses:",
       "to": "Suggested Responses"
+    },
+    {
+      "from": "Suggested Answers:",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "suggested Answers:",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "suggested Answers",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "Suggested Answers",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "Assessment rubrics:",
+      "to": "Assessment Rubrics"
+    },
+    {
+      "from": "Assessment rubrics",
+      "to": "Assessment Rubrics"
+    },
+    {
+      "from": "Individual Work:",
+      "to": "Individual Work"
     }
   ],
   "edit": [
@@ -184,5 +278,20 @@
   ],
   "remove": [
     "……………….……"
+  ],
+  "italicAssessments": true,
+  "boxTitleNoStop": true,
+  "fieldLabels": [
+    "Teacher Reflection",
+    "Remediation and Extension",
+    "Likely Difficulties and Support",
+    "Inclusive Adaptations",
+    "Class Presentation",
+    "Teacher’s Role",
+    "Pre-requisites"
+  ],
+  "compactLen": 11,
+  "keepWithNext": [
+    "Here are the two software applications that Mary could"
   ]
 }

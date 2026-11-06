@@ -3069,7 +3069,7 @@
   let compactCol(ci) = (rows.len() >= 2 and not fillin and not hasimg
     and rows.at(0).at(ci).text.len() <= 12
     and rows.slice(1).all(r => { let t = r.at(ci).text.trim()
-      t != "" and t.len() <= 10 and not t.contains("\n") and r.at(ci).imgs.len() == 0 })
+      t != "" and t.len() <= T.at("compactLen", default: 10) and not t.contains("\n") and r.at(ci).imgs.len() == 0 })
     and rows.slice(1).any(r => r.at(ci).text.trim().contains(" ")))
   let anyWide = range(ncols).any(ci => not compactCol(ci) and not narrowNum(ci))
   // An ASSESSMENT RUBRIC (header: Criterion | Excellent | Good | Developing | Beginning |

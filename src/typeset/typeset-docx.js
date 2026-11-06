@@ -1754,7 +1754,7 @@ function standardiseRuns(blocks, ov) {
     let end = lead + label.length;
     if (text[end] === ":") end += 1;
     const inked = runs.filter((r) => r.t.trim());
-    const it = inked[inked.length - 1].it;
+    const it = ov.italicAssessments ? true : inked[inked.length - 1].it;
     const out = [];
     let pos = 0;
     for (const r of runs) {
@@ -1785,6 +1785,46 @@ function standardiseRuns(blocks, ov) {
     const b = blocks.find((x) => Array.isArray(x.parts) && JSON.stringify(x.parts).includes(find));
     if (b) unbold(b.parts); else console.warn("!  plainParts not matched:", find);
   }
+  // italicAssessments: a book whose assessments carry answers only. House rule: an answer is
+  // italic; these arrive as question parts, so answer() never reached them.
+  if (ov.italicAssessments) {
+    const slant = (v) => {
+      if (!v || typeof v !== "object") return;
+      if (isRuns(v)) { v.forEach((r) => { r.it = true; }); return; }
+      Object.values(v).forEach(slant);
+    };
+    blocks.filter((b) => b.t === "assessment").forEach((b) => slant(b.parts));
+  }
+  // boxTitleNoStop: box titles end the way most of them do, without a full stop
+  if (ov.boxTitleNoStop) for (const b of blocks) {
+    if (b.t !== "activity" || typeof b.title !== "string") continue;
+    b.title = b.title.replace(/\.\s*$/, "");
+    const last = (b.titleSegs || []).filter((s) => (s.t || "").trim()).pop();
+    if (last) last.t = last.t.replace(/\.\s*$/, "");
+  }
+  // fieldLabels: the majority form wins. A label on its own line that the book mostly runs
+  // into its text ("Teacher Reflection: Record …") joins the paragraph under it.
+  const fieldLabels = ov.fieldLabels || [];
+  const joinFields = (list) => {
+    for (let i = list.length - 2; i >= 0; i--) {
+      const a = list[i], n = list[i + 1];
+      if (!a || !n) continue;
+      const own = (a.q != null ? a.q : (a.text != null ? a.text : blockPlain(a)) || "").trim().replace(/:$/, "");
+      if (!fieldLabels.includes(own)) continue;
+      const key = Array.isArray(n.segs) ? "segs" : Array.isArray(n.qseg) ? "qseg" : null;
+      if (!key || !n[key].length || n.kind === "table" || n.t === "table" || n.marker) continue;
+      const it = n[key][n[key].length - 1].it;
+      n[key].unshift({ t: own + ": ", b: true, it, c: null });
+      if (typeof n.q === "string") n.q = own + ": " + n.q;
+      list.splice(i, 1);
+    }
+  };
+  const walkLists = (v) => {
+    if (!v || typeof v !== "object") return;
+    if (Array.isArray(v)) { if (v.some((x) => x && typeof x === "object" && (x.t || x.kind))) joinFields(v); v.forEach(walkLists); return; }
+    Object.values(v).forEach(walkLists);
+  };
+  if (fieldLabels.length) walkLists(blocks);
   const seen = new Set();
   const visit = (v) => {
     if (!v || typeof v !== "object" || seen.has(v)) return;
@@ -8378,6 +8418,7 @@ function normaliseQuestionMarkBold(blocks) {
   if (ov.keepExercisesWhole) themeOverrides.keepExercisesWhole = ov.keepExercisesWhole;
   // Give a table column left empty for the learner to write in some width (dtable()).
   if (ov.writingColumns) themeOverrides.writingColumns = true;
+  if (ov.compactLen) themeOverrides.compactLen = ov.compactLen;
   // Give every assessment rubric in the book one column split (dtable(); opt-in so
   // proofread books keep their tables as they are).
   if (ov.uniformRubrics) themeOverrides.uniformRubrics = true;

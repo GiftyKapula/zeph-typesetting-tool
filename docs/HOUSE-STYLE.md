@@ -281,6 +281,10 @@ off, so a change only touches the books that opt in. Keys:
 | `boldLabels` | `["Key lesson", …]`: a line opening with the label prints the label (and its colon) bold in the style of the text after it, and those words not bold; reaches exercise parts |
 | `plainParts` | `["text in the set"]`: an exercise or assessment set bold throughout loses the bold; table headers keep theirs, and `boldLabels` still apply |
 | `dropParts` | `["exact line"]`: remove a line of an exercise or assessment, which `remove` does not reach |
+| `italicAssessments` | `true`: assessments carrying answers only print italic, as every answer does |
+| `boxTitleNoStop` | `true`: activity titles lose a trailing full stop |
+| `fieldLabels` | `["Teacher Reflection", …]`: a label on its own line joins the paragraph under it, for a book that mostly runs it in |
+| `compactLen` | longest cell (default 10 letters) a table column may hold and still size to its words |
 | `boxTailOut` | `[{ find, with }]`: a closing line typed inside a box leaves it and prints under it as the plain paragraph `with` |
 | `plainTableBody` | `[{ cell, headerRows }]`: the table holding `cell` keeps bold on its header rows only |
 | `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph |
