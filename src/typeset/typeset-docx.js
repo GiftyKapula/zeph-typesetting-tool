@@ -1480,7 +1480,10 @@ function groupSignatories(b) {
         && x.segs.filter((s) => s.t.trim()).length >= 2;
       if (runonSig) {
         withSig.push({ t: "sigspace" });
-        const lines = x.segs.filter((s) => s.t.trim()).map((s, k) => sigLine(s.t.trim(), k === 0));
+        // a run may hold several lines joined by Word line breaks: judge each on its own, or
+        // the organisation word on one line uppercases and bolds the title line too
+        const lines = x.segs.flatMap((s) => s.t.split("\n")).map((l) => l.trim()).filter(Boolean)
+          .map((l, k) => sigLine(l, k === 0));
         withSig.push({ t: "signature", lines });
         done = true;
         continue;

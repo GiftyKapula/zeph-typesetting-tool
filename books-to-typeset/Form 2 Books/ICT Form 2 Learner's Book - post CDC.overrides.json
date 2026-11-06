@@ -3,7 +3,8 @@
     "ICT Form 2 Learner's Book. Rebuilt 2026-10-23 on the current engine, matched to the Teacher's Guide (PR #95): LEARNINING/Alterative typos corrected; Foreword signatory title in capitals like the Preface and Acknowledgement ones; glossary and references set a little tighter together (backmatterSpacing); the two Excel screenshots (Exercises 8 and 12) drawn as spreadsheet grids, values as in the screenshots (Sn reads 2-6, left for the author); three page breaks: the Creating Columns figure kept with its label, End of Topic 2.2 Q9 taken over with Q10, Learning Activity 19 starts a page.",
     "2026-10-28: 'subtopic' (33x in the body) spelled 'sub-topic' like the headings and the Teacher's Guide (user's choice).",
     "2026-11-06: post-CDC manuscript (blue text deleted, yellow added, green Activities 3, 4, 7 kept, all highlights and comments stripped). Pictures renumbered in the new .docx, so images and imageToTable keys were re-pointed by content hash.",
-    "2026-11-06: Figure 29 reuses Figure 28 (user decision): the manuscript had the create-account picture of Figure 27 cut in two (image38 + image39)."
+    "2026-11-06: Figure 29 reuses Figure 28 (user decision): the manuscript had the create-account picture of Figure 27 cut in two (image38 + image39).",
+    "2026-11-06: front matter to the house pattern, as the TG: signatories name bold, title plain, organisation bold capitals; imprint Cover and Book Layout, ISBN after the publisher, one publisher name."
   ],
   "coverImage": "ict-form2-lb-cover.png",
   "images": {
@@ -126,10 +127,6 @@
       "to": "Alternative Activity"
     },
     {
-      "from": "Permanent Secretary (Administration)",
-      "to": "PERMANENT SECRETARY (ADMINISTRATION)"
-    },
-    {
       "from": "subtopic",
       "to": "sub-topic"
     },
@@ -140,6 +137,18 @@
     {
       "from": "Table7:",
       "to": "Table 7:"
+    },
+    {
+      "from": "Zambia Education Publishing House",
+      "to": "Zambia Educational Publishing House"
+    },
+    {
+      "from": "Cover designed by",
+      "to": "Cover and Book Layout"
+    },
+    {
+      "from": "David M Mbeba",
+      "to": "David Muzikuola Mbeba"
     }
   ],
   "backmatterSpacing": {
@@ -228,5 +237,60 @@
   ],
   "removeImages": [
     "image39.png"
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Printed by:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "ISBN:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "………………………",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Printed by:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        }
+      ]
+    }
+  ],
+  "remove": [
+    "……………….……"
   ]
 }
