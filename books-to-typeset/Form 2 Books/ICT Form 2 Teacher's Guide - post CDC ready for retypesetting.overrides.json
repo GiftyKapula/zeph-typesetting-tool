@@ -293,5 +293,11 @@
   "compactLen": 11,
   "keepWithNext": [
     "Here are the two software applications that Mary could"
+  ],
+  "forceFreshPage": [
+    {
+      "find": "EXERCISE 8",
+      "near": "Spreadsheet functions used to determine the highest and lowest"
+    }
   ]
 }
