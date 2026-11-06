@@ -1735,6 +1735,81 @@ function editBlockAnswerText(b, find, repl) {
 // activity/box `body` or an exercise/assessment `parts`/`intro`/`extra`. Returned
 // as live references, so mutating one edits the document in place. `edit`/`replace`
 // use this so a fix reaches text the writer buried inside a boxed activity.
+// One look for what recurs. `boldLabels`: a label prints bold in the style of the text it
+// heads, the words after it are not bold; matched at the start of a run list, so it reaches
+// exercise parts too. `boxTailOut`: a closing line typed inside a box goes under it as a
+// plain paragraph. `plainTableBody`: a table's body rows lose the bold its header keeps.
+// `plainParts`: an exercise or assessment set bold throughout loses it (table headers stay).
+function standardiseRuns(blocks, ov) {
+  const labels = [...(ov.boldLabels || [])].sort((a, b) => b.length - a.length);
+  const isRuns = (v) => Array.isArray(v) && v.length > 0 && v.every((x) => x && typeof x.t === "string" && "c" in x);
+  const applyLabel = (runs) => {
+    const text = runs.map((r) => r.t).join("");
+    const lead = text.length - text.trimStart().length;
+    const label = labels.find((l) => text.startsWith(l, lead) && /^(:|\.|\s*$)/.test(text.slice(lead + l.length)));
+    if (!label) return;
+    let end = lead + label.length;
+    if (text[end] === ":") end += 1;
+    const inked = runs.filter((r) => r.t.trim());
+    const it = inked[inked.length - 1].it;
+    const out = [];
+    let pos = 0;
+    for (const r of runs) {
+      const cut = Math.min(Math.max(end - pos, 0), r.t.length);
+      if (cut > 0) out.push({ ...r, t: r.t.slice(0, cut), b: true, it });
+      if (cut < r.t.length) out.push({ ...r, t: r.t.slice(cut), b: false });
+      pos += r.t.length;
+    }
+    runs.splice(0, runs.length, ...out);
+  };
+  const unbold = (v) => {
+    if (!v || typeof v !== "object") return;
+    if (isRuns(v)) { v.forEach((r) => { r.b = false; }); return; }
+    if (Array.isArray(v.rows)) { v.rows.slice(1).forEach(unbold); return; }
+    Object.values(v).forEach(unbold);
+  };
+  // dropParts: a line of an exercise or assessment that repeats its heading, by exact text
+  for (const find of ov.dropParts || []) {
+    let n = 0;
+    for (const b of blocks) if (Array.isArray(b.parts)) {
+      const kept = b.parts.filter((p) => (p.q || "").trim() !== find);
+      n += b.parts.length - kept.length;
+      b.parts = kept;
+    }
+    if (!n) console.warn("!  dropParts not matched:", find);
+  }
+  for (const find of ov.plainParts || []) {
+    const b = blocks.find((x) => Array.isArray(x.parts) && JSON.stringify(x.parts).includes(find));
+    if (b) unbold(b.parts); else console.warn("!  plainParts not matched:", find);
+  }
+  const seen = new Set();
+  const visit = (v) => {
+    if (!v || typeof v !== "object" || seen.has(v)) return;
+    seen.add(v);
+    if (isRuns(v)) { if (labels.length) applyLabel(v); return; }
+    if (Array.isArray(v)) { v.forEach(visit); return; }
+    if (Array.isArray(v.rows)) for (const t of ov.plainTableBody || []) {
+      if (!v.rows.some((row) => Array.isArray(row) && row.some((c) => c && (c.text || "").trim() === t.cell))) continue;
+      v.rows.slice(t.headerRows == null ? 1 : t.headerRows).forEach((row) => row.forEach((c) => (c.segs || []).forEach((s) => { s.b = false; })));
+    }
+    Object.values(v).forEach(visit);
+  };
+  visit(blocks);
+  for (const o of ov.boxTailOut || []) {
+    let n = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const body = blocks[i].body;
+      if (!Array.isArray(body)) continue;
+      const k = body.findIndex((x) => blockPlain(x).includes(o.find));
+      if (k < 0) continue;
+      body.splice(k, 1);
+      blocks.splice(i + 1, 0, { t: "para", segs: [{ t: o.with, b: false, it: false, c: null }] });
+      n++;
+    }
+    if (!n) console.warn("!  boxTailOut not matched:", o.find);
+  }
+}
+
 // Uniform run colour. The same kind of thing must not print in a different colour on a
 // different page, and manuscripts routinely break that: the Religious Education Form 2
 // Learner's Book coloured its scripture references bright blue 143 times, navy 56
@@ -7384,6 +7459,7 @@ async function typesetOne(docxPath, themeName) {
   markSpreadsheetTables(blocks);
   reformatAcronyms(blocks);
   normaliseCaptionLabels(blocks);
+  standardiseRuns(blocks, ov);
   normaliseRunColours(blocks, ov.keepRunColours);
   uniformLetterMarkers(blocks, ov.keepMarkerStyles);
   dashBullets(blocks);

@@ -15,7 +15,9 @@
     "Post-CDC edition (2026-11-06): the .docx is the editor's return with the guide applied: blue text deleted, yellow text kept, highlights cleared. Exercises 8 and 12 lost their screenshots, so the imageToTable grids are gone. \"Is this conversation helpful so far?\" was pasted chatbot text, left out of the .docx.",
     "keepListNumbers: answers carry Word's own numbers, with steps restarting at 1 as sub-lists, so they match the questions. Exercise 13 (2.2.3): answer 2's number sat on the question line the editor deleted, so \"2.\" was typed back on \"The four slides could be:\" in the .docx.",
     "End of Topic 2.1 answer 4: Word's \"4.\" sat on the first practice and \"2.\" was typed on the second, so the .docx sets a bare \"4.\" with practices 1 and 2 under it.",
-    "Sub-Topic 2.1.1 Exercise 6: the heading was typed twice in a row; the repeat is left out of the .docx. listAnswers: six items Word keeps in the same list as the steps above them but which open a new answer."
+    "Sub-Topic 2.1.1 Exercise 6: the heading was typed twice in a row; the repeat is left out of the .docx. listAnswers: six items Word keeps in the same list as the steps above them but which open a new answer.",
+    "One look (2026-11-06, user: everything standard, which words bold and which not): boldLabels, one 'Suggested Responses' form, Activity 8's labels without numbers, the REFER lines as the plain sentence under the box, Exercise 9's table body not bold. Numbered steps with a teacher's note under them stay bold: all 38 are.",
+    "Topic 2.4's End of Topic Assessment was typed bold from start to end, unlike the other three: plainParts."
   ],
   "subject": "Information and Communication Technology",
   "backmatterSpacing": {
@@ -63,5 +65,65 @@
     "Uploading the updated report to shared",
     "Security benefit:",
     "Sorting book titles alphabetically"
+  ],
+  "boldLabels": [
+    "Teacher’s guidance",
+    "Key lesson",
+    "Extension",
+    "Remediation",
+    "Teacher Reflection",
+    "Total: 20 marks",
+    "Suggested Responses",
+    "Teacher’s Role",
+    "Pre-requisites",
+    "Learning Activity"
+  ],
+  "boxTailOut": [
+    {
+      "find": "REFER TO THE LEARNER’S BOOK",
+      "with": "For more information, refer to the Learner’s Book."
+    }
+  ],
+  "plainTableBody": [
+    {
+      "cell": "Exercise Books",
+      "headerRows": 2
+    }
+  ],
+  "retext": [
+    {
+      "from": "SUGGESTED RESPONSES",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "Suggested Responses:",
+      "to": "Suggested Responses"
+    }
+  ],
+  "edit": [
+    {
+      "find": "1. Teacher’s Role",
+      "with": "Teacher’s Role"
+    },
+    {
+      "find": "2. Pre-requisites",
+      "with": "Pre-requisites"
+    },
+    {
+      "find": "3. Learning Activity",
+      "with": "Learning Activity"
+    }
+  ],
+  "replace": [
+    {
+      "find": "REFER TO LEARNER’S BOOK FOR DETAILS ON DEMONSTRATING",
+      "with": "Refer to the Learner’s Book for details on demonstrating file compression and extraction."
+    }
+  ],
+  "plainParts": [
+    "Barter involves exchanging goods directly"
+  ],
+  "dropParts": [
+    "Suggested response"
   ]
 }
