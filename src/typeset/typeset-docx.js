@@ -661,6 +661,11 @@ function liftRunOnBoxSections(blocks) {
     // developed" line printed loose on the page.
     const ANSWERS = /^(possible|expected|suggested|sample)\s+(answers?|responses?)\s*:?$/i;
     if (b.body.slice(0, cut).some((x) => x && x.t === "para" && ANSWERS.test(blockPlain(x).trim()))) continue;
+    // Nor when the box's own closing checklist still follows: the bold line is one of the
+    // activity's own categories. ICT Form 2 LB Learning Activity 2 sorts software into
+    // "File Compression Tools" / "Other Software Applications", and the section of that
+    // name above it cut half the activity and its checklist out of the box.
+    if (b.body.slice(cut).some((x) => x && x.t === "para" && /CHECKLISTs*$/.test(blockPlain(x)))) continue;
     const tail = b.body.splice(cut);
     // The heading arrived as a bold paragraph because everything inside a hand-drawn
     // box does; out here it is a heading again, and must be one so it prints like the
@@ -7621,6 +7626,19 @@ function markSpreadsheetTables(blocks) {
   // …and only a table SHAPED like one: a data grid of short cells, never a prose table.
   const gridlike = (rows) => Array.isArray(rows) && rows.length >= 2 && rows[0].length <= 6
     && rows.every((r) => r.every((c) => ((c && c.text) || "").trim().length <= 40));
+  // A table the author already typed AS a spreadsheet carries its own letter row and
+  // number column; sheetgrid() draws those itself, so left in they print twice (A, B
+  // inside A, B, C). Only an exact A, B, C… over 1, 2, 3… counts, so data is never lost.
+  const dropOwnFurniture = (rows) => {
+    const t = (c) => ((c && c.text) || "").trim();
+    const lettered = t(rows[0][0]) === "" && rows[0].length > 1
+      && rows[0].slice(1).every((c, i) => t(c) === String.fromCharCode(65 + i));
+    const numbered = rows.slice(1).every((r, i) => t(r[0]) === String(i + 1));
+    if (!lettered || !numbered) return;
+    rows.shift();
+    for (const r of rows) r.shift();
+  };
+  const markSheet = (x) => { dropOwnFurniture(x.rows); x.sheet = true; };
   const words = (b) => {
     const bits = [b.heading, b.title, ...(b.intro || [])];
     for (const p of b.parts || []) bits.push(p.q, p.a);
@@ -7631,8 +7649,8 @@ function markSpreadsheetTables(blocks) {
     for (const b of arr || []) {
       if (!b || typeof b !== "object") continue;
       if ((b.parts || b.body) && SHEET.test(words(b))) {
-        for (const p of b.parts || []) if (p.kind === "table" && gridlike(p.rows)) p.sheet = true;
-        for (const x of b.body || []) if (x.t === "table" && gridlike(x.rows)) x.sheet = true;
+        for (const p of b.parts || []) if (p.kind === "table" && gridlike(p.rows)) markSheet(p);
+        for (const x of b.body || []) if (x.t === "table" && gridlike(x.rows)) markSheet(x);
       }
       for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
     }
