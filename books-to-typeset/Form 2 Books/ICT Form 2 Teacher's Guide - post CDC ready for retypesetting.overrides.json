@@ -10,14 +10,14 @@
     "header all called the book Computer Science.",
     "",
     "Rebuilt 2026-10-23 on the current engine: two empty \"Performance Levels\" headings in Sub-Topic 2.2.1 (no table under them in the manuscript) removed; LEARNINING/Alterative typos corrected; one column split for every rubric (uniformRubrics); glossary and references set a little tighter together (backmatterSpacing) so neither runs two entries onto a page of its own.",
-    "Foreword signatory set like the Preface and Acknowledgement ones (bold name, title and organisation in bold capitals): the manuscript typed it with no bold, and its title in mixed case.",
     "",
     "Post-CDC edition (2026-11-06): the .docx is the editor's return with the guide applied: blue text deleted, yellow text kept, highlights cleared. Exercises 8 and 12 lost their screenshots, so the imageToTable grids are gone. \"Is this conversation helpful so far?\" was pasted chatbot text, left out of the .docx.",
     "keepListNumbers: answers carry Word's own numbers, with steps restarting at 1 as sub-lists, so they match the questions. Exercise 13 (2.2.3): answer 2's number sat on the question line the editor deleted, so \"2.\" was typed back on \"The four slides could be:\" in the .docx.",
     "End of Topic 2.1 answer 4: Word's \"4.\" sat on the first practice and \"2.\" was typed on the second, so the .docx sets a bare \"4.\" with practices 1 and 2 under it.",
     "Sub-Topic 2.1.1 Exercise 6: the heading was typed twice in a row; the repeat is left out of the .docx. listAnswers: six items Word keeps in the same list as the steps above them but which open a new answer.",
     "One look (2026-11-06, user: everything standard, which words bold and which not): boldLabels, one 'Suggested Responses' form, Activity 8's labels without numbers, the REFER lines as the plain sentence under the box, Exercise 9's table body not bold. Numbered steps with a teacher's note under them stay bold: all 38 are.",
-    "Topic 2.4's End of Topic Assessment was typed bold from start to end, unlike the other three: plainParts."
+    "Topic 2.4's End of Topic Assessment was typed bold from start to end, unlike the other three: plainParts.",
+    "Front matter to the house pattern (2026-11-06, as Musical Arts F5 TG and Home Economics G4 TG): signatories flush left, name bold, title plain in title case, organisation bold capitals; imprint order editor, illustrator, Cover and Book Layout, publisher, ISBN with dots under it, printer; one publisher name, Zambia Educational Publishing House."
   ],
   "subject": "Information and Communication Technology",
   "backmatterSpacing": {
@@ -34,8 +34,12 @@
       "to": "Alternative Activity"
     },
     {
-      "from": "Permanent Secretary (Administration)",
-      "to": "PERMANENT SECRETARY (ADMINISTRATION)"
+      "from": "Zambia Education Publishing House",
+      "to": "Zambia Educational Publishing House"
+    },
+    {
+      "from": "Cover designed by",
+      "to": "Cover and Book Layout"
     }
   ],
   "uniformRubrics": true,
@@ -125,5 +129,60 @@
   ],
   "dropParts": [
     "Suggested response"
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Printed by:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "ISBN:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "………………………",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Printed by:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        }
+      ]
+    }
+  ],
+  "remove": [
+    "……………….……"
   ]
 }
