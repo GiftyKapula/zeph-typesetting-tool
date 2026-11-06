@@ -1,0 +1,303 @@
+{
+  "_comment": [
+    "ICT Form 2 Teacher's Guide.",
+    "",
+    "The book routes to the shared `compsci` theme (autoTheme matches \\bict\\b), which",
+    "is right for the palette and layout but carries the subject name \"Computer",
+    "Science\". This manuscript is not Computer Science: its own title page reads",
+    "\"INFORMATION AND COMMUNICATION TECHNOLOGY FORM 2\", and it says ICT 121 times",
+    "against Computer Science twice. Without this the cover, title page and running",
+    "header all called the book Computer Science.",
+    "",
+    "Rebuilt 2026-10-23 on the current engine: two empty \"Performance Levels\" headings in Sub-Topic 2.2.1 (no table under them in the manuscript) removed; LEARNINING/Alterative typos corrected; one column split for every rubric (uniformRubrics); glossary and references set a little tighter together (backmatterSpacing) so neither runs two entries onto a page of its own.",
+    "",
+    "Post-CDC edition (2026-11-06): the .docx is the editor's return with the guide applied: blue text deleted, yellow text kept, highlights cleared. Exercises 8 and 12 lost their screenshots, so the imageToTable grids are gone. \"Is this conversation helpful so far?\" was pasted chatbot text, left out of the .docx.",
+    "keepListNumbers: answers carry Word's own numbers, with steps restarting at 1 as sub-lists, so they match the questions. Exercise 13 (2.2.3): answer 2's number sat on the question line the editor deleted, so \"2.\" was typed back on \"The four slides could be:\" in the .docx.",
+    "End of Topic 2.1 answer 4: Word's \"4.\" sat on the first practice and \"2.\" was typed on the second, so the .docx sets a bare \"4.\" with practices 1 and 2 under it.",
+    "Sub-Topic 2.1.1 Exercise 6: the heading was typed twice in a row; the repeat is left out of the .docx. listAnswers: six items Word keeps in the same list as the steps above them but which open a new answer.",
+    "One look (2026-11-06, user: everything standard, which words bold and which not): boldLabels, one 'Suggested Responses' form, Activity 8's labels without numbers, the REFER lines as the plain sentence under the box, Exercise 9's table body not bold. Numbered steps with a teacher's note under them stay bold: all 38 are.",
+    "Topic 2.4's End of Topic Assessment was typed bold from start to end, unlike the other three: plainParts.",
+    "Front matter to the house pattern (2026-11-06, as Musical Arts F5 TG and Home Economics G4 TG): signatories flush left, name bold, title plain in title case, organisation bold capitals; imprint order editor, illustrator, Cover and Book Layout, publisher, ISBN with dots under it, printer; one publisher name, Zambia Educational Publishing House.",
+    "House rules pass (2026-11-06): assessment answers italic; label stragglers to the book's majority form; one spelling per word; activity titles without a full stop; author's name as on the title page; ECZ and ZICTA written out correctly. 'Teacher's guidance:' under a step stays run in, like the 40 'Teacher's facilitation:' beside it."
+  ],
+  "subject": "Information and Communication Technology",
+  "backmatterSpacing": {
+    "leading": "0.6em",
+    "spacing": "0.7em"
+  },
+  "subtext": [
+    {
+      "from": "LEARNINING ACTIVITY",
+      "to": "LEARNING ACTIVITY"
+    },
+    {
+      "from": "Alterative Activity",
+      "to": "Alternative Activity"
+    },
+    {
+      "from": "Zambia Education Publishing House",
+      "to": "Zambia Educational Publishing House"
+    },
+    {
+      "from": "Cover designed by",
+      "to": "Cover and Book Layout"
+    },
+    {
+      "from": "Teacher’s role:",
+      "to": "Teacher’s Role:"
+    },
+    {
+      "from": "This subtopic",
+      "to": "This sub-topic"
+    },
+    {
+      "from": "multi-media",
+      "to": "multimedia"
+    },
+    {
+      "from": "SUM-IF",
+      "to": "SUMIF"
+    },
+    {
+      "from": "un-hiding",
+      "to": "unhiding"
+    },
+    {
+      "from": "Un-hiding",
+      "to": "Unhiding"
+    },
+    {
+      "from": "un-hide",
+      "to": "unhide"
+    },
+    {
+      "from": "Un-hide",
+      "to": "Unhide"
+    },
+    {
+      "from": "competencies",
+      "to": "competences"
+    },
+    {
+      "from": "Editing slides",
+      "to": "editing slides"
+    },
+    {
+      "from": "Creating a budget using spreadsheet",
+      "to": "Creating a budget using a spreadsheet"
+    },
+    {
+      "from": "David M Mbeba",
+      "to": "David Muzikuola Mbeba"
+    },
+    {
+      "from": "Examination Council of Zambia",
+      "to": "Examinations Council of Zambia"
+    },
+    {
+      "from": "Zambia Information and Communication Authority",
+      "to": "Zambia Information and Communications Technology Authority"
+    },
+    {
+      "from": "Here are the two software applications that Mary could",
+      "to": "Here are the two software applications that Mary could use."
+    }
+  ],
+  "uniformRubrics": true,
+  "removeWhereNext": [
+    {
+      "find": "Performance Levels",
+      "next": "Teacher Reflection"
+    },
+    {
+      "find": "Performance Levels",
+      "next": "Teacher Reflection"
+    }
+  ],
+  "images": {
+    "image1.jpeg": {
+      "src": "ICT Form 2 Teacher's Guide - ready for typesetting-hires/image1.png"
+    },
+    "image4.png": {
+      "src": "ICT Form 2 Teacher's Guide - ready for typesetting-hires/image4.png"
+    }
+  },
+  "keepListNumbers": true,
+  "listAnswers": [
+    "Muyunda and his team should use cloud",
+    "Advantage:",
+    "The most likely explanation is that the partner",
+    "Uploading the updated report to shared",
+    "Security benefit:",
+    "Sorting book titles alphabetically"
+  ],
+  "boldLabels": [
+    "Teacher’s guidance",
+    "Key lesson",
+    "Extension",
+    "Remediation",
+    "Teacher Reflection",
+    "Total: 20 marks",
+    "Suggested Responses",
+    "Teacher’s Role",
+    "Pre-requisites",
+    "Learning Activity",
+    "Remediation and Extension",
+    "Likely Difficulties and Support",
+    "Inclusive Adaptations",
+    "Class Presentation",
+    "Assessment Rubrics"
+  ],
+  "boxTailOut": [
+    {
+      "find": "REFER TO THE LEARNER’S BOOK",
+      "with": "For more information, refer to the Learner’s Book."
+    }
+  ],
+  "plainTableBody": [
+    {
+      "cell": "Exercise Books",
+      "headerRows": 2
+    }
+  ],
+  "retext": [
+    {
+      "from": "SUGGESTED RESPONSES",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "Suggested Responses:",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "Suggested Answers:",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "suggested Answers:",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "suggested Answers",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "Suggested Answers",
+      "to": "Suggested Responses"
+    },
+    {
+      "from": "Assessment rubrics:",
+      "to": "Assessment Rubrics"
+    },
+    {
+      "from": "Assessment rubrics",
+      "to": "Assessment Rubrics"
+    },
+    {
+      "from": "Individual Work:",
+      "to": "Individual Work"
+    }
+  ],
+  "edit": [
+    {
+      "find": "1. Teacher’s Role",
+      "with": "Teacher’s Role"
+    },
+    {
+      "find": "2. Pre-requisites",
+      "with": "Pre-requisites"
+    },
+    {
+      "find": "3. Learning Activity",
+      "with": "Learning Activity"
+    }
+  ],
+  "replace": [
+    {
+      "find": "REFER TO LEARNER’S BOOK FOR DETAILS ON DEMONSTRATING",
+      "with": "Refer to the Learner’s Book for details on demonstrating file compression and extraction."
+    }
+  ],
+  "plainParts": [
+    "Barter involves exchanging goods directly"
+  ],
+  "dropParts": [
+    "Suggested response"
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Printed by:",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "ISBN:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "………………………",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Printed by:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ],
+            "align": "center"
+          }
+        }
+      ]
+    }
+  ],
+  "remove": [
+    "……………….……"
+  ],
+  "italicAssessments": true,
+  "boxTitleNoStop": true,
+  "fieldLabels": [
+    "Teacher Reflection",
+    "Remediation and Extension",
+    "Likely Difficulties and Support",
+    "Inclusive Adaptations",
+    "Class Presentation",
+    "Teacher’s Role",
+    "Pre-requisites"
+  ],
+  "compactLen": 11,
+  "keepWithNext": [
+    "Here are the two software applications that Mary could"
+  ],
+  "forceFreshPage": [
+    {
+      "find": "EXERCISE 8",
+      "near": "Spreadsheet functions used to determine the highest and lowest"
+    }
+  ]
+}

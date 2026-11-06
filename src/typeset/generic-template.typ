@@ -3069,7 +3069,7 @@
   let compactCol(ci) = (rows.len() >= 2 and not fillin and not hasimg
     and rows.at(0).at(ci).text.len() <= 12
     and rows.slice(1).all(r => { let t = r.at(ci).text.trim()
-      t != "" and t.len() <= 10 and not t.contains("\n") and r.at(ci).imgs.len() == 0 })
+      t != "" and t.len() <= T.at("compactLen", default: 10) and not t.contains("\n") and r.at(ci).imgs.len() == 0 })
     and rows.slice(1).any(r => r.at(ci).text.trim().contains(" ")))
   let anyWide = range(ncols).any(ci => not compactCol(ci) and not narrowNum(ci))
   // An ASSESSMENT RUBRIC (header: Criterion | Excellent | Good | Developing | Beginning |
@@ -3961,7 +3961,9 @@
       // on the guest may include:"): it heads the parts below it, as a colon lead-in does.
       // (Only the colon: binding every answerless stem to the indented answer under it
       // pushed whole answers over and left near-empty pages in the same book.)
-      let heads = (it.q.trim().ends-with(":") and it.a == "" and aseg.len() == 0) or it.at("keep", default: false)
+      // A number with no text of its own ("2." over a table) heads what follows it too.
+      let bare = it.q.trim() == "" and qseg.len() == 0 and it.a == "" and aseg.len() == 0
+      let heads = (it.q.trim().ends-with(":") and it.a == "" and aseg.len() == 0) or bare or it.at("keep", default: false)
       if bindNext.at(pi) or heads { block(sticky: true, width: 100%)[#qablock] } else { qablock }
       v(T.at("qgap", default: 3pt))
     }
