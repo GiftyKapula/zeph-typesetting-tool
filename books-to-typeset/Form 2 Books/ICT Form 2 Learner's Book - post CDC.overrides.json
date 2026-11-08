@@ -8,6 +8,7 @@
     "2026-11-06: user asked for the slips fixed: table captions numbered 1-90 in order (no Table 38, 45 and 48 doubled; no text refers to a table by number), Exercise 8 Sn 1-5, stray label in Exercise 2 removed."
   ],
   "coverImage": "ict-form2-lb-cover.png",
+  "coverColor": "0F6E6A",
   "images": {
     "image10.png": {
       "src": "ICT Form 2 Learner's Book - post CDC-hires/image10.png"
