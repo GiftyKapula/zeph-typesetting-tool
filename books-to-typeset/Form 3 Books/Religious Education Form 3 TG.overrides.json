@@ -1354,14 +1354,31 @@
     {
       "find": "Cover designed by:",
       "with": "**Cover designed by:**"
+    },
+    {
+      "find": "Noriana Muneku (Ms.) Permanent Secretary",
+      "with": [
+        "**Noriana Muneku (Ms.)**",
+        "Permanent Secretary",
+        "**MINISTRY OF EDUCATION**"
+      ]
+    },
+    {
+      "find": "Agness Mumba Wilkins (PhD) Managing Director",
+      "with": [
+        "**Agness Mumba Wilkins (PhD)**",
+        "Managing Director / Chief Executive Officer",
+        "**ZAMBIA EDUCATIONAL PUBLISHING HOUSE**"
+      ]
     }
   ],
-  "//pageBreakBefore": "Topic 2 left one two-line reference alone on printed page 35; the whole reference list now starts that page.",
+  "//pageBreakBefore": "Topic 2 left one two-line reference alone on printed page 35; the whole reference list now starts that page. The Preface filled page vi and left the Board Chairperson sign-off alone on page vii; its last paragraph now opens page vii with the sign-off.",
   "pageBreakBefore": [
     {
       "find": "Suggested References",
       "near": "Zoom meeting"
-    }
+    },
+    "This guide is here to support you, as a teacher"
   ],
   "//embedJpeg": "Keeps the cover picture lossless in the PDF.",
   "embedJpeg": false,
@@ -1383,5 +1400,6 @@
         "3."
       ]
     }
-  ]
+  ],
+  "//signatories": "Foreword (Permanent Secretary) and Introduction (Managing Director) sign-offs were typed as one bold paragraph each; house pattern is three flush-left lines: name bold, title plain, ORGANISATION bold capitals (as the Board Chairperson block already is)."
 }
