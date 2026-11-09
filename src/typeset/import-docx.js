@@ -34,6 +34,11 @@ let BOX_ALL_ROWS = false;
 // Per-book switch read by markerFor(): a sub-run opening at "i" is roman, not lettered.
 // Set from importDocx's `romanSubParts` option (the book's override of the same name).
 let ROMAN_SUB_PARTS = false;
+// Set from importDocx's `keepListNumbers` option (the book's override of the same name).
+let KEEP_LIST_NUMBERS = false;
+// Set from the `listAnswers` override: items that open an answer though Word keeps them
+// in the same list as the steps before them.
+let LIST_ANSWERS = [];
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -1590,6 +1595,7 @@ function buildQAParts(blocks) {
   // markerFor only recognises roman formatting from a template of 2+ roman letters — a
   // template captured from a lone "i." would misread as the letter "i" (see markerFor).
   let primaryNum = null, topTpl = hasRomanTop ? "ii." : "1.", subTpl = "a)", topN = 0, subN = 0, auto = 0;
+  let typedSubN = 0, keptSubId = null, keptSubLvl = null;   // the open sub-list under a numbered answer (keepListNumbers)
   // The sub-run that was open when a lead-in last closed it, kept so a sub-part the
   // manuscript itself numbers as the CONTINUATION of that run can resume it instead
   // of restarting at "a)". See resumesSubRun() below for why this is needed.
@@ -1866,7 +1872,24 @@ function buildQAParts(blocks) {
       const an = grabAnswer();
       parts.push({ kind: "q", q: sm[2].trim(), qseg: qsegOf(sm[2]), a: an.a, aseg: an.aseg, marker: markerFor(subN, subTpl), depth: 1 });
     } else if (b.marker) {               // a Word list item (no literal marker in text)
+      typedSubN = 0;
       if (primaryNum == null && elvl(b) === 0) primaryNum = b.numId;
+      // keepListNumbers: Word shows steps restarting at 1 under an answer, then the answers
+      // carrying on ("4. … 1. 2. 3. … 5."). Counted locally they ran as one list and the
+      // answers stopped matching their questions, so a list that restarts under an answer
+      // is its sub-list, printed with Word's own numbers.
+      const wordN = /^\d+[.)]$/.test((b.marker || "").trim()) ? parseInt(b.marker, 10) : null;
+      if (KEEP_LIST_NUMBERS && wordN != null && topN > 0) {
+        const inSub = keptSubId != null && b.numId === keptSubId && b.lvl === keptSubLvl;
+        const isAnswer = LIST_ANSWERS.some((a) => b.plain.trim().startsWith(a));
+        if (!isAnswer && (inSub || (wordN === 1 && wordN !== topN + 1))) {
+          keptSubId = b.numId; keptSubLvl = b.lvl; typedSubN = wordN;
+          const an = grabAnswer();
+          parts.push({ kind: "q", q: b.plain, qseg: b.segs, a: an.a, aseg: an.aseg, marker: b.marker.trim(), depth: 1 });
+          continue;
+        }
+        keptSubId = null;
+      }
       // Classify by MARKER FORMAT, the reliable signal: a DECIMAL marker heads a
       // top-level question; a LETTER/ROMAN marker is a sub-part — UNLESS the whole
       // block is a bare letter list (no decimal tops), where the letters ARE the
@@ -1961,6 +1984,17 @@ function buildQAParts(blocks) {
       parts.push({ kind: "q", q: tmSub[2].trim(), qseg: qsegOf(tmSub[2]), a: an.a, aseg: an.aseg,
         marker: markerFor(topN, topTpl) + " " + markerFor(subN, subTpl), depth: 0 });
     } else if (tm) {                     // a literal top item "1." (text may be empty)
+      // keepListNumbers: answers numbered by Word with points typed by hand under one of
+      // them ("2. … Two benefits are: 1. … 2. …"). The typed run restarts at 1, so it is
+      // that answer's sub-list: it keeps its own numbers and leaves the count alone.
+      const typedN = parseInt(tm[1].replace(/\D/g, ""), 10);
+      if (KEEP_LIST_NUMBERS && primaryNum != null && topN > 0 && tm[2].trim() && (typedN === 1 || typedN === typedSubN + 1)) {
+        typedSubN = typedN;
+        const an = grabAnswer();
+        parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: `${typedN}.`, depth: 1 });
+        continue;
+      }
+      typedSubN = 0;
       topN += 1; subN = 0; lastSubN = 0;
       const an = grabAnswer();
       parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: markerFor(topN, topTpl), depth: 0 });
@@ -2620,6 +2654,8 @@ async function importDocx(docxPath, opts = {}) {
   droppedBoxes.length = 0;          // ditto
   ROMAN_SUB_PARTS = !!opts.romanSubParts;
   BOX_ALL_ROWS = !!opts.boxAllRows;
+  KEEP_LIST_NUMBERS = !!opts.keepListNumbers;
+  LIST_ANSWERS = opts.listAnswers || [];
   // ZEPH house-style options (decoupled so different layouts can mix them):
   //   styled    – trust Word heading styles (don't infer headings from colour/size)
   //   flat      – no callout boxes; activities/exercises become headings (English)

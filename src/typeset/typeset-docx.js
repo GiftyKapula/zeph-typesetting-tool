@@ -661,6 +661,11 @@ function liftRunOnBoxSections(blocks) {
     // developed" line printed loose on the page.
     const ANSWERS = /^(possible|expected|suggested|sample)\s+(answers?|responses?)\s*:?$/i;
     if (b.body.slice(0, cut).some((x) => x && x.t === "para" && ANSWERS.test(blockPlain(x).trim()))) continue;
+    // Nor when the box's own closing checklist still follows: the bold line is one of the
+    // activity's own categories. ICT Form 2 LB Learning Activity 2 sorts software into
+    // "File Compression Tools" / "Other Software Applications", and the section of that
+    // name above it cut half the activity and its checklist out of the box.
+    if (b.body.slice(cut).some((x) => x && x.t === "para" && /CHECKLISTs*$/.test(blockPlain(x)))) continue;
     const tail = b.body.splice(cut);
     // The heading arrived as a bold paragraph because everything inside a hand-drawn
     // box does; out here it is a heading again, and must be one so it prints like the
@@ -1475,7 +1480,10 @@ function groupSignatories(b) {
         && x.segs.filter((s) => s.t.trim()).length >= 2;
       if (runonSig) {
         withSig.push({ t: "sigspace" });
-        const lines = x.segs.filter((s) => s.t.trim()).map((s, k) => sigLine(s.t.trim(), k === 0));
+        // a run may hold several lines joined by Word line breaks: judge each on its own, or
+        // the organisation word on one line uppercases and bolds the title line too
+        const lines = x.segs.flatMap((s) => s.t.split("\n")).map((l) => l.trim()).filter(Boolean)
+          .map((l, k) => sigLine(l, k === 0));
         withSig.push({ t: "signature", lines });
         done = true;
         continue;
@@ -1735,6 +1743,121 @@ function editBlockAnswerText(b, find, repl) {
 // activity/box `body` or an exercise/assessment `parts`/`intro`/`extra`. Returned
 // as live references, so mutating one edits the document in place. `edit`/`replace`
 // use this so a fix reaches text the writer buried inside a boxed activity.
+// One look for what recurs. `boldLabels`: a label prints bold in the style of the text it
+// heads, the words after it are not bold; matched at the start of a run list, so it reaches
+// exercise parts too. `boxTailOut`: a closing line typed inside a box goes under it as a
+// plain paragraph. `plainTableBody`: a table's body rows lose the bold its header keeps.
+// `plainParts`: an exercise or assessment set bold throughout loses it (table headers stay).
+function standardiseRuns(blocks, ov) {
+  const labels = [...(ov.boldLabels || [])].sort((a, b) => b.length - a.length);
+  const isRuns = (v) => Array.isArray(v) && v.length > 0 && v.every((x) => x && typeof x.t === "string" && "c" in x);
+  const applyLabel = (runs) => {
+    const text = runs.map((r) => r.t).join("");
+    const lead = text.length - text.trimStart().length;
+    const label = labels.find((l) => text.startsWith(l, lead) && /^(:|\.|\s*$)/.test(text.slice(lead + l.length)));
+    if (!label) return;
+    let end = lead + label.length;
+    if (text[end] === ":") end += 1;
+    const inked = runs.filter((r) => r.t.trim());
+    const it = ov.italicAssessments ? true : inked[inked.length - 1].it;
+    const out = [];
+    let pos = 0;
+    for (const r of runs) {
+      const cut = Math.min(Math.max(end - pos, 0), r.t.length);
+      if (cut > 0) out.push({ ...r, t: r.t.slice(0, cut), b: true, it });
+      if (cut < r.t.length) out.push({ ...r, t: r.t.slice(cut), b: false });
+      pos += r.t.length;
+    }
+    runs.splice(0, runs.length, ...out);
+  };
+  const unbold = (v) => {
+    if (!v || typeof v !== "object") return;
+    if (isRuns(v)) { v.forEach((r) => { r.b = false; }); return; }
+    if (Array.isArray(v.rows)) { v.rows.slice(1).forEach(unbold); return; }
+    Object.values(v).forEach(unbold);
+  };
+  // dropParts: a line of an exercise or assessment that repeats its heading, by exact text
+  for (const find of ov.dropParts || []) {
+    let n = 0;
+    for (const b of blocks) if (Array.isArray(b.parts)) {
+      const kept = b.parts.filter((p) => (p.q || "").trim() !== find);
+      n += b.parts.length - kept.length;
+      b.parts = kept;
+    }
+    if (!n) console.warn("!  dropParts not matched:", find);
+  }
+  for (const find of ov.plainParts || []) {
+    const b = blocks.find((x) => Array.isArray(x.parts) && JSON.stringify(x.parts).includes(find));
+    if (b) unbold(b.parts); else console.warn("!  plainParts not matched:", find);
+  }
+  // italicAssessments: a book whose assessments carry answers only. House rule: an answer is
+  // italic; these arrive as question parts, so answer() never reached them.
+  if (ov.italicAssessments) {
+    const slant = (v) => {
+      if (!v || typeof v !== "object") return;
+      if (isRuns(v)) { v.forEach((r) => { r.it = true; }); return; }
+      Object.values(v).forEach(slant);
+    };
+    blocks.filter((b) => b.t === "assessment").forEach((b) => slant(b.parts));
+  }
+  // boxTitleNoStop: box titles end the way most of them do, without a full stop
+  if (ov.boxTitleNoStop) for (const b of blocks) {
+    if (b.t !== "activity" || typeof b.title !== "string") continue;
+    b.title = b.title.replace(/\.\s*$/, "");
+    const last = (b.titleSegs || []).filter((s) => (s.t || "").trim()).pop();
+    if (last) last.t = last.t.replace(/\.\s*$/, "");
+  }
+  // fieldLabels: the majority form wins. A label on its own line that the book mostly runs
+  // into its text ("Teacher Reflection: Record …") joins the paragraph under it.
+  const fieldLabels = ov.fieldLabels || [];
+  const joinFields = (list) => {
+    for (let i = list.length - 2; i >= 0; i--) {
+      const a = list[i], n = list[i + 1];
+      if (!a || !n) continue;
+      const own = (a.q != null ? a.q : (a.text != null ? a.text : blockPlain(a)) || "").trim().replace(/:$/, "");
+      if (!fieldLabels.includes(own)) continue;
+      const key = Array.isArray(n.segs) ? "segs" : Array.isArray(n.qseg) ? "qseg" : null;
+      if (!key || !n[key].length || n.kind === "table" || n.t === "table" || n.marker) continue;
+      const it = n[key][n[key].length - 1].it;
+      n[key].unshift({ t: own + ": ", b: true, it, c: null });
+      if (typeof n.q === "string") n.q = own + ": " + n.q;
+      list.splice(i, 1);
+    }
+  };
+  const walkLists = (v) => {
+    if (!v || typeof v !== "object") return;
+    if (Array.isArray(v)) { if (v.some((x) => x && typeof x === "object" && (x.t || x.kind))) joinFields(v); v.forEach(walkLists); return; }
+    Object.values(v).forEach(walkLists);
+  };
+  if (fieldLabels.length) walkLists(blocks);
+  const seen = new Set();
+  const visit = (v) => {
+    if (!v || typeof v !== "object" || seen.has(v)) return;
+    seen.add(v);
+    if (isRuns(v)) { if (labels.length) applyLabel(v); return; }
+    if (Array.isArray(v)) { v.forEach(visit); return; }
+    if (Array.isArray(v.rows)) for (const t of ov.plainTableBody || []) {
+      if (!v.rows.some((row) => Array.isArray(row) && row.some((c) => c && (c.text || "").trim() === t.cell))) continue;
+      v.rows.slice(t.headerRows == null ? 1 : t.headerRows).forEach((row) => row.forEach((c) => (c.segs || []).forEach((s) => { s.b = false; })));
+    }
+    Object.values(v).forEach(visit);
+  };
+  visit(blocks);
+  for (const o of ov.boxTailOut || []) {
+    let n = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const body = blocks[i].body;
+      if (!Array.isArray(body)) continue;
+      const k = body.findIndex((x) => blockPlain(x).includes(o.find));
+      if (k < 0) continue;
+      body.splice(k, 1);
+      blocks.splice(i + 1, 0, { t: "para", segs: [{ t: o.with, b: false, it: false, c: null }] });
+      n++;
+    }
+    if (!n) console.warn("!  boxTailOut not matched:", o.find);
+  }
+}
+
 // Uniform run colour. The same kind of thing must not print in a different colour on a
 // different page, and manuscripts routinely break that: the Religious Education Form 2
 // Learner's Book coloured its scripture references bright blue 143 times, navy 56
@@ -7193,6 +7316,8 @@ async function typesetOne(docxPath, themeName) {
   HEAD_LIST_SPACING = !!ov.headListSpacing;
   importOpts.romanSubParts = !!ov.romanSubParts;
   importOpts.boxAllRows = !!ov.boxAllRows;
+  importOpts.keepListNumbers = !!ov.keepListNumbers;
+  importOpts.listAnswers = ov.listAnswers || [];
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
@@ -7383,6 +7508,7 @@ async function typesetOne(docxPath, themeName) {
   markSpreadsheetTables(blocks);
   reformatAcronyms(blocks);
   normaliseCaptionLabels(blocks);
+  standardiseRuns(blocks, ov);
   normaliseRunColours(blocks, ov.keepRunColours);
   uniformLetterMarkers(blocks, ov.keepMarkerStyles);
   dashBullets(blocks);
@@ -7501,6 +7627,19 @@ function markSpreadsheetTables(blocks) {
   // …and only a table SHAPED like one: a data grid of short cells, never a prose table.
   const gridlike = (rows) => Array.isArray(rows) && rows.length >= 2 && rows[0].length <= 6
     && rows.every((r) => r.every((c) => ((c && c.text) || "").trim().length <= 40));
+  // A table the author already typed AS a spreadsheet carries its own letter row and
+  // number column; sheetgrid() draws those itself, so left in they print twice (A, B
+  // inside A, B, C). Only an exact A, B, C… over 1, 2, 3… counts, so data is never lost.
+  const dropOwnFurniture = (rows) => {
+    const t = (c) => ((c && c.text) || "").trim();
+    const lettered = t(rows[0][0]) === "" && rows[0].length > 1
+      && rows[0].slice(1).every((c, i) => t(c) === String.fromCharCode(65 + i));
+    const numbered = rows.slice(1).every((r, i) => t(r[0]) === String(i + 1));
+    if (!lettered || !numbered) return;
+    rows.shift();
+    for (const r of rows) r.shift();
+  };
+  const markSheet = (x) => { dropOwnFurniture(x.rows); x.sheet = true; };
   const words = (b) => {
     const bits = [b.heading, b.title, ...(b.intro || [])];
     for (const p of b.parts || []) bits.push(p.q, p.a);
@@ -7511,8 +7650,8 @@ function markSpreadsheetTables(blocks) {
     for (const b of arr || []) {
       if (!b || typeof b !== "object") continue;
       if ((b.parts || b.body) && SHEET.test(words(b))) {
-        for (const p of b.parts || []) if (p.kind === "table" && gridlike(p.rows)) p.sheet = true;
-        for (const x of b.body || []) if (x.t === "table" && gridlike(x.rows)) x.sheet = true;
+        for (const p of b.parts || []) if (p.kind === "table" && gridlike(p.rows)) markSheet(p);
+        for (const x of b.body || []) if (x.t === "table" && gridlike(x.rows)) markSheet(x);
       }
       for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
     }
@@ -8316,6 +8455,7 @@ function normaliseQuestionMarkBold(blocks) {
   if (ov.keepExercisesWhole) themeOverrides.keepExercisesWhole = ov.keepExercisesWhole;
   // Give a table column left empty for the learner to write in some width (dtable()).
   if (ov.writingColumns) themeOverrides.writingColumns = true;
+  if (ov.compactLen) themeOverrides.compactLen = ov.compactLen;
   // Give every assessment rubric in the book one column split (dtable(); opt-in so
   // proofread books keep their tables as they are).
   if (ov.uniformRubrics) themeOverrides.uniformRubrics = true;
