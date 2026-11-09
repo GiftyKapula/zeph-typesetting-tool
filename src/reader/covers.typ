@@ -2,9 +2,8 @@
 // page that becomes page 1 of the book. typeset.js writes `#let C = (...)` above this file.
 //
 // Front designs (C.design):
-//   "original"  the book's own scanned cover (C.front-image, C.back-image)
 //   "heritage"  traditional: earth field, woven triangle bands, cream title cartouche
-//   "classic"   traditional novel: cream paper, double rule frame, serif title
+//   "classic"   traditional novel: cream paper, double rule frame, centred title
 //   "modern"    bold colour field, large sun disc, big sans title
 //   "art"       a picture from the book fills the top, title band below
 //   "sunrise"   rays over layered hills, title in the sky
@@ -18,8 +17,9 @@
 #let FW = W + B         // front panel width (bleed on the outer edge)
 #let FH = H + 2 * B
 #let k = W / 148mm      // scale for type sizes
-#let serif = ("Palatino Linotype", "Book Antiqua", "Georgia")
-#let sans = ("Bahnschrift", "Century Gothic", "Segoe UI", "Arial")
+// house fonts: Century Gothic, Arial as the fallback ("serif" kept as a name for the titles)
+#let serif = ("Century Gothic", "Arial")
+#let sans = ("Century Gothic", "Arial")
 #let P = C.primary
 #let Q = C.secondary
 #let A = C.accent
@@ -202,15 +202,9 @@
   place(bottom + center, dy: -(B + 9mm * k), box(fill: paper, inset: 1.6mm * k, radius: 50%, logo-mark(width: 9mm)))
 }
 
-#let front-original() = {
-  place(top + left, rect(width: FW, height: FH, fill: P))
-  place(top + left, box(width: FW, height: FH, clip: true, image(C.front-image, width: FW, height: FH, fit: "cover")))
-}
-
 #let draw-front() = {
   let d = C.design
-  if d == "original" and C.front-image != none { front-original() }
-  else if d == "heritage" { front-heritage() }
+  if d == "heritage" { front-heritage() }
   else if d == "classic" { front-classic() }
   else if d == "modern" { front-modern() }
   else if d == "art" and C.art != none { front-art() }
@@ -221,10 +215,6 @@
 // ---------------- back (plain) and spine ----------------
 #let draw-back() = {
   let BW = W + B
-  if C.back-image != none and C.design == "original" {
-    place(top + left, box(width: BW, height: FH, clip: true, image(C.back-image, width: BW, height: FH, fit: "cover")))
-    return
-  }
   let field = if C.design == "classic" { paper } else { P }
   let txt = if C.design == "classic" { P } else { white }
   place(top + left, rect(width: BW, height: FH, fill: field))
@@ -257,7 +247,7 @@
 
 #let draw-spine() = {
   if S <= 0mm { return }
-  let field = if C.design == "classic" { P } else if C.design == "original" { C.spine-colour } else { P.darken(18%) }
+  let field = if C.design == "classic" { P } else { P.darken(18%) }
   place(top + left, rect(width: S + 0.6mm, height: FH, fill: field))
   let tsz = calc.min(S * 0.42, 11pt)
   place(top + left, dy: B + 14mm, box(width: S, height: FH - 2 * B - 36mm, align(center + horizon, rotate(90deg, reflow: true, {

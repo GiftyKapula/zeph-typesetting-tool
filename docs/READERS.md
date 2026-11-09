@@ -12,9 +12,11 @@ lives in `src/reader/`.
    <Title>/<Title>.docx          the manuscript in reader styles (you edit this in Word)
    <Title>/<Title>.reader.json   title, author, language, cover design, colours
    <Title>/images/               pictures cut from the PDF at 300 dpi
-   <Title>/cover/                the book's own cover, when it has one
    <Title>/import-report.txt     what was found, and what to check by eye
    ```
+
+   The page size is read from the old book (most are A5, some 130 x 190 mm) and snapped
+   to the nearest standard size; A5 when it cannot be read. `--trim 148x210` forces a size.
 
 2. **You check and correct the Word file** against the source PDF.
 
@@ -29,12 +31,6 @@ Import a book:
 
 ```
 npm run reader:import -- "Pano Calo novel.pdf" --out "Books" --language Icibemba --family novel --design heritage --palette terracotta
-```
-
-With its own cover scan (page 1 is the front, page 2 the back):
-
-```
-npm run reader:import -- "Coup.pdf" --out "Books" --language English --cover "Coup - covers.pdf"
 ```
 
 Typeset a book folder:
@@ -97,9 +93,11 @@ Open it with Notepad. The fields you will change:
 
 ## Cover designs
 
+Every book gets a new cover. An old cover is only a reference for the title, the author
+and the picture idea; scanned covers are never printed.
+
 | Design | Look | Good for |
 |---|---|---|
-| `original` | the book's own scanned cover | books that came with a cover |
 | `heritage` | woven triangle bands and a cream title panel | traditional stories, Zambian languages |
 | `classic` | cream paper, double frame, corner diamonds | serious novels |
 | `mosaic` | circle and diamond pattern with a title panel | traditional and folk tales |
@@ -110,10 +108,14 @@ Open it with Notepad. The fields you will change:
 Palettes: terracotta, indigo, forest, maroon, ochre, teal, plum, charcoal, copper, river,
 savanna, crimson, olive, dusk.
 
-Every book already has its design and palette chosen. Change it only if you are asked to.
+Each book's import command carries a suggested design and palette. Look at the old cover and
+the story, then keep it or choose another in the settings file.
 
 ## House rules (the engine does these for you)
 
+* Page size: the same as the old book (most are A5).
+* Fonts: Arial for the text, Century Gothic for headings and covers (`"font": "Century Gothic"`
+  in the settings file sets the text in Century Gothic too).
 * The cover sheet is page 1: back cover, spine, front cover.
 * A spine is added only when the book is longer than 112 pages.
 * The back cover is plain: ISBN box, ZEPH logo and "Printed by Zambia Educational Publishing House".

@@ -108,7 +108,7 @@ async function main() {
   const title = st.title || meta.title || path.basename(docx, ".docx");
   const author = st.author != null && st.author !== "" ? st.author : meta.author || "";
   const family = st.family || "novel";
-  const [tw, th] = st.trim || [148, 210];
+  const [tw, th] = st.trim || [148, 210]; // A5
   const pal = PALETTES[a.palette || st.cover.palette] || PALETTES.terracotta;
   const accent = ACCENTS[a.palette || st.cover.palette] || pal[0];
   const lang = (LANGS[st.language] || LANGS.English).lang;
@@ -139,7 +139,7 @@ async function main() {
   const numW = chapters.some((b) => b.label && b.title) ? Math.min(30, 3 + Math.max(...chapters.filter((b) => b.label && b.title).map((b) => b.label.length)) * 2.1) : 0;
 
   const R = `#let R = (
-  w: ${tw}mm, h: ${th}mm, family: ${S(family)}, lang: ${S(lang)}, body-size: ${st.bodySize || 10.5}pt,
+  w: ${tw}mm, h: ${th}mm, family: ${S(family)}, lang: ${S(lang)}, body-size: ${st.bodySize || 10.5}pt, font: ${S(st.font || "Arial")},
   accent: rgb(${S(accent)}), title: ${S(title)}, subtitle: ${S(st.subtitle || meta.subtitle || "")}, author: ${S(author)},
   series: ${arr(st.series || meta.series || [])}, running-title: ${S(st.runningTitle || title)},
   contents-title: ${S(st.contentsTitle || "Contents")}, contents-num-width: ${numW}mm,
@@ -185,8 +185,6 @@ async function main() {
   label: ${S(st.cover.label || "")}, isbn: ${S(st.isbn || "")}, blurb: ${S(st.cover.blurb || "")},
   logo: ${hasLogo ? S("zeph-logo.png") : "none"},
   art: ${(() => { const n = copyIn(st.cover.art); return n ? S(n) : "none"; })()},
-  front-image: ${(() => { const n = copyIn(st.cover.front); return n ? S(n) : "none"; })()},
-  back-image: ${(() => { const n = copyIn(st.cover.back); return n ? S(n) : "none"; })()},
 )\n`;
   const ctmpl = fs.readFileSync(path.join(__dirname, "covers.typ"), "utf8");
   fs.writeFileSync(path.join(build, "cover.typ"), C + ctmpl);

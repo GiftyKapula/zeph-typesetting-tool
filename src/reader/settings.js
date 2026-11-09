@@ -42,7 +42,8 @@ function defaults(meta, opts = {}) {
     series: meta.series || [],
     language,
     family,
-    trim: meta.trim || [148, 210],
+    trim: meta.trim || [148, 210], // the source book's size; A5 when unknown
+    font: opts.font || "Arial", // body text: "Arial" or "Century Gothic"; headings and covers are Century Gothic
     bodySize: opts.bodySize || (family === "reader" ? 13 : (meta.trim && meta.trim[0] < 140 ? 10 : 10.5)),
     chapterNewPage: meta.chapterNewPage !== false,
     contents: "auto",
@@ -55,8 +56,6 @@ function defaults(meta, opts = {}) {
       palette: opts.palette || "terracotta",
       label: opts.label != null ? opts.label : (language === "English" ? "" : language),
       art: opts.art || "",
-      front: opts.front || "",
-      back: opts.back || "",
       blurb: "",
     },
     source: meta.source || "",

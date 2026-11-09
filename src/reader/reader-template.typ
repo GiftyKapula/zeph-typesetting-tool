@@ -2,15 +2,14 @@
 // The typesetter (typeset.js) writes `#let R = (...)` (the book's settings) above this file
 // and the book's content below it, using only the functions defined here.
 //
-// Families: "novel" (secondary and adult fiction, serif, indented paragraphs, chapter
-// openers with a raised initial), "reader" (primary readers: large sans type, spaced
+// Families: "novel" (secondary and adult fiction, indented paragraphs, chapter
+// openers with a raised initial), "reader" (primary readers: large type, spaced
 // paragraphs, big pictures), "poetry" (verse kept line by line).
 
 #let fam = R.family
-#let serif = ("Palatino Linotype", "Book Antiqua", "Georgia", "Libertinus Serif")
-#let sans = ("Century Gothic", "Segoe UI", "Arial", "Libertinus Serif")
-#let bodyfont = if fam == "reader" { sans } else { serif }
-#let display = if fam == "reader" { sans } else { serif }
+// house fonts: body Arial (or Century Gothic, R.font), headings Century Gothic
+#let bodyfont = (R.font, "Arial", "Century Gothic")
+#let display = ("Century Gothic", "Arial")
 #let accent = R.accent
 #let ink = rgb("#1d1a17")
 #let soft = rgb("#6b625a")

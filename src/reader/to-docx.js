@@ -98,9 +98,9 @@ async function writeDocx(model, file, baseDir) {
     creator: "ZEPH reader import",
     title: m.title,
     styles: {
-      default: { document: { run: { font: "Palatino Linotype", size: 24 }, paragraph: { spacing: { after: 60, line: 300 } } },
-        heading1: { run: { font: "Palatino Linotype", size: 34, bold: true, color: "3b2414" }, paragraph: { alignment: "center", spacing: { before: 240, after: 280 }, keepNext: true } },
-        heading2: { run: { font: "Palatino Linotype", size: 26, bold: true, color: "3b2414" }, paragraph: { spacing: { before: 240, after: 120 }, keepNext: true } } },
+      default: { document: { run: { font: "Arial", size: 22 }, paragraph: { spacing: { after: 60, line: 300 } } },
+        heading1: { run: { font: "Century Gothic", size: 32, bold: true, color: "3b2414" }, paragraph: { alignment: "center", spacing: { before: 240, after: 280 }, keepNext: true } },
+        heading2: { run: { font: "Century Gothic", size: 24, bold: true, color: "3b2414" }, paragraph: { spacing: { before: 240, after: 120 }, keepNext: true } } },
       paragraphStyles: STYLES.map(([id, name, run, para]) => ({ id, name, basedOn: "Normal", next: "Normal", quickFormat: true, run, paragraph: { ...para, alignment: para.alignment === "center" ? AlignmentType.CENTER : para.alignment === "right" ? AlignmentType.RIGHT : undefined } })),
     },
     sections: [{ properties: { page: { size: { width: Math.round(m.trim[0] / 25.4 * 1440), height: Math.round(m.trim[1] / 25.4 * 1440) }, margin: { top: 1000, bottom: 1000, left: 900, right: 900 } } }, children: kids }],
