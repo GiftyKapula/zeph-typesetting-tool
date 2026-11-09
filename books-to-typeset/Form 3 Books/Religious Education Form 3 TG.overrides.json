@@ -1117,6 +1117,14 @@
     {
       "find": "Invite one representative from each pair to present their",
       "with": "Invite one representative from each pair to present their description to the class, and facilitate the discussion to guide learners towards a correct and clear understanding of admission practices."
+    },
+    {
+      "find": "Ask learners to answer individually.",
+      "with": "Ask the learners to answer the following questions individually."
+    },
+    {
+      "find": "First, send messages to all schools, churches",
+      "with": "First, send messages to all schools, churches and organisations to invite parents in the district for the meeting on the weekend. For easy communication of the admission criteria, parents should be talked to in small groups according to the number of classes available. The parents are allowed to ask questions at the end of the presentation."
     }
   ],
   "editAnswer": [
@@ -1324,6 +1332,14 @@
     {
       "find": "description to the class, and facilitate the discussion",
       "next": "Possible Responses"
+    },
+    {
+      "find": "Discuss answers together as a class.",
+      "next": "Provide guidance where necessary."
+    },
+    {
+      "find": "Provide guidance where necessary.",
+      "next": "Identify the three main values of friendship"
     }
   ],
   "replace": [
@@ -1348,5 +1364,24 @@
     }
   ],
   "//embedJpeg": "Keeps the cover picture lossless in the PDF.",
-  "embedJpeg": false
+  "embedJpeg": false,
+  "//round2": "Proofread round 2 (9 Nov 2026): three corrections the reviewer sent as a message. p5 Task 3 answer continues inside the box (edit + remove); p18 Exercise 1 instruction unnumbered (fixExercise); p39 Exercise 1 instruction reworded (edit + removeWhereNext).",
+  "remove": [
+    "and organisations to invite parents in the district for the meeting on the weekend"
+  ],
+  "fixExercise": [
+    {
+      "match": "EXERCISE 1",
+      "near": "Guide learners to answer the exercise individually",
+      "markers": [
+        "lead",
+        "•",
+        "•",
+        "•",
+        "1.",
+        "2.",
+        "3."
+      ]
+    }
+  ]
 }
