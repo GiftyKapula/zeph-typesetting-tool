@@ -15,62 +15,87 @@
       "FOMU"
     ],
     "learners_book": [
-      "BUKU LA M'PHUNZI"
+      "BUKU LA M'PHUNZI",
+      "Buku la Mphunzi"
     ],
     "teachers_guide": [
-      "BUKU LA M'PHUNZITSI"
+      "BUKU LA M'PHUNZITSI",
+      "Buku la Mphunzitsi"
     ],
     "level_advanced": [
-      "MUYEZO WAPAMWAMBA"
+      "MUYEZO WAPAMWAMBA",
+      "Maphunzilo a Sekondale a Mulingo Wapamwamba"
     ],
     "contents": [
-      "ZAM'KATI"
+      "ZAM'KATI",
+      "Za M’katimu",
+      "Zam'mkatimu"
     ],
     "author_section": [
-      "MLEMBI"
+      "MLEMBI",
+      "Alembi"
     ],
     "foreword": [
-      "MAU OYAMBILILA"
+      "MAU OYAMBILILA",
+      "Mau Oyamba"
     ],
     "preface": [
-      "MAU A MLEMBI"
+      "MAU A MLEMBI",
+      "Tsogolo",
+      "Mau a wa Kumpando",
+      "Mau Otsogolela"
     ],
     "acknowledgement": [
-      "KUYAMIKILA"
+      "KUYAMIKILA",
+      "Kuthokoza",
+      "Mau a Oyang’anila Kampani",
+      "Zothokoza"
     ],
     "introduction": [
-      "KALAMBULA BWALO"
+      "KALAMBULA BWALO",
+      "Kulambula Bwalo",
+      "Lambulo",
+      "Mau Oyamba a Buku"
     ],
     "key_competences": [
-      "MALUSO APAMWAMBA"
+      "MALUSO APAMWAMBA",
+      "Maluso Onse"
     ],
     "acronyms": [
-      "CIDULE CA MAU"
+      "CIDULE CA MAU",
+      "Mau Ofupikitsidwa"
     ],
     "unit": [
       "CIGAWO",
-      "Capamutu"
+      "Capamutu",
+      "Gawo"
     ],
     "topic": [
       "MUTU"
     ],
     "subtopic": [
-      "MUTU WAUNG'ONO"
+      "MUTU WAUNG'ONO",
+      "Mutu Waung’ono"
     ],
     "lesson": [
       "Phunzilo"
     ],
     "specific_competences": [
-      "MALUSO APADELA"
+      "MALUSO APADELA",
+      "Luso Lapadela"
     ],
     "expected_standards": [
-      "MUYEZO oyembelezeleka"
+      "MUYEZO oyembelezeleka",
+      "Muyeso Woyembekezeka",
+      "Muyeso Woyembekezeleka"
     ],
     "listening_speaking": [
-      "KMVETSELA NDI KULANKHULA"
+      "KMVETSELA NDI KULANKHULA",
+      "Mvetselo ndi Lankhulo"
     ],
     "reading": [
-      "KUWELENGA"
+      "KUWELENGA",
+      "Welengo"
     ],
     "writing": [
       "KULEMBA"
@@ -79,48 +104,70 @@
       "CINENEDWE"
     ],
     "reading_comprehension": [
-      "MVETSO"
+      "MVETSO",
+      "Kuwelenga Mvetselo"
     ],
     "summary_writing": [
-      "CIFUPIKITSO"
+      "CIFUPIKITSO",
+      "Cidule"
     ],
     "activity": [
       "Nchito"
     ],
     "alt_activity": [
-      "Nchito yowonjezela"
+      "Nchito yowonjezela",
+      "Nchito Ina"
     ],
     "exercise": [
       "Zocita"
     ],
     "assessment_topic": [
       "Mayeso akutha kwa mutu",
-      "Mayeso a kutha kwa mutu"
+      "Mayeso a kutha kwa mutu",
+      "Mayeso Akothela kwa Mutu"
     ],
     "assessment_unit": [
-      "Mayeso akutha kwa cigawo"
+      "Mayeso akutha kwa cigawo",
+      "Mayeso a Capamutu"
     ],
     "did_you_know": [
-      "Kodi mudziwa"
+      "Kodi mudziwa",
+      "Dziwani"
     ],
     "key_points": [
       "MFUNDO ZAZIKULU",
       "Mau ofunika kudziwa"
     ],
     "note_teacher": [
-      "Cidziwitso kwa Mphunzitsi"
+      "Cidziwitso kwa Mphunzitsi",
+      "Mfundo Zophunzitsila",
+      "Mfundo Kwa Mphunzitsi"
     ],
     "example": [
       "Citsanzo"
     ],
     "possible_answers": [
-      "Mayankho yoyembekezedwa"
+      "Mayankho yoyembekezedwa",
+      "Mayankho Oyembekezeka",
+      "Mfungulo"
     ],
     "glossary": [
-      "Mtanthauzila mau"
+      "Mtanthauzila mau",
+      "Mndandanda wa Mau ndi Matanthauzo",
+      "Matanthauzo a Mau"
     ],
     "references": [
-      "Mabuku ofufuzila"
+      "Mabuku ofufuzila",
+      "Gwelo la Uthenga Wonse"
+    ],
+    "level_ece": [
+      "Maphunzilo a Ana Aang’ono"
+    ],
+    "level_primary": [
+      "Maphunzilo a Pulayimale"
+    ],
+    "level_ordinary": [
+      "Maphunzilo a Sekondale a Mulingo Wamba"
     ]
   },
   "extras": [],

@@ -1,0 +1,11 @@
+{
+  "_note": "Zambian-language Teacher's Guide house settings: B&W interior with colour cover, covers as page 1, no box stripe, indented lists, colon after heading numbers, units/sub-topics in capitals, lesson headings and labels in sentence case.",
+  "coversInBook": true,
+  "blackWhite": true,
+  "boxStripe": false,
+  "indentLists": true,
+  "colonAfterNumber": true,
+  "headingCase": { "h1": "upper", "h2": "upper", "head": "sentence", "h3": "sentence" },
+  "caseKeep": ["HIV", "AIDS", "ECE", "Zambia", "Lusaka"],
+  "labelStyle": "sentence"
+}

@@ -20,23 +20,29 @@
       "Fomu"
     ],
     "learners_book": [
-      "Buuku wa ufunda"
+      "Buuku wa ufunda",
+      "Buuku wa kufundamo"
     ],
     "teachers_guide": [
-      "Buuku wa kutangijila Mufunjishi"
+      "Buuku wa kutangijila Mufunjishi",
+      "Buuku wa mufunjishi"
     ],
     "level_ece": [
-      "Lufunjisho lwa Bana Babacheche"
+      "Lufunjisho lwa Bana Babacheche",
+      "Kipimo kya Lufundo Lwa baana bacheche"
     ],
     "level_primary": [
-      "Lufunjisho lwa Pulaimali"
+      "Lufunjisho lwa Pulaimali",
+      "Kipimo kya Lufundo Lwa Pulaimale"
     ],
     "level_ordinary": [
-      "Lufunjisho lwa Sekondali"
+      "Lufunjisho lwa Sekondali",
+      "Kipimo kya lufundo Lwa Sekondale"
     ],
     "contents": [
       "Bijimo",
-      "Biji mu kachi"
+      "Biji mu kachi",
+      "Bijiimo"
     ],
     "author_section": [
       "Banembi",
@@ -46,13 +52,15 @@
       "Byambo bitanshi"
     ],
     "preface": [
-      "Kitendekesho kya buuku"
+      "Kitendekesho kya buuku",
+      "Byambo bya kulumbulula"
     ],
     "acknowledgement": [
       "Lusanchilo"
     ],
     "introduction": [
-      "Ntendekelo"
+      "Ntendekelo",
+      "Ntatwilo"
     ],
     "key_competences": [
       "Byambo bya kuyuka"
@@ -61,22 +69,27 @@
       "Ngipipishilo ya byambo"
     ],
     "unit": [
-      "Kishina"
+      "Kishina",
+      "Kipungu"
     ],
     "topic": [
       "Mutwe"
     ],
     "subtopic": [
-      "Mutwe-kache"
+      "Mutwe-kache",
+      "Mutwe- kache"
     ],
     "lesson": [
       "Lufunjisho"
     ],
     "specific_competences": [
-      "Byaketekelwa kubiwa"
+      "Byaketekelwa kubiwa",
+      "Kyaketekelwa kubiwa"
     ],
     "expected_standards": [
-      "Bipimo byañingijilo yaketekelwa"
+      "Bipimo byañingijilo yaketekelwa",
+      "Bipimo byaňingijilo byaketekelwa kubiwa mokyafwainwa",
+      "Kipimo kyaňingijilo kyaketekelwa kubiwa mokyafwainwa"
     ],
     "listening_speaking": [
       "Kuteleka ne kwamba"
@@ -91,36 +104,49 @@
       "Mulakazhilo"
     ],
     "reading_comprehension": [
-      "Kumvwisha"
+      "Kumvwisha",
+      "Kutanga ne Kumvwisha"
     ],
     "summary_writing": [
-      "Ngipishilo"
+      "Ngipishilo",
+      "Ngipipishilo"
     ],
     "activity": [
       "Mwingilo wa lufunjisho",
-      "Mwingilo wakuuba"
+      "Mwingilo wakuuba",
+      "Kyakuuba pa kufunda",
+      "Kyakuuba bafunda",
+      "Mwingilo wa kuuba"
     ],
     "alt_activity": [
-      "Mwingilo wapusanako"
+      "Mwingilo wapusanako",
+      "Mwingilo mukwabo"
     ],
     "exercise": [
       "Mwingilo"
     ],
     "assessment_topic": [
       "Lweseko lwa mpelo ya mutwe",
-      "Kupwa kwa mutwe"
+      "Kupwa kwa mutwe",
+      "Lweseko lwa pa mpelo ya mutwe",
+      "Lweseko"
     ],
     "assessment_unit": [
-      "Lweseko lwa mpelo ya kishina"
+      "Lweseko lwa mpelo ya kishina",
+      "Lweseko lwa pa mpelo ya kipungu"
     ],
     "did_you_know": [
-      "Mwa kuyuka nyi?"
+      "Mwa kuyuka nyi?",
+      "Kana wayuka nyi?"
     ],
     "key_points": [
-      "Byambo byanema"
+      "Byambo byanema",
+      "Bikomo",
+      "Bishinte"
     ],
     "note_teacher": [
-      "Byakulondela Mufunjishi"
+      "Byakulondela Mufunjishi",
+      "Byakuyukisha mufunjishi"
     ],
     "example": [
       "Kimwesho"
@@ -129,10 +155,14 @@
       "Mikumbu ya ketekelwa"
     ],
     "glossary": [
-      "Kulumbulula Byambo"
+      "Kulumbulula Byambo",
+      "Ntumbamilangwe"
     ],
     "authors_label": [
       "Nembi"
+    ],
+    "level_advanced": [
+      "Kipimo kya Lufundo Lwa Sekondale – Kata"
     ]
   },
   "extras": [

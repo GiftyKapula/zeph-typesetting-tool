@@ -49,6 +49,9 @@ function setBlockSegs(b, segs) {
 // that lies outside the edited span (unlike setBlockText, which flattens the
 // whole block). `repl` may be "" to delete the span.
 function editBlockText(b, find, repl) {
+  // a box's title is edited even when the box also carries body runs
+  const tk0 = titleKey(b);
+  if (tk0 && typeof b[tk0] === "string" && b[tk0].includes(find)) { b[tk0] = b[tk0].replace(find, repl); return; }
   const k = segKey(b);
   if (!k) {
     if (typeof b.text === "string" && b.text.includes(find)) { b.text = b.text.replace(find, repl); return; }

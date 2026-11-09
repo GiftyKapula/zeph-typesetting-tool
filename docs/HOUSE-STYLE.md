@@ -84,10 +84,13 @@ off, so a change only touches the books that opt in. Keys:
 | | To lift a whole book to print resolution, don't hand-write these: `node tools/upscale-images.js "<book.docx>" "<typeset.pdf>"` measures every picture's *effective* DPI in the built PDF (the template decides the printed size, so the PDF is the only honest measure), runs Real-ESRGAN on the ones under 300, resamples each back down to exactly what 300 DPI needs, and writes the `images` entries itself. `--dry-run` reports the plan first. A picture Word cropped can't be matched by size and must be named with `--map pN=imageN.png`, which upscales the already-cropped bitmap so the author's crop survives. |
 | `imageToText` | replace a pasted equation-editor screenshot with plain typeset text, by media filename (`{ "image20.png": "15° × 111 km = 1665 km" }`) — for manuscripts where the working is a raster image instead of typed text (the screenshot's baked-in ClearType fringing shows as a visible colour halo once enlarged for print) |
 | `setCaption` | set an image's caption, matched by `near` (existing caption) or `file` (media name) |
+| `font` | set one book's whole typeface (body, headings, display) by name, e.g. `"Century Gothic"` for a local-language primary Learner's Book a reviewer wants in the CDC face (the engine already does this for the primary/ECE themes) |
 | `theme` | force a theme by name, bypassing `autoTheme()`'s file-name guess (a TG whose title doesn't match its sibling LB's pattern, say) |
 | `synthesiseCover` | force the engine to build a fresh cover from title/subject/booktype/author even when a cover-ish page was detected (its line shapes didn't match what the theme expects) |
 | `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey. This is now the **default for any TG** (filename carries "TG" or "teacher"), so most books never need to set it; use `blackWhite: false` for the rare TG that must stay in colour, or `blackWhite: true` to force it on a Learner's Book (which otherwise keeps its colour) |
+| `hyphenate` | `false`: no word is broken across two lines with a hyphen anywhere in the book (a reviewer marked every "repro-duced" break); `true` turns hyphenation back on for a theme that switches it off. A compound that must not split at its own hyphen ("semi-transparent") takes a word joiner after the hyphen via `editAll` (`"semi-\u2060transparent"`) |
 | `tocTitle` | the contents page heading in the book's own words (a local-language book's own contents heading, e.g. Kiikaonde "Biji mu Kachi") instead of the theme's "Table of Contents" |
+| `titleAgeLine` | an age line set under the book type on the **title page only** (an ECE reviewer's "YAAKA 4-5"); the cover and spine are untouched |
 
 **Text (whole-block)**
 
@@ -101,8 +104,13 @@ off, so a change only touches the books that opt in. Keys:
 | `removeWhereNext` | delete a block matching `find` only when the block right after it matches `next` (disambiguates a repeated heading) |
 | `moveBefore` | lift the block containing `find` and re-insert it before the block containing `before` |
 | `moveSectionBefore` | like `moveBefore` but moves a whole section (heading through to the next heading), not just one block |
-| `replaceBlocks` | replace a run of blocks between two anchors with freshly built ones — blockspecs: `para`/`head`/`h1`/`listitem`/`label`/`vspace`/`raw`/`numbond`; `raw` inserts a pre-built block object verbatim (e.g. grafting a table or list from elsewhere in the same book) |
-| `insertText` | insert a new paragraph/heading before an anchor (lighter-weight than `replaceBlocks` when you're only adding, not replacing) |
+| `moveToSectionEnd` | `[{ find, label? }]` — move every lesson summary that starts with the word `find` ("Kusufazo"), with the paragraphs/list items under it, to the end of its section (just before the next h1/h2/h3); `label` splits a run-in "Kusufazo Makande…" into a heading + paragraph so all summaries look alike |
+| `splitBox` | `[{ at }]` — split an activity box that swallowed the next activity: the body line whose whole text is `at` ("MUSEBEZI 3: …") becomes the title of a new box holding everything after it |
+| `oneActivityPerBox` | `true` or `{ keepLabels: ["Icilangililo"] }` — every activity in a box of its own, titled "WORD N" (WORD from `activityTitles`): run-in words leave the title for the body, a bold "WORD N" line inside a box starts a new box, and a loose "WORD N" heading/bold line becomes a box holding the paragraphs, lists, tables and pictures after it (up to the next heading, label or activity; `keepLabels` names labels that stay inside — an activity's worked example). Without a number only the word in capitals counts ("Ifyakucita: …" is a glossary entry). Icibemba G4 LB |
+| `extendBox` | `[{ title, count }]` — the inverse: move the `count` blocks after a box (first box whose title contains `title`) into its body. With `near` instead of `title` (when every box has the same title), the box right before the block containing `near` is the one extended |
+| `tableToBox` | `[{ findTable, into?, titleFromPrev?, title?, lead? }]` — an activity typed into a one-cell table (grey frame) instead of the activity box, matched by the cell's opening words: its lines become box content (short all-bold line → box sub-head, "1." / "a)" → list item, else paragraph; pictures last). `into: "prev"` continues the box just before the table; otherwise a new box titled by the cell's first line when it is "WORD N", or by the heading just before (`titleFromPrev`), or `title`; `lead: n` puts the first n lines above the box |
+| `replaceBlocks` | replace a run of blocks between two anchors with freshly built ones — blockspecs: `para`/`head`/`h1`/`listitem`/`label`/`vspace`/`raw`/`numbond`; `raw` inserts a pre-built block object verbatim (e.g. grafting a table or list from elsewhere in the same book); `findTable` (instead of `find`) matches a table by the opening words of its first cell — e.g. a one-cell table holding a run of activities, swapped for a `raw` activity box |
+| `insertText` | insert a new paragraph/heading before an anchor (lighter-weight than `replaceBlocks` when you're only adding, not replacing); an `items` entry `{ image: "<path relative to the .docx>", w }` adds a picture with the new text (an end-of-unit exercise's picture); `{ images: [{ image, w, cap }, …] }` adds a row of pictures side by side, each captioned (`cap`, e.g. "1)") |
 | `mergePara` | glue a paragraph to the one before/after it (`glue: true`) — a sentence Word split across two paragraphs |
 | `splitBefore` | force a paragraph break right before a matched substring (the inverse of `mergePara`) |
 | `boldFind` | bold every run whose exact text matches `find` (e.g. math symbols like `∈`, `≠` that the importer left plain) |
@@ -125,15 +133,20 @@ off, so a change only touches the books that opt in. Keys:
 | Key | What it does |
 |---|---|
 | `asHead` | reclassify a coloured section heading (h1/h2) to plain **bold-black** `head` |
-| `asSection` | inverse of `asHead`: promote an inline heading to a **styled section head** (own page, accent title + rule, listed in TOC) — for back-matter GLOSSARY/REFERENCES |
+| `asSection` | inverse of `asHead`: promote an inline heading to a **styled section head** (own page, accent title + rule, listed in TOC) — for back-matter GLOSSARY/REFERENCES, or a local-language front-matter heading the lexicon does not know (Icibemba "BA KALEMBA BA ICI CITABO"), which would otherwise be demoted to a sub-heading |
 | `insertHead` | insert a heading before an anchor; `as:"h2"` makes it a sub-topic (flows into TOC), `near` disambiguates a repeated anchor |
 | `centre` | centre a heading matched by exact text (passage / picture / story titles) |
 | `recolorHead` | give a heading (by prefix) a specific fill colour |
 | `activityHeadsBlack` | render every Activity/Exercise heading bold black instead of the accent colour |
 | `pageBreakBefore` | insert a page break before the first block containing the text |
+| `keepBoxesWhole` | `true` — an activity box shorter than `keepBoxMm` (default 180 mm) moves to the next page whole instead of breaking. Off by default (whole boxes leave white space); for picture books (ECE), where a break puts the instruction on one page and its picture on the next |
 | `replaceSection` | swap a whole section body (heading → next section) for supplied `items` (markdown-ish: `**bold**`, `*italic*`, `$math$`, `## sub-head`); optional `rename`/`until` |
 | `recase` | change a block's case (`{ startsWith, to: "sentence" \| "title" \| "upper" }`, default `"title"`) — e.g. an ALL-CAPS label the house style wants in sentence case, or a Learning Activity/Exercise/Assessment box title a manuscript left inconsistently cased (`to: "upper"`) next to sibling boxes that are ALL-CAPS |
 | `setHeading` | force a block to render as a specific heading kind (`as: "label"`, etc.) — for a heading the importer classified wrong |
+| `uniformLabel` | `[{ prefix, text }]` — one look for a recurring section label typed several ways (bold heading, run-in bold lead, orange label, with or without a stray topic code like "4.1.4.1.1"): every top-level block opening with `prefix` (any case) becomes a label reading `text`, and words run in after it move to a paragraph just below. Icibemba G4 LB: "Ifilekabilwa ukwishiba", "Icilangililo", "Imibombele ileenekelwa" |
+| `styleLists` | `true` — honour lists set by the paragraph style alone (Word List Bullet / List Number, with the `numPr` in styles.xml); without it those lines import as plain paragraphs. The numbers of a List Number style run on through the book, so restart them with `setMarker`. Icibemba ECE TG |
+| `termInFront` | `true` — the first `termPages` page stays the last front-matter page (roman folio) instead of opening the body, so a book with an odd count of front pages starts unit 1 on a right-hand page with no blank page. Icibemba ECE TG |
+| `afterListGap` | the room above a heading that follows a list (house `28pt`), to pull a stranded end-of-unit section back without forcing page breaks. Icibemba ECE TG |
 | `centrePara` | centre a paragraph (and, inside an exercise, its "lead" part) rather than justify/left-align it — matches a manuscript's own centred diagram or ASCII layout |
 | `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number |
@@ -144,7 +157,7 @@ off, so a change only touches the books that opt in. Keys:
 
 | Key | What it does |
 |---|---|
-| `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off) |
+| `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off); `all: true` sets it on every matching line |
 | `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph |
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
@@ -231,3 +244,22 @@ file extension and a like-for-like aspect ratio.
 
 Old binary `.doc` files won't parse — convert with LibreOffice first:
 `soffice --headless -env:UserInstallation=file:///C:/temp/loconv --convert-to docx --outdir <dir> "<file>.doc"`.
+
+## Covers: back cover and spine (publisher rule, October 2026)
+
+- **Back cover** is plain: the cover colour, a white box for the ISBN and barcode,
+  and at the foot the ZEPH logo over "Printed by Zambia Educational Publishing House".
+  It never repeats the front cover's level / title / book type.
+- **Spine**: a book of more than 112 pages gets a spine. The engine writes a second
+  PDF next to the book, `<book> - cover spread.pdf` (back cover | spine | front cover
+  on one sheet, for the printer). The spine shows the book name and the level, the
+  book type when the spine is long enough, and the ZEPH logo at the foot. Its width is
+  pages × 0.055 mm + 1 mm (80 gsm paper); set `"spineMmPerPage"` in a book's
+  overrides for other paper. Landscape syllabus books are not included.
+- **Trim allowance**: the printer trims covers by 2 mm on every side, so the cover spread is 2 mm larger
+  all round: each cover is scaled up evenly (about 1.6%) from its spine edge so its own artwork fills the margin (no spliced strips, so no joins inside a cover). Change
+  with `"coverTrimMm"` per book.
+- **Covers inside the book** (`"coversInBook": true`, on trial with the Kiikaonde Form 1
+  TG): the spread (back | spine | front, with the trim allowance) becomes page 1 of the
+  book PDF, as with the syllabuses, instead of a separate front page, back page and
+  "cover spread" file.

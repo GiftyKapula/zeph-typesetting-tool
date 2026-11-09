@@ -31,7 +31,7 @@
       "Icitabo ca kwa Kafundisha"
     ],
     "level_ece": [
-      "Ambasambililo ya ku"
+      "Amasambililo ya ku"
     ],
     "level_primary": [
       "Amasambililo ya kubalilapo"
@@ -52,13 +52,16 @@
       "Ishiwi lyantanshi"
     ],
     "preface": [
-      "Umusapu"
+      "Umusapu",
+      "Itontonkanyo lya balembele"
     ],
     "acknowledgement": [
-      "Amashiwi Ukutotela"
+      "Amashiwi Ukutotela",
+      "Amashiwi ya kutotela"
     ],
     "introduction": [
-      "Ukutendeka"
+      "Ukutendeka",
+      "Ifyo icitabo calembelwa"
     ],
     "key_competences": [
       "Ifikomo filekabilwa"
@@ -138,6 +141,9 @@
     ],
     "references": [
       "Ifyabomfeshiwe pa kulemba ifili mu citabo"
+    ],
+    "all_rights": [
+      "Insambu shonse shasungwa"
     ]
   },
   "extras": [

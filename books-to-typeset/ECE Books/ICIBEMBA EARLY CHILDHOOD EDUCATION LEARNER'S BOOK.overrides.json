@@ -1,0 +1,872 @@
+{
+  "coverImage": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/cover-bingo.png",
+  "grade": "ECE Levo 1",
+  "subject": "Icibemba",
+  "localLabels": true,
+  "coverWords": {
+    "authors": "ABALEMBELE",
+    "contents": "Ifili mu Citabo",
+    "printedBy": "Calembelwe naba"
+  },
+  "dropCompetenceBoxes": true,
+  "untableImages": true,
+  "uniformImages": 78,
+  "keepHeadsWithUnit": true,
+  "images": {
+    "image2.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image2.png"
+    },
+    "image61.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image61.png"
+    },
+    "image65.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image65.png"
+    },
+    "image71.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image71.png"
+    },
+    "image87.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image87.png"
+    },
+    "image16.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image16.png"
+    },
+    "image40.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image40.png"
+    },
+    "image43.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image43.png"
+    },
+    "image44.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image44.png"
+    },
+    "image39.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image39.png"
+    },
+    "image42.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image42.png"
+    },
+    "image45.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image45.png"
+    },
+    "image46.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image46.png"
+    },
+    "image41.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image41.png"
+    },
+    "image48.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image48.png"
+    },
+    "image74.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image74.png"
+    },
+    "image73.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image73.png"
+    },
+    "image18.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image18.png"
+    },
+    "image34.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image34.png"
+    },
+    "image72.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image72.png"
+    },
+    "image75.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image75.png"
+    },
+    "image3.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image3.png"
+    },
+    "image80.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image80.png"
+    },
+    "image23.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image23.png"
+    },
+    "image17.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image17.png"
+    },
+    "image19.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image19.png"
+    },
+    "image27.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image27.png"
+    },
+    "image92.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image92.png"
+    },
+    "image85.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image85.png"
+    },
+    "image86.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image86.png"
+    },
+    "image78.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image78.png"
+    },
+    "image102.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image102.png"
+    },
+    "image79.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image79.png"
+    },
+    "image103.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image103.png"
+    },
+    "image104.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image104.png"
+    },
+    "image24.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image24.png"
+    },
+    "image14.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image14.png"
+    },
+    "image67.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image67.png"
+    },
+    "image49.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image49.png"
+    },
+    "image54.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image54.png"
+    },
+    "image77.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image77.png"
+    },
+    "image82.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image82.png"
+    },
+    "image83.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image83.png"
+    },
+    "image95.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image95.png"
+    },
+    "image10.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image10.png"
+    },
+    "image22.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image22.png"
+    },
+    "image66.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image66.png"
+    },
+    "image89.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image89.png"
+    },
+    "image88.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image88.png"
+    },
+    "image26.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image26.png"
+    },
+    "image51.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image51.png"
+    },
+    "image81.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image81.png"
+    },
+    "image68.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image68.png"
+    },
+    "image98.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image98.png"
+    },
+    "image15.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image15.png"
+    },
+    "image91.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image91.png"
+    },
+    "image6.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image6.png"
+    },
+    "image90.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image90.png"
+    },
+    "image55.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image55.png"
+    },
+    "image36.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image36.png"
+    },
+    "image7.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image7.png"
+    },
+    "image28.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image28.png"
+    },
+    "image33.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image33.png"
+    },
+    "image37.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image37.png"
+    },
+    "image50.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image50.png"
+    },
+    "image57.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image57.png"
+    },
+    "image59.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image59.png"
+    },
+    "image62.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image62.png"
+    },
+    "image84.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image84.png"
+    },
+    "image93.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image93.png"
+    },
+    "image96.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image96.png"
+    },
+    "image69.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image69.png"
+    },
+    "image94.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image94.png"
+    },
+    "image56.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image56.png"
+    },
+    "image58.png": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image58.png"
+    },
+    "image101.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image101.png"
+    },
+    "image9.jpeg": {
+      "src": "ICIBEMBA EARLY CHILDHOOD EDUCATION LEARNER'S BOOK-hires/image9.png"
+    }
+  },
+  "removeImages": [
+    "image1.png"
+  ],
+  "remove": [
+    "Early Childhood Education"
+  ],
+  "authors": [
+    "Dr. Margaret Nambao (PhD)"
+  ],
+  "subtext": [
+    {
+      "from": "Cinyanja",
+      "to": "Cibemba"
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "ABELEMBELE UMUKU WAKUBALILAPO NIBA:",
+      "with": "ABALEMBELE UMUKU WAKUBALILAPO NIBA:",
+      "all": true
+    },
+    {
+      "find": "IFYAKUCITA 1:",
+      "with": "IFYAKUCITA 1",
+      "all": true
+    },
+    {
+      "find": "UKWESHA PAMPELA YA ISAMBILILO",
+      "with": "UKWESHA PAMPELA YA CIPANDE",
+      "all": true
+    }
+  ],
+  "authorLabel": "Abalembele",
+  "boxActivities": true,
+  "keepBoxMm": 190,
+  "termPages": "^Temu [0-9]+$",
+  "termWord": "TEMU",
+  "boxHeads": [
+    {
+      "find": "Umulimo",
+      "kind": "ex"
+    }
+  ],
+  "textFix": [
+    {
+      "find": "IFYAKUCTA 1",
+      "with": "IFYAKUCITA 1"
+    },
+    {
+      "find": "IFILEFWAIKWA UKWISHIBA:",
+      "with": "IFILEKABILWA UKWISHIBA:"
+    },
+    {
+      "find": "Ukumfwa Na Ukulanda",
+      "with": "Ukumfwa na Ukulanda"
+    },
+    {
+      "find": "Umutwe : ",
+      "with": "Umutwe: "
+    },
+    {
+      "find": "Iciunda? /y/",
+      "with": "Iciunda /y/"
+    },
+    {
+      "find": "ukumfwa, Kolanda, ukubelenga",
+      "with": "ukumfwa, ukulanda, ukubelenga"
+    },
+    {
+      "find": "Panga amashi ukufuma ku maIcilundwa aya:",
+      "with": "Panga amashiwi ukufuma ku filundwa aya:"
+    },
+    {
+      "find": "Lemba Ifilundwa ya mashiwi",
+      "with": "Lemba ifilundwa fya mashiwi"
+    },
+    {
+      "find": "ifyo watemwa na ifyo uhatemwa",
+      "with": "ifyo watemwa na ifyo ushatemwa"
+    },
+    {
+      "find": "Asuka: “Nani uwali mulyashi?",
+      "with": "Asuka: “Nani uwali mulyashi?”"
+    },
+    {
+      "find": "Londolola Ifyacitike mu lyashi.",
+      "with": "Londolola ifyacitike mu lyashi."
+    },
+    {
+      "find": "Landa Amashina yafintu ifisangwa",
+      "with": "Landa amashina yafintu ifisangwa"
+    },
+    {
+      "find": "Langa Ifyakwikata pensulo bwino",
+      "with": "Langa ifyakwikata pensulo bwino"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "Abasambi, abafyashi na abakalela wabana"
+    }
+  ],
+  "removeWhereNext": [
+    {
+      "find": "IFYAKUCITA 1",
+      "next": "Landa na umunobe pa fintu ifyo watemwa na ifyo ushatemwa"
+    },
+    {
+      "find": "IFYAKUCITA 3",
+      "next": "IFYAKUCITA 1"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "Lenga umuntu ukulanga ifiputulwa fya mubili",
+      "marker": "1."
+    },
+    {
+      "find": "Penta icikope ici pesamba:",
+      "marker": "2."
+    },
+    {
+      "find": "Ikata pensulo bwino.",
+      "marker": "1."
+    },
+    {
+      "find": "Lumbula iciunda cakubalilapo muli",
+      "marker": "2."
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Sambilileni Icibemba Nensansa!",
+      "with": [
+        {
+          "raw": {
+            "t": "pagebreak"
+          }
+        },
+        {
+          "vspace": "80mm"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "align": "center",
+            "segs": [
+              {
+                "t": "Sambilileni Icibemba Nensansa!",
+                "b": true,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 1: Ukushita",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1: UKUSHITA"
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 2: Landa pa cintu cimo ico mucita nga mwaya ku calici no lupwa lwenu.",
+      "with": [
+        {
+          "head": "IFYAKUCITA 2"
+        },
+        {
+          "para": "Landa pa cintu cimo ico mucita nga mwaya ku calici no lupwa lwenu."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 3: Shimikilako cibusa obe pa lwa kusefya kwa lupwa uko wasangilweko.",
+      "with": [
+        {
+          "head": "IFYAKUCITA 3"
+        },
+        {
+          "para": "Shimikilako cibusa obe pa lwa kusefya kwa lupwa uko wasangilweko."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 4: Ubulimi",
+      "with": [
+        {
+          "head": "IFYAKUCITA 4: UBULIMI"
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 1: Nalitwemwa",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1: NALITEMWA"
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 2: Pwisha uyu umuseela: Nshatemwa ______.”",
+      "with": [
+        {
+          "head": "IFYAKUCITA 2"
+        },
+        {
+          "para": "Pwisha uyu umuseela: “Nshatemwa ______.”"
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 3: Kafundisha alange icintu nangu icikope. Landa nga ca kuti wali citemwa nangu ta wacitemwa.",
+      "with": [
+        {
+          "head": "IFYAKUCITA 3"
+        },
+        {
+          "para": "Kafundisha alange icintu nangu icikope. Landa nga ca kuti wali citemwa nangu ta wacitemwa."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 4: Ipusha cibusa obe ukuti: “Cinshi watemwa? Kutika ku casuko.",
+      "with": [
+        {
+          "head": "IFYAKUCITA 4"
+        },
+        {
+          "para": "Ipusha cibusa obe ukuti: “Cinshi watemwa?” Kutika ku casuko."
+        }
+      ]
+    },
+    {
+      "find": "2.    Penta ama olenji",
+      "with": [
+        {
+          "listitem": "Penta ama olenji",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "2.    Penta ama apo",
+      "with": [
+        {
+          "listitem": "Penta ama apo",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "UKUMFWA NA UKULANDA",
+      "with": [
+        {
+          "head": "Ukumfwa na Ukulanda"
+        }
+      ]
+    },
+    {
+      "find": "UKULONDOLOLA",
+      "with": [
+        {
+          "head": "Umutwe: Ukulondolola"
+        }
+      ]
+    },
+    {
+      "find": "Ifintu Fya mu ng’anda",
+      "with": [
+        {
+          "head": "Ifintu fya mu ng’anda"
+        }
+      ]
+    },
+    {
+      "find": "Ifilefwaikwa Ukwishiba;",
+      "with": [
+        {
+          "para": "**IFILEKABILWA UKWISHIBA:**"
+        }
+      ]
+    },
+    {
+      "find": "Ukulondolola ifintu fya mu ng’anda",
+      "with": [
+        {
+          "para": "• Ukulondolola ifintu fya mu ng’anda."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 1: Salapo Icintu ca mu ng’anda cimo. Ulande ishina lyaciko no kucilondolola.",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Salapo icintu ca mu ng’anda cimo. Ulande ishina lyaciko no kucilondolola."
+        }
+      ]
+    },
+    {
+      "find": "Londolola Ifili mu cikope",
+      "with": [
+        {
+          "para": "• Londolola ifili mu cikope."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 1: Mona pa cikope. Landa amashina yafintu ifili mu cikope.",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Mona pa cikope. Landa amashina yafintu ifili mu cikope."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 2:",
+      "with": [
+        {
+          "head": "IFYAKUCITA 2"
+        }
+      ]
+    },
+    {
+      "find": "Ifilefwaikwa Ukwishiba:",
+      "with": [
+        {
+          "head": "IFILEKABILWA UKWISHIBA:"
+        }
+      ]
+    },
+    {
+      "find": "Ukulondolola abantu abali mu fikope",
+      "with": [
+        {
+          "para": "• Ukulondolola abantu abali mu fikope."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 7: Londolola umuntu umo uuli pa cikope kuli cibusa",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Londolola umuntu umo uuli pa cikope kuli cibusa."
+        }
+      ]
+    },
+    {
+      "find": "UKUSAMBILILA UKUTAMPA UKUBELENGA",
+      "with": [
+        {
+          "head": "Ukusambilila Ukutampa Ukubelenga"
+        }
+      ]
+    },
+    {
+      "find": "UKUMFWA NA UKUMFWIKISHA",
+      "with": [
+        {
+          "head": "Umutwe: Ukumfwa na Ukumfwikisha"
+        }
+      ]
+    },
+    {
+      "find": "Ifilefwaikwa Ukwishiba:",
+      "with": [
+        {
+          "para": "**IFILEKABILWA UKWISHIBA:**"
+        }
+      ]
+    },
+    {
+      "find": "Ukwasuka amepusho ukufuma mwilyashi liyabelengwa",
+      "with": [
+        {
+          "para": "• Ukwasuka amepusho ukufuma mwilyashi liyabelengwa."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 1: Umfwa kuli Kafundisha ilyo aleshimika ilyashi",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Umfwa kuli kafundisha ilyo aleshimika ilyashi."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 2:",
+      "with": [
+        {
+          "head": "IFYAKUCITA 2"
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 3:",
+      "with": [
+        {
+          "head": "IFYAKUCITA 3"
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 4:",
+      "with": [
+        {
+          "head": "IFYAKUCITA 4"
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 5: Lolesha pa cikope ica ilyashi wasuke ilipusho ukufuma kuli kafundisha obe.",
+      "with": [
+        {
+          "head": "IFYAKUCITA 5"
+        },
+        {
+          "para": "Lolesha pa cikope ica ilyashi wasuke ilipusho ukufuma kuli kafundisha obe."
+        }
+      ]
+    },
+    {
+      "find": "UKUSAMBILILA UKUTAMPA UKULEMBA",
+      "with": [
+        {
+          "head": "Ukusambilila Ukutampa Ukulemba"
+        }
+      ]
+    },
+    {
+      "find": "ILEMBO",
+      "with": [
+        {
+          "head": "Umutwe: Ilembo"
+        }
+      ]
+    },
+    {
+      "find": "Ifilefwaikwa Ukwishiba",
+      "with": [
+        {
+          "para": "**IFILEKABILWA UKWISHIBA:**"
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 1: Lenga na ukupenta inkonde",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Lenga na ukupenta inkonde."
+        }
+      ]
+    },
+    {
+      "find": "Ifyakucita 2: Lenga na ukupenta olenji",
+      "with": [
+        {
+          "head": "IFYAKUCITA 2"
+        },
+        {
+          "para": "Lenga na ukupenta olenji."
+        }
+      ]
+    },
+    {
+      "find": "Landa abantu abo abana bekete abali pa cikope.",
+      "with": [
+        {
+          "para": "• Landa abantu abo abana bekete abali pa cikope."
+        }
+      ]
+    },
+    {
+      "find": "Landa ifyo umuntu afwele.",
+      "with": [
+        {
+          "para": "• Landa ifyo umuntu afwele."
+        }
+      ]
+    },
+    {
+      "find": "Landa ifyo umuntu alecita.",
+      "with": [
+        {
+          "para": "• Landa ifyo umuntu alecita."
+        }
+      ]
+    },
+    {
+      "find": "Ukulenga ifintu ifyalekana lekana.",
+      "with": [
+        {
+          "para": "• Ukulenga ifintu ifyalekana lekana."
+        }
+      ]
+    },
+    {
+      "find": "Lenga icintu cimo ico wingamona mu kalasi.",
+      "with": [
+        {
+          "para": "• Lenga icintu cimo ico wingamona mu kalasi."
+        }
+      ]
+    },
+    {
+      "find": "Langisha cibusa obe icikope cobe no kulanda ifyo caba.",
+      "with": [
+        {
+          "para": "• Langisha cibusa obe icikope cobe no kulanda ifyo caba."
+        }
+      ]
+    },
+    {
+      "find": "Lenga icintu cimo no kulondolola ku kalasi icintu cimo icapa cintu ici walenga.",
+      "with": [
+        {
+          "para": "• Lenga icintu cimo no kulondolola ku kalasi icintu cimo icapa cintu ici walenga."
+        }
+      ]
+    },
+    {
+      "find": "Langa ifyakwikata ibuuku bwino",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Langa ifyakwikata ibuuku bwino."
+        }
+      ]
+    },
+    {
+      "find": "Pilibula amapepala bwino ukufuma kukulyo ukuya kukuso",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Pilibula amapepala bwino ukufuma kukulyo ukuya kukuso."
+        }
+      ]
+    },
+    {
+      "find": "Citeni ifyo kafundisha alesosa ukulanga ukukonka amafunde",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Citeni ifyo kafundisha alesosa ukulanga ukukonka amafunde."
+        }
+      ]
+    },
+    {
+      "find": "a. foloko",
+      "with": [
+        {
+          "listitem": "foloko",
+          "marker": "a)"
+        }
+      ]
+    },
+    {
+      "find": "b. supuni",
+      "with": [
+        {
+          "listitem": "supuni",
+          "marker": "b)"
+        }
+      ]
+    }
+  ],
+  "coversInBook": true,
+  "wordFix": {
+    "pacikope": "pa cikope",
+    "Pacikope": "Pa cikope",
+    "ci Bemba": "Cibemba",
+    "Ci Bemba": "Cibemba",
+    "ifya kwikata": "ifyakwikata",
+    "Ifya kwikata": "Ifyakwikata",
+    "mukalasi": "mu kalasi",
+    "Mukalasi": "Mu kalasi",
+    "mumashiwi": "mu mashiwi",
+    "Mumashiwi": "Mu mashiwi",
+    "pafikope": "pa fikope",
+    "Pafikope": "Pa fikope",
+    "nakabili": "na kabili",
+    "Nakabili": "Na kabili",
+    "yabalupwa": "ya balupwa",
+    "Yabalupwa": "Ya balupwa",
+    "ya fitekwa": "yafitekwa",
+    "Ya fitekwa": "Yafitekwa",
+    "pa kulemba": "pakulemba",
+    "Pa kulemba": "Pakulemba",
+    "yapa": "ya pa",
+    "Yapa": "Ya pa",
+    "pamafunde": "pa mafunde",
+    "Pamafunde": "Pa mafunde",
+    "mucikope": "mu cikope",
+    "Mucikope": "Mu cikope",
+    "iciuunda": "iciunda",
+    "ibuku": "ibuuku"
+  },
+  "keepBoxesWhole": true
+}

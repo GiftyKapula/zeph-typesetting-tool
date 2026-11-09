@@ -1,0 +1,1348 @@
+{
+  "theme": "techstudies",
+  "subject": "Technology Studies",
+  "outFolder": "_Post-CDC 2026-10",
+  "blackWhite": true,
+  "boxStripe": false,
+  "coversInBook": true,
+  "unwrapTextboxes": true,
+  "boxActivities": true,
+  "reboxExercises": true,
+  "exerciseLeadsOut": true,
+  "keepBoxMm": 70,
+  "keepFramedMm": 70,
+  "replaceBlocks": [
+    {
+      "find": "END OF TOPIC ASSESSMENT",
+      "with": [
+        {
+          "head": "END-OF-TOPIC 5.1 ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "find": "END OF TOPIC ASSESSMENT",
+      "with": [
+        {
+          "head": "END-OF-TOPIC 5.6 ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "find": "END OF TOPIC ASSESSMENT",
+      "with": [
+        {
+          "head": "END-OF-TOPIC 13.1 ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "find": "END-OF-TOPIC 5.9 ASSESSMENT",
+      "with": [
+        {
+          "head": "END-OF-TOPIC 5.9 ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "find": "END-OF-TOPIC 5.12 ASSESSMENT",
+      "with": [
+        {
+          "head": "END-OF-TOPIC 5.12 ASSESSMENT"
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Making series and parallel circuits Divide learners into groups and ask them to draw a series circuit diagram with 1 battery, 2 bulbs and 1 switch. Guide them to build the circuit exactly as they drew it and observe what happens if one bulb is removed.",
+      "with": [
+        {
+          "label": "LEARNING ACTIVITY 4: Making series and parallel circuits"
+        },
+        {
+          "para": "*Divide learners into groups and ask them to draw a series circuit diagram with 1 battery, 2 bulbs and 1 switch. Guide them to build the circuit exactly as they drew it and observe what happens if one bulb is removed.*"
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Analysing characteristics of irregular polygons Advise learners to be in groups and let them observe different shapes you will provide them with. Let them identify irregular polygons and describe their characteristics.",
+      "with": [
+        {
+          "label": "LEARNING ACTIVITY 1: Analysing characteristics of irregular polygons"
+        },
+        {
+          "para": "*Advise learners to be in groups and let them observe different shapes you will provide them with. Let them identify irregular polygons and describe their characteristics.*"
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Utilising hand tools to make products Guide learners to practise using a selected hand tool to shape or join material.",
+      "with": [
+        {
+          "label": "LEARNING ACTIVITY 2: Utilising hand tools to make products"
+        },
+        {
+          "para": "*Guide learners to practise using a selected hand tool to shape or join material.*"
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Using addition and equal signs (+, =) to perform calculations in spreadsheet",
+      "with": [
+        {
+          "label": "LEARNING ACTIVITY 1: Using addition and equal signs (+, =) to perform calculations in spreadsheet"
+        }
+      ]
+    },
+    {
+      "find": "5.11.1.1 Make strong and stable structures.",
+      "with": [
+        {
+          "para": "*5.11.1.1 Make strong and stable structures.*"
+        }
+      ]
+    },
+    {
+      "find": "5.13.1.1 Design a marketing plan.",
+      "with": [
+        {
+          "para": "*5.13.1.1 Design a marketing plan.*"
+        }
+      ]
+    }
+  ],
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House (2026)",
+    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without the prior written permission of the copyright owner or publisher.",
+    "isbn": "…………………………",
+    "groups": [
+      {
+        "label": "Edited by:",
+        "lines": [
+          "Ms Njira Mtonga"
+        ]
+      },
+      {
+        "label": "Illustrated by:",
+        "lines": [
+          "…………………………"
+        ]
+      },
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Gift Kapula"
+        ]
+      },
+      {
+        "label": "First Published by:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road, P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "Printed by:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "imprintSpacing": "0.3em",
+  "imprintGap": "6mm",
+  "removeRange": [
+    {
+      "from": "TABLE OF CONTENTS AUTHORS",
+      "to": "AUTHORS"
+    },
+    {
+      "from": "Identify an irregular shape in your environment.",
+      "to": "Constructing Irregular Polygons"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "He also works with the Examinations Council"
+    },
+    {
+      "find": "Use summative assessment (essays, projects, end-unit tests) to"
+    },
+    {
+      "find": "neatly using a pencil and ruler"
+    },
+    {
+      "find": "This topic guides learners"
+    },
+    {
+      "find": "Marketing is the process of connecting a business"
+    }
+  ],
+  "edit": [
+    {
+      "find": "END-OF-TOPIC 2 ASSESSMENT",
+      "with": "END-OF-TOPIC 5.2 ASSESSMENT"
+    },
+    {
+      "find": "END-OF-TOPIC 3 ASSESSMENT",
+      "with": "END-OF-TOPIC 5.3 ASSESSMENT"
+    },
+    {
+      "find": "END-OF-TOPIC 5 ASSESSMENT",
+      "with": "END-OF-TOPIC 5.5 ASSESSMENT"
+    },
+    {
+      "find": "END OF TOPIC 4 ASSESSMENT",
+      "with": "END-OF-TOPIC 5.4 ASSESSMENT"
+    },
+    {
+      "find": "Analytical Thinking, Collaboration, Problem Solving.",
+      "with": "Analytical Thinking, Citizenship, Collaboration, Problem Solving."
+    },
+    {
+      "find": "Analytical Thinking and Collaboration.",
+      "with": "Analytical Thinking, Collaboration and Problem Solving."
+    },
+    {
+      "find": "Collaboration, Critical Thinking.",
+      "with": "Collaboration, Critical Thinking, Communication and Analytical Thinking."
+    },
+    {
+      "find": "Communication, Creativity and Innovation, Critical Thinking, Digital",
+      "with": "Communication, Creativity and Innovation, Critical Thinking, Digital and Collaboration"
+    },
+    {
+      "find": "communication, analytical thinking and creativity.",
+      "with": "communication, analytical thinking, creativity and problem-solving."
+    },
+    {
+      "find": "inspect the tools provided.",
+      "with": "inspect the tools available."
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Applying Regular Polygons in Product Development",
+      "with": "LEARNING ACTIVITY 4: Applying Regular Polygons in Product Development"
+    },
+    {
+      "find": "In groups and using a ruler and protractor",
+      "with": "In groups or individually, and using a ruler and protractor"
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Rendering pictorial drawings",
+      "with": "LEARNING ACTIVITY 2: Rendering pictorial drawings using shading"
+    },
+    {
+      "find": "Sub-Topic 5.8.4 Image Editing Tool",
+      "with": "Sub-Topic 5.8.4 Image Editing Tools"
+    },
+    {
+      "find": "PDF: Portable Document Format USB: Universal Serial Bus WWW: World Wide Web",
+      "with": "PDF: Portable Document Format"
+    }
+  ],
+  "insertText": [
+    {
+      "after": "PDF: Portable Document Format",
+      "items": [
+        {
+          "para": "**USB:** Universal Serial Bus"
+        },
+        {
+          "para": "**WWW:** World Wide Web"
+        }
+      ]
+    },
+    {
+      "after": "Possible Answer: I would include solar panels on the roof",
+      "items": [
+        {
+          "listitem": "PRACTICAL PERFORMANCE TASK",
+          "marker": "6."
+        },
+        {
+          "listitem": "Design a Poster",
+          "marker": "a)"
+        },
+        {
+          "para": "**GO GREEN! USE SUSTAINABLE TECHNOLOGY**"
+        },
+        {
+          "para": "**Protect our environment. Save energy. Build a better future!**"
+        },
+        {
+          "listitem": "Three Examples and Their Benefits",
+          "marker": "b)"
+        },
+        {
+          "para": "**1. Solar Power**"
+        },
+        {
+          "para": "*Uses sunlight to produce clean electricity.*"
+        },
+        {
+          "para": "**Benefit:** *Reduces pollution and provides electricity in areas without power.*"
+        },
+        {
+          "para": "**2. Hydropower**"
+        },
+        {
+          "para": "*Uses moving water to generate electricity.*"
+        },
+        {
+          "para": "**Benefit:** *Produces renewable and cleaner energy.*"
+        },
+        {
+          "para": "**3. Green Buildings**"
+        },
+        {
+          "para": "*Use energy- and water-saving designs and materials.*"
+        },
+        {
+          "para": "**Benefit:** *Saves energy, reduces waste, and protects the environment.*"
+        },
+        {
+          "para": "*OUR MESSAGE*"
+        },
+        {
+          "para": "**“Use sustainable technology today for a cleaner and healthier tomorrow!”**"
+        },
+        {
+          "listitem": "Class Presentation",
+          "marker": "c)"
+        },
+        {
+          "para": "**Short presentation:**"
+        },
+        {
+          "para": "*“Good morning, everyone. Our poster encourages the community to use sustainable technology. We have highlighted solar power, hydropower, and green buildings. These technologies help us save energy, reduce pollution, and protect our environment. Let us all make responsible choices and help build a cleaner future. Thank you.”*"
+        }
+      ]
+    },
+    {
+      "after": "Highlight that sharing ideas improves understanding",
+      "items": [
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "listitem": "What is animation in coding?",
+          "marker": "1."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "**Animation in coding** *is the process of making characters or objects move or change on the screen using computer instructions or code.*"
+        },
+        {
+          "listitem": "Name four animation concepts you learned in Grade 5.",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*Four animation concepts are:*"
+        },
+        {
+          "listitem": "*Movement*",
+          "marker": "1."
+        },
+        {
+          "listitem": "*Timing*",
+          "marker": "2."
+        },
+        {
+          "listitem": "*Loops*",
+          "marker": "3."
+        },
+        {
+          "listitem": "*Events*",
+          "marker": "4."
+        },
+        {
+          "listitem": "What does the wait block do in Scratch?",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*The wait block makes the sprite pause for a specified amount of time before continuing with the next instruction.*"
+        },
+        {
+          "listitem": "Why are loops useful in animation?",
+          "marker": "4."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "**Loops** *are useful because they allow an action to be repeated automatically, making animations easier and reducing the amount of code needed.*"
+        },
+        {
+          "listitem": "What is an event in coding? Give two examples from Scratch.",
+          "marker": "5."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*An event is something that happens or an action that starts a program or a set of instructions.*"
+        },
+        {
+          "para": "*Two examples in Scratch are:*"
+        },
+        {
+          "listitem": "*When green flag clicked*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*When this sprite clicked*",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "after": "Conclude that responsible Internet use promotes safety",
+      "items": [
+        {
+          "label": "EXERCISE 3"
+        },
+        {
+          "listitem": "What is a profile?",
+          "marker": "1."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*A profile is information about a person that is shown on an online account, such as a username, picture, or short description.*"
+        },
+        {
+          "listitem": "Why is it safer to use a nickname instead of your real full name?",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*It is safer because a nickname helps protect your identity and personal information from strangers online.*"
+        },
+        {
+          "listitem": "Name two things you should not include in a profile.",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*You should not include:*"
+        },
+        {
+          "listitem": "*Your home address*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Your phone number*",
+          "marker": "•"
+        },
+        {
+          "listitem": "Why should your profile be set to private?",
+          "marker": "4."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*A private profile helps prevent strangers from seeing your personal information, pictures, and posts.*"
+        },
+        {
+          "listitem": "Which profile name is safer: “Mary Mwansa Grade5” or “BookLover_05”? Why?",
+          "marker": "5."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "**“BookLover_05”** *is safer because it does not reveal the learner's real name or grade.*"
+        },
+        {
+          "listitem": "Suggest a safe pretend profile post for a Grade 5 learner.",
+          "marker": "6."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "**Example:**"
+        },
+        {
+          "para": "*“I enjoyed reading a great adventure story today! What is your favourite book?”*"
+        },
+        {
+          "label": "EXERCISE 4"
+        },
+        {
+          "listitem": "What is email?",
+          "marker": "1."
+        },
+        {
+          "para": "**Possible Answer:** *Email is an electronic way of sending and receiving messages over the internet.*"
+        },
+        {
+          "listitem": "What is the purpose of the subject line in an email?",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:** *The subject line tells the receiver what the email is about.*"
+        },
+        {
+          "listitem": "State two rules you should follow during a video call.",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "listitem": "*Mute your microphone when you are not speaking.*",
+          "marker": "1."
+        },
+        {
+          "listitem": "*Be polite and listen when other people are speaking.*",
+          "marker": "2."
+        },
+        {
+          "listitem": "Explain one difference between email and messaging apps such as WhatsApp.",
+          "marker": "4."
+        },
+        {
+          "para": "**Possible Answer:** *Email is commonly used for formal messages and documents, while messaging apps are mainly used for quick, informal conversations.*"
+        },
+        {
+          "listitem": "Why is it important to follow online etiquette during communication?",
+          "marker": "5."
+        },
+        {
+          "para": "**Possible Answer:** *Online etiquette helps us communicate respectfully, avoid misunderstandings, and make others feel safe and comfortable online.*"
+        },
+        {
+          "listitem": "Write a short email to your teacher asking for help with a lesson you did not understand.",
+          "marker": "6."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*Dear Teacher,*"
+        },
+        {
+          "para": "*I hope you are well. I did not understand some parts of today's lesson. Could you please help me understand the topic better?*"
+        },
+        {
+          "para": "*Thank you for your help.*"
+        },
+        {
+          "para": "*Yours faithfully,*"
+        },
+        {
+          "para": "*[Your Name]*"
+        },
+        {
+          "para": "*You can replace [Your Name] with your name before writing the email.*"
+        }
+      ]
+    }
+  ],
+  "replaceRange": [
+    {
+      "after": "LEARNING ACTIVITY 1: Researching on sustainable",
+      "from": "EXERCISE 1",
+      "to": "Name three examples of sustainable technology",
+      "items": [
+        {
+          "para": "Emphasise that sustainable technologies use natural resources responsibly and help reduce environmental damage."
+        },
+        {
+          "label": "EXERCISE 1"
+        },
+        {
+          "listitem": "What is sustainable technology?",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "after": "Sketching Symbols of Electrical Components",
+      "from": "LEARNING",
+      "to": "Divide learners into groups and ask them to sketch",
+      "items": [
+        {
+          "label": "LEARNING ACTIVITY 2: Sketching symbols of electrical components"
+        }
+      ]
+    },
+    {
+      "after": "LEARNING ACTIVITY 1: Identifying types of polygons",
+      "from": "EXERCISE 1",
+      "to": "Constructing Regular Polygons",
+      "items": [
+        {
+          "label": "EXERCISE 1"
+        },
+        {
+          "listitem": "How many sides does a pentagon have?",
+          "marker": "1."
+        },
+        {
+          "para": "**Possible Answer:** *5 sides*"
+        },
+        {
+          "listitem": "What is the name of a polygon with six sides?",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:** *Hexagon*"
+        },
+        {
+          "listitem": "How many sides does a heptagon have?",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:** *7 sides*"
+        },
+        {
+          "listitem": "What is the name of a polygon with eight sides?",
+          "marker": "4."
+        },
+        {
+          "para": "**Possible Answer:** *Octagon*"
+        },
+        {
+          "listitem": "Draw and label one example of a hexagon.",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "after": "LEARNING ACTIVITY 3: Designing Products Using Polygons",
+      "from": "EXERCISE 3",
+      "to": "Applying Regular Polygons in Product Development",
+      "items": [
+        {
+          "label": "EXERCISE 3"
+        },
+        {
+          "listitem": "Name two examples of polygons.",
+          "marker": "1."
+        },
+        {
+          "para": "**Possible Answer:** *Triangle and square.*"
+        },
+        {
+          "listitem": "Give one product that can be designed using polygons.",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:** *A house can be designed using polygons.*"
+        }
+      ]
+    },
+    {
+      "after": "Regular polygons are used in making floor designs",
+      "from": "EXERCISE 3",
+      "to": "Specific Competence:",
+      "items": [
+        {
+          "label": "EXERCISE 4"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "Product",
+                  "imgs": []
+                },
+                {
+                  "text": "Correct Polygon",
+                  "imgs": []
+                },
+                {
+                  "text": "Sentence",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Packaging box panel",
+                  "imgs": []
+                },
+                {
+                  "text": "Hexagon",
+                  "imgs": []
+                },
+                {
+                  "text": "The hexagon is used because it provides a strong shape that can fit together neatly with other shapes.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Floor tile",
+                  "imgs": []
+                },
+                {
+                  "text": "Square or triangle",
+                  "imgs": []
+                },
+                {
+                  "text": "This shape works well since it can fit together closely without leaving gaps.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Bolt head",
+                  "imgs": []
+                },
+                {
+                  "text": "Hexagon",
+                  "imgs": []
+                },
+                {
+                  "text": "A bolt uses a hexagon because it gives a spanner or wrench six sides to grip and turn it easily.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Stop sign",
+                  "imgs": []
+                },
+                {
+                  "text": "Octagon",
+                  "imgs": []
+                },
+                {
+                  "text": "The stop sign is an octagon because its eight sides make it easy to recognise quickly from different directions.",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "after": "LEARNING ACTIVITY 2: Constructing irregular polygons",
+      "from": "EXERCISE 2",
+      "to": "Applying Irregular Polygons in Product Development",
+      "items": [
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "listitem": "Construct a polygon with 5 unequal sides.",
+          "marker": "1."
+        },
+        {
+          "para": "*A polygon with 5 unequal sides is called an irregular pentagon.*"
+        },
+        {
+          "para": "*Example measurements:*"
+        },
+        {
+          "listitem": "*Side 1 = 3 cm*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Side 2 = 4 cm*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Side 3 = 5 cm*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Side 4 = 6 cm*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Side 5 = 7 cm*",
+          "marker": "•"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "B\n/\\\n3cm/\\4cm\n/\\\nAC\n\\|\n7cm\\|5cm\n\\|\nE--D\n6cm",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "listitem": "Compare an irregular polygon and a regular polygon.",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:** *Regular polygon: Has equal sides and equal angles.*"
+        },
+        {
+          "para": "**Irregular polygon:** *Has unequal sides and/or unequal angles.*"
+        },
+        {
+          "listitem": "What happens if sides are not joined properly?",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:** *If the sides are not joined properly, the shape will not form a closed polygon.*"
+        },
+        {
+          "listitem": "Create your own irregular polygon using different measurements.",
+          "marker": "4."
+        },
+        {
+          "para": "**Possible Answer:** *Draw a 5-sided irregular polygon using these measurements:*"
+        },
+        {
+          "para": "**3 cm, 4 cm, 5 cm, 6 cm, and 7 cm.**"
+        },
+        {
+          "para": "*Make sure that all five sides are joined together to form a closed shape.*"
+        }
+      ]
+    },
+    {
+      "after": "They are commonly used in architecture",
+      "from": "EXERCISE 3",
+      "to": "Sub-Topic 5.8.3",
+      "items": [
+        {
+          "label": "EXERCISE 3"
+        },
+        {
+          "listitem": "What is product development?",
+          "marker": "1."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*Product development is the process of creating, designing, and improving a product to meet people's needs or solve a problem.*"
+        },
+        {
+          "listitem": "Why are irregular polygons used in design?",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*Irregular polygons are used because they allow designers to create unique, attractive, and functional shapes that suit the purpose of a product.*"
+        },
+        {
+          "listitem": "Draw a product using irregular shapes.",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:** *A modern chair*"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "__________\n//|\n/_________/|\n|||\n|||\n||/\n|_________|/",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "CHAIR",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "para": "*The chair can be designed using irregular polygon shapes for its seat, back, and supporting parts.*"
+        },
+        {
+          "listitem": "Identify shapes used in your design.",
+          "marker": "4."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*The design uses:*"
+        },
+        {
+          "listitem": "*Irregular quadrilaterals*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Rectangles*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Triangles*",
+          "marker": "•"
+        },
+        {
+          "listitem": "Why are irregular shapes useful in real life?",
+          "marker": "5."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*Irregular shapes are useful because they help designers make products fit specific needs, spaces, and purposes.*"
+        },
+        {
+          "listitem": "Create a new design using irregular polygons.",
+          "marker": "6."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "**Example: Design a school desk**"
+        },
+        {
+          "para": "*Use different measurements to create an irregular tabletop and irregular supporting parts. Label each polygon used in your design.*"
+        },
+        {
+          "para": "**Remember:** *An irregular polygon has unequal sides and/or unequal angles.*"
+        }
+      ]
+    },
+    {
+      "after": "Reinforce that combining rendering techniques",
+      "from": "EXERCISE 4",
+      "to": "Sub-Topic 5.8.4",
+      "items": [
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "listitem": "Draw a box and apply shading.",
+          "marker": "1."
+        },
+        {
+          "para": "*Example:*"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "__________\n//|\n/_________/|\n|||\n|||←Darkshade\n||/\n|_________|/\n↑\nLightshade",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "para": "*Use light shading on the side facing the light and dark shading on the side away from the light.*"
+        },
+        {
+          "listitem": "Why do we use light and dark tones?",
+          "marker": "2."
+        },
+        {
+          "para": "*We use light and dark tones to show light, shadow, depth, and the three-dimensional form of an object.*"
+        },
+        {
+          "listitem": "Create a shaded drawing of an object.",
+          "marker": "3."
+        },
+        {
+          "para": "**Example: Shaded ball**"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": ".-\"\"\"\"-.\n.-''-.\n.''.\n/\\\n|░░░|\n|░░░░░░|\n|░░░░░░░░|\n\\░░░░░/\n'.░░.'\n'-.________.-'\n███\nDarkshadow",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "para": "**Activity:** *Draw a ball, cup, fruit, or box and use light, medium, and dark tones to make it look three-dimensional.*"
+        }
+      ]
+    },
+    {
+      "after": "Summarise that different tools are used for different purposes",
+      "from": "EXERCISE 1",
+      "to": "Editing images",
+      "items": [
+        {
+          "label": "EXERCISE 1"
+        },
+        {
+          "listitem": "Name any three image-editing tools and explain what each one is used for.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Crop Tool – Used to remove unwanted parts of a picture.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Text Tool – Used to add words or writing to an image.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Colour Adjustment Tool – Used to change or improve the colours, brightness, and contrast of an image.",
+          "marker": "3."
+        },
+        {
+          "listitem": "Look at a picture on your device.",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "listitem": "*Crop Tool: I could remove unwanted areas around the picture to make the main object clearer.*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Text Tool: I could add a title, name, or short message to the picture.*",
+          "marker": "•"
+        },
+        {
+          "listitem": "Why is the Colour Adjustment Tool important when improving an image?",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:** *It is important because it helps make the colours and brightness of an image look clearer and better.*"
+        }
+      ]
+    },
+    {
+      "after": "Emphasise that editing improves image quality",
+      "from": "EXERCISE 2",
+      "to": "Creating Illustrations on Digital Images",
+      "items": [
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "listitem": "Name two image-editing tools and describe what each one does.",
+          "marker": "1."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "listitem": "*Crop Tool – It is used to remove unwanted parts of a picture and focus on the important area.*",
+          "marker": "1."
+        },
+        {
+          "listitem": "*Text Tool – It is used to add words, titles, or labels to a picture.*",
+          "marker": "2."
+        },
+        {
+          "listitem": "Look at any picture on your device. Describe one change you could make to improve it using an editing tool.",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:** *I could use the Crop Tool to remove unwanted areas around the picture and make the main subject clearer.*"
+        }
+      ]
+    },
+    {
+      "after": "Highlight that illustrations help to communicate ideas",
+      "from": "EXERCISE 3",
+      "to": "END-OF-TOPIC 5.8 ASSESSMENT",
+      "items": [
+        {
+          "label": "EXERCISE 3"
+        },
+        {
+          "listitem": "Name any two image-editing tools and explain what each one is used for.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Crop Tool – It is used to remove unwanted parts of an image and focus on the important area.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Text Tool – It is used to add words, labels, or titles to an image.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Which tool would you use to add text to an image, and which tool would you use to remove unwanted parts of an image?",
+          "marker": "2."
+        },
+        {
+          "listitem": "*Text Tool – Used to add text to an image.*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*Crop Tool – Used to remove unwanted parts of an image.*",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "after": "TOPIC 5.9: TECHNOLOGY",
+      "from": "General competences:",
+      "to": "Introduction",
+      "items": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Key Competences:"
+          }
+        },
+        {
+          "listitem": "Critical thinking, collaboration, communication and problem-solving.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "after": "TOPIC 5.9: TECHNOLOGY",
+      "from": "How does solar power work?",
+      "to": "Guide learners to think critically about technologies",
+      "items": [
+        {
+          "listitem": "Why is solar power good for the environment?",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:** *Solar power is good for the environment because it produces clean energy without causing much air pollution.*"
+        },
+        {
+          "listitem": "Give one place in Zambia where hydropower is used.",
+          "marker": "4."
+        },
+        {
+          "para": "**Possible Answer:** *Kafue Gorge Hydroelectric Power Station.*"
+        },
+        {
+          "listitem": "How are green buildings different from ordinary buildings?",
+          "marker": "5."
+        },
+        {
+          "para": "**Possible Answer:** *Green buildings are designed to save energy and water and reduce harm to the environment, while ordinary buildings may use more energy and resources.*"
+        },
+        {
+          "listitem": "Which sustainable technology would be most useful in a rural area without electricity? Why?",
+          "marker": "6."
+        },
+        {
+          "para": "**Possible Answer:** *Solar power would be most useful because it can provide electricity for lighting, charging phones, and powering small appliances without needing the national electricity grid.*"
+        }
+      ]
+    },
+    {
+      "after": "TOPIC 5.10: CODING",
+      "from": "General competences:",
+      "to": "Introduction",
+      "items": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Key Competences:"
+          }
+        },
+        {
+          "listitem": "Digital, collaboration, critical thinking and communication.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "after": "TOPIC 5.11: STRUCTURES",
+      "from": "General competences:",
+      "to": "Introduction",
+      "items": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Key Competences:"
+          }
+        },
+        {
+          "listitem": "Creativity, collaboration, communication, analytical thinking.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "after": "TOPIC 5.12: INTERNET",
+      "from": "General competences:",
+      "to": "Introduction",
+      "items": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Key Competences:"
+          }
+        },
+        {
+          "listitem": "Digital, Critical thinking, collaboration and communication.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "after": "TOPIC 5.10: CODING",
+      "from": "END-OF-TOPIC 5.10 ASSESSMENT",
+      "to": "TOPIC 5.11: STRUCTURES",
+      "items": [
+        {
+          "head": "END-OF-TOPIC 5.10 ASSESSMENT"
+        },
+        {
+          "listitem": "Explain in your own words how you would create an animation of a bird flying across the screen in Scratch. Include sequencing, timing, and a loop.",
+          "marker": "1."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*I would choose a bird sprite and use sequencing to make it move from left to right. I would use a wait block to control the speed of the movement. I would then use a loop to repeat the movement several times until the bird flies across the stage.*"
+        },
+        {
+          "para": "**Example:**"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Whengreenflagclicked\nRepeat10times\nMove10steps\nWait0.2seconds\nNextcostume\nEnd",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "listitem": "Describe the purpose of a storyboard when planning an animation.",
+          "marker": "2."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*A storyboard is a plan that shows what will happen in each scene of an animation. It helps us organise the characters, actions, backgrounds, and sequence of events before creating the animation.*"
+        },
+        {
+          "listitem": "Write Scratch code for a simple animation where a sprite walks to the centre of the stage, says \"Hello!\", and then turns around three times.",
+          "marker": "3."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Whengreenflagclicked\nGotox:0y:0\nSay\"Hello!\"for2seconds\nRepeat3times\nTurnclockwise180degrees\nWait0.5seconds\nEnd",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "para": "*If you want the sprite to walk to the centre:*"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Whengreenflagclicked\nRepeat10times\nMove10steps\nWait0.1seconds\nEnd\nSay\"Hello!\"for2seconds\nRepeat3times\nTurnclockwise180degrees\nWait0.5seconds\nEnd",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "listitem": "Why is timing important in animation? Give an example of what might happen if you do not use timing correctly.",
+          "marker": "4."
+        },
+        {
+          "para": "**Possible Answer:**"
+        },
+        {
+          "para": "*Timing is important because it controls how fast or slowly actions happen. Without proper timing, an animation may look too fast, too slow, or unnatural.*"
+        },
+        {
+          "para": "**Example:** *If a bird moves too quickly, it may appear to fly unrealistically across the screen.*"
+        },
+        {
+          "listitem": "Think of a story you would like to animate. Describe the story, the sprites you would use, and what would happen in each scene.",
+          "marker": "5."
+        },
+        {
+          "para": "**Story: The Lost Puppy**"
+        },
+        {
+          "para": "**Sprites:** *A puppy, a child, and a tree.*"
+        },
+        {
+          "para": "**Scene 1:** *The child is walking in a park when they see that a puppy is lost.*"
+        },
+        {
+          "para": "**Scene 2:** *The child looks around the park for the puppy.*"
+        },
+        {
+          "para": "**Scene 3:** *The child finds the puppy hiding behind a tree.*"
+        },
+        {
+          "para": "**Scene 4:** *The child and puppy happily walk home together.*"
+        },
+        {
+          "para": "**Message:** *We should care for animals and help them when they are lost.*"
+        }
+      ]
+    }
+  ]
+}

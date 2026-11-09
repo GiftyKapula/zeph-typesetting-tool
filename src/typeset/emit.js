@@ -17,10 +17,20 @@ const arr = (xs, el) => (xs.length ? "(" + xs.map(el).join(", ") + ",)" : "()");
 // could be wider than the whole column and shoot off the page margin with nowhere to
 // wrap to, so beyond that length we fall back to a zero-width space (U+200B, no
 // width) after every underscore, letting it wrap internally rather than overflow.
-const zwspBlanks = (t) => t.replace(/_+/g, (run) => {
+// A dotted answer line ("Kutambasana \u2026\u2026\u2026\u2026\u2026") behaves the same way \u2014 dots and "\u2026"
+// carry no break opportunity either; a long run becomes one U+2063 marker that the
+// template draws as a dotted leader filling exactly to the end of the line.
+// An underscore answer line that ENDS the run (25+ underscores, only spaces/punctuation
+// after it) becomes U+2064: a rule drawn to the end of the line, so "Toloko ______…" is one
+// line instead of a line plus a stub wrapped onto the next.
+// Several such runs in a row at the end (a learner's writing lines typed as underscores
+// separated by spaces) become one rule per line: the first fills out the current line,
+// each of the others a full line of its own — instead of ragged broken underscore lines.
+const zwspBlanks = (t) => t.replace(/(?:\s*_{20,}){2,}[\s.,;:]*$/, (m) => m.match(/_{20,}/g).map((_, k) => (k ? "\n⁤" : "⁤")).join(""))
+  .replace(/\s*_{25,}[\s.,;:]*$/, "⁤").replace(/_+/g, (run) => {
   const SAFE_ATOMIC_MAX = 50;
   return run.length <= SAFE_ATOMIC_MAX ? run : Array.from(run).join("\u200B");
-});
+}).replace(/\s*[.\u2026]{25,}/g, "\u2063");
 
 // segments [{t,b,it,c}] -> Typst array of dicts. A math segment carries Typst
 // math source (m: true) rendered via eval(mode: "math"); display: true is a
@@ -43,10 +53,12 @@ const titleContent = (text, segs) => (segs && segs.length) ? `segs(${segArr(segs
 
 // A multi-column word-list grid built from space-separated columns (see columnizeLists).
 // rows: [{ marker, cells:[...], style }]. Emits marker + cells for the Typst colgrid.
-const colgridArg = (b) => `rows: ${arr(b.rows, (r) => `(marker: ${S(r.marker || "")}, cells: ${strArr(r.cells)})`)}, ncol: ${b.ncol}, hasMarker: ${b.hasMarker ? "true" : "false"}${b.header ? `, header: ${strArr(b.header)}` : ""}`;
+const colgridArg = (b) => `rows: ${arr(b.rows, (r) => `(marker: ${S(r.marker || "")}, cells: ${strArr(r.cells)})`)}, ncol: ${b.ncol}, hasMarker: ${b.hasMarker ? "true" : "false"}${b.header ? `, header: ${strArr(b.header)}` : ""}${b.ragged ? ", plain: true" : ""}${b.ruled ? ", ruled: true" : ""}`;
 
 const EMPTY_CELL = { text: "", imgs: [] };
 
+// a picture-to-word matching exercise ({ t: "match", rows: [{ file, word }] })
+const matchArr = (rows) => arr(rows || [], (r) => `(file: ${S("_media/" + r.file)}, word: ${S(r.word || "")})`);
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 
 // Rich table cell: text plus any images it contains (and rich segments with
@@ -150,6 +162,7 @@ function markSubLists(blks) {
 
 const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
   b.t === "table" ? `(k: "table", r: ${rowArr(b.rows)}${b.noHeader ? ", nohdr: true" : ""})`
+  : b.t === "match" ? `(k: "match", rows: ${matchArr(b.rows)})`
   : (b.t === "img" || b.t === "imagerow") ? `(k: "img", images: ${imgArr(b.images)})`
   : b.t === "image" ? `(k: "img", images: ${imgArr([{ file: b.file, w: b.w, tall: b.tall, caption: b.caption, hmm: b.hmm }])})`
   : (b.t === "head" || b.t === "label" || b.t === "h3") ? `(k: "head", t: ${S(b.text || "")}${b.align === "center" ? ", center: true" : ""})`
@@ -228,35 +241,57 @@ function emit(blocks) {
         const m = b.text.match(TOPIC_RE);
         if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(b.text)})\n`;
         else if (b.centre) out += `#{ set align(center); sectionhead(${S(b.text)}) }\n`;
-        else out += `#sectionhead(${S(b.text)}${b.brk === false ? ", brk: false" : ""}${b.sleek ? ", sleek: true" : ""})\n`;
+        else out += `#sectionhead(${S(b.text)}${b.brk === false ? ", brk: false" : ""}${b.sleek ? ", sleek: true" : ""}${b.top ? ", unit: true" : ""})\n`;
         break;
       }
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""}${blocks[bi - 1] && blocks[bi - 1].t === "h2" ? ", nobar: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
         // table it follows — renders with the section-heading look, not a plain sub-head.
         if (b.styleSection) { out += `#sectionhead(${S(b.text)}, brk: false, outlined: false)\n`; break; }
+        // A heading straight after a list item gets the room it has after a box or a
+        // paragraph. A list item brings no spacing of its own below it, so the heading's
+        // own weak gap was all there was and the heading read as one more line of the
+        // list (Lunda Grade 1 LB: "KUTAÑA" 9pt under "2. Yakudanyi yahanaña ñovu?").
+        let pb = bi - 1; while (pb >= 0 && blocks[pb].t === "vspace") pb--;
+        if (pb >= 0 && (blocks[pb].t === "listitem" || (blocks[pb].t === "para" && blocks[pb].marker && blocks[pb].isList))) out += `#afterlist()\n`;
         const h = `#head(${S(b.text)}${b.align === "center" ? `, al: "center"` : ""}${b.black ? `, black: true` : ""}${b.headColor ? `, col: ${S(b.headColor)}` : ""})\n`;
         // A short figure label ("(a) Histogram", "Figure 1") right before its picture
         // must not be orphaned at a page break — stick it to the image that follows.
         out += (nextIsImg && FIGLABEL.test((b.text || "").trim()) && (b.text || "").trim().length <= 60) ? stickyWrap(h) : h;
+        // tocHeads (typeset-docx.js): the contents anchor goes AFTER the heading. Placed before
+        // it, the anchor stayed at the foot of the old page whenever the heading moved to the
+        // top of the next one, and the contents listed that heading a page early.
+        if (b.toc) out += `#tocentry(${b.toc}, ${S(b.text)})\n`;
         break;
       }
       case "pagebreak": out += `#pagebreak(weak: true)\n`; break;
-      case "label": out += `#lbl(${S(b.text)}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""})\n`; break;
+      case "label": out += `#lbl(${S(b.text)}${b.plainLabel ? ", plain: true" : ""}${b.labelColor ? `, col: ${S(b.labelColor)}` : ""}${b.keepCase ? `, keepcase: true` : ""})\n`; break;
       case "para": {
-        const p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""})\n`;
+        let p = `#para(${segArr(b.segs)}${b.align ? `, align: ${S(b.align)}` : ""}${b.drop ? `, drop: true` : ""}${b.hyphenate === false ? `, hyphenate: false` : ""}${b.sylIndent ? `, indent: true` : ""})`;
+        // (gapAbove: breathing space over a bold lead-in line — see labelStyle)
+        p = (b.gapAbove ? `#block(above: ${b.gapAbove})[${p}]` : p) + "\n";
         // Same for a short label paragraph (e.g. "(b) Frequency Polygon") sitting just
         // above its diagram — keep the two on the same page.
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
-        out += (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60) ? stickyWrap(p) : p;
+        // (`sticky`: a pass asked for this line to stay with the next, e.g. a label over its lines)
+        // (a short lead-in ending in a colon — "Litaelo:", "Instructions:" — stays with what follows)
+        const leadIn = plain.length > 0 && plain.length <= 40 && /:\s*$/.test(plain) && blocks[bi + 1] && /^(para|listitem|table)$/.test(blocks[bi + 1].t);
+        out += (b.sticky || leadIn || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(p) : p;
         break;
       }
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
-      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")}${b.sylIndent ? ", indent: true" : ""}${b.nest ? `, lvl: ${b.nest}` : ""})\n`; break;
+      case "listitem": {
+        const li = `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")}${b.sylIndent ? ", indent: true" : ""}${b.nest ? `, lvl: ${b.nest}` : ""})\n`;
+        // an item that OPENS a deeper list ("(i) Kafundisha" over its bullets) stays with
+        // its first sub-item instead of being left alone at the foot of a page
+        const nx = blocks[bi + 1];
+        out += nx && nx.t === "listitem" && (nx.nest || 1) > (b.nest || 1) ? stickyWrap(li) : li;
+        break;
+      }
       case "figcaption": out += `#figcaption(${S(b.text)})\n`; break;
       case "loentry": out += `#loentry(${S(b.num)}, ${S(b.title)}, ${S(b.page)})\n`; break;
       case "image": {
@@ -276,8 +311,11 @@ function emit(blocks) {
         out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
+      case "match": out += `#matchpics(${matchArr(b.rows)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
-      case "activity": out += `#activity(${titleContent(b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
+      // a title that is only a label and its number ("IFYAKUCITA 1:", "ACTIVITY 2.") drops the
+      // stray colon/full stop, so it reads like its sibling boxes
+      case "activity": out += `#activity(${titleContent(typeof b.title === "string" ? b.title.replace(/^(\S+\s+\d+)\s*[:.]\s*$/, "$1") : b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       case "fact": out += `#fact(${bodyArr(b.body)})\n`; break;
       case "keypoints": out += `#keypoints(${b.title ? titleContent(b.title, b.titleSegs) : "none"}, ${strArr(b.points)})\n`; break;
       case "exercise": out += `#exercise(${titleContent(b.heading, b.headingSegs)}, ${partsArr(b.parts || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
@@ -286,7 +324,7 @@ function emit(blocks) {
       case "box": if ((b.body || []).length) out += `#genericbox(${bodyArr(b.body)})\n`; break;
       case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
-      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""})\n`; break;
+      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""}${b.widths ? `, widths: (${b.widths.join(", ")},)` : ""})\n`; break;
       case "colgrid": out += `#colgrid(${colgridArg(b)})\n`; break;
       default: break;
     }

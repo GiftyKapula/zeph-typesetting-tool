@@ -61,9 +61,16 @@ function langId(s) {
 }
 
 // A cell's wording -> clean variants ("-", blanks and trailing full stops dropped).
-const variants = (cell) => String(cell || "").split(/\s*(?:;|\s\/\s)\s*/)
+// Authors sometimes annotate a cell: "X(plural) Y(singular)" gives two wordings, and an
+// English note in brackets ("(Reading comprehension)", "(however, all assessments …")
+// or on a line of its own is not a wording at all.
+const ENGLISH_NOTE = /\b(the|and|we|use|however|all|of|for|is)\b/i;
+const variants = (cell) => String(cell || "")
+  .replace(/\((plural|singular)\)/gi, ";")
+  .replace(/\([^)]*\)|\([^)]*$/gm, "")
+  .split(/\s*(?:;|\s\/\s|\n)\s*/)
   .map((v) => v.replace(/\s+/g, " ").replace(/[.\s]+$/, "").trim())
-  .filter((v) => v && !/^[-–—_]+$/.test(v));
+  .filter((v) => v && !/^[-–—_]+$/.test(v) && !ENGLISH_NOTE.test(v));
 
 async function collect() {
   const forms = [];

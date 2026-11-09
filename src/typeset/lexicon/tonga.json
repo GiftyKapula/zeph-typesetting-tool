@@ -35,20 +35,23 @@
     ],
     "foreword": [
       "Matalikilo",
-      "Cizyibyo"
+      "Cizyibyo",
+      "Buyale"
     ],
     "acknowledgement": [
       "Kulumba"
     ],
     "introduction": [
-      "Ntalisyo"
+      "Ntalisyo",
+      "Matalikilo Abbuku"
     ],
     "key_competences": [
-      "Buyale",
       "Zyeelede kusumpulwa"
     ],
     "unit": [
-      "Cipati"
+      "Cipati",
+      "Chibeela",
+      "Cibeela"
     ],
     "topic": [
       "Mutwe"
@@ -97,16 +100,20 @@
       "Bwiinguzi kumulimo"
     ],
     "glossary": [
-      "Mabala abelesegwa"
+      "Mabala abelesegwa",
+      "Mabala mapati-pati abelesyegwa"
     ],
     "references": [
-      "Mabbuku abelesegwa"
+      "Mabbuku abelesegwa",
+      "Mabbuku akabelesyegwa"
     ],
     "preface": [
-      "Jwi lyakumatalikilo"
+      "Jwi lyakumatalikilo",
+      "Majwi Aantalisyo"
     ],
     "lesson": [
-      "Ciiyo"
+      "Ciiyo",
+      "Muciiyo"
     ],
     "alt_activity": [
       "Cakucita cimbi"

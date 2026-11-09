@@ -2,6 +2,7 @@
 // (Split out of typeset-docx.js — see docs/ARCHITECTURE.md.)
 const { S, arr } = require("../emit.js");
 const { segKey, blockPlain, setBlockSegs, editBlockText, allTextBlocks, boldPrefix } = require("../blocktext.js");
+const LEXI = require("../lexicon/index.js");   // the current local language's own wording
 
 // "Phd" for the academic title is a recurring manuscript typo (the author capitalises
 // only the first letter, as if it were an ordinary word) seen across unrelated books,
@@ -119,7 +120,14 @@ function reformatAcronyms(blocks) {
 // intact.
 function formatGlossary(blocks) {
   const isHead = (b) => /^h[123]$/.test(b.t) || b.t === "head" || b.t === "label";
-  const ENTRY = /^(.{1,40}?)(?:\s+[–—-]\s+|:\s+)(.+)$/s;   // "Term – meaning" or "Term: meaning"
+  // "Term – meaning", "Term: meaning" — or "Term......meaning", the DOT LEADER a
+  // glossary typed as a tabbed two-column list comes in as. The Lunda Grade 1
+  // Teacher's Guide writes its whole glossary that way ("Activity............
+  // Zhakwila"), and with only the dash and colon shapes known, not one of its
+  // entries was recognised: the lines the author happened to bold stayed headings
+  // among their paragraph siblings, and one of them ("Exercise......Mudimu") was
+  // read as an EXERCISE heading and boxed, swallowing the six entries after it.
+  const ENTRY = /^(.{1,40}?)(?:\s+[–—-]\s+|:\s+|\s*\.{3,}\s*)(.+)$/s;
   // Render one entry as: term (bold) + ": " + meaning (regular).
   const toEntry = (b, m) => {
     b.t = "para"; delete b.text; delete b.marker;
@@ -135,7 +143,13 @@ function formatGlossary(blocks) {
     if (isHead(b)) {
       // The GLOSSARY section can open as any heading style (h1/h2/head/label),
       // depending on how the manuscript styled it and the import variant.
+      // The heading is matched in the book's own language as well as in English:
+      // a local-language glossary ("CHIKUÑULWILU CHAMAZU") opened no glossary at
+      // all, so none of its entries was formatted. The house title is only applied
+      // when the heading WAS the English word — a book written in Lunda keeps its
+      // own heading rather than having an English one stamped over it.
       if (/^GLOSSARY\b/i.test(full)) { inGloss = true; b.t = "h1"; b.text = "GLOSSARY OF TERMS"; continue; }
+      if (LEXI.isExactly(["glossary"], full)) { inGloss = true; b.t = "h1"; b.text = full; continue; }
       // A single-letter alphabetical divider ("A", "B", "C"…) inside the glossary
       // is just a section marker — keep it, but don't let it end the glossary.
       if (inGloss && /^[A-Z]$/.test(full)) continue;
@@ -330,19 +344,24 @@ function fillLayoutCredit(blocks) {
 function boldAuthorNames(blocks) {
   const textOf = (b) => (b.text || (b.segs ? b.segs.map((s) => s.t).join("") : "")).trim();
   const isHead = (b) => b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t);
-  const NAME = /^([A-Z][A-Za-z.'’-]+(?:\s+[A-Z][A-Za-z.'’-]+){1,4})\s+(holds?|is\b|has\b|obtained|received|earned|graduated|studied|teaches|taught|possess|acquired|attained|completed|did\b|works?\b|serves?\b)/;
+  // (a middle initial counts as a name word: "Costain M Bulanda")
+  const NAME = /^([A-Z][A-Za-z.'’-]+(?:\s+[A-Z][A-Za-z.'’-]*){1,4})\s+(holds?|is\b|has\b|obtained|received|earned|graduated|studied|teaches|taught|possess|acquired|attained|completed|did\b|works?\b|serves?\b)/;
   for (let i = 0; i < blocks.length; i++) {
-    if (!(isHead(blocks[i]) && /^(THE\s+)?AUTHORS?$/i.test(textOf(blocks[i])))) continue;
+    // (the "AUTHORS" line may still be a plain paragraph here — it becomes a section heading later)
+    if (!((isHead(blocks[i]) || blocks[i].t === "para") && /^(THE\s+)?AUTHORS?$/i.test(textOf(blocks[i])))) continue;
     for (let j = i + 1; j < blocks.length; j++) {
       const y = blocks[j];
-      if (isHead(y)) break;
+      if (isHead(y) || (y.t === "para" && /^[A-Z ]{4,}$/.test(textOf(y)))) break;   // the next section
       if (y.t !== "para" || !y.segs || !y.segs.length) continue;
       const full = y.segs.map((s) => s.t).join("");
       const m = full.match(NAME);
       if (!m) continue;
       const nameLen = m[1].length;
-      // already fully bold at the front? leave it.
-      if (y.segs[0].b && full.indexOf(m[1]) === 0) continue;
+      // already bold all through the name? leave it. (A converted file can bold only part of
+      // it: "Kashanda" bold, "Kasaila" not — that is bolded through.)
+      let pos = 0, allBold = true;
+      for (const s of y.segs) { if (pos >= nameLen) break; if (s.t.trim() && !s.b) allBold = false; pos += s.t.length; }
+      if (allBold && full.indexOf(m[1]) === 0) continue;
       y.segs = boldPrefix(y.segs, nameLen);
     }
     break;

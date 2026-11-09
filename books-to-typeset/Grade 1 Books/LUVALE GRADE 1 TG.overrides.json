@@ -1,0 +1,567 @@
+{
+  "keepFrontOrder": true,
+  "localLabels": true,
+  "coverImage": "luvale-g1-tg-cover.png",
+  "authors": [
+    "Chilunda Gift",
+    "Musanji Kayombo"
+  ],
+  "tocTitle": "VILIMO",
+  "replaceBlocks": [
+    {
+      "find": "ISBN:…………………………………",
+      "with": []
+    },
+    {
+      "find": "Vausononwene kuli:…………………………….",
+      "with": []
+    },
+    {
+      "find": "Vawalile kuli: …………………………",
+      "with": []
+    },
+    {
+      "find": "Vaufwatwile chakavanga kuli vaka:",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road",
+      "with": []
+    },
+    {
+      "find": "P.O. Box 32708",
+      "with": []
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "Lusesa lwose vanalukanyisa. Chijila kufwatulula, kunungulula chipwe kulama chihanda chamukanda ou mujila navahasa kufwatula cheka chakuzeneka lusesa kuli venyawo chipwe vaufwatwile.",
+      "with": [
+        {
+          "para": "© Ministry of Education, 2026",
+          "center": true
+        },
+        {
+          "para": "Lusesa lwose vanalukanyisa. Chijila kufwatulula, kunungulula chipwe kulama chihanda chamukanda ou mujila navahasa kufwatula cheka chakuzeneka lusesa kuli venyawo chipwe vaufwatwile.",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Vausononwene kuli:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Vawalile kuli:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Vaufwatwile chakavanga kuli vaka:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Printed by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Uhashi wakunangakana chuma:1.10.1.1 kunangakana mazu Seteko yakunangakana:",
+      "with": [
+        {
+          "para": "**Uhashi wakunangakana chuma:** 1.10.1.1 Kunangakana mazu"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        }
+      ]
+    },
+    {
+      "find": "Uhashi wakunangakana: 1.9.1.3 Kutangila mazu helu mwakwoloka Seteko yakunangakana",
+      "with": [
+        {
+          "para": "**Uhashi wakunangakana chuma:** 1.9.1.3 Kutangila mazu helu mwakwoloka"
+        },
+        {
+          "label": "Seteko yakunangakana:"
+        }
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "match": "\"ch \"",
+      "noHeader": true,
+      "rows": [
+        [
+          "a",
+          "m",
+          "n",
+          "i",
+          "k"
+        ],
+        [
+          "s",
+          "p",
+          "e",
+          "t",
+          "w"
+        ],
+        [
+          "p",
+          "t",
+          "u",
+          "o",
+          "k"
+        ],
+        [
+          "ch",
+          "ph",
+          "kh",
+          "sh",
+          "ng"
+        ]
+      ]
+    },
+    {
+      "match": "k + a",
+      "noHeader": true,
+      "rows": [
+        [
+          "k + a = ka",
+          "kh + e = khe"
+        ],
+        [
+          "m + e = me",
+          "ny + i = nyi"
+        ],
+        [
+          "t + a = ta",
+          "ng + a = nga"
+        ],
+        [
+          "y + a = ya",
+          "tw + i = twi"
+        ]
+      ]
+    },
+    {
+      "match": "pho",
+      "noHeader": true,
+      "rows": [
+        [
+          "pe",
+          "ku",
+          "lo",
+          "hu"
+        ],
+        [
+          "zu",
+          "mi",
+          "se",
+          "na"
+        ],
+        [
+          "cha",
+          "pho",
+          "twa",
+          "shi"
+        ],
+        [
+          "nyi",
+          "nge",
+          "pya",
+          "mwe"
+        ]
+      ]
+    }
+  ],
+  "tidySpacing": true,
+  "wordFix": {
+    "mukwoloka": "mwakwoloka",
+    "Mukwoloka": "Mwakwoloka",
+    "mukutamo": "mwakutamo",
+    "Mukutamo": "Mwakutamo",
+    "miwimbimbi": "mivwimbimbi",
+    "Miwimbimbi": "Mivwimbimbi",
+    "vyakulihanduna": "vyakulihandununa",
+    "Vyakulihanduna": "Vyakulihandununa",
+    "vyakulihanununa": "vyakulihandununa",
+    "mwakufwikunwina": "mwakufukunwina",
+    "Kufwikununa": "Kufukununa",
+    "kufwikununa": "kufukununa",
+    "malwola": "jilwola",
+    "vanambululula": "vanambulula",
+    "vhihemo": "vihemo",
+    "Lwea": "Lweza",
+    "vyakutambukiso": "vyakutambukisa",
+    "meos": "meso",
+    "chavyuuma": "chavyuma",
+    "aavyuma": "avyuma",
+    "vkuwasoneka": "kuwasoneka",
+    "ajinagilila": "ajingalila",
+    "Vyakulhakilako": "Vyakuhakilako",
+    "fosholo": "fwosholo",
+    "fwofw": "fwofwo",
+    "yautambukolo": "yautambukilo",
+    "kuwalumbununamukwoloka": "kuwalumbununa mwakwoloka",
+    "mwakukusonekela": "mwakusonekela",
+    "makukwachila": "mwakukwachila",
+    "vuhula": "vihula",
+    "kwombo": "kwimbo",
+    "avyuma kala": "akhala vyuma",
+    "avyma kala": "akhala vyuma",
+    "navakwenu": "navakwavo",
+    "vutunge": "vatunge",
+    "vangole": "vatongole",
+    "vapolole": "vakopolole",
+    "unevwilila": "vanevwilila",
+    "wahitamo": "vahitamo",
+    "vyakuhihanuna": "vyakulinangula",
+    "kuvangula": "kuvanangula",
+    "kuvangiza": "kukavangiza",
+    "Kunangana": "Kunangakana",
+    "Vakulya": "Vyakulya",
+    "Vatenga": "Vatenge",
+    "akulumbuna": "akulumbununa",
+    "washing": "washinga",
+    "mwaso yakulimeneka": "myaso yakulimeneka",
+    "mwaso yakupandama": "mwaso wakupandama",
+    "Kwivwilila chakwivwishisa": "Kwivwilila Nakwivwishisa",
+    "kushinanyeka": "kushinganyeka",
+    "Kushinanyeka": "Kushinganyeka",
+    "mwakwolola": "mwakwoloka",
+    "jikumbulwlilo": "jikumbulwilo",
+    "hamujmbu": "hamujimbu",
+    "mujmbu": "mujimbu",
+    "valong": "valongi",
+    "vyakulihandununda": "vyakulihandununa",
+    "vasovavumo": "vasonavumo",
+    "vasonvavumo": "vasonavumo",
+    "kuwatungu": "kuwatunga",
+    "mikigo": "mikingo",
+    "akaheso": "akeheso",
+    "Nakwivwisahisa": "Nakwivwishisa",
+    "nakwivwisahisa": "nakwivwishisa",
+    "Kangumbwesela": "Kangumbesela"
+  },
+  "subtext": [
+    {
+      "from": "Uhashi wakunangakana:",
+      "to": "Uhashi wakunangakana chuma:"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "Mukanda waunene - mazu atatu",
+      "with": "Mukanda waunene - mazu avali"
+    },
+    {
+      "find": "Kukumbulula kufuma hamujimbu",
+      "with": "Kukumbulula vihula vyakufuma hamujimbu"
+    },
+    {
+      "find": "Kutongola mazu amashi",
+      "with": "Kutombola mazu amashi"
+    },
+    {
+      "find": "Mazu kuwatongola",
+      "with": "Mazu kuwatombola"
+    },
+    {
+      "find": "nakutongola mazu",
+      "with": "nakutombola mazu"
+    },
+    {
+      "find": "Kutongola vyakusoneka",
+      "with": "Kutombola vyakusoneka"
+    },
+    {
+      "find": "vatongole jinambala",
+      "with": "vatombole jinambala"
+    },
+    {
+      "find": "Kutongola mazu akuhanjika",
+      "with": "Kutombola mazu akuhanjika"
+    },
+    {
+      "find": "Kutongola chivumo chinaputuka kulizu",
+      "with": "Kutombola chivumo chinaputuka lizu"
+    },
+    {
+      "find": "Kutongola chivumo chili kusongo",
+      "with": "Kutombola chivumo chili kusongo"
+    },
+    {
+      "find": "Chihande: 1.2 Kushimutwila",
+      "with": "Chihande: 1.2 Jiphande"
+    },
+    {
+      "find": "wachihande:1.",
+      "with": "wachihande: 1."
+    },
+    {
+      "find": "Majina avyuma kala",
+      "with": "Majina akhala vyuma"
+    }
+  ],
+  "edit": [
+    {
+      "find": "Muthu kuwana mali azate nangolo",
+      "with": "Muthu kuwana mali atela kuzata nangolo"
+    },
+    {
+      "find": "mikuku yamazu kwambulula",
+      "with": "mikuku yamazu mukwambulula"
+    },
+    {
+      "find": "Vyuma vanavitanjika muze",
+      "with": "Vyuma kuvyala muze"
+    },
+    {
+      "find": "1.14.2.1Kukwata",
+      "with": "1.14.2.1 Kukwata"
+    },
+    {
+      "find": "Kutongola majina amuchano",
+      "with": "Kutongola majina avene"
+    },
+    {
+      "find": "Mapelenge kujisoneka",
+      "with": "Mapelenge kuwasoneka"
+    },
+    {
+      "find": "Mujimbu vatela kuvatangilawo",
+      "with": "Mujimbu watela kuvatangilawo"
+    },
+    {
+      "find": "kaha kuzachisa vasonavumo",
+      "with": "kaha mukuzachisa vasonavumo"
+    },
+    {
+      "find": "Muchano na Nashinganyeka",
+      "with": "Muchano navishinganyeka"
+    },
+    {
+      "find": "Kopolola mikuku yamazu vanakuhane",
+      "with": "Kopolola mikuku yamazu unavahane"
+    },
+    {
+      "find": "Vyakulinga: Panjika vyuma",
+      "with": "Vyakulinga: Vapanjike vyuma"
+    },
+    {
+      "find": "Chihande: 1.4 Vihemo",
+      "with": "Chihande: 1.4 Chihemo"
+    },
+    {
+      "find": "Kuwanyisa vasonavumo utunge",
+      "with": "Kuwanyisa vasonavumo vatunge"
+    },
+    {
+      "find": "1.5.1.1 Kuhana nakukumbulula",
+      "with": "1.5.1.1 Kuhanjika nakukumbulula"
+    },
+    {
+      "find": "Tukasalimi kuvahanjika",
+      "with": "Tukasalimi kutuhanjika"
+    },
+    {
+      "find": "Mikuku yatela hautambukilo",
+      "with": "Mikuku yatala hautambukilo"
+    },
+    {
+      "find": "1.6.2.2 Kulumbununa mivwimbimbi. mwakwoloka",
+      "with": "1.6.2.2 Kulumbununa mivwimbimbi mwakwoloka."
+    },
+    {
+      "find": "Vaheme chihemo chihemo cha",
+      "with": "Vaheme chihemo cha"
+    }
+  ],
+  "asPara": [
+    {
+      "find": "Zachisa vihemo namyaso ikwavo wathachikiza."
+    }
+  ],
+  "moveSectionBefore": [
+    {
+      "find": "MAZU AMALEMU",
+      "before": "KWAFUMINE UNJIHO UKWAVO"
+    }
+  ],
+  "asSection": [
+    "MAZU AMALEMU"
+  ],
+  "retext": [
+    {
+      "from": "osholo",
+      "to": "wosholo"
+    },
+    {
+      "from": "ofw",
+      "to": "ofwo"
+    }
+  ],
+  "insertText": [
+    {
+      "before": "1.11.2 Majina Akeheso navuliso",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.7em"
+          }
+        }
+      ]
+    },
+    {
+      "after": "Vavuluke majina avyuma muvuliso.",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ]
+    },
+    {
+      "before": "1.12.5 Lumbunwiso yamazu",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.7em"
+          }
+        }
+      ]
+    },
+    {
+      "after": "Valongi vaheme chihemo chakutambukisa motoka.",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ]
+    },
+    {
+      "before": "1.10.1 Kunangakana Mazu",
+      "near": "Ngwazanga kwasa ngunja yamahinji.",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.6em"
+          }
+        }
+      ]
+    },
+    {
+      "after": "Valongi valave nakuvuluka mazu ali mumukuku kachi",
+      "items": [
+        {
+          "raw": {
+            "t": "parspacing",
+            "v": "0.86em"
+          }
+        }
+      ]
+    }
+  ],
+  "editCell": [
+    {
+      "find": "Life experien",
+      "with": "Life experiences"
+    },
+    {
+      "find": "Vasona -vumo",
+      "with": "Vasonavumo"
+    },
+    {
+      "find": "Pre -writing",
+      "with": "Pre-writing"
+    },
+    {
+      "find": "Pre- reading",
+      "with": "Pre-reading"
+    }
+  ]
+}

@@ -40,6 +40,9 @@ let COLON_HEADINGS = false;
 // opts.exerciseBullets (per book): a Word bullet inside an exercise stays a bullet under the
 // current item. Off by default so books already proofread keep their a./b. rendering.
 let EXERCISE_BULLETS = false;
+// opts.tabGap (per book, set by glossaryColumns): a Word tab always leaves a gap of at least
+// two spaces, so a word list separated by ONE tab still splits into its two columns.
+let TAB_GAP = false;
 // opts.answerListNumbered (per book): opening words of answer lists that must stay
 // numbered 1, 2, 3… (a real step-by-step process) rather than becoming bullets.
 let ANSWER_NUMBERED = [];
@@ -342,6 +345,15 @@ function resolveTextboxBoxes(blocks, tbBoxes) {
       : box.kind === "exercise" ? { t: "exercise", heading: box.title, parts: box.parts }
       : { t: "assessment", title: box.title, intro: [], parts: box.parts, extra: [] };
   };
+  // A paragraph-style box just above can take the sentinel into its body (its body runs on
+  // to the next blank line, and the converter leaves none): that box ends at the sentinel,
+  // the text box's own block follows it, and the rest of the body is back in the flow.
+  const isSent = (x) => x && Array.isArray(x.segs) && SENT.test(plainOf(x.segs).trim());
+  blocks = blocks.flatMap((b) => {
+    const k = b && Array.isArray(b.body) ? b.body.findIndex(isSent) : -1;
+    if (k < 0) return [b];
+    return [{ ...b, body: b.body.slice(0, k) }, ...b.body.slice(k)];
+  });
   const out = [];
   for (const b of blocks) {
     // whole-block sentinel: a head/label (or a segs-bearing block) whose ENTIRE text is
@@ -552,7 +564,7 @@ function paraSegs(pXml) {
     let t = decode(tm)
       .replace(/[​-‍﻿]/g, "")   // drop zero-width junk (breaks ^label matching)
       .replace(/ *— */g, " - ");     // em dash -> spaced hyphen (house style)
-    if (tabs) t = t + " ".repeat(tabs);                // tabs -> spaces (no column artefacts)
+    if (tabs) t = t + " ".repeat(TAB_GAP ? Math.max(2, tabs) : tabs);                // tabs -> spaces (no column artefacts)
     const rpr = (run.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     // Hidden text (<w:vanish/>) — Word itself never displays or prints this run.
     // The recurring case in these manuscripts is "Top of Form"/"Bottom of Form",
@@ -738,9 +750,20 @@ let imgResolve = () => [];
 // document's numbering). Returns { numId, lvl, marker } or null for non-list paras.
 let listResolve = () => null;
 
+// A cell is often read more than once (cellText/cellParas to decide what kind of table
+// it is, then cellRich to build it), and every read of a Word-numbered paragraph moves
+// that list's counter on: a 5-item list typed 1-5 in a box came out 6-10 (Icibemba G4
+// TG). So each cell is read ONCE per document and later reads get a copy of that result.
+// Cleared per import, where listResolve is set.
+let cellCache = new Map();
+function cellBlocks(tcXml) {
+  if (!cellCache.has(tcXml)) cellCache.set(tcXml, cellBlocksOnce(tcXml));
+  return structuredClone(cellCache.get(tcXml));
+}
+
 // Ordered content of a cell: paragraphs, images AND nested tables, in order.
 // Returns [{t:"para",…} | {t:"img",images} | {t:"table",rows}].
-function cellBlocks(tcXml) {
+function cellBlocksOnce(tcXml) {
   const { masked, tables } = maskTables(tcXml);
   const out = [];
   const parts = masked.match(/@@TBL\d+@@|<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || [];
@@ -771,7 +794,8 @@ function cellBlocks(tcXml) {
     const plain = plainOf(segs).trim();
     const li = listResolve(part);
     const paraOf = () => ({ t: "para", segs, plain, isList: !!li || /^[••]/.test(plain),
-      numId: li ? li.numId : null, lvl: li ? li.lvl : null, marker: li ? li.marker : null });
+      numId: li ? li.numId : null, lvl: li ? li.lvl : null, marker: li ? li.marker : null,
+      heading: /<w:pStyle w:val="Heading\d"/.test(part) });
     if (images.length) {
       const imgBlk = { t: "img", images, plain };
       // A paragraph may carry an image PLUS real text (e.g. a numbered question
@@ -870,6 +894,10 @@ function cellRich(tcXml) {
   const rich = segs.some((s) => s.m || s.b || s.it || s.c) ? segs : null;
   const out = { text, imgs, segs: rich };
   if (subs.length) out.subs = subs;
+  // lines the author styled as a Word Heading inside the cell (a section title typed
+  // into the same cell as the lines above it)
+  const heads = bl.filter((b) => b.t === "para" && b.segs && b.heading && b.plain).map((b) => b.plain);
+  if (heads.length) out.heads = heads;
   return out;
 }
 
@@ -928,7 +956,9 @@ function markerFor(n, template) {
   let s;
   if (/^\d+$/.test(core)) s = String(n);
   else if (/^[IVXLCDM]+$/.test(core)) s = toRoman(n).toUpperCase();
-  else if (/^[ivxlcdm]{2,}$/.test(core)) s = toRoman(n);
+  // The template is the run's FIRST marker, so a lone "i" opens i, ii, iii — a lettered run
+  // would have opened at "a" (the Luvale G1 TG tests: "2. i. p / ii. w / iii. a" came out a/b/c)
+  else if (/^(?:[ivxlcdm]{2,}|i)$/.test(core)) s = toRoman(n);
   else if (/^[A-Z]$/.test(core)) s = String.fromCharCode(64 + n);
   else s = toLetter(n);
   return s + suf;
@@ -1752,11 +1782,20 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, noBoxes, flat) {
   // demoting ordinary sentences that merely begin with a label word. In the
   // "flat" (series) layout there are no boxes, so Activity/Exercise lines are
   // headings, not labels — skip this demotion there.
-  if (!noBoxes && plain.length <= 40 && boxKindFromTitle(plain)) return { t: "label", text: plain };
+  // A Word list item is never a box title: "3. Umulimo imo mu ilyashi." (an answer line in
+  // the Icibemba G4 LB) opened an exercise that swallowed the rest of its test section.
+  if (!noBoxes && plain.length <= 40 && !/<w:numPr>/.test(pXml) && boxKindFromTitle(plain)) return { t: "label", text: plain };
   // Series layout: an Activity / Exercise / Task / Assessment line (English or a
   // local language) is always a heading, even if the source didn't bold the whole
   // line — so they style consistently. (Table-wrapped boxes are still kept.)
-  if (noBoxes && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
+  // ...but a DOT LEADER says the line is a contents or glossary entry, not a title:
+  // the word is the thing being listed, not a heading over what follows. The Lunda
+  // Grade 1 Learner's Book's English-to-Lunda glossary set "Activity......... Zhakwila"
+  // and "Exercise......... Mudimu" as maroon sub-headings while its thirty neighbouring
+  // entries stayed body text. Four or more dots followed by more text is unmistakably a
+  // leader; a heading that merely trails off in an ellipsis is untouched.
+  const dotLeader = /\.{4,}\s*\S/.test(plain);
+  if (noBoxes && !dotLeader && plain.length <= 80 && (boxKindFromTitle(plain) || /^(activity|exercise|task|project)\b/i.test(plain))) return { t: "head", text: plain };
   // Trust the manuscript's own Word heading style — EXCEPT when the "heading" reads as
   // body prose: a manuscript occasionally applies Heading1 to a whole paragraph by
   // mistake (a Foreword/Preface/bio paragraph, a body sentence under a topic), which
@@ -1904,6 +1943,7 @@ function groupAssessments(blocks) {
 async function importDocx(docxPath, opts = {}) {
   COLON_HEADINGS = !!opts.colonHeadings;
   EXERCISE_BULLETS = !!opts.exerciseBullets;
+  TAB_GAP = !!opts.tabGap;
   ANSWER_NUMBERED = Array.isArray(opts.answerListNumbered) ? opts.answerListNumbered : [];
   SECTION_RE = COLON_HEADINGS ? SECTION_COLON : SECTION_STRICT;
   SUBTOPIC_RE = COLON_HEADINGS ? SUBTOPIC_COLON : SUBTOPIC_STRICT;
@@ -1960,6 +2000,64 @@ async function importDocx(docxPath, opts = {}) {
   // the modern <mc:Choice>); otherwise a floating image encoded both ways is
   // imported twice.
   let rawDoc = read("word/document.xml").replace(/<mc:Fallback>[\s\S]*?<\/mc:Fallback>/g, "");
+  // A list can be set by the paragraph STYLE alone (Word's List Bullet / List Number carry
+  // the w:numPr in styles.xml), which every list test below misses because it reads the
+  // paragraph. Opt-in per book: copy the style's numPr onto its paragraphs.
+  if (opts.styleLists) {
+    const styleNum = {};
+    for (const m of read("word/styles.xml").matchAll(/<w:style\b[^>]*w:styleId="([^"]+)"[^>]*>[\s\S]*?<\/w:style>/g)) {
+      const id = (m[0].match(/<w:pPr>[\s\S]*?<w:numId w:val="(\d+)"/) || [])[1];
+      if (id) styleNum[m[1]] = id;
+    }
+    rawDoc = rawDoc.replace(/<w:pPr>(?:(?!<\/w:pPr>)[\s\S])*?<\/w:pPr>/g, (ppr) => {
+      const st = (ppr.match(/<w:pStyle w:val="([^"]+)"\/>/) || [])[1];
+      if (!st || !styleNum[st] || ppr.includes("<w:numPr>")) return ppr;
+      return ppr.replace(/<w:pStyle [^>]*\/>/, (x) => `${x}<w:numPr><w:ilvl w:val="0"/><w:numId w:val="${styleNum[st]}"/></w:numPr>`);
+    });
+  }
+  // opts.sourceFix: [["find", "with"], …] — correct the manuscript's text BEFORE anything is
+  // recognised from it (a box title typed "ZHAKWALI 2:" instead of "ZHAKWILA 2:" is then
+  // boxed like every other activity). Applied inside each Word text run.
+  for (const [find, repl] of opts.sourceFix || []) {
+    const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    let n = 0;
+    rawDoc = rawDoc.replace(/(<w:t(?:\s[^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => t.includes(esc(find)) ? (n++, a + t.split(esc(find)).join(esc(repl)) + b) : m);
+    if (!n) console.warn("!  sourceFix not matched:", find);
+  }
+  // opts.cdcNotes: a book that came back from CDC as a PDF and was converted to Word. Each note
+  // the reviewer TYPED ONTO the page (a FreeText comment: "Remove: Specific competence", a red
+  // "LEARNING ACTIVITY 1" over a label) became a coloured text box holding the note's words,
+  // which would print as book text (or, for a box titled like an activity, as an empty box).
+  // The notes come from tools/cdc-comments.mjs. A text box goes when its text is one note (or a
+  // 12+ letter piece of one the converter split) and none of its text is black.
+  if (opts.cdcNotes && opts.cdcNotes.length) {
+    const squash = (s) => s.replace(/&(?:[a-z]+|#\d+|#x[0-9a-f]+);/gi, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+    const keys = opts.cdcNotes.map(squash).filter(Boolean);
+    const span = (s, at, tag) => {
+      const re = new RegExp(`<${tag}[\\s>]|</${tag}>`, "g"); re.lastIndex = at; let depth = 0, m;
+      while ((m = re.exec(s))) { depth += m[0][1] === "/" ? -1 : 1; if (!depth) return re.lastIndex; }
+      return s.length;
+    };
+    let out = "", i = 0, dropped = 0;
+    for (;;) {
+      const re = /<mc:AlternateContent>|<w:pict>/g; re.lastIndex = i;
+      const m = re.exec(rawDoc); if (!m) break;
+      const e = span(rawDoc, m.index, m[0] === "<w:pict>" ? "w:pict" : "mc:AlternateContent"), el = rawDoc.slice(m.index, e);
+      out += rawDoc.slice(i, m.index); i = e;
+      const box = !/<a:blip\b|<v:imagedata\b/.test(el) && (el.match(/<w:txbxContent>[\s\S]*<\/w:txbxContent>/) || [])[0];
+      const runs = box ? [...box.matchAll(/<w:r\b[^P][\s\S]*?<\/w:r>|<w:r>[\s\S]*?<\/w:r>/g)].map((r) => r[0]).filter((r) => /<w:t[\s>]/.test(r)) : [];
+      const text = runs.map((r) => [...r.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("")).join("");
+      const k = squash(text);
+      const coloured = runs.every((r) => { const c = (r.match(/<w:color w:val="([0-9A-Fa-f]{6}|auto)"/) || [])[1]; return c && !/^(000000|auto)$/i.test(c); });
+      if (k && coloured && keys.some((n) => n === k || (k.length >= 12 && n.includes(k)))) {
+        dropped++; if (process.env.ZEPH_CDC_NOTES) console.log("   cdc note dropped:", text.trim().slice(0, 90));
+        continue;
+      }
+      out += el;
+    }
+    rawDoc = out + rawDoc.slice(i);
+    console.log(`   cdcComments: ${dropped} of ${keys.length} CDC note(s) found as text boxes and dropped`);
+  }
   // Recover a Learning Activity / Exercise / Assessment the author placed ENTIRELY
   // inside a floating text box (a drawing canvas with no picture) rather than the
   // document flow — otherwise the whole box (title + every question) is silently
@@ -2036,6 +2134,126 @@ async function importDocx(docxPath, opts = {}) {
       }
     }
   }
+  // opts.unwrapTextboxes: a manuscript CONVERTED FROM A PDF (ilovepdf, Word reflow) puts
+  // whatever it could not flow — an answer, a box, a side note — in a floating text box,
+  // which is stripped below and lost. Each text box (not a picture) gives its paragraphs
+  // back to the text flow, right after the paragraph that anchors it.
+  if (opts.unwrapTextboxes) {
+    const held = []; let n = 0, notes = 0, pageNums = 0, decorText = 0;
+    const embedUses = {};
+    for (const x of rawDoc.matchAll(/<a:blip\b[^>]*r:embed="([^"]+)"|<v:imagedata\b[^>]*r:id="([^"]+)"/g)) { const r = x[1] || x[2]; embedUses[r] = (embedUses[r] || 0) + 1; }
+    // the whole element from `at`, nesting counted (a group of shapes, a box inside a box)
+    const span = (s, at, tag) => {
+      const re = new RegExp(`<${tag}[\\s>]|</${tag}>`, "g"); re.lastIndex = at; let depth = 0, m;
+      while ((m = re.exec(s))) { depth += m[0][1] === "/" ? -1 : 1; if (!depth) return re.lastIndex; }
+      return s.length;
+    };
+    // every text box's paragraphs, outermost boxes only (inner boxes ride along inside them)
+    const boxes = (s) => {
+      const out = []; const re = /<w:txbxContent>/g; let m;
+      while ((m = re.exec(s))) { const e = span(s, m.index, "w:txbxContent"); out.push(s.slice(m.index + 15, e - 16)); re.lastIndex = e; }
+      return out;
+    };
+    let out = "", i = 0;
+    for (;;) {
+      const re = /<mc:AlternateContent>|<w:pict>/g; re.lastIndex = i;
+      const m = re.exec(rawDoc); if (!m) break;
+      const tag = m[0] === "<w:pict>" ? "w:pict" : "mc:AlternateContent";
+      const e = span(rawDoc, m.index, tag), el = rawDoc.slice(m.index, e);
+      // the Choice (DrawingML) only: its Fallback repeats the same text as VML
+      const body = tag === "w:pict" ? el : (el.match(/<mc:Choice\b[\s\S]*?<\/mc:Choice>/) || [el])[0];
+      // A group of text boxes over a picture is skipped (a labelled figure keeps its art)
+      // UNLESS every picture in it is decoration the converter repeats all through the book
+      // — the coloured panel behind each activity box, the pill behind each page number.
+      // Then the text is book text (a whole Learning Activity, an exercise): it rejoins the
+      // flow and the decoration goes. A group holding only a page number goes entirely.
+      const rids = [...el.matchAll(/<a:blip\b[^>]*r:embed="([^"]+)"|<v:imagedata\b[^>]*r:id="([^"]+)"/g)].map((x) => x[1] || x[2]);
+      // (a scrap of a picture — a drop-capital "E" cut out of the page, under 3 KB — counts
+      // as decoration too, used once or not)
+      const scrap = (r) => (embedUses[r] || 0) >= 3 || (() => { try { return fs.statSync(path.join(tmp, "word", rels[r])).size < 3000; } catch { return false; } })();
+      const decor = rids.length > 0 && rids.every(scrap);
+      const txt = (s) => [...s.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("").trim();
+      // A group whose text boxes hold real prose (an "Expected Responses" answer laid over a
+      // drop-capital and a picture) gives its text back too; a REAL picture in it stays put.
+      // Short text (a figure's labels: "Human", "Frog") keeps the old rule.
+      const allBoxes = /<w:txbxContent>/.test(body) ? boxes(body).filter((x) => /<w:t[\s>]/.test(x)) : [];
+      const prose = rids.length > 0 && !decor && allBoxes.map(txt).join(" ").length >= 40;
+      const keepArt = prose && rids.some((r) => !scrap(r));
+      const inner = allBoxes.length && (!rids.length || decor || prose) ? allBoxes : null;
+      out += rawDoc.slice(i, m.index);
+      if (inner && inner.length && inner.every((x) => /^\d{1,3}$/.test(txt(x).replace(/\s+/g, "")) || /^(\d{1,3})\1$/.test(txt(x).replace(/\s+/g, "")))) { pageNums++; i = e; continue; }
+      if (decor && inner && inner.length) decorText++;
+      // a PDF comment's pop-up note ("2026-09-11 21:12:36 / ---- / Include …") came across
+      // as a text box too: it is a reviewer's note, not book text, so it goes
+      // (the reviewer's name may come first: "muson 2026-09-13 08:52:49 ----")
+      if (inner && inner.length && inner.every((x) => /^.{0,40}?\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\s*-{5,}/s.test(txt(x)))) { notes++; i = e; continue; }
+      if (inner) { n += inner.length; held.push(inner.join("")); out += (keepArt ? el : "") + `<!--TXBX${held.length - 1}-->`; }
+      else out += el;
+      i = e;
+    }
+    rawDoc = out + rawDoc.slice(i);
+    rawDoc = rawDoc.replace(/(<w:p\b(?:(?!<\/w:p>)[\s\S])*?<!--TXBX\d+-->[\s\S]*?<\/w:p>)/g, (host) =>
+      host + [...host.matchAll(/<!--TXBX(\d+)-->/g)].map((x) => held[+x[1]]).join(""));
+    rawDoc = rawDoc.replace(/<!--TXBX\d+-->/g, "");
+    if (n || notes || pageNums) console.log(`   unwrapTextboxes: ${n} text box(es) returned to the text flow (${decorText} from over a repeated background picture), ${pageNums} old page number(s) and ${notes} PDF comment note(s) dropped`);
+  }
+  // opts.textboxHeadings: the author drew a section title as a SHAPE with text (an arrow
+  // or banner text box: "MAU OYAMBA", "ZOTHOKOZA"…). Text boxes are stripped below, which
+  // dropped every such title. A text box holding just one short line becomes a bold run in
+  // its host paragraph instead, so the title reads as a heading where it was placed.
+  if (opts.textboxHeadings) {
+    let n = 0;
+    rawDoc = rawDoc.replace(/<mc:AlternateContent>(?:(?!<\/mc:AlternateContent>)[\s\S])*?<w:txbxContent>([\s\S]*?)<\/w:txbxContent>[\s\S]*?<\/mc:AlternateContent>/g, (m, inner) => {
+      if (/<a:blip\b/.test(m)) return m;
+      const paras = inner.split("</w:p>").map((p) => [...p.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("").trim()).filter(Boolean);
+      const t = paras.join(" ").replace(/\s+/g, " ").trim();
+      if (paras.length > 2 || t.length < 3 || t.length > 70) return m;
+      n++;
+      return `</w:r><w:r><w:rPr><w:b/><w:sz w:val="32"/></w:rPr><w:t xml:space="preserve">${t}</w:t></w:r><w:r>`;
+    });
+    if (n) console.log(`   textboxHeadings: ${n} title(s) recovered from text boxes`);
+  }
+  // opts.flattenBorderless: a table that prints with NO lines in Word (the author used it
+  // only to lay text out — no table style and no borders, or every border set to none, no
+  // cell borders, no shading) is ordinary text on the page: replace it with its own
+  // paragraphs so we don't draw a ruled table the book never had. Innermost tables only.
+  if (opts.flattenBorderless) {
+    let n = 0, before;
+    // (repeat: once an inner layout table is flattened, the table around it may be one too)
+    do { before = n;
+    rawDoc = rawDoc.replace(/<w:tbl>((?:(?!<w:tbl>)[\s\S])*?)<\/w:tbl>/g, (tx, inner) => {
+      const tblPr = (inner.match(/^\s*<w:tblPr>([\s\S]*?)<\/w:tblPr>/) || [])[1] || "";
+      const bd = (tblPr.match(/<w:tblBorders>([\s\S]*?)<\/w:tblBorders>/) || [])[1];
+      const tblNoLines = bd != null ? !/w:val="(?!none|nil)[a-zA-Z]+"/.test(bd) : !/<w:tblStyle\b/.test(tblPr);
+      const cellLines = /<w:tcBorders>(?:(?!<\/w:tcBorders>)[\s\S])*w:val="(?!none|nil)[a-zA-Z]+"/.test(inner);
+      // (or every cell switches all four of its own borders off — that wins over the table's)
+      const tcs = inner.match(/<w:tcPr>[\s\S]*?<\/w:tcPr>/g) || [];
+      const allCellsOff = tcs.length > 0 && tcs.every((pr) => ["top", "left", "bottom", "right"].every((e) =>
+        new RegExp(`<w:tcBorders>[\\s\\S]*?<w:${e} w:val="(nil|none)"`).test(pr)));
+      // A line-less ONE-COLUMN table whose rows differ — some rows boxed (all four cell
+      // borders: a "Musebezi" box), others plain text — is split row by row: each boxed row
+      // becomes its own one-cell table, each plain row goes back to the text flow.
+      const rows = inner.match(/<w:tr[ >][\s\S]*?<\/w:tr>/g) || [];
+      if (tblNoLines && rows.length > 1 && rows.every((r) => (r.match(/<w:tc>/g) || []).length === 1)) {
+        const boxed = (r) => ["top", "left", "bottom", "right"].every((e) => new RegExp(`<w:tcBorders>[\\s\\S]*?<w:${e} w:val="(?!none|nil)[a-zA-Z]+"`).test(r));
+        const kinds = rows.map(boxed);
+        if (kinds.some(Boolean) && !kinds.every(Boolean)) {
+          n++;
+          const pr = (inner.match(/^\s*<w:tblPr>[\s\S]*?<\/w:tblPr>/) || [""])[0];
+          const grid = (inner.match(/<w:tblGrid>[\s\S]*?<\/w:tblGrid>/) || [""])[0];
+          return rows.map((r, k) => kinds[k] ? `<w:tbl>${pr}${grid}${r}</w:tbl>`
+            : (r.match(/<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || []).join("")).join("");
+        }
+      }
+      const noLines = (tblNoLines && !cellLines) || allCellsOff;
+      const shaded = /<w:shd\b[^>]*w:fill="(?!auto|FFFFFF|ffffff)[0-9A-Fa-f]{6}"/.test(inner);
+      if (!noLines || shaded) return tx;
+      n++;
+      return (inner.match(/<w:p\b[^>]*\/>|<w:p\b[^>]*>[\s\S]*?<\/w:p>/g) || []).join("");
+    });
+    } while (n > before);
+    if (n) console.log(`   flattenBorderless: ${n} borderless layout table(s) set as text`);
+  }
   const docXml = rawDoc.replace(/<w:txbxContent>[\s\S]*?<\/w:txbxContent>/g,
     (m) => (/<a:blip\b/.test(m) ? m : ""));
   const hmap = headingMap(read("word/styles.xml"));
@@ -2067,6 +2285,7 @@ async function importDocx(docxPath, opts = {}) {
   };
   // Expose list level + marker for cell paragraphs (questions/sub-questions in
   // exercise & assessment tables), so their real numbering is preserved.
+  cellCache = new Map();
   listResolve = (x) => {
     if (!/<w:numPr>/.test(x)) return null;
     const numId = (x.match(/<w:numId\s+w:val="(\d+)"/) || [])[1];
@@ -2161,12 +2380,54 @@ async function importDocx(docxPath, opts = {}) {
   //     the sibling <o:OLEObject r:id> is the binary payload — NOT an image, so skip
   //     it). Many manuscripts store most of their figures this way; missing this
   //     branch silently dropped those pictures, leaving only their captions.
+  // one picture made from a group of pictures (see imagesOf); returns its new rel id
+  const grpDone = new Map();
+  const groupComposite = (d) => {
+    if (!/<wpg:wgp\b/.test(d)) return null;
+    const pics = [...d.matchAll(/<pic:pic\b[\s\S]*?<\/pic:pic>/g)].map((m) => {
+      const p = m[0];
+      const r = (p.match(/<a:blip[^>]*r:embed="([^"]+)"/) || [])[1];
+      const off = p.match(/<a:off x="(-?\d+)" y="(-?\d+)"\/>/), ext = p.match(/<a:ext cx="(\d+)" cy="(\d+)"\/>/);
+      return r && off && ext && rels[r] ? { r, x: +off[1], y: +off[2], w: +ext[1], h: +ext[2] } : null;
+    })
+      // (a picture the converter repeats all through the book — a drop-capital "E", a panel
+      // behind a box — is decoration, not part of this figure)
+      .filter((p) => p && rawDoc.split(`r:embed="${p.r}"`).length - 1 < 3);
+    if (pics.length === 1) return pics[0].r;
+    if (pics.length < 2) return null;
+    const key = pics.map((p) => p.r).join("+");
+    if (grpDone.has(key)) return grpDone.get(key);
+    let out = null;
+    try {
+      const { createCanvas, Image } = require("canvas");
+      const ims = pics.map((p) => { const im = new Image(); im.src = fs.readFileSync(path.join(tmp, "word", rels[p.r])); return im; });
+      const x0 = Math.min(...pics.map((p) => p.x)), y0 = Math.min(...pics.map((p) => p.y));
+      const x1 = Math.max(...pics.map((p) => p.x + p.w)), y1 = Math.max(...pics.map((p) => p.y + p.h));
+      // px per EMU: the sharpest picture keeps its own resolution (capped for size)
+      const k = Math.min(Math.max(...pics.map((p, i) => ims[i].width / p.w)), 3000 / (x1 - x0));
+      const c = createCanvas(Math.round((x1 - x0) * k), Math.round((y1 - y0) * k)), g = c.getContext("2d");
+      g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
+      pics.forEach((p, i) => g.drawImage(ims[i], (p.x - x0) * k, (p.y - y0) * k, p.w * k, p.h * k));
+      const name = `media/grp_${pics[0].r}.png`;
+      fs.writeFileSync(path.join(tmp, "word", name), c.toBuffer("image/png"));
+      if (process.env.ZEPH_GRP_DIR) fs.writeFileSync(path.join(process.env.ZEPH_GRP_DIR, path.basename(name)), c.toBuffer("image/png"));   // to look at them
+      out = `grp_${pics[0].r}`; rels[out] = name;
+    } catch (e) { console.warn("!  picture group not combined:", e.message); }
+    grpDone.set(key, out);
+    return out;
+  };
   const imagesOf = (x) => {
     const recs = [];
     for (const dm of x.matchAll(/<w:drawing\b[\s\S]*?<\/w:drawing>/g)) {
       const d = dm[0];
-      const rid = (d.match(/<a:blip[^>]*r:embed="([^"]+)"/) || [])[1];
+      let rid = (d.match(/<a:blip[^>]*r:embed="([^"]+)"/) || [])[1];
       if (!rid) continue;
+      // A GROUP of pictures (a figure the author built from two or three images placed
+      // together — a radio over a battery and a solar panel, two inclined-plane photos side
+      // by side) only ever showed its first picture. Draw them all, where the group places
+      // them, into one picture.
+      const grp = groupComposite(d);
+      if (grp) rid = grp;
       // A grouped figure (one picture among text-box label shapes) carries several
       // extents; use the LARGEST (the picture, not a label box).
       const exts = [...d.matchAll(/<wp:extent\s+cx="(\d+)"\s+cy="(\d+)"/g)].map((e) => ({ w: +e[1] / 9525, h: +e[2] / 9525 }));
@@ -2324,7 +2585,13 @@ async function importDocx(docxPath, opts = {}) {
 
   // ---- front-matter detection (only when the book clearly has one) ----
   const hasTocStyle = parts.some((x) => /<w:pStyle\s+w:val="TOC\d/.test(x));
-  const copyrightIdx = parts.findIndex((x) => !isTbl(x) && /all rights reserved|©|umwini wonse|osalembanso|ñovu zhezhima/i.test(textOf(x)));
+  // (the language's own "All rights reserved", or a bare "@COPYRIGHT" heading line)
+  const allRights = LEXI.altSrc(LEXI.words(["all_rights"]));
+  // ("All rights reserved" in the local languages: Cinyanja "Ufulu wonse ndi wotetezedwa",
+  // Chitonga "Bwaange boonse bulikwabilidwe", Lunda "Ñovu zhezhima …", Luvale "Lusesa lwose
+  // lwalamiwa", Icibemba "Uluusa shonse shasungwa" — without one, no cover/imprint is found)
+  const copyrightIdx = parts.findIndex((x) => !isTbl(x) && (/all rights reserved|©|umwini wonse|osalembanso|ufulu wonse|bwaange boonse|[ñn]ovu zhezhima|lusesa lwose|uluusa shonse|^\W*@?copyright\W*$/i.test(textOf(x).trim())
+    || (allRights && new RegExp(allRights, "i").test(textOf(x)))));
   const isTocHead = (t) => /^(TABLE OF CONTENTS|NYITAN?CHI YAYIBALU|ZAM.?KATI)$/i.test(t) || LEXI.isContents(t);
   const tocPartIdx = parts.findIndex((x) => !isTbl(x) && isTocHead(textOf(x)));
   // The imprint (copyright/credits) page is centred plain text in the original.
@@ -2357,7 +2624,10 @@ async function importDocx(docxPath, opts = {}) {
       // Heading like a real section would be. Don't let it end the imprint early.
       if (/Heading\d/.test(styleOf(parts[i])) && /^COPYRIGHT$/i.test(textOf(parts[i]).trim())) continue;
       // stop at the first styled heading OR the first front-matter section name
-      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i])) || LEXI.isFrontSection(textOf(parts[i])))) { imprintEnd = i; break; }
+      // (a local word followed by a colon — "ALEMBI:" = Authors: — is a credit line
+      // inside the imprint, not the Authors section)
+      if (!isTbl(parts[i]) && (/Heading\d/.test(styleOf(parts[i])) || FM_SECTION.test(textOf(parts[i]))
+        || (LEXI.isFrontSection(textOf(parts[i])) && !/:\s*$/.test(textOf(parts[i]))))) { imprintEnd = i; break; }
     }
     // Safety cap so a book without a TOC or any detectable section never treats
     // its whole body as imprint.
@@ -2483,7 +2753,13 @@ async function importDocx(docxPath, opts = {}) {
   // title lines and picture fell onto the first body page.
   // A contents list ahead of the copyright line ends the cover there too, or every
   // contents entry is read as an author name in the byline.
-  const coverStop = copyrightIdx > 0 ? (tocFirst ? tocPartIdx : copyrightIdx)
+  // opts.coverUntil: the text the first part AFTER the cover starts with — for a book
+  // converted from a PDF whose © line was lost (drawn as a picture), which otherwise gets
+  // no cover at all and prints the cover page's words as the book's first page
+  const untilIdx = opts.coverUntil ? parts.findIndex((x) => !isTbl(x) && textOf(x).trim().startsWith(opts.coverUntil)) : -1;
+  if (opts.coverUntil && untilIdx < 0) console.warn("!  coverUntil not matched:", opts.coverUntil);
+  const coverStop = untilIdx > 0 ? untilIdx
+    : copyrightIdx > 0 ? (tocFirst ? tocPartIdx : copyrightIdx)
     : (copyrightIdx < 0 && textCover && tocPartIdx > 0 && tocPartIdx <= 12 ? tocPartIdx : -1);
   if (coverStop > 0) {
     // hero = largest image before the copyright line; everything before the
@@ -2548,6 +2824,7 @@ async function importDocx(docxPath, opts = {}) {
     const text = textOf(x);
     const kind = text && boxKindFromTitle(text);
     if (!kind || !boldFirstRun(x)) continue;
+    if (/<w:numPr>/.test(x)) continue;   // a numbered list item is never a box title (see classifyPara)
     const bodyIdx = [];
     let lastContent = -1;
     for (let j = i + 1; j < parts.length; j++) {
@@ -2639,6 +2916,14 @@ async function importDocx(docxPath, opts = {}) {
           else { const g = groups[groups.length - 1]; g.rows.push(r); g.blks = g.blks.concat(rb); }
         }
         for (const g of groups) blocks.push(g.kind === "assessment" ? makeAssessmentTable(g.rows) : makeBox(g.kind, g.blks));
+      }
+      // A box whose title and instructions fill row 1 (one merged cell) and whose own
+      // data table fills the rows below it ("Human Causes | Natural Causes", "Stage |
+      // Description" — how a converter lays out a box holding a table): the rows below
+      // are that table, inside the box. Taking row 1 only dropped the table.
+      else if (kind && cells[0].length === 1 && cells.length > 1 && cells.slice(1).every((r) => r.length >= 2)) {
+        const rows = cells.slice(1).map((row) => row.map((c) => cellRich(c.xml)));
+        blocks.push(makeBox(kind, [...firstBlks, { t: "table", rows }]));
       }
       else if (kind) blocks.push(makeBox(kind, firstBlks));
       else if (single && firstFill && firstFill !== NAVY) blocks.push(makeBox("box", firstBlks));
@@ -2901,9 +3186,12 @@ async function importDocx(docxPath, opts = {}) {
     // inconsistently for ordinary in-topic sub-headings too. Handle it explicitly
     // here, before that general rule can fold a genuine section down to a plain
     // sub-head just because its wording happens to be short and plain-sentenced.
+    // (front matter only before the first topic: inside a topic, a styled "Introduction" or
+    // "Key Competences:" is the topic's own sub-heading, not a new section on its own page)
     if (hasNumberedTopics && flat && hmap[styleOf(x)]) {
       const plainFM = plainOf(segs).trim();
-      if (plainFM && (FM_SECTION.test(plainFM) || BACKMATTER_NAME.test(plainFM))) {
+      const inTopic = FM_SECTION.test(plainFM) && blocks.some((b) => b.t === "h1" && /^(TOPIC|UNIT|CHAPTER)\s*\d/i.test(b.text || ""));
+      if (plainFM && !inTopic && (FM_SECTION.test(plainFM) || BACKMATTER_NAME.test(plainFM))) {
         blocks.push({ t: "h1", text: plainFM });
         continue;
       }
@@ -2954,7 +3242,16 @@ async function importDocx(docxPath, opts = {}) {
       const a = blocks[i], b = blocks[i + 1];
       if (!isHeadBlk(a) || !isHeadBlk(b)) continue;
       const at = headText(a).trim();
-      if (!/\b(IN|OF|AND|THE|TO|FOR|ON|OR|AN?|WITH|&)$/i.test(at)) continue;
+      // The connector must be a WORD of its own, not the tail of a longer one. `\b`
+      // cannot tell the difference once the heading is written in a local language:
+      // JavaScript's word boundary counts only [A-Za-z0-9_], so it sees one between
+      // "Ñ" and "A" and reads the Lunda heading "KUTAÑA" as ending in the English
+      // article "A" — gluing it to whatever heading came next. The Lunda Grade 1
+      // Learner's Book lost 14 heading stacks that way ("KUTAÑA" + "NSONEKELU
+      // YAMUKANDA" printed as one line while every neighbouring stack printed as
+      // two). A Unicode-aware lookbehind asks the real question: is the character
+      // before the connector a letter or a digit in ANY script?
+      if (!/(?<![\p{L}\p{N}])(IN|OF|AND|THE|TO|FOR|ON|OR|AN?|WITH|&)$/iu.test(at)) continue;
       const bt = headText(b).trim();
       if (!bt || bt.length > 40) continue;     // the tail should be a short fragment
       a.text = (at + " " + bt).replace(/\s+/g, " ");

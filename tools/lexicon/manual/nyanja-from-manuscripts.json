@@ -1,0 +1,35 @@
+{
+  "_note": "Cinyanja wordings found in the manuscripts themselves (not on the authors' forms). Added as extra variants.",
+  "source": "LITERATURE IN CINYANJA FORM 1 LB (manuscript)",
+  "header": {
+    "language": "Cinyanja",
+    "your name": "(from manuscript)",
+    "book and grade": "Literature in Cinyanja Form 1 LB"
+  },
+  "rows": [
+    [
+      "Table of Contents",
+      "Zam'mkatimu"
+    ],
+    [
+      "Unit / Chapter",
+      "Gawo"
+    ],
+    [
+      "Foreword",
+      "Mau Oyamba"
+    ],
+    [
+      "Preface",
+      "Mau Otsogolela"
+    ],
+    [
+      "Acknowledgement(s)",
+      "Zothokoza"
+    ],
+    [
+      "Introduction",
+      "Mau Oyamba a Buku"
+    ]
+  ]
+}

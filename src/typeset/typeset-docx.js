@@ -27,20 +27,21 @@ const OUTPUT_DIR = process.env.ZEPH_OUTPUT_DIR ? path.resolve(process.env.ZEPH_O
 const { S, emit } = require("./emit.js");
 const { deriveTitle, titleCase, titleCaseGrade, isTeacherBookName, eduLevelFor } = require("./naming.js");
 const { blockPlain, setBlockText } = require("./blocktext.js");
-const { applyOverrides } = require("./overrides.js");
+const { applyOverrides, oneActivityPerBox } = require("./overrides.js");
 const { boxifyActivities, dedupeAdjacentHeadings, fixStrayBodyH1s, stripEditorialComments, clearStrayRed, clearAllInlineColor, boldSafetyAndSteps, normaliseLessonBanners, normaliseUnitHeads, forceUnitThemes, uniformBoxLabelCase, keepNumberedSubtopicsOnly } = require("./passes/structure.js");
 const { applySeriesFront, reorderFrontmatter, applyAutoFrontRefs, orderFrontMatter } = require("./passes/series-front.js");
 const { fixPhdCapitalisation, fixACappellaSpacing, reformatAcronyms, formatGlossary, reorderBackmatter, fillLayoutCredit, boldAuthorNames } = require("./passes/backmatter.js");
 const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, convertTableActivities, ensureOrIndividually, boldAssessmentSections, labelIntroductions, normaliseCompetenceLabels, groupLessonMeta } = require("./passes/activities.js");
 const { applyMarkFlushRight } = require("./passes/marks.js");
-const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold } = require("./passes/polish.js");
+const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, joinBrokenLines, boxLooseActivities } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
 
 async function typesetOne(docxPath, themeName) {
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
   // Expand a standalone "G 2"/"G2" abbreviation to "Grade 2" for all grade/level/theme
   // detection (kept separate from `base` so the output file keeps its original name).
-  const detectName = base.replace(/(^|[^A-Za-z])[Gg]\s*([1-7])(?![0-9])/g, "$1Grade $2");
+  // (an underscore counts as a space: "Kikaonde_ Form_1 LB")
+  const detectName = base.replace(/_/g, " ").replace(/(^|[^A-Za-z])[Gg]\s*([1-7])(?![0-9])/g, "$1Grade $2");
   // per-book editorial overrides (sidecar JSON next to the .docx). Loaded before theme
   // detection so `ov.theme` can override autoTheme's filename guess — needed when a
   // sibling book's title doesn't match the same pattern (e.g. a Teacher's Guide titled
@@ -53,6 +54,16 @@ async function typesetOne(docxPath, themeName) {
     // and JSON.parse rejects it — which silently skipped the WHOLE overrides file.
     try { ov = JSON.parse(fs.readFileSync(ovPath, "utf8").replace(/^﻿/, "")); }
     catch (e) { console.warn("!  overrides skipped:", e.message); }
+  }
+  // "preset": "zl-tg" (or a list) — a book family's shared house settings live in
+  // src/typeset/presets/<name>.json; the book's own keys win over the preset's.
+  for (const name of [].concat(ov.preset || [])) {
+    const pp = path.join(__dirname, "presets", `${name}.json`);
+    if (!fs.existsSync(pp)) { console.warn("!  preset not found:", name); continue; }
+    const pre = JSON.parse(fs.readFileSync(pp, "utf8"));
+    delete pre._note;
+    ov = { ...pre, ...ov };
+    console.log(`   preset: ${name}`);
   }
   const theme = themeName || ov.theme || autoTheme(detectName);
   const variant = (THEMES[theme] || {}).variant;
@@ -95,17 +106,88 @@ async function typesetOne(docxPath, themeName) {
   importOpts.textboxCaptions = ov.textboxCaptions;
   importOpts.noSideFigures = !!ov.noSideFigures;
   importOpts.colonHeadings = !!ov.colonHeadings;   // "TOPIC: 1.5 …" headings (see import-docx.js)
+  importOpts.sourceFix = ov.sourceFix || [];          // fix manuscript text before recognition
+  importOpts.textboxHeadings = !!ov.textboxHeadings;
+  importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;   // a manuscript converted from a PDF: text boxes rejoin the text flow   // a short title line in a Word text box becomes a heading
+  // the CDC copy's typed-on notes (FreeText comments, the list tools/cdc-comments.mjs writes):
+  // the converter turns each into a text box, which unwrapTextboxes would print as book text
+  if (ov.cdcComments) {
+    const list = JSON.parse(fs.readFileSync(resolveBookPath(docxPath, ov.cdcComments), "utf8"));
+    importOpts.cdcNotes = list.map((c) => c.note || "").filter(Boolean);
+  }
+  importOpts.coverUntil = ov.coverUntil;               // where the cover ends when no © line marks it
+  importOpts.flattenBorderless = !!ov.flattenBorderless;   // a table with no lines in Word is set as plain text
+  importOpts.tabGap = !!ov.glossaryColumns;           // a single tab still separates two glossary columns
   importOpts.exerciseBullets = !!ov.exerciseBullets; // keep Word bullets inside exercises as bullets
   importOpts.answerListNumbered = ov.answerListNumbered || [];
+  importOpts.styleLists = !!ov.styleLists;           // lists set by the paragraph style alone (Word List Bullet / List Number)
   let { blocks, media, tmp } = await importDocx(docxPath, importOpts);
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
     return;
   }
+  // joinBrokenLines: true — a manuscript converted from a PDF has a paragraph per printed
+  // line; rejoin the sentences (see passes/polish.js)
+  // (with reboxExercises, the exercise boxes are laid out flat first, as the rebox will:
+  // an over-long box must not hide the activities and headings it swallowed)
+  if (ov.joinBrokenLines) console.log(`   joinBrokenLines: ${joinBrokenLines(blocks, { flattenExercises: !!ov.reboxExercises })} broken line(s) joined`);
   // untableImages: true — a picture book (ECE) lays its pages out with Word tables used
   // only to place pictures side by side, with at most a short label in a cell. Rendered as
   // a table those pictures shrink to thumbnails; unpack each such table into its short
   // labels (as headings) and its pictures (one full-width row per table row).
+  // wordFix: { "Culliculum": "Curriculum", … } — repair whole words everywhere (text runs,
+  // table cells, cover lines), keeping each run's formatting. For a manuscript where a
+  // find-and-replace damaged one kind of word (a Cinyanja TG whose "r" -> "l" swap also
+  // hit the English words and names: "Pelmanent Secletaly", "Beatlice Chilwa").
+  if (ov.wordFix && Object.keys(ov.wordFix).length) {
+    const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const keys = Object.keys(ov.wordFix).sort((a, b) => b.length - a.length);
+    const re = new RegExp(`(?<![A-Za-z\\u00C0-\\u024F])(${keys.map(esc).join("|")})(?![A-Za-z\\u00C0-\\u024F])`, "g");
+    let n = 0;
+    const fix = (s) => s.replace(re, (m) => { n++; return ov.wordFix[m]; });
+    const walk = (o) => {
+      if (o == null || typeof o !== "object") return;
+      if (Array.isArray(o)) { for (const x of o) walk(x); return; }
+      for (const k of ["t", "text", "plain", "q", "a", "title", "heading", "caption"]) if (typeof o[k] === "string") o[k] = fix(o[k]);
+      for (const v of Object.values(o)) if (v && typeof v === "object") walk(v);
+    };
+    walk(blocks);
+    console.log(`   wordFix: ${n} word(s) repaired`);
+  }
+  // glossaryColumns: true — a word list (English word, then the local word) the author
+  // laid out with tabs in the glossary: every entry becomes a row of one two-column grid,
+  // so the local words line up in their own column with clear space after the English.
+  // Runs straight after import, while the author's tab gaps are still in the text.
+  if (ov.glossaryColumns) {
+    const txt = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join(""));
+    const isGloss = (t) => /^\s*(GLOSSARY|NTUMBA\s+MILANGWE)\s*$/i.test(t) || LEXI.isExactly(["glossary"], t);
+    const isRefs = (t) => /^\s*(REFERENCES|BIBLIOGRAPHY)\s*$/i.test(t) || LEXI.isExactly(["references"], t);
+    const out = [];
+    let inG = false, grid = null, n = 0, header = null;
+    for (const b of blocks) {
+      const t = txt(b);
+      if (isGloss(t)) { inG = true; out.push(b); continue; }
+      if (inG && isRefs(t)) inG = false;
+      const textual = /^(para|listitem|head|label|h2|h3)$/.test(b.t);
+      // the column titles ("ENGLISH   KIKAONDE") head the grid, each over its own column
+      // (or any two column names on the line straight after the glossary title: "Silozi  Sikuwa")
+      const hm = inG && textual && !grid && !header && n === 0 && (t.match(/^\s*(ENGLISH)\s+(\S+)\s*$/i) || t.match(/^\s*(\p{L}+)\s+(\p{L}+)\s*$/u));
+      if (hm) { header = [hm[1], hm[2]]; continue; }
+      // an entry: two parts split by the author's tab gap, or a "Word: local word" entry
+      // the author set bold ("Learning Activity: Bya Kuuba") — a plain row like the rest
+      const m = inG && textual && (t.match(/^\s*(\S.*?\S)\s{2,}(\S.*?)\s*$/) || t.match(/^\s*([A-Z][^:]{1,40}?)\s*:\s+(\S.*?)\s*$/));
+      if (m) {
+        if (!grid) { grid = { t: "colgrid", rows: [], ncol: 2, hasMarker: false, ragged: true, ruled: !!ov.glossaryRuled }; /* glossaryRuled: a ruled two-column table */ if (header) grid.header = header; header = null; out.push(grid); }
+        grid.rows.push({ marker: "", cells: [m[1].replace(/\s+/g, " ").replace(/:$/, ""), m[2].replace(/\s+/g, " ")] });
+        n++;
+        continue;
+      }
+      if (t.trim()) grid = null;
+      out.push(b);
+    }
+    blocks = out;
+    if (n) console.log(`   glossaryColumns: ${n} glossary entr(ies) in two columns`);
+  }
   if (ov.untableImages) {
     const out = [];
     let n = 0;
@@ -120,20 +202,59 @@ async function typesetOne(docxPath, themeName) {
       const cells = rows ? rows.flat() : [];
       // a picture table, or a table of short labels only (headings the author boxed in
       // a table: "Ntendekelo ya kutanga" / "Mutwe: …" / "TEMU 1")
+      // A table that holds a "LABEL:" line ("IFILEKABILWA UKWISHIBA:" = what you should
+      // learn) followed by that label's lines is unpacked too: the label in bold, its
+      // lines as plain text under it (not headings).
+      const lines = (c) => String(c && c.text || "").split(/\n/).map((s) => s.trim()).filter(Boolean);
+      const labelled = rows && cells.some((c) => lines(c).some((t) => /:$/.test(t)))
+        && cells.every((c) => !c || ((c.text || "").length <= 400 && !(c.imgs && c.imgs.length)));
       const ok = rows && cells.some((c) => c && ((c.imgs && c.imgs.length) || (c.text || "").trim()))
-        && cells.every((c) => !c || ((c.text || "").trim().length <= 60 && !/\n.*\n.*\n/.test(c.text || "")));
+        && (labelled || cells.every((c) => !c || ((c.text || "").trim().length <= 60 && !/\n.*\n.*\n/.test(c.text || ""))));
       if (!ok) { out.push(b); continue; }
       n++;
+      // The label and its lines stay together on one page: each is `sticky` to the next,
+      // except the group's LAST line (else the whole run of headings and pictures after
+      // it is chained on too, and a unit banner is left alone on its page).
+      let underLabel = false, lastLine = null;
+      const endGroup = () => { if (lastLine) lastLine.sticky = false; lastLine = null; underLabel = false; };
       for (const row of rows) {
         // a cell may stack several short lines (a heading over its topic line): one head each
-        for (const c of row) for (const t of String(c && c.text || "").split(/\n/).map((s) => s.trim()).filter(Boolean)) out.push({ t: "head", text: t });
+        // (under a label, a line the author styled as a Word Heading is the next section's
+        // title they typed into the same cell: "Amasilabo")
+        for (const c of row) for (const raw of String(c && c.text || "").split(/\n/)) {
+          const t = raw.trim();
+          if (!t) continue;
+          if (labelled && /:$/.test(t)) { endGroup(); out.push({ t: "para", sticky: true, outcomes: true, segs: [{ t, b: true, it: false, c: null }] }); underLabel = true; }
+          else if (underLabel && (c.heads || []).includes(t)) { endGroup(); out.push({ t: "head", text: t }); }
+          else if (underLabel) { lastLine = { t: "para", sticky: true, segs: [{ t, b: false, it: false, c: null }] }; out.push(lastLine); }
+          else out.push({ t: "head", text: t });
+        }
         const imgs = [].concat(...row.map((c) => (c && c.imgs) || []));
         if (imgs.length === 1) out.push({ t: "image", ...imgs[0] });
         else if (imgs.length) out.push({ t: "imagerow", images: imgs });
       }
+      endGroup();
     }
     blocks = out;
     if (n) console.log(`   untableImages: ${n} picture table(s) unpacked`);
+  }
+  // colourHeads: ["007BB8"] — the author marked headings only by colouring the text
+  // ("2. KUTANGA", "NTANGILO YAZHIKA" in blue). A short line whose text is all in one of
+  // these colours (a bold number before it is allowed) becomes a plain black heading.
+  if (ov.colourHeads) {
+    const cols = new Set([].concat(ov.colourHeads).map((c) => String(c).replace(/^#/, "").toUpperCase()));
+    let n = 0;
+    for (const b of blocks) {
+      // (a Word-numbered line too: "1. KUTELEKA NE KWAMBA" keeps its number)
+      if (!/^(para|listitem)$/.test(b.t) || !Array.isArray(b.segs)) continue;
+      const t = (b.t === "listitem" && b.marker ? b.marker + " " : "") + b.segs.map((s) => s.t).join("").replace(/\s+/g, " ").trim();
+      const words = b.segs.filter((s) => /[A-Za-z]/.test(s.t));
+      if (!t || t.length > 60 || !words.length) continue;
+      if (!words.every((s) => s.c && cols.has(String(s.c).toUpperCase()) || /^\s*\d+[.)]?\s*$/.test(s.t))) continue;
+      if (!words.some((s) => s.c)) continue;
+      b.t = "head"; b.text = t; b.colourHead = true; delete b.segs; delete b.marker; n++;
+    }
+    if (n) console.log(`   colourHeads: ${n} coloured line(s) set as headings`);
   }
   // Local-language book: a short heading that starts with the language's own UNIT word
   // ("KISHINA KITANSHI", "CAPAMUTU 2") opens a unit — promote it to a unit banner (h1),
@@ -167,6 +288,82 @@ async function typesetOne(docxPath, themeName) {
     }
   }
 
+  // topSections: "regex" — the book's top level is a numbered topic line the word lists
+  // don't treat as a unit ("MUTU 1.3: NCHITO ZA LITILICA" in a Literature in Cinyanja book,
+  // where Cinyanja's unit word is CIGAWO): a short heading or line matching it opens a new
+  // top-level section (h1), like "UNIT 1" in an English book.
+  if (ov.topSections) {
+    // (`topSectionsMatchCase`: the titles are ALL CAPS and the same words recur in the
+    // text in ordinary case — "LITILICHA YAKUHOSHA" vs "Litilicha yakuhosha")
+    const re = new RegExp(ov.topSections, ov.topSectionsMatchCase ? "" : "i");
+    const plain = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).replace(/\s+/g, " ").trim();
+    let n = 0;
+    for (const b of blocks) {
+      // (an h1 too: one the author styled as a Word Heading 1 still needs marking as top-level)
+      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t)) continue;
+      const t = plain(b);
+      if (t.length > 90 || !re.test(t) || /\s\d+\s*$/.test(t)) continue;   // (not a contents entry ending in its page number)
+      b.t = "h1"; b.text = t; b.top = true; delete b.segs; n++;
+    }
+    if (n) console.log(`   topSections: ${n} top-level section heading(s)`);
+  }
+  // insertPictures: [{ find, file }] — the author left a note ("INSERT A PICTURE SHOWING
+  // PEOPLE AT THE MARKET") where a picture belongs: the block holding that note (a line or
+  // a one-cell table) is replaced by the picture (path relative to the .docx).
+  for (const ip of ov.insertPictures || []) {
+    const txt = (b) => b.t === "table" ? JSON.stringify(b.rows || []) : (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join(""));
+    // (the note may also sit INSIDE a box — an activity's body, as a line or a one-cell table)
+    const txtAny = (b) => b.t === "table" || b.k === "table" ? JSON.stringify(b.rows || b.r || []) : txt(b) || (b.s ? b.s.map((x) => x.t).join("") : "");
+    let list = blocks, i = blocks.findIndex((b) => txt(b).includes(ip.find));
+    if (i < 0) for (const b of blocks) {
+      if (!Array.isArray(b.body)) continue;
+      const j = b.body.findIndex((x) => x && txtAny(x).includes(ip.find));
+      if (j >= 0) { list = b.body; i = j; break; }
+    }
+    const src = resolveBookPath(docxPath, ip.file);
+    if (i < 0 || !fs.existsSync(src)) { console.warn("!  insertPictures not matched:", i < 0 ? ip.find : src); continue; }
+    const name = "ins_" + path.basename(src);
+    media.push({ src, name });
+    // (`after: true` — keep the matched block and put the picture right below it: a picture
+    // the import lost, e.g. the unit opener glued to the typed contents list)
+    // (`w`: the on-page width in px, as the manuscript gives it; 601 = the full text width)
+    const w = ip.w || 601;
+    if (ip.after) list.splice(i + 1, 0, { t: "image", file: name, w, tall: false });
+    else if (ip.before) list.splice(i, 0, { t: "image", file: name, w, tall: false });
+    else list[i] = { t: "image", file: name, w, tall: false };
+  }
+  // subSections: "regex" — the level below the units ("Chihande: 1.2.1 Kutanga…" in a
+  // Luvale book), however the author styled each one (Heading 1/2/3 or a plain line):
+  // every match becomes a sub-topic heading; with `subtopicsOnly` every OTHER line the
+  // author styled as a heading drops back to an ordinary heading.
+  if (ov.subSections) {
+    const re = new RegExp(ov.subSections, ov.subSectionsMatchCase ? "" : "i");
+    const plain = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).replace(/\s+/g, " ").trim();
+    let n = 0;
+    for (const b of blocks) {
+      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t) || b.top) continue;
+      const t = plain(b);
+      if (t.length > 90 || !re.test(t)) continue;
+      b.t = "h2"; b.text = t; b.sub = true; delete b.segs; n++;
+    }
+    if (n) console.log(`   subSections: ${n} sub-topic heading(s)`);
+  }
+  // colonAfterNumber: true — "Mutwe Wachihande: 1.2.1.1 Kutanga" -> "Mutwe Wachihande
+  // 1.2.1.1: Kutanga": in a heading that names its number, the colon goes after the number.
+  if (ov.colonAfterNumber) {
+    const fix = (s) => s.replace(/^(\D*?[A-Za-z’'])\s+\d+\s*:\s*(\d+(?:\.\d+){2,})\s+/, (m, w, num) => `${w} ${num} `)   // "1:1.2.4.1" typo
+      .replace(/^(\D*?[A-Za-z’'])\s*:\s*(\d+(?:\s*\.\s*\d+)+)\.?\s*:?\s*(?=\S)/, (m, w, num) => `${w} ${num.replace(/\s+/g, "")}: `)
+      .replace(/^(\D*?[A-Za-z’'])\s+(\d+(?:\.\d+)+)\.?\s+(?=[A-Za-z])/, (m, w, num) => `${w} ${num}: `);
+    let n = 0;
+    // (a unit banner "CHIHANDA 3. KUSEKASANA" takes the same form: "CHIHANDA 3: KUSEKASANA")
+    const unitFix = (s) => s.replace(/^([A-Za-z’']+)\s+(\d+)\s*[.:]?\s+(?=[A-Z])/, (m, w, num) => `${w} ${num}: `);
+    for (const b of blocks) {
+      if (!/^(head|label|h1|h2|h3)$/.test(b.t) || typeof b.text !== "string") continue;
+      const t = unitFix(fix(b.text)).replace(/\s{2,}/g, " ");
+      if (t !== b.text) { b.text = t; n++; }
+    }
+    if (n) console.log(`   colonAfterNumber: ${n} heading(s)`);
+  }
   // replaceUnitDocx: [{ heading, until?, docx, rename? }] — swap a whole unit/
   // section for author-supplied replacement content shipped as a SEPARATE .docx
   // (a full rewrite too rich — images, tables, activities — to express as
@@ -233,7 +430,203 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange) { applyOverrides(blocks, ov); }
+  // ZEPH_BLOCKS=<file>: one line per block as the overrides will see it (index, type, text),
+  // for writing anchors (`from`/`to`/`find`) against a manuscript we did not author
+  if (process.env.ZEPH_BLOCKS) fs.writeFileSync(process.env.ZEPH_BLOCKS, blocks.map((b, i) => `${i}\t${b.t}\t${blockPlain(b).replace(/\s+/g, " ").slice(0, 160)}${b.file ? ` [${path.basename(b.file)}]` : ""}${Array.isArray(b.images) ? ` [${b.images.map((x) => path.basename(x.file || x.src || "")).join(" ")}]` : ""}`).join("\n"));
+
+  // insertText items may carry a picture: { image: "<path relative to the .docx>", w } —
+  // a picture a reviewer asked to sit with newly added text (an end-of-unit exercise's
+  // picture). Registered as media here, since applyOverrides has no access to it.
+  // { images: [{ image, w, cap }, …] } — a row of pictures side by side, each with an
+  // optional caption under it (the "1)", "2)" … of a match-the-words exercise).
+  // { match: [{ image, word }, …] } — a picture-to-word matching exercise: each picture on
+  // the left with a word across from it on the right, in the author's (scrambled) order.
+  // replaceBlocks `with` items take the same picture specs (to rebuild a box's own body).
+  const addMedia = (rel) => {
+    const src = resolveBookPath(docxPath, rel || "");
+    if (!fs.existsSync(src)) { console.warn("!  insertText image not found:", src); return null; }
+    const name = "ins_" + path.basename(src);
+    if (!media.some((m) => m.name === name)) media.push({ src, name });
+    return name;
+  };
+  const specs = [...(ov.insertText || []).flatMap((it) => it.items || []), ...(ov.replaceBlocks || []).flatMap((rb) => rb.with || [])];
+  for (const spec of specs) {
+    if (spec && Array.isArray(spec.match)) {
+      const rows = spec.match.map((m) => ({ file: addMedia(m.image), word: m.word || "" })).filter((r) => r.file);
+      if (rows.length) spec.raw = { t: "match", rows };
+      continue;
+    }
+    if (spec && Array.isArray(spec.images)) {
+      const row = [];
+      for (const im of spec.images) {
+        const src = resolveBookPath(docxPath, im.image || "");
+        if (!fs.existsSync(src)) { console.warn("!  insertText image not found:", src); continue; }
+        const name = "ins_" + path.basename(src);
+        if (!media.some((m) => m.name === name)) media.push({ src, name });
+        row.push({ file: name, w: im.w || 601, tall: false, ...(im.cap ? { caption: im.cap } : {}) });
+      }
+      if (row.length) spec.raw = { t: "imagerow", images: row };
+      continue;
+    }
+    if (!spec || typeof spec.image !== "string") continue;
+    const src = resolveBookPath(docxPath, spec.image);
+    if (!fs.existsSync(src)) { console.warn("!  insertText image not found:", src); continue; }
+    const name = "ins_" + path.basename(src);
+    if (!media.some((m) => m.name === name)) media.push({ src, name });
+    spec.raw = { t: "image", file: name, w: spec.w || 601, tall: false };
+  }
+  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.uniformLabel || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing) { applyOverrides(blocks, ov); }
+  // glossaryColon: true — in the glossary, a term is followed by a colon, not the hyphen
+  // the author typed: "Bacikombo- Caamba bamukowa" -> "Bacikombo: Caamba bamukowa".
+  if (ov.glossaryColon) {
+    const txt = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
+    let inG = false, n = 0;
+    for (const b of blocks) {
+      const t = txt(b);
+      if (/^(h1|h2|head|label)$/.test(b.t)) { inG = /^GLOSSARY\b/i.test(t) || LEXI.isExactly(["glossary"], t); continue; }
+      if (!inG || !/^(para|listitem)$/.test(b.t) || !Array.isArray(b.segs) || !b.segs.length) continue;
+      const s0 = b.segs[0];
+      // (only the dash that ENDS the term — followed by a space or the end of the run — so a
+      // hyphenated term such as "Caatala-tala" keeps its own hyphen)
+      const m = s0.t.match(/^(\s*\S[^:]{0,60}?)\s*[-–](?=\s|$)\s*(\S[\s\S]*)?$/);
+      // the dash may instead open the next run ("Mpuwo" + "- Kuzyibwa kapati")
+      if (!m && b.segs[1] && /^\s*[-–]/.test(b.segs[1].t) && !/:\s*$/.test(s0.t)) {
+        s0.t = s0.t.replace(/\s+$/, "") + ":";
+        b.segs[1].t = " " + b.segs[1].t.replace(/^\s*[-–]\s*/, "");
+        n++;
+        continue;
+      }
+      if (!m) continue;
+      s0.t = m[1] + ":" + (m[2] ? " " + m[2] : "");
+      if (!m[2] && b.segs[1] && !/^\s/.test(b.segs[1].t)) b.segs[1].t = " " + b.segs[1].t;
+      n++;
+    }
+    if (n) console.log(`   glossaryColon: ${n} glossary entr(ies)`);
+  }
+  // unboldRange: [{ after, through }] — the author set a whole run of answers in bold:
+  // every block after the one containing `after`, up to and including the one containing
+  // `through`, is set in regular weight (a bare bold "1" / "2" heading becomes a plain line).
+  const plainOf = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join(""));
+  for (const ur of ov.unboldRange || []) {
+    // `from` (instead of `after`) starts AT the matching block rather than after it
+    const hit = blocks.findIndex((b) => plainOf(b).includes(ur.from != null ? ur.from : ur.after));
+    const a = ur.from != null && hit >= 0 ? hit - 1 : hit;
+    const z = hit < 0 ? -1 : blocks.findIndex((b, i) => i > a && plainOf(b).includes(ur.through));
+    if (hit < 0 || z < 0) { console.warn("!  unboldRange not matched:", hit < 0 ? (ur.from || ur.after) : ur.through); continue; }
+    for (let i = a + 1; i <= z; i++) {
+      const b = blocks[i];
+      if (/^(head|label|h3)$/.test(b.t)) { blocks[i] = { t: "para", segs: [{ t: (b.text || "").trim(), b: false, it: false, c: null }] }; continue; }
+      for (const s of b.segs || []) s.b = false;
+    }
+  }
+  // liftNestedBoxes: true — an activity box whose body holds a table of further boxes
+  // ("Musebezi 2: …", "Musebezi 3: …", one per row: the author drew the boxes inside the
+  // first one's table) — each such row becomes its own box, right after the first.
+  if (ov.liftNestedBoxes) {
+    let n = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!/^(activity|exercise)$/.test(b.t) || !Array.isArray(b.body)) continue;
+      const out = [];
+      for (let k = b.body.length - 1; k >= 0; k--) {
+        const it = b.body[k];
+        if (!it || it.t !== "table" || !Array.isArray(it.rows)) continue;
+        const cells = it.rows.flat().filter((c) => c && (c.text || "").trim());
+        const isBox = (c) => !!LEXI.boxKind(((c.text || "").split("\n")[0] || "").replace(/:.*$/, "").trim()) || /^\s*Musebezi\s*\d/i.test(c.text || "");
+        if (!cells.length || !cells.every(isBox)) continue;
+        b.body.splice(k, 1);
+        for (const c of cells.reverse()) {
+          // split the cell's runs into lines (paragraphs) at its "\n" breaks
+          const lines = [[]];
+          for (const s of (c.segs || [{ t: c.text, b: false, it: false, c: null }])) {
+            const parts = String(s.t).split("\n");
+            parts.forEach((p, j) => { if (j) lines.push([]); if (p) lines[lines.length - 1].push({ ...s, t: p }); });
+          }
+          const paras = lines.filter((l) => l.map((s) => s.t).join("").trim());
+          const title = paras.shift().map((s) => s.t).join("").trim();
+          out.unshift({ t: b.t, title, body: paras.map((segs) => ({ t: "para", segs })) });
+          n++;
+        }
+      }
+      if (out.length) { blocks.splice(i + 1, 0, ...out); i += out.length; }
+    }
+    if (n) console.log(`   liftNestedBoxes: ${n} box(es) lifted out of another box`);
+  }
+  // capsLinesBold: true — in the body, a short line typed all in capitals ("BUIKONELI
+  // KABUTUNGI", "KUBULELA NI KUTEELEZA") is a heading the author forgot to bold: set it as
+  // one; a capitals lead-in before a colon ("KAKUTOKWAHALA: Kufitisa …") is set bold.
+  if (ov.capsLinesBold) {
+    const body0 = blocks.findIndex((b) => b.t === "bodystart");
+    let nh = 0, nl = 0;
+    for (let i = Math.max(0, body0); i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b.t !== "para" || !Array.isArray(b.segs) || !b.segs.length || b.segs.some((s) => s.m)) continue;
+      const t = b.segs.map((s) => s.t).join("").trim();
+      const caps = (s) => /\p{Lu}{2}/u.test(s) && !/\p{Ll}/u.test(s);
+      if (caps(t) && t.length <= 70 && !/[.?!]$/.test(t) && !/^\d/.test(t)) { blocks[i] = { t: "head", text: t }; nh++; continue; }
+      const m = t.match(/^([\p{Lu}'’ ]{4,40}:)(\s*\S[\s\S]*)$/u);
+      if (m && !b.segs[0].b) { b.segs = [{ ...b.segs[0], t: m[1], b: true }, { ...b.segs[0], t: m[2], b: false }]; nl++; }
+    }
+    console.log(`   capsLinesBold: ${nh} heading(s), ${nl} lead-in(s)`);
+  }
+  // tableWidths: [{ find, widths: [1.5, 2, 1] }] — fix the column proportions of every
+  // table whose text contains `find` (e.g. widen a time column so "13.00 ku 14.00"
+  // sits on one line instead of wrapping).
+  for (const tw of ov.tableWidths || []) {
+    let n = 0;
+    const visit = (o) => {
+      if (Array.isArray(o)) return o.forEach(visit);
+      if (!o || typeof o !== "object") return;
+      if (o.t === "table" && Array.isArray(o.rows) && JSON.stringify(o.rows).includes(tw.find)) { o.widths = tw.widths; n++; }
+      for (const k of Object.keys(o)) if (k !== "rows" && typeof o[k] === "object") visit(o[k]);
+    };
+    visit(blocks);
+    if (!n) console.warn("!  tableWidths not matched:", tw.find);
+  }
+  // phraseFix: [["find", "with"], …] and spelling: { rules: { "ch": "c", "r": "l" }, keep: [] }
+  // — an author's wording corrections, then a book-wide spelling rule (Zambian Cinyanja
+  // writes "c" for "ch" and "l" for "r": cifukwa, maphunzilo). Both work inside every text
+  // run (boxes, tables and lists too), so each run keeps its bold/italic. Run after the
+  // other overrides, so a phraseFix `find` is the text as the author wrote it, and the
+  // spelling rule also covers corrected wording. `keep` lists words the rule must not
+  // touch (English terms, names); "ch" right after "n" or "t" is left alone ("nchito").
+  if (ov.phraseFix || ov.spelling) {
+    const KEYS = ["t", "text", "plain", "q", "a", "title", "heading", "cap", "caption"];
+    const walkStrings = (o, fn) => {
+      if (o == null || typeof o !== "object") return;
+      if (Array.isArray(o)) { o.forEach((x, i) => { if (typeof x === "string") o[i] = fn(x); else walkStrings(x, fn); }); return; }
+      for (const k of Object.keys(o)) {
+        const v = o[k];
+        // ("t" is a text run's text, but on a BLOCK it is the block's type — "para", "head" —
+        // which must never be touched: only treat it as text on a run, which has b/it/m)
+        if (typeof v === "string") { if (KEYS.includes(k) && (k !== "t" || "b" in o || "it" in o || "m" in o)) o[k] = fn(v); }
+        else if (v && typeof v === "object") walkStrings(v, fn);
+      }
+    };
+    for (const [find, repl] of ov.phraseFix || []) {
+      let n = 0;
+      walkStrings(blocks, (s) => { if (!s.includes(find)) return s; n++; return s.split(find).join(repl); });
+      if (!n) console.warn("!  phraseFix not matched:", find);
+    }
+    if (ov.spelling) {
+      const rules = Object.entries(ov.spelling.rules || {});
+      const keep = new Set((ov.spelling.keep || []).map((w) => w.toLowerCase()));
+      const caseLike = (src, to) => src === src.toUpperCase() ? to.toUpperCase() : src[0] === src[0].toUpperCase() ? to[0].toUpperCase() + to.slice(1) : to;
+      let n = 0;
+      const fixWord = (w) => {
+        if (keep.has(w.toLowerCase().replace(/[’']/g, "'"))) return w;
+        let out = w;
+        for (const [from, to] of rules) {
+          const re = from.length > 1 ? new RegExp(`(?<![nNtT])${from}`, "gi") : new RegExp(from, "gi");
+          out = out.replace(re, (m) => caseLike(m, to));
+        }
+        if (out !== w) n++;
+        return out;
+      };
+      walkStrings(blocks, (s) => s.replace(/[A-Za-z’']+/g, fixWord));
+      console.log(`   spelling: ${n} word(s) respelt`);
+    }
+  }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -241,7 +634,7 @@ async function typesetOne(docxPath, themeName) {
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
   normaliseSpacing(blocks);
   unboldLeadProse(blocks);
-  ensureOrIndividually(blocks);
+  if (!ov.keepActivityWording) ensureOrIndividually(blocks);   // keepActivityWording: a CDC-approved text keeps its own "In groups,"
   normaliseQuestionMarkBold(blocks);
   fillLayoutCredit(blocks);  // credit the typesetter on the "Cover and Book Layout:" line
   labelIntroductions(blocks);
@@ -265,13 +658,17 @@ async function typesetOne(docxPath, themeName) {
   // by the theme-colour greying below); `blackWhite: false` opts a rare TG back out.
   const wantsBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBookName(base));
   if (wantsBlackWhite) clearAllInlineColor(blocks);
-  const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [] };
+  const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [], rebox: !!ov.reboxExercises, leadsOut: !!ov.exerciseLeadsOut };
   // Unlike the rest of proofPolish()'s lesson-field normalisation, "General/Specific
   // Competence(s)" case is a house-style rule for every book, not just the boxActivities
   // ones — see normaliseCompetenceLabels() above.
   normaliseCompetenceLabels(blocks);
   if ((THEMES[theme] || {}).boxActivities) { proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
   else if (ov.boxActivities) { if (ov.polish) proofPolish(blocks); blocks = boxifyActivities(blocks, boxOpts); }
+  if (ov.oneActivityPerBox) oneActivityPerBox(blocks, ov, true);
+  // (a converted book again, now the boxes made from headings exist: each takes back its
+  // own instructions and "Expected Responses" left after it)
+  if (ov.joinBrokenLines) boxLooseActivities(blocks);
   // after boxing, so the assessment bodies exist to scan
   boldAssessmentSections(blocks);
   boldSafetyAndSteps(blocks);
@@ -439,6 +836,18 @@ async function typesetOne(docxPath, themeName) {
     // A localised book-type label (e.g. Lunda "MUKANDA WAKADIZI" = Learner's
     // Book) replaces the synthesised English booktype on the cover.
     if (cov && ov.booktype && cov.lines && cov.lines.length) cov.lines[cov.lines.length - 1] = ov.booktype;
+    // coverWords: { eyebrow, form, booktype, authors, contents, printedBy } — the author's
+    // own-language words for the cover / title page ("LUFUNJISHO LWA SEKONDALI",
+    // "FOMU 1", "BUUKU WA MUFUNJISHI", "BANEMBI") in place of the English ones.
+    const cw = ov.coverWords || {};
+    if (cov && cov.lines && cov.lines.length) {
+      if (cw.eyebrow && variant === "series") cov.lines[0] = cw.eyebrow;
+      if (cw.form) cov.lines = cov.lines.map((l) => l.replace(/\bform(?=\s*\d)/i, cw.form.toUpperCase()));
+      // title: the subject + level line in the author's words — an ECE book has no
+      // "Form N", so e.g. "CINYANJA ZAKA 3 - 4" gives the cover its age-range pill
+      if (cw.title && cov.lines.length > 2) cov.lines[1] = cw.title;
+      if (cw.booktype) cov.lines[cov.lines.length - 1] = cw.booktype;
+    }
   }
 
   // ---- CDC SYLLABUS post-processing (landscape matrix book) ----------------------
@@ -466,10 +875,10 @@ async function typesetOne(docxPath, themeName) {
   // Airy spacing between front-matter paragraphs (clear separation matters more
   // than fitting a section on one page).
   if (seriesLike) blocks = applySeriesFront(blocks, {
-    numberLessons: variant === "series",
+    numberLessons: variant === "series" && !ov.noLessonNumbers,   // (noLessonNumbers: the manuscript leaves its strands un-numbered)
     // Primary Teacher's Guides have longer front-matter sections; a tighter gap
     // keeps each (e.g. the Acknowledgement + its signatory) on a single page.
-    fmSpacing: (THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em",
+    fmSpacing: ov.fmSpacing || ((THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em"),   // (fmSpacing: a book whose front sections spill their signature onto a page of its own)
   }, detectName);
 
   // An ISBN supplied in the overrides is shown on the covers (no barcode).
@@ -545,11 +954,22 @@ async function typesetOne(docxPath, themeName) {
   if (gnum === "2" && eduLevel === "Primary Education Level") themeOverrides.coverStyle = "grade2";
   // a book may pin a specific cover style (e.g. to A/B-test a Grade 2 cover variant)
   if (ov.coverStyle) themeOverrides.coverStyle = ov.coverStyle;
+  // keepBoxMm: boxes shorter than this stay whole on one page (default 180 mm); a lower value lets
+  // mid-size activity boxes split rather than leave half a page empty before them
+  if (ov.keepBoxMm) themeOverrides.keepBoxMm = Number(ov.keepBoxMm);
+  // keepBoxesWhole: true — an activity box that fits on a page moves to the next page whole
+  // instead of breaking (off by default: see framedsection in the template). For a picture
+  // book, where a break leaves the instruction on one page and its picture on the next.
+  if (ov.keepBoxesWhole) themeOverrides.keepBoxesWhole = true;
+  if (ov.keepTableMm) themeOverrides.keepTableMm = Number(ov.keepTableMm);   // (likewise for tables; default ~141 mm)
   const coverB = blocks.find((b) => b.t === "cover");
   if (coverB && coverB.lines && coverB.lines.length) {
-    const gl = coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
-    const grade = gl ? (gl.match(/(?:form|grade)\s+\d+/i) || [""])[0] : "";
-    const booktype = coverB.lines[coverB.lines.length - 1] || "";
+    // (coverWords only translate the cover and title page: the running-header pill keeps
+    // the English "Form 1 Teacher's Guide")
+    const cw = ov.coverWords;
+    const gl = cw ? (detectName.match(/\b(form|grade)\s*\d+/i) || [""])[0] : coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
+    const grade = gl ? (gl.match(/(?:form|grade)\s*\d+/i) || [""])[0].replace(/(\D)(\d)/, "$1 $2").replace(/\s+/g, " ") : "";
+    const booktype = cw ? (isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book") : (coverB.lines[coverB.lines.length - 1] || "");
     if (grade && booktype) themeOverrides.hdrtab = titleCase(`${grade} ${booktype}`);
     // ECE books have no grade: the pill just names the book type ("Teacher's Guide")
     else if (booktype && eduLevel === "Early Childhood Education Level") themeOverrides.hdrtab = booktype;
@@ -562,12 +982,21 @@ async function typesetOne(docxPath, themeName) {
   // Opt-in per book ("localLabels": true) once its words are checked: some word lists
   // give a long phrase for the level (Lunda's carries "Fomu 1 -4", which the cover would
   // then read as the form line), so this is not switched on for every language at once.
+  // "localLabels": { "grade": "Geledi", ... } (an object keyed by word-list id) switches
+  // the same thing on but spells a label the way THIS book does where it differs from
+  // the word list's first form (Icibemba G4 TG prints "GELEDI"; the list has "Giledi").
   if (getLang() && ov.localLabels) {
+    const own = typeof ov.localLabels === "object" ? ov.localLabels : {};
+    const word = (id) => own[id] || LEXI.label(id);
     const labels = {};
     for (const [k, id] of [["grade", "grade"], ["form", "form"], ["tg", "teachers_guide"], ["lb", "learners_book"], ["authors", "authors_label"]]) {
-      const w = LEXI.label(id);
+      const w = word(id);
       if (w) labels[k] = w;
     }
+    // coverWords.grade: the book's own grade word where the word list leads with
+    // another (Luvale lists "Guledi" first; the Grade 1 LB's own cover says "MANGO")
+    if (ov.coverWords && ov.coverWords.grade) labels.grade = ov.coverWords.grade;
+    if (ov.coverWords && ov.coverWords.authors) labels.authors = ov.coverWords.authors;
     themeOverrides.labels = labels;
     const tr = (s) => s
       .replace(/\bgrade\b/i, (m) => labels.grade || m)
@@ -577,7 +1006,7 @@ async function typesetOne(docxPath, themeName) {
     if (themeOverrides.hdrtab) themeOverrides.hdrtab = titleCase(tr(themeOverrides.hdrtab));
     const lvlId = { "Early Childhood Education Level": "level_ece", "Primary Education Level": "level_primary",
       "Secondary Education Ordinary Level": "level_ordinary", "Secondary Education Advanced Level": "level_advanced" }[eduLevel];
-    const lvl = lvlId && LEXI.label(lvlId);
+    const lvl = lvlId && word(lvlId);
     if (lvl) {
       const subj = ov.subject || (THEMES[theme] || {}).subject;
       if (subj) themeOverrides.hdrleft = lvl + " " + subj;
@@ -599,6 +1028,9 @@ async function typesetOne(docxPath, themeName) {
     themeOverrides.bodyFont = "Century Gothic";
     themeOverrides.displayFont = "Century Gothic";
   }
+  // font: "Century Gothic" — set one book's whole face (body, headings, display) by
+  // name, for a book outside the rule above that its reviewer wants in another face.
+  if (ov.font) { themeOverrides.font = ov.font; themeOverrides.bodyFont = ov.font; themeOverrides.displayFont = ov.font; }
   // CDC 2025 body-text size for LEARNER'S Books — young readers need larger text:
   //   Grade 1 → 18pt, Grade 2-3 → 16pt, Grade 4-6 → 14pt (Avant Garde / Century Gothic).
   // Teacher's Guides and secondary (Form) books keep the 12pt default (Arial/Times New
@@ -639,9 +1071,31 @@ async function typesetOne(docxPath, themeName) {
   // tocTitle: the contents page's heading in the book's own words (a local-language
   // book's "BIJI MU KACHI" rather than the theme's "Table of Contents").
   if (ov.tocTitle) themeOverrides.toctitle = ov.tocTitle;
+  // the author's own-language words for the contents title, the AUTHORS label and the
+  // back cover's "Printed by" (see coverWords above)
+  if (ov.coverWords) {
+    if (ov.coverWords.contents) themeOverrides.toctitle = ov.coverWords.contents;
+    if (ov.coverWords.authors) themeOverrides.authorsWord = ov.coverWords.authors;
+    if (ov.coverWords.printedBy) themeOverrides.printedBy = ov.coverWords.printedBy;
+  }
+  // titleAgeLine: an age line set under the book type on the TITLE PAGE only (an ECE
+  // reviewer's "YAAKA 4-5"); the cover and spine are left as they are.
+  if (ov.titleAgeLine) themeOverrides.titleAgeLine = ov.titleAgeLine;
   if (ov.captionSize) themeOverrides.capSize = ov.captionSize;
   // "boxStripe": false — plain tinted activity/exercise/assessment boxes, no thick left border
   if (ov.boxStripe === false) themeOverrides.boxStripe = false;   // e.g. "12pt" (see capsz in the template)
+  // "hyphenate": false — no word broken across two lines (a reviewer marked every
+  // "repro-duced" break); otherwise the theme's own setting
+  if (ov.hyphenate !== undefined) themeOverrides.hyphenate = !!ov.hyphenate;
+  // The colours the AUTHOR gave text runs in the manuscript (a blue sub-topic line, a red
+  // word) print black in a black-and-white book: nothing in it is coloured. White text is
+  // kept (it sits on a dark band or table header).
+  const unColour = (o) => {
+    if (o == null || typeof o !== "object") return;
+    if (Array.isArray(o)) { o.forEach(unColour); return; }
+    if (typeof o.c === "string" && !/^f{6}$/i.test(o.c)) o.c = null;
+    for (const v of Object.values(o)) if (v && typeof v === "object") unColour(v);
+  };
   // Every Teacher's Guide prints black-and-white inside (CDC's requirement) with the
   // cover the one exception that stays full colour — so this is now the DEFAULT for
   // any book whose filename marks it a TG, not something each book's overrides.json
@@ -649,6 +1103,9 @@ async function typesetOne(docxPath, themeName) {
   // rare TG that must stay in colour; `blackWhite: true` still works to force it on a
   // Learner's Book (which otherwise keeps its colour for young readers).
   const useBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBook);
+  // inkText: true — the same for a colour book: every coloured heading/line the author
+  // typed prints in the book's ink (the engine's own design colours stay).
+  if (ov.inkText && !useBlackWhite) unColour(blocks);
   // Force every themed colour to black/grey and every callout box to a light grey panel
   // with a black title, so headings, banners, rules, bullets, tables and boxes all print
   // in black and white while their structure (bold titles, borders, bands) stays clear.
@@ -668,6 +1125,7 @@ async function typesetOne(docxPath, themeName) {
       covSignature: orig.signature || orig.primary, covCyan: orig.cyan || orig.primary2,
       covInk: orig.ink, covRulec: orig.rulec,
     });
+    unColour(blocks);
   }
   // A Teacher's Guide takes a shifted version of its subject's cover colour, so it
   // is distinguishable at a glance from the Learner's Book it shares a theme with
@@ -682,6 +1140,8 @@ async function typesetOne(docxPath, themeName) {
   // Front-matter sections into the house order (Author … Acronyms); opt out per book.
   // Runs last, once the body-start marker and every heading are final.
   if (!ov.keepFrontOrder && variant !== "syllabus") blocks = orderFrontMatter(blocks);
+  // termInFront: true keeps the first term page as the last front-matter page instead, so a
+  // book with an odd count of front pages opens its unit 1 on a right-hand page with no blank.
   // termPages: "regex" — a heading/line matching it ("TEMU 1" = Term 1 in a Kiikaonde ECE
   // book) gets a page of its own in large type. One that would land just before the body
   // start is moved after it, so the term page opens the arabic-numbered body.
@@ -690,12 +1150,17 @@ async function typesetOne(docxPath, themeName) {
     let n = 0;
     for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
-      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t)) continue;
-      const t = (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
+      // (also a term title the author boxed in a one-cell table — "Temu 1")
+      const filled = b.t === "table" && Array.isArray(b.rows) ? b.rows.flat().map((c) => ((c && c.text) || "").trim()).filter(Boolean) : [];
+      const cell1 = filled.length === 1 && b.rows.flat().every((c) => !c || !(c.imgs || []).length) ? filled[0] : null;
+      if (!/^(head|label|para|h1|h2|h3)$/.test(b.t) && cell1 == null) continue;
+      const t = (cell1 != null ? cell1 : b.text != null ? b.text : (b.segs || []).map((s) => s.t).join("")).trim();
       if (!re.test(t)) continue;
-      blocks[i] = { t: "termpage", text: t }; n++;
+      // termWord: one spelling for every term page ("Term 2" typed in English -> "TEMU 2")
+      const tt = ov.termWord ? t.replace(/^\S+/, ov.termWord).toUpperCase() : t;
+      blocks[i] = { t: "termpage", text: tt }; n++;
       const nx = blocks.findIndex((x, k) => k > i && x.t !== "vspace");
-      if (nx > 0 && blocks[nx].t === "bodystart") { const [bs] = blocks.splice(nx, 1); blocks.splice(i, 0, bs); i++; }
+      if (nx > 0 && blocks[nx].t === "bodystart" && !ov.termInFront) { const [bs] = blocks.splice(nx, 1); blocks.splice(i, 0, bs); i++; }
     }
     if (n) console.log(`   termPages: ${n} term page(s)`);
   }
@@ -760,12 +1225,146 @@ async function typesetOne(docxPath, themeName) {
     }
     console.log(`   lessonLabels: ${n} lesson label line(s) set`);
   }
+  // A picture book (untableImages) has no boxes: an activity box left with no body (its
+  // picture follows it) is just the activity's heading, like every other one.
+  if (ov.untableImages) for (let i = 0; i < blocks.length; i++) {
+    if (blocks[i].t === "activity" && !(blocks[i].body || []).length) blocks[i] = { t: "head", text: blocks[i].title };
+  }
+  // strandPages: true — in a picture book each strand ("Ukusambilila Ukutampa
+  // Ukubelenga / Umutwe: … / IFILEKABILWA UKWISHIBA: …") opens a fresh page, so its
+  // headings and outcomes never sit at the foot of a page with their pictures overleaf.
+  // A strand that opens a unit already follows the unit banner and keeps its place.
+  if (ov.strandPages) {
+    for (let i = 0; i < blocks.length; i++) {
+      if (!blocks[i].outcomes) continue;
+      let j = i;
+      while (j > 0 && /^(head|h3|label)$/.test(blocks[j - 1].t)) j--;
+      const prev = blocks.slice(0, j).reverse().find((b) => b.t !== "vspace");
+      if (!prev || /^(h1|pagebreak|termpage|bodystart)$/.test(prev.t)) continue;
+      blocks.splice(j, 0, { t: "pagebreak" });
+      i++;
+    }
+  }
+  // restartNumbering: true — each run of numbered items starts again at 1 after a
+  // heading (a Word list the author let run on from the last unit's test: 4., 5.); a
+  // number the author typed by hand at the start of a line ("2.    Penta …") joins it.
+  if (ov.restartNumbering) {
+    let k = 0;
+    for (const b of blocks) {
+      if (b.t === "para" && Array.isArray(b.segs) && !(b.segs[0] && b.segs[0].b)) {
+        const txt = b.segs.map((s) => s.t).join("");
+        const m = txt.match(/^\s*(\d{1,2})\.\s+(\S[\s\S]*)$/);
+        const ml = txt.match(/^\s*([a-h])\.\s+(\S[\s\S]*)$/);      // a hand-typed "a. foloko" under a question
+        if (m && k) { b.t = "listitem"; b.marker = `${m[1]}.`; b.segs = [{ t: m[2].trim(), b: false, it: false, c: null }]; }
+        else if (ml && k) { b.t = "listitem"; b.marker = `${ml[1]})`; b.segs = [{ t: ml[2].trim(), b: false, it: false, c: null }]; continue; }
+      }
+      if (b.t === "listitem" && /^\d+[.)]$/.test(String(b.marker || "").trim())) b.marker = `${++k}.`;
+      else if (/^(head|h1|h2|h3|label|termpage)$/.test(b.t)) k = 0;
+    }
+  }
+  // listLabels: ["Mtundu wa otengamo mbali:"] — a line the author numbered as the FIRST item
+  // of a list is really the list's label: every such item becomes a plain label line, and
+  // the items after it count again from the start (i., ii. … / 1., 2. … / a., b. …).
+  for (const lab of ov.listLabels || []) {
+    let n = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b.t !== "listitem" || (b.segs || []).map((s) => s.t).join("").trim() !== lab) continue;
+      const mk = String(b.marker || "").trim();
+      b.t = "para"; delete b.marker; delete b.nest; n++;
+      const roman = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"];
+      let k = 0;
+      for (let j = i + 1; j < blocks.length && blocks[j].t === "listitem"; j++, k++) {
+        const m = String(blocks[j].marker || "").trim().match(/^\(?([ivx]+|\d+|[a-z])([.)])$/i);
+        if (!m) break;
+        const kind = /^[ivx]+$/i.test(m[1]) && /^[ivx]+$/i.test(mk.replace(/\W/g, "")) ? "r" : /^\d+$/.test(m[1]) ? "d" : "a";
+        blocks[j].marker = (kind === "r" ? roman[k] : kind === "d" ? String(k + 1) : String.fromCharCode(97 + k)) + m[2];
+      }
+    }
+    if (!n) console.warn("!  listLabels not matched:", lab);
+  }
+  // indentLists: true — every numbered / lettered / roman item in the body sits indented
+  // with its text in one column: a line the author TYPED as "1. …", "a. …", "ii) …" (a
+  // plain paragraph, so flush at the margin) becomes a real list item; numbered items sit
+  // one step in, and letters, romans and bullets under a numbered question one step further.
+  if (ov.indentLists) {
+    // (a typed decimal number "3.1 Bweende" is its own marker, never "3." + "1 Bweende")
+    const MK = /^\s*(\d{1,2}(?:\.\d{1,2})+\.?(?=\s)|\(?(?:\d{1,2}|[a-h]|[ivx]{1,4})[.)](?!\d))\s*(\S[\s\S]*)$/;
+    // (inside a box too: "1. Ye kuswani - …" typed in a Musebezi box becomes a real list line)
+    for (const bx of blocks) {
+      if (!Array.isArray(bx.body)) continue;
+      for (const it of bx.body) {
+        if (!it || it.t !== "para" || it.isList || !Array.isArray(it.segs) || !it.segs.length) continue;
+        const txt = it.segs.map((s) => s.t).join("");
+        const m = txt.match(MK);
+        if (!m || m[2].length < 2 || /^\d+(\.\d+)+/.test(m[1])) continue;
+        let cut = txt.indexOf(m[2]);
+        const segs = [];
+        for (const s of it.segs) { if (cut >= s.t.length) { cut -= s.t.length; continue; } segs.push({ ...s, t: s.t.slice(cut) }); cut = 0; }
+        it.segs = segs; it.marker = m[1].trim(); it.isList = true;
+      }
+    }
+    let body = !!ov.indentListsFront, k = false, n = 0, lastNest = 0;
+    // (indentListsFront: the front-matter sections too — "1.Kubala ka kutwisiso" in the Introduction)
+    for (const b of blocks) {
+      if (b.t === "bodystart") { body = true; continue; }
+      if (!body) continue;
+      // A numbered/lettered line the author styled as a HEADING is a list item too when it
+      // is an answer blank ("a. ……………") or the first question right under a test or
+      // exercise heading ("LWESEKO" / "1. Lenga bipelu …"). A strand title such as
+      // "1. KUTELEKA NE KWAMBA" stays a heading.
+      if (b.t === "head" && !b.colourHead) {
+        const ht = String(b.text || "");
+        const m = ht.match(MK);
+        const prev = blocks.slice(0, blocks.indexOf(b)).reverse().find((x) => x.t !== "vspace");
+        const underTest = prev && prev.t === "head" && LEXI.boxKind(prev.text || "") && /^(exercise|assessment)$/.test(LEXI.boxKind(prev.text || ""));
+        // (an answer blank may have no full stop after its letter: "a………")
+        const blank = ht.match(/^\s*([a-h]|\d{1,2})[.)]?\s*([.…_]{5,}\s*)$/);
+        if (blank) { b.t = "para"; b.segs = [{ t: `${blank[1]}. ${blank[2].trim()}`, b: false, it: false, c: null }]; }
+        else if (m && (/^[.…_\s]+$/.test(m[2]) || underTest)) { b.t = "para"; b.segs = [{ t: b.text, b: false, it: false, c: null }]; }
+      }
+      if (b.t === "para" && Array.isArray(b.segs) && b.segs.length) {
+        const txt = b.segs.map((s) => s.t).join("");
+        const m = txt.match(MK);
+        if (m && m[2].length > 1) {
+          // drop the marker from the runs (it may be its own bold run: "1." + " Nemba …")
+          let cut = txt.indexOf(m[2]);
+          const segs = [];
+          for (const s of b.segs) {
+            if (cut >= s.t.length) { cut -= s.t.length; continue; }
+            segs.push({ ...s, t: s.t.slice(cut) }); cut = 0;
+          }
+          b.t = "listitem"; b.marker = m[1].trim(); b.segs = segs; b.typed = true; n++;
+        }
+      }
+      // (a bullet sits one step further in than the numbered / lettered / roman item it
+      // belongs to: "a. Kaheka" then "• Mudimu: …", "• Kulumbulula: …")
+      if (b.t === "listitem") {
+        const mk = String(b.marker || "").trim();
+        const bullet = !/[0-9A-Za-z]/.test(mk);
+        if (/^\d+(\.\d+)+\.?$/.test(mk)) { b.nest = k ? 2 : 1; lastNest = b.nest; }   // "3.1" under "3"
+        else if (/^\(?\d+[.)]?$/.test(mk)) { k = true; b.nest = 1; lastNest = 1; }
+        else if (bullet && lastNest) b.nest = Math.min(lastNest + 1, 3);
+        else { b.nest = k ? 2 : 1; if (!bullet) lastNest = b.nest; }
+      } else if (/^(head|h1|h2|h3|label|termpage|activity|exercise|assessment)$/.test(b.t)) { k = false; lastNest = 0; }
+      else if (b.t === "para" && (b.segs || []).some((s) => (s.t || "").trim())) lastNest = 0;
+    }
+    if (n) console.log(`   indentLists: ${n} typed item(s) made list items`);
+  }
   // keepHeadsWithUnit: true — short headings that sit directly before a unit heading
   // ("Kuteleka ne Kwamba / Mutwe: Mazhina" then "KISHINA 3") open the unit's page with
   // it, above the unit title, instead of being stranded alone on the page before.
   if (ov.keepHeadsWithUnit) {
     for (let i = 0; i < blocks.length; i++) {
       if (blocks[i].t !== "h1" || blocks[i].brk === false) continue;
+      // the first unit has the front matter's end marker (bodystart) between it and the
+      // heads above it ("Temu 1" then "KAPETULU 1"): move the marker up above the heads,
+      // as termPages does, so they open the body with the unit instead
+      if (i > 0 && blocks[i - 1].t === "bodystart") {
+        let h = i - 1;
+        while (h > 0 && /^(head|h3|label)$/.test(blocks[h - 1].t)) h--;
+        if (h < i - 1) { const [bs] = blocks.splice(i - 1, 1); blocks.splice(h, 0, bs); }
+      }
       let j = i;
       while (j > 0 && /^(head|h3|label)$/.test(blocks[j - 1].t)) j--;
       if (j === i) continue;
@@ -790,9 +1389,71 @@ async function typesetOne(docxPath, themeName) {
     const h = Number(ov.uniformImages);
     // a picture the author made extra wide (a 2x2 grid of photos in one image) is
     // given the full text width instead of the common height, so its parts stay legible
-    for (const b of blocks) {
-      if (b.t === "image") b.hmm = b.w && b.w > 560 && !b.tall ? 0 : h;
+    // (two pictures back to back belong to one activity: both take the common height, so
+    // the pair shares a page instead of the second being pushed over, half a page empty)
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      const paired = b.t === "image" && ((blocks[i - 1] || {}).t === "image" || (blocks[i + 1] || {}).t === "image");
+      if (b.t === "image") b.hmm = b.w && b.w > 560 && !b.tall && !paired ? 0 : h;
       else if (b.t === "imagerow") for (const im of b.images || []) im.hmm = h;
+    }
+  }
+  // imprint: { copyright, rights, isbn, groups: [{ label, lines }] } — rewrite a messy
+  // copyright page in the house layout (as the Art & Design Form 1 LB): the © line in
+  // bold, the rights paragraph, the ISBN, then each credit as a bold "… by:" label with
+  // its names centred under it.
+  if (ov.imprint) {
+    const i = blocks.findIndex((b) => b.t === "titlepage");
+    const j = blocks.findIndex((b, k) => k > i && b.t === "toc");
+    if (i < 0 || j < 0) console.warn("!  imprint: no copyright page found");
+    else {
+      const im = ov.imprint;
+      const p = (t, bold) => ({ t: "para", align: "center", segs: [{ t, b: !!bold, it: false, c: null }] });
+      const out = [{ t: "vspace", h: "5mm" }];
+      if (im.copyright) out.push(p(im.copyright, true));
+      if (im.rights) out.push(p(im.rights));
+      if (im.isbn != null) out.push({ t: "vspace", h: "8mm" }, { t: "para", align: "center", segs: [{ t: "ISBN: ", b: false, it: false, c: null }, { t: im.isbn, b: true, it: false, c: null }] });
+      for (const g of im.groups || []) {
+        out.push({ t: "vspace", h: "5mm" }, p(g.label, true));
+        for (const l of g.lines || []) out.push(p(l));
+      }
+      blocks.splice(i + 1, j - i - 1, ...out);
+      // The manuscript's own credits block (ALEMBI: names, ZITHUNZI:, WOKONZA BUKU: …) can
+      // survive as a separate front section after the contents page. When every line of a
+      // front section is already on the new imprint page, it is that duplicate — drop it.
+      const imp = new Set([...(im.groups || []).flatMap((g) => [g.label, ...(g.lines || [])]), im.rights || "", im.copyright || ""]
+        .map((s) => s.toLowerCase().replace(/[^\p{L}\d]+/gu, "")));
+      const plainB = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join(""));
+      const key = (s) => s.toLowerCase().replace(/[^\p{L}\d]+/gu, "");
+      const body0 = blocks.findIndex((b) => b.t === "bodystart");
+      for (let a = 0; a < (body0 < 0 ? blocks.length : body0); a++) {
+        if (blocks[a].t !== "h1") continue;
+        let z = blocks.findIndex((b, k) => k > a && (b.t === "h1" || b.t === "bodystart"));
+        if (z < 0) z = blocks.length;
+        const lines = blocks.slice(a + 1, z).flatMap((b) => plainB(b).split("\n")).map(key).filter(Boolean);
+        // ("ZITHUNZI:Olemba" — a label and its value glued in one line — counts as two)
+        // (an address line "Chishango Road" is part of the imprint's "Chishango Road, P.O. Box 32708")
+        const inImp = (l) => imp.has(l) || (l.length >= 6 && [...imp].some((x) => x.includes(l)));
+        const known = (l) => inImp(l) || [...imp].some((x) => x && l.startsWith(x) && inImp(l.slice(x.length)));
+        if (lines.length >= 2 && lines.every(known)) {
+          blocks.splice(a, z - a);
+          console.log("   imprint: dropped the manuscript's duplicate credits section");
+          break;
+        }
+      }
+    }
+  }
+  // imprintSpacing: "0.3em" — fit a long copyright/credits page on ONE page (an ECE book's
+  // 18pt text makes it spill) by tightening its line gaps and the gaps between its credit
+  // groups. The text size never changes.
+  if (ov.imprintSpacing) {
+    const i = blocks.findIndex((b) => b.t === "titlepage");
+    const j = blocks.findIndex((b, k) => k > i && b.t === "toc");
+    if (i < 0 || j < 0) console.warn("!  imprintSpacing: no imprint page found");
+    else {
+      for (let k = i + 1; k < j; k++) if (blocks[k].t === "vspace") blocks[k].h = ov.imprintGap || "2mm";   // (imprintGap: breathing space kept between the credit groups)
+      blocks.splice(j, 0, { t: "parspacing", v: "0.86em" });
+      blocks.splice(i + 1, 0, { t: "parspacing", v: ov.imprintSpacing });
     }
   }
   // tightSection: [{ title: "PREFACE", spacing: "1em", sig: "6mm" }] — pull a front-matter
@@ -815,7 +1476,208 @@ async function typesetOne(docxPath, themeName) {
   applyMarkFlushRight(blocks);
   const tmpl = fs.readFileSync(path.join(__dirname, "generic-template.typ"), "utf8");
   // Inject the theme dict ABOVE the template so its functions capture it.
-  const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
+  // labelStyle: "sentence" — the lesson labels ("KWEULULA MULONGESHI:", "SETEKO
+  // YAKUNANGAKANA") read as bold sentence-case words at body size with breathing space
+  // above, instead of small tracked capitals. Also catches the same labels typed as plain
+  // capital-letter lines ("UHASHI WAKUNANGAKANA VYUMA: kushimutwila…" → bold lead-in).
+  if (ov.labelStyle === "sentence") {
+    const GAP = "1.5em";
+    const sc = (s) => s.toLowerCase().replace(/^([^\p{L}]*)(\p{L})/u, (m, a, c) => a + c.toUpperCase())
+      .replace(/(:\s*)(\p{L})/u, (m, a, c) => a + c.toUpperCase());
+    const caps = (s) => /\p{Lu}/u.test(s) && !/\p{Ll}/u.test(s);
+    let nl = 0, np = 0, nh = 0;
+    // a heading whose words the book uses as a LABEL elsewhere ("Seteko yakunangakana",
+    // "Vinoma") is that label too — the author just typed it differently that time
+    const lkey = (t) => (t || "").toLowerCase().replace(/[:\s]+$/, "").replace(/\s+/g, " ").trim();
+    const labelSet = new Set(blocks.filter((b) => b.t === "label").map((b) => lkey(b.text)));
+    // (labelWords: the book names its labels outright, when the manuscript never uses them as labels)
+    for (const w of ov.labelWords || []) labelSet.add(lkey(w));
+    // only the BODY: the front matter (imprint credits, signatures "Noriana Muneka (Ms.)",
+    // "ZAMBIA EDUCATIONAL PUBLISHING HOUSE") keeps the author's own casing and layout
+    const body0 = Math.max(0, blocks.findIndex((b) => b.t === "bodystart"));
+    for (const b of blocks.slice(body0)) {
+      if (/^(head|h3)$/.test(b.t) && b.text && labelSet.has(lkey(b.text))) {
+        b.t = "label"; delete b.segs; nh++;
+      }
+    }
+    for (let i = body0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b.t === "label") {
+        b.text = sc(b.text.trim()); b.keepCase = true; b.plainLabel = true; b.gapAbove = GAP; nl++;
+        continue;
+      }
+      if (b.t !== "para" || !Array.isArray(b.segs) || !b.segs.length || b.segs[0].m) continue;
+      const all = b.segs.map((s) => s.t).join("").trim();
+      // a whole line of capitals, a few words ("SETEKO YAKUNANGAKANA", "MWAKUNANGWILA")
+      if (caps(all) && all.length <= 45 && all.split(/\s+/).length <= 5 && /^\p{Lu}/u.test(all)) {
+        blocks[i] = { t: "label", text: sc(all), keepCase: true, plainLabel: true, gapAbove: GAP }; np++;
+        continue;
+      }
+      // a capital-letter lead-in ending in a colon, then the content
+      const s0 = b.segs[0];
+      const m = s0.t.match(/^(\s*\p{Lu}[\p{Lu}'’ ]{2,40}:)([\s\S]*)$/u);
+      if (!m) continue;
+      let rest = m[2];
+      const restAll = rest + b.segs.slice(1).map((s) => s.t).join("");
+      // "CHILONGESELO: KWIVWILILA NAKUHANJIKA" — the value is a capitals title too
+      const lead = caps(restAll) ? sc(m[1] + restAll) : sc(m[1]);
+      if (caps(restAll)) { b.segs = [{ ...s0, t: lead, b: true }]; }
+      else b.segs = [{ ...s0, t: lead, b: true }, { ...s0, t: rest, b: s0.b }, ...b.segs.slice(1)];
+      b.gapAbove = GAP; np++;
+    }
+    // a label with nothing under it (its content was a removed placeholder such as
+    // "INSERT ANSWERS") — the next block is already a unit / sub-topic heading
+    for (let i = blocks.length - 1; i >= 0; i--) {
+      if (blocks[i].t === "label" && blocks[i].plainLabel && (!blocks[i + 1] || /^(h1|h2)$/.test(blocks[i + 1].t))) blocks.splice(i, 1);
+    }
+    console.log(`   labelStyle: ${nl} label(s) (${nh} from headings), ${np} capital-letter line(s) restyled`);
+  }
+  // (runs last, so it also reaches headings that later passes create)
+  // headingCase: { "head": "sentence", "h2": "upper", … } and caseKeep: ["HIV", "Zambia"]
+  // — one casing rule per heading level, whatever the author typed ("VYAKULINGA 2:",
+  // "Vyakulinga 2:" and "Mutwe Wachihande … Kutanga Nakwivwishisa" all come out the same).
+  // "sentence": first letter, and the first letter after a "Label N:" colon, capitalised;
+  // "upper"; "title". Words in caseKeep keep the given spelling.
+  if (ov.headingCase) {
+    const keep = new Map((ov.caseKeep || []).map((w) => [w.toLowerCase(), w]));
+    const fixKeep = (s) => s.replace(/\p{L}+/gu, (w) => keep.get(w.toLowerCase()) || w);
+    // (a leading list marker — "(i)", "a)", "2." — is kept as typed; the word after it is capitalised)
+    const sentence = (s) => {
+      const mk = (s.match(/^\s*(\(?(?:[ivx]{1,4}|[a-z]|\d{1,2})[.)])\s+/i) || [""])[0];
+      return mk + fixKeep(s.slice(mk.length).toLowerCase()
+        .replace(/^([^\p{L}]*)(\p{L})/u, (m, a, c) => a + c.toUpperCase())
+        .replace(/^([^:]{1,40}:)\s*(\p{L})/u, (m, a, c) => a + " " + c.toUpperCase()));
+    };
+    const title = (s) => fixKeep(s.toLowerCase().replace(/(^|[\s(])(\p{L})/gu, (m, a, c) => a + c.toUpperCase()));
+    const fn = { sentence, upper: (s) => fixKeep(s.toUpperCase()), title };
+    const n = {};
+    // (body only — front-matter section titles and signatures keep their own casing)
+    const body0 = Math.max(0, blocks.findIndex((b) => b.t === "bodystart"));
+    for (const b of blocks.slice(body0)) {
+      const rule = ov.headingCase[b.t];
+      if (!rule || !fn[rule]) continue;
+      // (a heading never ends in a full stop, colon or semicolon: "MWASO.", "Mulimo:")
+      if (b.text != null) b.text = fn[rule](b.text.replace(/\s*[.:;]\s*$/, ""));
+      else if (Array.isArray(b.segs) && b.segs.length) {
+        const t = fn[rule](b.segs.map((s) => s.t).join(""));
+        b.segs = [{ ...b.segs[0], t }];
+      } else continue;
+      n[b.t] = (n[b.t] || 0) + 1;
+    }
+    console.log(`   headingCase: ${Object.entries(n).map(([k, v]) => `${v} ${k}`).join(", ")}`);
+  }
+  // boldAnswerLabels: true — in a run of "Label - answer" list items where some labels are
+  // bold, make every label bold up to its dash. A book converted from a PDF keeps the bold
+  // of some runs and loses it on others ("Fertilizer that supports steady growth" with only
+  // "steady" roman), so one answer list reads half bold, half plain.
+  if (ov.boldAnswerLabels) {
+    const { boldPrefix } = require("./blocktext.js");
+    // "Label - answer", "Label -answer" or "Label- answer"
+    const LABEL = /^(.{3,120}?)(?:\s+[-–]\s?(?=\S)|[-–]\s+(?=\S))/;
+    let n = 0;
+    const visit = (arr) => {
+      if (!Array.isArray(arr)) return;
+      for (let i = 0; i < arr.length; i++) {
+        const b = arr[i];
+        if (!b || typeof b !== "object") continue;
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs") visit(b[k]);
+        if (b.t !== "listitem" || (i > 0 && arr[i - 1] && arr[i - 1].t === "listitem")) continue;
+        let j = i; while (j < arr.length && arr[j] && arr[j].t === "listitem") j++;
+        const run = arr.slice(i, j).filter((x) => Array.isArray(x.segs) && LABEL.test(x.segs.map((s) => s.t).join("")));
+        // (an answer list — under "Possible Answers" — is always set with bold labels, even
+        // where the conversion lost every one of them)
+        const answers = arr.some((x) => x && /^possible answers?\b/i.test(blockPlain(x).trim()));
+        if (!answers && !run.some((x) => x.segs[0].b)) continue;
+        for (const x of run) {
+          const len = x.segs.map((s) => s.t).join("").match(LABEL)[1].length;
+          if (x.segs.map((s) => s.t).join("").slice(0, len).split("").every((_, c) => { let o = 0; for (const s of x.segs) { if (c < o + s.t.length) return s.b; o += s.t.length; } return true; })) continue;
+          x.segs = boldPrefix(x.segs, len); n++;
+        }
+      }
+    };
+    visit(blocks);
+    // In an answer list, two more shapes: a "Label: answer" item (bold through the colon),
+    // and a question followed by its answer paragraph (an End of Topic Assessment) — the
+    // question reads bold, its own italic answer text stays as it is.
+    const COLON = /^(.{3,60}?:)\s+(?=\S)/;
+    const visit2 = (arr) => {
+      if (!Array.isArray(arr)) return;
+      const answers = arr.some((x) => x && /^possible answers?\b/i.test(blockPlain(x).trim()));
+      for (let i = 0; i < arr.length; i++) {
+        const b = arr[i];
+        if (!b || typeof b !== "object") continue;
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs") visit2(b[k]);
+        if (!answers || b.t !== "listitem" || !Array.isArray(b.segs)) continue;
+        const txt = b.segs.map((s) => s.t).join("");
+        if (LABEL.test(txt)) continue;
+        const m = txt.match(COLON);
+        if (m && !b.segs.every((s) => s.b || !s.t.trim())) {
+          const head = txt.slice(0, m[1].length);
+          if (!/[.?!]/.test(head.slice(0, -1))) { b.segs = boldPrefix(b.segs, m[1].length); n++; continue; }
+        }
+        const next = arr[i + 1];
+        // (or its italic answer run on the same line: "Describing ways … animals Destroying …")
+        if (((next && next.t === "para") || b.segs.some((s) => s.it && s.t.trim())) && b.segs.some((s) => !s.b && !s.it && s.t.trim())) {
+          b.segs = b.segs.map((s) => (s.it || s.m ? s : { ...s, b: true })); n++;
+        }
+      }
+    };
+    visit2(blocks);
+    if (n) console.log(`   boldAnswerLabels: ${n} label(s) bolded`);
+  }
+  // dropBreaks: [n, …] — a manuscript that starts every lesson on a new page leaves a
+  // near-empty page wherever a lesson spills a few lines over. The body's page breaks
+  // (typed page breaks, and lesson headings that open their own page) are numbered from 1
+  // in reading order; each listed one is dropped, so the next lesson follows on the same
+  // page. The numbered list is written to _breaks.json beside the PDF (each break with the
+  // words that open it), to pick the numbers from. Layout-dependent breaks in Typst itself
+  // (context + here().position()) were tried and dropped: with dozens of them the layout
+  // never converged and the page numbers came out wrong.
+  // tidySpacing (see overrides.js) also squeezes doubled spaces out of HEADINGS ("CIPATI  2",
+  // "MUTWE:  1.14"), here at the end when every heading is final. Body text keeps its
+  // spaces: authors lay word lists out in columns with runs of spaces.
+  if (ov.tidySpacing) {
+    let n = 0;
+    const HEADS = /^(head|h1|h2|h3|label|sectionhead|subhead)$/;
+    const sq = (s) => { const t = s.replace(/ {2,}/g, " "); if (t !== s) n++; return t; };
+    const walkH = (arr) => {
+      for (const b of arr || []) {
+        if (!b || typeof b !== "object") continue;
+        if (HEADS.test(b.t)) {
+          if (typeof b.text === "string") b.text = sq(b.text);
+          for (const s of b.segs || []) if (typeof s.t === "string" && !s.m) s.t = sq(s.t);
+        }
+        if (typeof b.title === "string") b.title = sq(b.title);
+        for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walkH(b[k]);
+      }
+    };
+    walkH(blocks);
+    if (n) console.log(`   tidySpacing: ${n} heading(s) with doubled spaces squeezed`);
+  }
+  let breakPoints = null;
+  if (ov.dropBreaks) {
+    const drop = new Set(ov.dropBreaks);
+    const body0 = blocks.findIndex((b) => b.t === "bodystart");
+    const textOf = (b) => (b && (b.text || (b.segs || []).map((s) => s.t).join(""))) || "";
+    const points = [];
+    for (let i = body0 + 1; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (!(b.t === "pagebreak" || (b.t === "h2" && !b.nobreak))) continue;
+      const n = points.length + 1;
+      const after = blocks.slice(i + (b.t === "h2" ? 0 : 1)).filter((x) => x.t !== "vspace").slice(0, 2).map(textOf).join(" | ");
+      points.push({ n, kind: b.t, opens: after.slice(0, 120) });
+      if (!drop.has(n)) continue;
+      if (b.t === "h2") b.nobreak = true;
+      else { blocks[i] = { t: "vspace", h: "1.2em" }; const nx = blocks.slice(i + 1).find((x) => x.t !== "vspace"); if (nx && nx.t === "h2") nx.nobreak = true; }
+    }
+    breakPoints = points;
+    console.log(`   dropBreaks: ${drop.size} of ${points.length} body page break(s) dropped`);
+  }
+  // tocHeads: true — list the Heading 3 topics/sub-topics in the contents too (level 3,
+  // under their strand). They render as plain heads, which the outline never sees; the
+  // Icibemba G4 LB reviewer asked for its missing sub-topic ("4.6.3.2 Landilwa") there.
+  if (ov.tocHeads) for (const b of blocks) if (b.t === "h3" && b.text) b.toc = 3;
+  const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${ov.afterListGap ? `#let afterlist() = v(${ov.afterListGap}, weak: true)\n` : ""}${emit(blocks)}\n`;   // (afterListGap: the room above a heading that follows a list, house 28pt)
 
   // Include OS system fonts so specialty faces like Bradley Hand ITC (used for
   // Grade-2 handwriting exercises) resolve without being bundled in the repo.
@@ -848,10 +1710,80 @@ async function typesetOne(docxPath, themeName) {
   fs.writeFileSync(outPath, Buffer.from(pdf));
   // keep the generated .typ alongside the PDF (and by the runner) for inspection
   fs.writeFileSync(path.join(bookDir, "_source.typ"), doc);
+  if (breakPoints) fs.writeFileSync(path.join(bookDir, "_breaks.json"), JSON.stringify(breakPoints, null, 1));
   fs.writeFileSync(path.join(__dirname, "_last-docx.typ"), doc);
 
   const n = blocks.length;
   console.log(`Typeset: ${base}  [theme: ${theme}]  (${n} blocks, ${media.length} images) -> ${outPath} [${fs.statSync(outPath).size} bytes]`);
+
+  // Publisher rule: a book of more than 112 pages has a SPINE. Build the printer's
+  // cover spread — back cover | spine | front cover on one sheet — as a second PDF.
+  // Spine width from the page count (`spineMmPerPage`, default 0.055 mm a page for
+  // 80 gsm text paper, plus 1 mm for the cover board); the spine carries the book name,
+  // the level, the book type when there is room, and the ZEPH logo at the foot.
+  if (variant !== "syllabus") {
+    const { PDFDocument } = require("pdf-lib");
+    const book = await PDFDocument.load(pdf);
+    const pages = book.getPageCount();
+    const spreadPath = path.join(bookDir, `${base} - cover spread.pdf`);
+    // (a book of 112 pages or fewer has NO spine, but with coversInBook it still opens
+    // on the back | front cover sheet, the two covers meeting at the fold)
+    const hasSpine = pages > 112;
+    if (hasSpine || ov.coversInBook) {
+      const cov = blocks.find((b) => b.t === "cover") || {};
+      const lines = cov.lines || [];
+      const LEVEL = /\b(form|fo+mu|grade)\s*\d+|\bECE(\s+(level|levo)\s+\d+)?\b/i;   // (an ECE level keeps its number: "ECE Levo 1")
+      const lvLine = [...lines].reverse().find((l) => LEVEL.test(l)) || "";   // (last: a local eyebrow may name a form too)
+      const level = (lvLine.match(LEVEL) || [""])[0];
+      const T = THEMES[theme] || {};
+      const name = (lvLine.replace(LEVEL, "").replace(/\s+/g, " ").trim()
+        || ov.subject || T.subject || lines[0] || base).trim();
+      const booktype = (ov.coverWords || {}).booktype || ov.booktype || (isTeacherBookName(base) ? "Teacher's Guide" : "Learner's Book");
+      const mm = Number(ov.spineMmPerPage) || 0.055;
+      const spineMm = Math.round((pages * mm + 1) * 10) / 10;
+      const logo = cov.logo && cov.logo.file ? `(file: ${S(cov.logo.file)})` : "none";
+      // localLabels books: the spine speaks the cover's language too ("GILEDI 1 · BBUKU
+      // LYABAYI", not "GRADE 1 · TEACHER'S GUIDE") — the same word list as the front cover.
+      const L = themeOverrides.labels || {};
+      const spineLevel = level.replace(/\bgrade\b/i, (m) => L.grade || m).replace(/\bform\b/i, (m) => L.form || m);
+      const spineType = booktype.replace(/teacher['’]?s\s+guide/i, (m) => L.tg || m).replace(/learner['’]?s\s+book/i, (m) => L.lb || m);
+      const spineDoc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#spine(${S(name)}, ${S(spineLevel)}, ${S(spineType)}, ${logo}, ${spineMm}mm)\n`;
+      const spinePdf = hasSpine ? await PDFDocument.load(compiler.pdf({ mainFileContent: spineDoc })) : null;
+      // coversInBook: true — the spread becomes the book's FIRST page (as the syllabuses
+      // do) in place of the separate front and back cover pages; otherwise it is written
+      // as its own "cover spread" PDF.
+      const inBook = !!ov.coversInBook;
+      const out = inBook ? book : await PDFDocument.create();
+      const [front, back] = inBook
+        ? [await book.embedPage(book.getPage(0)), await book.embedPage(book.getPage(pages - 1))]
+        : await out.embedPdf(book, [0, pages - 1]);
+      const [sp] = hasSpine ? await out.embedPdf(spinePdf, [0]) : [null];
+      const W = front.width, H = front.height, SW = hasSpine ? sp.width : 0;
+      // Trim allowance: the printer trims every cover by 2 mm on each side, so the sheet is
+      // 2 mm larger all round (`coverTrimMm`). Each cover is drawn ONCE, scaled up evenly
+      // (about 1.6%) from its spine edge so its own artwork fills the extra 2 mm — no strips
+      // spliced on, so no joins inside a cover. The spine is stretched to the full height
+      // and drawn 1 pt wider underneath both covers, so its two joins show no hairline.
+      const B = (ov.coverTrimMm != null ? Number(ov.coverTrimMm) : 2) * 72 / 25.4;
+      const size = [W * 2 + SW + 2 * B, H + 2 * B];
+      const sheet = inBook ? out.insertPage(0, size) : out.addPage(size);
+      const s = (H + 2 * B) / H, Ws = W * s, o = 1;
+      if (hasSpine) sheet.drawPage(sp, { x: W + B - o, y: 0, width: SW + 2 * o, height: H + 2 * B });
+      sheet.drawPage(back, { x: W + B - Ws, y: 0, width: Ws, height: H + 2 * B });
+      sheet.drawPage(front, { x: W + B + SW, y: 0, width: Ws, height: H + 2 * B });
+      if (inBook) {
+        // drop the separate front (now page 1) and back cover pages
+        book.removePage(book.getPageCount() - 1);
+        book.removePage(1);
+        fs.writeFileSync(outPath, await book.save());
+        if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);
+        console.log(hasSpine ? `   covers + ${spineMm} mm spine as the first page of the book (${pages} pages)` : `   covers (no spine: ${pages} pages ≤ 112) as the first page of the book`);
+      } else {
+        fs.writeFileSync(spreadPath, await out.save());
+        console.log(`   cover spread with a ${spineMm} mm spine (${pages} pages) -> ${spreadPath}`);
+      }
+    } else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);
+  }
 
   // best-effort cleanup of temp extraction dirs
   try { fs.rmSync(ws, { recursive: true, force: true }); } catch (e) {}
