@@ -330,6 +330,30 @@
 // ("… • Maybin" / "Simuchenje Yamba • …") or, with names kept whole, ended a line on a
 // dangling bullet. Opt-in so no other book's cover or title page moves.
 #let bylineRows = T.at("bylineRows", default: false)
+// A long author list set as balanced rows: names kept whole, no bullet opening a row,
+// and the row width lowered step by step while the row count holds, so the last row
+// is not left with a lone name (Civic Education Form 4 LB, thirteen authors).
+#let bylineBalanced(byline, sep) = layout(sz => {
+  let pack(maxw) = {
+    let rows = ()
+    let cur = ()
+    for n in byline {
+      if cur.len() > 0 and measure((cur + (n,)).join(sep)).width > maxw { rows.push(cur); cur = (n,) }
+      else { cur.push(n) }
+    }
+    if cur.len() > 0 { rows.push(cur) }
+    rows
+  }
+  let rows = pack(sz.width)
+  let w = sz.width
+  while w > sz.width * 0.5 {
+    let tryRows = pack(w * 0.96)
+    if tryRows.len() > rows.len() { break }
+    rows = tryRows
+    w = w * 0.96
+  }
+  rows.map(r => r.join(sep)).join(linebreak())
+})
 #let bylineText(byline, sep) = if not bylineRows { byline.join(sep) } else { layout(sz => {
   let one = byline.map(n => box(n)).join(sep)
   if measure(one).width <= sz.width { one }
@@ -1165,9 +1189,12 @@
         #text(size: 18pt, weight: "bold", fill: deepteal)[#upper(booktype)]
       ]])
       // --- tilted photo panel (a teal plate behind for depth) ---
+      // a long author list needs a taller names tag: lift the photo and the tag into the
+      // free space under the book type so the tag clears the logo
+      #let lift = if byline.len() > 5 { 8mm } else { 0mm }
       #if hero != none [
-        #place(top + center, dy: 113mm, rotate(5deg, reflow: false, box(width: 122mm, height: 78mm, radius: 3pt, fill: T.primary)))
-        #place(top + center, dy: 113mm, rotate(-4deg, reflow: false, box(width: 122mm, height: 78mm, clip: true, radius: 3pt, stroke: 5pt + white)[
+        #place(top + center, dy: 113mm - lift, rotate(5deg, reflow: false, box(width: 122mm, height: 78mm, radius: 3pt, fill: T.primary)))
+        #place(top + center, dy: 113mm - lift, rotate(-4deg, reflow: false, box(width: 122mm, height: 78mm, clip: true, radius: 3pt, stroke: 5pt + white)[
           #image("_media/" + hero.file, width: 100%, height: 78mm, fit: "cover")]))
         #if T.motif == "food" [
           #berrycluster(18mm, 96mm, T.accent, T.primary2, T.cyan)
@@ -1182,10 +1209,18 @@
       ]
       // --- authors: an "AUTHORS" label tab sitting on the names tag (tilted) ---
       #if byline.len() > 0 [
-        #place(top + center, dy: 196mm, align(center)[
+        #place(top + center, dy: 196mm - lift, align(center)[
           #text(size: 9pt, weight: "bold", fill: deepteal, tracking: 3pt)[#if byline.len() == 1 { "AUTHOR" } else { "AUTHORS" }]])
-        #place(top + center, dy: 201mm, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt)[
-          #text(fill: white, weight: "bold", size: 12pt, tracking: 0.3pt)[#bylineText(byline, "   •   ")]]))
+        // a long author list (Civic Education Form 4 LB: thirteen names) wrapped to four
+        // lines at 12pt and ran into the logo below; step the size down and hold the
+        // tag to a fixed width so it wraps into tidy centred lines above the logo
+        #let many = byline.len() > 5
+        #place(top + center, dy: 201mm - lift, rotate(-2deg, reflow: false, box(fill: T.primary, inset: (x: 15pt, y: 8pt), radius: 4pt,
+            width: if many { 156mm } else { auto })[
+          #set par(leading: 0.5em, justify: false)
+          #align(center, text(fill: white, weight: "bold", size: if byline.len() > 8 { 9pt } else if many { 11pt } else { 12pt }, tracking: 0.3pt)[#if many and not bylineRows {
+            bylineBalanced(byline, "  •  ")
+          } else { bylineText(byline, "   •   ") }])]))
       ]
       // --- publisher + logo, bottom centre ---
       #place(bottom + center, dy: -13mm, align(center)[
@@ -3037,7 +3072,11 @@
   // whose 4-letter words are one letter shorter than the neighbouring columns' — that
   // is not a serial column and must not collapse to `auto`).
   let isnum(s) = { let t = s.trim(); t != "" and t.matches(regex("^[0-9]+$")).len() > 0 }
-  let narrowNum(ci) = rows.len() >= 2 and not fillin and rows.at(0).at(ci).text.len() <= 5 and collen(ci) <= 4 and rows.slice(1).all(r => { let t = r.at(ci).text.trim(); t == "" or isnum(t) }) and rows.slice(1).any(r => isnum(r.at(ci).text))
+  // The header may be one word of up to ten letters: `auto` always fits its header, and a
+  // column of years headed "Adopted" otherwise fell back to a thin `fr` share and its
+  // header word ran out of the cell (Civic Education Form 4 LB, Table 4).
+  let hdr1(ci) = { let h = rows.at(0).at(ci).text.trim(); h.len() <= 5 or (h.len() <= 10 and not h.contains(" ")) }
+  let narrowNum(ci) = rows.len() >= 2 and not fillin and hdr1(ci) and calc.max(..rows.slice(1).map(r => celllen(r.at(ci)))) <= 4 and rows.slice(1).all(r => { let t = r.at(ci).text.trim(); t == "" or isnum(t) }) and rows.slice(1).any(r => isnum(r.at(ci).text))
   // A "word grid" — every cell a single short token (phonics spelling-choice tables
   // like "ai | a | ay | a-e" with one word per cell) — reads as lopsided under content-
   // proportional widths when one column's longest word is a letter longer than another's.
