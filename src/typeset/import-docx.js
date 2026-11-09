@@ -28,6 +28,9 @@ const proseFixes = [];
 // in the build said so. Naming each one costs a line and makes the next such box
 // findable instead of invisible.
 const droppedBoxes = [];
+// `boxAllRows`: a box typed as a one-column table that Word split into several rows at a
+// page break keeps every row, not just the first (see the walk below).
+let BOX_ALL_ROWS = false;
 // Per-book switch read by markerFor(): a sub-run opening at "i" is roman, not lettered.
 // Set from importDocx's `romanSubParts` option (the book's override of the same name).
 let ROMAN_SUB_PARTS = false;
@@ -2650,6 +2653,7 @@ async function importDocx(docxPath, opts = {}) {
   proseFixes.length = 0;            // per-book tally (see the declaration at the top)
   droppedBoxes.length = 0;          // ditto
   ROMAN_SUB_PARTS = !!opts.romanSubParts;
+  BOX_ALL_ROWS = !!opts.boxAllRows;
   KEEP_LIST_NUMBERS = !!opts.keepListNumbers;
   LIST_ANSWERS = opts.listAnswers || [];
   // ZEPH house-style options (decoupled so different layouts can mix them):
@@ -3725,6 +3729,12 @@ async function importDocx(docxPath, opts = {}) {
       // so in words rather than in a cell colour.
       const kind = boxKindFromTitle(lead) || (single ? BOX_FILL[firstFill] : null);
       if (kind === "assessment") blocks.push(makeAssessmentTable(cells));
+      // Only the first cell feeds a box, so the rows after it never printed: the RE Form 3
+      // TG lost about fifty paragraphs of answers this way. Opt-in, because other books
+      // were reviewed without those rows.
+      else if (kind && BOX_ALL_ROWS && cells.every((r) => r.length === 1)) {
+        blocks.push(makeBox(kind, [...firstBlks, ...cells.slice(1).flatMap((r) => cellBlocks(r[0].xml))]));
+      }
       else if (kind) blocks.push(makeBox(kind, firstBlks));
       else if (single && firstFill && firstFill !== NAVY) blocks.push(makeBox("box", firstBlks));
       else {

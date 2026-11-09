@@ -204,6 +204,10 @@ off, so a change only touches the books that opt in. Keys:
 | `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey. This is now the **default for any TG** (filename carries "TG" or "teacher"), so most books never need to set it; use `blackWhite: false` for the rare TG that must stay in colour, or `blackWhite: true` to force it on a Learner's Book (which otherwise keeps its colour) |
 | `mathBodyFont` | `true`: set equations in the body face — words, digits, operators and single-letter variables (in the surrounding run's italic or roman) — keeping the math font only for fraction bars, roots and symbols the body face lacks. For a CDC "maintain the same font" on a fraction of words or `v = d/t` printing serif beside Arial. Opt-in per book (Physics Form 2 TG, 2026-10-29): math-heavy books keep the math face until someone has looked at them |
 | `orIndividually` | `false` switches off the standing rule that writes "or individually" into an activity body offering only group or pair work. Use it when a reviewer strikes that phrase out — it switches the whole book rather than the instances they happened to mark, so the book does not then say it two ways |
+| `orIndividuallyKeep` | `["…"]`: leave a run containing that wording out of the "or individually" rule, for one activity whose exact words a reviewer dictated, while the rule stays on for the rest of the book |
+| `boxAllRows` | `true`: keep every row of an activity or exercise box typed as a one-column table. Word splits such a table at a page break, and without this only the first row prints |
+| `listKeepMarker` | `true`: keep the bullets on a list that leaves its activity box under a "Possible Responses" label; off by default because other books were reviewed with those lists bare |
+| `asBullet` | `["start of line", …]`: make a plain top-level paragraph a bullet, for a line typed without one or split off by `splitBefore` |
 
 **Text (whole-block)**
 
