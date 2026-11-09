@@ -521,7 +521,11 @@ function emit(blocks) {
         const pm0 = tblcap ? `#capmark(${S(plain)})` + p : p;
         // a short note that must not be split over a page turn (insertBlocks `keep`)
         const pm = b.keepWhole ? `#block(breakable: false)[${pm0.trim()}]\n` : pm0;
-        out += (b.stickyNext || tblcap || capOpener(plain) || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(pm) : pm;
+        // …but a "Table N:" line straight AFTER a table is that table's caption set below
+        // it, and sticking it to a picture that happens to follow carried it away from its
+        // table onto the next page (Civic Education Form 4 LB, Table 8).
+        const capBelowTable = /^table\s*\d/i.test(plain) && blocks[bi - 1] && blocks[bi - 1].t === "table";
+        out += (b.stickyNext || tblcap || capOpener(plain) || (nextIsImg && !capBelowTable && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(pm) : pm;
         break;
       }
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
@@ -1475,7 +1479,12 @@ function groupSignatories(b) {
       // leading "Dr./Prof./…" prefix both count — SIGNAME alone would wrongly
       // exclude the leading-honorific style ("Dr. Beatrice Chirwa…") since it reads
       // as a plausible standalone name line even though it is not one here.
+      // Capped in length: a name + title + organisation is short, and a prose paragraph
+      // that merely mentions "Dr Lucy Kamboni (PhD)" and has an italic book title in it
+      // (two runs) otherwise passed, and the whole Acknowledgement printed as one bold
+      // capitalised signatory block (Civic Education Form 4 LB).
       const runonSig = !done && SIGSEC.test(section) && x.t === "para" && Array.isArray(x.segs)
+        && plain.length <= 160
         && (SIGINLINE.test(plain) || /^(?:dr|prof|mr|mrs|ms|hon)\.?\s+[A-Z]/i.test(plain))
         && x.segs.filter((s) => s.t.trim()).length >= 2;
       if (runonSig) {
@@ -6180,6 +6189,32 @@ function splitNumberedRuns(blocks) {
       const b = arr[i];
       if (!b || typeof b !== "object") continue;
       for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "segs") walk(b[k]);
+      // A Word list item whose own marker opens the run ("a)" from Word's numbering, then
+      // "b)"…"e)" typed after soft breaks inside the same item) is the same fold: the typed
+      // items printed as loose lines under the hanging "a)" (Civic Education Form 4 LB, p90).
+      if (b.t === "listitem" && typeof b.marker === "string" && Array.isArray(b.segs)
+          && b.segs.some((s) => s && !s.m && typeof s.t === "string" && s.t.includes("\n"))) {
+        const own = (b.marker + " ").match(MARK);
+        const lines = toLines(b.segs).filter((l) => l.some((s) => s && (s.m || (s.t || "").trim())));
+        const marks = lines.map(markOf);
+        const first = own ? { open: own[1], core: own[2], close: own[3] } : null;
+        let n = 1;
+        while (first && n < marks.length && marks[n] && follows(n === 1 ? first : marks[n - 1], marks[n])) n++;
+        if (n >= 2 && !marks[0]) {
+          const { marker, segs, ...rest } = b;
+          const out = [{ ...b, segs: lines[0] }];
+          for (let j = 1; j < n; j++) {
+            const body = lines[j].slice();
+            body[0] = { ...body[0], t: body[0].t.slice(marks[j].len) };
+            out.push({ ...rest, marker: marks[j].text, segs: body.filter((s) => s.m || (s.t || "") !== "") });
+          }
+          const tail = lines.slice(n);
+          if (tail.length) out[out.length - 1].segs.push(...tail.flatMap((l) => [{ t: "\n", b: false, it: false, c: null }, ...l]));
+          arr.splice(i, 1, ...out);
+          i += out.length - 1;
+          continue;
+        }
+      }
       if (b.t !== "para" || !Array.isArray(b.segs)) continue;
       if (!b.segs.some((s) => s && !s.m && typeof s.t === "string" && s.t.includes("\n"))) continue;
       const lines = toLines(b.segs).filter((l) => l.some((s) => s && (s.m || (s.t || "").trim())));
@@ -7502,6 +7537,7 @@ async function typesetOne(docxPath, themeName) {
   fixACappellaSpacing(blocks);
   if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
+  dropEmptyParts(blocks);
   competenceLeadIn(blocks, isTeacherBookName(base));
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
   markSpreadsheetTables(blocks);
@@ -7517,6 +7553,24 @@ async function typesetOne(docxPath, themeName) {
   columnizeLists(blocks);   // BEFORE normaliseSpacing, which would erase the column gaps
   normaliseSpacing(blocks);
   unboldLeadProse(blocks);
+// An exercise/assessment part with no words at all — an empty numbered paragraph Word
+// left at the end of a list, or one holding a lone full stop — printed as a bare marker
+// ("a." / "I. .") closing the box (Civic Education Form 4 LB: three exercises). The
+// stray-artifact rule already drops these in running text; this reaches the parts.
+// A part with an answer, a picture or a table is kept whatever its question says.
+function dropEmptyParts(blocks) {
+  const bare = (p) => p && p.kind === "q" && !/[\p{L}\p{N}]/u.test(p.q || "")
+    && !/[\p{L}\p{N}]/u.test(p.a || "") && !(p.imgs || []).length && !p.table && !p.image && !p.math
+    && !(p.qseg || []).some((s) => s.m) && !(p.aseg || []).some((s) => s.m);
+  (function walk(arr) {
+    for (const x of arr || []) {
+      if (!x || typeof x !== "object") continue;
+      if (Array.isArray(x.parts)) x.parts = x.parts.filter((p) => !bare(p));
+      for (const k of ["body", "parts"]) if (Array.isArray(x[k])) walk(x[k]);
+    }
+  })(blocks);
+}
+
 // The line that introduces a section's Specific Competences, in one wording per book
 // kind. Manuscripts word it three ways in the SAME book — the ICT Form 2 Teacher's
 // Guide typed "In this section, you will:" five times and "In this section, you will
@@ -8770,6 +8824,10 @@ function uniformLetterMarkers(blocks, off) {
     for (const b of arr) {
       if (!b || typeof b !== "object") continue;
       if (Array.isArray(b.parts)) for (const p of b.parts) if (p && typeof p.marker === "string") parts.push(p);
+      // an assessment set as a plain list (no box) letters its sub-questions through the
+      // list items' own markers: Word's "(a)" numbering there beside "a)" everywhere else
+      // in the book (Civic Education Form 4 LB, three end-of-topic assessments)
+      if (b.t === "listitem" && typeof b.marker === "string") parts.push(b);
       for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
     }
   })(blocks);

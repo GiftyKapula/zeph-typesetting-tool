@@ -1,0 +1,230 @@
+{
+  "coverImage": "civic-f4-lb-cover.jpg",
+  "tocGap": "7pt",
+  "glossaryTitle": "GLOSSARY",
+  "edit": [
+    {
+      "find": "GLOSARY",
+      "with": "GLOSSARY"
+    },
+    {
+      "find": "Figure 10. Commissioning",
+      "with": "Figure 7: Commissioning"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "Specific Competence:",
+      "with": "Specific Competence"
+    },
+    {
+      "find": "Specific Competences:",
+      "with": "Specific Competences"
+    },
+    {
+      "find": "in this section, you will learn to:",
+      "with": "In this section, you will learn to:"
+    },
+    {
+      "find": "In this section you will learn to:",
+      "with": "In this section, you will learn to:"
+    }
+  ],
+  "setCaption": [
+    {
+      "near": "Figure 1. “Illustration of the Zambian Legal System",
+      "text": "Figure 1: Illustration of the Zambian Legal System"
+    },
+    {
+      "near": "Figure 4. Illustration of elements of crime",
+      "text": "Figure 3: Illustration of elements of crime"
+    },
+    {
+      "near": "Figure 7. Illustration of equality and equity",
+      "text": "Figure 4: Illustration of equality and equity"
+    },
+    {
+      "near": "Figure 8. Learners benefiting",
+      "text": "Figure 5: Learners benefiting from a bicycle support initiative aimed at improving access to education, particularly for girls who travel long distances to school."
+    },
+    {
+      "near": "Figure 9. Example of victim support",
+      "text": "Figure 6: Example of victim support unit-Zambia police"
+    }
+  ],
+  "subtext": [
+    {
+      "from": "Table I: Differences",
+      "to": "Table 1: Differences"
+    },
+    {
+      "from": "Table 2. Arguments",
+      "to": "Table 2: Arguments"
+    },
+    {
+      "from": "Figure 2",
+      "to": "Figure 2:"
+    },
+    {
+      "from": "infographic of Elements of a good legal system",
+      "to": "Infographic of elements of a good legal system"
+    },
+    {
+      "from": "Identify the development indicators evident in each community.",
+      "to": "a) Identify the development indicators evident in each community."
+    },
+    {
+      "from": "(a) Explain how inaccurate credit",
+      "to": "a) Explain how inaccurate credit"
+    },
+    {
+      "from": "(b) Identify the steps the",
+      "to": "b) Identify the steps the"
+    },
+    {
+      "from": "(c) Explain two responsibilities of",
+      "to": "c) Explain two responsibilities of"
+    },
+    {
+      "from": "(d) Suggest two measures that",
+      "to": "d) Suggest two measures that"
+    },
+    {
+      "from": "(a) Explain two ways investor",
+      "to": "a) Explain two ways investor"
+    },
+    {
+      "from": "(b) Identify two sources of",
+      "to": "b) Identify two sources of"
+    },
+    {
+      "from": "(c) Explain why investors should",
+      "to": "c) Explain why investors should"
+    },
+    {
+      "from": "(a) Develop a simple retirement",
+      "to": "a) Develop a simple retirement"
+    },
+    {
+      "from": "(b) Explain how your proposed",
+      "to": "b) Explain how your proposed"
+    },
+    {
+      "from": "(c) Justify two important decisions",
+      "to": "c) Justify two important decisions"
+    },
+    {
+      "from": "LEARNING ACTIVITY 3: Examining elements of",
+      "to": "LEARNING ACTIVITY 2: Examining elements of"
+    },
+    {
+      "from": "LEARNING ACTIVITY 4: Explaining Sources of",
+      "to": "LEARNING ACTIVITY 3: Explaining Sources of"
+    },
+    {
+      "from": "LEARNING ACTIVITY 5: Explaining elements of",
+      "to": "LEARNING ACTIVITY 4: Explaining elements of"
+    },
+    {
+      "from": "LEARNING ACTIVITY 6: Classifying Crime",
+      "to": "LEARNING ACTIVITY 5: Classifying Crime"
+    },
+    {
+      "from": "LEARNING ACTIVITY 7: Distinguishing criminal ca",
+      "to": "LEARNING ACTIVITY 6: Distinguishing criminal ca"
+    },
+    {
+      "from": "LEARNING ACTIVITY 8: Analysing the trial",
+      "to": "LEARNING ACTIVITY 7: Analysing the trial"
+    },
+    {
+      "from": "LEARNING ACTIVITY 9: Outlining procedure in",
+      "to": "LEARNING ACTIVITY 8: Outlining procedure in"
+    },
+    {
+      "from": "LEARNING ACTIVITY 10: Explaining Types of",
+      "to": "LEARNING ACTIVITY 9: Explaining Types of"
+    },
+    {
+      "from": "LEARNING ACTIVITY 11: Examining factors that",
+      "to": "LEARNING ACTIVITY 10: Examining factors that"
+    },
+    {
+      "from": "LEARNING ACTIVITY 12: Analysing capital punishme",
+      "to": "LEARNING ACTIVITY 11: Analysing capital punishme"
+    },
+    {
+      "from": "LEARNING ACTIVITY 13: Describing methods of",
+      "to": "LEARNING ACTIVITY 12: Describing methods of"
+    },
+    {
+      "from": "LEARNING ACTIVITY 14: Justifying legal instituti",
+      "to": "LEARNING ACTIVITY 13: Justifying legal instituti"
+    },
+    {
+      "from": "plan successful??",
+      "to": "plan successful?"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "4.1.2.1. Analyse trial stages in the Zambian Legal System",
+      "with": [
+        {
+          "listitem": "*Analyse trial stages in the Zambian Legal System*",
+          "marker": "4.1.2.1"
+        }
+      ]
+    },
+    {
+      "find": "4.1.3.1. Critique Capital Punishment",
+      "with": [
+        {
+          "listitem": "*Critique Capital Punishment*",
+          "marker": "4.1.3.1"
+        }
+      ]
+    },
+    {
+      "find": "Describe the functions of Credit Reference Bureau",
+      "with": [
+        {
+          "listitem": "*Describe the functions of Credit Reference Bureau*",
+          "marker": "4.6.1.1"
+        }
+      ]
+    },
+    {
+      "find": "4.7.1.1 Examine the functions of the Securities and Exchange Commission (SEC) of Zambia.",
+      "with": [
+        {
+          "listitem": "*Examine the functions of the Securities and Exchange Commission (SEC) of Zambia*",
+          "marker": "4.7.1.1"
+        }
+      ]
+    },
+    {
+      "find": "4.8.1.1 Exhibit a plan for retirement",
+      "with": [
+        {
+          "listitem": "*Exhibit a plan for retirement*",
+          "marker": "4.8.1.1"
+        }
+      ]
+    },
+    {
+      "find": "4.9.1.1. Dissolve a Business Venture",
+      "with": [
+        {
+          "listitem": "*Dissolve a Business Venture*",
+          "marker": "4.9.1.1"
+        }
+      ]
+    }
+  ],
+  "pageBreakBefore": [
+    "Classification of crimes according to intent",
+    "Project Task: Conduct a simple investigation",
+    "10. Applied Task"
+  ]
+}

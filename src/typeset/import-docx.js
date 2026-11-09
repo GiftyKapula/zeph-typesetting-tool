@@ -2537,7 +2537,19 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   // In the flowing (series) layout, collapse manual line breaks the author used
   // to hand-wrap a paragraph so the text reflows to the page width (poetry uses
   // the literary variant, which is not flat, so it keeps its breaks).
-  return { t: "para", segs: flat ? reflowBreaks(segs) : segs };
+  return { t: "para", segs: flat && !isSignatoryLines(segs) ? reflowBreaks(segs) : segs };
+}
+// A Foreword/Preface signatory typed as one paragraph with Shift+Enter between the
+// name, the title and the organisation ("Noriana Muneku (Ms.)<br>Permanent Secretary
+// (Administration)<br>Ministry of Education"). Those breaks are the block's structure,
+// not a hand-wrap, so the series reflow must leave them for groupSignatories to split;
+// reflowed, the three lines printed as one run-on bold line (Civic Education Form 4 LB).
+// Signatory shape: 2-5 short lines, the first a name carrying an honorific.
+function isSignatoryLines(segs) {
+  const lines = segs.map((s) => s.t).join("").split("\n").map((l) => l.trim()).filter(Boolean);
+  if (lines.length < 2 || lines.length > 5 || lines.some((l) => l.length > 70)) return false;
+  return /\(\s*(?:dr|ms|mr|mrs|prof|hon|ph\.?\s?d|ed\.?\s?d|m\.?\s?ed|phd)\.?\s*\)$|^(?:dr|prof|mr|mrs|ms|hon)\.?\s+[A-Z]/i.test(lines[0])
+    && lines[0].length <= 60;
 }
 // Collapse runs of manual line breaks ("\n") inside a flowing paragraph: join
 // across the break when it sits mid-word (a letter on each side, e.g. a word
@@ -2560,6 +2572,11 @@ function reflowBreaks(segs) {
     segs[i].t = segs[i].t.replace(/\n+/g, (m, off, str) => {
       const before = off > 0 ? str[off - 1] : prevChar;
       const after = off + m.length < str.length ? str[off + m.length] : nextChar;
+      // a lettered item after the break ("…; and<br>g) proposes…") is a new item the author
+      // set on its own line, not the rest of a split word: joined, it printed "andg)" and
+      // ran the a)…g) list into one paragraph (Civic Education Form 4 LB, four places)
+      const tail = str.slice(off + m.length, off + m.length + 5) || (segs[i + 1] ? segs[i + 1].t.slice(0, 5) : "");
+      if (/^\(?(?:[a-z]|[ivx]{1,4})\)/.test(tail)) return "\n";
       return (isWord(before) && isWord(after) && !startsNewWord(after)) ? "" : " ";
     }).replace(/ {2,}/g, " ");
     if (segs[i].t.length) prevChar = segs[i].t[segs[i].t.length - 1];

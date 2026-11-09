@@ -305,6 +305,13 @@ const THEMES = {
   // Geography — an "atlas" palette: deep map-green land, ochre contour-line
   // accent, and map-water blue. Form 2 gets its own cartographic cover + header.
   geography: zeph({ subject: "Geography",          signature: "18704a", primary: "18704a", primary2: "2a9668", accent: "d98a2b", cyan: "2b7fb8", coverStyle: "form2" }),
+  // Civic Education (Form 4) — a deep "civic" bottle green with a warm orange accent,
+  // the two colours of the band along the foot of the Form 4 LB's own cover art. Darker
+  // than Geography's map green so the two stay apart. The cover field is a mid sage
+  // so the dark green title reads on it (a dark field made the title vanish). Before
+  // this theme a Civic book fell through to the `navy` fallback and printed PE's
+  // "MOVEMENT · HEALTH · PERFORMANCE" eyebrow on its cover.
+  civic:     zeph({ subject: "Civic Education",    signature: "8fcb9b", primary: "1c4f3a", primary2: "2f7556", accent: "e07a1f", cyan: "2b7fb8" }),
   // Food and Nutrition (Form 1) — a warm "spice and herb" palette: toasted-cinnamon
   // brown primary with a fresh basil-green accent, distinct from art's orange-terracotta
   // and biology's emerald. Boxed activities/exercises (author uses real Learning
@@ -446,6 +453,7 @@ function autoTheme(name) {
   // would otherwise not catch it at all and drop RE onto the fallback navy theme.
   if (/religious\s*(education|studies)|\bR\.?\s?E\.?(?=\b|_)/i.test(name)) return "religious";
   if (/geograph/i.test(name)) return "geography";
+  if (/civic/i.test(name)) return "civic";
   if (/musical\s*arts?/i.test(name)) return "musicalarts";
   if (/food\s*(and|&)?\s*nutrition|nutrition/i.test(name)) return "foodnutrition";
   // Physical Education and Sport at Ordinary Level (Form 1-4) gets its OWN "pesport"
