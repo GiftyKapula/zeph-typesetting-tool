@@ -16,17 +16,19 @@
     "(styled anything from Heading 1 to plain) are small bold labels under it, out of the contents.",
     "",
     "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25): 392 comments. 350 'Remove Boldface' -- the manuscript sets activities/standards in Word's Strong style with bold switched off by hand; the importer now honours that (engine). The rest below.",
-    "PAGE BREAKS: 1.1.4.3.1, 1.3.1.1.2 and 1.3.6.1.2 each carry one 3-line bullet onto the next page. Keeping them whole was tried (2026-10-26): it left pages 49-61% empty and a 2-line carry-over at 1.3.6.1.4, so they stay split."
+    "PAGE BREAKS: 1.1.4.3.1, 1.3.1.1.2 and 1.3.6.1.2 each carry one 3-line bullet onto the next page. Keeping them whole was tried (2026-10-26): it left pages 49-61% empty and a 2-line carry-over at 1.3.6.1.4, so they stay split.",
+    "",
+    "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): publication year 2025 -> 2026 (year key); Director signatory -> Samutete M. Petronella (Ms)."
   ],
   "subject": "Information and Communication Technology",
   "level": "Secondary School Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "removeRange": [
     {
       "_why": "the truncated first copyright line",
       "from": "© Curriculum Development Centre, 202",
-      "to": "© Curriculum Development Centre, 2025"
+      "to": "© Curriculum Development Centre, 2026"
     }
   ],
   "setHeading": [
@@ -502,6 +504,18 @@
       "_why": "Grammar check after round 1 (manuscript slips): programs ... use",
       "from": "Developing programs that uses arrays",
       "to": "Developing programs that use arrays"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): 'This must be signed by the current Director: Samutete M. Petronella (Ms)'",
+      "find": "Charles Ndakala (Dr.)",
+      "with": "Samutete M. Petronella (Ms)"
+    },
+    {
+      "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): 'Change the publication year to 2026' (copyright line)",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
     }
   ]
 }
