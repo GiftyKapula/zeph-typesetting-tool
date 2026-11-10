@@ -25,10 +25,12 @@
     "reading labels anything from Heading 1 to plain, so six opened a page of their own and stranded the",
     "course name above them at a page foot. Every label is a small bold label under its course, out of the contents.",
     "",
-    "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25): 155 comments. 109 'Remove Boldface' -- Word's Strong style switched off by hand; the importer honours that now (engine, PR #98). 'C++' no longer breaks across a line (template show rule). The rest below."
+    "PROOFREAD round 1 (Google Drive comments, 2026-10-22..25): 155 comments. 109 'Remove Boldface' -- Word's Strong style switched off by hand; the importer honours that now (engine, PR #98). 'C++' no longer breaks across a line (template show rule). The rest below.",
+    "",
+    "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): publication year 2025 -> 2026 (year key); Director signatory -> Samutete M. Petronella (Ms); 1.1 Introduction on a new page."
   ],
   "level": "Secondary School Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "setHeading": [
     {
@@ -485,6 +487,24 @@
       "_why": "Spelling check after round 1: topic 1.7.5 heading misspelt in the manuscript",
       "from": "ARTIFICIAL INTELLIGIENCE",
       "to": "ARTIFICIAL INTELLIGENCE"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): 'This must be signed by the current Director: Samutete M. Petronella (Ms)'",
+      "find": "Charles Ndakala (Dr.)",
+      "with": "Samutete M. Petronella (Ms)"
+    },
+    {
+      "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): 'Change the publication year to 2026' (copyright line)",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): p. vii: 'Move the introduction to the new page'",
+      "find": "1.1 Introduction"
     }
   ]
 }
