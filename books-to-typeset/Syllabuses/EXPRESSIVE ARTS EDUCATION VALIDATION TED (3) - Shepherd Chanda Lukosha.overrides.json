@@ -4,7 +4,7 @@
     "TITLE / LEVEL / YEAR (2026-10-16). As the manuscript's cover says: EXPRESSIVE ARTS SYLLABUS, Primary Teachers' Diploma; 2025 from the copyright line. Without them the cover read 'EXPRESSIVE ARTS EDUCATION SYLLABUS / TEACHERS' DIPLOMA' (taken from the file name).",
     "HAND-TYPED CONTENTS (2026-10-16). Under the template's ISBN line (978-9982-54-066-7, the same number as in Music Methods: not this book's) the manuscript has its own contents as a table with its Word page numbers; it printed after the generated contents for two and a half pages. Both go, as in Music Methods; the imprint keeps its blank ISBN line.",
     "",
-    "ROUND 1 (2026-11-10): 22 Google Drive comments (charles walimaposo, Owen Mutema, Nampundu Special, 29-30 Oct 2026), all made. One-word and unanchored ones placed from the page order of each reviewer's batch -- see each _why. The duplicated Art and Design topics (1.15-1.18 = 1.19-1.22) are still both in; the reviewers commented on the second copy and each fix went into both copies alike."
+    "ROUND 1 (2026-11-10): 22 Google Drive comments (charles walimaposo, Owen Mutema, Nampundu Special, 29-30 Oct 2026), all made. One-word and unanchored ones placed from the page order of each reviewer's batch -- see each _why. The duplicated Art and Design topics (1.15-1.18 = 1.19-1.22): the first copy removed on the user's instruction (removeRow); the topics after it renumber."
   ],
   "subject": "Expressive Arts",
   "level": "Primary Teachers' Diploma",
@@ -35,6 +35,24 @@
     {
       "_why": "its last two activities ran alone onto the last page (2026-10-16)",
       "startsWith": "2.14.2.1"
+    }
+  ],
+  "removeRow": [
+    {
+      "_why": "ROUND 1 (2026-11-10): the Art and Design topics Colour Theory, Painting, Patterns in Art and Crafts were typed twice (1.15-1.18 and 1.19-1.22). User: keep one copy. The second is kept -- the reviewers commented on it and its standards read better (explored, not exploited); the first copy's five rows go, matched by their standards, and renumberMatrix closes the gap.",
+      "find": "• Colour wheel created accordingly"
+    },
+    {
+      "find": "• Painting material and tools exploited accordingly"
+    },
+    {
+      "find": "• Various painting techniques applied adequately"
+    },
+    {
+      "find": "• Patterns in Art and Design designed accordingly"
+    },
+    {
+      "find": "• Crafts created skillfully"
     }
   ],
   "edit": [
