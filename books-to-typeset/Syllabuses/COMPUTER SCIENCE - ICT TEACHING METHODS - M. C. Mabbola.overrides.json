@@ -17,11 +17,13 @@
     "The back matter keeps the author's own section numbers 1.7-1.12 (Method of Teaching ... Recommended",
     "Books), which follow on from the front matter's 1.1-1.6, not from the matrix.",
     "",
-    "PROOFREAD round 1 (Google Drive comments, 2026-10-22..23): 15 comments (M. C. Mabbola, Misheck Mutuzana). 'P.O. BOX' -> 'P.O. Box' is in the template (imprint, every syllabus); '1.6.4 General Competences and Descriptors' indented, plain in the contents is an engine rule (a numbered front-matter competences heading stays nested). The rest below."
+    "PROOFREAD round 1 (Google Drive comments, 2026-10-22..23): 15 comments (M. C. Mabbola, Misheck Mutuzana). 'P.O. BOX' -> 'P.O. Box' is in the template (imprint, every syllabus); '1.6.4 General Competences and Descriptors' indented, plain in the contents is an engine rule (a numbered front-matter competences heading stays nested). The rest below.",
+    "",
+    "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): publication year 2025 -> 2026 (year key); Director signatory -> Samutete M. Petronella (Ms)."
   ],
   "subject": "Computer Science and ICT Teaching Methods",
   "level": "Secondary School Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "pageBreakBefore": [
     {
@@ -252,5 +254,17 @@
       "with": "Identifying the six cognitive levels of Bloom’s Taxonomy (Remembering, Understanding, Applying, Analysing, Evaluating and Creating).\nClassifying ICT / Computer Science tasks according to the appropriate cognitive levels of Bloom’s Taxonomy.\nFormulating measurable learning objectives using appropriate action verbs.\nDesigning ICT / Computer Science tasks that demonstrate different cognitive levels.\nCreating a reference chart linking cognitive levels, action verbs and practical ICT / Computer Science learning activities."
     }
   ],
-  "_remove": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..23), p. xi: 'Delete this sentence'"
+  "_remove": "PROOFREAD round 1 (Google Drive comments, 2026-10-22..23), p. xi: 'Delete this sentence'",
+  "edit": [
+    {
+      "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): 'This must be signed by the current Director: Samutete M. Petronella (Ms)'",
+      "find": "Charles Ndakala (Dr.)",
+      "with": "Samutete M. Petronella (Ms)"
+    },
+    {
+      "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): 'Change the publication year to 2026' (copyright line)",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
+    }
+  ]
 }
