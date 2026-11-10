@@ -45,7 +45,7 @@
 // the generated table of contents), not via a render-time counter here.
 // vertical room left above a signatory's name (for a hand signature) on the
 // Foreword / Preface / Acknowledgements pages.
-#let sigspace() = v(12mm, weak: true)
+#let sigspace(h: 12mm) = v(h, weak: true)
 // A signatory block (name / title / organisation) with EVEN spacing between the
 // lines — identical in every book. Kept together so it never splits across a page.
 #let signature(lines) = {

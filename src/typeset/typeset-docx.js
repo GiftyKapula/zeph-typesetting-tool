@@ -193,7 +193,7 @@ function emit(blocks) {
       // block must keep its own spacing) and reset to normal at the first unit.
       case "showpage": out += `#pagebreak(weak: true)\n#pgvisible.update(true)\n#set par(spacing: ${b.spacing || "1.9em"})\n`; break;
       case "bodystart": out += `#pagebreak(weak: true)\n#counter(page).update(1)\n#set page(numbering: "1")\n#set par(spacing: 0.86em)\n`; break;
-      case "sigspace": out += `#sigspace()\n`; break;
+      case "sigspace": out += b.mm ? `#sigspace(h: ${b.mm}mm)\n` : `#sigspace()\n`; break;
       case "signature": out += `#signature(${arr(b.lines, (l) => `(text: ${S(l.text)}, bold: ${l.bold ? "true" : "false"})`)})\n`; break;
       case "backcover": out += `#backcover(${strArr(b.lines || [])}, ${b.logo ? `(file: ${S(b.logo.file)})` : "none"}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
       case "h1": {
@@ -6912,6 +6912,9 @@ function normaliseQuestionMarkBold(blocks) {
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }
+  // sigSpace: <mm> -- room above every signatory's name (default 12mm), for a book whose
+  // reviewers ask for space to sign in.
+  if (ov.sigSpace) for (const b of blocks) if (b.t === "sigspace") b.mm = Number(ov.sigSpace);
   const tmpl = fs.readFileSync(path.join(__dirname, "generic-template.typ"), "utf8");
   // Inject the theme dict ABOVE the template so its functions capture it.
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;
