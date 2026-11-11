@@ -67,7 +67,7 @@
   "subject": "Physical Education and Sport Content",
   "_subject_why": "PROOFREAD 2026-10-23, p1 (cover title): 'PHYSICAL EDUCATION AND SPORT CONTENT SYLLABUS' -- the name it was received under (see FILE NAME).",
   "isbn": "978-9982-54-066-7",
-  "coverColour": "1f5c3a",
+  "coverColour": "5a9e32",
   "_coverColour_why": "Cover and back-cover field: a deep playing-field green. Left to the engine's pick from the subject name it came out blue, close to Guidance and Counselling's navy and Devices and Materials Production's indigo.",
   "renumberMatrix": true,
   "deleteExact": [
@@ -186,5 +186,9 @@
       "startsWith": "2.6.1.1",
       "at": "Interactive and explorat"
     }
-  ]
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); a shade of its own per book, peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }

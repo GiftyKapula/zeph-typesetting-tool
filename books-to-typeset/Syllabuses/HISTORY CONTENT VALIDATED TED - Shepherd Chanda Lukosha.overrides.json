@@ -52,10 +52,20 @@
       "text": "Background",
       "as": "label"
     },
-    { "find": "Rationale:", "text": "Rationale", "as": "label" },
-    { "find": "Aims:", "text": "Aims", "as": "label" }
+    {
+      "find": "Rationale:",
+      "text": "Rationale",
+      "as": "label"
+    },
+    {
+      "find": "Aims:",
+      "text": "Aims",
+      "as": "label"
+    }
   ],
-  "deleteExact": ["Year 1"],
+  "deleteExact": [
+    "Year 1"
+  ],
   "_deleteExact_why": "A 'Year 1' heading over the Year 1 Key Competences table, and the manuscript's own 'YEAR 1' again over the matrix: two YEAR 1 pages. The one over the matrix stays, as in Year 2 (competences, then the YEAR 2 page, then the matrix).",
   "pageBreakBefore": [
     {
@@ -172,72 +182,107 @@
     },
     {
       "_why": "YEAR 1 KEY COMPETENCES (see _comment). Was Citizenship's descriptor; now matrix 1.10.1.1.",
-      "under": "at Year one", "row": "Emotional Intelligence", "col": 2,
+      "under": "at Year one",
+      "row": "Emotional Intelligence",
+      "col": 2,
       "with": "Demonstrate respect for human dignity"
     },
     {
       "_why": "Was Entrepreneurship's descriptor; now matrix 1.10.3.1.",
-      "under": "at Year one", "row": "Financial Education", "col": 2,
+      "under": "at Year one",
+      "row": "Financial Education",
+      "col": 2,
       "with": "Relate Black Friday to modern day commerce in Zambia"
     },
     {
       "_why": "Was Environmental Sustainability's descriptor; now matrix 1.15.1.1.",
-      "under": "at Year one", "row": "Problem Solving", "col": 2,
+      "under": "at Year one",
+      "row": "Problem Solving",
+      "col": 2,
       "with": "Promote peaceful methods of conflict resolution"
     },
     {
       "_why": "YEAR 2 KEY COMPETENCES (see _comment): all twelve from the Year 2 topics. Matrix 2.1.1.1.",
-      "under": "at year two", "row": "Analytical Thinking", "col": 2,
+      "under": "at year two",
+      "row": "Analytical Thinking",
+      "col": 2,
       "with": "Analyse causes of the Second World War"
     },
     {
       "_why": "Matrix 2.3.1.1.",
-      "under": "at year two", "row": "Citizenship", "col": 2,
+      "under": "at year two",
+      "row": "Citizenship",
+      "col": 2,
       "with": "Promote unity in Africa through Pan-Africanism"
     },
     {
       "_why": "Matrix 2.3.2.1.",
-      "under": "at year two", "row": "Collaboration", "col": 2,
+      "under": "at year two",
+      "row": "Collaboration",
+      "col": 2,
       "with": "Facilitate continental economic integration and conflict resolution"
     },
     {
-      "under": "at year two", "row": "Communication", "col": 2,
+      "under": "at year two",
+      "row": "Communication",
+      "col": 2,
       "with": "Communicate Zambia’s role in the liberation struggle of Southern Africa"
     },
     {
-      "under": "at year two", "row": "Creativity and Innovation", "col": 2,
+      "under": "at year two",
+      "row": "Creativity and Innovation",
+      "col": 2,
       "with": "Illustrate Zambia’s liberation struggle for independence through charts, drama and timelines"
     },
     {
       "_why": "Matrix 2.1.4.1.",
-      "under": "at year two", "row": "Critical Thinking", "col": 2,
+      "under": "at year two",
+      "row": "Critical Thinking",
+      "col": 2,
       "with": "Examine ideologies of Capitalism and Communism since 1945"
     },
     {
       "_why": "From the 2.2.2 activities ('Using digital resources …').",
-      "under": "at year two", "row": "Digital", "col": 2,
+      "under": "at year two",
+      "row": "Digital",
+      "col": 2,
       "with": "Use digital resources to evaluate Zambia’s role in the liberation of Southern Africa"
     },
     {
-      "under": "at year two", "row": "Emotional Intelligence", "col": 2,
+      "under": "at year two",
+      "row": "Emotional Intelligence",
+      "col": 2,
       "with": "Show empathy for people affected by the Second World War and the liberation struggles"
     },
     {
-      "under": "at year two", "row": "Entrepreneurship", "col": 2,
+      "under": "at year two",
+      "row": "Entrepreneurship",
+      "col": 2,
       "with": "Identify business opportunities created by continental economic integration"
     },
     {
-      "under": "at year two", "row": "Environmental Sustainability", "col": 2,
+      "under": "at year two",
+      "row": "Environmental Sustainability",
+      "col": 2,
       "with": "Assess the effects of war on the environment"
     },
     {
-      "under": "at year two", "row": "Financial Education", "col": 2,
+      "under": "at year two",
+      "row": "Financial Education",
+      "col": 2,
       "with": "Assess the economic effects of the Second World War on Zambia"
     },
     {
       "_why": "Matrix 2.1.3.1.",
-      "under": "at year two", "row": "Problem Solving", "col": 2,
+      "under": "at year two",
+      "row": "Problem Solving",
+      "col": 2,
       "with": "Assess the work of the UN in maintaining world peace"
     }
-  ]
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); a shade of its own per book, peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverColour": "0f6b3a",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }

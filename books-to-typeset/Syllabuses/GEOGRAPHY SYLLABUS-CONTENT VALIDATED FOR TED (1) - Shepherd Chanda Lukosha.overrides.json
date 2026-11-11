@@ -2,13 +2,109 @@
   "_comment": [
     "Matrix numbers are Word auto-list numbers that restart and run on across merged cells; renumberMatrix counts them afresh from the table structure.",
     "TITLE / LEVEL / YEAR (2026-10-16). As the manuscript's cover and Course Name say: Geography Content, Secondary Teachers' Diploma; 2025 from the copyright line. Without them the cover read 'GEOGRAPHY -CONTENT FOR SYLLABUS / TEACHERS' DIPLOMA' (taken from the file name).",
-    "STRAY LABEL (2026-10-16). The course outline's last item, '3. General Competences and Descriptors:', is a label for the competences table, which opens arabic page 1 under its own heading 'Competences to be developed:' after the level page; the label stood alone on a page of its own, so it goes."
+    "STRAY LABEL (2026-10-16). The course outline's last item, '3. General Competences and Descriptors:', is a label for the competences table, which opens arabic page 1 under its own heading 'Competences to be developed:' after the level page; the label stood alone on a page of its own, so it goes.",
+    "ROUND 1 (Google Drive, Aaron Sinkala, 27-28 Oct 2026): 35 comments. Year 2025 -> 2026 (year key + copyright and First Published lines); Director signatory -> Samutete M. Petronella (Ms); lower-case geography/geographical capitalised (29 marked, every one in the book done as a word fix); competence 3 'Able translate' -> 'Translate'; Background 'an individual,' -> 'students,'; Acknowledgement 'Zambia Education Enhancement Project' -> 'Educational' (the comment names only the word 'Education'; this is the one capital Education in the front matter beside the other front-matter comments, placed from context); Year 2 competences: empty CITIZENSHIP/COLLABORATION/COMMUNICATION rows deleted, S/N counted again; 1.15 Field Project: stage lines 1.15.2-1.15.7 deleted from the sub-topic, its competence now 1.15.1.1."
   ],
   "subject": "Geography Content",
   "level": "Secondary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "remove": [
     "General Competences and Descriptors:"
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); a shade of its own per book, peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverColour": "2e8b57",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact",
+  "edit": [
+    {
+      "_why": "ROUND 1: 2025 -> 2026 (copyright line)",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
+    },
+    {
+      "_why": "ROUND 1: 2025 -> 2026",
+      "find": "First Published 2025",
+      "with": "First Published 2026"
+    },
+    {
+      "_why": "ROUND 1: Director signatory",
+      "find": "Charles Ndakala (PhD)",
+      "with": "Samutete M. Petronella (Ms)"
+    },
+    {
+      "_why": "ROUND 1: 'an individual,' -> 'students,'",
+      "find": "development of an individual,",
+      "with": "development of students,"
+    },
+    {
+      "_why": "ROUND 1: 'Education' -> 'Educational' (placed from context)",
+      "find": "Zambia Education Enhancement Project",
+      "with": "Zambia Educational Enhancement Project"
+    }
+  ],
+  "subtext": [
+    {
+      "_why": "ROUND 1: capital G",
+      "from": " geography",
+      "to": " Geography"
+    },
+    {
+      "from": " geographical",
+      "to": " Geographical"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "ROUND 1: capital G (table cells)",
+      "from": "geography",
+      "to": "Geography",
+      "all": true,
+      "every": true
+    },
+    {
+      "from": "geographical",
+      "to": "Geographical",
+      "all": true,
+      "every": true
+    },
+    {
+      "_why": "undo the capital inside biogeography",
+      "from": "bioGeography",
+      "to": "biogeography",
+      "all": true,
+      "every": true
+    },
+    {
+      "_why": "ROUND 1: competence 3 Communication",
+      "from": "Able translate",
+      "to": "Translate"
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "ROUND 1: delete stage lines 1.15.2-1.15.7 of the Field Project sub-topic",
+      "pattern": "(Research Report\\))\\s*\\n1\\.\\d+\\.2 Introduction[\\s\\S]*$",
+      "with": "$1"
+    }
+  ],
+  "removeRow": [
+    {
+      "_why": "ROUND 1: Year 2 competences, the empty rows deleted",
+      "find": "Citizenship",
+      "ifBlank": true,
+      "renumberSN": true
+    },
+    {
+      "find": "Collaboration",
+      "ifBlank": true,
+      "renumberSN": true
+    },
+    {
+      "find": "Communication",
+      "ifBlank": true,
+      "renumberSN": true
+    }
   ]
 }

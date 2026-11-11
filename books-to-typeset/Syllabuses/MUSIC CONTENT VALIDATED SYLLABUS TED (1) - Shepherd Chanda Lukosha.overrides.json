@@ -275,5 +275,10 @@
       "_why": "The scope chart gained a line in round 1 (World Music 2) and its Term 3 row went overleaf alone; lines set 4pt apart (not 5pt) keep the chart on one page.",
       "find": "Foundations of Music Theory 1"
     }
-  ]
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); a shade of its own per book, peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverColour": "2a7f62",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }

@@ -25,7 +25,7 @@
   "subject": "Business Studies",
   "level": "Secondary School Teachers' Diploma",
   "year": 2025,
-  "coverColour": "2e7d32",
+  "coverColour": "1b7a3e",
   "renumberMatrix": true,
   "courses": [
     "FINANCIAL ACCOUNTING",
@@ -620,5 +620,9 @@
         "• Effects of Inflation analysed correctly"
       ]
     }
-  ]
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); a shade of its own per book, peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }

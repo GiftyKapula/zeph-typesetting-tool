@@ -48,5 +48,10 @@
       "pattern": "(CHRISTIANITY IN AFRICA)\\s*\\n\\s*IN\\s*$",
       "with": "$1"
     }
-  ]
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); a shade of its own per book, peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverColour": "00875a",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }

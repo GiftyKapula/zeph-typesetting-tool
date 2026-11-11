@@ -75,20 +75,41 @@
     {
       "_why": "The two section headings carry a colon ('Background:', 'Rationale:'). Without it Background is recognised as the top-level section it is in the family (its own page, after the Acknowledgement's signatory), as in the Physical Education and Sport syllabus.",
       "find": "Background:",
-      "with": [{ "h1": "Background" }]
+      "with": [
+        {
+          "h1": "Background"
+        }
+      ]
     },
     {
       "find": "Rationale:",
-      "with": [{ "h1": "Rationale" }]
+      "with": [
+        {
+          "h1": "Rationale"
+        }
+      ]
     },
     {
       "_why": "The year headings above the two matrices, in the family's wording, so that each sets as the YEAR divider page.",
       "find": "YEAR ONE",
-      "with": [{ "label": "YEAR 1" }]
+      "with": [
+        {
+          "label": "YEAR 1"
+        }
+      ]
     },
     {
       "find": "Year two",
-      "with": [{ "label": "YEAR 2" }]
+      "with": [
+        {
+          "label": "YEAR 2"
+        }
+      ]
     }
-  ]
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); a shade of its own per book, peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverColour": "3a9d5d",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }

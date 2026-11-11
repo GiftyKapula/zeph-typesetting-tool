@@ -1591,14 +1591,30 @@ function applyOverrides(blocks, ov) {
       if (!t) return false;
       return want != null ? t === want : (pre != null && t.startsWith(pre));
     };
+    // `ifBlank: true` drops only a matching row that also has an empty cell — a competence
+    // the author left without descriptors, beside the same competence filled in another
+    // year's table (Geography Content). `renumberSN: true` then counts the table's first
+    // column 1, 2, 3 … afresh when every filled body cell in it is a bare number, so the
+    // S/N column carries no gap where the rows went.
+    const blankIn = (row) => row.some((c) => !((c && c.text) || "").trim());
     const walkR = (arr) => {
       for (const b of arr) {
         if (!b || typeof b !== "object") continue;
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           const keep = b.rows.filter((row, ri) =>
-            ri === 0 || !Array.isArray(row) || !row.some(hit));
-          n += b.rows.length - keep.length;
+            ri === 0 || !Array.isArray(row) || !row.some(hit) || (rr.ifBlank && !blankIn(row)));
+          const dropped = b.rows.length - keep.length;
+          n += dropped;
           b.rows = keep;
+          const first = (row) => ((Array.isArray(row) && row[0] && row[0].text) || "").trim();
+          const filled = keep.slice(1).filter((row) => first(row));
+          if (dropped && rr.renumberSN && filled.length && filled.every((row) => /^\d+$/.test(first(row)))) {
+            filled.forEach((row, i) => {
+              const t = String(i + 1);
+              row[0].text = t;
+              if (Array.isArray(row[0].segs) && row[0].segs.length) row[0].segs = [{ ...row[0].segs[0], t }];
+            });
+          }
         }
         for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkR(b[k]);
       }
