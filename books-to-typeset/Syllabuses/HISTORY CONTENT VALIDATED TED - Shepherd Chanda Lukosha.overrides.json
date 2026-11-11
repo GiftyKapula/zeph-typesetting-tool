@@ -32,16 +32,18 @@
     "",
     "2026-10-23 proofread round 1 (reviewer's PDF from the Mailo folder, '... - typeset.pdf';",
     "its copies (1) are the same file): 18 comments, all made -- see the PROOFREAD rules in",
-    "`edit`, `cellSubtext` and `editCell`. Page numbers in the rules are the reviewer's PDF's."
+    "`edit`, `cellSubtext` and `editCell`. Page numbers in the rules are the reviewer's PDF's.",
+    "",
+    "ROUND 1, late comments (Google Drive, Mabvuto Nkhata, 26 Oct 2026, on the '- Corrections worked on' copy): 5 comments. Acknowledgement 'Standards and Assessment,' -> 'Standards, Evaluation and Assessment,'; Director signatory -> Samutete M. Petronella (Ms) (the book-wide form); 'Published 2025' -> 2026 (year key, copyright and First Published lines); 2.2.2.1 expected standard: 'the' deleted before 'liberation' and 'struggle' put after it, as the competence beside it reads."
   ],
   "level": "Secondary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "insertText": [
     {
-      "_why": "The copyright line 'Curriculum Development Centre, 2025' is styled as a heading straight after the cover headings (its (c) sign lost), and went with the cover. Set back above the rights notice, as in the other syllabuses.",
+      "_why": "The copyright line 'Curriculum Development Centre, 2025' is styled as a heading straight after the cover headings (its (c) sign lost), and went with the cover. Set back above the rights notice, as in the other syllabuses. ROUND 1 (26 Oct): year 2026.",
       "before": "All rights reserved. No part of this publication",
-      "text": "© Curriculum Development Centre, 2025",
+      "text": "© Curriculum Development Centre, 2026",
       "align": "center"
     }
   ],
@@ -52,10 +54,20 @@
       "text": "Background",
       "as": "label"
     },
-    { "find": "Rationale:", "text": "Rationale", "as": "label" },
-    { "find": "Aims:", "text": "Aims", "as": "label" }
+    {
+      "find": "Rationale:",
+      "text": "Rationale",
+      "as": "label"
+    },
+    {
+      "find": "Aims:",
+      "text": "Aims",
+      "as": "label"
+    }
   ],
-  "deleteExact": ["Year 1"],
+  "deleteExact": [
+    "Year 1"
+  ],
   "_deleteExact_why": "A 'Year 1' heading over the Year 1 Key Competences table, and the manuscript's own 'YEAR 1' again over the matrix: two YEAR 1 pages. The one over the matrix stays, as in Year 2 (competences, then the YEAR 2 page, then the matrix).",
   "pageBreakBefore": [
     {
@@ -98,6 +110,20 @@
       "_why": "PROOFREAD 2026-10-23, p9: 's' added to 'student'; 'practically' marked 'Delete the word'.",
       "find": "ensures student can apply what they learn practically.",
       "with": "ensures students can apply what they learn."
+    },
+    {
+      "_why": "ROUND 1 late (26 Oct): 'Correct to; Standards, Evaluation and Assessment'",
+      "find": "Standards and Assessment,",
+      "with": "Standards, Evaluation and Assessment,"
+    },
+    {
+      "_why": "ROUND 1 late (26 Oct): Director signatory",
+      "find": "Charles Ndakala (Dr.)",
+      "with": "Samutete M. Petronella (Ms)"
+    },
+    {
+      "find": "First Published 2025",
+      "with": "First Published 2026"
     }
   ],
   "cellSubtext": [
@@ -162,6 +188,11 @@
       "_why": "PROOFREAD 2026-10-23, p30 (2.1.3.1): 'United Nations' -> 'UN', and 'the' at the beginning of the sentence.",
       "from": "Work of the United Nations in maintaining world peace",
       "to": "The work of the UN in maintaining world peace"
+    },
+    {
+      "_why": "ROUND 1 late (26 Oct), 2.2.2.1 expected standard: delete 'the', insert 'struggle' after 'liberation'",
+      "from": "role in the liberation of Southern Africa evaluated",
+      "to": "role in liberation struggle of Southern Africa evaluated"
     }
   ],
   "editCell": [
@@ -172,72 +203,107 @@
     },
     {
       "_why": "YEAR 1 KEY COMPETENCES (see _comment). Was Citizenship's descriptor; now matrix 1.10.1.1.",
-      "under": "at Year one", "row": "Emotional Intelligence", "col": 2,
+      "under": "at Year one",
+      "row": "Emotional Intelligence",
+      "col": 2,
       "with": "Demonstrate respect for human dignity"
     },
     {
       "_why": "Was Entrepreneurship's descriptor; now matrix 1.10.3.1.",
-      "under": "at Year one", "row": "Financial Education", "col": 2,
+      "under": "at Year one",
+      "row": "Financial Education",
+      "col": 2,
       "with": "Relate Black Friday to modern day commerce in Zambia"
     },
     {
       "_why": "Was Environmental Sustainability's descriptor; now matrix 1.15.1.1.",
-      "under": "at Year one", "row": "Problem Solving", "col": 2,
+      "under": "at Year one",
+      "row": "Problem Solving",
+      "col": 2,
       "with": "Promote peaceful methods of conflict resolution"
     },
     {
       "_why": "YEAR 2 KEY COMPETENCES (see _comment): all twelve from the Year 2 topics. Matrix 2.1.1.1.",
-      "under": "at year two", "row": "Analytical Thinking", "col": 2,
+      "under": "at year two",
+      "row": "Analytical Thinking",
+      "col": 2,
       "with": "Analyse causes of the Second World War"
     },
     {
       "_why": "Matrix 2.3.1.1.",
-      "under": "at year two", "row": "Citizenship", "col": 2,
+      "under": "at year two",
+      "row": "Citizenship",
+      "col": 2,
       "with": "Promote unity in Africa through Pan-Africanism"
     },
     {
       "_why": "Matrix 2.3.2.1.",
-      "under": "at year two", "row": "Collaboration", "col": 2,
+      "under": "at year two",
+      "row": "Collaboration",
+      "col": 2,
       "with": "Facilitate continental economic integration and conflict resolution"
     },
     {
-      "under": "at year two", "row": "Communication", "col": 2,
+      "under": "at year two",
+      "row": "Communication",
+      "col": 2,
       "with": "Communicate Zambia’s role in the liberation struggle of Southern Africa"
     },
     {
-      "under": "at year two", "row": "Creativity and Innovation", "col": 2,
+      "under": "at year two",
+      "row": "Creativity and Innovation",
+      "col": 2,
       "with": "Illustrate Zambia’s liberation struggle for independence through charts, drama and timelines"
     },
     {
       "_why": "Matrix 2.1.4.1.",
-      "under": "at year two", "row": "Critical Thinking", "col": 2,
+      "under": "at year two",
+      "row": "Critical Thinking",
+      "col": 2,
       "with": "Examine ideologies of Capitalism and Communism since 1945"
     },
     {
       "_why": "From the 2.2.2 activities ('Using digital resources …').",
-      "under": "at year two", "row": "Digital", "col": 2,
+      "under": "at year two",
+      "row": "Digital",
+      "col": 2,
       "with": "Use digital resources to evaluate Zambia’s role in the liberation of Southern Africa"
     },
     {
-      "under": "at year two", "row": "Emotional Intelligence", "col": 2,
+      "under": "at year two",
+      "row": "Emotional Intelligence",
+      "col": 2,
       "with": "Show empathy for people affected by the Second World War and the liberation struggles"
     },
     {
-      "under": "at year two", "row": "Entrepreneurship", "col": 2,
+      "under": "at year two",
+      "row": "Entrepreneurship",
+      "col": 2,
       "with": "Identify business opportunities created by continental economic integration"
     },
     {
-      "under": "at year two", "row": "Environmental Sustainability", "col": 2,
+      "under": "at year two",
+      "row": "Environmental Sustainability",
+      "col": 2,
       "with": "Assess the effects of war on the environment"
     },
     {
-      "under": "at year two", "row": "Financial Education", "col": 2,
+      "under": "at year two",
+      "row": "Financial Education",
+      "col": 2,
       "with": "Assess the economic effects of the Second World War on Zambia"
     },
     {
       "_why": "Matrix 2.1.3.1.",
-      "under": "at year two", "row": "Problem Solving", "col": 2,
+      "under": "at year two",
+      "row": "Problem Solving",
+      "col": 2,
       "with": "Assess the work of the UN in maintaining world peace"
     }
-  ]
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); one green for all of them (#0f6b3a, History Content's; user 2026-11-11), peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverColour": "0f6b3a",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }

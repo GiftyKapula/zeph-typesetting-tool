@@ -194,7 +194,7 @@ function emit(blocks) {
       case "showpage": out += `#pagebreak(weak: true)\n#pgvisible.update(true)\n#set par(spacing: ${b.spacing || "1.9em"})\n`; break;
       case "bodystart": out += `#pagebreak(weak: true)\n#counter(page).update(1)\n#set page(numbering: "1")\n#set par(spacing: 0.86em)\n`; break;
       case "sigspace": out += `#sigspace()\n`; break;
-      case "signature": out += `#signature(${arr(b.lines, (l) => `(text: ${S(l.text)}, bold: ${l.bold ? "true" : "false"})`)})\n`; break;
+      case "signature": out += `#signature(${arr(b.lines, (l) => `(text: ${S(l.text)}, bold: ${l.bold ? "true" : "false"})`)}${b.img ? `, img: ${S(b.img)}` : ""})\n`; break;
       case "backcover": out += `#backcover(${strArr(b.lines || [])}, ${b.logo ? `(file: ${S(b.logo.file)})` : "none"}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
       case "h1": {
         const m = b.text.match(TOPIC_RE);
@@ -202,7 +202,7 @@ function emit(blocks) {
         else out += `#sectionhead(${S(b.text)})\n`;
         break;
       }
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""}${b.top ? ", top: true" : ""})\n`; break;
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)\.(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""}${b.top ? ", top: true" : ""}${b.inCourse ? ", course: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
@@ -1379,15 +1379,18 @@ function applyOverrides(blocks, ov) {
     // With `pattern` (a regular expression) instead of `find`, EVERY cell matching it has
     // the match replaced by `with` ($1… allowed) — one rule for a slip repeated down a
     // whole table, e.g. a year prefix typed in front of every number of a syllabus
-    // matrix. Header rows are never touched.
+    // matrix. Header rows are never touched. `flags` ("g") replaces every match in a cell,
+    // not only the first — a cell holding two competences that both need renumbering.
     if (ec.pattern != null) {
-      const re = new RegExp(ec.pattern);
+      const re = new RegExp(ec.pattern, ec.flags || "");
       const walkP = (arr) => {
         for (const b of arr) {
           if (!b || typeof b !== "object") continue;
           if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
             for (const row of b.rows.slice(1)) if (Array.isArray(row)) for (const cell of row) {
+              re.lastIndex = 0;   // a "g" pattern's test() moves it on
               if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
+              re.lastIndex = 0;
               cell.text = cell.text.replace(re, ec.with || "");
               if (Array.isArray(cell.segs) && cell.segs.length) cell.segs = [{ ...cell.segs[0], t: cell.text }];
               n++;
@@ -1449,7 +1452,7 @@ function applyOverrides(blocks, ov) {
   // the text after the number to single the clause out ("1.3.1. Developmental domains"
   // -> "1.4.1. Developmental domains"); whitespace is matched loosely and the match may
   // run across runs — the replacement takes the styling of the run it starts in, or the
-  // weight given by `bold`. Warns when nothing matches, and when more than one cell does
+  // weight given by `bold` and the slant given by `italic`. Warns when nothing matches, and when more than one cell does
   // (unless `all`).
   for (const cs of ov.cellSubtext || []) {
     if (!cs || typeof cs.from !== "string" || !cs.from.trim()) continue;
@@ -1464,24 +1467,33 @@ function applyOverrides(blocks, ov) {
             if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
             // A cell with no formatting at all comes from the importer with no runs (it
             // renders from `text`); `bold` needs runs to set, so start from one plain run.
-            if (cs.bold != null && !(Array.isArray(cell.segs) && cell.segs.length))
+            const styled = cs.bold != null || cs.italic != null;
+            if (styled && !(Array.isArray(cell.segs) && cell.segs.length))
               cell.segs = [{ t: cell.text, b: false, it: false, c: null }];
-            cell.text = cell.text.replace(re, () => to);
+            // `every`: every occurrence inside the cell, not just the first (Business Studies
+            // 1.10.1.1: "(Practical)" three times in one activities cell, each to be italic)
+            const reAll = new RegExp(re.source, "g");
+            cell.text = cell.text.replace(cs.every ? reAll : re, () => to);
             if (Array.isArray(cell.segs) && cell.segs.length && !cell.segs.some((s) => s.m || typeof s.t !== "string")) {
-              const m = cell.segs.map((s) => s.t).join("").match(re);
-              if (m) {
+              const joined = cell.segs.map((s) => s.t).join("");
+              const hits = cs.every ? [...joined.matchAll(reAll)].reverse() : [joined.match(re)].filter(Boolean);
+              for (const m of hits) {
                 const start = m.index, end = m.index + m[0].length;
                 let pos = 0, put = false;
                 // `bold: true|false` gives the replacement a weight of its own (a reviewer's
                 // "should be in bold" on a method label typed plain), splitting the run so
-                // the text around it keeps its weight.
+                // the text around it keeps its weight. `italic` likewise (Business Studies
+                // "Teaching (Practical)": "italize practical", the rest of the line upright).
                 cell.segs = cell.segs.flatMap((s) => {
                   const a = pos, z = pos + s.t.length; pos = z;
                   if (z <= start || a >= end) return [s];
                   const mid = put ? "" : to; put = true;
                   const head = s.t.slice(0, Math.max(0, start - a)), tail = s.t.slice(Math.min(s.t.length, end - a));
-                  if (cs.bold == null || !mid) return [{ ...s, t: head + mid + tail }];
-                  return [{ ...s, t: head }, { ...s, t: mid, b: !!cs.bold }, { ...s, t: tail }];
+                  if (!styled || !mid) return [{ ...s, t: head + mid + tail }];
+                  const own = { ...s, t: mid };
+                  if (cs.bold != null) own.b = !!cs.bold;
+                  if (cs.italic != null) own.it = !!cs.italic;
+                  return [{ ...s, t: head }, own, { ...s, t: tail }];
                 }).filter((s) => s.t !== "");
               }
             }
@@ -1582,14 +1594,30 @@ function applyOverrides(blocks, ov) {
       if (!t) return false;
       return want != null ? t === want : (pre != null && t.startsWith(pre));
     };
+    // `ifBlank: true` drops only a matching row that also has an empty cell — a competence
+    // the author left without descriptors, beside the same competence filled in another
+    // year's table (Geography Content). `renumberSN: true` then counts the table's first
+    // column 1, 2, 3 … afresh when every filled body cell in it is a bare number, so the
+    // S/N column carries no gap where the rows went.
+    const blankIn = (row) => row.some((c) => !((c && c.text) || "").trim());
     const walkR = (arr) => {
       for (const b of arr) {
         if (!b || typeof b !== "object") continue;
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           const keep = b.rows.filter((row, ri) =>
-            ri === 0 || !Array.isArray(row) || !row.some(hit));
-          n += b.rows.length - keep.length;
+            ri === 0 || !Array.isArray(row) || !row.some(hit) || (rr.ifBlank && !blankIn(row)));
+          const dropped = b.rows.length - keep.length;
+          n += dropped;
           b.rows = keep;
+          const first = (row) => ((Array.isArray(row) && row[0] && row[0].text) || "").trim();
+          const filled = keep.slice(1).filter((row) => first(row));
+          if (dropped && rr.renumberSN && filled.length && filled.every((row) => /^\d+$/.test(first(row)))) {
+            filled.forEach((row, i) => {
+              const t = String(i + 1);
+              row[0].text = t;
+              if (Array.isArray(row[0].segs) && row[0].segs.length) row[0].segs = [{ ...row[0].segs[0], t }];
+            });
+          }
         }
         for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkR(b[k]);
       }
@@ -1619,7 +1647,15 @@ function applyOverrides(blocks, ov) {
           if (at > 0) {
             // `cells`: an ordinary row, one cell each (a Key Competences row the manuscript
             // left out); otherwise one cell merged across the table
-            const row = Array.isArray(ir.cells) ? ir.cells.map((t) => ({ text: String(t), imgs: [], segs: null }))
+            // a cell may mark bold runs **so** -- the method labels of an activities cell
+            // (Business Studies Economics 2.11 Inflation, a topic the reviewer supplied whole)
+            const cellOf = (t) => {
+              t = String(t);
+              if (!t.includes("**")) return { text: t, imgs: [], segs: null };
+              const segs = t.split("**").map((x, i) => ({ t: x, b: i % 2 === 1, it: false, c: null })).filter((x) => x.t);
+              return { text: t.split("**").join(""), imgs: [], segs };
+            };
+            const row = Array.isArray(ir.cells) ? ir.cells.map(cellOf)
               : [{ text: String(ir.text || ""), imgs: [], segs: null }];
             b.rows.splice(at, 0, row);
             done = true;
@@ -3447,6 +3483,19 @@ function foldActivityRows(blocks) {
       if (!Array.isArray(row) || !Array.isArray(up) || row.length !== up.length || row.length !== H.length) continue;
       const c = row[act], u = up[act];
       if (blank(c) || (c.imgs || []).length || !u || (u.imgs || []).length) continue;
+      // activities and a standard but no competence, under a row whose competence has no
+      // standard of its own: one competence typed over two rows, its standard only on the
+      // second (Business Studies, Business Law 2.4.1.1 "Exhibit knowledge of a Business
+      // Contract": the reviewer, "delete the border line in columns 3, 4 and 5"). One row.
+      if (std >= 0 && comp >= 0 && up[comp] && !blank(up[comp]) && blank(up[std])
+          && row[std] && !blank(row[std]) && !(row[std].imgs || []).length
+          && row.every((x, ci) => ci === act || ci === std || blank(x))) {
+        join(u, c, false);
+        up[std] = row[std];
+        b.rows.splice(ri, 1);
+        n++;
+        continue;
+      }
       // activities and a standard but no competence, under a row that has one, the standard
       // carrying on mid-sentence (it opens with a small letter): run on. A standard of its
       // own (RE Content 2.3.1.1: "Understanding the concept of wealth…" under "…of work…")
@@ -3476,6 +3525,29 @@ function foldActivityRows(blocks) {
     }
   }
   if (n) console.log(`   rows with no competence joined to the row above: ${n}`);
+}
+
+// A Key Competences row typed twice, word for word, in the same table (Business Studies,
+// Economics: ANALYTICAL THINKING first and again last, the same four descriptors) prints
+// the same competence twice: the repeat goes. Only a COMPETENCE | DESCRIPTORS table, and
+// only a row equal to an earlier one in every cell.
+function dropRepeatedCompetenceRows(blocks) {
+  const norm = (c) => String((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase();
+  let n = 0;
+  for (const b of blocks) {
+    if (!b || b.t !== "table" || !Array.isArray(b.rows) || !Array.isArray(b.rows[0])) continue;
+    const H = b.rows[0].map(norm);
+    if (!H.some((h) => /^COMPETEN/.test(h)) || !H.some((h) => /DESCRIPTOR|DISCRIPTOR/.test(h))) continue;
+    const seen = new Set();
+    b.rows = b.rows.filter((row, i) => {
+      if (i === 0 || !Array.isArray(row)) return true;
+      const k = row.map(norm).join("|");
+      if (!k.replace(/\|/g, "")) return true;
+      if (seen.has(k)) { n++; console.log(`   repeated competence row dropped: "${norm(row[0]).slice(0, 40)}"`); return false; }
+      seen.add(k); return true;
+    });
+  }
+  return n;
 }
 
 // One level page per level. A manuscript that names the year over its Key Competences as
@@ -3508,11 +3580,16 @@ function dedupeLevelHeadings(blocks) {
     }
     return false;
   };
+  // A book of several courses (markCourses) runs Year 1, Year 2 again in each course:
+  // a level is one per course, not one per book.
+  const seg = []; let s = 0;
+  blocks.forEach((b, i) => { if (b && b.course) s++; seg[i] = s; });
+  const keyAt = (i) => { const k = levelKey(blocks[i]); return k && `${seg[i]}|${k}`; };
   const keep = new Map();
-  blocks.forEach((b, i) => { const k = levelKey(b); if (k && opens(i)) keep.set(k, i); });
+  blocks.forEach((b, i) => { const k = keyAt(i); if (k && opens(i)) keep.set(k, i); });
   let dropped = 0, demoted = 0;
   for (let i = blocks.length - 1; i >= 0; i--) {
-    const b = blocks[i], k = levelKey(b);
+    const b = blocks[i], k = keyAt(i);
     if (!k || !keep.has(k)) continue;
     const at = keep.get(k);
     if (i === at) {
@@ -3805,6 +3882,8 @@ function auditSyllabusNumbering(blocks) {
     if (!Array.isArray(b.rows)) {
       const y = yearOf(b.text || blockPlain(b));
       if (y && y !== year) { year = y; course = null; seen.topic = seen.sub = seen.comp = null; }
+      // a new course of a several-course book (markCourses) counts afresh, year and all
+      if (b.course) { year = 0; seen.topic = seen.sub = seen.comp = null; }
       const cm = /^h[123]$|^head$/.test(b.t) && String(b.text || "").trim().match(COURSE_RE);
       if (cm) { course = [+cm[1], +cm[2]]; seen.topic = seen.sub = seen.comp = null; }
       continue;
@@ -5249,6 +5328,57 @@ function fixSyllabusSignatures(blocks) {
 // → [roman i] copyright + imprint → TOC → [roman visible] Vision … front matter → level
 // divider page → [arabic 1] Competences & Descriptors → body → back cover. The counter
 // resets/visibility ride on the marker blocks (titlestart/showpage/bodystart).
+// A syllabus that bundles several courses in one book (Business Studies: Financial
+// Accounting, Commerce, Teaching Methods, Economics, Business Mathematics, Business and
+// Company Law), each with its own description, competences and Year 1 / Year 2 matrices.
+// Sidecar `courses` names them as typed. Each course title becomes a section head -- a
+// fresh page and a top-level contents entry -- flagged `course`, so the body opens on the
+// first course and every course keeps its own year pages (dedupeLevelHeadings). Matched
+// on a heading or a bold line standing alone, case and spacing ignored; the first match
+// after the front matter's own mentions is the one, since the title stands on a line of
+// its own and the front matter only names the courses inside sentences.
+function markCourses(blocks, courses) {
+  if (!Array.isArray(courses) || !courses.length) return;
+  const norm = (s) => String(s || "").replace(/\s+/g, " ").trim().toUpperCase();
+  const headish = (b) => b && (/^h[123]$/.test(b.t) || b.t === "head" || b.t === "label" || b.t === "para");
+  let from = 0;
+  for (const name of courses) {
+    const want = norm(name);
+    const i = blocks.findIndex((b, k) => k >= from && headish(b) && norm(b.t === "para" ? blockPlain(b) : (b.text || blockPlain(b))) === want);
+    if (i < 0) { console.warn("!  courses: not matched:", name); continue; }
+    const b = blocks[i];
+    b.t = "h1"; b.text = want; b.course = true; b.noPromote = true;
+    delete b.segs; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
+    from = i + 1;
+  }
+  // the title typed again inside its own course, over the matrix (Business Mathematics
+  // under YEAR ONE), would print as a stray sub-head: it goes
+  const names = new Set(blocks.filter((b) => b.course).map((b) => b.text));
+  let rep = 0;
+  for (let i = blocks.length - 1; i >= 0; i--) {
+    const b = blocks[i];
+    if (!b || b.course || !(/^h[123]$/.test(b.t) || b.t === "head" || b.t === "label")) continue;
+    if (names.has(norm(b.text || blockPlain(b))) && blocks.slice(0, i).some((x) => x.course)) { blocks.splice(i, 1); rep++; }
+  }
+  if (rep) console.log(`   courses: ${rep} repeated course title(s) dropped`);
+  // Each course's Assessment weightings and Time Allocation lines are one Word list that
+  // runs through the whole file, so they printed 1.4, 1.4.1 … 1.10 in Commerce and 2.7 …
+  // 2.11 in Business Mathematics -- numbers that count nothing. Inside a course they are
+  // bullets, a third-level number (a weighting's part) a dash under its line.
+  let inside = false, bul = 0;
+  for (const b of blocks) {
+    if (b.course) { inside = true; continue; }
+    if (!inside || b.t !== "listitem") continue;
+    const m = String(b.marker || "").trim().match(/^\d+\.\d+(?:\.\d+)*\.?$/);
+    if (!m) continue;
+    b.marker = m[0].replace(/\.$/, "").split(".").length > 2 ? "–" : "•";
+    if (Array.isArray(b.segs) && b.segs.length) b.segs[0] = { ...b.segs[0], t: String(b.segs[0].t).replace(/^[\s.]+/, "") };
+    bul++;
+  }
+  if (bul) console.log(`   courses: ${bul} running list number(s) outside the matrix set as bullets`);
+  console.log(`   courses:${blocks.filter((b) => b.course).length} of ${courses.length} set as sections`);
+}
+
 function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelAfterCompetences = false } = {}) {
   const coverIdx = blocks.findIndex((b) => b.t === "cover");
   const cov = coverIdx >= 0 ? blocks[coverIdx] : null;
@@ -5337,8 +5467,12 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
   // syllabus titles the section "KEY COMPETENCES", and with no title to match the body
   // never started -- no level divider, and roman folios to the last page. The section is
   // the heading that stands over the COMPETENCES | DESCRIPTORS table.
+  // A book of several courses (sidecar `courses`, see markCourses): the body opens on the
+  // first course, its level divider in front of it, not on that course's competences.
+  const firstCourse = blocks.findIndex((b) => b.course);
+  if (firstCourse >= 0) compIdx = firstCourse;
   if (compIdx < 0) {
-    const hdrHas = (b, re) => b.rows[0].some((c) => re.test(((c && c.text) || "").trim()));
+    const hdrHas =(b, re) => b.rows[0].some((c) => re.test(((c && c.text) || "").trim()));
     const ct = blocks.findIndex((b) => b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0])
       && hdrHas(b, /^competen/i) && hdrHas(b, /descriptor/i));
     for (let k = ct - 1; k > crIdx && k >= ct - 4; k--) if (isHead(blocks[k])) { compIdx = k; break; }
@@ -6075,6 +6209,24 @@ function normaliseQuestionMarkBold(blocks) {
       }
     }
     blocks = fixSyllabusSignatures(blocks);
+    // The Director - Curriculum Development signs every syllabus with her hand signature
+    // (assets/director-signature.png) and under one name, whatever the manuscript typed.
+    {
+      const sigImg = path.join(__dirname, "assets", "director-signature.png");
+      const isDirCD = (l) => /^director\b.{0,30}curriculum development/i.test(l.text.replace(/\s+/g, " "));
+      let used = false;
+      for (let i = 0; i < blocks.length; i++) {
+        const b = blocks[i];
+        if (b.t !== "signature" || !b.lines.slice(1).some(isDirCD)) continue;
+        b.lines[0] = { ...b.lines[0], text: "Petronella M. Samutete (Ms)" };
+        if (!fs.existsSync(sigImg)) continue;
+        b.img = "syl_director_sig.png";
+        used = true;
+        // the signature fills the blank left for a hand signature
+        if (blocks[i - 1] && blocks[i - 1].t === "sigspace") { blocks.splice(i - 1, 1); i--; }
+      }
+      if (used) media.push({ name: "syl_director_sig.png", src: sigImg });
+    }
     // Drop a matrix row left empty but for its clause number. An author who adds a row
     // to the table and never fills it in leaves a full-width band of empty cells with a
     // lone "1.12." in the first column, which also files a numbered entry in the
@@ -6123,13 +6275,19 @@ function normaliseQuestionMarkBold(blocks) {
       const txt = (l) => l.map((s) => s.t).join("");
       const toLines = (c) => {
         const src = Array.isArray(c.segs) && c.segs.length ? c.segs : [{ t: c.text || "", b: false, it: false, c: null }];
-        if (src.some((s) => s.m || typeof s.t !== "string")) return null;      // a cell with maths: leave alone
+        if (src.some((s) => typeof s.t !== "string")) return null;
         const lines = [[]];
-        for (const s of src) s.t.split("\n").forEach((p, i) => {
+        for (const s of src) (s.m ? [s.t] : s.t.split("\n")).forEach((p, i) => {
           if (i) lines.push([]);
           if (p !== "") lines[lines.length - 1].push({ ...s, t: p });
         });
-        return lines.filter((l) => txt(l).trim());
+        const out = lines.filter((l) => txt(l).trim());
+        // a cell with maths where a number would go: leave alone. Maths further along a
+        // line passes through -- the "st" of "21st Century", set as a superscript, left the
+        // whole cell unnumbered, and the competence under it came out 1.2.0.1 (Business
+        // Studies)
+        if (out.some((l) => { const f = l.find((s) => s.t.trim()); return f && f.m; })) return null;
+        return out;
       };
       const setLines = (c, lines) => {
         c.text = lines.map(txt).join("\n");
@@ -6673,6 +6831,7 @@ function normaliseQuestionMarkBold(blocks) {
       if (fs.existsSync(cdcG)) { media.push({ name: "syl_cdc_grey.png", src: cdcG }); cov.logoGrey = { file: "syl_cdc_grey.png" }; }
     }
     const Tsyl = THEMES[theme] || {};
+    markCourses(blocks, ov.courses);
     blocks = applySyllabusFront(blocks, { year: sylYear || sylMsYear || "",
       level: (sylId ? sylId.level.toUpperCase() : Tsyl.eyebrow) || "", isbn: ov.isbn || null,
       levelAfterCompetences: !!ov.levelPageAfterCompetences });
@@ -6779,6 +6938,16 @@ function normaliseQuestionMarkBold(blocks) {
     for (const k of ["signature", "covSignature", "covPrimary", "covPrimary2", "covAccent"]) themeOverrides[k] = col;
     console.log("   syllabus cover colour: #" + col + (ov.coverColour ? " (sidecar)" : " (from the subject)"));
   }
+  // The title band and the title itself, for a syllabus cover matched to CDC's own edition
+  // of the subject (Civic Education Content, M. C. Mabbola: "align this page cover to the
+  // secondary school syllabus" -- CDC's has a peach band and a condensed dark title).
+  // coverBand / coverTitleColour: 6-digit hex; coverTitleFont: a font family name.
+  if (variant === "syllabus") {
+    const hex = (v) => { const h = String(v || "").replace(/^#/, "").toLowerCase(); return /^[0-9a-f]{6}$/.test(h) ? h : null; };
+    if (ov.coverBand != null) { if (hex(ov.coverBand)) themeOverrides.covBand = hex(ov.coverBand); else console.warn("!  coverBand is not a 6-digit hex value:", ov.coverBand); }
+    if (ov.coverTitleColour != null) { if (hex(ov.coverTitleColour)) themeOverrides.covTitle = hex(ov.coverTitleColour); else console.warn("!  coverTitleColour is not a 6-digit hex value:", ov.coverTitleColour); }
+    if (ov.coverTitleFont) themeOverrides.covTitleFont = String(ov.coverTitleFont);
+  }
   if (ov.subject) themeOverrides.subject = ov.subject;
   // …and on a generic-theme syllabus the footer masthead follows the sidecar's subject
   // and year, as a named syllabus theme's does ("<Subject> Syllabus <year>").
@@ -6884,8 +7053,13 @@ function normaliseQuestionMarkBold(blocks) {
       // The cover (front + back) stays in FULL COLOUR — only the interior is greyscale — so
       // preserve the original palette for the cover-only colour fields (cover() shadows T
       // with these, so every colour it draws comes from here, not the greyed body colours).
-      covPrimary: orig.primary, covPrimary2: orig.primary2, covAccent: orig.accent,
-      covSignature: orig.signature || orig.primary, covCyan: orig.cyan || orig.primary2,
+      // …unless a cover colour is already set: a syllabus's own colour (coverColour, or
+      // the one picked by its subject) was overwritten here with the generic theme's grey
+      // whenever the file name read as a teacher's book ("…TEACHER EDUCATION…": Business
+      // Studies printed a grey cover while its log said #3d3d7a)
+      covPrimary: themeOverrides.covPrimary || orig.primary, covPrimary2: themeOverrides.covPrimary2 || orig.primary2,
+      covAccent: themeOverrides.covAccent || orig.accent,
+      covSignature: themeOverrides.covSignature || orig.signature || orig.primary, covCyan: orig.cyan || orig.primary2,
       covInk: orig.ink, covRulec: orig.rulec,
     });
   }
@@ -6898,6 +7072,7 @@ function normaliseQuestionMarkBold(blocks) {
       themeOverrides.matrixToc = (themeOverrides.tocDepth || (THEMES[theme] || {}).tocDepth || 2) + 1;
     }
     dedupeLevelHeadings(blocks);
+    dropRepeatedCompetenceRows(blocks);
     foldActivityRows(blocks);
     tidyPunctuationSpaces(blocks);
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
@@ -6908,6 +7083,13 @@ function normaliseQuestionMarkBold(blocks) {
     hyphenateSubTopicHeader(blocks);
     splitRows(blocks, ov);
     keepRowsWhole(blocks, ov);
+    // a book of several courses (markCourses): the contents lists each course with its
+    // competences and years under it, not every topic -- as by-course Computer Science does
+    if (blocks.some((b) => b.course)) {
+      themeOverrides.matrixToc = (themeOverrides.tocDepth || (THEMES[theme] || {}).tocDepth || 2) + 1;
+      let inside = false;
+      for (const b of blocks) { if (b.course) inside = true; else if (inside && b.t === "h2") b.inCourse = true; }
+    }
     tightTables(blocks, ov);
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }

@@ -48,9 +48,11 @@
 #let sigspace() = v(12mm, weak: true)
 // A signatory block (name / title / organisation) with EVEN spacing between the
 // lines — identical in every book. Kept together so it never splits across a page.
-#let signature(lines) = {
+// `img`: a hand signature set above the name, in place of the blank sigspace.
+#let signature(lines, img: none) = {
   block(breakable: false, width: 100%)[
     #set par(spacing: 0pt)
+    #if img != none { block(above: 4mm, below: 1.5mm, image("_media/" + img, width: 45mm)) }
     #for (i, l) in lines.enumerate() {
       // gap scales with the body size (em) so the lines breathe in a large-type primary
       // book (16pt) as well as a 12pt secondary one — a fixed 7pt looked cramped at 16pt.
@@ -461,8 +463,14 @@
           #body])
       // full-width title band across the whole spread
       // (stopping either side of the spine, which stays the plain subject colour)
-      #place(top + left, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
-      #place(top + left, dx: fdx, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+      // with no spine, ONE strip across the spread: two panels meeting edge to edge left a
+      // hairline seam down the middle of a coloured band (Civic Education's CDC peach)
+      #if sw > 0mm {
+        place(top + left, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+        place(top + left, dx: fdx, dy: bandTop, rect(width: panelW, height: bandH, fill: band, stroke: none))
+      } else {
+        place(top + left, dy: bandTop, rect(width: 2 * panelW, height: bandH, fill: band, stroke: none))
+      }
       // ---- SPINE: only the book's name and its level, as the front cover words them,
       // read top-to-bottom, the name first at the head and the level after it (user,
       // 2026-10-14), with the CDC badge upright at its foot; type scaled to the spine ----
@@ -511,7 +519,7 @@
           // rivers ("CURRICULUM,    INSTRUCTIONAL    STRATEGIES    AND"), which reads
           // as broken on a cover. Ragged-right centred is what the CDC references show.
           let mk(s) = block(width: tw, par(justify: false, align(center,
-            text(font: T.displayFont, size: s, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS])))
+            text(font: T.at("covTitleFont", default: T.displayFont), size: s, weight: "black", fill: title, tracking: 0.5pt)[#upper(name) SYLLABUS])))
           let pick = 13pt
           for s in (31pt, 28pt, 25pt, 22pt, 20pt, 18pt, 16pt, 15pt, 14pt, 13pt) {
             if measure(mk(s)).height <= avail { pick = s; break }
@@ -1702,9 +1710,9 @@
 // It keeps the document footer (so the page number shows), only dropping the header.
 // toc: a contents label to file at this page (a YEAR / FORM / GRADE divider is the
 // top-level contents entry its topics nest under).
-#let divider(txt, toc: none) = {
+#let divider(txt, toc: none, toclvl: 1) = {
   page(paper: "a4", flipped: true, header: none)[
-    #if toc != none { tocentry(1, toc) }
+    #if toc != none { tocentry(toclvl, toc) }
     #place(center + horizon, block(width: 205mm)[
       #set align(center)
       #line(length: 100%, stroke: 2.4pt + T.ink)
@@ -1822,7 +1830,10 @@
     v(6pt)
   }
 }
-#let subhead(t, nobrk: false, top: false) = {
+// course: a heading inside one course of a several-course book (markCourses) -- the
+// course is the top-level contents entry, its competences and years file one level
+// under it, and its other sub-sections (Course description, Time Allocation…) stay out
+#let subhead(t, nobrk: false, top: false, course: false) = {
   // In a SYLLABUS only the YEAR banners start on their own page; the front-matter
   // sub-sections (Methodologies, Assessment, CBA, Time Allocation…) FLOW as normal
   // headings under their parent section (Introduction), so they don't page-break.
@@ -1839,13 +1850,14 @@
   // each year's matrix, so the book says in large type which level the pages that
   // follow are for. It replaces the banner that used to sit over the matrix's first
   // page; the matrix starts at the head of the next page.
-  if isyear { divider(t, toc: if tocUnitsOnly { none } else { t }); return }
+  if isyear { divider(t, toc: if tocUnitsOnly { none } else { t }, toclvl: if course { 2 } else { 1 }); return }
   // Sub-topics are omitted from a units-only contents page. In a syllabus the YEAR
   // banners are TOP-LEVEL contents entries (level 1), with the topics nested under them;
   // so is a year's Key Competences heading (`top`, set at build time), which comes just
   // before its YEAR page and was otherwise filed under the previous year's last topic.
   if not tocUnitsOnly {
-    if isyear or top { mark(1, t) } else { mark(2, t) }
+    if course { if top { mark(2, t) } }
+    else if isyear or top { mark(1, t) } else { mark(2, t) }
   }
   // Clear space ABOVE a heading — a syllabus front-matter sub-section needs real
   // separation from the paragraph before it (the weak 7pt collapsed to almost nothing).

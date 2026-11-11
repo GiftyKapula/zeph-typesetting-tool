@@ -10,11 +10,13 @@
     " on the page and the competence lists run on across sub-topics (1.1.1.2 under 1.1.2, 1.1.1.1 under 1.2.2). Counted afresh from the table structure.",
     "ACTIVITIES. One activities cell opened with a stray matrix number (\"1.3.3.1 Applying teaching and learning theories\"); dropped.",
     "ISBN. The manuscript prints \"ISBN: 978-9982-54-066-7\" (it landed at the foot of the contents page). It is a template number",
-    "(the PE and Sport Content and Music Methods syllabuses print it too, and were typeset without it); left off."
+    "(the PE and Sport Content and Music Methods syllabuses print it too, and were typeset without it); left off.",
+    "",
+    "ROUND 1 (Google Drive, charles walimaposo, 29 Oct 2026): 8 comments. 2025 -> 2026 (year key, copyright and First Published lines); 1.1.1 sub-topic 'education and sport' capitalised as a title; 1.2.2.1 standard opens 'Appropriate resources of Physical Education and Sport'; 1.2.3 sub-topic 'Human resources' -> 'Human Resource' and 1.2.3.1 competence 'Classify types of Human Resource' (the comments' own wording); 1.4.1.3 standard 'PES lesson plan prepared correctly.'; 1.4.2 / 1.4.2.1 'sports' -> 'sport'. The Director signatory was not marked in this book: left as it is."
   ],
   "subject": "Physical Education and Sport Teaching Methods",
   "level": "Secondary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "editCell": [
     {
@@ -29,6 +31,59 @@
   "keepRowWhole": [
     {
       "startsWith": "1.2.3.1"
+    }
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); one green for all of them (#0f6b3a, History Content's; user 2026-11-11), peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "coverColour": "0f6b3a",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact",
+  "edit": [
+    {
+      "_why": "ROUND 1: 2025 -> 2026",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
+    },
+    {
+      "find": "First Published 2025",
+      "with": "First Published 2026"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "ROUND 1, 1.1.1 sub-topic: 'Capitalise each first letter of the words. Education and Sport, it been the title.'",
+      "from": "The scope of physical education and sport",
+      "to": "The scope of Physical Education and Sport"
+    },
+    {
+      "_why": "ROUND 1, 1.2.2.1 expected standard: 'Should read, Appropriate resources of Physical Education and Sport'",
+      "from": "Resources of Physical Education and Sport prepared accordingly",
+      "to": "Appropriate resources of Physical Education and Sport prepared accordingly"
+    },
+    {
+      "_why": "ROUND 1, 1.2.3 sub-topic: 'resources' should read 'Resource'",
+      "from": "Human resources in PES",
+      "to": "Human Resource in PES"
+    },
+    {
+      "_why": "ROUND 1, 1.2.3.1 competence: 'Classify types of Human Resource'",
+      "from": "Classify PES Human resources",
+      "to": "Classify types of Human Resource"
+    },
+    {
+      "_why": "ROUND 1, 1.4.1.3 expected standard: add 'PES'",
+      "from": "Lesson plan prepared correctly",
+      "to": "PES lesson plan prepared correctly"
+    },
+    {
+      "_why": "ROUND 1, 1.4.2 sub-topic: 'sports' -> 'sport'",
+      "from": "Methods of teaching physical education and sports",
+      "to": "Methods of teaching physical education and sport"
+    },
+    {
+      "_why": "ROUND 1, 1.4.2.1 competence: 'sports' -> 'sport'",
+      "from": "Analyse different methods of teaching physical education and sports",
+      "to": "Analyse different methods of teaching physical education and sport"
     }
   ]
 }
