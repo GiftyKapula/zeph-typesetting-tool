@@ -22,12 +22,12 @@
     "placed from the highlights in the reviewed copy and the comment e-mails. Cover green (#2e7d32: 'change colour cover",
     "to green'; #1f5c3a is already Guidance and Counselling's and PE and Sport's). p108: Aghion and Howitt deleted (remove).",
     "",
-    "2026-11-11: CDC Social Sciences colour code is green (Mr. Musonda); each Social Sciences syllabus a shade of its own: Business Studies #1b7a3e, with the peach band and dark Impact title of Civic Education Content."
+    "2026-11-11: CDC Social Sciences colour code is green (Mr. Musonda); all Social Sciences syllabuses one green, #0f6b3a (user 2026-11-11), with the peach band and dark Impact title of Civic Education Content."
   ],
   "subject": "Business Studies",
   "level": "Secondary School Teachers' Diploma",
   "year": 2025,
-  "coverColour": "1b7a3e",
+  "coverColour": "0f6b3a",
   "renumberMatrix": true,
   "courses": [
     "FINANCIAL ACCOUNTING",
@@ -623,7 +623,7 @@
       ]
     }
   ],
-  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); a shade of its own per book, peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
+  "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); one green for all of them (#0f6b3a, History Content's; user 2026-11-11), peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
   "coverTitleFont": "Impact"
