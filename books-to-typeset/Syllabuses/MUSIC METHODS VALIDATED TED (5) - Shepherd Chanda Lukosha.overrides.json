@@ -32,7 +32,9 @@
     "2026-10-13 clean-up: ENTREPRENEURSHIP descriptor written (CDC to confirm); Kelvin Mambwe, (PhD) comma dropped.",
     "",
     "2026-10-20 proofread round 1 (reviewer's PDF '... - Shepherd Chanda _261020_103507.pdf', 2 comments): p10 Aims:",
-    "  'Musical Arts' -> 'Musical Arts Education'; 'trainee' deleted ('reflective teachers'). Same two changes as Music Content."
+    "  'Musical Arts' -> 'Musical Arts Education'; 'trainee' deleted ('reflective teachers'). Same two changes as Music Content.",
+    "",
+    "ROUND 1, late comment (Google Drive, Owen Mutema, 23 Oct 2026, on the '- Corrections worked on' copy): '1.12 is a repetition of 1.11. Delete and adjust numbering.' Topic 1.12 removed (removeRow); the typed numbers of topics 1.13-1.22 (and their sub-topics and competences) moved down one, 1.13 -> 1.12 ... 1.22 -> 1.21 (editCell patterns, in order). Year 2's 2.1 / 2.8 repeat each other too, but were not marked: left as they are."
   ],
   "subject": "Musical Arts Education Teaching Methods",
   "level": "Secondary Teachers' Diploma",
@@ -243,6 +245,57 @@
       "row": "Entrepreneurship",
       "col": 1,
       "with": "Ability to apply project-based and experiential teaching methods to develop learners' capacity to identify opportunities in the music industry, create and market musical products and services, and manage resources, enabling educators to foster innovation, self-reliance, and income-generating ventures that contribute to national development."
+    },
+    {
+      "_why": "ROUND 1 late (23 Oct): 'adjust numbering' after 1.12 went -- each later Year 1 number one down, lowest first so no number is moved twice",
+      "pattern": "(?<![\\d.])1\\.13(?!\\d)",
+      "flags": "g",
+      "with": "1.12"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.14(?!\\d)",
+      "flags": "g",
+      "with": "1.13"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.15(?!\\d)",
+      "flags": "g",
+      "with": "1.14"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.16(?!\\d)",
+      "flags": "g",
+      "with": "1.15"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.17(?!\\d)",
+      "flags": "g",
+      "with": "1.16"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.18(?!\\d)",
+      "flags": "g",
+      "with": "1.17"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.19(?!\\d)",
+      "flags": "g",
+      "with": "1.18"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.20(?!\\d)",
+      "flags": "g",
+      "with": "1.19"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.21(?!\\d)",
+      "flags": "g",
+      "with": "1.20"
+    },
+    {
+      "pattern": "(?<![\\d.])1\\.22(?!\\d)",
+      "flags": "g",
+      "with": "1.21"
     }
   ],
   "keepRowWhole": [
@@ -259,7 +312,7 @@
     },
     {
       "_why": "Opens its topic, so it never splits: the page before it ended a third or more empty. Cut here so the first piece, with the topic title, fills that page (2026-10-13 clean-up).",
-      "startsWith": "1.22.1.1",
+      "startsWith": "1.21.1.1",
       "at": "Apply effective and incl"
     },
     {
@@ -282,5 +335,11 @@
   "coverColour": "1f5c3a",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "removeRow": [
+    {
+      "_why": "ROUND 1 late (23 Oct): 1.12 repeats 1.11, delete",
+      "startsWith": "1.12 EMBRACING TECHNOLOGY"
+    }
+  ]
 }

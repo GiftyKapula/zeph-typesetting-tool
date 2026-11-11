@@ -30,11 +30,13 @@
     "  * 1.4.1.1: the method 'Question and answer' is typed in the same paragraph as the",
     "    activity above it ('...during the scenario.'), so it sets at the end of that bullet",
     "    rather than as a method line of its own. No override can split one paragraph in a",
-    "    matrix cell without losing the cell's bold runs; correct it in the manuscript."
+    "    matrix cell without losing the cell's bold runs; correct it in the manuscript.",
+    "",
+    "ROUND 1 (Google Drive, Mabvuto Nkhata, 22 and 26 Oct 2026): 9 comments. ZEEP 'Education' -> delete: marked resolved by the reviewer himself, not changed. 1.4.1.1 expected standard reworded as written. Topic 1.7 (Bloom’s Taxonomy): 1.7.2.1 competence and standard 'in the Bloom’s Taxonomy' after 'domain' (the comments say 'in the Bloom’s'; 'Taxonomy' completes the name); 1.7.3.1 competence 'different' after 'Apply', its standard opens 'Different'. The e-mails carry no highlighted words for these; placed from the topic they speak of. One, 'Delete the highlighted', names nothing and is NOT placed. Director signatory -> Samutete M. Petronella (Ms); 2025 -> 2026 (year key, copyright and First Published lines)."
   ],
   "subject": "History Teaching Methods",
   "level": "Secondary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "pageBreakBefore": [
     {
@@ -60,9 +62,9 @@
   ],
   "insertText": [
     {
-      "_why": "The copyright line. The manuscript types it as a Heading 1 ('Curriculum Development Centre, 2025', no (c) sign), the importer drops it as a heading in the imprint, and the imprint page went without it.",
+      "_why": "The copyright line. The manuscript types it as a Heading 1 ('Curriculum Development Centre, 2025', no (c) sign), the importer drops it as a heading in the imprint, and the imprint page went without it. ROUND 1 (26 Oct): year 2026.",
       "before": "All rights reserved",
-      "text": "© Curriculum Development Centre, 2025",
+      "text": "© Curriculum Development Centre, 2026",
       "align": "center"
     },
     {
@@ -111,5 +113,45 @@
   "coverColour": "3a9d5d",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "edit": [
+    {
+      "_why": "ROUND 1 (26 Oct): Director signatory",
+      "find": "Charles Ndakala (Dr.)",
+      "with": "Samutete M. Petronella (Ms)"
+    },
+    {
+      "find": "First Published 2025",
+      "with": "First Published 2026"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "ROUND 1 (22 Oct), 1.4.1.1 expected standard: 'Change to qualities of a good teacher, professionally and personally exhibited accordingly'",
+      "from": "Professional and personal qualities of a good teacher exhibited appropriately",
+      "to": "Qualities of a good teacher, professionally and personally exhibited accordingly"
+    },
+    {
+      "_why": "ROUND 1 (22 Oct), 1.7.2.1 competence: 'Insert the phrase in the Bloom’s after the word domain'",
+      "from": "Identify the different levels of each domain",
+      "to": "Identify the different levels of each domain in the Bloom’s Taxonomy",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (22 Oct), 1.7.2.1 expected standard: the same",
+      "from": "Different levels of each domain identified accordingly",
+      "to": "Different levels of each domain in the Bloom’s Taxonomy identified accordingly"
+    },
+    {
+      "_why": "ROUND 1 (22 Oct), 1.7.3.1 competence: 'Insert the word different after the highlighted word'",
+      "from": "Apply levels of Bloom’s Taxonomy in education",
+      "to": "Apply different levels of Bloom’s Taxonomy in education",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (22 Oct), 1.7.3.1 expected standard: 'Insert the word Different at the beginning of this sentence'",
+      "from": "Levels of Bloom’s Taxonomy in education applied appropriately",
+      "to": "Different levels of Bloom’s Taxonomy in education applied appropriately"
+    }
+  ]
 }

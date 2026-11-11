@@ -1379,15 +1379,18 @@ function applyOverrides(blocks, ov) {
     // With `pattern` (a regular expression) instead of `find`, EVERY cell matching it has
     // the match replaced by `with` ($1… allowed) — one rule for a slip repeated down a
     // whole table, e.g. a year prefix typed in front of every number of a syllabus
-    // matrix. Header rows are never touched.
+    // matrix. Header rows are never touched. `flags` ("g") replaces every match in a cell,
+    // not only the first — a cell holding two competences that both need renumbering.
     if (ec.pattern != null) {
-      const re = new RegExp(ec.pattern);
+      const re = new RegExp(ec.pattern, ec.flags || "");
       const walkP = (arr) => {
         for (const b of arr) {
           if (!b || typeof b !== "object") continue;
           if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
             for (const row of b.rows.slice(1)) if (Array.isArray(row)) for (const cell of row) {
+              re.lastIndex = 0;   // a "g" pattern's test() moves it on
               if (!cell || typeof cell.text !== "string" || !re.test(cell.text)) continue;
+              re.lastIndex = 0;
               cell.text = cell.text.replace(re, ec.with || "");
               if (Array.isArray(cell.segs) && cell.segs.length) cell.segs = [{ ...cell.segs[0], t: cell.text }];
               n++;
