@@ -153,5 +153,12 @@
       "from": "Levels of Bloom’s Taxonomy in education applied appropriately",
       "to": "Different levels of Bloom’s Taxonomy in education applied appropriately"
     }
+  ],
+  "editCell": [
+    {
+      "_why": "ROUND 1 late (11 Nov, Mabvuto Nkhata), topic 2.4 'EXPERIENCE 1': 'Delete '1''",
+      "pattern": "(SCHOOL TEACHING EXPERIENCE) 1$",
+      "with": "$1"
+    }
   ]
 }
