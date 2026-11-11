@@ -5311,6 +5311,19 @@ function fixSyllabusSignatures(blocks) {
     blocks.splice(ni, 0, { t: "sigspace" });
     i++;
   }
+  // A two-line signatory typed as two paragraphs with no ministry line under it -- "Charles
+  // Ndakala (Dr.)" / "Director – Curriclum Development Center" (Autism) -- set as loose
+  // paragraphs and never got the Director's signature. NAME bold, the office plain.
+  const NAME2 = /^.{3,60}?\((?:Dr|Ph\.?\s?D|Prof|Mr|Mrs|Ms)\.?\)$/i;
+  const OFFICE2 = /^(?:Director|Permanent Secretary|Deputy Director|Chief)\b.{0,80}$/i;
+  for (let i = 0; i + 1 < blocks.length; i++) {
+    const b = blocks[i], n = blocks[i + 1];
+    if (b.sig || b.t !== "para" || n.t !== "para") continue;
+    if (!NAME2.test(txtOf(b).replace(/\s+/g, " ")) || !OFFICE2.test(txtOf(n).replace(/\s+/g, " "))) continue;
+    const add = blocks[i - 1] && blocks[i - 1].t === "sigspace" ? [] : [{ t: "sigspace" }];
+    blocks.splice(i, 2, ...add, bold(txtOf(b)), plain(txtOf(n)));
+    i += add.length + 1;
+  }
   // Each signatory sets as one unbreakable block: as loose paragraphs the Computer Science
   // Preface's "Kelvin Mambwe (PhD)" sat at the foot of one page, his office overleaf.
   for (let i = 0; i < blocks.length; i++) {
@@ -6214,7 +6227,8 @@ function normaliseQuestionMarkBold(blocks) {
     // Permanent Secretary (name left as the manuscript has it).
     {
       const SIGNERS = [
-        { office: /^director\b.{0,30}curriculum development/i, file: "director-signature.png", name: "Petronella M. Samutete (Ms)" },
+        // "curric\w*": Autism's manuscript types "Director – Curriclum Development Center"
+        { office: /^director\b.{0,30}curric\w*\s+development/i, file: "director-signature.png", name: "Petronella M. Samutete (Ms)" },
         { office: /^permanent secretary\b/i, file: "ps-signature.png" },
       ];
       const used = new Set();
