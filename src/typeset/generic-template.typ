@@ -48,9 +48,11 @@
 #let sigspace() = v(12mm, weak: true)
 // A signatory block (name / title / organisation) with EVEN spacing between the
 // lines — identical in every book. Kept together so it never splits across a page.
-#let signature(lines) = {
+// `img`: a hand signature set above the name, in place of the blank sigspace.
+#let signature(lines, img: none) = {
   block(breakable: false, width: 100%)[
     #set par(spacing: 0pt)
+    #if img != none { block(above: 4mm, below: 1.5mm, image("_media/" + img, width: 45mm)) }
     #for (i, l) in lines.enumerate() {
       // gap scales with the body size (em) so the lines breathe in a large-type primary
       // book (16pt) as well as a 12pt secondary one — a fixed 7pt looked cramped at 16pt.

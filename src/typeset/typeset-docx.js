@@ -194,7 +194,7 @@ function emit(blocks) {
       case "showpage": out += `#pagebreak(weak: true)\n#pgvisible.update(true)\n#set par(spacing: ${b.spacing || "1.9em"})\n`; break;
       case "bodystart": out += `#pagebreak(weak: true)\n#counter(page).update(1)\n#set page(numbering: "1")\n#set par(spacing: 0.86em)\n`; break;
       case "sigspace": out += `#sigspace()\n`; break;
-      case "signature": out += `#signature(${arr(b.lines, (l) => `(text: ${S(l.text)}, bold: ${l.bold ? "true" : "false"})`)})\n`; break;
+      case "signature": out += `#signature(${arr(b.lines, (l) => `(text: ${S(l.text)}, bold: ${l.bold ? "true" : "false"})`)}${b.img ? `, img: ${S(b.img)}` : ""})\n`; break;
       case "backcover": out += `#backcover(${strArr(b.lines || [])}, ${b.logo ? `(file: ${S(b.logo.file)})` : "none"}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
       case "h1": {
         const m = b.text.match(TOPIC_RE);
@@ -6209,6 +6209,24 @@ function normaliseQuestionMarkBold(blocks) {
       }
     }
     blocks = fixSyllabusSignatures(blocks);
+    // The Director - Curriculum Development signs every syllabus with her hand signature
+    // (assets/director-signature.png) and under one name, whatever the manuscript typed.
+    {
+      const sigImg = path.join(__dirname, "assets", "director-signature.png");
+      const isDirCD = (l) => /^director\b.{0,30}curriculum development/i.test(l.text.replace(/\s+/g, " "));
+      let used = false;
+      for (let i = 0; i < blocks.length; i++) {
+        const b = blocks[i];
+        if (b.t !== "signature" || !b.lines.slice(1).some(isDirCD)) continue;
+        b.lines[0] = { ...b.lines[0], text: "Petronella M. Samutete (Ms)" };
+        if (!fs.existsSync(sigImg)) continue;
+        b.img = "syl_director_sig.png";
+        used = true;
+        // the signature fills the blank left for a hand signature
+        if (blocks[i - 1] && blocks[i - 1].t === "sigspace") { blocks.splice(i - 1, 1); i--; }
+      }
+      if (used) media.push({ name: "syl_director_sig.png", src: sigImg });
+    }
     // Drop a matrix row left empty but for its clause number. An author who adds a row
     // to the table and never fills it in leaves a full-width band of empty cells with a
     // lone "1.12." in the first column, which also files a numbered entry in the
