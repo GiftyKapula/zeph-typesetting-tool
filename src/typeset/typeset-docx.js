@@ -6209,23 +6209,28 @@ function normaliseQuestionMarkBold(blocks) {
       }
     }
     blocks = fixSyllabusSignatures(blocks);
-    // The Director - Curriculum Development signs every syllabus with her hand signature
-    // (assets/director-signature.png) and under one name, whatever the manuscript typed.
+    // Electronic hand signatures, matched by the signatory's office: the Director - Curriculum
+    // Development (who also signs under one name, whatever the manuscript typed) and the
+    // Permanent Secretary (name left as the manuscript has it).
     {
-      const sigImg = path.join(__dirname, "assets", "director-signature.png");
-      const isDirCD = (l) => /^director\b.{0,30}curriculum development/i.test(l.text.replace(/\s+/g, " "));
-      let used = false;
+      const SIGNERS = [
+        { office: /^director\b.{0,30}curriculum development/i, file: "director-signature.png", name: "Petronella M. Samutete (Ms)" },
+        { office: /^permanent secretary\b/i, file: "ps-signature.png" },
+      ];
+      const used = new Set();
       for (let i = 0; i < blocks.length; i++) {
         const b = blocks[i];
-        if (b.t !== "signature" || !b.lines.slice(1).some(isDirCD)) continue;
-        b.lines[0] = { ...b.lines[0], text: "Petronella M. Samutete (Ms)" };
-        if (!fs.existsSync(sigImg)) continue;
-        b.img = "syl_director_sig.png";
-        used = true;
+        if (b.t !== "signature") continue;
+        const who = SIGNERS.find((s) => b.lines.slice(1).some((l) => s.office.test(l.text.replace(/\s+/g, " "))));
+        if (!who) continue;
+        if (who.name) b.lines[0] = { ...b.lines[0], text: who.name };
+        if (!fs.existsSync(path.join(__dirname, "assets", who.file))) continue;
+        b.img = "syl_" + who.file;
+        used.add(who.file);
         // the signature fills the blank left for a hand signature
         if (blocks[i - 1] && blocks[i - 1].t === "sigspace") { blocks.splice(i - 1, 1); i--; }
       }
-      if (used) media.push({ name: "syl_director_sig.png", src: sigImg });
+      for (const f of used) media.push({ name: "syl_" + f, src: path.join(__dirname, "assets", f) });
     }
     // Drop a matrix row left empty but for its clause number. An author who adds a row
     // to the table and never fills it in leaves a full-width band of empty cells with a
