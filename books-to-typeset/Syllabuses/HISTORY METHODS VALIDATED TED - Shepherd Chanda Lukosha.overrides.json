@@ -156,8 +156,8 @@
   ],
   "editCell": [
     {
-      "_why": "ROUND 1 late (11 Nov, Mabvuto Nkhata), topic 2.4 'EXPERIENCE 1': 'Delete '1''",
-      "pattern": "(SCHOOL TEACHING EXPERIENCE) 1$",
+      "_why": "ROUND 1 late (11 Nov, Mabvuto Nkhata), topic 2.4 'EXPERIENCE 1': 'Delete '1''; 2.5 'EXPERIENCE 2' -> drop the '2' too (user, 11 Nov)",
+      "pattern": "(SCHOOL TEACHING EXPERIENCE) [12]$",
       "with": "$1"
     }
   ]
