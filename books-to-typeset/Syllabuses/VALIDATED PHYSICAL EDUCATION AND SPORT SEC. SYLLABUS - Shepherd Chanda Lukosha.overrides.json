@@ -120,6 +120,11 @@
   ],
   "cellSubtext": [
     {
+      "_why": "Drive comment 2026-11-12, 2.1.3 Expected Standard: 'Recast to: How personality affects perfomance in sport described effectively.' ('performance' as the book spells it.)",
+      "from": "The effects of how personality affects performance in sport described effectively",
+      "to": "How personality affects performance in sport described effectively"
+    },
+    {
       "_why": "PROOFREAD 2026-10-23, p22: reworded by the reviewer.",
       "from": "Pool orientation and Pool hygiene discussed and practiced effectively",
       "to": "Pool orientation and pool hygiene conducted and discussed effectively"
