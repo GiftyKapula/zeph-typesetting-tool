@@ -3,7 +3,8 @@
     "Matrix numbers are Word auto-list numbers that restart and run on across merged cells; renumberMatrix counts them afresh from the table structure.",
     "TITLE / LEVEL / YEAR (2026-10-16). As the manuscript's cover and Course Name say: Geography Content, Secondary Teachers' Diploma; 2025 from the copyright line. Without them the cover read 'GEOGRAPHY -CONTENT FOR SYLLABUS / TEACHERS' DIPLOMA' (taken from the file name).",
     "STRAY LABEL (2026-10-16). The course outline's last item, '3. General Competences and Descriptors:', is a label for the competences table, which opens arabic page 1 under its own heading 'Competences to be developed:' after the level page; the label stood alone on a page of its own, so it goes.",
-    "ROUND 1 (Google Drive, Aaron Sinkala, 27-28 Oct 2026): 35 comments. Year 2025 -> 2026 (year key + copyright and First Published lines); Director signatory -> Samutete M. Petronella (Ms); lower-case geography/geographical capitalised (29 marked, every one in the book done as a word fix); competence 3 'Able translate' -> 'Translate'; Background 'an individual,' -> 'students,'; Acknowledgement 'Zambia Education Enhancement Project' -> 'Educational' (the comment names only the word 'Education'; this is the one capital Education in the front matter beside the other front-matter comments, placed from context); Year 2 competences: empty CITIZENSHIP/COLLABORATION/COMMUNICATION rows deleted, S/N counted again; 1.15 Field Project: stage lines 1.15.2-1.15.7 deleted from the sub-topic, its competence now 1.15.1.1."
+    "ROUND 1 (Google Drive, Aaron Sinkala, 27-28 Oct 2026): 35 comments. Year 2025 -> 2026 (year key + copyright and First Published lines); Director signatory -> Samutete M. Petronella (Ms); lower-case geography/geographical capitalised (29 marked, every one in the book done as a word fix); competence 3 'Able translate' -> 'Translate'; Background 'an individual,' -> 'students,'; Acknowledgement 'Zambia Education Enhancement Project' -> 'Educational' (the comment names only the word 'Education'; this is the one capital Education in the front matter beside the other front-matter comments, placed from context); Year 2 competences: empty CITIZENSHIP/COLLABORATION/COMMUNICATION rows deleted, S/N counted again; 1.15 Field Project: stage lines 1.15.2-1.15.7 deleted from the sub-topic, its competence now 1.15.1.1.",
+    "ROUND 2 (Google Drive, Aaron Sinkala, 12 Nov 2026): 13 comments, all on the Scope and Sequence chart. Stray 1.2/1.4/1.6/1.8 (and Year 2's two 2.2) in the YEAR column were Word list numbers of empty paragraphs -- now emptied by the engine; Year 2 rows TERM 1 and TERM 2 'SCHOOL TEACHING EXPERIENCE' deleted; TERM 3 -> TERM 1; topics renumber 2.1-2.3 by themselves once the two rows go; the first stray 2.2 (Entrepreneurship row) -> TERM 2; 2.5.1 before 'Components of Digital Literacy' dropped (engine: a one-line chart sub-topic is not numbered). The chart's Year 2 order (Geography of Zambia, Entrepreneurship, Digital Literacy) differs from the matrix's (2.2 Digital Literacy, 2.3 Entrepreneurship) -- left as the reviewer numbered it."
   ],
   "subject": "Geography Content",
   "level": "Secondary Teachers' Diploma",
@@ -87,6 +88,20 @@
       "_why": "ROUND 1: delete stage lines 1.15.2-1.15.7 of the Field Project sub-topic",
       "pattern": "(Research Report\\))\\s*\\n1\\.\\d+\\.2 Introduction[\\s\\S]*$",
       "with": "$1"
+    },
+    {
+      "_why": "ROUND 2: scope chart TERM 3 -> TERM 1 (Year 2)",
+      "row": "2.1 THE GEOGRAPHY OF ZAMBIA",
+      "col": 0,
+      "with": "TERM 1",
+      "under": "SCOPE AND SEQUENC"
+    },
+    {
+      "_why": "ROUND 2: scope chart stray 2.2 -> TERM 2",
+      "row": "2.1 ENTREPRENEURSHIP EDUCATION",
+      "col": 0,
+      "with": "TERM 2",
+      "under": "SCOPE AND SEQUENC"
     }
   ],
   "removeRow": [
@@ -105,6 +120,10 @@
       "find": "Communication",
       "ifBlank": true,
       "renumberSN": true
+    },
+    {
+      "_why": "ROUND 2: Year 2 TERM 1 and TERM 2 'School Teaching Experience' rows of the scope chart deleted",
+      "find": "• SCHOOL TEACHING EXPERIENCE"
     }
   ]
 }

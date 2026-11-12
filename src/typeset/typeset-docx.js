@@ -1682,13 +1682,21 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           const from = b.rows.findIndex((row, ri) => ri > 0 && opens(row, mr.startsWith));
           const anchor = mr.after != null ? mr.after : mr.before;
-          if (from > 0 && b.rows.some((row, ri) => ri > 0 && ri !== from && opens(row, anchor))) {
-            const [row] = b.rows.splice(from, 1);
-            const to = b.rows.findIndex((r, ri) => ri > 0 && opens(r, anchor));
-            b.rows.splice(mr.after != null ? to + 1 : to, 0, row);
-            done = true;
-            console.log(`   moveRow ${mr.startsWith}: ${mr.after != null ? "after" : "before"} ${anchor}`);
-            continue;
+          if (from > 0) {
+            // the anchor in this table, else in any other: a row can go to another year's
+            // matrix (History Content: Year 1 topics 1.12-1.15 made Year 2's first topics)
+            const tables = [];
+            const collect = (a) => { for (const x of a) { if (!x || typeof x !== "object") continue; if (Array.isArray(x.rows) && (x.t === "table" || x.kind === "table")) tables.push(x); for (const k of Object.keys(x)) if (Array.isArray(x[k]) && k !== "rows") collect(x[k]); } };
+            collect(blocks);
+            const dest = [b, ...tables.filter((t) => t !== b)].find((t) => t.rows.some((row, ri) => ri > 0 && !(t === b && ri === from) && opens(row, anchor)));
+            if (dest) {
+              const [row] = b.rows.splice(from, 1);
+              const to = dest.rows.findIndex((r, ri) => ri > 0 && opens(r, anchor));
+              dest.rows.splice(mr.after != null ? to + 1 : to, 0, row);
+              done = true;
+              console.log(`   moveRow ${mr.startsWith}: ${mr.after != null ? "after" : "before"} ${anchor}${dest !== b ? " (other table)" : ""}`);
+              continue;
+            }
           }
         }
         for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkM(b[k]);
@@ -6379,11 +6387,17 @@ function normaliseQuestionMarkBold(blocks) {
         for (const row of b.rows.slice(1)) {
           if (!Array.isArray(row)) continue;
           if (yc >= 0 && row[yc]) { const y = yearOf(row[yc].text); if (y) { year = y; k = j = m = 0; } }
+          // a YEAR cell holding a dotted number and nothing else is the Word list number of
+          // an empty paragraph, never a year or a term: emptied ("1.2", "1.4" … down the
+          // YEAR column of Geography Content's scope chart)
+          if (yc >= 0 && row[yc] && /^\s*\d+(?:\.\d+)+\.?\s*$/.test(row[yc].text || "")) { row[yc].text = ""; row[yc].segs = null; }
           if (renum(row[tc], () => { k++; j = m = 0; return `${year}.${k}`; })) tally[year] = k;
           // A scope-and-sequence chart (a YEARS column) lists a topic's sub-topics one per
           // line with no numbers: left so. Numbering only the first line set "1.1.1
           // Definitions of Religion" over five unnumbered titles (Religious Education Content).
-          const bareList = yc >= 0 && row[sc] && (toLines(row[sc]) || []).length > 1
+          // A single line too: Geography Content's one-line "Components of Digital Literacy"
+          // came out "2.5.1" among unnumbered lists.
+          const bareList = yc >= 0 && row[sc] && (toLines(row[sc]) || []).length >= 1
             && !(toLines(row[sc]) || []).some((l) => NUM.test(txt(l)));
           const subs = bareList ? 0 : renum(row[sc], () => { j++; m = 0; return `${year}.${k}.${j}`; });
           const comps = cc >= 0 ? renum(row[cc], () => { m++; return `${year}.${k}.${j}.${m}`; }) : 0;
