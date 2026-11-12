@@ -325,7 +325,7 @@
   "_note_instructions": "An activity's instruction the manuscript set as a heading reads as the plain instruction line inside its box, like the rest.",
   "asPara": [
     "Ukulumbula amashina lupwa lwandi ulukulu",
-    "Palanyana icikope na ukumbula iciunda /m/",
+    "Palanyana icikope na ukulumbula iciunda /m/",
     "Shila imishilwa ukukonkelesha mu mashepu",
     "Londolola ifili pa cikope",
     "Konka amafunde yakucita icintu",
@@ -369,6 +369,14 @@
     {
       "find": "Amafunde ayayangukaifyayanguka",
       "with": "Amafunde ayayanguka"
+    },
+    {
+      "find": "Gwilani nchito za ku sukulu monga kupsyela ndi kudoba zinyalala.",
+      "with": "Bombeni imilimo ya pa sukulu pamo nga ukupyanga no kutola ifisoso."
+    },
+    {
+      "find": "Lenda ifilundwa ifi.",
+      "with": "Landa ifilundwa ifi."
     }
   ],
   "replaceExact": [
@@ -423,7 +431,7 @@
       "marker": "2."
     },
     {
-      "find": "Gwilani nchito za ku sukulu",
+      "find": "Bombeni imilimo ya pa sukulu",
       "marker": "1."
     }
   ],
@@ -479,7 +487,8 @@
     "Bupililbulo": "Bupilibulo",
     "Kumbinkanya": "Kuminkanya",
     "imbutu": "imbuto",
-    "Imbutu": "Imbuto"
+    "Imbutu": "Imbuto",
+    "ukumbula": "ukulumbula"
   },
   "images": {
     "image55.png": {
@@ -737,5 +746,16 @@
     "image82.png": {
       "src": "ICIBEMBA ECE 4-5 LB-hires/image82.png"
     }
-  }
+  },
+  "_note_author": "User 12 Nov: fix the author items apart from the ISBN. Unit 9 Umulimo was Cinyanja (sweep, pick up rubbish) -> Icibemba; Lenda -> Landa (the TG answer: Abasambi balande sa/se/si/so/su); ukumbula -> ukulumbula (the book's word, 5 times).",
+  "_note_t": "Unit 3 Activity 2 (the t picture) said /m/ like Activity 1; the TG has Ifyakucita 2: Ukubilikisha iciunda ca /t/.",
+  "edit": [
+    {
+      "find": "ukulumbula iciunda /m/",
+      "with": "ukulumbula iciunda /t/",
+      "after": [
+        "Palanyana icikope na ukulumbula iciunda /m/"
+      ]
+    }
+  ]
 }

@@ -2,8 +2,13 @@
 // (Split out of typeset-docx.js — see docs/ARCHITECTURE.md.)
 
 
+// A sound or syllable written between slashes ("iciunda /m/", "/sa/") never splits at a
+// line end: a word joiner after each slash (Icibemba ECE Level 2 LB printed "iciunda /"
+// and "m/" on two lines). File paths are left alone.
+const keepSounds = (s) => (/[\\/][^\\/]*\.(png|jpe?g|gif|svg|pdf|typ)\b|^[A-Za-z]:[\\/]/i.test(s) ? s
+  : s.replace(/(?<![\p{L}\p{N}/])\/(\p{L}{1,3})\/(?![\p{L}\p{N}/])/gu, "/⁠$1⁠/"));
 // Escape a JS string for a Typst double-quoted string literal.
-const S = (s) => '"' + String(s ?? "").replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
+const S = (s) => '"' + keepSounds(String(s ?? "")).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
 
 // Typst array literal: a trailing-comma list, but EMPTY must be "()" not "(,)"
 // (a lone comma is a syntax error). `el` formats each element.
