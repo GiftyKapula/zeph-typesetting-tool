@@ -60,6 +60,127 @@
     {
       "find": "ꬼ",
       "with": "ŋ"
+    },
+    {
+      "_why": "PUNCTUATION (2026-11-12 read-through): stray space before , or ., doubled stops/commas, missing space after a comma, two paragraphs with no closing full stop. List-end \"...\" and fill-in dots left as they are.",
+      "find": "uzwidilide .",
+      "with": "uzwidilide."
+    },
+    {
+      "find": "zyiyandika ,",
+      "with": "zyiyandika,"
+    },
+    {
+      "find": "kulyaaba , kujati",
+      "with": "kulyaaba, kujati"
+    },
+    {
+      "find": "kukozyanyisya,nyimbo",
+      "with": "kukozyanyisya, nyimbo"
+    },
+    {
+      "find": ",, stories",
+      "with": ", stories"
+    },
+    {
+      "find": "basicikolo.  .",
+      "with": "basicikolo."
+    },
+    {
+      "find": "cakulemba..",
+      "with": "cakulemba."
+    },
+    {
+      "find": "buzuba abuzuba..",
+      "with": "buzuba abuzuba."
+    },
+    {
+      "find": "zyina..",
+      "with": "zyina."
+    },
+    {
+      "find": "mumamvwu..",
+      "with": "mumamvwu."
+    },
+    {
+      "find": "zyipikicca,zyikkaadi",
+      "with": "zyipikicca, zyikkaadi"
+    },
+    {
+      "find": "kululyo .",
+      "with": "kululyo."
+    },
+    {
+      "find": "wela,kutyanka",
+      "with": "wela, kutyanka"
+    },
+    {
+      "find": "focholo. cceba",
+      "with": "focholo, cceba"
+    },
+    {
+      "find": "catubala,mafulasyi",
+      "with": "catubala, mafulasyi"
+    },
+    {
+      "find": "cintoolo,kuunka",
+      "with": "cintoolo, kuunka"
+    },
+    {
+      "find": "ncoko,mpensele",
+      "with": "ncoko, mpensele"
+    },
+    {
+      "find": "ncoko,mpesele",
+      "with": "ncoko, mpesele"
+    },
+    {
+      "find": "kukkala,kukamba",
+      "with": "kukkala, kukamba"
+    },
+    {
+      "find": "maanza,kuvwunauna",
+      "with": "maanza, kuvwunauna"
+    },
+    {
+      "find": "sekko,tulayango",
+      "with": "sekko, tulayango"
+    },
+    {
+      "find": "tulayango,sikweeya",
+      "with": "tulayango, sikweeya"
+    },
+    {
+      "find": "kutiikatolele kuya kumbele",
+      "with": "kutiikatolele kuya kumbele."
+    },
+    {
+      "find": "basicikolo munzila zyoonse",
+      "with": "basicikolo munzila zyoonse."
+    },
+    {
+      "find": "kunyamuna,yumya",
+      "with": "kunyamuna, yumya"
+    },
+    {
+      "find": "kunyona,kukwela",
+      "with": "kunyona, kukwela"
+    },
+    {
+      "find": "mbelele,ngulube",
+      "with": "mbelele, ngulube"
+    },
+    {
+      "find": "sikkweya,tu",
+      "with": "sikkweya, tu"
+    },
+    {
+      "find": "mbotutobelana,akwaamba",
+      "with": "mbotutobelana, akwaamba"
+    },
+    {
+      "find": "twabasicikolo .",
+      "with": "twabasicikolo."
     }
   ],
   "replaceBlocks": [
@@ -645,10 +766,10 @@
       ]
     },
     {
-      "find": "Mabala: bataata, baama, musimbi, musankwa, mwanookwesu, mukwasyi, mulaka, mikwasyi, zyipikicca,zyikkaadi, zyidooli",
+      "find": "Mabala: bataata, baama, musimbi, musankwa, mwanookwesu, mukwasyi, mulaka, mikwasyi, zyipikicca, zyikkaadi, zyidooli",
       "with": [
         {
-          "para": "**Mabala:** bataata, baama, musimbi, musankwa, mwanookwesu, mukwasyi, mulaka, mikwasyi, zyipikicca,zyikkaadi, zyidooli"
+          "para": "**Mabala:** bataata, baama, musimbi, musankwa, mwanookwesu, mukwasyi, mulaka, mikwasyi, zyipikicca, zyikkaadi, zyidooli"
         }
       ]
     },
@@ -1037,10 +1158,10 @@
       ]
     },
     {
-      "find": "Zyibelesyo: - Zyipikicca zyazyintu: - Zyakujikila (mupika, mpani…) - Zyakubelesya kusalazya (nsipa, cikukuzyo, cikolopyo…) - Zyibezedwe (cuuno, tebule, bulo…) - Zyakulimya (jamba, keembe, nhala, focholo. cceba…",
+      "find": "Zyibelesyo: - Zyipikicca zyazyintu: - Zyakujikila (mupika, mpani…) - Zyakubelesya kusalazya (nsipa, cikukuzyo, cikolopyo…) - Zyibezedwe (cuuno, tebule, bulo…) - Zyakulimya (jamba, keembe, nhala, focholo, cceba…",
       "with": [
         {
-          "para": "**Zyibelesyo:** Zyipikicca zyazyintu: - Zyakujikila (mupika, mpani…) - Zyakubelesya kusalazya (nsipa, cikukuzyo, cikolopyo…) - Zyibezedwe (cuuno, tebule, bulo…) - Zyakulimya (jamba, keembe, nhala, focholo. cceba…"
+          "para": "**Zyibelesyo:** Zyipikicca zyazyintu: - Zyakujikila (mupika, mpani…) - Zyakubelesya kusalazya (nsipa, cikukuzyo, cikolopyo…) - Zyibezedwe (cuuno, tebule, bulo…) - Zyakulimya (jamba, keembe, nhala, focholo, cceba…"
         }
       ]
     },
@@ -1421,10 +1542,10 @@
       ]
     },
     {
-      "find": "Zyibelesyo: ciccaati catubala,mafulasyi-kkadi ya tubala…",
+      "find": "Zyibelesyo: ciccaati catubala, mafulasyi-kkadi ya tubala…",
       "with": [
         {
-          "para": "**Zyibelesyo:** ciccaati catubala,mafulasyi-kkadi ya tubala…⁠"
+          "para": "**Zyibelesyo:** ciccaati catubala, mafulasyi-kkadi ya tubala…⁠"
         }
       ]
     },
@@ -1565,10 +1686,10 @@
       ]
     },
     {
-      "find": "Cakucita: kusobana tusobano twazyicitika mumikwasyi (Kuunka kuula zyintu kucintoolo,kuunka kucikombelo, kubwezelela micelo iiligwa mbuli Masuku, manego, mbubu).",
+      "find": "Cakucita: kusobana tusobano twazyicitika mumikwasyi (Kuunka kuula zyintu kucintoolo, kuunka kucikombelo, kubwezelela micelo iiligwa mbuli Masuku, manego, mbubu).",
       "with": [
         {
-          "head": "Cakucita: Kusobana tusobano twazyicitika mumikwasyi (Kuunka kuula zyintu kucintoolo,kuunka kucikombelo, kubwezelela micelo iiligwa mbuli Masuku, manego, mbubu)."
+          "head": "Cakucita: Kusobana tusobano twazyicitika mumikwasyi (Kuunka kuula zyintu kucintoolo, kuunka kucikombelo, kubwezelela micelo iiligwa mbuli Masuku, manego, mbubu)."
         }
       ]
     },
@@ -1733,10 +1854,10 @@
       ]
     },
     {
-      "find": "Zyibelesyo: Ciccaati citondezya tweengo twiindeneindene, tukkaadi, ncoko,mpensele, makkilayoni, bulongo.",
+      "find": "Zyibelesyo: Ciccaati citondezya tweengo twiindeneindene, tukkaadi, ncoko, mpensele, makkilayoni, bulongo.",
       "with": [
         {
-          "para": "**Zyibelesyo:** Ciccaati citondezya tweengo twiindeneindene, tukkaadi, ncoko,mpensele, makkilayoni, bulongo."
+          "para": "**Zyibelesyo:** Ciccaati citondezya tweengo twiindeneindene, tukkaadi, ncoko, mpensele, makkilayoni, bulongo."
         }
       ]
     },
@@ -1773,10 +1894,10 @@
       ]
     },
     {
-      "find": "Zyibelesyo: Ciccaati citondezya masyeepu mbuli seekko, sikkweya,tulayaango alekkitango, zyipepa zyijisi masyeepu abambidwe aabudomwi-domwi, tukkaadi twamansyeepu, ncoko, mpensele, makkilayoni, bulongo, museenga amasileeti.",
+      "find": "Zyibelesyo: Ciccaati citondezya masyeepu mbuli seekko, sikkweya, tulayaango alekkitango, zyipepa zyijisi masyeepu abambidwe aabudomwi-domwi, tukkaadi twamansyeepu, ncoko, mpensele, makkilayoni, bulongo, museenga amasileeti.",
       "with": [
         {
-          "para": "**Zyibelesyo:** Ciccaati citondezya masyeepu mbuli seekko, sikkweya,tulayaango alekkitango, zyipepa zyijisi masyeepu abambidwe aabudomwi-domwi, tukkaadi twamansyeepu, ncoko, mpensele, makkilayoni, bulongo, museenga amasileeti."
+          "para": "**Zyibelesyo:** Ciccaati citondezya masyeepu mbuli seekko, sikkweya, tulayaango alekkitango, zyipepa zyijisi masyeepu abambidwe aabudomwi-domwi, tukkaadi twamansyeepu, ncoko, mpensele, makkilayoni, bulongo, museenga amasileeti."
         }
       ]
     },
@@ -1989,10 +2110,10 @@
       ]
     },
     {
-      "find": "Zyibelesyo: Ciccaati citondezya twana twamala, zyipepa zyijisi twana twamabala tulaabudomwi-domwi, makkadi atondezya twana twamabala, ncoko,mpesele, makkilayoni, bulongo.",
+      "find": "Zyibelesyo: Ciccaati citondezya twana twamala, zyipepa zyijisi twana twamabala tulaabudomwi-domwi, makkadi atondezya twana twamabala, ncoko, mpesele, makkilayoni, bulongo.",
       "with": [
         {
-          "para": "**Zyibelesyo:** Ciccaati citondezya twana twamala, zyipepa zyijisi twana twamabala tulaabudomwi-domwi, makkadi atondezya twana twamabala, ncoko,mpesele, makkilayoni, bulongo."
+          "para": "**Zyibelesyo:** Ciccaati citondezya twana twamala, zyipepa zyijisi twana twamabala tulaabudomwi-domwi, makkadi atondezya twana twamabala, ncoko, mpesele, makkilayoni, bulongo."
         }
       ]
     },
@@ -2621,10 +2742,10 @@
       ]
     },
     {
-      "find": "Zyibelesyo: ciccaati catubala,mafulasyi-kkadi ya tubala…",
+      "find": "Zyibelesyo: ciccaati catubala, mafulasyi-kkadi ya tubala…",
       "with": [
         {
-          "para": "**Zyibelesyo:** ciccaati catubala,mafulasyi-kkadi ya tubala…"
+          "para": "**Zyibelesyo:** ciccaati catubala, mafulasyi-kkadi ya tubala…"
         }
       ]
     },
@@ -3163,7 +3284,7 @@
   },
   "editAll": [
     {
-      "find": " supports teachers in helping learners develop listening, speaking, reading, writing,",
+      "find": "  supports teachers in helping learners develop listening, speaking, reading, writing,",
       "with": ","
     }
   ]
