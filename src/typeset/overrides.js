@@ -342,7 +342,10 @@ function applyOverrides(blocks, ov) {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
-        if (hits(b)) {
+        // a plain box holding just the matched line is replaced whole (a label the author
+        // shaded as a one-line box: replacing only the line inside left the empty frame)
+        const lone = b.t === "box" && Array.isArray(b.body) && b.body.length === 1 && hits(b.body[0]);
+        if (hits(b) || lone) {
           arr.splice(i, 1, ...news);
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
           done = true; return;

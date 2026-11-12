@@ -1,0 +1,741 @@
+{
+  "_note_manuscript": "Downloads/ECE 4-5 LB Level 2 Icibemba submit Doc.docx (last saved by Margaret Nambao 5 Nov 2026, no comments or tracked changes), first typeset 12 Nov 2026. Settings follow the sister Icibemba ECE Level 1 LB.",
+  "grade": "ECE Levo 2",
+  "_note_cover": "The manuscript cover (image1.png, 1046x1503) is a finished mock-up with ICIBEMBA, the book type, the age badge and English chart labels (Sun, Balloon) baked in. Word-free crop x 0-505, y 705-1028 (the teacher reading to the children), Real-ESRGAN x4 then 2452x1568. Nothing painted. Cover lettering built from the word list, as Level 1.",
+  "coverImage": "ICIBEMBA ECE 4-5 LB-hires/cover.png",
+  "_note_coverColor": "Level 1 LB keeps the theme blue; Level 2 takes the gold of the mock-up band, as the Lunda ECE Level 2 LB (e3a32e), so the two levels are told apart.",
+  "coverColor": "e3a32e",
+  "subject": "Icibemba",
+  "localLabels": true,
+  "coverWords": {
+    "authors": "ABALEMBELE",
+    "contents": "Ifili mu Citabo",
+    "printedBy": "Calembelwe naba"
+  },
+  "authorLabel": "Abalembele",
+  "authors": [
+    "Dr. Margaret Nambao (PhD)"
+  ],
+  "coversInBook": true,
+  "removeImages": [
+    "image1.png"
+  ],
+  "remove": [
+    "Early Childhood Education"
+  ],
+  "dropCompetenceBoxes": true,
+  "untableImages": true,
+  "uniformImages": 78,
+  "keepHeadsWithUnit": true,
+  "boxActivities": true,
+  "keepBoxesWhole": true,
+  "keepBoxMm": 190,
+  "termPages": "^Temu [0-9]+$",
+  "termWord": "TEMU",
+  "boxHeads": [
+    {
+      "find": "Umulimo",
+      "kind": "ex"
+    }
+  ],
+  "_note_activities": "The manuscript types activity titles four ways (IFYAKUCITA 1, IFYAKUCITA 1:, Ifyakucita 1, Ifyakucita 1: <instruction>): one box each, titled IFYAKUCITA N, the instruction inside.",
+  "activityTitles": [
+    "IFYAKUCITA"
+  ],
+  "oneActivityPerBox": true,
+  "_note_units": "The manuscript numbers two units ICIPANDE 9 (9, 9, 10, 11): the last three renumbered 10, 11, 12.",
+  "renameNear": [
+    {
+      "find": "ICIPANDE 11",
+      "near": "Landa amapoyemu ayayanguka",
+      "to": "ICIPANDE 12"
+    },
+    {
+      "find": "ICIPANDE 10",
+      "near": "Landa na ukwipusha amepusho ayayanguka",
+      "to": "ICIPANDE 11"
+    },
+    {
+      "find": "ICIPANDE 9",
+      "near": "Ukupilibula ifishibilo fyaishibikwa",
+      "to": "ICIPANDE 10"
+    }
+  ],
+  "_note_labels": "Learning outcomes look as in Level 1: IFILEKABILWA UKWISHIBA: in bold, the outcomes as bullet lines under it.",
+  "uniformLabel": [
+    {
+      "prefix": "IFILEKABILWA UKWISHIBA",
+      "text": "IFILEKABILWA UKWISHIBA:"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Ifilekabilwa Ukwishiba",
+      "with": [
+        {
+          "label": "IFILEKABILWA UKWISHIBA:",
+          "col": "000000"
+        }
+      ]
+    },
+    {
+      "find": "Ukulumbula amashina yamilimo isangwa mucifulo umo njikala",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1"
+        },
+        {
+          "para": "Ukulumbula amashina yamilimo isangwa mucifulo umo njikala"
+        }
+      ]
+    },
+    {
+      "find": "Panga amapatani ayayanguka",
+      "with": [
+        {
+          "para": "• Panga amapatani ayayanguka."
+        }
+      ]
+    },
+    {
+      "find": "Ukuposha panshita iyalekana-lekana",
+      "with": [
+        {
+          "para": "• Ukuposha panshita iyalekana-lekana."
+        }
+      ]
+    },
+    {
+      "find": "Ukupituluka mu mapatani ayayanguka.",
+      "with": [
+        {
+          "para": "• Ukupituluka mu mapatani ayayanguka."
+        }
+      ]
+    },
+    {
+      "find": "Amashina yanchito ishapusana pusana",
+      "with": [
+        {
+          "para": "• Amashina yanchito ishapusana pusana."
+        }
+      ]
+    },
+    {
+      "find": "fyakucita 1: Kumfwa ku lyashi",
+      "with": [
+        {
+          "head": "IFYAKUCITA 1: Kumfwa ku lyashi"
+        }
+      ]
+    },
+    {
+      "find": "Sambilileni Icibemba Nensansa!",
+      "with": [
+        {
+          "raw": {
+            "t": "pagebreak"
+          }
+        },
+        {
+          "vspace": "80mm"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "align": "center",
+            "segs": [
+              {
+                "t": "Sambilileni Icibemba Nensansa!",
+                "b": true,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "ABALEMBELE:",
+      "with": []
+    },
+    {
+      "find": "Dr. Margaret Nambao (PhD)",
+      "with": []
+    },
+    {
+      "find": "ABALENGELE IFIKOPE: Abalembele",
+      "with": []
+    },
+    {
+      "find": "ABAPITULWIKEMO: …………….",
+      "with": []
+    },
+    {
+      "find": "ISBN:",
+      "with": []
+    },
+    {
+      "find": "…………….",
+      "with": []
+    },
+    {
+      "find": "ABALEMBELE UMUKU WAKUBALILAPO:",
+      "with": []
+    },
+    {
+      "find": "ZAMBIA EDUCATIONAL PUBLISHING HOUSE",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road",
+      "with": []
+    },
+    {
+      "find": "P.O. Box 32708",
+      "with": []
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "find": "ICITABO CALEMBELWE NABA:",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House, 2026",
+      "with": [
+        {
+          "para": "**ABALEMBELE:**",
+          "center": true
+        },
+        {
+          "para": "Dr. Margaret Nambao (PhD)",
+          "center": true
+        },
+        {
+          "vspace": "1.5mm"
+        },
+        {
+          "para": "**ABALENGELE IFIKOPE:**",
+          "center": true
+        },
+        {
+          "para": "Abalembele",
+          "center": true
+        },
+        {
+          "vspace": "1.5mm"
+        },
+        {
+          "para": "**ABAPITULWIKEMO:**",
+          "center": true
+        },
+        {
+          "para": "…………….",
+          "center": true
+        },
+        {
+          "vspace": "1.5mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Ng`ambi Teddy (B.Sc)",
+          "center": true
+        },
+        {
+          "vspace": "1.5mm"
+        },
+        {
+          "para": "**ABALEMBELE UMUKU WAKUBALILAPO:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "…………….",
+          "center": true
+        },
+        {
+          "vspace": "1.5mm"
+        },
+        {
+          "para": "**ICITABO CALEMBELWE NABA:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House, 2026",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Landa iciunda cakubalilapo mu cikope ici:",
+      "with": [
+        {
+          "listitem": "Landa iciunda cakubalilapo mu cikope ici:",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "Kopolola amalembo aya:",
+      "with": [
+        {
+          "listitem": "Kopolola amalembo aya:",
+          "marker": "2."
+        }
+      ]
+    }
+  ],
+  "_note_instructions": "An activity's instruction the manuscript set as a heading reads as the plain instruction line inside its box, like the rest.",
+  "asPara": [
+    "Ukulumbula amashina lupwa lwandi ulukulu",
+    "Palanyana icikope na ukumbula iciunda /m/",
+    "Shila imishilwa ukukonkelesha mu mashepu",
+    "Londolola ifili pa cikope",
+    "Konka amafunde yakucita icintu",
+    "Angaleni utusela ukulanga ifyakucita ifya lupwa",
+    "Tontonkanyeni pa milimo yakucita pamo na ifibusa",
+    "Belenga amashiwi ayayanguka aya pesamba:"
+  ],
+  "setHeading": [
+    {
+      "find": "Amashina yafintu ifisangwa pa sukulu",
+      "as": "h3"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "Abasambi, abafyashi na abakalela wabana"
+    }
+  ],
+  "_note_text": "Umutwe typed one way; the topic lines that dropped 'Umutwe:' get it back, as every other topic line. Front matter: this is Level 2 and the book is in Icibemba (Iciputulwa 1 / Cinyanja were left over from Level 1).",
+  "textFix": [
+    {
+      "find": "Umutwe : ",
+      "with": "Umutwe: "
+    },
+    {
+      "find": "Ukumfwa Na Ukulanda",
+      "with": "Ukumfwa na Ukulanda"
+    },
+    {
+      "find": "Icitabo ca Cibemba Iciputulwa 1",
+      "with": "Icitabo ca Cibemba Iciputulwa 2"
+    },
+    {
+      "find": "mu Cinyanja",
+      "with": "mu Cibemba"
+    },
+    {
+      "find": "aya lulimi lwa ci Bemba",
+      "with": "aya lulimi lwa Cibemba"
+    },
+    {
+      "find": "Amafunde ayayangukaifyayanguka",
+      "with": "Amafunde ayayanguka"
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "Amashina",
+      "with": "Umutwe: Amashina"
+    },
+    {
+      "find": "Ifikope",
+      "with": "Umutwe: Ifikope"
+    },
+    {
+      "find": "Amalembo",
+      "with": "Umutwe: Amalembo"
+    },
+    {
+      "find": "Ukulondolola",
+      "with": "Umutwe: Ukulondolola"
+    },
+    {
+      "find": "Ifiunda",
+      "with": "Umutwe: Ifiunda"
+    }
+  ],
+  "recolor": [
+    {
+      "to": null
+    }
+  ],
+  "_note_act3": "The jobs-in-the-community picture (image7) came with its instruction but no activity title: given IFYAKUCITA 1 as the TG (Ifyakucita 1: Ukutantika imilimo ya mu ncende), so it is boxed like the rest instead of running on inside the previous box.",
+  "_note_recolor": "Instructions and outcomes in black throughout, as in Level 1 (the manuscript colours some blue, some red, some navy).",
+  "recolorLabel": [
+    {
+      "startsWith": "IFILEKABILWA",
+      "to": "000000"
+    }
+  ],
+  "imprintSpacing": "0.45em",
+  "imprintGap": "4mm",
+  "_note_numbering": "Numbering check: Word ran the end-of-unit lists on (Unit 10 started at 3, Unit 11 went 1, 5; Umulimo in Unit 9 read 3): restarted. Unit 7 test lines numbered like every other test.",
+  "setMarker": [
+    {
+      "find": "Landa amashiwi yabili ayatendeka na iciunda /y/",
+      "marker": "1."
+    },
+    {
+      "find": "Lemba amashiwi aya:",
+      "marker": "2."
+    },
+    {
+      "find": "Belenga ifilundwa ifi pesamba:",
+      "marker": "2."
+    },
+    {
+      "find": "Gwilani nchito za ku sukulu",
+      "marker": "1."
+    }
+  ],
+  "_note_breaks": "No 1-2 line carry-overs: three end-of-unit tests start a fresh page; the Ifinama heading leaves the page foot.",
+  "pageBreakBefore": [
+    {
+      "find": "UKWESHA PAMPELA YA CIPANDE",
+      "near": "Lumbula amashiwi yabili ayaba na iciunda /a/"
+    },
+    {
+      "find": "UKWESHA PAMPELA YA CIPANDE",
+      "near": "Pangeni icangalo ukubomfya ukuposha"
+    },
+    {
+      "find": "UKWESHA PAMPELA YA CIPANDE",
+      "near": "Landa amashiwi yabili ayatendeka na iciunda /y/"
+    },
+    {
+      "find": "Ifinama",
+      "near": "Ukwakanya ifinama ukulingana"
+    }
+  ],
+  "_note_wordFix": "One spelling per word, the book's majority form (aya yanguka 11 / ayayanguka 16, pa mpela 1 / pampela 14, ...; 1:1 ties left), plus plain keyboard slips (iflundwa, amshina, Ubulondloshi, bupililbulo, Kumbinkanya, imbutu).",
+  "wordFix": {
+    "aya yanguka": "ayayanguka",
+    "Aya yanguka": "Ayayanguka",
+    "ca kubalilapo": "cakubalilapo",
+    "Ca kubalilapo": "Cakubalilapo",
+    "pa mpela": "pampela",
+    "Pa mpela": "Pampela",
+    "ilya yanguka": "ilyayanguka",
+    "Ilya yanguka": "Ilyayanguka",
+    "ifya kucita": "ifyakucita",
+    "Ifya kucita": "Ifyakucita",
+    "ama poyemu": "amapoyemu",
+    "Ama poyemu": "Amapoyemu",
+    "mucikope": "mu cikope",
+    "Mucikope": "Mu cikope",
+    "ya fintu": "yafintu",
+    "Ya fintu": "Yafintu",
+    "mu filembo": "mufilembo",
+    "Mu filembo": "Mufilembo",
+    "pafintu": "pa fintu",
+    "Pafintu": "Pa fintu",
+    "kulyashi": "ku lyashi",
+    "Kulyashi": "Ku lyashi",
+    "iflundwa": "ifilundwa",
+    "Iflundwa": "Ifilundwa",
+    "amshina": "amashina",
+    "Amshina": "Amashina",
+    "Ubulondloshi": "Ubulondoloshi",
+    "bupililbulo": "bupilibulo",
+    "Bupililbulo": "Bupilibulo",
+    "Kumbinkanya": "Kuminkanya",
+    "imbutu": "imbuto",
+    "Imbutu": "Imbuto"
+  },
+  "images": {
+    "image55.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image55.png"
+    },
+    "image87.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image87.png"
+    },
+    "image64.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image64.png"
+    },
+    "image30.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image30.png"
+    },
+    "image56.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image56.png"
+    },
+    "image13.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image13.png"
+    },
+    "image19.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image19.png"
+    },
+    "image22.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image22.png"
+    },
+    "image89.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image89.png"
+    },
+    "image96.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image96.png"
+    },
+    "image24.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image24.png"
+    },
+    "image7.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image7.png"
+    },
+    "image18.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image18.png"
+    },
+    "image26.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image26.png"
+    },
+    "image42.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image42.png"
+    },
+    "image63.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image63.png"
+    },
+    "image5.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image5.png"
+    },
+    "image6.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image6.png"
+    },
+    "image21.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image21.png"
+    },
+    "image23.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image23.png"
+    },
+    "image25.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image25.png"
+    },
+    "image47.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image47.png"
+    },
+    "image32.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image32.png"
+    },
+    "image27.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image27.png"
+    },
+    "image16.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image16.png"
+    },
+    "image20.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image20.png"
+    },
+    "image91.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image91.png"
+    },
+    "image90.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image90.png"
+    },
+    "image11.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image11.png"
+    },
+    "image29.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image29.png"
+    },
+    "image60.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image60.png"
+    },
+    "image48.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image48.png"
+    },
+    "image49.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image49.png"
+    },
+    "image12.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image12.png"
+    },
+    "image62.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image62.png"
+    },
+    "image66.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image66.png"
+    },
+    "image97.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image97.png"
+    },
+    "image40.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image40.png"
+    },
+    "image69.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image69.png"
+    },
+    "image79.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image79.png"
+    },
+    "image61.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image61.png"
+    },
+    "image92.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image92.png"
+    },
+    "image36.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image36.png"
+    },
+    "image71.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image71.png"
+    },
+    "image72.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image72.png"
+    },
+    "image74.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image74.png"
+    },
+    "image17.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image17.png"
+    },
+    "image59.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image59.png"
+    },
+    "image34.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image34.png"
+    },
+    "image95.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image95.png"
+    },
+    "image39.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image39.png"
+    },
+    "image51.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image51.png"
+    },
+    "image81.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image81.png"
+    },
+    "image3.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image3.png"
+    },
+    "image14.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image14.png"
+    },
+    "image15.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image15.png"
+    },
+    "image31.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image31.png"
+    },
+    "image33.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image33.png"
+    },
+    "image35.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image35.png"
+    },
+    "image38.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image38.png"
+    },
+    "image43.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image43.png"
+    },
+    "image44.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image44.png"
+    },
+    "image54.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image54.png"
+    },
+    "image57.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image57.png"
+    },
+    "image65.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image65.png"
+    },
+    "image73.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image73.png"
+    },
+    "image80.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image80.png"
+    },
+    "image84.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image84.png"
+    },
+    "image85.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image85.png"
+    },
+    "image86.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image86.png"
+    },
+    "image8.jpeg": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image8.png"
+    },
+    "image93.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image93.png"
+    },
+    "image76.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image76.png"
+    },
+    "image83.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image83.png"
+    },
+    "image78.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image78.png"
+    },
+    "image50.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image50.png"
+    },
+    "image9.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image9.png"
+    },
+    "image68.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image68.png"
+    },
+    "image77.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image77.png"
+    },
+    "image37.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image37.png"
+    },
+    "image46.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image46.png"
+    },
+    "image53.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image53.png"
+    },
+    "image45.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image45.png"
+    },
+    "image94.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image94.png"
+    },
+    "image82.png": {
+      "src": "ICIBEMBA ECE 4-5 LB-hires/image82.png"
+    }
+  }
+}

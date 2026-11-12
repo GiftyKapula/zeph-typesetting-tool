@@ -205,8 +205,14 @@ async function typesetOne(docxPath, themeName) {
       // A table that holds a "LABEL:" line ("IFILEKABILWA UKWISHIBA:" = what you should
       // learn) followed by that label's lines is unpacked too: the label in bold, its
       // lines as plain text under it (not headings).
+      // The colon may be missing ("IFILEKABILWA UKWISHIBA" alone in its cell, bullet lines
+      // in the next: Icibemba ECE Level 2 LB): a short all-capitals cell counts as the
+      // label when the table also holds "•" lines.
       const lines = (c) => String(c && c.text || "").split(/\n/).map((s) => s.trim()).filter(Boolean);
-      const labelled = rows && cells.some((c) => lines(c).some((t) => /:$/.test(t)))
+      const bulleted = rows && cells.some((c) => lines(c).some((t) => /^[•·]/.test(t)));
+      const capsCells = new Set(bulleted ? cells.filter((c) => { const l = lines(c); return l.length === 1 && l[0].length <= 40 && /^[\p{Lu}\s’']+$/u.test(l[0]) && /\p{Lu}{3}/u.test(l[0]); }) : []);
+      const isLabel = (t, c) => /:$/.test(t) || capsCells.has(c);
+      const labelled = rows && cells.some((c) => lines(c).some((t) => isLabel(t, c)))
         && cells.every((c) => !c || ((c.text || "").length <= 400 && !(c.imgs && c.imgs.length)));
       const ok = rows && cells.some((c) => c && ((c.imgs && c.imgs.length) || (c.text || "").trim()))
         && (labelled || cells.every((c) => !c || ((c.text || "").trim().length <= 60 && !/\n.*\n.*\n/.test(c.text || ""))));
@@ -224,7 +230,7 @@ async function typesetOne(docxPath, themeName) {
         for (const c of row) for (const raw of String(c && c.text || "").split(/\n/)) {
           const t = raw.trim();
           if (!t) continue;
-          if (labelled && /:$/.test(t)) { endGroup(); out.push({ t: "para", sticky: true, outcomes: true, segs: [{ t, b: true, it: false, c: null }] }); underLabel = true; }
+          if (labelled && isLabel(t, c)) { endGroup(); out.push({ t: "para", sticky: true, outcomes: true, segs: [{ t, b: true, it: false, c: null }] }); underLabel = true; }
           else if (underLabel && (c.heads || []).includes(t)) { endGroup(); out.push({ t: "head", text: t }); }
           else if (underLabel) { lastLine = { t: "para", sticky: true, segs: [{ t, b: false, it: false, c: null }] }; out.push(lastLine); }
           else out.push({ t: "head", text: t });
