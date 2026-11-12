@@ -1310,25 +1310,17 @@
     },
     {
       "find": "Mutwe: 0.1.5 Mazyina",
-      "with": [
-        {
-          "head": "MUTWE: 0.1.5 MAZYINA"
-        }
-      ]
+      "with": []
     },
     {
       "find": "Mutwe musyoonto: 0.1.1.5 zyintu zyijanika motukkala",
-      "with": [
-        {
-          "head": "MUTWE MUSYOONTO: 0.1.1.5 zyintu zyijanika motukkala"
-        }
-      ]
+      "with": []
     },
     {
       "find": "Ceelede kucita: 0.1.1.5.1 Kwaamba mazyina abanyama bavwubwa.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.1.5.1 Kwaamba mazyina abanyama bavwubwa."
+          "para": "**Ceelede kucitwa:** 0.1.1.7.1 Kwaamba mazyina abanyama bavwubwa."
         }
       ]
     },
@@ -3096,6 +3088,10 @@
     {
       "before": "MUTWE: 0.1.7 TULAIMU",
       "head": "A. KUSWIILILA AKWAAMBAULA"
+    },
+    {
+      "before": "Tondezya zyipikicca zyabantu bamumukwasyi",
+      "head": "Ntaamu 1: Ceelede kucita"
     }
   ],
   "insertText": [
@@ -3164,5 +3160,11 @@
     "image2.png": {
       "src": "CHITONGA ECE LEVEL 3-4 YEARS TG 2ND REVIEW AND EDITING-2026-hires/image2.png"
     }
-  }
+  },
+  "editAll": [
+    {
+      "find": " supports teachers in helping learners develop listening, speaking, reading, writing,",
+      "with": ","
+    }
+  ]
 }
