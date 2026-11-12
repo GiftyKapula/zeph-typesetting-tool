@@ -2934,9 +2934,18 @@ async function importDocx(docxPath, opts = {}) {
         // empty-looking table) so it isn't lost. (cellRich returns `imgs`, an array —
         // an earlier `c.img` guard here silently discarded such image-only tables.)
         const oneCell = single ? rows[0][0] : null;
+        // A cell's content may sit wholly in a table nested inside it (`subs`): a 1×1
+        // frame round a grid of pictures (Icibemba ECE Level 2 LB). Counting only the
+        // cell's own text and pictures dropped the frame, pictures and all.
+        const subCells = (c) => [].concat(...((c && c.subs) || []).map((rs) => [].concat(...(rs || []))));
+        const hasContent = (c) => !!(c && ((c.text || "").trim() || (c.imgs && c.imgs.length) || subCells(c).some(hasContent)));
+        const subImgs = (c) => [].concat(...subCells(c).map((s) => [...((s && s.imgs) || []), ...subImgs(s)]));
+        const picturesOnly = (c) => !(c.text || "").trim() && subCells(c).every(picturesOnly);
         if (oneCell && !oneCell.text && oneCell.imgs && oneCell.imgs.length) {
           blocks.push(oneCell.imgs.length === 1 ? { t: "image", ...oneCell.imgs[0] } : { t: "imagerow", images: oneCell.imgs });
-        } else if (rows.some((r) => r.some((c) => c.text || (c.imgs && c.imgs.length)))) {
+        } else if (oneCell && !(oneCell.imgs && oneCell.imgs.length) && picturesOnly(oneCell) && subImgs(oneCell).length) {
+          for (const img of subImgs(oneCell)) blocks.push({ t: "image", ...img });
+        } else if (rows.some((r) => r.some(hasContent))) {
           blocks.push({ t: "table", rows });
         }
       }

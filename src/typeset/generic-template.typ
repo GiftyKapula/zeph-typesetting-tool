@@ -3072,7 +3072,15 @@
     // fresh page while leaving most of the current one blank. `force` (from a book's
     // `forceFreshPage` override, opted into per-widow) keeps its own measured behaviour
     // unchanged, since that's an author-curated exception, not the common case.
-    titledbox(title, T.at(kind), content, breakable: true)
+    // A picture book's keepBoxesWhole (see framedsection) holds here too: an activity box
+    // made by oneActivityPerBox otherwise left its title and instruction at a page foot
+    // and its picture on the next page (Icibemba ECE Level 2 LB).
+    if T.at("keepBoxesWhole", default: false) {
+      layout(sz => titledbox(title, T.at(kind), content,
+        breakable: measure(box(width: sz.width, content)).height >= T.at("keepBoxMm", default: 180) * 1mm))
+    } else {
+      titledbox(title, T.at(kind), content, breakable: true)
+    }
   }
 }
 // An activity whose body came through empty (its text follows as ordinary paragraphs) is
