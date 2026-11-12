@@ -1,0 +1,1399 @@
+{
+  "grade": "Musela 1",
+  "coverImage": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/cover.png",
+  "localLabels": {
+    "level_ece": "Lwiiyo Lwabana Basyoonto"
+  },
+  "coverWords": {
+    "authors": "Mulembi",
+    "printedBy": "Lyakasimbwa aba"
+  },
+  "authors": [
+    "Chriscent Simunkombwe"
+  ],
+  "coversInBook": true,
+  "untableImages": true,
+  "uniformImages": 78,
+  "keepHeadsWithUnit": true,
+  "boxActivities": true,
+  "keepBoxesWhole": true,
+  "boxHeads": [
+    {
+      "find": "CAKUCITA",
+      "kind": "act"
+    },
+    {
+      "find": "Mulimo",
+      "kind": "ex"
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO ACIIYO",
+      "kind": "asmt"
+    }
+  ],
+  "recolor": [
+    {
+      "to": ""
+    }
+  ],
+  "removeImages": [
+    "image57.png",
+    "image58.png",
+    "image59.png",
+    "image2.png"
+  ],
+  "subtext": [
+    {
+      "from": "ꬼ",
+      "to": "ŋ"
+    },
+    {
+      "from": "BBuku",
+      "to": "Bbuku"
+    },
+    {
+      "from": "zyiindene-Indene",
+      "to": "zyiindene-indene"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "mu chitonga ECE level 1",
+      "with": "mu Chitonga ECE Level 1"
+    },
+    {
+      "find": "n, k,l,m,b,w,y,t ,s",
+      "with": "n, k, l, m, b, w, y, t, s"
+    },
+    {
+      "find": "twatubala b a t",
+      "with": "twatubala b, a, t"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "A. Kuswiilila akwaambaula",
+      "text": "A. KUSWIILILA AKWAAMBAULA",
+      "all": true
+    },
+    {
+      "find": "C.NTALISYO YAKULEMBA",
+      "text": "C. NTALISYO YAKULEMBA",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAKUMAMANINO AACIIYO",
+      "text": "MUSUNKO WAKUMAMANINO ACIIYO",
+      "all": true
+    },
+    {
+      "find": "MUSUNKO WAMAMANINO ACIIYO",
+      "text": "MUSUNKO WAKUMAMANINO ACIIYO",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 1.",
+      "text": "CAKUCITA 1",
+      "all": true
+    },
+    {
+      "find": "CAKUCITA 3:",
+      "text": "CAKUCITA 3",
+      "all": true
+    }
+  ],
+  "renameNear": [
+    {
+      "find": "CAKUCITA",
+      "near": "Nduweni zyina?",
+      "to": "CAKUCITA 1"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "Tulesa milaini itobela.",
+      "to": "CAKUCITA 1"
+    },
+    {
+      "find": "CAKUCITA",
+      "near": "Kuswiilila akwiingula kumalailile",
+      "to": "CAKUCITA 1"
+    }
+  ],
+  "uniformLabel": [
+    {
+      "prefix": "CAKUCITA",
+      "text": "CAKUCITA"
+    },
+    {
+      "prefix": "Mulimo",
+      "text": "Mulimo"
+    }
+  ],
+  "asPara": [
+    "Kwaabana bbanana",
+    "Lembulula tubala tutobela.",
+    "Dulowa cintu comwe cili mumuzeezo wako."
+  ],
+  "insertHead": [
+    {
+      "before": "Mwatambulwa mu",
+      "head": "MATALIKILO",
+      "as": "h1"
+    },
+    {
+      "before": "Bbuku lya Chitonga ECE Level 1 lyakapangilwa",
+      "head": "MAJWI AANTALISYO",
+      "as": "h1"
+    },
+    {
+      "before": "Kubambwa kwa bbuku eeli",
+      "head": "KULUMBA",
+      "as": "h1"
+    }
+  ],
+  "insertText": [
+    {
+      "after": "Kwaamba tuvwuumina twatubala amabala dulesi",
+      "items": [
+        {
+          "images": [
+            {
+              "image": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image57.png",
+              "w": 190
+            },
+            {
+              "image": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image58.png",
+              "w": 190
+            },
+            {
+              "image": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image59.png",
+              "w": 190
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "after": "Tulesa milaini ilatala awa:",
+      "items": [
+        {
+          "image": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image37.png",
+          "w": 470
+        }
+      ]
+    },
+    {
+      "before": "Bbuku eli liyiisya bana",
+      "items": [
+        {
+          "raw": {
+            "t": "h1",
+            "text": "MATALIKILO A BBUKU",
+            "keepSection": true
+          }
+        }
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "match": "\"Be\"",
+      "noHeader": true,
+      "rows": [
+        [
+          "a",
+          "e",
+          "i",
+          "o",
+          "u"
+        ],
+        [
+          "ba",
+          "be",
+          "bi",
+          "bo",
+          "bu"
+        ],
+        [
+          "ca",
+          "ce",
+          "ci",
+          "co",
+          "cu"
+        ],
+        [
+          "da",
+          "de",
+          "di",
+          "do",
+          "du"
+        ],
+        [
+          "fa",
+          "fe",
+          "fi",
+          "fo",
+          "fu"
+        ],
+        [
+          "ga",
+          "ge",
+          "gi",
+          "go",
+          "gu"
+        ]
+      ]
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Balembi",
+      "with": []
+    },
+    {
+      "find": "Chriscent Simunkombwe",
+      "with": []
+    },
+    {
+      "find": "Lyakalondolwa aba",
+      "with": []
+    },
+    {
+      "find": "Vision Milimo",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House",
+      "with": []
+    },
+    {
+      "find": "Lusaka",
+      "with": []
+    },
+    {
+      "find": "ISBN:",
+      "with": []
+    },
+    {
+      "find": "Zifwanikiso Zyakabambwa aba:",
+      "with": []
+    },
+    {
+      "find": "Chriscent Simunkombwe",
+      "with": []
+    },
+    {
+      "find": "Bbuku Polili atala lyakabambwa aba Kahinga alimwi a Kalima",
+      "with": []
+    },
+    {
+      "find": "Lyakasimbwa aba",
+      "with": []
+    },
+    {
+      "find": "Zambia Educational Publishing House (2026)",
+      "with": []
+    },
+    {
+      "find": "Light Industrial Area",
+      "with": []
+    },
+    {
+      "find": "Chishango Road",
+      "with": []
+    },
+    {
+      "find": "P.O. Box 32708",
+      "with": []
+    },
+    {
+      "find": "Lusaka, Zambia",
+      "with": []
+    },
+    {
+      "findTable": "B.NTALISYO YAKUBALA",
+      "with": [
+        {
+          "head": "B. NTALISYO YAKUBALA"
+        },
+        {
+          "head": "Bwakujata Bbuku"
+        },
+        {
+          "head": "CAKUCITA"
+        },
+        {
+          "para": "Tondezya bwakujata bbuku."
+        },
+        {
+          "image": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image5.png",
+          "w": 470
+        },
+        {
+          "head": "Mulimo"
+        },
+        {
+          "para": "Tondezya mbokujatwa bbuku."
+        },
+        {
+          "head": "C. NTALISYO YAKULEMBA"
+        },
+        {
+          "head": "Bwakukkala"
+        },
+        {
+          "head": "CAKUCITA"
+        },
+        {
+          "para": "Tondezya bwakukkala kabotu mbuli bukkala Lewo."
+        },
+        {
+          "image": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image6.png",
+          "w": 470
+        },
+        {
+          "raw": {
+            "t": "table",
+            "noHeader": true,
+            "rows": [
+              [
+                {
+                  "text": "Lewo ulicizyi kukkala.",
+                  "imgs": []
+                },
+                {
+                  "text": "Jumbo tacizyi kukkala.",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "head": "Mulimo"
+        },
+        {
+          "para": "Nguni uucizyi kukkala?"
+        },
+        {
+          "head": "MUSUNKO WAKUMAMANINO ACIIYO"
+        },
+        {
+          "listitem": "Kwaamba, \"Zyina lyangu ndime ______.\"",
+          "marker": "1."
+        },
+        {
+          "listitem": "Tondezya kujata bbuku bweelede.",
+          "marker": "2."
+        },
+        {
+          "listitem": "Tondezya mbokukkalwa nolemba.",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "findTable": "1. Ino mbaani zyina bauso?",
+      "with": [
+        {
+          "listitem": "Ino mbaani zyina bauso?",
+          "marker": "1."
+        },
+        {
+          "listitem": "Ino mbaani zyina banyoko?",
+          "marker": "2."
+        },
+        {
+          "head": "Bamumukwasyi bamwi"
+        },
+        {
+          "head": "CAKUCITA 2"
+        },
+        {
+          "para": "Kwaamba mazyina abantu bamumukwasyi bamwi."
+        },
+        {
+          "image": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image8.png",
+          "w": 330
+        }
+      ]
+    },
+    {
+      "find": "Kopa kwaanzya kwa cifwumofwumo. Mizunzumina ibambwa azyintu zyiindene-indene",
+      "with": [
+        {
+          "para": "Kopa kwaanzya kwa cifwumofwumo."
+        }
+      ]
+    },
+    {
+      "find": "Cakucita bamba muzunzumina wangoma.",
+      "with": [
+        {
+          "head": "Mizunzumina ibambwa azyintu zyiindene-indene"
+        },
+        {
+          "head": "CAKUCITA"
+        },
+        {
+          "para": "Bamba muzunzumina wangoma."
+        }
+      ]
+    },
+    {
+      "find": "1.Kwaamba mazyina abanyama bavwubwa amizunzumina yabo.",
+      "with": [
+        {
+          "listitem": "Kwaamba mazyina abanyama bavwubwa amizunzumina yabo.",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "2. Lemba mapatani",
+      "with": [
+        {
+          "listitem": "Lemba mapatani.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Cula=",
+      "with": [
+        {
+          "listitem": "Cula =",
+          "marker": "a."
+        }
+      ]
+    },
+    {
+      "find": "Geeti =",
+      "with": [
+        {
+          "listitem": "Geeti =",
+          "marker": "b."
+        }
+      ]
+    },
+    {
+      "find": "Mubwa=",
+      "with": [
+        {
+          "listitem": "Mubwa =",
+          "marker": "c."
+        }
+      ]
+    },
+    {
+      "find": "Moota =",
+      "with": [
+        {
+          "listitem": "Moota =",
+          "marker": "d."
+        }
+      ]
+    },
+    {
+      "find": "2.Tulesa milaini itobela.",
+      "with": [
+        {
+          "listitem": "Tulesa milaini itobela.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "1Swaanganya tubeela twamabala kubamba mabala.",
+      "with": [
+        {
+          "listitem": "Swaanganya tubeela twamabala kubamba mabala.",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "2.Lembulula mapatani",
+      "with": [
+        {
+          "listitem": "Lembulula mapatani.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "1.Kwaandaanya mabala ambwa kubamba tubeela twamabala.",
+      "with": [
+        {
+          "listitem": "Kwaandaanya mabala ambwa kubamba tubeela twamabala.",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "2.Lembulula masyeepu",
+      "with": [
+        {
+          "listitem": "Lembulula masyeepu.",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Ci ba =",
+      "with": [
+        {
+          "listitem": "ci ba =",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Aa Bb Cc Dd Ee",
+      "with": [
+        {
+          "raw": {
+            "t": "table",
+            "noHeader": true,
+            "rows": [
+              [
+                {
+                  "text": "Aa",
+                  "imgs": []
+                },
+                {
+                  "text": "Bb",
+                  "imgs": []
+                },
+                {
+                  "text": "Cc",
+                  "imgs": []
+                },
+                {
+                  "text": "Dd",
+                  "imgs": []
+                },
+                {
+                  "text": "Ee",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Ff",
+                  "imgs": []
+                },
+                {
+                  "text": "Gg",
+                  "imgs": []
+                },
+                {
+                  "text": "Hh",
+                  "imgs": []
+                },
+                {
+                  "text": "Ii",
+                  "imgs": []
+                },
+                {
+                  "text": "Jj",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Kk",
+                  "imgs": []
+                },
+                {
+                  "text": "Ll",
+                  "imgs": []
+                },
+                {
+                  "text": "Mm",
+                  "imgs": []
+                },
+                {
+                  "text": "Nn",
+                  "imgs": []
+                },
+                {
+                  "text": "Oo",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Pp",
+                  "imgs": []
+                },
+                {
+                  "text": "Qq",
+                  "imgs": []
+                },
+                {
+                  "text": "Rr",
+                  "imgs": []
+                },
+                {
+                  "text": "Ss",
+                  "imgs": []
+                },
+                {
+                  "text": "Tt",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Uu",
+                  "imgs": []
+                },
+                {
+                  "text": "Vv",
+                  "imgs": []
+                },
+                {
+                  "text": "Ww",
+                  "imgs": []
+                },
+                {
+                  "text": "Xx",
+                  "imgs": []
+                },
+                {
+                  "text": "Yy",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Zz",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Ff Gg Hh Ii Jj",
+      "with": []
+    },
+    {
+      "find": "Kk Ll Mm Nn Oo",
+      "with": []
+    },
+    {
+      "find": "Pp Qq Rr Ss Tt",
+      "with": []
+    },
+    {
+      "find": "Uu Vv Ww Xx Yy Zz",
+      "with": []
+    },
+    {
+      "find": "Aa Bb Cc Dd Ee",
+      "with": [
+        {
+          "raw": {
+            "t": "table",
+            "noHeader": true,
+            "rows": [
+              [
+                {
+                  "text": "Aa",
+                  "imgs": []
+                },
+                {
+                  "text": "Bb",
+                  "imgs": []
+                },
+                {
+                  "text": "Cc",
+                  "imgs": []
+                },
+                {
+                  "text": "Dd",
+                  "imgs": []
+                },
+                {
+                  "text": "Ee",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Aa Bb Cc Dd Ee",
+      "with": [
+        {
+          "raw": {
+            "t": "table",
+            "noHeader": true,
+            "rows": [
+              [
+                {
+                  "text": "Aa",
+                  "imgs": []
+                },
+                {
+                  "text": "Bb",
+                  "imgs": []
+                },
+                {
+                  "text": "Cc",
+                  "imgs": []
+                },
+                {
+                  "text": "Dd",
+                  "imgs": []
+                },
+                {
+                  "text": "Ee",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Ff",
+                  "imgs": []
+                },
+                {
+                  "text": "Gg",
+                  "imgs": []
+                },
+                {
+                  "text": "Hh",
+                  "imgs": []
+                },
+                {
+                  "text": "Ii",
+                  "imgs": []
+                },
+                {
+                  "text": "Jj",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Kk",
+                  "imgs": []
+                },
+                {
+                  "text": "Ll",
+                  "imgs": []
+                },
+                {
+                  "text": "Mm",
+                  "imgs": []
+                },
+                {
+                  "text": "Nn",
+                  "imgs": []
+                },
+                {
+                  "text": "Oo",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Pp",
+                  "imgs": []
+                },
+                {
+                  "text": "Qq",
+                  "imgs": []
+                },
+                {
+                  "text": "Rr",
+                  "imgs": []
+                },
+                {
+                  "text": "Ss",
+                  "imgs": []
+                },
+                {
+                  "text": "Tt",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Uu",
+                  "imgs": []
+                },
+                {
+                  "text": "Vv",
+                  "imgs": []
+                },
+                {
+                  "text": "Ww",
+                  "imgs": []
+                },
+                {
+                  "text": "Xx",
+                  "imgs": []
+                },
+                {
+                  "text": "Yy",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Zz",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Ff Gg Hh Ii Jj",
+      "with": []
+    },
+    {
+      "find": "Kk Ll Mm Nn Oo",
+      "with": []
+    },
+    {
+      "find": "Pp Qq Rr Ss Tt",
+      "with": []
+    },
+    {
+      "find": "Uu Vv Ww Xx Yy Zz",
+      "with": []
+    },
+    {
+      "find": "Cula= Cu la",
+      "with": [
+        {
+          "listitem": "Cula = Cu la",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "Geeti =Gee ti",
+      "with": [
+        {
+          "listitem": "Geeti = Gee ti",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "Mubwa= Mu bwa",
+      "with": [
+        {
+          "listitem": "Mubwa = Mu bwa",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "Moota =Moo ta",
+      "with": [
+        {
+          "listitem": "Moota = Moo ta",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "find": "Fooni = foo ni",
+      "with": [
+        {
+          "listitem": "Fooni = Foo ni",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "find": "busu= bu su",
+      "with": [
+        {
+          "listitem": "busu = bu su",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "bulo= bu lo",
+      "with": [
+        {
+          "listitem": "bulo = bu lo",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "buci =",
+      "with": [
+        {
+          "listitem": "buci =",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "bana =",
+      "with": [
+        {
+          "listitem": "bana =",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "find": "bala =",
+      "with": [
+        {
+          "listitem": "bala =",
+          "marker": "5."
+        }
+      ]
+    },
+    {
+      "find": "bu ci =",
+      "with": [
+        {
+          "listitem": "bu ci =",
+          "marker": "a."
+        }
+      ]
+    },
+    {
+      "find": "da da =",
+      "with": [
+        {
+          "listitem": "da da =⁠",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "da di =",
+      "with": [
+        {
+          "listitem": "da di =⁠",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "a ba =",
+      "with": [
+        {
+          "listitem": "a ba =⁠",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "find": "da da =",
+      "with": [
+        {
+          "listitem": "da da =",
+          "marker": "b."
+        }
+      ]
+    },
+    {
+      "find": "da di =",
+      "with": [
+        {
+          "listitem": "da di =",
+          "marker": "c."
+        }
+      ]
+    },
+    {
+      "find": "a ba =",
+      "with": [
+        {
+          "listitem": "a ba =",
+          "marker": "d."
+        }
+      ]
+    },
+    {
+      "find": "buka=",
+      "with": [
+        {
+          "listitem": "buka =",
+          "marker": "1."
+        }
+      ]
+    },
+    {
+      "find": "bona=",
+      "with": [
+        {
+          "listitem": "bona =",
+          "marker": "2."
+        }
+      ]
+    },
+    {
+      "find": "dada=",
+      "with": [
+        {
+          "listitem": "dada =",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "dadi=",
+      "with": [
+        {
+          "listitem": "dadi =",
+          "marker": "4."
+        }
+      ]
+    },
+    {
+      "find": "buka=",
+      "with": [
+        {
+          "listitem": "buka =",
+          "marker": "a."
+        }
+      ]
+    },
+    {
+      "find": "bona=",
+      "with": [
+        {
+          "listitem": "bona =",
+          "marker": "b."
+        }
+      ]
+    },
+    {
+      "find": "dada=",
+      "with": [
+        {
+          "listitem": "dada =",
+          "marker": "c."
+        }
+      ]
+    },
+    {
+      "find": "dadi=",
+      "with": [
+        {
+          "listitem": "dadi =",
+          "marker": "d."
+        }
+      ]
+    }
+  ],
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House, 2026",
+    "rights": "Bwaange boonse bulikwabilidwe aba Zambia Educational Publishing House.",
+    "isbn": "……………………………",
+    "groups": [
+      {
+        "label": "Mulembi",
+        "lines": [
+          "Chriscent Simunkombwe"
+        ]
+      },
+      {
+        "label": "Lyakalondolwa aba",
+        "lines": [
+          "Vision Milimo",
+          "Zambia Educational Publishing House, Lusaka"
+        ]
+      },
+      {
+        "label": "Zifwanikiso Zyakabambwa aba:",
+        "lines": [
+          "Chriscent Simunkombwe"
+        ]
+      },
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Ng`ambi Teddy (B.Sc)"
+        ]
+      },
+      {
+        "label": "Lyakasimbwa aba",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road",
+          "P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      }
+    ]
+  },
+  "imprintSpacing": "0.5em",
+  "imprintGap": "4mm",
+  "tightSection": [
+    {
+      "title": "MATALIKILO",
+      "spacing": "0.6em",
+      "sig": "4mm"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "find": "C. NTALISYO YAKULEMBA",
+      "near": "Kudulowa zyintu zyiindene-indene"
+    },
+    {
+      "find": "B. NTALISYO YAKUBALA",
+      "near": "Kwiingula mibuzyo kuzwa kukaano"
+    }
+  ],
+  "raggedRight": true,
+  "images": {
+    "image7.jpeg": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image7.png"
+    },
+    "image63.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image63.png"
+    },
+    "image64.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image64.png"
+    },
+    "image39.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image39.png"
+    },
+    "image42.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image42.png"
+    },
+    "image8.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image8.png"
+    },
+    "image54.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image54.png"
+    },
+    "image55.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image55.png"
+    },
+    "image46.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image46.png"
+    },
+    "image56.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image56.png"
+    },
+    "image30.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image30.png"
+    },
+    "image11.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image11.png"
+    },
+    "image14.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image14.png"
+    },
+    "image15.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image15.png"
+    },
+    "image31.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image31.png"
+    },
+    "image33.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image33.png"
+    },
+    "image32.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image32.png"
+    },
+    "image67.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image67.png"
+    },
+    "image23.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image23.png"
+    },
+    "image21.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image21.png"
+    },
+    "image24.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image24.png"
+    },
+    "image20.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image20.png"
+    },
+    "image22.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image22.png"
+    },
+    "image10.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image10.png"
+    },
+    "image50.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image50.png"
+    },
+    "image13.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image13.png"
+    },
+    "image16.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image16.png"
+    },
+    "image6.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image6.png"
+    },
+    "image27.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image27.png"
+    },
+    "image61.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image61.png"
+    },
+    "image68.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image68.png"
+    },
+    "image36.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image36.png"
+    },
+    "image71.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image71.png"
+    },
+    "image28.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image28.png"
+    },
+    "image43.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image43.png"
+    },
+    "image51.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image51.png"
+    },
+    "image65.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image65.png"
+    },
+    "image69.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image69.png"
+    },
+    "image70.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image70.png"
+    },
+    "image34.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image34.png"
+    },
+    "image62.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image62.png"
+    },
+    "image66.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image66.png"
+    },
+    "image17.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image17.png"
+    },
+    "image4.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image4.png"
+    },
+    "image12.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image12.png"
+    },
+    "image29.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image29.png"
+    },
+    "image38.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image38.png"
+    },
+    "image44.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image44.png"
+    },
+    "image47.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image47.png"
+    },
+    "image49.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image49.png"
+    },
+    "image52.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image52.png"
+    },
+    "image53.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image53.png"
+    },
+    "image60.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image60.png"
+    },
+    "image72.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image72.png"
+    },
+    "image5.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image5.png"
+    },
+    "image3.jpeg": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image3.png"
+    },
+    "image48.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image48.png"
+    },
+    "image25.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image25.png"
+    },
+    "image18.jpeg": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image18.png"
+    },
+    "image41.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image41.png"
+    },
+    "image9.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image9.png"
+    },
+    "image19.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image19.png"
+    },
+    "image26.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image26.png"
+    },
+    "image35.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image35.png"
+    },
+    "image37.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image37.png"
+    },
+    "image40.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image40.png"
+    },
+    "image45.png": {
+      "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image45.png"
+    }
+  }
+}
