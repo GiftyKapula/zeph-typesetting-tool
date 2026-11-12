@@ -78,5 +78,10 @@
       "pattern": "\\(switching on/off…\\)\\s*Operating ICT devices",
       "with": "(switching on/off…)\n• Operating ICT devices"
     }
-  ]
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green; the Teaching Courses Creative and Technological Studies, Expressive Arts and Social Studies were added to Social Sciences (CDC, 2026-11-12). One green for all (#0f6b3a), peach band and dark Impact title as on the other Social Sciences syllabuses.",
+  "coverColour": "0f6b3a",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }
