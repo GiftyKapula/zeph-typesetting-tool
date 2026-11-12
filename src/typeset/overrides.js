@@ -500,6 +500,9 @@ function applyOverrides(blocks, ov) {
       blk.text = sh.text != null ? sh.text : blockPlain(blk).trim();
       blk.t = sh.as || blk.t;
       delete blk.segs; delete blk.marker; delete blk.isList; delete blk.numId; delete blk.lvl;
+      // as: "listitem" — a line the manuscript left unbulleted inside a bulleted run; a
+      // list item renders from segs + marker, so build them (bare `text` crashed emit)
+      if (blk.t === "listitem") { blk.segs = mkSegs(blk.text); blk.marker = sh.marker || "•"; delete blk.text; }
       n++;
       if (!sh.all) break;
     }
