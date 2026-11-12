@@ -21,7 +21,10 @@
     "standards of 1.4.1.1 and 1.4.2.1 swapped (each was in the other's row: comments 4 + 6); 1.4.2.1 competence 'understanding",
     "of the various religions' -> 'of various religions' (the bare 'delete the' comment sat between those two, and comment 6",
     "drops the same 'the': placed from context). NOT applied, the e-mails name no words: 'Delete' on a 'the', 'Delete the",
-    "highlighted phrase', 'record' -> 'Record' (no 'record' in the book that wants a capital), 'demonstrate' -> 'express'."
+    "highlighted phrase', 'record' -> 'Record', 'demonstrate' -> 'express'.",
+    "ROUND 1 again (annotated PDF in Downloads, 12 Nov 2026, 11 comments) placed those four: 1.2.1.2 Demonstrate -> Express;",
+    "1.6.3.1 'organs of the government' -> 'organs of government'; 1.7.6.1 standard 'Effective assessment and record keeping' ->",
+    "'Record keeping' (user: capitalise Record). Cover green, year and Director already done above."
   ],
   "subject": "Social Studies Education",
   "level": "Primary School Teachers' Diploma",
@@ -103,6 +106,22 @@
       "_why": "ROUND 1: 'delete the' (comment 5, placed from context).",
       "from": "understanding of the various religions in Zambia",
       "to": "understanding of various religions in Zambia"
+    },
+    {
+      "_why": "ROUND 1 (annotated PDF, 12 Nov, p20): 1.2.1.2 competence demonstrate -> express.",
+      "from": "Demonstrate emotional intelligence towards others",
+      "to": "Express emotional intelligence towards others"
+    },
+    {
+      "_why": "ROUND 1 (annotated PDF, p25): 1.6.3.1 competence, delete the. Marked in the matrix; the same competence in the Key Competences table follows so the two stay word for word.",
+      "from": "Analyse organs of the government in promoting effective governance",
+      "to": "Analyse organs of government in promoting effective governance",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (annotated PDF, p30): 1.7.6.1 expected standard, Effective assessment and deleted, record -> Record.",
+      "from": "Effective assessment and record keeping strategies developed correctly",
+      "to": "Record keeping strategies developed correctly"
     }
   ]
 }
