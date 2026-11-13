@@ -23,7 +23,8 @@
     "to green'; #1f5c3a is already Guidance and Counselling's and PE and Sport's). p108: Aghion and Howitt deleted (remove).",
     "",
     "2026-11-11: CDC Social Sciences colour code is green (Mr. Musonda); all Social Sciences syllabuses one green, #0f6b3a (user 2026-11-11), with the peach band and dark Impact title of Civic Education Content.",
-    "ROUND 2 (Google Drive, Sylvia Shata Katongo, 12 Nov 2026): 2025 -> 2026 (year key: cover, footers; copyright and First Published lines)."
+    "ROUND 2 (Google Drive, Sylvia Shata Katongo, 12 Nov 2026): 2025 -> 2026 (year key: cover, footers; copyright and First Published lines).",
+    "ROUND 2 (Drive, 11-12 Nov 2026, 30 comments): p1/p3 year 2026 already done (12 Nov); Kalapa's 'full stops at the end of all the sentences in the descriptor columns' (p79, p102) -> fullStops, every course's descriptors alike"
   ],
   "subject": "Business Studies",
   "level": "Secondary School Teachers' Diploma",
@@ -129,6 +130,11 @@
     {
       "find": "1.Course description",
       "with": "Course description"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p77: 'skills relevant for the curriculum'; the same sentence in the Rationale (p9) carries the same slip, so carried as in round 1",
+      "find": "skills relevant for curriculum.",
+      "with": "skills relevant for the curriculum."
     }
   ],
   "asPara": [
@@ -280,6 +286,21 @@
       "_why": "ROUND 2: 2025 -> 2026",
       "find": "First Published 2025",
       "with": "First Published 2026"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p77: 'Principles of Accounts'",
+      "find": "Commerce and Principle of Accounts Teaching Methods Syllabus in the",
+      "with": "Commerce and Principles of Accounts Teaching Methods Syllabus in the"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p77: 'Principles of Accounts'",
+      "find": "The Commerce and Principle of Accounts Teaching Methods Syllabus is designed",
+      "with": "The Commerce and Principles of Accounts Teaching Methods Syllabus is designed"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p77 'Principles of Accounts': the Rationale (p9) carries the same sentence and slip, so carried",
+      "find": "Teaching Methods for Commerce and Principle of Accounts Syllabi",
+      "with": "Teaching Methods for Commerce and Principles of Accounts Syllabi"
     }
   ],
   "cellSubtext": [
@@ -598,6 +619,97 @@
       "_why": "ROUND 1 follow-up (user: fix them) p31: typo, 1.10.2.1 activities",
       "from": "Ledger accounts foraccrued expenses",
       "to": "Ledger accounts for accrued expenses"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p79: 'diverse learners' cohorts'",
+      "from": "diverse learner’s cohorts",
+      "to": "diverse learners’ cohorts"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p80: 'comprehensive and creative'",
+      "from": "Formulate comprehensive, creative Schemes",
+      "to": "Formulate comprehensive and creative Schemes"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p83: lowercase 'effective' (and the highlighted 'Exhibited')",
+      "from": "Personal qualities of an Effective",
+      "to": "Personal qualities of an effective"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p83: lowercase 'effective' (and the highlighted 'Exhibited')",
+      "from": "Accounts teacher Exhibited correctly",
+      "to": "Accounts teacher exhibited correctly"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p83: 'concepts and the importance of Teaching Methods as a course'",
+      "from": "Knowledge of concepts the Importance of Teaching",
+      "to": "Knowledge of concepts and the importance of Teaching"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p84: lowercase 'classroom'",
+      "from": "of Accounts Classroom applied",
+      "to": "of Accounts classroom applied"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p86: opening bracket before 'i.e.'",
+      "from": "Accounts i.e. online learning",
+      "to": "Accounts (i.e. online learning"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p86: closing bracket, 'assessments, etc.)'",
+      "from": "Online Quizzes and Assessment, etc.",
+      "to": "Online Quizzes and Assessments, etc.)"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p88: lowercase 'teaching' and 'learning'",
+      "from": "(ICTs) Education in Teaching and Learning Commerce and Principles of Accounts applied",
+      "to": "(ICTs) Education in teaching and learning Commerce and Principles of Accounts applied"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) + ROUND 2 (Drive, Sylvia Shata Katongo) p91: 'Understanding the importance of ...'",
+      "from": "The importance of the Curriculum in the teaching process",
+      "to": "Understanding the importance of the Curriculum in the teaching process"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p91: 'Understanding of the significance of'",
+      "from": "Understanding of significance of the Syllabus",
+      "to": "Understanding of the significance of the Syllabus"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p94: lowercase 'demonstrated'",
+      "from": "Principles of Accounts Demonstrated correctly",
+      "to": "Principles of Accounts demonstrated correctly"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p96: lowercase 'teaching' and 'learning'",
+      "from": "Measurement in the Teaching and Learning of Commerce",
+      "to": "Measurement in the teaching and learning of Commerce"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p97: 'Construction of a good test'",
+      "from": "Constructing a good test and test items",
+      "to": "Construction of a good test and test items"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p101: capital 'Preparedness'",
+      "from": "Demonstrate preparedness for School Experience",
+      "to": "Demonstrate Preparedness for School Experience"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p104: 'in the teaching of Commerce'",
+      "from": "Business Studies Department in teaching of Commerce",
+      "to": "Business Studies Department in the teaching of Commerce"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p105 (x3): 'in the teaching of Commerce' -- competence, activity and standard of 2.2.2.1; the p90 descriptor carries the same words, so carried",
+      "from": "Subject teacher in teaching of Commerce",
+      "to": "Subject teacher in the teaching of Commerce",
+      "all": true
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p105: delete the '-' between 'teacher' and 'in'",
+      "from": "Subject teacher - in the teaching",
+      "to": "Subject teacher in the teaching"
     }
   ],
   "removeRow": [
@@ -637,5 +749,8 @@
   "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); one green for all of them (#0f6b3a, History Content's; user 2026-11-11), peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "fullStops": {
+    "Key Competences descriptors": "dot"
+  }
 }

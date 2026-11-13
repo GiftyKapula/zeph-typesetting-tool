@@ -1496,6 +1496,17 @@ function applyOverrides(blocks, ov) {
                   return [{ ...s, t: head }, own, { ...s, t: tail }];
                 }).filter((s) => s.t !== "");
               }
+            } else if (Array.isArray(cell.segs) && cell.segs.some((s) => s.m)) {
+              // a cell carrying a superscript ("21st", a maths run): the change is made in
+              // the text runs around it, one run at a time (Business Studies 1.2.1.1:
+              // "…of an Effective 21st Century … teacher Exhibited")
+              let hit = false;
+              for (const s of cell.segs) {
+                if (s.m || typeof s.t !== "string" || (hit && !cs.every) || !re.test(s.t)) continue;
+                s.t = s.t.replace(cs.every ? reAll : re, () => to);
+                hit = true;
+              }
+              if (!hit) console.warn("!  cellSubtext: the match runs across a superscript, text only:", cs.from);
             }
             n++;
           }
@@ -3411,13 +3422,16 @@ function tidyCellLines(blocks) {
   if (n) console.log(`   table cells tidied (stray full stops, hand-wrapped lines, empty bullets): ${n}`);
 }
 
-function unifyFullStops(blocks) {
+// `fullStops` (overrides) settles a group a reviewer ruled on, whatever its majority:
+// { "Key Competences descriptors": "dot" } (Business Studies, Harriet Kalapa: "add
+// fullstops at the end of all the sentences in the descriptor columns") -- "dot" or "none".
+function unifyFullStops(blocks, forced = {}) {
   const units = stopUnits(blocks);
   const byGroup = {};
   for (const u of units) (byGroup[u.group] = byGroup[u.group] || []).push(u);
   const done = [], todo = [];
   for (const [g, us] of Object.entries(byGroup)) {
-    const want = stopTarget(g, us);
+    const want = /^(?:dot|none)$/.test(forced[g]) ? forced[g] : stopTarget(g, us);
     if (!want) continue;
     const odd = us.filter((u) => u.end !== want);
     for (const u of odd) todo.push([u, want]);
@@ -7097,7 +7111,7 @@ function normaliseQuestionMarkBold(blocks) {
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
     // finished blocks -- after every heading, cell and list has taken its final form.
     tidyCellLines(blocks);
-    unifyFullStops(blocks);
+    unifyFullStops(blocks, ov.fullStops || {});
     topCompetenceHeadings(blocks);
     hyphenateSubTopicHeader(blocks);
     splitRows(blocks, ov);
