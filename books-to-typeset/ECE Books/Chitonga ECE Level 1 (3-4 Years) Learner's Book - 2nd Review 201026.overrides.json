@@ -1,5 +1,5 @@
 {
-  "grade": "Musela 1",
+  "grade": "ECE Level 1",
   "coverImage": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/cover.png",
   "localLabels": {
     "level_ece": "Lwiiyo Lwabana Basyoonto"
@@ -52,8 +52,8 @@
       "to": "Bbuku"
     },
     {
-      "from": "zyiindene-Indene",
-      "to": "zyiindene-indene"
+      "from": "Tulesa milaini ilatala awa:",
+      "to": "Tulesa milaini itobela."
     }
   ],
   "editAll": [
@@ -68,6 +68,54 @@
     {
       "find": "twatubala b a t",
       "with": "twatubala b, a, t"
+    },
+    {
+      "find": "amatalikilo ajitilide",
+      "with": "amatalikilo ajatilide"
+    },
+    {
+      "find": "kubantu bandeene-andeene",
+      "with": "kubantu baandeene-andeene"
+    },
+    {
+      "find": "bantu aliwi atubunga",
+      "with": "bantu alimwi atubunga"
+    },
+    {
+      "find": "Kwakugamika Meso ciindi Cakubala",
+      "with": "Kwakugamika meso ciindi cakubala"
+    },
+    {
+      "find": "Kunyanyaanzya Minwe",
+      "with": "Kunyanyaansya Minwe"
+    },
+    {
+      "find": "Ncinzi ncaabeka meso",
+      "with": "Ncinzi ncaabeleka meso"
+    },
+    {
+      "find": "zyijanika motukala akwaamba",
+      "with": "zyijanika motukala akwaamba mulimo wazyo."
+    },
+    {
+      "find": "bavwubwa yaandene-andeene.",
+      "with": "bavwubwa yaandeene-andeene."
+    },
+    {
+      "find": "Bana balikede aansi",
+      "with": "Bana balikkede aansi"
+    },
+    {
+      "find": "Kuzila-Zila Mubala",
+      "with": "Kuzila-zila Mubala"
+    },
+    {
+      "find": "Kodulowa bbanana, fuleenke a bbola",
+      "with": "Kodulowa bbanana afuleenke."
+    },
+    {
+      "find": "Zyipikicca zyiindene-Indene",
+      "with": "Zyipikicca zyiindene-indene"
     }
   ],
   "setHeading": [
@@ -379,7 +427,7 @@
           "head": "MUSUNKO WAKUMAMANINO ACIIYO"
         },
         {
-          "listitem": "Kwaamba, \"Zyina lyangu ndime ______.\"",
+          "listitem": "Kwaamba zyina lyako.",
           "marker": "1."
         },
         {
@@ -1190,7 +1238,12 @@
     {
       "find": "B. NTALISYO YAKUBALA",
       "near": "Kwiingula mibuzyo kuzwa kukaano"
-    }
+    },
+    {
+      "find": "C. NTALISYO YAKULEMBA",
+      "near": "Bwakujata mpesele aminwe yotatwe."
+    },
+    "Zyipikicca zyiindene"
   ],
   "raggedRight": true,
   "images": {
@@ -1395,5 +1448,20 @@
     "image45.png": {
       "src": "Chitonga ECE Level 1 (3-4 Years) Learner's Book - 2nd Review 201026-hires/image45.png"
     }
-  }
+  },
+  "deleteExact": [
+    "Mulimo wazyo."
+  ],
+  "moveBefore": [
+    {
+      "find": "Kwaamba zyina lyamweenzyinyoko",
+      "before": "Mulimo"
+    }
+  ],
+  "asHead": [
+    "Zyipikicca zyiindene-indene"
+  ],
+  "centre": [
+    "Zyipikicca zyiindene-indene"
+  ]
 }
