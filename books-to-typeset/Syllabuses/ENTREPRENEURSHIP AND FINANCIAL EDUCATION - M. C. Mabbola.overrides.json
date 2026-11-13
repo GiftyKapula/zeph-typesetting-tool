@@ -22,12 +22,14 @@
     "ROWS 1.1.3.1, 1.8.2.1, 1.11.2.1 (2026-10-20). Each had its last activity and standard typed in a row of their own with no competence; the engine now runs them on into the row above, so no rule cuts the competence in two. Pages 6 and 19 then had room for 1.1.5.2 and 1.8.3.1 whole: their splitRows are gone.",
     "COURSE LAYOUT (2026-10-20, user): opens on a fresh page (pageBreakBefore). Every matrix break moved; reworked page by page so no row carries 1-2 lines or breaks mid-activity and no page ends a third empty (splitRow / keepRowWhole marked 2026-10-20). ASSESSMENT METHODS now opens a page too: its heading had been left at a page foot with its table overleaf.",
     "PROOFREAD ROUND 1 (2026-10-23, reviewer's PDF from the Mailo folder; its copies (1)-(3) are the same file): 7 comments,",
-    " all made. 'in board' is read as 'in bold'. Page numbers in the rules are the reviewer's PDF's."
+    " all made. 'in board' is read as 'in bold'. Page numbers in the rules are the reviewer's PDF's.",
+    "",
+    "ROUND 1, Drive e-mails after the Mailo copy (Hope Monde, 23 Oct + 2 Nov 2026): year 2026 throughout; 25mm signing space above both signatories (sigSpace). 'Discussing method should not be bold' and the bold Mentorship / Group Discussion labels were already right. One comment, 'To be moved to the next page' (23 Oct 07:30), came with no anchor text and could not be placed."
   ],
   "theme": "gensyl",
   "subject": "Entrepreneurship and Financial Education",
   "level": "Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "pageBreakBefore": [
     {
       "_why": "Course Layout opens on a fresh page (user, 2026-10-20); it followed the Key Competences table on the same page",
@@ -82,16 +84,59 @@
     },
     {
       "_why": "Round 1 follow-up (user, 2026-10-23): the other method labels typed plain, bolded like the five the reviewer marked. The two longer labels holding 'Role Play:' first, so each is bold as a whole.",
-      "from": "Focus Group Discussion or Role Play:", "to": "Focus Group Discussion or Role Play:", "bold": true, "all": true
+      "from": "Focus Group Discussion or Role Play:",
+      "to": "Focus Group Discussion or Role Play:",
+      "bold": true,
+      "all": true
     },
-    { "from": "Case Study and Role Play:", "to": "Case Study and Role Play:", "bold": true, "all": true },
-    { "from": "Role Play:", "to": "Role Play:", "bold": true, "all": true },
-    { "from": "Role-play Activities:", "to": "Role-play Activities:", "bold": true, "all": true },
-    { "from": "Interactive Lecture:", "to": "Interactive Lecture:", "bold": true, "all": true },
-    { "from": "Problem Solving:", "to": "Problem Solving:", "bold": true, "all": true },
-    { "from": "Group Discussion/Brainstorming:", "to": "Group Discussion/Brainstorming:", "bold": true, "all": true },
-    { "from": "Practical exercises:", "to": "Practical exercises:", "bold": true, "all": true },
-    { "from": "Mentorship and Support:", "to": "Mentorship and Support:", "bold": true, "all": true },
+    {
+      "from": "Case Study and Role Play:",
+      "to": "Case Study and Role Play:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "from": "Role Play:",
+      "to": "Role Play:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "from": "Role-play Activities:",
+      "to": "Role-play Activities:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "from": "Interactive Lecture:",
+      "to": "Interactive Lecture:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "from": "Problem Solving:",
+      "to": "Problem Solving:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "from": "Group Discussion/Brainstorming:",
+      "to": "Group Discussion/Brainstorming:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "from": "Practical exercises:",
+      "to": "Practical exercises:",
+      "bold": true,
+      "all": true
+    },
+    {
+      "from": "Mentorship and Support:",
+      "to": "Mentorship and Support:",
+      "bold": true,
+      "all": true
+    },
     {
       "_why": "1.5.1.6 (user, 2026-10-23): one activity typed over two lines, so its second line printed with a bullet of its own. Joined.",
       "from": "Discussing the importance of Financial Risk Management.",
@@ -104,19 +149,54 @@
     },
     {
       "_why": "The same, through the matrix (user, 2026-10-23): activities typed over two lines whose second line printed with a bullet of its own -- each found where the line before stops mid-phrase. Joined. 1.1.2.1:",
-      "from": "Explaining Financial Education: A case study", "to": "Explaining Financial Education: A case study"
+      "from": "Explaining Financial Education: A case study",
+      "to": "Explaining Financial Education: A case study"
     },
-    { "_why": "1.1.4.1", "from": "Identifying the types of Entrepreneurs: Matching", "to": "Identifying the types of Entrepreneurs: Matching" },
-    { "_why": "1.1.4.1", "from": "Explaining the types of Entrepreneurs by Christopher", "to": "Explaining the types of Entrepreneurs by Christopher" },
-    { "_why": "1.2.1.1 (two breaks)", "from": "Eliminate and Reverse) Model, and 5W+H Model Methods", "to": "Eliminate and Reverse) Model, and 5W+H Model Methods" },
-    { "_why": "1.2.2.1", "from": "(Small and Medium Enterprises)", "to": "(Small and Medium Enterprises)" },
-    { "_why": "1.3.2.1", "from": "Guest talk by Personnel from Financial Institutions", "to": "Guest talk by Personnel from Financial Institutions" },
-    { "_why": "1.5.1.2", "from": "Explaining the importance of Saving", "to": "Explaining the importance of Saving" },
-    { "_why": "1.6.3.1", "from": "Explaining the contents of Financial Statements", "to": "Explaining the contents of Financial Statements" },
-    { "_why": "1.10.1.1", "from": "importance of using technology in an Enterprise.", "to": "importance of using technology in an Enterprise." },
+    {
+      "_why": "1.1.4.1",
+      "from": "Identifying the types of Entrepreneurs: Matching",
+      "to": "Identifying the types of Entrepreneurs: Matching"
+    },
+    {
+      "_why": "1.1.4.1",
+      "from": "Explaining the types of Entrepreneurs by Christopher",
+      "to": "Explaining the types of Entrepreneurs by Christopher"
+    },
+    {
+      "_why": "1.2.1.1 (two breaks)",
+      "from": "Eliminate and Reverse) Model, and 5W+H Model Methods",
+      "to": "Eliminate and Reverse) Model, and 5W+H Model Methods"
+    },
+    {
+      "_why": "1.2.2.1",
+      "from": "(Small and Medium Enterprises)",
+      "to": "(Small and Medium Enterprises)"
+    },
+    {
+      "_why": "1.3.2.1",
+      "from": "Guest talk by Personnel from Financial Institutions",
+      "to": "Guest talk by Personnel from Financial Institutions"
+    },
+    {
+      "_why": "1.5.1.2",
+      "from": "Explaining the importance of Saving",
+      "to": "Explaining the importance of Saving"
+    },
+    {
+      "_why": "1.6.3.1",
+      "from": "Explaining the contents of Financial Statements",
+      "to": "Explaining the contents of Financial Statements"
+    },
+    {
+      "_why": "1.10.1.1",
+      "from": "importance of using technology in an Enterprise.",
+      "to": "importance of using technology in an Enterprise."
+    },
     {
       "_why": "Sub-topic 1.4.3 typed 'Salesmans hip' (user, 2026-10-23).",
-      "from": "Salesmans hip", "to": "Salesmanship", "all": true
+      "from": "Salesmans hip",
+      "to": "Salesmanship",
+      "all": true
     }
   ],
   "editCell": [
@@ -262,6 +342,15 @@
       "find": "SCOPE AND SEQUENCE",
       "as": "label",
       "keep": true
+    }
+  ],
+  "sigSpace": 25,
+  "_sigSpace_why": "ROUND 1, Drive e-mails after the Mailo copy (Hope Monde, 23 Oct + 2 Nov 2026): 'leave enough space above for a signature' (Kelvin Mambwe) and 'The space above the name Charles Ndakala should [be] wide enough for a signature': 25mm above each signatory instead of 12mm.",
+  "edit": [
+    {
+      "_why": "ROUND 1, Drive e-mails after the Mailo copy (Hope Monde, 23 Oct + 2 Nov 2026): 'The publishing year should be changed to 2026 through out the document' (copyright line; the year key does the cover, title page and footers)",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
     }
   ]
 }
