@@ -5545,13 +5545,8 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
       && /^published by\b.*curriculum development centre/i.test(((b.text || blockPlain(b)) || "").trim()));
     if (pubAt >= 0) blocks.splice(pubAt, 1);
     blocks.splice(covAt + 1, 0,
-      line("Published by the Curriculum Development Centre", true),
-      line(String(year || ""), true),
-      line(`© Curriculum Development Centre, ${year || ""}`.trim().replace(/,\s*$/, ""), true),
-      line("All rights reserved."),
-      line("No part of this publication may be reproduced, stored in a retrieval system, "
-        + "or transmitted by electronic, mechanical, photocopying, recording or otherwise "
-        + "without prior written permission of the copyright owner."));
+      line(`© Curriculum Development Centre, ${year || ""}`.trim().replace(/,\s*$/, "")),
+      line("All rights reserved."));
   }
   // The "© Curriculum Development Centre, 2025" line over the notice. Religious Education
   // Methods and Social Studies styled it Heading 1 (or typed it as the first heading of
@@ -5565,7 +5560,29 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
       blocks.splice(at, 0, { t: "para", plain: t, segs: [{ t, b: true, it: false, c: null }], align: "center" });
     }
   }
-  const crIdx = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+  // One copyright notice across the family. Manuscripts typed the CDC boilerplate
+  // several ways (a semicolon, serial commas, "No reproduction, copy or transmission
+  // …", the notice split over two paragraphs, the owner line in bold), so a shelf of
+  // syllabuses showed several different copyright pages. Set the house wording, in
+  // one paragraph, under a plain owner line.
+  {
+    const at = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+    if (at >= 0) {
+      const t = "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system, "
+        + "or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise "
+        + "without prior written permission of the copyright owner.";
+      let end = at;
+      while (end + 1 < blocks.length && blocks[end + 1].t === "para"
+        && /no part of this publication|no reproduction|no paragraph of this|retrieval system|written permission/i.test(blockPlain(blocks[end + 1]) || "")) end++;
+      blocks.splice(at, end - at + 1, { t: "para", plain: t, segs: [{ t, b: false, it: false, c: null }], align: "center" });
+      for (let i = Math.max(0, at - 3); i < at; i++) {
+        const b = blocks[i];
+        if (b.t === "para" && /^©\s*curriculum development centre/i.test((blockPlain(b) || "").trim()) && Array.isArray(b.segs))
+          b.segs = b.segs.map((x) => ({ ...x, b: false }));
+      }
+    }
+  }
+  const crIdx =blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
   // The copyright notice usually runs on past "All rights reserved." into the
   // no-reproduction sentence. The imprint and contents page go after the WHOLE notice:
   // anchored to the "All rights reserved" line alone they were pushed in ahead of that

@@ -8,7 +8,7 @@
   ],
   "subject": "Expressive Arts",
   "level": "Primary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "insertRow": [
     {
@@ -75,6 +75,11 @@
       "_why": "ROUND 1 (Drive, Owen Mutema, 29 Oct 2026) p7: 'music education' -> 'Change to Expressive Arts' (Preface; typed with two spaces)",
       "find": "teach music  education content",
       "with": "teach Expressive Arts content"
+    },
+    {
+      "_why": "User, 13 Nov 2026: every syllabus ready for printing, consistent - year 2026 throughout",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
     }
   ],
   "cellSubtext": [

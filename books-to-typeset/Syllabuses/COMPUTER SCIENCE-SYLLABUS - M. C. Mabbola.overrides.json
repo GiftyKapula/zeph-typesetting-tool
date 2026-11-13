@@ -29,7 +29,7 @@
     "",
     "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): publication year 2025 -> 2026 (year key); Director signatory -> Samutete M. Petronella (Ms); 1.1 Introduction on a new page."
   ],
-  "level": "Secondary School Teachers' Diploma",
+  "level": "Secondary Teachers' Diploma",
   "year": 2026,
   "renumberMatrix": true,
   "setHeading": [
@@ -511,6 +511,28 @@
     {
       "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): p. vii: 'Move the introduction to the new page'",
       "find": "1.1 Introduction"
+    }
+  ],
+  "editAll": [
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Secondary School Teachers’ Diploma",
+      "with": "Secondary Teachers’ Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Secondary School Teachers' Diploma",
+      "with": "Secondary Teachers' Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Primary School Teachers' Diploma",
+      "with": "Primary Teachers' Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Primary School Teachers’ Diploma",
+      "with": "Primary Teachers’ Diploma"
     }
   ]
 }

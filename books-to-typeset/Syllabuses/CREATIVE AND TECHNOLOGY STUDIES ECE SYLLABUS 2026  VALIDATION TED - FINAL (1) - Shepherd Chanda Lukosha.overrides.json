@@ -21,7 +21,7 @@
   ],
   "subject": "Creative and Technology Studies",
   "level": "Early Childhood Education Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "_methodFirstLine": "Round 1 (reviewer, 13 Nov 2026, p.5 at 1.1.1.1): \"bold the first points in all of them for year one\". Year 1 typed each cell's teaching method as a plain first bullet; set bold and unbulleted over its activities, as Year 2 is written. \"all\" (user, 13 Nov: 1.2 Safety must change too, make them uniform): the three cells that open on an activity, not a method (1.2.1.1, 1.2.1.2, 1.30.2.1), have their first point set the same way. Method lines in both years tidied alike (no spaces round /, capitals).",
   "methodFirstLine": "all",
@@ -46,6 +46,16 @@
       "_why": "...and taken off the Craft entry.",
       "find": "Prentice Hall. Craft, A. (2002).",
       "with": "Craft, A. (2002)."
+    },
+    {
+      "_why": "User, 13 Nov 2026: every syllabus ready for printing, consistent - year 2026 throughout",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
+    },
+    {
+      "_why": "User, 13 Nov 2026: every syllabus ready for printing, consistent - year 2026 throughout",
+      "find": "the 2025 Creative and Technology Studies Syllabus",
+      "with": "the 2026 Creative and Technology Studies Syllabus"
     }
   ],
   "mergePara": [

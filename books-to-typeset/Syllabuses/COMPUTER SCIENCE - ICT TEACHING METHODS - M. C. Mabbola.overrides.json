@@ -22,7 +22,7 @@
     "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): publication year 2025 -> 2026 (year key); Director signatory -> Samutete M. Petronella (Ms)."
   ],
   "subject": "Computer Science and ICT Teaching Methods",
-  "level": "Secondary School Teachers' Diploma",
+  "level": "Secondary Teachers' Diploma",
   "year": 2026,
   "renumberMatrix": true,
   "pageBreakBefore": [
@@ -51,6 +51,26 @@
     {
       "find": "Year 2 – Course Content",
       "with": "Year 2"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Secondary School Teachers’ Diploma",
+      "with": "Secondary Teachers’ Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Secondary School Teachers' Diploma",
+      "with": "Secondary Teachers' Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Primary School Teachers' Diploma",
+      "with": "Primary Teachers' Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Primary School Teachers’ Diploma",
+      "with": "Primary Teachers’ Diploma"
     }
   ],
   "coverColour": "996ab5",

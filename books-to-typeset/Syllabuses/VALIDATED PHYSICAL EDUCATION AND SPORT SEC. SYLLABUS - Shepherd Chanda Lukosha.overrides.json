@@ -125,6 +125,11 @@
       "_why": "PROOFREAD 2026-10-23, p11: 'should read as sub-topics, specific competence and learning activities are arranged ...' (competences, as the book spells it).",
       "find": "The topics, sub-topics and specific competencies are arranged",
       "with": "The topics, sub-topics, specific competences and learning activities are arranged"
+    },
+    {
+      "_why": "User, 13 Nov 2026: every syllabus ready for printing, consistent - year 2026 throughout",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
     }
   ],
   "cellSubtext": [

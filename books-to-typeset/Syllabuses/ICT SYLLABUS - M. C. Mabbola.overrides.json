@@ -21,7 +21,7 @@
     "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): publication year 2025 -> 2026 (year key); Director signatory -> Samutete M. Petronella (Ms)."
   ],
   "subject": "Information and Communication Technology",
-  "level": "Secondary School Teachers' Diploma",
+  "level": "Secondary Teachers' Diploma",
   "year": 2026,
   "renumberMatrix": true,
   "removeRange": [
@@ -516,6 +516,28 @@
       "_why": "ROUND 1, late comments (Drive, M. C. Mabbola, 26 Oct 2026): 'Change the publication year to 2026' (copyright line)",
       "find": "Curriculum Development Centre, 2025",
       "with": "Curriculum Development Centre, 2026"
+    }
+  ],
+  "editAll": [
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Secondary School Teachers’ Diploma",
+      "with": "Secondary Teachers’ Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Secondary School Teachers' Diploma",
+      "with": "Secondary Teachers' Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Primary School Teachers' Diploma",
+      "with": "Primary Teachers' Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Primary School Teachers’ Diploma",
+      "with": "Primary Teachers’ Diploma"
     }
   ]
 }
