@@ -256,7 +256,7 @@ function emit(blocks) {
       case "box": out += `#genericbox(${bodyArr(b.body)})\n`; break;
       case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
-      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""})\n`; break;
+      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""}${Array.isArray(b.widths) ? `, widths: (${b.widths.join(", ")},)` : ""})\n`; break;
       case "colgrid": out += `#colgrid(${colgridArg(b)})\n`; break;
       default: break;
     }
@@ -3323,6 +3323,33 @@ function tightTables(blocks, ov) {
     walkT(blocks);
     if (!n) console.warn("!  tightTable not matched:", want);
     else console.log(`   tightTable ${want}: ${n} table(s)`);
+  }
+}
+
+// tableWidths: [{ startsWith: "<a cell's opening text>", widths: [45, 45, 45, 60, 45] }]
+// pins the column weights of the table holding that cell. The template otherwise sizes
+// each column from its content and its longest unbreakable word, so a correction that
+// splits a long glued word ("Classrooms(VLEs)," -> "Classrooms (VLEs),") can re-balance
+// the columns and re-flow every page of the matrix (Business Studies, Teaching Methods
+// Year 1: the activities column narrowed, two pages longer, one left near-empty).
+function tableWidths(blocks, ov) {
+  for (const tw of ov.tableWidths || []) {
+    if (!tw || typeof tw.startsWith !== "string" || !Array.isArray(tw.widths)) continue;
+    const want = tw.startsWith.replace(/\s+/g, " ").trim();
+    let n = 0;
+    const walkT = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (b.t === "table" && Array.isArray(b.rows) && b.rows.some((r) => Array.isArray(r)
+            && r.some((c) => c && String(c.text || "").replace(/\s+/g, " ").trim().startsWith(want)))) {
+          if ((b.rows[0] || []).length === tw.widths.length) { b.widths = tw.widths.map(Number); n++; }
+          else console.warn(`!  tableWidths: ${tw.widths.length} widths for a ${(b.rows[0] || []).length}-column table:`, want);
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
+      }
+    };
+    walkT(blocks);
+    if (!n) console.warn("!  tableWidths not matched:", want);
   }
 }
 
@@ -7116,6 +7143,7 @@ function normaliseQuestionMarkBold(blocks) {
     hyphenateSubTopicHeader(blocks);
     splitRows(blocks, ov);
     keepRowsWhole(blocks, ov);
+    tableWidths(blocks, ov);
     // a book of several courses (markCourses): the contents lists each course with its
     // competences and years under it, not every topic -- as by-course Computer Science does
     if (blocks.some((b) => b.course)) {

@@ -2105,7 +2105,7 @@
 ]
 
 // ---- data table (rich cells: each cell is (text, img)) -------------------
-#let dtable(rows, noHeader: false) = if rows.len() > 0 and rows.at(0).len() > 0 {
+#let dtable(rows, noHeader: false, widths: none) = if rows.len() > 0 and rows.at(0).len() > 0 {
   v(2pt)
   // table text matches the body size (12pt) for readability; very wide tables
   // (5+ columns) step down so they still fit the page width. A theme may set a larger
@@ -2239,7 +2239,8 @@
   let uniformgrid = not fillin and not hasimg and ncols >= 2 and rows.all(r => r.all(c =>
     c.text != "" and not c.text.contains(" ") and c.text.len() <= 10
     and c.at("seg", default: ()).len() == 0 and c.imgs.len() == 0))
-  let cols = if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) { auto } else { colweight(ci) * 1fr }) }
+  // `tableWidths` (overrides) pins the weights: widths = (45, 45, 45, 60, 45)
+  let cols = if widths != none and widths.len() == ncols { widths.map(w => w * 1fr) } else if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) { auto } else { colweight(ci) * 1fr }) }
   // ---- CDC SYLLABUS matrix look: a GREY header row that REPEATS on every page, a black
   // inner grid + thicker outer frame, no zebra, the TOPIC column bold, the activities
   // column bulleted, and the TOPIC/SUB-TOPIC row-span merge (empty left cells continue the
