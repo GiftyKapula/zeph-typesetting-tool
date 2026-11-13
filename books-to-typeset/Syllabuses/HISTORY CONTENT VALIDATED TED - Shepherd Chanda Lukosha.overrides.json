@@ -64,6 +64,18 @@
       "find": "Aims:",
       "text": "Aims",
       "as": "label"
+    },
+    {
+      "_why": "Assessment's second item is typed as a heading, its first (1. College-Based Assessment) as a paragraph; it showed in the contents on its own (user, 13 Nov 2026). Set as the first is, not a contents entry",
+      "find": "2. Written Final Examinations",
+      "as": "label",
+      "keep": true
+    },
+    {
+      "_why": "set like 2. Written Final Examinations (both flush, bold)",
+      "find": "1. College-Based Assessment",
+      "as": "label",
+      "keep": true
     }
   ],
   "deleteExact": [
@@ -74,6 +86,11 @@
     {
       "_why": "The Year 2 competences table ran on half-way down the page under the last Year 1 row; it opens Year 2, as the Year 1 table opens Year 1.",
       "find": "Competences to be developed at year two"
+    },
+    {
+      "_why": "split by the page, Written Final Examinations and Time Allocation went overleaf without their heading",
+      "find": "Assessment",
+      "near": "The programme shall use two types of assessments"
     }
   ],
   "edit": [
