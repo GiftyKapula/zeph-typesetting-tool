@@ -6375,6 +6375,15 @@ function normaliseQuestionMarkBold(blocks) {
         const who = SIGNERS.find((s) => b.lines.slice(1).some((l) => s.office.test(l.text.replace(/\s+/g, " "))));
         if (!who) continue;
         if (who.name) b.lines[0] = { ...b.lines[0], text: who.name };
+        // One signatory block across the family (user, 13 Nov 2026: "consistency is key"):
+        // name bold, office plain, MINISTRY OF EDUCATION bold. The manuscripts typed the
+        // Director's office three ways ("Director – Directorate of Curriculum Development",
+        // "… – Curriculum Development Centre") and three books left the ministry line off;
+        // "Kelvin Mambwe, (PhD)" carried a stray comma before the title.
+        b.lines[0] = { ...b.lines[0], bold: true, text: b.lines[0].text.replace(/,\s*(\((?:PhD|Dr\.?|Prof\.?)\))/i, " $1") };
+        const ofc = b.lines.findIndex((l, k) => k > 0 && who.office.test(l.text.replace(/\s+/g, " ")));
+        if (who.file === "director-signature.png" && ofc > 0) b.lines[ofc] = { ...b.lines[ofc], text: "Director – Curriculum Development" };
+        if (ofc > 0) b.lines = [b.lines[0], { ...b.lines[ofc], bold: false }, { text: "MINISTRY OF EDUCATION", bold: true }];
         if (!fs.existsSync(path.join(__dirname, "assets", who.file))) continue;
         b.img = "syl_" + who.file;
         used.add(who.file);
@@ -6770,6 +6779,16 @@ function normaliseQuestionMarkBold(blocks) {
     // "RECOMMENDED READINGS" had only the last recognised, so it alone opened a page.)
     const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|(prescribed|recommended|prescribed\s+(and|&)\s+recommended)\s+(text\s*books?|references?|readings?))\b[\s.:]*$/i;
     const isCaps = (s) => s === s.toUpperCase() && /[A-Z]{3}/.test(s);
+    // One spelling of the Director's section head across the family: most manuscripts
+    // write ACKNOWLEDGEMENT, two wrote ACKNOWLEDGEMENTS (E&FE, Religious Education Content).
+    for (let i = 0; i < frontEnd; i++) {
+      const b = blocks[i];
+      if (isSectionLabel(b) && /^acknowledge?ments?\.?$/i.test((b.text || "").trim())) {
+        b.text = "ACKNOWLEDGEMENT";
+        if (Array.isArray(b.segs)) b.segs = [{ ...(b.segs[0] || {}), t: "ACKNOWLEDGEMENT" }];
+        if (b.plain != null) b.plain = "ACKNOWLEDGEMENT";
+      }
+    }
     const frontLabels = [];
     for (let i = 0; i < frontEnd; i++) if (isSectionLabel(blocks[i])) frontLabels.push((blocks[i].text || "").trim());
     const nCaps = frontLabels.filter(isCaps).length;

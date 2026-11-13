@@ -510,6 +510,12 @@ function paraSegs(pXml) {
       // touched). Only the z is swapped, so the word's own casing is preserved.
       .replace(/\b(summar|special|emphas|organ|recogn|visual|minim|stabil|crystall|synthes|immobil|fertil|general|categor|character|util|standard|maxim|coloni|memor|normal|personal|author|synchron|virtual|container|optim|priorit|custom|digit|modern|real|final|central|critic|mobil|familiar|sanit|harmon|global|decentral|marginal|dramat|empath|scrutin|urban|vital|quant|internal|civil|vocal|sensit|social|actual|privat)i(z)(e|es|ed|ing|ation|ations|able|ably|er|ers)\b/gi,
         (_, stem, z, suf) => stem + "i" + (z === "Z" ? "S" : "s") + suf)
+      // …and the -yze verbs (analyse, paralyse, catalyse), and "centred" for the -centered
+      // compounds ("learner-centered") — the CDC syllabuses typed both ways, often in one book
+      .replace(/\b(analy|paraly|cataly)(z)(e|es|ed|ing|er|ers)\b/gi, (_, stem, z, suf) => stem + (z === "Z" ? "S" : "s") + suf)
+      .replace(/\b(cent)(er)(ed)\b/gi, (_, a, er, ed) => a + (er === "ER" ? "RE" : "re") + ed)
+      // the examining body's own name (several manuscripts drop the s)
+      .replace(/\bExamination Council of Zambia\b/g, "Examinations Council of Zambia")
       // British -our for a curated set (colour, behaviour, flavour, odour, vapour,
       // favour…). "labo(u)r" is left out so "laboratory" is never touched.
       .replace(/\b(colo|behavio|flavo|odo|vapo|favo|humo|rigo|vigo)r([a-z]*)\b/gi, "$1ur$2");
