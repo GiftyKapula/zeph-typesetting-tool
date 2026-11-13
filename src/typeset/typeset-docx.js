@@ -256,7 +256,7 @@ function emit(blocks) {
       case "box": out += `#genericbox(${bodyArr(b.body)})\n`; break;
       case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
-      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""})\n`; break;
+      case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""}${Array.isArray(b.widths) ? `, widths: (${b.widths.join(", ")},)` : ""})\n`; break;
       case "colgrid": out += `#colgrid(${colgridArg(b)})\n`; break;
       default: break;
     }
@@ -1496,6 +1496,17 @@ function applyOverrides(blocks, ov) {
                   return [{ ...s, t: head }, own, { ...s, t: tail }];
                 }).filter((s) => s.t !== "");
               }
+            } else if (Array.isArray(cell.segs) && cell.segs.some((s) => s.m)) {
+              // a cell carrying a superscript ("21st", a maths run): the change is made in
+              // the text runs around it, one run at a time (Business Studies 1.2.1.1:
+              // "…of an Effective 21st Century … teacher Exhibited")
+              let hit = false;
+              for (const s of cell.segs) {
+                if (s.m || typeof s.t !== "string" || (hit && !cs.every) || !re.test(s.t)) continue;
+                s.t = s.t.replace(cs.every ? reAll : re, () => to);
+                hit = true;
+              }
+              if (!hit) console.warn("!  cellSubtext: the match runs across a superscript, text only:", cs.from);
             }
             n++;
           }
@@ -1682,13 +1693,21 @@ function applyOverrides(blocks, ov) {
         if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
           const from = b.rows.findIndex((row, ri) => ri > 0 && opens(row, mr.startsWith));
           const anchor = mr.after != null ? mr.after : mr.before;
-          if (from > 0 && b.rows.some((row, ri) => ri > 0 && ri !== from && opens(row, anchor))) {
-            const [row] = b.rows.splice(from, 1);
-            const to = b.rows.findIndex((r, ri) => ri > 0 && opens(r, anchor));
-            b.rows.splice(mr.after != null ? to + 1 : to, 0, row);
-            done = true;
-            console.log(`   moveRow ${mr.startsWith}: ${mr.after != null ? "after" : "before"} ${anchor}`);
-            continue;
+          if (from > 0) {
+            // the anchor in this table, else in any other: a row can go to another year's
+            // matrix (History Content: Year 1 topics 1.12-1.15 made Year 2's first topics)
+            const tables = [];
+            const collect = (a) => { for (const x of a) { if (!x || typeof x !== "object") continue; if (Array.isArray(x.rows) && (x.t === "table" || x.kind === "table")) tables.push(x); for (const k of Object.keys(x)) if (Array.isArray(x[k]) && k !== "rows") collect(x[k]); } };
+            collect(blocks);
+            const dest = [b, ...tables.filter((t) => t !== b)].find((t) => t.rows.some((row, ri) => ri > 0 && !(t === b && ri === from) && opens(row, anchor)));
+            if (dest) {
+              const [row] = b.rows.splice(from, 1);
+              const to = dest.rows.findIndex((r, ri) => ri > 0 && opens(r, anchor));
+              dest.rows.splice(mr.after != null ? to + 1 : to, 0, row);
+              done = true;
+              console.log(`   moveRow ${mr.startsWith}: ${mr.after != null ? "after" : "before"} ${anchor}${dest !== b ? " (other table)" : ""}`);
+              continue;
+            }
           }
         }
         for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkM(b[k]);
@@ -3307,6 +3326,33 @@ function tightTables(blocks, ov) {
   }
 }
 
+// tableWidths: [{ startsWith: "<a cell's opening text>", widths: [45, 45, 45, 60, 45] }]
+// pins the column weights of the table holding that cell. The template otherwise sizes
+// each column from its content and its longest unbreakable word, so a correction that
+// splits a long glued word ("Classrooms(VLEs)," -> "Classrooms (VLEs),") can re-balance
+// the columns and re-flow every page of the matrix (Business Studies, Teaching Methods
+// Year 1: the activities column narrowed, two pages longer, one left near-empty).
+function tableWidths(blocks, ov) {
+  for (const tw of ov.tableWidths || []) {
+    if (!tw || typeof tw.startsWith !== "string" || !Array.isArray(tw.widths)) continue;
+    const want = tw.startsWith.replace(/\s+/g, " ").trim();
+    let n = 0;
+    const walkT = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (b.t === "table" && Array.isArray(b.rows) && b.rows.some((r) => Array.isArray(r)
+            && r.some((c) => c && String(c.text || "").replace(/\s+/g, " ").trim().startsWith(want)))) {
+          if ((b.rows[0] || []).length === tw.widths.length) { b.widths = tw.widths.map(Number); n++; }
+          else console.warn(`!  tableWidths: ${tw.widths.length} widths for a ${(b.rows[0] || []).length}-column table:`, want);
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkT(b[k]);
+      }
+    };
+    walkT(blocks);
+    if (!n) console.warn("!  tableWidths not matched:", want);
+  }
+}
+
 function keepRowsWhole(blocks, ov) {
   for (const kr of ov.keepRowWhole || []) {
     const want = kr.find != null ? String(kr.find) : null;
@@ -3403,13 +3449,16 @@ function tidyCellLines(blocks) {
   if (n) console.log(`   table cells tidied (stray full stops, hand-wrapped lines, empty bullets): ${n}`);
 }
 
-function unifyFullStops(blocks) {
+// `fullStops` (overrides) settles a group a reviewer ruled on, whatever its majority:
+// { "Key Competences descriptors": "dot" } (Business Studies, Harriet Kalapa: "add
+// fullstops at the end of all the sentences in the descriptor columns") -- "dot" or "none".
+function unifyFullStops(blocks, forced = {}) {
   const units = stopUnits(blocks);
   const byGroup = {};
   for (const u of units) (byGroup[u.group] = byGroup[u.group] || []).push(u);
   const done = [], todo = [];
   for (const [g, us] of Object.entries(byGroup)) {
-    const want = stopTarget(g, us);
+    const want = /^(?:dot|none)$/.test(forced[g]) ? forced[g] : stopTarget(g, us);
     if (!want) continue;
     const odd = us.filter((u) => u.end !== want);
     for (const u of odd) todo.push([u, want]);
@@ -6379,11 +6428,17 @@ function normaliseQuestionMarkBold(blocks) {
         for (const row of b.rows.slice(1)) {
           if (!Array.isArray(row)) continue;
           if (yc >= 0 && row[yc]) { const y = yearOf(row[yc].text); if (y) { year = y; k = j = m = 0; } }
+          // a YEAR cell holding a dotted number and nothing else is the Word list number of
+          // an empty paragraph, never a year or a term: emptied ("1.2", "1.4" … down the
+          // YEAR column of Geography Content's scope chart)
+          if (yc >= 0 && row[yc] && /^\s*\d+(?:\.\d+)+\.?\s*$/.test(row[yc].text || "")) { row[yc].text = ""; row[yc].segs = null; }
           if (renum(row[tc], () => { k++; j = m = 0; return `${year}.${k}`; })) tally[year] = k;
           // A scope-and-sequence chart (a YEARS column) lists a topic's sub-topics one per
           // line with no numbers: left so. Numbering only the first line set "1.1.1
           // Definitions of Religion" over five unnumbered titles (Religious Education Content).
-          const bareList = yc >= 0 && row[sc] && (toLines(row[sc]) || []).length > 1
+          // A single line too: Geography Content's one-line "Components of Digital Literacy"
+          // came out "2.5.1" among unnumbered lists.
+          const bareList = yc >= 0 && row[sc] && (toLines(row[sc]) || []).length >= 1
             && !(toLines(row[sc]) || []).some((l) => NUM.test(txt(l)));
           const subs = bareList ? 0 : renum(row[sc], () => { j++; m = 0; return `${year}.${k}.${j}`; });
           const comps = cc >= 0 ? renum(row[cc], () => { m++; return `${year}.${k}.${j}.${m}`; }) : 0;
@@ -7083,11 +7138,12 @@ function normaliseQuestionMarkBold(blocks) {
     // Full stops and first letters one way per kind of text (see unifyFullStops), on the
     // finished blocks -- after every heading, cell and list has taken its final form.
     tidyCellLines(blocks);
-    unifyFullStops(blocks);
+    unifyFullStops(blocks, ov.fullStops || {});
     topCompetenceHeadings(blocks);
     hyphenateSubTopicHeader(blocks);
     splitRows(blocks, ov);
     keepRowsWhole(blocks, ov);
+    tableWidths(blocks, ov);
     // a book of several courses (markCourses): the contents lists each course with its
     // competences and years under it, not every topic -- as by-course Computer Science does
     if (blocks.some((b) => b.course)) {

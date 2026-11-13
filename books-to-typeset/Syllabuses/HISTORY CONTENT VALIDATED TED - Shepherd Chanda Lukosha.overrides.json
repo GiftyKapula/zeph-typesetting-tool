@@ -34,7 +34,8 @@
     "its copies (1) are the same file): 18 comments, all made -- see the PROOFREAD rules in",
     "`edit`, `cellSubtext` and `editCell`. Page numbers in the rules are the reviewer's PDF's.",
     "",
-    "ROUND 1, late comments (Google Drive, Mabvuto Nkhata, 26 Oct 2026, on the '- Corrections worked on' copy): 5 comments. Acknowledgement 'Standards and Assessment,' -> 'Standards, Evaluation and Assessment,'; Director signatory -> Samutete M. Petronella (Ms) (the book-wide form); 'Published 2025' -> 2026 (year key, copyright and First Published lines); 2.2.2.1 expected standard: 'the' deleted before 'liberation' and 'struggle' put after it, as the competence beside it reads."
+    "ROUND 1, late comments (Google Drive, Mabvuto Nkhata, 26 Oct 2026, on the '- Corrections worked on' copy): 5 comments. Acknowledgement 'Standards and Assessment,' -> 'Standards, Evaluation and Assessment,'; Director signatory -> Samutete M. Petronella (Ms) (the book-wide form); 'Published 2025' -> 2026 (year key, copyright and First Published lines); 2.2.2.1 expected standard: 'the' deleted before 'liberation' and 'struggle' put after it, as the competence beside it reads.",
+    "ROUND 2 (Google Drive, Mabvuto Nkhata, 11-12 Nov 2026): Year 1 topics 1.12-1.15 (Age of Imperialism, Colonial Rule in Zambia, First World War, Attempts at World Peace) moved to open Year 2 (his 12 Nov comments; his 11 Nov one had said the END of Year 2 -- the later wins). renumberMatrix counts them 2.1-2.4; Second World War etc. follow as 2.5-2.7. Year 1 Key Competences 'Problem Solving' still cites old 1.15.1.1 -- not marked, left."
   ],
   "level": "Secondary Teachers' Diploma",
   "year": 2026,
@@ -305,5 +306,48 @@
   "coverColour": "0f6b3a",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "moveRow": [
+    {
+      "_why": "ROUND 2: Year 1 topics 1.12-1.15 become Year 2's first topics",
+      "startsWith": "AGE OF IMPERIALISM",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "COLONIAL RULE IN ZAMBIA",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "African reaction to colonial rule",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "Types of governance in Northern Rhodesia",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "Socio-economic development during colonial",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "The Central African Federation",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "THE FIRST WORLD WAR",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "Zambia and the First World War",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "ATTEMPTS AT WORLD PEACE",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    },
+    {
+      "startsWith": "The League of Nations",
+      "before": "• 2.1 THE SECOND WORLD WAR"
+    }
+  ]
 }

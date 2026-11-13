@@ -22,11 +22,13 @@
     "placed from the highlights in the reviewed copy and the comment e-mails. Cover green (#2e7d32: 'change colour cover",
     "to green'; #1f5c3a is already Guidance and Counselling's and PE and Sport's). p108: Aghion and Howitt deleted (remove).",
     "",
-    "2026-11-11: CDC Social Sciences colour code is green (Mr. Musonda); all Social Sciences syllabuses one green, #0f6b3a (user 2026-11-11), with the peach band and dark Impact title of Civic Education Content."
+    "2026-11-11: CDC Social Sciences colour code is green (Mr. Musonda); all Social Sciences syllabuses one green, #0f6b3a (user 2026-11-11), with the peach band and dark Impact title of Civic Education Content.",
+    "ROUND 2 (Google Drive, Sylvia Shata Katongo, 12 Nov 2026): 2025 -> 2026 (year key: cover, footers; copyright and First Published lines).",
+    "ROUND 2 (Drive, 11-12 Nov 2026, 30 comments): p1/p3 year 2026 already done (12 Nov); Kalapa's 'full stops at the end of all the sentences in the descriptor columns' (p79, p102) -> fullStops, every course's descriptors alike"
   ],
   "subject": "Business Studies",
   "level": "Secondary School Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "coverColour": "0f6b3a",
   "renumberMatrix": true,
   "courses": [
@@ -128,6 +130,31 @@
     {
       "find": "1.Course description",
       "with": "Course description"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p77: 'skills relevant for the curriculum'; the same sentence in the Rationale (p9) carries the same slip, so carried as in round 1",
+      "find": "skills relevant for curriculum.",
+      "with": "skills relevant for the curriculum."
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): stray 'tone' (also in the same Rationale sentence, p9)",
+      "find": "Competence-based Curriculum tone is to",
+      "with": "Competence-based Curriculum is to"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): the same list item in every course",
+      "find": "Story telling",
+      "with": "Storytelling"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): the same list item in every course",
+      "find": "Question and answer method (Socrates)",
+      "with": "Question and answer method (Socratic)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): the same line in every course",
+      "find": "Practical Hours: 2 hour per week",
+      "with": "Practical Hours: 2 hours per week"
     }
   ],
   "asPara": [
@@ -269,6 +296,56 @@
       "_why": "ROUND 1 (Drive, Sylvia Shata Katongo) p139: full stop after 'development'; 'Educational Institutions promote…', no comma",
       "find": "key to national development education, institutions promote",
       "with": "key to national development. Educational Institutions promote"
+    },
+    {
+      "_why": "ROUND 2: 2025 -> 2026 (copyright line)",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
+    },
+    {
+      "_why": "ROUND 2: 2025 -> 2026",
+      "find": "First Published 2025",
+      "with": "First Published 2026"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p77: 'Principles of Accounts'",
+      "find": "Commerce and Principle of Accounts Teaching Methods Syllabus in the",
+      "with": "Commerce and Principles of Accounts Teaching Methods Syllabus in the"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p77: 'Principles of Accounts'",
+      "find": "The Commerce and Principle of Accounts Teaching Methods Syllabus is designed",
+      "with": "The Commerce and Principles of Accounts Teaching Methods Syllabus is designed"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p77 'Principles of Accounts': the Rationale (p9) carries the same sentence and slip, so carried",
+      "find": "Teaching Methods for Commerce and Principle of Accounts Syllabi",
+      "with": "Teaching Methods for Commerce and Principles of Accounts Syllabi"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "find": "from project based learning to technology",
+      "with": "from project-based learning to technology"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "find": "student centered learning environments",
+      "with": "student-centred learning environments"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "find": ". 3rd ed. Alexandria: ASCD",
+      "with": ". 3rd ed. Alexandria: ASCD."
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "find": "Learning Materials(LTMS) and resources",
+      "with": "Learning Materials (TLMs) and resources"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "find": "affect effective teaching Commerce",
+      "with": "affect effective teaching of Commerce"
     }
   ],
   "cellSubtext": [
@@ -587,6 +664,378 @@
       "_why": "ROUND 1 follow-up (user: fix them) p31: typo, 1.10.2.1 activities",
       "from": "Ledger accounts foraccrued expenses",
       "to": "Ledger accounts for accrued expenses"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p79: 'diverse learners' cohorts'",
+      "from": "diverse learner’s cohorts",
+      "to": "diverse learners’ cohorts"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p80: 'comprehensive and creative'",
+      "from": "Formulate comprehensive, creative Schemes",
+      "to": "Formulate comprehensive and creative Schemes"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p83: lowercase 'effective' (and the highlighted 'Exhibited')",
+      "from": "Personal qualities of an Effective",
+      "to": "Personal qualities of an effective"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p83: lowercase 'effective' (and the highlighted 'Exhibited')",
+      "from": "Accounts teacher Exhibited correctly",
+      "to": "Accounts teacher exhibited correctly"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p83: 'concepts and the importance of Teaching Methods as a course'",
+      "from": "Knowledge of concepts the Importance of Teaching",
+      "to": "Knowledge of concepts and the importance of Teaching"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p84: lowercase 'classroom'",
+      "from": "of Accounts Classroom applied",
+      "to": "of Accounts classroom applied"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p86: opening bracket before 'i.e.'",
+      "from": "Accounts i.e. online learning",
+      "to": "Accounts (i.e. online learning"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p86: closing bracket, 'assessments, etc.)'",
+      "from": "Online Quizzes and Assessment, etc.",
+      "to": "Online Quizzes and Assessments, etc.)"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p88: lowercase 'teaching' and 'learning'",
+      "from": "(ICTs) Education in Teaching and Learning Commerce and Principles of Accounts applied",
+      "to": "(ICTs) Education in teaching and learning Commerce and Principles of Accounts applied"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) + ROUND 2 (Drive, Sylvia Shata Katongo) p91: 'Understanding the importance of ...'",
+      "from": "The importance of the Curriculum in the teaching process",
+      "to": "Understanding the importance of the Curriculum in the teaching process"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p91: 'Understanding of the significance of'",
+      "from": "Understanding of significance of the Syllabus",
+      "to": "Understanding of the significance of the Syllabus"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p94: lowercase 'demonstrated'",
+      "from": "Principles of Accounts Demonstrated correctly",
+      "to": "Principles of Accounts demonstrated correctly"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p96: lowercase 'teaching' and 'learning'",
+      "from": "Measurement in the Teaching and Learning of Commerce",
+      "to": "Measurement in the teaching and learning of Commerce"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p97: 'Construction of a good test'",
+      "from": "Constructing a good test and test items",
+      "to": "Construction of a good test and test items"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p101: capital 'Preparedness'",
+      "from": "Demonstrate preparedness for School Experience",
+      "to": "Demonstrate Preparedness for School Experience"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p104: 'in the teaching of Commerce'",
+      "from": "Business Studies Department in teaching of Commerce",
+      "to": "Business Studies Department in the teaching of Commerce"
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p105 (x3): 'in the teaching of Commerce' -- competence, activity and standard of 2.2.2.1; the p90 descriptor carries the same words, so carried",
+      "from": "Subject teacher in teaching of Commerce",
+      "to": "Subject teacher in the teaching of Commerce",
+      "all": true
+    },
+    {
+      "_why": "ROUND 2 (Drive, Harriet Kalapa) p105: delete the '-' between 'teacher' and 'in'",
+      "from": "Subject teacher - in the teaching",
+      "to": "Subject teacher in the teaching"
+    },
+    {
+      "_why": "user 2026-11-13: the same slip Harriet Kalapa marked on p94 ('Demonstrated' -> 'demonstrated'), fixed in the other courses too",
+      "from": "Records and Single Entry Demonstrated accordingly",
+      "to": "Records and Single Entry demonstrated accordingly"
+    },
+    {
+      "_why": "user 2026-11-13: the same slip Harriet Kalapa marked on p94 ('Demonstrated' -> 'demonstrated'), fixed in the other courses too",
+      "from": "Sources of Zambian Law Demonstrated correctly",
+      "to": "Sources of Zambian Law demonstrated correctly"
+    },
+    {
+      "_why": "user 2026-11-13: same slip as p94's 'Demonstrated' (a capital mid-standard), fixed with it",
+      "from": "Trial Balance Extracted Correctly",
+      "to": "Trial Balance extracted correctly"
+    },
+    {
+      "_why": "user 2026-11-13: same slip as p94's 'Demonstrated' (a capital mid-standard), fixed with it",
+      "from": "Knowledge of Business Law Shown correctly",
+      "to": "Knowledge of Business Law shown correctly"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "peer-to-peer communication business students",
+      "to": "peer-to-peer communication among business students"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "regular learner evaluation constructive feedback",
+      "to": "regular learner evaluation, constructive feedback"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "focussing on learner centred teaching",
+      "to": "focusing on learner-centred teaching"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "learner centred approaches of teaching",
+      "to": "learner-centred approaches to teaching"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Practicing on the problems related to unethical, and immoral",
+      "to": "Practising on the problems related to unethical and immoral"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Computer Assisted Instruction(CAI)",
+      "to": "Computer Assisted Instruction (CAI)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Role Play, demonstration, Discussion",
+      "to": "Role Play, Demonstration, Discussion"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "teacher centred teaching-not recommended in the Competence based teaching)",
+      "to": "teacher-centred teaching (not recommended in Competence-based teaching)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Describing Teaching Technique (Project based learning, Problem based learning, Collaborative learning, Inquiry based learning, etc…)",
+      "to": "Describing Teaching Techniques (Project-based learning, Problem-based learning, Collaborative learning, Inquiry-based learning, etc.)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "(Student/Learner centred)",
+      "to": "(Student/Learner-centred)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Principles of Accounts ( i.e",
+      "to": "Principles of Accounts (i.e."
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Online Course Platforms, Video Conference Tool( e.g Zoom, Google Meet, or Skype, whatsapp), Learning Management Systems(LMS)(e.g Moodle, Blackboard or Canvas), Virtual Learning Environments/Classrooms(VLEs), Collaborative Learning Platforms (e.g Google Workspace/Microsoft",
+      "to": "Online Course Platforms, Video Conference Tools (e.g. Zoom, Google Meet, Skype, WhatsApp), Learning Management Systems (LMS) (e.g. Moodle, Blackboard or Canvas), Virtual Learning Environments/Classrooms (VLEs), Collaborative Learning Platforms (e.g. Google Workspace/Microsoft"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): bracket closed; MOOC = Massive Open Online Course",
+      "from": "Teams, Massive Online Courses(MOOCs),",
+      "to": "Teams), Massive Open Online Courses (MOOCs),"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): the list's bracket was never closed",
+      "from": "Gamification Platforms, Radio Interactive Learning",
+      "to": "Gamification Platforms, Radio Interactive Learning)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "contribute to effectiveness of Blended Learning",
+      "to": "contribute to the effectiveness of blended learning"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "(ICTs) Education, in Teaching",
+      "to": "(ICTs) Education in Teaching"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Discussing the role of on Information",
+      "to": "Discussing the role of Information"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Practicing using basic IT tools (",
+      "to": "Practising using basic IT tools ("
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): 'Surge' = the Sage accounting package; bracket closed",
+      "from": "small accounting packages i.e. Excel, Surge, Sun+, Peachtree. and other software",
+      "to": "small accounting packages, i.e. Excel, Sage, Sun+, Peachtree) and other software"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "projectors, Slide shows, ...)",
+      "to": "projectors, slide shows ...)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): as Kalapa's p88 standard",
+      "from": "use of Information and Communication Technologies (ICTs) Education in Teaching and Learning",
+      "to": "use of Information and Communication Technologies (ICTs) Education in teaching and learning"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Tactile, Digitalized",
+      "to": "Tactile, Digitalised"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): stray comma, 1.4.3 throughout",
+      "from": "Teaching and Learning Materials, and Resources",
+      "to": "Teaching and Learning Materials and Resources",
+      "all": true,
+      "every": true
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Materials and Resources(",
+      "to": "Materials and Resources ("
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): brackets balanced, the five kinds of source set apart",
+      "from": "Online sources i.e. Open Educational Resources(OERs), Artificial Intelligence(AI), Educational Websites, Online Libraries, Educational blogs and podcasts), Print sources(Text books, Academic Journals and Books, ...), Human Resources (i.e. Guest speakers, mentorship programs, peer to peer learning, ...), Digital Resources(i.e. Learning Management Systems(LMSs),",
+      "to": "Online sources, i.e. Open Educational Resources (OERs), Artificial Intelligence (AI), Educational Websites, Online Libraries, Educational blogs and podcasts; Print sources (Textbooks, Academic Journals and Books ...); Human Resources (i.e. Guest speakers, mentorship programmes, peer-to-peer learning ...); Digital Resources (i.e. Learning Management Systems (LMSs),"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Multimedia resources, Online Communities, Other sources",
+      "to": "Multimedia resources, Online Communities); Other sources ",
+      "bold": false,
+      "italic": true
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "non-profit making organisations..",
+      "to": "non-profit making organisations ...)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "preparing to teach(",
+      "to": "preparing to teach ("
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Research on the resources for planning(",
+      "to": "Researching the resources for planning ("
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Discussing the elements the curriculum",
+      "to": "Discussing the elements of the curriculum"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "poor lightin..",
+      "to": "poor lighting .."
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "appropriate sitting arrangement",
+      "to": "appropriate seating arrangement"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "(i.e. the school, Classroom, library",
+      "to": "(i.e. the school, classroom, library"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Different types of tests(test items)",
+      "to": "Different types of tests (test items)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Discussing, marking schemes, marking and scoring tests",
+      "to": "Discussing marking schemes, marking and scoring tests"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Demonstrate ability to Grade, Analyse, Interpret and Monitor test scores",
+      "to": "Demonstrate ability to grade, analyse, interpret and monitor test scores"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Discrimination Index... from given test scores",
+      "to": "Discrimination Index from given test scores"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Management(including digital) in Teaching",
+      "to": "Management (including digital) in teaching"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "), of a trainee teacher undertaking",
+      "to": ") of a trainee teacher undertaking"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Assessment Instrument(file index)",
+      "to": "Assessment Instrument (file index)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Discussing the importance School Experience",
+      "to": "Discussing the importance of School Experience"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "(for demonstration purpose only)",
+      "to": "(for demonstration purposes only)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "for discussion and learning(",
+      "to": "for discussion and learning ("
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Commerce or Principles of Accounting classroom",
+      "to": "Commerce or Principles of Accounts classroom"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "real classroom scenario(practical)",
+      "to": "real classroom scenario (practical)"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "handling individual learning differences",
+      "to": "handling individual learner differences"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
+      "from": "Principles of Accounts lessons",
+      "to": "Principles of Accounts lesson"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: methods set as bold labels without a bullet, as in every other cell",
+      "from": "• Group Discussion",
+      "to": "Group Discussion",
+      "bold": true
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13",
+      "from": "• Problem solving/ Guided Practice",
+      "to": "Problem Solving/Guided Practice",
+      "bold": true
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13",
+      "from": "Calculating the Measure of Central Tendency",
+      "to": "Calculating the Measures of Central Tendency"
+    },
+    {
+      "_why": "READ-THROUGH Teaching Methods (user 2026-11-13",
+      "from": "Interpreting test scores using Measure of Central Tendency",
+      "to": "Interpreting test scores using Measures of Central Tendency"
     }
   ],
   "removeRow": [
@@ -626,5 +1075,21 @@
   "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); one green for all of them (#0f6b3a, History Content's; user 2026-11-11), peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "fullStops": {
+    "Key Competences descriptors": "dot"
+  },
+  "tableWidths": [
+    {
+      "_why": "READ-THROUGH Teaching Methods: closing up \"Classrooms(VLEs),\" took away the long word that had kept the activities column wide; its old weights kept so the pages stay as the reviewers saw them",
+      "startsWith": "1.1.1.1 Demonstrate Knowledge of Concepts",
+      "widths": [
+        45,
+        45,
+        45,
+        60,
+        45
+      ]
+    }
+  ]
 }

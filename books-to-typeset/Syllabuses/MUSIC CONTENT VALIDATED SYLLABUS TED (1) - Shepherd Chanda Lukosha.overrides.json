@@ -40,7 +40,8 @@
     "  * p48 scope chart: School Experience unnumbered, School Experience 2 moved to Term 2, so the chart's",
     "    Year 2 numbers now match the matrix (2.1-2.19). Same rule carried to Year 1 to harmonise it too:",
     "    Education Foundation 1 and 3 (no matrix topic) unnumbered; World Music 2 (matrix 1.18) added; Year 1",
-    "    now runs 1.1-1.26 as the matrix does. Chart titles otherwise as typed."
+    "    now runs 1.1-1.26 as the matrix does. Chart titles otherwise as typed.",
+    "ROUND 2 (Google Drive, Owen Mutema, 12 Nov 2026), scope chart Year 2: 2.7-2.10 -> Term 1; 2.11-2.13 -> Term 3; School Experience deleted from Term 1; 'School Experience 2' number deleted (the only lone '2' left in Year 2 once the moves are made; placed from context)."
   ],
   "subject": "Musical Arts Education Content",
   "level": "Secondary Teachers' Diploma",
@@ -233,10 +234,10 @@
       "with": "• 1.1 Foundations of Music Theory 1\n• 1.2 Foundations of Music Theory 2\n• 1.3 Foundations of Music Theory 3\n• 1.4 Pitch and Scales\n• 1.5 Pitch and Scales\n• 1.6 Pitch and Scales\n• 1.7 Intervals\n• 1.8 Voice Training 1\n• 1.9 Voice Training 2\n• 1.10 Zambian Musical Arts\n• 1.11 Solfege and Notation 1\n• Education Foundation 1"
     },
     {
-      "_why": "Year 2 Term 1: School Experience 1 unnumbered (reviewer); the rest renumbered to the matrix.",
+      "_why": "Year 2 Term 1: ROUND 2 (Owen Mutema, 12 Nov 2026) School Experience 1 deleted; 2.7-2.10 moved here from Term 2.",
       "row": "Term 1",
       "col": 2,
-      "with": "• School Experience 1\n• 2.1 Harmony 3\n• 2.2 Form and Analysis 2\n• 2.3 Melody and Composition 2\n• 2.4 Instrumental Techniques 2\n• 2.5 Climate Change\n• 2.6 Musician Wellness"
+      "with": "• 2.1 Harmony 3\n• 2.2 Form and Analysis 2\n• 2.3 Melody and Composition 2\n• 2.4 Instrumental Techniques 2\n• 2.5 Climate Change\n• 2.6 Musician Wellness\n• 2.7 Advanced Music History\n• 2.8 Harmony 4\n• 2.9 Counterpoint\n• 2.10 Fugue"
     },
     {
       "_why": "Year 1 Term 2: numbered as the matrix (1.12 Historical Sources ... 1.20 Education Foundation 2); World Music 2 is matrix topic 1.18 and was missing from the chart.",
@@ -245,10 +246,10 @@
       "with": "• 1.12 Historical Sources\n• 1.13 Advanced Rhythm\n• 1.14 Conducting\n• 1.15 Harmony 1\n• 1.16 Musical Appreciation\n• 1.17 World Music 1\n• 1.18 World Music 2\n• 1.19 Dance and Movement\n• 1.20 Education Foundation 2"
     },
     {
-      "_why": "Year 2 Term 2: renumbered to the matrix; School Experience 2 moved here from Term 3, unnumbered (reviewer).",
+      "_why": "Year 2 Term 2: ROUND 2 (12 Nov) 2.7-2.10 to Term 1, 2.11-2.13 to Term 3; 'School Experience 2' -> number deleted.",
       "row": "Term 2",
       "col": 2,
-      "with": "• 2.7 Advanced Music History\n• 2.8 Harmony 4\n• 2.9 Counterpoint\n• 2.10 Fugue\n• 2.11 Music Technology 2\n• 2.12 Orchestration\n• 2.13 Research Methods in Music\n• School Experience 2"
+      "with": "• School Experience"
     },
     {
       "_why": "Year 1 Term 3: Education Foundation 3 has no matrix topic, so unnumbered.",
@@ -257,10 +258,10 @@
       "with": "• 1.21 Harmony 2\n• 1.22 Form and Analysis 1\n• 1.23 Melody and Composition 1\n• 1.24 Instrumental Techniques 1\n• 1.25 Climate Change\n• 1.26 Musician Wellness\n• Education Foundation 3"
     },
     {
-      "_why": "Year 2 Term 3: School Experience 2 moved to Term 2; renumbered to the matrix.",
+      "_why": "Year 2 Term 3: ROUND 2 (12 Nov) 2.11-2.13 moved here from Term 2, ahead of 2.14.",
       "row": "Term 3",
       "col": 2,
-      "with": "• 2.14 Music Entrepreneurship\n• 2.15 Music Therapy\n• 2.16 World Music 2\n• 2.17 Civic Education\n• 2.18 Advanced Pedagogy\n• 2.19 Graduation Recital and Portfolio"
+      "with": "• 2.11 Music Technology 2\n• 2.12 Orchestration\n• 2.13 Research Methods in Music\n• 2.14 Music Entrepreneurship\n• 2.15 Music Therapy\n• 2.16 World Music 2\n• 2.17 Civic Education\n• 2.18 Advanced Pedagogy\n• 2.19 Graduation Recital and Portfolio"
     }
   ],
   "unbold": [
