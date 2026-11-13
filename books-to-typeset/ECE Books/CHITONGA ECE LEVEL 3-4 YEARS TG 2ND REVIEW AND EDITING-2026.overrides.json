@@ -1,5 +1,5 @@
 {
-  "grade": "Musela 1",
+  "grade": "ECE Level 1",
   "coverImage": "CHITONGA ECE LEVEL 3-4 YEARS TG 2ND REVIEW AND EDITING-2026-hires/cover.png",
   "localLabels": {
     "level_ece": "Lwiiyo Lwabana Basyoonto"
@@ -291,7 +291,7 @@
           "vspace": "4mm"
         },
         {
-          "para": "**Bakambulula bbuku:**",
+          "para": "**Bakabambulula bbuku:**",
           "center": true
         },
         {
@@ -401,7 +401,7 @@
       "find": "Ceelede Kucitwa: 0.1.1.1.1 kwaamba Zyina Lyako",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.1.1.1 kwaamba Zyina Lyako"
+          "para": "**Ceelede kucitwa:** 0.1.1.1.1 Kwaamba zyina lyako."
         }
       ]
     },
@@ -569,7 +569,7 @@
       "find": "Ceelede kucita: 0.1.10.1.1 Basicikolo beelede: - Kuzyiba kujata bbuku",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.10.1.1 Basicikolo beelede: - Kuzyiba kujata bbuku"
+          "para": "**Ceelede kucitwa:** Basicikolo beelede: 0.1.10.1.1 Kuzyiba kujata bbuku"
         }
       ]
     },
@@ -1057,7 +1057,7 @@
       "find": "Ceelede Kucitwa : 0.1.1.5.1 Basicikolo baambe mazyina azyibeela zyamubili wabo.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.1.5.1 Basicikolo baambe mazyina azyibeela zyamubili wabo."
+          "para": "**Ceelede kucitwa:** 0.1.1.5.1 Baambe mazyina azyibeela zyamubili wabo."
         }
       ]
     },
@@ -1121,7 +1121,7 @@
       "find": "Twaambo tupati-pati mubufwaafwi: Eeci ciiyo cali kutondezya basicikolo kucikonzya: Kuzubulula akwaamba zyibeela zyamubili wamuntu zyilibonya kubelesya twaambo tumaninide kabotu; mbuli",
       "with": [
         {
-          "para": "**Twaambo tupati-pati mubufwaafwi:** Eeci ciiyo cali kutondezya basicikolo kucikonzya: Kuzubulula akwaamba zyibeela zyamubili wamuntu zyilibonya kubelesya twaambo tumaninide kabotu; mbuli"
+          "para": "**Twaambo tupati-pati mubufwaafwi:** Eeci ciiyo cali kutondezya basicikolo kucikonzya: Kwaamba zyibeela zyamubili wamuntu zyilibonya kubelesya twaambo tumaninide kabotu; mbuli"
         }
       ]
     },
@@ -1329,7 +1329,7 @@
       "find": "Ceelede Kucitwa: 0.1.14.3.1 - Basicikolo: - Bajate zyilembyo zyaandeene-andeene bweelede.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.14.3.1 - Basicikolo: - Bajate zyilembyo zyaandeene-andeene bweelede."
+          "para": "**Ceelede kucitwa:** Basicikolo: 0.1.14.3.1 Bajate zyilembyo zyaandeene-andeene bweelede."
         }
       ]
     },
@@ -1401,7 +1401,7 @@
       "find": "Mutwe: Banyama Bavwubwa Amunzi",
       "with": [
         {
-          "head": "MUTWE: BANYAMA BAVWUBWA AMUNZI"
+          "head": "MUTWE: 0.1.1 MAZYINA"
         }
       ]
     },
@@ -1465,7 +1465,7 @@
       "find": "Ceelede kucitwa: 0.1.2.1.1 Belesya kwaanzya kwiindeneindene muzyiindi zyiindene mubuzuba.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.2.1.1 Belesya kwaanzya kwiindeneindene muzyiindi zyiindene mubuzuba."
+          "para": "**Ceelede kucitwa:** 0.1.2.1.1 Kwaanzya kwiindene-indene muzyiindi zyiindene mubuzuba."
         }
       ]
     },
@@ -1649,7 +1649,7 @@
       "find": "Mutwe musyoonto: 0.1.3.1.1 zyicitika mumikwasyi.",
       "with": [
         {
-          "head": "MUTWE MUSYOONTO: 0.1.3.1.1 zyicitika mumikwasyi."
+          "head": "MUTWE MUSYOONTO: 0.1.3.1 zyicitika mumikwasyi."
         }
       ]
     },
@@ -1665,7 +1665,7 @@
       "find": "Ceelede Kucitwa: 0.1.3.1.1 Basicikolo beelede kwaamba zyicitika mumikwasyi yabo.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.3.1.1 Basicikolo beelede kwaamba zyicitika mumikwasyi yabo."
+          "para": "**Ceelede kucitwa:** Basicikolo beelede: 0.1.3.1.1 Kwaamba zyicitika mumikwasyi yabo."
         }
       ]
     },
@@ -1873,7 +1873,7 @@
       "find": "Ceelede kucitwa 2: 0.1.14.5.2 Basicikolo batulese masyeepu maubauba.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.14.5.2 Basicikolo batulese masyeepu maubauba."
+          "para": "**Ceelede kucitwa:** Basicikolo: 0.1.14.5.2 Batulese masyeepu maubauba."
         }
       ]
     },
@@ -1921,7 +1921,7 @@
       "find": "MUTWE MUSYOONTO:0.1.3.3.1 Milawo Yaaŋanda",
       "with": [
         {
-          "head": "MUTWE MUSYOONTO: 0.1.3.3.1 Milawo Yaaŋanda"
+          "head": "MUTWE MUSYOONTO: 0.1.3.3 Milawo Yaaŋanda"
         }
       ]
     },
@@ -2081,7 +2081,7 @@
       "find": "Mutwe Musyoonto: 0.1.14. 5. 3 Kutulesa tubala",
       "with": [
         {
-          "head": "MUTWE MUSYOONTO: 0.1.14.5.3 Kutulesa tubala"
+          "head": "MUTWE MUSYOONTO: 0.1.14.5 Kutulesa tubala"
         }
       ]
     },
@@ -2089,7 +2089,7 @@
       "find": "Ceelede kucitwa: Basicikolo: 0.1.14.5 Batulese tubala.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** Basicikolo: 0.1.14.5 Batulese tubala."
+          "para": "**Ceelede kucitwa:** Basicikolo: 0.1.14.5.3 Batulese tubala."
         }
       ]
     },
@@ -2241,7 +2241,7 @@
       "find": "Mutwe musyoonto 2: 0. 1. 5. 2 Mabazu mauba-uba",
       "with": [
         {
-          "head": "MUTWE MUSYOONTO: 0.1.5.2 Mabazu mauba-uba"
+          "head": "MUTWE MUSYOONTO: 0.1.5.2 Citondezyo camabazu mauba-uba"
         }
       ]
     },
@@ -2313,7 +2313,7 @@
       "find": "Ceelede kucitwa: 0.1.11.3.1 Basicikolo beelede kwandaanya mabala mauba-uba ambwa kubamba tubeela twamabala.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 0.1.11.3.1 Basicikolo beelede kwandaanya mabala mauba-uba ambwa kubamba tubeela twamabala."
+          "para": "**Ceelede kucitwa:** 0.1.11.3.1 Basicikolo beelede kwaandaanya mabala mauba-uba ambwa kubamba tubeela twamabala."
         }
       ]
     },
@@ -3192,17 +3192,17 @@
   ],
   "insertHead": [
     {
-      "before": "MWATAMBULWA KU CHITONGA LEVO 1",
+      "before": "MWATAMBULWA KU CHITONGA",
       "head": "MATALIKILO",
       "as": "h1"
     },
     {
-      "before": "Bbuku lya Chitonga Levo 1 lya bayi lyakapangilwa",
+      "before": "lyakapangilwa kugwasyilizya",
       "head": "MAJWI AANTALISYO",
       "as": "h1"
     },
     {
-      "before": "Kubambwa kwa Bbuku eeli lya Chitonga Levo 1",
+      "before": "Kubambwa kwa Bbuku eeli lya Chitonga",
       "head": "KULUMBA",
       "as": "h1"
     },
@@ -3217,7 +3217,7 @@
   ],
   "insertText": [
     {
-      "before": "Chitonga Levo 1 Bbuku lya bayi lilibambidwe",
+      "before": "lilibambidwe kugwasyilizya bamayi",
       "items": [
         {
           "raw": {
@@ -3225,6 +3225,14 @@
             "text": "MATALIKILO A BBUKU",
             "keepSection": true
           }
+        }
+      ]
+    },
+    {
+      "before": "NZILA YAKAYUNGIZYIGWA MUKUYIISYA",
+      "items": [
+        {
+          "vspace": "7mm"
         }
       ]
     }
@@ -3286,6 +3294,332 @@
     {
       "find": "  supports teachers in helping learners develop listening, speaking, reading, writing,",
       "with": ","
+    },
+    {
+      "find": "abuhyaabupampu",
+      "with": "abuhaabupampu"
+    },
+    {
+      "find": "abuhabupampu",
+      "with": "abuhaabupampu"
+    },
+    {
+      "find": "kunvwisisya",
+      "with": "kumvwisisya"
+    },
+    {
+      "find": "mpobaendela",
+      "with": "mpobeendela"
+    },
+    {
+      "find": "nobanokwiisya",
+      "with": "nobanokuyiisya"
+    },
+    {
+      "find": "mukwiisya mulaka wa chitonga",
+      "with": "mukuyiisya mulaka wa Chitonga"
+    },
+    {
+      "find": "mukwiiya chitonga",
+      "with": "mukwiiya Chitonga"
+    },
+    {
+      "find": "kwiiya chitonga",
+      "with": "kwiiya Chitonga"
+    },
+    {
+      "find": "kwiiya citonga",
+      "with": "kwiiya Chitonga"
+    },
+    {
+      "find": "kubelesya citonga",
+      "with": "kubelesya Chitonga"
+    },
+    {
+      "find": "bamahyali",
+      "with": "bamazyali"
+    },
+    {
+      "find": "zyakabikwa",
+      "with": "zyakabikkwa"
+    },
+    {
+      "find": "lwakuiisya",
+      "with": "lwakuyiisya"
+    },
+    {
+      "find": "luhyibo",
+      "with": "luzyibo"
+    },
+    {
+      "find": "kabaajisi",
+      "with": "kabajisi"
+    },
+    {
+      "find": "akuswangana",
+      "with": "akuswaangana"
+    },
+    {
+      "find": "ndwaajisi",
+      "with": "ndobajisi"
+    },
+    {
+      "find": "zyakwuisya",
+      "with": "zyakuyiisya"
+    },
+    {
+      "find": "alulange",
+      "with": "atulange"
+    },
+    {
+      "find": "Basichikolo",
+      "with": "Basicikolo"
+    },
+    {
+      "find": "kwandaanya",
+      "with": "kwaandaanya"
+    },
+    {
+      "find": "bandaanye",
+      "with": "baandaanye"
+    },
+    {
+      "find": "bandaanya",
+      "with": "baandaanya"
+    },
+    {
+      "find": "Bbuku lya bayi",
+      "with": "Bbuku lyabayi"
+    },
+    {
+      "find": " ba mayi ",
+      "with": " bamayi "
+    },
+    {
+      "find": "buhaapupampu",
+      "with": "buhaabupampu"
+    }
+  ],
+  "edit": [
+    {
+      "find": "CHITONGA LEVO 1",
+      "with": "CHITONGA ECE LEVEL 1"
+    },
+    {
+      "find": "musyobo wa Chitonga Levo 1",
+      "with": "musyobo wa Chitonga Level 1"
+    },
+    {
+      "find": "Ba mayi",
+      "with": "Bamayi"
+    },
+    {
+      "find": "Chitonga Levo 1 lya bayi",
+      "with": "Chitonga Level 1 lyabayi"
+    },
+    {
+      "find": "Ibbuku eeli lilatondezya Muzeezo",
+      "with": "Bbuku eeli lilatondezya muzeezo"
+    },
+    {
+      "find": "hyuubauba",
+      "with": "zyuuba-uba"
+    },
+    {
+      "find": "Ila gwaasilizya",
+      "with": "Lilagwasilizya"
+    },
+    {
+      "find": "aacitonga, mbwaambwa,",
+      "with": "achitonga mbwaambwa,"
+    },
+    {
+      "find": "an’ganda y,",
+      "with": "aŋanda,"
+    },
+    {
+      "find": "Ibbuku alimwi lilatondezya",
+      "with": "Bbuku alimwi lilatondezya"
+    },
+    {
+      "find": "amisunkoigwasyilizya",
+      "with": "amisunko igwasilizya"
+    },
+    {
+      "find": "Tulalusyomo kuti ibbuku",
+      "with": "Tulaalusyomo kuti bbuku"
+    },
+    {
+      "find": "kubanaantalisyo  njumu mu",
+      "with": "kubaantalisyo mu"
+    },
+    {
+      "find": "aaluzyibo lwakwaanzazyintu",
+      "with": "aluzyibo lwakwaanza zyintu"
+    },
+    {
+      "find": "lya Chitonga Levo 1 Bbuku lyabayi",
+      "with": "lya Chitonga Level 1 Bbuku lyabayi"
+    },
+    {
+      "find": "abahaabupampu bwa lwiiyo",
+      "with": "abahaabupampu ba lwiiyo"
+    },
+    {
+      "find": "kubika zyitondezyo",
+      "with": "kubikka zyitondezyo"
+    },
+    {
+      "find": "aku pangwa",
+      "with": "akupangwa"
+    },
+    {
+      "find": "ligwasya kuisya akwiiya",
+      "with": "ligwasya kuyiisya akwiiya"
+    },
+    {
+      "find": "alimwi lulagwasya basicikolo",
+      "with": "alimwi lilagwasya basicikolo"
+    },
+    {
+      "find": "isimide naa isimide",
+      "with": "isimide"
+    },
+    {
+      "find": "Chitonga Levo 1 Bbuku lya bayi lilibambidwe",
+      "with": "Chitonga Level 1 Bbuku lyabayi lilibambidwe"
+    },
+    {
+      "find": "a levo 1",
+      "with": "a Level 1"
+    },
+    {
+      "find": "mpoona potubede naa potukala",
+      "with": "mpoona mpotubede naa mpotukkala"
+    },
+    {
+      "find": "zyifwanikiso, stories alimwi",
+      "with": "zyifwanikiso alimwi"
+    },
+    {
+      "find": "munzila yakwiisya eeyo iibika sichikolo",
+      "with": "munzila yakuyiisya eeyo iibikka sicikolo"
+    },
+    {
+      "find": "naa Mutubunga",
+      "with": "naa mutubunga"
+    },
+    {
+      "find": "Izyicitwa azyalo",
+      "with": "Zyicitwa azyalo"
+    },
+    {
+      "find": "Inzila ya kwiisya a kwiiya mu Levo 1 njiyeeyo ibikka sichikolo",
+      "with": "Inzila yakuyiisya a kwiiya mu ECE Level 1 njiyeeyo ibikka sicikolo"
+    },
+    {
+      "find": "bukale alimwi",
+      "with": "bukkale alimwi"
+    },
+    {
+      "find": "kwiisya alimwi akwiiya lweelede",
+      "with": "kuyiisya alimwi akwiiya kweelede"
+    },
+    {
+      "find": "mumukwasyi yabo",
+      "with": "mumikwasyi yabo"
+    },
+    {
+      "find": "Aboobo kwiiya kwa basicikolo lulayakwa",
+      "with": "Aboobo lwiiyo lwa basicikolo lulayakwa"
+    },
+    {
+      "find": "Bwiinguzi: sicikolo weelede kutondezya bbuku",
+      "with": "Bwiinguzi: Sicikolo weelede kutondezya bbuku"
+    },
+    {
+      "find": "0.1.1.4  MAZYINA ABANTU",
+      "with": "0.1.1.3 MAZYINA ABANTU"
+    },
+    {
+      "find": "Bwiinguzi: sicikolo aatondezye",
+      "with": "Bwiinguzi: Sicikolo aatondezye"
+    },
+    {
+      "find": "yumya yuma minwe",
+      "with": "yumya-yumya minwe"
+    },
+    {
+      "find": "kuti bazubulule zyibeela zyamubili zyilibonya",
+      "with": "kuti baambe zyibeela zyamubili zyilibonya."
+    },
+    {
+      "find": "bakkale antela  kwiimikila museekko:",
+      "with": "bakkale antela kwiimikila museekko."
+    },
+    {
+      "find": "kajalile meso",
+      "with": "kajalile meso."
+    },
+    {
+      "find": "Kobabikka basicikolo kuti basobane mutubunga",
+      "with": "Kobabikka basicikolo kuti basobane mutubunga."
+    },
+    {
+      "find": "HHU HHU HHU, KWAKWAKWA antela KKOKKOLIKKO.",
+      "with": "HHU HHU HHU. Nkuku ilila kuti KWAKWAKWA antela KKOKKOLIIKKO."
+    },
+    {
+      "find": "0.1.14.3.1  Kujata Zyilembyo",
+      "with": "0.1.14.3 Kujata Zyilembyo"
+    },
+    {
+      "find": "Cala n’ganda",
+      "with": "Calaŋanda"
+    },
+    {
+      "find": "acalan’ganda",
+      "with": "acalaŋanda"
+    },
+    {
+      "find": "Bwiinguzi: basicikolo batondezye",
+      "with": "Bwiinguzi: Basicikolo batondezye"
+    },
+    {
+      "find": "Tondezya kuzyiba bwakujata mpesele",
+      "with": "Tondezya bwakujata mpesele"
+    },
+    {
+      "find": "Bulangizi bweelede: mazyina abanyama",
+      "with": "Bulangizi bweelede: Mazyina abanyama"
+    },
+    {
+      "find": "0.1.3MIBANDI",
+      "with": "0.1.3 MIBANDI"
+    },
+    {
+      "find": "wako anyamuna kwanza",
+      "with": "wako a nyamuna kwanza"
+    },
+    {
+      "find": "Kulingula: Muciindi caciiyo akumamanino basicikolo beelede kulembulula masyeepu mauba-uba.",
+      "with": ""
+    },
+    {
+      "find": "Tondezya basicikolo ciccaati catubala.",
+      "with": "Tondezya basicikolo ciccaati catubala tutondezyedwe mubbuku lyasicikolo."
+    },
+    {
+      "find": "eesu oonse naa buzuba- buzuba",
+      "with": "eesu lyoonse"
+    },
+    {
+      "find": "Atondezye ciccaati citondezya zyibeela zyamubili wamuntu zyilibonya",
+      "with": "Atondezye ciccaati citondezya zyibeela zyamubili wamuntu zyilibonya."
+    },
+    {
+      "find": "BBUKU LYABAI",
+      "with": "BBUKU LYABAYI"
     }
   ]
 }
