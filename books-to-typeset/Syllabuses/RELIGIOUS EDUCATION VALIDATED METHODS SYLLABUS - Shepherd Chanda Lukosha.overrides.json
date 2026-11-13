@@ -37,5 +37,12 @@
   "coverColour": "0f6b3a",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "edit": [
+    {
+      "_why": "editor notes typed into the text (\"(a was missing)\", \"(of was missing)\"); the words they asked for are already in (user, 13 Nov 2026: make it standard)",
+      "find": "Time Allocation minimum of 3 hours and a (a was missing) maximum of (of was missing) 4 hours per week",
+      "with": "Time allocation: a minimum of 3 hours and a maximum of 4 hours per week."
+    }
+  ]
 }
