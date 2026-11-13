@@ -23,6 +23,19 @@
   "level": "Early Childhood Education Teachers' Diploma",
   "year": 2025,
   "renumberMatrix": true,
+  "_methodFirstLine": "Round 1 (reviewer, 13 Nov 2026, p.5 at 1.1.1.1): \"bold the first points in all of them for year one\". Year 1 typed each cell's teaching method as a plain first bullet; set bold and unbulleted over its activities, as Year 2 is written. \"all\" (user, 13 Nov: 1.2 Safety must change too, make them uniform): the three cells that open on an activity, not a method (1.2.1.1, 1.2.1.2, 1.30.2.1), have their first point set the same way. Method lines in both years tidied alike (no spaces round /, capitals).",
+  "methodFirstLine": "all",
+  "_methodNames": "User, 13 Nov 2026: make them uniform. Each method name spelt as the book spells it most often (Play-based x9, Problem-solving x4, Role-play x16, Group work x5, Practical x5, Analysis x5, Discussion x26).",
+  "methodNames": {
+    "Play-Based": "Play-based",
+    "Play-Based learning": "Play-based learning",
+    "Problem solving": "Problem-solving",
+    "Role play": "Role-play",
+    "Group Work": "Group work",
+    "Practicals": "Practical",
+    "Analysing": "Analysis",
+    "Discussing": "Discussion"
+  },
   "edit": [
     {
       "_why": "Choksy's publisher, typed at the head of the next entry.",
@@ -83,5 +96,13 @@
   "coverColour": "0f6b3a",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "cellSubtext": [
+    {
+      "_why": "Round 1 (user, 13 Nov 2026): expected standards read \"exploited\", not \"explored\" (every one).",
+      "from": "explored",
+      "to": "exploited",
+      "all": true
+    }
+  ]
 }
