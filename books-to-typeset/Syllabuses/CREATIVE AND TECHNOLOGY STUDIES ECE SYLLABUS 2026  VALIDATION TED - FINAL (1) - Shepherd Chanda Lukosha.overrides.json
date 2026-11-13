@@ -85,5 +85,13 @@
   "coverColour": "0f6b3a",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "cellSubtext": [
+    {
+      "_why": "Round 1 (user, 13 Nov 2026): expected standards read \"exploited\", not \"explored\" (every one).",
+      "from": "explored",
+      "to": "exploited",
+      "all": true
+    }
+  ]
 }
