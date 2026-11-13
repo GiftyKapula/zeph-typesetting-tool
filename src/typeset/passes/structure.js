@@ -172,6 +172,7 @@ function boxifyActivities(blocks, opts = {}) {
       const y = blocks[j];
       if (altActDone) break;
       if (BOXBLOCK.has(y.t)) break;                                  // a pre-built box (exercise/activity/…) always ends this one
+      if (y.t === "pagebreak") break;                                // a page break (pageBreakBefore) ends the box; inside it, it was lost
       if (isLessonBanner(y)) break;                                  // "<STRAND>: LESSON N" always starts a new lesson
       if (isHeaderPara(y)) break;                                    // a bold inline section header
       if (isHead(y) && BACKMATTER.test(ht(y))) break;               // never absorb back matter (GLOSSARY/

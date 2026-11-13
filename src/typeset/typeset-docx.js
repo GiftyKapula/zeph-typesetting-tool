@@ -208,7 +208,12 @@ async function typesetOne(docxPath, themeName) {
       const lines = (c) => String(c && c.text || "").split(/\n/).map((s) => s.trim()).filter(Boolean);
       const labelled = rows && cells.some((c) => lines(c).some((t) => /:$/.test(t)))
         && cells.every((c) => !c || ((c.text || "").length <= 400 && !(c.imgs && c.imgs.length)));
-      const ok = rows && cells.some((c) => c && ((c.imgs && c.imgs.length) || (c.text || "").trim()))
+      // A text-only GRID (no pictures, three or more cells filled across two or more rows:
+      // a syllable chart "ba be bi bo bu / ca ce ci co cu") is a real table, not headings
+      // the author boxed — unpacked, each syllable became a heading of its own, one per line.
+      const filled = (r) => r.filter((c) => c && (c.text || "").trim()).length;
+      const grid = rows && !cells.some((c) => c && c.imgs && c.imgs.length) && rows.filter((r) => filled(r) >= 3).length >= 2;
+      const ok = rows && !grid && cells.some((c) => c && ((c.imgs && c.imgs.length) || (c.text || "").trim()))
         && (labelled || cells.every((c) => !c || ((c.text || "").trim().length <= 60 && !/\n.*\n.*\n/.test(c.text || ""))));
       if (!ok) { out.push(b); continue; }
       n++;
@@ -1087,6 +1092,9 @@ async function typesetOne(docxPath, themeName) {
   // "hyphenate": false — no word broken across two lines (a reviewer marked every
   // "repro-duced" break); otherwise the theme's own setting
   if (ov.hyphenate !== undefined) themeOverrides.hyphenate = !!ov.hyphenate;
+  // "raggedRight": true — body text set flush left, not justified: an ECE book's 18pt lines
+  // inside narrow activity boxes hold three or four words, and justifying them opens wide gaps
+  if (ov.raggedRight) themeOverrides.justify = false;
   // The colours the AUTHOR gave text runs in the manuscript (a blue sub-topic line, a red
   // word) print black in a black-and-white book: nothing in it is coloured. White text is
   // kept (it sits on a dark band or table header).
@@ -1732,7 +1740,7 @@ async function typesetOne(docxPath, themeName) {
     if (hasSpine || ov.coversInBook) {
       const cov = blocks.find((b) => b.t === "cover") || {};
       const lines = cov.lines || [];
-      const LEVEL = /\b(form|fo+mu|grade)\s*\d+|\bECE(\s+(level|levo)\s+\d+)?\b/i;   // (an ECE level keeps its number: "ECE Levo 1")
+      const LEVEL = /\b(form|fo+mu|grade|musela)\s*\d+|\bECE(\s+(level|levo)\s+\d+)?\b/i;   // (an ECE level keeps its number: "ECE Levo 1")
       const lvLine = [...lines].reverse().find((l) => LEVEL.test(l)) || "";   // (last: a local eyebrow may name a form too)
       const level = (lvLine.match(LEVEL) || [""])[0];
       const T = THEMES[theme] || {};
