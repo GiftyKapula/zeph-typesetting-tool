@@ -32,7 +32,9 @@
     "    rather than as a method line of its own. No override can split one paragraph in a",
     "    matrix cell without losing the cell's bold runs; correct it in the manuscript.",
     "",
-    "ROUND 1 (Google Drive, Mabvuto Nkhata, 22 and 26 Oct 2026): 9 comments. ZEEP 'Education' -> delete: marked resolved by the reviewer himself, not changed. 1.4.1.1 expected standard reworded as written. Topic 1.7 (Bloom’s Taxonomy): 1.7.2.1 competence and standard 'in the Bloom’s Taxonomy' after 'domain' (the comments say 'in the Bloom’s'; 'Taxonomy' completes the name); 1.7.3.1 competence 'different' after 'Apply', its standard opens 'Different'. The e-mails carry no highlighted words for these; placed from the topic they speak of. One, 'Delete the highlighted', names nothing and is NOT placed. Director signatory -> Samutete M. Petronella (Ms); 2025 -> 2026 (year key, copyright and First Published lines)."
+    "ROUND 1 (Google Drive, Mabvuto Nkhata, 22 and 26 Oct 2026): 9 comments. ZEEP 'Education' -> delete: marked resolved by the reviewer himself, not changed. 1.4.1.1 expected standard reworded as written. Topic 1.7 (Bloom’s Taxonomy): 1.7.2.1 competence and standard 'in the Bloom’s Taxonomy' after 'domain' (the comments say 'in the Bloom’s'; 'Taxonomy' completes the name); 1.7.3.1 competence 'different' after 'Apply', its standard opens 'Different'. The e-mails carry no highlighted words for these; placed from the topic they speak of. One, 'Delete the highlighted', names nothing and is NOT placed. Director signatory -> Samutete M. Petronella (Ms); 2025 -> 2026 (year key, copyright and First Published lines).",
+    "",
+    "FRONT MATTER (user, 13 Nov 2026: front matter made standard for specialist verification): 'Aims:' (a bold run-in label) -> AIMS, a sub-heading under BACKGROUND like Rationale and the rest, and in the contents."
   ],
   "subject": "History Teaching Methods",
   "level": "Secondary Teachers' Diploma",
@@ -41,7 +43,8 @@
   "pageBreakBefore": [
     {
       "_why": "'Aims:' fell alone at the foot of the Background page, its list overleaf.",
-      "find": "Aims:"
+      "find": "AIMS",
+      "near": "The aims of the new Curriculum"
     },
     {
       "_why": "TIME ALLOCATION fell at the foot of page x with one of its two lines, leaving '1 Tutorial hour per week' alone on page xi. ASSESSMENT goes over instead, and TIME ALLOCATION with it, so neither page is near empty.",
@@ -58,6 +61,13 @@
     {
       "find": "2. Written Final Examinations",
       "as": "label"
+    },
+    {
+      "_why": "sub-heading like the others (see _comment)",
+      "find": "Aims:",
+      "text": "AIMS",
+      "as": "h2",
+      "keep": true
     }
   ],
   "insertText": [

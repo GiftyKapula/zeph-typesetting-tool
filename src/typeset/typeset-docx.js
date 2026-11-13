@@ -6270,6 +6270,10 @@ function normaliseQuestionMarkBold(blocks) {
       for (let i = 0; i < blocks.length; i++) {
         const b = blocks[i];
         if (b.t !== "signature") continue;
+        // the office line's dash, typed "Permanent Secretary- Education Services" in several
+        // manuscripts: a spaced en dash as most syllabuses have it. A dash with a space on
+        // either side only, so a hyphenated word ("Co-ordinator") is left alone.
+        b.lines = b.lines.map((l, k) => (k === 0 ? l : { ...l, text: l.text.replace(/(\S)(?:\s+[-–]\s*|\s*[-–]\s+)(?=\S)/g, "$1 – ") }));
         const who = SIGNERS.find((s) => b.lines.slice(1).some((l) => s.office.test(l.text.replace(/\s+/g, " "))));
         if (!who) continue;
         if (who.name) b.lines[0] = { ...b.lines[0], text: who.name };
