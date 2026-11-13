@@ -1579,6 +1579,52 @@ function applyOverrides(blocks, ov) {
     walkM(blocks);
     console.log(`   methodLabels: ${n} label(s) set as methods`);
   }
+  // methodFirstLine: true — a matrix whose activity cells open on the teaching method typed
+  // as a plain first bullet ("• Exploration/Research", then the activities): that line is
+  // set as a method, bold and flush left without its bullet, as a cell typed with a bold
+  // method line is (CTS ECE Year 1 against its Year 2). Only the first line, and only when
+  // it reads as a method list — names split by "/", each of one to four words, no brackets
+  // or punctuation — or one word ("Demonstration"); a cell that opens on an activity
+  // ("• Discussing personal safety …") is left alone.
+  if (ov.methodFirstLine) {
+    let n = 0;
+    const isMethod = (s) => s.length <= 70 && !/[()…,.;:]/.test(s) &&
+      (s.includes("/") || /^\S+$/.test(s)) &&
+      s.split("/").every((p) => { const w = p.trim().split(/\s+/).filter(Boolean).length; return w >= 1 && w <= 4; });
+    const walkF = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table") && Array.isArray(b.rows[0])) {
+          const ci = b.rows[0].findIndex((c) => c && /ACTIVIT/i.test(c.text || ""));
+          if (ci >= 0) for (const row of b.rows.slice(1)) {
+            const cell = Array.isArray(row) && row[ci];
+            if (!cell || typeof cell.text !== "string") continue;
+            // a cell typed in plain runs only comes with its text and no runs: one plain run
+            const segs = Array.isArray(cell.segs) && cell.segs.length ? cell.segs : [{ t: cell.text, b: false, it: false, c: null }];
+            if (segs.some((s) => s.m || typeof s.t !== "string")) continue;
+            const joined = segs.map((s) => s.t).join("");
+            const nl = joined.indexOf("\n");
+            const first = nl < 0 ? joined : joined.slice(0, nl);
+            const m = first.match(/^\s*[•▪◦●·‣∙]\s*(\S.*?)\s*$/);
+            if (!m || nl < 0 || !isMethod(m[1])) continue;
+            // the runs after the first line, as they are
+            let pos = 0;
+            const rest = segs.flatMap((s) => {
+              const sa = pos; pos += s.t.length;
+              if (pos <= nl) return [];
+              return [{ ...s, t: s.t.slice(Math.max(0, nl - sa)) }];
+            });
+            cell.segs = [{ ...segs[0], t: m[1], b: true, it: false }, ...rest];
+            cell.text = cell.text.replace(/^\s*[•▪◦●·‣∙][ \t]*/, "");
+            n++;
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkF(b[k]);
+      }
+    };
+    walkF(blocks);
+    console.log(`   methodFirstLine: ${n} first line(s) set as methods`);
+  }
   // removeRow: [{ find }] — delete a whole TABLE ROW, matched by any one of its cells
   // whose trimmed text equals `find` (or starts with it, with `startsWith` instead).
   // For a row the author duplicated or a clause withdrawn after validation: `remove`
@@ -5639,7 +5685,7 @@ async function typesetOne(docxPath, themeName) {
   }
 
   if (variant === "syllabus") mergeSplitMatrices(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.methodLabels || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.methodLabels || ov.methodFirstLine || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);

@@ -23,6 +23,8 @@
   "level": "Early Childhood Education Teachers' Diploma",
   "year": 2025,
   "renumberMatrix": true,
+  "_methodFirstLine": "Round 1 (reviewer, 13 Nov 2026, p.5 at 1.1.1.1): Year 1 typed each cell's teaching method as a plain first bullet (\"Exploration/Research\"); set bold and unbulleted over its activities, as Year 2 is written. Three Year 1 cells open on an activity, not a method (1.2.1.1, 1.2.1.2 and the circulatory-system row) and are left as typed.",
+  "methodFirstLine": true,
   "edit": [
     {
       "_why": "Choksy's publisher, typed at the head of the next entry.",
