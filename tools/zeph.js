@@ -7,7 +7,7 @@
 //             → applying-corrections → approved → published
 //
 // Commands
-//   import <dir>            register every .docx (+overrides) under <dir>, in place
+//   import <dir|file>       register every .docx (+overrides) under <dir> (or one .docx), in place
 //   list [--state s]        list books (optionally filter by state)
 //   show <book>             book detail: versions, rounds, comment tallies
 //   where <book>            print latest file paths for a book
@@ -15,6 +15,7 @@
 //   build <book>            typeset the latest manuscript (runs the engine)
 //   send <book> [pdf]       open a proofread round; mark sent-for-proofread
 //   return <book> <file>    ingest annotated file, extract comments into the round
+//                           (.pdf, .docx, or a .json of comments, e.g. from tools/gdrive-comments.js)
 //   comments <book> [--open]  list the latest round's comments
 //   resolve <comment-id> [--action "…"] [--flag] [--wontfix]
 //   close <book> [round] [--force]  close a proofread round (blocks on pending comments unless --force)
@@ -114,7 +115,7 @@ function walkDocx(dir, out = []) {
 function cmdImport(dir) {
   const root = path.resolve(dir || "books-to-typeset");
   if (!fs.existsSync(root)) die("no such dir: " + root);
-  const docs = walkDocx(root);
+  const docs = fs.statSync(root).isFile() ? [root] : walkDocx(root);
   let nb = 0, nv = 0;
   for (const d of docs) {
     const m = metaForDocx(d);
@@ -212,7 +213,7 @@ async function cmdReturn(id, file) {
   const b = requireBook(id);
   if (!file || !fs.existsSync(file)) die("file not found: " + file);
   const ext = path.extname(file).toLowerCase();
-  const vkind = ext === ".pdf" ? "annotated_pdf" : "manuscript";
+  const vkind = ext === ".pdf" ? "annotated_pdf" : ext === ".json" ? "attachment" : "manuscript";
   const vid = addVersion(b.id, vkind, file, "returned from proofread");
 
   let round = db.prepare("SELECT * FROM round WHERE book_id=? AND status='open' ORDER BY number DESC LIMIT 1").get(b.id);
@@ -228,6 +229,8 @@ async function cmdReturn(id, file) {
   let comments = [];
   try {
     if (ext === ".pdf") comments = await require("./lib/pdf-comments.js").extractPdfComments(file);
+    // reviewer comments gathered elsewhere (Google Drive comment e-mails): [{page, anchor, note}]
+    else if (ext === ".json") comments = JSON.parse(fs.readFileSync(file, "utf8"));
     else comments = await require("./lib/docx-comments.js").extractDocxComments(file);
   } catch (e) { console.warn("!  comment extraction failed:", e.message); }
 

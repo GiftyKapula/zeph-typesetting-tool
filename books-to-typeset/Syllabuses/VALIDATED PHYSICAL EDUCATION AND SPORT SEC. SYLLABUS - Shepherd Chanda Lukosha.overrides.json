@@ -64,9 +64,10 @@
     "above are now worded by the reviewer. The cover title reads PHYSICAL EDUCATION AND SPORT",
     "CONTENT SYLLABUS (`subject`). Page numbers in the rules are the reviewer's PDF's.",
     "",
-    "FRONT MATTER (user, 13 Nov 2026: front matter made standard for specialist verification; year left as it is, user: ignore PE for the year): Duration's 'Two years' a sentence, not a one-bullet list."
+    "FRONT MATTER (user, 13 Nov 2026: front matter made standard for specialist verification; year then left as it was ('ignore PE'); later the same day the user asked for 2026 on PE Content too): Duration's 'Two years' a sentence, not a one-bullet list."
   ],
   "subject": "Physical Education and Sport Content",
+  "year": 2026,
   "_subject_why": "PROOFREAD 2026-10-23, p1 (cover title): 'PHYSICAL EDUCATION AND SPORT CONTENT SYLLABUS' -- the name it was received under (see FILE NAME).",
   "isbn": "978-9982-54-066-7",
   "coverColour": "0f6b3a",
@@ -125,6 +126,11 @@
       "_why": "PROOFREAD 2026-10-23, p11: 'should read as sub-topics, specific competence and learning activities are arranged ...' (competences, as the book spells it).",
       "find": "The topics, sub-topics and specific competencies are arranged",
       "with": "The topics, sub-topics, specific competences and learning activities are arranged"
+    },
+    {
+      "_why": "User, 13 Nov 2026: every syllabus ready for printing, consistent - year 2026 throughout",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
     }
   ],
   "cellSubtext": [

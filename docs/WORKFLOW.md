@@ -74,6 +74,15 @@ Book ids can be abbreviated to any unique substring, e.g.
   the comment. (`tools/lib/pdf-comments.js`, via `pdfjs-dist`.)
 - **Word `.docx`** — Word review *comments* (`word/comments.xml`) *and* tracked
   changes (insertions/deletions). (`tools/lib/docx-comments.js`, via `jszip`.)
+- **A `.json` list** `[{page, anchor, note}]` — for comments gathered elsewhere.
+  Reviewers who comment on a PDF shared on **Google Drive** leave nothing in the
+  file itself (a downloaded copy has no comments); every comment arrives as a
+  Google notification e-mail instead, often twice (alone, then in a digest).
+  Fetch the book's comment threads from Gmail (with their HTML bodies) and run
+  `node tools/gdrive-comments.js <thread.json>… --pdf <the copy they reviewed>`:
+  it keeps one copy of each comment (by Drive's discussion id, replies joined)
+  and sets the page where the highlighted passage occurs on one page only — a
+  one-word anchor ("Analysing") has no page, as the e-mails never say.
 
 Extraction is best-effort: it captures what the file actually contains. Review
 the results with `zeph comments`, then resolve each one, recording how you fixed

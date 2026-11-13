@@ -45,7 +45,7 @@
   ],
   "subject": "Musical Arts Education Content",
   "level": "Secondary Teachers' Diploma",
-  "year": 2024,
+  "year": 2026,
   "renumberMatrix": true,
   "remove": [
     "ISBN: 978-9982-54-066-7"
@@ -149,6 +149,11 @@
       "_why": "PROOFREAD 2026-10-20, p9: 'trainee' marked 'Delete'.",
       "find": "creative, and reflective trainee teachers equipped",
       "with": "creative, and reflective teachers equipped"
+    },
+    {
+      "_why": "User, 13 Nov 2026: every syllabus ready for printing, consistent - year 2026 throughout",
+      "find": "Curriculum Development Centre, 2024",
+      "with": "Curriculum Development Centre, 2026"
     }
   ],
   "editCell": [

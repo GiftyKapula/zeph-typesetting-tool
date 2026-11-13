@@ -45,7 +45,7 @@
 // the generated table of contents), not via a render-time counter here.
 // vertical room left above a signatory's name (for a hand signature) on the
 // Foreword / Preface / Acknowledgements pages.
-#let sigspace() = v(12mm, weak: true)
+#let sigspace(h: 12mm) = v(h, weak: true)
 // A signatory block (name / title / organisation) with EVEN spacing between the
 // lines — identical in every book. Kept together so it never splits across a page.
 // `img`: a hand signature set above the name, in place of the blank sigspace.
@@ -65,6 +65,10 @@
 // Register a heading so the real outline (TOC) can find it, but render nothing
 // itself — the visible heading is drawn by the functions below.
 #show heading: none
+// "C++" / "C#" never break across a line ("C+" / "+" in a narrow matrix cell). A box,
+// not word joiners: joiners keep the line but swallow the "++" in the PDF's text layer.
+#show "C++": box
+#show "C#": box
 #let mark(lvl, body) = heading(level: lvl, outlined: true, numbering: none)[#body]
 // Register a heading so the real outline (TOC) finds it at THIS page, but render nothing
 // on the page — used to list the matrix TOPICS (which live inside table cells) in the
@@ -1696,7 +1700,7 @@
      Zambia Educational Publishing House \
      Light Industrial Area \
      Chishango Road \
-     P.O. BOX 32708 \
+     P.O. Box 32708 \
      Lusaka Zambia]
     v(20pt)
     [Printed by: \
@@ -2133,6 +2137,10 @@
   // Syllabus matrix cells are ragged-right (not justified): with hyphenation OFF, justified
   // narrow columns open ugly word gaps. Other books keep the document's justified cells.
   set par(justify: T.variant != "syllabus")
+  // ...and filled line by line: the document's "optimized" breaking balances a ragged
+  // cell's lines, which left a bullet's first word alone ("Classifying" / "and
+  // Categorising existing ...", CS-ICT Teaching Methods round 1).
+  set par(linebreaks: if T.variant == "syllabus" { "simple" } else { auto })
   // Is a cell completely empty? Such cells appear in "Complete the table" / "Fill
   // in the table" grids the learner writes into. When many body cells are empty
   // the table is a FILL-IN table — give every empty cell a minimum writing height

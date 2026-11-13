@@ -38,7 +38,7 @@
   ],
   "subject": "Musical Arts Education Teaching Methods",
   "level": "Secondary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "levelPageAfterCompetences": true,
   "_levelPageAfterCompetences_why": "Requested 2026-10-12: the page that names the level of the book (Secondary Teachers’ Diploma) comes after the Key Competences table, before the YEAR 1 matrix.",
   "removeRange": [
@@ -103,6 +103,11 @@
       "_why": "PROOFREAD 2026-10-20, p10: 'trainee' marked 'Delete'.",
       "find": "creative, and reflective trainee teachers equipped",
       "with": "creative, and reflective teachers equipped"
+    },
+    {
+      "_why": "User, 13 Nov 2026: every syllabus ready for printing, consistent - year 2026 throughout",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
     }
   ],
   "unbold": [

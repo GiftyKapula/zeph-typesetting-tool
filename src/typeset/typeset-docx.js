@@ -193,7 +193,7 @@ function emit(blocks) {
       // block must keep its own spacing) and reset to normal at the first unit.
       case "showpage": out += `#pagebreak(weak: true)\n#pgvisible.update(true)\n#set par(spacing: ${b.spacing || "1.9em"})\n`; break;
       case "bodystart": out += `#pagebreak(weak: true)\n#counter(page).update(1)\n#set page(numbering: "1")\n#set par(spacing: 0.86em)\n`; break;
-      case "sigspace": out += `#sigspace()\n`; break;
+      case "sigspace": out += b.mm ? `#sigspace(h: ${b.mm}mm)\n` : `#sigspace()\n`; break;
       case "signature": out += `#signature(${arr(b.lines, (l) => `(text: ${S(l.text)}, bold: ${l.bold ? "true" : "false"})`)}${b.img ? `, img: ${S(b.img)}` : ""})\n`; break;
       case "backcover": out += `#backcover(${strArr(b.lines || [])}, ${b.logo ? `(file: ${S(b.logo.file)})` : "none"}, ${b.isbn ? S(b.isbn) : "none"})\n`; break;
       case "h1": {
@@ -1589,6 +1589,81 @@ function applyOverrides(blocks, ov) {
     };
     walkM(blocks);
     console.log(`   methodLabels: ${n} label(s) set as methods`);
+  }
+  // methodFirstLine: true — a matrix whose activity cells open on the teaching method typed
+  // as a plain first bullet ("• Exploration/Research", then the activities): that line is
+  // set as a method, bold and flush left without its bullet, as a cell typed with a bold
+  // method line is (CTS ECE Year 1 against its Year 2). Only the first line, and only when
+  // it reads as a method list — names split by "/", each of one to four words, no brackets
+  // or punctuation — or one word ("Demonstration"); a cell that opens on an activity
+  // ("• Discussing personal safety …") is left alone. "all" sets every cell's first bullet
+  // so, method or not — for a reviewer who wants every cell to open alike.
+  // Every method line in the column, set here or typed bold, is then written alike: no
+  // spaces round "/" ("Research/Case study/ Exploration"), each name with a capital
+  // ("Demonstration/exploration").
+  if (ov.methodFirstLine) {
+    let n = 0, tidied = 0;
+    const isMethod = (s) => s.length <= 70 && !/[()…,.;:]/.test(s) &&
+      (s.includes("/") || /^\S+$/.test(s)) &&
+      s.split("/").every((p) => { const w = p.trim().split(/\s+/).filter(Boolean).length; return w >= 1 && w <= 4; });
+    // `methodNames`: { "Role play": "Role-play", … } — one spelling per method name, in the
+    // method line only (a whole-cell replace would also catch "Role playing" below it)
+    const names = ov.methodNames || {};
+    const tidy = (s) => s.split("/").map((p) => {
+      const q = p.trim().replace(/^\p{Ll}/u, (c) => c.toUpperCase());
+      return Object.prototype.hasOwnProperty.call(names, q) ? names[q] : q;
+    }).join("/");
+    const walkF = (arr) => {
+      for (const b of arr) {
+        if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table") && Array.isArray(b.rows[0])) {
+          const ci = b.rows[0].findIndex((c) => c && /ACTIVIT/i.test(c.text || ""));
+          if (ci >= 0) for (const row of b.rows.slice(1)) {
+            const cell = Array.isArray(row) && row[ci];
+            if (!cell || typeof cell.text !== "string") continue;
+            // a cell typed in plain runs only comes with its text and no runs: one plain run
+            const segs = Array.isArray(cell.segs) && cell.segs.length ? cell.segs : [{ t: cell.text, b: false, it: false, c: null }];
+            if (segs.some((s) => s.m || typeof s.t !== "string")) continue;
+            const joined = segs.map((s) => s.t).join("");
+            const nl = joined.indexOf("\n");
+            if (nl < 0) continue;
+            const first = joined.slice(0, nl);
+            const m = first.match(/^\s*[•▪◦●·‣∙]\s*(\S.*?)\s*$/);
+            let label;
+            if (m) {
+              if (ov.methodFirstLine !== "all" && !isMethod(m[1])) continue;
+              label = isMethod(m[1]) ? tidy(m[1]) : m[1];
+              n++;
+            } else {
+              // typed bold already: only tidied
+              const boldAt = segs.flatMap((s) => Array.from(s.t, () => !!s.b));
+              const t = first.trim();
+              if (!t || !isMethod(t) || !Array.from(first).every((ch, i) => !/[A-Za-z]/.test(ch) || boldAt[i])) continue;
+              label = tidy(t);
+              if (label === t) continue;
+              tidied++;
+            }
+            // the runs after the first line, as they are
+            let pos = 0;
+            const rest = segs.flatMap((s) => {
+              const sa = pos; pos += s.t.length;
+              if (pos <= nl) return [];
+              return [{ ...s, t: s.t.slice(Math.max(0, nl - sa)) }];
+            });
+            // Printed tidied, with a zero-width break after each "/" so a long run can still
+            // wrap. The text — which the template sizes the columns from — keeps the line as
+            // typed, less its bullet: tidied there, the runs' spacing changed the longest
+            // "word" in the column and with it every column width (CTS ECE went 36 -> 35
+            // pages with the competences overprinting, then 43 with the activities squeezed).
+            cell.segs = [{ ...segs[0], t: label.replace(/\//g, "/​"), b: true, it: false }, ...rest];
+            cell.text = cell.text.replace(/^\s*[•▪◦●·‣∙][ \t]*/, "");
+          }
+        }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkF(b[k]);
+      }
+    };
+    walkF(blocks);
+    console.log(`   methodFirstLine: ${n} first line(s) set as methods, ${tidied} method line(s) tidied`);
   }
   // removeRow: [{ find }] — delete a whole TABLE ROW, matched by any one of its cells
   // whose trimmed text equals `find` (or starts with it, with `startsWith` instead).
@@ -3852,6 +3927,10 @@ function topCompetenceHeadings(blocks) {
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
     if (!(b && b.t === "h2" && /competen/i.test(b.text || "") && !LEVEL.test(String(b.text || "").trim()))) continue;
+    // a heading numbered within the front matter ("1.6.4 General Competences ...",
+    // "1.7 Key Competences") is one of its sections and stays nested with 1.1, 1.2 ...
+    // (CS-ICT Teaching Methods reviewer: "indent this and unbold it" in the contents)
+    if (/^\d+\.\d+/.test(String(b.text || "").trim())) continue;
     let j = i + 1;
     while (j < blocks.length && !isHead(blocks[j])) j++;
     if (j < blocks.length && LEVEL.test(String(blocks[j].text || "").replace(/\s+/g, " ").trim())) b.top = true;
@@ -5466,13 +5545,8 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
       && /^published by\b.*curriculum development centre/i.test(((b.text || blockPlain(b)) || "").trim()));
     if (pubAt >= 0) blocks.splice(pubAt, 1);
     blocks.splice(covAt + 1, 0,
-      line("Published by the Curriculum Development Centre", true),
-      line(String(year || ""), true),
-      line(`© Curriculum Development Centre, ${year || ""}`.trim().replace(/,\s*$/, ""), true),
-      line("All rights reserved."),
-      line("No part of this publication may be reproduced, stored in a retrieval system, "
-        + "or transmitted by electronic, mechanical, photocopying, recording or otherwise "
-        + "without prior written permission of the copyright owner."));
+      line(`© Curriculum Development Centre, ${year || ""}`.trim().replace(/,\s*$/, "")),
+      line("All rights reserved."));
   }
   // The "© Curriculum Development Centre, 2025" line over the notice. Religious Education
   // Methods and Social Studies styled it Heading 1 (or typed it as the first heading of
@@ -5486,7 +5560,29 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
       blocks.splice(at, 0, { t: "para", plain: t, segs: [{ t, b: true, it: false, c: null }], align: "center" });
     }
   }
-  const crIdx = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+  // One copyright notice across the family. Manuscripts typed the CDC boilerplate
+  // several ways (a semicolon, serial commas, "No reproduction, copy or transmission
+  // …", the notice split over two paragraphs, the owner line in bold), so a shelf of
+  // syllabuses showed several different copyright pages. Set the house wording, in
+  // one paragraph, under a plain owner line.
+  {
+    const at = blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
+    if (at >= 0) {
+      const t = "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system, "
+        + "or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise "
+        + "without prior written permission of the copyright owner.";
+      let end = at;
+      while (end + 1 < blocks.length && blocks[end + 1].t === "para"
+        && /no part of this publication|no reproduction|no paragraph of this|retrieval system|written permission/i.test(blockPlain(blocks[end + 1]) || "")) end++;
+      blocks.splice(at, end - at + 1, { t: "para", plain: t, segs: [{ t, b: false, it: false, c: null }], align: "center" });
+      for (let i = Math.max(0, at - 3); i < at; i++) {
+        const b = blocks[i];
+        if (b.t === "para" && /^©\s*curriculum development centre/i.test((blockPlain(b) || "").trim()) && Array.isArray(b.segs))
+          b.segs = b.segs.map((x) => ({ ...x, b: false }));
+      }
+    }
+  }
+  const crIdx =blocks.findIndex((b) => b.t === "para" && /all rights reserved/i.test(blockPlain(b) || ""));
   // The copyright notice usually runs on past "All rights reserved." into the
   // no-reproduction sentence. The imprint and contents page go after the WHOLE notice:
   // anchored to the "All rights reserved" line alone they were pushed in ahead of that
@@ -5688,7 +5784,7 @@ async function typesetOne(docxPath, themeName) {
   }
 
   if (variant === "syllabus") mergeSplitMatrices(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.methodLabels || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.removeRow || ov.insertRow || ov.moveRow || ov.cellSubtext || ov.methodLabels || ov.methodFirstLine || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   reformatAcronyms(blocks);
   formatGlossary(blocks);
@@ -6279,6 +6375,15 @@ function normaliseQuestionMarkBold(blocks) {
         const who = SIGNERS.find((s) => b.lines.slice(1).some((l) => s.office.test(l.text.replace(/\s+/g, " "))));
         if (!who) continue;
         if (who.name) b.lines[0] = { ...b.lines[0], text: who.name };
+        // One signatory block across the family (user, 13 Nov 2026: "consistency is key"):
+        // name bold, office plain, MINISTRY OF EDUCATION bold. The manuscripts typed the
+        // Director's office three ways ("Director – Directorate of Curriculum Development",
+        // "… – Curriculum Development Centre") and three books left the ministry line off;
+        // "Kelvin Mambwe, (PhD)" carried a stray comma before the title.
+        b.lines[0] = { ...b.lines[0], bold: true, text: b.lines[0].text.replace(/,\s*(\((?:PhD|Dr\.?|Prof\.?)\))/i, " $1") };
+        const ofc = b.lines.findIndex((l, k) => k > 0 && who.office.test(l.text.replace(/\s+/g, " ")));
+        if (who.file === "director-signature.png" && ofc > 0) b.lines[ofc] = { ...b.lines[ofc], text: "Director – Curriculum Development" };
+        if (ofc > 0) b.lines = [b.lines[0], { ...b.lines[ofc], bold: false }, { text: "MINISTRY OF EDUCATION", bold: true }];
         if (!fs.existsSync(path.join(__dirname, "assets", who.file))) continue;
         b.img = "syl_" + who.file;
         used.add(who.file);
@@ -6674,6 +6779,16 @@ function normaliseQuestionMarkBold(blocks) {
     // "RECOMMENDED READINGS" had only the last recognised, so it alone opened a page.)
     const BACKSECTION = /^(appendi(x|ces)|glossar(y|ies)|references?|bibliograph(y|ies)|(prescribed|recommended|prescribed\s+(and|&)\s+recommended)\s+(text\s*books?|references?|readings?))\b[\s.:]*$/i;
     const isCaps = (s) => s === s.toUpperCase() && /[A-Z]{3}/.test(s);
+    // One spelling of the Director's section head across the family: most manuscripts
+    // write ACKNOWLEDGEMENT, two wrote ACKNOWLEDGEMENTS (E&FE, Religious Education Content).
+    for (let i = 0; i < frontEnd; i++) {
+      const b = blocks[i];
+      if (isSectionLabel(b) && /^acknowledge?ments?\.?$/i.test((b.text || "").trim())) {
+        b.text = "ACKNOWLEDGEMENT";
+        if (Array.isArray(b.segs)) b.segs = [{ ...(b.segs[0] || {}), t: "ACKNOWLEDGEMENT" }];
+        if (b.plain != null) b.plain = "ACKNOWLEDGEMENT";
+      }
+    }
     const frontLabels = [];
     for (let i = 0; i < frontEnd; i++) if (isSectionLabel(blocks[i])) frontLabels.push((blocks[i].text || "").trim());
     const nCaps = frontLabels.filter(isCaps).length;
@@ -7161,6 +7276,9 @@ function normaliseQuestionMarkBold(blocks) {
     try { auditSyllabusNumbering(blocks); }
     catch (e) { console.warn("!  numbering check could not run:", e.message); }
   }
+  // sigSpace: <mm> -- room above every signatory's name (default 12mm), for a book whose
+  // reviewers ask for space to sign in.
+  if (ov.sigSpace) for (const b of blocks) if (b.t === "sigspace") b.mm = Number(ov.sigSpace);
   const tmpl = fs.readFileSync(path.join(__dirname, "generic-template.typ"), "utf8");
   // Inject the theme dict ABOVE the template so its functions capture it.
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${emit(blocks)}\n`;

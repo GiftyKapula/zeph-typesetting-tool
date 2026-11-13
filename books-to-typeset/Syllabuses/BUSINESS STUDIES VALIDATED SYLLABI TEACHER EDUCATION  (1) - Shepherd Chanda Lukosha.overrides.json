@@ -29,7 +29,7 @@
     "FRONT MATTER (user, 13 Nov 2026: front matter made standard for specialist verification): Duration of the Programme, typed as item c) of Admission Requirements, a sub-heading like the others; its '2 Years' (set as a list number + 'Years') -> 'Two (2) years.'"
   ],
   "subject": "Business Studies",
-  "level": "Secondary School Teachers' Diploma",
+  "level": "Secondary Teachers' Diploma",
   "year": 2026,
   "coverColour": "0f6b3a",
   "renumberMatrix": true,
@@ -170,6 +170,26 @@
       "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\"): the same line in every course",
       "find": "Practical Hours: 2 hour per week",
       "with": "Practical Hours: 2 hours per week"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Secondary School Teachers’ Diploma",
+      "with": "Secondary Teachers’ Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Secondary School Teachers' Diploma",
+      "with": "Secondary Teachers' Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Primary School Teachers' Diploma",
+      "with": "Primary Teachers' Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
+      "find": "Primary School Teachers’ Diploma",
+      "with": "Primary Teachers’ Diploma"
     }
   ],
   "asPara": [

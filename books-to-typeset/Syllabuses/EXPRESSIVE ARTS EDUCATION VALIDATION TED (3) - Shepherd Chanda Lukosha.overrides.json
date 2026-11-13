@@ -2,11 +2,13 @@
   "_comment": [
     "Matrix numbers are Word auto-list numbers that restart and run on across merged cells (1.4, 1.4, 1.6 …; 1.25.x competences under sub-topic 1.32.x); renumberMatrix counts them afresh from the table structure. The matrix runs both years as one table with no YEAR TWO heading: the YEAR 2 banner goes before the author's own topic 2.1, Harmonic Structures.",
     "TITLE / LEVEL / YEAR (2026-10-16). As the manuscript's cover says: EXPRESSIVE ARTS SYLLABUS, Primary Teachers' Diploma; 2025 from the copyright line. Without them the cover read 'EXPRESSIVE ARTS EDUCATION SYLLABUS / TEACHERS' DIPLOMA' (taken from the file name).",
-    "HAND-TYPED CONTENTS (2026-10-16). Under the template's ISBN line (978-9982-54-066-7, the same number as in Music Methods: not this book's) the manuscript has its own contents as a table with its Word page numbers; it printed after the generated contents for two and a half pages. Both go, as in Music Methods; the imprint keeps its blank ISBN line."
+    "HAND-TYPED CONTENTS (2026-10-16). Under the template's ISBN line (978-9982-54-066-7, the same number as in Music Methods: not this book's) the manuscript has its own contents as a table with its Word page numbers; it printed after the generated contents for two and a half pages. Both go, as in Music Methods; the imprint keeps its blank ISBN line.",
+    "",
+    "ROUND 1 (2026-11-10): 22 Google Drive comments (charles walimaposo, Owen Mutema, Nampundu Special, 29-30 Oct 2026), all made. One-word and unanchored ones placed from the page order of each reviewer's batch -- see each _why. The duplicated Art and Design topics (1.15-1.18 = 1.19-1.22): the first copy removed on the user's instruction (removeRow); the topics after it renumber."
   ],
   "subject": "Expressive Arts",
   "level": "Primary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "insertRow": [
     {
@@ -34,5 +36,155 @@
       "_why": "its last two activities ran alone onto the last page (2026-10-16)",
       "startsWith": "2.14.2.1"
     }
-  ]
+  ],
+  "removeRow": [
+    {
+      "_why": "ROUND 1 (2026-11-10): the Art and Design topics Colour Theory, Painting, Patterns in Art and Crafts were typed twice (1.15-1.18 and 1.19-1.22). User: keep one copy. The second is kept -- the reviewers commented on it and its standards read better (explored, not exploited); the first copy's five rows go, matched by their standards, and renumberMatrix closes the gap.",
+      "find": "• Colour wheel created accordingly"
+    },
+    {
+      "find": "• Painting material and tools exploited accordingly"
+    },
+    {
+      "find": "• Various painting techniques applied adequately"
+    },
+    {
+      "find": "• Patterns in Art and Design designed accordingly"
+    },
+    {
+      "find": "• Crafts created skillfully"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "ROUND 1 (Drive, Owen Mutema, 29 Oct 2026) p7: 'Musical Arts Education' -> 'Change to Expressive Arts' (Preface)",
+      "find": "Curriculum Musical Arts Education Syllabus",
+      "with": "Curriculum Expressive Arts Education Syllabus"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Owen Mutema, 29 Oct 2026) p7: 'music education' -> 'Change to Expressive Arts' (Preface; two comments, the other unanchored, cover the Preface's three)",
+      "find": "effectively teach music education.",
+      "with": "effectively teach Expressive Arts."
+    },
+    {
+      "_why": "as above",
+      "find": "a solid foundation in music education,",
+      "with": "a solid foundation in Expressive Arts,"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Owen Mutema, 29 Oct 2026) p7: 'music education' -> 'Change to Expressive Arts' (Preface; typed with two spaces)",
+      "find": "teach music  education content",
+      "with": "teach Expressive Arts content"
+    },
+    {
+      "_why": "User, 13 Nov 2026: every syllabus ready for printing, consistent - year 2026 throughout",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "ROUND 1 (Drive, Owen Mutema, 29 Oct 2026) p21: FIELD TRIP: 'Attending traditional ceremonies is an imperative learning activity. List it.' (1.2 traditional ceremonies)",
+      "from": "Stating the importance of traditional ceremonies",
+      "to": "Stating the importance of traditional ceremonies\n• Attending traditional ceremonies"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Nampundu Special, 30 Oct 2026) p27: 'rewrite as, Analysing the importance of Art and Design goals'",
+      "from": "Analysing the importance of the goals of Art and Design",
+      "to": "Analysing the importance of Art and Design goals"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Nampundu Special, 30 Oct 2026) p27: 'from': 'after the word from include the word, Zambian' (the rock-painting activity in the same cell as the comment above; the anchor is one word)",
+      "from": "Analysing rock paintings from pre historic sites",
+      "to": "Analysing rock paintings from Zambian pre historic sites"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Nampundu Special, 30 Oct 2026) p31: 1.22 'DEMONSTRATION' (typed as a plain bulleted line): 'capitalise first letter only'. Set as the bold method label every other cell has (1.18, its twin, included), so it loses the bullet and reads as a heading, not as a capitalised activity",
+      "from": "DEMONSTRATION",
+      "to": "DEMONSTRATION",
+      "bold": true,
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Nampundu Special, 30 Oct 2026) p31: 'Identifying types of crafts': 'complete the sentence with, found in the local environment' (1.22; its twin 1.18 alike)",
+      "from": "Identifying types of crafts",
+      "to": "Identifying types of crafts found in the local environment",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Nampundu Special, 30 Oct 2026) p31: 'their': 'remove the word their' (1.20.2; its twin 1.16.2 alike)",
+      "from": "painting techniques using their own themes",
+      "to": "painting techniques using own themes",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Nampundu Special, 30 Oct 2026) p31: 'technique': 'add s at the end of the word technique' (1.20.2; its twin 1.16.2 alike)",
+      "from": "Painting using different technique\n",
+      "to": "Painting using different techniques\n",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Nampundu Special, 30 Oct 2026) p31: 'on personal': 'remove the words on personal and replace with on' (1.21; its twin 1.17 alike)",
+      "from": "a motif based on personal symbols",
+      "to": "a motif based on symbols",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, Nampundu Special, 30 Oct 2026) p31: unanchored 'complete by adding the words, in Art and Design' -- placed by judgement on 'Defining pattern' (1.21, the incomplete line on that page; its twin 1.17 alike)",
+      "from": "Defining pattern\n",
+      "to": "Defining pattern in Art and Design\n",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026) p36: 'Evaluate the body systems': 'Recast the Statement, to read, Analyse the body systems'",
+      "from": "Evaluate the body systems",
+      "to": "Analyse the body systems"
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026) p36: 'Body systems evaluated correctly': 'Read as, Body systems analysed correctly'",
+      "from": "Body systems evaluated correctly",
+      "to": "Body systems analysed correctly"
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026) p36: 'Various': 'Remove the term Various' (one-word anchor, placed by judgement on the 1.30.1.1 standard next to the two comments above)",
+      "from": "Various types of body movements performed correctly",
+      "to": "Types of body movements performed correctly"
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026) p38: recast standard 1.31.4.1",
+      "from": "Various cross cutting issues analysed correctly",
+      "to": "Various cross cutting issues that affect physical education and sport using games analysed adequately"
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026) p39: 'any': 'Remove' and 'body': 'Not body but bodies' (1.33.1.1 competence and activity)",
+      "from": "skills in any water body",
+      "to": "skills in water bodies",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026) p49: recast standard 2.12.1.2",
+      "from": "Various techniques that sport psychologists use practiced correctly",
+      "to": "Various techniques in sports psychology practiced accordingly"
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026) p50: recast standard 2.13.1.1",
+      "from": "Various sport entrepreneurship skills applied correctly",
+      "to": "Entrepreneurship skills in sport applied competently"
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026): unanchored 'Recast to, Apply various teaching method in lesson execution' -- the only teaching-methods competence in the PE part (1.34.2.1); 'method' -> 'methods'",
+      "from": "Apply the methods in teaching Physical Education and sport practical lesson",
+      "to": "Apply various teaching methods in lesson execution"
+    },
+    {
+      "_why": "ROUND 1 (Drive, charles walimaposo, 29 Oct 2026): unanchored 'Rewrite to, Various teaching methods in lesson execuetion applied correctly' (1.34.2.1 standard; 'execuetion' -> 'execution')",
+      "from": "Methods used in a Physical Education and Sport practical lesson applied correctly",
+      "to": "Various teaching methods in lesson execution applied correctly"
+    }
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green; the Teaching Courses Creative and Technological Studies, Expressive Arts and Social Studies were added to Social Sciences (CDC, 2026-11-12). One green for all (#0f6b3a), peach band and dark Impact title as on the other Social Sciences syllabuses.",
+  "coverColour": "0f6b3a",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact"
 }
