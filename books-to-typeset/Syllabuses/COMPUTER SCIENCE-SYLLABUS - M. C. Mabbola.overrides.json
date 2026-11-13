@@ -533,6 +533,11 @@
       "_why": "User, 13 Nov 2026 (consistency is key): one programme name across the syllabuses, as the cover and title page now print",
       "find": "Primary School Teachers’ Diploma",
       "with": "Primary Teachers’ Diploma"
+    },
+    {
+      "_why": "User, 13 Nov 2026 (consistency is key): the Foreword and Acknowledgement typed it without the apostrophe",
+      "find": "Secondary School Teachers Diploma",
+      "with": "Secondary Teachers’ Diploma"
     }
   ]
 }
