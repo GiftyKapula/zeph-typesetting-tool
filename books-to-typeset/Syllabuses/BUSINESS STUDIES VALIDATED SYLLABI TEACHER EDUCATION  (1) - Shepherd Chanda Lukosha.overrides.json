@@ -710,6 +710,26 @@
       "_why": "ROUND 2 (Drive, Harriet Kalapa) p105: delete the '-' between 'teacher' and 'in'",
       "from": "Subject teacher - in the teaching",
       "to": "Subject teacher in the teaching"
+    },
+    {
+      "_why": "user 2026-11-13: the same slip Harriet Kalapa marked on p94 ('Demonstrated' -> 'demonstrated'), fixed in the other courses too",
+      "from": "Records and Single Entry Demonstrated accordingly",
+      "to": "Records and Single Entry demonstrated accordingly"
+    },
+    {
+      "_why": "user 2026-11-13: the same slip Harriet Kalapa marked on p94 ('Demonstrated' -> 'demonstrated'), fixed in the other courses too",
+      "from": "Sources of Zambian Law Demonstrated correctly",
+      "to": "Sources of Zambian Law demonstrated correctly"
+    },
+    {
+      "_why": "user 2026-11-13: same slip as p94's 'Demonstrated' (a capital mid-standard), fixed with it",
+      "from": "Trial Balance Extracted Correctly",
+      "to": "Trial Balance extracted correctly"
+    },
+    {
+      "_why": "user 2026-11-13: same slip as p94's 'Demonstrated' (a capital mid-standard), fixed with it",
+      "from": "Knowledge of Business Law Shown correctly",
+      "to": "Knowledge of Business Law shown correctly"
     }
   ],
   "removeRow": [
