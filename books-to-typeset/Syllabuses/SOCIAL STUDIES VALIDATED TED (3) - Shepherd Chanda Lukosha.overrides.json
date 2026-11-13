@@ -14,24 +14,114 @@
     "",
     "MATRIX NUMBERS. renumberMatrix: sub-topics 1.2.1 then 1.2.3 (no 1.2.2); 2.1.2 typed twice (Pressure",
     "Groups, Elections); 2.3.2 then 2.3.4-2.3.6 (no 2.3.3); 1.6.2's competence numbered 1.6.2.2; '1.8. 2'",
-    "and '1.8.2. 1' with a space inside. Counted afresh from the table structure. CDC to confirm."
+    "and '1.8.2. 1' with a space inside. Counted afresh from the table structure. CDC to confirm.",
+    "",
+    "ROUND 1 (Google Drive, Mabvuto Nkhata, 22 + 26 Oct 2026): 9 comments. Year 2025 -> 2026 (year key + copyright and",
+    "First Published lines); Director signatory -> Samutete (already printed by the engine since #184/#185); the expected",
+    "standards of 1.4.1.1 and 1.4.2.1 swapped (each was in the other's row: comments 4 + 6); 1.4.2.1 competence 'understanding",
+    "of the various religions' -> 'of various religions' (the bare 'delete the' comment sat between those two, and comment 6",
+    "drops the same 'the': placed from context). NOT applied, the e-mails name no words: 'Delete' on a 'the', 'Delete the",
+    "highlighted phrase', 'record' -> 'Record', 'demonstrate' -> 'express'.",
+    "ROUND 1 again (annotated PDF in Downloads, 12 Nov 2026, 11 comments) placed those four: 1.2.1.2 Demonstrate -> Express;",
+    "1.6.3.1 'organs of the government' -> 'organs of government'; 1.7.6.1 standard 'Effective assessment and record keeping' ->",
+    "'Record keeping' (user: capitalise Record). Cover green, year and Director already done above."
   ],
   "subject": "Social Studies Education",
   "level": "Primary School Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "insertText": [
-    { "before": "TIME ALLOCATION", "text": "The programme shall use two types of assessments:" },
-    { "before": "TIME ALLOCATION", "text": "1. College-Based Assessment", "as": "head" },
-    { "before": "TIME ALLOCATION", "text": "This will be conducted and managed by the college throughout the six terms. It monitors continuous learning through assignments, tests, micro-teaching, practicum and portfolios. Colleges are responsible for administration, marking and recording. Results for this assessment will count towards final certification." },
-    { "before": "TIME ALLOCATION", "text": "2. Written Final Examinations", "as": "head" },
-    { "before": "TIME ALLOCATION", "text": "This will be administered by the Examinations Council of Zambia (ECZ) at the end of the programme. These examinations provide a standardised, national measure of subject knowledge and pedagogical Competence as prescribed by ECZ. ECZ is responsible for setting, moderating and marking these examinations." }
+    {
+      "before": "TIME ALLOCATION",
+      "text": "The programme shall use two types of assessments:"
+    },
+    {
+      "before": "TIME ALLOCATION",
+      "text": "1. College-Based Assessment",
+      "as": "head"
+    },
+    {
+      "before": "TIME ALLOCATION",
+      "text": "This will be conducted and managed by the college throughout the six terms. It monitors continuous learning through assignments, tests, micro-teaching, practicum and portfolios. Colleges are responsible for administration, marking and recording. Results for this assessment will count towards final certification."
+    },
+    {
+      "before": "TIME ALLOCATION",
+      "text": "2. Written Final Examinations",
+      "as": "head"
+    },
+    {
+      "before": "TIME ALLOCATION",
+      "text": "This will be administered by the Examinations Council of Zambia (ECZ) at the end of the programme. These examinations provide a standardised, national measure of subject knowledge and pedagogical Competence as prescribed by ECZ. ECZ is responsible for setting, moderating and marking these examinations."
+    }
   ],
   "insertHead": [
-    { "_why": "Heads the Assessment section restored above (in the manuscript only as a picture).", "before": "The programme shall use two types of assessments:", "head": "Assessment", "as": "h2" }
-  ],
+    {
+      "_why": "Heads the Assessment section restored above (in the manuscript only as a picture).",
+      "before": "The programme shall use two types of assessments:",
+      "head": "Assessment",
+      "as": "h2"
+    }
+  ],
   "splitRow": [
-    { "_why": "Topic 1.4 opens on one tall row, and a topic opener never splits: it left page 7 half empty. Cut before its last method (Field Visits) so the first piece, with the topic title, fills page 7.", "startsWith": "1.4.1.1", "at": "Field Visits" },
-    { "_why": "The same for topic 1.6 (page 9 ended a third empty); cut before Group Discussions. With both, no row leaves a line or two overleaf and the book keeps 51 pages (2026-10-13).", "startsWith": "1.6.1.1", "at": "Group Discussions" }
+    {
+      "_why": "Topic 1.4 opens on one tall row, and a topic opener never splits: it left page 7 half empty. Cut before its last method (Field Visits) so the first piece, with the topic title, fills page 7.",
+      "startsWith": "1.4.1.1",
+      "at": "Field Visits"
+    },
+    {
+      "_why": "The same for topic 1.6 (page 9 ended a third empty); cut before Group Discussions. With both, no row leaves a line or two overleaf and the book keeps 51 pages (2026-10-13).",
+      "startsWith": "1.6.1.1",
+      "at": "Group Discussions"
+    }
+  ],
+  "_coverSocialSciences": "CDC Social Sciences colour code is green; the Teaching Courses Creative and Technological Studies, Expressive Arts and Social Studies were added to Social Sciences (CDC, 2026-11-12). One green for all (#0f6b3a), peach band and dark Impact title as on the other Social Sciences syllabuses.",
+  "coverColour": "0f6b3a",
+  "coverBand": "ffd9c3",
+  "coverTitleColour": "2c2e35",
+  "coverTitleFont": "Impact",
+  "edit": [
+    {
+      "_why": "ROUND 1: 2025 -> 2026 (copyright line)",
+      "find": "Curriculum Development Centre, 2025",
+      "with": "Curriculum Development Centre, 2026"
+    },
+    {
+      "_why": "ROUND 1: 2025 -> 2026",
+      "find": "First Published 2025",
+      "with": "First Published 2026"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "ROUND 1: 1.4.2.1's expected standard was 1.4.1.1's (comment 6). Runs before the next rule, which would otherwise match both cells.",
+      "from": "The six dimensions of religion evaluated accordingly",
+      "to": "Understanding of various religions in Zambia demonstrated accordingly"
+    },
+    {
+      "_why": "ROUND 1: 1.4.1.1's expected standard was 1.4.2.1's (comment 4).",
+      "from": "Understanding of the various religions in Zambia demonstrated accordingly",
+      "to": "The six dimensions of religion evaluated accordingly"
+    },
+    {
+      "_why": "ROUND 1: 'delete the' (comment 5, placed from context).",
+      "from": "understanding of the various religions in Zambia",
+      "to": "understanding of various religions in Zambia"
+    },
+    {
+      "_why": "ROUND 1 (annotated PDF, 12 Nov, p20): 1.2.1.2 competence demonstrate -> express.",
+      "from": "Demonstrate emotional intelligence towards others",
+      "to": "Express emotional intelligence towards others"
+    },
+    {
+      "_why": "ROUND 1 (annotated PDF, p25): 1.6.3.1 competence, delete the. Marked in the matrix; the same competence in the Key Competences table follows so the two stay word for word.",
+      "from": "Analyse organs of the government in promoting effective governance",
+      "to": "Analyse organs of government in promoting effective governance",
+      "all": true
+    },
+    {
+      "_why": "ROUND 1 (annotated PDF, p30): 1.7.6.1 expected standard, Effective assessment and deleted, record -> Record.",
+      "from": "Effective assessment and record keeping strategies developed correctly",
+      "to": "Record keeping strategies developed correctly"
+    }
   ]
 }
