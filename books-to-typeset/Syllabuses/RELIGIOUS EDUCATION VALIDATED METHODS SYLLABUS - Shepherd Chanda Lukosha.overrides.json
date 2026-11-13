@@ -3,7 +3,7 @@
     "Religious Education Teaching Methods -- Secondary Teachers' Diploma syllabus, Years 1-2.",
     "First typeset 2026-10-13.",
     "",
-    "LEVEL / YEAR. As the cover says; 2025 as on the copyright line.",
+    "LEVEL / YEAR. As the cover says. Year 2026 (user, 13 Nov 2026: all syllabuses for specialist verification carry 2026; the manuscript copyright line says 2025).",
     "",
     "YEAR 2. The matrix is one unbroken table for both years; the YEAR 2 banner goes before topic 2.1 Teaching Experience 1",
     "(insertRow), where the manuscript's own contents list starts Year 2.",
@@ -17,7 +17,7 @@
   ],
   "subject": "Religious Education Teaching Methods",
   "level": "Secondary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "insertRow": [
     {
@@ -37,5 +37,12 @@
   "coverColour": "0f6b3a",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "edit": [
+    {
+      "_why": "editor notes typed into the text (\"(a was missing)\", \"(of was missing)\"); the words they asked for are already in (user, 13 Nov 2026: make it standard)",
+      "find": "Time Allocation minimum of 3 hours and a (a was missing) maximum of (of was missing) 4 hours per week",
+      "with": "Time allocation: a minimum of 3 hours and a maximum of 4 hours per week."
+    }
+  ]
 }

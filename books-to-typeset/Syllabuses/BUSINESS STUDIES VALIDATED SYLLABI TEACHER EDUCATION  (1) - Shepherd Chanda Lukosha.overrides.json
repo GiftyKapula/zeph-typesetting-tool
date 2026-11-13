@@ -24,7 +24,9 @@
     "",
     "2026-11-11: CDC Social Sciences colour code is green (Mr. Musonda); all Social Sciences syllabuses one green, #0f6b3a (user 2026-11-11), with the peach band and dark Impact title of Civic Education Content.",
     "ROUND 2 (Google Drive, Sylvia Shata Katongo, 12 Nov 2026): 2025 -> 2026 (year key: cover, footers; copyright and First Published lines).",
-    "ROUND 2 (Drive, 11-12 Nov 2026, 30 comments): p1/p3 year 2026 already done (12 Nov); Kalapa's 'full stops at the end of all the sentences in the descriptor columns' (p79, p102) -> fullStops, every course's descriptors alike"
+    "ROUND 2 (Drive, 11-12 Nov 2026, 30 comments): p1/p3 year 2026 already done (12 Nov); Kalapa's 'full stops at the end of all the sentences in the descriptor columns' (p79, p102) -> fullStops, every course's descriptors alike",
+    "",
+    "FRONT MATTER (user, 13 Nov 2026: front matter made standard for specialist verification): Duration of the Programme, typed as item c) of Admission Requirements, a sub-heading like the others; its '2 Years' (set as a list number + 'Years') -> 'Two (2) years.'"
   ],
   "subject": "Business Studies",
   "level": "Secondary School Teachers' Diploma",
@@ -75,6 +77,19 @@
       "find": "Assessment:",
       "text": "Assessment",
       "as": "h2",
+      "keep": true
+    },
+    {
+      "_why": "sub-heading like Admission/Graduation Requirements",
+      "find": "Duration of the Programme",
+      "as": "h2",
+      "keep": true
+    },
+    {
+      "_why": "'2' was set as a list number (label here, then asPara: a plain paragraph)",
+      "find": "2 Years",
+      "text": "Two (2) years.",
+      "as": "label",
       "keep": true
     }
   ],
@@ -158,7 +173,8 @@
     }
   ],
   "asPara": [
-    "The programme shall use two types of assessment:"
+    "The programme shall use two types of assessment:",
+    "Two (2) years."
   ],
   "splitRow": [
     {

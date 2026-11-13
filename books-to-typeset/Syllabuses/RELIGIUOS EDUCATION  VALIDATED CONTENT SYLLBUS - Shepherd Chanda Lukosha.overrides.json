@@ -4,7 +4,7 @@
     "First typeset 2026-10-13.",
     "",
     "SUBJECT. Set here: the file name misspells it (\"RELIGIUOS\", \"SYLLBUS\").",
-    "LEVEL / YEAR. As the cover says. The manuscript prints no year at all; 2025 is taken from its companion,",
+    "LEVEL / YEAR. As the cover says. The manuscript prints no year at all; 2026 (user, 13 Nov 2026), as on its companion,",
     "Religious Education Methods. CDC to confirm.",
     "",
     "YEAR 2. The matrix is one unbroken table for both years; the YEAR 2 banner goes before topic 2.1 The Role of Religion in",
@@ -18,11 +18,13 @@
     "printed after the contents and as a full-page crest, and the typed lines ended up at the back of the book. Removed (removeRange).",
     "\"CONTENT FOR TWO YEARS\" (a heading over nothing but the YEAR 1 page, stranded at the foot of the competences) removed.",
     "CONTENTS. tocGap 6pt: at the default the contents ran one line (Scope and Sequence Chart) onto a page of its own.",
-    "TOPIC 1.4. Its cell reads \"CHRISTIANITY IN AFRICA\" then a stray line \"IN\" (left from an edit); it set a second topic line and a contents entry \"IN\". Dropped."
+    "TOPIC 1.4. Its cell reads \"CHRISTIANITY IN AFRICA\" then a stray line \"IN\" (left from an edit); it set a second topic line and a contents entry \"IN\". Dropped.",
+    "",
+    "FRONT MATTER (user, 13 Nov 2026: make it standard). The manuscript types its front sections as one numbered list (1. Introduction, 2. RATIONALE ... 6. ASSESSMENT); \"Introduction\" (mixed case) ran on straight under the Acknowledgements signature, and \"5. TEACHING AND LEARNING METHODS\" (number typed) sat inside Structure. Now as the other syllabuses set BACKGROUND: INTRODUCTION a section on its own page, RATIONALE, KEY COMPETENCES, STRUCTURE, TEACHING AND LEARNING METHODS and ASSESSMENT sub-headings under it. KEY COMPETENCIES heading + its line -> COMPETENCES as the book spells it elsewhere (15 to 5); PS office dash as on the other syllabuses."
   ],
   "subject": "Religious Education Content",
   "level": "Secondary Teachers' Diploma",
-  "year": 2025,
+  "year": 2026,
   "renumberMatrix": true,
   "insertRow": [
     {
@@ -53,5 +55,64 @@
   "coverColour": "0f6b3a",
   "coverBand": "ffd9c3",
   "coverTitleColour": "2c2e35",
-  "coverTitleFont": "Impact"
+  "coverTitleFont": "Impact",
+  "setHeading": [
+    {
+      "_why": "front-matter section (see _comment)",
+      "find": "Introduction",
+      "text": "INTRODUCTION",
+      "as": "h1",
+      "keep": true
+    },
+    {
+      "_why": "sub-heading under INTRODUCTION (see _comment)",
+      "find": "RATIONALE",
+      "as": "h2",
+      "keep": true
+    },
+    {
+      "_why": "sub-heading under INTRODUCTION (see _comment)",
+      "find": "KEY COMPETENCIES OF RELIGIOUS EDUCATION",
+      "text": "KEY COMPETENCES OF RELIGIOUS EDUCATION",
+      "as": "h2",
+      "keep": true
+    },
+    {
+      "_why": "sub-heading under INTRODUCTION (see _comment)",
+      "find": "STRUCTURE OF THE SYLLABUS",
+      "as": "h2",
+      "keep": true
+    },
+    {
+      "_why": "sub-heading under INTRODUCTION (see _comment)",
+      "find": "5. TEACHING AND LEARNING METHODS",
+      "text": "TEACHING AND LEARNING METHODS",
+      "as": "h2",
+      "keep": true
+    },
+    {
+      "_why": "sub-heading under INTRODUCTION (see _comment)",
+      "find": "ASSESSMENT",
+      "as": "h2",
+      "keep": true
+    }
+  ],
+  "edit": [
+    {
+      "_why": "one spelling: competences",
+      "find": "The key competencies of Teacher Education",
+      "with": "The key competences of Teacher Education"
+    },
+    {
+      "_why": "office dash as on the other syllabuses",
+      "find": "Permanent Secretary- Education Services",
+      "with": "Permanent Secretary – Education Services"
+    }
+  ],
+  "pageBreakBefore": [
+    {
+      "_why": "split by the page, the Written Final Examinations label stayed at the foot with its paragraph overleaf",
+      "find": "ASSESSMENT"
+    }
+  ]
 }
