@@ -2345,7 +2345,7 @@
       "find": "Ceelede kucitwa: 2 0.1.14.6.2 kulembulula masyeepu mauba-uba.",
       "with": [
         {
-          "para": "**Ceelede kucitwa:** 2 0.1.14.6.2 kulembulula masyeepu mauba-uba."
+          "para": "**Ceelede kucitwa:** Basicikolo beelede: 0.1.14.6.2 Kulembulula masyeepu mauba-uba."
         }
       ]
     },
@@ -3620,6 +3620,38 @@
     {
       "find": "BBUKU LYABAI",
       "with": "BBUKU LYABAYI"
+    },
+    {
+      "find": "kukabe kwamaano,",
+      "with": "kukabe kwamaanu,"
+    },
+    {
+      "find": "ciindi cawiiya",
+      "with": "ciindi cakwiiya"
+    },
+    {
+      "find": "Basicikolo balembulula masyeepu mauba-uba",
+      "with": "Basicikolo balembulule masyeepu mauba-uba"
+    },
+    {
+      "find": "Bbbuku lyajatwa",
+      "with": "Bbuku lyajatwa"
+    },
+    {
+      "find": "Batulesa masyeeepu",
+      "with": "Batulesa masyeepu"
+    },
+    {
+      "find": "mbuli bweaz mpesele",
+      "with": "mbuli bweza mpesele"
+    },
+    {
+      "find": "omwe-omwe andaanye",
+      "with": "omwe-omwe aandaanye"
+    },
+    {
+      "find": "dadi= da/da",
+      "with": "dadi= da/di"
     }
   ]
 }
