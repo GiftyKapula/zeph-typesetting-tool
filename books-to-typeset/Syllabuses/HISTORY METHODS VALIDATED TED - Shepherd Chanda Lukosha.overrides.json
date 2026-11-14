@@ -34,6 +34,8 @@
     "",
     "ROUND 1 (Google Drive, Mabvuto Nkhata, 22 and 26 Oct 2026): 9 comments. ZEEP 'Education' -> delete: marked resolved by the reviewer himself, not changed. 1.4.1.1 expected standard reworded as written. Topic 1.7 (Bloom’s Taxonomy): 1.7.2.1 competence and standard 'in the Bloom’s Taxonomy' after 'domain' (the comments say 'in the Bloom’s'; 'Taxonomy' completes the name); 1.7.3.1 competence 'different' after 'Apply', its standard opens 'Different'. The e-mails carry no highlighted words for these; placed from the topic they speak of. One, 'Delete the highlighted', names nothing and is NOT placed. Director signatory -> Samutete M. Petronella (Ms); 2025 -> 2026 (year key, copyright and First Published lines).",
     "",
+    "ROUND 1 latest (Drive, 12 Nov 2026, Mabvuto Nkhata; CDC 13 Nov: the page-19 comment still open): 'Delete the entire 2.5 and 2.6 topics' -- both matrix rows removed (removeRow); Year 2 now topics 2.1-2.6.",
+    "",
     "FRONT MATTER (user, 13 Nov 2026: front matter made standard for specialist verification): 'Aims:' (a bold run-in label) -> AIMS, a sub-heading under BACKGROUND like Rationale and the rest, and in the contents."
   ],
   "subject": "History Teaching Methods",
@@ -171,9 +173,19 @@
   ],
   "editCell": [
     {
-      "_why": "ROUND 1 late (11 Nov, Mabvuto Nkhata), topic 2.4 'EXPERIENCE 1': 'Delete '1''; 2.5 'EXPERIENCE 2' -> drop the '2' too (user, 11 Nov)",
-      "pattern": "(SCHOOL TEACHING EXPERIENCE) [12]$",
+      "_why": "ROUND 1 late (11 Nov, Mabvuto Nkhata), topic 2.4 'EXPERIENCE 1': 'Delete '1''. (The 2.5 row, 'EXPERIENCE 2', also lost its '2' on 11 Nov; it is now removed whole, see removeRow.)",
+      "pattern": "(SCHOOL TEACHING EXPERIENCE) 1$",
       "with": "$1"
+    }
+  ],
+  "removeRow": [
+    {
+      "_why": "Drive comment, 12 Nov 2026 (Mabvuto Nkhata), printed page 19 -- CDC, 13 Nov: 'a comment on page 19 has not been attended to': 'Delete the entire 2.5 and 2.6 topics'. Topic 2.5 SCHOOL TEACHING EXPERIENCE (2) repeated 2.4 word for word. The cells still carry their Word list numbers when removeRow runs, hence the 2.5 / 2.6 in `find`. renumberMatrix counts the rest afresh: 2.7 SOCIAL SCIENCES DEPARTMENT -> 2.5, 2.8 CPD -> 2.6.",
+      "find": "2.5 SCHOOL TEACHING EXPERIENCE 2"
+    },
+    {
+      "_why": "the same comment: topic 2.6 REVIEW OF SCHOOL TEACHING EXPERIENCE",
+      "find": "2.6 REVIEW OF SCHOOL TEACHING EXPERIENCE"
     }
   ]
 }
