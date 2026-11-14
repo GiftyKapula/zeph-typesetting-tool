@@ -129,11 +129,29 @@
       "bold": false
     },
     {
-      "_why": "ROUND 1 follow-up (user: fix them) p123: 2.12.4 Government's role carried Public Finance's standard (shifted from the deleted 2.11.4); worded from its own competence, as the book words its standards",
+      "_why": "ROUND 3 (Drive, 13 Nov) p112 Katongo: 2.12.4 standard -> 'Foreign exchange rates interpreted correctly' (her two comments on this cell)",
       "row": "2.11.5.1 Show knowledge of government’s role in an economy",
       "col": 4,
-      "with": "• Knowledge of government’s role in an economy shown accordingly",
+      "with": "• Foreign exchange rates interpreted correctly",
       "bold": false
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p112 Katongo + Mulenga: 2.12.4 becomes International Finance ('this to change to International Finance'; 'insert issues of international finance here'). Government's role moves to 2.13.1 (insertRow). Col 2 is rewritten LAST: this row is found by it",
+      "row": "2.11.5.1 Show knowledge of government’s role in an economy",
+      "col": 1,
+      "with": "2.11.5 International Finance"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p112 Katongo: '2.12.4.1 should read; Interpret foreign exchange rates'",
+      "row": "2.11.5.1 Show knowledge of government’s role in an economy",
+      "col": 2,
+      "with": "2.11.5.1 Interpret foreign exchange rates"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p112 Katongo: 'create a new row' -- Government's role now opens 2.13, so the topic name goes on that new row (insertRow) and Public Finance becomes 2.13.2",
+      "row": "2.12.1.1. Exhibit knowledge of Public Finance Management",
+      "col": 0,
+      "with": ""
     }
   ],
   "editAll": [
@@ -240,6 +258,11 @@
     {
       "_why": "split by the page, Graduation Requirements carried its last two lines overleaf",
       "find": "Graduation Requirements"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p96 Hope Monde: 'let the General competences and descriptors begin on a fresh page' (Economics)",
+      "find": "General Competences and Descriptors",
+      "near": "Stiglitz, J.E. and Walsh"
     }
   ],
   "edit": [
@@ -382,6 +405,26 @@
       "_why": "READ-THROUGH Teaching Methods (user 2026-11-13: \"read through Teaching Methods and fix everything\")",
       "find": "affect effective teaching Commerce",
       "with": "affect effective teaching of Commerce"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p96 Katongo: (2023) -> 2021. The e-mails do not say which entry: matched by edition year",
+      "find": "Krugman, P. and Wells, R. (2023)",
+      "with": "Krugman, P. and Wells, R. (2021)"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p96 Katongo: (2023) -> 2019 (blank anchor; placed on Mishkin, 12th ed. 2019). The e-mails do not say which entry: matched by edition year",
+      "find": "Mishkin, F.S. (2023)",
+      "with": "Mishkin, F.S. (2019)"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p96 Katongo: (2023) -> 2006. The e-mails do not say which entry: matched by edition year",
+      "find": "Stiglitz, J.E. and Walsh, C.E. (2023)",
+      "with": "Stiglitz, J.E. and Walsh, C.E. (2006)"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p96 Katongo: (2023) -> 2024. The e-mails do not say which entry: matched by edition year",
+      "find": "Blanchard, O. and Johnson, D.R. (2023)",
+      "with": "Blanchard, O. and Johnson, D.R. (2024)"
     }
   ],
   "cellSubtext": [
@@ -1072,6 +1115,16 @@
       "_why": "READ-THROUGH Teaching Methods (user 2026-11-13",
       "from": "Interpreting test scores using Measure of Central Tendency",
       "to": "Interpreting test scores using Measures of Central Tendency"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p112 Katongo: 2.12.4 activities replaced with hers (International Finance); method label kept",
+      "from": "Analysing economic roles of government (maintaining legal and social framework, maintaining competition, providing public goods and services…)",
+      "to": "Describing international finance (foreign exchange markets, exchange rate, appreciation and depreciation of currencies)\n• Analysing factors that influence the exchange rate (inflation, income, preferences and tastes…)\n• Computing exchange rate\n• Interpreting foreign exchange rates for trade purposes"
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p111 Mulenga: IMF and World Bank are not economic integration, delete them and the dots; the five levels in order of integration, economic union was missing",
+      "from": "Common market, Political union, IMF, World bank…",
+      "to": "Common market, Economic union, Political union"
     }
   ],
   "removeRow": [
@@ -1105,6 +1158,17 @@
         "2.11.1.1 Analyse the Effects of Inflation",
         "**Group Discussion**\n• Explaining Inflation\n• Discussing the types of inflation (demand-pull inflation, cost-push inflation…)\n• Describing forms of inflation (deflation, hyper, galloping, creeping, stagflation…)\n• Describing ways of measuring inflation rates (CPI, PPI, GDP deflator)\n**Researching**\n• Researching the Effects of Inflation (lower purchasing power, higher interest rates, slower economic growth, lenders and borrowers, retirees, weak trade unions…)\n• Describing economic theories of inflation (The Quantity Theory of Money, Phillips Curve…)\n**Demonstration**\n• Illustrating aggregate demand, aggregate supply and inflation\n• Evaluating Government intervention to counter inflation (Fiscal, Monetary, Prices and Incomes, Supply-Side Policies…)",
         "• Effects of Inflation analysed correctly"
+      ]
+    },
+    {
+      "_why": "ROUND 3 (Drive, 13 Nov) p112 Mulenga 'This must appear as the first subtopic under 2.13' + Katongo 'move this to be 2.13.1.1': Government's role in an economy, as it stood at 2.12.4, opens 2.13; Public Finance follows as 2.13.2 / 2.13.2.1",
+      "startsWith": "2.12.1. Public Finance",
+      "cells": [
+        "2.12 PUBLIC FINANCE MANAGEMENT",
+        "2.12.1 Government’s role in an economy",
+        "2.12.1.1 Show knowledge of government’s role in an economy",
+        "**Simulation/Case study**\n• Analysing economic roles of government (maintaining legal and social framework, maintaining competition, providing public goods and services…)",
+        "• Knowledge of government’s role in an economy shown accordingly"
       ]
     }
   ],
