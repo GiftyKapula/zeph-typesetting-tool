@@ -110,7 +110,7 @@ later ones in title case; another typed its competences in title case):
 | Column | Set as |
 |---|---|
 | matrix **TOPIC** | **BOLD UPPERCASE** |
-| matrix **SUB-TOPIC** | bold title case — *not* uppercase |
+| matrix **SUB-TOPIC** | **plain** (not bold) title case — *not* uppercase; number and title alike, whatever bold the manuscript typed. Standard from 2026-10-13: only the TOPIC column is bold |
 | matrix SPECIFIC COMPETENCE / ACTIVITIES / EXPECTED STANDARD | sentence case |
 | competences table **COMPETENCE** | **bold, full capitals** ("ANALYTICAL THINKING", "CREATIVITY AND INNOVATION"), whatever the manuscript typed. Standard from 2026-10-12 (later that day it replaced "a capital on each word", asked for that morning); this column only — the descriptors beside it stay in sentence case |
 | competences table DESCRIPTORS | sentence case |
@@ -235,8 +235,8 @@ looks the same at a given text size, book-wide):
   whenever its item opened in bold.) The item text keeps its own bold.
 - A run of numbers that reaches 10 takes one marker width, so items 10+ line up with 1-9.
 - S/N columns are bare numbers, 1, 2, 3, in every book (no "1.").
-- Each SUB-TOPIC and COMPETENCE column takes one weight across the book, the one most of
-  its cells already have.
+- The COMPETENCE column takes one weight across the book, the one most of its cells
+  already have. (The SUB-TOPIC column is always plain — see the casing table above.)
 - A sub-topic whose title the manuscript lost still gets its **number** in the empty
   sub-topic cell (`1.4.3`, no title invented), and its competences count from 1 under it;
   the title goes to the author as a query.
