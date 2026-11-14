@@ -6,24 +6,89 @@ this codebase before — they explain the pipeline (`import-docx.js` →
 `typeset-docx.js` → `generic-template.typ` → Typst → PDF) and where `zeph`
 fits on top of it.
 
-## FIRST: branches — one `main`, short-lived branches, pull requests
+## FIRST: which branch are you on? The three families never mix
 
-There is **one** long-lived branch: `main`. Every change is made on a short-lived
-branch and lands through a pull request (see `CONTRIBUTING.md`):
+The work lives on **three permanently separate branches**, one per book family:
 
-- Start from an up-to-date `main`: `git switch main && git pull`, then
-  `git switch -c fix/<book-or-topic>`.
-- Never commit to `main` directly, never force-push, never create long-running
-  "integration"/"all-fixes" branches. One branch = one book or one engine fix.
-- Portrait books (B5 learner's/teacher's books) and the landscape CDC syllabi
-  share this one branch. They are kept apart **in the code**, not in git:
-  syllabus rules live in `src/typeset/passes/syllabus.js` and in the
-  `syllabus` branches of `generic-template.typ`, all gated on
-  `variant === "syllabus"`. A portrait fix must not touch syllabus code and
-  vice versa; shared plumbing (`import-docx.js`, override primitives, image
-  handling) affects both — say so in the PR.
-- Prove it with `npm run regress` (README → "Changing the engine safely"):
-  only the books you meant to change may differ.
+| Branch | Format | Books | House style |
+|---|---|---|---|
+| `landscape-syllabus` | A4 landscape | the CDC curriculum syllabuses (the 5-column matrix family) | `docs/HOUSE-STYLE.md` §2a |
+| `portrait-books` | portrait B5 | the English-language learner's/teacher's books — Geography, Physics, ICT, RE, Home Economics, Food & Nutrition, Musical Arts … | that branch's `docs/HOUSE-STYLE.md` |
+| `main` | portrait B5 | the local-language and ECE books (Chitonga, Cinyanja, Icibemba, Lunda, Luvale, Silozi, Kiikaonde …) | that branch's HOUSE-STYLE + `LOCAL-LANGUAGE-GLOSSARY.md` + `presets/` |
+
+All three also follow `docs/SHARED-RULES.md` (printer, imprint, back cover,
+credits, delivery). Each branch keeps its own copy of it.
+
+If the book you were asked about doesn't belong to the branch you're on, stop
+and say so before touching anything.
+
+**Never merge them, and never offer to.** The engine rules for the two families
+are different and must not be mixed — page geometry, front-matter structure,
+heading levels, cover construction and table styling all diverge. The two
+branches *will* drift apart, and that drift is the intended state, not a
+problem to go and fix.
+
+- Check the branch before you touch `src/typeset/`. If you are on
+  `portrait-books`, do not edit syllabus rules; if you are on
+  `landscape-syllabus`, do not edit portrait rules.
+- Don't port a fix from one branch to the other on your own initiative. If a
+  fix is shared *plumbing* rather than layout (something in `import-docx.js`,
+  the override primitives, image handling) say so and let the human decide —
+  don't cherry-pick across.
+- If asked how to "tell apart", "differentiate" or "call" the two families,
+  that is a question about naming and which branch to be on. It is **not** a
+  request to merge them or to make one branch serve both.
+- On `main` itself: never commit to it directly and never force-push; each book or
+  engine fix goes on a short-lived branch from an up-to-date `main` and lands
+  through a pull request (`CONTRIBUTING.md`). Prove an engine change with
+  `npm run regress` — but a template edit flags every book, so compare the
+  pages themselves too.
+- `main`'s code still carries syllabus passes (`src/typeset/passes/syllabus.js`,
+  gated on `variant === "syllabus"`), but syllabuses are worked on
+  `landscape-syllabus`, not here.
+- One book = one branch = one PR, based on the family branch. Never base a
+  book's PR on another book's branch (stacked PRs #99, #102, #174, #194 all
+  had to be closed or retargeted).
+
+## Before the first edit (every session)
+
+1. Say which branch you're on and which family it serves (table above).
+2. Say whether the book has been typeset already — `npm run zeph -- show`,
+   then check `output/` and Downloads (the DB can be stale, see below).
+3. Name the job: first typeset / reviewer or CDC round / read-through. The job
+   decides how far you may go (next section).
+4. Read the house rules for the family before measuring the book. A written
+   house rule beats any pattern you measure from the book itself.
+
+## How far to go
+
+- **Reviewer or CDC round:** change only the spots that were marked, in the
+  reviewer's exact words — never soften or "improve" them. A spelling fix may
+  go book-wide. Anything else you notice goes on a list for Teddy, unchanged.
+- **First typeset or read-through:** the house rules apply in full. Settle the
+  judgement calls with evidence; leave nothing open except what only a human
+  can decide.
+- **Only the book named.** No rebuilding other books after an engine change
+  unless asked. A change asked for on one book goes in that book's sidecar.
+
+## Never change without asking
+
+- Engine defaults that reach every book: the layout credit, signatory names
+  and offices, cover colours, the spine and back cover, fonts, presets.
+- `docs/SHARED-RULES.md`, `docs/HOUSE-STYLE.md`, this file, and on `main`
+  `presets/` and `lexicon/`.
+- Another branch, in any way.
+- The manuscript `.docx`, except a typo Teddy confirms.
+
+## Stop and ask when
+
+- the branch is wrong or unclear;
+- a change would reach every book, or another branch;
+- a reviewer's comment can't be applied as written, or two reviewers disagree;
+- a local-language word isn't in the word list (never invent one);
+- the docs and the code disagree (say which says what);
+- an ISBN, copyright owner, credit or signatory isn't in the manuscript or
+  the sidecar.
 
 ## The core loop — never skip the "look at it" step
 
@@ -72,13 +137,20 @@ says something else entirely. Verify, then fix.
   module-scope DB query hard-coded to one book's proofreading round used to
   crash the engine for every *other* book) — it's a real landmine, not a
   hypothetical.
+- Pin every `edit` / `subtext` override (`after`, `near`) so it can match only
+  one place. An unpinned edit took the first match and changed the wrong page
+  (Silozi G4 LB p48, reverted in #109).
+- Write code and JSON with the Edit/Write tools, never through a shell heredoc:
+  heredocs ate regex backslashes twice (Luvale G1 LB).
 
 ## `zeph` is the source of truth for "what's already been done" — but verify it
 
 `data/zeph.db` can go stale (a book typeset outside the tracked flow, a merge that
 didn't happen, a state nobody updated). Before reporting on a book's status,
 cross-check `npm run zeph -- show <id>` against what's actually in `output/`
-— don't repeat a stale DB state as fact.
+— don't repeat a stale DB state as fact. On this branch the database is
+`data/zeph.db`. The other two branches open the root `zeph.db` instead, so a root
+`zeph.db` in this folder belongs to them — don't read this branch's status from it.
 
 ## Don't fabricate what you can't derive
 
@@ -106,6 +178,31 @@ know — that's the kind of thing `data/zeph.db`'s `comment.action` field and
   shared engine used by every book, and a change that looks correct in
   isolation can still break the pipeline (a missing import, a changed
   function signature another call site relied on).
+
+## Done means all of these
+
+1. The release QA qualifies (`tools/qa`): no blocker, word count against the
+   manuscript at 99% or more, no override entry that matched nothing; the
+   numbering audit checked on the PDF.
+2. The PDF's fonts are the house fonts only (`pdffonts`): no Libertinus, New
+   Computer Modern, Segoe UI Emoji / MDL2 Assets, Yu Gothic fallbacks; no
+   private-use characters (U+E000–U+F8FF) or U+FFFD in `pdftotext` output —
+   they are glyphs the manuscript typed in Symbol/Wingdings that printed wrong.
+3. Render and look at: the cover spread, title page, copyright/imprint page,
+   contents, the first body page, every page you changed, the last page.
+4. Go through the house rules for the family one by one (HOUSE-STYLE,
+   LOCAL-LANGUAGE-GLOSSARY and the `zl-lb` / `zl-tg` preset — cover and title
+   words from the word list only, imprint on one page, `boxStripe: false`, a TG
+   in black and white, spine over 112 pages, back cover in the book's language).
+   Doubled words are often correct here (*bwino bwino*): don't "fix" them.
+5. No placeholders: no `xxx`, `INSERT`, `TBC`. An ISBN not known yet prints as
+   dots.
+6. Commit, push, open the PR yourself (`gh`). Name any unmerged PR this PDF
+   depends on.
+7. Deliver ONE PDF, cover spread as page 1, to the top of Downloads; check it
+   is still there.
+8. Update `zeph` (state, round, comments). Delete scratch files.
+
 ## Image print-quality
 Before finalizing any document, check every image's resolution
 against its intended print size. Required: 300 DPI at final print
@@ -115,13 +212,14 @@ size. Calculate required pixel width as:
 If an image falls below this, it must be upscaled before use.
 
 Use Real-ESRGAN (ncnn-vulkan build), installed at:
-C:\Users\biine stores\Desktop\REAL-\realesrgan-ncnn-vulkan.exe
+C:\Users\hp\tools\realesrgan\realesrgan-ncnn-vulkan.exe
+(the `REALESRGAN` environment variable points at it; with `-n realesrgan-x4plus`
+always use `-s 4`, then downscale — `-s 2` scrambles the tiles)
 
 Command:
 realesrgan-ncnn-vulkan.exe -i <input> -o <output> -n realesrgan-x4plus
 
-This upscales 4x. Run it from within the REAL- folder, or reference
-its full path if called from elsewhere.
+This upscales 4x. Reference its full path.
 
 After upscaling:
 1. Convert to a print-safe format (TIFF or high-quality PNG — never
