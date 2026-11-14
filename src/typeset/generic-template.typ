@@ -2159,8 +2159,10 @@
       // column arithmetic stacked inside this cell (e.g. a regrouping worksheet)
       colsum(cs.rows, cs.answer, size: fs(13pt))
     } else if c.at("bul", default: false) and sg.len() == 0 and c.text != "" {
-      // sidecar `descriptorBullets`: one bullet per descriptor, wrapped lines hanging
-      grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
+      // sidecar `descriptorBullets`: one bullet per descriptor, wrapped lines hanging.
+      // Items are spaced by the cell's own line leading, so a wrapped line never sits
+      // further below its first line than the next descriptor does (as the plain lines were).
+      context grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: par.leading, align: (left + top, left + top),
         ..c.text.split("\n").filter(t => t.trim() != "").map(t => (text[•], t.trim())).flatten())
     } else if sg.len() > 0 {
       // rich cell (holds an equation): render the segments (with real math)
