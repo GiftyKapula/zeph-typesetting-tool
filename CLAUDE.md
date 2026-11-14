@@ -6,7 +6,7 @@ this codebase before — they explain the pipeline (`import-docx.js` →
 `typeset-docx.js` → `generic-template.typ` → Typst → PDF) and where `zeph`
 fits on top of it.
 
-## FIRST: which branch are you on? Portrait and landscape never mix
+## FIRST: which branch are you on? The three families never mix
 
 The work lives on **three permanently separate branches**, one per book family:
 
