@@ -245,6 +245,10 @@
     {
       "_why": "Business Law's last row: split by the page, it carried three lines onto the last page alone",
       "startsWith": "2.7.4.1 Demonstrate Knowledge of corporate failure"
+    },
+    {
+      "_why": "ROUND 4 (15 Nov): with the 2.12.3 brackets gone, 2.12.4 moved up and split four lines onto the next page",
+      "startsWith": "2.12.4.1 Interpret foreign"
     }
   ],
   "setMarker": [
@@ -425,6 +429,11 @@
       "_why": "ROUND 3 (Drive, 13 Nov) p96 Katongo: (2023) -> 2024. The e-mails do not say which entry: matched by edition year",
       "find": "Blanchard, O. and Johnson, D.R. (2023)",
       "with": "Blanchard, O. and Johnson, D.R. (2024)"
+    },
+    {
+      "_why": "ROUND 4 (user, 15 Nov) p96 Recommended textbooks: Case, K.E. ... year to change to 2019",
+      "find": "Case, K.E., Fair, R.C. and Oster, S.M. (2023)",
+      "with": "Case, K.E., Fair, R.C. and Oster, S.M. (2019)"
     }
   ],
   "cellSubtext": [
@@ -1125,6 +1134,21 @@
       "_why": "ROUND 3 (Drive, 13 Nov) p111 Mulenga: IMF and World Bank are not economic integration, delete them and the dots; the five levels in order of integration, economic union was missing",
       "from": "Common market, Political union, IMF, World bank…",
       "to": "Common market, Economic union, Political union"
+    },
+    {
+      "_why": "ROUND 4 (user, 15 Nov) p104 row 1 expected standard: replace on with of",
+      "from": "Knowledge on consumer choice theory",
+      "to": "Knowledge of consumer choice theory"
+    },
+    {
+      "_why": "ROUND 4 (user, 15 Nov) p104 row 2 expected standard: delete on",
+      "from": "Knowledge on  of a firm",
+      "to": "Knowledge of a firm"
+    },
+    {
+      "_why": "ROUND 4 (user, 15 Nov) p112 row 3 (2.12.3) first learning activity: delete what is in the brackets so that there are no brackets (undoes the five levels of the 13 Nov Mulenga comment)",
+      "from": "Describing Economic Integration (Free trade area, Customs union, Common market, Economic union, Political union)",
+      "to": "Describing Economic Integration"
     }
   ],
   "removeRow": [
