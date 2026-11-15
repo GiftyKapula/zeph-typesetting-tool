@@ -20,7 +20,16 @@
     "CONTENTS. tocGap 6pt: at the default the contents ran one line (Scope and Sequence Chart) onto a page of its own.",
     "TOPIC 1.4. Its cell reads \"CHRISTIANITY IN AFRICA\" then a stray line \"IN\" (left from an edit); it set a second topic line and a contents entry \"IN\". Dropped.",
     "",
-    "FRONT MATTER (user, 13 Nov 2026: make it standard). The manuscript types its front sections as one numbered list (1. Introduction, 2. RATIONALE ... 6. ASSESSMENT); \"Introduction\" (mixed case) ran on straight under the Acknowledgements signature, and \"5. TEACHING AND LEARNING METHODS\" (number typed) sat inside Structure. Now as the other syllabuses set BACKGROUND: INTRODUCTION a section on its own page, RATIONALE, KEY COMPETENCES, STRUCTURE, TEACHING AND LEARNING METHODS and ASSESSMENT sub-headings under it. KEY COMPETENCIES heading + its line -> COMPETENCES as the book spells it elsewhere (15 to 5); PS office dash as on the other syllabuses."
+    "FRONT MATTER (user, 13 Nov 2026: make it standard). The manuscript types its front sections as one numbered list (1. Introduction, 2. RATIONALE ... 6. ASSESSMENT); \"Introduction\" (mixed case) ran on straight under the Acknowledgements signature, and \"5. TEACHING AND LEARNING METHODS\" (number typed) sat inside Structure. Now as the other syllabuses set BACKGROUND: INTRODUCTION a section on its own page, RATIONALE, KEY COMPETENCES, STRUCTURE, TEACHING AND LEARNING METHODS and ASSESSMENT sub-headings under it. KEY COMPETENCIES heading + its line -> COMPETENCES as the book spells it elsewhere (15 to 5); PS office dash as on the other syllabuses.",
+    "",
+    "ROUND 1 (reviewer's marked Drive copy, zeph round 1, 14 Nov 2026, 14 comments). It was marked on a print from before the",
+    "year 2026 / standard front matter, so #4772-#4774 (2025 -> 2026) and #4776 (Introduction to the next page) were already done.",
+    "#4775/#4785 References/Prescribed Reading and the Scope and Sequence Chart deleted, with their contents entries (removeRange to the end).",
+    "#4777/#4778 'the four major religious traditions in Zambia' -> 'the four major religions in Zambia' (delete 'traditions', 'religious' ->",
+    " 'religion'; plural, as the list after it names several).",
+    "#4779 Key Competences, Analytical Thinking: the second run of concept growth / types of growth / Hinduism deleted.",
+    "#4780 assed -> assessed; #4781 Independence -> Independent churches; #4782 stray 'A' over the ATR standard; #4783 'Of' -> 'of';",
+    "#4784 'Use relevant themes' -> 'Use of relevant themes'. editCell patterns: the cells still carry the manuscript's '• ' when they run."
   ],
   "subject": "Religious Education Content",
   "level": "Secondary Teachers' Diploma",
@@ -38,6 +47,10 @@
       "_why": "second cover + typed contents leftovers (see _comment)",
       "from": "Republic of Zambia",
       "to": "Vision"
+    },
+    {
+      "_why": "round 1 #4775/#4785: References and Scope and Sequence Chart deleted (to the end of the book)",
+      "from": "References/Prescribed Reading"
     }
   ],
   "remove": [
@@ -49,6 +62,36 @@
       "_why": "stray \"IN\" line under CHRISTIANITY IN AFRICA",
       "pattern": "(CHRISTIANITY IN AFRICA)\\s*\\n\\s*IN\\s*$",
       "with": "$1"
+    },
+    {
+      "_why": "round 1 #4779: descriptors typed twice",
+      "pattern": "(Identify sociological themes relevant to Sociology of RE)\\n• Show understanding of the concept growth\\n• Distinguish types of growth\\n• Evaluate Hinduism as a World Religion",
+      "with": "$1"
+    },
+    {
+      "_why": "round 1 #4782: stray 'A' over the ATR expected standard",
+      "pattern": "^\\s*A\\s*\\n",
+      "with": ""
+    },
+    {
+      "_why": "round 1 #4783: small 'o'",
+      "pattern": "coming\\s*\\n?\\s*Of Christianity",
+      "with": "coming of Christianity"
+    },
+    {
+      "_why": "round 1 #4780",
+      "pattern": "Religion assed",
+      "with": "Religion assessed"
+    },
+    {
+      "_why": "round 1 #4781",
+      "pattern": "African Independence churches",
+      "with": "African Independent churches"
+    },
+    {
+      "_why": "round 1 #4784: insert 'of'",
+      "pattern": "Use relevant themes from",
+      "with": "Use of relevant themes from"
     }
   ],
   "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); one green for all of them (#0f6b3a, History Content's; user 2026-11-11), peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
@@ -107,6 +150,11 @@
       "_why": "office dash as on the other syllabuses",
       "find": "Permanent Secretary- Education Services",
       "with": "Permanent Secretary – Education Services"
+    },
+    {
+      "_why": "round 1 #4777/#4778",
+      "find": "the four major religious traditions in Zambia",
+      "with": "the four major religions in Zambia"
     }
   ],
   "pageBreakBefore": [

@@ -13,7 +13,14 @@
     "STRAY BACKSLASH. The last matrix row has a lone \"\\\" in its TOPIC cell, which set a topic 2.4 with no title (and a contents entry); emptied, so the row carries on topic 2.3 (its competence is 2.3.1.3).",
     "AUTHOR QUERY: 1.5.2 Role of the Teacher in Classroom Management and 1.5.3 Management of TLSM share ONE sub-topic cell, with",
     " three competences beside them; counted from the structure they are 1.5.3.1-1.5.3.3 (the manuscript numbered the first 1.5.2.1).",
-    " CDC to say which competences belong to 1.5.2 and split the row."
+    " CDC to say which competences belong to 1.5.2 and split the row.",
+    "",
+    "ROUND 1 (reviewer's marked Drive copy, zeph round 1, 14 Nov 2026, 12 comments). #4786/#4790 (2025 -> 2026) were already done.",
+    "#4787/#4794 topic 2.2 TEACHING EXPERIENCE 2 deleted, its six rows: removeRow on each row's expected standard, as typed at that",
+    " stage (with its '• '; TE1 types the same standards with other capitals; the competence numbers are not reliable, '2.2.2.4 Uphold').",
+    " #4795: renumberMatrix then counts CHALLENGES IN TEACHING RE as 2.2.",
+    "#4788/#4793 2.1 TEACHING EXPERIENCE without the '1'. #4789/#4796/#4797 Prescribed and Recommended Readings deleted (to the end).",
+    "#4791 'College-Based Assessment' -> 'College-Based Assessments'. #4792 Key Competences descriptors in bullet form: descriptorBullets."
   ],
   "subject": "Religious Education Teaching Methods",
   "level": "Secondary Teachers' Diploma",
@@ -31,6 +38,11 @@
       "_why": "a lone backslash in a TOPIC cell",
       "pattern": "^\\s*\\\\\\s*$",
       "with": ""
+    },
+    {
+      "_why": "round 1 #4788/#4793: delete the '1'",
+      "pattern": "(TEACHING\\s+EXPERIENCE)\\s*1\\s*$",
+      "with": "$1"
     }
   ],
   "_coverSocialSciences": "CDC Social Sciences colour code is green (Mr. Musonda, CDC, 2026-11-11); one green for all of them (#0f6b3a, History Content's; user 2026-11-11), peach band and dark Impact title as on Civic Education Content (matched to CDC Form 1-4).",
@@ -43,6 +55,44 @@
       "_why": "editor notes typed into the text (\"(a was missing)\", \"(of was missing)\"); the words they asked for are already in (user, 13 Nov 2026: make it standard)",
       "find": "Time Allocation minimum of 3 hours and a (a was missing) maximum of (of was missing) 4 hours per week",
       "with": "Time allocation: a minimum of 3 hours and a maximum of 4 hours per week."
+    },
+    {
+      "_why": "round 1 #4791",
+      "find": "College-Based Assessment",
+      "with": "College-Based Assessments"
     }
-  ]
+  ],
+  "removeRow": [
+    {
+      "_why": "round 1 #4794: Teaching Experience 2 deleted",
+      "startsWith": "• Scheme of work, lesson Plans"
+    },
+    {
+      "_why": "round 1 #4794: Teaching Experience 2 deleted",
+      "startsWith": "• Teaching resources prepared"
+    },
+    {
+      "_why": "round 1 #4794: Teaching Experience 2 deleted",
+      "startsWith": "• Religious Education\ncontent demonstrated"
+    },
+    {
+      "_why": "round 1 #4794: Teaching Experience 2 deleted",
+      "startsWith": "Effectiveness of teaching and learning practiced"
+    },
+    {
+      "_why": "round 1 #4794: Teaching Experience 2 deleted",
+      "startsWith": "• Design and Assessment of Formative"
+    },
+    {
+      "_why": "round 1 #4794: Teaching Experience 2 deleted",
+      "startsWith": "• Teaching Service code of conduct"
+    }
+  ],
+  "removeRange": [
+    {
+      "_why": "round 1 #4789/#4796/#4797: Prescribed and Recommended Readings deleted (to the end of the book)",
+      "from": "PRESCRIBED READINGS"
+    }
+  ],
+  "descriptorBullets": true
 }

@@ -54,7 +54,7 @@ const EMPTY_CELL = { text: "", imgs: [] };
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 // Rich table cell: text plus any images it contains (and rich segments with
 // math when the cell holds an equation).
-const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""}${c.cont ? ", cont: true" : ""}${c.tight ? ", tight: true" : ""})`;
+const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${c.keep ? ", keep: true" : ""}${c.cont ? ", cont: true" : ""}${c.tight ? ", tight: true" : ""}${c.bul ? ", bul: true" : ""})`;
 const normRows = (rows) => { const n = Math.max(0, ...rows.map((r) => r.length)); return rows.map((r) => r.concat(Array(n - r.length).fill(EMPTY_CELL))); };
 const rowArr = (rows) => arr(normRows(rows), (r) => arr(r, cellArr));
 const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0}, tall: ${im.tall ? "true" : "false"}, cap: ${im.caption ? S(im.caption) : "none"}, hmm: ${im.hmm || 0})`);
@@ -3522,6 +3522,34 @@ function tidyCellLines(blocks) {
     });
   }
   if (n) console.log(`   table cells tidied (stray full stops, hand-wrapped lines, empty bullets): ${n}`);
+}
+
+// `descriptorBullets` (overrides, opt-in): the DESCRIPTORS column of a Key Competences
+// table (COMPETENCE | DESCRIPTORS, not the matrix) set one bullet per descriptor, its
+// wrapped lines hanging -- a reviewer's "descriptors should be put in bullet form"
+// (RE Teaching Methods round 1). Off, the descriptors stay plain lines as before.
+function bulletDescriptors(blocks) {
+  let n = 0;
+  const walk = (arr) => {
+    for (const b of arr) {
+      if (!b || typeof b !== "object") continue;
+      if (Array.isArray(b.rows) && Array.isArray(b.rows[0])) {
+        const H = b.rows[0].map((c) => String((c && c.text) || "").replace(/\s+/g, " ").trim().toUpperCase());
+        const dc = H.findIndex((h) => /DESCRIPT/.test(h));
+        if (dc >= 0 && H.some((h) => /COMPETEN/.test(h)) && !H.some((h) => /^TOPIC/.test(h))) {
+          for (const row of b.rows.slice(1)) {
+            const c = Array.isArray(row) && row[dc];
+            if (c && typeof c.text === "string" && c.text.trim()) { c.bul = true; n++; }
+          }
+        }
+        continue;
+      }
+      for (const k of Object.keys(b)) if (Array.isArray(b[k])) walk(b[k]);
+    }
+  };
+  walk(blocks);
+  if (!n) console.warn("!  descriptorBullets: no COMPETENCE | DESCRIPTORS table found");
+  else console.log(`   descriptorBullets: ${n} descriptor cell(s) bulleted`);
 }
 
 // `fullStops` (overrides) settles a group a reviewer ruled on, whatever its majority:
@@ -7260,6 +7288,7 @@ function normaliseQuestionMarkBold(blocks) {
     // finished blocks -- after every heading, cell and list has taken its final form.
     tidyCellLines(blocks);
     unifyFullStops(blocks, ov.fullStops || {});
+    if (ov.descriptorBullets) bulletDescriptors(blocks);
     topCompetenceHeadings(blocks);
     hyphenateSubTopicHeader(blocks);
     splitRows(blocks, ov);
