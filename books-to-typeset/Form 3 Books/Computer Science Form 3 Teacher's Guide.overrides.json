@@ -1102,19 +1102,23 @@
     {
       "find": "‹›",
       "with": "(c)"
+    },
+    {
+      "find": "Analysis of u Javascript feature",
+      "with": "Analysis of a JavaScript Feature"
+    },
+    {
+      "find": "including its timing, output sequence and reset",
+      "with": "including its timing, output sequence and reset behaviour, and make necessary improvements.",
+      "_why": "source p36-37: the sentence runs on over the page",
+      "_restore": true
     }
   ],
   "remove": [
     "J'?",
     "{c} Conditional statement"
   ],
-  "edit": [
-    {
-      "find": "zoom tools, and explain their",
-      "with": "zoom tools, and explain their purposes, and create a simple paper brochure on mental health education and present their work to the class.",
-      "_why": "source pp11-12: the end of the sentence came across as scraps"
-    }
-  ],
+  "edit": [],
   "codeBlocks": [
     {
       "from": "print(“Welcome to the Reading",
@@ -1452,7 +1456,6 @@
     {
       "from": "Submit Quiz</button",
       "to": "Quiz Submitted",
-      "lead": "***Example:***",
       "code": [
         "<button id=\"submitQuiz\">Submit Quiz</button>",
         "document.getElementById(\"submitQuiz\").onclick = function() {",
@@ -1670,16 +1673,6 @@
       "_why": "source p21: L=P·(W+M); the conversion lost the AND dot"
     },
     {
-      "find": "th d",
-      "with": [],
-      "_why": "conversion scraps of the Alternative Activity's last line (source pp11-12)"
-    },
-    {
-      "find": "Ie er brochure on mental health",
-      "with": [],
-      "_why": "conversion scraps of the Alternative Activity's last line (source pp11-12)"
-    },
-    {
       "find": "A = 1, B = 0 - Q = 0",
       "with": [
         {
@@ -1697,12 +1690,101 @@
         }
       ],
       "_why": "source p26: the conversion dropped the arrows"
+    },
+    {
+      "find": "Step 1: Open the computer and launch presentation software (e.g. PowerPoint). Step 2: Click New and select a blank presentation or a template.",
+      "with": [
+        {
+          "head": "END OF TOPIC ASSESSMENT"
+        },
+        {
+          "para": "**Suggested Responses**"
+        },
+        {
+          "para": "Your school is organising a Community Information Day. Learners are asked to work in groups to prepare digital presentations and posters to teach the community about health, farming, tourism, and environmental care."
+        },
+        {
+          "listitem": "**Expected Responses** (Any relevant features.) Learners may mention any of the following features with explanation: **Title bar:** shows the name of the presentation file. **Toolbar/Ribbon:** contains tools for inserting text, images, charts and formatting. **Slide pane/Thumbnail pane:** shows all slides in the presentation. **Canvas/Slide area:** the main working area for designing slides. **Status bar:** displays slide number and view options. **Ruler:** helps align text and images. **Scroll bars:** move up and down slides. **Zoom tools:** increase or reduce the view size.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Productivity tools allow the use of **pictures, videos, charts and text**, which make information clearer than chalk writing. They help presenters communicate to **large audiences** easily. Information can be **saved, reused and shared**. They look **professional and attractive**, keeping the audience interested. They save time compared to rewriting on a board.",
+          "marker": "2."
+        },
+        {
+          "listitem": "A good response should include steps such as:",
+          "marker": "3."
+        },
+        {
+          "para": "Step 1: Open the computer and launch presentation software (e.g. PowerPoint)."
+        },
+        {
+          "para": "Step 2: Click New and select a blank presentation or a template."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step 3: Choose a suitable theme. Step 4: Insert five slides.",
+      "with": [
+        {
+          "para": "Step 3: Choose a suitable theme."
+        },
+        {
+          "para": "Step 4: Insert five slides."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step 5: Type titles and short bullet points on each slide. Step 6: Insert relevant pictures or charts.",
+      "with": [
+        {
+          "para": "Step 5: Type titles and short bullet points on each slide."
+        },
+        {
+          "para": "Step 6: Insert relevant pictures or charts."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step 7: Apply simple formatting (font size, colour, alignment). Step 8: Arrange slides in logical order.",
+      "with": [
+        {
+          "para": "Step 7: Apply simple formatting (font size, colour, alignment)."
+        },
+        {
+          "para": "Step 8: Arrange slides in logical order."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step10: Click File→ Save As, give a name and choose location.",
+      "with": [
+        {
+          "para": "Step 10: Click File → Save As, give a name and choose location."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "behaviour, and make necessary improvements.",
+      "with": [],
+      "_why": "its line, joined to the sentence above",
+      "_restore": true
     }
   ],
   "mergePara": [
     {
       "find": "and outputs 1 if",
       "_why": "source p20: one sentence the conversion broke in two"
+    },
+    {
+      "find": "support understanding. The audience",
+      "_why": "source p17: one sentence broken over the page",
+      "_restore": true
     }
   ],
   "setMarker": [
@@ -1718,6 +1800,21 @@
       "find": "Truth Table",
       "marker": "(c)",
       "near": "Logic gates needed:"
+    },
+    {
+      "find": "How HTML and CSS Contribute to the Web Page",
+      "marker": "(a)",
+      "depth": 0
+    },
+    {
+      "find": "Analysis of a",
+      "marker": "(b)",
+      "depth": 0
+    },
+    {
+      "find": "Identifying and Fixing a JavaScript Error",
+      "marker": "(c)",
+      "depth": 0
     }
   ],
   "tables": [
@@ -1780,6 +1877,207 @@
           "1"
         ]
       ]
+    },
+    {
+      "emptyAfter": "Learners design and simulate a functional sequential circuit",
+      "drop": true,
+      "_why": "the empty grid the conversion left of Exercise 5's truth table (put back above)",
+      "_restore": true
     }
-  ]
+  ],
+  "tableToBox": [
+    {
+      "findTable": "Facilitate learners to work individually, in pairs or in groups.",
+      "title": "LEARNING ACTIVITY 5: Designing sequential circuits for time-dependent applications",
+      "_restore": true
+    }
+  ],
+  "insertText": [
+    {
+      "after": "Learners design and simulate a functional sequential circuit",
+      "outside": true,
+      "_why": "source p37: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Alternative Activity"
+        },
+        {
+          "para": "*Organise learners into groups and provide manila paper, markers, cardboard, and logic gate symbols. Give a real-life scenario such as a security light controlled by darkness and motion detection. Learners draw and label the inputs, logic gate, and output device, then explain how the system works and present it to the class.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners draw and label the system, explain how the logic gate controls the output, and describe how the system works.*"
+        },
+        {
+          "label": "EXERCISE 5"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*Flip-flops are needed because they act as memory elements in digital circuits. They store a binary value (0 or 1) and keep it until a new clock signal changes it. This allows the system to remember the previous state, such as whether watering is on or waiting.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*The system waters every 6 hours: 24 ÷ 6 = 4 cycles. Therefore, the counter needs 4 states to cover 24 hours. To represent 4 states, 2 flip-flops are required because 2² = 4 states.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*Truth table for the first two watering cycles*",
+          "marker": "(c)"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "State (Q1 Q0)",
+                  "imgs": []
+                },
+                {
+                  "text": "Time",
+                  "imgs": []
+                },
+                {
+                  "text": "Watering LED",
+                  "imgs": []
+                },
+                {
+                  "text": "Finished LED",
+                  "imgs": []
+                },
+                {
+                  "text": "Next State",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0 0",
+                  "imgs": []
+                },
+                {
+                  "text": "0 hrs",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0 1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0 1",
+                  "imgs": []
+                },
+                {
+                  "text": "6 hrs",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1 0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1 0",
+                  "imgs": []
+                },
+                {
+                  "text": "12 hrs",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1 1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1 1",
+                  "imgs": []
+                },
+                {
+                  "text": "18 hrs",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0 0",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "*Testing in software: The system can be tested using simulation software such as Logisim or Proteus Design Suite before building the real circuit. This is useful because it helps find errors early, saves cost, and improves the design before hardware implementation.*"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "Learners identify an automated system",
+      "items": [
+        {
+          "label": "EXERCISE 4"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*One-way logic gates help the microcontroller make the system work safely by allowing signals to flow in only one direction. This prevents unwanted feedback from output devices back into the microcontroller, reducing the risk of incorrect signals, short circuits, or damage to components.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*Using logic gates together with a microcontroller makes the automated system more reliable because logic gates handle simple decision-making quickly and accurately, while the microcontroller manages complex control tasks. This reduces errors, improves response time, and ensures the system continues working correctly even if one part handles heavy processing.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*The group should design an automatic school gate system. They should use the AND gates to ensure the gate opens only when a valid card is detected and the safety sensor confirms the area is clear, and NOT gates to stop the gate if an obstacle is detected. The microcontroller reads the sensor inputs, processes the conditions, and automatically controls the motor to open or close the gate without human intervention.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Designing Circuits"
+        },
+        {
+          "para": "Guide learners to apply knowledge of electronic components and logic gates by designing simple circuits for specific tasks. Introduce sequential circuits, explaining that their outputs depend on time or previous inputs, and relate them to systems such as traffic lights and digital clocks. Explain flip-flops as memory elements, timers as delay controls, and counters as event trackers. Encourage learners to use tools such as CircuitVerse and Digital Works to safely design and simulate automated systems using LEDs, buzzers, or motors."
+        }
+      ],
+      "_restore": true
+    }
+  ],
+  "extendBox": []
 }

@@ -803,7 +803,9 @@ function applyOverrides(blocks, ov) {
       if (a > 0 && Array.isArray(blocks[a - 1].body)) i = a - 1;
     } else i = blocks.findIndex((b) => Array.isArray(b.body) && typeof b.title === "string" && b.title.includes(eb.title));
     if (i < 0) { console.warn("!  extendBox not matched:", eb.title || eb.near); continue; }
-    blocks[i].body.push(...blocks.splice(i + 1, eb.count || 1));
+    // (an untitled import `box` — a PDF conversion's text-box group — gives its contents: a box
+    // nested in a box body is not drawn, so its text vanished)
+    blocks[i].body.push(...blocks.splice(i + 1, eb.count || 1).flatMap((b) => b && b.t === "box" && !b.title && Array.isArray(b.body) ? b.body : [b]));
   }
   // splitBox: [{ at }] — the inverse of extendBox: one activity box swallowed the next
   // activity ("MUSEBEZI 3: …" typed as a line inside MUSEBEZI 2's box). The body line whose
@@ -1134,8 +1136,28 @@ function applyOverrides(blocks, ov) {
       } else {
         at = blocks.findIndex((b) => hay(b).includes(needle));
       }
+      // (not at the top: the anchor may sit inside a box the conversion drew — a text-box group
+      // holding an activity and its alternative — so the innermost list holding it is used)
+      let arr = blocks;
+      if (at < 0 && !it.near) {
+        const deep = (list) => {
+          for (const b of list) {
+            if (!b || typeof b !== "object") continue;
+            for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) {
+              const r = deep(b[k]); if (r) return r;
+              const j = b[k].findIndex((x) => x && typeof x === "object" && hay(x).includes(needle));
+              if (j >= 0) return [b[k], j];
+            }
+          }
+          return null;
+        };
+        // (`outside: true`: after the top-level block that holds the anchor instead — new boxes
+        // of their own, not lines inside the box the anchor ends)
+        if (it.outside) { at = blocks.findIndex((b) => b && typeof b === "object" && JSON.stringify(b).includes(needle)); arr = blocks; }
+        else { const r = deep(blocks); if (r) [arr, at] = r; }
+      }
       if (at < 0) { console.warn("!  insertText not matched:", it.near ? `${needle} near ${it.near}` : needle); continue; }
-      blocks.splice(it.after != null ? at + 1 : at, 0, ...mkBlks());
+      arr.splice(it.after != null ? at + 1 : at, 0, ...mkBlks());
     }
   }
   // toTable: [{ find, cols }] — convert a paragraph whose text matches `find` into a 1×N
@@ -2020,7 +2042,31 @@ function applyOverrides(blocks, ov) {
   for (const t of ov.tables || []) {
     const richRows = [];
     if (t.columns) richRows.push(t.columns.map((c) => ({ text: c, imgs: [] })));
-    for (const row of t.rows) richRows.push(row.map((c) => ({ text: c, imgs: [] })));
+    for (const row of t.rows || []) richRows.push(row.map((c) => ({ text: c, imgs: [] })));
+    // (`emptyAfter`: instead of `match`, the first table with no text at all after the block
+    // holding this text — a table a PDF conversion brought over as an empty grid)
+    if (t.emptyAfter) {
+      let seen = false, done = false;
+      // (`drop: true` deletes that empty grid instead: the table was put back with its text)
+      const visit = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+          const b = arr[i];
+          if (done || !b || typeof b !== "object") continue;
+          if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+            if (seen && !b.rows.flat().some((c) => c && String(c.text || "").trim())) {
+              if (t.drop) arr.splice(i, 1); else { b.rows = richRows; if (t.noHeader) b.noHeader = true; }
+              done = true;
+            }
+            continue;
+          }
+          if (!seen && blockPlain(b).includes(t.emptyAfter)) seen = true;
+          for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) visit(b[k]);
+        }
+      };
+      visit(blocks);
+      if (!done) console.warn("!  table override (emptyAfter) not matched:", t.emptyAfter);
+      continue;
+    }
     // (`noHeader: true` — the table has no heading row, so its first row is not styled as one)
     if (!replaceTableRows(blocks, t.match, richRows, t.noHeader ? { noHeader: true } : null)) console.warn("!  table override not matched:", t.match);
   }

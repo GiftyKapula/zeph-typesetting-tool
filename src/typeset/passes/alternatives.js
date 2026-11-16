@@ -7,7 +7,8 @@
 // (Computer Science Form 3 LB, 2026-11-16.)
 
 const ALT = /^Alternative[’'\s]*(Learning\s+)?Activit(?:y|ies)\b\s*(\d+)?\s*[:.\-–]?\s*(.*)$/i;
-const EXPECTED = /^(Expected\s+Competences?\s*:?)/i;
+// (a Teacher's Guide closes the same way with "Expected Responses:")
+const EXPECTED = /^(Expected\s+(?:Competences?|Responses?)\s*:?)/i;
 const BOXES = new Set(["activity", "framedsection", "exercise", "assessment", "box", "keypoints", "fact"]);
 
 const plain = (b) => (b && (b.segs ? b.segs.map((s) => s.t || "").join("") : (b.text || "")) || "").replace(/\s+/g, " ").trim();

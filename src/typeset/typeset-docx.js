@@ -109,7 +109,7 @@ async function typesetOne(docxPath, themeName) {
   importOpts.colonHeadings = !!ov.colonHeadings;   // "TOPIC: 1.5 …" headings (see import-docx.js)
   importOpts.sourceFix = ov.sourceFix || [];          // fix manuscript text before recognition
   importOpts.textboxHeadings = !!ov.textboxHeadings;
-  importOpts.dropImages = !!ov.dropImages;             // a converted CorelDRAW PDF: every picture is the converter's (see import-docx.js)
+  // (dropImages: pictures are stripped after import — see below; the importer reads as usual)
   importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;  // a manuscript converted from a PDF: text boxes rejoin the text flow   // a short title line in a Word text box becomes a heading
   // the CDC copy's typed-on notes (FreeText comments, the list tools/cdc-comments.mjs writes):
   // the converter turns each into a text box, which unwrapTextboxes would print as book text
@@ -124,6 +124,21 @@ async function typesetOne(docxPath, themeName) {
   importOpts.answerListNumbered = ov.answerListNumbered || [];
   importOpts.styleLists = !!ov.styleLists;           // lists set by the paragraph style alone (Word List Bullet / List Number)
   let { blocks, media, tmp } = await importDocx(docxPath, importOpts);
+  // dropImages: the pictures a box group carried in with its text go too (import keeps the
+  // group whole so its text stays one activity box; only its pictures are the converter's)
+  if (ov.dropImages) {
+    const PIC = /^(image|imagerow|sidefig|img)$/;
+    const strip = (arr) => arr.filter((b) => !(b && PIC.test(b.t) && !(b.body && b.body.length))).map((b) => {
+      if (!b || typeof b !== "object") return b;
+      if (b.t === "sidefig" && Array.isArray(b.body)) return null;   // (handled below)
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) b[k] = strip(b[k]);
+      if (Array.isArray(b.rows)) for (const r of b.rows) for (const c of r || []) if (c && Array.isArray(c.imgs)) c.imgs = [];
+      return b;
+    });
+    // a side figure keeps its text: the picture beside it goes
+    const unside = (arr) => arr.flatMap((b) => b && b.t === "sidefig" && Array.isArray(b.body) ? unside(b.body) : [b]);
+    blocks = strip(unside(blocks)).filter(Boolean);
+  }
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
     return;
