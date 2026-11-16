@@ -762,25 +762,38 @@ function applyOverrides(blocks, ov) {
     for (const a of [].concat(after || [])) { const k = list.findIndex((x, i) => i >= from && blockPlain(x).includes(a)); from = k < 0 ? list.length : k + 1; }
     return from;
   };
+  // (or inside a table cell: a converted book can carry the end of a box as a one-cell table)
+  const tables = (arr) => (arr || []).flatMap((x) => x && x.t === "table" && Array.isArray(x.rows) ? [x] : tables(x && x.body));
+  const cells = () => tables(blocks).flatMap((x) => x.rows.flat()).filter((c) => c && typeof c.text === "string");
+  // the cell's runs too, even where the text is split across several of them ("Expected" | " Response:")
+  const editCellSegs = (segs, find, repl) => {
+    const b = { t: "para", segs };
+    if (segs.map((s) => s.t || "").join("").includes(find)) editBlockText(b, find, repl);
+    return b.segs;
+  };
+  const editCell = (c, find, repl) => {
+    c.text = c.text.replace(find, repl);
+    if (Array.isArray(c.segs)) c.segs = editCellSegs(c.segs, find, repl);
+  };
   for (const e of ov.edit || []) {
     const from = afterIndex(flat, e.after);
     const b = flat.find((x, i) => i >= from && blockPlain(x).includes(e.find));
     if (b) { editBlockText(b, e.find, e.with || ""); continue; }
-    // (or inside a table cell: a converted book can carry the end of a box as a one-cell table)
-    const tables = (arr) => (arr || []).flatMap((x) => x && x.t === "table" && Array.isArray(x.rows) ? [x] : tables(x && x.body));
-    const cell = tables(blocks).flatMap((x) => x.rows.flat()).find((c) => c && typeof c.text === "string" && c.text.includes(e.find));
-    if (cell) {
-      cell.text = cell.text.replace(e.find, e.with || "");
-      const sg = (cell.segs || []).find((s) => (s.t || "").includes(e.find));
-      if (sg) sg.t = sg.t.replace(e.find, e.with || "");
-    } else console.warn("!  edit not matched:", e.find);
+    const cell = cells().find((c) => c.text.includes(e.find) || (c.segs || []).map((s) => s.t || "").join("").includes(e.find));
+    if (cell) editCell(cell, e.find, e.with || "");
+    else console.warn("!  edit not matched:", e.find);
   }
   // editAll: [{ find, with }] — like edit, but applied to EVERY block that contains the
   // substring (not just the first). For a recurring phrase the same across the whole
   // book, e.g. relabelling every "TIPS FOR THE TEACHER" -> "TIPS TO THE TEACHER".
+  // (table cells too, every occurrence)
   for (const e of ov.editAll || []) {
     let n = 0;
     for (const b of flat) if (blockPlain(b).includes(e.find)) { editBlockText(b, e.find, e.with || ""); n++; }
+    for (const c of cells()) {
+      for (let k = 0; k < 50 && (c.segs || []).map((s) => s.t || "").join("").includes(e.find); k++) { c.segs = editCellSegs(c.segs, e.find, e.with || ""); n++; }
+      if (c.text.includes(e.find)) { c.text = c.text.split(e.find).join(e.with || ""); n++; }
+    }
     if (!n) console.warn("!  editAll not matched:", e.find);
   }
   // extendBox: [{ title, count }] — move the `count` blocks that follow a box (an activity/

@@ -390,6 +390,7 @@
     }
   ],
   "edit": [
+    { "find": "are important when controlling a", "with": "are important when controlling a robot." },
     {
       "find": "Suggest solutions",
       "with": "",
@@ -426,6 +427,11 @@
       "with": "EXERCISE 3",
       "_why": "stray colon, unlike every other exercise"
     }
+,
+    { "after": "LEARNING ACTIVITY 4: Testing electronic circuits", "find": "EXERCISE 5", "with": "EXERCISE 4" },
+    { "after": "LEARNING ACTIVITY 4: Testing electronic circuits", "find": "EXERCISE 6", "with": "EXERCISE 5" },
+    { "after": "LEARNING ACTIVITY 4: Testing electronic circuits", "find": "EXERCISE 7", "with": "EXERCISE 6" },
+    { "after": "LEARNING ACTIVITY 4: Testing electronic circuits", "find": "EXERCISE 8", "with": "EXERCISE 7" }
   ],
   "liftCrossCutting": true,
   "tables": [
@@ -549,5 +555,32 @@
       "find": "Sub-Topic 3.12.1. Mechanical and Electronic Systems",
       "as": "h2"
     }
+  ]
+,
+  "_note2": "User 2026-11-16 ('all of them'): LB proof checks — no Expected Standard in an LB (14 sub-topic standards removed); 'Possible answer' / 'Expected Response' are each activity's competences, relabelled 'Expected Competences:' like the rest; LA6 + its Alternative Activity printed twice in 3.1.1 (source too) — the second, older wording removed; 3.12 has no Exercise 4 in the source (LA4 has none) — Exercises 5-8 renumbered 4-7.",
+  "deleteExact": [
+    "robot.",
+    "Expected Standard", "Expected Standards",
+    "Presentations designed and created correctly",
+    "Publications Created and Formatted correctly.",
+    "Digital circuits designed correctly.",
+    "Online content created and shared appropriately",
+    "Cyber threats Mitigated and Responded to correctly.",
+    "Python used to code programs correctly",
+    "Practical Python Applications Developed accordingly.",
+    "Dynamic Interactive Web Pages developed accordingly",
+    "Database managed correctly",
+    "AI models deployed correctly",
+    "IoT solutions Created accordingly.",
+    "Mobile Applications Created Correctly.",
+    "Cloud computing models correctly developed and managed",
+    "Control systems implemented correctly"
+  ],
+  "editAll": [
+    { "find": "Expected Responses:", "with": "Expected Competences:" },
+    { "find": "Expected Response:", "with": "Expected Competences:" }
+  ],
+  "removeRange": [
+    { "after": "Work in small groups to create a paper-based presentation for a tourism", "from": "LEARNING ACTIVITY 6: Embed hyperlinks", "to": "Hyperlinks, sometimes called links" }
   ]
 }

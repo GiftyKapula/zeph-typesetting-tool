@@ -121,7 +121,7 @@ off, so a change only touches the books that opt in. Keys:
 
 | Key | What it does |
 |---|---|
-| `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block; `edit` also looks inside table cells when no block matches (a converted book can carry the end of a box as a one-cell table) |
+| `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block; `edit` falls back to table cells when no block matches, and `editAll` takes in every cell too (a converted book can carry the end of a box as a one-cell table); a phrase split across formatting runs is still found |
 | `editAnswer` | like `editAll`, but rewrites a qa part's own **answer** text (`.a`/`.aseg`) instead of its question — for a stray leftover option letter the manuscript's answer itself carries (e.g. "C use of basso continuo" on a question that isn't even multiple-choice) |
 | `subtext` | replace a substring in **every run** containing it, keeping its bold/italic/colour |
 | `retext` | change a run whose trimmed text equals `from` to `to`, keeping bold/italic/colour |
