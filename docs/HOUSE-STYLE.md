@@ -92,6 +92,7 @@ off, so a change only touches the books that opt in. Keys:
 | `raggedRight` | `true`: body text set flush left (ragged right) instead of justified — for an ECE book whose 18pt lines inside narrow activity boxes hold only three or four words, so justifying them opens wide gaps. Chitonga ECE Level 1 LB |
 | `tocTitle` | the contents page heading in the book's own words (a local-language book's own contents heading, e.g. Kiikaonde "Biji mu Kachi") instead of the theme's "Table of Contents" |
 | `titleAgeLine` | an age line set under the book type on the **title page only** (an ECE reviewer's "YAAKA 4-5"); the cover and spine are untouched |
+| `palette` | a book's own colours in place of its theme's: `{ primary, primary2, accent, cyan, signature }` re-derive the rules, table stripes and box colours the theme derives from them; `act` / `ex` / `alt` (`{ fill, border, title }`) set one box kind outright. Keys left out keep the theme's own. Computer Science Form 3 LB (CDC: match the green of its Teacher's Guide) |
 
 **Text (whole-block)**
 
@@ -120,7 +121,7 @@ off, so a change only touches the books that opt in. Keys:
 
 | Key | What it does |
 |---|---|
-| `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block |
+| `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block; `edit` also looks inside table cells when no block matches (a converted book can carry the end of a box as a one-cell table) |
 | `editAnswer` | like `editAll`, but rewrites a qa part's own **answer** text (`.a`/`.aseg`) instead of its question — for a stray leftover option letter the manuscript's answer itself carries (e.g. "C use of basso continuo" on a question that isn't even multiple-choice) |
 | `subtext` | replace a substring in **every run** containing it, keeping its bold/italic/colour |
 | `retext` | change a run whose trimmed text equals `from` to `to`, keeping bold/italic/colour |
@@ -141,6 +142,8 @@ off, so a change only touches the books that opt in. Keys:
 | `activityHeadsBlack` | render every Activity/Exercise heading bold black instead of the accent colour |
 | `pageBreakBefore` | insert a page break before the first block containing the text |
 | `keepBoxesWhole` | `true` — an activity box shorter than `keepBoxMm` (default 180 mm) moves to the next page whole instead of breaking. Off by default (whole boxes leave white space); for picture books (ECE), where a break puts the instruction on one page and its picture on the next |
+| `boxAlternatives` | `true` or `{ also: ["^Learner['’]s Activity"] }` — every "Alternative Activity" in a box of its own, one style (theme box `alt`), whatever shape a PDF-converted manuscript left it in: a grey box opening "Alternative Activity", a loose heading with its paragraphs (up to its "Expected Competences" line), or run on inside the Learning Activity box above. "Expected Competences:" goes bold; plain boxes that are later pages of an activity box are joined back to it. `also` adds the book's other names for the same thing. Computer Science Form 3 LB |
+| `liftCrossCutting` | `true` — each topic's CROSS-CUTTING ISSUES table lifted out of the exercise box that swallowed it, all one shape: the heading on its own, then issue (bold) and description two columns wide, rows the PDF split in two joined back; an exercise drawn in the same table goes back in front as its own box. Computer Science Form 3 LB |
 | `replaceSection` | swap a whole section body (heading → next section) for supplied `items` (markdown-ish: `**bold**`, `*italic*`, `$math$`, `## sub-head`); optional `rename`/`until` |
 | `recase` | change a block's case (`{ startsWith, to: "sentence" \| "title" \| "upper" }`, default `"title"`) — e.g. an ALL-CAPS label the house style wants in sentence case, or a Learning Activity/Exercise/Assessment box title a manuscript left inconsistently cased (`to: "upper"`) next to sibling boxes that are ALL-CAPS |
 | `setHeading` | force a block to render as a specific heading kind (`as: "label"`, etc.) — for a heading the importer classified wrong |

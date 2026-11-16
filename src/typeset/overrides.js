@@ -765,8 +765,15 @@ function applyOverrides(blocks, ov) {
   for (const e of ov.edit || []) {
     const from = afterIndex(flat, e.after);
     const b = flat.find((x, i) => i >= from && blockPlain(x).includes(e.find));
-    if (b) editBlockText(b, e.find, e.with || "");
-    else console.warn("!  edit not matched:", e.find);
+    if (b) { editBlockText(b, e.find, e.with || ""); continue; }
+    // (or inside a table cell: a converted book can carry the end of a box as a one-cell table)
+    const tables = (arr) => (arr || []).flatMap((x) => x && x.t === "table" && Array.isArray(x.rows) ? [x] : tables(x && x.body));
+    const cell = tables(blocks).flatMap((x) => x.rows.flat()).find((c) => c && typeof c.text === "string" && c.text.includes(e.find));
+    if (cell) {
+      cell.text = cell.text.replace(e.find, e.with || "");
+      const sg = (cell.segs || []).find((s) => (s.t || "").includes(e.find));
+      if (sg) sg.t = sg.t.replace(e.find, e.with || "");
+    } else console.warn("!  edit not matched:", e.find);
   }
   // editAll: [{ find, with }] — like edit, but applied to EVERY block that contains the
   // substring (not just the first). For a recurring phrase the same across the whole

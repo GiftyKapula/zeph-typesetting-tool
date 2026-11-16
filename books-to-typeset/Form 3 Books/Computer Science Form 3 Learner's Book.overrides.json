@@ -1,0 +1,552 @@
+{
+  "_note": "Computer Science Form 3 LB. Source = the CDC-marked PDF converted to .docx in Word (no original manuscript), 2026-11-16. CDC corrections from that PDF's 170 marks.",
+  "unwrapTextboxes": true,
+  "collapseSpaces": true,
+  "joinBrokenLines": true,
+  "joinSplitTables": true,
+  "boxActivities": true,
+  "reboxExercises": true,
+  "exerciseLeadsOut": true,
+  "keepScaffold": true,
+  "hyphenate": false,
+  "authors": [
+    "Collins Chinkalata",
+    "Ruth Gondwe",
+    "Shephat Phiri"
+  ],
+  "coverUntil": "SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 ORDINARY LEVEL",
+  "synthesiseCover": true,
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House (2026)",
+    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the copyright owner or publisher.",
+    "isbn": "…………………………",
+    "groups": [
+      {
+        "label": "Illustrated by:",
+        "lines": [
+          "Misheck Mutuzana and Shephat Phiri"
+        ]
+      },
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Teddy Ng`ambi"
+        ]
+      },
+      {
+        "label": "First Published by:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road, P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "Printed by:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "boxAlternatives": {
+    "also": [
+      "^Learner[’']s Activity",
+      "^Task$"
+    ],
+    "_why": "CDC p74-76: Learner’s Activity boxes in the Alternative Activity colour; p345: the non-digital Task box too"
+  },
+  "palette": {
+    "_why": "CDC: same green as the Teachers Guide (Word green 70AD47; activity fill C5E0B3, alternative activity FBD4B4, exercise bar blue 0070C0)",
+    "primary": "548235",
+    "primary2": "70AD47",
+    "signature": "70AD47",
+    "cyan": "C5E0B3",
+    "accent": "F4B083",
+    "act": {
+      "fill": "C5E0B3",
+      "border": "70AD47",
+      "title": "375623"
+    },
+    "alt": {
+      "fill": "FBD4B4",
+      "border": "F4B083",
+      "title": "843C0B"
+    },
+    "ex": {
+      "fill": "DEEBF7",
+      "border": "0070C0",
+      "title": "0070C0"
+    }
+  },
+  "remove": [
+    "Misheck Mutuzana holds an MSc"
+  ],
+  "insertText": [
+    {
+      "before": "PRODUCTIVITY",
+      "near": "PRODUCTIVITY",
+      "_why": "CDC p5: write the List of Acronyms as LIST OF ABBREVIATIONS",
+      "items": [
+        {
+          "h1": "LIST OF ABBREVIATIONS"
+        },
+        {
+          "para": "**1NF:** First Normal Form"
+        },
+        {
+          "para": "**2FA:** Two-Factor Authentication"
+        },
+        {
+          "para": "**2NF:** Second Normal Form"
+        },
+        {
+          "para": "**3NF:** Third Normal Form"
+        },
+        {
+          "para": "**AES:** Advanced Encryption Standard"
+        },
+        {
+          "para": "**AI:** Artificial Intelligence"
+        },
+        {
+          "para": "**AJAX:** Asynchronous JavaScript and XML"
+        },
+        {
+          "para": "**AND:** Logical operation where all inputs must be true for the output to be true"
+        },
+        {
+          "para": "**API:** Application Programming Interface"
+        },
+        {
+          "para": "**AU:** African Union"
+        },
+        {
+          "para": "**AWS:** Amazon Web Services"
+        },
+        {
+          "para": "**AWS EC2:** Amazon Web Services Elastic Compute Cloud"
+        },
+        {
+          "para": "**CAD:** Computer Aided Design"
+        },
+        {
+          "para": "**CPU:** Central Processing Unit"
+        },
+        {
+          "para": "**DBMS:** Database Management System"
+        },
+        {
+          "para": "**DTP:** Desktop Publishing"
+        },
+        {
+          "para": "**EC2:** Elastic Compute Cloud"
+        },
+        {
+          "para": "**ECDL:** European Computer Driving Licence"
+        },
+        {
+          "para": "**ECZ:** Examinations Council of Zambia"
+        },
+        {
+          "para": "**GDPR:** General Data Protection Regulation"
+        },
+        {
+          "para": "**GPS:** Global Positioning System"
+        },
+        {
+          "para": "**GUI:** Graphical User Interface"
+        },
+        {
+          "para": "**HTML:** Hypertext Markup Language"
+        },
+        {
+          "para": "**IaaS:** Infrastructure as a Service"
+        },
+        {
+          "para": "**ICT:** Information and Communication Technology"
+        },
+        {
+          "para": "**IDE:** Integrated Development Environment"
+        },
+        {
+          "para": "**IoT:** Internet of Things"
+        },
+        {
+          "para": "**ISBN:** International Standard Book Number"
+        },
+        {
+          "para": "**JETS:** Junior Engineers, Technicians and Scientists"
+        },
+        {
+          "para": "**KCM:** Konkola Copper Mines"
+        },
+        {
+          "para": "**LED:** Light Emitting Diode"
+        },
+        {
+          "para": "**MCM:** Mopani Copper Mines"
+        },
+        {
+          "para": "**MCU:** Microcontroller Unit"
+        },
+        {
+          "para": "**MIEE:** Microsoft Innovative Educator Expert"
+        },
+        {
+          "para": "**NOT:** Logical operation that reverses the input value"
+        },
+        {
+          "para": "**OR:** Logical operation OR Gate"
+        },
+        {
+          "para": "**PaaS:** Platform as a Service"
+        },
+        {
+          "para": "**PDF:** Portable Document Format"
+        },
+        {
+          "para": "**PTA:** Parent-Teacher Association"
+        },
+        {
+          "para": "**SaaS:** Software as a Service"
+        },
+        {
+          "para": "**SMS:** Short Message Service"
+        },
+        {
+          "para": "**SQL:** Structured Query Language"
+        },
+        {
+          "para": "**TEA:** Teaching Excellence and Achievement (Fulbright TEA Program)"
+        },
+        {
+          "para": "**UI:** User Interface"
+        },
+        {
+          "para": "**URL:** Uniform Resource Locator"
+        },
+        {
+          "para": "**UX:** User Experience"
+        },
+        {
+          "para": "**VPN:** Virtual Private Network"
+        },
+        {
+          "para": "**XOR:** Exclusive OR Gate"
+        },
+        {
+          "para": "**ZEPH:** Zambia Educational Publishing House"
+        },
+        {
+          "para": "**ZICTA:** Zambia Information and Communications Technology Authority"
+        }
+      ]
+    },
+    {
+      "before": "END OF TOPIC ASSESSMENT",
+      "_why": "CDC p177: the Cross-Cutting Issues table after Exercise 5 (lost in the conversion), separate from the exercise",
+      "items": [
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "CROSS – CUTTING ISSUES",
+                  "imgs": []
+                },
+                {
+                  "text": "",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Entrepreneurship Education",
+                  "imgs": []
+                },
+                {
+                  "text": "Develops skills for creating interactive websites that can support business and innovation.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Human Rights",
+                  "imgs": []
+                },
+                {
+                  "text": "Promotes respect for users’ privacy and responsible handling of personal data online.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Social and Emotional Learning",
+                  "imgs": []
+                },
+                {
+                  "text": "Builds collaboration, communication, and problem-solving skills when designing interactive web features.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Education for Sustainable Development",
+                  "imgs": []
+                },
+                {
+                  "text": "Encourages efficient and responsible use of web technologies to support sustainable digital solutions.",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ],
+      "near": "welcome message to appear"
+    }
+  ],
+  "replaceSection": [
+    {
+      "heading": "GLOSSARY",
+      "until": "REFERENCES",
+      "_why": "CDC p367: complete glossary list (their note stops at Integration; P-S kept from the book)",
+      "items": [
+        "## A",
+        "**Algorithm:** A set of step-by-step instructions followed to solve a problem or perform a task.",
+        "**Alignment:** The arrangement of text, images or objects in a straight or organised position.",
+        "**Application:** A computer program designed to perform a particular task.",
+        "**Application Programming Interface (API):** A set of rules that allows different software applications to communicate and share information.",
+        "**Array:** A data structure used to store several values under one name.",
+        "**Artificial Intelligence (AI):** Technology that enables computers and machines to perform tasks that normally require human intelligence.",
+        "**Authentication:** The process of checking the identity of a user before allowing access to a system.",
+        "**Automation:** The use of technology to perform tasks with little or no human involvement.",
+        "**Augmented Reality (AR):** Technology that adds computer-generated information or objects to a real-world environment.",
+        "## B",
+        "**Backup:** A copy of data kept separately so that it can be restored if the original data is lost or damaged.",
+        "**Boolean Expression:** A logical expression that produces either a TRUE or FALSE result.",
+        "**Boolean Logic:** A system of logic that uses TRUE and FALSE values to make decisions.",
+        "**Brochure:** A printed or digital publication used to provide information about a product, service or organisation.",
+        "**Bug:** An error or fault in a computer program that causes it to produce incorrect results or behave unexpectedly.",
+        "## C",
+        "**Circuit:** A complete path through which electric current flows from a power source through connected components.",
+        "**Cloud Computing:** The delivery of computing services such as storage, software and processing over the internet.",
+        "**Cloud Storage:** A service that allows users to store and access data over the internet.",
+        "**Coding:** The process of writing instructions in a programming language to make a computer perform tasks.",
+        "**Combinational Circuit:** A digital circuit whose output depends only on its current inputs.",
+        "**Computer Network:** A group of connected computers and other devices that communicate and share resources.",
+        "**Conditional Statement:** A programming instruction that allows a program to make decisions based on specified conditions.",
+        "**Cybersecurity:** The practice of protecting computers, networks, applications and data from digital attacks and unauthorised access.",
+        "**Cyber Threat:** A possible danger that can damage, disrupt or gain unauthorised access to computer systems or data.",
+        "## D",
+        "**Database:** An organised collection of related data stored for easy access, management and updating.",
+        "**Database Management System (DBMS):** Software used to create, store, organise, retrieve and manage data in a database.",
+        "**Data Privacy:** The protection of personal information from unauthorised access, use or disclosure.",
+        "**Data Protection:** Measures taken to safeguard data against loss, damage, theft or unauthorised access.",
+        "**Data Security:** The protection of information against unauthorised access, alteration, disclosure or destruction.",
+        "**Debugging:** The process of identifying and correcting errors in a computer program.",
+        "**Desktop Publishing (DTP):** The use of computer software to design and produce publications such as posters, brochures, newsletters and books.",
+        "**Digital Circuit:** An electronic circuit that processes information using binary values (0 and 1).",
+        "**Digital Circuit Simulator:** Software that allows users to design and test electronic circuits on a computer without physically building them.",
+        "**Digital Footprint:** The record of information a person leaves behind when using the internet and digital services.",
+        "## E",
+        "**Electronic System:** A combination of electronic components that work together to perform specific functions.",
+        "**Encryption:** The process of converting readable information into an unreadable form to prevent unauthorised access.",
+        "**Event:** An action or occurrence, such as clicking a button, that can trigger a response in a computer program.",
+        "**Expression:** A combination of values, variables and operators that produces a result.",
+        "## F",
+        "**Firewall:** A security system that monitors and controls incoming and outgoing network traffic to prevent unauthorised access.",
+        "**Flowchart:** A diagram that uses symbols and arrows to represent the steps involved in solving a problem or carrying out a process.",
+        "**Function:** A reusable block of code designed to perform a particular task in a program.",
+        "## G",
+        "**Graphical User Interface (GUI):** A way of interacting with a computer using visual elements such as icons, menus, buttons and windows.",
+        "## H",
+        "**Hardware:** The physical parts of a computer or electronic device that can be seen and touched.",
+        "**Hyperlink:** A clickable text, image or button that connects users to another webpage, document or section of a presentation.",
+        "**Hypertext Mark-up Language (HTML):** A language used to structure and organise content on web pages.",
+        "## I",
+        "**Image Placement:** The positioning of pictures or graphics in a document or publication to improve its appearance and communication.",
+        "**Integration:** Connecting different programs, databases, or devices so they can share and use data together. Learning integration helps systems work smoothly as a single unit.",
+        "## P",
+        "**Power Supply System:** The parts of a robot that provide electricity so it can work properly. Learning to set up a power supply ensures devices run safely and reliably.",
+        "## R",
+        "**Real-Time Monitoring:** Seeing data instantly as it is collected from sensors or devices. It helps you make quick and accurate decisions based on live information.",
+        "**Remote Monitoring:** Checking and controlling robots or systems from far away using the internet or networks. It allows you to manage devices without being physically present.",
+        "**Robotic Structure:** The main body or frame of a robot that holds all the parts together. Designing a good robotic structure helps the robot move and function efficiently.",
+        "## S",
+        "**Sequential Circuit:** A circuit that can remember past inputs as well as the current input. It is useful for tasks that require memory, like counters or timers."
+      ]
+    }
+  ],
+  "moveBefore": [
+    {
+      "find": "image19.jpeg",
+      "before": "Different presentation software applications may vary",
+      "_why": "CDC p11-12: remove the PowerPoint interface picture from under Key Competences, put it after Exploring the software"
+    }
+  ],
+  "edit": [
+    {
+      "find": "Suggest solutions",
+      "with": "",
+      "_why": "CDC p287: DELETE \"Suggest solutions\""
+    },
+    {
+      "find": "EXERISE 4",
+      "with": "EXERCISE 4",
+      "_why": "source typo (not CDC-marked): the box was not recognised"
+    },
+    {
+      "find": "LEANING ACTIVITY 3",
+      "with": "LEARNING ACTIVITY 3",
+      "_why": "source typo: the activity was not boxed"
+    },
+    {
+      "find": "EXERCISE 4",
+      "with": "EXERCISE 3",
+      "after": "Deployment Models",
+      "_why": "numbering: topic 3.8 went Exercise 2 -> 4"
+    },
+    {
+      "find": "LEARNING ACTIVITY4",
+      "with": "LEARNING ACTIVITY 4",
+      "_why": "missing space"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1:Designing",
+      "with": "LEARNING ACTIVITY 1: Designing",
+      "_why": "missing space"
+    },
+    {
+      "find": "EXERCISE 3:",
+      "with": "EXERCISE 3",
+      "_why": "stray colon, unlike every other exercise"
+    }
+  ],
+  "liftCrossCutting": true,
+  "tables": [
+    {
+      "match": "perseverance",
+      "_why": "source p136: the conversion lost this table's first row; rebuilt from the source PDF",
+      "rows": [
+        [
+          "CROSS – CUTTING ISSUES",
+          ""
+        ],
+        [
+          "Entrepreneurship Education",
+          "Develops creativity and innovation skills for creating software solutions and digital products."
+        ],
+        [
+          "Social and Emotional Learning",
+          "Builds problem-solving skills, perseverance, and confidence in writing and debugging code."
+        ],
+        [
+          "National Values and Principles",
+          "Promotes ethical use of programming skills and responsibility in developing digital solutions."
+        ],
+        [
+          "Special and Inclusive Education",
+          "Encourages inclusive design of programs that cater for users with different needs and abilities."
+        ]
+      ]
+    }
+  ],
+  "splitBefore": [
+    {
+      "find": "Group 4:",
+      "_why": "LA5 (source p277): one group per line, as in the source"
+    },
+    {
+      "find": "Group 3:",
+      "_why": "LA5 (source p277): one group per line, as in the source"
+    },
+    {
+      "find": "Group 2:",
+      "_why": "LA5 (source p277): one group per line, as in the source"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "TOPIC 3: NETWORKING",
+      "with": [
+        {
+          "h1": "TOPIC 3.3: NETWORKING"
+        }
+      ],
+      "_why": "numbering: source slip TOPIC 3 (topic 3.3)"
+    },
+    {
+      "find": "3.11: CLOUD COMPUTING",
+      "with": [
+        {
+          "h1": "TOPIC 3.11: CLOUD COMPUTING"
+        }
+      ],
+      "_why": "numbering: the source left out the word TOPIC, so it set as a sub-heading"
+    },
+    {
+      "find": "TOPIC 3.8: ARTIFICIAL INTELLIGIENCE",
+      "with": [
+        {
+          "h1": "TOPIC 3.8: ARTIFICIAL INTELLIGENCE"
+        }
+      ],
+      "_why": "typo in the topic title (the contents list spells it right)"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "Sub-Topic 3.1.2. Desktop Publishing Software",
+      "as": "h2",
+      "_why": "every sub-topic a sub-topic heading, listed in the contents as in the source (only 2 of 14 were)"
+    },
+    {
+      "find": "Sub-Topic 3.2.1. Application of Logic Gates",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.3.1: The Internet",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.4.1. Data Protection and Privacy",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.5.1. Python Programming",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.5.2. Coding in Python",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.6.1. Web Interactivity",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.7.1: Database Management",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.9.1 Application of Internet of Things",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.10.1 Introduction to Mobile Applications",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.11.1 Fundamentals of Cloud Computing",
+      "as": "h2"
+    },
+    {
+      "find": "Sub-Topic 3.12.1. Mechanical and Electronic Systems",
+      "as": "h2"
+    }
+  ]
+}

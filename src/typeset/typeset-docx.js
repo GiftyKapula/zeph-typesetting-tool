@@ -12,7 +12,7 @@ const path = require("path");
 const os = require("os");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
 const { importDocx } = require("./import-docx.js");
-const { THEMES, autoTheme, themeTypst, tgCoverSignature } = require("./themes.js");
+const { THEMES, autoTheme, themeTypst, tgCoverSignature, paletteColours } = require("./themes.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng } = require("./image-enhance.js");
 const { pngDamaged, placeholderPng } = require("./png-check.js");
 const LEXI = require("./lexicon/index.js");
@@ -35,6 +35,7 @@ const { unboldLeadProse, mergeContinuationActivities, splitActivityTables, conve
 const { applyMarkFlushRight } = require("./passes/marks.js");
 const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, joinBrokenLines, boxLooseActivities } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
+const { boxAlternatives, liftCrossCutting } = require("./passes/alternatives.js");
 
 async function typesetOne(docxPath, themeName) {
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
@@ -674,6 +675,10 @@ async function typesetOne(docxPath, themeName) {
   // (a converted book again, now the boxes made from headings exist: each takes back its
   // own instructions and "Expected Responses" left after it)
   if (ov.joinBrokenLines) boxLooseActivities(blocks);
+  // every "Alternative Activity" in one box style of its own (theme box `alt`)
+  if (ov.boxAlternatives) blocks = boxAlternatives(blocks, typeof ov.boxAlternatives === "object" ? ov.boxAlternatives : {});
+  // each topic's CROSS-CUTTING ISSUES table out of the exercise box that swallowed it, all one shape
+  if (ov.liftCrossCutting) blocks = liftCrossCutting(blocks);
   // after boxing, so the assessment bodies exist to scan
   boldAssessmentSections(blocks);
   boldSafetyAndSteps(blocks);
@@ -945,6 +950,9 @@ async function typesetOne(docxPath, themeName) {
   // rather than the theme's short "English") feeds the cover title, eyebrow,
   // title page and running-header pill alike.
   if (ov.subject) themeOverrides.subject = ov.subject;
+  // "palette": a book's own colours in place of its theme's (CDC asked the Computer Science
+  // Form 3 LB to match the green of its Teacher's Guide) — the same fields zeph() derives
+  if (ov.palette) Object.assign(themeOverrides, paletteColours(THEMES[theme] || {}, ov.palette));
   // Align the running-header left text with the grade/form-derived education level
   // (the cover eyebrow already uses it), overriding the theme's fixed default so the
   // same local-language theme reads correctly at primary vs secondary level.
