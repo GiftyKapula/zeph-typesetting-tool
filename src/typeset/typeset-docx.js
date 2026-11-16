@@ -5190,8 +5190,8 @@ function applyHeadingCase(blocks, cfg) {
 // A book can carry a different name with the sidecar key `layoutCredit` — the Food and
 // Nutrition Form 2 Teacher's Guide credits Chikondi Robinson Ng`ambi (user, 2026-10-22:
 // "the change of the name is changed just for this one"); every other book keeps this.
-// A list (["Gift Kapula", "Ng`ambi Teddy (B.Sc)"]) credits a shared layout, one name a line.
-const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
+// A list (["Gift Kapula", "Teddy Ng`ambi"]) credits a shared layout, one name a line.
+const LAYOUT_CREDIT = "Teddy Ng`ambi";
 function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
   // `layoutCredit` may also be a list of names when the layout is shared — each name
   // then gets its own line under the label, like every other imprint credit.
