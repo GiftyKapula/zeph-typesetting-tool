@@ -4310,7 +4310,7 @@ function reorderBackmatter(blocks) {
 // no separate line for a name at all — the very next paragraph there is unrelated
 // real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
 // non-empty block" would destroy that section instead of crediting anyone.
-const LAYOUT_CREDIT = "Ng`ambi Teddy";
+const LAYOUT_CREDIT = "Teddy Ng`ambi";
 function fillLayoutCredit(blocks) {
   const LABEL = /cover\s+and\s+book\s+layout/i;
   // Another front-matter label (ends with a colon, or a known "…by:" line) — never a
