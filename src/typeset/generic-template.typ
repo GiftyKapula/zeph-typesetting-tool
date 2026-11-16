@@ -1508,7 +1508,8 @@
   let eyebrow = if hasGradeWord(rawsub) or (rawsub == name) { T.eyebrow } else { rawsub }
   // signature-colour dominant, mirroring the front. Publisher rule: the back cover does
   // NOT repeat the front's title — it is plain, with only the ISBN / barcode space, and
-  // the ZEPH logo over "Printed by Zambia Educational Publishing House" at the foot.
+  // the ZEPH logo over "Published by Zambia Educational Publishing House" at the foot
+  // (house rule, user 2026-10-22; a local-language book sets its own words: coverWords.printedBy).
   page(margin: 0pt, header: none, footer: none, fill: signature, width: 176mm, height: 250mm)[
     #set text(font: T.displayFont)
     // corner wedges
@@ -1520,7 +1521,7 @@
       #align(center + horizon)[#if isbn != none { text(size: 11pt, weight: "bold", fill: black)[ISBN #isbn] } else { text(size: 8pt, fill: luma(55%))[ISBN & barcode] }]])
     #place(bottom + center, dy: -12mm, align(center)[
       #if logo != none [ #image("_media/" + logo.file, height: 10mm) #v(2mm) ]
-      #text(size: 8.5pt, fill: onfield)[#if T.printedBy != "" { T.printedBy } else [Printed by]] #linebreak()
+      #text(size: 8.5pt, fill: onfield)[#if T.printedBy != "" { T.printedBy } else [Published by]] #linebreak()
       #text(size: 8.5pt, fill: onfield)[Zambia Educational Publishing House]
     ])
   ]
