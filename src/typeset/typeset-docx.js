@@ -1550,7 +1550,12 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // here they fall through as a plain bold `head` block that looks like a
   // heading but never gets its own page or a Table of Contents entry.
   // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
-  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  // "(GENERAL|KEY) COMPETEN…" matches by its lead words (the heading often carries a
+  // tail, "… TO BE DEVELOPED"), but NOT a "Term – meaning" line that merely starts with
+  // them: the Grade 3 CTS TG's HOW TO USE list has the bullet "General competences –
+  // broad competences developed through learning activities.", which was promoted to a
+  // full-page section with its own contents entry.
+  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*\b(?!\s*[–—-]\s+[a-z])|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
   // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
@@ -5135,8 +5140,15 @@ function applyHeadingCase(blocks, cfg) {
 // A book can carry a different name with the sidecar key `layoutCredit` — the Food and
 // Nutrition Form 2 Teacher's Guide credits Chikondi Robinson Ng`ambi (user, 2026-10-22:
 // "the change of the name is changed just for this one"); every other book keeps this.
-const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
+// A list (["Gift Kapula", "Teddy Ng`ambi"]) credits a shared layout, one name a line.
+const LAYOUT_CREDIT = "Teddy Ng`ambi";
 function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
+  // `layoutCredit` may also be a list of names when the layout is shared — each name
+  // then gets its own line under the label, like every other imprint credit.
+  const names = (Array.isArray(credit) ? credit : [credit]).filter((n) => n && String(n).trim());
+  if (!names.length) names.push(LAYOUT_CREDIT);
+  credit = names[0];
+  const extraLines = (align) => names.slice(1).map((n) => ({ t: "para", segs: [{ t: n, b: false, it: false, c: null }], align }));
   // Manuscripts word this credit several ways — "Cover and Book Layout:", "Cover
   // designed by:", "Book layout by:", "Design and layout:" — and matching only the
   // first spelling left the credit unfilled on any book using another. The ICT Form 2
@@ -5200,6 +5212,9 @@ function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
         if (blockPlain(arr[nameIdx]).trim() !== credit) {
           setBlockSegs(arr[nameIdx], [{ t: credit, b: false, it: false, c: null }]);
         }
+        const more = extraLines(arr[nameIdx].align || b.align || "center");
+        arr.splice(nameIdx + 1, 0, ...more);
+        nameIdx += more.length;
         // Space the credit from whatever ZEPH statement (publisher block, "First
         // Published by:", …) follows it, unless a blank line already does the job.
         if (!isBlankish(arr[nameIdx + 1])) arr.splice(nameIdx + 1, 0, { t: "vspace", h: "4mm" });
@@ -5209,6 +5224,7 @@ function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
         // whatever follows.
         arr.splice(i + 1, 0,
           { t: "para", segs: [{ t: credit, b: false, it: false, c: null }], align: b.align || "center" },
+          ...extraLines(b.align || "center"),
           { t: "vspace", h: "4mm" });
       }
       return;
