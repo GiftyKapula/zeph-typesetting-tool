@@ -1118,7 +1118,14 @@
     "J'?",
     "{c} Conditional statement"
   ],
-  "edit": [],
+  "edit": [
+    {
+      "find": "Mobile presentation apps are helpful",
+      "with": "(c) Mobile presentation apps are helpful",
+      "_why": "source p16: (c) read as (^)",
+      "_restore": true
+    }
+  ],
   "codeBlocks": [
     {
       "from": "print(“Welcome to the Reading",
@@ -1774,6 +1781,23 @@
       "with": [],
       "_why": "its line, joined to the sentence above",
       "_restore": true
+    },
+    {
+      "find": "Boolean expression for gate opening: G = P (B + I) E.",
+      "with": [
+        {
+          "listitem": "*Boolean expression for gate opening: G = P · (B + I) · ¬E.*",
+          "marker": "3."
+        }
+      ],
+      "_why": "source p38: the conversion lost the AND dots and the NOT",
+      "_restore": true
+    },
+    {
+      "find": "(^)",
+      "with": [],
+      "_why": "conversion scrap",
+      "_restore": true
     }
   ],
   "mergePara": [
@@ -1784,6 +1808,11 @@
     {
       "find": "support understanding. The audience",
       "_why": "source p17: one sentence broken over the page",
+      "_restore": true
+    },
+    {
+      "find": "Test the circuit in a simulator like CircuitVerse or Digital Works by building it",
+      "_why": "source p40: one answer broken in two",
       "_restore": true
     }
   ],
@@ -1889,6 +1918,24 @@
     {
       "findTable": "Facilitate learners to work individually, in pairs or in groups.",
       "title": "LEARNING ACTIVITY 5: Designing sequential circuits for time-dependent applications",
+      "_restore": true
+    },
+    {
+      "findTable": "present their databases and explain how tables, queries, and permissions",
+      "into": "prev",
+      "_why": "source p105: LA1's last lines and its alternative, drawn as a grey table",
+      "_restore": true
+    },
+    {
+      "findTable": "Ask learners to study the scenario provided in the Learner’s Book.",
+      "title": "LEARNING ACTIVITY 3: Upgrading and migrating a database to a newer version or platform",
+      "_why": "source p108 (title reads 'mitigating', a slip for 'migrating')",
+      "_restore": true
+    },
+    {
+      "findTable": "Divide learners into groups and instruct them to explore presentation",
+      "title": "LEARNING ACTIVITY 1: Exploring presentation software",
+      "_why": "source p14: the title bar was lost",
       "_restore": true
     }
   ],
@@ -2074,6 +2121,557 @@
         },
         {
           "para": "Guide learners to apply knowledge of electronic components and logic gates by designing simple circuits for specific tasks. Introduce sequential circuits, explaining that their outputs depend on time or previous inputs, and relate them to systems such as traffic lights and digital clocks. Explain flip-flops as memory elements, timers as delay controls, and counters as event trackers. Encourage learners to use tools such as CircuitVerse and Digital Works to safely design and simulate automated systems using LEDs, buzzers, or motors."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "Test the circuit in a simulator like CircuitVerse",
+      "_why": "source p39: lost in the Word conversion",
+      "items": [
+        {
+          "image": "cs-f3-tg-figs/p039-logic-diagram.png",
+          "w": 420
+        },
+        {
+          "listitem": "*Assume the gate opens only when: Power (P) = 1; Emergency lock (E) = 0; and either the Button (B) or ID card (I) is active.*",
+          "marker": "6."
+        },
+        {
+          "para": "*Boolean expression:* G = P·(B + I)·E̅"
+        },
+        {
+          "para": "*This Boolean equation represents the logic circuit where G (output) is active only when Permission (P) is true, either Button (B) or Input (I) is active, and Enable (E) is not active (negated).*"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "P",
+                  "imgs": []
+                },
+                {
+                  "text": "B",
+                  "imgs": []
+                },
+                {
+                  "text": "I",
+                  "imgs": []
+                },
+                {
+                  "text": "E",
+                  "imgs": []
+                },
+                {
+                  "text": "Gate Open (G)",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "*Truth table shows gate opens only when P = 1, E = 0, and B = 1 or I = 1; otherwise gate remains closed.*"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "Configuring user roles and permissions means deciding",
+      "_why": "source pp107-108: lost in the Word conversion",
+      "items": [
+        {
+          "head": "LEARNING ACTIVITY 2: Configure user roles and permissions to control access to database resources"
+        },
+        {
+          "para": "*Facilitate learners to work individually, in pairs or in manageable groups. Let learners create a small database system using MySQL, Microsoft Access or Oracle Database.*"
+        },
+        {
+          "para": "*Guide learners to create user accounts, assign roles and permissions, test access levels, and present their findings to the class.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners create a database, assign user roles and permissions, test access levels, and explain what each user can and cannot do.*"
+        },
+        {
+          "head": "Configuring User Roles and Permissions in MySQL (Structured Query Language)"
+        },
+        {
+          "para": "*Guide learners to create different users in the database using the CREATE USER command, as indicated in the Learner’s Book, steps 1 to 7. Help them create accounts such as teacher and learner, and explain the purpose of each user account. Next, guide learners to grant permissions and assign roles using SQL commands. Explain that the teacher account can view and edit data, while the learner account can only view data. Demonstrate how to apply changes using the FLUSH PRIVILEGES command.*"
+        },
+        {
+          "para": "*Support learners to test permissions by logging in as each user and checking what actions are allowed. Encourage them to observe that the teacher can add and update records, while the learner can only view data. Finally, discuss how permissions and roles help protect the database, prevent errors, and ensure only authorised users can make changes.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners create user accounts, assign roles and permissions, apply changes using FLUSH PRIVILEGES, and test access levels by logging in as different users. They should demonstrate that the teacher can add and update records, while the learner can only view data. Learners should also explain how permissions help protect the database and control access.*"
+        },
+        {
+          "head": "Configuring User Roles and Permissions in Oracle Database"
+        },
+        {
+          "para": "Guide learners to log in to Oracle Database using an administrator account, create users and roles, and assign permissions using SQL commands. Help learners test access levels to confirm that teachers can view and edit data while learners can only view data. Emphasise that roles and permissions improve database security, prevent unauthorised changes, and keep data organised and reliable."
+        },
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*The manager should have full access to the database, including viewing, adding, updating, and deleting records, because the manager is responsible for supervising business operations and maintaining records. The cashier should be allowed to view sales records and add sales transactions but should not delete important records. The store assistant should only be allowed to view stock or customer information needed for daily tasks.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*The cashier should be allowed to enter sales data, update transaction details, and view customer records because these tasks are part of handling sales. However, the cashier should not delete records or change system settings to avoid errors or fraud. The store assistant should only view stock and customer information and should not edit or delete records because their role does not require making changes to the database.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*The cashier’s role should be changed by removing the permission to delete records. This improves data security by preventing accidental loss of important sales information and ensures that only authorised users can make major changes to the database.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Upgrading and Migrating Database"
+        },
+        {
+          "para": "Upgrading a database means updating it to a newer version to improve speed, security, and features. For example, upgrading MySQL 5.6 to MySQL 8.0 makes the database faster and safer."
+        },
+        {
+          "para": "Migrating a database means moving it to a new system or location, such as from a laptop to a cloud server. This helps make data easier to access and manage. Both upgrading and migrating help keep data safe, organised, and efficient."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "(b)",
+      "near": "Main advantage: It allows users",
+      "_why": "source pp14-15: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Alternative Activity"
+        },
+        {
+          "para": "*Organise learners into small groups and provide textbooks, printed screenshots of presentation software interfaces, manila paper, rulers, and markers. Guide learners to identify and label common features such as the title bar, toolbar, slide area, scroll bars, and zoom tools. Encourage learners to discuss the function of each feature and present their posters to the class.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners identify and label common presentation software features and explain how the features support the organisation and creation of presentations.*"
+        },
+        {
+          "label": "EXERCISE 1"
+        },
+        {
+          "para": "**Exploring Presentation Software**"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*Microsoft PowerPoint: used to create slideshows offline. Google Slides: online presentation tool for collaboration. LibreOffice Impress: free offline presentation software.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*Title bar, toolbar, status bar, ruler, scroll bar, zoom tools.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*It reduces mistakes. It saves time.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Types of Presentation Software"
+        },
+        {
+          "para": "Explain to learners that presentation software applications such as Microsoft PowerPoint, Google Slides, Canva, and LibreOffice Impress operate differently. Guide learners to understand that some applications work offline after installation, while others require internet access. Discuss how some applications are designed for computers and others for mobile devices. Ensure learners understand the meaning and uses of the internet and guide them to consider factors such as internet availability, type of device, and purpose of the presentation when selecting presentation software."
+        },
+        {
+          "head": "LEARNING ACTIVITY 2: Identifying different types of presentation software"
+        },
+        {
+          "para": "*Facilitate the formation of small groups and instruct learners to identify and explore different presentation software, such as Microsoft PowerPoint, Google Slides, Canva, and LibreOffice Impress. Ask learners to classify each application as offline, online, or mobile-based, based on how it is accessed and used. Instruct each group to prepare a simple comparison chart showing the key features, advantages, and limitations of the selected software. Ask groups to present their findings to the class and recommend the most suitable presentation software for a given school project, giving reasons for their choice.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners correctly identify and classify presentation software as offline, online, or mobile-based, complete a comparison chart, present their findings clearly, and recommend suitable software for the school project with appropriate justification.*"
+        },
+        {
+          "head": "Alternative Activity"
+        },
+        {
+          "para": "*Divide learners into groups and assign each group a presentation software. Guide them to demonstrate its functions using simple gestures or classroom objects while others guess the software. End with a short discussion on its features, uses, and type.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners identify the software, describe its features and uses, and classify it as offline, online, or mobile.*"
+        },
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "para": "(a)"
+        },
+        {
+          "listitem": "*Microsoft PowerPoint*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*LibreOffice Impress*",
+          "marker": "•"
+        },
+        {
+          "para": "**Explanation:** *These are useful when there is no internet connection because they are installed on a computer and can be used offline.*"
         }
       ],
       "_restore": true

@@ -60,7 +60,14 @@ function applyOverrides(blocks, ov) {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
-        const cell = b.t === "table" && Array.isArray(b.rows) && b.rows.length === 1 && Array.isArray(b.rows[0]) && b.rows[0].length === 1 && b.rows[0][0];
+        // (a one-COLUMN table of several rows — an activity and its alternative drawn as two
+        // stacked frames — reads as one cell, its rows as lines)
+        const oneCol = b.t === "table" && Array.isArray(b.rows) && b.rows.length >= 1 && b.rows.every((r) => Array.isArray(r) && r.length === 1 && r[0]);
+        const cell = oneCol && (b.rows.length === 1 ? b.rows[0][0] : {
+          text: b.rows.map((r) => r[0].text || "").join("\n"),
+          segs: b.rows.flatMap((r, k) => [...(k ? [{ t: "\n", b: false, it: false, c: null }] : []), ...(Array.isArray(r[0].segs) && r[0].segs.length ? r[0].segs : [{ t: r[0].text || "", b: false, it: false, c: null }])]),
+          imgs: b.rows.flatMap((r) => r[0].imgs || []),
+        });
         if (!cell || !(cell.text || "").replace(/\s+/g, " ").trim().startsWith(want)) {
           for (const key of Object.keys(b)) if (Array.isArray(b[key]) && key !== "rows" && !done) walk(b[key]);
           continue;
