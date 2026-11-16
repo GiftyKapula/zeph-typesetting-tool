@@ -739,6 +739,15 @@ function boxifyActivities(blocks, opts = {}) {
   const EXPECT = /^(EXERC\w*|ASSESS?MENTS?)\s*[–—-]\s*EXPECTED\s+(ANSWER|RESPONSE)/i;
   const kindOf = (t) => (EXPECT.test(t) ? "ex" : isDefn(t) ? null : ACT.test(t) ? "act" : EX.test(t) ? "ex" : ASMT.test(t) ? "asmt" : null);
   const INTERNAL = /^(teaching and learning materials|teacher.?s?\s*facilitation procedure|facilitation procedure|teacher.?s?\s*notes?|take note of responses|expected responses?|possible answers?|materials?|answers?|procedure)\b/i;
+  // A Learner's Book activity's own inner labels: the "What to Do" over its steps and
+  // the "SAFETY FIRST" / "Safety note" over its precautions, the "EXAMPLES:" / "Examples
+  // from the syllabus include:" over its examples. They are set as bold lines
+  // of their own, so they read as a fresh content heading and closed the box above them
+  // — twenty activities of the Grade 3 CTS Learner's Book printed their title and
+  // lead-in in the teal panel and every step, safety rule and picture loose beneath it.
+  // Whole-line matches only, and only inside an ACTIVITY: an exercise or assessment
+  // never takes them in, so a SAFETY FIRST section after an exercise still stands alone.
+  const ACT_INTERNAL = /^(what\s+to\s+do|safety\s+(first|notes?|rules|tips|precautions)|examples?(\s+from\s+the\s+syllabus)?(\s+includes?)?)\s*:?\s*$/i;
   // The recurring teaching PHASES inside a single activity (the 3Ps / lesson-cycle
   // structure: Introduction, Presentation/Present, Practice, Production/Produce,
   // Conclusion, plus common variants). They are sub-steps of ONE activity, not a new
@@ -842,10 +851,30 @@ function boxifyActivities(blocks, opts = {}) {
     // must stop there rather than swallowing it indefinitely.
     let altActDone = false;
     let altActPending = false;
+    // …except the activity's own safety block, which a Learner's Book prints AFTER the
+    // alternative activity: a "SAFETY FIRST" label with its rules (a list or one
+    // sentence), or a "SAFETY NOTE: …" line, then the activity's picture. It belongs to
+    // the activity as much as the steps do (Grade 3 CTS LB: five activities printed
+    // their safety rules and picture under the box instead of in it). 1 = the label is
+    // in and its rules are due, 2 = the rules are in; only pictures/list items follow.
+    let safetyTail = 0;
+    const SAFETY_HEAD = /^safety\s+(first|notes?|rules|tips|precautions)\s*:?\s*$/i;
+    const SAFETY_LEAD = /^safety\s+(first|notes?)\s*:/i;
     while (j < blocks.length) {
       const y = blocks[j];
-      if (altActDone) break;
+      if (altActDone) {
+        if (k === "act" && !safetyTail && isHead(y) && SAFETY_HEAD.test(ht(y))) { altActDone = false; safetyTail = 1; body.push(y); j++; continue; }
+        // the activity's picture, printed straight after the alternative activity
+        if (k === "act" && !safetyTail && y.t === "image") { body.push(y); j++; continue; }
+        if (k === "act" && !safetyTail && y.t === "para" && (y.segs || [])[0]?.b && SAFETY_LEAD.test(blockPlain(y).trim())) { altActDone = false; safetyTail = 2; body.push(y); j++; continue; }
+        break;
+      }
+      if (safetyTail) {
+        if (y.t === "listitem" || y.t === "image" || (safetyTail === 1 && y.t === "para")) { body.push(y); j++; safetyTail = 2; continue; }
+        break;
+      }
       if (BOXBLOCK.has(y.t)) break;                                  // a pre-built box (exercise/activity/…) always ends this one
+      if (y.t === "pagebreak") break;                                // a `pageBreakBefore` for the NEXT box: swallowed, it was lost
       if (isLessonBanner(y)) break;                                  // "<STRAND>: LESSON N" always starts a new lesson
       if (isHeaderPara(y)) break;                                    // a bold inline section header
       if (isHead(y) && BACKMATTER.test(ht(y))) break;               // never absorb back matter (GLOSSARY/
@@ -901,7 +930,9 @@ function boxifyActivities(blocks, opts = {}) {
         const items = t.split(/\s+[–—-]\s+/);
         return items.length >= 3 && items.every((w) => w.trim() && w.trim().split(/\s+/).length <= 3);
       })();
-      if (altActPending && !isHead(y)) { body.push(y); j++; altActDone = true; break; }
+      // `continue`, not `break`: the top of the loop ends the box, after letting an
+      // activity's safety block (above) stay in it
+      if (altActPending && !isHead(y)) { body.push(y); j++; altActDone = true; altActPending = false; continue; }
       if (!passageHead && !leadAbsorb && !phaseHead && !altActHead && !answerLine && !questionLine && !wordBankLine) {
         if (y.t === "h1" || y.t === "h2" || y.t === "h3") break;     // topic / sub-topic / sub-sub-heading
         if (isHead(y)) {
@@ -912,7 +943,7 @@ function boxifyActivities(blocks, opts = {}) {
           // labels and little matching-table headers ("Organ Work", "Disease Symptom")
           // are part of the assessment, so only a real topic/sub-topic (h1/h2/h3), the
           // next box, or a header-paragraph ends it — never an inner sub-heading.
-          if (k !== "asmt" && !INTERNAL.test(yt)) break;
+          if (k !== "asmt" && !INTERNAL.test(yt) && !(k === "act" && ACT_INTERNAL.test(yt))) break;
         }
       }
       body.push(y);
@@ -946,6 +977,22 @@ function boxifyActivities(blocks, opts = {}) {
       const prev = body[body.length - 1 - n];
       const isQuestion = prev && (prev.t === "listitem" || prev.t === "image" || prev.t === "table" || blankish(prev) || instr(prev));
       if (n && isQuestion) { body.splice(body.length - n, n); j -= n; }
+    }
+    // The mirror case: an ACTIVITY with no alternative activity runs to the next exercise,
+    // and so takes in the closing sentences the book prints after the activity's picture
+    // ("Different materials produce different patterns. Printing patterns helps …", Grade
+    // 3 CTS LB, Topic 3.5). They sum up the lesson for the exercise below; they are not
+    // the activity's. Only finished, plain sentences, and only straight after a picture
+    // — the picture is what closes such an activity.
+    if (k === "act" && !altActDone && j < blocks.length && isHead(blocks[j]) && kindOf(ht(blocks[j])) === "ex") {
+      let n = 0;
+      while (n < body.length - 1) {
+        const x = body[body.length - 1 - n];
+        if (x.t !== "para" || (x.segs || []).some((s) => s.b) || !/[.!]$/.test(blockPlain(x).trim())) break;
+        n++;
+      }
+      const prev = body[body.length - 1 - n];
+      if (n && prev && prev.t === "image") { body.splice(body.length - n, n); j -= n; }
     }
     // mergeColon: fold a bare "ACTIVITY N" title's first short instruction line
     // up into the title as "ACTIVITY N: <instruction>".
@@ -1536,7 +1583,7 @@ function groupSignatories(b) {
   return b;
 }
 
-function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } = {}, detectName = "") {
+function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em", imprintSpacing = null } = {}, detectName = "") {
   formatGrade3EngFrontMatter(blocks, detectName);
   const isUnit = (x) => x.t === "h1" && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "");
   // Front-matter section names — English plus local-language equivalents
@@ -1616,7 +1663,10 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   const frontI = b.findIndex((x, i) => x.t === "h1" && (unitIdx < 0 || i < unitIdx));
   const out = [];
   for (let i = 0; i < b.length; i++) {
-    if (coverIdx >= 0 && i === coverIdx + 1) { out.push({ t: "titlestart" }); out.push({ t: "titlepage", lines: b[coverIdx].lines, byline: b[coverIdx].byline }); }
+    if (coverIdx >= 0 && i === coverIdx + 1) {
+      out.push({ t: "titlestart" }); out.push({ t: "titlepage", lines: b[coverIdx].lines, byline: b[coverIdx].byline });
+      if (imprintSpacing) out.push({ t: "parspacing", v: imprintSpacing });   // the copyright page follows
+    }
     if (frontI >= 0 && i === frontI) { out.push({ t: "toc" }); out.push({ t: "showpage", spacing: fmSpacing }); }
     if (unitIdx >= 0 && i === unitIdx) out.push({ t: "bodystart" });
     out.push(b[i]);
@@ -8217,6 +8267,11 @@ function normaliseQuestionMarkBold(blocks) {
     // `fmSpacing` (override, e.g. "1.5em") sets it for one book whose front-matter section
     // runs a line or two over its page at the default.
     fmSpacing: ov.fmSpacing || ((THEMES[theme] || {}).boxActivities ? "1.3em" : "1.9em"),
+    // `imprintSpacing` (override, e.g. "0.9em"): the copyright page sits before the
+    // front-matter spacing is set, at the document's default gap — at a primary
+    // Learner's Book's large type its last group (ISBN, Printed by) ran onto a page of
+    // its own when the layout credit took two names. Opt-in, one book at a time.
+    imprintSpacing: ov.imprintSpacing,
   }, detectName);
   else if (variant === "literary") {
     blocks = groupSignatories(blocks);

@@ -49,6 +49,13 @@ where the writer used flowing text.
   → FORM tag → book type → hero photo → AUTHORS → logo).
 - **Signatory** name is **bold**; title/org normal, kept as one tight block with
   ~16 mm signature space above.
+- **Wording (the finished books' practice, settled 2026-11-16 on the CTS Grade 3 LB):**
+  no serial comma — "Swimming and Entrepreneurship", not "Swimming, and …" (a comma
+  that ends a clause, "loud or soft, and describe its rhythm", stays); the curriculum is
+  the **Competency-Based Curriculum**; the Foreword, Preface and Acknowledgement make
+  one pass (welcome → subject → topics by their own names → closing hope) with no
+  paragraph restating another. These are manuscript text: fix them in the book, not
+  in the engine.
 
 ## 4. Conventions baked into the engine (don't re-solve these)
 
@@ -256,6 +263,7 @@ off, so a change only touches the books that opt in. Keys:
 | `keepRunColours` | `true` switches OFF the uniform-run-colour pass. By default a near-black author colour (paste residue: 0A0A0A, 181818, 222222, 0F1115) gives way to the body colour, and whatever real colour is left in the book collapses onto the one it uses most — so one kind of thing cannot print blue on one page and green on another. Set this only for a manuscript whose several colours genuinely carry meaning |
 | `pageBreakBefore` | insert a page break before the first block containing the text |
 | `fmSpacing` | the gap between front-matter paragraphs (Preface, Introduction, How to Use …), e.g. `"1.5em"`; the default is 1.9em (1.3em for the boxed-activity primary themes). For one book whose front-matter section runs a line or two over its page |
+| `imprintSpacing` | the gap between the copyright page's lines, e.g. `"0.5em"` — that page comes before `fmSpacing` takes effect, so it sits at the document default. For one book whose imprint runs onto a second page (Grade 3 CTS LB: two layout names at a primary Learner's Book's large type sent ISBN and Printed by over). The group gaps (5 mm / 8 mm) are unchanged |
 | `backmatterSpacing` | `{ "leading": "0.6em", "spacing": "0.7em" }` — one tighter paragraph setting for the back matter, applied to the GLOSSARY and the REFERENCES together (never one without the other, so the two read alike), for a book whose glossary or reference list runs one or two entries over its page at the body spacing (0.66em / 0.86em). Opt-in, one book at a time (ICT Form 2 TG) |
 | `keepExercisesWhole` | a length (e.g. `"185mm"`): every EXERCISE / ASSESSMENT box shorter than it moves whole to the next page instead of splitting, and a taller one never opens in the last 70mm of a page. Opt-in per book (activity boxes, which open with a tall picture, are unaffected). For a reviewer's "push this exercise down" — the Grade 1 CTS LB's CDC asked three times |
 | `keepWithNext` | name a block or exercise part (by substring) that must not end a page apart from the line after it — a question stem whose answer is set as indented lines below it. Opt-in, one book at a time: binding every such stem pushes whole answers over and empties pages. An entry may be `{ find, after }` to take the first match after a block containing `after` (a line the box repeats). Reaches un-numbered working lines (`lead` parts) too |
