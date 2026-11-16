@@ -12,7 +12,8 @@ const path = require("path");
 const os = require("os");
 const { NodeCompiler } = require("@myriaddreamin/typst-ts-node-compiler");
 const { importDocx, fixBoxTitleSpelling, isProseSentence } = require("./import-docx.js");
-const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary } = require("./themes.js");
+const { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary, paletteColours } = require("./themes.js");
+const { joinBrokenLines, boxLooseActivities, boxAlternatives, liftCrossCutting } = require("./converted.js");
 const { enhanceLineArt, cropImage, rotateImage, emfToPng, toPrintJpeg } = require("./image-enhance.js");
 const { stripWatermark } = require("./dewatermark.js");
 const { proseIssues, fixQuestionMark } = require("./british-english.js");
@@ -803,6 +804,24 @@ function boxifyActivities(blocks, opts = {}) {
   // and printed as bold lines inside a grey panel two pages long. So no box may start
   // before the book's first topic/unit. Guarded on actually FINDING one, so a book
   // whose sections are titled some other way still boxes from the top as before.
+  // `rebox` (per-book): the importer's own exercise boxes ran past their end and took in
+  // the next sub-topic (its competence lines). Lay every one out flat again as heading +
+  // lines, so the box is rebuilt here with the section-end rules below.
+  if (opts.rebox) blocks = blocks.flatMap((b) => {
+    if (!b || b.t !== "exercise" || typeof b.heading !== "string") return [b];
+    const out = [{ t: "head", text: b.heading }];
+    const para = (segs) => ({ t: "para", segs });
+    for (const s of b.intro || []) out.push(para([{ t: s, b: false, it: false, c: null }]));
+    for (const p of b.parts || []) {
+      const segs = p.qseg && p.qseg.length ? p.qseg : [{ t: p.q || "", b: false, it: false, c: null }];
+      if (p.kind === "q") out.push({ t: "listitem", segs, marker: p.marker || "•" });
+      else if (p.kind === "lead") out.push(para(segs));
+      else if (p.kind === "table") out.push({ t: "table", rows: p.rows });
+      else if (p.kind === "image") out.push({ t: "imagerow", images: p.images });
+    }
+    for (const s of b.extra || []) out.push(para([{ t: s, b: false, it: false, c: null }]));
+    return out;
+  });
   const firstUnitIdx = blocks.findIndex((x) => x && x.t === "h1"
     && /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test((x.text || "").trim()));
   const out = [];
@@ -933,6 +952,12 @@ function boxifyActivities(blocks, opts = {}) {
       // `continue`, not `break`: the top of the loop ends the box, after letting an
       // activity's safety block (above) stay in it
       if (altActPending && !isHead(y)) { body.push(y); j++; altActDone = true; altActPending = false; continue; }
+      // `leadsOut` (per-book): the teacher's lead-in to the NEXT activity ("Introduce e-waste
+      // using real examples…", "Guide learners to…") sits right after an exercise's last
+      // answer; it opens the next activity, so it ends the exercise box instead of closing it
+      if (opts.leadsOut && k === "ex" && body.length && y.t === "para"
+        && /^(Introduce|Guide|Encourage|Demonstrate|Emphasi[sz]e|Reinforce|Highlight|Conclude|Summari[sz]e)\b/.test(blockPlain(y).trim())
+        && blocks[j + 1] && (isHead(blocks[j + 1]) || blocks[j + 1].t === "activity") && (blocks[j + 1].t === "activity" || kindOf(ht(blocks[j + 1])))) break;
       if (!passageHead && !leadAbsorb && !phaseHead && !altActHead && !answerLine && !questionLine && !wordBankLine) {
         if (y.t === "h1" || y.t === "h2" || y.t === "h3") break;     // topic / sub-topic / sub-sub-heading
         if (isHead(y)) {
@@ -1138,7 +1163,7 @@ function fixStrayBodyH1s(blocks) {
   // "AUTHOR'S BIOGRAPHY" / "ABOUT THE AUTHOR" are the same section as "AUTHORS" under
   // another name (Hospitality Management Form 3 LB); unlisted, the heading was demoted
   // to h2 and the biography was carried along with whichever section stood before it.
-  const FRONTBACK = /^((THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?|ABOUT\s+THE\s+AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
+  const FRONTBACK = /^((THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?|ABOUT\s+THE\s+AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|(LIST\s+OF\s+)?ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|KEY\s+COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
   // FRONTBACK requires an EXACT match end-to-end, which is right for most of its
   // entries (a stray body h1 could otherwise dodge demotion by coincidentally
   // starting with "Introduction" or "Preface"). But ACRONYMS and (KEY/GENERAL)
@@ -1602,7 +1627,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em", i
   // them: the Grade 3 CTS TG's HOW TO USE list has the bullet "General competences –
   // broad competences developed through learning activities.", which was promoted to a
   // full-page section with its own contents entry.
-  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*\b(?!\s*[–—-]\s+[a-z])|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*\b(?!\s*[–—-]\s+[a-z])|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^(LIST\s+OF\s+)?ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
   // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
@@ -2466,6 +2491,34 @@ function applyOverrides(blocks, ov) {
     prune(blocks);
     if (!n) console.warn("!  deleteExact not matched:", del);
   }
+  // joinSplitTables: true — a manuscript converted from a PDF has every table that crossed a
+  // page as two tables (the running header between them is gone by now: deleteExact). Join
+  // two top-level tables in a row with the same number of columns; a continuation row whose
+  // first cell is empty is the rest of the row above it, so its cells join that row's.
+  if (ov.joinSplitTables) {
+    let n = 0;
+    const cols = (b) => (b.rows && b.rows[0] ? b.rows[0].length : 0);
+    const cellText = (c) => (c && typeof c === "object" ? c.text || "" : String(c || ""));
+    for (let i = 0; i + 1 < blocks.length; i++) {
+      const a = blocks[i], b = blocks[i + 1];
+      if (!a || !b || a.t !== "table" || b.t !== "table" || !cols(a) || cols(a) !== cols(b)) continue;
+      const rows = b.rows.slice();
+      if (rows.length && !cellText(rows[0][0]).trim() && a.rows.length) {
+        const last = a.rows[a.rows.length - 1];
+        a.rows[a.rows.length - 1] = last.map((c, k) => {
+          const add = cellText(rows[0][k]).trim();
+          if (!add) return c;
+          const prev = cellText(c).trim();
+          return { ...(typeof c === "object" ? c : {}), text: prev ? `${prev}
+${add}` : add, segs: null };
+        });
+        rows.shift();
+      }
+      a.rows.push(...rows);
+      blocks.splice(i + 1, 1); i--; n++;
+    }
+    if (n) console.log(`   joinSplitTables: ${n} table(s) split by a page joined back`);
+  }
   // setHeading: [{ find, text, as?, mergeNext?, all? }] — repair a mangled unit/topic
   // heading. Find top-level block(s) whose trimmed text === `find`; set the block's
   // text to `text` and (if `as`) its type — "h1" renders a unit/topic banner (e.g. a
@@ -2690,12 +2743,29 @@ function applyOverrides(blocks, ov) {
   // edit: [{ find, with }] — replace/delete a substring INSIDE a block while
   // keeping the formatting of the surrounding runs (e.g. trim one sentence from a
   // paragraph without flattening the bold names elsewhere in it).
+  // table cells, for edit / editAll: the cell's runs are edited too, even where the
+  // text is split across several of them ("Expected" | " Response:")
+  const tables = (arr) => (arr || []).flatMap((x) => x && x.t === "table" && Array.isArray(x.rows) ? [x] : tables(x && x.body));
+  const tableCells = () => tables(blocks).flatMap((x) => x.rows.flat()).filter((c) => c && typeof c.text === "string");
+  const cellPlain = (c) => (c.segs || []).map((x) => x.t || "").join("");
+  const editCell = (c, find, repl) => {
+    c.text = c.text.replace(find, repl);
+    const r = replaceSegSpan(c.segs, find, repl);
+    if (r) c.segs = r.segs;
+  };
   for (const e of ov.edit || []) {
     if (!e.find) { console.warn("!  edit with an empty find skipped"); continue; }
     // `after` as in `replace`: the first match after the block containing it
     const from = e.after ? flat.findIndex((x) => blockPlain(x).includes(e.after)) : -1;
     const b = e.after && from < 0 ? null : flat.find((x, i) => i > from && blockPlain(x).includes(e.find));
-    if (b) editBlockText(b, e.find, e.with || "");
+    if (b) { editBlockText(b, e.find, e.with || ""); continue; }
+    // (or inside a table cell: a converted book can carry the end of a box as a one-cell table)
+    const cell = tableCells().find((c) => c.text.includes(e.find) || cellPlain(c).includes(e.find));
+    if (cell) { editCell(cell, e.find, e.with || ""); continue; }
+    // (or a box's title: "LEARNING ACTIVITY4" — a typo in the title of an activity box)
+    const titled = (arr) => (arr || []).flatMap((x) => x && typeof x === "object" ? [x, ...titled(x.body)] : []);
+    const box = titled(blocks).find((x) => typeof x.title === "string" && x.title.includes(e.find));
+    if (box) box.title = box.title.replace(e.find, e.with || "");
     else console.warn("!  edit not matched:", e.find);
   }
   // editAll: [{ find, with }] — like edit, but applied to EVERY block that contains the
@@ -2704,7 +2774,32 @@ function applyOverrides(blocks, ov) {
   for (const e of ov.editAll || []) {
     let n = 0;
     for (const b of flat) if (blockPlain(b).includes(e.find)) { editBlockText(b, e.find, e.with || ""); n++; }
+    // (table cells too, every occurrence)
+    for (const c of tableCells()) {
+      for (let k = 0; k < 50 && cellPlain(c).includes(e.find); k++) { const r = replaceSegSpan(c.segs, e.find, e.with || ""); if (!r) break; c.segs = r.segs; n++; }
+      if (c.text.includes(e.find)) { c.text = c.text.split(e.find).join(e.with || ""); n++; }
+    }
     if (!n) console.warn("!  editAll not matched:", e.find);
+  }
+  // collapseSpaces: true — a book converted from a PDF carries the old layout's doubled
+  // spaces ("Use  simple farm tools"); reduce every run of spaces in the text to one,
+  // across run boundaries too (math runs untouched). Runs after edit/editAll, so their
+  // `find` still matches the manuscript's own spacing.
+  if (ov.collapseSpaces) {
+    const squeeze = (segs) => {
+      if (!Array.isArray(segs)) return;
+      let prev = null;
+      for (const s of segs) {
+        if (typeof s.t !== "string" || s.m) { prev = null; continue; }
+        s.t = s.t.replace(/ {2,}/g, " ");
+        if (prev && prev.t.endsWith(" ") && s.t.startsWith(" ")) s.t = s.t.slice(1);
+        if (s.t) prev = s;
+      }
+    };
+    for (const b of flat) {
+      squeeze(b.segs); squeeze(b.qseg); squeeze(b.aseg);
+      for (const k of ["text", "caption", "title", "heading", "a"]) if (typeof b[k] === "string") b[k] = b[k].replace(/ {2,}/g, " ");
+    }
   }
   // editAnswer: [{ find, with }] — like editAll, but rewrites every qa part's ANSWER
   // text (`.a`/`.aseg`) rather than its question — see editBlockAnswerText().
@@ -2926,7 +3021,9 @@ function applyOverrides(blocks, ov) {
     // added) still force every seg, so existing plain-string callers render unchanged.
     const segsFor = (tx) => mkSegs(tx).map((s) => ({ ...s, ...(it.bold ? { b: true } : {}), ...(it.italic ? { it: true } : {}) }));
     // `blocks: [blockspec, …]` inserts replaceBlocks-style blocks (an exercise, say) instead of text.
-    const mkBlks = () => Array.isArray(it.blocks) ? it.blocks.map(mkBlock).filter(Boolean) : texts.map((tx, idx) => it.as === "section"
+    // (`items`: main's name for the same list)
+    const specs = Array.isArray(it.blocks) ? it.blocks : Array.isArray(it.items) ? it.items : null;
+    const mkBlks = () => specs ? specs.map(mkBlock).filter(Boolean) : texts.map((tx, idx) => it.as === "section"
       ? { t: "head", text: tx, styleSection: true, noPromote: true }
       : it.as === "head"
       ? { t: "head", text: tx, black: true, noPromote: true }
@@ -2950,7 +3047,8 @@ function applyOverrides(blocks, ov) {
       // to 10 blocks) for the nearest needle match.
       let at;
       if (it.near) {
-        const na = blocks.findIndex((b) => hay(b).includes(it.near));
+        // (the `near` text may sit inside a box — an assessment's own questions)
+        const na = blocks.findIndex((b) => hay(b).includes(it.near) || JSON.stringify(b).includes(it.near));
         at = -1;
         if (na >= 0) for (let k = na; k >= 0 && k >= na - 30; k--) if (hay(blocks[k]).includes(needle)) { at = k; break; }
       } else {
@@ -7382,11 +7480,20 @@ async function typesetOne(docxPath, themeName) {
   HEAD_LIST_SPACING = !!ov.headListSpacing;
   importOpts.romanSubParts = !!ov.romanSubParts;
   importOpts.boxAllRows = !!ov.boxAllRows;
+  importOpts.boxTableRows = !!ov.boxTableRows;
+  importOpts.groupPictures = !!ov.groupPictures;   // a figure built from a group of pictures drawn as one picture   // a converted book: every row of a one-column box table is the box's
   importOpts.keepListNumbers = !!ov.keepListNumbers;
   importOpts.listAnswers = ov.listAnswers || [];
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.textboxCaptions = ov.textboxCaptions;
+  importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;   // a manuscript converted from a PDF: text boxes rejoin the text flow
+  importOpts.coverUntil = ov.coverUntil;               // where the cover ends when no © line marks it
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
+  // joinBrokenLines: true — a manuscript converted from a PDF has a paragraph per printed
+  // line; rejoin the sentences (see converted.js)
+  // (with reboxExercises, the exercise boxes are laid out flat first, as the rebox will:
+  // an over-long box must not hide the activities and headings it swallowed)
+  if (ov.joinBrokenLines) console.log(`   joinBrokenLines: ${joinBrokenLines(blocks, { flattenExercises: !!ov.reboxExercises })} broken line(s) joined`);
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
     return;
@@ -7567,7 +7674,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.deleteExact || ov.joinSplitTables || ov.collapseSpaces) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base));
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
@@ -7900,7 +8007,7 @@ function normaliseQuestionMarkBold(blocks) {
   // by the theme-colour greying below); `blackWhite: false` opts a rare TG back out.
   const wantsBlackWhite = ov.blackWhite === false ? false : (ov.blackWhite === true || isTeacherBookName(base));
   if (wantsBlackWhite) clearAllInlineColor(blocks);
-  const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [] };
+  const boxOpts = { looseStarts: !!ov.boxifyLoose, mergeColon: !!ov.mergeActivityColon, boxHeads: ov.boxHeads || [], rebox: !!ov.reboxExercises, leadsOut: !!ov.exerciseLeadsOut };
   // Unlike the rest of proofPolish()'s lesson-field normalisation, "General/Specific
   // Competence(s)" case is a house-style rule for every book, not just the boxActivities
   // ones — see normaliseCompetenceLabels() above.
@@ -7911,6 +8018,13 @@ function normaliseQuestionMarkBold(blocks) {
   boldGuideLabels(blocks);   // and so do the activity bodies proofPolish couldn't reach
   unifyStrayLabels(blocks);  // a field name the book also uses as a sub-head IS that sub-head
   spaceOptionMarkers(blocks); // "(a) Sleeping(b) Reading" -> "(a) Sleeping (b) Reading"
+  // (a converted book again, now the boxes made from headings exist: each takes back its
+  // own instructions and "Expected Responses" left after it)
+  if (ov.joinBrokenLines) boxLooseActivities(blocks);
+  // every "Alternative Activity" in one box style of its own (theme box `alt`)
+  if (ov.boxAlternatives) blocks = boxAlternatives(blocks, typeof ov.boxAlternatives === "object" ? ov.boxAlternatives : {});
+  // each topic's CROSS-CUTTING ISSUES table out of the exercise box that swallowed it, all one shape
+  if (ov.liftCrossCutting) blocks = liftCrossCutting(blocks);
   boldAssessmentSections(blocks);
   boldSafetyAndSteps(blocks);
   // Teacher's Guide: peel each inline "Possible Answer:" off its question onto its own line.
@@ -8284,6 +8398,51 @@ function normaliseQuestionMarkBold(blocks) {
       blocks.splice(fmAt + 1, 0, { t: "parspacing", v: ov.fmSpacing || "1.9em" });
     }
   }
+  // imprint: { copyright, rights, isbn, groups: [{ label, lines }] } — rewrite a messy
+  // copyright page in the house layout (as the Art & Design Form 1 LB): the © line in
+  // bold, the rights paragraph, the ISBN, then each credit as a bold "… by:" label with
+  // its names centred under it.
+  if (ov.imprint) {
+    const i = blocks.findIndex((b) => b.t === "titlepage");
+    const j = blocks.findIndex((b, k) => k > i && b.t === "toc");
+    if (i < 0 || j < 0) console.warn("!  imprint: no copyright page found");
+    else {
+      const im = ov.imprint;
+      const p = (t, bold) => ({ t: "para", align: "center", segs: [{ t, b: !!bold, it: false, c: null }] });
+      const out = [{ t: "vspace", h: "5mm" }];
+      if (im.copyright) out.push(p(im.copyright, true));
+      if (im.rights) out.push(p(im.rights));
+      if (im.isbn != null) out.push({ t: "vspace", h: "8mm" }, { t: "para", align: "center", segs: [{ t: "ISBN: ", b: false, it: false, c: null }, { t: im.isbn, b: true, it: false, c: null }] });
+      for (const g of im.groups || []) {
+        out.push({ t: "vspace", h: "5mm" }, p(g.label, true));
+        for (const l of g.lines || []) out.push(p(l));
+      }
+      blocks.splice(i + 1, j - i - 1, ...out);
+      // The manuscript's own credits block (ALEMBI: names, ZITHUNZI:, WOKONZA BUKU: …) can
+      // survive as a separate front section after the contents page. When every line of a
+      // front section is already on the new imprint page, it is that duplicate — drop it.
+      const imp = new Set([...(im.groups || []).flatMap((g) => [g.label, ...(g.lines || [])]), im.rights || "", im.copyright || ""]
+        .map((s) => s.toLowerCase().replace(/[^\p{L}\d]+/gu, "")));
+      const plainB = (b) => (b.text != null ? b.text : (b.segs || []).map((s) => s.t).join(""));
+      const key = (s) => s.toLowerCase().replace(/[^\p{L}\d]+/gu, "");
+      const body0 = blocks.findIndex((b) => b.t === "bodystart");
+      for (let a = 0; a < (body0 < 0 ? blocks.length : body0); a++) {
+        if (blocks[a].t !== "h1") continue;
+        let z = blocks.findIndex((b, k) => k > a && (b.t === "h1" || b.t === "bodystart"));
+        if (z < 0) z = blocks.length;
+        const lines = blocks.slice(a + 1, z).flatMap((b) => plainB(b).split("\n")).map(key).filter(Boolean);
+        // ("ZITHUNZI:Olemba" — a label and its value glued in one line — counts as two)
+        // (an address line "Chishango Road" is part of the imprint's "Chishango Road, P.O. Box 32708")
+        const inImp = (l) => imp.has(l) || (l.length >= 6 && [...imp].some((x) => x.includes(l)));
+        const known = (l) => inImp(l) || [...imp].some((x) => x && l.startsWith(x) && inImp(l.slice(x.length)));
+        if (lines.length >= 2 && lines.every(known)) {
+          blocks.splice(a, z - a);
+          console.log("   imprint: dropped the manuscript's duplicate credits section");
+          break;
+        }
+      }
+    }
+  }
   // `sigGap` (e.g. "20mm"): a taller signing space above every Foreword/Preface/
   // Acknowledgement signatory than the template's 12 mm, for a reviewer who asked for
   // more room to sign (Hospitality Form 3 LB, round 1). Opt-in per book.
@@ -8428,6 +8587,9 @@ function normaliseQuestionMarkBold(blocks) {
   // rather than the theme's short "English") feeds the cover title, eyebrow,
   // title page and running-header pill alike.
   if (ov.subject) themeOverrides.subject = ov.subject;
+  // "palette": a book's own colours in place of its theme's (CDC asked the Computer Science
+  // Form 3 LB to match the green of its Teacher's Guide) — the same fields zeph() derives
+  if (ov.palette) Object.assign(themeOverrides, paletteColours(THEMES[theme] || {}, ov.palette));
   // Align the running-header left text with the grade/form-derived education level
   // (the cover eyebrow already uses it), overriding the theme's fixed default so the
   // same local-language theme reads correctly at primary vs secondary level.

@@ -31,6 +31,7 @@ const droppedBoxes = [];
 // `boxAllRows`: a box typed as a one-column table that Word split into several rows at a
 // page break keeps every row, not just the first (see the walk below).
 let BOX_ALL_ROWS = false;
+let BOX_TABLE_ROWS = false;
 // Per-book switch read by markerFor(): a sub-run opening at "i" is roman, not lettered.
 // Set from importDocx's `romanSubParts` option (the book's override of the same name).
 let ROMAN_SUB_PARTS = false;
@@ -388,6 +389,17 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     const d = rawDoc.slice(spanStart, spanEnd);
     const tbm = d.match(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/);
     if (!tbm) continue;
+    // A book converted from a PDF draws each box as a GROUP of text boxes: the coloured
+    // title bar ("EXERCISE 1") in one, the questions in the next. Reading only the first
+    // gave a title-only box and lost every question. When the first text box holds just
+    // one line, the group's other text boxes are the box's body: read them all, in order.
+    const allTb = [...d.matchAll(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/g)];
+    const titleBar = allTb.length > 1
+      && (tbm[1].match(/<w:p\b[\s\S]*?<\/w:p>/g) || []).filter((p) => /<w:t[\s>]/.test(p)).length === 1;
+    if (titleBar) {
+      if (/<a:blip\b/.test(allTb.reduce((s, m) => s.replace(m[0], ""), d))) continue;   // a picture group — leave it
+      tbm[1] = allTb.map((m) => m[1]).join("");
+    }
     // A drawing that's fundamentally a PHOTO (not a text box) carries its <a:blip>
     // outside the text box's own content — e.g. a picture-filled shape. A blip
     // belonging to a picture the box's OWN prose embeds (an illustrative diagram
@@ -397,7 +409,7 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     // so its title+body+list fell through to a generic paragraph-merge fallback
     // that flattened them into one garbled, unstyled block.
     const outsideTextbox = d.slice(0, tbm.index) + d.slice(tbm.index + tbm[0].length);
-    if (/<a:blip\b/.test(outsideTextbox)) continue;            // a real picture — leave it alone
+    if (!titleBar && /<a:blip\b/.test(outsideTextbox)) continue;   // a real picture — leave it alone
     // A box's floating shape can carry a NESTED TABLE (a reference table inside a
     // Learning Activity/Exercise/Assessment) — mask it out first (maskTables), like the
     // main body parser does, so the naive <w:p> scan below never grabs a stray cell
@@ -2654,6 +2666,7 @@ async function importDocx(docxPath, opts = {}) {
   droppedBoxes.length = 0;          // ditto
   ROMAN_SUB_PARTS = !!opts.romanSubParts;
   BOX_ALL_ROWS = !!opts.boxAllRows;
+  BOX_TABLE_ROWS = !!opts.boxTableRows;
   KEEP_LIST_NUMBERS = !!opts.keepListNumbers;
   LIST_ANSWERS = opts.listAnswers || [];
   // ZEPH house-style options (decoupled so different layouts can mix them):
@@ -2838,6 +2851,69 @@ async function importDocx(docxPath, opts = {}) {
       }
     }
   }
+  // opts.unwrapTextboxes: a manuscript CONVERTED FROM A PDF (ilovepdf, Word reflow) puts
+  // whatever it could not flow — an answer, a box, a side note — in a floating text box,
+  // which is stripped below and lost. Each text box (not a picture) gives its paragraphs
+  // back to the text flow, right after the paragraph that anchors it.
+  if (opts.unwrapTextboxes) {
+    const held = []; let n = 0, notes = 0, pageNums = 0, decorText = 0;
+    const embedUses = {};
+    for (const x of rawDoc.matchAll(/<a:blip\b[^>]*r:embed="([^"]+)"|<v:imagedata\b[^>]*r:id="([^"]+)"/g)) { const r = x[1] || x[2]; embedUses[r] = (embedUses[r] || 0) + 1; }
+    // the whole element from `at`, nesting counted (a group of shapes, a box inside a box)
+    const span = (s, at, tag) => {
+      const re = new RegExp(`<${tag}[\\s>]|</${tag}>`, "g"); re.lastIndex = at; let depth = 0, m;
+      while ((m = re.exec(s))) { depth += m[0][1] === "/" ? -1 : 1; if (!depth) return re.lastIndex; }
+      return s.length;
+    };
+    // every text box's paragraphs, outermost boxes only (inner boxes ride along inside them)
+    const boxes = (s) => {
+      const out = []; const re = /<w:txbxContent>/g; let m;
+      while ((m = re.exec(s))) { const e = span(s, m.index, "w:txbxContent"); out.push(s.slice(m.index + 15, e - 16)); re.lastIndex = e; }
+      return out;
+    };
+    let out = "", i = 0;
+    for (;;) {
+      const re = /<mc:AlternateContent>|<w:pict>/g; re.lastIndex = i;
+      const m = re.exec(rawDoc); if (!m) break;
+      const tag = m[0] === "<w:pict>" ? "w:pict" : "mc:AlternateContent";
+      const e = span(rawDoc, m.index, tag), el = rawDoc.slice(m.index, e);
+      // the Choice (DrawingML) only: its Fallback repeats the same text as VML
+      const body = tag === "w:pict" ? el : (el.match(/<mc:Choice\b[\s\S]*?<\/mc:Choice>/) || [el])[0];
+      // A group of text boxes over a picture is skipped (a labelled figure keeps its art)
+      // UNLESS every picture in it is decoration the converter repeats all through the book
+      // — the coloured panel behind each activity box, the pill behind each page number.
+      // Then the text is book text (a whole Learning Activity, an exercise): it rejoins the
+      // flow and the decoration goes. A group holding only a page number goes entirely.
+      const rids = [...el.matchAll(/<a:blip\b[^>]*r:embed="([^"]+)"|<v:imagedata\b[^>]*r:id="([^"]+)"/g)].map((x) => x[1] || x[2]);
+      // (a scrap of a picture — a drop-capital "E" cut out of the page, under 3 KB — counts
+      // as decoration too, used once or not)
+      const scrap = (r) => (embedUses[r] || 0) >= 3 || (() => { try { return fs.statSync(path.join(tmp, "word", rels[r])).size < 3000; } catch { return false; } })();
+      const decor = rids.length > 0 && rids.every(scrap);
+      const txt = (s) => [...s.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("").trim();
+      // A group whose text boxes hold real prose (an "Expected Responses" answer laid over a
+      // drop-capital and a picture) gives its text back too; a REAL picture in it stays put.
+      // Short text (a figure's labels: "Human", "Frog") keeps the old rule.
+      const allBoxes = /<w:txbxContent>/.test(body) ? boxes(body).filter((x) => /<w:t[\s>]/.test(x)) : [];
+      const prose = rids.length > 0 && !decor && allBoxes.map(txt).join(" ").length >= 40;
+      const keepArt = prose && rids.some((r) => !scrap(r));
+      const inner = allBoxes.length && (!rids.length || decor || prose) ? allBoxes : null;
+      out += rawDoc.slice(i, m.index);
+      if (inner && inner.length && inner.every((x) => /^\d{1,3}$/.test(txt(x).replace(/\s+/g, "")) || /^(\d{1,3})\1$/.test(txt(x).replace(/\s+/g, "")))) { pageNums++; i = e; continue; }
+      if (decor && inner && inner.length) decorText++;
+      // a PDF comment's pop-up note ("2026-09-11 21:12:36 / ---- / Include …") came across
+      // as a text box too: it is a reviewer's note, not book text, so it goes
+      // (the reviewer's name may come first: "muson 2026-09-13 08:52:49 ----")
+      if (inner && inner.length && inner.every((x) => /^.{0,40}?\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\s*-{5,}/s.test(txt(x)))) { notes++; i = e; continue; }
+      if (inner) { n += inner.length; held.push(inner.join("")); out += (keepArt ? el : "") + `<!--TXBX${held.length - 1}-->`; }
+      else out += el;
+      i = e;
+    }
+    rawDoc = out + rawDoc.slice(i);
+    rawDoc = rawDoc.replace(/(<w:p\b(?:(?!<\/w:p>)[\s\S])*?<!--TXBX\d+-->[\s\S]*?<\/w:p>)/g, (host) =>
+      host + [...host.matchAll(/<!--TXBX(\d+)-->/g)].map((x) => held[+x[1]]).join(""));
+    rawDoc = rawDoc.replace(/<!--TXBX\d+-->/g, "");
+    if (n || notes || pageNums) console.log(`   unwrapTextboxes: ${n} text box(es) returned to the text flow (${decorText} from over a repeated background picture), ${pageNums} old page number(s) and ${notes} PDF comment note(s) dropped`);
+  }
   const docXml = rawDoc.replace(/<w:txbxContent>[\s\S]*?<\/w:txbxContent>/g,
     (m) => (/<a:blip\b/.test(m) ? m : ""));
   const hmap = headingMap(read("word/styles.xml"));
@@ -2986,12 +3062,54 @@ async function importDocx(docxPath, opts = {}) {
   //     the sibling <o:OLEObject r:id> is the binary payload — NOT an image, so skip
   //     it). Many manuscripts store most of their figures this way; missing this
   //     branch silently dropped those pictures, leaving only their captions.
+  // one picture made from a group of pictures (see imagesOf); returns its new rel id.
+  // Opt-in on this branch (a converted book, or sidecar `groupPictures`), so books already
+  // reviewed with a group's first picture only keep it.
+  const grpDone = new Map();
+  const groupComposite = (d) => {
+    if (!(opts.groupPictures || opts.unwrapTextboxes) || !/<wpg:wgp\b/.test(d)) return null;
+    const pics = [...d.matchAll(/<pic:pic\b[\s\S]*?<\/pic:pic>/g)].map((m) => {
+      const p = m[0];
+      const r = (p.match(/<a:blip[^>]*r:embed="([^"]+)"/) || [])[1];
+      const off = p.match(/<a:off x="(-?\d+)" y="(-?\d+)"\/>/), ext = p.match(/<a:ext cx="(\d+)" cy="(\d+)"\/>/);
+      return r && off && ext && rels[r] ? { r, x: +off[1], y: +off[2], w: +ext[1], h: +ext[2] } : null;
+    })
+      // (a picture the converter repeats all through the book — a drop-capital "E", a panel
+      // behind a box — is decoration, not part of this figure)
+      .filter((p) => p && rawDoc.split(`r:embed="${p.r}"`).length - 1 < 3);
+    if (pics.length === 1) return pics[0].r;
+    if (pics.length < 2) return null;
+    const key = pics.map((p) => p.r).join("+");
+    if (grpDone.has(key)) return grpDone.get(key);
+    let out = null;
+    try {
+      const { createCanvas, Image } = require("canvas");
+      const ims = pics.map((p) => { const im = new Image(); im.src = fs.readFileSync(path.join(tmp, "word", rels[p.r])); return im; });
+      const x0 = Math.min(...pics.map((p) => p.x)), y0 = Math.min(...pics.map((p) => p.y));
+      const x1 = Math.max(...pics.map((p) => p.x + p.w)), y1 = Math.max(...pics.map((p) => p.y + p.h));
+      // px per EMU: the sharpest picture keeps its own resolution (capped for size)
+      const k = Math.min(Math.max(...pics.map((p, i) => ims[i].width / p.w)), 3000 / (x1 - x0));
+      const c = createCanvas(Math.round((x1 - x0) * k), Math.round((y1 - y0) * k)), g = c.getContext("2d");
+      g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
+      pics.forEach((p, i) => g.drawImage(ims[i], (p.x - x0) * k, (p.y - y0) * k, p.w * k, p.h * k));
+      const name = `media/grp_${pics[0].r}.png`;
+      fs.writeFileSync(path.join(tmp, "word", name), c.toBuffer("image/png"));
+      if (process.env.ZEPH_GRP_DIR) fs.writeFileSync(path.join(process.env.ZEPH_GRP_DIR, path.basename(name)), c.toBuffer("image/png"));   // to look at them
+      out = `grp_${pics[0].r}`; rels[out] = name;
+    } catch (e) { console.warn("!  picture group not combined:", e.message); }
+    grpDone.set(key, out);
+    return out;
+  };
   const imagesOf = (x) => {
     const recs = [];
     for (const dm of x.matchAll(/<w:drawing\b[\s\S]*?<\/w:drawing>/g)) {
       const d = dm[0];
-      const rid = (d.match(/<a:blip[^>]*r:embed="([^"]+)"/) || [])[1];
+      let rid = (d.match(/<a:blip[^>]*r:embed="([^"]+)"/) || [])[1];
       if (!rid) continue;
+      // A GROUP of pictures (a figure built from two or three images placed together) only
+      // ever showed its first picture. Draw them all, where the group places them, into one.
+      const grp = groupComposite(d);
+      if (grp) rid = grp;
       // A grouped figure (one picture among text-box label shapes) carries several
       // extents; use the LARGEST (the picture, not a label box).
       const exts = [...d.matchAll(/<wp:extent\s+cx="(\d+)"\s+cy="(\d+)"/g)].map((e) => ({ w: +e[1] / 9525, h: +e[2] / 9525 }));
@@ -3161,7 +3279,7 @@ async function importDocx(docxPath, opts = {}) {
   // first real section begins, even when the manuscript didn't style it as a
   // Word heading (many don't). This stops the imprint's centred styling from
   // bleeding into the Authors/Foreword text.
-  const FM_SECTION = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM_SECTION = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^(LIST\s+OF\s+)?ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // Back-matter section names — a genuine back-matter heading (also reliably Word-
   // Heading-styled, same as a front-matter one above) must not be folded down to a
   // plain inline sub-head by the "numbered-topic short Heading-styled paragraph"
@@ -3424,11 +3542,17 @@ async function importDocx(docxPath, opts = {}) {
     coverEnd = -1;              // consumes no source block; part[0] stays as the imprint
     gluedCover = true;
   }
-  if (copyrightIdx > 0) {
+  // opts.coverUntil: the text the first part AFTER the cover starts with — for a book
+  // converted from a PDF whose © line was lost (drawn as a picture), which otherwise gets
+  // no cover at all and prints the cover page's words as the book's first page
+  const untilIdx = opts.coverUntil ? parts.findIndex((x) => !isTbl(x) && textOf(x).trim().startsWith(opts.coverUntil)) : -1;
+  if (opts.coverUntil && untilIdx < 0) console.warn("!  coverUntil not matched:", opts.coverUntil);
+  const coverStop = untilIdx > 0 ? untilIdx : copyrightIdx;
+  if (coverStop > 0) {
     // hero = largest image before the copyright line; everything before the
     // copyright belongs on the cover (title at top, author + logo at the bottom).
     let heroIdx = -1, heroArea = 0;
-    for (let i = 0; i < copyrightIdx; i++) {
+    for (let i = 0; i < coverStop; i++) {
       if (isTbl(parts[i])) continue;
       for (const im of imagesOf(parts[i])) {
         if (im.w >= 200 && im.w * im.h > heroArea) { heroArea = im.w * im.h; cover = { hero: im }; heroIdx = i; }
@@ -3439,10 +3563,10 @@ async function importDocx(docxPath, opts = {}) {
     if (cover) {
       // Title lines are the large-font cover text (subject / grade / book type);
       // the byline is the smaller text (authors). A section heading ends the cover.
-      const big = parts.slice(0, copyrightIdx).filter((p) => !isTbl(p) && sizeOf(p) >= 36).length >= 2;
+      const big = parts.slice(0, coverStop).filter((p) => !isTbl(p) && sizeOf(p) >= 36).length >= 2;
       const lines = [], byline = [];
       let logo = null;
-      for (let i = 0; i < copyrightIdx; i++) {
+      for (let i = 0; i < coverStop; i++) {
         if (isTbl(parts[i])) continue;
         for (const im of imagesOf(parts[i])) if (im.w < 200 && !logo) logo = im; // small publisher logo
         const t = textOf(parts[i]); if (!t) continue;
@@ -3472,7 +3596,7 @@ async function importDocx(docxPath, opts = {}) {
         return true;
       });
       cover.logo = logo;
-      coverEnd = copyrightIdx - 1;
+      coverEnd = coverStop - 1;
     }
   }
 
@@ -3734,6 +3858,27 @@ async function importDocx(docxPath, opts = {}) {
       // were reviewed without those rows.
       else if (kind && BOX_ALL_ROWS && cells.every((r) => r.length === 1)) {
         blocks.push(makeBox(kind, [...firstBlks, ...cells.slice(1).flatMap((r) => cellBlocks(r[0].xml))]));
+      }
+      // boxTableRows (per-book, a manuscript converted from a PDF — main's rule): every row
+      // of a one-column box table is the box's, and a row that opens with its OWN box title
+      // ("EXERCISE 2 – POSSIBLE SOLUTIONS", "END-OF-TOPIC ASSESSMENT") starts a separate box.
+      else if (kind && BOX_TABLE_ROWS && cells.length > 1 && cells.every((r) => r.length === 1)) {
+        const groups = [{ kind, rows: [cells[0]], blks: firstBlks }];
+        for (const r of cells.slice(1)) {
+          const rb = cellBlocks(r[0].xml);
+          const rk = boxKindFromTitle(((rb.find((b) => (b.plain || "").trim()) || {}).plain || "").trim());
+          if (rk) groups.push({ kind: rk, rows: [r], blks: rb });
+          else { const g = groups[groups.length - 1]; g.rows.push(r); g.blks = g.blks.concat(rb); }
+        }
+        for (const g of groups) blocks.push(g.kind === "assessment" ? makeAssessmentTable(g.rows) : makeBox(g.kind, g.blks));
+      }
+      // (also opt-in) A box whose title and instructions fill row 1 (one merged cell) and
+      // whose own data table fills the rows below it ("Human Causes | Natural Causes" — how
+      // a converter lays out a box holding a table): the rows below are that table, inside
+      // the box. Taking row 1 only dropped the table.
+      else if (kind && BOX_TABLE_ROWS && cells[0].length === 1 && cells.length > 1 && cells.slice(1).every((r) => r.length >= 2)) {
+        const rows = cells.slice(1).map((row) => row.map((c) => cellRich(c.xml)));
+        blocks.push(makeBox(kind, [...firstBlks, { t: "table", rows }]));
       }
       else if (kind) blocks.push(makeBox(kind, firstBlks));
       else if (single && firstFill && firstFill !== NAVY) blocks.push(makeBox("box", firstBlks));

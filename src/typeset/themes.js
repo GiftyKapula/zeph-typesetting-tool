@@ -503,7 +503,7 @@ function themeTypst(theme, overrides = {}) {
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},
   tocUnitsOnly: ${t.tocUnitsOnly ? "true" : "false"}, coverStyle: ${q(t.coverStyle || "")}, boxStyle: ${q(t.boxStyle || "")}, tocDepth: ${t.tocDepth || 2}, mono: ${t.mono ? "true" : "false"},${t.capBold ? " capBold: true," : ""}
   ${t.tableSize ? `tableSize: ${t.tableSize},\n  ` : ""}
-  ${t.backInk ? `backInk: ${c(t.backInk)},\n  ` : ""}${t.bylineRows ? `bylineRows: true,\n  ` : ""}${t.subtopicRuleClear ? `subtopicRuleClear: true,\n  ` : ""}${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}${t.keepQuestionParts ? `keepQuestionParts: true,\n  ` : ""}${t.keepExercisesWhole ? `keepExercisesWhole: ${t.keepExercisesWhole},\n  ` : ""}${t.writingColumns ? `writingColumns: true,\n  ` : ""}${t.uniformRubrics ? `uniformRubrics: true,\n  ` : ""}${t.mathBodyFont ? `mathBodyFont: true,\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
+  ${t.backInk ? `backInk: ${c(t.backInk)},\n  ` : ""}${t.bylineRows ? `bylineRows: true,\n  ` : ""}${t.subtopicRuleClear ? `subtopicRuleClear: true,\n  ` : ""}${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}${t.keepQuestionParts ? `keepQuestionParts: true,\n  ` : ""}${t.keepExercisesWhole ? `keepExercisesWhole: ${t.keepExercisesWhole},\n  ` : ""}${t.writingColumns ? `writingColumns: true,\n  ` : ""}${t.uniformRubrics ? `uniformRubrics: true,\n  ` : ""}${t.mathBodyFont ? `mathBodyFont: true,\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)}, alt: ${box(t.alt || t.fact || t.act)},
 )\n`;
 }
 
@@ -600,4 +600,18 @@ function tgCoverPrimary(theme) {
   return hslToHex(hu, s, l > 0.5 ? Math.max(0.16, l - 0.30) : Math.max(0.10, l - 0.13));
 }
 
-module.exports = { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary };
+// A book's own colours (sidecar "palette"): { primary, primary2, accent, cyan, signature }
+// re-derive everything zeph() derives from them; "act" / "ex" / "alt" ({ fill, border,
+// title }) set a box outright. Keys left out keep the theme's own.
+function paletteColours(theme, p) {
+  const primary = p.primary || theme.primary, primary2 = p.primary2 || theme.primary2;
+  const cyan = p.cyan || theme.cyan || primary2;
+  const o = { primary, primary2, cyan, accent: p.accent || theme.accent, signature: p.signature || p.primary || theme.signature,
+    rulec: tint(primary, 0.78), zebra: tint(primary, 0.93),
+    act: { fill: tint(primary, 0.9), border: primary2, title: primary },
+    ex: { fill: tint(cyan, 0.9), border: cyan, title: primary } };
+  for (const k of ["act", "ex", "alt"]) if (p[k]) o[k] = { ...(o[k] || theme[k] || {}), ...p[k] };
+  return o;
+}
+
+module.exports = { THEMES, autoTheme, themeTypst, tgCoverSignature, tgCoverPrimary, paletteColours };
