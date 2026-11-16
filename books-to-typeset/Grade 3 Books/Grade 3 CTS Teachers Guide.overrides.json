@@ -1,0 +1,8 @@
+{
+  "//source": "No .docx was supplied: the manuscript was rebuilt 2026-11-16 from the reviewer's PDF 'CTS_ Grade 3_TG_ ready for typesseting_1611 026.pdf' (183 pp, made by another copy of the engine) by the converter in C:/z/cg3 (model.mjs + build.mjs), with the reviewer's 44 round-1 comments applied in the rebuild (zeph round 1, #4813-#4856).",
+  "//coverImage": "PLACEHOLDER: the reviewer's cover picture (it was used on the Grade 2 CTS books; comment #4813 asks for the Grade 3 Learner's Book picture instead, which has not been supplied yet).",
+  "coverImage": "Grade 3 CTS Teachers Guide-hires/cover.png",
+  "authors": [
+    "Collins Chisoya"
+  ]
+}

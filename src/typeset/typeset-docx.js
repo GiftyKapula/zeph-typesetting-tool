@@ -1550,7 +1550,12 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // here they fall through as a plain bold `head` block that looks like a
   // heading but never gets its own page or a Table of Contents entry.
   // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
-  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  // "(GENERAL|KEY) COMPETEN…" matches by its lead words (the heading often carries a
+  // tail, "… TO BE DEVELOPED"), but NOT a "Term – meaning" line that merely starts with
+  // them: the Grade 3 CTS TG's HOW TO USE list has the bullet "General competences –
+  // broad competences developed through learning activities.", which was promoted to a
+  // full-page section with its own contents entry.
+  const FM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*\b(?!\s*[–—-]\s+[a-z])|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
   // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript
