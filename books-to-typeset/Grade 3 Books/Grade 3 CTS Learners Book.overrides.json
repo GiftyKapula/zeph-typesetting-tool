@@ -1,0 +1,54 @@
+{
+  "//source": "No .docx was supplied: the manuscript was rebuilt 2026-11-16 from the book's own earlier engine build - 'Post- CDC Evaluation- Corrected versions Grade 3 CTS Learners Book_ ready for typesetting_Nov 2026.pdf' (184 pp; the download was cut short, repaired) for the text and pictures, with the pictures of pp. 164-182 (lost in the cut) from 'CTS Grade 3 LB - Proofread and ready for printing (small).pdf'. Converter: C:/z/cl3 (model.mjs + build.mjs). The 16 Nov corrections ('CTS GRADE 3 LEARNER'S BOOK CORRECTIONS TO BE INSERTED.docx') are applied in the rebuild: p129 picture, p130 Learning Activity 6, p131 picture.",
+  "//coverImage": "cover-hires.png = the word-free band (the children at the table, below the sun and above the 'CREATIVE THINKING' labels) of the old cover picture (384x576 px), upscaled 4x with Real-ESRGAN.",
+  "coverImage": "Grade 3 CTS Learners Book-hires/cover-hires.png",
+  "authors": [
+    "Collins Chisoya"
+  ],
+  "//layoutCredit": "User, 2026-11-16: the CTS Grade 3 TG and LB credit two people for Cover and Book Layout - Gift Kapula and Ng`ambi Teddy (B.Sc).",
+  "layoutCredit": [
+    "Gift Kapula",
+    "Ng`ambi Teddy (B.Sc)"
+  ],
+  "//imprintSpacing": "The copyright page with two layout names ran its ISBN and Printed by onto a page of their own at this book's large type; a tighter paragraph gap keeps it to one page.",
+  "imprintSpacing": "0.5em",
+  "//pageBreakBefore": "The nine end-of-topic assessments (Topics 3.4, 3.5, 3.6, 3.9, 3.13, 3.14, 3.16, 3.17, 3.18) that otherwise split with one to three questions over the page open on a fresh page, as the old build set them. keepExercisesWhole moved every short exercise too and left twenty pages a third empty.",
+  "pageBreakBefore": [
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "Name one item that can be made using wood."
+    },
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "Name four objects that can be used to create patterns."
+    },
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "What is a mouse used for?"
+    },
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "What is a local dance?"
+    },
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "What is a temporary stitch?"
+    },
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "Why are modified games important?"
+    },
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "Name one item you can design."
+    },
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "What should you consider when designing letters?"
+    },
+    {
+      "find": "END-OF-TOPIC ASSESSMENT",
+      "near": "What does learning about water mean?"
+    }
+  ]
+}
