@@ -1112,6 +1112,12 @@
       "with": "including its timing, output sequence and reset behaviour, and make necessary improvements.",
       "_why": "source p36-37: the sentence runs on over the page",
       "_restore": true
+    },
+    {
+      "find": "not the full order record To fix 2NF:",
+      "with": "not the full order record",
+      "_why": "source p115: 'To fix 2NF:' is a line of its own (put back below)",
+      "_restore": true
     }
   ],
   "remove": [
@@ -1794,6 +1800,134 @@
       "_restore": true
     },
     {
+      "find": "Customers Table Books Table Orders Table",
+      "span": 4,
+      "_why": "source p115",
+      "with": [
+        {
+          "para": "***Customers Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "CustomerID",
+                  "imgs": []
+                },
+                {
+                  "text": "CustomerName",
+                  "imgs": []
+                },
+                {
+                  "text": "CustomerPhone",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "***Books Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "BookID",
+                  "imgs": []
+                },
+                {
+                  "text": "BookTitle",
+                  "imgs": []
+                },
+                {
+                  "text": "AuthorName",
+                  "imgs": []
+                },
+                {
+                  "text": "Price",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "***Orders Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "OrderID",
+                  "imgs": []
+                },
+                {
+                  "text": "CustomerID",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Orders Table OrderDetails Table",
+      "span": 3,
+      "_why": "source p115",
+      "with": [
+        {
+          "para": "***Orders Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "OrderID",
+                  "imgs": []
+                },
+                {
+                  "text": "CustomerID",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "***OrderDetails Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "OrderID",
+                  "imgs": []
+                },
+                {
+                  "text": "BookID",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ],
+      "_restore": true
+    },
+    {
       "find": "(^)",
       "with": [],
       "_why": "conversion scrap",
@@ -1930,6 +2064,12 @@
       "findTable": "Ask learners to study the scenario provided in the Learner’s Book.",
       "title": "LEARNING ACTIVITY 3: Upgrading and migrating a database to a newer version or platform",
       "_why": "source p108 (title reads 'mitigating', a slip for 'migrating')",
+      "_restore": true
+    },
+    {
+      "findTable": "Learners work individually or in pairs or in small groups using DBMS",
+      "title": "LEARNING ACTIVITY 4: Identifying and resolving database querying issues",
+      "_why": "source p112",
       "_restore": true
     },
     {
@@ -2590,6 +2730,106 @@
         },
         {
           "para": "Migrating a database means moving it to a new system or location, such as from a laptop to a cloud server. This helps make data easier to access and manage. Both upgrading and migrating help keep data safe, organised, and efficient."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "queries work in practical situations",
+      "_why": "source p112: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Understanding SQL Queries"
+        },
+        {
+          "para": "Understanding SQL queries helps learners know how to retrieve data from a database. A basic query uses SELECT to choose data, FROM to choose the table, and WHERE to set conditions for filtering results."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "An ICT accessories shop",
+      "_why": "source pp112-113: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Alternative Activity"
+        },
+        {
+          "para": "*Learners work in groups to identify and correct faulty SQL queries from printed case studies. They discuss errors, rewrite the correct queries, and present their solutions and explanations to the class.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners should identify query errors, correct them accurately, and explain their reasoning during presentations.*"
+        },
+        {
+          "label": "EXERCISE 4"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*The report problem is that the query is retrieving incorrect data by showing students who scored below 80 or students from other subjects. This may be caused by using the wrong condition in the query. To check the query, review the WHERE condition, subject name, and comparison operator to ensure they are written correctly.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*The query should be changed so that it selects only learners who scored above 80 in Mathematics. The correct conditions should include subject = 'Math' and score > 80. For example:*",
+          "marker": "(b)"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "SELECT*FROMstudents\nWHEREsubject='Math'ANDscore>80;",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "listitem": "*Resolving the issue helps the school get accurate and reliable information. This improves report preparation, supports better decision-making, and ensures correct student performance records are used.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Organising Data into Normal Forms"
+        },
+        {
+          "para": "**What is Normalisation?**"
+        },
+        {
+          "para": "Normalisation is the process of organising data in a database into well-structured tables to reduce duplication and improve efficiency. It helps store data in the correct place so that it is easy to manage, update, and retrieve."
+        },
+        {
+          "para": "Explain that unnormalised data causes repetition, confusion, and update problems, while normalisation separates data into related tables for better organisation. Guide learners to understand the three basic normal forms:"
+        },
+        {
+          "listitem": "**1NF:** Remove repeating groups and ensure each field contains one value.",
+          "marker": "•"
+        },
+        {
+          "listitem": "**2NF:** Ensure all fields depend on the whole primary key.",
+          "marker": "•"
+        },
+        {
+          "listitem": "**3NF:** Remove indirect dependencies so fields depend only on the primary key.",
+          "marker": "•"
+        },
+        {
+          "para": "Use simple examples to help learners identify repeated data and practise splitting large tables into smaller related tables."
+        },
+        {
+          "head": "LEARNING ACTIVITY 5: Applying the first, second, and third normal forms (1NF, 2NF, 3NF) to organise data"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "Split the table into separate related tables",
+      "items": [
+        {
+          "para": "***To fix 2NF:***"
         }
       ],
       "_restore": true

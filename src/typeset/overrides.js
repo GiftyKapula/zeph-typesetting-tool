@@ -358,7 +358,9 @@ function applyOverrides(blocks, ov) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
         if (hits(b)) {
-          arr.splice(i, 1, ...news);
+          // (`span: n` replaces the matched block and the n-1 after it — a title line the conversion
+          // ran together, with the tables it heads)
+          arr.splice(i, rb.span || 1, ...news);
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
           done = true; return;
         }
