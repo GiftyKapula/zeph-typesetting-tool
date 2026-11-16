@@ -49,6 +49,13 @@ where the writer used flowing text.
   → FORM tag → book type → hero photo → AUTHORS → logo).
 - **Signatory** name is **bold**; title/org normal, kept as one tight block with
   ~16 mm signature space above.
+- **Wording (the finished books' practice, settled 2026-11-16 on the CTS Grade 3 LB):**
+  no serial comma — "Swimming and Entrepreneurship", not "Swimming, and …" (a comma
+  that ends a clause, "loud or soft, and describe its rhythm", stays); the curriculum is
+  the **Competency-Based Curriculum**; the Foreword, Preface and Acknowledgement make
+  one pass (welcome → subject → topics by their own names → closing hope) with no
+  paragraph restating another. These are manuscript text: fix them in the book, not
+  in the engine.
 
 ## 4. Conventions baked into the engine (don't re-solve these)
 
