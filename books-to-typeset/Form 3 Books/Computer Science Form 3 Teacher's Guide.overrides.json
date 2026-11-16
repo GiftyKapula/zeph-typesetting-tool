@@ -1118,6 +1118,12 @@
       "with": "not the full order record",
       "_why": "source p115: 'To fix 2NF:' is a line of its own (put back below)",
       "_restore": true
+    },
+    {
+      "find": "easily find them using their phones. A",
+      "with": "easily find them using their phones. A mobile app is a good solution because it provides instant updates, wide accessibility, and real-time communication between sellers and customers.",
+      "_why": "source pp154-155: the sentence ran over the page",
+      "_restore": true
     }
   ],
   "remove": [
@@ -1928,6 +1934,145 @@
       "_restore": true
     },
     {
+      "find": "Suggested Answers Homework reminder app",
+      "_why": "source p155",
+      "with": [
+        {
+          "head": "CROSS-CUTTING ISSUES"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "noHeader": true,
+            "rows": [
+              [
+                {
+                  "text": "Life Skills and Health Education (LSHE)",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Life Skills and Health Education (LSHE)",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "Apps can support learning, personal development, and access to health information.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Social and Emotional Learning",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Social and Emotional Learning",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "Applications can help develop communication, collaboration, and emotional wellbeing skills.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Entrepreneurship Education",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Entrepreneurship Education",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "Mobile applications provide opportunities to create innovative solutions and start new businesses.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Financial Education",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Financial Education",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "Mobile apps enable financial management, online banking, and digital transactions, improving financial literacy.",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "head": "END OF TOPIC ASSESSMENT"
+        },
+        {
+          "para": "**Suggested Answers**"
+        },
+        {
+          "para": "**Homework reminder app**"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Clinic appointment app type",
+      "with": [
+        {
+          "para": "**Clinic appointment app type**"
+        }
+      ],
+      "_why": "source p155: answer titles, inside the assessment",
+      "_restore": true
+    },
+    {
+      "find": "Online crafts business app features",
+      "with": [
+        {
+          "para": "**Online crafts business app features**"
+        }
+      ],
+      "_why": "source p155: answer titles, inside the assessment",
+      "_restore": true
+    },
+    {
+      "find": "Sports updates app engagement",
+      "with": [
+        {
+          "para": "**Sports updates app engagement**"
+        }
+      ],
+      "_why": "source p155: answer titles, inside the assessment",
+      "_restore": true
+    },
+    {
+      "find": "Educational app for children",
+      "with": [
+        {
+          "para": "**Educational app for children**"
+        }
+      ],
+      "_why": "source p155: answer titles, inside the assessment",
+      "_restore": true
+    },
+    {
       "find": "(^)",
       "with": [],
       "_why": "conversion scrap",
@@ -2046,6 +2191,12 @@
       "drop": true,
       "_why": "the empty grid the conversion left of Exercise 5's truth table (put back above)",
       "_restore": true
+    },
+    {
+      "emptyAfter": "The main problem is that buyers do not know",
+      "drop": true,
+      "_why": "empty grid (put back below with its text)",
+      "_restore": true
     }
   ],
   "tableToBox": [
@@ -2070,6 +2221,12 @@
       "findTable": "Learners work individually or in pairs or in small groups using DBMS",
       "title": "LEARNING ACTIVITY 4: Identifying and resolving database querying issues",
       "_why": "source p112",
+      "_restore": true
+    },
+    {
+      "findTable": "Facilitate learners to work individually, in pairs or in small groups and select",
+      "title": "LEARNING ACTIVITY 1: Exploring a mobile application and explaining its use in daily life",
+      "_why": "source p142",
       "_restore": true
     },
     {
@@ -2830,6 +2987,152 @@
       "items": [
         {
           "para": "***To fix 2NF:***"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "LEARNING ACTIVITY 1: Exploring a mobile application",
+      "_why": "source p142: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Mobile Applications and Their Use in Daily Life"
+        },
+        {
+          "para": "Mobile applications are software programs used on smartphones and tablets to perform everyday tasks more easily and quickly. They include apps for shopping (Amazon, Jumia), entertainment (YouTube, Netflix), food delivery (Uber Eats), education (Khan Academy), transport (Yango, Uber), banking (Airtel Money, ZANACO Mobile), communication (WhatsApp, Zoom), and social media (Facebook, TikTok)."
+        },
+        {
+          "para": "Facilitate discussion on how mobile apps improve daily life by saving time, improving communication, supporting learning, and enabling access to services anywhere. Also guide learners to identify challenges such as privacy risks, data usage, distraction, and overuse of devices. Conclude by helping learners understand that mobile applications are useful tools that should be used responsibly to improve productivity and learning."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "Learners identify a mobile application, state its purpose and category",
+      "_why": "source pp143-144: lost in the Word conversion",
+      "items": [
+        {
+          "label": "EXERCISE 1"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*The study planner or task management app includes features such as task creation, reminders, calendars, and progress tracking. Task creation helps learners list all assignments. Reminders alert learners before deadlines. The calendar shows due dates clearly, and progress tracking helps learners monitor completed and pending work, improving organisation and time management.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*Learners first download and open the app, then create an account. They add all assignments with due dates and set reminders for each task. They use the calendar view to plan study time and check daily tasks. The app sends alerts before deadlines, helping learners complete work on time and avoid forgetting assignments.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*The app is effective because it improves organisation, reduces missed deadlines, and supports better time management. However, learners may face challenges such as forgetting to update tasks, lack of internet access, or distraction from other phone apps. An improvement could be adding offline access and more visual alerts (such as colour coding or pop-up alarms) to make it easier for learners to use.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Native, Web and Hybrid Mobile Applications"
+        },
+        {
+          "para": "Mobile applications are grouped into three types based on how they are built and used: native, web, and hybrid apps. Each type differs in performance, access to device features, and how it is used."
+        },
+        {
+          "para": "**Native applications** are built for a specific operating system (Android or iOS), installed from app stores, and offer fast performance with full access to device features, but are costly and take longer to develop."
+        },
+        {
+          "para": "**Web applications** run in a browser without installation, work on any device, are cheaper to develop, but need internet and have limited access to device features."
+        },
+        {
+          "para": "**Hybrid applications** combine both native and web apps, use one codebase for multiple platforms, are cheaper and faster to build, but may have lower performance and limited device access."
+        },
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 2: Discussing native, web and hybrid mobile applications",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Guide learners to use digital devices to explore mobile applications used in daily life such as communication, learning, entertainment, and shopping apps.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Let learners list at least five apps and classify them as native, web, or hybrid, explaining how each is accessed and used.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Support learners to compare the three types using online resources, focusing on performance, cost, compatibility, internet use, and user experience.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Learners present findings using tables or slides and share their work with the class.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners should list examples of mobile apps, classify them as native, web, or hybrid, and state how they are accessed. They should also compare the three types using key differences and present their findings clearly.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "The main problem is that buyers do not know",
+      "_why": "source p155: lost in the Word conversion",
+      "items": [
+        {
+          "listitem": "***Main features of the mobile app***",
+          "marker": "(b)"
+        },
+        {
+          "para": "*The app would include a login or simple registration for sellers, a feature to update daily location, and a product listing section where sellers can add items and prices. It would also have a map or location display for customers, a search feature to find nearby sellers, and notifications to alert customers when new products are posted.*"
+        },
+        {
+          "listitem": "***Steps to create the mobile app***",
+          "marker": "(c)"
+        },
+        {
+          "para": "*First, I would identify the problem and plan the app features. Next, I would design the user interface with screens for login, product updates, and customer viewing. Then I would choose a development tool such as MIT App Inventor or Android Studio and build the app by adding components and programming the functions. After that, I would test the app on a phone or emulator to check if it works correctly. Finally, I would fix errors and improve the app before releasing it for users.*"
         }
       ],
       "_restore": true

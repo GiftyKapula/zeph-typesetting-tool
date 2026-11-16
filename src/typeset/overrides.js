@@ -2068,8 +2068,9 @@ function applyOverrides(blocks, ov) {
             }
             continue;
           }
-          if (!seen && blockPlain(b).includes(t.emptyAfter)) seen = true;
-          for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) visit(b[k]);
+          if (!seen && (blockPlain(b) + " " + (b.q || "") + " " + (b.a || "")).includes(t.emptyAfter)) seen = true;
+          // (an exercise's parts too: a q/a part carries its text in q/a, a table part `kind: "table"`)
+          for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && (x.t || x.kind))) visit(b[k]);
         }
       };
       visit(blocks);
