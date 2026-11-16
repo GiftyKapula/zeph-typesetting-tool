@@ -272,7 +272,7 @@ function reorderBackmatter(blocks) {
 // no separate line for a name at all — the very next paragraph there is unrelated
 // real content (e.g. "First Published 2026 by:"), so blindly overwriting "the next
 // non-empty block" would destroy that section instead of crediting anyone.
-const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
+const LAYOUT_CREDIT = "Teddy Ng`ambi";
 
 function fillLayoutCredit(blocks) {
   // Manuscripts word this credit several ways — "Cover and Book Layout:", "Cover
