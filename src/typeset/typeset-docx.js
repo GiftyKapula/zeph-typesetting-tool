@@ -5140,8 +5140,15 @@ function applyHeadingCase(blocks, cfg) {
 // A book can carry a different name with the sidecar key `layoutCredit` — the Food and
 // Nutrition Form 2 Teacher's Guide credits Chikondi Robinson Ng`ambi (user, 2026-10-22:
 // "the change of the name is changed just for this one"); every other book keeps this.
+// A list (["Gift Kapula", "Ng`ambi Teddy (B.Sc)"]) credits a shared layout, one name a line.
 const LAYOUT_CREDIT = "Ng`ambi Teddy (B.Sc)";
 function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
+  // `layoutCredit` may also be a list of names when the layout is shared — each name
+  // then gets its own line under the label, like every other imprint credit.
+  const names = (Array.isArray(credit) ? credit : [credit]).filter((n) => n && String(n).trim());
+  if (!names.length) names.push(LAYOUT_CREDIT);
+  credit = names[0];
+  const extraLines = (align) => names.slice(1).map((n) => ({ t: "para", segs: [{ t: n, b: false, it: false, c: null }], align }));
   // Manuscripts word this credit several ways — "Cover and Book Layout:", "Cover
   // designed by:", "Book layout by:", "Design and layout:" — and matching only the
   // first spelling left the credit unfilled on any book using another. The ICT Form 2
@@ -5205,6 +5212,9 @@ function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
         if (blockPlain(arr[nameIdx]).trim() !== credit) {
           setBlockSegs(arr[nameIdx], [{ t: credit, b: false, it: false, c: null }]);
         }
+        const more = extraLines(arr[nameIdx].align || b.align || "center");
+        arr.splice(nameIdx + 1, 0, ...more);
+        nameIdx += more.length;
         // Space the credit from whatever ZEPH statement (publisher block, "First
         // Published by:", …) follows it, unless a blank line already does the job.
         if (!isBlankish(arr[nameIdx + 1])) arr.splice(nameIdx + 1, 0, { t: "vspace", h: "4mm" });
@@ -5214,6 +5224,7 @@ function fillLayoutCredit(blocks, credit = LAYOUT_CREDIT) {
         // whatever follows.
         arr.splice(i + 1, 0,
           { t: "para", segs: [{ t: credit, b: false, it: false, c: null }], align: b.align || "center" },
+          ...extraLines(b.align || "center"),
           { t: "vspace", h: "4mm" });
       }
       return;
