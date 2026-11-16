@@ -16,6 +16,7 @@
   ],
   "coverUntil": "SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 ORDINARY LEVEL",
   "synthesiseCover": true,
+  "coverWords": { "printedBy": "Published by" },
   "imprint": {
     "copyright": "© Zambia Educational Publishing House (2026)",
     "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the copyright owner or publisher.",
