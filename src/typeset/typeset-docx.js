@@ -109,7 +109,8 @@ async function typesetOne(docxPath, themeName) {
   importOpts.colonHeadings = !!ov.colonHeadings;   // "TOPIC: 1.5 …" headings (see import-docx.js)
   importOpts.sourceFix = ov.sourceFix || [];          // fix manuscript text before recognition
   importOpts.textboxHeadings = !!ov.textboxHeadings;
-  importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;   // a manuscript converted from a PDF: text boxes rejoin the text flow   // a short title line in a Word text box becomes a heading
+  importOpts.dropImages = !!ov.dropImages;             // a converted CorelDRAW PDF: every picture is the converter's (see import-docx.js)
+  importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;  // a manuscript converted from a PDF: text boxes rejoin the text flow   // a short title line in a Word text box becomes a heading
   // the CDC copy's typed-on notes (FreeText comments, the list tools/cdc-comments.mjs writes):
   // the converter turns each into a text box, which unwrapTextboxes would print as book text
   if (ov.cdcComments) {
@@ -481,7 +482,7 @@ async function typesetOne(docxPath, themeName) {
     if (!media.some((m) => m.name === name)) media.push({ src, name });
     spec.raw = { t: "image", file: name, w: spec.w || 601, tall: false };
   }
-  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.uniformLabel || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.uniformLabel || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing || ov.codeBlocks) { applyOverrides(blocks, ov); }
   // glossaryColon: true — in the glossary, a term is followed by a colon, not the hyphen
   // the author typed: "Bacikombo- Caamba bamukowa" -> "Bacikombo: Caamba bamukowa".
   if (ov.glossaryColon) {
@@ -683,7 +684,7 @@ async function typesetOne(docxPath, themeName) {
   boldAssessmentSections(blocks);
   boldSafetyAndSteps(blocks);
   // Teacher's Guide: peel each inline "Possible Answer:" off its question onto its own line.
-  splitAnswerLabels(blocks);
+  splitAnswerLabels(blocks, { keepLabel: !!ov.keepAnswerLabel });
   // House style: make every structural box label read in one case across the book.
   uniformBoxLabelCase(blocks);
   // Group each lesson's header metadata into one distinct 14pt panel (Teacher's Guide).
@@ -1128,12 +1129,13 @@ async function typesetOne(docxPath, themeName) {
   if (useBlackWhite) {
     const K = "000000", GREY = "595959", RULE = "808080", FILL = "f2f2f2", ZEB = "ededed";
     const monobox = { fill: FILL, border: GREY, title: K };
-    const orig = THEMES[theme] || {};
+    // (a book's own `palette` is its full-colour palette: the cover keeps it)
+    const orig = { ...(THEMES[theme] || {}), ...(ov.palette ? paletteColours(THEMES[theme] || {}, ov.palette) : {}) };
     Object.assign(themeOverrides, {
       mono: true,
       ink: K, primary: K, primary2: GREY, accent: K, cyan: K, signature: K,
       rulec: RULE, zebra: ZEB, yellow: "d9d9d9",
-      act: monobox, ex: monobox, kp: monobox, fact: monobox, asmt: monobox,
+      act: monobox, ex: monobox, kp: monobox, fact: monobox, asmt: monobox, alt: monobox,
       // The cover (front + back) stays in FULL COLOUR — only the interior is greyscale — so
       // preserve the original palette for the cover-only colour fields (cover() shadows T
       // with these, so every colour it draws comes from here, not the greyed body colours).
@@ -1151,7 +1153,7 @@ async function typesetOne(docxPath, themeName) {
   // signature — the cover is the one part of a TG that stays in colour, and this is
   // the colour it should stay in. A book can still pin its own with `coverColor`.
   if (isTeacherBook && !ov.coverColor) {
-    themeOverrides.covSignature = tgCoverSignature(theme);
+    themeOverrides.covSignature = tgCoverSignature(theme, ov.palette ? paletteColours(THEMES[theme] || {}, ov.palette).signature : undefined);
   }
   // Front-matter sections into the house order (Author … Acronyms); opt out per book.
   // Runs last, once the body-start marker and every heading are final.

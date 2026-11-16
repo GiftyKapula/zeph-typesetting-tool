@@ -1,0 +1,1785 @@
+{
+  "_note": "Computer Science Form 3 TG. Source = the CorelDRAW PDF \"COMPUTER SCIENCE FORM 3 TEACHERS GUIDE EDITED 3\" converted to .docx in Word (no original manuscript), 2026-11-16. Same Word-conversion handling and green palette as the Form 3 LB.",
+  "unwrapTextboxes": true,
+  "dropImages": true,
+  "collapseSpaces": true,
+  "joinBrokenLines": true,
+  "joinSplitTables": true,
+  "boxActivities": true,
+  "reboxExercises": true,
+  "exerciseLeadsOut": true,
+  "keepScaffold": true,
+  "hyphenate": false,
+  "coverUntil": "SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 ORDINARY LEVEL",
+  "synthesiseCover": true,
+  "coverWords": {
+    "printedBy": "Published by"
+  },
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House (2026)",
+    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the copyright owner or publisher.",
+    "isbn": "…………………………",
+    "groups": [
+      {
+        "label": "Illustrated by:",
+        "lines": [
+          "Misheck Mutuzana and Shephat Phiri"
+        ]
+      },
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Teddy Ng`ambi"
+        ]
+      },
+      {
+        "label": "First Published by:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road, P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "Printed by:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "boxAlternatives": {
+    "also": [
+      "^Learner[’']s Activity",
+      "^Task$"
+    ],
+    "_why": "CDC p74-76: Learner’s Activity boxes in the Alternative Activity colour; p345: the non-digital Task box too"
+  },
+  "palette": {
+    "_why": "CDC: same green as the Teachers Guide (Word green 70AD47; activity fill C5E0B3, alternative activity FBD4B4, exercise bar blue 0070C0)",
+    "primary": "548235",
+    "primary2": "70AD47",
+    "signature": "70AD47",
+    "cyan": "C5E0B3",
+    "accent": "F4B083",
+    "act": {
+      "fill": "C5E0B3",
+      "border": "70AD47",
+      "title": "375623"
+    },
+    "alt": {
+      "fill": "FBD4B4",
+      "border": "F4B083",
+      "title": "843C0B"
+    },
+    "ex": {
+      "fill": "DEEBF7",
+      "border": "0070C0",
+      "title": "0070C0"
+    }
+  },
+  "liftCrossCutting": true,
+  "sourceFix": [
+    [
+      "————",
+      "=="
+    ],
+    [
+      "——",
+      "="
+    ],
+    [
+      "—+",
+      "→"
+    ],
+    {
+      "re": "Expec(?:fec\\/|fecf|fer\\/|ferf|ter\\/|tecf|fe0)",
+      "with": "Expected"
+    },
+    {
+      "re": "Gq›ecfed",
+      "with": "Expected"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:[Aad]|\\\\)?\\/?[\\/i]?[tf]erna[tf][\\/i][vy][’']?e?(?![A-Za-z])",
+      "with": "Alternative"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Acfivify|Acfiyify|dctiyify)(?![A-Za-z])",
+      "with": "Activity"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ducation)(?![A-Za-z])",
+      "with": "Education"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ntrepreneurship)(?![A-Za-z])",
+      "with": "Entrepreneurship"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ncourages)(?![A-Za-z])",
+      "with": "Encourages"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:nsuring)(?![A-Za-z])",
+      "with": "Ensuring"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:nsures)(?![A-Za-z])",
+      "with": "Ensures"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:nvironmental)(?![A-Za-z])",
+      "with": "Environmental"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:echnical)(?![A-Za-z])",
+      "with": "Technical"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:nhanced)(?![A-Za-z])",
+      "with": "Enhanced"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:thical)(?![A-Za-z])",
+      "with": "Ethical"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:laas)(?![A-Za-z])",
+      "with": "IaaS"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:COHPUTER)(?![A-Za-z])",
+      "with": "COMPUTER"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:sofiware)(?![A-Za-z])",
+      "with": "software"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Microsofi)(?![A-Za-z])",
+      "with": "Microsoft"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:suppods)(?![A-Za-z])",
+      "with": "supports"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:suppod)(?![A-Za-z])",
+      "with": "support"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Suppod)(?![A-Za-z])",
+      "with": "Support"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:suppoding)(?![A-Za-z])",
+      "with": "supporting"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:suppoded)(?![A-Za-z])",
+      "with": "supported"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:lnstagram)(?![A-Za-z])",
+      "with": "Instagram"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:lnspect)(?![A-Za-z])",
+      "with": "Inspect"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Linkedln)(?![A-Za-z])",
+      "with": "LinkedIn"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fhe)(?![A-Za-z])",
+      "with": "the"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fhey)(?![A-Za-z])",
+      "with": "they"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:impodance)(?![A-Za-z])",
+      "with": "importance"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:impodant)(?![A-Za-z])",
+      "with": "important"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:impod)(?![A-Za-z])",
+      "with": "import"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:pads)(?![A-Za-z])",
+      "with": "parts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:pad in class)(?![A-Za-z])",
+      "with": "part in class"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:vidually)(?![A-Za-z])",
+      "with": "virtually"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:vidual)(?![A-Za-z])",
+      "with": "virtual"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fo)(?![A-Za-z])",
+      "with": "to"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:shod)(?![A-Za-z])",
+      "with": "short"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Shod)(?![A-Za-z])",
+      "with": "Short"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:chads)(?![A-Za-z])",
+      "with": "charts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:chad)(?![A-Za-z])",
+      "with": "chart"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:smadphones)(?![A-Za-z])",
+      "with": "smartphones"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:padicipants)(?![A-Za-z])",
+      "with": "participants"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:padicipation)(?![A-Za-z])",
+      "with": "participation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:padial)(?![A-Za-z])",
+      "with": "partial"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:depadments)(?![A-Za-z])",
+      "with": "departments"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:oppodunities)(?![A-Za-z])",
+      "with": "opportunities"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Third-Pady)(?![A-Za-z])",
+      "with": "Third-Party"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Repods)(?![A-Za-z])",
+      "with": "Reports"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:conved)(?![A-Za-z])",
+      "with": "convert"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:whi\\/e)(?![A-Za-z])",
+      "with": "while"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Simp\\/e)(?![A-Za-z])",
+      "with": "Simple"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:S\\/mp\\/e)(?![A-Za-z])",
+      "with": "Simple"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oev’e\\/opment)(?![A-Za-z])",
+      "with": "Development"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:he\\/p)(?![A-Za-z])",
+      "with": "help"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:lie\\/ps)(?![A-Za-z])",
+      "with": "helps"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:propedies)(?![A-Za-z])",
+      "with": "properties"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Presenfafion)(?![A-Za-z])",
+      "with": "Presentation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ñfaferia\\/s|faferia\\/s)(?![A-Za-z])",
+      "with": "Materials"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:insed)(?![A-Za-z])",
+      "with": "insert"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ofien)(?![A-Za-z])",
+      "with": "often"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oebate)(?![A-Za-z])",
+      "with": "Debate"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Creat\\/ng)(?![A-Za-z])",
+      "with": "Creating"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:On\\/\\/ne)(?![A-Za-z])",
+      "with": "Online"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Repotafion)(?![A-Za-z])",
+      "with": "Reputation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oec\\/ypfing|Oecrypfing)(?![A-Za-z])",
+      "with": "Decrypting"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Secref)(?![A-Za-z])",
+      "with": "Secret"
+    },
+    {
+      "re": "\\(shin cipher",
+      "with": "(Shift cipher"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:7echniqoe)(?![A-Za-z])",
+      "with": "Technique"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Secore)(?![A-Za-z])",
+      "with": "Secure"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Rea\\/-Life)(?![A-Za-z])",
+      "with": "Real-Life"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:two-factorauthentication)(?![A-Za-z])",
+      "with": "two-factor authentication"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:effods)(?![A-Za-z])",
+      "with": "efforts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Sfeps)(?![A-Za-z])",
+      "with": "Steps"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Sfep)(?![A-Za-z])",
+      "with": "Step"
+    },
+    {
+      "re": "Penci\\/",
+      "with": "Pencil"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:eitherpen)(?![A-Za-z])",
+      "with": "either pen"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Mtz\\/fip\\/ication)(?![A-Za-z])",
+      "with": "Multiplication"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Cha\\/\\/enges)(?![A-Za-z])",
+      "with": "Challenges"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Cha\\/\\/enge)(?![A-Za-z])",
+      "with": "Challenge"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:e\\/se)(?![A-Za-z])",
+      "with": "else"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:cfeve\\/opmenf)(?![A-Za-z])",
+      "with": "development"
+    },
+    {
+      "re": "ManUa\\/",
+      "with": "Manual"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Atifomafion)(?![A-Za-z])",
+      "with": "Automation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:dna\\/ys\\/s)(?![A-Za-z])",
+      "with": "Analysis"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:7est)(?![A-Za-z])",
+      "with": "Test"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:so\\/v’e)(?![A-Za-z])",
+      "with": "solve"
+    },
+    {
+      "re": "needer\\/",
+      "with": "needed"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:look\\/\\/ke)(?![A-Za-z])",
+      "with": "look like"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Reftzrn)(?![A-Za-z])",
+      "with": "Return"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:aidime)(?![A-Za-z])",
+      "with": "airtime"
+    },
+    {
+      "re": "Cone\\/it\\/ona\\/|Cone\\/if\\/ona\\/",
+      "with": "Conditional"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:stafemenf)(?![A-Za-z])",
+      "with": "statement"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:confenf)(?![A-Za-z])",
+      "with": "content"
+    },
+    {
+      "re": "\\/ssUe",
+      "with": "Issue"
+    },
+    {
+      "re": "ated\\(",
+      "with": "alert("
+    },
+    {
+      "re": "(?<![A-Za-z])(?:getEIementByld|getEIementById)(?![A-Za-z])",
+      "with": "getElementById"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Afierwards)(?![A-Za-z])",
+      "with": "Afterwards"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Afier)(?![A-Za-z])",
+      "with": "After"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:sa\\/'e\\/y opgrac\\/e)(?![A-Za-z])",
+      "with": "safely upgrade"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:cfafa6ase)(?![A-Za-z])",
+      "with": "database"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:w\\/fhoot)(?![A-Za-z])",
+      "with": "without"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/afa)(?![A-Za-z])",
+      "with": "data"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/oocf)(?![A-Za-z])",
+      "with": "cloud"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Czisfomers)(?![A-Za-z])",
+      "with": "Customers"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/es\\/gn)(?![A-Za-z])",
+      "with": "design"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/esigns)(?![A-Za-z])",
+      "with": "designs"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/esign)(?![A-Za-z])",
+      "with": "design"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:r\\/esign)(?![A-Za-z])",
+      "with": "design"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:de\\/ete)(?![A-Za-z])",
+      "with": "delete"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oeskfop)(?![A-Za-z])",
+      "with": "Desktop"
+    },
+    {
+      "re": "\\/Uobi\\/e",
+      "with": "Mobile"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/ep\\/oymenf)(?![A-Za-z])",
+      "with": "deployment"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:aleds)(?![A-Za-z])",
+      "with": "alerts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oe\\/ayed)(?![A-Za-z])",
+      "with": "Delayed"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Techno\\/ogy)(?![A-Za-z])",
+      "with": "Technology"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oata|Oafa)(?![A-Za-z])",
+      "with": "Data"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Co\\/\\/ecfion)(?![A-Za-z])",
+      "with": "Collection"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:creafiyity)(?![A-Za-z])",
+      "with": "creativity"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:exp\\/ain)(?![A-Za-z])",
+      "with": "explain"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:d\\/erfs)(?![A-Za-z])",
+      "with": "Alerts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:seft\\/p)(?![A-Za-z])",
+      "with": "setup"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oec\\/sion-making)(?![A-Za-z])",
+      "with": "Decision-making"
+    },
+    {
+      "re": "t\\/sefn\\/",
+      "with": "useful"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fl4afware)(?![A-Za-z])",
+      "with": "Malware"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:iVialware)(?![A-Za-z])",
+      "with": "Malware"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:users’phones)(?![A-Za-z])",
+      "with": "users’ phones"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:sfo\\/en)(?![A-Za-z])",
+      "with": "stolen"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:rec\\/oce)(?![A-Za-z])",
+      "with": "reduce"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Sell\\/ng)(?![A-Za-z])",
+      "with": "Setting"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Benef\\/ts)(?![A-Za-z])",
+      "with": "Benefits"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:sysfem)(?![A-Za-z])",
+      "with": "system"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Otiest\\/ons)(?![A-Za-z])",
+      "with": "Questions"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Procer\\/are)(?![A-Za-z])",
+      "with": "Procedure"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Obserrafion)(?![A-Za-z])",
+      "with": "Observation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:obstacIe)(?![A-Za-z])",
+      "with": "obstacle"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:incIude)(?![A-Za-z])",
+      "with": "include"
+    },
+    {
+      "re": "turn_Ieft",
+      "with": "turn_left"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fudher)(?![A-Za-z])",
+      "with": "further"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:robof)(?![A-Za-z])",
+      "with": "robot"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Reconnecfing)(?![A-Za-z])",
+      "with": "Reconnecting"
+    },
+    {
+      "re": "sfepj",
+      "with": "step)"
+    },
+    {
+      "re": "\\/ssz\\/ej",
+      "with": "issue)"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:drifiing)(?![A-Za-z])",
+      "with": "drifting"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:lest\\/ng)(?![A-Za-z])",
+      "with": "testing"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/e\\/iv’ery)(?![A-Za-z])",
+      "with": "delivery"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:coIumn)(?![A-Za-z])",
+      "with": "column"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:tabIe)(?![A-Za-z])",
+      "with": "table"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:googIe)(?![A-Za-z])",
+      "with": "google"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:loT)(?![A-Za-z])",
+      "with": "IoT"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Al)(?![A-Za-z])",
+      "with": "AI"
+    },
+    {
+      "re": "([a-z])lD(?![a-z])",
+      "with": "$1ID"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:l\\/I\\/’eb)(?![A-Za-z])",
+      "with": "Web"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Websites\\/h)(?![A-Za-z])",
+      "with": "Websites"
+    },
+    [
+      "ﬀ",
+      "ff"
+    ],
+    [
+      "ﬃ",
+      "ffi"
+    ],
+    [
+      "ﬄ",
+      "ffl"
+    ],
+    {
+      "re": "(?<![A-Za-z])Jaya(?![A-Za-z])",
+      "with": "Java"
+    }
+  ],
+  "textFix": [
+    {
+      "find": " -  - ",
+      "with": " = "
+    },
+    {
+      "find": "to the Alternative:",
+      "with": "to the alternative:"
+    },
+    {
+      "find": "arge projects, professional",
+      "with": "Large projects, professional"
+    },
+    {
+      "find": "asy manipulation of web",
+      "with": "Easy manipulation of web"
+    },
+    {
+      "find": "fficient updates using",
+      "with": "Efficient updates using"
+    },
+    {
+      "find": "Sth edn.",
+      "with": "5th edn."
+    },
+    {
+      "find": "o/' logic circuits for various /npt Is",
+      "with": "of logic circuits for various inputs"
+    },
+    {
+      "find": "acce ssingand sharin ginformation",
+      "with": "accessing and sharing information"
+    },
+    {
+      "find": "Internet and ifs Key",
+      "with": "Internet and its Key"
+    },
+    {
+      "find": "Secret /I4essages",
+      "with": "Secret Messages"
+    },
+    {
+      "find": "Visual Sftzrfio Cor/e",
+      "with": "Visual Studio Code"
+    },
+    {
+      "find": "a wed application",
+      "with": "a web application"
+    },
+    {
+      "find": "identify/ng and Firing",
+      "with": "Identifying and Fixing"
+    },
+    {
+      "find": "Books had/e",
+      "with": "Books Table"
+    },
+    {
+      "find": "data ret eva/",
+      "with": "data retrieval"
+    },
+    {
+      "find": "accuracy overtime",
+      "with": "accuracy over time"
+    },
+    {
+      "find": "Health Responsej",
+      "with": "Health Response)"
+    },
+    {
+      "find": "a rea/ problem",
+      "with": "a real problem"
+    },
+    {
+      "find": "FlutterFlow, Dad,",
+      "with": "FlutterFlow, Dart,"
+    },
+    {
+      "find": "then sod them",
+      "with": "then sort them"
+    },
+    {
+      "find": "too/s t/ser/",
+      "with": "Tools used"
+    },
+    {
+      "find": "CriticalThinking",
+      "with": "Critical Thinking"
+    },
+    {
+      "find": "not yre// managed",
+      "with": "not well managed"
+    },
+    {
+      "find": "7esfing Sysfem",
+      "with": "Testing System"
+    },
+    {
+      "find": "batteries ora rechargeable",
+      "with": "batteries or a rechargeable"
+    },
+    {
+      "find": "a stad point",
+      "with": "a start point"
+    },
+    {
+      "find": "turn ie//",
+      "with": "turn left"
+    },
+    {
+      "find": "and soding trays",
+      "with": "and sorting trays"
+    },
+    {
+      "find": "wafer monitoring",
+      "with": "water monitoring"
+    },
+    {
+      "find": "EXERC SE",
+      "with": "EXERCISE"
+    },
+    {
+      "find": "Learnersare",
+      "with": "Learners are"
+    },
+    {
+      "find": "Responses:Learners",
+      "with": "Responses: Learners"
+    },
+    {
+      "find": "Q} Templates",
+      "with": "(b) Templates"
+    },
+    {
+      "find": "posting: 1s it kind",
+      "with": "posting: Is it kind"
+    },
+    {
+      "find": "Sign Up,”enter",
+      "with": "Sign Up”, enter"
+    },
+    {
+      "find": "Post”rule",
+      "with": "Post” rule"
+    },
+    {
+      "find": "or.zip",
+      "with": "or .zip"
+    },
+    {
+      "find": "“lock”symbols",
+      "with": "“lock” symbols"
+    },
+    {
+      "find": "“tunnel”so",
+      "with": "“tunnel” so"
+    },
+    {
+      "find": "PATH”during",
+      "with": "PATH” during"
+    },
+    {
+      "find": "w§h ext nsions",
+      "with": "with extensions"
+    },
+    {
+      "find": "Designing a We6 Application",
+      "with": "Designing a Web Application"
+    },
+    {
+      "find": "fiav'e7’",
+      "with": "have?"
+    },
+    {
+      "find": "fu lion",
+      "with": "function"
+    },
+    {
+      "find": "“rights”or “responsibilities”using",
+      "with": "“rights” or “responsibilities” using"
+    },
+    {
+      "find": "Ro/e Play",
+      "with": "Role Play"
+    },
+    {
+      "find": "Examp/e",
+      "with": "Example"
+    },
+    {
+      "find": "Sfrtzctnre",
+      "with": "Structure"
+    },
+    {
+      "find": "shh creates",
+      "with": "<h1> creates"
+    },
+    {
+      "find": "Oes/gn",
+      "with": "Design"
+    },
+    {
+      "find": "Answer”or",
+      "with": "Answer” or"
+    },
+    {
+      "find": "is 8/f0.",
+      "with": "is 8/10."
+    },
+    {
+      "find": "creates a pad of",
+      "with": "creates a part of"
+    },
+    {
+      "find": "added to the cad.",
+      "with": "added to the card."
+    },
+    {
+      "find": "added to a cad.",
+      "with": "added to a card."
+    },
+    {
+      "find": "lvlySQL",
+      "with": "MySQL"
+    },
+    {
+      "find": "/\\/ew system",
+      "with": "New system"
+    },
+    {
+      "find": "c/otzcf",
+      "with": "cloud"
+    },
+    {
+      "find": "/oca/",
+      "with": "local"
+    },
+    {
+      "find": "so/tzfions",
+      "with": "solutions"
+    },
+    {
+      "find": "maintenance.Determine",
+      "with": "maintenance. Determine"
+    },
+    {
+      "find": "to I/?e database",
+      "with": "to the database"
+    },
+    {
+      "find": "readings.Guide",
+      "with": "readings. Guide"
+    },
+    {
+      "find": "Entertainment,Productivity, Navigation,Finance,S hopping",
+      "with": "Entertainment, Productivity, Navigation, Finance, Shopping"
+    },
+    {
+      "find": "mostsuitable.They",
+      "with": "most suitable. They"
+    },
+    {
+      "find": "files and selling permissions",
+      "with": "files and setting permissions"
+    },
+    {
+      "find": "/I4afer/a/s:",
+      "with": "Materials:"
+    },
+    {
+      "find": "Saf'efy:",
+      "with": "Safety:"
+    },
+    {
+      "find": "water/eve/",
+      "with": "water level"
+    },
+    {
+      "find": "https:llwww.",
+      "with": "https://www."
+    },
+    {
+      "find": "Chickenltem",
+      "with": "ChickenItem"
+    },
+    {
+      "find": "Foodltem",
+      "with": "FoodItem"
+    },
+    {
+      "find": "Ev'ent",
+      "with": "Event"
+    },
+    {
+      "find": "Ev'en",
+      "with": "Even"
+    },
+    {
+      "find": "Conv'ersion",
+      "with": "Conversion"
+    },
+    {
+      "find": "is frzie",
+      "with": "is true"
+    },
+    {
+      "find": "C/ick",
+      "with": "Click"
+    },
+    {
+      "find": "Iibrary",
+      "with": "library"
+    },
+    {
+      "find": "explaintiming",
+      "with": "explain timing"
+    },
+    {
+      "find": "“viewer”or",
+      "with": "“viewer” or"
+    },
+    {
+      "find": "module).It",
+      "with": "module). It"
+    },
+    {
+      "find": "SECONDARY EDUCATION COMPUTER SCIENCE FORN 5",
+      "with": ""
+    },
+    {
+      "find": "LEATRENAECRH'SERB’OSOBKO-OOKR-DOINRADRINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "16 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "85 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "136 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "169 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "178 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "tc/",
+      "with": "(c) "
+    },
+    {
+      "find": "(+ and  - )",
+      "with": "(+ and −)"
+    },
+    {
+      "find": "symbols such as ) and ;",
+      "with": "symbols such as { } and ;"
+    },
+    {
+      "find": "lear ers",
+      "with": "learners"
+    },
+    {
+      "find": "‹› ",
+      "with": "(c) "
+    },
+    {
+      "find": "(C \\times 9/5)",
+      "with": "(C × 9/5)"
+    },
+    {
+      "find": "‹›",
+      "with": "(c)"
+    }
+  ],
+  "remove": [
+    "J'?",
+    "{c} Conditional statement"
+  ],
+  "edit": [
+    {
+      "find": "zoom tools, and explain their",
+      "with": "zoom tools, and explain their purposes, and create a simple paper brochure on mental health education and present their work to the class.",
+      "_why": "source pp11-12: the end of the sentence came across as scraps"
+    }
+  ],
+  "codeBlocks": [
+    {
+      "from": "print(“Welcome to the Reading",
+      "lead": "(a)",
+      "code": [
+        ">>> print(\"Welcome to the Reading Competition!\")",
+        "Welcome to the Reading Competition!"
+      ]
+    },
+    {
+      "from": ">>> score = 65",
+      "toExact": "Passed",
+      "lead": "(b)",
+      "code": [
+        ">>> score = 65",
+        ">>> if score >= 50:",
+        "...     print(\"Passed\")",
+        "...",
+        "Passed"
+      ]
+    },
+    {
+      "from": "(c) >>> score = 65",
+      "toExact": "Passed",
+      "lead": "(c)",
+      "code": [
+        ">>> score = 65",
+        ">>> if score >= 50:",
+        "...     print(\"Passed\")",
+        "... else:",
+        "...     print(\"Failed\")",
+        "...",
+        "Passed"
+      ]
+    },
+    {
+      "from": "Python Program Solution",
+      "to": "Total revenue for the day",
+      "lead": "(c) Python Program Solution",
+      "code": [
+        "# Tuck Shop Sales Calculator",
+        "",
+        "total_revenue = 0",
+        "",
+        "# Input first item details",
+        "item_name = input(\"Enter item name: \")",
+        "quantity = int(input(\"Enter quantity sold: \"))",
+        "price = float(input(\"Enter price per item: \"))",
+        "",
+        "# Calculate total for the item",
+        "item_total = quantity * price",
+        "total_revenue += item_total",
+        "",
+        "print(item_name, \"total sales:\", item_total)",
+        "",
+        "# Display final revenue",
+        "print(\"Total revenue for the day is:\", total_revenue)"
+      ]
+    },
+    {
+      "from": "Weekly airtime total",
+      "to": "Total airtime spent",
+      "lead": "**1. Weekly airtime total**",
+      "code": [
+        ">>> day1 = 5",
+        ">>> day2 = 3",
+        ">>> day3 = 4",
+        ">>> day4 = 2",
+        ">>> day5 = 6",
+        ">>> day6 = 3",
+        ">>> day7 = 5",
+        ">>>",
+        ">>> total = day1 + day2 + day3 + day4 + day5 + day6 + day7",
+        ">>> print(\"Total airtime spent:\", total)",
+        "Total airtime spent: 28"
+      ]
+    },
+    {
+      "from": "Pass or fail",
+      "to": "You have failed",
+      "lead": "**2. Pass or fail**",
+      "code": [
+        ">>> mark = 55",
+        ">>>",
+        ">>> if mark >= 50:",
+        "...     print(\"You have passed\")",
+        "... else:",
+        "...     print(\"You have failed\")",
+        "...",
+        "You have passed"
+      ]
+    },
+    {
+      "from": "Change calculation",
+      "to": "Change: 30",
+      "lead": "**3. Change calculation**",
+      "code": [
+        ">>> price = 120",
+        ">>> amount_paid = 150",
+        ">>>",
+        ">>> change = amount_paid - price",
+        ">>> print(\"Change:\", change)",
+        "Change: 30"
+      ]
+    },
+    {
+      "from": "Display name 10 times",
+      "to": "Person Name Person Name",
+      "lead": "**4. Display name 10 times**",
+      "code": [
+        ">>> for i in range(10):",
+        "...     print(\"Person Name\")",
+        "...",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name"
+      ]
+    },
+    {
+      "from": "Counting learners until stop",
+      "to": "Total learners present: 3",
+      "lead": "**5. Counting learners until stop**",
+      "code": [
+        ">>> count = 0",
+        ">>>",
+        ">>> while True:",
+        "...     learner = input(\"Enter learner name (or type stop): \")",
+        "...     if learner == \"stop\":",
+        "...         break",
+        "...     count += 1",
+        "...",
+        "Enter learner name (or type stop): John",
+        "Enter learner name (or type stop): Mary",
+        "Enter learner name (or type stop): Peter",
+        "Enter learner name (or type stop): stop",
+        ">>>",
+        ">>> print(\"Total learners present:\", count)",
+        "Total learners present: 3"
+      ]
+    },
+    {
+      "from": "Traffic light simulation",
+      "toExact": "Go",
+      "lead": "**6. Traffic light simulation**",
+      "code": [
+        ">>> light = input(\"Enter light colour (red/yellow/green): \")",
+        "Enter light colour (red/yellow/green): green",
+        ">>>",
+        ">>> if light == \"red\":",
+        "...     print(\"Stop\")",
+        "... elif light == \"yellow\":",
+        "...     print(\"Get Ready\")",
+        "... elif light == \"green\":",
+        "...     print(\"Go\")",
+        "... else:",
+        "...     print(\"Invalid colour\")",
+        "...",
+        "Go"
+      ]
+    },
+    {
+      "from": "Celsius to Fahrenheit",
+      "to": "Temperature in Fahrenheit: 77",
+      "lead": "**7. Celsius to Fahrenheit**",
+      "code": [
+        ">>> celsius = 25",
+        ">>> fahrenheit = (celsius * 9/5) + 32",
+        ">>> print(\"Temperature in Fahrenheit:\", fahrenheit)",
+        "Temperature in Fahrenheit: 77.0"
+      ]
+    },
+    {
+      "from": "Pocket money savings",
+      "to": "Total savings: 350",
+      "lead": "**8. Pocket money savings**",
+      "code": [
+        ">>> savings = 0",
+        ">>>",
+        ">>> savings += 100",
+        ">>> savings += 50",
+        ">>> savings += 200",
+        ">>>",
+        ">>> print(\"Total savings:\", savings)",
+        "Total savings: 350"
+      ]
+    },
+    {
+      "from": "Library borrowing condition",
+      "to": "You cannot borrow",
+      "lead": "**9. Library borrowing condition**",
+      "code": [
+        ">>> has_overdue = False",
+        ">>> has_library_card = True",
+        ">>>",
+        ">>> if has_library_card and not has_overdue:",
+        "...     print(\"You can borrow books\")",
+        "... else:",
+        "...     print(\"You cannot borrow books\")",
+        "...",
+        "You can borrow books"
+      ]
+    },
+    {
+      "from": "Password checking loop",
+      "to": "Access granted",
+      "lead": "**10. Password checking loop**",
+      "code": [
+        ">>> correct_password = \"1234\"",
+        ">>> password = \"\"",
+        ">>>",
+        ">>> while password != correct_password:",
+        "...     password = input(\"Enter password: \")",
+        "...",
+        "Enter password: 1111",
+        "Enter password: 2222",
+        "Enter password: 1234",
+        ">>>",
+        ">>> print(\"Access granted\")",
+        "Access granted"
+      ]
+    },
+    {
+      "from": "function showMessage(category)",
+      "to": "Please select a valid category",
+      "lead": "(a) ***JavaScript function for displaying messages***",
+      "code": [
+        "function showMessage(category) {",
+        "  if (category === \"rights\") {",
+        "    document.getElementById(\"output\").innerText =",
+        "      \"Children have the right to education, \" +",
+        "      \"protection, and healthcare.\";",
+        "  }",
+        "  else if (category === \"responsibilities\") {",
+        "    document.getElementById(\"output\").innerText =",
+        "      \"Children have the responsibility to respect \" +",
+        "      \"others and follow rules.\";",
+        "  }",
+        "  else {",
+        "    document.getElementById(\"output\").innerText =",
+        "      \"Please select a valid category.\";",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "from": "showMessage(’rights’)",
+      "to": "<p id",
+      "lead": "(b) ***Event handling example (button click)***",
+      "code": [
+        "<button onclick=\"showMessage('rights')\">Show Rights</button>",
+        "<button onclick=\"showMessage('responsibilities')\">",
+        "  Show Responsibilities</button>",
+        "<p id=\"output\"></p>"
+      ]
+    },
+    {
+      "from": "let age = 15",
+      "to": "age-appropriate materials",
+      "lead": "(c) ***Conditional statement for age-appropriate content***",
+      "code": [
+        "let age = 15;",
+        "",
+        "if (age >= 18) {",
+        "  document.getElementById(\"access\").innerText =",
+        "    \"You can access all content on children's \" +",
+        "    \"rights and responsibilities.\";",
+        "}",
+        "else {",
+        "  document.getElementById(\"access\").innerText =",
+        "    \"Some content is restricted. \" +",
+        "    \"Please view age-appropriate materials.\";",
+        "}"
+      ]
+    },
+    {
+      "from": "<!DOCTYPE html>",
+      "to": "</html>",
+      "lead": "***Example of HTML Structure***",
+      "code": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "  <title>My Web Page</title>",
+        "</head>",
+        "<body>",
+        "  <h1>Welcome to My Website</h1>",
+        "  <p>This is a paragraph about web development.</p>",
+        "  <a href=\"#\">Click Here</a>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "from": "lightblue",
+      "to": "text-align: center",
+      "lead": "***Example of CSS***",
+      "code": [
+        "body {",
+        "  background-color: lightblue;",
+        "  font-family: Arial;",
+        "}",
+        "",
+        "h1 {",
+        "  color: darkblue;",
+        "  text-align: center;",
+        "}"
+      ]
+    },
+    {
+      "from": ">Click Me</button",
+      "to": "</scripts",
+      "after": [
+        {
+          "para": "***Explanation***"
+        }
+      ],
+      "lead": "***Example of JavaScript***",
+      "code": [
+        "<button onclick=\"showMessage()\">Click Me</button>",
+        "",
+        "<script>",
+        "function showMessage() {",
+        "  alert(\"Welcome to the website!\");",
+        "}",
+        "</script>"
+      ]
+    },
+    {
+      "from": "Submit Quiz</button",
+      "to": "Quiz Submitted",
+      "lead": "***Example:***",
+      "code": [
+        "<button id=\"submitQuiz\">Submit Quiz</button>",
+        "document.getElementById(\"submitQuiz\").onclick = function() {",
+        "  alert(\"Quiz Submitted!\");",
+        "}"
+      ]
+    },
+    {
+      "from": "class FoodItem",
+      "to": "Serving food",
+      "lead": "**Task 1: Create a Class**",
+      "code": [
+        "class FoodItem {",
+        "  constructor(name) {",
+        "    this.name = name;",
+        "  }",
+        "  serve() {",
+        "    console.log(\"Serving food\");",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "from": "const nshima",
+      "to": "chicken.serve()",
+      "lead": "**Task 2: Create Objects**",
+      "code": [
+        "const nshima = new FoodItem(\"Nshima\");",
+        "const chicken = new FoodItem(\"Chicken\");",
+        "",
+        "nshima.serve();",
+        "chicken.serve();"
+      ]
+    },
+    {
+      "from": "class Nshimaltem",
+      "to": "Serving Chicken with salad",
+      "lead": "**Task 3: Extend the Class**",
+      "code": [
+        "class NshimaItem extends FoodItem {",
+        "  serve() {",
+        "    console.log(\"Serving Nshima with relish\");",
+        "  }",
+        "}",
+        "",
+        "class ChickenItem extends FoodItem {",
+        "  serve() {",
+        "    console.log(\"Serving Chicken with salad\");",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "from": "const meall",
+      "to": "meal2.serve()",
+      "after": [
+        {
+          "head": "Creating Animations"
+        }
+      ],
+      "lead": "**Testing the Child Classes**",
+      "code": [
+        "const meal1 = new NshimaItem(\"Nshima\");",
+        "const meal2 = new ChickenItem(\"Chicken\");",
+        "",
+        "meal1.serve();",
+        "meal2.serve();"
+      ]
+    },
+    {
+      "from": "Hello, Robot",
+      "to": ">>> move_forward() Robot moving forward",
+      "code": [
+        ">>> print(\"Hello, Robot\")",
+        "Hello, Robot",
+        "",
+        ">>> speed = 10",
+        "",
+        ">>> def move_forward():",
+        "...     print(\"Robot moving forward\")",
+        "...",
+        "",
+        ">>> move_forward()",
+        "Robot moving forward"
+      ]
+    },
+    {
+      "from": "Robot is moving forward\")",
+      "to": ">>> move_forward() Robot is moving forward",
+      "code": [
+        ">>> def move_forward():",
+        "...     print(\"Robot is moving forward\")",
+        "...",
+        "",
+        ">>> move_forward()",
+        "Robot is moving forward"
+      ]
+    },
+    {
+      "from": "def move_forward():",
+      "to": "turn_left()",
+      "lead": "**Python Example**",
+      "code": [
+        "def move_forward():",
+        "    print(\"Robot is moving forward\")",
+        "",
+        "def stop():",
+        "    print(\"Robot has stopped\")",
+        "",
+        "def turn_left():",
+        "    print(\"Robot is turning left\")",
+        "",
+        "move_forward()",
+        "",
+        "if obstacle_detected():",
+        "    stop()",
+        "    turn_left()"
+      ]
+    },
+    {
+      "from": "#include <iostream>",
+      "to": "return 0;",
+      "lead": "**C++ Example**",
+      "code": [
+        "#include <iostream>",
+        "using namespace std;",
+        "",
+        "void moveForward() {",
+        "    cout << \"Robot moving forward\" << endl;",
+        "}",
+        "",
+        "bool obstacleDetected() {",
+        "    return true;",
+        "}",
+        "",
+        "void stop() {",
+        "    cout << \"Robot stopped\" << endl;",
+        "}",
+        "",
+        "void turnLeft() {",
+        "    cout << \"Robot turning left\" << endl;",
+        "}",
+        "",
+        "int main() {",
+        "    moveForward();",
+        "",
+        "    if (obstacleDetected()) {",
+        "        stop();",
+        "        turnLeft();",
+        "    }",
+        "",
+        "    return 0;",
+        "}"
+      ]
+    },
+    {
+      "from": "# Read sensor data",
+      "to": "Water level low",
+      "lead": "**Python Example**",
+      "code": [
+        "# Read sensor data",
+        "water_level = read_sensor()",
+        "",
+        "# Send alert if water level is low",
+        "if water_level < 20:",
+        "    send_message(\"Water level low\")"
+      ]
+    },
+    {
+      "from": "// Read sensor data",
+      "to": "Water level low",
+      "lead": "***C++ Example***",
+      "code": [
+        "// Read sensor data",
+        "int waterLevel = readSensor();",
+        "",
+        "// Send alert if water is low",
+        "if (waterLevel < 20) {",
+        "    sendMessage(\"Water level low\");",
+        "}"
+      ]
+    }
+  ],
+  "keepAnswerLabel": true,
+  "replaceBlocks": [
+    {
+      "find": "Event handling example (button click)",
+      "with": [],
+      "_why": "the code listing below carries this line as its lead"
+    },
+    {
+      "find": "Example of HTML Structure",
+      "with": [],
+      "_why": "the code listing below carries this line as its lead"
+    },
+    {
+      "find": "Truth table for Q = (NOT A) AND B A = 0, B = 0 → Q = 0",
+      "with": [
+        {
+          "para": "*Truth table for Q = (NOT A) AND B*"
+        },
+        {
+          "para": "*A = 0, B = 0 → Q = 0*"
+        }
+      ],
+      "_why": "conversion ran the first row on to the table's title (source p20)"
+    },
+    {
+      "find": "L=P (W+M)",
+      "with": [
+        {
+          "para": "*L = P·(W + M)*"
+        }
+      ],
+      "_why": "source p21: L=P·(W+M); the conversion lost the AND dot"
+    },
+    {
+      "find": "th d",
+      "with": [],
+      "_why": "conversion scraps of the Alternative Activity's last line (source pp11-12)"
+    },
+    {
+      "find": "Ie er brochure on mental health",
+      "with": [],
+      "_why": "conversion scraps of the Alternative Activity's last line (source pp11-12)"
+    },
+    {
+      "find": "A = 1, B = 0 - Q = 0",
+      "with": [
+        {
+          "para": "*A = 1, B = 0 → Q = 0*"
+        }
+      ],
+      "_why": "source p20: the conversion lost the arrow"
+    },
+    {
+      "find": "Logic diagram: B + I ORX, X- P ANDY, E NOTZ, Y- Z ANDG, GGreen LED, GRed LED.",
+      "with": [
+        {
+          "listitem": "*Logic diagram: B + I → OR → X; X · P → AND → Y; E → NOT → Z; Y · Z → AND → G; G → Green LED, NOT G → Red LED.*",
+          "marker": "5."
+        }
+      ],
+      "_why": "source p26: the conversion dropped the arrows"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "and outputs 1 if",
+      "_why": "source p20: one sentence the conversion broke in two"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "The Boolean expression for the lighting system is:",
+      "marker": "(a)"
+    },
+    {
+      "find": "Logic gates needed:",
+      "marker": "(b)"
+    },
+    {
+      "find": "Truth Table",
+      "marker": "(c)",
+      "near": "Logic gates needed:"
+    }
+  ],
+  "tables": [
+    {
+      "match": "\"text\":\"L\"",
+      "_why": "source p21 truth table: the conversion lost the W and M headings and the first row",
+      "columns": [
+        "P",
+        "W",
+        "M",
+        "L"
+      ],
+      "rows": [
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "1",
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "1",
+          "0",
+          "1",
+          "1"
+        ],
+        [
+          "1",
+          "1",
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      ]
+    }
+  ]
+}

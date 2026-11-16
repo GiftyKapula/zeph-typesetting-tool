@@ -472,9 +472,10 @@ function hslToHex(hu, s, l) {
   return [r, g, b].map((v) => Math.round((v + m) * 255).toString(16).padStart(2, "0")).join("");
 }
 
-function tgCoverSignature(theme) {
+// (`own`: the book's own signature colour, from a sidecar `palette`, in place of the theme's)
+function tgCoverSignature(theme, own) {
   const t = THEMES[theme] || {};
-  const sig = t.signature || t.primary;
+  const sig = own || t.signature || t.primary;
   if (!sig) return sig;
   const [hu, s, l] = hexToHsl(sig);
   // Move the LIGHTNESS and leave hue and saturation alone. Keeping the hue is what

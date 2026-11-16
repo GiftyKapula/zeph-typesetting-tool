@@ -2029,11 +2029,22 @@ async function importDocx(docxPath, opts = {}) {
   // opts.sourceFix: [["find", "with"], …] — correct the manuscript's text BEFORE anything is
   // recognised from it (a box title typed "ZHAKWALI 2:" instead of "ZHAKWILA 2:" is then
   // boxed like every other activity). Applied inside each Word text run.
-  for (const [find, repl] of opts.sourceFix || []) {
-    const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  // An entry may also be { re, with } — a regular expression (flags "g"), for a fix that must
+  // not touch the right spelling around it: a PDF-converted book's "ntrepreneurship" whose
+  // drop capital was lost, next to the many "Entrepreneurship"s ("\\bntrepreneurship").
+  const unesc = (s) => s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&apos;/g, "'").replace(/&amp;/g, "&");
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  for (const fix of opts.sourceFix || []) {
+    const [find, repl] = Array.isArray(fix) ? fix : [new RegExp(fix.re, "g"), fix.with];
     let n = 0;
-    rawDoc = rawDoc.replace(/(<w:t(?:\s[^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => t.includes(esc(find)) ? (n++, a + t.split(esc(find)).join(esc(repl)) + b) : m);
-    if (!n) console.warn("!  sourceFix not matched:", find);
+    rawDoc = rawDoc.replace(/(<w:t(?:\s[^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => {
+      const s = unesc(t);
+      const hit = typeof find === "string" ? s.includes(find) : (find.lastIndex = 0, find.test(s));
+      if (!hit) return m;
+      n++;
+      return a + esc(typeof find === "string" ? s.split(find).join(repl) : s.replace(find, repl)) + b;
+    });
+    if (!n) console.warn("!  sourceFix not matched:", Array.isArray(fix) ? find : fix.re);
   }
   // opts.cdcNotes: a book that came back from CDC as a PDF and was converted to Word. Each note
   // the reviewer TYPED ONTO the page (a FreeText comment: "Remove: Specific competence", a red
@@ -2181,7 +2192,8 @@ async function importDocx(docxPath, opts = {}) {
       const rids = [...el.matchAll(/<a:blip\b[^>]*r:embed="([^"]+)"|<v:imagedata\b[^>]*r:id="([^"]+)"/g)].map((x) => x[1] || x[2]);
       // (a scrap of a picture — a drop-capital "E" cut out of the page, under 3 KB — counts
       // as decoration too, used once or not)
-      const scrap = (r) => (embedUses[r] || 0) >= 3 || (() => { try { return fs.statSync(path.join(tmp, "word", rels[r])).size < 3000; } catch { return false; } })();
+      // (opts.dropImages: every picture is the converter's own — see below)
+      const scrap = (r) => !!opts.dropImages || (embedUses[r] || 0) >= 3 || (() => { try { return fs.statSync(path.join(tmp, "word", rels[r])).size < 3000; } catch { return false; } })();
       const decor = rids.length > 0 && rids.every(scrap);
       const txt = (s) => [...s.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((x) => x[1]).join("").trim();
       // A group whose text boxes hold real prose (an "Expected Responses" answer laid over a
@@ -2207,6 +2219,20 @@ async function importDocx(docxPath, opts = {}) {
       host + [...host.matchAll(/<!--TXBX(\d+)-->/g)].map((x) => held[+x[1]]).join(""));
     rawDoc = rawDoc.replace(/<!--TXBX\d+-->/g, "");
     if (n || notes || pageNums) console.log(`   unwrapTextboxes: ${n} text box(es) returned to the text flow (${decorText} from over a repeated background picture), ${pageNums} old page number(s) and ${notes} PDF comment note(s) dropped`);
+  }
+  // opts.dropImages: a manuscript converted from a PDF whose own text had been turned into
+  // outlines (a CorelDRAW export) comes back from Word with no real pictures at all, only
+  // the converter's rasters: box backgrounds, title bars, and words it could not read cut
+  // out as pictures ("ING … ITY 1", "(b)"). Every picture goes; the text boxes have already
+  // given their text back (use with unwrapTextboxes), and the book's real figures are put
+  // back from the source PDF with insertText images.
+  if (opts.dropImages) {
+    let gone = 0;
+    rawDoc = rawDoc.replace(/<mc:AlternateContent>[\s\S]*?<\/mc:AlternateContent>|<w:drawing>[\s\S]*?<\/w:drawing>|<w:pict>[\s\S]*?<\/w:pict>|<w:object\b[\s\S]*?<\/w:object>/g, (el) => {
+      if (/<w:txbxContent>/.test(el)) return el;   // a text box not unwrapped: keep its text
+      gone++; return "";
+    });
+    console.log(`   dropImages: ${gone} converter picture(s) dropped`);
   }
   // opts.textboxHeadings: the author drew a section title as a SHAPE with text (an arrow
   // or banner text box: "MAU OYAMBA", "ZOTHOKOZA"…). Text boxes are stripped below, which

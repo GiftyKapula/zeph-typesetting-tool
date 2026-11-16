@@ -152,6 +152,14 @@ function applyOverrides(blocks, ov) {
     walk(blocks);
     if (!n) console.warn("!  textFix not matched:", tf.find);
   }
+  // A textFix that deletes (`with: ""` — a PDF's old running head the converter printed as a
+  // line of text) leaves its paragraph empty: the empty line goes too, not a blank gap.
+  if ((ov.textFix || []).some((tf) => tf && tf.with === "")) {
+    for (let i = blocks.length - 1; i >= 0; i--) {
+      const b = blocks[i];
+      if (/^(para|head|label)$/.test(b.t) && Array.isArray(b.segs) && b.segs.length && !b.segs.some((s) => s && typeof s.t === "string" && s.t.trim())) blocks.splice(i, 1);
+    }
+  }
   // A blank Word paragraph imports as a `vspace` block (no text field at all), not an
   // empty paragraph, and the line right after ours can be ANOTHER label — one containing
   // a colon ANYWHERE, not just at the end (some manuscripts glue a dot-leader straight
@@ -1301,6 +1309,55 @@ function applyOverrides(blocks, ov) {
       n++;
     }
     if (!n) console.warn("!  monoLines not matched:", ml);
+  }
+  // codeBlocks: [{ from, to?, code: ["line", …], lead? }] — a program listing, retyped from
+  // the source, in place of the run of blocks from the one containing `from` through the one
+  // containing `to` (same list; `to` left out = just that block). A book converted from a
+  // PDF breaks every listing: lines glued together, indents and "..." prompts gone, "="
+  // read as dashes. The listing is set as one fixed-width block, every space kept;
+  // `lead` (markdown) is a line put back in front of it ("(b)", "**1. Weekly airtime total**").
+  for (const cb of ov.codeBlocks || []) {
+    let done = false;
+    const kids = (b) => Object.values(b).filter((v) => Array.isArray(v) && v.some((x) => x && typeof x === "object" && x.t));
+    const visit = (arr) => {
+      if (done || !Array.isArray(arr)) return;
+      const i = arr.findIndex((b) => b && typeof b === "object" && blockPlain(b).includes(cb.from));
+      // the innermost block holding `from`, not a box or section that contains it
+      if (i >= 0 && kids(arr[i]).some((v) => v.some((x) => x && typeof x === "object" && blockPlain(x).includes(cb.from)))) {
+        for (const v of kids(arr[i])) visit(v);
+        if (done) return;
+      }
+      // (ZEPH_DEBUG_CODE=1 lists the blocks from the match on, to choose `to`/`toExact` by)
+      if (i >= 0 && process.env.ZEPH_DEBUG_CODE) console.log("codeBlocks:", cb.from, "\n   " + arr.slice(i, i + 14).map((b, k) => `${i + k} ${b.t}: ${blockPlain(b).replace(/\s+/g, " ").slice(0, 110)}`).join("\n   "));
+      if (i >= 0) {
+        let j = i;
+        // (`toExact`: the last block's whole text — "Passed", where `to` would stop at the
+        // print("Passed") line before it)
+        if (cb.to || cb.toExact) j = arr.findIndex((b, k) => k > i - (cb.toExact ? 0 : 1) && b && typeof b === "object" && (cb.toExact ? blockPlain(b).trim() === cb.toExact : blockPlain(b).includes(cb.to)));
+        if (j < 0) { console.warn("!  codeBlocks `to` not found after:", cb.from); done = true; return; }
+        // a listing is a page or two at most: an end anchor far past that matched the wrong
+        // line, and the replacement would delete everything in between
+        if (j - i + 1 > (cb.max || 30)) { console.warn(`!  codeBlocks range too long (${j - i + 1} blocks), skipped:`, cb.from); done = true; return; }
+        if (process.env.ZEPH_DEBUG_CODE) console.log(`   -> replaced ${i}..${j}, last: ${blockPlain(arr[j]).replace(/\s+/g, " ").slice(0, 90)}`);
+        const src = cb.code.join("\n").replace(/ /g, "\u{E000}");
+        const news = [];
+        // (a heading, so it keeps with the listing: a listing never breaks, and a plain
+        // lead line was left alone at the foot of the page before it)
+        if (cb.lead) news.push({ t: "head", text: cb.lead.replace(/\*+/g, ""), codeLead: true });
+        news.push({ t: "para", segs: [{ t: src, b: false, it: false, c: null, mono: true }] });
+        // `after`: blockspecs (as replaceBlocks) put back behind the listing — a heading the
+        // conversion ran on to its last line ("meal2.serve(); Creating Animations")
+        for (const sp of cb.after || []) { const nb = mkBlock(sp); if (nb) news.push(nb); }
+        arr.splice(i, j - i + 1, ...news);
+        done = true; return;
+      }
+      for (const b of arr) {
+        if (done) return;
+        if (b && typeof b === "object") for (const v of Object.values(b)) if (Array.isArray(v) && v.some((x) => x && typeof x === "object" && x.t)) visit(v);
+      }
+    };
+    visit(blocks);
+    if (!done) console.warn("!  codeBlocks not matched:", cb.from);
   }
   // activityHeadsBlack: true — render every activity/exercise heading in bold BLACK
   // instead of the theme accent colour (a book whose author wants them black). Marks
