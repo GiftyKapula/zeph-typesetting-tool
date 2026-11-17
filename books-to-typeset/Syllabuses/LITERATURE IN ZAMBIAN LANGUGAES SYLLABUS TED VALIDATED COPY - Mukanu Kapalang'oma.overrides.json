@@ -15,7 +15,15 @@
     "",
     "SECTION HEADS. The manuscript numbers its sections 1-8 but styles them three ways (heading, bold line, plain); 5. Scope and",
     "Sequence and 6. Teaching and Learning Methods set as loose bold lines. All eight are the same sub-section head (setHeading).",
-    "The reading lists under 8. References (Prescribed / Recommended Readings) are labels under it, not pages of their own."
+    "The reading lists under 8. References (Prescribed / Recommended Readings) are labels under it, not pages of their own.",
+    "",
+    "ROUND 1 (Google Drive comments, 25 Oct - 16 Nov 2026, Mushinga K. Mooto): 18 comments, applied 2026-11-17. Each change carries its",
+    "comment in _why. The reviewer marked the copy of 13 Oct; the Director's name (Petronella M. Samutete (Ms)) is already the engine's.",
+    "The reviewed copy itself (Downloads, 17 Nov) carries the highlights: every comment checked against it. The two novel",
+    "activities open 2.2.1.1's list (highlight on its first bullet); the bracket follows 'Analysing a given novel'; both Teaching",
+    "Experience items deleted, so the Scope and Sequence row goes. 2.3.3.4 Adjudicate drama came without an expected standard: 'Drama adjudicated appropriately' added,",
+    "in the pattern of the three above it -- author to confirm.",
+    "NUMBERING CHECK: 3 notes, all on the TEACHING PRACTICE row the reviewer asked for above 2.3 (unnumbered by design)."
   ],
   "subject": "Literature in Zambian Languages",
   "level": "Secondary Teachers' Diploma",
@@ -58,6 +66,187 @@
       "_why": "Opens its topic, so it never splits: the page before it ended a third or more empty. Cut here so the first piece, with the topic title, fills that page (2026-10-13 clean-up).",
       "startsWith": "1.10.1.1",
       "at": "Discussing the uses"
+    }
+  ],
+  "coverColour": "9b1c1c",
+  "_coverColourWhy": "ROUND 1 (Drive, Mushinga K. Mooto, 26 Oct) cover: 'colour scheme should be RED' -- the red of the family's own palette",
+  "subtext": [
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 25-27 Oct) Preface and 7. Assessment: 'let the word be competences' (four places)",
+      "from": "competencies",
+      "to": "competences"
+    }
+  ],
+  "edit": [
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 6. Teaching and Learning Methods: 'learning outcomes. -> Specific Competences to be realised.'",
+      "find": "The syllabus outlines the learning outcomes.",
+      "with": "The syllabus outlines the Specific Competences to be realised."
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 6. Teaching and Learning Methods: 'learning outcomes to be achieved, -> Specific Competences to be displayed,'",
+      "find": "in relation to the learning outcomes to be achieved,",
+      "with": "in relation to the Specific Competences to be displayed,"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 6. Teaching and Learning Methods: 'outcomes -> competences'",
+      "find": "In this way, outcomes can be attained",
+      "with": "In this way, competences can be attained"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 6. Teaching and Learning Methods: 'outcomes can be covered through -> delete that and insert ....aspects of'; 'can be covered' kept at the end so the clause keeps its verb",
+      "find": "different outcomes can be covered through knowledge, skills, and values.",
+      "with": "different aspects of knowledge, skills, and values can be covered."
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 6. Teaching and Learning Methods: 'knowledge gained in real life situations. -> gained knowledge, skills and values embeded in the Specific Competences in real life situation.'",
+      "find": "apply the knowledge gained in real life situations.",
+      "with": "apply the gained knowledge, skills and values embedded in the Specific Competences in real life situations."
+    }
+  ],
+  "editCell": [
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 26 Oct) 1.1.3: 'consider deleting the repeated part ('Zambian in')'",
+      "find": "1.1.3 Teaching Literature in Zambian in Zambian languages",
+      "with": "1.1.3 Teaching Literature in Zambian Languages"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 26 Oct) 1.2.1.1: 'Oral literature (Orature): remove the bullet as this item is the continuation of the preceeding item'",
+      "from": "Outlining characteristics of\nOral literature (Orature)",
+      "to": "Outlining characteristics of oral literature (orature)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 26 Oct) 1.2.3.1: 'Literature: remove the bullet as the item is part of the preceeding one'",
+      "from": "both oral and written\nLiterature",
+      "to": "both oral and written literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 1.9.1.1: 'Defining forms of oral / Poetry: collapse the two bullets into one'",
+      "from": "Defining forms of oral\nPoetry",
+      "to": "Defining forms of oral poetry"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 1.5.2.3: 'Explaining the forms of / Written literature: This should be one sentence; remove the bullet'",
+      "from": "Explaining the forms of\nWritten literature",
+      "to": "Explaining the forms of written literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) 2.2.2.1 : 'add the following bracket and its content: (symbolism, elements of a novel, narrative technique ...)' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov) (p33: 'Analysing a given novel')",
+      "from": "• Analysing a given novel",
+      "to": "• Analysing a given novel (symbolism, elements of a novel, narrative technique …)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) 2.2.1.1 (highlighted: 'novel'): 'insert another one learning activity: Identifying types of novels ...; Identifying features of a novel ...'",
+      "from": "• Explaining characterisation in the text",
+      "to": "• Identifying types of novels according to their content, structure and presentation\n• Identifying features of a novel (e.g. length, style, literary devices …)\n• Explaining characterisation in the text"
+    },
+    {
+      "_why": "spelling slip seen in the round-1 read-through (spelling fixes go wherever they occur)",
+      "from": "Approaches to literally criticism",
+      "to": "Approaches to literary criticism"
+    }
+  ],
+  "insertRow": [
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) above 2.3 DRAMA/PLAY: 'insert a row and indicate TEACHING PRACTICE throughout the row i each column'",
+      "startsWith": "2.3 Drama/Play",
+      "cells": [
+        "TEACHING PRACTICE",
+        "TEACHING PRACTICE",
+        "TEACHING PRACTICE",
+        "TEACHING PRACTICE",
+        "TEACHING PRACTICE"
+      ]
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) after 2.3.2: 'Insert another subtopic after 2.3.2. Subtopic: 2.3.3 Performing Drama/ Play ...' -- spelling tidied (accoridngly, charactrisation truely)",
+      "startsWith": "2.3.2 Drama/Play Analysis",
+      "cells": [
+        "",
+        "2.3.3 Performing Drama/Play",
+        "2.3.3.1 Act out drama/play",
+        "• Acting out a play",
+        "• Play acted out according to characterisation truly"
+      ]
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) after 2.3.2: 'Insert another subtopic after 2.3.2. Subtopic: 2.3.3 Performing Drama/ Play ...' -- spelling tidied (accoridngly, charactrisation truely)",
+      "startsWith": "2.3.2 Drama/Play Analysis",
+      "cells": [
+        "",
+        "",
+        "2.3.3.2 Apply directing skills in drama",
+        "• Employing directing skills in rehearsal and display of drama/play",
+        "• Directing skills applied to drama satisfactorily"
+      ]
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) after 2.3.2: 'Insert another subtopic after 2.3.2. Subtopic: 2.3.3 Performing Drama/ Play ...' -- spelling tidied (accoridngly, charactrisation truely)",
+      "startsWith": "2.3.2 Drama/Play Analysis",
+      "cells": [
+        "",
+        "",
+        "2.3.3.3 Write drama scripts",
+        "• Following the stages of drama writing to produce a drama script",
+        "• Drama scripts written accordingly"
+      ]
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) after 2.3.2: 'Insert another subtopic after 2.3.2. Subtopic: 2.3.3 Performing Drama/ Play ...' -- spelling tidied (accoridngly, charactrisation truely); no expected standard given -- added in the pattern of the three above (author to confirm)",
+      "startsWith": "2.3.2 Drama/Play Analysis",
+      "cells": [
+        "",
+        "",
+        "2.3.3.4 Adjudicate drama",
+        "• Using elements of drama adjudication to judge stage drama",
+        "• Drama adjudicated appropriately"
+      ]
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) after the last topic: 'Insert another topic and its content: 2.4 Creative Writing in Zambian Languages ...'",
+      "startsWith": "2.3.2 Drama/Play Analysis",
+      "cells": [
+        "2.4 Creative Writing in Zambian Languages",
+        "2.4.1 Different Genres",
+        "2.4.1.1 Write different genres",
+        "• Writing a chosen genre\n• Presenting a written genre",
+        "• Different genres written coherently"
+      ]
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, under Drama/play: 'Insert another row at the bottom: Creative Writing in Zambian Languages; Year 2: Writing a chosen genre, Presenting a written genre'",
+      "startsWith": "Drama/play",
+      "cells": [
+        "Creative Writing in Zambian Languages",
+        "",
+        "• Writing a chosen genre\n• Presenting a written genre"
+      ]
+    }
+  ],
+  "moveRow": [
+    {
+      "_why": "the rows above went in before 2.3.2; it goes back ahead of them",
+      "startsWith": "2.3.2 Drama/Play Analysis",
+      "before": "2.3.3 Performing Drama/Play"
+    },
+    {
+      "_why": "the new Scope and Sequence row goes last, under Drama/play",
+      "startsWith": "Drama/play",
+      "before": "Creative Writing in Zambian Languages"
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "2026-11-17: after the round-1 additions 2.2.2 split two bullets overleaf (house page-break standard: no 1-2 line carry-overs)",
+      "startsWith": "2.2.2 Novel Analysis"
+    }
+  ],
+  "removeRow": [
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence p37: 'Teaching Experience 1 (Term 1): Delete' and 'Teaching Experience 2 (Term 2): Delete' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov) -- nothing is left in the row, so it goes",
+      "find": "School Teaching Experience"
     }
   ]
 }

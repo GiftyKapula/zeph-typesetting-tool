@@ -11,7 +11,18 @@
     "",
     "SECTION HEADS. Sections 1-7 are typed as bold lines and plain paragraphs; set as sub-section heads, as in the Content book.",
     "MATRIX NUMBERS. renumberMatrix: Word list numbers; Year 2, 2.3.3 Teaching Story Composition had its competence numbered 3.3.3.1. Counted afresh from the table structure.",
-    "YEAR 2. The Year 2 row reads \"YEAR TWO\" against \"YEAR 1\"; set as YEAR 2."
+    "YEAR 2. The Year 2 row reads \"YEAR TWO\" against \"YEAR 1\"; set as YEAR 2.",
+    "",
+    "ROUND 1 (Google Drive comments, 27 Oct - 16 Nov 2026; Mukanu Kapalang'oma, Mushinga K. Mooto): applied 2026-11-17, each change",
+    "with its comment in _why. The Director's name (Petronella M. Samutete (Ms)) is already the engine's.",
+    "YEAR 2 REBUILT (16 Nov, both reviewers): Teaching Poetry, Preparing to Teach and Assessment move from Year 1 to Year 2 in place",
+    "of the first School Experience; Year 1 now ends on Teaching Literary Terms. The matrix rows move (moveRow), the Scope and",
+    "Sequence entries go to the Year 2 column; renumberMatrix counts them afresh as 2.1-2.3, School Experience 2.4.",
+    "The reviewed copy itself (Downloads, 17 Nov) carries the highlights: every comment checked against it ('done effectively' 1.12.6,",
+    "'Teach' 1.12.6.1, small 't' 1.12.5.1, 'Teaching Methods: Delete' the 1.4.2 sub-topic). Mooto's 16 Nov Scope and Sequence",
+    "comments are not in that copy (e-mails only); 'School Experience: Delete' = the Year 1 orientation entry, so its row goes.",
+    "All comments applied.",
+    ""
   ],
   "subject": "Literature in Zambian Languages Teaching Methods",
   "level": "Secondary Teachers' Diploma",
@@ -73,14 +84,403 @@
       "_why": "YEAR 1 / YEAR 2, as the Year 1 row has it",
       "pattern": "^\\s*YEAR TWO\\s*$",
       "with": "YEAR 2"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 1 Nov) topic 1.4: 'METHODS: delete'",
+      "find": "1.4 Literature in Zambian languages Teaching Methods Strategies",
+      "with": "1.4 Literature in Zambian Languages Teaching Strategies"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.4.1.1: 'Replace with: Use appropriate strategies to teach Literature in Zambian Languages.'",
+      "find": "1.4.1.1 Demonstrate application of teaching strategies in Literature in Zambian Languages Teaching Methods.",
+      "with": "1.4.1.1 Use appropriate strategies to teach Literature in Zambian Languages."
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.4.1.1 expected standard: 'Replace with: Appropriate strategies used effectively to teach Literature in Zambian Languages' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov)",
+      "find": "Application of teaching strategies in Literature in Zambian Languages Teaching Methods demonstrated appropriately",
+      "with": "Appropriate strategies used effectively to teach Literature in Zambian Languages"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Year 2 School Experience: '- 2: Delete' -- one School Experience is left",
+      "find": "2.2.1. School Experience - 2",
+      "with": "2.2.1. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence: '2: Delete'",
+      "find": "School Experience 2",
+      "with": "School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence: '- 2: Delete'",
+      "find": "• School Experience - 2",
+      "with": "• School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, Teaching Poetry: 'Forms of Oral Poetry ... Adjudicating Oral Poetry: Move the material to Year 2 Column' (Year 2 column)",
+      "row": "Teaching Poetry",
+      "col": 2,
+      "with": "• Forms of Oral Poetry (Panegyrics, Elegies, Epic, Ode, Dirges, Saga, Ballads)\n• Elements of Oral Poetry (Language use, Performance, Diction and style, Imagery, Symbolism, Alliteration, Rhythm and Rhyme, Assonance, Meter). Etc\n• Functions of Oral Poetry (Entertainment, Social commentary, Education, Inspiration, Emotional expression, Broadcasting)\n• Adjudicating Oral Poetry (Performance, Imagery and symbolism)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, Teaching Poetry: 'Forms of Oral Poetry ... Adjudicating Oral Poetry: Move the material to Year 2 Column' (Year 1 column emptied)",
+      "row": "Teaching Poetry",
+      "col": 1,
+      "with": ""
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, Preparing To Teach: 'Syllabus analysis ... Macro Teaching: Cut from Year 1 Column and paste in Year 2 Column' (Year 2 column)",
+      "row": "Preparing To Teach",
+      "col": 2,
+      "with": "• Syllabus analysis (Content mapping)\n• Preparing teaching documents: Schemes of Work,\n• Preparing teaching documents -Lesson Plan,\n• Preparing teaching documents: Records of Work\n• Peer Teaching\n• Macro Teaching"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, Preparing To Teach: 'Syllabus analysis ... Macro Teaching: Cut from Year 1 Column and paste in Year 2 Column' (Year 1 column emptied)",
+      "row": "Preparing To Teach",
+      "col": 1,
+      "with": ""
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, Teaching How to Conduct Assessments: 'Formative Assessment ... Summative Assessments: Cut from Year 1 column and paste in Year 2 column' (Year 2 column)",
+      "row": "Teaching How to Conduct Assessments",
+      "col": 2,
+      "with": "• Formative Assessment\n• School Based Assessments (SBA)\n• Summative Assessments"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, Teaching How to Conduct Assessments: 'Formative Assessment ... Summative Assessments: Cut from Year 1 column and paste in Year 2 column' (Year 1 column emptied)",
+      "row": "Teaching How to Conduct Assessments",
+      "col": 1,
+      "with": ""
     }
   ],
   "renumberMatrix": true,
   "splitRow": [
     {
-      "_why": "Opens its topic, so it never splits: the page before it ended a third or more empty. Cut here so the first piece, with the topic title, fills that page (2026-10-13 clean-up).",
+      "_why": "Opens its topic, so it never splits: the page before it ended a third or more empty. Cut here so the first piece, with the topic title, fills that page (2026-10-13 clean-up). Moved 2026-11-17 (round 1 additions): later, so 1.10 fits on the page after.",
       "startsWith": "1.9.1.1",
-      "at": "Demonstrating the use"
+      "at": "Describing assessment (formative/summative) during and after the lesson on teaching Fixed"
+    },
+    {
+      "_why": "Year 2 after the 16 Nov move: Story Text Study opens its topic, so it never splits, and the page before it (School Experience) ended more than half empty. Cut here so the first piece fills that page (2026-11-17).",
+      "startsWith": "• Formulating an introduction for a lesson on elements of a story",
+      "at": "Describing assessment (formative/summative) during and after the lesson on the elements"
+    },
+    {
+      "_why": "2026-11-17: with 1.6.2's added bullet, topic 1.7 (which never splits as an opener) went overleaf and left the page before it two-thirds empty. Cut here so the first piece fills that page.",
+      "startsWith": "1.7.1.1",
+      "at": "Demonstrating the use of available teaching and learning materials for teaching functions"
+    },
+    {
+      "_why": "2026-11-17: the same chain one topic on -- 1.8 opens its topic, so it went overleaf whole and left most of the page before it empty. Cut here so the first piece fills that page.",
+      "startsWith": "1.8.1.1",
+      "at": "Demonstrating the use of available teaching and learning materials for teaching Literary"
+    },
+    {
+      "_why": "2026-11-17: 1.5 opens its topic, so it went overleaf whole and left the page with 1.4.2 two-thirds empty. Cut here so the first piece fills that page.",
+      "startsWith": "1.5.1.1",
+      "at": "Describing assessment (formative/summative) during and after the lesson on teaching Introduction"
+    },
+    {
+      "_why": "2026-11-17: 1.6 opens its topic; whole, it went overleaf and left the page before it two-thirds empty. Cut here so the first piece fills that page.",
+      "startsWith": "1.6.1.1",
+      "at": "Demonstrating the use of available teaching and learning materials for teaching types"
+    },
+    {
+      "_why": "2026-11-17: 1.6.2 left its last bullet (two lines) alone overleaf; cut one bullet earlier so a fuller piece carries over.",
+      "startsWith": "1.6.2.1",
+      "at": "Describing assessment (formative/summative) during and after the lesson on teaching of written"
+    },
+    {
+      "_why": "2026-11-17 (Year 2 after the round-1 move): the row left one bullet alone overleaf; cut earlier so three bullets carry over.",
+      "startsWith": "2.1.4.1",
+      "at": "Employing relevant assessment"
+    },
+    {
+      "_why": "2026-11-17 (Year 2 after the round-1 move): the row left one bullet alone overleaf; cut earlier so two bullets carry over.",
+      "startsWith": "2.6.3.1",
+      "at": "Describing assessment (formative/summative) during and after the lesson on teaching drama composition"
+    }
+  ],
+  "coverColour": "9b1c1c",
+  "_coverColourWhy": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) cover: 'colour scheme must be RED' -- the red of the family's own palette",
+  "subtext": [
+    {
+      "_why": "ROUND 1, Content book (same reviewer, same Preface): 'let the word be competences' -- a word fix, so here too",
+      "from": "competencies",
+      "to": "competences"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.2.1: 'Cut and paste at the end of bullet 1. They should be in parenthesis.'",
+      "from": "1.2.1 Theories for teaching Literature in Zambian Languages\n(Reader Response Theory,\nFeminist Literary Theory, Moral Theory…)",
+      "to": "1.2.1 Theories for teaching Literature in Zambian Languages"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.2.1: 'Cut and paste at the end of bullet 1. They should be in parenthesis.' (its new place)",
+      "from": "Identifying suitable theories for the teaching of Literature in Zambian Languages",
+      "to": "Identifying suitable theories for the teaching of Literature in Zambian Languages (Reader Response Theory, Feminist Literary Theory, Moral Theory…)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.3.1: 'Cut and paste at the end of bullet 1. They should be in parenthesis'",
+      "from": "1.3.1 Teaching Approaches\n(Single Text Approach, Thematic Approach, Moral-Philosophical Approach, Information Based Approach, Stylistic Approach)",
+      "to": "1.3.1 Teaching Approaches"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.3.1: 'Cut and paste at the end of bullet 1. They should be in parenthesis' (its new place)",
+      "from": "Identifying suitable approaches for the teaching of Literature in Zambian Languages",
+      "to": "Identifying suitable approaches for the teaching of Literature in Zambian Languages (Single Text Approach, Thematic Approach, Moral-Philosophical Approach, Information Based Approach, Stylistic Approach)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.4.1: 'Cut and paste at the end of bullet one. Put them in parenthesis.'",
+      "from": "1.4.1 Teaching Strategies\n(Question and Answer, Role play, Group discussion, Project,\nDebate, Dramatising…)",
+      "to": "1.4.1 Teaching Strategies"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.4.1: 'Cut and paste at the end of bullet one. Put them in parenthesis.' (its new place)",
+      "from": "Identifying strategies for teaching Literature in Zambian Languages Teaching Methods\n",
+      "to": "Identifying strategies for teaching Literature in Zambian Languages Teaching Methods (Question and Answer, Role play, Group discussion, Project, Debate, Dramatising…)\n"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.5.1: '(Definition of Literature, ... Forms of written literature): delete'",
+      "from": "1.5.1 Teaching how to introduce literature in Zambian Languages\n(Definition of Literature, Types of literature, Forms of oral literature.\nForms of written literature)",
+      "to": "1.5.1 Teaching how to introduce literature in Zambian Languages"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.5.1.1: 'Add this bullet after the last bullet: Demonstrating the teaching of Introduction to Literature in Zambian Languages'",
+      "from": "Describing assessment (formative/summative) during and after the lesson on teaching Introduction to Literature",
+      "to": "Describing assessment (formative/summative) during and after the lesson on teaching Introduction to Literature\n• Demonstrating the teaching of Introduction to Literature in Zambian Languages"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.6.1: 'Cut and paste at the end of bullet one and put them in parenthesis'",
+      "from": "1.6.1 Oral literature (Legends, Folk tales, Myths, Fables, Anecdotes, Proverbs, Riddles/puzzles, Poems, Songs)",
+      "to": "1.6.1 Oral literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.6.1: 'Cut and paste at the end of bullet one and put them in parenthesis' (its new place)",
+      "from": "Formulating an introduction for a lesson on teaching types of oral Literature",
+      "to": "Formulating an introduction for a lesson on teaching types of oral Literature (Legends, Folk tales, Myths, Fables, Anecdotes, Proverbs, Riddles/puzzles, Poems, Songs)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.6.1.1: 'Add this bullet after the last bullet: Demonstrating the teaching of the types of Oral Literature' (wording as in the reviewed copy)",
+      "from": "Describing assessment (formative/summative) during and after the lesson on teaching types of Oral Literature",
+      "to": "Describing assessment (formative/summative) during and after the lesson on teaching types of Oral Literature\n• Demonstrating the teaching of the types of Oral Literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.6.2: 'Cut and put at the end of bullet one. They should be in parenthesis.'",
+      "from": "1.6.2.  Written Literature\n(Poetry Prose: [short Stories and Novels], Fiction and non-fiction, Drama)",
+      "to": "1.6.2. Written Literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.6.2: 'Cut and put at the end of bullet one. They should be in parenthesis.' (its new place)",
+      "from": "Formulating an introduction for a lesson on teaching written Literature",
+      "to": "Formulating an introduction for a lesson on teaching written Literature (Poetry, Prose: [Short Stories and Novels], Fiction and Non-fiction, Drama)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.6.2.1 (no passage highlighted; the written-literature competence): 'Add this bullet after the last bullet: Demonstrating teaching written literature'; and 'written l Literature' typo",
+      "from": "teaching written l Literature",
+      "to": "teaching written Literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.6.2.1: 'Add this bullet after the last bullet: Demonstrating the teaching of written literature' (wording as in the reviewed copy)",
+      "from": "Describing assessment (formative/summative) during and after the lesson on teaching of written Literature",
+      "to": "Describing assessment (formative/summative) during and after the lesson on teaching of written Literature\n• Demonstrating the teaching of written literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.7.1: 'Cut and paste after bullet 1. They should be in parenthesis'",
+      "from": "1.7.1 Functions of Literature:\n(Education, Entertainment, Social commentary, Self-reflection Preservation of History and culture)",
+      "to": "1.7.1 Functions of Literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.7.1: 'Cut and paste after bullet 1. They should be in parenthesis' (its new place)",
+      "from": "Formulating an introduction for a lesson on teaching functions of Literature",
+      "to": "Formulating an introduction for a lesson on teaching functions of Literature (Education, Entertainment, Social commentary, Self-reflection, Preservation of History and culture)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.7.1.1: 'Add this bullet after the last bullet: Demonstrating the teaching of functions of Literature' (wording as in the reviewed copy)",
+      "from": "Describing assessment (formative/summative) during and after the lesson on teaching functions of Literature",
+      "to": "Describing assessment (formative/summative) during and after the lesson on teaching functions of Literature\n• Demonstrating the teaching of functions of Literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.8.1: 'Cut and paste at the end of the first bullet. They should be in parenthesis.' and 'e.g.: Delete'",
+      "from": "1.8.1 Literary terms: e.g.\n(Imagery, Symbolism, Alliteration, Figures of speech, Foreshadowing,\nIrony, Tone, Mood, Characterisation) etc.",
+      "to": "1.8.1 Literary terms"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.8.1: 'Cut and paste at the end of the first bullet. They should be in parenthesis.' and 'e.g.: Delete' (its new place)",
+      "from": "Formulating an introduction for a lesson on teaching Literary Terms and Devices",
+      "to": "Formulating an introduction for a lesson on teaching Literary Terms and Devices (Imagery, Symbolism, Alliteration, Figures of speech, Foreshadowing, Irony, Tone, Mood, Characterisation)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.8.1.1: 'Add this bullet after the last bullet: Demonstrating the teaching of literary terms' (wording as in the reviewed copy)",
+      "from": "Describing assessment (formative/summative) during and after the lesson on teaching Literary Terms and Devices",
+      "to": "Describing assessment (formative/summative) during and after the lesson on teaching Literary Terms and Devices\n• Demonstrating the teaching of literary terms"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.9.1.1: 'Add this bullet after the last bullet: Demonstrating the teaching of Fixed Forms of Oral Literature' (wording as in the reviewed copy)",
+      "from": "Describing assessment (formative/summative) during and after the lesson on teaching Fixed Forms of Oral Literature",
+      "to": "Describing assessment (formative/summative) during and after the lesson on teaching Fixed Forms of Oral Literature\n• Demonstrating the teaching of Fixed Forms of Oral Literature"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.10.1.1 (no passage highlighted; the other literary-terms topic already has its own): 'Add this bullet after the last bullet: Demonstrating the teaching of literary terms'",
+      "from": "Designing class exercises for learners on the lesson on literary terms",
+      "to": "Designing class exercises for learners on the lesson on literary terms\n• Demonstrating the teaching of literary terms"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.11.1: 'Cut and paste after bullet 1 under learning activities'",
+      "from": "1.11.1 Forms of Oral Poetry\n(Panegyrics, Elegies,\nEpic, Ode, Dirges, Saga, Ballads)",
+      "to": "1.11.1 Forms of Oral Poetry"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.11.1: 'Cut and paste after bullet 1 under learning activities' (its new place)",
+      "from": "Formulating an introduction for a lesson on Forms of Oral Poetry",
+      "to": "Formulating an introduction for a lesson on Forms of Oral Poetry (Panegyrics, Elegies, Epic, Ode, Dirges, Saga, Ballads)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.11.1.1: 'Replace with the following bullets: 1. Demonstrating how to teach Forms of Oral Poetry 2. ... Oral Poetry creation 3. ... performance of Oral Poetry'",
+      "from": "Demonstrating teaching on how to create Oral poems\n• Demonstrating to teach how to perform oral poetry pieces\n• Demonstrating to teach how to analyse Oral poetry\n• Demonstrating to teach how to create content of oral poetry",
+      "to": "Demonstrating how to teach Forms of Oral Poetry\n• Demonstrating how to teach Oral Poetry creation\n• Demonstrating how to teach performance of Oral Poetry"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.11.2.1: 'Add this bullet after the last bullet: Demonstrating the teaching of Elements of Oral Poetry'",
+      "from": "Designing class exercise for learners on the lesson on Elements of Oral Poetry",
+      "to": "Designing class exercise for learners on the lesson on Elements of Oral Poetry\n• Demonstrating the teaching of Elements of Oral Poetry"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.11.3.1: 'Add this bullet after the last bullet: Demonstrating the teaching of Functions of Oral Poetry'",
+      "from": "Designing class exercise for learners on the lesson on Functions of Oral Poetry",
+      "to": "Designing class exercise for learners on the lesson on Functions of Oral Poetry\n• Demonstrating the teaching of Functions of Oral Poetry"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.11.4.1: 'Add this bullet after the last bullet: Demonstrating the teaching of Oral Poetry adjudication'",
+      "from": "Designing class exercise for learners on the lesson on adjudication of Oral Poetry",
+      "to": "Designing class exercise for learners on the lesson on adjudication of Oral Poetry\n• Demonstrating the teaching of Oral Poetry adjudication"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 1.12.1.1: 'grade -> Form'",
+      "from": "Mapping the content in the grade level according to terms",
+      "to": "Mapping the content in the Form level according to terms"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 27 Oct) 1.12.2.1: 'This is one item. delete the second bullet.'",
+      "from": "Sequencing content according to weeks\n• Accounting for holidays, assessments and eventualities in scheming",
+      "to": "Sequencing content according to weeks, accounting for holidays, assessments and eventualities in scheming"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 2.4.1: 'Cut and paste after bullet 1 and put them in parenthesis'",
+      "from": "2.4.1. Teaching Elements of Drama\n(Plot, setting, character, theme, dialogue, conflict, mood and atmosphere)",
+      "to": "2.4.1. Teaching Elements of Drama"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 2.4.1: 'Cut and paste after bullet 1 and put them in parenthesis' (its new place)",
+      "from": "Formulating an introduction for a lesson on teaching elements of drama",
+      "to": "Formulating an introduction for a lesson on teaching elements of drama (Plot, setting, character, theme, dialogue, conflict, mood and atmosphere)"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.4.2 sub-topic: 'Languages Teaching Methods: Delete' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov) (p20, SUB-TOPIC column)",
+      "from": "1.4.2 ICT and Digital Resources in Teaching of Literature in Zambian Languages Teaching Methods",
+      "to": "1.4.2 ICT and Digital Resources in Teaching of Literature in Zambian Languages"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.12.6.1 expected standard: 'demonstrated appropriately -> Replace: done effectively' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov) (p32)",
+      "from": "Teaching in a real classroom situation using appropriate teaching methods and strategies demonstrated appropriately",
+      "to": "Teaching in a real classroom situation using appropriate teaching methods and strategies done effectively"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.12.5.1: 'the word should begin with a small letter 't'' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov) (p31: 'Demonstrate Teaching')",
+      "from": "1.12.5.1. Demonstrate Teaching using",
+      "to": "1.12.5.1. Demonstrate teaching using"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 30 Oct) 1.12.6.1: 'Replace with: Teach' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov) (p32: 'Demonstrate teaching')",
+      "from": "1.12.6.1. Demonstrate teaching in a real",
+      "to": "1.12.6.1. Teach in a real"
+    }
+  ],
+  "removeRow": [
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma / Mushinga K. Mooto, 16 Nov) Year 2: 'Replace with content from year 1 (Preparing to teach and assessment)' / 'SCHOOL EXPERIENCE 1: Delete'",
+      "find": "2.1.1. School Experience - 1"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence: 'SCHOOL EXPERIENCE 1: Delete' and 'School Experience - 1: Delete'",
+      "find": "School Experience 1"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, Year 1: 'School Experience: Delete' -- the orientation row is left empty, so it goes",
+      "find": "School Experience (Orientation)"
+    }
+  ],
+  "moveRow": [
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.11. Teaching Poetry",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.11.2 Elements",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.11.3. Functions",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.11.4. Adjudicating",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.12. Preparing to Teach",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.12.2 Preparing",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.12.3 Preparing",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.12.4. Preparing",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.12.5. Peer",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.12.6. Macro",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.13. Assessment",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.13.2. School",
+      "before": "2.2. School Experience"
+    },
+    {
+      "_why": "ROUND 1 (Drive, Mukanu Kapalang'oma, 16 Nov) 1.11 TEACHING POETRY: 'Move these topics to Year 2 to replace the first teaching practice. Thus the last topic in Year 1 is Teaching Literary Terms (1.10)'",
+      "startsWith": "1.13.3. Summative",
+      "before": "2.2. School Experience"
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "2026-11-17 (Year 2 after the round-1 move): the row left one bullet alone overleaf; a short row, so it goes over whole.",
+      "startsWith": "2.3.2.1"
     }
   ]
 }
