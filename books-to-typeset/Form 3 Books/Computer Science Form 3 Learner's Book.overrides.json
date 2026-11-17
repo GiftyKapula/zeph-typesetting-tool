@@ -798,5 +798,9 @@
     "grp_rId116.png": {
       "src": "Computer Science Form 3 Learner's Book-hires/grp_rId116.png"
     }
-  }
+  },
+  "removeImages": [
+    "grp_rId73.png"
+  ],
+  "_noteRemoveImages": "grp_rId73 = the old PDF running head (SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 / LEARNER'S BOOK - ORDINARY LEVEL) left mid-page on p185 by the Word conversion"
 }
