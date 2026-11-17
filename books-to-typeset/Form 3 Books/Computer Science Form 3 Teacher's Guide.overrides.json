@@ -1159,6 +1159,30 @@
       "find": "Sub-Topic 3.10.1 ",
       "with": "Sub-Topic 3.10.1: ",
       "_restore": true
+    },
+    {
+      "find": "by the end Form 3 of the Ordinary Level",
+      "with": "by the end of Form 3 of the Ordinary Level"
+    },
+    {
+      "find": "unauthorized",
+      "with": "unauthorised",
+      "_why": "one spelling per word: the book uses -ise"
+    },
+    {
+      "find": "personalized",
+      "with": "personalised",
+      "_why": "one spelling per word: the book uses -ise"
+    },
+    {
+      "find": "normalization",
+      "with": "normalisation",
+      "_why": "one spelling per word: the book uses -ise"
+    },
+    {
+      "find": "Virtualization is",
+      "with": "Virtualisation is",
+      "_why": "one spelling per word: the book uses -ise"
     }
   ],
   "remove": [
@@ -2506,6 +2530,318 @@
       "find": "Misheck Mutuzana holds an MSc in Education (Instructional Technology) and a BSc in Computing with Education from the University of Zambia. He is pursuing a PhD in Computer Science at Atlantic International University, USA. He is a Microsoft Innovative Educator Expert, Fulbright Scholar and Chief Examiner for Computer Studies with extensive teaching experience in Zambia",
       "with": [],
       "_why": "user 17 Nov: match the LB - CDC removed Mutuzana as author (kept as illustrator on the imprint)"
+    },
+    {
+      "find": "JavaScript function for displaying messages",
+      "with": [],
+      "_why": "source p95: the garbled original line; the code block below carries it as its lead"
+    },
+    {
+      "find": "Hyperlinks to websites or other slides. Videos or audio. Navigation buttons.",
+      "span": 7,
+      "_why": "source p10: (a) carried two numbered answers and (b) repeated the second; set as the LB questions (a) features, (b) testing hyperlinks, (c) videos/navigation buttons",
+      "with": [
+        {
+          "listitem": "*Hyperlinks to websites or other slides; videos or audio; navigation buttons.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*Testing hyperlinks before presenting is important to ensure they work correctly, avoid embarrassment during the presentation, and maintain a smooth flow of information.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*Videos show real examples and explain ideas clearly. Navigation buttons guide the audience through slides easily. They keep the audience engaged and focused.*",
+          "marker": "(c)"
+        }
+      ],
+      "back": 1
+    },
+    {
+      "find": "LEARNING ACTIVITY 10: Design and laying-out canvas or pages Organise learners into small groups in a computer laboratory and ask them to use publishing software such as Microsoft Publisher, Canva, or Scribus to",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 3: Design and laying-out canvas or pages",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Organise learners into small groups in a computer laboratory and ask them to use publishing software such as Microsoft Publisher, Canva, or Scribus to create a digital flyer for a Market Day event. Emphasise clear fonts, neat layout, suitable colours, and proper arrangement of text and images. Learners save, present, and record observations and challenges in their notebooks.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners create and present a clear and neatly arranged Market Day flyer while recording observations and challenges.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "the conversion ran the first line of the activity text into its title (source); numbering: the manuscript continues 3.1.1 (8, 9, 10, then 4); the LB numbers Sub-Topic 3.1.2 activities 1-4"
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Monitoring and maintaining models The teacher should organise learners in groups to select a simple AI or",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 4: Monitoring and maintaining models",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "The teacher should organise learners in groups to select a simple AI or computer model used in everyday life. Ask learners to explain its purpose, ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "users, monitoring methods, and ways it can be improved or updated when errors occur. Groups then present how the model is monitored and maintained and its importance in daily life.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "computer model used in everyday life. Ask learners to explain its purpose,",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners identify a simple AI or computer model, explain its purpose and users, describe how it is monitored for errors, and suggest ways it can be improved or updated.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Expected Responses: Learners identify a simple AI or computer model, explain its purpose and users, describe how it is monitored for errors, and suggest ways it can be improved or updated.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "the conversion ran the first line of the activity text into its title (source)"
+    },
+    {
+      "find": "LEARNING ACTIVITY 8: Discussing and identifying different types of publishing software",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 1: Discussing and identifying different types of publishing software",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Divide learners into small groups to explore publishing software such as Microsoft Publisher, Canva, Adobe InDesign, and Scribus. Ask each group to identify the main purpose, key features, and platforms used by each software.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Divide learners into small groups to explore publishing software such as Microsoft Publisher, Canva, Adobe InDesign, and Scribus. Ask each group to identify the main purpose, key features, and platforms used by each software.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Responses: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners identify and discuss the purpose, features, and platforms of different publishing software",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Expected Responses: Learners identify and discuss the purpose, features, and platforms of different publishing software",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "numbering: the manuscript continues 3.1.1 (8, 9, 10, then 4); the LB numbers Sub-Topic 3.1.2 activities 1-4"
+    },
+    {
+      "find": "LEARNING ACTIVITY 9: Exploring the interface for publishing software",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 2: Exploring the interface for publishing software",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Organise learners into small groups in a computer laboratory and provide access to publishing software such as Microsoft Publisher, Canva, Adobe InDesign, or Scribus. Ask learners to explore the interface, identify features such as the title bar, ruler, status bar, scroll bars, and zoom tools, and use them to design a simple brochure on mental health education. Groups present their brochures and discuss challenges and improvements.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Organise learners into small groups in a computer laboratory and provide access to publishing software such as Microsoft Publisher, Canva, Adobe InDesign, or Scribus. Ask learners to explore the interface, identify features such as the title bar, ruler, status bar, scroll bars, and zoom tools, and use them to design a simple brochure on mental health education. Groups present their brochures and discuss challenges and improvements."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners identify interface features, create a simple brochure, and explain the tools they used",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Expected Responses: Learners identify interface features, create a simple brochure, and explain the tools they used",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "numbering: the manuscript continues 3.1.1 (8, 9, 10, then 4); the LB numbers Sub-Topic 3.1.2 activities 1-4"
+    },
+    {
+      "find": "Desktop AI model in schools",
+      "back": 2,
+      "with": [
+        {
+          "label": "EXERCISE 3"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Possible Answers",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Desktop ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "AI ",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "model in schools",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "(a)",
+            "numId": "76",
+            "lvl": 0
+          }
+        }
+      ],
+      "_why": "numbering: the manuscript has EXERCISE 4 twice; this one answers the LB Exercise 3 (deployment models)"
+    },
+    {
+      "find": "Guide learners to use a DBMS such as MySQL, Microsoft Access, or Oracle Organise learners in pairs or in small groups to create a simple school database with sample data, running simple queries, and setting basic permissions where possible. Encourage groups to",
+      "back": 2,
+      "with": [
+        {
+          "para": "*Guide learners to use a DBMS such as MySQL, Microsoft Access, or Oracle Database. Organise learners in pairs or in small groups to create a simple school database with tables for learner information. Assist learners in entering sample data, running simple queries, and setting basic permissions where possible. Encourage groups to*"
+        }
+      ],
+      "_why": "source p105: title repeated in the box; \"Database.\" and a whole line lost in the conversion"
+    },
+    {
+      "find": "Key Components of Database Management",
+      "with": [
+        {
+          "head": "Key Components of Database Management"
+        }
+      ],
+      "_why": "source p105: a sub-heading the conversion half-bolded"
     }
   ],
   "mergePara": [
@@ -2522,6 +2858,10 @@
       "find": "Test the circuit in a simulator like CircuitVerse or Digital Works by building it",
       "_why": "source p40: one answer broken in two",
       "_restore": true
+    },
+    {
+      "find": "where possible. Encourage groups to",
+      "_why": "source pp105-106: one sentence broken over the page"
     }
   ],
   "setMarker": [
@@ -2617,11 +2957,6 @@
           "Awareness of the ethical implications of technology use and its societal impact, promoting the responsible and informed use of ICT."
         ]
       ]
-    },
-    {
-      "match": "Awareness of the ethical implications",
-      "drop": true,
-      "_kc": true
     },
     {
       "match": "\"text\":\"L\"",
@@ -3881,6 +4216,14 @@
         "**ZICTA:** Zambia Information and Communications Technology Authority"
       ],
       "_why": "the conversion ran two or three acronyms on to one line and set some as headings"
+    }
+  ],
+  "renameNear": [
+    {
+      "find": "LEARNING ACTIVITY 1: Discussing key components of database",
+      "near": "LEARNING ACTIVITY 1: Discussing key components of database",
+      "to": "LEARNING ACTIVITY 1: Discussing key components of database management",
+      "_why": "source p105: title ran over two lines"
     }
   ]
 }
