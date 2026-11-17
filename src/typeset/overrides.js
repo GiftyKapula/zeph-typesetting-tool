@@ -353,11 +353,14 @@ function applyOverrides(blocks, ov) {
       return c ? wsNorm(typeof c === "string" ? c : (c.text || "")) : null; };
     const hits = (b) => rb.findTable ? (cell0(b) || "").startsWith(wsNorm(rb.findTable)) : wsNorm(blockPlain(b)) === want;
     let done = false;
-    const walk = (arr) => {
+    const walk = (arr, up) => {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
         if (hits(b)) {
+          // (`parent: true` replaces the box the match sits in instead — a box has no text of
+          // its own to match, e.g. an activity a conversion left as a plain box)
+          if (rb.parent && up) { up.arr.splice(up.i, 1, ...news); done = true; return; }
           // (`span: n` replaces the matched block and the n-1 after it — a title line the conversion
           // ran together, with the tables it heads)
           // (`back: n` also removes the n blocks just before the match — a heading the conversion
@@ -368,10 +371,10 @@ function applyOverrides(blocks, ov) {
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
           done = true; return;
         }
-        for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key]);
+        for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key], { arr, i });
       }
     };
-    walk(blocks);
+    walk(blocks, null);
     if (!done) console.warn("!  replaceBlocks not matched:", rb.find || rb.findTable);
   }
   // deleteRun: [{ from, to }] — delete a CONTIGUOUS run of sibling blocks, from the

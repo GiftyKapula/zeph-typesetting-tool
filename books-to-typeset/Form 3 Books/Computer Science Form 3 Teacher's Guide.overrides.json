@@ -1183,6 +1183,21 @@
       "find": "Virtualization is",
       "with": "Virtualisation is",
       "_why": "one spelling per word: the book uses -ise"
+    },
+    {
+      "find": "performing calculations such",
+      "with": "performing calculations such as totals and averages, identifying key insights like maximum or minimum values, and displaying the results clearly alongside the original data.",
+      "_why": "source pp69-70: sentence ran over the page"
+    },
+    {
+      "find": "Ask learners Learners to work",
+      "with": "Ask learners to work",
+      "_why": "doubled word (source)"
+    },
+    {
+      "find": "O. Testing System",
+      "with": "D. Testing System",
+      "_why": "OCR: D read as O (source p160)"
     }
   ],
   "remove": [
@@ -2842,6 +2857,326 @@
         }
       ],
       "_why": "source p105: a sub-heading the conversion half-bolded"
+    },
+    {
+      "findTable": "as totals and averages, identifying key insights",
+      "_why": "source p69-70: the sentence end and the Alternative Activity came in as a two-row table",
+      "with": [
+        {
+          "raw": {
+            "t": "box",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Alternative Activity: Working with Data Manually",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Learners work in small groups using a paper-based dataset (e.g. marks, sales or survey results). They organise the data in a table, then calculate totals, averages, and identify the highest and lowest values. Finally, they present their findings in a clear table or chart and discuss any patterns observed.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Well-organised data, correct calculations, identification of key values, and clear presentation of results.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEANING ACTIVITY 3: Deployment Models",
+      "parent": true,
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 3: Deployment models",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Organise learners in groups to identify a simple problem in the school or community that can be solved using a computer or AI model. Learners decide how the model will be used, its users, and application area. They draw a simple input - process - output diagram and explain the model's usefulness. Groups then present their work to the class.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "The teacher organise learners in groups to identify a simple problem in the school or community that can be solved using a computer or AI model. Learners decide how the model will be used, its users, and application area. They draw a simple input - process - output diagram and explain the model's usefulness. Groups then present their work to the class.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners identify a simple problem and suggest a suitable AI or computer model to solve it. They show how it works using an input - process - output diagram and explain its users and application area. Learners also state how the model improves efficiency or solves the problem.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Expected Responses: Learners identify a simple problem and suggest a suitable AI or computer model to solve it. They show how it works using an input - process - output diagram and explain its users and application area. Learners also state how the model improves efficiency or solves the problem.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "source p114: LEANING typo; set as a plain box, not an activity; \"The teacher organise learners\" -> \"Organise learners\" (as the other activities)"
+    },
+    {
+      "find": "In groups, design a simple model of a robot power system showing energy flow from battery to motor through a switch. Label all parts.",
+      "back": 1,
+      "span": 11,
+      "with": [
+        {
+          "raw": {
+            "t": "box",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Alternative Activity",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Learners explore how electrical energy powers a simple robot by building a basic power supply model using simple materials.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Materials: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "AA batteries, battery holder, switch, wires/foil strips, small DC motor or fan, cardboard frame, tape, glue, and scissors.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Safety: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Avoid short circuits, handle batteries carefully, do not connect terminals directly, and work under teacher supervision.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners build a simple circuit, show energy flow, and demonstrate motor ON/OFF safely.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Task",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "In groups, design a simple model of a robot power system showing energy flow from battery to motor through a switch. Label all parts.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Procedure",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Design a layout, connect a simple circuit, test the switch, observe motor response, and disconnect safely.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Observation Activity: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Describe energy flow, explain ON/OFF switch effects, and relate the model to real robots.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Group Discussion: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Discuss energy storage and transfer, possible power problems, ways to improve efficiency and safety, and real-life robot examples.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners build a simple circuit, show energy flow, and explain motor ON/OFF operation.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "source p162: the Alternative Activity (intro, materials, safety, task, procedure) came in out of order and unboxed"
+    },
+    {
+      "find": "Correct positioning of motors and gears ensures smooth and efficient robot movement.",
+      "span": 5,
+      "_why": "source p160: EXERCISE 2 unstyled; four answers a-d mis-split (b ran on into c)",
+      "with": [
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*Correct positioning of motors and gears ensures smooth and efficient robot movement.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*When motors are firmly fixed and gears are properly aligned, power is transferred effectively, reducing energy loss and improving control, speed, and accuracy of the robot.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*If gears are not properly aligned, the robot may produce noise, experience friction, slipping, or jerky movement. This can cause overheating of the motor, reduced efficiency, poor speed control, and in some cases complete failure of movement.*",
+          "marker": "(c)"
+        },
+        {
+          "listitem": "*To verify correct installation, first check that the motor is firmly secured on the chassis. Then manually rotate the gears to ensure smooth meshing. Next, connect power and test movement at low speed. Finally, observe for smooth rotation, no noise or slipping, and make adjustments if any issues are detected.*",
+          "marker": "(d)"
+        }
+      ],
+      "back": 2
     }
   ],
   "mergePara": [
@@ -4155,6 +4490,11 @@
       "all": true,
       "_why": "two came in as section headings",
       "_restore": true
+    },
+    {
+      "find": "ACTIVITY 2: Exploring Python syntax and control structures",
+      "text": "LEARNING ACTIVITY 2: Exploring Python syntax and control structures",
+      "_why": "source p71: LEARNING lost in the conversion"
     }
   ],
   "authors": [
