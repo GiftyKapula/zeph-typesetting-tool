@@ -597,7 +597,7 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image123.png"
     }
   },
-  "_note_wordFix": "Spelling, to the book's own majority form: Noriana Muneka (the Permanent Secretary, as in the sibling TG and the other ZEPH books; the LB typed Noliana); yosiyana-qwsiyana -> yosiyana-siyana; Zolembadwa -> Zolembedwa (7 to 1); Zolembala -> Zolembela (3 to 1). Mvekelo ia Malembo -> la (the book's only \"ia\"). anamuyamiki;a -> anamuyamikila (a semicolon typed for l). 18 Nov full read: aKuwelenga -> akuwelenga (find-and-replace slip); and to the book's c-spelling, one form per word: chifukwa -> cifukwa (20 to 3), chitseko -> citseko, cha -> ca (33 to 1), zochita -> zocita (201 to 1), masewelo -> masewela (46 to 1), kutengapo -> kutengako (4 to 1).",
+  "_note_wordFix": "Spelling, to the book's own majority form: Noriana Muneka (the Permanent Secretary, as in the sibling TG and the other ZEPH books; the LB typed Noliana); yosiyana-qwsiyana -> yosiyana-siyana; Zolembadwa -> Zolembedwa (7 to 1); Zolembala -> Zolembela (3 to 1). Mvekelo ia Malembo -> la (the book's only \"ia\"). anamuyamiki;a -> anamuyamikila (a semicolon typed for l). 18 Nov full read: aKuwelenga -> akuwelenga (find-and-replace slip); and to the book's c-spelling, one form per word: chifukwa -> cifukwa (20 to 3), chitseko -> citseko, cha -> ca (33 to 1), zochita -> zocita (201 to 1), masewelo -> masewela (46 to 1), kutengapo -> kutengako (4 to 1). Words that contain a hyphen of their own (reduplication: zosiyana-siyana, mobweleza-bweleza, eni-eni; syllable splits: bu-ku) take a word joiner after the hyphen, so with hyphenation off they never break at a line end either.",
   "wordFix": {
     "Noliana": "Noriana",
     "qwsiyana": "siyana",
@@ -611,7 +611,23 @@
     "cha": "ca",
     "zochita": "zocita",
     "masewelo": "masewela",
-    "kutengapo": "kutengako"
+    "kutengapo": "kutengako",
+    "zosiyana-siyana": "zosiyana-⁠siyana",
+    "osiyana-siyana": "osiyana-⁠siyana",
+    "Kale-kale": "Kale-⁠kale",
+    "pang’ono-pang’ono": "pang’ono-⁠pang’ono",
+    "mmodzi-mmodzi": "mmodzi-⁠mmodzi",
+    "mobweleza-bweleza": "mobweleza-⁠bweleza",
+    "yosiyana-qwsiyana": "yosiyana-⁠siyana",
+    "nsi-ma": "nsi-⁠ma",
+    "bu-ku": "bu-⁠ku",
+    "ti-yi": "ti-⁠yi",
+    "so-po": "so-⁠po",
+    "ga-lu": "ga-⁠lu",
+    "Eni-eni": "Eni-⁠eni",
+    "eni-eni": "eni-⁠eni",
+    "mosiyana-siyana": "mosiyana-⁠siyana",
+    "zeni-zeni": "zeni-⁠zeni"
   },
   "_note_imprint": "Copyright page laid out as the house model (Silozi G4 LB; HOUSE-STYLE imprint): rights line, authors, editor, illustrator, layout, publisher + address, ISBN with dots, printer; every label bold on its own line with the name plain below. The cover/layout credit is Teddy Ng`ambi (house rule for every book since 16 Nov 2026) under the manuscript's own Cinyanja label. ALEMBI (Authors) is also the word list's Authors-section title, so the label and the illustrator credit \"Alembi\" are marked noPromote to stay on the copyright page.",
   "replaceBlocks": [
@@ -769,8 +785,11 @@
     18,
     19,
     24,
+    26,
+    27,
     28,
     29,
+    30,
     37,
     45,
     46,
@@ -784,8 +803,8 @@
   "_note_image53": "image53 (Nchito 4 picture, p84) set to 380 px wide so its last exercise line no longer spills alone onto the next page.",
   "replace": [
     {
-      "find": "m mobweleza-bweleza.",
-      "with": "Bwelezani mvekelo mobweleza-bweleza."
+      "find": "m mobweleza-⁠bweleza.",
+      "with": "Bwelezani mvekelo mobweleza-⁠bweleza."
     },
     {
       "find": "Mwana akusewela mpila .",
@@ -841,5 +860,8 @@
     "Silabe",
     "Nkhani"
   ],
-  "_note_midSentenceLower": "The authors' find-and-replace capitalised common words inside sentences (\"kuwelenga Mau ndi ziganizo\", \"Bwelezani Mvekelo\", \"ndi Kuwelenga masilabe\"). Lowercased in body text only; headings keep their title case."
+  "_note_midSentenceLower": "The authors' find-and-replace capitalised common words inside sentences (\"kuwelenga Mau ndi ziganizo\", \"Bwelezani Mvekelo\", \"ndi Kuwelenga masilabe\"). Lowercased in body text only; headings keep their title case.",
+  "hyphenate": false,
+  "_note_hyphenate": "No word is broken across two lines with a hyphen (user, 18 Nov: \"it has hyphens at the end of the sentences\"). Grade 1 readers should see every word whole. With no hyphens, justified 18pt lines opened wide gaps between words, so the body is set flush left (raggedRight), as on the Chitonga ECE LB.",
+  "raggedRight": true
 }
