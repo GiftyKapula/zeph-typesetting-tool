@@ -18,16 +18,31 @@
   "asHead": [
     "Introduction"
   ],
-  "//pageBreakBefore": "Round 1: the reviewer wants each end-of-topic assessment to follow straight on where there is room, so the nine forced page breaks are gone. Topics 13, 15 and 18 keep one: each opened at a page foot with only one or two questions and carried the rest over.",
+  "//pageBreakBefore": "Round 1: the reviewer wants each end-of-topic assessment to follow straight on where there is room, so the nine forced page breaks are gone. Only Topic 18 keeps one: it opened at a page foot with two questions and carried the rest over.",
   "pageBreakBefore": [
-    {
-      "find": "END-OF-TOPIC 13 ASSESSMENT"
-    },
-    {
-      "find": "END-OF-TOPIC 15 ASSESSMENT"
-    },
     {
       "find": "END-OF-TOPIC 18 ASSESSMENT"
     }
-  ]
+  ],
+  "//images": "Round 1 (user, 17 Nov: close up the gaps): six full-width pictures that did not fit below the text before them left a page half empty; each is set a little shorter (hmm = printed height in mm, 76-91% of full size) so it fits there.",
+  "images": {
+    "image23.png": {
+      "hmm": 98
+    },
+    "image24.png": {
+      "hmm": 68
+    },
+    "image35.png": {
+      "hmm": 68
+    },
+    "image46.png": {
+      "hmm": 80
+    },
+    "image58.png": {
+      "hmm": 82
+    },
+    "image66.png": {
+      "hmm": 98
+    }
+  }
 }
