@@ -17,7 +17,9 @@
   "coverUntil": "SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 ORDINARY LEVEL",
   "synthesiseCover": true,
   "coverImage": "Computer Science Form 3 LB-art/cover-photo-300dpi.png",
-  "coverWords": { "printedBy": "Published by" },
+  "coverWords": {
+    "printedBy": "Published by"
+  },
   "imprint": {
     "copyright": "© Zambia Educational Publishing House (2026)",
     "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the copyright owner or publisher.",
@@ -385,13 +387,16 @@
   ],
   "moveBefore": [
     {
-      "find": "image19.jpeg",
+      "find": "image19.png",
       "before": "Different presentation software applications may vary",
       "_why": "CDC p11-12: remove the PowerPoint interface picture from under Key Competences, put it after Exploring the software"
     }
   ],
   "edit": [
-    { "find": "are important when controlling a", "with": "are important when controlling a robot." },
+    {
+      "find": "are important when controlling a",
+      "with": "are important when controlling a robot."
+    },
     {
       "find": "Suggest solutions",
       "with": "",
@@ -427,12 +432,27 @@
       "find": "EXERCISE 3:",
       "with": "EXERCISE 3",
       "_why": "stray colon, unlike every other exercise"
+    },
+    {
+      "after": "LEARNING ACTIVITY 4: Testing electronic circuits",
+      "find": "EXERCISE 5",
+      "with": "EXERCISE 4"
+    },
+    {
+      "after": "LEARNING ACTIVITY 4: Testing electronic circuits",
+      "find": "EXERCISE 6",
+      "with": "EXERCISE 5"
+    },
+    {
+      "after": "LEARNING ACTIVITY 4: Testing electronic circuits",
+      "find": "EXERCISE 7",
+      "with": "EXERCISE 6"
+    },
+    {
+      "after": "LEARNING ACTIVITY 4: Testing electronic circuits",
+      "find": "EXERCISE 8",
+      "with": "EXERCISE 7"
     }
-,
-    { "after": "LEARNING ACTIVITY 4: Testing electronic circuits", "find": "EXERCISE 5", "with": "EXERCISE 4" },
-    { "after": "LEARNING ACTIVITY 4: Testing electronic circuits", "find": "EXERCISE 6", "with": "EXERCISE 5" },
-    { "after": "LEARNING ACTIVITY 4: Testing electronic circuits", "find": "EXERCISE 7", "with": "EXERCISE 6" },
-    { "after": "LEARNING ACTIVITY 4: Testing electronic circuits", "find": "EXERCISE 8", "with": "EXERCISE 7" }
   ],
   "liftCrossCutting": true,
   "tables": [
@@ -556,12 +576,12 @@
       "find": "Sub-Topic 3.12.1. Mechanical and Electronic Systems",
       "as": "h2"
     }
-  ]
-,
+  ],
   "_note2": "User 2026-11-16 ('all of them'): LB proof checks — no Expected Standard in an LB (14 sub-topic standards removed); 'Possible answer' / 'Expected Response' are each activity's competences, relabelled 'Expected Competences:' like the rest; LA6 + its Alternative Activity printed twice in 3.1.1 (source too) — the second, older wording removed; 3.12 has no Exercise 4 in the source (LA4 has none) — Exercises 5-8 renumbered 4-7.",
   "deleteExact": [
     "robot.",
-    "Expected Standard", "Expected Standards",
+    "Expected Standard",
+    "Expected Standards",
     "Presentations designed and created correctly",
     "Publications Created and Formatted correctly.",
     "Digital circuits designed correctly.",
@@ -578,10 +598,205 @@
     "Control systems implemented correctly"
   ],
   "editAll": [
-    { "find": "Expected Responses:", "with": "Expected Competences:" },
-    { "find": "Expected Response:", "with": "Expected Competences:" }
+    {
+      "find": "Expected Responses:",
+      "with": "Expected Competences:"
+    },
+    {
+      "find": "Expected Response:",
+      "with": "Expected Competences:"
+    }
   ],
   "removeRange": [
-    { "after": "Work in small groups to create a paper-based presentation for a tourism", "from": "LEARNING ACTIVITY 6: Embed hyperlinks", "to": "Hyperlinks, sometimes called links" }
-  ]
+    {
+      "after": "Work in small groups to create a paper-based presentation for a tourism",
+      "from": "LEARNING ACTIVITY 6: Embed hyperlinks",
+      "to": "Hyperlinks, sometimes called links"
+    }
+  ],
+  "images": {
+    "image52.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image52.png"
+    },
+    "image25.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image25.png"
+    },
+    "image23.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image23.png"
+    },
+    "image24.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image24.png"
+    },
+    "image51.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image51.png"
+    },
+    "image50.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image50.png"
+    },
+    "image39.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image39.png"
+    },
+    "image55.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image55.png"
+    },
+    "image31.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image31.png"
+    },
+    "image83.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image83.png"
+    },
+    "image56.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image56.png"
+    },
+    "image30.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image30.png"
+    },
+    "image53.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image53.png"
+    },
+    "image27.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image27.png"
+    },
+    "image29.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image29.png"
+    },
+    "image42.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image42.png"
+    },
+    "image43.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image43.png"
+    },
+    "image46.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image46.png"
+    },
+    "image77.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image77.png"
+    },
+    "image44.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image44.png"
+    },
+    "image45.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image45.png"
+    },
+    "image26.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image26.png"
+    },
+    "image47.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image47.png"
+    },
+    "image54.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image54.png"
+    },
+    "image58.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image58.png"
+    },
+    "image72.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image72.png"
+    },
+    "image32.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image32.png"
+    },
+    "image70.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image70.png"
+    },
+    "image71.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image71.png"
+    },
+    "image21.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image21.png"
+    },
+    "image59.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image59.png"
+    },
+    "image65.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image65.png"
+    },
+    "image28.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image28.png"
+    },
+    "image63.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image63.png"
+    },
+    "image74.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image74.png"
+    },
+    "image19.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image19.png"
+    },
+    "image66.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image66.png"
+    },
+    "image48.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image48.png"
+    },
+    "image67.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image67.png"
+    },
+    "image64.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image64.png"
+    },
+    "image49.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image49.png"
+    },
+    "image38.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image38.png"
+    },
+    "image40.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image40.png"
+    },
+    "image68.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image68.png"
+    },
+    "image69.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image69.png"
+    },
+    "image79.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image79.png"
+    },
+    "image34.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image34.png"
+    },
+    "image73.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image73.png"
+    },
+    "image57.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image57.png"
+    },
+    "image81.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image81.png"
+    },
+    "image33.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image33.png"
+    },
+    "image35.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image35.png"
+    },
+    "image37.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image37.png"
+    },
+    "image36.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image36.png"
+    },
+    "image62.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image62.png"
+    },
+    "image80.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image80.png"
+    },
+    "image82.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image82.png"
+    },
+    "image41.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image41.png"
+    },
+    "image61.jpeg": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image61.png"
+    },
+    "image22.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/image22.png"
+    },
+    "grp_rId116.png": {
+      "src": "Computer Science Form 3 Learner's Book-hires/grp_rId116.png"
+    }
+  }
 }
