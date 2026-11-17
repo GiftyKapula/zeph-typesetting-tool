@@ -337,21 +337,27 @@ function applyOverrides(blocks, ov) {
     const cell0 = (b) => { const c = b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0]) && b.rows[0][0];
       return c ? wsNorm(typeof c === "string" ? c : (c.text || "")) : null; };
     const hits = (b) => rb.findTable ? (cell0(b) || "").startsWith(wsNorm(rb.findTable)) : wsNorm(blockPlain(b)) === want;
-    let done = false;
+    // `all: true` replaces EVERY match (a slip the manuscript repeats word for word, e.g. the
+    // same mis-styled line in each unit) — one entry per copy cannot work, since a rebuilt
+    // block that reads the same as the next copy would be matched again.
+    let done = false, nHit = 0;
     const walk = (arr) => {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
         if (hits(b)) {
-          arr.splice(i, 1, ...news);
+          const fresh = nHit++ ? (rb.with || []).map(mkBlock).filter(Boolean) : news;
+          arr.splice(i, 1, ...fresh);
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
-          done = true; return;
+          if (!rb.all) { done = true; return; }
+          i += fresh.length - 1;
+          continue;
         }
         for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key]);
       }
     };
     walk(blocks);
-    if (!done) console.warn("!  replaceBlocks not matched:", rb.find || rb.findTable);
+    if (!done && !nHit) console.warn("!  replaceBlocks not matched:", rb.find || rb.findTable);
   }
   // deleteRun: [{ from, to }] — delete a CONTIGUOUS run of sibling blocks, from the
   // first block whose trimmed text === `from` through the first block at/after it whose
@@ -499,6 +505,9 @@ function applyOverrides(blocks, ov) {
       const blk = blocks[i];
       blk.text = sh.text != null ? sh.text : blockPlain(blk).trim();
       blk.t = sh.as || blk.t;
+      // `unit: true` — this h1 opens a unit (body start, contents level 1) even though its
+      // wording is not a recognised Unit word (Cinyanja "GAWO LOYAMBA: …")
+      if (sh.unit) blk.unit = true;
       delete blk.segs; delete blk.marker; delete blk.isList; delete blk.numId; delete blk.lvl;
       n++;
       if (!sh.all) break;
@@ -1333,6 +1342,17 @@ function applyOverrides(blocks, ov) {
     // a fresh page, as in a reviewed copy that set them that way)
     blocks.splice(i, 0, ih.as ? { t: ih.as, text: ih.head, ...(ih.nobreak ? { nobreak: true } : {}) } : { t: "head", text: ih.head, black: true });
   }
+  // justifySection: ["SECTION TITLE", …] — undo the imprint's auto-centring for the
+  // paragraphs of one front-matter section (its h1 up to the next h1). The importer
+  // centres everything from the copyright line to the first section heading it can see;
+  // when that heading sits in a floating text box (Cinyanja G1 LB "MAU OYAMBA") the
+  // section's own justified text is caught in the centred run. Runs after insertHead,
+  // so it can target a section title that override restored.
+  for (const title of ov.justifySection || []) {
+    const i = blocks.findIndex((b) => b.t === "h1" && (b.text || "").trim().toUpperCase() === String(title).trim().toUpperCase());
+    if (i < 0) { console.warn("!  justifySection not matched:", title); continue; }
+    for (let k = i + 1; k < blocks.length && blocks[k].t !== "h1"; k++) if (blocks[k].t === "para" && blocks[k].align === "center") delete blocks[k].align;
+  }
   // renameNear: [{ find, near, to, orEmpty? }] — rename ONE specific occurrence of a
   // heading among several IDENTICAL ones (e.g. a manuscript with a dozen bare
   // "Activity 1:" headings each missing its name) by disambiguating with nearby
@@ -1855,8 +1875,12 @@ function applyOverrides(blocks, ov) {
   // so a floating image the importer anchored out of reading order — placed before its
   // activity instead of after it, next to its caption — can be moved back to the
   // manuscript's visual order. Anchors are matched against the CURRENT order, so list
-  // moves front-to-back.
-  const mbMatch = (b, needle) => blockPlain(b).includes(needle) || (b.t === "image" && (b.file || "").includes(needle));
+  // moves front-to-back. `find` also matches a one-column banner table by its whole
+  // cell text (a "Temu 3" term banner the manuscript placed after the unit it opens).
+  const bannerText = (b) => (b.t === "table" && Array.isArray(b.rows) && b.rows.every((r) => Array.isArray(r) && r.length === 1))
+    ? b.rows.map((r) => String((r[0] && r[0].text) || "").trim()).filter(Boolean).join(" ") : "";
+  const mbMatch = (b, needle) => blockPlain(b).includes(needle) || (b.t === "image" && (b.file || "").includes(needle))
+    || (b.t === "table" && bannerText(b) === needle);
   for (const mv of ov.moveBefore || []) {
     // `near`: disambiguate a `find` that recurs throughout the book (e.g. a generic
     // "Reading Passage" heading repeated every lesson) — locate the UNIQUE `near` text

@@ -83,7 +83,7 @@ function formatGrade3EngFrontMatter(blocks, detectName) {
 
 function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } = {}, detectName = "") {
   formatGrade3EngFrontMatter(blocks, detectName);
-  const isUnit = (x) => x.t === "h1" && (x.top || /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "") || LEXI.isTopSection(x.text));
+  const isUnit = (x) => x.t === "h1" && (x.top || x.unit || /^(UNIT|TOPIC|CHAPTER|CHIBALU|CIPATI)\b/i.test(x.text || "") || LEXI.isTopSection(x.text));
   // Front-matter section names — English plus local-language equivalents
   // (e.g. Lunda: ANSONEKI=Authors, MAZU ATACHI=Foreword, KULEMA …WUNU=Preface,
   // KUSAKILILA=Acknowledgement, KULUMBULULA=Introduction). "HOW TO USE THIS
