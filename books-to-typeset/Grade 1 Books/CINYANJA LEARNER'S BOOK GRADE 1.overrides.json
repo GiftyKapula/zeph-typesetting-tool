@@ -206,8 +206,8 @@
       "sig": "6mm"
     }
   ],
-  "_note_cover": "Cover hero chosen by the typesetter 2026-10-10: the manuscript cover art is a finished mock-up (title, ministry crest, labels baked in) only 234x336 px, so even a word-free crop would print far below 300 DPI. Used instead the book's own costume photo (Kalulu ndi Nkhanu play, image4.jpeg, 1432 px), upscaled with Real-ESRGAN.",
-  "coverImage": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image4.png",
+  "_note_cover": "Cover hero chosen by the user 2026-11-17: the picture on page 8 (Nchito 1: Kutsegula ndi kutseka buku, a girl opening her Cinyanja book; manuscript media image9.png), using its Real-ESRGAN copy (1725 px, about 350 DPI on the cover card). It replaces the costume photo chosen in October. Cropped (no retouching) to the cover card shape 1.564:1 from the top edge down, so her head and the book stay whole; only desk at the bottom is lost. Committed next to the sidecar like the TG cover.",
+  "coverImage": "cinyanja-g1-lb-cover.png",
   "images": {
     "image1.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image1.png"
@@ -463,7 +463,8 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image127.png"
     },
     "image128.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image128.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image128.png",
+      "w": 470
     },
     "image16.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image16.png"
@@ -592,13 +593,14 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image123.png"
     }
   },
-  "_note_wordFix": "Spelling, to the book's own majority form: Noriana Muneka (the Permanent Secretary, as in the sibling TG and the other ZEPH books; the LB typed Noliana); yosiyana-qwsiyana -> yosiyana-siyana; Zolembadwa -> Zolembedwa (7 to 1); Zolembala -> Zolembela (3 to 1). Mvekelo ia Malembo -> la (the book's only \"ia\").",
+  "_note_wordFix": "Spelling, to the book's own majority form: Noriana Muneka (the Permanent Secretary, as in the sibling TG and the other ZEPH books; the LB typed Noliana); yosiyana-qwsiyana -> yosiyana-siyana; Zolembadwa -> Zolembedwa (7 to 1); Zolembala -> Zolembela (3 to 1). Mvekelo ia Malembo -> la (the book's only \"ia\"). anamuyamiki;a -> anamuyamikila (a semicolon typed for l).",
   "wordFix": {
     "Noliana": "Noriana",
     "qwsiyana": "siyana",
     "Zolembadwa": "Zolembedwa",
     "Zolembala": "Zolembela",
-    "ia": "la"
+    "ia": "la",
+    "anamuyamiki;a": "anamuyamikila"
   },
   "_note_imprint": "Copyright page laid out as the house model (Silozi G4 LB; HOUSE-STYLE imprint): rights line, authors, editor, illustrator, layout, publisher + address, ISBN with dots, printer; every label bold on its own line with the name plain below. The cover/layout credit is Teddy Ng`ambi (house rule for every book since 16 Nov 2026) under the manuscript's own Cinyanja label. ALEMBI (Authors) is also the word list's Authors-section title, so the label and the illustrator credit \"Alembi\" are marked noPromote to stay on the copyright page.",
   "replaceBlocks": [
@@ -730,10 +732,18 @@
   "imprintGap": "3mm",
   "_note_imprintSpacing": "At the Grade 1 type size the copyright page ran four lines onto a second page; tighter line and group spacing (as on the Chitonga G1 LB) keeps it on one.",
   "tidySpacing": true,
-  "_note_pageBreak": "At the Grade 1 type size MAU OYAMBA and MAU OTSOGOLELA run two lines plus the signature past one page even with tight gaps; the closing paragraph goes over with the signature instead, so the second page is not a two-line stub.",
+  "_note_pageBreak": "At the Grade 1 type size MAU OYAMBA and MAU OTSOGOLELA run two lines plus the signature past one page even with tight gaps; the closing paragraph goes over with the signature instead, so the second page is not a two-line stub. Two end-of-unit stories (Mwana Wocita Sewelo; Mwana wosamala) start a fresh page so their title is not left at a page foot with the story picture overleaf.",
   "pageBreakBefore": [
     "Tikukhulupilila kuti bukuli lithandiza ana a Giredi 1 kukhala ndi maziko olimba a cinenelo",
-    "Tikukhulupilila kuti bukuli lithandiza ana a Giredi 1 kukhala ndi maziko olimba a Cinyanja, cidwi"
+    "Tikukhulupilila kuti bukuli lithandiza ana a Giredi 1 kukhala ndi maziko olimba a Cinyanja, cidwi",
+    {
+      "find": "NKHANI LOONJEZELA",
+      "near": "Nkhani: Mwana Wocita Sewelo"
+    },
+    {
+      "find": "NKHANI LOONJEZELA 2",
+      "near": "Samaria anali mwana wosamala"
+    }
   ],
   "_note_dropBreaks": "Each lesson (Mutu) opens a fresh page; where the lesson before ran only a few lines onto a page (under 30% full), that page break is dropped so the next lesson follows on the same page (Chitonga G1 TG method).",
   "dropBreaks": [
@@ -749,11 +759,19 @@
     44,
     45,
     46,
-    49,
     50,
-    51
+    51,
+    52
   ],
   "stickyBetweenHeads": true,
   "_note_sticky": "The Luso Lapadela skill line under each topic stack stays with the activity heading below it, so a stack is never stranded at a page foot.",
-  "_note_image53": "image53 (Nchito 4 picture, p84) set to 380 px wide so its last exercise line no longer spills alone onto the next page."
+  "_note_image53": "image53 (Nchito 4 picture, p84) set to 380 px wide so its last exercise line no longer spills alone onto the next page.",
+  "replace": [
+    {
+      "find": "m mobweleza-bweleza.",
+      "with": "Bwelezani Mvekelo mobweleza-bweleza."
+    }
+  ],
+  "_note_replace": "p124: a dropped word, \"Bwelezani m mobweleza-bweleza\" -> \"Bwelezani Mvekelo mobweleza-bweleza\", as its nine other copies read.",
+  "_note_image128": "image128 (Samaria story picture, last unit) at 470 px so the unit test ends on its own page instead of carrying one item over."
 }
