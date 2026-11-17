@@ -140,6 +140,7 @@ off, so a change only touches the books that opt in. Keys:
 | `recolorHead` | give a heading (by prefix) a specific fill colour |
 | `activityHeadsBlack` | render every Activity/Exercise heading bold black instead of the accent colour |
 | `pageBreakBefore` | insert a page break before the first block containing the text |
+| `stickyBetweenHeads` | `true` — a one-paragraph line between two headings (a skill line such as Cinyanja "Luso Lapadela: …" under the topic stack, over "Nchito 1") stays on the page with the heading below it, so the stack above is never stranded at a page foot. Cinyanja G1 LB |
 | `keepBoxesWhole` | `true` — an activity box shorter than `keepBoxMm` (default 180 mm) moves to the next page whole instead of breaking. Off by default (whole boxes leave white space); for picture books (ECE), where a break puts the instruction on one page and its picture on the next |
 | `replaceSection` | swap a whole section body (heading → next section) for supplied `items` (markdown-ish: `**bold**`, `*italic*`, `$math$`, `## sub-head`); optional `rename`/`until` |
 | `recase` | change a block's case (`{ startsWith, to: "sentence" \| "title" \| "upper" }`, default `"title"`) — e.g. an ALL-CAPS label the house style wants in sentence case, or a Learning Activity/Exercise/Assessment box title a manuscript left inconsistently cased (`to: "upper"`) next to sibling boxes that are ALL-CAPS |

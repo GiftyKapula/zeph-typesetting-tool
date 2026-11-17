@@ -1676,6 +1676,16 @@ async function typesetOne(docxPath, themeName) {
     walkH(blocks);
     if (n) console.log(`   tidySpacing: ${n} heading(s) with doubled spaces squeezed`);
   }
+  // stickyBetweenHeads: true — a one-paragraph line sitting between two headings (the
+  // Cinyanja G1 LB's "Luso Lapadela: …" skill line under strand / topic / sub-topic, over
+  // "Nchito 1: …") stays on the page with the heading below it. Without it the heading
+  // stack above could be left alone at a page foot with its first activity overleaf.
+  if (ov.stickyBetweenHeads) {
+    const isH = (x) => x && /^(h2|h3|head|label)$/.test(x.t);
+    let n = 0;
+    for (let i = 1; i < blocks.length - 1; i++) if (blocks[i].t === "para" && isH(blocks[i - 1]) && isH(blocks[i + 1])) { blocks[i].sticky = true; n++; }
+    if (n) console.log(`   stickyBetweenHeads: ${n} line(s) kept with the heading below`);
+  }
   let breakPoints = null;
   if (ov.dropBreaks) {
     const drop = new Set(ov.dropBreaks);
