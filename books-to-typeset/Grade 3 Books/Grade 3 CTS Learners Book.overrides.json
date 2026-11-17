@@ -18,10 +18,16 @@
   "asHead": [
     "Introduction"
   ],
-  "//pageBreakBefore": "Round 1: the reviewer wants each end-of-topic assessment to follow straight on where there is room, so the nine forced page breaks are gone. Only Topic 13's keeps one: at the foot of p116 it opened with one question and carried nine over.",
+  "//pageBreakBefore": "Round 1: the reviewer wants each end-of-topic assessment to follow straight on where there is room, so the nine forced page breaks are gone. Topics 13, 15 and 18 keep one: each opened at a page foot with only one or two questions and carried the rest over.",
   "pageBreakBefore": [
     {
       "find": "END-OF-TOPIC 13 ASSESSMENT"
+    },
+    {
+      "find": "END-OF-TOPIC 15 ASSESSMENT"
+    },
+    {
+      "find": "END-OF-TOPIC 18 ASSESSMENT"
     }
   ]
 }
