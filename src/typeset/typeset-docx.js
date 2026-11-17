@@ -154,6 +154,28 @@ async function typesetOne(docxPath, themeName) {
     walk(blocks);
     console.log(`   wordFix: ${n} word(s) repaired`);
   }
+  // midSentenceLower: ["Mau", "Mvekelo", …] — a manuscript whose find-and-replace left
+  // common words capitalised in the middle of sentences ("kuwelenga Mau ndi ziganizo",
+  // Cinyanja G1 LB). Lowercases each listed word in body text (paragraphs, list items,
+  // table cells) where it follows a lowercase word or a comma — never in a heading or a
+  // bold label, where the title case is right, and never at a sentence start.
+  if (Array.isArray(ov.midSentenceLower) && ov.midSentenceLower.length) {
+    const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(`([\\p{Ll},] +)(${ov.midSentenceLower.map(esc).join("|")})(?![\\p{L}])`, "gu");
+    let n = 0;
+    const low = (s) => s.replace(re, (m, pre, w) => { n++; return pre + w.charAt(0).toLowerCase() + w.slice(1); });
+    const walk = (arr, body) => {
+      for (const b of arr || []) {
+        if (!b || typeof b !== "object") continue;
+        const isBody = body || b.t === "para" || b.t === "listitem";
+        if (isBody && Array.isArray(b.segs)) for (const s of b.segs) if (typeof s.t === "string" && !s.b) s.t = low(s.t);
+        if (b.t === "table" && Array.isArray(b.rows)) for (const r of b.rows) for (const c of r || []) if (c && typeof c === "object") { if (typeof c.text === "string") c.text = low(c.text); walk(c.segs ? [{ t: "para", segs: c.segs }] : [], true); }
+        for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walk(b[k], false);
+      }
+    };
+    walk(blocks, false);
+    console.log(`   midSentenceLower: ${n} word(s) lowercased`);
+  }
   // glossaryColumns: true — a word list (English word, then the local word) the author
   // laid out with tabs in the glossary: every entry becomes a row of one two-column grid,
   // so the local words line up in their own column with clear space after the English.

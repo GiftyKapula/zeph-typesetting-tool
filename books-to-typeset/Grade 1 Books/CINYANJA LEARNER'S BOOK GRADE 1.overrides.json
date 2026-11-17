@@ -597,14 +597,21 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image123.png"
     }
   },
-  "_note_wordFix": "Spelling, to the book's own majority form: Noriana Muneka (the Permanent Secretary, as in the sibling TG and the other ZEPH books; the LB typed Noliana); yosiyana-qwsiyana -> yosiyana-siyana; Zolembadwa -> Zolembedwa (7 to 1); Zolembala -> Zolembela (3 to 1). Mvekelo ia Malembo -> la (the book's only \"ia\"). anamuyamiki;a -> anamuyamikila (a semicolon typed for l).",
+  "_note_wordFix": "Spelling, to the book's own majority form: Noriana Muneka (the Permanent Secretary, as in the sibling TG and the other ZEPH books; the LB typed Noliana); yosiyana-qwsiyana -> yosiyana-siyana; Zolembadwa -> Zolembedwa (7 to 1); Zolembala -> Zolembela (3 to 1). Mvekelo ia Malembo -> la (the book's only \"ia\"). anamuyamiki;a -> anamuyamikila (a semicolon typed for l). 18 Nov full read: aKuwelenga -> akuwelenga (find-and-replace slip); and to the book's c-spelling, one form per word: chifukwa -> cifukwa (20 to 3), chitseko -> citseko, cha -> ca (33 to 1), zochita -> zocita (201 to 1), masewelo -> masewela (46 to 1), kutengapo -> kutengako (4 to 1).",
   "wordFix": {
     "Noliana": "Noriana",
     "qwsiyana": "siyana",
     "Zolembadwa": "Zolembedwa",
     "Zolembala": "Zolembela",
     "ia": "la",
-    "anamuyamiki;a": "anamuyamikila"
+    "anamuyamiki;a": "anamuyamikila",
+    "aKuwelenga": "akuwelenga",
+    "chifukwa": "cifukwa",
+    "chitseko": "citseko",
+    "cha": "ca",
+    "zochita": "zocita",
+    "masewelo": "masewela",
+    "kutengapo": "kutengako"
   },
   "_note_imprint": "Copyright page laid out as the house model (Silozi G4 LB; HOUSE-STYLE imprint): rights line, authors, editor, illustrator, layout, publisher + address, ISBN with dots, printer; every label bold on its own line with the name plain below. The cover/layout credit is Teddy Ng`ambi (house rule for every book since 16 Nov 2026) under the manuscript's own Cinyanja label. ALEMBI (Authors) is also the word list's Authors-section title, so the label and the illustrator credit \"Alembi\" are marked noPromote to stay on the copyright page.",
   "replaceBlocks": [
@@ -736,7 +743,7 @@
   "imprintGap": "3mm",
   "_note_imprintSpacing": "At the Grade 1 type size the copyright page ran four lines onto a second page; tighter line and group spacing (as on the Chitonga G1 LB) keeps it on one.",
   "tidySpacing": true,
-  "_note_pageBreak": "At the Grade 1 type size MAU OYAMBA and MAU OTSOGOLELA run two lines plus the signature past one page even with tight gaps; the closing paragraph goes over with the signature instead, so the second page is not a two-line stub. Two end-of-unit stories (Mwana Wocita Sewelo; Mwana wosamala) start a fresh page so their title is not left at a page foot with the story picture overleaf.",
+  "_note_pageBreak": "At the Grade 1 type size MAU OYAMBA and MAU OTSOGOLELA run two lines plus the signature past one page even with tight gaps; the closing paragraph goes over with the signature instead, so the second page is not a two-line stub. Two end-of-unit stories (Mwana Wocita Sewelo; Mwana wosamala) start a fresh page so their title is not left at a page foot with the story picture overleaf. Unit 8's end-of-unit test opens a fresh page, so it is not split with two lines overleaf before Unit 9.",
   "pageBreakBefore": [
     "Tikukhulupilila kuti bukuli lithandiza ana a Giredi 1 kukhala ndi maziko olimba a cinenelo",
     "Tikukhulupilila kuti bukuli lithandiza ana a Giredi 1 kukhala ndi maziko olimba a Cinyanja, cidwi",
@@ -747,6 +754,10 @@
     {
       "find": "NKHANI LOONJEZELA 2",
       "near": "Samaria anali mwana wosamala"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "near": "Kodi Amina anali mwana wotani?"
     }
   ],
   "_note_dropBreaks": "Each lesson (Mutu) opens a fresh page; where the lesson before ran only a few lines onto a page (under 30% full), that page break is dropped so the next lesson follows on the same page (Chitonga G1 TG method).",
@@ -761,12 +772,12 @@
     28,
     29,
     37,
-    44,
     45,
     46,
-    50,
+    47,
     51,
-    52
+    52,
+    53
   ],
   "stickyBetweenHeads": true,
   "_note_sticky": "The Luso Lapadela skill line under each topic stack stays with the activity heading below it, so a stack is never stranded at a page foot.",
@@ -774,11 +785,61 @@
   "replace": [
     {
       "find": "m mobweleza-bweleza.",
-      "with": "Bwelezani Mvekelo mobweleza-bweleza."
+      "with": "Bwelezani mvekelo mobweleza-bweleza."
+    },
+    {
+      "find": "Mwana akusewela mpila .",
+      "with": "Mwana akusewela mpila."
+    },
+    {
+      "find": "Kodi mwana akusewela ciani ?",
+      "with": "Kodi mwana akusewela ciani?"
+    },
+    {
+      "find": "Kodi galu akumwa ciani ?",
+      "with": "Kodi galu akumwa ciani?"
+    },
+    {
+      "find": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+      "with": "..............................."
+    },
+    {
+      "find": "cithunzi ca mwana akusewela mpila .",
+      "with": "Lembani ciganizo cimodzi cokhudza cithunzi ca mwana akusewela mpila."
+    },
+    {
+      "find": "Kodi abambo akuwelenga ciani ?",
+      "with": "Kodi abambo akuwelenga ciani?"
+    },
+    {
+      "find": "powelenga. . Kodi ndine ciani?",
+      "with": "Yankhani funso la nzelu ili: Ndili ndi masamba ambili koma sindine mtengo. Ana amandigwilitsa nchito powelenga. Kodi ndine ciani?"
     }
   ],
-  "_note_replace": "p124: a dropped word, \"Bwelezani m mobweleza-bweleza\" -> \"Bwelezani Mvekelo mobweleza-bweleza\", as its nine other copies read.",
+  "_note_replace": "p124: a dropped word, \"Bwelezani m mobweleza-bweleza\" -> \"Bwelezani Mvekelo mobweleza-bweleza\", as its nine other copies read. Punctuation: a space before a full stop or question mark removed, and a writing line typed as commas made dots like its neighbours.",
   "_note_image128": "image128 (Samaria story picture, last unit) at 470 px so the unit test ends on its own page instead of carrying one item over.",
   "_note_image31": "image31 is one strip of three scenes (boy reading / mother cooking / father going to the field) that the manuscript crops three ways, one scene per sentence (Mwana akuwelenga buku p49, Amai akuphika nsima, Atate akupita ku munda). Its upscaled replacement is the whole strip, so crop: true re-applies the author's crop at each use. Shown 61 mm tall (hmm): the crop is a tall narrow strip, which at the default fixed height pushed whole lessons onto the next page.",
-  "_note_imageSizes": "Pictures sized down so a lesson moves up onto the part-empty page before it (user, 18 Nov: \"work on the image to move up\"): image33 (Chisomo story) 300 px, image54 (letter blocks) 420 px, image53 380 px, image128 470 px."
+  "_note_imageSizes": "Pictures sized down so a lesson moves up onto the part-empty page before it (user, 18 Nov: \"work on the image to move up\"): image33 (Chisomo story) 300 px, image54 (letter blocks) 420 px, image53 380 px, image128 470 px.",
+  "midSentenceLower": [
+    "Mau",
+    "Mvekelo",
+    "Maina",
+    "Kuwelenga",
+    "Kucokela",
+    "Masewela",
+    "Malembo",
+    "Ziganizo",
+    "Sewelo",
+    "Zolembedwa",
+    "Zokambilana",
+    "Mafotokozedwe",
+    "Mwaluso",
+    "Mokweza",
+    "Kulemba",
+    "Zosavuta",
+    "Masilabe",
+    "Silabe",
+    "Nkhani"
+  ],
+  "_note_midSentenceLower": "The authors' find-and-replace capitalised common words inside sentences (\"kuwelenga Mau ndi ziganizo\", \"Bwelezani Mvekelo\", \"ndi Kuwelenga masilabe\"). Lowercased in body text only; headings keep their title case."
 }
