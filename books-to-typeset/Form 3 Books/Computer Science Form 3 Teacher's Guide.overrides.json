@@ -1124,6 +1124,41 @@
       "with": "easily find them using their phones. A mobile app is a good solution because it provides instant updates, wide accessibility, and real-time communication between sellers and customers.",
       "_why": "source pp154-155: the sentence ran over the page",
       "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.1.2. ",
+      "with": "Sub-Topic 3.1.2: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.2.1. ",
+      "with": "Sub-Topic 3.2.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.6.1. ",
+      "with": "Sub-Topic 3.6.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.8.1. ",
+      "with": "Sub-Topic 3.8.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.12.1. ",
+      "with": "Sub-Topic 3.12.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.9.1 ",
+      "with": "Sub-Topic 3.9.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.10.1 ",
+      "with": "Sub-Topic 3.10.1: ",
+      "_restore": true
     }
   ],
   "remove": [
@@ -1661,6 +1696,15 @@
   "keepAnswerLabel": true,
   "replaceBlocks": [
     {
+      "find": "ACRONYMS",
+      "with": [
+        {
+          "head": "ACRONYMS"
+        }
+      ],
+      "_why": "came in as a plain line; a heading so replaceSection finds it"
+    },
+    {
       "find": "Event handling example (button click)",
       "with": [],
       "_why": "the code listing below carries this line as its lead"
@@ -2073,10 +2117,390 @@
       "_restore": true
     },
     {
+      "find": "TOPIC 1: PRODUCTIVITY TOOLS:",
+      "with": [
+        {
+          "h1": "TOPIC 3.1: PRODUCTIVITY TOOLS: PRESENTATION"
+        }
+      ],
+      "_why": "numbering: every other topic is 3.n (LB: TOPIC 3.1)",
+      "_restore": true
+    },
+    {
+      "find": "PRESENTATION",
+      "with": [],
+      "_why": "the second line of the topic title, now in it",
+      "_restore": true
+    },
+    {
+      "find": "TOPIC 3.8: ARTIFICIAL INTELLIGIENCE",
+      "with": [
+        {
+          "h1": "TOPIC 3.8: ARTIFICIAL INTELLIGENCE"
+        }
+      ],
+      "_why": "typo INTELLIGIENCE (source)",
+      "_restore": true
+    },
+    {
+      "find": "3.4.1. Data Protection and Privacy",
+      "with": [
+        {
+          "head": "Sub-Topic 3.4.1: Data Protection and Privacy"
+        }
+      ],
+      "_why": "the only sub-topic without the word Sub-Topic",
+      "_restore": true
+    },
+    {
       "find": "(^)",
       "with": [],
       "_why": "conversion scrap",
       "_restore": true
+    },
+    {
+      "find": "Divide learners into small groups and provide printed screenshots or diagrams of a publishing software interface. Ask learners to label features such as the title bar, ruler, status bar, scroll bars, and zoom tools, and explain their",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Divide learners into small groups and provide printed screenshots or diagrams of a publishing software interface. Ask learners to label features such as the title bar, ruler, status bar, scroll bars, and zoom tools, and explain their purposes. Groups then create a simple paper brochure on mental health education and present their work to the class.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Expected Responses: ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Learners label interface features, explain their purposes, and create a simple paper brochure showing organised information and simulated software features.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "source pp23-24: doubled 'Alternative Activity'; the PDF drops a line between the pages ('explain their / education and present…') - sentence rebuilt from the activity's own Expected Responses (FLAGGED); Expected Responses lost in the conversion",
+      "_restore": true,
+      "back": 1
+    },
+    {
+      "find": "Microsoft Publisher.",
+      "span": 2,
+      "with": [
+        {
+          "listitem": "*Microsoft Publisher, Canva, Adobe InDesign.*",
+          "marker": "(a)"
+        }
+      ],
+      "_why": "source p24: '(a) 1. Microsoft Publisher. 2. Canva. Adobe InDesign.' - the (a) was lost, so (b)/(c) came out as (a)/(b)",
+      "_restore": true
+    },
+    {
+      "find": "Online tools require internet. Offline tools work without internet.",
+      "with": [
+        {
+          "listitem": "*Online tools require internet. Offline tools work without internet.*",
+          "marker": "(b)"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Ease of use, Availability of templates, Internet access.",
+      "with": [
+        {
+          "listitem": "*Ease of use, availability of templates, Internet access.*",
+          "marker": "(c)"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step 3: Create a New Database (New System Simulation) Step 4: Migrate Data",
+      "span": 3,
+      "_why": "source pp109-110: intro and Steps 1-2 lost in the conversion; one step per line as in the source",
+      "_restore": true,
+      "with": [
+        {
+          "para": "In this practical lesson, guide learners to explore database upgrading and migration to improve performance and ensure secure data transfer. Learners should complete both the conceptual and practical activities by following these steps:"
+        },
+        {
+          "listitem": "Create a Simple Database (Old System Simulation)",
+          "marker": "Step 1:"
+        },
+        {
+          "listitem": "Export Data (Migration Preparation)",
+          "marker": "Step 2:"
+        },
+        {
+          "listitem": "Create a New Database (New System Simulation)",
+          "marker": "Step 3:"
+        },
+        {
+          "listitem": "Migrate Data",
+          "marker": "Step 4:"
+        },
+        {
+          "listitem": "Verify Migration",
+          "marker": "Step 5:"
+        },
+        {
+          "listitem": "Discussion and Reflection",
+          "marker": "Step 6:"
+        }
+      ]
+    },
+    {
+      "find": "Learners identify data repetition and dependencies, correctly apply 1NF, 2NF and 3NF, and produce a normalised database structure showing PKs, FKs and relationships. They explain how normalisation improves data accuracy, consistency, organisation and database integrity.",
+      "span": 2,
+      "_why": "source p114: EXERCISE 5 and answer (a) 1NF lost in the conversion; its example table came in as pictures (empty cells)",
+      "_restore": true,
+      "with": [
+        {
+          "para": "Learners identify data repetition and dependencies, correctly apply 1NF, 2NF and 3NF, and produce a normalised database structure showing PKs, FKs and relationships. They explain how normalisation improves data accuracy, consistency, organisation and database integrity."
+        },
+        {
+          "label": "EXERCISE 5"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "***First Normal Form (1NF)***",
+          "marker": "(a)"
+        },
+        {
+          "para": "*The table does not follow* ***1NF*** *because it contains repeated and non-atomic data (for example, multiple books may appear in one order, and customer details are repeated for every order). This leads to redundancy and update problems.*"
+        },
+        {
+          "para": "***Problems caused:***"
+        },
+        {
+          "listitem": "*Data duplication (same customer and book details repeated)*"
+        },
+        {
+          "listitem": "*Difficult updates (changing a phone number requires many updates)*"
+        },
+        {
+          "listitem": "*Inconsistent data (different values for the same customer or book)*"
+        },
+        {
+          "para": "***To fix 1NF:***"
+        },
+        {
+          "para": "*Each field should contain only single (atomic) values, and each record should represent one item per order.*"
+        },
+        {
+          "para": "***Example (1NF structure):***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "Order ID",
+                  "imgs": []
+                },
+                {
+                  "text": "Customer Name",
+                  "imgs": []
+                },
+                {
+                  "text": "Customer Phone",
+                  "imgs": []
+                },
+                {
+                  "text": "Book Title",
+                  "imgs": []
+                },
+                {
+                  "text": "Author Name",
+                  "imgs": []
+                },
+                {
+                  "text": "Price",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "001",
+                  "imgs": []
+                },
+                {
+                  "text": "John Banda",
+                  "imgs": []
+                },
+                {
+                  "text": "0977000001",
+                  "imgs": []
+                },
+                {
+                  "text": "Java Basics",
+                  "imgs": []
+                },
+                {
+                  "text": "Mark Lee",
+                  "imgs": []
+                },
+                {
+                  "text": "120",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "001",
+                  "imgs": []
+                },
+                {
+                  "text": "John Banda",
+                  "imgs": []
+                },
+                {
+                  "text": "0977000001",
+                  "imgs": []
+                },
+                {
+                  "text": "HTML Guide",
+                  "imgs": []
+                },
+                {
+                  "text": "Sara Kim",
+                  "imgs": []
+                },
+                {
+                  "text": "100",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Second Normal Form (2NF)",
+      "with": [
+        {
+          "listitem": "***Second Normal Form (2NF)***",
+          "marker": "(b)"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "Third Normal Form (3NF)",
+      "with": [
+        {
+          "listitem": "***Third Normal Form (3NF)***",
+          "marker": "(c)"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "OrderDetails Table",
+      "with": [
+        {
+          "para": "***OrderDetails Table***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "To fix 3NF:",
+      "with": [
+        {
+          "para": "***To fix 3NF:***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "Final 3NF Structure:",
+      "span": 2,
+      "with": [
+        {
+          "para": "***Final 3NF Structure:***"
+        },
+        {
+          "para": "***Customers Table***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "Authors Table",
+      "with": [
+        {
+          "para": "***Authors Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "AuthorID",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "AuthorID",
+                      "b": false,
+                      "it": true,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "AuthorName",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "AuthorName",
+                      "b": false,
+                      "it": true,
+                      "c": null
+                    }
+                  ]
+                }
+              ]
+            ],
+            "noHeader": true
+          }
+        },
+        {
+          "para": "***Books Table***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source",
+      "span": 3
+    },
+    {
+      "find": "Summary",
+      "with": [
+        {
+          "para": "***Summary***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
     }
   ],
   "mergePara": [
@@ -2126,6 +2550,74 @@
     }
   ],
   "tables": [
+    {
+      "match": "basic and advanced troubleshooting",
+      "_kc": true,
+      "_why": "key competences: the PDF's line breaks inside cells, half-bold names, split over two tables",
+      "columns": [
+        "COMPETENCE",
+        "DESCRIPTOR"
+      ],
+      "rows": [
+        [
+          "Technical Proficiency",
+          "Comprehensive understanding of computer components and their functions, and ability to perform basic and advanced troubleshooting and maintenance."
+        ],
+        [
+          "Programming Skills",
+          "Proficiency in writing, debugging, and optimising programs using various programming languages, including Scratch, Python, and JavaScript, with an understanding of object-oriented programming concepts."
+        ],
+        [
+          "Data Structure Skills",
+          "Ability to create, manipulate, and apply basic and advanced data structures, such as arrays, linked lists, stacks, queues, dictionaries, sets, and trees, in problem-solving."
+        ],
+        [
+          "Algorithmic Thinking",
+          "Competence in designing, implementing, and analysing both basic and advanced algorithms, including sorting, searching, recursion, and dynamic programming, with a focus on optimisation and complexity analysis."
+        ],
+        [
+          "Web Development Skills",
+          "Proficiency in designing and developing web pages using HTML, CSS, and JavaScript, including the ability to create responsive designs and interactive web elements."
+        ],
+        [
+          "Database Management Skills",
+          "Comprehensive understanding of database concepts, ability to perform basic and advanced SQL queries, design and normalise database schemas, and develop database-driven applications."
+        ],
+        [
+          "Networking Knowledge",
+          "Knowledge of basic and advanced networking concepts, components, protocols, and configurations, with the ability to set up, manage, and troubleshoot computer networks."
+        ],
+        [
+          "Cybersecurity Awareness",
+          "Understanding of fundamental and advanced cybersecurity principles, ability to identify and mitigate various cyber threats, implement network security measures, and apply cybersecurity frameworks."
+        ],
+        [
+          "Digital Citizenship",
+          "Awareness of ethical and responsible use of technology, understanding of digital footprints and online privacy management, and promotion of safe and responsible digital behaviour."
+        ],
+        [
+          "Application Software Skills",
+          "Proficiency in using word processing and spreadsheet software for various tasks, including creating and formatting documents, using advanced spreadsheet functions, and developing database-driven applications."
+        ],
+        [
+          "Critical Thinking and Problem-Solving",
+          "Enhanced problem-solving skills through algorithmic thinking, data structure manipulation, and practical application of programming concepts to solve complex problems."
+        ],
+        [
+          "Collaboration and Communication",
+          "Improved teamwork and communication skills through collaborative projects, peer reviews, and presentations, fostering an environment of cooperative learning and knowledge sharing."
+        ],
+        [
+          "Ethical and Societal Awareness",
+          "Awareness of the ethical implications of technology use and its societal impact, promoting the responsible and informed use of ICT."
+        ]
+      ]
+    },
+    {
+      "match": "Awareness of the ethical implications",
+      "drop": true,
+      "_kc": true
+    },
     {
       "match": "\"text\":\"L\"",
       "_why": "source p21 truth table: the conversion lost the W and M headings and the first row",
@@ -2197,6 +2689,30 @@
       "drop": true,
       "_why": "empty grid (put back below with its text)",
       "_restore": true
+    },
+    {
+      "match": "CustomerID",
+      "noHeader": true,
+      "all": true,
+      "_why": "Exercise 5 (source pp115-116): one-row field lists, plain boxes in the source"
+    },
+    {
+      "match": "BookID",
+      "noHeader": true,
+      "all": true,
+      "_why": "Exercise 5 (source pp115-116): one-row field lists, plain boxes in the source"
+    },
+    {
+      "match": "OrderID",
+      "noHeader": true,
+      "all": true,
+      "_why": "Exercise 5 (source pp115-116): one-row field lists, plain boxes in the source"
+    },
+    {
+      "match": "AuthorID",
+      "noHeader": true,
+      "all": true,
+      "_why": "Exercise 5 (source pp115-116): one-row field lists, plain boxes in the source"
     }
   ],
   "tableToBox": [
@@ -3009,7 +3525,7 @@
     },
     {
       "after": "Learners identify a mobile application, state its purpose and category",
-      "_why": "source pp143-144: lost in the Word conversion",
+      "_why": "source pp143-144: lost in the Word conversion; outside: the anchor sits in an Alternative Activity box",
       "items": [
         {
           "label": "EXERCISE 1"
@@ -3114,7 +3630,8 @@
           }
         }
       ],
-      "_restore": true
+      "_restore": true,
+      "outside": true
     },
     {
       "after": "The main problem is that buyers do not know",
@@ -3220,5 +3737,146 @@
       "_restore": true
     }
   ],
-  "extendBox": []
+  "extendBox": [],
+  "setHeading": [
+    {
+      "find": "Sub-Topic 3.1.1: Presentation Software",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.1.2: Desktop Publishing Software",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.2.1: Application of Logic Gates",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.3.1: The Internet",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.4.1: Data Protection and Privacy",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.5.1: Python Programming",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.5.2: Coding in Python",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.6.1: Web Interactivity",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.7.1: Database Management",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.8.1: AI Models",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.9.1: Application of Internet of Things",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.10.1: Introduction to Mobile Applications",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.11.1: Fundamentals of Cloud Computing",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.12.1: Mechanical and Electronic Systems",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Possible Answers",
+      "as": "head",
+      "all": true,
+      "_why": "two came in as section headings",
+      "_restore": true
+    }
+  ],
+  "authors": [
+    "Misheck Mutuzana",
+    "Collins Chinkalata",
+    "Ruth Gondwe",
+    "Shephat Phiri"
+  ],
+  "_authorsWhy": "as the TG manuscript lists them (CDC took Mutuzana off the LB only) - confirm with the user",
+  "replaceSection": [
+    {
+      "heading": "ACRONYMS",
+      "until": "TOPIC 3.1",
+      "items": [
+        "**1NF:** First Normal Form",
+        "**2FA:** Two-Factor Authentication",
+        "**2NF:** Second Normal Form",
+        "**3NF:** Third Normal Form",
+        "**AES:** Advanced Encryption Standard",
+        "**AI:** Artificial Intelligence",
+        "**AND:** Logical operation where all inputs must be true for the output to be true",
+        "**API:** Application Programming Interface",
+        "**AU:** African Union",
+        "**AWS:** Amazon Web Services",
+        "**AWS EC2:** Amazon Web Services Elastic Compute Cloud",
+        "**CAD:** Computer Aided Design",
+        "**CPU:** Central Processing Unit",
+        "**DBMS:** Database Management System",
+        "**DTP:** Desktop Publishing",
+        "**ECDL:** European Computer Driving Licence",
+        "**ECZ:** Examinations Council of Zambia",
+        "**GDPR:** General Data Protection Regulation",
+        "**GPS:** Global Positioning System",
+        "**GUI:** Graphical User Interface",
+        "**HTML:** Hypertext Markup Language",
+        "**IaaS:** Infrastructure as a Service",
+        "**ICT:** Information and Communication Technology",
+        "**IDE:** Integrated Development Environment",
+        "**IoT:** Internet of Things",
+        "**ISBN:** International Standard Book Number",
+        "**JETS:** Junior Engineers, Technicians and Scientists",
+        "**KCM:** Konkola Copper Mines",
+        "**LED:** Light Emitting Diode",
+        "**MCM:** Mopani Copper Mines",
+        "**MIEE:** Microsoft Innovative Educator Expert",
+        "**NOT:** Logical operation that reverses the input value",
+        "**OR:** Logical operation OR Gate",
+        "**PaaS:** Platform as a Service",
+        "**PDF:** Portable Document Format",
+        "**PTA:** Parent-Teacher Association",
+        "**SaaS:** Software as a Service",
+        "**SMS:** Short Message Service",
+        "**SQL:** Structured Query Language",
+        "**TEA:** Teaching Excellence and Achievement (Fulbright TEA Program)",
+        "**UI:** User Interface",
+        "**URL:** Uniform Resource Locator",
+        "**UX:** User Experience",
+        "**VPN:** Virtual Private Network",
+        "**ZEPH:** Zambia Educational Publishing House",
+        "**ZICTA:** Zambia Information and Communications Technology Authority"
+      ],
+      "_why": "the conversion ran two or three acronyms on to one line and set some as headings"
+    }
+  ]
 }

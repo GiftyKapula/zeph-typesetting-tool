@@ -360,7 +360,11 @@ function applyOverrides(blocks, ov) {
         if (hits(b)) {
           // (`span: n` replaces the matched block and the n-1 after it — a title line the conversion
           // ran together, with the tables it heads)
-          arr.splice(i, rb.span || 1, ...news);
+          // (`back: n` also removes the n blocks just before the match — a heading the conversion
+          // printed twice above the paragraph being rebuilt)
+          const back = Math.min(rb.back || 0, i);
+          arr.splice(i - back, (rb.span || 1) + back, ...news);
+          i -= back;
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
           done = true; return;
         }
@@ -2075,6 +2079,29 @@ function applyOverrides(blocks, ov) {
       };
       visit(blocks);
       if (!done) console.warn("!  table override (emptyAfter) not matched:", t.emptyAfter);
+      continue;
+    }
+    // (`match` + `drop: true`: delete that table — the second half of one the conversion split
+    // over two pages, its rows given in full to the first)
+    if (t.drop && t.match) {
+      let gone = false;
+      const del = (arr) => { for (let i = 0; i < arr.length && !gone; i++) { const b = arr[i]; if (!b || typeof b !== "object") continue;
+        if (b.t === "table" && JSON.stringify(b.rows || "").includes(t.match)) { arr.splice(i, 1); gone = true; return; }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) del(b[k]); } };
+      del(blocks);
+      if (!gone) console.warn("!  table override (drop) not matched:", t.match);
+      continue;
+    }
+    // (`match` + `noHeader: true` + `all: true`, no rows: every ONE-ROW table holding that text loses its
+    // heading-row styling — a one-row field list ("CustomerID | CustomerName") repeated down a
+    // page, drawn as plain boxes in the source, would otherwise print as solid header bars)
+    if (t.all && t.noHeader && t.match && !t.rows) {
+      let n = 0;
+      const mark = (arr) => { for (const b of arr) { if (!b || typeof b !== "object") continue;
+        if (b.t === "table" && (b.rows || []).length === 1 && JSON.stringify(b.rows).includes(t.match)) { b.noHeader = true; n++; }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) mark(b[k]); } };
+      mark(blocks);
+      if (!n) console.warn("!  table override (noHeader all) not matched:", t.match);
       continue;
     }
     // (`noHeader: true` — the table has no heading row, so its first row is not styled as one)
