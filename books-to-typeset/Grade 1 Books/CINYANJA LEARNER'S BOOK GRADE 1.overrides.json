@@ -273,10 +273,13 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image24.png"
     },
     "image31.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image25.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image25.png",
+      "crop": true,
+      "hmm": 61
     },
     "image33.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image34.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image34.png",
+      "w": 300
     },
     "image34.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image26.png"
@@ -479,7 +482,8 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image25.png"
     },
     "image54.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image54.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image54.png",
+      "w": 420
     },
     "image107.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image107.png"
@@ -749,6 +753,7 @@
   "dropBreaks": [
     9,
     10,
+    14,
     17,
     18,
     19,
@@ -773,5 +778,7 @@
     }
   ],
   "_note_replace": "p124: a dropped word, \"Bwelezani m mobweleza-bweleza\" -> \"Bwelezani Mvekelo mobweleza-bweleza\", as its nine other copies read.",
-  "_note_image128": "image128 (Samaria story picture, last unit) at 470 px so the unit test ends on its own page instead of carrying one item over."
+  "_note_image128": "image128 (Samaria story picture, last unit) at 470 px so the unit test ends on its own page instead of carrying one item over.",
+  "_note_image31": "image31 is one strip of three scenes (boy reading / mother cooking / father going to the field) that the manuscript crops three ways, one scene per sentence (Mwana akuwelenga buku p49, Amai akuphika nsima, Atate akupita ku munda). Its upscaled replacement is the whole strip, so crop: true re-applies the author's crop at each use. Shown 61 mm tall (hmm): the crop is a tall narrow strip, which at the default fixed height pushed whole lessons onto the next page.",
+  "_note_imageSizes": "Pictures sized down so a lesson moves up onto the part-empty page before it (user, 18 Nov: \"work on the image to move up\"): image33 (Chisomo story) 300 px, image54 (letter blocks) 420 px, image53 380 px, image128 470 px."
 }

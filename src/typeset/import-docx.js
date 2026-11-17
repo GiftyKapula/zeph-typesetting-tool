@@ -2503,7 +2503,10 @@ async function importDocx(docxPath, opts = {}) {
       // just the diagram, so ignoring it renders the whole Word window/UI. Apply the
       // crop on extraction. A replacement image (override) is already clean, so it is
       // never cropped. A cropped picture is re-encoded to PNG, so force a .png name.
-      const crop = useOvr ? null : rec.crop;
+      // { src, crop: true }: the replacement is an upscaled copy of the WHOLE picture (same
+      // shape), so the author's crop still applies to it, use by use. One picture cropped
+      // three ways (a strip of three scenes, each place showing one) needs this.
+      const crop = useOvr ? (ovrEntry.crop ? rec.crop : null) : rec.crop;
       // Same reasoning as the crop: a replacement image is supplied ready to print, in the
       // orientation it should appear in, so the manuscript's rotation is not re-applied.
       const rot = useOvr ? 0 : (rec.rot || 0);
@@ -2529,8 +2532,15 @@ async function importDocx(docxPath, opts = {}) {
           else if (isJpg && ext !== ".jpg" && ext !== ".jpeg") outBase = outBase.slice(0, -ext.length) + ".jpg";
         } catch (_) { /* sniff best-effort; fall through with the original name */ }
       }
-      const name = imgPrefix + outBase;
-      mediaOut.push({ src, name, crop, rot, emf: isEmf });
+      let name = imgPrefix + outBase;
+      // each differently-cropped use of the same picture gets a file of its own
+      let cropOf;
+      if (useOvr && ovrEntry.crop && crop) {
+        cropOf = name;
+        const k = mediaOut.filter((m) => m.cropOf === cropOf).length;
+        if (k) name = name.replace(/(\.[a-z0-9]+)$/i, `_c${k}$1`);
+      }
+      mediaOut.push({ src, name, crop, rot, emf: isEmf, ...(cropOf ? { cropOf } : {}) });
       let dispW = rec.w || 0, dispH = rec.h || 0;
       // Word records <wp:extent> for the UNROTATED frame, so a quarter-turned picture
       // occupies its transpose on the page.

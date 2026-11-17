@@ -1676,14 +1676,18 @@ async function typesetOne(docxPath, themeName) {
     walkH(blocks);
     if (n) console.log(`   tidySpacing: ${n} heading(s) with doubled spaces squeezed`);
   }
-  // stickyBetweenHeads: true — a one-paragraph line sitting between two headings (the
+  // stickyBetweenHeads: true — a labelled line sitting between two headings (the
   // Cinyanja G1 LB's "Luso Lapadela: …" skill line under strand / topic / sub-topic, over
   // "Nchito 1: …") stays on the page with the heading below it. Without it the heading
   // stack above could be left alone at a page foot with its first activity overleaf.
+  // Only a line that OPENS with a bold label ending in a colon: an ordinary one-line
+  // instruction between "Zocita" and the next activity heading must not stick, or whole
+  // runs of short activities chain together and can never move up onto a part-empty page.
   if (ov.stickyBetweenHeads) {
     const isH = (x) => x && /^(h2|h3|head|label)$/.test(x.t);
+    const labelled = (x) => Array.isArray(x.segs) && x.segs[0] && x.segs[0].b && /:\s*$/.test(x.segs[0].t || "");
     let n = 0;
-    for (let i = 1; i < blocks.length - 1; i++) if (blocks[i].t === "para" && isH(blocks[i - 1]) && isH(blocks[i + 1])) { blocks[i].sticky = true; n++; }
+    for (let i = 1; i < blocks.length - 1; i++) if (blocks[i].t === "para" && labelled(blocks[i]) && isH(blocks[i - 1]) && isH(blocks[i + 1])) { blocks[i].sticky = true; n++; }
     if (n) console.log(`   stickyBetweenHeads: ${n} line(s) kept with the heading below`);
   }
   let breakPoints = null;
