@@ -1,9 +1,11 @@
 {
-  "//source": "No .docx was supplied: the manuscript was rebuilt 2026-11-16 from the reviewer's PDF 'CTS_ Grade 3_TG_ ready for typesseting_1611 026.pdf' (183 pp, made by another copy of the engine) by the converter in C:/z/cg3 (model.mjs + build.mjs), with the reviewer's 44 round-1 comments applied in the rebuild (zeph round 1, #4813-#4856).",
-  "//coverImage": "cover-hires.png = the PDF picture (1536px, 283 DPI) upscaled 4x with Real-ESRGAN and resampled to 2048px. Kept as the final cover: comment #4813 asked for the Grade 3 Learner's Book picture, and on 2026-11-16 the user decided the current picture is alright.",
+  "//source": "No .docx was supplied: the manuscript was rebuilt 2026-11-16 from the reviewer's PDF 'CTS_ Grade 3_TG_ ready for typesseting_1611 026.pdf' (183 pp, made by another copy of the engine) by the converter in C:/z/cg3 (model.mjs + build.mjs), with the reviewer's 44 round-1 comments applied in the rebuild (zeph round 1, #4813-#4856). Round 2 (17 Nov, #4954-#4960): second author Eustace Panga Museka on the cover, title page, imprint (illustrator), author page and acknowledgement, applied in the rebuild.",
+  "//coverImage": "cover-hires.png = the Grade 3 Learner's Book cover picture (the word-free band of the old LB cover art, Real-ESRGAN x4), as round 2 comment #4955 asked (17 Nov). The round-1 picture is kept beside it as cover-hires-round1.png.",
   "coverImage": "Grade 3 CTS Teachers Guide-hires/cover-hires.png",
+  "//authors": "Round 2, #4954/#4956: second author added.",
   "authors": [
-    "Collins Chisoya"
+    "Collins Chisoya",
+    "Eustace Panga Museka"
   ],
   "//layoutCredit": "User, 2026-11-16: the CTS Grade 3 TG and LB credit two people for Cover and Book Layout - Gift Kapula and Teddy Ng`ambi.",
   "layoutCredit": [
