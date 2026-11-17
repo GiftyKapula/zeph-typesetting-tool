@@ -1262,6 +1262,114 @@
           "w": 250
         }
       ]
+    },
+    {
+      "find": "LUSO LAPADELA: 1.8.1.1 Chula mvekelo la malembo",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.8.1.1** Chula mvekelo la malembo"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.10.1.1 Zindikila mau osavuta",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.10.1.1** Zindikila mau osavuta"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.1.2.2 Funsani mafunso oyenela kuti mumvetse bwino ndi kudziwa zambili",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.2.1.2** Funsani mafunso oyenela kuti mumvetse bwino ndi kudziwa zambili"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.6.2.2 Fotokozani zithunzi",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.6.2.2** Fotokozani zithunzi"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.14.2.1 Gwila zida zolembela",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.14.2.1** Gwila zida zolembela"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.2.2.2 Tengani nao mbali pa zokambilana pogwilitsa nchito ziganizo zonse",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.2.2.2** Tengani nao mbali pa zokambilana pogwilitsa nchito ziganizo zonse"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.12.3.1 Siyanitsani zoona ndi maganizo.",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.12.3.1** Siyanitsani zoona ndi maganizo."
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.11.1.1 Zindikilani maina eni-eni ndi maina wamba",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.11.1.1** Zindikilani maina eni-eni ndi maina wamba"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.15.3.1 Patulani mau",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.15.3.1** Patulani mau"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: Nena mau ozunguza lilime.",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.5.2.1** Nena mau ozunguza lilime."
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: Welengani mau mokweza ndi kachulidwe moyenela..",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.9.1.2** Welengani mau mokweza ndi kachulidwe moyenela."
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: Welengani malemba mokweza ndi kachulidwe moyenela. komanso momveka bwino.",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.9.1.3** Welengani malemba mokweza ndi kachulidwe moyenela komanso momveka bwino."
+        }
+      ],
+      "all": true
     }
   ],
   "deleteRun": [
@@ -1282,22 +1390,6 @@
     "MUTU: KUWELENGA MWALUSO"
   ],
   "subtext": [
-    {
-      "from": "Nena mau ozunguza lilime.",
-      "to": "1.5.2.1 Nena mau ozunguza lilime."
-    },
-    {
-      "from": "Welengani mau mokweza ndi kachulidwe moyenela..",
-      "to": "1.9.1.2 Welengani mau mokweza ndi kachulidwe moyenela."
-    },
-    {
-      "from": "Welengani malemba mokweza ndi kachulidwe moyenela. komanso momveka bwino.",
-      "to": "1.9.1.3 Welengani malemba mokweza ndi kachulidwe moyenela komanso momveka bwino."
-    },
-    {
-      "from": "1.1.2.2 Funsani mafunso",
-      "to": "1.2.1.2 Funsani mafunso"
-    },
     {
       "from": "moyenela..",
       "to": "moyenela."
@@ -1371,5 +1463,6 @@
     "...................................................................................."
   ],
   "_note_tidy2": "Eleven activity titles ended in a full stop where 166 do not; Muyeso Woyembekezeka (12) -> Woyembekezeleka (206); a half-bold \"(i\".",
-  "_note_pictures": "Three pictures the TG pointed to but did not carry, taken from the sibling LB (corrected LB docx of 16 Nov, the same activities): the story cards (LB image27) for Longosolani makhadi awa, the four picture cards (LB image29) for Longosolani zithunzi izi, and the Masilabe chart (LB image119) in place of the note (Ikani cithunzi kapena makadi a masilabe pano.). Each upscaled 4x with Real-ESRGAN (realesrgan-x4plus) to well over 300 DPI. The authors' --- placeholders are the learners' writing lines (dotted lines in the LB): set as dotted lines like the book's other ones."
+  "_note_pictures": "Three pictures the TG pointed to but did not carry, taken from the sibling LB (corrected LB docx of 16 Nov, the same activities): the story cards (LB image27) for Longosolani makhadi awa, the four picture cards (LB image29) for Longosolani zithunzi izi, and the Masilabe chart (LB image119) in place of the note (Ikani cithunzi kapena makadi a masilabe pano.). Each upscaled 4x with Real-ESRGAN (realesrgan-x4plus) to well over 300 DPI. The authors' --- placeholders are the learners' writing lines (dotted lines in the LB): set as dotted lines like the book's other ones.",
+  "_note_luso": "Luso Lapadela lines in one look, the majority's (44): label and code bold, the competence plain. Fourteen had the code plain and seven were typed as capitalised headings (LUSO LAPADELA: 1.8.1.1 …)."
 }

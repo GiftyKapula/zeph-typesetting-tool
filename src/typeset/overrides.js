@@ -337,21 +337,27 @@ function applyOverrides(blocks, ov) {
     const cell0 = (b) => { const c = b.t === "table" && Array.isArray(b.rows) && Array.isArray(b.rows[0]) && b.rows[0][0];
       return c ? wsNorm(typeof c === "string" ? c : (c.text || "")) : null; };
     const hits = (b) => rb.findTable ? (cell0(b) || "").startsWith(wsNorm(rb.findTable)) : wsNorm(blockPlain(b)) === want;
-    let done = false;
+    // `all: true` replaces EVERY match (a slip the manuscript repeats word for word, e.g. the
+    // same mis-styled line in each unit) — one entry per copy cannot work, since a rebuilt
+    // block that reads the same as the next copy would be matched again.
+    let done = false, nHit = 0;
     const walk = (arr) => {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
         if (hits(b)) {
-          arr.splice(i, 1, ...news);
+          const fresh = nHit++ ? (rb.with || []).map(mkBlock).filter(Boolean) : news;
+          arr.splice(i, 1, ...fresh);
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
-          done = true; return;
+          if (!rb.all) { done = true; return; }
+          i += fresh.length - 1;
+          continue;
         }
         for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key]);
       }
     };
     walk(blocks);
-    if (!done) console.warn("!  replaceBlocks not matched:", rb.find || rb.findTable);
+    if (!done && !nHit) console.warn("!  replaceBlocks not matched:", rb.find || rb.findTable);
   }
   // deleteRun: [{ from, to }] — delete a CONTIGUOUS run of sibling blocks, from the
   // first block whose trimmed text === `from` through the first block at/after it whose
