@@ -1227,6 +1227,41 @@
           "marker": "•"
         }
       ]
+    },
+    {
+      "find": "Longosolani makhadi awa kuti apange nkhani:",
+      "with": [
+        {
+          "listitem": "Longosolani makhadi awa kuti apange nkhani:",
+          "marker": "•"
+        },
+        {
+          "image": "cinyanja-g1-tg-art/lb-story-cards.png",
+          "w": 430
+        }
+      ]
+    },
+    {
+      "find": "Longosolani zithunzi izi kuti zipange nkhani:",
+      "with": [
+        {
+          "listitem": "Longosolani zithunzi izi kuti zipange nkhani:",
+          "marker": "•"
+        },
+        {
+          "image": "cinyanja-g1-tg-art/lb-picture-cards.png",
+          "w": 430
+        }
+      ]
+    },
+    {
+      "find": "(Ikani cithunzi kapena makadi a masilabe pano.)",
+      "with": [
+        {
+          "image": "cinyanja-g1-tg-art/lb-masilabe-chart.png",
+          "w": 250
+        }
+      ]
     }
   ],
   "deleteRun": [
@@ -1302,6 +1337,10 @@
     {
       "from": "  ",
       "to": " "
+    },
+    {
+      "from": "---",
+      "to": "………………………………………………………………………………"
     }
   ],
   "wordFix": {
@@ -1318,13 +1357,19 @@
     "chisangalalo": "cisangalalo",
     "Woyembekezeka": "Woyembekezeleka"
   },
-  "_note_pageBreak": "Unit 9 test: its last question's answer ran two lines onto a page of its own before the Unit 10 page; the question moves over with it.",
+  "_note_pageBreak": "Unit 9 test: its last question's answer ran two lines onto a page of its own before the Unit 10 page; the question moves over with it. Unit 10, KUWELENGA MOKWEZA 1.9.1.3: the Zocita block moves over with its Muyeso line, which had run onto a page by itself.",
   "pageBreakBefore": [
-    "monga momwe Katalina anathandizila amai ake"
+    "monga momwe Katalina anathandizila amai ake",
+    {
+      "find": "Zocita (Buku la Mphunzi tsamba 142)",
+      "near": "Mwana akutseka citseko ca khola"
+    }
   ],
   "_note_lists": "Unit 10: sixteen (i) Mphunzitsi / (ii) Aphunzi role lines and five bullets were typed bold, so they printed as headings; set like the other ~400.",
   "unbold": [
-    "(i"
+    "(i",
+    "...................................................................................."
   ],
-  "_note_tidy2": "Eleven activity titles ended in a full stop where 166 do not; Muyeso Woyembekezeka (12) -> Woyembekezeleka (206); a half-bold \"(i\"."
+  "_note_tidy2": "Eleven activity titles ended in a full stop where 166 do not; Muyeso Woyembekezeka (12) -> Woyembekezeleka (206); a half-bold \"(i\".",
+  "_note_pictures": "Three pictures the TG pointed to but did not carry, taken from the sibling LB (corrected LB docx of 16 Nov, the same activities): the story cards (LB image27) for Longosolani makhadi awa, the four picture cards (LB image29) for Longosolani zithunzi izi, and the Masilabe chart (LB image119) in place of the note (Ikani cithunzi kapena makadi a masilabe pano.). Each upscaled 4x with Real-ESRGAN (realesrgan-x4plus) to well over 300 DPI. The authors' --- placeholders are the learners' writing lines (dotted lines in the LB): set as dotted lines like the book's other ones."
 }
