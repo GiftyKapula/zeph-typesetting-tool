@@ -1539,7 +1539,7 @@
   else { flowsegs(ss) }
 }
 // A list item rendered with the writer's real marker (a) / 1. / i. / •).
-#let listitem(ss, marker, wide: false) = {
+#let listitem(ss, marker, wide: false, indent: false) = {
   let isbullet = marker == "•"
   // A numbered/lettered marker used to be bold unconditionally — right for the
   // common case (a bold numbered step), but it left the marker visibly bolder
@@ -1572,6 +1572,11 @@
   let txts = ss.map(s => { let t = s.at("t", default: ""); if type(t) == str { t } else { "x" } })
   let alltxt = txts.join("").trim()
   let allBold = ss.all(s => { let t = s.at("t", default: ""); (type(t) == str and t.trim() == "") or s.at("b", default: false) })
+  // `indent`: a syllabus list in the body of a numbered section head ("6. Teaching and
+  // Learning Methods") sits 7mm in, its bullets lined up with the indented paragraphs
+  // above it (Literature in Zambian Languages Methods, round 1: "align the bullets with
+  // the text under 6").
+  let item = if indent { pad(left: 7mm, item) } else { item }
   if syllabus and not isbullet and allBold and alltxt.len() <= 60 and not alltxt.ends-with(".") {
     block(sticky: true, breakable: false, item)
   } else { item }

@@ -227,7 +227,7 @@ function emit(blocks) {
       case "colsum": out += `#colsum(${strArr(b.rows || [])}, ${strArr(b.answerRows || [])})\n`; break;
       case "numbond": out += `#numbond(${S(b.whole)}, ${S(b.a)}, ${S(b.b)})\n`; break;
       case "vspace": out += `#v(${b.h || "6mm"})\n`; break;
-      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")}${wideAt.has(bi) ? ", wide: true" : ""})\n`; break;
+      case "listitem": out += `#listitem(${segArr(b.segs)}, ${S(b.marker || "•")}${wideAt.has(bi) ? ", wide: true" : ""}${b.sylIndent ? ", indent: true" : ""})\n`; break;
       case "figcaption": out += `#figcaption(${S(b.text)})\n`; break;
       case "loentry": out += `#loentry(${S(b.num)}, ${S(b.title)}, ${S(b.page)})\n`; break;
       case "image": {
@@ -6971,6 +6971,9 @@ function normaliseQuestionMarkBold(blocks) {
           // other heading closes it.
           inNumbered = numbered(plain); continue;
         }
+        // a bullet list in that body lines up with its paragraphs (round 1, Literature in
+        // Zambian Languages Methods: "align the bullets with the text under 6")
+        if (b.t === "listitem" && inNumbered) { b.sylIndent = true; continue; }
         if (b.t !== "para") { inNumbered = false; continue; }
         if (!plain) continue;
         if (numbered(plain)) inNumbered = true;      // a numbered item written as a paragraph
