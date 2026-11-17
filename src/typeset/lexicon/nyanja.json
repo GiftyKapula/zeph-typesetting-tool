@@ -9,6 +9,7 @@
   ],
   "terms": {
     "grade": [
+      "GIREDI",
       "GILEDI"
     ],
     "form": [
@@ -168,6 +169,9 @@
     ],
     "level_ordinary": [
       "Maphunzilo a Sekondale a Mulingo Wamba"
+    ],
+    "authors_label": [
+      "ALEMBI"
     ]
   },
   "extras": [],

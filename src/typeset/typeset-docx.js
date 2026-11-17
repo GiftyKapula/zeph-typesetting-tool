@@ -480,7 +480,7 @@ async function typesetOne(docxPath, themeName) {
     if (!media.some((m) => m.name === name)) media.push({ src, name });
     spec.raw = { t: "image", file: name, w: spec.w || 601, tall: false };
   }
-  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.uniformLabel || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.uniformLabel || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing || ov.justifySection) { applyOverrides(blocks, ov); }
   // glossaryColon: true — in the glossary, a term is followed by a colon, not the hyphen
   // the author typed: "Bacikombo- Caamba bamukowa" -> "Bacikombo: Caamba bamukowa".
   if (ov.glossaryColon) {
@@ -693,6 +693,20 @@ async function typesetOne(docxPath, themeName) {
   const isPrimaryLB = eduLevel === "Primary Education Level" && !isTeacherBookName(base);
   if (isPrimaryLB && !ov.keepScaffold) blocks = stripPrimaryScaffold(blocks);
 
+  // A manuscript delivered BODY-ONLY — no cover page, no imprint, no contents — gives the
+  // cover-detection pass in import-docx.js nothing to find, so no `cover` block is created.
+  // Every hook below (the ZEPH logo, `coverImage`, the cover-line fallback) is guarded on
+  // that block existing, so such a book came out with NO cover at all — silently, even when
+  // the override named a perfectly good cover photo: the image was bundled into media and
+  // then never placed. Setting `coverImage` is an explicit statement that this book has a
+  // cover, so when the manuscript supplied no cover page, open one here and let the usual
+  // fallback below synthesise its lines from the theme subject + the grade/book-type in the
+  // file name. Guarded on `coverImage` so a book that genuinely wants no cover still gets
+  // none.
+  if (ov.coverImage && !blocks.some((b) => b.t === "cover")) {
+    blocks.unshift({ t: "cover", lines: [], byline: [] });
+    console.log("   manuscript ships no cover page — opened one for coverImage");
+  }
   // ZEPH house style: put the OFFICIAL ZEPH logo (zeph-logo/image.png — a clean
   // transparent-background mark) on the front + back covers of EVERY book,
   // regardless of theme/variant. This unconditionally overwrites whatever
@@ -1661,6 +1675,20 @@ async function typesetOne(docxPath, themeName) {
     };
     walkH(blocks);
     if (n) console.log(`   tidySpacing: ${n} heading(s) with doubled spaces squeezed`);
+  }
+  // stickyBetweenHeads: true — a labelled line sitting between two headings (the
+  // Cinyanja G1 LB's "Luso Lapadela: …" skill line under strand / topic / sub-topic, over
+  // "Nchito 1: …") stays on the page with the heading below it. Without it the heading
+  // stack above could be left alone at a page foot with its first activity overleaf.
+  // Only a line that OPENS with a bold label ending in a colon: an ordinary one-line
+  // instruction between "Zocita" and the next activity heading must not stick, or whole
+  // runs of short activities chain together and can never move up onto a part-empty page.
+  if (ov.stickyBetweenHeads) {
+    const isH = (x) => x && /^(h2|h3|head|label)$/.test(x.t);
+    const labelled = (x) => Array.isArray(x.segs) && x.segs[0] && x.segs[0].b && /:\s*$/.test(x.segs[0].t || "");
+    let n = 0;
+    for (let i = 1; i < blocks.length - 1; i++) if (blocks[i].t === "para" && labelled(blocks[i]) && isH(blocks[i - 1]) && isH(blocks[i + 1])) { blocks[i].sticky = true; n++; }
+    if (n) console.log(`   stickyBetweenHeads: ${n} line(s) kept with the heading below`);
   }
   let breakPoints = null;
   if (ov.dropBreaks) {
