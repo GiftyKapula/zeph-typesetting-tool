@@ -19,9 +19,9 @@
     "",
     "ROUND 1 (Google Drive comments, 25 Oct - 16 Nov 2026, Mushinga K. Mooto): 18 comments, applied 2026-11-17. Each change carries its",
     "comment in _why. The reviewer marked the copy of 13 Oct; the Director's name (Petronella M. Samutete (Ms)) is already the engine's.",
-    "Placed from context (the e-mail carries no highlighted passage, or only one word): the bracket after 'literary devices' (2.2.2.1),",
-    "the two novel activities (2.2.1.1, whose competence ends on the highlighted word 'novel'), and the '2' deleted from 'Teaching",
-    "Experience 2 (Term 2)'. 2.3.3.4 Adjudicate drama came without an expected standard: 'Drama adjudicated appropriately' added,",
+    "The reviewed copy itself (Downloads, 17 Nov) carries the highlights: every comment checked against it. The two novel",
+    "activities open 2.2.1.1's list (highlight on its first bullet); the bracket follows 'Analysing a given novel'; both Teaching",
+    "Experience items deleted, so the Scope and Sequence row goes. 2.3.3.4 Adjudicate drama came without an expected standard: 'Drama adjudicated appropriately' added,",
     "in the pattern of the three above it -- author to confirm.",
     "NUMBERING CHECK: 3 notes, all on the TEACHING PRACTICE row the reviewer asked for above 2.3 (unnumbered by design)."
   ],
@@ -109,11 +109,6 @@
       "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 26 Oct) 1.1.3: 'consider deleting the repeated part ('Zambian in')'",
       "find": "1.1.3 Teaching Literature in Zambian in Zambian languages",
       "with": "1.1.3 Teaching Literature in Zambian Languages"
-    },
-    {
-      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence, School Teaching Experience: 'Teaching Experience 1 (Term 1): Delete'; and '2': 'Delete' -- the one left is no longer numbered",
-      "find": "• Teaching Experience 1 (Term 1)\n• Teaching Experience 2 (Term 2)",
-      "with": "• Teaching Experience (Term 2)"
     }
   ],
   "cellSubtext": [
@@ -138,9 +133,9 @@
       "to": "Explaining the forms of written literature"
     },
     {
-      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) 2.2.2.1 (no passage highlighted; placed at the literary devices): 'add the following bracket and its content: (symbolism, elements of a novel, narrative technique ...)'",
-      "from": "Exploring the literary devices in a given text",
-      "to": "Exploring the literary devices in a given text (symbolism, elements of a novel, narrative technique …)"
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) 2.2.2.1 : 'add the following bracket and its content: (symbolism, elements of a novel, narrative technique ...)' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov) (p33: 'Analysing a given novel')",
+      "from": "• Analysing a given novel",
+      "to": "• Analysing a given novel (symbolism, elements of a novel, narrative technique …)"
     },
     {
       "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) 2.2.1.1 (highlighted: 'novel'): 'insert another one learning activity: Identifying types of novels ...; Identifying features of a novel ...'",
@@ -246,6 +241,12 @@
     {
       "_why": "2026-11-17: after the round-1 additions 2.2.2 split two bullets overleaf (house page-break standard: no 1-2 line carry-overs)",
       "startsWith": "2.2.2 Novel Analysis"
+    }
+  ],
+  "removeRow": [
+    {
+      "_why": "ROUND 1 (Drive, Mushinga K. Mooto, 16 Nov) Scope and Sequence p37: 'Teaching Experience 1 (Term 1): Delete' and 'Teaching Experience 2 (Term 2): Delete' -- placed by the highlight in the reviewed copy (Downloads, 17 Nov) -- nothing is left in the row, so it goes",
+      "find": "School Teaching Experience"
     }
   ]
 }
