@@ -368,12 +368,17 @@ const DOUBLE_OK = new Set(["had", "that"]);
 function fixProse(text) {
   const hits = [];
   let out = String(text ?? "");
-  out = out.replace(/\b([A-Za-z]{2,})(\s+)(\1)\b/gi, (m, a, sp, b) => {
+  out = out.replace(/\b([A-Za-z]{2,})(\s+)(\1)\b/gi, (m, a, sp, b, at, all) => {
     if (a.toLowerCase() !== b.toLowerCase()) return m;
+    // A type and a variable of the same name is code: "Button button = findViewById(…)".
+    if (/^\s*[=;(.]/.test(all.slice(at + m.length))) return m;
     if (DOUBLE_OK.has(a.toLowerCase())) return m;
     // Both capitalised alike is a title that repeats on purpose — the song "Twinkle
     // Twinkle Little Star" lost a word in the Literature in English Form 1 TG.
     if (a === b && /^[A-Z][a-z]/.test(a)) return m;
+    // One of the pair in capitals and the other not is a word NAMED, not typed twice:
+    // "a logic condition like AND or OR" lost its OR (Computer Science Form 3 LB).
+    if ((a === a.toUpperCase()) !== (b === b.toUpperCase())) return m;
     hits.push(`"${a}${sp}${b}" -> "${a}"`);
     return a;
   });

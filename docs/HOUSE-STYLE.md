@@ -239,7 +239,7 @@ off, so a change only touches the books that opt in. Keys:
 
 | Key | What it does |
 |---|---|
-| `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block |
+| `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block; `edit` falls back to table cells when no block matches, and `editAll` takes in every cell too (a phrase split across formatting runs is still found) |
 | `editAnswer` | like `editAll`, but rewrites a qa part's own **answer** text (`.a`/`.aseg`) instead of its question — for a stray leftover option letter the manuscript's answer itself carries (e.g. "C use of basso continuo" on a question that isn't even multiple-choice) |
 | `subtext` | replace a substring in **every run** containing it, keeping its bold/italic/colour |
 | `retext` | change a run whose trimmed text equals `from` to `to`, keeping bold/italic/colour |
@@ -282,6 +282,24 @@ off, so a change only touches the books that opt in. Keys:
 | `sigGap` | a taller signing space above every Foreword/Preface/Acknowledgement signatory (e.g. `"22mm"`) than the template's 12 mm, for a reviewer who asks for more room to sign |
 | `hyphenate` | `false`: no word is broken across two lines with a hyphen anywhere in the book (a reviewer marked every "profes-sional" break); `true` turns hyphenation back on for a theme that switches it off |
 | `tocUnitsOnly` | `false` also lists front/back matter (Authors, Foreword, References, …) in the TOC, not just units/topics |
+
+**Books converted from a PDF** (ilovepdf / Word reflow — ported from `main`, 2026-11-16; all opt-in)
+
+| Key | What it does |
+|---|---|
+| `unwrapTextboxes` | `true`: every floating text box (an answer, a box, a side note the converter could not flow) gives its paragraphs back to the text, after the paragraph that anchors it; old page numbers and PDF comment pop-ups are dropped |
+| `coverUntil` | the text the first block AFTER the cover starts with, when the book's © line was lost (drawn as a picture) and the cover would otherwise print as page 1 |
+| `joinBrokenLines` | `true`: one paragraph per printed line rejoined into sentences; wrapped box titles get their last words back; lost sub-headings restored; activities left as loose paragraphs boxed (`converted.js`) |
+| `joinSplitTables` | `true`: a table the PDF split at a page break joined back (same column count; a continuation row joins the row above) |
+| `collapseSpaces` | `true`: the old layout's doubled spaces reduced to one, across runs (after `edit`, so its `find` still matches) |
+| `boxTableRows` | `true`: every row of a one-column box table is the box's (a row opening with its own box title starts a new box), and a title row over a data table keeps the table inside the box. `boxAllRows` is the older, plainer form |
+| `groupPictures` | `true`: a figure built from a GROUP of pictures (several images placed together) is drawn as one picture instead of showing only its first; on already for `unwrapTextboxes` books |
+| `reboxExercises` | `true`: the importer's exercise boxes laid out flat and boxed again, so one that ran past its end gives back the next sub-topic |
+| `exerciseLeadsOut` | `true`: a teacher's lead-in to the next activity ("Introduce…", "Guide…") ends the exercise box above it |
+| `imprint` | `{ copyright, rights, isbn, groups: [{ label, lines }] }`: the copyright page rewritten in the house layout; the manuscript's duplicate credits section dropped |
+| `boxAlternatives` | `true` or `{ also: ["^Learner['’]s Activity"] }`: every "Alternative Activity" in a box of its own, one style (theme box `alt`), whatever shape it came in; "Expected Competences:" bold |
+| `liftCrossCutting` | `true`: each CROSS-CUTTING ISSUES table out of the exercise box that swallowed it, all one shape (issue bold, two columns) |
+| `palette` | `{ primary, primary2, accent, cyan, signature }` (and `act` / `ex` / `alt` boxes): a book's own colours in place of its theme's |
 
 **Lists / questions / tables**
 
