@@ -2501,6 +2501,11 @@
         }
       ],
       "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "Misheck Mutuzana holds an MSc in Education (Instructional Technology) and a BSc in Computing with Education from the University of Zambia. He is pursuing a PhD in Computer Science at Atlantic International University, USA. He is a Microsoft Innovative Educator Expert, Fulbright Scholar and Chief Examiner for Computer Studies with extensive teaching experience in Zambia",
+      "with": [],
+      "_why": "user 17 Nov: match the LB - CDC removed Mutuzana as author (kept as illustrator on the imprint)"
     }
   ],
   "mergePara": [
@@ -3818,7 +3823,6 @@
     }
   ],
   "authors": [
-    "Misheck Mutuzana",
     "Collins Chinkalata",
     "Ruth Gondwe",
     "Shephat Phiri"
