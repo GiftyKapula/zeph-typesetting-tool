@@ -1657,7 +1657,19 @@ function applyOverrides(blocks, ov) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
         if ((b.t === "para" || b.t === "listitem") && b.segs) {
-          const k = b.segs.findIndex((s) => typeof s.t === "string" && s.t.trimStart().startsWith(sp.find));
+          let k = b.segs.findIndex((s) => typeof s.t === "string" && s.t.trimStart().startsWith(sp.find));
+          // `find` across runs or mid-run (numbered steps typed into one paragraph:
+          // "… kawu. " + "iii. " + "Atudizi ahani …"): split where it starts in the text,
+          // cutting that run in two when it starts inside one
+          const txt = b.segs.map((s) => (typeof s.t === "string" ? s.t : "")).join("");
+          const at = txt.indexOf(" " + sp.find) + 1;
+          if (k <= 0 && at > 0 && b.segs.every((s) => typeof s.t === "string")) {
+            for (let m = 0, pos = 0; m < b.segs.length; pos += b.segs[m].t.length, m++) {
+              const s = b.segs[m];
+              if (at === pos) { k = m; break; }
+              if (at > pos && at < pos + s.t.length) { b.segs.splice(m, 1, { ...s, t: s.t.slice(0, at - pos) }, { ...s, t: s.t.slice(at - pos) }); k = m + 1; break; }
+            }
+          }
           // carry the source paragraph's alignment onto the new one, so splitting a
           // centred imprint line ("Cover and Page Design by X") leaves both halves
           // centred instead of flushing the tail left

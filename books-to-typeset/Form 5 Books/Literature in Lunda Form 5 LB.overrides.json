@@ -1,0 +1,298 @@
+{
+  "_comment": [
+    "Literature in Lunda Form 5 Learner's Book (manuscript: 'Literature in Lunda_ Form 5_BB_Ready for Typesetting_111026'), first typeset 2026-11-18.",
+    "Per-book fixes only: this manuscript's own heading styles and slips."
+  ],
+  "_comment_cover": [
+    "Cover/title words are the manuscript's own: 'LITILICHA MU LUNDA', 'MUKANDA WAKADIZI'. Level line from lexicon/lunda.json level_advanced",
+    "('Shikola yeneni yakudizila nyidimu'); the cover's 'SHIKOLA YENENI YA FOMU 5-6' cannot be used - its 'Fomu 5-6' is read as the form line.",
+    "Authors are dotted blanks in the manuscript (NSONEKI ……) - left blank, not invented."
+  ],
+  "subject": "Litilicha mu Lunda",
+  "localLabels": true,
+  "authors": [],
+  "_comment_headings": [
+    "The 9 chapters are Word Heading 1; the word list wrongly promoted the Heading 3 question label 'Chibalu chatachi (Kutaña)' (Part one) to a chapter - put back.",
+    "Chapter 8's title is typed as two Heading 1 paragraphs - joined into one.",
+    "Each sub-topic title is a plain line before its picture and 'Kulumbulula' - made a sub-topic heading (h2). Its stray '1.4', trailing full stops, the 'Litiicha' slip and one lower-case start tidied."
+  ],
+  "_comment_topSections": [
+    "The 9 chapter titles (Word Heading 1, no number or unit word) are the book's units: matched exactly, in capitals."
+  ],
+  "topSections": "^(KULUMBULULA KUSONEKA KWAMUSHIKOLA|YUMA YIKUKWASHAKU KUTOÑOZHOKA MUKUKEÑA NAKUWANA NSAÑU|MAZU A LITILICHA|NSAÑU YACHISEMWA|KUHOSHA NAKUMWEKESHA NYEVULU MU LITILICHA|KWAFUMINI NA KUKULA KWA LITILICHA|KWAFUMINI NI KUKULA KWA LITILICHA MUNYICHIDI YAMWITUÑA DA ZAMBIA|ZHINZHILA ZHAMBOKA YITWAZATISHAÑA|ZHINZHILA ZHAMBOKA MWAKUDIZILA LITILICHA)$",
+  "topSectionsMatchCase": true,
+  "setHeading": [
+    {
+      "find": "Chibalu chatachi (Kutaña)",
+      "as": "h3"
+    },
+    {
+      "find": "ZHINZHILA ZHAMBOKA YITWAZATISHAÑA",
+      "text": "ZHINZHILA ZHAMBOKA YITWAZATISHAÑA KUSOMPESHA NAKULUMBULULA LITILICHA",
+      "as": "h1",
+      "mergeNext": true
+    },
+    {
+      "find": "Imwekenu yachuma na nshimbi yakusoneka kwamushikola",
+      "as": "h2"
+    },
+    {
+      "find": "Nyichidi yayipapilu yakusoneka",
+      "as": "h2"
+    },
+    {
+      "find": "Mazu akuhana nachu nshimbi mukusoneka kwamushikola",
+      "as": "h2"
+    },
+    {
+      "find": "1.4 Kwihihisha na nhoshelu",
+      "text": "Kwihihisha na nhoshelu",
+      "as": "h2"
+    },
+    {
+      "find": "Nyikunku yamazu",
+      "as": "h2"
+    },
+    {
+      "find": "yuma yisatu yamwekalila ntanjikilu kusoneka kwamushikola",
+      "text": "Yuma yisatu yamwekalila ntanjikilu kusoneka kwamushikola",
+      "as": "h2"
+    },
+    {
+      "find": "Kulumbulula ni koloka kwamazu mukachi kansañu",
+      "as": "h2"
+    },
+    {
+      "find": "Nzhila mwakusonekela",
+      "as": "h2"
+    },
+    {
+      "find": "Kwitezha nsulu yamazu mukusoneka kwamushikola.",
+      "text": "Kwitezha nsulu yamazu mukusoneka kwamushikola",
+      "as": "h2"
+    },
+    {
+      "find": "Litilicha na Chituñilu",
+      "as": "h2"
+    },
+    {
+      "find": "Litilicha na Yileñaleña",
+      "as": "h2"
+    },
+    {
+      "find": "Litiicha na kutoñozhoka yuma yayiha",
+      "text": "Litilicha na kutoñozhoka yuma yayiha",
+      "as": "h2"
+    },
+    {
+      "find": "Litilicha na Nsañu",
+      "as": "h2"
+    },
+    {
+      "find": "Mudimu wa kuhosha nakumwekesha nyevulu nakumwekesha yuma mwahitawu antu.",
+      "text": "Mudimu wa kuhosha nakumwekesha nyevulu nakumwekesha yuma mwahitawu antu",
+      "as": "h2"
+    },
+    {
+      "find": "Yitoñozhoka ya kwafumini na kukula kwa litilicha",
+      "as": "h2"
+    },
+    {
+      "find": "Kutiyashana kwawa nsoneki munsonekelu ya litilicha",
+      "as": "h2"
+    },
+    {
+      "find": "Kushimuna nsañu yamuchisemwa mu African na mushimwinu yawa nyitoka mwendelaña nsañu",
+      "as": "h2"
+    },
+    {
+      "find": "Ansoneki amu Africa nakukula kwa litilicha muma dimi amu Zambia.",
+      "text": "Ansoneki amu Africa nakukula kwa litilicha muma dimi amu Zambia",
+      "as": "h2"
+    },
+    {
+      "find": "Chadiñili litilicha mafuku amunyima mu Zambia",
+      "as": "h2"
+    },
+    {
+      "find": "Mwekalila litilicha yahayaaka munu mu Zambia.",
+      "text": "Mwekalila litilicha yahayaaka munu mu Zambia",
+      "as": "h2"
+    },
+    {
+      "find": "Chadiñili litilicha mu Zambia kufuma hakutachiyulu",
+      "as": "h2"
+    },
+    {
+      "find": "Chisemwa / Zhinzhila zhamboka yitwazatishaña kusompesha nakulumbulula litilicha.",
+      "text": "Chisemwa / Zhinzhila zhamboka yitwazatishaña kusompesha nakulumbulula litilicha",
+      "as": "h2"
+    },
+    {
+      "find": "Kweseka zhinzhila zhazhiha mwakutañila litilicha yayiha mwakusompeshela nakulumbulula litilicha muyuma ya litilicha.",
+      "text": "Kweseka zhinzhila zhazhiha mwakutañila litilicha yayiha mwakusompeshela nakulumbulula litilicha muyuma ya litilicha",
+      "as": "h2"
+    },
+    {
+      "find": "Zhinzhila mwakutañila litilicha",
+      "as": "h2"
+    }
+  ],
+  "tocDepth": 1,
+  "_comment_repeats": [
+    "The manuscript repeats a chapter's title and its opening paragraph word for word in front of three later sub-topics",
+    "(Chapter 1 twice, Chapter 3 once: paragraphs 240-241, 443-444, 878-879). Typeset, each read as a new chapter - the three repeats removed."
+  ],
+  "removeRange": [
+    {
+      "after": "kwikala kadadi kamuhohu",
+      "from": "KULUMBULULA KUSONEKA KWAMUSHIKOLA",
+      "to": "Nyichidi yayipapilu yakusoneka"
+    },
+    {
+      "after": "Mazu amuntu aweni:",
+      "from": "KULUMBULULA KUSONEKA KWAMUSHIKOLA",
+      "to": "Nyikunku yamazu"
+    },
+    {
+      "after": "Ntempa na chipateli”, Sonekaku",
+      "from": "MAZU A LITILICHA",
+      "to": "Litilicha na Yileñaleña"
+    }
+  ],
+  "dropBreaks": [
+    6,
+    8,
+    19,
+    23
+  ],
+  "tightSection": [
+    {
+      "title": "KULEMA CHAMUKANDA WUNU"
+    }
+  ],
+  "_comment_breaks": [
+    "Every sub-topic opens a fresh page; where that left the last 1-4 lines of the previous sub-topic alone on a page, that break is dropped (numbers from _breaks.json)."
+  ],
+  "afterListGap": "16pt",
+  "_comment_afterListGap": [
+    "Room above a heading that follows a list: 16pt (house 28pt) - with 28pt the last lines of Chapter 5 (and, after the drops, p53) fell alone onto a page."
+  ],
+  "_comment_labels": [
+    "Activity labels in one form, Zhakwila N: - the manuscript also has ZHAKWILA 1:, Zhakwila: 3: and Zhakwila: 1 (colon before the number)."
+  ],
+  "editAll": [
+    {
+      "find": "ZHAKWILA 1:",
+      "with": "Zhakwila 1:"
+    },
+    {
+      "find": "Zhakwila: 3:",
+      "with": "Zhakwila 3:"
+    },
+    {
+      "find": "Zhakwila: 1:",
+      "with": "Zhakwila 1:"
+    },
+    {
+      "find": "Zhakwila: 1 ",
+      "with": "Zhakwila 1: "
+    },
+    {
+      "find": "Zhakwila: 2 ",
+      "with": "Zhakwila 2: "
+    },
+    {
+      "find": "Zhakwila: 3 ",
+      "with": "Zhakwila 3: "
+    },
+    {
+      "find": "Zhakwila: 4 ",
+      "with": "Zhakwila 4: "
+    },
+    {
+      "find": "Zhakwila: 5 ",
+      "with": "Zhakwila 5: "
+    },
+    {
+      "find": "Shakespare, W.",
+      "with": "Shakespeare, W."
+    },
+    {
+      "find": "Simth, J. “Ambition and Darness",
+      "with": "Smith, J. “Ambition and Darkness"
+    },
+    {
+      "find": "“Literacy theory: An introduction. “",
+      "with": "“Literary Theory: An Introduction.” "
+    },
+    {
+      "find": "Hill and wang",
+      "with": "Hill and Wang"
+    },
+    {
+      "find": "Frey, N. “Anatomy of Criticism: Four essay “Priceton university press",
+      "with": "Frye, N. “Anatomy of Criticism: Four Essays.” Princeton University Press"
+    },
+    {
+      "find": "“shakesspearss Blood",
+      "with": "“Shakespeare's Blood"
+    },
+    {
+      "find": "Hougthon Miflin",
+      "with": "Houghton Mifflin"
+    }
+  ],
+  "tidySpacing": true,
+  "_comment_split": [
+    "Roman-numbered steps the manuscript ran together in one paragraph (… ii. Atudizi … iii. Atudizi …) - each starts its own line."
+  ],
+  "splitBefore": [
+    {
+      "find": "ii. Atudizi awani"
+    },
+    {
+      "find": "iii. Atudizi atali"
+    },
+    {
+      "find": "iv. Atudizi alumbululi"
+    },
+    {
+      "find": "iii. Atudizi azañani"
+    },
+    {
+      "find": "iii. Atudizi ahani"
+    },
+    {
+      "find": "iii. Atudizi asoneki"
+    },
+    {
+      "find": "iii. Kadizi esekezhi"
+    },
+    {
+      "find": "iv. Kadizi ansoneki"
+    },
+    {
+      "find": "iv. Atudizi asoneki"
+    },
+    {
+      "find": "iii. Atudizi ahanjiki"
+    },
+    {
+      "find": "iv. Atudizi akuli"
+    },
+    {
+      "find": "iv. Atudizi asoneki"
+    }
+  ],
+  "coverWords": {
+    "printedBy": "Awidishili mumakina kudi"
+  },
+  "_comment_coverWords": [
+    "Back cover \"Printed by\" in the manuscript's own Lunda (its cover page: \"Awidishili mumakina kudi\")."
+  ],
+  "_comment_refs": [
+    "REFERENCES (the manuscript's own English heading kept): misspelt names and titles corrected - Shakespeare, Smith, Darkness, Literary Theory, Frye, Four Essays, Princeton University Press, Shakespeare's Blood, Hill and Wang, Houghton Mifflin."
+  ],
+  "coversInBook": true
+}
