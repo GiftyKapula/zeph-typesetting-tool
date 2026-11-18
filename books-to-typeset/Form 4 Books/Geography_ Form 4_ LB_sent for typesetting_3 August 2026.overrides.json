@@ -252,6 +252,104 @@
     {
       "find": "Figure 31: Picture showing different tools",
       "with": "Figure 33: Picture showing different tools"
+    },
+    {
+      "find": "EXERCISE 5",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 4"
+    },
+    {
+      "find": "EXERCISE 6",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 5"
+    },
+    {
+      "find": "EXERCISE 7",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 6"
+    },
+    {
+      "find": "EXERCISE 8",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 7"
+    },
+    {
+      "find": "EXERCISE 9",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 8"
+    },
+    {
+      "find": "EXERCISES 10 - 14",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISES 9 - 13"
+    },
+    {
+      "find": "EXERCISES 15 - 17",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISES 14 - 16"
+    },
+    {
+      "find": "EXERCISES 18 – 21",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISES 17 – 20"
+    }
+  ],
+  "images": {
+    "image13.jpeg": {
+      "w": 288
+    }
+  },
+  "replaceBlocks": [
+    {
+      "find": "EXERCISE 4",
+      "next": "Fish Processing Measures",
+      "with": []
+    }
+  ],
+  "editAll": [
+    {
+      "find": "END-OF-TOPIC",
+      "with": "END OF TOPIC"
+    },
+    {
+      "find": "EXERCISES 1 - 3",
+      "with": "EXERCISES 1 – 3"
+    },
+    {
+      "find": "EXERCISES 4 - 6",
+      "with": "EXERCISES 4 – 6"
+    },
+    {
+      "find": "EXERCISES 7 - 9",
+      "with": "EXERCISES 7 – 9"
+    },
+    {
+      "find": "EXERCISES 10 - 12",
+      "with": "EXERCISES 10 – 12"
+    },
+    {
+      "find": "EXERCISES 9 - 13",
+      "with": "EXERCISES 9 – 13"
+    },
+    {
+      "find": "EXERCISES 14 - 16",
+      "with": "EXERCISES 14 – 16"
+    },
+    {
+      "find": "EXERCISES 5 - 7",
+      "with": "EXERCISES 5 – 7"
+    },
+    {
+      "find": "EXERCISES 20 - 22",
+      "with": "EXERCISES 20 – 22"
+    },
+    {
+      "find": "EXERCISES 11 - 13",
+      "with": "EXERCISES 11 – 13"
+    },
+    {
+      "find": "EXERCISES 5 - 8",
+      "with": "EXERCISES 5 – 8"
     }
   ]
 }

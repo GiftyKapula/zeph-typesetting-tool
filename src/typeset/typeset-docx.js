@@ -546,9 +546,15 @@ function emit(blocks) {
         // a page and migrates as a unit, stranding the unit banner on a near-empty
         // page. Only a small picture — one that plausibly shares a page with the
         // heading it titles — is pinned.
+        // A picture carrying its own caption is a finished figure, so the heading after it
+        // is the next section's and must not pull it along: Geography Form 4 LB's "Figure 7:
+        // Different types of irrigation systems" fitted under its text but went over with
+        // "Major Irrigation Areas in Zambia" (sticky to its own body), leaving the page
+        // above it three-fifths empty.
         const nb = nextB;
         const big = (b.w || 0) >= 400 || b.tall;
-        const sticky = !big && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
+        const capped = typeof b.caption === "string" && b.caption.trim() !== "";
+        const sticky = !big && nb && (((nb.t === "head" || nb.t === "h3") && !capped) || nb.t === "para");
         out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption.replace(/ {2,}/g, " ")) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
