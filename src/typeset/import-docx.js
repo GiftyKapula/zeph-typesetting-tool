@@ -2503,7 +2503,10 @@ async function importDocx(docxPath, opts = {}) {
       // just the diagram, so ignoring it renders the whole Word window/UI. Apply the
       // crop on extraction. A replacement image (override) is already clean, so it is
       // never cropped. A cropped picture is re-encoded to PNG, so force a .png name.
-      const crop = useOvr ? null : rec.crop;
+      // { src, crop: true }: the replacement is an upscaled copy of the WHOLE picture (same
+      // shape), so the author's crop still applies to it, use by use. One picture cropped
+      // three ways (a strip of three scenes, each place showing one) needs this.
+      const crop = useOvr ? (ovrEntry.crop ? rec.crop : null) : rec.crop;
       // Same reasoning as the crop: a replacement image is supplied ready to print, in the
       // orientation it should appear in, so the manuscript's rotation is not re-applied.
       const rot = useOvr ? 0 : (rec.rot || 0);
@@ -2529,8 +2532,15 @@ async function importDocx(docxPath, opts = {}) {
           else if (isJpg && ext !== ".jpg" && ext !== ".jpeg") outBase = outBase.slice(0, -ext.length) + ".jpg";
         } catch (_) { /* sniff best-effort; fall through with the original name */ }
       }
-      const name = imgPrefix + outBase;
-      mediaOut.push({ src, name, crop, rot, emf: isEmf });
+      let name = imgPrefix + outBase;
+      // each differently-cropped use of the same picture gets a file of its own
+      let cropOf;
+      if (useOvr && ovrEntry.crop && crop) {
+        cropOf = name;
+        const k = mediaOut.filter((m) => m.cropOf === cropOf).length;
+        if (k) name = name.replace(/(\.[a-z0-9]+)$/i, `_c${k}$1`);
+      }
+      mediaOut.push({ src, name, crop, rot, emf: isEmf, ...(cropOf ? { cropOf } : {}) });
       let dispW = rec.w || 0, dispH = rec.h || 0;
       // Word records <wp:extent> for the UNROTATED frame, so a quarter-turned picture
       // occupies its transpose on the page.
@@ -3147,7 +3157,10 @@ async function importDocx(docxPath, opts = {}) {
       continue;
     }
     if (/^[.·•…\/\\|]{1,3}$/.test(plainOf(segs).trim())) continue;  // stray punctuation-only line (a lone "." or "/")
-    if (/^[A-Za-z]$/.test(plainOf(segs).trim())) continue;  // stray single letter (manuscript artifact, e.g. a lone "s")
+    // stray single letter (manuscript artifact, e.g. a lone "s") — but not a Word list item:
+    // a phonics lesson lists the letters to write one per numbered line ("Lembani malembo
+    // awa: 1. j 2. z 3. y 4. l", Cinyanja G1 LB), and every such list vanished.
+    if (/^[A-Za-z]$/.test(plainOf(segs).trim()) && !/<w:numPr>/.test(x)) continue;
     if (/^(Top|Bottom) of Form$/i.test(plainOf(segs).trim())) continue;  // Word form-field artifact (from a protected/form section)
     // imprint page: centred plain text. Long runs of spaces were used as
     // pseudo line-breaks (e.g. the publisher address), so turn them into real

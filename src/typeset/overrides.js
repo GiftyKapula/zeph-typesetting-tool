@@ -1480,6 +1480,13 @@ function applyOverrides(blocks, ov) {
     }
     if (!b) { console.warn("!  unlist not matched:", sub); continue; }
     b.t = "para"; delete b.marker; delete b.isList; delete b.numId; delete b.lvl;
+    // `renumber: true` — the line was item 1 of its list (an instruction the author numbered
+    // with the items under it: "1. Write these letters: 2. t 3. b …"): the numbered items
+    // that follow count again from 1.
+    if (ul.renumber) {
+      let k = 0;
+      for (let i = flat.indexOf(b) + 1; i < flat.length && flat[i].t === "listitem" && /^\d+\.$/.test(flat[i].marker || ""); i++) flat[i].marker = `${++k}.`;
+    }
   }
   // mergePara: [{ find, glue? }] — merge the paragraph that FOLLOWS the one matching
   // `find` into it (the manuscript split one sentence — or even one word — across two

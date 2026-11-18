@@ -154,6 +154,28 @@ async function typesetOne(docxPath, themeName) {
     walk(blocks);
     console.log(`   wordFix: ${n} word(s) repaired`);
   }
+  // midSentenceLower: ["Mau", "Mvekelo", …] — a manuscript whose find-and-replace left
+  // common words capitalised in the middle of sentences ("kuwelenga Mau ndi ziganizo",
+  // Cinyanja G1 LB). Lowercases each listed word in body text (paragraphs, list items,
+  // table cells) where it follows a lowercase word or a comma — never in a heading or a
+  // bold label, where the title case is right, and never at a sentence start.
+  if (Array.isArray(ov.midSentenceLower) && ov.midSentenceLower.length) {
+    const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(`([\\p{Ll},] +)(${ov.midSentenceLower.map(esc).join("|")})(?![\\p{L}])`, "gu");
+    let n = 0;
+    const low = (s) => s.replace(re, (m, pre, w) => { n++; return pre + w.charAt(0).toLowerCase() + w.slice(1); });
+    const walk = (arr, body) => {
+      for (const b of arr || []) {
+        if (!b || typeof b !== "object") continue;
+        const isBody = body || b.t === "para" || b.t === "listitem";
+        if (isBody && Array.isArray(b.segs)) for (const s of b.segs) if (typeof s.t === "string" && !s.b) s.t = low(s.t);
+        if (b.t === "table" && Array.isArray(b.rows)) for (const r of b.rows) for (const c of r || []) if (c && typeof c === "object") { if (typeof c.text === "string") c.text = low(c.text); walk(c.segs ? [{ t: "para", segs: c.segs }] : [], true); }
+        for (const k of ["body", "parts", "items", "blocks"]) if (Array.isArray(b[k])) walk(b[k], false);
+      }
+    };
+    walk(blocks, false);
+    console.log(`   midSentenceLower: ${n} word(s) lowercased`);
+  }
   // glossaryColumns: true — a word list (English word, then the local word) the author
   // laid out with tabs in the glossary: every entry becomes a row of one two-column grid,
   // so the local words line up in their own column with clear space after the English.
@@ -1470,10 +1492,13 @@ async function typesetOne(docxPath, themeName) {
   // groups. The text size never changes.
   if (ov.imprintSpacing) {
     const i = blocks.findIndex((b) => b.t === "titlepage");
-    const j = blocks.findIndex((b, k) => k > i && b.t === "toc");
+    let j = blocks.findIndex((b, k) => k > i && b.t === "toc");
     if (i < 0 || j < 0) console.warn("!  imprintSpacing: no imprint page found");
     else {
       for (let k = i + 1; k < j; k++) if (blocks[k].t === "vspace") blocks[k].h = ov.imprintGap || "2mm";   // (imprintGap: breathing space kept between the credit groups)
+      // two gaps back to back (the manuscript's blank line + an override's own gap) added up to
+      // double the space above some groups only (Cinyanja G1 LB): one gap per group
+      for (let k = j - 1; k > i + 1; k--) if (blocks[k].t === "vspace" && blocks[k - 1].t === "vspace") { blocks.splice(k, 1); j--; }
       blocks.splice(j, 0, { t: "parspacing", v: "0.86em" });
       blocks.splice(i + 1, 0, { t: "parspacing", v: ov.imprintSpacing });
     }
@@ -1676,6 +1701,20 @@ async function typesetOne(docxPath, themeName) {
     walkH(blocks);
     if (n) console.log(`   tidySpacing: ${n} heading(s) with doubled spaces squeezed`);
   }
+  // stickyBetweenHeads: true — a labelled line sitting between two headings (the
+  // Cinyanja G1 LB's "Luso Lapadela: …" skill line under strand / topic / sub-topic, over
+  // "Nchito 1: …") stays on the page with the heading below it. Without it the heading
+  // stack above could be left alone at a page foot with its first activity overleaf.
+  // Only a line that OPENS with a bold label ending in a colon: an ordinary one-line
+  // instruction between "Zocita" and the next activity heading must not stick, or whole
+  // runs of short activities chain together and can never move up onto a part-empty page.
+  if (ov.stickyBetweenHeads) {
+    const isH = (x) => x && /^(h2|h3|head|label)$/.test(x.t);
+    const labelled = (x) => Array.isArray(x.segs) && x.segs[0] && x.segs[0].b && /:\s*$/.test(x.segs[0].t || "");
+    let n = 0;
+    for (let i = 1; i < blocks.length - 1; i++) if (blocks[i].t === "para" && labelled(blocks[i]) && isH(blocks[i - 1]) && isH(blocks[i + 1])) { blocks[i].sticky = true; n++; }
+    if (n) console.log(`   stickyBetweenHeads: ${n} line(s) kept with the heading below`);
+  }
   let breakPoints = null;
   if (ov.dropBreaks) {
     const drop = new Set(ov.dropBreaks);
@@ -1699,6 +1738,28 @@ async function typesetOne(docxPath, themeName) {
   // under their strand). They render as plain heads, which the outline never sees; the
   // Icibemba G4 LB reviewer asked for its missing sub-topic ("4.6.3.2 Landilwa") there.
   if (ov.tocHeads) for (const b of blocks) if (b.t === "h3" && b.text) b.toc = 3;
+  // Sound markers in phonics lessons ("/t/", "/aA/", "/ts TS/") are one unit: a line may
+  // break after the opening slash, which printed "… /t/, /b/, /" with "p/, /c/." on the
+  // next line (Cinyanja G1 LB, 15 places). A word joiner after the opening slash and a
+  // no-break space inside the marker keep each one whole. Unicode never breaks a line just
+  // BEFORE a slash, even after a space, so that bad break was the only one a run of markers
+  // ("/mv/, /mk/, /nj/, …") had: a zero-width space before each opening slash gives the
+  // line a good place to break instead, or the run cannot break and spills off the page.
+  // Every book, no override; it runs last, so overrides still find the plain text.
+  {
+    const re = /(^|[\s(\[,;:"“‘])\/(\p{L}{1,6}(?: \p{L}{1,6})?)\/(?=$|[\s,.;:)\]?!"”’])/gu;
+    let n = 0;
+    const WJ = String.fromCharCode(0x2060), NBSP = String.fromCharCode(0xa0), ZWSP = String.fromCharCode(0x200b);
+    const keep = (s) => s.replace(re, (m, pre, inner) => { n++; return pre + (pre ? ZWSP : "") + "/" + WJ + inner.replace(" ", NBSP) + "/"; });
+    const walk = (o) => {
+      if (o == null || typeof o !== "object") return;
+      if (Array.isArray(o)) { for (const x of o) walk(x); return; }
+      for (const k of ["t", "text", "plain", "q", "a", "title", "heading", "caption"]) if (typeof o[k] === "string" && o[k].includes("/")) o[k] = keep(o[k]);
+      for (const v of Object.values(o)) if (v && typeof v === "object") walk(v);
+    };
+    walk(blocks);
+    if (n) console.log(`   sound markers kept whole: ${n}`);
+  }
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${ov.afterListGap ? `#let afterlist() = v(${ov.afterListGap}, weak: true)\n` : ""}${emit(blocks)}\n`;   // (afterListGap: the room above a heading that follows a list, house 28pt)
 
   // Include OS system fonts so specialty faces like Bradley Hand ITC (used for
@@ -1805,6 +1866,16 @@ async function typesetOne(docxPath, themeName) {
         console.log(`   cover spread with a ${spineMm} mm spine (${pages} pages) -> ${spreadPath}`);
       }
     } else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);
+  }
+
+  // "jpegQuality": 90 — store the pictures as JPEG at that quality, same pixels (see
+  // compress-pdf.js): a picture-heavy book drops from hundreds of MB to a few tens.
+  if (ov.jpegQuality) {
+    const { compressPdfFile } = require("./compress-pdf.js");
+    const quality = Number(ov.jpegQuality) || 90;
+    for (const p of [outPath, path.join(bookDir, `${base} - cover spread.pdf`)]) {
+      if (fs.existsSync(p)) console.log(`   ${path.basename(p)}: ${await compressPdfFile(p, p, { quality })}`);
+    }
   }
 
   // best-effort cleanup of temp extraction dirs

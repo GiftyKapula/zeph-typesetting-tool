@@ -1,5 +1,5 @@
 {
-  "_note": "Cinyanja Grade 1 Learner's Book, first typeset 2026-10-10. Units are headed GAWO LOYAMBA … GAWO LA NKHUMI NDI CIWIRI (12 units over 3 terms); topics Mutu: 1.n; front-matter titles live in Word text boxes the importer drops, so they are re-inserted here.",
+  "_note": "Cinyanja Grade 1 Learner's Book. First typeset 2026-10-10; re-typeset 2026-11-17 from the authors' corrected manuscript (\"Cinyanja grade 1 LB Corrected.docx\"), which rewrote the book: 10 units (GAWO LOYAMBA … GAWO LA KHUMI) over 3 terms, unnumbered Mutu topics, new front matter. Front-matter titles still live in Word text boxes the importer drops, so they are re-inserted here.",
   "localLabels": true,
   "subject": "CINYANJA",
   "_note_subject": "The theme spells it Chinyanja; the manuscript (and its sibling TG) titles itself CINYANJA, so the cover follows the book.",
@@ -27,202 +27,137 @@
       "before": "Cinyanja Giredi 1 limathandiza ana",
       "head": "MAU OYAMBA A BUKU",
       "as": "h1"
+    },
+    {
+      "before": "Luso Lapadela: Welengani masilabe mokweza.",
+      "head": "Mutu Waung'ono: Kuwelenga Mokweza"
+    },
+    {
+      "before": "Luso Lapadela: Welengani mau mokweza ndi kachulidwe moyenela.",
+      "head": "Mutu Waung'ono: Kuwelenga Mokweza"
+    },
+    {
+      "before": "Luso Lapadela: Welengani malemba mokweza ndi kachulidwe koyenela komanso momveka bwino.",
+      "head": "Mutu Waung'ono: Kuwelenga Mokweza"
     }
   ],
   "_note_terms": "Temu 1-3 = Term 1-3 banners (a one-cell table in the manuscript): each gets a term page, as in the sibling TG.",
   "termPages": "^TEMU +[0-9]$",
-  "_note_setHeading": "The 12 unit lines become units (h1, marked unit: true — GAWO is not a Unit word in the word list because it also opens every skill strand) and the Mutu topic lines sub-topics (h2) so the contents page lists them. Two obvious heading typos are mended in passing: KUZINDIKIRAZOLEMBADWA (missing space), MAINa.",
+  "_note_setHeading": "The revised manuscript puts each unit on its own line (GAWO LOYAMBA, GAWO LA CIWILI …), which the word list's 'Gawo' finds as units. The four skill strands (GAWO LA KUWELENGA / MAU / MVETSO / KULEMBA) also open with GAWO and were read as units too, so they go back to plain headings like the first strand (KUMVETSELA NDI KULANKHULA). The Mutu topic lines become sub-topics (h2) so the contents lists them; four typed in capitals (KULEMBA, MAU, MVEKELO) take the title case of their other copies. Three headings glue the topic and sub-topic on one line (Mutu: Kuwelenga Mwaluso / Mutu Waung'ono: Kuwelenga Mokweza): split back into two.",
   "setHeading": [
     {
-      "find": "GAWO LOYAMBA: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
+      "find": "GAWO LA KUWELENGA",
+      "as": "head",
+      "all": true
     },
     {
-      "find": "GAWO LA CIWIRI: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
+      "find": "GAWO LA MAU",
+      "as": "head",
+      "all": true
     },
     {
-      "find": "GAWO LA CITATU: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
+      "find": "GAWO LA MVETSO",
+      "as": "head",
+      "all": true
     },
     {
-      "find": "GAWO LA CINAI: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
+      "find": "GAWO LA KULEMBA",
+      "as": "head",
+      "all": true
     },
     {
-      "find": "GAWO LA CISANU: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
-    },
-    {
-      "find": "GAWO LA CISANU NDI CIMODZI: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
-    },
-    {
-      "find": "GAWO LA CISANU NDI CIWIRI: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
-    },
-    {
-      "find": "GAWO LA CISANU NDI CITATU: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
-    },
-    {
-      "find": "GAWO LA CISANU NDI CINAI: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
-    },
-    {
-      "find": "GAWO LA NKHUMI: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
-    },
-    {
-      "find": "GAWO LA NKHUMI NDI LIMODZI: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
-    },
-    {
-      "find": "GAWO LA NKHUMI NDI CIWIRI: KUMVETSELA NDI KULANKHULA",
-      "as": "h1",
-      "all": true,
-      "unit": true
-    },
-    {
-      "find": "Mutu: 1.1 NKHANI",
-      "text": "Mutu: 1.1 NKHANI",
+      "find": "Mutu: Asanayambe Kulemba",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.6 Kuzindikira Zolembadwa",
-      "text": "Mutu: 1.6 KUZINDIKIRA ZOLEMBADWA",
+      "find": "Mutu: Kulemba",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.8 MAMVEKEDWE",
-      "text": "Mutu: 1.8 MAMVEKEDWE",
+      "find": "Mutu: Kumvetsa Mau",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.10 MAU",
-      "text": "Mutu: 1.10 MAU",
+      "find": "Mutu: Kuzindikila Zolembedwa",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.12 KUMVETSA ZOMWE MWAMVA",
-      "text": "Mutu: 1.12 KUMVETSA ZOMWE MWAMVA",
+      "find": "Mutu: Mafotokozedwe",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.14 ASANAYAMBE KULEMBA",
-      "text": "Mutu: 1.14 ASANAYAMBE KULEMBA",
+      "find": "Mutu: Maina",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.2 ZOKAMBIRANA",
-      "text": "Mutu: 1.2 ZOKAMBIRANA",
+      "find": "Mutu: Mau",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.6 KUZINDIKIRAZOLEMBADWA",
-      "text": "Mutu: 1.6 KUZINDIKIRA ZOLEMBADWA",
+      "find": "Mutu: Mvekelo",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.8 MANVEKELO",
-      "text": "Mutu: 1.8 MANVEKELO",
+      "find": "Mutu: Mvetselo",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.8 MVEKERO",
-      "text": "Mutu: 1.8 MVEKERO",
+      "find": "Mutu: Nkhani",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.7 KUMVETSA MAU",
-      "text": "Mutu: 1.7 KUMVETSA MAU",
+      "find": "Mutu: Sewelo",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.15 KULEMBA",
-      "text": "Mutu: 1.15 KULEMBA",
+      "find": "Mutu: Zilapi ndi Mau Otembenuza Lilime",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.11 MAINa",
-      "text": "Mutu: 1.11 MAINA",
+      "find": "Mutu: Zokambilana",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.11 MAINA",
-      "text": "Mutu: 1.11 MAINA",
+      "find": "Mutu: KULEMBA",
+      "text": "Mutu: Kulemba",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.3 MAFOTOKOZEDWE",
-      "text": "Mutu: 1.3 MAFOTOKOZEDWE",
+      "find": "Mutu: MAU",
+      "text": "Mutu: Mau",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.16 KULEMBA",
-      "text": "Mutu: 1.16 KULEMBA",
+      "find": "Mutu: MVEKELO",
+      "text": "Mutu: Mvekelo",
       "as": "h2",
       "all": true
     },
     {
-      "find": "Mutu: 1.4 SEWELO",
-      "text": "Mutu: 1.4 SEWELO",
-      "as": "h2",
-      "all": true
-    },
-    {
-      "find": "Mutu: 1.13 KUMVETSA ZOMWE MWERENGA",
-      "text": "Mutu: 1.13 KUMVETSA ZOMWE MWERENGA",
-      "as": "h2",
-      "all": true
-    },
-    {
-      "find": "Mutu: 1.5 MAU OSEKETSA NDI MAU OVUTA",
-      "text": "Mutu: 1.5 MAU OSEKETSA NDI MAU OVUTA",
+      "find": "Mutu: Kuwelenga Mwaluso Mutu Waung'ono: Kuwelenga Mokweza",
+      "text": "Mutu: Kuwelenga Mwaluso",
       "as": "h2",
       "all": true
     }
   ],
   "_note_authors": "The six names listed under ALEMBI on the imprint page; the manuscript cover itself carries no byline.",
   "authors": [
-    "Kamai John Mathews Mvula",
+    "Kamai Tionge Lusungu",
     "Nirro Mbewe",
     "Esther Mwale",
     "Precious Phiri",
@@ -244,20 +179,6 @@
       "bold": true
     }
   ],
-  "_note_unit9": "The manuscript carries the opening of Unit 9 twice: as GAWO LA CISANU NDI CINAI (with its picture) just BEFORE the Temu 3 banner, and again right after it headed GAWO LOYAMBA, same text without the picture, before the unit continues. Chosen by the typesetter 2026-10-10: keep the first copy, drop the repeat, and move the Temu 3 page ahead of Unit 9 so the term opens with it.",
-  "removeRange": [
-    {
-      "after": "Muyeso Woyembekezeleka: Zochitika zosiyanasiyana zacitidwa sewelo",
-      "from": "GAWO LOYAMBA: KUMVETSELA NDI KULANKHULA",
-      "to": "GAWO LA KUWERENGA"
-    }
-  ],
-  "moveBefore": [
-    {
-      "find": "Temu 3",
-      "before": "GAWO LA CISANU NDI CINAI"
-    }
-  ],
   "_note_justify": "MAU OYAMBA follows the imprint directly and its title is in a text box, so the importer centred its paragraphs with the imprint; the manuscript justifies them.",
   "justifySection": [
     "MAU OYAMBA"
@@ -267,362 +188,731 @@
     {
       "title": "MAU OYAMBA",
       "spacing": "0.9em",
-      "sig": "6mm"
+      "sig": "16mm"
     },
     {
       "title": "MAU OTSOGOLELA",
       "spacing": "0.9em",
-      "sig": "6mm"
+      "sig": "16mm"
     },
     {
       "title": "ZOTHOKOZA",
       "spacing": "0.9em",
-      "sig": "6mm"
+      "sig": "16mm"
     },
     {
       "title": "MAU OYAMBA A BUKU",
       "spacing": "0.9em",
-      "sig": "6mm"
+      "sig": "16mm"
     }
   ],
-  "_note_cover": "Cover hero chosen by the typesetter 2026-10-10: the manuscript cover art is a finished mock-up (title, ministry crest, labels baked in) only 234x336 px, so even a word-free crop would print far below 300 DPI. Used instead the book's own costume photo (Kalulu ndi Nkhanu play, image4.jpeg, 1432 px), upscaled with Real-ESRGAN.",
-  "coverImage": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image4.png",
+  "_note_cover": "Cover hero chosen by the user 2026-11-17: the picture on page 8 (Nchito 1: Kutsegula ndi kutseka buku, a girl opening her Cinyanja book; manuscript media image9.png), using its Real-ESRGAN copy (1725 px, about 350 DPI on the cover card). It replaces the costume photo chosen in October. Cropped (no retouching) to the cover card shape 1.564:1 from the top edge down, so her head and the book stay whole; only desk at the bottom is lost. Committed next to the sidecar like the TG cover.",
+  "coverImage": "cinyanja-g1-lb-cover.png",
   "images": {
     "image1.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image1.png"
     },
-    "image54.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image54.png"
+    "image7.jpeg": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image6.png"
     },
-    "image72.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image72.png"
-    },
-    "image45.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image45.png"
-    },
-    "image8.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image8.png"
-    },
-    "image49.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image49.png"
-    },
-    "image23.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image23.png"
-    },
-    "image26.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image26.png"
-    },
-    "image33.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image33.png"
-    },
-    "image22.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image22.png"
-    },
-    "image20.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image20.png"
-    },
-    "image56.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image56.png"
-    },
-    "image89.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image89.png"
-    },
-    "image90.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image90.png"
-    },
-    "image91.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image91.png"
-    },
-    "image92.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image92.png"
-    },
-    "image93.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image93.png"
-    },
-    "image94.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image94.png"
-    },
-    "image95.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image95.png"
-    },
-    "image96.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image96.png"
-    },
-    "image97.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image97.png"
-    },
-    "image98.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image98.png"
-    },
-    "image99.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image99.png"
-    },
-    "image100.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image100.png"
-    },
-    "image101.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image101.png"
-    },
-    "image102.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image102.png"
-    },
-    "image103.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image103.png"
-    },
-    "image104.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image104.png"
-    },
-    "image105.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image105.png"
-    },
-    "image106.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image106.png"
-    },
-    "image107.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image107.png"
-    },
-    "image108.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image108.png"
-    },
-    "image109.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image109.png"
-    },
-    "image110.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image110.png"
-    },
-    "image111.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image111.png"
-    },
-    "image112.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image112.png"
-    },
-    "image113.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image113.png"
-    },
-    "image48.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image48.png"
-    },
-    "image25.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image25.png"
-    },
-    "image51.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image51.png"
-    },
-    "image18.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image18.png"
-    },
-    "image41.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image41.png"
-    },
-    "image42.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image42.png"
-    },
-    "image43.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image43.png"
-    },
-    "image50.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image50.png"
-    },
-    "image24.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image24.png"
-    },
-    "image52.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image52.png"
-    },
-    "image88.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image88.png"
+    "image8.jpeg": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image7.png"
     },
     "image9.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image8.png"
+    },
+    "image10.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image9.png"
     },
-    "image62.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image62.png"
-    },
-    "image21.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image21.png"
-    },
-    "image28.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image28.png"
-    },
-    "image57.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image57.png"
-    },
-    "image30.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image30.png"
-    },
-    "image29.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image29.png"
-    },
-    "image15.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image15.png"
-    },
-    "image27.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image27.png"
-    },
-    "image46.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image46.png"
-    },
-    "image63.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image63.png"
-    },
-    "image64.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image64.png"
-    },
-    "image69.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image69.png"
-    },
-    "image70.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image70.png"
-    },
-    "image87.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image87.png"
-    },
     "image11.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image11.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image10.png"
     },
     "image12.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image11.png"
+    },
+    "image13.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image12.png"
     },
     "image14.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image14.png"
-    },
-    "image16.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image16.png"
-    },
-    "image17.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image17.png"
-    },
-    "image19.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image19.png"
-    },
-    "image31.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image31.png"
-    },
-    "image32.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image32.png"
-    },
-    "image34.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image34.png"
-    },
-    "image35.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image35.png"
-    },
-    "image36.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image36.png"
-    },
-    "image37.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image37.png"
-    },
-    "image38.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image38.png"
-    },
-    "image39.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image39.png"
-    },
-    "image40.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image40.png"
-    },
-    "image47.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image47.png"
-    },
-    "image53.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image53.png"
-    },
-    "image60.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image60.png"
-    },
-    "image67.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image67.png"
-    },
-    "image68.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image68.png"
-    },
-    "image73.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image73.png"
-    },
-    "image74.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image74.png"
-    },
-    "image75.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image75.png"
-    },
-    "image77.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image77.png"
-    },
-    "image78.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image78.png"
-    },
-    "image79.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image79.png"
-    },
-    "image80.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image80.png"
-    },
-    "image81.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image81.png"
-    },
-    "image82.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image82.png"
-    },
-    "image83.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image83.png"
-    },
-    "image84.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image84.png"
-    },
-    "image85.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image85.png"
-    },
-    "image86.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image86.png"
-    },
-    "image10.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image10.png"
-    },
-    "image13.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image13.png"
     },
-    "image61.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image61.png"
+    "image15.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image15.png"
     },
-    "image65.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image65.png"
+    "image17.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image15.png"
     },
-    "image76.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image76.png"
+    "image18.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image16.png"
+    },
+    "image19.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image17.png"
+    },
+    "image20.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image18.png"
+    },
+    "image22.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image20.png"
+    },
+    "image23.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image21.png"
+    },
+    "image24.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image22.png"
+    },
+    "image27.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image23.png"
+    },
+    "image28.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image32.png"
+    },
+    "image29.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image33.png"
+    },
+    "image30.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image24.png"
+    },
+    "image31.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image25.png",
+      "crop": true,
+      "hmm": 61
+    },
+    "image33.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image34.png",
+      "w": 300
+    },
+    "image34.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image26.png"
+    },
+    "image35.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image27.png"
+    },
+    "image36.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image28.png"
+    },
+    "image37.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image29.png"
+    },
+    "image38.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image30.png"
+    },
+    "image39.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image31.png"
+    },
+    "image40.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image42.png"
+    },
+    "image41.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image43.png"
+    },
+    "image42.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image56.png"
     },
     "image44.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image44.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image45.png"
+    },
+    "image45.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image35.png"
+    },
+    "image46.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image46.png"
+    },
+    "image47.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image37.png",
+      "w": 380
+    },
+    "image48.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image38.png"
+    },
+    "image49.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image39.png"
+    },
+    "image50.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image40.png"
+    },
+    "image52.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image68.png"
+    },
+    "image53.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image74.png",
+      "w": 380
     },
     "image55.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image55.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image62.png"
+    },
+    "image56.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image46.png"
     },
     "image58.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image58.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image48.png"
     },
     "image59.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image59.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image49.png"
+    },
+    "image60.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image50.png"
+    },
+    "image61.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image51.png"
+    },
+    "image62.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image52.png"
+    },
+    "image63.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image53.png"
+    },
+    "image64.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image54.png"
     },
     "image66.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image66.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image84.png"
+    },
+    "image67.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image58.png"
+    },
+    "image68.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image59.png"
+    },
+    "image69.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image76.png"
+    },
+    "image70.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image63.png"
     },
     "image71.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image71.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image64.png"
     },
-    "image6.jpeg": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image6.png"
+    "image72.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image65.png"
     },
-    "image7.jpeg": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image7.png"
+    "image73.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image66.png"
     },
-    "image5.jpeg": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image5.png"
+    "image74.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image67.png"
     },
-    "image3.jpeg": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image3.png"
+    "image75.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image75.png"
+    },
+    "image76.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image69.png"
+    },
+    "image77.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image60.png"
+    },
+    "image78.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image70.png"
+    },
+    "image79.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image71.png",
+      "hmm": 58
+    },
+    "image80.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image72.png"
+    },
+    "image81.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image73.png"
+    },
+    "image84.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image85.png"
+    },
+    "image85.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image61.png"
+    },
+    "image86.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image75.png"
+    },
+    "image89.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image78.png"
+    },
+    "image90.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image79.png"
+    },
+    "image91.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image80.png"
+    },
+    "image92.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image81.png"
+    },
+    "image94.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image94.png"
+    },
+    "image97.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image97.png"
+    },
+    "image102.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image102.png"
+    },
+    "image103.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image86.png"
+    },
+    "image105.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image87.png"
+    },
+    "image106.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image88.png"
+    },
+    "image114.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image114.png"
+    },
+    "image120.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image120.png"
+    },
+    "image121.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image121.png"
+    },
+    "image126.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image126.png"
+    },
+    "image127.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image127.png"
+    },
+    "image128.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image128.png",
+      "w": 470
+    },
+    "image16.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image16.png"
+    },
+    "image26.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image26.png"
+    },
+    "image87.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image87.png"
+    },
+    "image25.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image25.png",
+      "hmm": 72
+    },
+    "image54.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image54.png",
+      "w": 420
+    },
+    "image107.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image107.png",
+      "w": 400
+    },
+    "image100.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image100.png"
+    },
+    "image51.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image51.png"
+    },
+    "image119.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image119.png"
+    },
+    "image99.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image99.png"
+    },
+    "image108.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image108.png"
+    },
+    "image109.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image109.png"
+    },
+    "image111.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image111.png"
+    },
+    "image98.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image98.png"
+    },
+    "image124.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image124.png"
+    },
+    "image110.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image110.png"
+    },
+    "image104.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image104.png"
+    },
+    "image21.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image21.png"
+    },
+    "image113.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image113.png"
+    },
+    "image82.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image82.png"
+    },
+    "image95.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image95.png"
+    },
+    "image96.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image96.png"
+    },
+    "image32.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image32.png"
+    },
+    "image112.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image112.png"
+    },
+    "image117.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image117.png"
+    },
+    "image6.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image6.png"
+    },
+    "image125.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image125.png"
+    },
+    "image118.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image118.png"
+    },
+    "image3.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image3.png"
+    },
+    "image57.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image57.png"
+    },
+    "image88.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image88.png"
+    },
+    "image65.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image65.png"
+    },
+    "image93.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image93.png"
+    },
+    "image115.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image115.png"
+    },
+    "image43.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image43.png"
     },
     "image4.jpeg": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image4.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image4.png"
+    },
+    "image5.jpeg": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image5.png"
+    },
+    "image83.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image83.png"
+    },
+    "image101.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image101.png"
+    },
+    "image116.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image116.png"
+    },
+    "image122.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image122.png"
+    },
+    "image123.png": {
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image123.png"
     }
-  }
+  },
+  "removeImages": [
+    "image5.jpeg"
+  ],
+  "_note_removeImages": "image5 is the same costume photo as image4 (squashed and cropped), placed straight after it under Zocita: the page printed one photograph twice and pushed the Zocita instruction onto the next page.",
+  "_note_wordFix": "Spelling, to the book's own majority form: Noriana Muneka (the Permanent Secretary, as in the sibling TG and the other ZEPH books; the LB typed Noliana); yosiyana-qwsiyana -> yosiyana-siyana; Zolembadwa -> Zolembedwa (7 to 1); Zolembala -> Zolembela (3 to 1). Mvekelo ia Malembo -> la (the book's only \"ia\"). anamuyamiki;a -> anamuyamikila (a semicolon typed for l). 18 Nov full read: aKuwelenga -> akuwelenga (find-and-replace slip); and to the book's c-spelling, one form per word: chifukwa -> cifukwa (20 to 3), chitseko -> citseko, cha -> ca (33 to 1), zochita -> zocita (201 to 1), masewelo -> masewela (46 to 1), kutengapo -> kutengako (4 to 1). Words that contain a hyphen of their own (reduplication: zosiyana-siyana, mobweleza-bweleza, eni-eni; syllable splits: bu-ku) take a word joiner after the hyphen, so with hyphenation off they never break at a line end either.",
+  "wordFix": {
+    "Noliana": "Noriana",
+    "qwsiyana": "siyana",
+    "Zolembadwa": "Zolembedwa",
+    "Zolembala": "Zolembela",
+    "ia": "la",
+    "anamuyamiki;a": "anamuyamikila",
+    "aKuwelenga": "akuwelenga",
+    "chifukwa": "cifukwa",
+    "chitseko": "citseko",
+    "cha": "ca",
+    "zochita": "zocita",
+    "masewelo": "masewela",
+    "kutengapo": "kutengako",
+    "zosiyana-siyana": "zosiyana-⁠siyana",
+    "osiyana-siyana": "osiyana-⁠siyana",
+    "Kale-kale": "Kale-⁠kale",
+    "pang’ono-pang’ono": "pang’ono-⁠pang’ono",
+    "mmodzi-mmodzi": "mmodzi-⁠mmodzi",
+    "mobweleza-bweleza": "mobweleza-⁠bweleza",
+    "yosiyana-qwsiyana": "yosiyana-⁠siyana",
+    "nsi-ma": "nsi-⁠ma",
+    "bu-ku": "bu-⁠ku",
+    "ti-yi": "ti-⁠yi",
+    "so-po": "so-⁠po",
+    "ga-lu": "ga-⁠lu",
+    "Eni-eni": "Eni-⁠eni",
+    "eni-eni": "eni-⁠eni",
+    "mosiyana-siyana": "mosiyana-⁠siyana",
+    "zeni-zeni": "zeni-⁠zeni"
+  },
+  "_note_imprint": "Copyright page laid out as the house model (Silozi G4 LB; HOUSE-STYLE imprint): rights line, authors, editor, illustrator, layout, publisher + address, ISBN with dots, printer; every label bold on its own line with the name plain below. The cover/layout credit is Teddy Ng`ambi (house rule for every book since 16 Nov 2026) under the manuscript's own Cinyanja label. ALEMBI (Authors) is also the word list's Authors-section title, so the label and the illustrator credit \"Alembi\" are marked noPromote to stay on the copyright page. 18 Nov (user: check the spacing on the names, front matter up to standard): set as the sibling Cinyanja G1 TG and the Silozi G4 LB model — © line first, publisher in plain title case (not capitals), the year only in the © line, one equal gap between every group.",
+  "replaceBlocks": [
+    {
+      "find": "Ufulu wonse ndi wotetezedwa.",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House, 2026",
+          "center": true
+        },
+        {
+          "para": "Ufulu wonse ndi wotetezedwa.",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "ZAMBIA EDUCATIONAL PUBLISHING HOUSE",
+      "with": [
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Zambia Educational Publishing House, 2026",
+      "with": [
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "ISBN:",
+      "with": []
+    },
+    {
+      "find": "ALEMBI:",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "align": "center",
+            "noPromote": true,
+            "segs": [
+              {
+                "t": "ALEMBI:",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "ZITHUNZI: Alembi",
+      "with": []
+    },
+    {
+      "find": "WOKONZA BUKU: Kamai Tionge Lusungu",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**WOKONZA BUKU:**",
+          "center": true
+        },
+        {
+          "para": "Kamai Tionge Lusungu",
+          "center": true
+        },
+        {
+          "vspace": "6mm"
+        },
+        {
+          "para": "**ZITHUNZI:**",
+          "center": true
+        },
+        {
+          "raw": {
+            "t": "para",
+            "align": "center",
+            "noPromote": true,
+            "segs": [
+              {
+                "t": "Alembi",
+                "b": false,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "KAPANGIDWE KA CIVUNDIKILO NDI BUKU: Kezias Kanyama",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**KAPANGIDWE KA CIVUNDIKILO NDI BUKU:**",
+          "center": true
+        },
+        {
+          "para": "Teddy Ng`ambi",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "LOZISINDIKIZIDWA KOYAMBA NDI",
+      "with": [
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**LOZISINDIKIZIDWA KOYAMBA NDI:**",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "LOSINDIKIZIDWA NDI:",
+      "with": [
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**LOSINDIKIZIDWA NDI:**",
+          "center": true
+        }
+      ]
+    }
+  ],
+  "coverWords": {
+    "printedBy": "Losindikizidwa ndi"
+  },
+  "imprintSpacing": "0.4em",
+  "imprintGap": "4mm",
+  "_note_imprintSpacing": "At the Grade 1 type size the copyright page ran four lines onto a second page; tighter line and group spacing (as on the Chitonga G1 LB) keeps it on one.",
+  "tidySpacing": true,
+  "_note_pageBreak": "At the Grade 1 type size MAU OYAMBA and MAU OTSOGOLELA run two lines plus the signature past one page even with tight gaps; the closing paragraph goes over with the signature instead, so the second page is not a two-line stub. Two end-of-unit stories (Mwana Wocita Sewelo; Mwana wosamala) start a fresh page so their title is not left at a page foot with the story picture overleaf. Unit 8's end-of-unit test opens a fresh page, so it is not split with two lines overleaf before Unit 9.",
+  "pageBreakBefore": [
+    "Tikukhulupilila kuti bukuli lithandiza ana a Giredi 1 kukhala ndi maziko olimba a cinenelo",
+    "Tikukhulupilila kuti bukuli lithandiza ana a Giredi 1 kukhala ndi maziko olimba a Cinyanja, cidwi",
+    {
+      "find": "NKHANI LOONJEZELA",
+      "near": "Nkhani: Mwana Wocita Sewelo"
+    },
+    {
+      "find": "NKHANI LOONJEZELA 2",
+      "near": "Samaria anali mwana wosamala"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "near": "Kodi Amina anali mwana wotani?"
+    }
+  ],
+  "_note_dropBreaks": "Each lesson (Mutu) opens a fresh page; where the lesson before ran only a few lines onto a page (under 30% full), that page break is dropped so the next lesson follows on the same page (Chitonga G1 TG method).",
+  "dropBreaks": [
+    9,
+    10,
+    14,
+    17,
+    18,
+    19,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    37,
+    43,
+    45,
+    46,
+    47,
+    51,
+    52,
+    53
+  ],
+  "stickyBetweenHeads": true,
+  "_note_sticky": "The Luso Lapadela skill line under each topic stack stays with the activity heading below it, so a stack is never stranded at a page foot.",
+  "_note_image53": "image53 (Nchito 4 picture, p84) set to 380 px wide so its last exercise line no longer spills alone onto the next page.",
+  "replace": [
+    {
+      "find": "m mobweleza-⁠bweleza.",
+      "with": "Bwelezani mvekelo mobweleza-⁠bweleza."
+    },
+    {
+      "find": "Mwana akusewela mpila .",
+      "with": "Mwana akusewela mpila."
+    },
+    {
+      "find": "Kodi mwana akusewela ciani ?",
+      "with": "Kodi mwana akusewela ciani?"
+    },
+    {
+      "find": "Kodi galu akumwa ciani ?",
+      "with": "Kodi galu akumwa ciani?"
+    },
+    {
+      "find": ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+      "with": "..............................."
+    },
+    {
+      "find": "cithunzi ca mwana akusewela mpila .",
+      "with": "Lembani ciganizo cimodzi cokhudza cithunzi ca mwana akusewela mpila."
+    },
+    {
+      "find": "Kodi abambo akuwelenga ciani ?",
+      "with": "Kodi abambo akuwelenga ciani?"
+    },
+    {
+      "find": "powelenga. . Kodi ndine ciani?",
+      "with": "Yankhani funso la nzelu ili: Ndili ndi masamba ambili koma sindine mtengo. Ana amandigwilitsa nchito powelenga. Kodi ndine ciani?"
+    }
+  ],
+  "_note_replace": "p124: a dropped word, \"Bwelezani m mobweleza-bweleza\" -> \"Bwelezani Mvekelo mobweleza-bweleza\", as its nine other copies read. Punctuation: a space before a full stop or question mark removed, and a writing line typed as commas made dots like its neighbours.",
+  "_note_image128": "image128 (Samaria story picture, last unit) at 470 px so the unit test ends on its own page instead of carrying one item over.",
+  "_note_image31": "image31 is one strip of three scenes (boy reading / mother cooking / father going to the field) that the manuscript crops three ways, one scene per sentence (Mwana akuwelenga buku p49, Amai akuphika nsima, Atate akupita ku munda). Its upscaled replacement is the whole strip, so crop: true re-applies the author's crop at each use. Shown 61 mm tall (hmm): the crop is a tall narrow strip, which at the default fixed height pushed whole lessons onto the next page.",
+  "_note_imageSizes": "Pictures sized down so a lesson moves up onto the part-empty page before it (user, 18 Nov: \"work on the image to move up\"): image33 (Chisomo story) 300 px, image54 (letter blocks) 420 px, image53 380 px, image128 470 px. 18 Nov check (user: look for any problem): image25 (shapes chart) 72 mm tall so it sits under its Zocita on p29 instead of alone on the next page; image47 380 px and image79 58 mm tall so the unit 3 and unit 6 tests no longer carry item 6 alone onto a page; image107 400 px so unit 9's reading strand (break 43, now dropped) opens with its picture instead of a heading stack alone on a page. Sizes by height (hmm) where a width under 400 px would make the emitter pin the picture to the NEXT activity heading.",
+  "midSentenceLower": [
+    "Mau",
+    "Mvekelo",
+    "Maina",
+    "Kuwelenga",
+    "Kucokela",
+    "Masewela",
+    "Malembo",
+    "Ziganizo",
+    "Sewelo",
+    "Zolembedwa",
+    "Zokambilana",
+    "Mafotokozedwe",
+    "Mwaluso",
+    "Mokweza",
+    "Kulemba",
+    "Zosavuta",
+    "Masilabe",
+    "Silabe",
+    "Nkhani"
+  ],
+  "_note_midSentenceLower": "The authors' find-and-replace capitalised common words inside sentences (\"kuwelenga Mau ndi ziganizo\", \"Bwelezani Mvekelo\", \"ndi Kuwelenga masilabe\"). Lowercased in body text only; headings keep their title case.",
+  "hyphenate": false,
+  "_note_hyphenate": "No word is broken across two lines with a hyphen (user, 18 Nov: \"it has hyphens at the end of the sentences\"). Grade 1 readers should see every word whole. With no hyphens, justified 18pt lines opened wide gaps between words, so the body is set flush left (raggedRight), as on the Chitonga ECE LB.",
+  "raggedRight": true,
+  "boxStripe": false,
+  "_note_boxStripe": "House rule for every book (QA gate); this book has no striped boxes, so nothing on the page changes.",
+  "jpegQuality": 90,
+  "_note_jpegQuality": "Pictures stored as JPEG (quality 90, same pixels, about 300 DPI) instead of lossless: the PDF came out at 425 MB with 130 Real-ESRGAN photographs; about 62 MB this way with no visible change (user, 18 Nov: can it be reduced in size).",
+  "unlist": [
+    {
+      "find": "Lembani malembo awa pa pepala lanu:",
+      "renumber": true
+    }
+  ],
+  "_note_unlist": "Nchito 4: Kulemba malembo (p77): the manuscript numbers the instruction with the letters under it (1. Lembani malembo… 2. t … 7. c); the instruction is a plain line and the six letters count 1-6, as in the j z y l and a e i o u lists."
 }
