@@ -7796,6 +7796,7 @@ function reconcileCaptionLists(blocks) {
     const keep = [];
     const changed = [];
     let dropped = 0, ci = 0;
+    const at = new Map();   // caption index -> the entry that names it
     for (const e of entries) {
       let found = -1;
       for (let k = ci; k < list.length; k++) if (similar(e.title, list[k].title)) { found = k; break; }
@@ -7808,15 +7809,36 @@ function reconcileCaptionLists(blocks) {
         changed.push(`${e.num} -> ${e.num.replace(/\d+/, want)}`);
         e.num = e.num.replace(/\d+/, want);
       }
+      // …and the caption's own words: a caption corrected in the sidecar (Geography Form 4
+      // LB's second "South Africa" map is Zimbabwe's) must not keep its old name on the list.
+      e.title = list[found].title;
       ci = found + 1;
       keep.push(e);
+      at.set(found, e);
     }
     if (dropped > Math.max(1, Math.floor(entries.length / 3))) {
       console.warn(`!  LIST OF ${r.kind}S does not line up with the book's ${r.kind.toLowerCase()} captions `
         + `(${entries.length} entries, ${list.length} captions) — left as the author typed it`);
       continue;
     }
-    if (!dropped && !changed.length) continue;
+    // A caption the author never put on the list gets its entry, in caption order. The
+    // Geography Form 4 Learner's Book lists 27 of its 33 figures — the six it skipped are
+    // the ones that shared a number with a neighbour in the manuscript (two "Figure 7"s,
+    // three "Figure 14"s), so the list ran out of step exactly where the book did.
+    const sample = keep.find((e) => typeof e.num === "string" && /\d/.test(e.num));
+    const added = [];
+    if (sample && keep.length) {
+      const full = [];
+      for (let k = 0; k < list.length; k++) {
+        if (at.has(k)) { full.push(at.get(k)); continue; }
+        full.push({ t: "loentry", num: sample.num.replace(/\d+/, list[k].num), title: list[k].title, page: "" });
+        added.push(`${sample.num.replace(/\d+/, list[k].num)}`);
+      }
+      keep.length = 0;
+      keep.push(...full);
+    }
+    if (added.length) console.log(`   LIST OF ${r.kind}S: added ${added.length} entry/entries the author left off (${added.join(", ")})`);
+    if (!dropped && !changed.length && !added.length) continue;
     blocks.splice(r.from, r.to - r.from, ...keep);
     const shift = keep.length - (r.to - r.from);
     for (const o of runs) if (o.from > r.from) { o.from += shift; o.to += shift; }
