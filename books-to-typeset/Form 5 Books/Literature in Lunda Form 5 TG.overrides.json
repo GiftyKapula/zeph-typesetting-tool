@@ -1,0 +1,257 @@
+{
+  "_note_words": "Cover, title page, spine and running heads in the manuscript's own words: its cover reads SHIKOLA YENENI YA FOMU 5-6 / LITILICHA MU LUNDA / FOMU 5 / MUKANDA WA NTAÑISHI, its contents page Yuma yidi mukachi (the word list's Mukanda Wakulombola Ntañishi and Nyitachi Yayibalu are not this book's).",
+  "subject": "Litilicha mu Lunda",
+  "localLabels": {
+    "teachers_guide": "Mukanda wa Ntañishi",
+    "level_advanced": "Shikola Yeneni ya Fomu 5-6"
+  },
+  "tocTitle": "YUMA YIDI MUKACHI",
+  "coversInBook": true,
+  "topSections": "^(MUTU (WANSAÑU|NSAÑU|wansañuñu):? ?5\\.? ?[2-9](?![.\\d])|KULUMBULULA KUSONEKA KWAMUSHIKOLA$)",
+  "subSections": "^(Mutu wansañu wanyanya\\b|1\\.1\\. Imwekenu yachuma)",
+  "_note_headings": "Topics typed several ways (Heading 1, bold lines, mixed case, slipped codes such as \"5. 1.5\", \"6.5.6.1\", a second \"5:7.4\"): one form throughout, MUTU WANSAÑU 5.N: TITLE / Mutu wansañu wanyanya 5.N.M: Title, numbered by position; trailing full stops dropped; KWAFUNI -> KWAFUMINI (the contents and 5.6.1 spell it so); nzhimbi -> nshimbi (the book's form).",
+  "setHeading": [
+    {
+      "find": "KULUMBULULA KUSONEKA KWAMUSHIKOLA",
+      "text": "MUTU WANSAÑU 5.1: KULUMBULULA KUSONEKA KWAMUSHIKOLA",
+      "as": "h1"
+    },
+    {
+      "find": "1.1. Imwekenu yachuma na nshimbi yakusoneka kwamushikola",
+      "text": "Mutu wansañu wanyanya 5.1.1: Imwekenu yachuma na nshimbi yakusoneka kwamushikola",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 2: 5.1.2 Nyichidi yayipapilu yakusoneka",
+      "text": "Mutu wansañu wanyanya 5.1.2: Nyichidi yayipapilu yakusoneka",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 3: 5.1.3 Mazu akuhana nachu nzhimbi mukusoneka kwamushikola",
+      "text": "Mutu wansañu wanyanya 5.1.3: Mazu akuhana nachu nshimbi mukusoneka kwamushikola",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 4. 5.1.4.1 Kwihihisha na nhoshelu",
+      "text": "Mutu wansañu wanyanya 5.1.4: Kwihihisha na nhoshelu",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 5. 1.5 Nyikunku yamazu",
+      "text": "Mutu wansañu wanyanya 5.1.5: Nyikunku yamazu",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 6.5.6.1 Yuma yisatu yamwekalila ntanjikilu kusoneka kwamushikola",
+      "text": "Mutu wansañu wanyanya 5.1.6: Yuma yisatu yamwekalila ntanjikilu kusoneka kwamushikola",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 7: 1.7.1 kulumbulula ni koloka kwamazu mukachi kansañu",
+      "text": "Mutu wansañu wanyanya 5.1.7: Kulumbulula ni koloka kwamazu mukachi kansañu",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 8: 1.8 Nzhila mwakusonekela",
+      "text": "Mutu wansañu wanyanya 5.1.8: Nzhila mwakusonekela",
+      "as": "h2"
+    },
+    {
+      "find": "MUTU WANSAÑU: 5.2 YUMA YIKUKWASHAKU KUTOÑOZHOKA MUKUKEÑA NAKUWANA NSAÑU",
+      "text": "MUTU WANSAÑU 5.2: YUMA YIKUKWASHAKU KUTOÑOZHOKA MUKUKEÑA NAKUWANA NSAÑU",
+      "as": "h1"
+    },
+    {
+      "find": "Mutu wansañuñu: 5. 3 Mazu a Litilicha",
+      "text": "MUTU WANSAÑU 5.3: MAZU A LITILICHA",
+      "as": "h1"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5.3.1 Litilicha nachituñilu",
+      "text": "Mutu wansañu wanyanya 5.3.1: Litilicha nachituñilu",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu Wansañu Wanyanya: 3.2 Litilicha na Yileñaleña",
+      "text": "Mutu wansañu wanyanya 5.3.2: Litilicha na yileñaleña",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 3: 5.3.3 Litilicha na kutoñozhoka yuma yayiha",
+      "text": "Mutu wansañu wanyanya 5.3.3: Litilicha na kutoñozhoka yuma yayiha",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 4 :3.4 litilicha na nsañu yahamwaka",
+      "text": "Mutu wansañu wanyanya 5.3.4: Litilicha na nsañu yahamwaka",
+      "as": "h2"
+    },
+    {
+      "find": "MUTU WANSAÑU: 5.4 NSAÑU YACHISEMWA",
+      "text": "MUTU WANSAÑU 5.4: NSAÑU YACHISEMWA",
+      "as": "h1"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5.4.1 izu da nsañu yachisemwa",
+      "text": "Mutu wansañu wanyanya 5.4.1: Izu da nsañu yachisemwa",
+      "as": "h2"
+    },
+    {
+      "find": "MUTU WANSAÑU 5.5 MWEVULU MU LITILICHA.",
+      "text": "MUTU WANSAÑU 5.5: MWEVULU MU LITILICHA",
+      "as": "h1"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5.5.1 Kuzatisha kwamevulu nakumwekesha yuma yelukayi muntu.",
+      "text": "Mutu wansañu wanyanya 5.5.1: Kuzatisha kwamevulu nakumwekesha yuma yelukayi muntu",
+      "as": "h2"
+    },
+    {
+      "find": "MUTU NSAÑU 5.6 KWAFUNI NA KUKULA KWA LITILICHA",
+      "text": "MUTU WANSAÑU 5.6: KWAFUMINI NA KUKULA KWA LITILICHA",
+      "as": "h1"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 6.1 Yitoñozhoka ya kwafumini na kukula kwa litilicha",
+      "text": "Mutu wansañu wanyanya 5.6.1: Yitoñozhoka ya kwafumini na kukula kwa litilicha",
+      "as": "h2"
+    },
+    {
+      "find": "MUTU WANSAÑU 5.7 KWAFUMINI NI KUKULA KWA LITILICHA MUNYICHIDI YAMWITUÑA DA ZAMBIA",
+      "text": "MUTU WANSAÑU 5.7: KWAFUMINI NI KUKULA KWA LITILICHA MUNYICHIDI YAMWITUÑA DA ZAMBIA",
+      "as": "h1"
+    },
+    {
+      "find": "Mutu wansañu Wanyanya: 5.7.1 Kutiyashana kwawasoneki munsonekelu ya litilicha",
+      "text": "Mutu wansañu wanyanya 5.7.1: Kutiyashana kwawasoneki munsonekelu ya litilicha",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 5.7.2: Kushimuna nsañu yamuchisemwa mu African na mushimwinuyawa nyitooka mwendelaña nsañu",
+      "text": "Mutu wansañu wanyanya 5.7.2: Kushimuna nsañu yamuchisemwa mu African na mushimwinuyawa nyitooka mwendelaña nsañu",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya 5.7.3 Ansoneki amu Africa nakukula kwa litilicha muma dimi amu Zambia.",
+      "text": "Mutu wansañu wanyanya 5.7.3: Ansoneki amu Africa nakukula kwa litilicha muma dimi amu Zambia",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5.7.4 Chadiñili litilicha mafuku amunyima Muzambia",
+      "text": "Mutu wansañu wanyanya 5.7.4: Chadiñili litilicha mafuku amunyima Muzambia",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5:7.4 Mwekalila litilicha yahayaaka munu mu Zambia.",
+      "text": "Mutu wansañu wanyanya 5.7.5: Mwekalila litilicha yahayaaka munu mu Zambia",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5.7.6 Chadiñili litilicha mu Zambia kufuma henohu chiyulu chawanyitoka kanda.",
+      "text": "Mutu wansañu wanyanya 5.7.6: Chadiñili litilicha mu Zambia kufuma henohu chiyulu chawanyitoka kanda",
+      "as": "h2"
+    },
+    {
+      "find": "MUTU WANSAÑU: 5.8 ZHINZHILA ZHAMBOKA YITWAZATISHAÑA KUSOMPESHA NAKULUMBULULA LITILICHA.",
+      "text": "MUTU WANSAÑU 5.8: ZHINZHILA ZHAMBOKA YITWAZATISHAÑA KUSOMPESHA NAKULUMBULULA LITILICHA",
+      "as": "h1"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5 8.1 Chisemwa / Zhinzhila zhamboka yitwazatishaña kusompesha nakulumbulula litilicha.",
+      "text": "Mutu wansañu wanyanya 5.8.1: Chisemwa / Zhinzhila zhamboka yitwazatishaña kusompesha nakulumbulula litilicha",
+      "as": "h2"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5.8.2 Kweseka zhinzhila zhazhiha mwakutañila litilicha yayiha mwakusompeshela nakulumbulula litilicha muyuma ya litilicha.",
+      "text": "Mutu wansañu wanyanya 5.8.2: Kweseka zhinzhila zhazhiha mwakutañila litilicha yayiha mwakusompeshela nakulumbulula litilicha muyuma ya litilicha",
+      "as": "h2"
+    },
+    {
+      "find": "MUTU WANSAÑU 5.9 ZHINZHILA ZHAMBOKA MWAKUDIZILA LITILICHA",
+      "text": "MUTU WANSAÑU 5.9: ZHINZHILA ZHAMBOKA MWAKUDIZILA LITILICHA",
+      "as": "h1"
+    },
+    {
+      "find": "Mutu wansañu wanyanya: 5. 9.1 Zhinzhila mwakutañila litilicha",
+      "text": "Mutu wansañu wanyanya 5.9.1: Zhinzhila mwakutañila litilicha",
+      "as": "h2"
+    }
+  ],
+  "_note_imprint": "Copyright page: the rights sentence Word split across two lines joined; the cover/layout line (Awahishili chipapilu chahanzi yamukanda nikuwutanjika adiñi a:) takes the house credit. ISBN, author, editor and printer left dotted as the manuscript has them.",
+  "mergePara": [
+    {
+      "find": "Iwu himukanda wambala."
+    }
+  ],
+  "fill": [
+    {
+      "after": "Awahishili chipapilu chahanzi yamukanda",
+      "text": "Teddy Ng`ambi"
+    }
+  ],
+  "_note_tight": "KULEMA CHAMUKANDA WUNU: the Board Chairperson signature spilled onto a page of its own; the section's paragraph gaps tightened so it stays with its text.",
+  "tightSection": [
+    {
+      "title": "KULEMA CHAMUKANDA WUNU",
+      "spacing": "1em",
+      "sig": "6mm"
+    }
+  ],
+  "_note_dropBreaks": "Every sub-topic opened a fresh page, leaving near-empty pages where one spilled a few lines over: those breaks dropped (numbers from _breaks.json, picked by measuring pages under 45% full).",
+  "dropBreaks": [
+    2,
+    3,
+    5,
+    8,
+    9,
+    12,
+    13,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23
+  ],
+  "_note_outcomes": "Specific-outcome codes follow the book's own short form (1.2.1, 3.1.1 ...): the first (5.1.1.1) brought into line, the 5.7.5 outcome's repeated 7.4.1 made 7.5.1, a stray colon after 7.4.1 dropped, missing spaces after 3.2.1 and 6.1.1 added; the 7.1.1 outcome (a heading with its text on the next line) set run-in like the rest.",
+  "edit": [
+    {
+      "find": "Kwilukisha: 5.1.1.1 Kusanduzhola",
+      "with": "Kwilukisha: 1.1.1 Kusanduzhola"
+    },
+    {
+      "find": "kwilukisha: 7.4.1: Chadiñili",
+      "with": "kwilukisha: 7.4.1 Chadiñili"
+    },
+    {
+      "find": "kwilukisha: 7.4.1 Kushinshika mwekalila",
+      "with": "kwilukisha: 7.5.1 Kushinshika mwekalila"
+    },
+    {
+      "find": "3.2.1Kusanduzhola",
+      "with": "3.2.1 Kusanduzhola"
+    },
+    {
+      "find": "6.1.1Kulumbulula",
+      "with": "6.1.1 Kulumbulula"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Chuma chinakuhwelelewi atudizi kwilukisha: 7.1.1",
+      "with": [
+        {
+          "para": "**Chuma chinakuhwelelewi atudizi kwilukisha: 7.1.1** *Kushinshikisha kutiyashana kwawa nsoneki munsonekelu ya litilicha.*"
+        }
+      ]
+    },
+    {
+      "find": "Kushinshikisha kutiyashana kwawa nsoneki munsonekelu ya litilicha.",
+      "with": []
+    }
+  ],
+  "_note_printedBy": "Back cover: the manuscript's own Lunda line (Awidishili mumakina kudi), not English Printed by.",
+  "coverWords": {
+    "printedBy": "Awidishili mumakina kudi"
+  }
+}
