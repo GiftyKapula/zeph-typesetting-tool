@@ -367,7 +367,9 @@
   }
   pagebreak(weak: true)
   set text(font: T.displayFont)
-  let grade = lines.find(l => hasGradeWord(l))
+  // (a level line below the eyebrow wins, as on the cover: a local eyebrow can name the
+  // forms itself — Lunda "SHIKOLA YENENI YA FOMU 5-6" — and must not be read as the level)
+  let grade = { let g = lines.slice(calc.min(1, lines.len())).find(l => hasGradeWord(l)); if g != none { g } else { lines.find(l => hasGradeWord(l)) } }
   let booktype = lines.at(lines.len() - 1, default: "Learner's Book")
   let formtxt = if grade != none { let m = grade.match(regex("(?i)(form|fo+mu|grade|level|levo|musela|zaka|imyaka|yaaka|myaka)\\s+\\d+(\\s*[-–]\\s*\\d+)?(\\s+(zaka|imyaka|yaaka|myaka)\\s+\\d+\\s*[-–]\\s*\\d+)?|\\bECE(\\s+(level|levo)\\s+\\d+)?\\b")); if m != none { m.text } else { "" } } else { "" }
   // The subject title: if the grade line is "SUBJECT FORM N" use the stripped
