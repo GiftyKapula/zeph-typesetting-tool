@@ -2418,6 +2418,12 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   // text silently swallowed by the page-break-triggering heading machinery. A genuine
   // heading is always short AND never ends in terminal sentence punctuation.
   const looksLikeProse = plain.length > 140 || (/[.!?]\s*$/.test(plain) && plain.length > 60);
+  // …except a "Figure N:" caption the author set in a Heading style. It is never a
+  // section title, and trusting the style printed it as a bold sub-heading under its
+  // picture in the series layout: the Geography Form 4 Learner's Book styles twenty of
+  // its captions that way ("Figure 7: Different types of irrigation systems" as
+  // Heading 2), and they printed as headings while its other captions printed as captions.
+  if (hmapLevel && /^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(plain)) return { t: "figcaption", text: plain };
   if (hmapLevel && !looksLikeProse) return { t: "h" + hmapLevel, text: plain };
   // Numbered TOPIC / UNIT / Sub-Topic headings (some manuscripts hand-size these
   // with no Word heading style, e.g. Physics "TOPIC 4.1: …" / "Sub-Topic 4.1.1: …";
@@ -4156,6 +4162,7 @@ async function importDocx(docxPath, opts = {}) {
           && !/^\(/.test(plain)                            // not a parenthetical note "(Any two)"
           && !/[.!?]$/.test(plain)                         // not a full sentence (prose)
           && !/^(in this sub|by the end)/i.test(plain)     // not a lead-in sentence
+          && !/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(plain)  // not a figure caption (classifyPara)
           && !boxKindFromTitle(plain)) {
         blocks.push({ t: "head", text: plain });
         continue;

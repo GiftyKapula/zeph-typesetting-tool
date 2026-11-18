@@ -1,0 +1,355 @@
+{
+  "authors": [
+    "Njira Mtonga",
+    "Oliver Manongo",
+    "Bishop Siabwanta",
+    "Euster Muyuba",
+    "Precious Sapanoi"
+  ],
+  "coverBooktypeSize": "24pt",
+  "bylineRows": true,
+  "setHeading": [
+    {
+      "find": "MINING",
+      "near": "Mining involves extracting",
+      "text": "TOPIC 4.7: MINING",
+      "as": "h1"
+    },
+    {
+      "find": "4.3.6 Sugarcane growing in the Sub-Region (South Africa)",
+      "text": "Subtopic 4.3.6: Sugarcane Growing in the Sub-Region (South Africa)",
+      "as": "h2"
+    },
+    {
+      "find": "Fisheries related Entrepreneurship",
+      "text": "Subtopic 4.4.3: Fisheries Related Entrepreneurship",
+      "as": "h2"
+    },
+    {
+      "find": "Subtopic 4.8.3: Processing and manufacturing industries in the Sub-Region (Zimbabwe and South Africa)",
+      "as": "h2"
+    },
+    {
+      "find": "Subtopic 4.2.2. Identifying Invasive Plant Species",
+      "text": "Identifying Invasive Plant Species",
+      "as": "head"
+    }
+  ],
+  "edit": [
+    {
+      "find": "LEARNING ACTIVITY 5: Engaging in actions",
+      "with": "LEARNING ACTIVITY 4: Engaging in actions"
+    },
+    {
+      "find": "LEARNING ACTIVITY 8: Providing solutions to the effects of invasive",
+      "with": "LEARNING ACTIVITY 7: Providing solutions to the effects of invasive"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Discussing Deforestation",
+      "with": "LEARNING ACTIVITY 8: Discussing Deforestation"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Identifying the causes of deforestation",
+      "with": "LEARNING ACTIVITY 9: Identifying the causes of deforestation"
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Examining The Impact of Deforestation",
+      "with": "LEARNING ACTIVITY 10: Examining The Impact of Deforestation"
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Participating in activities that address deforestation",
+      "with": "LEARNING ACTIVITY 11: Participating in activities that address deforestation"
+    },
+    {
+      "find": "EXERCISES 1&2",
+      "with": "EXERCISES 8 & 9"
+    },
+    {
+      "find": "EXERCISES 3 & 4",
+      "after": "EXERCISES 8 & 9",
+      "with": "EXERCISES 10 & 11"
+    },
+    {
+      "find": "LEARNING ACTIVITY 23: Relate sugarcane",
+      "with": "LEARNING ACTIVITY 22: Relate sugarcane"
+    },
+    {
+      "find": "LEARNING ACTIVITY 24: Identifying pastoral",
+      "with": "LEARNING ACTIVITY 23: Identifying pastoral"
+    },
+    {
+      "find": "LEARNING ACTIVITY 25: Discussing factors that promote pastoral",
+      "with": "LEARNING ACTIVITY 24: Discussing factors that promote pastoral"
+    },
+    {
+      "find": "LEARNING ACTIVITY 26: Relate factors",
+      "with": "LEARNING ACTIVITY 25: Relate factors"
+    },
+    {
+      "find": "LEARNING ACTIVITY 27: Identifying the major farming types",
+      "with": "LEARNING ACTIVITY 26: Identifying the major farming types"
+    },
+    {
+      "find": "LEARNING ACTIVITY 28: Describing Major farming types",
+      "with": "LEARNING ACTIVITY 27: Describing Major farming types"
+    },
+    {
+      "find": "EXERCISES 7 - 10",
+      "with": "EXERCISES 7 - 9"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Evaluating solutions to the challenges of tourism",
+      "with": "LEARNING ACTIVITY 9: Evaluating solutions to the challenges of tourism"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Locating the major tourist attractions in Kenya",
+      "with": "LEARNING ACTIVITY 10: Locating the major tourist attractions in Kenya"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Analysing Tourism Development in Kenya",
+      "with": "LEARNING ACTIVITY 11: Analysing Tourism Development in Kenya"
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Analysing tourism development in South Africa",
+      "with": "LEARNING ACTIVITY 12: Analysing tourism development in South Africa"
+    },
+    {
+      "find": "LEARNING ACTIVITY 12: Discussing factors influencing location",
+      "with": "LEARNING ACTIVITY 11: Discussing factors influencing location"
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Evaluating Negative Impacts of HEP",
+      "with": "LEARNING ACTIVITY 12: Evaluating Negative Impacts of HEP"
+    },
+    {
+      "find": "LEARNING ACTIVITY 21: Analysing different non-renewable",
+      "with": "LEARNING ACTIVITY 20: Analysing different non-renewable"
+    },
+    {
+      "find": "LEARNING ACTIVITY 22: Promoting use of renewable",
+      "with": "LEARNING ACTIVITY 21: Promoting use of renewable"
+    },
+    {
+      "find": "LEARNING ACTIVITY 23: Locating Major HEP Stations",
+      "with": "LEARNING ACTIVITY 22: Locating Major HEP Stations"
+    },
+    {
+      "find": "LEARNING ACTIVITY 24: Assessing the power demand",
+      "with": "LEARNING ACTIVITY 23: Assessing the power demand"
+    },
+    {
+      "find": "LEARNING ACTIVITY 25: Examining measures to address power demand",
+      "with": "LEARNING ACTIVITY 24: Examining measures to address power demand"
+    },
+    {
+      "find": "EXERCISES 15 – 18",
+      "with": "EXERCISES 15 – 19"
+    },
+    {
+      "find": "LEARNING ACTIVITY 8: Tracing major export routes",
+      "with": "LEARNING ACTIVITY 9: Tracing major export routes"
+    },
+    {
+      "find": "Figure 7: Picture showing various",
+      "with": "Figure 8: Picture showing various"
+    },
+    {
+      "find": "Figure 8: Picture unsustainable",
+      "with": "Figure 9: Picture unsustainable"
+    },
+    {
+      "find": "Figure 9: Map showing areas of sugarcane",
+      "with": "Figure 10: Map showing areas of sugarcane"
+    },
+    {
+      "find": "Figure 10: Map showing pastoral",
+      "with": "Figure 11: Map showing pastoral"
+    },
+    {
+      "find": "Figure 11: Global agriculture",
+      "with": "Figure 12: Global agriculture"
+    },
+    {
+      "find": "Figure 12: Fishermen",
+      "with": "Figure 13: Fishermen"
+    },
+    {
+      "find": "Figure 13: Fresh Kapenta",
+      "with": "Figure 14: Fresh Kapenta"
+    },
+    {
+      "find": "Figure 14: Fresh breams",
+      "with": "Figure 15: Fresh breams"
+    },
+    {
+      "find": "Figure 13: Picture depicting Zambia",
+      "with": "Figure 16: Picture depicting Zambia"
+    },
+    {
+      "find": "Figure 14: Major tourist",
+      "with": "Figure 17: Major tourist"
+    },
+    {
+      "find": "Figure 14: Maasai",
+      "with": "Figure 18: Maasai"
+    },
+    {
+      "find": "Figure 15: Kariba",
+      "with": "Figure 19: Kariba"
+    },
+    {
+      "find": "Figure 18: Map showing the Zambezi",
+      "with": "Figure 20: Map showing the Zambezi"
+    },
+    {
+      "find": "Figure 19: Picture showing a large",
+      "with": "Figure 21: Picture showing a large"
+    },
+    {
+      "find": "Figure 20: Picture depicting uses of copper",
+      "with": "Figure 22: Picture depicting uses of copper"
+    },
+    {
+      "find": "Figure 21: Picture depicting uses of zinc",
+      "with": "Figure 23: Picture depicting uses of zinc"
+    },
+    {
+      "find": "Figure 22: Picture depicting uses of coal",
+      "with": "Figure 24: Picture depicting uses of coal"
+    },
+    {
+      "find": "Figure 23: Picture depicting uses of gold",
+      "with": "Figure 25: Picture depicting uses of gold"
+    },
+    {
+      "find": "Figure 24: Pictures of manufacturing",
+      "with": "Figure 26: Pictures of manufacturing"
+    },
+    {
+      "find": "Figure 25: Map of Zambia showing",
+      "with": "Figure 27: Map of Zambia showing"
+    },
+    {
+      "find": "Figure 26: Impact of manufacturing",
+      "with": "Figure 28: Impact of manufacturing"
+    },
+    {
+      "find": "Figure 27: Map showing major manufacturing",
+      "with": "Figure 29: Map showing major manufacturing"
+    },
+    {
+      "find": "Figure 28: Map showing major manufacturing and processing industries in South Africa",
+      "with": "Figure 30: Map showing major manufacturing and processing industries in Zimbabwe"
+    },
+    {
+      "find": "Figure 29: Map showing major industrial centres in Japan",
+      "with": "Figure 31: Map showing major industrial centres in Japan"
+    },
+    {
+      "find": "Figure 30: Map showing major industrial centres in China",
+      "with": "Figure 32: Map showing major industrial centres in China"
+    },
+    {
+      "find": "Figure 31: Picture showing different tools",
+      "with": "Figure 33: Picture showing different tools"
+    },
+    {
+      "find": "EXERCISE 5",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 4"
+    },
+    {
+      "find": "EXERCISE 6",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 5"
+    },
+    {
+      "find": "EXERCISE 7",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 6"
+    },
+    {
+      "find": "EXERCISE 8",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 7"
+    },
+    {
+      "find": "EXERCISE 9",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISE 8"
+    },
+    {
+      "find": "EXERCISES 10 - 14",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISES 9 - 13"
+    },
+    {
+      "find": "EXERCISES 15 - 17",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISES 14 - 16"
+    },
+    {
+      "find": "EXERCISES 18 – 21",
+      "after": "Fish Processing Measures",
+      "with": "EXERCISES 17 – 20"
+    }
+  ],
+  "images": {
+    "image13.jpeg": {
+      "w": 288
+    }
+  },
+  "replaceBlocks": [
+    {
+      "find": "EXERCISE 4",
+      "next": "Fish Processing Measures",
+      "with": []
+    }
+  ],
+  "editAll": [
+    {
+      "find": "END-OF-TOPIC",
+      "with": "END OF TOPIC"
+    },
+    {
+      "find": "EXERCISES 1 - 3",
+      "with": "EXERCISES 1 – 3"
+    },
+    {
+      "find": "EXERCISES 4 - 6",
+      "with": "EXERCISES 4 – 6"
+    },
+    {
+      "find": "EXERCISES 7 - 9",
+      "with": "EXERCISES 7 – 9"
+    },
+    {
+      "find": "EXERCISES 10 - 12",
+      "with": "EXERCISES 10 – 12"
+    },
+    {
+      "find": "EXERCISES 9 - 13",
+      "with": "EXERCISES 9 – 13"
+    },
+    {
+      "find": "EXERCISES 14 - 16",
+      "with": "EXERCISES 14 – 16"
+    },
+    {
+      "find": "EXERCISES 5 - 7",
+      "with": "EXERCISES 5 – 7"
+    },
+    {
+      "find": "EXERCISES 20 - 22",
+      "with": "EXERCISES 20 – 22"
+    },
+    {
+      "find": "EXERCISES 11 - 13",
+      "with": "EXERCISES 11 – 13"
+    },
+    {
+      "find": "EXERCISES 5 - 8",
+      "with": "EXERCISES 5 – 8"
+    }
+  ]
+}
