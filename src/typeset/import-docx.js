@@ -3157,7 +3157,10 @@ async function importDocx(docxPath, opts = {}) {
       continue;
     }
     if (/^[.·•…\/\\|]{1,3}$/.test(plainOf(segs).trim())) continue;  // stray punctuation-only line (a lone "." or "/")
-    if (/^[A-Za-z]$/.test(plainOf(segs).trim())) continue;  // stray single letter (manuscript artifact, e.g. a lone "s")
+    // stray single letter (manuscript artifact, e.g. a lone "s") — but not a Word list item:
+    // a phonics lesson lists the letters to write one per numbered line ("Lembani malembo
+    // awa: 1. j 2. z 3. y 4. l", Cinyanja G1 LB), and every such list vanished.
+    if (/^[A-Za-z]$/.test(plainOf(segs).trim()) && !/<w:numPr>/.test(x)) continue;
     if (/^(Top|Bottom) of Form$/i.test(plainOf(segs).trim())) continue;  // Word form-field artifact (from a protected/form section)
     // imprint page: centred plain text. Long runs of spaces were used as
     // pseudo line-breaks (e.g. the publisher address), so turn them into real

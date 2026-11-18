@@ -90,6 +90,7 @@ off, so a change only touches the books that opt in. Keys:
 | `blackWhite` | render the whole interior in black/grey (CDC's Teacher's Guide requirement) while the **cover stays full colour** — every themed colour, box fill, and table zebra-stripe is forced to black/grey/light-grey. This is now the **default for any TG** (filename carries "TG" or "teacher"), so most books never need to set it; use `blackWhite: false` for the rare TG that must stay in colour, or `blackWhite: true` to force it on a Learner's Book (which otherwise keeps its colour) |
 | `hyphenate` | `false`: no word is broken across two lines with a hyphen anywhere in the book (a reviewer marked every "repro-duced" break); `true` turns hyphenation back on for a theme that switches it off. A compound that must not split at its own hyphen ("semi-transparent") takes a word joiner after the hyphen via `editAll` (`"semi-\u2060transparent"`) |
 | `raggedRight` | `true`: body text set flush left (ragged right) instead of justified — for an ECE book whose 18pt lines inside narrow activity boxes hold only three or four words, so justifying them opens wide gaps. Chitonga ECE Level 1 LB |
+| `jpegQuality` | `90`: store the pictures in the finished PDF (and the cover spread) as JPEG at that quality, same pixels, instead of lossless — a picture book of Real-ESRGAN photographs drops from hundreds of MB to a few tens with no visible change (Cinyanja G1 LB: 425 MB to 61 MB). Masks and text are untouched. Any PDF: `node src/typeset/compress-pdf.js "<in>.pdf" ["<out>.pdf"] [--q 90]` |
 | `tocTitle` | the contents page heading in the book's own words (a local-language book's own contents heading, e.g. Kiikaonde "Biji mu Kachi") instead of the theme's "Table of Contents" |
 | `titleAgeLine` | an age line set under the book type on the **title page only** (an ECE reviewer's "YAAKA 4-5"); the cover and spine are untouched |
 
@@ -162,7 +163,7 @@ off, so a change only touches the books that opt in. Keys:
 | Key | What it does |
 |---|---|
 | `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off); `all: true` sets it on every matching line |
-| `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph |
+| `unlist` | convert a paragraph the importer mis-parsed as a list item back to a plain paragraph. `{ find, renumber: true }`: the line was item 1 of its list (an instruction numbered with the items under it) — the numbered items after it count again from 1 (Cinyanja G1 LB) |
 | `dropMath` | delete a stray math segment by exact Typst source |
 | `tables` | rebuild a badly-built table as an explicit grid |
 

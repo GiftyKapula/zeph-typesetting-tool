@@ -1735,6 +1735,28 @@ async function typesetOne(docxPath, themeName) {
   // under their strand). They render as plain heads, which the outline never sees; the
   // Icibemba G4 LB reviewer asked for its missing sub-topic ("4.6.3.2 Landilwa") there.
   if (ov.tocHeads) for (const b of blocks) if (b.t === "h3" && b.text) b.toc = 3;
+  // Sound markers in phonics lessons ("/t/", "/aA/", "/ts TS/") are one unit: a line may
+  // break after the opening slash, which printed "… /t/, /b/, /" with "p/, /c/." on the
+  // next line (Cinyanja G1 LB, 15 places). A word joiner after the opening slash and a
+  // no-break space inside the marker keep each one whole. Unicode never breaks a line just
+  // BEFORE a slash, even after a space, so that bad break was the only one a run of markers
+  // ("/mv/, /mk/, /nj/, …") had: a zero-width space before each opening slash gives the
+  // line a good place to break instead, or the run cannot break and spills off the page.
+  // Every book, no override; it runs last, so overrides still find the plain text.
+  {
+    const re = /(^|[\s(\[,;:"“‘])\/(\p{L}{1,6}(?: \p{L}{1,6})?)\/(?=$|[\s,.;:)\]?!"”’])/gu;
+    let n = 0;
+    const WJ = String.fromCharCode(0x2060), NBSP = String.fromCharCode(0xa0), ZWSP = String.fromCharCode(0x200b);
+    const keep = (s) => s.replace(re, (m, pre, inner) => { n++; return pre + (pre ? ZWSP : "") + "/" + WJ + inner.replace(" ", NBSP) + "/"; });
+    const walk = (o) => {
+      if (o == null || typeof o !== "object") return;
+      if (Array.isArray(o)) { for (const x of o) walk(x); return; }
+      for (const k of ["t", "text", "plain", "q", "a", "title", "heading", "caption"]) if (typeof o[k] === "string" && o[k].includes("/")) o[k] = keep(o[k]);
+      for (const v of Object.values(o)) if (v && typeof v === "object") walk(v);
+    };
+    walk(blocks);
+    if (n) console.log(`   sound markers kept whole: ${n}`);
+  }
   const doc = `${themeTypst(theme, themeOverrides)}${tmpl}\n#show: doc.with(title: ${S(title)})\n\n${ov.afterListGap ? `#let afterlist() = v(${ov.afterListGap}, weak: true)\n` : ""}${emit(blocks)}\n`;   // (afterListGap: the room above a heading that follows a list, house 28pt)
 
   // Include OS system fonts so specialty faces like Bradley Hand ITC (used for
@@ -1841,6 +1863,16 @@ async function typesetOne(docxPath, themeName) {
         console.log(`   cover spread with a ${spineMm} mm spine (${pages} pages) -> ${spreadPath}`);
       }
     } else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);
+  }
+
+  // "jpegQuality": 90 — store the pictures as JPEG at that quality, same pixels (see
+  // compress-pdf.js): a picture-heavy book drops from hundreds of MB to a few tens.
+  if (ov.jpegQuality) {
+    const { compressPdfFile } = require("./compress-pdf.js");
+    const quality = Number(ov.jpegQuality) || 90;
+    for (const p of [outPath, path.join(bookDir, `${base} - cover spread.pdf`)]) {
+      if (fs.existsSync(p)) console.log(`   ${path.basename(p)}: ${await compressPdfFile(p, p, { quality })}`);
+    }
   }
 
   // best-effort cleanup of temp extraction dirs

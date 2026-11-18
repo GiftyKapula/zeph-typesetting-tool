@@ -318,7 +318,8 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image46.png"
     },
     "image47.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image37.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image37.png",
+      "w": 380
     },
     "image48.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image38.png"
@@ -403,7 +404,8 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image70.png"
     },
     "image79.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image71.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image71.png",
+      "hmm": 58
     },
     "image80.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires/image72.png"
@@ -479,14 +481,16 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image87.png"
     },
     "image25.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image25.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image25.png",
+      "hmm": 72
     },
     "image54.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image54.png",
       "w": 420
     },
     "image107.png": {
-      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image107.png"
+      "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image107.png",
+      "w": 400
     },
     "image100.png": {
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image100.png"
@@ -597,6 +601,10 @@
       "src": "CINYANJA LEARNER'S BOOK GRADE 1-hires2/image123.png"
     }
   },
+  "removeImages": [
+    "image5.jpeg"
+  ],
+  "_note_removeImages": "image5 is the same costume photo as image4 (squashed and cropped), placed straight after it under Zocita: the page printed one photograph twice and pushed the Zocita instruction onto the next page.",
   "_note_wordFix": "Spelling, to the book's own majority form: Noriana Muneka (the Permanent Secretary, as in the sibling TG and the other ZEPH books; the LB typed Noliana); yosiyana-qwsiyana -> yosiyana-siyana; Zolembadwa -> Zolembedwa (7 to 1); Zolembala -> Zolembela (3 to 1). Mvekelo ia Malembo -> la (the book's only \"ia\"). anamuyamiki;a -> anamuyamikila (a semicolon typed for l). 18 Nov full read: aKuwelenga -> akuwelenga (find-and-replace slip); and to the book's c-spelling, one form per word: chifukwa -> cifukwa (20 to 3), chitseko -> citseko, cha -> ca (33 to 1), zochita -> zocita (201 to 1), masewelo -> masewela (46 to 1), kutengapo -> kutengako (4 to 1). Words that contain a hyphen of their own (reduplication: zosiyana-siyana, mobweleza-bweleza, eni-eni; syllable splits: bu-ku) take a word joiner after the hyphen, so with hyphenation off they never break at a line end either.",
   "wordFix": {
     "Noliana": "Noriana",
@@ -791,6 +799,7 @@
     29,
     30,
     37,
+    43,
     45,
     46,
     47,
@@ -838,7 +847,7 @@
   "_note_replace": "p124: a dropped word, \"Bwelezani m mobweleza-bweleza\" -> \"Bwelezani Mvekelo mobweleza-bweleza\", as its nine other copies read. Punctuation: a space before a full stop or question mark removed, and a writing line typed as commas made dots like its neighbours.",
   "_note_image128": "image128 (Samaria story picture, last unit) at 470 px so the unit test ends on its own page instead of carrying one item over.",
   "_note_image31": "image31 is one strip of three scenes (boy reading / mother cooking / father going to the field) that the manuscript crops three ways, one scene per sentence (Mwana akuwelenga buku p49, Amai akuphika nsima, Atate akupita ku munda). Its upscaled replacement is the whole strip, so crop: true re-applies the author's crop at each use. Shown 61 mm tall (hmm): the crop is a tall narrow strip, which at the default fixed height pushed whole lessons onto the next page.",
-  "_note_imageSizes": "Pictures sized down so a lesson moves up onto the part-empty page before it (user, 18 Nov: \"work on the image to move up\"): image33 (Chisomo story) 300 px, image54 (letter blocks) 420 px, image53 380 px, image128 470 px.",
+  "_note_imageSizes": "Pictures sized down so a lesson moves up onto the part-empty page before it (user, 18 Nov: \"work on the image to move up\"): image33 (Chisomo story) 300 px, image54 (letter blocks) 420 px, image53 380 px, image128 470 px. 18 Nov check (user: look for any problem): image25 (shapes chart) 72 mm tall so it sits under its Zocita on p29 instead of alone on the next page; image47 380 px and image79 58 mm tall so the unit 3 and unit 6 tests no longer carry item 6 alone onto a page; image107 400 px so unit 9's reading strand (break 43, now dropped) opens with its picture instead of a heading stack alone on a page. Sizes by height (hmm) where a width under 400 px would make the emitter pin the picture to the NEXT activity heading.",
   "midSentenceLower": [
     "Mau",
     "Mvekelo",
@@ -863,5 +872,16 @@
   "_note_midSentenceLower": "The authors' find-and-replace capitalised common words inside sentences (\"kuwelenga Mau ndi ziganizo\", \"Bwelezani Mvekelo\", \"ndi Kuwelenga masilabe\"). Lowercased in body text only; headings keep their title case.",
   "hyphenate": false,
   "_note_hyphenate": "No word is broken across two lines with a hyphen (user, 18 Nov: \"it has hyphens at the end of the sentences\"). Grade 1 readers should see every word whole. With no hyphens, justified 18pt lines opened wide gaps between words, so the body is set flush left (raggedRight), as on the Chitonga ECE LB.",
-  "raggedRight": true
+  "raggedRight": true,
+  "boxStripe": false,
+  "_note_boxStripe": "House rule for every book (QA gate); this book has no striped boxes, so nothing on the page changes.",
+  "jpegQuality": 90,
+  "_note_jpegQuality": "Pictures stored as JPEG (quality 90, same pixels, about 300 DPI) instead of lossless: the PDF came out at 425 MB with 130 Real-ESRGAN photographs; about 62 MB this way with no visible change (user, 18 Nov: can it be reduced in size).",
+  "unlist": [
+    {
+      "find": "Lembani malembo awa pa pepala lanu:",
+      "renumber": true
+    }
+  ],
+  "_note_unlist": "Nchito 4: Kulemba malembo (p77): the manuscript numbers the instruction with the letters under it (1. Lembani malembo… 2. t … 7. c); the instruction is a plain line and the six letters count 1-6, as in the j z y l and a e i o u lists."
 }
