@@ -1492,10 +1492,13 @@ async function typesetOne(docxPath, themeName) {
   // groups. The text size never changes.
   if (ov.imprintSpacing) {
     const i = blocks.findIndex((b) => b.t === "titlepage");
-    const j = blocks.findIndex((b, k) => k > i && b.t === "toc");
+    let j = blocks.findIndex((b, k) => k > i && b.t === "toc");
     if (i < 0 || j < 0) console.warn("!  imprintSpacing: no imprint page found");
     else {
       for (let k = i + 1; k < j; k++) if (blocks[k].t === "vspace") blocks[k].h = ov.imprintGap || "2mm";   // (imprintGap: breathing space kept between the credit groups)
+      // two gaps back to back (the manuscript's blank line + an override's own gap) added up to
+      // double the space above some groups only (Cinyanja G1 LB): one gap per group
+      for (let k = j - 1; k > i + 1; k--) if (blocks[k].t === "vspace" && blocks[k - 1].t === "vspace") { blocks.splice(k, 1); j--; }
       blocks.splice(j, 0, { t: "parspacing", v: "0.86em" });
       blocks.splice(i + 1, 0, { t: "parspacing", v: ov.imprintSpacing });
     }

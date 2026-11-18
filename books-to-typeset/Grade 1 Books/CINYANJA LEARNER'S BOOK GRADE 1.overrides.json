@@ -188,22 +188,22 @@
     {
       "title": "MAU OYAMBA",
       "spacing": "0.9em",
-      "sig": "6mm"
+      "sig": "16mm"
     },
     {
       "title": "MAU OTSOGOLELA",
       "spacing": "0.9em",
-      "sig": "6mm"
+      "sig": "16mm"
     },
     {
       "title": "ZOTHOKOZA",
       "spacing": "0.9em",
-      "sig": "6mm"
+      "sig": "16mm"
     },
     {
       "title": "MAU OYAMBA A BUKU",
       "spacing": "0.9em",
-      "sig": "6mm"
+      "sig": "16mm"
     }
   ],
   "_note_cover": "Cover hero chosen by the user 2026-11-17: the picture on page 8 (Nchito 1: Kutsegula ndi kutseka buku, a girl opening her Cinyanja book; manuscript media image9.png), using its Real-ESRGAN copy (1725 px, about 350 DPI on the cover card). It replaces the costume photo chosen in October. Cropped (no retouching) to the cover card shape 1.564:1 from the top edge down, so her head and the book stay whole; only desk at the bottom is lost. Committed next to the sidecar like the TG cover.",
@@ -637,8 +637,39 @@
     "mosiyana-siyana": "mosiyana-⁠siyana",
     "zeni-zeni": "zeni-⁠zeni"
   },
-  "_note_imprint": "Copyright page laid out as the house model (Silozi G4 LB; HOUSE-STYLE imprint): rights line, authors, editor, illustrator, layout, publisher + address, ISBN with dots, printer; every label bold on its own line with the name plain below. The cover/layout credit is Teddy Ng`ambi (house rule for every book since 16 Nov 2026) under the manuscript's own Cinyanja label. ALEMBI (Authors) is also the word list's Authors-section title, so the label and the illustrator credit \"Alembi\" are marked noPromote to stay on the copyright page.",
+  "_note_imprint": "Copyright page laid out as the house model (Silozi G4 LB; HOUSE-STYLE imprint): rights line, authors, editor, illustrator, layout, publisher + address, ISBN with dots, printer; every label bold on its own line with the name plain below. The cover/layout credit is Teddy Ng`ambi (house rule for every book since 16 Nov 2026) under the manuscript's own Cinyanja label. ALEMBI (Authors) is also the word list's Authors-section title, so the label and the illustrator credit \"Alembi\" are marked noPromote to stay on the copyright page. 18 Nov (user: check the spacing on the names, front matter up to standard): set as the sibling Cinyanja G1 TG and the Silozi G4 LB model — © line first, publisher in plain title case (not capitals), the year only in the © line, one equal gap between every group.",
   "replaceBlocks": [
+    {
+      "find": "Ufulu wonse ndi wotetezedwa.",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House, 2026",
+          "center": true
+        },
+        {
+          "para": "Ufulu wonse ndi wotetezedwa.",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "ZAMBIA EDUCATIONAL PUBLISHING HOUSE",
+      "with": [
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Zambia Educational Publishing House, 2026",
+      "with": [
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
     {
       "find": "ISBN:",
       "with": []
@@ -763,8 +794,8 @@
   "coverWords": {
     "printedBy": "Losindikizidwa ndi"
   },
-  "imprintSpacing": "0.3em",
-  "imprintGap": "3mm",
+  "imprintSpacing": "0.4em",
+  "imprintGap": "4mm",
   "_note_imprintSpacing": "At the Grade 1 type size the copyright page ran four lines onto a second page; tighter line and group spacing (as on the Chitonga G1 LB) keeps it on one.",
   "tidySpacing": true,
   "_note_pageBreak": "At the Grade 1 type size MAU OYAMBA and MAU OTSOGOLELA run two lines plus the signature past one page even with tight gaps; the closing paragraph goes over with the signature instead, so the second page is not a two-line stub. Two end-of-unit stories (Mwana Wocita Sewelo; Mwana wosamala) start a fresh page so their title is not left at a page foot with the story picture overleaf. Unit 8's end-of-unit test opens a fresh page, so it is not split with two lines overleaf before Unit 9.",

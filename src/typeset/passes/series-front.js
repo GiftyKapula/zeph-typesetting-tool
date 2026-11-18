@@ -175,6 +175,9 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
     let k = out.length - 1;
     while (k >= 0 && out[k].t === "vspace") k--;
     if (k >= 0 && /^(para|head|label)$/.test(out[k].t) && DOTS.test(plainOfBlk(out[k]))) out.splice(k, 1);
+    // the signature space stands alone: a blank line just above it made one signatory's gap
+    // 5 mm taller than the others' (Cinyanja G1 LB)
+    while (out.length && out[out.length - 1].t === "vspace") out.pop();
   };
   const isBold = (x) => x.t === "head" || x.t === "label" || (x.segs ? x.segs.some((s) => s.b) : false);
   {
@@ -218,7 +221,11 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
         dropDots(withSig); withSig.push({ t: "sigspace" });
         let j = i;
         const lines = [];
-        while (j < b.length && (isText(b[j]) || (h1Sig && sigH1(b[j])))) {
+        while (j < b.length) {
+          // a blank line the manuscript left before the organisation line ("MINISTRY OF
+          // EDUCATION", Cinyanja G1 LB) does not end the block: the organisation belongs in it
+          if (j > i && b[j].t === "vspace" && isText(b[j + 1]) && SIGORG.test(plainOfBlk(b[j + 1])) && !lines.some((l) => SIGORG.test(l.text || ""))) { j++; continue; }
+          if (!(isText(b[j]) || (h1Sig && sigH1(b[j])))) break;
           // The signatory's name (the first line) is always bold; an all-caps
           // organisation line (e.g. "ZAMBIA EDUCATIONAL PUBLISHING HOUSE") is bold
           // too; the title line (e.g. "Board Chairperson") is always regular weight.
