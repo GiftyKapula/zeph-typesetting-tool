@@ -279,9 +279,11 @@ function fillLayoutCredit(blocks) {
   // designed by:", "Book layout by:", "Design and layout:" — and matching only the
   // first spelling left the credit unfilled on any book using another. The ICT Form 2
   // Teacher's Guide says "Cover designed by:" and printed a bare row of dots.
-  // Capped at a short line so the phrase can't match inside body prose.
-  const LABEL = /(cover|book)\s+(and\s+book\s+)?(layout|design)|(layout|design)\s+and\s+(design|layout)/i;
-  const LABEL_MAXLEN = 60;
+  // Capped at a short line so the phrase can't match inside body prose. Lunda books print
+  // the credit in Lunda, "Awahishili chipapilu chahanzi yamukanda nikuwutanjika adiñi a:"
+  // (who made the cover page and laid out the book) - 62 characters, so the cap is 70.
+  const LABEL = /(cover|book)\s+(and\s+book\s+)?(layout|design)|(layout|design)\s+and\s+(design|layout)|chipapilu\s+chahanzi\s+yamukanda/i;
+  const LABEL_MAXLEN = 70;
   // Another front-matter label (ends with a colon, or a known "…by:" line) — never a
   // placeholder to overwrite, even when it directly follows ours with no gap.
   const LABELISH = /:\s*$|^(edited|illustrated|printed|published|first published)\b/i;
