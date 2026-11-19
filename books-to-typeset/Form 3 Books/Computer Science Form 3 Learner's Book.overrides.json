@@ -579,6 +579,27 @@
       "find": "Digital Literacy and",
       "after": "Why someone without the key cannot read the message",
       "with": "Digital Literacy and Technical Skills, Communication and Presentation Skills"
+    },
+    {
+      "find": "(a) How will you plan and carry out the migration to the cloud server?",
+      "with": "(b) How will you plan and carry out the migration to the cloud server? Explain how you will check that all data moved correctly.",
+      "_why": "round 1 read-through (19 Nov): Exercise 3 (3.7.1) lettered (a) (a) (b) in the source"
+    },
+    {
+      "find": "(b) Draw simple diagrams showing the current database",
+      "with": "(c) Draw simple diagrams showing the current database",
+      "_why": "round 1 read-through (19 Nov)"
+    },
+    {
+      "find": "student name (John, Mary)",
+      "with": "learner name (John, Mary)",
+      "_why": "round 1 read-through (19 Nov): Learner Table columns match LearnerID used in 3NF (#113)"
+    },
+    {
+      "after": "Why someone without the key cannot read the message",
+      "find": "Digital Literacy and",
+      "with": "Digital Literacy and Technical Skills, Communication and Presentation Skills",
+      "_why": "round 1 read-through (19 Nov): source line stops at \"and\"; completed as in every other activity of 3.4.1 (flagged)"
     }
   ],
   "liftCrossCutting": true,
@@ -993,6 +1014,63 @@
           "marker": "•"
         }
       ]
+    },
+    {
+      "find": "(a) State two interactive features you can add to a presentation.",
+      "with": [
+        {
+          "listitem": "*State two interactive features you can add to a presentation.*",
+          "marker": "(a)"
+        }
+      ],
+      "_why": "round 1 read-through (19 Nov): Exercise 6 lettered like every other exercise"
+    },
+    {
+      "find": "(b) Explain why it is important to test hyperlinks before presenting.",
+      "with": [
+        {
+          "listitem": "*Explain why it is important to test hyperlinks before presenting.*",
+          "marker": "(b)"
+        }
+      ],
+      "_why": "round 1 read-through (19 Nov)"
+    },
+    {
+      "find": "(a) Describe how videos or navigation buttons help the audience understand",
+      "with": [
+        {
+          "listitem": "*Describe how videos or navigation buttons help the audience understand.*",
+          "marker": "(c)"
+        }
+      ],
+      "_why": "round 1 read-through (19 Nov)"
+    },
+    {
+      "find": "The problem you identified, How your IoT system works, The data collected and how it is used and The benefits of your solution in real life",
+      "with": [
+        {
+          "listitem": "*The problem you identified*",
+          "marker": "1."
+        },
+        {
+          "listitem": "*How your IoT system works*",
+          "marker": "2."
+        },
+        {
+          "listitem": "*The data collected and how it is used*",
+          "marker": "3."
+        },
+        {
+          "listitem": "*The benefits of your solution in real life*",
+          "marker": "4."
+        }
+      ],
+      "_why": "round 1 read-through (19 Nov): the Non-Digital Groups list set like the Simulation-Based one above it"
+    },
+    {
+      "find": "Explain how you will check that all data moved correctly",
+      "with": [],
+      "_why": "round 1 read-through (19 Nov): joined to Exercise 3 (b)"
     }
   ],
   "setHeading": [
@@ -1079,6 +1157,21 @@
     {
       "find": "Expected Response:",
       "with": "Expected Competences:"
+    },
+    {
+      "find": "StudentID",
+      "with": "LearnerID",
+      "_why": "round 1 read-through (19 Nov) (#113 consistency)"
+    },
+    {
+      "find": "StudentName",
+      "with": "LearnerName",
+      "_why": "round 1 read-through (19 Nov)"
+    },
+    {
+      "find": "Presentation Skills Technical Skills, Communication and Presentation Skills",
+      "with": "Presentation Skills",
+      "_why": "round 1 read-through (19 Nov): competence line doubled in the source (3.4.1, before Learning Encryption with Secret Messages)"
     }
   ],
   "removeRange": [
@@ -1524,6 +1617,13 @@
       "titleFromFirst": true,
       "kind": "alt",
       "_why": "round 1 #179/#180"
+    },
+    {
+      "from": "Instructions",
+      "near": "that demonstrates how users access and share services using different",
+      "to": "Suggest two improvements to make your cloud",
+      "into": "prev",
+      "_why": "round 1 read-through (19 Nov): Exercise 4 (3.11.1) instructions inside its box"
     }
   ],
   "insertHead": [
@@ -1560,10 +1660,6 @@
       "_why": "round 1 #102"
     },
     {
-      "find": "EXERCISE 3",
-      "near": "After planning, you write the program using a programming language"
-    },
-    {
       "find": "EXERCISE 5",
       "near": "In this chapter, you learned how to make web pages"
     },
@@ -1580,6 +1676,16 @@
       "find": "EXERCISE 3",
       "near": "making system integration difficult",
       "_why": "page-break standard: the six-line exercise was split three and three"
+    },
+    {
+      "find": "EXERCISE 4",
+      "near": "reduce travel costs, and expand access to learning and communication",
+      "_why": "round 1 read-through (19 Nov): its (c) was carried over alone"
+    },
+    {
+      "find": "EXERCISE 3",
+      "near": "After planning, you write the program using a programming language",
+      "_why": "page-break standard: split, its last two lines were carried over alone"
     }
   ],
   "boldLead": [
