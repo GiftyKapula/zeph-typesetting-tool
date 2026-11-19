@@ -1874,11 +1874,30 @@
     },
     {
       "from": "# Read sensor data water_level = read_sensor()",
-      "until": "Explanation:"
+      "to": "send_message(\"Water level low\")",
+      "with": [
+        "# Read sensor data",
+        "water_level = read_sensor()",
+        "",
+        "# Send alert if water level is low",
+        "if water_level < 20:",
+        "    send_message(\"Water level low\")"
+      ],
+      "late": true
     },
     {
       "from": "// Read sensor data int waterLevel = readSensor();",
-      "until": "Challenges such as poor internet"
+      "to": "}",
+      "with": [
+        "// Read sensor data",
+        "int waterLevel = readSensor();",
+        "",
+        "// Send alert when water is low",
+        "if (waterLevel < 20) {",
+        "    sendMessage(\"Water level low\");",
+        "}"
+      ],
+      "late": true
     }
   ],
   "codeConsole": true,

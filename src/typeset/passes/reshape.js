@@ -221,12 +221,13 @@ function reshapeBoxes(blocks, ov) {
     // (until: the line containing it ends the code, not included)
     if (!cb.to && cb.until) { const u = locate(out, cb.until, null, a.k + 1); z = u && { ...u, k: u.k - 1 }; }
     if (!z) { console.warn("!  codeBlocks (late) `to` not matched:", cb.to); continue; }
-    // (with: ["line", …] — the lines from..to replaced by these, one code line each)
+    // (with: ["line", …] — the lines from..to replaced by these, one code line each; from/to
+    //  both in one box, or both loose on the page)
     if (Array.isArray(cb.with)) {
       const [i1, j1] = a.ps[a.k], [i2, j2] = z.ps[z.k];
-      if (i1 !== i2 || (j1 < 0) !== (j2 < 0)) { console.warn("!  codeBlocks (late) with: from/to not in one place:", cb.from); continue; }
+      if ((j1 < 0) !== (j2 < 0) || (j1 >= 0 && i1 !== i2)) { console.warn("!  codeBlocks (late) with: from/to not in one place:", cb.from); continue; }
       const lines = cb.with.map((t) => ({ t: "para", segs: [{ t: String(t).replace(/^ +/, (m) => "\u00a0".repeat(m.length)) || "\u00a0", b: false, it: false, c: null, code: true }] }));
-      if (j1 < 0) out.splice(i1, 1, ...lines); else out[i1].body.splice(j1, j2 - j1 + 1, ...lines);
+      if (j1 < 0) out.splice(i1, i2 - i1 + 1, ...lines); else out[i1].body.splice(j1, j2 - j1 + 1, ...lines);
       continue;
     }
     for (let k = a.k; k <= z.k; k++) {
