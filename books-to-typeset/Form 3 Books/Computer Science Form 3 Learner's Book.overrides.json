@@ -28,7 +28,7 @@
       {
         "label": "Illustrated by:",
         "lines": [
-          "Misheck Mutuzana and Shephat Phiri"
+          "Ruth Gondwe and Shephat Phiri"
         ]
       },
       {
@@ -85,7 +85,10 @@
     }
   },
   "remove": [
-    "Misheck Mutuzana holds an MSc"
+    "Misheck Mutuzana holds an MSc",
+    "Expected Competences: Problem-solving skills, creativity in designing IoT",
+    "problems using either simulation tools or physical models.",
+    "Competence-Based Questions (Revised Scenario):"
   ],
   "insertText": [
     {
@@ -311,6 +314,105 @@
         }
       ],
       "near": "welcome message to appear"
+    },
+    {
+      "before": "Desktop Publishing (DTP) software is a computer program used",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "Logic gates are not just ideas you learn in class",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "The Internet is a powerful tool that connects people",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "Data protection and privacy means keeping personal information",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "Python is a popular programming language used to create programs",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "Coding in Python involves writing instructions that a computer",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "Web interactivity allows you to create websites that respond",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "Database management is the process of organising and controlling",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "The Internet of Things (IoT) is a system of connected physical",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "Cloud computing is the use of computer services over the internet",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
+    },
+    {
+      "before": "Mechanical and electronic systems are important parts of machines",
+      "items": [
+        {
+          "vspace": "3mm"
+        }
+      ],
+      "_why": "round 1 #68: room under the Specific Competence"
     }
   ],
   "replaceSection": [
@@ -390,6 +492,11 @@
       "find": "image19.png",
       "before": "Different presentation software applications may vary",
       "_why": "CDC p11-12: remove the PowerPoint interface picture from under Key Competences, put it after Exploring the software"
+    },
+    {
+      "find": "Ruth Gondwe holds",
+      "before": "Shephat Phiri holds",
+      "_why": "round 1 #2: author order as on the cover"
     }
   ],
   "edit": [
@@ -452,6 +559,26 @@
       "after": "LEARNING ACTIVITY 4: Testing electronic circuits",
       "find": "EXERCISE 8",
       "with": "EXERCISE 7"
+    },
+    {
+      "find": "(a) Describe how videos or navigation buttons",
+      "with": "(c) Describe how videos or navigation buttons",
+      "_why": "round 1 #4"
+    },
+    {
+      "find": "Alternative Activity 3 Steps:",
+      "with": "Steps:",
+      "_why": "round 1 #6: becomes the box title"
+    },
+    {
+      "find": "not directly on StudentID",
+      "with": "not directly on LearnerID",
+      "_why": "round 1 #113"
+    },
+    {
+      "find": "Digital Literacy and",
+      "after": "Why someone without the key cannot read the message",
+      "with": "Digital Literacy and Technical Skills, Communication and Presentation Skills"
     }
   ],
   "liftCrossCutting": true,
@@ -495,6 +622,36 @@
     {
       "find": "Group 2:",
       "_why": "LA5 (source p277): one group per line, as in the source"
+    },
+    {
+      "find": "Step-by-Step Guide",
+      "_why": "Game 2: its own line, as in Games 1 and 3-6"
+    },
+    {
+      "late": true,
+      "find": "Step-by-Step Guide",
+      "near": "Game 3: Simple Quiz Game"
+    },
+    {
+      "late": true,
+      "find": "Step-by-Step Guide",
+      "near": "Game 4: Dice Rolling Game"
+    },
+    {
+      "late": true,
+      "find": "Step-by-Step Guide",
+      "near": "Game 5: Multiplication Challenge"
+    },
+    {
+      "late": true,
+      "find": "Expected Competences: Data Privacy and Digital",
+      "near": "During the presentation, other learners will ask questions",
+      "_why": "round 1 #137"
+    },
+    {
+      "late": true,
+      "find": "#include <iostream> using namespace std;",
+      "near": "Basic C++ Syntax"
     }
   ],
   "replaceBlocks": [
@@ -524,6 +681,318 @@
         }
       ],
       "_why": "typo in the topic title (the contents list spells it right)"
+    },
+    {
+      "find": "State two things you would check when reviewing your slides before presenting",
+      "with": [
+        {
+          "listitem": "*State two things you would check when reviewing your slides before presenting.*",
+          "marker": "(c)"
+        }
+      ],
+      "_why": "round 1 #3"
+    },
+    {
+      "find": "print(\"Pass\") else:",
+      "with": []
+    },
+    {
+      "find": "print(\"Fail\")",
+      "with": []
+    },
+    {
+      "find": "print(\"You have passed\")",
+      "with": []
+    },
+    {
+      "find": "</> Python marks = 40if marks >= 50:",
+      "with": [
+        {
+          "code": "marks = 40"
+        },
+        {
+          "code": "if marks >= 50:"
+        },
+        {
+          "code": "    print(\"Pass\")"
+        },
+        {
+          "code": "else:"
+        },
+        {
+          "code": "    print(\"Fail\")"
+        }
+      ],
+      "_why": "round 1 #34"
+    },
+    {
+      "find": "</> Python python marks = 60if marks >= 50:",
+      "with": [
+        {
+          "code": "marks = 60"
+        },
+        {
+          "code": "if marks >= 50:"
+        },
+        {
+          "code": "    print(\"You have passed\")"
+        }
+      ],
+      "_why": "same example as #34, one page earlier"
+    },
+    {
+      "find": "```python print(\"Hello, world!\")",
+      "with": [
+        {
+          "code": "print(\"Hello, world!\")"
+        }
+      ]
+    },
+    {
+      "find": "python count = 1 while count <= 5: print(count) count += 1",
+      "with": [
+        {
+          "code": "count = 1"
+        },
+        {
+          "code": "while count <= 5:"
+        },
+        {
+          "code": "    print(count)"
+        },
+        {
+          "code": "    count += 1"
+        }
+      ]
+    },
+    {
+      "find": "python for number in range(1, 11): print(number)",
+      "with": [
+        {
+          "code": "for number in range(1, 11):"
+        },
+        {
+          "code": "    print(number)"
+        }
+      ]
+    },
+    {
+      "find": "4.",
+      "with": [],
+      "_why": "stray page-break number between Game 4 and Game 5"
+    },
+    {
+      "findTable": "Alternative Activity You will work in small groups and be given a table",
+      "_why": "round 1 #60",
+      "with": [
+        {
+          "raw": {
+            "t": "framedsection",
+            "kind": "alt",
+            "title": "Alternative Activity",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "You will work in small groups and be given a table showing pupils’ marks in different subjects.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Example Table:",
+                    "b": true,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "table",
+                "rows": [
+                  [
+                    {
+                      "text": "PupilID",
+                      "imgs": []
+                    },
+                    {
+                      "text": "Maths",
+                      "imgs": []
+                    },
+                    {
+                      "text": "English",
+                      "imgs": []
+                    },
+                    {
+                      "text": "Science",
+                      "imgs": []
+                    }
+                  ],
+                  [
+                    {
+                      "text": "1001",
+                      "imgs": []
+                    },
+                    {
+                      "text": "65",
+                      "imgs": []
+                    },
+                    {
+                      "text": "70",
+                      "imgs": []
+                    },
+                    {
+                      "text": "80",
+                      "imgs": []
+                    }
+                  ],
+                  [
+                    {
+                      "text": "1003",
+                      "imgs": []
+                    },
+                    {
+                      "text": "78",
+                      "imgs": []
+                    },
+                    {
+                      "text": "85",
+                      "imgs": []
+                    },
+                    {
+                      "text": "90",
+                      "imgs": []
+                    }
+                  ],
+                  [
+                    {
+                      "text": "1007",
+                      "imgs": []
+                    },
+                    {
+                      "text": "82",
+                      "imgs": []
+                    },
+                    {
+                      "text": "75",
+                      "imgs": []
+                    },
+                    {
+                      "text": "88",
+                      "imgs": []
+                    }
+                  ]
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "You will carry out the following tasks:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "1.",
+                "isList": true,
+                "segs": [
+                  {
+                    "t": "Calculate the total marks for each pupil by adding all the subject scores.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "2.",
+                "isList": true,
+                "segs": [
+                  {
+                    "t": "Calculate the average mark by dividing the total marks by the number of subjects.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "3.",
+                "isList": true,
+                "segs": [
+                  {
+                    "t": "Identify the pupil with the highest average mark.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "4.",
+                "isList": true,
+                "segs": [
+                  {
+                    "t": "Present your results in a clear table, showing totals, averages, and the top-performing pupil.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Competences: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Project Development Skills, Problem-Solving and Analytical Skills, Collaboration and Communication Skills",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "👉👉 ClassTeacher is depending on another column (ClassCode)",
+      "with": [
+        {
+          "listitem": "ClassTeacher is depending on another column (ClassCode)",
+          "marker": "•"
+        }
+      ],
+      "_why": "round 1 #114"
+    },
+    {
+      "find": "👉👉 This is called transitive dependency",
+      "with": [
+        {
+          "listitem": "This is called **transitive dependency**",
+          "marker": "•"
+        }
+      ]
     }
   ],
   "setHeading": [
@@ -575,6 +1044,11 @@
     {
       "find": "Sub-Topic 3.12.1. Mechanical and Electronic Systems",
       "as": "h2"
+    },
+    {
+      "find": "Example of robot movements in C++:",
+      "as": "h3",
+      "_why": "round 1 #192: bold black, like 'Example of robot movements in Python:'"
     }
   ],
   "_note2": "User 2026-11-16 ('all of them'): LB proof checks — no Expected Standard in an LB (14 sub-topic standards removed); 'Possible answer' / 'Expected Response' are each activity's competences, relabelled 'Expected Competences:' like the rest; LA6 + its Alternative Activity printed twice in 3.1.1 (source too) — the second, older wording removed; 3.12 has no Exercise 4 in the source (LA4 has none) — Exercises 5-8 renumbered 4-7.",
@@ -754,7 +1228,8 @@
       "src": "Computer Science Form 3 Learner's Book-hires/image79.png"
     },
     "image34.jpeg": {
-      "src": "Computer Science Form 3 Learner's Book-hires/image34.png"
+      "src": "Computer Science Form 3 Learner's Book-hires/image34.png",
+      "w": 432
     },
     "image73.jpeg": {
       "src": "Computer Science Form 3 Learner's Book-hires/image73.png"
@@ -766,16 +1241,20 @@
       "src": "Computer Science Form 3 Learner's Book-hires/image81.png"
     },
     "image33.jpeg": {
-      "src": "Computer Science Form 3 Learner's Book-hires/image33.png"
+      "src": "Computer Science Form 3 Learner's Book-hires/image33.png",
+      "w": 432
     },
     "image35.jpeg": {
-      "src": "Computer Science Form 3 Learner's Book-hires/image35.png"
+      "src": "Computer Science Form 3 Learner's Book-hires/image35.png",
+      "w": 432
     },
     "image37.jpeg": {
-      "src": "Computer Science Form 3 Learner's Book-hires/image37.png"
+      "src": "Computer Science Form 3 Learner's Book-hires/image37.png",
+      "w": 336
     },
     "image36.jpeg": {
-      "src": "Computer Science Form 3 Learner's Book-hires/image36.png"
+      "src": "Computer Science Form 3 Learner's Book-hires/image36.png",
+      "w": 432
     },
     "image62.jpeg": {
       "src": "Computer Science Form 3 Learner's Book-hires/image62.png"
@@ -802,5 +1281,693 @@
   "removeImages": [
     "grp_rId73.png"
   ],
-  "_noteRemoveImages": "grp_rId73 = the old PDF running head (SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 / LEARNER'S BOOK - ORDINARY LEVEL) left mid-page on p185 by the Word conversion"
+  "_noteRemoveImages": "grp_rId73 = the old PDF running head (SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 / LEARNER'S BOOK - ORDINARY LEVEL) left mid-page on p185 by the Word conversion",
+  "_noteRound1": "Proofreading round 1 (2026-11-19): 195 comments on 'Ready for Proofreading-commented.pdf' (zeph form-3-computer-science-lb round 1). Box corrections via boxRange/unboxRange/splitTable (run after the boxing passes), program code via codeBlocks (Cascadia Code).",
+  "boxRange": [
+    {
+      "from": "Steps:",
+      "near": "Tips: Focus on showing clearly",
+      "to": "Tips: Think about real-life",
+      "kind": "alt",
+      "title": "Alternative Activity 3",
+      "_why": "round 1 #6/#7"
+    },
+    {
+      "from": "Encrypting and Decrypting Files Using Symmetric Encryption - AES",
+      "to": "What You Should Learn: You will create a secure AES",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #22"
+    },
+    {
+      "from": "Decrypting Files with VeraCrypt",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #23"
+    },
+    {
+      "from": "Encrypting and Decrypting Files Using RSA with WinSCP",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #25"
+    },
+    {
+      "from": "Alternative Activity: Learning Encryption with Secret Messages",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #26"
+    },
+    {
+      "from": "Alternative Activity: Lock and Key Simulation",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #27"
+    },
+    {
+      "from": "Alternative Activity: Role-Play Secure Communication",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #28/#29"
+    },
+    {
+      "from": "Resources Needed",
+      "to": "Expected Competences",
+      "toNear": "This activity will help you understand how Python interprets",
+      "into": "prev",
+      "_why": "round 1 #33: the rest of LEARNING ACTIVITY 2"
+    },
+    {
+      "from": "Alternative Activity",
+      "near": "This activity will help you understand how Python interprets",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #32"
+    },
+    {
+      "from": "Game 3: Simple Quiz Game",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #40"
+    },
+    {
+      "from": "Game 4: Dice Rolling Game",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #39"
+    },
+    {
+      "from": "Game 5: Multiplication Challenge",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #42"
+    },
+    {
+      "from": "Game 6: Even or Odd Game",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #44 (asked for the alternative colour; set like Games 1-5, it is one of the games)"
+    },
+    {
+      "from": "Installing and Configuring Jupyter Notebook",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #47"
+    },
+    {
+      "from": "Installing and Configuring PyCharm",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #46"
+    },
+    {
+      "from": "Installing and Configuring Visual Studio Code (VS Code)",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #48"
+    },
+    {
+      "from": "Simple Conditional Program",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #54"
+    },
+    {
+      "from": "Introduce Multiple Conditions",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #55/#56"
+    },
+    {
+      "from": "Use Logical Operators",
+      "near": "Run the program again and test different values",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #57"
+    },
+    {
+      "from": "Task automation to calculate learners Average Marks",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #59"
+    },
+    {
+      "from": "Python Web Development – Building a Simple Web Application",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #64"
+    },
+    {
+      "from": "Flask App: Creating a Basic Web Application",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #66"
+    },
+    {
+      "from": "Lab Session: Upgrading and Migrating a Database",
+      "to": "Part B: Practical Lab Activity",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #103"
+    },
+    {
+      "from": "Step 1: Create a Simple Database (Old System Simulation)",
+      "to": "INSERT INTO learners VALUES (1, 'John Banda', 7)",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #104"
+    },
+    {
+      "from": "Step 2: Export Data (Migration Preparation)",
+      "to": "SELECT * FROM learners;",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #105"
+    },
+    {
+      "from": "Step 3: Create New Database (New System Simulation)",
+      "to": ");",
+      "toNear": "full_name VARCHAR(100)",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #105"
+    },
+    {
+      "from": "Insert the old data into the new structure",
+      "to": "(2, 'Mary Phiri', 8, '2026-01-10');",
+      "title": "Step 4: Migrate Data",
+      "kind": "alt",
+      "_why": "round 1 #106"
+    },
+    {
+      "from": "Step 5: Verify Migration",
+      "to": "SELECT * FROM learners;",
+      "titleFromFirst": true,
+      "kind": "alt"
+    },
+    {
+      "from": "Step 6: Discussion and Reflection",
+      "to": "Describe how database migration helps improve data management",
+      "titleFromFirst": true,
+      "kind": "alt"
+    },
+    {
+      "from": "Group 2: Smart Healthcare",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #126"
+    },
+    {
+      "from": "Group 3: Energy Consumption",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #127/#128"
+    },
+    {
+      "from": "Materials Needed",
+      "near": "LEARNING ACTIVITY 5: Managing three main cloud services",
+      "to": "Expected Competences",
+      "into": "prev",
+      "_why": "round 1 #171/#172"
+    },
+    {
+      "from": "Part B: Managing Virtual Machines",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 1 #173"
+    },
+    {
+      "from": "Alternative Activity",
+      "near": "Write down what happens when each command is executed",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "alt",
+      "_why": "round 1 #179/#180"
+    }
+  ],
+  "insertHead": [
+    {
+      "before": "Have you observed how friends communicate",
+      "head": "Introduction",
+      "as": "h3",
+      "_why": "round 1 #8"
+    }
+  ],
+  "unsideFigure": [
+    "imp_image33",
+    "imp_image34",
+    "imp_image35",
+    "imp_image36",
+    "imp_image37"
+  ],
+  "keepWhole": [
+    {
+      "find": "EXERCISE 5",
+      "near": "When you create online content, make sure it is accurate",
+      "_why": "round 1 #21"
+    },
+    {
+      "find": "Game 2: Pen, Paper, Pencil",
+      "_why": "round 1 #36"
+    },
+    {
+      "find": "Flask App: Creating a Basic Web Application",
+      "_why": "round 1 #65"
+    },
+    {
+      "find": "Step 3: Create Users",
+      "_why": "round 1 #102"
+    },
+    {
+      "find": "EXERCISE 3",
+      "near": "After planning, you write the program using a programming language"
+    },
+    {
+      "find": "EXERCISE 5",
+      "near": "In this chapter, you learned how to make web pages"
+    },
+    {
+      "find": "Step 4: Migrate Data",
+      "_why": "page-break standard: its last line was carried over alone"
+    },
+    {
+      "find": "EXERCISE 5",
+      "near": "The teacher facilitates a step-by-step process where learners assemble",
+      "_why": "page-break standard: two lines carried over"
+    },
+    {
+      "find": "EXERCISE 3",
+      "near": "making system integration difficult",
+      "_why": "page-break standard: the six-line exercise was split three and three"
+    }
+  ],
+  "boldLead": [
+    "What You Should Learn:",
+    "What You Will Learn:",
+    "What You Learn:",
+    "Concepts to be Covered:",
+    "Concepts Covered:",
+    {
+      "lead": "Expected Competences:",
+      "near": "During the presentation, other learners will ask questions"
+    },
+    {
+      "lead": "Install Required Software",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Android Studio (official IDE for Android apps)",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Choose Project Template",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Configure Your Project Fill in:",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Wait for Project Setup",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Design the User Interface Open:",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Add Java Code (App Logic) Open:",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Run Your App",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Test Your App",
+      "near": "Creating a Simple Mobile App Using Java (Android Studio)"
+    },
+    {
+      "lead": "Install Required Software",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Open Android Studio",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Choose Project Template",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Configure Your App Fill in:",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Wait for Project Setup",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Design the User Interface Open:",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Write Kotlin Code Open:",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Run Your App",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Test and Improve",
+      "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
+    },
+    {
+      "lead": "Infrastructure as a Service (IaaS)",
+      "near": "There are three main cloud service models:"
+    },
+    {
+      "lead": "Platform as a Service (PaaS)",
+      "near": "There are three main cloud service models:"
+    },
+    {
+      "lead": "Software as a Service (SaaS)",
+      "near": "There are three main cloud service models:"
+    },
+    {
+      "lead": "#",
+      "near": "Meaning of Symbols in the Python Program"
+    },
+    {
+      "lead": "()",
+      "near": "Meaning of Symbols in the Python Program"
+    },
+    {
+      "lead": ":",
+      "near": "Meaning of Symbols in the Python Program"
+    },
+    {
+      "lead": "if",
+      "near": "Meaning of Symbols in the Python Program"
+    },
+    {
+      "lead": "...",
+      "near": "Meaning of Symbols in the Python Program"
+    }
+  ],
+  "boldFind": [
+    {
+      "find": "(Integrated Development and Learning Environment)",
+      "_why": "round 1 #31"
+    },
+    {
+      "find": "Hiding Details from the User"
+    },
+    {
+      "find": "Inherited Features"
+    },
+    {
+      "find": "Additional (Own) Methods"
+    }
+  ],
+  "splitTable": [
+    "Step 2: Writing Simple Python Statements",
+    "Presentation Each group should present their IoT solution",
+    "5. Open a shared document and:"
+  ],
+  "codeBlocks": [
+    {
+      "late": true,
+      "from": "marks = 60",
+      "near": "Step 3: Decision-Making Programs",
+      "to": "print(\"Fail\")",
+      "with": [
+        "marks = 60",
+        "if marks >= 50:",
+        "    print(\"Pass\")",
+        "else:",
+        "    print(\"Fail\")"
+      ]
+    },
+    {
+      "late": true,
+      "from": "$ pip install flask",
+      "to": "Installing collected packages"
+    },
+    {
+      "from": "<!DOCTYPE html>",
+      "to": "</html>"
+    },
+    {
+      "from": "function welcomeUser()"
+    },
+    {
+      "from": "let password = \"1234\";",
+      "until": "Another important concept is events"
+    },
+    {
+      "from": "document.getElementById(\"submitBtn\")"
+    },
+    {
+      "from": "function showAnswer()"
+    },
+    {
+      "from": "class Nshima {",
+      "until": "Explanation:"
+    },
+    {
+      "from": "// Java",
+      "until": "Summary"
+    },
+    {
+      "from": "// Abstract class (hides implementation details)",
+      "until": "How this shows abstraction:"
+    },
+    {
+      "from": "class BankAccount {",
+      "until": "Private: This is an access modifier"
+    },
+    {
+      "from": "public void deposit(double amount)",
+      "until": "Only allows valid deposits"
+    },
+    {
+      "from": "public void withdraw(double amount)",
+      "until": "Prevents:"
+    },
+    {
+      "from": "public double getBalance() { return balance;",
+      "near": "Getter Method",
+      "until": "Allows safe viewing"
+    },
+    {
+      "from": "def init (self, name): self.name = name def eat(self):",
+      "until": "Food is the parent class that defines"
+    },
+    {
+      "from": "class Nshima(Food):",
+      "near": "Child (Derived) Classes",
+      "to": "class Chicken(Food):"
+    },
+    {
+      "from": "food1 = Nshima(\"Nshima\") food1.eat()"
+    },
+    {
+      "from": "food2 = Chicken(\"Chicken\") food2.eat()"
+    },
+    {
+      "from": "def prepare(self): # in Nshima"
+    },
+    {
+      "from": "# Parent class class Food:",
+      "until": "Polymorphism"
+    },
+    {
+      "from": "class Food { void serve()",
+      "until": "Main Class (Demonstrating Polymorphism)"
+    },
+    {
+      "from": "public class Main { public static void main(String[] args) {",
+      "near": "Main Class (Demonstrating Polymorphism)",
+      "until": "Output"
+    },
+    {
+      "from": "Serving hot nshima with vegetables. Serving fried chicken"
+    },
+    {
+      "from": "# Base class class FoodItem:",
+      "until": "Explanation: FoodItem is the parent class"
+    },
+    {
+      "from": "button { background-colour: blue;",
+      "until": "In this code, the transition property"
+    },
+    {
+      "from": "<div id=\"box\"",
+      "until": "Here, when you click the button"
+    },
+    {
+      "from": "<!DOCTYPE html>",
+      "near": "Creating Animations Using JavaScript and CSS Transitions",
+      "to": "</html>"
+    },
+    {
+      "from": ".box { width: 100px;",
+      "until": "Step 3: Add Animation Effect in CSS"
+    },
+    {
+      "from": ".move { transform: translateX(200px);",
+      "until": "Step 4: Create the JavaScript File"
+    },
+    {
+      "from": "function moveBox() { let box = document.querySelector",
+      "until": "Step 5: Link CSS and JavaScript"
+    },
+    {
+      "from": "jshell> String url",
+      "to": "conn ==> com.mysql"
+    },
+    {
+      "from": "<?php",
+      "to": "?>"
+    },
+    {
+      "from": "Button button = findViewById(R.id.button)",
+      "until": "Run Your App"
+    },
+    {
+      "from": "import android.os.Bundle",
+      "until": "Run Your App"
+    },
+    {
+      "late": true,
+      "from": "#include <iostream> using namespace std;",
+      "near": "Basic C++ Syntax",
+      "until": "Meaning of Each Line of Code in C++"
+    },
+    {
+      "from": "#include <iostream> using namespace std;",
+      "near": "Example of robot movements in C++",
+      "until": "How it looks in the C++ console"
+    },
+    {
+      "from": "# Read sensor data water_level = read_sensor()",
+      "until": "Explanation:"
+    },
+    {
+      "from": "// Read sensor data int waterLevel = readSensor();",
+      "until": "Challenges such as poor internet"
+    }
+  ],
+  "codeConsole": true,
+  "unlist": [
+    "A group of Form 3 learners runs a school tuck shop",
+    "In this exercise, you will work in groups to develop an IoT"
+  ],
+  "setMarker": [
+    {
+      "find": "Identify the data that should be collected for each item sold in the tuck shop",
+      "marker": "(a)"
+    },
+    {
+      "find": "Describe the step-by-step process (algorithm) the program should follow to calculate total revenue",
+      "marker": "(b)"
+    },
+    {
+      "find": "Write a Python program that calculates the total revenue for items sold in the tuck shop",
+      "marker": "(c)"
+    },
+    {
+      "find": "Open Android Studio",
+      "near": "Android Studio (official IDE for Android apps)",
+      "marker": "1.",
+      "_why": "round 1 #142"
+    },
+    {
+      "find": "Launch Android Studio",
+      "near": "Android Studio (official IDE for Android apps)",
+      "marker": "2.",
+      "_why": "round 1 #143"
+    },
+    {
+      "find": "Click Create New Project",
+      "near": "Android Studio (official IDE for Android apps)",
+      "marker": "3.",
+      "_why": "round 1 #144"
+    }
+  ],
+  "dropTable": [
+    "1003 78 85 90 1007 82 75 88"
+  ],
+  "codeSql": true,
+  "recolor": [
+    {
+      "from": "E7E6E6",
+      "_why": "round 1 #109"
+    }
+  ],
+  "unboxRange": [
+    {
+      "from": "In the previous activities, you have learnt how to manage databases",
+      "_why": "round 1 #119"
+    },
+    {
+      "from": "Environmental Health and Population Management"
+    },
+    {
+      "from": "Combining mechanical and software Components in a Robotic System"
+    }
+  ],
+  "setCaption": [
+    {
+      "near": "Block diagram showing the stages of deployment.",
+      "text": "Block diagram showing the stages of deployment.",
+      "_why": "round 1 #120"
+    },
+    {
+      "near": "Proteus IoT Simulation Data Flow Diagram",
+      "text": "Proteus IoT Simulation Data Flow Diagram",
+      "_why": "round 1 #124"
+    }
+  ],
+  "alignLeft": [
+    "Example (Kotlin idea):"
+  ],
+  "mergePara": [
+    {
+      "find": "Install Required Software Before starting, install:",
+      "_why": "round 1 #140/#141"
+    }
+  ],
+  "runOn": [
+    "Sub-Topic 3.11.1"
+  ],
+  "mergeTables": [
+    {
+      "first": "Environmental Health and Population Management",
+      "second": "Entrepreneurship Education Using AI to create business"
+    }
+  ]
 }

@@ -1802,6 +1802,11 @@
       let sz = fs(20pt)
       if s.c == none { text(weight: w, style: st, font: T.handFont, size: sz)[#body] }
       else { text(weight: w, style: st, fill: rgb("#" + s.c), font: T.handFont, size: sz)[#body] }
+    } else if s.at("code", default: false) {
+      // program code (codeBlocks override): upright in a coding font, never hyphenated
+      // (Computer Science Form 3 LB, CDC: "use the Cascadia Code font"). No ligatures: a
+      // learner copies the code, and Cascadia would draw ">=" as one "≥" sign
+      text(weight: w, style: "normal", font: (T.at("codeFont", default: "Cascadia Code"), "Consolas", "Courier New", "DejaVu Sans Mono"), size: 0.9em, hyphenate: false, ligatures: false, discretionary-ligatures: false, features: (calt: 0), fill: if s.c == none { black } else { rgb("#" + s.c) })[#body]
     } else {
       if s.c == none { text(weight: w, style: st)[#body] }
       else { text(weight: w, style: st, fill: rgb("#" + s.c))[#body] }
@@ -1841,7 +1846,9 @@
 // par[...] renders empty, which is why equations sitting on their own line came out
 // blank. Contiguous inline segments stay in a paragraph. Shared by every text path
 // (body paragraphs, box bodies, exercise/assessment questions).
+#let allcode(ss) = ss.len() > 0 and ss.any(s => s.at("code", default: false)) and ss.all(s => s.at("code", default: false) or s.at("t", default: "x").trim() == "")
 #let flowsegs(ss) = {
+  if allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false)[#segs(ss)]] }
   // (a multi-line monospace drawing is a block too: a block inside par[] is dropped)
   let isdisp(s) = (s.at("m", default: false) and s.at("display", default: false)) or (s.at("mono", default: false) and s.t.contains("\n"))
   if ss.any(isdisp) {
@@ -1868,6 +1875,8 @@
 #let para(ss, align: none, drop: false, hyphenate: auto, indent: false) = {
   let hyphenate = if hyphenate == auto { T.at("hyphenate", default: true) } else { hyphenate }
   set text(hyphenate: hyphenate)
+  // a line of program code is set flush left, never justified
+  if align == none and allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false)[#segs(ss)]] }
   // A syllabus body paragraph that sits UNDER a numbered item is indented to align with
   // the heading text (past the number), for a clean outline look.
   if indent { return pad(left: 7mm, para(ss, align: align, drop: drop, hyphenate: hyphenate)) }
@@ -3009,8 +3018,18 @@
   ]
   v(4pt)
 }
-#let framedsection(kind, title, body) = {
+#let framedsection(kind, title, body, force: false) = {
   let content = renderbody(body)
+  // (a box a book asked to keep whole — keepWhole override: onto the next page when it
+  // does not fit what is left of this one, the way keepwhole() treats an activity)
+  if force {
+    let fits = state("fsfits", true)
+    return {
+      layout(sz => fits.update(measure(box(width: sz.width, content)).height < T.at("keepBoxMm", default: 180) * 1mm))
+      context (if not fits.get() { pagebreak(weak: true) })
+      context titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: not fits.get())
+    }
+  }
   // Always breakable (mirrors titledbox's own default). A prior version kept any box
   // under 180mm tall fully atomic so it could never split and orphan a stray last item
   // — but Typst then moves the WHOLE box to the next page whenever it doesn't fit

@@ -39,7 +39,7 @@ const segArr = (segs) => arr(segs, (s) =>
   s.fr ? `(fr: true)`
   : s.brk ? `(brk: true)`
   : s.m ? `(m: true, display: ${s.display ? "true" : "false"}, t: ${S(s.t)})`
-      : `(t: ${S(zwspBlanks(s.t))}, b: ${s.b ? "true" : "false"}, it: ${s.it ? "true" : "false"}, c: ${s.c ? S(s.c) : "none"}${s.u ? ", u: true" : ""}${s.hw ? ", hw: true" : ""}${s.mono ? ", mono: true" : ""})`);
+      : `(t: ${S(zwspBlanks(s.t))}, b: ${s.b ? "true" : "false"}, it: ${s.it ? "true" : "false"}, c: ${s.c ? S(s.c) : "none"}${s.u ? ", u: true" : ""}${s.hw ? ", hw: true" : ""}${s.mono ? ", mono: true" : ""}${s.code ? ", code: true" : ""})`);
 
 const strArr = (a) => arr(a, S);
 
@@ -322,7 +322,7 @@ function emit(blocks) {
       case "assessment": out += `#assessment(${titleContent(b.title, b.titleSegs)}, ${strArr(b.intro || [])}, ${partsArr(b.parts || [])}, ${strArr(b.extra || [])}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
       // an empty shaded box (a blank shaded table cell in the manuscript) prints nothing
       case "box": if ((b.body || []).length) out += `#genericbox(${bodyArr(b.body)})\n`; break;
-      case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)})\n`; break;
+      case "framedsection": out += `#framedsection(${S(b.kind)}, ${S(b.title)}, ${bodyArr(b.body)}${b.forceFreshPage ? ", force: true" : ""})\n`; break;
       case "lessonmeta": out += `#lessonmeta(${S(b.title)}, ${bodyArr(b.body)})\n`; break;
       case "table": out += `#dtable(${rowArr(b.rows)}${b.noHeader ? ", noHeader: true" : ""}${b.widths ? `, widths: (${b.widths.join(", ")},)` : ""})\n`; break;
       case "colgrid": out += `#colgrid(${colgridArg(b)})\n`; break;
