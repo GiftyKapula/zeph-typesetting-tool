@@ -143,7 +143,9 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // one "Dr. Name" / "Prof. Name" / "Dr Name" (the period is optional).
   // Trailing parenthetical honorific — allow internal dots/spaces so "(Ph.D.)",
   // "(Ed.D.)", "(M.Ed.)" match as well as "(Dr)" / "(PhD)" — OR a leading title.
-  const SIGNAME = /\(\s*(?:dr|ms|mr|mrs|prof|hon|ph\.?\s?d|ed\.?\s?d|m\.?\s?ed|phd)\.?\s*\)\s*$|^(?:dr|prof|mr|mrs|ms|hon)\.?\s+[A-Z]/i;
+  // (Silozi "Mufumahali" / "Mufumuhali" = Madam/Mrs leads a signatory's name the same way:
+  // "Mufumuhali Noriana Muneku", Silozi Form 3 LB)
+  const SIGNAME = /\(\s*(?:dr|ms|mr|mrs|prof|hon|ph\.?\s?d|ed\.?\s?d|m\.?\s?ed|phd)\.?\s*\)\s*$|^(?:dr|prof|mr|mrs|ms|hon|mufumahali|mufumuhali)\.?\s+[A-Z]/i;
   // An honorific appearing ANYWHERE (used to catch a run-on signatory that the
   // source glued into one paragraph, e.g. "Noriana Muneku (Ms.)Permanent
   // Secretary…MINISTRY OF EDUCATION").
