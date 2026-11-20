@@ -2200,6 +2200,14 @@ function oneActivityPerBox(blocks, ov, again = false) {
       const tail = runIn(b, m[0].length);
       if (tail.length) body.push(para(tail));
       let j = i + 1;
+      // an activity title followed straight away by the activity's own name as a plain
+      // heading ("ZAKUEZA MWA SITOPA" / "KUÑOLA PIHO YA MUSEBEZI WO EZAHALILE" / Litaelo: …):
+      // the name opens the box as its bold first line, instead of the box closing empty
+      // (two such lines at most: the name, then its "expected outcome" label)
+      const nameHead = (x) => x && x.t === "head" && !actLine(x) && blockPlain(x).trim().length <= 90;
+      const content = (x) => x && ["para", "listitem", "table", "image", "imagerow"].includes(x.t);
+      const names = nameHead(blocks[j]) ? (content(blocks[j + 1]) ? 1 : nameHead(blocks[j + 1]) && content(blocks[j + 2]) ? 2 : 0) : 0;
+      if (!tail.length) for (let k = 0; k < names; k++, j++) body.push(para([{ t: blockPlain(blocks[j]).trim(), b: true, it: false, c: null }]));
       while (j < blocks.length) {
         const x = blocks[j];
         const keepLabel = x.t === "label" && keep.some((w) => blockPlain(x).trim().toLowerCase().startsWith(w));

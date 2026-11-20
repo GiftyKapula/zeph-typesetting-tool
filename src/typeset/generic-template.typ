@@ -3227,11 +3227,15 @@
       // overflowing, so "1." and "a)" landed on two separate lines with nothing in
       // the body column beside the second one. Widen the gutter for just this row
       // when the marker is longer than a plain single marker ever is.
-      let mkw = if it.marker.len() > 3 { 36pt } else { 22pt }
+      // A roman sub-item (i. ii. iii. iv.) is one list whatever its length: one gutter and
+      // left-aligned, so "i."/"v." (read as letters) and "iii." (wider than 3 characters)
+      // no longer sit at three different indents in the same list.
+      let roman = it.marker.trim().match(regex("^\\(?(i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)[.)]$")) != none
+      let mkw = if roman { 28pt } else if it.marker.len() > 3 { 36pt } else { 22pt }
       // Numbers right-align so "9." and "10." line up; a single LETTER marker (A. B. C. D.,
       // a) b)) left-aligns — right-aligned, a narrow "B" (Century Gothic) sat visibly
       // indented and "smaller" than A/C/D (Grade 2 CTS reviewers flagged every one).
-      let letter = it.marker.trim().match(regex("^\\(?[A-Za-z][.)]$")) != none
+      let letter = roman or it.marker.trim().match(regex("^\\(?[A-Za-z][.)]$")) != none
       grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, if letter { left + top } else { right + top }, left + top),
         [], [#it.marker], body)
       // a fraction/matrix answer part needs extra room so its stacked numerator/denominator

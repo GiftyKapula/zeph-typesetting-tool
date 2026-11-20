@@ -48,7 +48,8 @@
       "Buitumelo"
     ],
     "unit": [
-      "Mukanga"
+      "Mukanga",
+      "Kauhanyo"
     ],
     "listening_speaking": [
       "Kubulela ni Kuteeleza",
@@ -74,6 +75,13 @@
     ],
     "how_to_use": [
       "Mwa Kuitusiseza Buka Ye"
+    ],
+    "form": [
+      "Foomu",
+      "Fomu"
+    ],
+    "level_ordinary": [
+      "Sitopa sa Bulalu"
     ]
   },
   "extras": [],
