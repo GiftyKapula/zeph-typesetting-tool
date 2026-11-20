@@ -2478,6 +2478,22 @@ function applyOverrides(blocks, ov) {
   // from the number). `all` applies to every match (default: first only). Runs on
   // top-level `blocks` so it can splice out the merged title.
   const HEADISH = (b) => b && (b.t === "head" || b.t === "label" || /^h[123]$/.test(b.t));
+  // headingLevels: { h1: "regex", h2: "regex", rest?: "h3" } — re-level a manuscript
+  // that used Word's Heading 1/2 for everything (lesson titles, PART I/II labels,
+  // competence lists) so the contents page carries only the real structure: a heading
+  // whose text matches `h1` becomes a unit title, one matching `h2` a sub-topic, and
+  // any other h1/h2 drops to `rest` (default h3); a Heading 3 is left alone. Runs
+  // before setHeading, which can still fix a single heading afterwards. (Literature in
+  // English Form 5 TG: 104 Heading 1 and 463 Heading 2 for about 30 units/sub-topics.)
+  if (ov.headingLevels) {
+    const hl = ov.headingLevels;
+    const r1 = hl.h1 ? new RegExp(hl.h1) : null, r2 = hl.h2 ? new RegExp(hl.h2) : null;
+    for (const b of blocks) {
+      if (b.t !== "h1" && b.t !== "h2") continue;
+      const t = blockPlain(b).trim();
+      b.t = r1 && r1.test(t) ? "h1" : r2 && r2.test(t) ? "h2" : (hl.rest || "h3");
+    }
+  }
   for (const sh of ov.setHeading || []) {
     let n = 0;
     // `near` disambiguates a common short heading (e.g. "Health") that also occurs
@@ -4671,7 +4687,15 @@ function reorderBackmatter(blocks, glossTitle = "GLOSSARY OF TERMS") {
     for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
       if (b && (b.t === "exercise" || b.kind === "exercise") && Array.isArray(b.parts)) {
-        const pIdx = b.parts.findIndex(p => p && (p.q || p.text) && REF_HEADING.test((p.q || p.text).trim()));
+        // …but a line that carries on in lower case after the word is a sentence ABOUT
+        // a reference, never a list's heading: the marking guide of the Literature in
+        // English Form 5 TG's last test reads "Reference to African experiences or
+        // contemporary issues — 1 mark", and everything after it (81 answers, the rest
+        // of the test) was lifted out to the back of the book as REFERENCES. Case-
+        // sensitive on purpose: "REFERENCES", "References:" and "SUGGESTED REFERENCES"
+        // still open a list.
+        const refOpens = (t) => REF_HEADING.test(t) && !/^(?:\S+\s+)?[Rr]eferences?\s+[a-z]/.test(t);
+        const pIdx = b.parts.findIndex(p => p && (p.q || p.text) && refOpens((p.q || p.text).trim()));
         if (pIdx >= 0) {
           const extracted = b.parts.splice(pIdx);
           refHeader = { t: "h1", text: "REFERENCES" };
@@ -7571,7 +7595,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base));
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
@@ -7990,6 +8014,16 @@ function normaliseQuestionMarkBold(blocks) {
   // logo ended up on the cover, showing as a visible white box/container
   // around the mark instead of our clean cut-out). Every book published
   // through this pipeline is a ZEPH book, so the logo should always be ours.
+  //
+  // synthesiseCover on a manuscript where the importer found no cover at all (it
+  // looks for one only in front of a copyright line, and some manuscripts open on a
+  // bare title with no copyright page): start an empty cover so the synthesis below
+  // builds it, rather than the key silently doing nothing and the book going out
+  // coverless, with no back cover or spread either. (Literature in English Form 5
+  // TG: a mock-up cover picture, three title lines, then straight into the contents.)
+  if (ov.synthesiseCover && !blocks.some((b) => b.t === "cover")) {
+    blocks.unshift({ t: "cover", lines: [], byline: [], hero: null, logo: null });
+  }
   {
     const zeph = path.join(ROOT, "zeph-logo", "image.png");
     if (fs.existsSync(zeph)) {

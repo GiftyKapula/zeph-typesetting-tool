@@ -1,0 +1,529 @@
+{
+  "_note": "Literature in English, Form 5 Teacher's Guide. First typeset 2026-11-20 from 'LITERATURE IN ENGLISH FORM 5 TG Ready for Review.docx' (renamed to the family's 'LIT in ENG F<n> TG' pattern). Same literary layout as the Form 1 TG (../Form 1 Teachers Books/).",
+  "subject": "Literature in English",
+  "theme": "literature",
+  "removeImages": [
+    "image1.png"
+  ],
+  "//cover": "The manuscript's cover is a finished mock-up with lettering baked in (title, FORM 5, book spines labelled Poetry/Drama/Prose, the authors, the ZEPH logo). House rule: use only a word-free part of it. The four learners reading in front of the falls (x 400-1024, y 645-1112 of the 1024x1536 PNG) were cropped, upscaled 4x with Real-ESRGAN and saved at 2400 px wide (about 465 DPI at the literary cover's 130.8 mm frame). The cover itself is synthesised like the Form 1 TG's.",
+  "synthesiseCover": true,
+  "coverImage": "LIT in ENG F5 TG-art/cover-learners-reading.jpg",
+  "//backCover": "House rule: over 112 interior pages gets a spine; the literary layout needs backCover for the back cover and the printer's spread.",
+  "backCover": true,
+  "fmSpacing": "1.3em",
+  "tocDepth": 2,
+  "//headingLevels": "The manuscript set Word Heading 1/2 on everything - lesson titles, PART I/II/III labels, GENERAL COMPETENCES, Learner Activity and Question heads (104 Heading 1, 463 Heading 2), so the contents ran to 16 pages. Units are the lines the authors themselves call 'UNIT:'; sub-topics are the coded titles one level below them; everything else drops to a plain heading.",
+  "headingLevels": {
+    "h1": "^(5([.][0-9]+){2,3} UNIT: |AUTHORS$|PREFACE$|ACKNOWLEDGEMENTS$|GLOSSARY OF LITERARY TERMS)",
+    "h2": "^(5([.][0-9]+){3,4} ?[A-Z]|PURPOSE OF THE TEACHER|GENERAL GUIDANCE ON THE COMPETENCE-BASED APPROACH$|RECOMMENDED TEACHING APPROACHES$)"
+  },
+  "//structure": "5.2.1.1 Types of Prose Fiction and 5.2.1.2 Short Story had no unit title above them (they fell under Concepts of Literature); they get '5.2.1 UNIT: PROSE FICTION', in the pattern of 5.2.2 Non-Fiction Prose, 5.2.3 Drama and 5.2.4 Poetry. Greek Comedy repeated its unit title under a wrong code (5.3.1 UNIT: CLASSICAL GREEK DRAMA, already opened as 5.3.2); 5.4.1 PERIODS OF AFRICAN LITERATURE was repeated above each of its five periods. The repeats are dropped and the first becomes the unit title.",
+  "insertHead": [
+    {
+      "before": "PURPOSE OF THE TEACHER’S GUIDE",
+      "head": "INTRODUCTION",
+      "as": "h1"
+    },
+    {
+      "before": "5.2.1.1 TYPES OF PROSE FICTION",
+      "head": "UNIT 5.2.1: PROSE FICTION",
+      "as": "h1"
+    },
+    {
+      "before": "Explain why contemporary African literature is important in addressing",
+      "head": "Question 9",
+      "as": "h3"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "5.1.1 UNIT: CONCEPTS OF LITERATURE",
+      "text": "UNIT 5.1.1: CONCEPTS OF LITERATURE",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.1.3 UNIT: THE NOVEL AND OTHER FORMS OF PROSE FICTION",
+      "text": "UNIT 5.2.1.3: THE NOVEL AND OTHER FORMS OF PROSE FICTION",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.2 UNIT: NON-FICTION PROSE",
+      "text": "UNIT 5.2.2: NON-FICTION PROSE",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.3 UNIT: DRAMA",
+      "text": "UNIT 5.2.3: DRAMA",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.3.5 UNIT: MELODRAMA",
+      "text": "UNIT 5.2.3.5: MELODRAMA",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4 UNIT: POETRY",
+      "text": "UNIT 5.2.4: POETRY",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4.3 UNIT: NARRATIVE POEMS",
+      "text": "UNIT 5.2.4.3: NARRATIVE POEMS",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4.4 UNIT: PANEGYRIC POEMS",
+      "text": "UNIT 5.2.4.4: PANEGYRIC POEMS",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4.5 UNIT: ELEGIAC POEMS",
+      "text": "UNIT 5.2.4.5: ELEGIAC POEMS",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4.6 UNIT: SPECULATIVE POEMS",
+      "text": "UNIT 5.2.4.6: SPECULATIVE POEMS",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4.7 UNIT: LYRIC POEMS",
+      "text": "UNIT 5.2.4.7: LYRIC POEMS",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4.8 UNIT: RHYMED POEMS",
+      "text": "UNIT 5.2.4.8: RHYMED POEMS",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4.9 UNIT: FREE VERSE",
+      "text": "UNIT 5.2.4.9: FREE VERSE",
+      "as": "h1"
+    },
+    {
+      "find": "5.2.4.10 UNIT: CLOSED-FORM POETRY",
+      "text": "UNIT 5.2.4.10: CLOSED-FORM POETRY",
+      "as": "h1"
+    },
+    {
+      "find": "5.3.1 UNIT: GREEK EPIC POETRY",
+      "text": "UNIT 5.3.1: GREEK EPIC POETRY",
+      "as": "h1"
+    },
+    {
+      "find": "5.3.2 UNIT: CLASSICAL GREEK DRAMA",
+      "text": "UNIT 5.3.2: CLASSICAL GREEK DRAMA",
+      "as": "h1"
+    },
+    {
+      "find": "5.4.1 PERIODS OF AFRICAN LITERATURE",
+      "text": "UNIT 5.4.1: PERIODS OF AFRICAN LITERATURE",
+      "as": "h1"
+    },
+    {
+      "find": "5.4.1.3NEGRITUDE PERIOD (1930s to 1950s)",
+      "text": "5.4.1.3 NEGRITUDE PERIOD (1930s TO 1950s)",
+      "as": "h2"
+    },
+    {
+      "find": "5.4.1.4 AFRICAN LITERATURE OF POST -COLONIAL PERIOD (MID-20TH CENTURY)",
+      "text": "5.4.1.4 AFRICAN LITERATURE OF POST-COLONIAL PERIOD (MID-20TH CENTURY)",
+      "as": "h2"
+    },
+    {
+      "find": "5.4.1.6 AFRICAN LITERATURE OF CONTEMPORARY PERIOD (21ST CENTURY",
+      "text": "5.4.1.6 AFRICAN LITERATURE OF CONTEMPORARY PERIOD (21ST CENTURY)",
+      "as": "h2"
+    },
+    {
+      "find": "UNIT 30: AFRICAN LITERATURE OF THE CONTEMPORARY PERIOD (21ST CENTURY)",
+      "text": "AFRICAN LITERATURE OF THE CONTEMPORARY PERIOD (21ST CENTURY)",
+      "as": "h2"
+    },
+    {
+      "find": "Teaching procedure",
+      "as": "h3",
+      "all": true
+    }
+  ],
+  "removeWhereNext": [
+    {
+      "find": "LITERATURE IN ENGLISH",
+      "next": "FORM 5"
+    },
+    {
+      "find": "FORM 5",
+      "next": "TEACHER’S GUIDE"
+    },
+    {
+      "find": "TEACHER’S GUIDE",
+      "next": "© Zambia Educational"
+    },
+    {
+      "find": "5.3.1 UNIT: CLASSICAL GREEK DRAMA",
+      "next": "5.3.2.1 GREEK COMEDY"
+    },
+    {
+      "find": "5.4.1 PERIODS OF AFRICAN LITERATURE",
+      "next": "NEGRITUDE PERIOD"
+    },
+    {
+      "find": "5.4.1 PERIODS OF AFRICAN LITERATURE",
+      "next": "POST-COLONIAL PERIOD"
+    },
+    {
+      "find": "5.4.1 PERIODS OF AFRICAN LITERATURE",
+      "next": "5.4.1.6 AFRICAN LITERATURE OF"
+    },
+    {
+      "find": "5.4.1 PERIODS OF AFRICAN LITERATURE",
+      "next": "5.4.1.6 AFRICAN LITERATURE OF"
+    },
+    {
+      "find": "Literature and society",
+      "next": "Literature and society"
+    }
+  ],
+  "authors": [
+    "Sibusenga Himaaka Eustance",
+    "Kambaya Pelekelo"
+  ],
+  "//authors": "Names as the Authors page gives them; the mock-up cover adds 'Gynox' to the second (asked in the PR).",
+  "//units": "The template knows a unit by its first word, so '5.1.1 UNIT: CONCEPTS OF LITERATURE' is set 'UNIT 5.1.1: CONCEPTS OF LITERATURE' (code kept, Form 1 TG pattern 'UNIT 1: ...').",
+  "//imprint": "The manuscript has no copyright page (cover picture, three title lines, then the contents). The house imprint (Silozi G4 LB / Form 1 TG model) goes in its place: the three bare title lines are replaced by it. No editor is named anywhere in the manuscript, so no 'Edited by' line is invented; ISBN dotted until one is issued.",
+  "insertText": [
+    {
+      "after": "TEACHER’S GUIDE",
+      "blocks": [
+        {
+          "para": "© Zambia Educational Publishing House 2026",
+          "center": true
+        },
+        {
+          "para": "All rights are protected. No part of this book may be reproduced in any form or by any electronic, mechanical, photocopying, recording or other means, without prior written permission from the copyright owner or the ZEPH.",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "center": true
+        },
+        {
+          "para": "Teddy Ng`ambi",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**First Published by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "…………………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**Printed by:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
+    {
+      "before": "Literature as a reflection and examination of life",
+      "as": "list",
+      "text": "Literature and society"
+    }
+  ],
+  "//introduction": "Purpose of the Teacher's Guide, General Guidance on the Competence-Based Approach and Recommended Teaching Approaches are the book's introduction; they sit under an INTRODUCTION section (house front-matter order: ... Acknowledgement -> Introduction) instead of reading as parts of the Acknowledgements in the contents.",
+  "//content": "'Literature and society' is one of the Content bullets, typed as Heading 1 in the middle of the list. The manuscript's 'Learner Activity 3.3: Editorial Action Required' is a note to the editor (the passage and questions were never supplied), not book text: dropped, and the gap (3.2 -> 3.4) asked in the PR. The budget answer was pasted as raw LaTeX ([ K80+K50+K30=K160 ], \boxed{K40}); set as plain sums.",
+  "removeRange": [
+    {
+      "from": "Learner Activity 3.3: Editorial Action Required",
+      "to": "Learner Activity 3.4: Analysing Biography"
+    }
+  ],
+  "replace": [
+    {
+      "find": "K80+K50+K30=K160",
+      "with": "K80 + K50 + K30 = K160"
+    },
+    {
+      "find": "K200-K160=",
+      "with": "K200 − K160 = K40"
+    }
+  ],
+  "glossaryTitle": "GLOSSARY OF LITERARY TERMS AND DEVICES",
+  "//bookName": "The companion book is named five ways (pupils' book x16, Pupils' Book, pupil's book, learner's book, learners' book); it is the ZEPH Literature in English Form 5 Learner's Book, the name the Form 1 TG uses, so every form reads Learner's Book.",
+  "subtext": [
+    {
+      "from": "Pupils’ Book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "Pupils’ book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "pupils’ book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "pupil’s book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "learners’ book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "learner’s book",
+      "to": "Learner’s Book"
+    }
+  ],
+  "//teachingProcedure": "'Teaching procedure' is typed 107 times: as Heading 3, as a bold head and 39 times as a plain line, which then sat alone at page feet (pp. 27, 28, 79, 104, 120). One form: a heading, sticky to its steps.",
+  "setMarker": [
+    {
+      "find": "It raises awareness of issues affecting young people, encourages critical",
+      "marker": "•"
+    }
+  ],
+  "edit": [
+    {
+      "find": "Question 9Explain",
+      "with": "Explain"
+    }
+  ],
+  "//modelAnswer": "'Model answer' is a bold head 33 times and a plain line 12 times; one form (the majority), which also keeps it with its answer.",
+  "asHead": [
+    "Model answer"
+  ],
+  "//pageBreaks": "Question stems, a lesson's title block and an activity label that ended a page apart from what follows them start the next page.",
+  "pageBreakBefore": [
+    "Question 2: Examine how setting and description create suspense",
+    "Question 5: Identify possible themes and support them with evidence",
+    "Lesson 4: Dramatising The Missing Letter",
+    "Lesson 8: Guided Analysis of “When the Rain Returns”",
+    "Lesson 7: Comparing Free Verse and Rhymed Poetry",
+    {
+      "find": "Learner Activity 12",
+      "near": "6. Teaching Butterfly Burning"
+    },
+    "Question 9. Critique the final couplet."
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Activity 4.30: Questions on The Price of Corruption",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Activity 4.30: Questions on The Price of Corruption"
+          }
+        },
+        {
+          "para": "**Question 1.** How many lines does the poem contain, and how are they arranged?"
+        },
+        {
+          "para": "The poem contains fourteen lines arranged into three quatrains and a final couplet, reflecting the conventional structure of a Shakespearean sonnet."
+        },
+        {
+          "para": "**Clue:** Count the lines and identify the stanza arrangement rather than relying on the poem’s subject matter alone."
+        },
+        {
+          "para": "**Question 2.** Identify the rhyme scheme and explain the effect of the final couplet."
+        },
+        {
+          "para": "The rhyme scheme is ABAB CDCD EFEF GG. The final couplet ends with fall and all. Their rhyme reinforces the demand for justice and makes the conclusion memorable."
+        },
+        {
+          "para": "**Clue:** Compare the ending sounds. The last two lines rhyme with each other and share the letter G."
+        },
+        {
+          "para": "**Question 3.** How do the ideas develop across the three quatrains?"
+        },
+        {
+          "para": "The first quatrain contrasts poverty with leaders’ privilege. The second focuses on failing public services, including healthcare and education. The third presents the suffering of a mother and her sick child. The poem moves from general inequality to institutional failures and individual suffering."
+        },
+        {
+          "para": "**Clue:** Consider the movement from broad social conditions to public institutions and then to a particular family’s suffering."
+        },
+        {
+          "para": "**Question 4.** What change occurs in the final couplet?"
+        },
+        {
+          "para": "The poem shifts from describing suffering to demanding action. “Let justice rise” calls for accountability, while “make the corrupt fall” expresses the desire for wrongdoers to face consequences."
+        },
+        {
+          "para": "**Clue:** The imperative “Let justice rise” signals the shift from describing the problem to demanding action."
+        },
+        {
+          "para": "**Question 5.** Identify two examples of figurative language and explain their effects."
+        },
+        {
+          "para": "“Greed has planted sorrow with its seeds” is a metaphor suggesting that greed produces and spreads suffering. “Leaders feast behind a guarded wall” contrasts the leaders’ abundance with the deprivation of ordinary people."
+        },
+        {
+          "para": "**Clue:** Identify the words that support each interpretation and explain their effect."
+        },
+        {
+          "para": "**Question 6.** How do diction and imagery portray vulnerable people?"
+        },
+        {
+          "para": "Expressions such as “empty store”, “clinic stands without the drugs to heal” and “a mother watches as her child grows frail” convey hunger, inadequate healthcare and illness. Words such as empty and frail emphasise deprivation and suffering."
+        },
+        {
+          "para": "**Clue:** Connect specific words with the experiences they represent and explain their effect on the reader."
+        },
+        {
+          "para": "**Question 7.** How does the contrast between leaders and ordinary people develop the criticism?"
+        },
+        {
+          "para": "The leaders “feast behind a guarded wall”, while the poor wait beside an “empty store”. These opposing images suggest that corruption protects the powerful while depriving vulnerable citizens of basic necessities."
+        },
+        {
+          "para": "**Clue:** Focus on the opposing images of abundance and deprivation."
+        },
+        {
+          "para": "**Question 8.** How does the sonnet structure support the central idea?"
+        },
+        {
+          "para": "The three quatrains develop the consequences of corruption, while the final couplet presents a demand for justice. This arrangement moves from describing the problem to expressing a concluding judgement."
+        },
+        {
+          "para": "**Clue:** Link each section to the progression of the poem’s ideas."
+        },
+        {
+          "para": "**Question 9.** Critique the final couplet."
+        },
+        {
+          "para": "The couplet is effective because its rhyme and forceful demand for justice create a memorable conclusion. “Let justice rise” calls for accountability, while “stolen wealth brings suffering to all” broadens the message. However, the poem does not specify practical measures for addressing corruption."
+        },
+        {
+          "para": "**Clue:** Recognise both strengths and limitations, supporting the judgement with textual evidence."
+        }
+      ]
+    },
+    {
+      "find": "Activity 4.31: Practice on The Chains of Escape",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Activity 4.31: Practice on The Chains of Escape"
+          }
+        },
+        {
+          "para": "**Question 1.** Identify the poem’s form."
+        },
+        {
+          "para": "It is presented as a Shakespearean-style sonnet, with fourteen lines arranged into three quatrains and a final couplet."
+        },
+        {
+          "para": "**Clue:** Use the number of lines and stanza arrangement as evidence."
+        },
+        {
+          "para": "**Question 2.** Identify the rhyme scheme."
+        },
+        {
+          "para": "The stated scheme is ABAB CDCD EFEF GG. Learners should verify it against the poem by comparing the end sounds: mind/find, last/past, dreams/streams, fade/made, door/more, decline/line and depart/heart."
+        },
+        {
+          "para": "**Clue:** Compare the sounds at the ends of lines rather than relying on spelling."
+        },
+        {
+          "para": "**Question 3.** Identify personification and explain its effect."
+        },
+        {
+          "para": "“The smoke rose slowly, hiding all his dreams” presents smoke as if it can hide a person’s ambitions. The image suggests that substance abuse obstructs future opportunities."
+        },
+        {
+          "para": "**Clue:** Connect the figurative expression to the consequences of substance abuse presented in the poem."
+        },
+        {
+          "para": "**Question 4.** Explain the symbolism of the chains."
+        },
+        {
+          "para": "The chains symbolise entrapment and reduced freedom. Substance use that initially promises relief becomes a form of dependence that restricts choices, damages relationships and limits progress."
+        },
+        {
+          "para": "**Clue:** Connect the literal meaning of a chain, which restrains movement, to dependence and reduced freedom."
+        },
+        {
+          "para": "**Question 5.** How do diction and imagery contribute to meaning?"
+        },
+        {
+          "para": "“Hiding all his dreams” suggests lost ambitions, “His books lay closed” suggests neglected education, and “His mother wept” conveys family suffering. Together, the images show the effects of substance abuse on education, relationships and future opportunities."
+        },
+        {
+          "para": "**Clue:** Explain what each image suggests instead of merely identifying it as imagery."
+        },
+        {
+          "para": "**Question 6.** How do the three quatrains develop the central idea?"
+        },
+        {
+          "para": "The first presents the search for relief and the beginning of entrapment. The second shows declining ambitions and practical difficulties. The third highlights damaged relationships and emotional suffering. The poem moves from initial attraction to dependence and its consequences."
+        },
+        {
+          "para": "**Clue:** Follow the sequence of events and ideas across the poem."
+        },
+        {
+          "para": "**Question 7.** How does the poem contrast temporary relief with eventual suffering?"
+        },
+        {
+          "para": "The substance initially “promised peace at last”, but this promise gives way to dependence, fading ambitions, debts and broken relationships. The contrast exposes the destructive consequences of substance abuse."
+        },
+        {
+          "para": "**Clue:** Identify what the substance promises and compare it with what the individual eventually experiences."
+        },
+        {
+          "para": "**Question 8.** Critique the final couplet."
+        },
+        {
+          "para": "“Break free before your brightest days depart, / For drugs can steal your future and your heart” is effective because the imperative creates urgency, while the rhyme makes the warning memorable. However, the couplet does not explain how someone experiencing substance dependence might obtain help."
+        },
+        {
+          "para": "**Clue:** Explain how the conclusion reinforces the message and identify any limitations."
+        }
+      ]
+    }
+  ],
+  "//activity430": "Activities 4.30 and 4.31 (Closed-Form Poetry solutions) are plain Question N. / answer / Clue: paragraphs; boxed as exercises every line was numbered 1-27. Set as the book sets its other solutions (title head, bold question lead, answer, bold Clue), text generated from the manuscript, not retyped."
+}
