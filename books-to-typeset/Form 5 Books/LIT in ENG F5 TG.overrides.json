@@ -270,6 +270,49 @@
       "before": "Literature as a reflection and examination of life",
       "as": "list",
       "text": "Literature and society"
+    },
+    {
+      "before": "PREFACE",
+      "blocks": [
+        {
+          "h1": "FOREWORD"
+        },
+        {
+          "para": "The Ministry of Education in Zambia is pleased to share with you the exciting developments taking place in our education system through the implementation of the Competency-Based Curriculum. With the support of ZEPH, new and improved learner’s books and teacher’s guides have been developed to assist teachers in their work. These books will help learners acquire the knowledge, skills and values needed to build our nation and become responsible citizens. This is a significant milestone for education in Zambia."
+        },
+        {
+          "para": "This Teacher’s Guide accompanies the Literature in English Form 5 Learner’s Book and supports you as you lead learners into a deeper study of literature. It opens with the Concepts of Literature and moves through Prose Fiction, Non-Fiction Prose, Drama and Poetry, before turning to Greek Epic Poetry, Classical Greek Drama and the Periods of African Literature."
+        },
+        {
+          "para": "These lessons will help learners develop essential skills for life. They will learn to read closely, think critically, write and perform creatively and appreciate the cultures and experiences that literature records. Zambian and African texts sit alongside works from the wider world, so that learners can relate what they read to their own lives and communities and become active and engaged citizens."
+        },
+        {
+          "para": "I am proud of the Zambia Educational Publishing House (ZEPH) for the excellent work they do in producing quality educational materials. I encourage you to use this guide diligently, to plan your lessons with it and to engage your learners fully in its activities, so that each of them becomes a knowledgeable, responsible and proud Zambian who contributes to building a better Zambia."
+        },
+        {
+          "para": "Noriana Muneku (Ms.)"
+        },
+        {
+          "para": "Permanent Secretary (Administration)"
+        },
+        {
+          "para": "MINISTRY OF EDUCATION"
+        }
+      ]
+    },
+    {
+      "before": "ACKNOWLEDGEMENTS",
+      "blocks": [
+        {
+          "para": "Beatrice Chirwa (Dr)"
+        },
+        {
+          "para": "Board Chairperson"
+        },
+        {
+          "para": "ZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+        }
+      ]
     }
   ],
   "//introduction": "Purpose of the Teacher's Guide, General Guidance on the Competence-Based Approach and Recommended Teaching Approaches are the book's introduction; they sit under an INTRODUCTION section (house front-matter order: ... Acknowledgement -> Introduction) instead of reading as parts of the Acknowledgements in the contents.",
@@ -525,5 +568,29 @@
       ]
     }
   ],
-  "//activity430": "Activities 4.30 and 4.31 (Closed-Form Poetry solutions) are plain Question N. / answer / Clue: paragraphs; boxed as exercises every line was numbered 1-27. Set as the book sets its other solutions (title head, bold question lead, answer, bold Clue), text generated from the manuscript, not retyped."
+  "//activity430": "Activities 4.30 and 4.31 (Closed-Form Poetry solutions) are plain Question N. / answer / Clue: paragraphs; boxed as exercises every line was numbered 1-27. Set as the book sets its other solutions (title head, bold question lead, answer, bold Clue), text generated from the manuscript, not retyped.",
+  "//frontMatter": "2026-11-20, user: 'fix those that can be fixed'. Front matter set to the house model, the Literature in English Form 1 TG: Foreword = the Ministry text signed by the Permanent Secretary (Administration), adapted to Form 5 and naming this book's units; the authors' Preface signed by the ZEPH Board Chairperson; the placeholder Acknowledgements ('...should be acknowledged in the final manuscript') replaced by the house ZEPH acknowledgement with the authors' own thanks folded in. No editor is named for this book, so the Form 1 editor paragraph is generalised to the editorial staff.",
+  "replaceSection": [
+    {
+      "heading": "ACKNOWLEDGEMENTS",
+      "until": "INTRODUCTION",
+      "items": [
+        "The Zambia Educational Publishing House (ZEPH) wishes to express its sincere appreciation to all institutions and individuals whose contributions made the publication of the Literature in English Form 5 Teacher’s Guide possible.",
+        "Special gratitude is extended to the ZEPH shareholders - the Ministry of Education and the Ministry of Finance and National Planning - for their policy guidance, oversight and financial support during the development and production of this book. Appreciation is also accorded to the ZEPH Board of Directors for providing strategic leadership and governance.",
+        "Special recognition is given to the reviewers, curriculum specialists, subject experts and all contributors - for their valuable technical input and constructive feedback - and to the Curriculum Development Centre and the Examinations Council of Zambia for their guidance and support. The Publishing House also acknowledges Mr. Lackson Lungu for his guidance in ensuring full alignment of the content with the national Competency-Based Curriculum (CBC).",
+        "We extend our appreciation to all staff involved in the editorial, production and coordination processes, with special recognition to Mr. James Chiwele for his role in ensuring the successful completion of this publication.",
+        "Finally, ZEPH acknowledges the authors, Sibusenga Himaaka Eustance and Kambaya Pelekelo, for their dedication and professional contribution in producing a quality teaching resource. The authors in turn thank the literary scholars, writers and educators whose work informed this guide, and the Zambian communities whose oral traditions and experiences give its lessons their local meaning.",
+        "Agness Mumba Wilkins (PhD)",
+        "Managing Director/Chief Executive Officer",
+        "ZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+      ]
+    }
+  ],
+  "replaceExact": [
+    {
+      "find": "identifiable literary device.",
+      "with": "Award 1 mark for a relevant two-line poem with an identifiable literary device."
+    }
+  ],
+  "//q10": "End-of-Topic Test 1, Question 10: the marking line was cut off to 'identifiable literary device.'; completed in the pattern of the test's other marking lines ('Award 1 mark for ...')."
 }
