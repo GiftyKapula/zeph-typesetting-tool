@@ -692,7 +692,7 @@ async function typesetOne(docxPath, themeName) {
   if (ov.joinBrokenLines) console.log(`   joinCompetenceTails: ${joinCompetenceTails(blocks)} broken competence line(s) joined`);
   if (ov.reboxExercises) console.log(`   exerciseBarBack: ${exerciseBarBack(blocks)} exercise bar(s) put back over their questions`);
   // a book's own box corrections, now the boxes exist (boxRange / unboxRange / splitTable)
-  if (ov.boxRange || ov.unboxRange || ov.splitTable || ov.keepWhole || ov.newPage || ov.boldLead || ov.codeBlocks || ov.splitBefore || ov.codeConsole || ov.dropTable || ov.codeSql || ov.runOn || ov.mergeTables) {
+  if (ov.boxRange || ov.unboxRange || ov.unglueTail || ov.splitTable || ov.keepWhole || ov.newPage || ov.boldLead || ov.codeBlocks || ov.splitBefore || ov.codeConsole || ov.dropTable || ov.codeSql || ov.runOn || ov.mergeTables) {
     blocks = reshapeBoxes(blocks, ov);
     // (again: lines a split table gave back can be the rest of the paragraph before)
     if (ov.joinBrokenLines) joinCompetenceTails(blocks);
@@ -1288,6 +1288,16 @@ async function typesetOne(docxPath, themeName) {
       }
       if (b.t === "listitem" && /^\d+[.)]$/.test(String(b.marker || "").trim())) b.marker = `${++k}.`;
       else if (/^(head|h1|h2|h3|label|termpage)$/.test(b.t)) k = 0;
+      // the numbered questions inside an activity box count 1..N too (a question the
+      // converted copy broke at a page end kept a Word number for each half); a bold
+      // sub-title line inside the box starts the count again
+      if (b.t === "activity" && Array.isArray(b.body)) {
+        let j = 0;
+        for (const x of b.body) {
+          if (x && x.t === "listitem" && /^\d+[.)]$/.test(String(x.marker || "").trim())) x.marker = `${++j}.`;
+          else if (x && (/^(head|label)$/.test(x.t) || (x.t === "para" && Array.isArray(x.segs) && x.segs.some((s) => (s.t || "").trim()) && x.segs.every((s) => !(s.t || "").trim() || s.b)))) j = 0;
+        }
+      }
     }
   }
   // listLabels: ["Mtundu wa otengamo mbali:"] — a line the author numbered as the FIRST item

@@ -169,6 +169,17 @@ function reshapeBoxes(blocks, ov) {
     // (into: "prev" — the rest of the box just before: appended to it instead)
     const prevBox = before[before.length - 1];
     if (br.into === "prev" && isBox(prevBox)) { prevBox.body.push(...items); out = [...before, ...after]; continue; }
+    // (an exercise box holds parts, not a body: its questions and lead lines go on as parts —
+    // the last question or item of an exercise a converted copy cut off into a second text box)
+    if (br.into === "prev" && prevBox && prevBox.t === "exercise" && Array.isArray(prevBox.parts)) {
+      for (const x of items) {
+        const segs = Array.isArray(x.segs) ? x.segs : [{ t: plain(x), b: false, it: false, c: null }];
+        if (x.t === "listitem" || x.marker) prevBox.parts.push({ kind: "q", marker: x.marker || "", q: plain(x), qseg: segs, a: "", aseg: [], depth: /^[a-z(]|^[ivx]+\./i.test(String(x.marker || "")) ? 1 : 0 });
+        else if (x.t === "table") prevBox.parts.push({ kind: "table", rows: x.rows });
+        else prevBox.parts.push({ kind: "lead", q: plain(x), qseg: segs });
+      }
+      out = [...before, ...after]; continue;
+    }
     const box = { t: "framedsection", kind: br.kind || "act", title, body: items };
     out = [...before, box, ...after];
   }
@@ -356,6 +367,26 @@ function reshapeBoxes(blocks, ov) {
       }
     };
     visit(out);
+  }
+  // unglueTail: ["Buikoneli bobubatilwe", …] — a converted copy ran the label of the NEXT
+  // section on at the end of a box's last sentence (bold, same paragraph): the label comes
+  // out of the box and stands as a heading right after it, with whatever the box had
+  // swallowed after it (that section's own text)
+  if (Array.isArray(ov.unglueTail) && ov.unglueTail.length) {
+    let n = 0;
+    for (let i = 0; i < out.length; i++) {
+      const b = out[i];
+      if (!isBox(b) || !b.body.length) continue;
+      const j = b.body.findIndex((x) => x && Array.isArray(x.segs) && x.segs.length >= 2 && x.segs[x.segs.length - 1].b
+        && ov.unglueTail.includes((x.segs[x.segs.length - 1].t || "").trim()));
+      if (j < 0) continue;
+      const host = b.body[j], tail = host.segs.pop();
+      const s = host.segs[host.segs.length - 1]; if (s && typeof s.t === "string") s.t = s.t.replace(/\s+$/, "");
+      const rest = b.body.splice(j + 1);
+      out.splice(i + 1, 0, { t: "head", text: tail.t.trim() }, ...rest);
+      n++;
+    }
+    if (n) console.log(`   unglueTail: ${n} section label(s) taken out of the box before them`);
   }
   for (const ub of ov.unboxRange || []) {
     if (ub.title) {
