@@ -431,8 +431,10 @@ function emit(blocks) {
       // "SUB-TOPIC 2.1.5 DRAINAGE FEATURES" and the rest). A colon there is the same
       // slip as a full stop, so both go — and so does the pair: Geography Form 1 TG
       // (Nov 2026) types "Subtopic 1.1.1.: Geography", which a one-character strip left
-      // as "SUB-TOPIC 1.1.1.:" in the heading and the contents.
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:]+(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
+      // as "SUB-TOPIC 1.1.1.:" in the heading and the contents. The gap after the number
+      // is closed to one space as well: Geography Form 4 TG types two after "4.5.2:",
+      // which printed "SUB-TOPIC 4.5.2  SUSTAINABLE TOURISM" in the heading and contents.
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:]*\s+/i, "$1 "))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the

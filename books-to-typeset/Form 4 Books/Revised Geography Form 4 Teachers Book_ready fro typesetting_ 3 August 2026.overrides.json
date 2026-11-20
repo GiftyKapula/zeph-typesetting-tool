@@ -1,15 +1,48 @@
 {
   "blackWhite": true,
-  "authors": ["Njira Mtonga", "Oliver Manongo", "Bishop Siabwanta", "Euster Muyuba", "Precious Sapanoi"],
+  "subtopicRuleClear": true,
+  "tocGap": "6pt",
+  "keepExercisesWhole": "185mm",
+  "authors": [
+    "Njira Mtonga",
+    "Oliver Manongo",
+    "Bishop Siabwanta",
+    "Euster Muyuba",
+    "Precious Sapanoi"
+  ],
   "retext": [
-    { "from": "4.6.1.2. Provide solutions to the challenges of transporting fuel and power.", "to": "Solutions to challenges in production of different types of energy provided accordingly." }
+    {
+      "from": "4.6.1.2. Provide solutions to the challenges of transporting fuel and power.",
+      "to": "Solutions to challenges in production of different types of energy provided accordingly."
+    }
   ],
   "removeRange": [
-    { "after": "FORESTRY IN ZAMBIA", "from": "General Competences:", "to": "Subtopic 4.2" }
+    {
+      "after": "FORESTRY IN ZAMBIA",
+      "from": "General Competences:",
+      "to": "Subtopic 4.2"
+    }
   ],
   "setHeading": [
-    { "find": "MINING", "near": "Mining involves extracting", "text": "TOPIC 4.7: MINING", "as": "h1" },
-    { "find": "KEY COMPETENCES TO BE DEVELOPED", "text": "GENERAL COMPETENCES TO BE DEVELOPED" }
+    {
+      "find": "MINING",
+      "near": "Mining involves extracting",
+      "text": "TOPIC 4.7: MINING",
+      "as": "h1"
+    },
+    {
+      "find": "KEY COMPETENCES TO BE DEVELOPED",
+      "text": "GENERAL COMPETENCES TO BE DEVELOPED"
+    },
+    {
+      "find": "4.3.6 Sugarcane growing in the Sub-Region (South Africa)",
+      "text": "Subtopic 4.3.6: Sugarcane Growing in the Sub-Region (South Africa)",
+      "as": "h2"
+    },
+    {
+      "find": "Subtopic 4.8.3: Processing and manufacturing industries in the Sub-Region (Zimbabwe and South Africa)",
+      "as": "h2"
+    }
   ],
   "pageBreakBefore": [
     "GENERAL COMPETENCES TO BE DEVELOPED"
@@ -22,5 +55,12 @@
         "In **South Africa**, diamonds are found around Kimberley, Limpopo, and the Northern Cape. Gold is concentrated in the Witwatersrand Basin, located in Gauteng and the Free State. Uranium occurs mainly in the Karoo Basin and the Northern Cape, where it is linked to sedimentary rocks."
       ]
     }
+  ],
+  "keepWithNext": [
+    "Zambia’s many ethnic groups contribute different languages",
+    "What role do music and dance play in promoting Zambia",
+    "How can regional cooperation in tourism benefit Zambia",
+    "Use of slow",
+    "Assess the environmental effects of mining and suggest"
   ]
 }

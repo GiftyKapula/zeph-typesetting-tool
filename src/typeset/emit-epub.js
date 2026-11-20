@@ -41,7 +41,7 @@ const plainOf = (b) => (b.segs ? b.segs.map((s) => s.t || "").join("") : b.text 
 // The same normalisation emit() applies for the printed banner / sub-topic heads.
 const TOPIC_RE = /^(?:TOPIC|UNIT|CHAPTER)\s*([\d.]+)\s*[:.\-–—]?\s*(.*)$/i;
 const topicTitle = (t) => { const m = (t || "").match(TOPIC_RE); return m ? { no: m[1].replace(/[.:]+$/, ""), name: m[2].trim() } : null; };
-const subTitle = (t) => (t || "").replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:](\s)/i, "$1$2").trim();
+const subTitle = (t) => (t || "").replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:]*\s+/i, "$1 ").trim();
 
 // A paragraph that is a list item (Word list or the engine's own marker).
 const isListPara = (b) => b && (b.t === "listitem" || (b.t === "para" && b.marker));
