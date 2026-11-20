@@ -5,9 +5,9 @@
   "removeImages": [
     "image1.png"
   ],
-  "//cover": "The manuscript's cover is a finished mock-up with lettering baked in (title, FORM 5, book spines labelled Poetry/Drama/Prose, the authors, the ZEPH logo). House rule: use only a word-free part of it. The four learners reading in front of the falls (x 400-1024, y 645-1112 of the 1024x1536 PNG) were cropped, upscaled 4x with Real-ESRGAN and saved at 2400 px wide (about 465 DPI at the literary cover's 130.8 mm frame). The cover itself is synthesised like the Form 1 TG's.",
+  "//cover": "Cover picture supplied by the user on 2026-11-20 (Downloads\u0010.jpeg, 1080x720): six Form 5 learners reading in front of the falls, including a wheelchair user, an albino learner and a learner with a hearing aid, with no lettering. Upscaled 4x with Real-ESRGAN and saved at 2400x1600 PNG (about 465 DPI at the literary cover frame). It replaces the earlier word-free crop of the manuscript mock-up. The cover itself is synthesised like the Form 1 TG.",
   "synthesiseCover": true,
-  "coverImage": "LIT in ENG F5 TG-art/cover-learners-reading.jpg",
+  "coverImage": "LIT in ENG F5 TG-art/cover-20.png",
   "//backCover": "House rule: over 112 interior pages gets a spine; the literary layout needs backCover for the back cover and the printer's spread.",
   "backCover": true,
   "fmSpacing": "1.3em",
