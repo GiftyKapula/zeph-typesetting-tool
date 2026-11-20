@@ -301,6 +301,9 @@ function applyOverrides(blocks, ov) {
     // from a sibling book via a `raw` table/paragraph list) into a book that lacks it.
     if (spec.h1 != null) return { t: "h1", text: spec.h1 };
     if (spec.listitem != null) return { t: "listitem", segs: mkSegs(spec.listitem), marker: spec.marker || "•" };
+    // { code: "    print(\"Pass\")" } — one line of program code in the coding font, its
+    // leading spaces (the indentation) kept
+    if (spec.code != null) return { t: "para", segs: [{ t: String(spec.code).replace(/^ +/, (m) => "\u00a0".repeat(m.length)) || "\u00a0", b: false, it: false, c: null, code: true }] };
     if (spec.label != null) return { t: "label", text: spec.label, ...(spec.col ? { labelColor: spec.col } : {}) };
     // { vspace: "6mm" } (or `vspace: true` for the default gap) — a blank vertical gap,
     // for rebuilding an imprint/front-matter run whose airy spacing came from the
@@ -762,18 +765,38 @@ function applyOverrides(blocks, ov) {
     for (const a of [].concat(after || [])) { const k = list.findIndex((x, i) => i >= from && blockPlain(x).includes(a)); from = k < 0 ? list.length : k + 1; }
     return from;
   };
-  for (const e of ov.edit || []) {
+  // (or inside a table cell: a converted book can carry the end of a box as a one-cell table)
+  const tables = (arr) => (arr || []).flatMap((x) => x && x.t === "table" && Array.isArray(x.rows) ? [x] : tables(x && x.body));
+  const cells = () => tables(blocks).flatMap((x) => x.rows.flat()).filter((c) => c && typeof c.text === "string");
+  // the cell's runs too, even where the text is split across several of them ("Expected" | " Response:")
+  const editCellSegs = (segs, find, repl) => {
+    const b = { t: "para", segs };
+    if (segs.map((s) => s.t || "").join("").includes(find)) editBlockText(b, find, repl);
+    return b.segs;
+  };
+  const editCell = (c, find, repl) => {
+    c.text = c.text.replace(find, repl);
+    if (Array.isArray(c.segs)) c.segs = editCellSegs(c.segs, find, repl);
+  };
+  for (const e of (ov.edit || []).filter((x) => !x.late)) {
     const from = afterIndex(flat, e.after);
     const b = flat.find((x, i) => i >= from && blockPlain(x).includes(e.find));
-    if (b) editBlockText(b, e.find, e.with || "");
+    if (b) { editBlockText(b, e.find, e.with || ""); continue; }
+    const cell = cells().find((c) => c.text.includes(e.find) || (c.segs || []).map((s) => s.t || "").join("").includes(e.find));
+    if (cell) editCell(cell, e.find, e.with || "");
     else console.warn("!  edit not matched:", e.find);
   }
   // editAll: [{ find, with }] — like edit, but applied to EVERY block that contains the
   // substring (not just the first). For a recurring phrase the same across the whole
   // book, e.g. relabelling every "TIPS FOR THE TEACHER" -> "TIPS TO THE TEACHER".
+  // (table cells too, every occurrence)
   for (const e of ov.editAll || []) {
     let n = 0;
     for (const b of flat) if (blockPlain(b).includes(e.find)) { editBlockText(b, e.find, e.with || ""); n++; }
+    for (const c of cells()) {
+      for (let k = 0; k < 50 && (c.segs || []).map((s) => s.t || "").join("").includes(e.find); k++) { c.segs = editCellSegs(c.segs, e.find, e.with || ""); n++; }
+      if (c.text.includes(e.find)) { c.text = c.text.split(e.find).join(e.with || ""); n++; }
+    }
     if (!n) console.warn("!  editAll not matched:", e.find);
   }
   // extendBox: [{ title, count }] — move the `count` blocks that follow a box (an activity/
@@ -1295,6 +1318,28 @@ function applyOverrides(blocks, ov) {
     }
     if (!n) console.warn("!  monoLines not matched:", ml);
   }
+  // codeBlocks: ["text" | { from, to?, near? }] — program code: every block from the one
+  // containing `from` through the one containing `to` (default: just that one) set upright
+  // in the coding font (theme `codeFont`, default Cascadia Code), flush left. Reaches
+  // into box and exercise bodies. Computer Science Form 3 LB (CDC: Cascadia Code).
+  const codeFlat = ov.codeBlocks ? allTextBlocks(blocks) : [];   // (blocks replaceBlocks added count too)
+  for (const cbRaw of ov.codeBlocks || []) {
+    const flat = codeFlat;
+    const cb = typeof cbRaw === "string" ? { from: cbRaw } : cbRaw;
+    if (cb.late) continue;   // (marked after the boxing passes: passes/reshape.js)
+    let k0 = 0;
+    if (cb.near) { k0 = flat.findIndex((b) => blockPlain(b).includes(cb.near)); if (k0 < 0) k0 = 0; }
+    const a = flat.findIndex((b, k) => k >= k0 && segKey(b) && blockPlain(b).includes(cb.from));
+    if (a < 0) { console.warn("!  codeBlocks not matched:", cb.from); continue; }
+    // (until: the block containing it ends the code, not included)
+    const z = cb.to ? flat.findIndex((b, k) => k >= a && segKey(b) && blockPlain(b).includes(cb.to))
+      : cb.until ? flat.findIndex((b, k) => k > a && blockPlain(b).includes(cb.until)) - 1 : a;
+    if (z < 0) { console.warn("!  codeBlocks `to` not matched:", cb.to); continue; }
+    for (let k = a; k <= z; k++) {
+      const key = segKey(flat[k]);
+      if (key) for (const s of flat[k][key]) if (!s.m) { s.code = true; s.it = false; }
+    }
+  }
   // activityHeadsBlack: true — render every activity/exercise heading in bold BLACK
   // instead of the theme accent colour (a book whose author wants them black). Marks
   // `head`/h blocks whose text starts with Activity/Exercise/Task/Project/Discussion.
@@ -1651,6 +1696,7 @@ function applyOverrides(blocks, ov) {
   // the second part sits on its own line under the first. First match only; tree-aware
   // (works inside activity/exercise bodies), and only splits when the label run stays.
   for (const sp of ov.splitBefore || []) {
+    if (sp.late) continue;   // (after the boxing passes: passes/reshape.js)
     let done = false;
     const walk = (arr) => {
       for (let i = 0; i < arr.length && !done; i++) {

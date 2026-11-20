@@ -200,6 +200,17 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     const d = rawDoc.slice(spanStart, spanEnd);
     const tbm = d.match(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/);
     if (!tbm) continue;
+    // A book converted from a PDF draws each box as a GROUP of text boxes: the coloured
+    // title bar ("EXERCISE 1") in one, the questions in the next. Reading only the first
+    // gave a title-only box and lost every question. When the first text box holds just
+    // one line, the group's other text boxes are the box's body: read them all, in order.
+    const allTb = [...d.matchAll(/<w:txbxContent>([\s\S]*?)<\/w:txbxContent>/g)];
+    const titleBar = allTb.length > 1
+      && (tbm[1].match(/<w:p\b[\s\S]*?<\/w:p>/g) || []).filter((p) => /<w:t[\s>]/.test(p)).length === 1;
+    if (titleBar) {
+      if (/<a:blip\b/.test(allTb.reduce((s, m) => s.replace(m[0], ""), d))) continue;   // a picture group — leave it
+      tbm[1] = allTb.map((m) => m[1]).join("");
+    }
     // A drawing that's fundamentally a PHOTO (not a text box) carries its <a:blip>
     // outside the text box's own content — e.g. a picture-filled shape. A blip
     // belonging to a picture the box's OWN prose embeds (an illustrative diagram
@@ -209,7 +220,7 @@ function extractTextboxBoxes(rawDoc, out, numMap) {
     // so its title+body+list fell through to a generic paragraph-merge fallback
     // that flattened them into one garbled, unstyled block.
     const outsideTextbox = d.slice(0, tbm.index) + d.slice(tbm.index + tbm[0].length);
-    if (/<a:blip\b/.test(outsideTextbox)) continue;            // a real picture — leave it alone
+    if (!titleBar && /<a:blip\b/.test(outsideTextbox)) continue;   // a real picture — leave it alone
     // A box's floating shape can carry a NESTED TABLE (a reference table inside a
     // Learning Activity/Exercise/Assessment) — mask it out first (maskTables), like the
     // main body parser does, so the naive <w:p> scan below never grabs a stray cell
@@ -2601,7 +2612,7 @@ async function importDocx(docxPath, opts = {}) {
   // first real section begins, even when the manuscript didn't style it as a
   // Word heading (many don't). This stops the imprint's centred styling from
   // bleeding into the Authors/Foreword text.
-  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM_SECTION = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN|^ACRONYMS\b|^LIST OF (TABLES|FIGURES)$|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^(LIST OF )?ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // Back-matter section names — a genuine back-matter heading (also reliably Word-
   // Heading-styled, same as a front-matter one above) must not be folded down to a
   // plain inline sub-head by the "numbered-topic short Heading-styled paragraph"

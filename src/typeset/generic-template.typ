@@ -1802,6 +1802,11 @@
       let sz = fs(20pt)
       if s.c == none { text(weight: w, style: st, font: T.handFont, size: sz)[#body] }
       else { text(weight: w, style: st, fill: rgb("#" + s.c), font: T.handFont, size: sz)[#body] }
+    } else if s.at("code", default: false) {
+      // program code (codeBlocks override): upright in a coding font, never hyphenated
+      // (Computer Science Form 3 LB, CDC: "use the Cascadia Code font"). No ligatures: a
+      // learner copies the code, and Cascadia would draw ">=" as one "≥" sign
+      text(weight: w, style: "normal", font: (T.at("codeFont", default: "Cascadia Code"), "Consolas", "Courier New", "DejaVu Sans Mono"), size: 0.9em, hyphenate: false, ligatures: false, discretionary-ligatures: false, features: (calt: 0), fill: if s.c == none { black } else { rgb("#" + s.c) })[#body]
     } else {
       if s.c == none { text(weight: w, style: st)[#body] }
       else { text(weight: w, style: st, fill: rgb("#" + s.c))[#body] }
@@ -1841,7 +1846,17 @@
 // par[...] renders empty, which is why equations sitting on their own line came out
 // blank. Contiguous inline segments stay in a paragraph. Shared by every text path
 // (body paragraphs, box bodies, exercise/assessment questions).
+// A code line too long for the measure wraps under its own indent plus two characters, so the
+// wrapped part reads as the same statement instead of a new line at the margin (CS Form 3 LB)
+#let codehang(ss) = {
+  let t = ss.at(0).at("t", default: "")
+  let n = 0
+  for c in t.clusters() { if c == " " or c == " " { n += 1 } else { break } }
+  (n + 4) * 0.54em
+}
+#let allcode(ss) = ss.len() > 0 and ss.any(s => s.at("code", default: false)) and ss.all(s => s.at("code", default: false) or s.at("t", default: "x").trim() == "")
 #let flowsegs(ss) = {
+  if allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false, hanging-indent: codehang(ss))[#segs(ss)]] }
   // (a multi-line monospace drawing is a block too: a block inside par[] is dropped)
   let isdisp(s) = (s.at("m", default: false) and s.at("display", default: false)) or (s.at("mono", default: false) and s.t.contains("\n"))
   if ss.any(isdisp) {
@@ -1868,6 +1883,8 @@
 #let para(ss, align: none, drop: false, hyphenate: auto, indent: false) = {
   let hyphenate = if hyphenate == auto { T.at("hyphenate", default: true) } else { hyphenate }
   set text(hyphenate: hyphenate)
+  // a line of program code is set flush left, never justified
+  if align == none and allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false, hanging-indent: codehang(ss))[#segs(ss)]] }
   // A syllabus body paragraph that sits UNDER a numbered item is indented to align with
   // the heading text (past the number), for a clean outline look.
   if indent { return pad(left: 7mm, para(ss, align: align, drop: drop, hyphenate: hyphenate)) }
@@ -2871,7 +2888,9 @@
       }
       else if it.k == "head" {
         v(3pt)
-        let hd = text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t]
+        // (big: a boxHead line — the box-title size and colour, like a sibling box's title)
+        let big = it.at("big", default: false)
+        let hd = if big { text(weight: "bold", fill: T.at("act").at("title", default: T.primary), size: hs(14pt), hyphenate: false)[#it.t] } else { text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t] }
         block(breakable: false, sticky: true, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
         v(2pt)
       }
@@ -2956,6 +2975,20 @@
       k = k + 2
     } else { k = k + 1 }
   }
+  // ---- keepNext: an item a book asked to keep with the one after it ----
+  let q = 0
+  while q + 1 < n {
+    if mark.at(q + 1) == -1 and body.at(q).at("keepnext", default: false) {
+      if mark.at(q) == -1 { mark.at(q) = q + 2; mark.at(q + 1) = -2 }
+      else if mark.at(q) == -2 {
+        // (an item already closing a group — a lead-in label kept with it — extends that group)
+        let s = q - 1
+        while s >= 0 and mark.at(s) == -2 { s = s - 1 }
+        if s >= 0 and mark.at(s) == q + 1 { mark.at(s) = q + 2; mark.at(q + 1) = -2 }
+      }
+      q = q + 2
+    } else { q = q + 1 }
+  }
   for (idx, it) in body.enumerate() {
     let m = mark.at(idx)
     if m >= 0 {
@@ -3009,8 +3042,18 @@
   ]
   v(4pt)
 }
-#let framedsection(kind, title, body) = {
+#let framedsection(kind, title, body, force: false) = {
   let content = renderbody(body)
+  // (a box a book asked to keep whole — keepWhole override: onto the next page when it
+  // does not fit what is left of this one, the way keepwhole() treats an activity)
+  if force {
+    let fits = state("fsfits", true)
+    return {
+      layout(sz => fits.update(measure(box(width: sz.width, content)).height < T.at("keepBoxMm", default: 180) * 1mm))
+      context (if not fits.get() { pagebreak(weak: true) })
+      context titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: not fits.get())
+    }
+  }
   // Always breakable (mirrors titledbox's own default). A prior version kept any box
   // under 180mm tall fully atomic so it could never split and orphan a stray last item
   // — but Typst then moves the WHOLE box to the next page whenever it doesn't fit
