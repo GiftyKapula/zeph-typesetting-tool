@@ -6,13 +6,14 @@
   "coverImage": "LIT in ENG F1 TG-art/cover-literature-lesson.png",
   "//synthesiseCover": "The manuscript's own title page reads only 'LITERATURE IN ENGLISH TEACHER'S BOOK' and never says Form 1, so the cover the engine lifted from it carried no level tag while the sibling Learner's Book reads 'FORM 1 - LEARNER'S BOOK'. Forcing a synthesised cover builds it from the detected title, subject, book type and level instead, so the two covers carry the same furniture.",
   "synthesiseCover": true,
-  "//pageBreaks": "Round 1 added a Drama competence block above Activity 2 (Performing Plays); without a break it sat alone at the foot of a page, apart from its activity. \"3. Charts and Posters\" (Functions of Literature materials) was a lone line at the foot of a page, its list on the next. The Foreword's last paragraph goes over with its signatory, which otherwise stood alone on the next page.",
+  "//pageBreaks": "Round 1 added a Drama competence block above Activity 2 (Performing Plays); without a break it sat alone at the foot of a page, apart from its activity. \"3. Charts and Posters\" (Functions of Literature materials) was a lone line at the foot of a page, its list on the next. The Foreword's last paragraph goes over with its signatory, which otherwise stood alone on the next page. House page rule (2026-10-29): four boxes that opened at a page foot with one or two lines (Riddles ASSESSMENT, Songs Exercise 1 answers, Idioms Activity 1, Idioms Exercise 1 answers) start on the next page. Songs Exercise 1 answers start a fresh page (forceFreshPage); lone SUMMARY labels are headings in the rebuild, so they never strand.",
   "pageBreakBefore": [
     {
       "find": "Drama",
       "near": "1.2.2.3.2."
     },
-    "3. Charts and Posters"
+    "3. Charts and Posters",
+    "ACTIVITY 1: Discussing the idioms"
   ],
   "//backCover": "House rule: over 112 interior pages gets a spine. The literary layout made no back cover, so no cover spread was written; backCover adds the house back cover and with it the spread (user asked for the spine, 2026-10-29).",
   "backCover": true,
@@ -20,5 +21,11 @@
   "fmSpacing": "1.3em",
   "//fmSpacing": "Front matter in the house look (user compared it with the Physics Form 2 LB, 2026-10-29): paragraph gap 1.3em, the most that keeps the Foreword to two pages.",
   "//frontMatter": "2026-10-29: front matter set to the house model (Physics Form 2 LB): Foreword = Ministry text, Preface = ZEPH text; Acknowledgement = the house ZEPH five-paragraph text adapted to this book (user: \"yes use the house acknowledgement\"), with the authors' thanks to Vision Milimo, CDC and ECZ folded in. Done in the rebuild (C:/z/lit-work/cleanup.mjs).",
-  "//preface": "The PREFACE was the Learner's Book's word for word; rewritten in the teacher's voice naming the Teacher's Guide (user, 2026-10-29), in the rebuild (cleanup.mjs). Its Foreword page break is no longer needed. The FOREWORD (Ministry text) reworded for teachers the same way (user: \"reword the foreword for teachers\")."
+  "//preface": "The PREFACE was the Learner's Book's word for word; rewritten in the teacher's voice naming the Teacher's Guide (user, 2026-10-29), in the rebuild (cleanup.mjs). Its Foreword page break is no longer needed. The FOREWORD (Ministry text) reworded for teachers the same way (user: \"reword the foreword for teachers\").",
+  "forceFreshPage": [
+    {
+      "find": "Expected Answers to Exercise 1",
+      "near": "List two functions of songs in society"
+    }
+  ]
 }
