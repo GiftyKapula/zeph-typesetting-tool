@@ -1813,18 +1813,32 @@ async function typesetOne(docxPath, themeName) {
     } else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);
   }
 
+  // `--epub`: also write a reflowable EPUB 3 from the SAME final blocks the PDF was just
+  // printed from, so the e-book carries every override and engine fix by construction.
+  // Opt-in; without the flag nothing here runs. Must come before the temp cleanup below,
+  // because the pictures are read from the workspace's staged (cropped/enhanced) copies.
+  if (WANT_EPUB) {
+    const epubPath = path.join(bookDir, `${base}.epub`);
+    await require("./emit-epub.js").writeEpub({ blocks, workspace: ws, outPath: epubPath, pdfPath: outPath });
+    console.log(`EPUB:    ${epubPath} [${fs.statSync(epubPath).size} bytes]`);
+  }
+
   // best-effort cleanup of temp extraction dirs
   try { fs.rmSync(ws, { recursive: true, force: true }); } catch (e) {}
   try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) {}
 }
 
+// Set by `--epub` on the command line (see the end of typesetOne).
+let WANT_EPUB = false;
+
 async function main() {
-  // Parse args: positional .docx paths + an optional `--theme NAME`.
+  // Parse args: positional .docx paths + an optional `--theme NAME` and `--epub`.
   const argv = process.argv.slice(2);
   let themeName = null;
   const paths = [];
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--theme") { themeName = argv[++i]; continue; }
+    if (argv[i] === "--epub") { WANT_EPUB = true; continue; }
     paths.push(argv[i]);
   }
   if (themeName && !THEMES[themeName]) {
