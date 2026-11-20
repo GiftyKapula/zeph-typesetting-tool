@@ -184,13 +184,6 @@ function reshapeBoxes(blocks, ov) {
     for (const k of Object.keys(x)) delete x[k];
     Object.assign(x, { t: "head", text: t, boxTitle: true });
   }
-  //   keepNext: [{ find, near? }] — a line inside a box kept on the same page as the line after
-  //             it (a 2-line "Expected Competences:" left alone over the page; CS F3 LB round 2)
-  for (const kn of ov.keepNext || []) {
-    const a = locate(out, kn.find, kn.near);
-    if (!a || a.ps[a.k][1] < 0 || a.ps[a.k][3]) { console.warn("!  keepNext not matched inside a box:", kn.find); continue; }
-    a.ps[a.k][2].keepNext = true;
-  }
   //   keepWhole: [{ find, near? }] — the box whose title (or text) contains `find` is not
   //              split across a page: it moves to the next page whole when it does not fit
   //   newPage:   [{ find, near? }] — a page break before the block containing `find` (the
@@ -220,8 +213,24 @@ function reshapeBoxes(blocks, ov) {
   for (const ed of (ov.edit || []).filter((x) => x && x.late)) {
     const ps = positions(out);
     const k0 = ed.after ? Math.max(0, ps.findIndex((p) => textAt(p).includes(ed.after))) : 0;
+    // (title: true — the title of the first box after `after`, e.g. a duplicated EXERCISE number)
+    if (ed.title) {
+      const box = ps.slice(k0).find((p) => p[3] && titleOf(p[2]).includes(ed.find));
+      if (!box) { console.warn("!  edit (late) box title not matched:", ed.find); continue; }
+      box[2].title = String(box[2].title || "").replace(ed.find, ed.with || "");
+      continue;
+    }
     const hit = ps.slice(k0).find((p) => !p[3] && Array.isArray(p[2].segs) && p[2].segs.some((s) => typeof s.t === "string" && s.t.includes(ed.find)));
-    if (!hit) { console.warn("!  edit (late) not matched in one run:", ed.find); continue; }
+    if (!hit) {
+      // (an end-of-topic assessment question: its text lives in the part's q / qseg)
+      const part = out.slice(k0 ? ps[k0][0] : 0).filter((b) => b && b.t === "assessment" && Array.isArray(b.parts))
+        .flatMap((b) => b.parts).find((p) => typeof p.q === "string" && p.q.includes(ed.find));
+      if (!part) { console.warn("!  edit (late) not matched in one run:", ed.find); continue; }
+      part.q = part.q.replace(ed.find, ed.with || "");
+      const qs = (part.qseg || []).find((x) => typeof x.t === "string" && x.t.includes(ed.find));
+      if (qs) qs.t = qs.t.replace(ed.find, ed.with || "");
+      continue;
+    }
     const s = hit[2].segs.find((x) => typeof x.t === "string" && x.t.includes(ed.find));
     s.t = s.t.replace(ed.find, ed.with || "");
   }
@@ -385,6 +394,13 @@ function reshapeBoxes(blocks, ov) {
     const head = out[j - 1] && /^(head|h3|label)$/.test(out[j - 1].t) && j - 1 > i ? out[j - 1] : null;
     out.splice(j, 1);
     if (head) { out.splice(j - 1, 1); out.splice(i, 0, head); }
+  }
+  //   keepNext: [{ find, near? }] — (last, so it sees retyped code lines) a line inside a box kept on the same page as the line after
+  //             it (a 2-line "Expected Competences:" left alone over the page; CS F3 LB round 2)
+  for (const kn of ov.keepNext || []) {
+    const a = locate(out, kn.find, kn.near);
+    if (!a || a.ps[a.k][1] < 0 || a.ps[a.k][3]) { console.warn("!  keepNext not matched inside a box:", kn.find); continue; }
+    a.ps[a.k][2].keepNext = true;
   }
   return out;
 }

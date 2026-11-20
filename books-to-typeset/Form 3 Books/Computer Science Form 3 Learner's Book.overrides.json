@@ -606,6 +606,102 @@
       "find": "Digital Literacy and",
       "with": "Digital Literacy and Technical Skills, Communication and Presentation Skills",
       "_why": "round 1 read-through (19 Nov): source line stops at \"and\"; completed as in the 11 sibling lines (flagged). late: the line only exists once the box table is opened"
+    },
+    {
+      "find": "Polymorphism is another key principle you practice in JavaScript.",
+      "with": "Polymorphism is another key principle of object-oriented programming.",
+      "_why": "fix-everything: the examples are Java and Python"
+    },
+    {
+      "find": "Here is a clear JavaScript syntax example showing polymorphism using your example:",
+      "with": "Here is a clear Python syntax example showing polymorphism:",
+      "_why": "fix-everything: the code is Python"
+    },
+    {
+      "find": "Upgrading and mitigating database",
+      "with": "Upgrading and migrating database",
+      "_why": "fix-everything: typo"
+    },
+    {
+      "find": "SELECT Learner's name FROM Learner",
+      "with": "SELECT learner_name FROM learners",
+      "_why": "fix-everything: not valid SQL"
+    },
+    {
+      "find": "Conditional statements Random numbers",
+      "with": "Conditional statements and Random numbers",
+      "_why": "fix-everything"
+    },
+    {
+      "find": "res then click layout and select activity_main.xml Add simple components:",
+      "with": "Open res, then click layout and select activity_main.xml. Add simple components:",
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "res click layout then select activity_main.xml Add simple UI elements:",
+      "with": "Open res, click layout, then select activity_main.xml. Add simple UI elements:",
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Add Java Code (App Logic) Open:",
+      "with": "Add Java Code (App Logic)",
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Write Kotlin Code Open:",
+      "with": "Write Kotlin Code",
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "MainActivity.java",
+      "after": "Add Java Code (App Logic)",
+      "with": "Open MainActivity.java.",
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "MainActivity.kt",
+      "after": "Write Kotlin Code",
+      "with": "Open MainActivity.kt.",
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "late": true,
+      "find": "◻ ",
+      "with": "",
+      "after": "END-OF-TOPIC ASSESSMENT",
+      "_why": "fix-everything 20 Nov: the same stray checkbox inside an assessment question (editAll cannot reach it)"
+    },
+    {
+      "late": true,
+      "title": true,
+      "after": "Wrong conditions or commands lead to wrong behaviour",
+      "find": "EXERCISE 7",
+      "with": "EXERCISE 8",
+      "_why": "fix-everything 20 Nov: 3.12.1 had EXERCISE 4 twice; the rest renumbered"
+    },
+    {
+      "late": true,
+      "title": true,
+      "after": "Challenges such as poor internet, power cuts",
+      "find": "EXERCISE 6",
+      "with": "EXERCISE 7",
+      "_why": "fix-everything 20 Nov: 3.12.1 had EXERCISE 4 twice; the rest renumbered"
+    },
+    {
+      "late": true,
+      "title": true,
+      "after": "The teacher facilitates a step-by-step process where learners assemble",
+      "find": "EXERCISE 5",
+      "with": "EXERCISE 6",
+      "_why": "fix-everything 20 Nov: 3.12.1 had EXERCISE 4 twice; the rest renumbered"
+    },
+    {
+      "late": true,
+      "title": true,
+      "after": "Writing programs to control movement involves giving clear",
+      "find": "EXERCISE 4",
+      "with": "EXERCISE 5",
+      "_why": "fix-everything 20 Nov: 3.12.1 had EXERCISE 4 twice; the rest renumbered"
     }
   ],
   "liftCrossCutting": true,
@@ -679,6 +775,120 @@
       "late": true,
       "find": "#include <iostream> using namespace std;",
       "near": "Basic C++ Syntax"
+    },
+    {
+      "find": "Abstraction is shown because:",
+      "near": "Each child class handles its own specific details",
+      "late": true,
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "find": "account.deposit(500);",
+      "near": "Allows safe viewing",
+      "late": true,
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "find": "class Food:",
+      "near": "Inheritance means one class can get properties",
+      "late": true,
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "find": "CREATE USER 'teacher'@'localhost' IDENTIFIED BY '1234';",
+      "near": "Step 3: Create Users",
+      "late": true,
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "find": "CREATE DATABASE school_db_old;",
+      "near": "Step 1: Create a Simple Database",
+      "late": true,
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "find": "SELECT * FROM studentss;",
+      "near": "Wrong Table Name",
+      "late": true,
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "find": "Problem:",
+      "near": "Once you identify a querying issue",
+      "late": true,
+      "_why": "fix-everything 20 Nov: the white SQL table p190 boxed like Wrong Table Name / Missing Data Issue"
+    },
+    {
+      "find": "Correct query:",
+      "near": "Missing comma between columns",
+      "late": true,
+      "_why": "fix-everything 20 Nov: the white SQL table p190 boxed like Wrong Table Name / Missing Data Issue"
+    },
+    {
+      "find": "Correct Query",
+      "near": "Expected result: Learners who scored above 70",
+      "late": true,
+      "_why": "fix-everything 20 Nov: the white SQL table p190 boxed like Wrong Table Name / Missing Data Issue"
+    },
+    {
+      "find": "Add simple components:",
+      "near": "Open res, then click layout",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Add simple UI elements:",
+      "near": "Open res, click layout",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Example:",
+      "near": "Button (for interaction)",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Example:",
+      "near": "Button (user interaction)",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Before starting, install:",
+      "near": "Creating a Simple Mobile App Using Java",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Before starting, install:",
+      "near": "Official Android Studio Website (Required Tool)",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Fill in:",
+      "near": "Configure Your Project",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Fill in:",
+      "near": "Configure Your App",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Click Finish",
+      "near": "Choose Android version (e.g. API 21",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "Click Finish",
+      "near": "Minimum SDK: choose Android version",
+      "late": true,
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
     }
   ],
   "replaceBlocks": [
@@ -1173,6 +1383,96 @@
       "find": "StudentName",
       "with": "LearnerName",
       "_why": "round 1 read-through (19 Nov)"
+    },
+    {
+      "find": "Design the User Interface Open:",
+      "with": "Design the User Interface",
+      "_why": "fix-everything 20 Nov: Android/Kotlin steps run together"
+    },
+    {
+      "find": "softeware",
+      "with": "software",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "nsima",
+      "with": "nshima",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "Nsima)",
+      "with": "Nshima)",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "action.These",
+      "with": "action. These",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "data.Use",
+      "with": "data. Use",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "files.After",
+      "with": "files. After",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "ones.Example",
+      "with": "ones. Example",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "Dropbox.These",
+      "with": "Dropbox. These",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "Smart Farming , Education ,Transportation, Retail , Energy",
+      "with": "Smart Farming, Education, Transportation, Retail, Energy",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "Object Oriented Programming Principles in JavaScript",
+      "with": "Object-Oriented Programming Principles in JavaScript",
+      "_why": "fix-everything 20 Nov: typo scan"
+    },
+    {
+      "find": "◻ ",
+      "with": "",
+      "_why": "fix-everything 20 Nov: a stray empty-checkbox character before two assessment questions"
+    },
+    {
+      "find": "Sub-Topic 3.1.1:",
+      "with": "Sub-Topic 3.1.1",
+      "_why": "fix-everything 20 Nov: 9 of 12 sub-topic headings have no colon"
+    },
+    {
+      "find": "Sub-Topic 3.3.1:",
+      "with": "Sub-Topic 3.3.1",
+      "_why": "fix-everything 20 Nov: 9 of 12 sub-topic headings have no colon"
+    },
+    {
+      "find": "Sub-Topic 3.7.1:",
+      "with": "Sub-Topic 3.7.1",
+      "_why": "fix-everything 20 Nov: 9 of 12 sub-topic headings have no colon"
+    },
+    {
+      "find": "Create and Format publications",
+      "with": "Create and Format Publications",
+      "_why": "fix-everything 20 Nov: specific competences in Title Case like the other 11"
+    },
+    {
+      "find": "Create and share content online",
+      "with": "Create and Share Content Online",
+      "_why": "fix-everything 20 Nov: specific competences in Title Case like the other 11"
+    },
+    {
+      "find": "Develop and manage Cloud computing model",
+      "with": "Develop and Manage Cloud Computing Model",
+      "_why": "fix-everything 20 Nov: specific competences in Title Case like the other 11"
     }
   ],
   "removeRange": [
@@ -1654,6 +1954,29 @@
       "titleFromFirst": true,
       "kind": "ex",
       "_why": "round 2 #5163: the exercise box colour (it was a table)"
+    },
+    {
+      "from": "Syntax Error",
+      "near": "Once you identify a querying issue",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "fix-everything 20 Nov: the white SQL table p190 boxed like Wrong Table Name / Missing Data Issue"
+    },
+    {
+      "from": "Incorrect Condition (Logical Error)",
+      "near": "Once you identify a querying issue",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "fix-everything 20 Nov: the white SQL table p190 boxed like Wrong Table Name / Missing Data Issue"
+    },
+    {
+      "from": "Sharing and Discussion",
+      "near": "What are the limitations of free VPN services?",
+      "to": "Expected Competences",
+      "into": "prev",
+      "_why": "fix-everything 20 Nov: the end of the VPN Learning Activity 4 (Sharing, Real-Life Application, Reminder, Competences) sat outside its box"
     }
   ],
   "insertHead": [
@@ -1680,10 +2003,6 @@
     {
       "find": "Game 2: Pen, Paper, Pencil",
       "_why": "round 1 #36"
-    },
-    {
-      "find": "Flask App: Creating a Basic Web Application",
-      "_why": "round 1 #65"
     },
     {
       "find": "Step 3: Create Users",
@@ -1746,7 +2065,7 @@
       "near": "Creating a Simple Mobile App Using Java (Android Studio)"
     },
     {
-      "lead": "Configure Your Project Fill in:",
+      "lead": "Configure Your Project",
       "near": "Creating a Simple Mobile App Using Java (Android Studio)"
     },
     {
@@ -1754,11 +2073,11 @@
       "near": "Creating a Simple Mobile App Using Java (Android Studio)"
     },
     {
-      "lead": "Design the User Interface Open:",
+      "lead": "Design the User Interface",
       "near": "Creating a Simple Mobile App Using Java (Android Studio)"
     },
     {
-      "lead": "Add Java Code (App Logic) Open:",
+      "lead": "Add Java Code (App Logic)",
       "near": "Creating a Simple Mobile App Using Java (Android Studio)"
     },
     {
@@ -1782,7 +2101,7 @@
       "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
     },
     {
-      "lead": "Configure Your App Fill in:",
+      "lead": "Configure Your App",
       "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
     },
     {
@@ -1790,11 +2109,11 @@
       "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
     },
     {
-      "lead": "Design the User Interface Open:",
+      "lead": "Design the User Interface",
       "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
     },
     {
-      "lead": "Write Kotlin Code Open:",
+      "lead": "Write Kotlin Code",
       "near": "Step-by-step: Creating a Simple Mobile App Using Kotlin"
     },
     {
@@ -1857,7 +2176,8 @@
     "Step 2: Writing Simple Python Statements",
     "Presentation Each group should present their IoT solution",
     "5. Open a shared document and:",
-    "You bought a small robot kit to use at home"
+    "You bought a small robot kit to use at home",
+    "Syntax Error Incorrect query:"
   ],
   "codeBlocks": [
     {
@@ -2040,6 +2360,1306 @@
         "}"
       ],
       "late": true
+    },
+    {
+      "from": ">>> import random",
+      "late": true,
+      "near": "Game 1: Guess the Number",
+      "until": "Expected Competences",
+      "with": [
+        ">>> import random",
+        ">>>",
+        ">>> number = random.randint(1, 10)",
+        ">>>",
+        ">>> guess = int(input(\"Guess the number (1–10): \"))",
+        "Guess the number (1–10): 5",
+        ">>>",
+        ">>> if guess == number:",
+        "...     print(\"Correct! You win!\")",
+        "... else:",
+        "...     print(\"Wrong! The number was\", number)",
+        "...",
+        "Wrong! The number was 8"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> import random",
+      "late": true,
+      "near": "Game 2: Pen, Paper, Pencil",
+      "until": "Expected Competences",
+      "with": [
+        ">>> import random",
+        ">>>",
+        ">>> choices = [\"pen\", \"paper\", \"pencil\"]",
+        ">>> computer = random.choice(choices)",
+        ">>>",
+        ">>> user = input(\"Enter pen, paper, or pencil: \")",
+        "Enter pen, paper, or pencil: pen",
+        ">>>",
+        ">>> print(\"Computer chose:\", computer)",
+        "Computer chose: pencil",
+        ">>>",
+        ">>> if user == computer:",
+        "...     print(\"It is a tie!\")",
+        "... elif user == \"pen\" and computer == \"pencil\":",
+        "...     print(\"You win!\")",
+        "... elif user == \"paper\" and computer == \"pen\":",
+        "...     print(\"You win!\")",
+        "... elif user == \"pencil\" and computer == \"paper\":",
+        "...     print(\"You win!\")",
+        "... else:",
+        "...     print(\"Computer wins!\")",
+        "...",
+        "You win!"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> score = 0",
+      "late": true,
+      "near": "Game 3: Simple Quiz Game",
+      "until": "Expected Competences",
+      "with": [
+        ">>> score = 0",
+        ">>>",
+        ">>> answer = input(\"What is 2 + 2? \")",
+        "What is 2 + 2? 4",
+        ">>>",
+        ">>> if answer == \"4\":",
+        "...     print(\"Correct!\")",
+        "...     score += 1",
+        "... else:",
+        "...     print(\"Wrong!\")",
+        "...",
+        "Correct!",
+        ">>>",
+        ">>> print(\"Score:\", score)",
+        "Score: 1"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> import random",
+      "late": true,
+      "near": "Game 4: Dice Rolling Game",
+      "until": "Expected Competences",
+      "with": [
+        ">>> import random",
+        ">>>",
+        ">>> while True:",
+        "...     roll = input(\"Roll the dice? (yes/no): \")",
+        "...     if roll == \"yes\":",
+        "...         dice = random.randint(1, 6)",
+        "...         print(\"You rolled:\", dice)",
+        "...     elif roll == \"no\":",
+        "...         print(\"Game ended.\")",
+        "...         break",
+        "...     else:",
+        "...         print(\"Please enter yes or no.\")",
+        "...",
+        "Roll the dice? (yes/no): yes",
+        "You rolled: 4",
+        "Roll the dice? (yes/no): yes",
+        "You rolled: 2",
+        "Roll the dice? (yes/no): no",
+        "Game ended."
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> import random",
+      "late": true,
+      "near": "Game 5: Multiplication Challenge",
+      "until": "Expected Competences",
+      "with": [
+        ">>> import random",
+        ">>>",
+        ">>> score = 0",
+        ">>>",
+        ">>> for i in range(5):",
+        "...     num1 = random.randint(1, 10)",
+        "...     num2 = random.randint(1, 10)",
+        "...     answer = int(input(f\"What is {num1} x {num2}? \"))",
+        "...     if answer == num1 * num2:",
+        "...         print(\"Correct!\")",
+        "...         score += 1",
+        "...     else:",
+        "...         print(\"Wrong!\")",
+        "...         print(\"The correct answer is\", num1 * num2)",
+        "...",
+        "What is 3 x 4? 12",
+        "Correct!",
+        "What is 5 x 2? 10",
+        "Correct!",
+        "What is 7 x 3? 20",
+        "Wrong!",
+        "The correct answer is 21",
+        "What is 6 x 6? 36",
+        "Correct!",
+        "What is 8 x 2? 16",
+        "Correct!",
+        ">>>",
+        ">>> print(\"Your final score is:\", score)",
+        "Your final score is: 4"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> number = int(input(",
+      "late": true,
+      "near": "Game 6: Even or Odd Game",
+      "until": "Expected Competences",
+      "with": [
+        ">>> number = int(input(\"Enter a number: \"))",
+        "Enter a number: 8",
+        ">>>",
+        ">>> if number % 2 == 0:",
+        "...     print(\"Even number!\")",
+        "... else:",
+        "...     print(\"Odd number!\")",
+        "...",
+        "Even number!"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> light = input(",
+      "late": true,
+      "until": "Expected Competences",
+      "with": [
+        ">>> light = input(\"Enter the traffic light colour (red, yellow, green): \")",
+        "Enter the traffic light colour (red, yellow, green): green",
+        ">>>",
+        ">>> if light == \"green\":",
+        "...     print(\"Go\")",
+        "... elif light == \"yellow\":",
+        "...     print(\"Slow down and prepare to stop\")",
+        "... elif light == \"red\":",
+        "...     print(\"Stop\")",
+        "... else:",
+        "...     print(\"Invalid traffic light colour\")",
+        "...",
+        "Go",
+        ">>>"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "Enter your exam score: 62",
+      "late": true,
+      "until": "Run the Program",
+      "with": [
+        ">>> score = int(input(\"Enter your exam score: \"))",
+        "Enter your exam score: 62",
+        ">>>",
+        ">>> if score >= 50:",
+        "...     print(\"Passed\")",
+        "... else:",
+        "...     print(\"Failed\")",
+        "...",
+        "Passed",
+        ">>>"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "Enter your exam score: 78",
+      "late": true,
+      "until": "Run the program again",
+      "with": [
+        ">>> score = int(input(\"Enter your exam score: \"))",
+        "Enter your exam score: 78",
+        ">>>",
+        ">>> if score >= 75:",
+        "...     print(\"Distinction\")",
+        "... elif score >= 50:",
+        "...     print(\"Passed\")",
+        "... else:",
+        "...     print(\"Failed\")",
+        "...",
+        "Distinction",
+        ">>>"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> registered = True",
+      "late": true,
+      "until": "Change the values of the variables",
+      "with": [
+        ">>> registered = True",
+        ">>> overdue_books = False",
+        ">>>",
+        ">>> if registered and not overdue_books:",
+        "...     print(\"You are allowed to borrow a book.\")",
+        "... else:",
+        "...     print(\"You cannot borrow a book.\")",
+        "...",
+        "You are allowed to borrow a book.",
+        ">>>"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> names = [\"Anna\", \"John\", \"Peter\"]",
+      "late": true,
+      "until": "Expected Competences",
+      "with": [
+        ">>> names = [\"Anna\", \"John\", \"Peter\"]",
+        ">>> marks = [65, 78, 82]",
+        ">>>",
+        ">>> total = sum(marks)",
+        ">>> average = total / len(marks)",
+        ">>>",
+        ">>> print(\"Learner Marks Report\")",
+        "Learner Marks Report",
+        ">>> print(\" \")",
+        ">>>",
+        ">>> for i in range(len(names)):",
+        "...     print(names[i], \":\", marks[i])",
+        "...",
+        "Anna : 65",
+        "John : 78",
+        "Peter : 82",
+        ">>>",
+        ">>> print(\"\\nTotal Marks:\", total)",
+        "Total Marks: 225",
+        ">>> print(\"Average Mark:\", average)",
+        "Average Mark: 75.0",
+        ">>>"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> celsius_temps = [0, 20, 30, 37, 100]",
+      "late": true,
+      "to": "100 C = 212.0 F",
+      "with": [
+        ">>> celsius_temps = [0, 20, 30, 37, 100]",
+        ">>>",
+        ">>> fahrenheit_temps = []",
+        ">>> for temp in celsius_temps:",
+        "...     f = (temp * 9/5) + 32",
+        "...     fahrenheit_temps.append(f)",
+        "...",
+        ">>>",
+        ">>> for i in range(len(celsius_temps)):",
+        "...     print(celsius_temps[i], \"C =\", fahrenheit_temps[i], \"F\")",
+        "...",
+        "0 C = 32.0 F",
+        "20 C = 68.0 F",
+        "30 C = 86.0 F",
+        "37 C = 98.6 F",
+        "100 C = 212.0 F"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> total_A = sum(product_A_sales)",
+      "late": true,
+      "to": "Top-Selling Product: Product B",
+      "with": [
+        ">>> product_A_sales = [120, 130, 140]",
+        ">>> product_B_sales = [180, 200, 210]",
+        ">>>",
+        ">>> total_A = sum(product_A_sales)",
+        ">>> total_B = sum(product_B_sales)",
+        ">>>",
+        ">>> average_A = total_A / len(product_A_sales)",
+        ">>> average_B = total_B / len(product_B_sales)",
+        ">>>",
+        ">>> if total_A > total_B:",
+        "...     top_product = \"Product A\"",
+        "... else:",
+        "...     top_product = \"Product B\"",
+        "...",
+        ">>>",
+        ">>> print(\"Total Sales of Product A:\", total_A)",
+        "Total Sales of Product A: 390",
+        ">>> print(\"Total Sales of Product B:\", total_B)",
+        "Total Sales of Product B: 590",
+        ">>> print(\"Average Monthly Sales of Product A:\", average_A)",
+        "Average Monthly Sales of Product A: 130.0",
+        ">>> print(\"Average Monthly Sales of Product B:\", average_B)",
+        "Average Monthly Sales of Product B: 196.66666666666666",
+        ">>> print(\"Top-Selling Product:\", top_product)",
+        "Top-Selling Product: Product B"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "$ pip install flask Collecting flask",
+      "late": true,
+      "to": "Installing collected packages",
+      "with": [
+        "$ pip install flask",
+        "Collecting flask",
+        "  Downloading Flask-3.x.x-py3-none-any.whl (x.xx kB)",
+        "Collecting Werkzeug>=3.0",
+        "  Downloading Werkzeug-3.x.x-py3-none-any.whl",
+        "Collecting Jinja2>=3.1",
+        "  Downloading Jinja2-3.x.x-py3-none-any.whl",
+        "Collecting itsdangerous>=2.1",
+        "Collecting click>=8.1",
+        "Installing collected packages: Werkzeug, Jinja2, click, itsdangerous, flask",
+        "Successfully installed flask-3.x.x click-8.x.x",
+        "itsdangerous-2.x.x Jinja2-3.x.x Werkzeug-3.x.x"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> from flask import Flask, render_template",
+      "late": true,
+      "to": "app.run(debug=True)",
+      "with": [
+        ">>> from flask import Flask, render_template",
+        ">>> app = Flask(__name__)",
+        ">>> @app.route('/')",
+        "... def home():",
+        "...     return render_template('index.html')",
+        "...",
+        ">>> if __name__ == '__main__':",
+        "...     app.run(debug=True)"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "Bash python app.py",
+      "late": true,
+      "with": [
+        "python app.py"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "function welcomeUser() {",
+      "late": true,
+      "with": [
+        "function welcomeUser() {",
+        "    document.getElementById(\"message\").innerText =",
+        "        \"Welcome to our school website\";",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> let name = \"Alex\";",
+      "late": true,
+      "to": ">>> document.getElementById(\"greeting\")",
+      "with": [
+        "let name = \"Alex\";",
+        "document.getElementById(\"greeting\").innerText = \"Hello, \" + name;",
+        "// The page now shows: Hello, Alex"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "let password = \"1234\";",
+      "late": true,
+      "until": "Another important concept is events",
+      "with": [
+        "let password = \"1234\";",
+        "if (password === \"1234\") {",
+        "    alert(\"Access granted\");",
+        "} else {",
+        "    alert(\"Wrong password\");",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "document.getElementById(\"submitBtn\").onclick",
+      "late": true,
+      "with": [
+        "document.getElementById(\"submitBtn\").onclick = function() {",
+        "    alert(\"Form submitted successfully\");",
+        "};"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "function showAnswer() {",
+      "late": true,
+      "with": [
+        "function showAnswer() {",
+        "    document.getElementById(\"answer\").style.display = \"block\";",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "class Nshima {",
+      "late": true,
+      "near": "Java Example",
+      "until": "Explanation:",
+      "with": [
+        "class Nshima {",
+        "    String size;      // Property",
+        "",
+        "    void serve() {    // Method",
+        "        System.out.println(\"Serving \" + size + \" nshima.\");",
+        "    }",
+        "}",
+        "",
+        "public class Main {",
+        "    public static void main(String[] args) {",
+        "        Nshima plate = new Nshima();  // Create an object",
+        "        plate.size = \"Large\";         // Set property",
+        "        plate.serve();                // Call method",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "// Java",
+      "late": true,
+      "until": "Summary",
+      "with": [
+        "// Java",
+        "// Class (blueprint)",
+        "class Nshima {",
+        "    // Property (attribute)",
+        "    String size;",
+        "",
+        "    // Method (behaviour)",
+        "    void serve() {",
+        "        System.out.println(\"Serving \" + size",
+        "            + \" nshima on the plate.\");",
+        "    }",
+        "}",
+        "",
+        "public class Main {",
+        "    public static void main(String[] args) {",
+        "        // Object (instance of the class)",
+        "        Nshima plate = new Nshima();",
+        "",
+        "        // Setting the property",
+        "        plate.size = \"Large\";",
+        "",
+        "        // Calling the method",
+        "        plate.serve();",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> class Food:",
+      "late": true,
+      "near": "General Idea in the Parent Class",
+      "to": ">>> food1.eat() Rice is being eaten",
+      "with": [
+        ">>> class Food:",
+        "...     def __init__(self, name):",
+        "...         self.name = name",
+        "...     def eat(self):",
+        "...         print(f\"{self.name} is being eaten\")",
+        "...",
+        ">>> food1 = Food(\"Rice\")",
+        ">>> food1.eat()",
+        "Rice is being eaten"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> class Nshima:",
+      "late": true,
+      "to": ">>> food1.eat() Nshima is being eaten",
+      "with": [
+        ">>> class Nshima:",
+        "...     def __init__(self, name):",
+        "...         self.name = name",
+        "...     def eat(self):",
+        "...         print(f\"{self.name} is being eaten\")",
+        "...",
+        ">>> food1 = Nshima(\"Nshima\")",
+        ">>> food1.eat()",
+        "Nshima is being eaten"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> class Food:",
+      "late": true,
+      "near": "Specialised Details in Child Classes",
+      "to": ">>> chicken.eat() Chicken is being eaten",
+      "with": [
+        ">>> class Food:",
+        "...     def __init__(self, name):",
+        "...         self.name = name",
+        "...     def eat(self):",
+        "...         print(f\"{self.name} is being eaten\")",
+        "...",
+        ">>> class Nshima(Food):",
+        "...     def prepare(self):",
+        "...         print(\"Nshima is prepared from maize meal\")",
+        "...",
+        ">>> class Chicken(Food):",
+        "...     def cook(self):",
+        "...         print(\"Chicken is cooked in different ways\")",
+        "...",
+        ">>> nshima = Nshima(\"Nshima\")",
+        ">>> nshima.prepare()",
+        "Nshima is prepared from maize meal",
+        ">>> nshima.eat()",
+        "Nshima is being eaten",
+        ">>>",
+        ">>> chicken = Chicken(\"Chicken\")",
+        ">>> chicken.cook()",
+        "Chicken is cooked in different ways",
+        ">>> chicken.eat()",
+        "Chicken is being eaten"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "// Abstract class (hides implementation details)",
+      "late": true,
+      "until": "How this shows abstraction:",
+      "with": [
+        "// Abstract class (hides implementation details)",
+        "abstract class Meal {",
+        "    // Abstract method (only shows what should be done)",
+        "    abstract void prepare();",
+        "}",
+        "",
+        "// Concrete class (provides the hidden details)",
+        "class NshimaMeal extends Meal {",
+        "    @Override",
+        "    void prepare() {",
+        "        System.out.println(\"Preparing nshima meal... \"",
+        "            + \"Cooking, stirring, and serving.\");",
+        "    }",
+        "}",
+        "",
+        "public class Main {",
+        "    public static void main(String[] args) {",
+        "        // Using abstraction",
+        "        // We use Meal reference",
+        "        Meal myMeal = new NshimaMeal();",
+        "        // Call method without knowing full details",
+        "        myMeal.prepare();",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "class BankAccount {",
+      "late": true,
+      "near": "Data is Hidden (Private Variable)",
+      "until": "Private: This is an access modifier",
+      "with": [
+        "class BankAccount {",
+        "    // Encapsulated field",
+        "    private double balance;",
+        "",
+        "    // Setter method",
+        "    public void setBalance(double amount) {",
+        "        balance = amount;",
+        "    }",
+        "",
+        "    // Getter method",
+        "    public double getBalance() {",
+        "        return balance;",
+        "    }",
+        "}",
+        "",
+        "public class Main {",
+        "    public static void main(String[] args) {",
+        "        BankAccount account = new BankAccount();",
+        "        account.setBalance(1000.0);  // set balance",
+        "        System.out.println(\"Current balance: \"",
+        "            + account.getBalance());",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "public void deposit(double amount) { if (amount > 0)",
+      "late": true,
+      "until": "Only allows valid deposits",
+      "with": [
+        "public void deposit(double amount) {",
+        "    if (amount > 0) {",
+        "        balance += amount;",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "public void withdraw(double amount) { if (amount > 0",
+      "late": true,
+      "until": "Prevents:",
+      "with": [
+        "public void withdraw(double amount) {",
+        "    if (amount > 0 && amount <= balance) {",
+        "        balance -= amount;",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "public double getBalance() { return balance;",
+      "late": true,
+      "near": "Getter Method",
+      "until": "Allows safe viewing",
+      "with": [
+        "public double getBalance() {",
+        "    return balance;",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "account.deposit(500); account.withdraw(200);",
+      "late": true,
+      "near": "Allows safe viewing",
+      "with": [
+        "account.deposit(500);",
+        "account.withdraw(200);"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> // Class demonstrating Encapsulation",
+      "late": true,
+      "until": "How this shows encapsulation:",
+      "with": [
+        "// Class demonstrating Encapsulation",
+        "class BankAccount {",
+        "    // Private property (hidden from outside)",
+        "    private double balance;",
+        "",
+        "    // Public method to deposit money",
+        "    public void deposit(double amount) {",
+        "        if (amount > 0) {",
+        "            balance += amount;",
+        "        }",
+        "    }",
+        "",
+        "    // Public method to withdraw money",
+        "    public void withdraw(double amount) {",
+        "        if (amount > 0 && amount <= balance) {",
+        "            balance -= amount;",
+        "        }",
+        "    }",
+        "",
+        "    // Public method to view balance (controlled access)",
+        "    public double getBalance() {",
+        "        return balance;",
+        "    }",
+        "}",
+        "",
+        "public class Main {",
+        "    public static void main(String[] args) {",
+        "        BankAccount account = new BankAccount();",
+        "        account.deposit(500);",
+        "        account.withdraw(200);",
+        "        System.out.println(\"Balance: \" + account.getBalance());",
+        "    }",
+        "}",
+        "// Output: Balance: 300.0"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "class Food:",
+      "late": true,
+      "near": "Parent (Base) Class",
+      "until": "Food is the parent class that defines",
+      "with": [
+        "class Food:",
+        "    def __init__(self, name):",
+        "        self.name = name",
+        "",
+        "    def eat(self):",
+        "        print(f\"{self.name} is being eaten\")"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "food1 = Nshima(\"Nshima\") food1.eat()",
+      "late": true,
+      "with": [
+        "food1 = Nshima(\"Nshima\")",
+        "food1.eat()"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "food2 = Chicken(\"Chicken\") food2.eat()",
+      "late": true,
+      "with": [
+        "food2 = Chicken(\"Chicken\")",
+        "food2.eat()"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "def prepare(self): # in Nshima",
+      "late": true,
+      "with": [
+        "def prepare(self):  # in Nshima",
+        "def cook(self):     # in Chicken"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "# Parent class class Food:",
+      "late": true,
+      "until": "Polymorphism",
+      "with": [
+        "# Parent class",
+        "class Food:",
+        "    def __init__(self, name):",
+        "        self.name = name",
+        "",
+        "    def eat(self):",
+        "        print(f\"{self.name} is being eaten\")",
+        "",
+        "# Child class 1",
+        "class Nshima(Food):",
+        "    def prepare(self):",
+        "        print(\"Nshima is prepared from maize meal\")",
+        "",
+        "# Child class 2",
+        "class Chicken(Food):",
+        "    def cook(self):",
+        "        print(\"Chicken is cooked in different ways\")",
+        "",
+        "# Creating objects",
+        "food1 = Nshima(\"Nshima\")",
+        "food2 = Chicken(\"Chicken\")",
+        "",
+        "food1.eat()",
+        "food1.prepare()",
+        "food2.eat()",
+        "food2.cook()"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "class Food { void serve()",
+      "late": true,
+      "until": "Subclasses with Different Behaviour",
+      "with": [
+        "class Food {",
+        "    void serve() {",
+        "        System.out.println(\"Serving food...\");",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "class Nshima extends Food {",
+      "late": true,
+      "until": "Main Class (Demonstrating Polymorphism)",
+      "with": [
+        "class Nshima extends Food {",
+        "    @Override",
+        "    void serve() {",
+        "        System.out.println(\"Serving hot nshima with vegetables.\");",
+        "    }",
+        "}",
+        "",
+        "class Chicken extends Food {",
+        "    @Override",
+        "    void serve() {",
+        "        System.out.println(\"Serving fried chicken with gravy.\");",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "public class Main { public static void main(String[] args) {",
+      "late": true,
+      "near": "Main Class (Demonstrating Polymorphism)",
+      "until": "Output",
+      "with": [
+        "public class Main {",
+        "    public static void main(String[] args) {",
+        "        Food meal1 = new Nshima();   // Nshima object",
+        "        Food meal2 = new Chicken();  // Chicken object",
+        "        meal1.serve();               // Calls Nshima's serve()",
+        "        meal2.serve();               // Calls Chicken's serve()",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "Serving hot nshima with vegetables. Serving fried chicken",
+      "late": true,
+      "with": [
+        "Serving hot nshima with vegetables.",
+        "Serving fried chicken with gravy."
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "# Base class class FoodItem:",
+      "late": true,
+      "until": "Explanation: FoodItem is the parent class",
+      "with": [
+        "# Base class",
+        "class FoodItem:",
+        "    def serve(self):",
+        "        print(\"Serving food\")",
+        "",
+        "# Derived class 1",
+        "class NshimaItem(FoodItem):",
+        "    def serve(self):",
+        "        print(\"Serve Nshima with relish\")",
+        "",
+        "# Derived class 2",
+        "class ChickenItem(FoodItem):",
+        "    def serve(self):",
+        "        print(\"Serve Chicken with salad\")",
+        "",
+        "# Creating objects",
+        "nshima_dish = NshimaItem()",
+        "chicken_dish = ChickenItem()",
+        "",
+        "# Calling methods",
+        "nshima_dish.serve()   # Serve Nshima with relish",
+        "chicken_dish.serve()  # Serve Chicken with salad"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "button { background-colour: blue;",
+      "late": true,
+      "until": "In this code, the transition property",
+      "with": [
+        "button {",
+        "    background-color: blue;",
+        "    transition: background-color 0.5s ease;",
+        "}",
+        "",
+        "button:hover {",
+        "    background-color: green;",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "<div id=\"box\"",
+      "late": true,
+      "until": "Here, when you click the button",
+      "with": [
+        "<div id=\"box\"",
+        "     style=\"width:100px; height:100px;",
+        "            background:red; position:absolute;\"></div>",
+        "<button onclick=\"moveBox()\">Move Box</button>",
+        "",
+        "<script>",
+        "function moveBox() {",
+        "    let box = document.getElementById('box');",
+        "    let pos = 0;",
+        "    let interval = setInterval(frame, 10);",
+        "",
+        "    function frame() {",
+        "        if (pos >= 300) {",
+        "            clearInterval(interval);",
+        "        } else {",
+        "            pos++;",
+        "            box.style.left = pos + 'px';",
+        "        }",
+        "    }",
+        "}",
+        "</script>"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ".box { width: 100px;",
+      "late": true,
+      "until": "Step 3: Add Animation Effect in CSS",
+      "with": [
+        ".box {",
+        "    width: 100px;",
+        "    height: 100px;",
+        "    background-color: blue;",
+        "    margin-top: 20px;",
+        "    transition: transform 1s, background-color 1s;",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ".move { transform: translateX(200px);",
+      "late": true,
+      "until": "Step 4: Create the JavaScript File",
+      "with": [
+        ".move {",
+        "    transform: translateX(200px);",
+        "    background-color: red;",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "function moveBox() { let box = document.querySelector",
+      "late": true,
+      "until": "Step 5: Link CSS and JavaScript",
+      "with": [
+        "function moveBox() {",
+        "    let box = document.querySelector(\".box\");",
+        "    box.classList.toggle(\"move\");",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "CREATE DATABASE school_db; USE school_db;",
+      "late": true,
+      "with": [
+        "CREATE DATABASE school_db;",
+        "USE school_db;"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "CREATE USER 'teacher'@'localhost' IDENTIFIED BY '1234';",
+      "late": true,
+      "with": [
+        "CREATE USER 'teacher'@'localhost' IDENTIFIED BY '1234';",
+        "CREATE USER 'learner'@'localhost' IDENTIFIED BY '1234';"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "GRANT SELECT, INSERT, UPDATE ON school_db.* TO",
+      "late": true,
+      "to": "'teacher'@'localhost';",
+      "with": [
+        "GRANT SELECT, INSERT, UPDATE ON school_db.*",
+        "    TO 'teacher'@'localhost';"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "GRANT SELECT ON school_db.* TO 'learner'@'localhost'",
+      "late": true,
+      "with": [
+        "GRANT SELECT ON school_db.* TO 'learner'@'localhost';"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "CREATE USER 'teacher'@'localhost' IDENTIFIED BY 'password123';",
+      "late": true,
+      "to": "FLUSH PRIVILEGES;;",
+      "with": [
+        "CREATE USER 'teacher'@'localhost' IDENTIFIED BY 'password123';",
+        "GRANT SELECT, INSERT, UPDATE ON school_db.*",
+        "    TO 'teacher'@'localhost';",
+        "FLUSH PRIVILEGES;"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "CREATE DATABASE school_db_old;",
+      "late": true,
+      "to": "INSERT INTO learners VALUES (1, 'John Banda', 7);",
+      "with": [
+        "CREATE DATABASE school_db_old;",
+        "USE school_db_old;",
+        "",
+        "CREATE TABLE learners (",
+        "    learner_id INT PRIMARY KEY,",
+        "    name VARCHAR(50),",
+        "    grade INT",
+        ");",
+        "",
+        "INSERT INTO learners VALUES (1, 'John Banda', 7);",
+        "INSERT INTO learners VALUES (2, 'Mary Phiri', 8);"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "CREATE DATABASE school_db_new;",
+      "late": true,
+      "to": "CREATE TABLE learners ( learner_id INT PRIMARY KEY, full_name",
+      "with": [
+        "CREATE DATABASE school_db_new;",
+        "USE school_db_new;",
+        "",
+        "CREATE TABLE learners (",
+        "    learner_id INT PRIMARY KEY,",
+        "    full_name VARCHAR(100),",
+        "    grade_level INT,",
+        "    admission_date DATE",
+        ");"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "jshell> String url",
+      "late": true,
+      "with": [
+        "jshell> String url = \"jdbc:mysql://localhost:3306/school\";",
+        "url ==> \"jdbc:mysql://localhost:3306/school\""
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "<?php",
+      "late": true,
+      "near": "PHP with MySQL:",
+      "to": "?>",
+      "with": [
+        "<?php",
+        "$conn = new mysqli(\"localhost\", \"root\", \"password\", \"school\");",
+        "",
+        "// Check connection",
+        "if ($conn->connect_error) {",
+        "    die(\"Connection failed: \" . $conn->connect_error);",
+        "}",
+        "",
+        "// Example query: get student grades",
+        "$sql = \"SELECT name, grade FROM students\";",
+        "$result = $conn->query($sql);",
+        "",
+        "if ($result->num_rows > 0) {",
+        "    // Output each row",
+        "    while ($row = $result->fetch_assoc()) {",
+        "        echo \"Name: \" . $row[\"name\"]",
+        "            . \" - Grade: \" . $row[\"grade\"] . \"<br>\";",
+        "    }",
+        "} else {",
+        "    echo \"No results found.\";",
+        "}",
+        "",
+        "$conn->close();",
+        "?>"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "Button button = findViewById(R.id.button);",
+      "late": true,
+      "to": "});",
+      "with": [
+        "Button button = findViewById(R.id.button);",
+        "TextView text = findViewById(R.id.textView);",
+        "",
+        "button.setOnClickListener(v -> {",
+        "    text.setText(\"Hello, Learner!\");",
+        "});"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "import android.os.Bundle import android.widget.Button",
+      "late": true,
+      "until": "Run Your App",
+      "with": [
+        "import android.os.Bundle",
+        "import android.widget.Button",
+        "import android.widget.TextView",
+        "import androidx.appcompat.app.AppCompatActivity",
+        "",
+        "class MainActivity : AppCompatActivity() {",
+        "    override fun onCreate(savedInstanceState: Bundle?) {",
+        "        super.onCreate(savedInstanceState)",
+        "        setContentView(R.layout.activity_main)",
+        "",
+        "        val button = findViewById<Button>(R.id.button)",
+        "        val text = findViewById<TextView>(R.id.textView)",
+        "",
+        "        button.setOnClickListener {",
+        "            text.text = \"Hello, Learner!\"",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> # Displaying output",
+      "late": true,
+      "to": ">>> move_forward() Robot moving forward",
+      "with": [
+        ">>> # Displaying output",
+        ">>> print(\"Hello, Robot\")",
+        "Hello, Robot",
+        ">>> # Variable",
+        ">>> speed = 10",
+        ">>> # Function",
+        ">>> def move_forward():",
+        "...     print(\"Robot moving forward\")",
+        "...",
+        ">>> # Calling the function",
+        ">>> move_forward()",
+        "Robot moving forward"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> # Python program to control robot movement",
+      "late": true,
+      "to": "Robot stopped Robot turning left",
+      "with": [
+        ">>> # Python program to control robot movement",
+        ">>> # This program makes the robot move forward",
+        ">>> # and stop when an obstacle is detected",
+        ">>> move_forward()  # Command the robot to move forward",
+        "Robot moving forward",
+        ">>> # Check if there is an obstacle ahead",
+        ">>> if obstacle_detected():",
+        "...     stop()       # Stop the robot immediately",
+        "...     turn_left()  # Turn left to avoid the obstacle",
+        "...",
+        "Obstacle detected",
+        "Robot stopped",
+        "Robot turning left"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": ">>> def move_forward():",
+      "late": true,
+      "near": "Here is a simple Python program that controls basic robot movement",
+      "until": "This program uses functions to control",
+      "with": [
+        ">>> def move_forward():",
+        "...     print(\"Robot is moving forward\")",
+        "...",
+        ">>> def turn_left():",
+        "...     print(\"Robot is turning left\")",
+        "...",
+        ">>> def turn_right():",
+        "...     print(\"Robot is turning right\")",
+        "...",
+        ">>> def stop():",
+        "...     print(\"Robot has stopped\")",
+        "...",
+        ">>> # Movement sequence",
+        ">>> move_forward()",
+        "Robot is moving forward",
+        ">>> turn_left()",
+        "Robot is turning left",
+        ">>> move_forward()",
+        "Robot is moving forward",
+        ">>> turn_right()",
+        "Robot is turning right",
+        ">>> stop()",
+        "Robot has stopped"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "#include <iostream> using namespace std;",
+      "late": true,
+      "near": "Basic C++ Syntax",
+      "until": "Meaning of Each Line of Code in C++",
+      "with": [
+        "#include <iostream>",
+        "using namespace std;",
+        "",
+        "int main() {",
+        "    cout << \"Robot moving forward\" << endl;",
+        "    return 0;",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "#include <iostream> using namespace std;",
+      "late": true,
+      "near": "Example of robot movements in C++",
+      "until": "How it looks in the C++ console",
+      "with": [
+        "#include <iostream>",
+        "using namespace std;",
+        "",
+        "// Simulated robot functions",
+        "void moveForward() {",
+        "    cout << \"Robot moving forward\" << endl;",
+        "}",
+        "",
+        "bool obstacleDetected() {",
+        "    return true;  // Simulating that an obstacle is found",
+        "}",
+        "",
+        "void stop() {",
+        "    cout << \"Robot stopped\" << endl;",
+        "}",
+        "",
+        "void turnLeft() {",
+        "    cout << \"Robot turning left to avoid obstacle\" << endl;",
+        "}",
+        "",
+        "int main() {",
+        "    moveForward();  // Move the robot forward",
+        "    if (obstacleDetected()) {  // Check for obstacle",
+        "        stop();      // Stop the robot",
+        "        turnLeft();  // Turn left to avoid obstacle",
+        "    }",
+        "    return 0;",
+        "}"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "Robot moving forward Robot stopped",
+      "late": true,
+      "to": "Robot turning left to avoid obstacle",
+      "with": [
+        "Robot moving forward",
+        "Robot stopped",
+        "Robot turning left to avoid obstacle"
+      ],
+      "_why": "fix-everything 20 Nov: one statement a line"
+    },
+    {
+      "from": "SQL",
+      "near": "Once you identify a querying issue",
+      "to": "SELECT name age FROM students;",
+      "late": true,
+      "with": [
+        "SELECT name age FROM students;"
+      ],
+      "_why": "fix-everything 20 Nov: the white SQL table p190 boxed like Wrong Table Name / Missing Data Issue (the SQL label dropped)"
+    },
+    {
+      "from": "SQL",
+      "near": "Missing comma between columns",
+      "to": "SELECT name age FROM students;",
+      "late": true,
+      "with": [
+        "SELECT name, age FROM students;"
+      ],
+      "_why": "fix-everything 20 Nov: the white SQL table p190 boxed like Wrong Table Name / Missing Data Issue: the correct query had no comma either"
+    },
+    {
+      "from": "Serving Flask app",
+      "to": "Running on http://127.0.0.1:5000",
+      "late": true,
+      "with": [
+        " * Serving Flask app '__main__'",
+        " * Debug mode: on",
+        "WARNING: This is a development server. Do not use it in a production deployment.",
+        " * Running on http://127.0.0.1:5000",
+        "Press CTRL+C to quit"
+      ],
+      "_why": "fix-everything 20 Nov: the server output was bullets, __main__ lost its underscores"
+    },
+    {
+      "from": "Expected Competences: Cloud Service Management Skills",
+      "near": "Part A: Managing Files and Collaboration",
+      "late": true,
+      "with": [],
+      "_why": "fix-everything 20 Nov: LA5 had the same Expected Competences line twice (Part A and Part B); the one closing the activity is kept (with: [] deletes the line)"
     }
   ],
   "codeConsole": true,
@@ -2111,6 +3731,11 @@
       "near": "Proteus IoT Simulation Data Flow Diagram",
       "text": "Proteus IoT Simulation Data Flow Diagram",
       "_why": "round 1 #124"
+    },
+    {
+      "near": "This Figure showing abstraction, encapsulation, inheritance and Polymorphism concepts",
+      "text": "Figure showing abstraction, encapsulation, inheritance and polymorphism concepts",
+      "_why": "fix-everything 20 Nov: the caption was a justified body line, stretched across the page"
     }
   ],
   "alignLeft": [
@@ -2137,11 +3762,90 @@
       "_why": "round 2 #5161: the same size as the Part B title"
     }
   ],
+  "newPage": [
+    {
+      "find": "Parent (Base) Class",
+      "near": "Inheritance means one class can get properties",
+      "_why": "fix-everything 20 Nov: the step heading was stranded at the page foot, its code over the page"
+    }
+  ],
   "keepNext": [
     {
-      "find": "Check the version history to see the changes made to the document",
-      "near": "Part A: Managing Files and Collaboration",
-      "_why": "round 2: Part A Expected Competences line was left alone over the page"
+      "find": "describing how you organised the information and which interface features you simulated",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "explaining the design choices you made",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "describe how the system would function in a real-life situation",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "symmetric encryption uses one secret key, which must be kept safe",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "allowing only the correct recipient to read it",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "situations to promote safe and responsible use of technology",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "Game ended.",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page",
+      "near": "Roll the dice? (yes/no): no"
+    },
+    {
+      "find": "Your final score is: 4",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page",
+      "near": "What is 8 x 2? 16"
+    },
+    {
+      "find": ">>>",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page",
+      "near": "Invalid traffic light colour"
+    },
+    {
+      "find": "strengthen your understanding of database querying",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "This activity helps you develop skills in database design",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "share your classification rules and changes with the class",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "explain how cloud services are used in an organisation",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "Why someone without the key cannot read the message",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "SELECT * FROM students;",
+      "near": "You should identify this as a naming error",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "uses real-time data to solve the identified problem",
+      "near": "Group 3: Energy Consumption",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "Always use VPNs responsibly",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
+    },
+    {
+      "find": "promote safe and responsible use of technology in everyday situations",
+      "_why": "fix-everything 20 Nov: Expected Competences left alone at the top of the next page"
     }
   ]
 }

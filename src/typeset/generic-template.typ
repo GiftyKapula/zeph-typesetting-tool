@@ -1846,9 +1846,17 @@
 // par[...] renders empty, which is why equations sitting on their own line came out
 // blank. Contiguous inline segments stay in a paragraph. Shared by every text path
 // (body paragraphs, box bodies, exercise/assessment questions).
+// A code line too long for the measure wraps under its own indent plus two characters, so the
+// wrapped part reads as the same statement instead of a new line at the margin (CS Form 3 LB)
+#let codehang(ss) = {
+  let t = ss.at(0).at("t", default: "")
+  let n = 0
+  for c in t.clusters() { if c == " " or c == " " { n += 1 } else { break } }
+  (n + 4) * 0.54em
+}
 #let allcode(ss) = ss.len() > 0 and ss.any(s => s.at("code", default: false)) and ss.all(s => s.at("code", default: false) or s.at("t", default: "x").trim() == "")
 #let flowsegs(ss) = {
-  if allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false)[#segs(ss)]] }
+  if allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false, hanging-indent: codehang(ss))[#segs(ss)]] }
   // (a multi-line monospace drawing is a block too: a block inside par[] is dropped)
   let isdisp(s) = (s.at("m", default: false) and s.at("display", default: false)) or (s.at("mono", default: false) and s.t.contains("\n"))
   if ss.any(isdisp) {
@@ -1876,7 +1884,7 @@
   let hyphenate = if hyphenate == auto { T.at("hyphenate", default: true) } else { hyphenate }
   set text(hyphenate: hyphenate)
   // a line of program code is set flush left, never justified
-  if align == none and allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false)[#segs(ss)]] }
+  if align == none and allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false, hanging-indent: codehang(ss))[#segs(ss)]] }
   // A syllabus body paragraph that sits UNDER a numbered item is indented to align with
   // the heading text (past the number), for a clean outline look.
   if indent { return pad(left: 7mm, para(ss, align: align, drop: drop, hyphenate: hyphenate)) }
@@ -2970,9 +2978,14 @@
   // ---- keepNext: an item a book asked to keep with the one after it ----
   let q = 0
   while q + 1 < n {
-    if mark.at(q) == -1 and mark.at(q + 1) == -1 and body.at(q).at("keepnext", default: false) {
-      mark.at(q) = q + 2
-      mark.at(q + 1) = -2
+    if mark.at(q + 1) == -1 and body.at(q).at("keepnext", default: false) {
+      if mark.at(q) == -1 { mark.at(q) = q + 2; mark.at(q + 1) = -2 }
+      else if mark.at(q) == -2 {
+        // (an item already closing a group — a lead-in label kept with it — extends that group)
+        let s = q - 1
+        while s >= 0 and mark.at(s) == -2 { s = s - 1 }
+        if s >= 0 and mark.at(s) == q + 1 { mark.at(s) = q + 2; mark.at(q + 1) = -2 }
+      }
       q = q + 2
     } else { q = q + 1 }
   }
