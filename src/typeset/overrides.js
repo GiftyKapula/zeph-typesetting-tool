@@ -778,7 +778,7 @@ function applyOverrides(blocks, ov) {
     c.text = c.text.replace(find, repl);
     if (Array.isArray(c.segs)) c.segs = editCellSegs(c.segs, find, repl);
   };
-  for (const e of ov.edit || []) {
+  for (const e of (ov.edit || []).filter((x) => !x.late)) {
     const from = afterIndex(flat, e.after);
     const b = flat.find((x, i) => i >= from && blockPlain(x).includes(e.find));
     if (b) { editBlockText(b, e.find, e.with || ""); continue; }

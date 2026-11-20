@@ -576,11 +576,6 @@
       "_why": "round 1 #113"
     },
     {
-      "find": "Digital Literacy and",
-      "after": "Why someone without the key cannot read the message",
-      "with": "Digital Literacy and Technical Skills, Communication and Presentation Skills"
-    },
-    {
       "find": "(a) How will you plan and carry out the migration to the cloud server?",
       "with": "(b) How will you plan and carry out the migration to the cloud server? Explain how you will check that all data moved correctly.",
       "_why": "round 1 read-through (19 Nov): Exercise 3 (3.7.1) lettered (a) (a) (b) in the source"
@@ -596,10 +591,21 @@
       "_why": "round 1 read-through (19 Nov): Learner Table columns match LearnerID used in 3NF (#113)"
     },
     {
+      "find": "Real-Life Analogy (Zambian Context)",
+      "with": "Real-Life Analogy",
+      "_why": "round 2 #5157: delete \"(Zambian Context)\""
+    },
+    {
+      "find": "EXECISE 4",
+      "with": "EXERCISE 4",
+      "_why": "round 2 #5162/#5163: spelling; the box is then recognised as an exercise"
+    },
+    {
+      "late": true,
       "after": "Why someone without the key cannot read the message",
       "find": "Digital Literacy and",
       "with": "Digital Literacy and Technical Skills, Communication and Presentation Skills",
-      "_why": "round 1 read-through (19 Nov): source line stops at \"and\"; completed as in every other activity of 3.4.1 (flagged)"
+      "_why": "round 1 read-through (19 Nov): source line stops at \"and\"; completed as in the 11 sibling lines (flagged). late: the line only exists once the box table is opened"
     }
   ],
   "liftCrossCutting": true,
@@ -1167,11 +1173,6 @@
       "find": "StudentName",
       "with": "LearnerName",
       "_why": "round 1 read-through (19 Nov)"
-    },
-    {
-      "find": "Presentation Skills Technical Skills, Communication and Presentation Skills",
-      "with": "Presentation Skills",
-      "_why": "round 1 read-through (19 Nov): competence line doubled in the source (3.4.1, before Learning Encryption with Secret Messages)"
     }
   ],
   "removeRange": [
@@ -1624,6 +1625,35 @@
       "to": "Suggest two improvements to make your cloud",
       "into": "prev",
       "_why": "round 1 read-through (19 Nov): Exercise 4 (3.11.1) instructions inside its box"
+    },
+    {
+      "from": "Step 2: Enable Internet Connectivity",
+      "to": "transmit data from the sensor to an online platform",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 2 #5158"
+    },
+    {
+      "from": "Step 3: Set Up the IoT Dashboard",
+      "to": "where data will be received and displayed using graphs",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 2 #5159"
+    },
+    {
+      "from": "Step 8: Draw Conclusions and Make Decisions",
+      "to": "you have demonstrated competence in using IoT",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "round 2 #5160"
+    },
+    {
+      "from": "EXERCISE 4",
+      "near": "Reconnect wires one at a time",
+      "to": "Show the safe procedure you would follow",
+      "titleFromFirst": true,
+      "kind": "ex",
+      "_why": "round 2 #5163: the exercise box colour (it was a table)"
     }
   ],
   "insertHead": [
@@ -1686,6 +1716,11 @@
       "find": "EXERCISE 3",
       "near": "After planning, you write the program using a programming language",
       "_why": "page-break standard: split, its last two lines were carried over alone"
+    },
+    {
+      "find": "EXERCISE 4",
+      "near": "Reconnect wires one at a time",
+      "_why": "round 2: the re-boxed exercise split over a page"
     }
   ],
   "boldLead": [
@@ -1821,7 +1856,8 @@
   "splitTable": [
     "Step 2: Writing Simple Python Statements",
     "Presentation Each group should present their IoT solution",
-    "5. Open a shared document and:"
+    "5. Open a shared document and:",
+    "You bought a small robot kit to use at home"
   ],
   "codeBlocks": [
     {
@@ -2093,6 +2129,19 @@
     {
       "first": "Environmental Health and Population Management",
       "second": "Entrepreneurship Education Using AI to create business"
+    }
+  ],
+  "boxHead": [
+    {
+      "find": "Part A: Managing Files and Collaboration",
+      "_why": "round 2 #5161: the same size as the Part B title"
+    }
+  ],
+  "keepNext": [
+    {
+      "find": "Check the version history to see the changes made to the document",
+      "near": "Part A: Managing Files and Collaboration",
+      "_why": "round 2: Part A Expected Competences line was left alone over the page"
     }
   ]
 }

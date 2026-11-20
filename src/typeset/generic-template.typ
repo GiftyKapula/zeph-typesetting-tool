@@ -2880,7 +2880,9 @@
       }
       else if it.k == "head" {
         v(3pt)
-        let hd = text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t]
+        // (big: a boxHead line — the box-title size and colour, like a sibling box's title)
+        let big = it.at("big", default: false)
+        let hd = if big { text(weight: "bold", fill: T.at("act").at("title", default: T.primary), size: hs(14pt), hyphenate: false)[#it.t] } else { text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t] }
         block(breakable: false, sticky: true, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
         v(2pt)
       }
@@ -2964,6 +2966,15 @@
       mark.at(k + 1) = -2
       k = k + 2
     } else { k = k + 1 }
+  }
+  // ---- keepNext: an item a book asked to keep with the one after it ----
+  let q = 0
+  while q + 1 < n {
+    if mark.at(q) == -1 and mark.at(q + 1) == -1 and body.at(q).at("keepnext", default: false) {
+      mark.at(q) = q + 2
+      mark.at(q + 1) = -2
+      q = q + 2
+    } else { q = q + 1 }
   }
   for (idx, it) in body.enumerate() {
     let m = mark.at(idx)

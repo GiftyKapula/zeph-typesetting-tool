@@ -121,7 +121,7 @@ off, so a change only touches the books that opt in. Keys:
 
 | Key | What it does |
 |---|---|
-| `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block; `edit` falls back to table cells when no block matches, and `editAll` takes in every cell too (a converted book can carry the end of a box as a one-cell table); a phrase split across formatting runs is still found |
+| `edit` / `editAll` | replace/delete a substring **inside** the first / every matching block; `edit` falls back to table cells when no block matches, and `editAll` takes in every cell too (a converted book can carry the end of a box as a one-cell table); a phrase split across formatting runs is still found; an `edit` with `late: true` (plus `after`) runs after the boxing passes, for a line that only exists once a box's one-column table is opened |
 | `editAnswer` | like `editAll`, but rewrites a qa part's own **answer** text (`.a`/`.aseg`) instead of its question — for a stray leftover option letter the manuscript's answer itself carries (e.g. "C use of basso continuo" on a question that isn't even multiple-choice) |
 | `subtext` | replace a substring in **every run** containing it, keeping its bold/italic/colour |
 | `retext` | change a run whose trimmed text equals `from` to `to`, keeping bold/italic/colour |
@@ -146,6 +146,8 @@ off, so a change only touches the books that opt in. Keys:
 | `liftCrossCutting` | `true` — each topic's CROSS-CUTTING ISSUES table lifted out of the exercise box that swallowed it, all one shape: the heading on its own, then issue (bold) and description two columns wide, rows the PDF split in two joined back; an exercise drawn in the same table goes back in front as its own box. Computer Science Form 3 LB |
 | `boxRange` | **runs after the boxing passes** (passes/reshape.js), like every key down to `mergeTables`: `[{ from, to?, count?, near?, toNear?, kind: "act" \| "alt" \| "ex", title?, titleFromFirst?, into?, rest? }]` — the blocks from the one containing `from` through the one containing `to` become a box of their own, splitting any box they start or end in (what follows goes back into the flow, or `rest: "box"` keeps it boxed). `titleFromFirst` uses the first line as the title; `into: "prev"` appends them to the box just before instead. Computer Science Form 3 LB |
 | `unboxRange` | `[{ from, to?, count?, near? } \| { title, near?, keepTitle? }]` — text that landed inside a box (to the end of that box without `to`) goes back to plain body text; `{ title }` opens up the whole box |
+| `boxHead` | `[{ find, near? }]` — a line inside a box shown at the box-title size and colour ("Part A" inside an activity whose "Part B" is a box of its own) without the gap a box of its own adds. Computer Science Form 3 LB |
+| `keepNext` | `[{ find, near? }]` — a line inside a box kept on the same page as the line after it (a 2-line "Expected Competences:" otherwise left alone over the page) |
 | `splitTable` / `dropTable` | `["text"]` — a (one-cell) table holding an activity: its lines back as paragraphs, list items kept / the table deleted (its content rebuilt elsewhere) |
 | `keepWhole` / `newPage` | `[{ find, near? }]` — that box moves to the next page whole when it does not fit / a page break before that block |
 | `runOn` | `["Sub-Topic 3.11.1"]` — that sub-topic runs on after the text above instead of opening a fresh page |

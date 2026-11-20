@@ -172,6 +172,25 @@ function reshapeBoxes(blocks, ov) {
     const box = { t: "framedsection", kind: br.kind || "act", title, body: items };
     out = [...before, box, ...after];
   }
+  //   boxHead: [{ find, near? }] — a line inside a box shown at the box-title size and colour,
+  //            for a part of an activity that the reviewer wants titled like its sibling box
+  //            ("Part A" inside the activity, "Part B" a box of its own) without a box of its
+  //            own and the gap that comes with it (CS Form 3 LB round 2)
+  for (const bh of ov.boxHead || []) {
+    const a = locate(out, bh.find, bh.near);
+    if (!a || a.ps[a.k][1] < 0 || a.ps[a.k][3]) { console.warn("!  boxHead not matched inside a box:", bh.find); continue; }
+    const x = a.ps[a.k][2];
+    const t = plain(x);
+    for (const k of Object.keys(x)) delete x[k];
+    Object.assign(x, { t: "head", text: t, boxTitle: true });
+  }
+  //   keepNext: [{ find, near? }] — a line inside a box kept on the same page as the line after
+  //             it (a 2-line "Expected Competences:" left alone over the page; CS F3 LB round 2)
+  for (const kn of ov.keepNext || []) {
+    const a = locate(out, kn.find, kn.near);
+    if (!a || a.ps[a.k][1] < 0 || a.ps[a.k][3]) { console.warn("!  keepNext not matched inside a box:", kn.find); continue; }
+    a.ps[a.k][2].keepNext = true;
+  }
   //   keepWhole: [{ find, near? }] — the box whose title (or text) contains `find` is not
   //              split across a page: it moves to the next page whole when it does not fit
   //   newPage:   [{ find, near? }] — a page break before the block containing `find` (the
@@ -195,6 +214,16 @@ function reshapeBoxes(blocks, ov) {
     const hit = ps.slice(k0).find((p) => textAt(p).includes(np.find));
     if (!hit || hit[1] > 0) { console.warn("!  newPage not matched at a block or box start:", np.find); continue; }
     out.splice(hit[0], 0, { t: "pagebreak" });
+  }
+  //   edit entries with `late: true` — text that only exists once the boxes do (a line a box's
+  //   one-column table gave back): `find` → `with` in the first block after `after` holding it
+  for (const ed of (ov.edit || []).filter((x) => x && x.late)) {
+    const ps = positions(out);
+    const k0 = ed.after ? Math.max(0, ps.findIndex((p) => textAt(p).includes(ed.after))) : 0;
+    const hit = ps.slice(k0).find((p) => !p[3] && Array.isArray(p[2].segs) && p[2].segs.some((s) => typeof s.t === "string" && s.t.includes(ed.find)));
+    if (!hit) { console.warn("!  edit (late) not matched in one run:", ed.find); continue; }
+    const s = hit[2].segs.find((x) => typeof x.t === "string" && x.t.includes(ed.find));
+    s.t = s.t.replace(ed.find, ed.with || "");
   }
   //   splitBefore entries with `late: true` — a line break before `find` in a paragraph that
   //   only exists once the boxes do (after `near`)

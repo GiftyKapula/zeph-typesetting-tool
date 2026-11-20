@@ -160,12 +160,14 @@ function markSubLists(blks) {
   return blks;
 }
 
-const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
+// (keepNext: the item travels with the one after it — the template groups the two)
+const bodyArr = (blks) => arr(markSubLists(blks), (b) => { const s = bodyItem(b); return b.keepNext ? s.replace(/\)$/, ", keepnext: true)") : s; });
+const bodyItem = (b) =>
   b.t === "table" ? `(k: "table", r: ${rowArr(b.rows)}${b.noHeader ? ", nohdr: true" : ""})`
   : b.t === "match" ? `(k: "match", rows: ${matchArr(b.rows)})`
   : (b.t === "img" || b.t === "imagerow") ? `(k: "img", images: ${imgArr(b.images)})`
   : b.t === "image" ? `(k: "img", images: ${imgArr([{ file: b.file, w: b.w, tall: b.tall, caption: b.caption, hmm: b.hmm }])})`
-  : (b.t === "head" || b.t === "label" || b.t === "h3") ? `(k: "head", t: ${S(b.text || "")}${b.align === "center" ? ", center: true" : ""})`
+  : (b.t === "head" || b.t === "label" || b.t === "h3") ? `(k: "head", t: ${S(b.text || "")}${b.align === "center" ? ", center: true" : ""}${b.boxTitle ? ", big: true" : ""})`
   : b.t === "figcaption" ? `(k: "para", s: ${segArr([{ t: b.text || "", b: false, it: false, c: null }])})`
   : b.t === "listitem" ? `(k: "list", marker: ${S(b.marker || "•")}, s: ${segArr(b.segs)}${b._sub ? `, indent: ${b._sub}` : ""})`
   // a paragraph the writer made a real Word list item (a numbered activity question
@@ -173,7 +175,7 @@ const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
   : (b.t === "para" && b.marker && b.isList) ? `(k: "list", marker: ${S(b.marker)}, s: ${segArr(b.segs)}${b._sub ? `, indent: ${b._sub}` : ""})`
   : (b.k === "colgrid" || b.t === "colgrid") ? `(k: "colgrid", ${colgridArg(b)})`
   : b.t === "colsum" ? `(k: "colsum", rows: ${strArr(b.rows || [])}, answer: ${strArr(b.answerRows || [])})`
-  : `(k: "para", s: ${segArr(b.segs || [])})`);
+  : `(k: "para", s: ${segArr(b.segs || [])})`;
 
 // Tolerates the colon landing on either side of the number ("TOPIC 1.4: Title" —
 // the house form — as well as a manuscript that instead types "TOPIC: 1.4 Title").
