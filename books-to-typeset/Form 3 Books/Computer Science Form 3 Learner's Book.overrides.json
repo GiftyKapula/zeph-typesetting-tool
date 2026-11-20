@@ -614,7 +614,7 @@
     },
     {
       "find": "Here is a clear JavaScript syntax example showing polymorphism using your example:",
-      "with": "Here is a clear Python syntax example showing polymorphism:",
+      "with": "Here is a Python example showing polymorphism:",
       "_why": "fix-everything: the code is Python"
     },
     {
@@ -1473,6 +1473,46 @@
       "find": "Develop and manage Cloud computing model",
       "with": "Develop and Manage Cloud Computing Model",
       "_why": "fix-everything 20 Nov: specific competences in Title Case like the other 11"
+    },
+    {
+      "find": "Tinker cad",
+      "with": "Tinkercad",
+      "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "Here’s a clear Java example showing each concept and syntax",
+      "with": "Here is a Java example showing each concept and its syntax:",
+      "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "Here’s a simple Java syntax example to demonstrate Abstraction using the meal idea",
+      "with": "Here is a simple Java example that demonstrates abstraction using the meal idea:",
+      "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "Here’s a clear Java syntax example to demonstrate Encapsulation using a bank account",
+      "with": "Here is a Java example that demonstrates encapsulation using a bank account:",
+      "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "Here is a simple and clear syntax example of inheritance using your example:",
+      "with": "Here is a simple Python example of inheritance:",
+      "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "Table showing Summary of classes and objects.",
+      "with": "Table showing a summary of classes and objects",
+      "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "The Table explaining concepts of abstraction, encapsulation, inheritance and Polymorphism",
+      "with": "Table explaining the concepts of abstraction, encapsulation, inheritance and polymorphism",
+      "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "Table showing Various IDEs for Python",
+      "with": "Table showing various IDEs for Python",
+      "_why": "tidy 20 Nov: wording"
     }
   ],
   "removeRange": [
