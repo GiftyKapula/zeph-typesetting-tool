@@ -21,10 +21,11 @@
     "isbn": "…………………………",
     "groups": [
       {
-        "label": "Illustrated by:",
+        "label": "Editorial and Illustrations:",
         "lines": [
-          "Misheck Mutuzana and Shephat Phiri"
-        ]
+          "Algorithm Thinkers"
+        ],
+        "_why": "proofreading round 1 (21 Nov): label + credit as marked"
       },
       {
         "label": "Cover and Book Layout:",
@@ -4564,6 +4565,13 @@
       "near": "LEARNING ACTIVITY 1: Discussing key components of database",
       "to": "LEARNING ACTIVITY 1: Discussing key components of database management",
       "_why": "source p105: title ran over two lines"
+    }
+  ],
+  "moveBefore": [
+    {
+      "find": "Ruth Gondwe holds a MSc",
+      "before": "Shephat Phiri holds a BSc",
+      "_why": "proofreading round 1 (21 Nov): bios in the cover order"
     }
   ]
 }
