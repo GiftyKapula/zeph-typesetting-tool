@@ -60,7 +60,14 @@ function applyOverrides(blocks, ov) {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
-        const cell = b.t === "table" && Array.isArray(b.rows) && b.rows.length === 1 && Array.isArray(b.rows[0]) && b.rows[0].length === 1 && b.rows[0][0];
+        // (a one-COLUMN table of several rows — an activity and its alternative drawn as two
+        // stacked frames — reads as one cell, its rows as lines)
+        const oneCol = b.t === "table" && Array.isArray(b.rows) && b.rows.length >= 1 && b.rows.every((r) => Array.isArray(r) && r.length === 1 && r[0]);
+        const cell = oneCol && (b.rows.length === 1 ? b.rows[0][0] : {
+          text: b.rows.map((r) => r[0].text || "").join("\n"),
+          segs: b.rows.flatMap((r, k) => [...(k ? [{ t: "\n", b: false, it: false, c: null }] : []), ...(Array.isArray(r[0].segs) && r[0].segs.length ? r[0].segs : [{ t: r[0].text || "", b: false, it: false, c: null }])]),
+          imgs: b.rows.flatMap((r) => r[0].imgs || []),
+        });
         if (!cell || !(cell.text || "").replace(/\s+/g, " ").trim().startsWith(want)) {
           for (const key of Object.keys(b)) if (Array.isArray(b[key]) && key !== "rows" && !done) walk(b[key]);
           continue;
@@ -151,6 +158,14 @@ function applyOverrides(blocks, ov) {
     };
     walk(blocks);
     if (!n) console.warn("!  textFix not matched:", tf.find);
+  }
+  // A textFix that deletes (`with: ""` — a PDF's old running head the converter printed as a
+  // line of text) leaves its paragraph empty: the empty line goes too, not a blank gap.
+  if ((ov.textFix || []).some((tf) => tf && tf.with === "")) {
+    for (let i = blocks.length - 1; i >= 0; i--) {
+      const b = blocks[i];
+      if (/^(para|head|label)$/.test(b.t) && Array.isArray(b.segs) && b.segs.length && !b.segs.some((s) => s && typeof s.t === "string" && s.t.trim())) blocks.splice(i, 1);
+    }
   }
   // A blank Word paragraph imports as a `vspace` block (no text field at all), not an
   // empty paragraph, and the line right after ours can be ANOTHER label — one containing
@@ -341,19 +356,28 @@ function applyOverrides(blocks, ov) {
       return c ? wsNorm(typeof c === "string" ? c : (c.text || "")) : null; };
     const hits = (b) => rb.findTable ? (cell0(b) || "").startsWith(wsNorm(rb.findTable)) : wsNorm(blockPlain(b)) === want;
     let done = false;
-    const walk = (arr) => {
+    const walk = (arr, up) => {
       for (let i = 0; i < arr.length && !done; i++) {
         const b = arr[i];
         if (!b || typeof b !== "object") continue;
         if (hits(b)) {
-          arr.splice(i, 1, ...news);
+          // (`parent: true` replaces the box the match sits in instead — a box has no text of
+          // its own to match, e.g. an activity a conversion left as a plain box)
+          if (rb.parent && up) { up.arr.splice(up.i, 1, ...news); done = true; return; }
+          // (`span: n` replaces the matched block and the n-1 after it — a title line the conversion
+          // ran together, with the tables it heads)
+          // (`back: n` also removes the n blocks just before the match — a heading the conversion
+          // printed twice above the paragraph being rebuilt)
+          const back = Math.min(rb.back || 0, i);
+          arr.splice(i - back, (rb.span || 1) + back, ...news);
+          i -= back;
           if (del && i > 0 && arr[i - 1] && arr[i - 1].t === "vspace" && arr[i] && arr[i].t === "vspace") arr.splice(i, 1);
           done = true; return;
         }
-        for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key]);
+        for (const key of Object.keys(b)) if (Array.isArray(b[key]) && !done) walk(b[key], { arr, i });
       }
     };
-    walk(blocks);
+    walk(blocks, null);
     if (!done) console.warn("!  replaceBlocks not matched:", rb.find || rb.findTable);
   }
   // deleteRun: [{ from, to }] — delete a CONTIGUOUS run of sibling blocks, from the
@@ -811,7 +835,9 @@ function applyOverrides(blocks, ov) {
       if (a > 0 && Array.isArray(blocks[a - 1].body)) i = a - 1;
     } else i = blocks.findIndex((b) => Array.isArray(b.body) && typeof b.title === "string" && b.title.includes(eb.title));
     if (i < 0) { console.warn("!  extendBox not matched:", eb.title || eb.near); continue; }
-    blocks[i].body.push(...blocks.splice(i + 1, eb.count || 1));
+    // (an untitled import `box` — a PDF conversion's text-box group — gives its contents: a box
+    // nested in a box body is not drawn, so its text vanished)
+    blocks[i].body.push(...blocks.splice(i + 1, eb.count || 1).flatMap((b) => b && b.t === "box" && !b.title && Array.isArray(b.body) ? b.body : [b]));
   }
   // splitBox: [{ at }] — the inverse of extendBox: one activity box swallowed the next
   // activity ("MUSEBEZI 3: …" typed as a line inside MUSEBEZI 2's box). The body line whose
@@ -1142,8 +1168,28 @@ function applyOverrides(blocks, ov) {
       } else {
         at = blocks.findIndex((b) => hay(b).includes(needle));
       }
+      // (not at the top: the anchor may sit inside a box the conversion drew — a text-box group
+      // holding an activity and its alternative — so the innermost list holding it is used)
+      let arr = blocks;
+      if (at < 0 && !it.near) {
+        const deep = (list) => {
+          for (const b of list) {
+            if (!b || typeof b !== "object") continue;
+            for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) {
+              const r = deep(b[k]); if (r) return r;
+              const j = b[k].findIndex((x) => x && typeof x === "object" && hay(x).includes(needle));
+              if (j >= 0) return [b[k], j];
+            }
+          }
+          return null;
+        };
+        // (`outside: true`: after the top-level block that holds the anchor instead — new boxes
+        // of their own, not lines inside the box the anchor ends)
+        if (it.outside) { at = blocks.findIndex((b) => b && typeof b === "object" && JSON.stringify(b).includes(needle)); arr = blocks; }
+        else { const r = deep(blocks); if (r) [arr, at] = r; }
+      }
       if (at < 0) { console.warn("!  insertText not matched:", it.near ? `${needle} near ${it.near}` : needle); continue; }
-      blocks.splice(it.after != null ? at + 1 : at, 0, ...mkBlks());
+      arr.splice(it.after != null ? at + 1 : at, 0, ...mkBlks());
     }
   }
   // toTable: [{ find, cols }] — convert a paragraph whose text matches `find` into a 1×N
@@ -1318,6 +1364,55 @@ function applyOverrides(blocks, ov) {
     }
     if (!n) console.warn("!  monoLines not matched:", ml);
   }
+  // codeBlocks entries with a `code` array: [{ from, to?, code: ["line", …], lead? }] — a program listing, retyped from
+  // the source, in place of the run of blocks from the one containing `from` through the one
+  // containing `to` (same list; `to` left out = just that block). A book converted from a
+  // PDF breaks every listing: lines glued together, indents and "..." prompts gone, "="
+  // read as dashes. The listing is set as one fixed-width block, every space kept;
+  // `lead` (markdown) is a line put back in front of it ("(b)", "**1. Weekly airtime total**").
+  for (const cb of (ov.codeBlocks || []).filter((x) => x && Array.isArray(x.code))) {
+    let done = false;
+    const kids = (b) => Object.values(b).filter((v) => Array.isArray(v) && v.some((x) => x && typeof x === "object" && x.t));
+    const visit = (arr) => {
+      if (done || !Array.isArray(arr)) return;
+      const i = arr.findIndex((b) => b && typeof b === "object" && blockPlain(b).includes(cb.from));
+      // the innermost block holding `from`, not a box or section that contains it
+      if (i >= 0 && kids(arr[i]).some((v) => v.some((x) => x && typeof x === "object" && blockPlain(x).includes(cb.from)))) {
+        for (const v of kids(arr[i])) visit(v);
+        if (done) return;
+      }
+      // (ZEPH_DEBUG_CODE=1 lists the blocks from the match on, to choose `to`/`toExact` by)
+      if (i >= 0 && process.env.ZEPH_DEBUG_CODE) console.log("codeBlocks:", cb.from, "\n   " + arr.slice(i, i + 14).map((b, k) => `${i + k} ${b.t}: ${blockPlain(b).replace(/\s+/g, " ").slice(0, 110)}`).join("\n   "));
+      if (i >= 0) {
+        let j = i;
+        // (`toExact`: the last block's whole text — "Passed", where `to` would stop at the
+        // print("Passed") line before it)
+        if (cb.to || cb.toExact) j = arr.findIndex((b, k) => k > i - (cb.toExact ? 0 : 1) && b && typeof b === "object" && (cb.toExact ? blockPlain(b).trim() === cb.toExact : blockPlain(b).includes(cb.to)));
+        if (j < 0) { console.warn("!  codeBlocks `to` not found after:", cb.from); done = true; return; }
+        // a listing is a page or two at most: an end anchor far past that matched the wrong
+        // line, and the replacement would delete everything in between
+        if (j - i + 1 > (cb.max || 30)) { console.warn(`!  codeBlocks range too long (${j - i + 1} blocks), skipped:`, cb.from); done = true; return; }
+        if (process.env.ZEPH_DEBUG_CODE) console.log(`   -> replaced ${i}..${j}, last: ${blockPlain(arr[j]).replace(/\s+/g, " ").slice(0, 90)}`);
+        const src = cb.code.join("\n").replace(/ /g, "\u{E000}");
+        const news = [];
+        // (a heading, so it keeps with the listing: a listing never breaks, and a plain
+        // lead line was left alone at the foot of the page before it)
+        if (cb.lead) news.push({ t: "head", text: cb.lead.replace(/\*+/g, ""), codeLead: true });
+        news.push({ t: "para", segs: [{ t: src, b: false, it: false, c: null, mono: true }] });
+        // `after`: blockspecs (as replaceBlocks) put back behind the listing — a heading the
+        // conversion ran on to its last line ("meal2.serve(); Creating Animations")
+        for (const sp of cb.after || []) { const nb = mkBlock(sp); if (nb) news.push(nb); }
+        arr.splice(i, j - i + 1, ...news);
+        done = true; return;
+      }
+      for (const b of arr) {
+        if (done) return;
+        if (b && typeof b === "object") for (const v of Object.values(b)) if (Array.isArray(v) && v.some((x) => x && typeof x === "object" && x.t)) visit(v);
+      }
+    };
+    visit(blocks);
+    if (!done) console.warn("!  codeBlocks not matched:", cb.from);
+  }
   // codeBlocks: ["text" | { from, to?, near? }] — program code: every block from the one
   // containing `from` through the one containing `to` (default: just that one) set upright
   // in the coding font (theme `codeFont`, default Cascadia Code), flush left. Reaches
@@ -1326,7 +1421,7 @@ function applyOverrides(blocks, ov) {
   for (const cbRaw of ov.codeBlocks || []) {
     const flat = codeFlat;
     const cb = typeof cbRaw === "string" ? { from: cbRaw } : cbRaw;
-    if (cb.late) continue;   // (marked after the boxing passes: passes/reshape.js)
+    if (cb.late || Array.isArray(cb.code)) continue;    // (late: after the boxing passes, passes/reshape.js; code: retyped above)
     let k0 = 0;
     if (cb.near) { k0 = flat.findIndex((b) => blockPlain(b).includes(cb.near)); if (k0 < 0) k0 = 0; }
     const a = flat.findIndex((b, k) => k >= k0 && segKey(b) && blockPlain(b).includes(cb.from));
@@ -2002,7 +2097,55 @@ function applyOverrides(blocks, ov) {
   for (const t of ov.tables || []) {
     const richRows = [];
     if (t.columns) richRows.push(t.columns.map((c) => ({ text: c, imgs: [] })));
-    for (const row of t.rows) richRows.push(row.map((c) => ({ text: c, imgs: [] })));
+    for (const row of t.rows || []) richRows.push(row.map((c) => ({ text: c, imgs: [] })));
+    // (`emptyAfter`: instead of `match`, the first table with no text at all after the block
+    // holding this text — a table a PDF conversion brought over as an empty grid)
+    if (t.emptyAfter) {
+      let seen = false, done = false;
+      // (`drop: true` deletes that empty grid instead: the table was put back with its text)
+      const visit = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+          const b = arr[i];
+          if (done || !b || typeof b !== "object") continue;
+          if (Array.isArray(b.rows) && (b.t === "table" || b.kind === "table")) {
+            if (seen && !b.rows.flat().some((c) => c && String(c.text || "").trim())) {
+              if (t.drop) arr.splice(i, 1); else { b.rows = richRows; if (t.noHeader) b.noHeader = true; }
+              done = true;
+            }
+            continue;
+          }
+          if (!seen && (blockPlain(b) + " " + (b.q || "") + " " + (b.a || "")).includes(t.emptyAfter)) seen = true;
+          // (an exercise's parts too: a q/a part carries its text in q/a, a table part `kind: "table"`)
+          for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && (x.t || x.kind))) visit(b[k]);
+        }
+      };
+      visit(blocks);
+      if (!done) console.warn("!  table override (emptyAfter) not matched:", t.emptyAfter);
+      continue;
+    }
+    // (`match` + `drop: true`: delete that table — the second half of one the conversion split
+    // over two pages, its rows given in full to the first)
+    if (t.drop && t.match) {
+      let gone = false;
+      const del = (arr) => { for (let i = 0; i < arr.length && !gone; i++) { const b = arr[i]; if (!b || typeof b !== "object") continue;
+        if (b.t === "table" && JSON.stringify(b.rows || "").includes(t.match)) { arr.splice(i, 1); gone = true; return; }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) del(b[k]); } };
+      del(blocks);
+      if (!gone) console.warn("!  table override (drop) not matched:", t.match);
+      continue;
+    }
+    // (`match` + `noHeader: true` + `all: true`, no rows: every ONE-ROW table holding that text loses its
+    // heading-row styling — a one-row field list ("CustomerID | CustomerName") repeated down a
+    // page, drawn as plain boxes in the source, would otherwise print as solid header bars)
+    if (t.all && t.noHeader && t.match && !t.rows) {
+      let n = 0;
+      const mark = (arr) => { for (const b of arr) { if (!b || typeof b !== "object") continue;
+        if (b.t === "table" && (b.rows || []).length === 1 && JSON.stringify(b.rows).includes(t.match)) { b.noHeader = true; n++; }
+        for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) mark(b[k]); } };
+      mark(blocks);
+      if (!n) console.warn("!  table override (noHeader all) not matched:", t.match);
+      continue;
+    }
     // (`noHeader: true` — the table has no heading row, so its first row is not styled as one)
     if (!replaceTableRows(blocks, t.match, richRows, t.noHeader ? { noHeader: true } : null)) console.warn("!  table override not matched:", t.match);
   }

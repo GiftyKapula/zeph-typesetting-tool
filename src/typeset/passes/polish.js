@@ -196,7 +196,10 @@ function normaliseSpacing(blocks) {
 // the label moves to `aseg` (the label itself is dropped — the answer renderer re-adds a
 // "Possible answer:" tag and sets the answer on its own highlighted line). Runs for every
 // exercise/assessment question (and answer-bearing lead-in, promoted to a question).
-function splitAnswerLabels(blocks) {
+// opts.keepLabel (sidecar `keepAnswerLabel`): a paragraph's answer keeps the manuscript's own
+// label ("Expected Responses:") instead of being retagged "Possible answer:".
+function splitAnswerLabels(blocks, opts = {}) {
+  let lastLabel = null;   // the label text the most recent cut() removed
   // a run that is ENTIRELY the answer label (its own bold run, e.g. "Possible Answer:")
   const LABEL_FULL = /^\s*(possible|expected|sample|suggested|model)?\s*(answers?|responses?)\s*:?\s*$/i;
   // the label appearing INLINE inside a run ("…life? Possible Answer: Art is…"). The
@@ -209,8 +212,12 @@ function splitAnswerLabels(blocks) {
     let qSegs = null, aSegs = null;
     const idx = segs.findIndex((s) => s && !s.m && LABEL_FULL.test(s.t || ""));
     if (idx >= 0) {
-      qSegs = segs.slice(0, idx);
+      // the label's first word in a run of its own ("Expected " + "Responses:") goes with
+      // it — left behind, it printed as a stray "Expected" line above the answer
+      const pre = idx > 0 && segs[idx - 1] && !segs[idx - 1].m && /^\s*(possible|expected|sample|suggested|model)\s*$/i.test(segs[idx - 1].t || "") ? 1 : 0;
+      qSegs = segs.slice(0, idx - pre);
       aSegs = segs.slice(idx + 1);
+      lastLabel = segs.slice(idx - pre, idx + 1).map((s) => s.t).join("");
     } else {
       for (let i = 0; i < segs.length; i++) {
         const s = segs[i]; if (!s || s.m) continue;
@@ -227,6 +234,7 @@ function splitAnswerLabels(blocks) {
         const priorTrim = (segs.slice(0, i).map((x) => x.t || "").join("") + before).trim();
         if (priorTrim && !/[.?!]$/.test(priorTrim)) continue;
         const after = s.t.slice(m.index + m[0].length);
+        lastLabel = m[0];
         qSegs = segs.slice(0, i).concat(before.trim() ? [{ ...s, t: before }] : []);
         aSegs = (after.trim() ? [{ ...s, b: false, t: after }] : []).concat(segs.slice(i + 1));
         break;
@@ -302,7 +310,8 @@ function splitAnswerLabels(blocks) {
     const c = cut(segs);
     if (!c) return;
     const [qSegs, aSegs] = c;
-    const tag = { t: "\nPossible answer: ", b: true, it: false, c: null };
+    const own = opts.keepLabel && lastLabel ? lastLabel.replace(/\s+/g, " ").trim().replace(/:?$/, ":") : null;
+    const tag = { t: `\n${own || "Possible answer:"} `, b: true, it: false, c: null };
     const ans = aSegs.map((s) => (s.m ? s : { ...s, it: true }));
     b.segs = qSegs.concat([tag], ans);
   };

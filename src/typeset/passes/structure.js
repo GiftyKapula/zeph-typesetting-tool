@@ -214,7 +214,8 @@ function boxifyActivities(blocks, opts = {}) {
           // labels and little matching-table headers ("Organ Work", "Disease Symptom")
           // are part of the assessment, so only a real topic/sub-topic (h1/h2/h3), the
           // next box, or a header-paragraph ends it — never an inner sub-heading.
-          if (k !== "asmt" && !INTERNAL.test(yt)) break;
+          // (a program listing's lead line — codeBlocks — belongs to the answer it heads)
+          if (k !== "asmt" && !INTERNAL.test(yt) && !y.codeLead) break;
         }
       }
       body.push(y);

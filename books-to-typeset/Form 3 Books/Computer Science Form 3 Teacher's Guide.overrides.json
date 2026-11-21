@@ -1,0 +1,4649 @@
+{
+  "_note": "Computer Science Form 3 TG. Source = the CorelDRAW PDF \"COMPUTER SCIENCE FORM 3 TEACHERS GUIDE EDITED 3\" converted to .docx in Word (no original manuscript), 2026-11-16. Same Word-conversion handling and green palette as the Form 3 LB.",
+  "unwrapTextboxes": true,
+  "dropImages": true,
+  "collapseSpaces": true,
+  "joinBrokenLines": true,
+  "joinSplitTables": true,
+  "boxActivities": true,
+  "reboxExercises": true,
+  "exerciseLeadsOut": true,
+  "keepScaffold": true,
+  "hyphenate": false,
+  "coverUntil": "SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 ORDINARY LEVEL",
+  "synthesiseCover": true,
+  "coverWords": {
+    "printedBy": "Published by"
+  },
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House (2026)",
+    "rights": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the copyright owner or publisher.",
+    "isbn": "…………………………",
+    "groups": [
+      {
+        "label": "Editorial and Illustrations:",
+        "lines": [
+          "Algorithm Thinkers"
+        ],
+        "_why": "proofreading round 1 (21 Nov): label + credit as marked"
+      },
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Teddy Ng`ambi"
+        ]
+      },
+      {
+        "label": "First Published by:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road, P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "Printed by:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "boxAlternatives": {
+    "also": [
+      "^Learner[’']s Activity",
+      "^Task$"
+    ],
+    "_why": "CDC p74-76: Learner’s Activity boxes in the Alternative Activity colour; p345: the non-digital Task box too"
+  },
+  "palette": {
+    "_why": "CDC: same green as the Teachers Guide (Word green 70AD47; activity fill C5E0B3, alternative activity FBD4B4, exercise bar blue 0070C0)",
+    "primary": "548235",
+    "primary2": "70AD47",
+    "signature": "70AD47",
+    "cyan": "C5E0B3",
+    "accent": "F4B083",
+    "act": {
+      "fill": "C5E0B3",
+      "border": "70AD47",
+      "title": "375623"
+    },
+    "alt": {
+      "fill": "FBD4B4",
+      "border": "F4B083",
+      "title": "843C0B"
+    },
+    "ex": {
+      "fill": "DEEBF7",
+      "border": "0070C0",
+      "title": "0070C0"
+    }
+  },
+  "liftCrossCutting": true,
+  "sourceFix": [
+    [
+      "————",
+      "=="
+    ],
+    [
+      "——",
+      "="
+    ],
+    [
+      "—+",
+      "→"
+    ],
+    {
+      "re": "Expec(?:fec\\/|fecf|fer\\/|ferf|ter\\/|tecf|fe0)",
+      "with": "Expected"
+    },
+    {
+      "re": "Gq›ecfed",
+      "with": "Expected"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:[Aad]|\\\\)?\\/?[\\/i]?[tf]erna[tf][\\/i][vy][’']?e?(?![A-Za-z])",
+      "with": "Alternative"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Acfivify|Acfiyify|dctiyify)(?![A-Za-z])",
+      "with": "Activity"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ducation)(?![A-Za-z])",
+      "with": "Education"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ntrepreneurship)(?![A-Za-z])",
+      "with": "Entrepreneurship"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ncourages)(?![A-Za-z])",
+      "with": "Encourages"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:nsuring)(?![A-Za-z])",
+      "with": "Ensuring"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:nsures)(?![A-Za-z])",
+      "with": "Ensures"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:nvironmental)(?![A-Za-z])",
+      "with": "Environmental"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:echnical)(?![A-Za-z])",
+      "with": "Technical"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:nhanced)(?![A-Za-z])",
+      "with": "Enhanced"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:thical)(?![A-Za-z])",
+      "with": "Ethical"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:laas)(?![A-Za-z])",
+      "with": "IaaS"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:COHPUTER)(?![A-Za-z])",
+      "with": "COMPUTER"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:sofiware)(?![A-Za-z])",
+      "with": "software"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Microsofi)(?![A-Za-z])",
+      "with": "Microsoft"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:suppods)(?![A-Za-z])",
+      "with": "supports"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:suppod)(?![A-Za-z])",
+      "with": "support"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Suppod)(?![A-Za-z])",
+      "with": "Support"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:suppoding)(?![A-Za-z])",
+      "with": "supporting"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:suppoded)(?![A-Za-z])",
+      "with": "supported"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:lnstagram)(?![A-Za-z])",
+      "with": "Instagram"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:lnspect)(?![A-Za-z])",
+      "with": "Inspect"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Linkedln)(?![A-Za-z])",
+      "with": "LinkedIn"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fhe)(?![A-Za-z])",
+      "with": "the"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fhey)(?![A-Za-z])",
+      "with": "they"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:impodance)(?![A-Za-z])",
+      "with": "importance"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:impodant)(?![A-Za-z])",
+      "with": "important"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:impod)(?![A-Za-z])",
+      "with": "import"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:pads)(?![A-Za-z])",
+      "with": "parts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:pad in class)(?![A-Za-z])",
+      "with": "part in class"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:vidually)(?![A-Za-z])",
+      "with": "virtually"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:vidual)(?![A-Za-z])",
+      "with": "virtual"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fo)(?![A-Za-z])",
+      "with": "to"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:shod)(?![A-Za-z])",
+      "with": "short"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Shod)(?![A-Za-z])",
+      "with": "Short"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:chads)(?![A-Za-z])",
+      "with": "charts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:chad)(?![A-Za-z])",
+      "with": "chart"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:smadphones)(?![A-Za-z])",
+      "with": "smartphones"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:padicipants)(?![A-Za-z])",
+      "with": "participants"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:padicipation)(?![A-Za-z])",
+      "with": "participation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:padial)(?![A-Za-z])",
+      "with": "partial"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:depadments)(?![A-Za-z])",
+      "with": "departments"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:oppodunities)(?![A-Za-z])",
+      "with": "opportunities"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Third-Pady)(?![A-Za-z])",
+      "with": "Third-Party"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Repods)(?![A-Za-z])",
+      "with": "Reports"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:conved)(?![A-Za-z])",
+      "with": "convert"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:whi\\/e)(?![A-Za-z])",
+      "with": "while"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Simp\\/e)(?![A-Za-z])",
+      "with": "Simple"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:S\\/mp\\/e)(?![A-Za-z])",
+      "with": "Simple"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oev’e\\/opment)(?![A-Za-z])",
+      "with": "Development"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:he\\/p)(?![A-Za-z])",
+      "with": "help"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:lie\\/ps)(?![A-Za-z])",
+      "with": "helps"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:propedies)(?![A-Za-z])",
+      "with": "properties"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Presenfafion)(?![A-Za-z])",
+      "with": "Presentation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ñfaferia\\/s|faferia\\/s)(?![A-Za-z])",
+      "with": "Materials"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:insed)(?![A-Za-z])",
+      "with": "insert"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:ofien)(?![A-Za-z])",
+      "with": "often"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oebate)(?![A-Za-z])",
+      "with": "Debate"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Creat\\/ng)(?![A-Za-z])",
+      "with": "Creating"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:On\\/\\/ne)(?![A-Za-z])",
+      "with": "Online"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Repotafion)(?![A-Za-z])",
+      "with": "Reputation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oec\\/ypfing|Oecrypfing)(?![A-Za-z])",
+      "with": "Decrypting"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Secref)(?![A-Za-z])",
+      "with": "Secret"
+    },
+    {
+      "re": "\\(shin cipher",
+      "with": "(Shift cipher"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:7echniqoe)(?![A-Za-z])",
+      "with": "Technique"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Secore)(?![A-Za-z])",
+      "with": "Secure"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Rea\\/-Life)(?![A-Za-z])",
+      "with": "Real-Life"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:two-factorauthentication)(?![A-Za-z])",
+      "with": "two-factor authentication"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:effods)(?![A-Za-z])",
+      "with": "efforts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Sfeps)(?![A-Za-z])",
+      "with": "Steps"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Sfep)(?![A-Za-z])",
+      "with": "Step"
+    },
+    {
+      "re": "Penci\\/",
+      "with": "Pencil"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:eitherpen)(?![A-Za-z])",
+      "with": "either pen"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Mtz\\/fip\\/ication)(?![A-Za-z])",
+      "with": "Multiplication"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Cha\\/\\/enges)(?![A-Za-z])",
+      "with": "Challenges"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Cha\\/\\/enge)(?![A-Za-z])",
+      "with": "Challenge"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:e\\/se)(?![A-Za-z])",
+      "with": "else"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:cfeve\\/opmenf)(?![A-Za-z])",
+      "with": "development"
+    },
+    {
+      "re": "ManUa\\/",
+      "with": "Manual"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Atifomafion)(?![A-Za-z])",
+      "with": "Automation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:dna\\/ys\\/s)(?![A-Za-z])",
+      "with": "Analysis"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:7est)(?![A-Za-z])",
+      "with": "Test"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:so\\/v’e)(?![A-Za-z])",
+      "with": "solve"
+    },
+    {
+      "re": "needer\\/",
+      "with": "needed"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:look\\/\\/ke)(?![A-Za-z])",
+      "with": "look like"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Reftzrn)(?![A-Za-z])",
+      "with": "Return"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:aidime)(?![A-Za-z])",
+      "with": "airtime"
+    },
+    {
+      "re": "Cone\\/it\\/ona\\/|Cone\\/if\\/ona\\/",
+      "with": "Conditional"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:stafemenf)(?![A-Za-z])",
+      "with": "statement"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:confenf)(?![A-Za-z])",
+      "with": "content"
+    },
+    {
+      "re": "\\/ssUe",
+      "with": "Issue"
+    },
+    {
+      "re": "ated\\(",
+      "with": "alert("
+    },
+    {
+      "re": "(?<![A-Za-z])(?:getEIementByld|getEIementById)(?![A-Za-z])",
+      "with": "getElementById"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Afierwards)(?![A-Za-z])",
+      "with": "Afterwards"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Afier)(?![A-Za-z])",
+      "with": "After"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:sa\\/'e\\/y opgrac\\/e)(?![A-Za-z])",
+      "with": "safely upgrade"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:cfafa6ase)(?![A-Za-z])",
+      "with": "database"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:w\\/fhoot)(?![A-Za-z])",
+      "with": "without"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/afa)(?![A-Za-z])",
+      "with": "data"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/oocf)(?![A-Za-z])",
+      "with": "cloud"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Czisfomers)(?![A-Za-z])",
+      "with": "Customers"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/es\\/gn)(?![A-Za-z])",
+      "with": "design"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/esigns)(?![A-Za-z])",
+      "with": "designs"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/esign)(?![A-Za-z])",
+      "with": "design"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:r\\/esign)(?![A-Za-z])",
+      "with": "design"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:de\\/ete)(?![A-Za-z])",
+      "with": "delete"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oeskfop)(?![A-Za-z])",
+      "with": "Desktop"
+    },
+    {
+      "re": "\\/Uobi\\/e",
+      "with": "Mobile"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/ep\\/oymenf)(?![A-Za-z])",
+      "with": "deployment"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:aleds)(?![A-Za-z])",
+      "with": "alerts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oe\\/ayed)(?![A-Za-z])",
+      "with": "Delayed"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Techno\\/ogy)(?![A-Za-z])",
+      "with": "Technology"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oata|Oafa)(?![A-Za-z])",
+      "with": "Data"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Co\\/\\/ecfion)(?![A-Za-z])",
+      "with": "Collection"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:creafiyity)(?![A-Za-z])",
+      "with": "creativity"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:exp\\/ain)(?![A-Za-z])",
+      "with": "explain"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:d\\/erfs)(?![A-Za-z])",
+      "with": "Alerts"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:seft\\/p)(?![A-Za-z])",
+      "with": "setup"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Oec\\/sion-making)(?![A-Za-z])",
+      "with": "Decision-making"
+    },
+    {
+      "re": "t\\/sefn\\/",
+      "with": "useful"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fl4afware)(?![A-Za-z])",
+      "with": "Malware"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:iVialware)(?![A-Za-z])",
+      "with": "Malware"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:users’phones)(?![A-Za-z])",
+      "with": "users’ phones"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:sfo\\/en)(?![A-Za-z])",
+      "with": "stolen"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:rec\\/oce)(?![A-Za-z])",
+      "with": "reduce"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Sell\\/ng)(?![A-Za-z])",
+      "with": "Setting"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Benef\\/ts)(?![A-Za-z])",
+      "with": "Benefits"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:sysfem)(?![A-Za-z])",
+      "with": "system"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Otiest\\/ons)(?![A-Za-z])",
+      "with": "Questions"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Procer\\/are)(?![A-Za-z])",
+      "with": "Procedure"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Obserrafion)(?![A-Za-z])",
+      "with": "Observation"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:obstacIe)(?![A-Za-z])",
+      "with": "obstacle"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:incIude)(?![A-Za-z])",
+      "with": "include"
+    },
+    {
+      "re": "turn_Ieft",
+      "with": "turn_left"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:fudher)(?![A-Za-z])",
+      "with": "further"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:robof)(?![A-Za-z])",
+      "with": "robot"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Reconnecfing)(?![A-Za-z])",
+      "with": "Reconnecting"
+    },
+    {
+      "re": "sfepj",
+      "with": "step)"
+    },
+    {
+      "re": "\\/ssz\\/ej",
+      "with": "issue)"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:drifiing)(?![A-Za-z])",
+      "with": "drifting"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:lest\\/ng)(?![A-Za-z])",
+      "with": "testing"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:c\\/e\\/iv’ery)(?![A-Za-z])",
+      "with": "delivery"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:coIumn)(?![A-Za-z])",
+      "with": "column"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:tabIe)(?![A-Za-z])",
+      "with": "table"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:googIe)(?![A-Za-z])",
+      "with": "google"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:loT)(?![A-Za-z])",
+      "with": "IoT"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Al)(?![A-Za-z])",
+      "with": "AI"
+    },
+    {
+      "re": "([a-z])lD(?![a-z])",
+      "with": "$1ID"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:l\\/I\\/’eb)(?![A-Za-z])",
+      "with": "Web"
+    },
+    {
+      "re": "(?<![A-Za-z])(?:Websites\\/h)(?![A-Za-z])",
+      "with": "Websites"
+    },
+    [
+      "ﬀ",
+      "ff"
+    ],
+    [
+      "ﬃ",
+      "ffi"
+    ],
+    [
+      "ﬄ",
+      "ffl"
+    ],
+    {
+      "re": "(?<![A-Za-z])Jaya(?![A-Za-z])",
+      "with": "Java"
+    }
+  ],
+  "textFix": [
+    {
+      "find": " -  - ",
+      "with": " = "
+    },
+    {
+      "find": "to the Alternative:",
+      "with": "to the alternative:"
+    },
+    {
+      "find": "arge projects, professional",
+      "with": "Large projects, professional"
+    },
+    {
+      "find": "asy manipulation of web",
+      "with": "Easy manipulation of web"
+    },
+    {
+      "find": "fficient updates using",
+      "with": "Efficient updates using"
+    },
+    {
+      "find": "Sth edn.",
+      "with": "5th edn."
+    },
+    {
+      "find": "o/' logic circuits for various /npt Is",
+      "with": "of logic circuits for various inputs"
+    },
+    {
+      "find": "acce ssingand sharin ginformation",
+      "with": "accessing and sharing information"
+    },
+    {
+      "find": "Internet and ifs Key",
+      "with": "Internet and its Key"
+    },
+    {
+      "find": "Secret /I4essages",
+      "with": "Secret Messages"
+    },
+    {
+      "find": "Visual Sftzrfio Cor/e",
+      "with": "Visual Studio Code"
+    },
+    {
+      "find": "a wed application",
+      "with": "a web application"
+    },
+    {
+      "find": "identify/ng and Firing",
+      "with": "Identifying and Fixing"
+    },
+    {
+      "find": "Books had/e",
+      "with": "Books Table"
+    },
+    {
+      "find": "data ret eva/",
+      "with": "data retrieval"
+    },
+    {
+      "find": "accuracy overtime",
+      "with": "accuracy over time"
+    },
+    {
+      "find": "Health Responsej",
+      "with": "Health Response)"
+    },
+    {
+      "find": "a rea/ problem",
+      "with": "a real problem"
+    },
+    {
+      "find": "FlutterFlow, Dad,",
+      "with": "FlutterFlow, Dart,"
+    },
+    {
+      "find": "then sod them",
+      "with": "then sort them"
+    },
+    {
+      "find": "too/s t/ser/",
+      "with": "Tools used"
+    },
+    {
+      "find": "CriticalThinking",
+      "with": "Critical Thinking"
+    },
+    {
+      "find": "not yre// managed",
+      "with": "not well managed"
+    },
+    {
+      "find": "7esfing Sysfem",
+      "with": "Testing System"
+    },
+    {
+      "find": "batteries ora rechargeable",
+      "with": "batteries or a rechargeable"
+    },
+    {
+      "find": "a stad point",
+      "with": "a start point"
+    },
+    {
+      "find": "turn ie//",
+      "with": "turn left"
+    },
+    {
+      "find": "and soding trays",
+      "with": "and sorting trays"
+    },
+    {
+      "find": "wafer monitoring",
+      "with": "water monitoring"
+    },
+    {
+      "find": "EXERC SE",
+      "with": "EXERCISE"
+    },
+    {
+      "find": "Learnersare",
+      "with": "Learners are"
+    },
+    {
+      "find": "Responses:Learners",
+      "with": "Responses: Learners"
+    },
+    {
+      "find": "Q} Templates",
+      "with": "(b) Templates"
+    },
+    {
+      "find": "posting: 1s it kind",
+      "with": "posting: Is it kind"
+    },
+    {
+      "find": "Sign Up,”enter",
+      "with": "Sign Up”, enter"
+    },
+    {
+      "find": "Post”rule",
+      "with": "Post” rule"
+    },
+    {
+      "find": "or.zip",
+      "with": "or .zip"
+    },
+    {
+      "find": "“lock”symbols",
+      "with": "“lock” symbols"
+    },
+    {
+      "find": "“tunnel”so",
+      "with": "“tunnel” so"
+    },
+    {
+      "find": "PATH”during",
+      "with": "PATH” during"
+    },
+    {
+      "find": "w§h ext nsions",
+      "with": "with extensions"
+    },
+    {
+      "find": "Designing a We6 Application",
+      "with": "Designing a Web Application"
+    },
+    {
+      "find": "fiav'e7’",
+      "with": "have?"
+    },
+    {
+      "find": "fu lion",
+      "with": "function"
+    },
+    {
+      "find": "“rights”or “responsibilities”using",
+      "with": "“rights” or “responsibilities” using"
+    },
+    {
+      "find": "Ro/e Play",
+      "with": "Role Play"
+    },
+    {
+      "find": "Examp/e",
+      "with": "Example"
+    },
+    {
+      "find": "Sfrtzctnre",
+      "with": "Structure"
+    },
+    {
+      "find": "shh creates",
+      "with": "<h1> creates"
+    },
+    {
+      "find": "Oes/gn",
+      "with": "Design"
+    },
+    {
+      "find": "Answer”or",
+      "with": "Answer” or"
+    },
+    {
+      "find": "is 8/f0.",
+      "with": "is 8/10."
+    },
+    {
+      "find": "creates a pad of",
+      "with": "creates a part of"
+    },
+    {
+      "find": "added to the cad.",
+      "with": "added to the card."
+    },
+    {
+      "find": "added to a cad.",
+      "with": "added to a card."
+    },
+    {
+      "find": "lvlySQL",
+      "with": "MySQL"
+    },
+    {
+      "find": "/\\/ew system",
+      "with": "New system"
+    },
+    {
+      "find": "c/otzcf",
+      "with": "cloud"
+    },
+    {
+      "find": "/oca/",
+      "with": "local"
+    },
+    {
+      "find": "so/tzfions",
+      "with": "solutions"
+    },
+    {
+      "find": "maintenance.Determine",
+      "with": "maintenance. Determine"
+    },
+    {
+      "find": "to I/?e database",
+      "with": "to the database"
+    },
+    {
+      "find": "readings.Guide",
+      "with": "readings. Guide"
+    },
+    {
+      "find": "Entertainment,Productivity, Navigation,Finance,S hopping",
+      "with": "Entertainment, Productivity, Navigation, Finance, Shopping"
+    },
+    {
+      "find": "mostsuitable.They",
+      "with": "most suitable. They"
+    },
+    {
+      "find": "files and selling permissions",
+      "with": "files and setting permissions"
+    },
+    {
+      "find": "/I4afer/a/s:",
+      "with": "Materials:"
+    },
+    {
+      "find": "Saf'efy:",
+      "with": "Safety:"
+    },
+    {
+      "find": "water/eve/",
+      "with": "water level"
+    },
+    {
+      "find": "https:llwww.",
+      "with": "https://www."
+    },
+    {
+      "find": "Chickenltem",
+      "with": "ChickenItem"
+    },
+    {
+      "find": "Foodltem",
+      "with": "FoodItem"
+    },
+    {
+      "find": "Ev'ent",
+      "with": "Event"
+    },
+    {
+      "find": "Ev'en",
+      "with": "Even"
+    },
+    {
+      "find": "Conv'ersion",
+      "with": "Conversion"
+    },
+    {
+      "find": "is frzie",
+      "with": "is true"
+    },
+    {
+      "find": "C/ick",
+      "with": "Click"
+    },
+    {
+      "find": "Iibrary",
+      "with": "library"
+    },
+    {
+      "find": "explaintiming",
+      "with": "explain timing"
+    },
+    {
+      "find": "“viewer”or",
+      "with": "“viewer” or"
+    },
+    {
+      "find": "module).It",
+      "with": "module). It"
+    },
+    {
+      "find": "SECONDARY EDUCATION COMPUTER SCIENCE FORN 5",
+      "with": ""
+    },
+    {
+      "find": "LEATRENAECRH'SERB’OSOBKO-OOKR-DOINRADRINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "16 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "85 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "136 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "169 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "178 TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "TEACHER’S BOOK - ORDINARY LEVEL",
+      "with": ""
+    },
+    {
+      "find": "tc/",
+      "with": "(c) "
+    },
+    {
+      "find": "(+ and  - )",
+      "with": "(+ and −)"
+    },
+    {
+      "find": "symbols such as ) and ;",
+      "with": "symbols such as { } and ;"
+    },
+    {
+      "find": "lear ers",
+      "with": "learners"
+    },
+    {
+      "find": "‹› ",
+      "with": "(c) "
+    },
+    {
+      "find": "(C \\times 9/5)",
+      "with": "(C × 9/5)"
+    },
+    {
+      "find": "‹›",
+      "with": "(c)"
+    },
+    {
+      "find": "Analysis of u Javascript feature",
+      "with": "Analysis of a JavaScript Feature"
+    },
+    {
+      "find": "including its timing, output sequence and reset",
+      "with": "including its timing, output sequence and reset behaviour, and make necessary improvements.",
+      "_why": "source p36-37: the sentence runs on over the page",
+      "_restore": true
+    },
+    {
+      "find": "not the full order record To fix 2NF:",
+      "with": "not the full order record",
+      "_why": "source p115: 'To fix 2NF:' is a line of its own (put back below)",
+      "_restore": true
+    },
+    {
+      "find": "easily find them using their phones. A",
+      "with": "easily find them using their phones. A mobile app is a good solution because it provides instant updates, wide accessibility, and real-time communication between sellers and customers.",
+      "_why": "source pp154-155: the sentence ran over the page",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.1.2. ",
+      "with": "Sub-Topic 3.1.2: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.2.1. ",
+      "with": "Sub-Topic 3.2.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.6.1. ",
+      "with": "Sub-Topic 3.6.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.8.1. ",
+      "with": "Sub-Topic 3.8.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.12.1. ",
+      "with": "Sub-Topic 3.12.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.9.1 ",
+      "with": "Sub-Topic 3.9.1: ",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.10.1 ",
+      "with": "Sub-Topic 3.10.1: ",
+      "_restore": true
+    },
+    {
+      "find": "by the end Form 3 of the Ordinary Level",
+      "with": "by the end of Form 3 of the Ordinary Level"
+    },
+    {
+      "find": "unauthorized",
+      "with": "unauthorised",
+      "_why": "one spelling per word: the book uses -ise"
+    },
+    {
+      "find": "personalized",
+      "with": "personalised",
+      "_why": "one spelling per word: the book uses -ise"
+    },
+    {
+      "find": "normalization",
+      "with": "normalisation",
+      "_why": "one spelling per word: the book uses -ise"
+    },
+    {
+      "find": "Virtualization is",
+      "with": "Virtualisation is",
+      "_why": "one spelling per word: the book uses -ise"
+    },
+    {
+      "find": "performing calculations such",
+      "with": "performing calculations such as totals and averages, identifying key insights like maximum or minimum values, and displaying the results clearly alongside the original data.",
+      "_why": "source pp69-70: sentence ran over the page"
+    },
+    {
+      "find": "Ask learners Learners to work",
+      "with": "Ask learners to work",
+      "_why": "doubled word (source)"
+    },
+    {
+      "find": "O. Testing System",
+      "with": "D. Testing System",
+      "_why": "OCR: D read as O (source p160)"
+    }
+  ],
+  "remove": [
+    "J'?",
+    "{c} Conditional statement"
+  ],
+  "edit": [
+    {
+      "find": "Mobile presentation apps are helpful",
+      "with": "(c) Mobile presentation apps are helpful",
+      "_why": "source p16: (c) read as (^)",
+      "_restore": true
+    },
+    {
+      "find": "Alternative ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "Activity: ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "Debate ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "on ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "Consent ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "and Privacy",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": " Organise learners",
+      "with": "Organise learners",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    }
+  ],
+  "codeBlocks": [
+    {
+      "from": "print(“Welcome to the Reading",
+      "lead": "(a)",
+      "code": [
+        ">>> print(\"Welcome to the Reading Competition!\")",
+        "Welcome to the Reading Competition!"
+      ]
+    },
+    {
+      "from": ">>> score = 65",
+      "toExact": "Passed",
+      "lead": "(b)",
+      "code": [
+        ">>> score = 65",
+        ">>> if score >= 50:",
+        "...     print(\"Passed\")",
+        "...",
+        "Passed"
+      ]
+    },
+    {
+      "from": "(c) >>> score = 65",
+      "toExact": "Passed",
+      "lead": "(c)",
+      "code": [
+        ">>> score = 65",
+        ">>> if score >= 50:",
+        "...     print(\"Passed\")",
+        "... else:",
+        "...     print(\"Failed\")",
+        "...",
+        "Passed"
+      ]
+    },
+    {
+      "from": "Python Program Solution",
+      "to": "Total revenue for the day",
+      "lead": "(c) Python Program Solution",
+      "code": [
+        "# Tuck Shop Sales Calculator",
+        "",
+        "total_revenue = 0",
+        "",
+        "# Input first item details",
+        "item_name = input(\"Enter item name: \")",
+        "quantity = int(input(\"Enter quantity sold: \"))",
+        "price = float(input(\"Enter price per item: \"))",
+        "",
+        "# Calculate total for the item",
+        "item_total = quantity * price",
+        "total_revenue += item_total",
+        "",
+        "print(item_name, \"total sales:\", item_total)",
+        "",
+        "# Display final revenue",
+        "print(\"Total revenue for the day is:\", total_revenue)"
+      ]
+    },
+    {
+      "from": "Weekly airtime total",
+      "to": "Total airtime spent",
+      "lead": "**1. Weekly airtime total**",
+      "code": [
+        ">>> day1 = 5",
+        ">>> day2 = 3",
+        ">>> day3 = 4",
+        ">>> day4 = 2",
+        ">>> day5 = 6",
+        ">>> day6 = 3",
+        ">>> day7 = 5",
+        ">>>",
+        ">>> total = day1 + day2 + day3 + day4 + day5 + day6 + day7",
+        ">>> print(\"Total airtime spent:\", total)",
+        "Total airtime spent: 28"
+      ]
+    },
+    {
+      "from": "Pass or fail",
+      "to": "You have failed",
+      "lead": "**2. Pass or fail**",
+      "code": [
+        ">>> mark = 55",
+        ">>>",
+        ">>> if mark >= 50:",
+        "...     print(\"You have passed\")",
+        "... else:",
+        "...     print(\"You have failed\")",
+        "...",
+        "You have passed"
+      ]
+    },
+    {
+      "from": "Change calculation",
+      "to": "Change: 30",
+      "lead": "**3. Change calculation**",
+      "code": [
+        ">>> price = 120",
+        ">>> amount_paid = 150",
+        ">>>",
+        ">>> change = amount_paid - price",
+        ">>> print(\"Change:\", change)",
+        "Change: 30"
+      ]
+    },
+    {
+      "from": "Display name 10 times",
+      "to": "Person Name Person Name",
+      "lead": "**4. Display name 10 times**",
+      "code": [
+        ">>> for i in range(10):",
+        "...     print(\"Person Name\")",
+        "...",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name",
+        "Person Name"
+      ]
+    },
+    {
+      "from": "Counting learners until stop",
+      "to": "Total learners present: 3",
+      "lead": "**5. Counting learners until stop**",
+      "code": [
+        ">>> count = 0",
+        ">>>",
+        ">>> while True:",
+        "...     learner = input(\"Enter learner name (or type stop): \")",
+        "...     if learner == \"stop\":",
+        "...         break",
+        "...     count += 1",
+        "...",
+        "Enter learner name (or type stop): John",
+        "Enter learner name (or type stop): Mary",
+        "Enter learner name (or type stop): Peter",
+        "Enter learner name (or type stop): stop",
+        ">>>",
+        ">>> print(\"Total learners present:\", count)",
+        "Total learners present: 3"
+      ]
+    },
+    {
+      "from": "Traffic light simulation",
+      "toExact": "Go",
+      "lead": "**6. Traffic light simulation**",
+      "code": [
+        ">>> light = input(\"Enter light colour (red/yellow/green): \")",
+        "Enter light colour (red/yellow/green): green",
+        ">>>",
+        ">>> if light == \"red\":",
+        "...     print(\"Stop\")",
+        "... elif light == \"yellow\":",
+        "...     print(\"Get Ready\")",
+        "... elif light == \"green\":",
+        "...     print(\"Go\")",
+        "... else:",
+        "...     print(\"Invalid colour\")",
+        "...",
+        "Go"
+      ]
+    },
+    {
+      "from": "Celsius to Fahrenheit",
+      "to": "Temperature in Fahrenheit: 77",
+      "lead": "**7. Celsius to Fahrenheit**",
+      "code": [
+        ">>> celsius = 25",
+        ">>> fahrenheit = (celsius * 9/5) + 32",
+        ">>> print(\"Temperature in Fahrenheit:\", fahrenheit)",
+        "Temperature in Fahrenheit: 77.0"
+      ]
+    },
+    {
+      "from": "Pocket money savings",
+      "to": "Total savings: 350",
+      "lead": "**8. Pocket money savings**",
+      "code": [
+        ">>> savings = 0",
+        ">>>",
+        ">>> savings += 100",
+        ">>> savings += 50",
+        ">>> savings += 200",
+        ">>>",
+        ">>> print(\"Total savings:\", savings)",
+        "Total savings: 350"
+      ]
+    },
+    {
+      "from": "Library borrowing condition",
+      "to": "You cannot borrow",
+      "lead": "**9. Library borrowing condition**",
+      "code": [
+        ">>> has_overdue = False",
+        ">>> has_library_card = True",
+        ">>>",
+        ">>> if has_library_card and not has_overdue:",
+        "...     print(\"You can borrow books\")",
+        "... else:",
+        "...     print(\"You cannot borrow books\")",
+        "...",
+        "You can borrow books"
+      ]
+    },
+    {
+      "from": "Password checking loop",
+      "to": "Access granted",
+      "lead": "**10. Password checking loop**",
+      "code": [
+        ">>> correct_password = \"1234\"",
+        ">>> password = \"\"",
+        ">>>",
+        ">>> while password != correct_password:",
+        "...     password = input(\"Enter password: \")",
+        "...",
+        "Enter password: 1111",
+        "Enter password: 2222",
+        "Enter password: 1234",
+        ">>>",
+        ">>> print(\"Access granted\")",
+        "Access granted"
+      ]
+    },
+    {
+      "from": "function showMessage(category)",
+      "to": "Please select a valid category",
+      "lead": "(a) ***JavaScript function for displaying messages***",
+      "code": [
+        "function showMessage(category) {",
+        "  if (category === \"rights\") {",
+        "    document.getElementById(\"output\").innerText =",
+        "      \"Children have the right to education, \" +",
+        "      \"protection, and healthcare.\";",
+        "  }",
+        "  else if (category === \"responsibilities\") {",
+        "    document.getElementById(\"output\").innerText =",
+        "      \"Children have the responsibility to respect \" +",
+        "      \"others and follow rules.\";",
+        "  }",
+        "  else {",
+        "    document.getElementById(\"output\").innerText =",
+        "      \"Please select a valid category.\";",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "from": "showMessage(’rights’)",
+      "to": "<p id",
+      "lead": "(b) ***Event handling example (button click)***",
+      "code": [
+        "<button onclick=\"showMessage('rights')\">Show Rights</button>",
+        "<button onclick=\"showMessage('responsibilities')\">",
+        "  Show Responsibilities</button>",
+        "<p id=\"output\"></p>"
+      ]
+    },
+    {
+      "from": "let age = 15",
+      "to": "age-appropriate materials",
+      "lead": "(c) ***Conditional statement for age-appropriate content***",
+      "code": [
+        "let age = 15;",
+        "",
+        "if (age >= 18) {",
+        "  document.getElementById(\"access\").innerText =",
+        "    \"You can access all content on children's \" +",
+        "    \"rights and responsibilities.\";",
+        "}",
+        "else {",
+        "  document.getElementById(\"access\").innerText =",
+        "    \"Some content is restricted. \" +",
+        "    \"Please view age-appropriate materials.\";",
+        "}"
+      ]
+    },
+    {
+      "from": "<!DOCTYPE html>",
+      "to": "</html>",
+      "lead": "***Example of HTML Structure***",
+      "code": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "  <title>My Web Page</title>",
+        "</head>",
+        "<body>",
+        "  <h1>Welcome to My Website</h1>",
+        "  <p>This is a paragraph about web development.</p>",
+        "  <a href=\"#\">Click Here</a>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "from": "lightblue",
+      "to": "text-align: center",
+      "lead": "***Example of CSS***",
+      "code": [
+        "body {",
+        "  background-color: lightblue;",
+        "  font-family: Arial;",
+        "}",
+        "",
+        "h1 {",
+        "  color: darkblue;",
+        "  text-align: center;",
+        "}"
+      ]
+    },
+    {
+      "from": ">Click Me</button",
+      "to": "</scripts",
+      "after": [
+        {
+          "para": "***Explanation***"
+        }
+      ],
+      "lead": "***Example of JavaScript***",
+      "code": [
+        "<button onclick=\"showMessage()\">Click Me</button>",
+        "",
+        "<script>",
+        "function showMessage() {",
+        "  alert(\"Welcome to the website!\");",
+        "}",
+        "</script>"
+      ]
+    },
+    {
+      "from": "Submit Quiz</button",
+      "to": "Quiz Submitted",
+      "code": [
+        "<button id=\"submitQuiz\">Submit Quiz</button>",
+        "document.getElementById(\"submitQuiz\").onclick = function() {",
+        "  alert(\"Quiz Submitted!\");",
+        "}"
+      ]
+    },
+    {
+      "from": "class FoodItem",
+      "to": "Serving food",
+      "lead": "**Task 1: Create a Class**",
+      "code": [
+        "class FoodItem {",
+        "  constructor(name) {",
+        "    this.name = name;",
+        "  }",
+        "  serve() {",
+        "    console.log(\"Serving food\");",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "from": "const nshima",
+      "to": "chicken.serve()",
+      "lead": "**Task 2: Create Objects**",
+      "code": [
+        "const nshima = new FoodItem(\"Nshima\");",
+        "const chicken = new FoodItem(\"Chicken\");",
+        "",
+        "nshima.serve();",
+        "chicken.serve();"
+      ]
+    },
+    {
+      "from": "class Nshimaltem",
+      "to": "Serving Chicken with salad",
+      "lead": "**Task 3: Extend the Class**",
+      "code": [
+        "class NshimaItem extends FoodItem {",
+        "  serve() {",
+        "    console.log(\"Serving Nshima with relish\");",
+        "  }",
+        "}",
+        "",
+        "class ChickenItem extends FoodItem {",
+        "  serve() {",
+        "    console.log(\"Serving Chicken with salad\");",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "from": "const meall",
+      "to": "meal2.serve()",
+      "after": [
+        {
+          "head": "Creating Animations"
+        }
+      ],
+      "lead": "**Testing the Child Classes**",
+      "code": [
+        "const meal1 = new NshimaItem(\"Nshima\");",
+        "const meal2 = new ChickenItem(\"Chicken\");",
+        "",
+        "meal1.serve();",
+        "meal2.serve();"
+      ]
+    },
+    {
+      "from": "Hello, Robot",
+      "to": ">>> move_forward() Robot moving forward",
+      "code": [
+        ">>> print(\"Hello, Robot\")",
+        "Hello, Robot",
+        "",
+        ">>> speed = 10",
+        "",
+        ">>> def move_forward():",
+        "...     print(\"Robot moving forward\")",
+        "...",
+        "",
+        ">>> move_forward()",
+        "Robot moving forward"
+      ]
+    },
+    {
+      "from": "Robot is moving forward\")",
+      "to": ">>> move_forward() Robot is moving forward",
+      "code": [
+        ">>> def move_forward():",
+        "...     print(\"Robot is moving forward\")",
+        "...",
+        "",
+        ">>> move_forward()",
+        "Robot is moving forward"
+      ]
+    },
+    {
+      "from": "def move_forward():",
+      "to": "turn_left()",
+      "lead": "**Python Example**",
+      "code": [
+        "def move_forward():",
+        "    print(\"Robot is moving forward\")",
+        "",
+        "def stop():",
+        "    print(\"Robot has stopped\")",
+        "",
+        "def turn_left():",
+        "    print(\"Robot is turning left\")",
+        "",
+        "move_forward()",
+        "",
+        "if obstacle_detected():",
+        "    stop()",
+        "    turn_left()"
+      ]
+    },
+    {
+      "from": "#include <iostream>",
+      "to": "return 0;",
+      "lead": "**C++ Example**",
+      "code": [
+        "#include <iostream>",
+        "using namespace std;",
+        "",
+        "void moveForward() {",
+        "    cout << \"Robot moving forward\" << endl;",
+        "}",
+        "",
+        "bool obstacleDetected() {",
+        "    return true;",
+        "}",
+        "",
+        "void stop() {",
+        "    cout << \"Robot stopped\" << endl;",
+        "}",
+        "",
+        "void turnLeft() {",
+        "    cout << \"Robot turning left\" << endl;",
+        "}",
+        "",
+        "int main() {",
+        "    moveForward();",
+        "",
+        "    if (obstacleDetected()) {",
+        "        stop();",
+        "        turnLeft();",
+        "    }",
+        "",
+        "    return 0;",
+        "}"
+      ]
+    },
+    {
+      "from": "# Read sensor data",
+      "to": "Water level low",
+      "lead": "**Python Example**",
+      "code": [
+        "# Read sensor data",
+        "water_level = read_sensor()",
+        "",
+        "# Send alert if water level is low",
+        "if water_level < 20:",
+        "    send_message(\"Water level low\")"
+      ]
+    },
+    {
+      "from": "// Read sensor data",
+      "to": "Water level low",
+      "lead": "***C++ Example***",
+      "code": [
+        "// Read sensor data",
+        "int waterLevel = readSensor();",
+        "",
+        "// Send alert if water is low",
+        "if (waterLevel < 20) {",
+        "    sendMessage(\"Water level low\");",
+        "}"
+      ]
+    }
+  ],
+  "keepAnswerLabel": true,
+  "replaceBlocks": [
+    {
+      "find": "ACRONYMS",
+      "with": [
+        {
+          "head": "ACRONYMS"
+        }
+      ],
+      "_why": "came in as a plain line; a heading so replaceSection finds it"
+    },
+    {
+      "find": "Event handling example (button click)",
+      "with": [],
+      "_why": "the code listing below carries this line as its lead"
+    },
+    {
+      "find": "Example of HTML Structure",
+      "with": [],
+      "_why": "the code listing below carries this line as its lead"
+    },
+    {
+      "find": "Truth table for Q = (NOT A) AND B A = 0, B = 0 → Q = 0",
+      "with": [
+        {
+          "para": "*Truth table for Q = (NOT A) AND B*"
+        },
+        {
+          "para": "*A = 0, B = 0 → Q = 0*"
+        }
+      ],
+      "_why": "conversion ran the first row on to the table's title (source p20)"
+    },
+    {
+      "find": "L=P (W+M)",
+      "with": [
+        {
+          "para": "*L = P·(W + M)*"
+        }
+      ],
+      "_why": "source p21: L=P·(W+M); the conversion lost the AND dot"
+    },
+    {
+      "find": "A = 1, B = 0 - Q = 0",
+      "with": [
+        {
+          "para": "*A = 1, B = 0 → Q = 0*"
+        }
+      ],
+      "_why": "source p20: the conversion lost the arrow"
+    },
+    {
+      "find": "Logic diagram: B + I ORX, X- P ANDY, E NOTZ, Y- Z ANDG, GGreen LED, GRed LED.",
+      "with": [
+        {
+          "listitem": "*Logic diagram: B + I → OR → X; X · P → AND → Y; E → NOT → Z; Y · Z → AND → G; G → Green LED, NOT G → Red LED.*",
+          "marker": "5."
+        }
+      ],
+      "_why": "source p26: the conversion dropped the arrows"
+    },
+    {
+      "find": "Step 1: Open the computer and launch presentation software (e.g. PowerPoint). Step 2: Click New and select a blank presentation or a template.",
+      "with": [
+        {
+          "head": "END OF TOPIC ASSESSMENT"
+        },
+        {
+          "para": "**Suggested Responses**"
+        },
+        {
+          "para": "Your school is organising a Community Information Day. Learners are asked to work in groups to prepare digital presentations and posters to teach the community about health, farming, tourism, and environmental care."
+        },
+        {
+          "listitem": "**Expected Responses** (Any relevant features.) Learners may mention any of the following features with explanation: **Title bar:** shows the name of the presentation file. **Toolbar/Ribbon:** contains tools for inserting text, images, charts and formatting. **Slide pane/Thumbnail pane:** shows all slides in the presentation. **Canvas/Slide area:** the main working area for designing slides. **Status bar:** displays slide number and view options. **Ruler:** helps align text and images. **Scroll bars:** move up and down slides. **Zoom tools:** increase or reduce the view size.",
+          "marker": "1."
+        },
+        {
+          "listitem": "Productivity tools allow the use of **pictures, videos, charts and text**, which make information clearer than chalk writing. They help presenters communicate to **large audiences** easily. Information can be **saved, reused and shared**. They look **professional and attractive**, keeping the audience interested. They save time compared to rewriting on a board.",
+          "marker": "2."
+        },
+        {
+          "listitem": "A good response should include steps such as:",
+          "marker": "3."
+        },
+        {
+          "para": "Step 1: Open the computer and launch presentation software (e.g. PowerPoint)."
+        },
+        {
+          "para": "Step 2: Click New and select a blank presentation or a template."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step 3: Choose a suitable theme. Step 4: Insert five slides.",
+      "with": [
+        {
+          "para": "Step 3: Choose a suitable theme."
+        },
+        {
+          "para": "Step 4: Insert five slides."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step 5: Type titles and short bullet points on each slide. Step 6: Insert relevant pictures or charts.",
+      "with": [
+        {
+          "para": "Step 5: Type titles and short bullet points on each slide."
+        },
+        {
+          "para": "Step 6: Insert relevant pictures or charts."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step 7: Apply simple formatting (font size, colour, alignment). Step 8: Arrange slides in logical order.",
+      "with": [
+        {
+          "para": "Step 7: Apply simple formatting (font size, colour, alignment)."
+        },
+        {
+          "para": "Step 8: Arrange slides in logical order."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step10: Click File→ Save As, give a name and choose location.",
+      "with": [
+        {
+          "para": "Step 10: Click File → Save As, give a name and choose location."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "behaviour, and make necessary improvements.",
+      "with": [],
+      "_why": "its line, joined to the sentence above",
+      "_restore": true
+    },
+    {
+      "find": "Boolean expression for gate opening: G = P (B + I) E.",
+      "with": [
+        {
+          "listitem": "*Boolean expression for gate opening: G = P · (B + I) · ¬E.*",
+          "marker": "3."
+        }
+      ],
+      "_why": "source p38: the conversion lost the AND dots and the NOT",
+      "_restore": true
+    },
+    {
+      "find": "Customers Table Books Table Orders Table",
+      "span": 4,
+      "_why": "source p115",
+      "with": [
+        {
+          "para": "***Customers Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "CustomerID",
+                  "imgs": []
+                },
+                {
+                  "text": "CustomerName",
+                  "imgs": []
+                },
+                {
+                  "text": "CustomerPhone",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "***Books Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "BookID",
+                  "imgs": []
+                },
+                {
+                  "text": "BookTitle",
+                  "imgs": []
+                },
+                {
+                  "text": "AuthorName",
+                  "imgs": []
+                },
+                {
+                  "text": "Price",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "***Orders Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "OrderID",
+                  "imgs": []
+                },
+                {
+                  "text": "CustomerID",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Orders Table OrderDetails Table",
+      "span": 3,
+      "_why": "source p115",
+      "with": [
+        {
+          "para": "***Orders Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "OrderID",
+                  "imgs": []
+                },
+                {
+                  "text": "CustomerID",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "***OrderDetails Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "OrderID",
+                  "imgs": []
+                },
+                {
+                  "text": "BookID",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Suggested Answers Homework reminder app",
+      "_why": "source p155",
+      "with": [
+        {
+          "head": "CROSS-CUTTING ISSUES"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "noHeader": true,
+            "rows": [
+              [
+                {
+                  "text": "Life Skills and Health Education (LSHE)",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Life Skills and Health Education (LSHE)",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "Apps can support learning, personal development, and access to health information.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Social and Emotional Learning",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Social and Emotional Learning",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "Applications can help develop communication, collaboration, and emotional wellbeing skills.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Entrepreneurship Education",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Entrepreneurship Education",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "Mobile applications provide opportunities to create innovative solutions and start new businesses.",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "Financial Education",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Financial Education",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "Mobile apps enable financial management, online banking, and digital transactions, improving financial literacy.",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "head": "END OF TOPIC ASSESSMENT"
+        },
+        {
+          "para": "**Suggested Answers**"
+        },
+        {
+          "para": "**Homework reminder app**"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Clinic appointment app type",
+      "with": [
+        {
+          "para": "**Clinic appointment app type**"
+        }
+      ],
+      "_why": "source p155: answer titles, inside the assessment",
+      "_restore": true
+    },
+    {
+      "find": "Online crafts business app features",
+      "with": [
+        {
+          "para": "**Online crafts business app features**"
+        }
+      ],
+      "_why": "source p155: answer titles, inside the assessment",
+      "_restore": true
+    },
+    {
+      "find": "Sports updates app engagement",
+      "with": [
+        {
+          "para": "**Sports updates app engagement**"
+        }
+      ],
+      "_why": "source p155: answer titles, inside the assessment",
+      "_restore": true
+    },
+    {
+      "find": "Educational app for children",
+      "with": [
+        {
+          "para": "**Educational app for children**"
+        }
+      ],
+      "_why": "source p155: answer titles, inside the assessment",
+      "_restore": true
+    },
+    {
+      "find": "TOPIC 1: PRODUCTIVITY TOOLS:",
+      "with": [
+        {
+          "h1": "TOPIC 3.1: PRODUCTIVITY TOOLS: PRESENTATION"
+        }
+      ],
+      "_why": "numbering: every other topic is 3.n (LB: TOPIC 3.1)",
+      "_restore": true
+    },
+    {
+      "find": "PRESENTATION",
+      "with": [],
+      "_why": "the second line of the topic title, now in it",
+      "_restore": true
+    },
+    {
+      "find": "TOPIC 3.8: ARTIFICIAL INTELLIGIENCE",
+      "with": [
+        {
+          "h1": "TOPIC 3.8: ARTIFICIAL INTELLIGENCE"
+        }
+      ],
+      "_why": "typo INTELLIGIENCE (source)",
+      "_restore": true
+    },
+    {
+      "find": "3.4.1. Data Protection and Privacy",
+      "with": [
+        {
+          "head": "Sub-Topic 3.4.1: Data Protection and Privacy"
+        }
+      ],
+      "_why": "the only sub-topic without the word Sub-Topic",
+      "_restore": true
+    },
+    {
+      "find": "(^)",
+      "with": [],
+      "_why": "conversion scrap",
+      "_restore": true
+    },
+    {
+      "find": "Divide learners into small groups and provide printed screenshots or diagrams of a publishing software interface. Ask learners to label features such as the title bar, ruler, status bar, scroll bars, and zoom tools, and explain their",
+      "with": [
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Divide learners into small groups and provide printed screenshots or diagrams of a publishing software interface. Ask learners to label features such as the title bar, ruler, status bar, scroll bars, and zoom tools, and explain their purposes. Groups then create a simple paper brochure on mental health education and present their work to the class.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Expected Responses: ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "Learners label interface features, explain their purposes, and create a simple paper brochure showing organised information and simulated software features.",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "source pp23-24: doubled 'Alternative Activity'; the PDF drops a line between the pages ('explain their / education and present…') - sentence rebuilt from the activity's own Expected Responses (FLAGGED); Expected Responses lost in the conversion",
+      "_restore": true,
+      "back": 1
+    },
+    {
+      "find": "Microsoft Publisher.",
+      "span": 2,
+      "with": [
+        {
+          "listitem": "*Microsoft Publisher, Canva, Adobe InDesign.*",
+          "marker": "(a)"
+        }
+      ],
+      "_why": "source p24: '(a) 1. Microsoft Publisher. 2. Canva. Adobe InDesign.' - the (a) was lost, so (b)/(c) came out as (a)/(b)",
+      "_restore": true
+    },
+    {
+      "find": "Online tools require internet. Offline tools work without internet.",
+      "with": [
+        {
+          "listitem": "*Online tools require internet. Offline tools work without internet.*",
+          "marker": "(b)"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Ease of use, Availability of templates, Internet access.",
+      "with": [
+        {
+          "listitem": "*Ease of use, availability of templates, Internet access.*",
+          "marker": "(c)"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "find": "Step 3: Create a New Database (New System Simulation) Step 4: Migrate Data",
+      "span": 3,
+      "_why": "source pp109-110: intro and Steps 1-2 lost in the conversion; one step per line as in the source",
+      "_restore": true,
+      "with": [
+        {
+          "para": "In this practical lesson, guide learners to explore database upgrading and migration to improve performance and ensure secure data transfer. Learners should complete both the conceptual and practical activities by following these steps:"
+        },
+        {
+          "listitem": "Create a Simple Database (Old System Simulation)",
+          "marker": "Step 1:"
+        },
+        {
+          "listitem": "Export Data (Migration Preparation)",
+          "marker": "Step 2:"
+        },
+        {
+          "listitem": "Create a New Database (New System Simulation)",
+          "marker": "Step 3:"
+        },
+        {
+          "listitem": "Migrate Data",
+          "marker": "Step 4:"
+        },
+        {
+          "listitem": "Verify Migration",
+          "marker": "Step 5:"
+        },
+        {
+          "listitem": "Discussion and Reflection",
+          "marker": "Step 6:"
+        }
+      ]
+    },
+    {
+      "find": "Learners identify data repetition and dependencies, correctly apply 1NF, 2NF and 3NF, and produce a normalised database structure showing PKs, FKs and relationships. They explain how normalisation improves data accuracy, consistency, organisation and database integrity.",
+      "span": 2,
+      "_why": "source p114: EXERCISE 5 and answer (a) 1NF lost in the conversion; its example table came in as pictures (empty cells)",
+      "_restore": true,
+      "with": [
+        {
+          "para": "Learners identify data repetition and dependencies, correctly apply 1NF, 2NF and 3NF, and produce a normalised database structure showing PKs, FKs and relationships. They explain how normalisation improves data accuracy, consistency, organisation and database integrity."
+        },
+        {
+          "label": "EXERCISE 5"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "***First Normal Form (1NF)***",
+          "marker": "(a)"
+        },
+        {
+          "para": "*The table does not follow* ***1NF*** *because it contains repeated and non-atomic data (for example, multiple books may appear in one order, and customer details are repeated for every order). This leads to redundancy and update problems.*"
+        },
+        {
+          "para": "***Problems caused:***"
+        },
+        {
+          "listitem": "*Data duplication (same customer and book details repeated)*"
+        },
+        {
+          "listitem": "*Difficult updates (changing a phone number requires many updates)*"
+        },
+        {
+          "listitem": "*Inconsistent data (different values for the same customer or book)*"
+        },
+        {
+          "para": "***To fix 1NF:***"
+        },
+        {
+          "para": "*Each field should contain only single (atomic) values, and each record should represent one item per order.*"
+        },
+        {
+          "para": "***Example (1NF structure):***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "Order ID",
+                  "imgs": []
+                },
+                {
+                  "text": "Customer Name",
+                  "imgs": []
+                },
+                {
+                  "text": "Customer Phone",
+                  "imgs": []
+                },
+                {
+                  "text": "Book Title",
+                  "imgs": []
+                },
+                {
+                  "text": "Author Name",
+                  "imgs": []
+                },
+                {
+                  "text": "Price",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "001",
+                  "imgs": []
+                },
+                {
+                  "text": "John Banda",
+                  "imgs": []
+                },
+                {
+                  "text": "0977000001",
+                  "imgs": []
+                },
+                {
+                  "text": "Java Basics",
+                  "imgs": []
+                },
+                {
+                  "text": "Mark Lee",
+                  "imgs": []
+                },
+                {
+                  "text": "120",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "001",
+                  "imgs": []
+                },
+                {
+                  "text": "John Banda",
+                  "imgs": []
+                },
+                {
+                  "text": "0977000001",
+                  "imgs": []
+                },
+                {
+                  "text": "HTML Guide",
+                  "imgs": []
+                },
+                {
+                  "text": "Sara Kim",
+                  "imgs": []
+                },
+                {
+                  "text": "100",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Second Normal Form (2NF)",
+      "with": [
+        {
+          "listitem": "***Second Normal Form (2NF)***",
+          "marker": "(b)"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "Third Normal Form (3NF)",
+      "with": [
+        {
+          "listitem": "***Third Normal Form (3NF)***",
+          "marker": "(c)"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "OrderDetails Table",
+      "with": [
+        {
+          "para": "***OrderDetails Table***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "To fix 3NF:",
+      "with": [
+        {
+          "para": "***To fix 3NF:***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "Final 3NF Structure:",
+      "span": 2,
+      "with": [
+        {
+          "para": "***Final 3NF Structure:***"
+        },
+        {
+          "para": "***Customers Table***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "Authors Table",
+      "with": [
+        {
+          "para": "***Authors Table***"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "AuthorID",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "AuthorID",
+                      "b": false,
+                      "it": true,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "AuthorName",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "AuthorName",
+                      "b": false,
+                      "it": true,
+                      "c": null
+                    }
+                  ]
+                }
+              ]
+            ],
+            "noHeader": true
+          }
+        },
+        {
+          "para": "***Books Table***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source",
+      "span": 3
+    },
+    {
+      "find": "Summary",
+      "with": [
+        {
+          "para": "***Summary***"
+        }
+      ],
+      "_why": "Exercise 5 answer: sub-heads bold like (a) and the source"
+    },
+    {
+      "find": "Misheck Mutuzana holds an MSc in Education (Instructional Technology) and a BSc in Computing with Education from the University of Zambia. He is pursuing a PhD in Computer Science at Atlantic International University, USA. He is a Microsoft Innovative Educator Expert, Fulbright Scholar and Chief Examiner for Computer Studies with extensive teaching experience in Zambia",
+      "with": [],
+      "_why": "user 17 Nov: match the LB - CDC removed Mutuzana as author (kept as illustrator on the imprint)"
+    },
+    {
+      "find": "JavaScript function for displaying messages",
+      "with": [],
+      "_why": "source p95: the garbled original line; the code block below carries it as its lead"
+    },
+    {
+      "find": "Hyperlinks to websites or other slides. Videos or audio. Navigation buttons.",
+      "span": 7,
+      "_why": "source p10: (a) carried two numbered answers and (b) repeated the second; set as the LB questions (a) features, (b) testing hyperlinks, (c) videos/navigation buttons",
+      "with": [
+        {
+          "listitem": "*Hyperlinks to websites or other slides; videos or audio; navigation buttons.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*Testing hyperlinks before presenting is important to ensure they work correctly, avoid embarrassment during the presentation, and maintain a smooth flow of information.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*Videos show real examples and explain ideas clearly. Navigation buttons guide the audience through slides easily. They keep the audience engaged and focused.*",
+          "marker": "(c)"
+        }
+      ],
+      "back": 1
+    },
+    {
+      "find": "LEARNING ACTIVITY 10: Design and laying-out canvas or pages Organise learners into small groups in a computer laboratory and ask them to use publishing software such as Microsoft Publisher, Canva, or Scribus to",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 3: Design and laying-out canvas or pages",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Organise learners into small groups in a computer laboratory and ask them to use publishing software such as Microsoft Publisher, Canva, or Scribus to create a digital flyer for a Market Day event. Emphasise clear fonts, neat layout, suitable colours, and proper arrangement of text and images. Learners save, present, and record observations and challenges in their notebooks.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners create and present a clear and neatly arranged Market Day flyer while recording observations and challenges.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "the conversion ran the first line of the activity text into its title (source); numbering: the manuscript continues 3.1.1 (8, 9, 10, then 4); the LB numbers Sub-Topic 3.1.2 activities 1-4"
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Monitoring and maintaining models The teacher should organise learners in groups to select a simple AI or",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 4: Monitoring and maintaining models",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "The teacher should organise learners in groups to select a simple AI or computer model used in everyday life. Ask learners to explain its purpose, ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "users, monitoring methods, and ways it can be improved or updated when errors occur. Groups then present how the model is monitored and maintained and its importance in daily life.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "computer model used in everyday life. Ask learners to explain its purpose,",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners identify a simple AI or computer model, explain its purpose and users, describe how it is monitored for errors, and suggest ways it can be improved or updated.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Expected Responses: Learners identify a simple AI or computer model, explain its purpose and users, describe how it is monitored for errors, and suggest ways it can be improved or updated.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "the conversion ran the first line of the activity text into its title (source)"
+    },
+    {
+      "find": "LEARNING ACTIVITY 8: Discussing and identifying different types of publishing software",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 1: Discussing and identifying different types of publishing software",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Divide learners into small groups to explore publishing software such as Microsoft Publisher, Canva, Adobe InDesign, and Scribus. Ask each group to identify the main purpose, key features, and platforms used by each software.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Divide learners into small groups to explore publishing software such as Microsoft Publisher, Canva, Adobe InDesign, and Scribus. Ask each group to identify the main purpose, key features, and platforms used by each software.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Responses: ",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners identify and discuss the purpose, features, and platforms of different publishing software",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Expected Responses: Learners identify and discuss the purpose, features, and platforms of different publishing software",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "numbering: the manuscript continues 3.1.1 (8, 9, 10, then 4); the LB numbers Sub-Topic 3.1.2 activities 1-4"
+    },
+    {
+      "find": "LEARNING ACTIVITY 9: Exploring the interface for publishing software",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 2: Exploring the interface for publishing software",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Organise learners into small groups in a computer laboratory and provide access to publishing software such as Microsoft Publisher, Canva, Adobe InDesign, or Scribus. Ask learners to explore the interface, identify features such as the title bar, ruler, status bar, scroll bars, and zoom tools, and use them to design a simple brochure on mental health education. Groups present their brochures and discuss challenges and improvements.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Organise learners into small groups in a computer laboratory and provide access to publishing software such as Microsoft Publisher, Canva, Adobe InDesign, or Scribus. Ask learners to explore the interface, identify features such as the title bar, ruler, status bar, scroll bars, and zoom tools, and use them to design a simple brochure on mental health education. Groups present their brochures and discuss challenges and improvements."
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected ",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  },
+                  {
+                    "t": "Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners identify interface features, create a simple brochure, and explain the tools they used",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Expected Responses: Learners identify interface features, create a simple brochure, and explain the tools they used",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "numbering: the manuscript continues 3.1.1 (8, 9, 10, then 4); the LB numbers Sub-Topic 3.1.2 activities 1-4"
+    },
+    {
+      "find": "Desktop AI model in schools",
+      "back": 2,
+      "with": [
+        {
+          "label": "EXERCISE 3"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Possible Answers",
+                "b": true,
+                "it": false,
+                "c": null
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "listitem",
+            "segs": [
+              {
+                "t": "Desktop ",
+                "b": true,
+                "it": false,
+                "c": null
+              },
+              {
+                "t": "AI ",
+                "b": true,
+                "it": true,
+                "c": null
+              },
+              {
+                "t": "model in schools",
+                "b": false,
+                "it": true,
+                "c": null
+              }
+            ],
+            "marker": "(a)",
+            "numId": "76",
+            "lvl": 0
+          }
+        }
+      ],
+      "_why": "numbering: the manuscript has EXERCISE 4 twice; this one answers the LB Exercise 3 (deployment models)"
+    },
+    {
+      "find": "Guide learners to use a DBMS such as MySQL, Microsoft Access, or Oracle Organise learners in pairs or in small groups to create a simple school database with sample data, running simple queries, and setting basic permissions where possible. Encourage groups to",
+      "back": 2,
+      "with": [
+        {
+          "para": "*Guide learners to use a DBMS such as MySQL, Microsoft Access, or Oracle Database. Organise learners in pairs or in small groups to create a simple school database with tables for learner information. Assist learners in entering sample data, running simple queries, and setting basic permissions where possible. Encourage groups to*"
+        }
+      ],
+      "_why": "source p105: title repeated in the box; \"Database.\" and a whole line lost in the conversion"
+    },
+    {
+      "find": "Key Components of Database Management",
+      "with": [
+        {
+          "head": "Key Components of Database Management"
+        }
+      ],
+      "_why": "source p105: a sub-heading the conversion half-bolded"
+    },
+    {
+      "findTable": "as totals and averages, identifying key insights",
+      "_why": "source p69-70: the sentence end and the Alternative Activity came in as a two-row table",
+      "with": [
+        {
+          "raw": {
+            "t": "box",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Alternative Activity: Working with Data Manually",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Learners work in small groups using a paper-based dataset (e.g. marks, sales or survey results). They organise the data in a table, then calculate totals, averages, and identify the highest and lowest values. Finally, they present their findings in a clear table or chart and discuss any patterns observed.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Well-organised data, correct calculations, identification of key values, and clear presentation of results.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "LEANING ACTIVITY 3: Deployment Models",
+      "parent": true,
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 3: Deployment models",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Organise learners in groups to identify a simple problem in the school or community that can be solved using a computer or AI model. Learners decide how the model will be used, its users, and application area. They draw a simple input - process - output diagram and explain the model's usefulness. Groups then present their work to the class.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "The teacher organise learners in groups to identify a simple problem in the school or community that can be solved using a computer or AI model. Learners decide how the model will be used, its users, and application area. They draw a simple input - process - output diagram and explain the model's usefulness. Groups then present their work to the class.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners identify a simple problem and suggest a suitable AI or computer model to solve it. They show how it works using an input - process - output diagram and explain its users and application area. Learners also state how the model improves efficiency or solves the problem.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ],
+                "plain": "Expected Responses: Learners identify a simple problem and suggest a suitable AI or computer model to solve it. They show how it works using an input - process - output diagram and explain its users and application area. Learners also state how the model improves efficiency or solves the problem.",
+                "isList": false,
+                "numId": null,
+                "lvl": null,
+                "marker": null,
+                "heading": false
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "source p114: LEANING typo; set as a plain box, not an activity; \"The teacher organise learners\" -> \"Organise learners\" (as the other activities)"
+    },
+    {
+      "find": "In groups, design a simple model of a robot power system showing energy flow from battery to motor through a switch. Label all parts.",
+      "back": 1,
+      "span": 11,
+      "with": [
+        {
+          "raw": {
+            "t": "box",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Alternative Activity",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Learners explore how electrical energy powers a simple robot by building a basic power supply model using simple materials.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Materials: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "AA batteries, battery holder, switch, wires/foil strips, small DC motor or fan, cardboard frame, tape, glue, and scissors.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Safety: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Avoid short circuits, handle batteries carefully, do not connect terminals directly, and work under teacher supervision.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners build a simple circuit, show energy flow, and demonstrate motor ON/OFF safely.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Task",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "In groups, design a simple model of a robot power system showing energy flow from battery to motor through a switch. Label all parts.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Procedure",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Design a layout, connect a simple circuit, test the switch, observe motor response, and disconnect safely.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Observation Activity: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Describe energy flow, explain ON/OFF switch effects, and relate the model to real robots.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Group Discussion: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Discuss energy storage and transfer, possible power problems, ways to improve efficiency and safety, and real-life robot examples.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners build a simple circuit, show energy flow, and explain motor ON/OFF operation.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "_why": "source p162: the Alternative Activity (intro, materials, safety, task, procedure) came in out of order and unboxed"
+    },
+    {
+      "find": "Correct positioning of motors and gears ensures smooth and efficient robot movement.",
+      "span": 5,
+      "_why": "source p160: EXERCISE 2 unstyled; four answers a-d mis-split (b ran on into c)",
+      "with": [
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*Correct positioning of motors and gears ensures smooth and efficient robot movement.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*When motors are firmly fixed and gears are properly aligned, power is transferred effectively, reducing energy loss and improving control, speed, and accuracy of the robot.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*If gears are not properly aligned, the robot may produce noise, experience friction, slipping, or jerky movement. This can cause overheating of the motor, reduced efficiency, poor speed control, and in some cases complete failure of movement.*",
+          "marker": "(c)"
+        },
+        {
+          "listitem": "*To verify correct installation, first check that the motor is firmly secured on the chassis. Then manually rotate the gears to ensure smooth meshing. Next, connect power and test movement at low speed. Finally, observe for smooth rotation, no noise or slipping, and make adjustments if any issues are detected.*",
+          "marker": "(d)"
+        }
+      ],
+      "back": 2
+    }
+  ],
+  "mergePara": [
+    {
+      "find": "and outputs 1 if",
+      "_why": "source p20: one sentence the conversion broke in two"
+    },
+    {
+      "find": "support understanding. The audience",
+      "_why": "source p17: one sentence broken over the page",
+      "_restore": true
+    },
+    {
+      "find": "Test the circuit in a simulator like CircuitVerse or Digital Works by building it",
+      "_why": "source p40: one answer broken in two",
+      "_restore": true
+    },
+    {
+      "find": "where possible. Encourage groups to",
+      "_why": "source pp105-106: one sentence broken over the page"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "The Boolean expression for the lighting system is:",
+      "marker": "(a)"
+    },
+    {
+      "find": "Logic gates needed:",
+      "marker": "(b)"
+    },
+    {
+      "find": "Truth Table",
+      "marker": "(c)",
+      "near": "Logic gates needed:"
+    },
+    {
+      "find": "How HTML and CSS Contribute to the Web Page",
+      "marker": "(a)",
+      "depth": 0
+    },
+    {
+      "find": "Analysis of a",
+      "marker": "(b)",
+      "depth": 0
+    },
+    {
+      "find": "Identifying and Fixing a JavaScript Error",
+      "marker": "(c)",
+      "depth": 0
+    }
+  ],
+  "tables": [
+    {
+      "match": "basic and advanced troubleshooting",
+      "_kc": true,
+      "_why": "key competences: the PDF's line breaks inside cells, half-bold names, split over two tables",
+      "columns": [
+        "COMPETENCE",
+        "DESCRIPTOR"
+      ],
+      "rows": [
+        [
+          "Technical Proficiency",
+          "Comprehensive understanding of computer components and their functions, and ability to perform basic and advanced troubleshooting and maintenance."
+        ],
+        [
+          "Programming Skills",
+          "Proficiency in writing, debugging, and optimising programs using various programming languages, including Scratch, Python, and JavaScript, with an understanding of object-oriented programming concepts."
+        ],
+        [
+          "Data Structure Skills",
+          "Ability to create, manipulate, and apply basic and advanced data structures, such as arrays, linked lists, stacks, queues, dictionaries, sets, and trees, in problem-solving."
+        ],
+        [
+          "Algorithmic Thinking",
+          "Competence in designing, implementing, and analysing both basic and advanced algorithms, including sorting, searching, recursion, and dynamic programming, with a focus on optimisation and complexity analysis."
+        ],
+        [
+          "Web Development Skills",
+          "Proficiency in designing and developing web pages using HTML, CSS, and JavaScript, including the ability to create responsive designs and interactive web elements."
+        ],
+        [
+          "Database Management Skills",
+          "Comprehensive understanding of database concepts, ability to perform basic and advanced SQL queries, design and normalise database schemas, and develop database-driven applications."
+        ],
+        [
+          "Networking Knowledge",
+          "Knowledge of basic and advanced networking concepts, components, protocols, and configurations, with the ability to set up, manage, and troubleshoot computer networks."
+        ],
+        [
+          "Cybersecurity Awareness",
+          "Understanding of fundamental and advanced cybersecurity principles, ability to identify and mitigate various cyber threats, implement network security measures, and apply cybersecurity frameworks."
+        ],
+        [
+          "Digital Citizenship",
+          "Awareness of ethical and responsible use of technology, understanding of digital footprints and online privacy management, and promotion of safe and responsible digital behaviour."
+        ],
+        [
+          "Application Software Skills",
+          "Proficiency in using word processing and spreadsheet software for various tasks, including creating and formatting documents, using advanced spreadsheet functions, and developing database-driven applications."
+        ],
+        [
+          "Critical Thinking and Problem-Solving",
+          "Enhanced problem-solving skills through algorithmic thinking, data structure manipulation, and practical application of programming concepts to solve complex problems."
+        ],
+        [
+          "Collaboration and Communication",
+          "Improved teamwork and communication skills through collaborative projects, peer reviews, and presentations, fostering an environment of cooperative learning and knowledge sharing."
+        ],
+        [
+          "Ethical and Societal Awareness",
+          "Awareness of the ethical implications of technology use and its societal impact, promoting the responsible and informed use of ICT."
+        ]
+      ]
+    },
+    {
+      "match": "\"text\":\"L\"",
+      "_why": "source p21 truth table: the conversion lost the W and M headings and the first row",
+      "columns": [
+        "P",
+        "W",
+        "M",
+        "L"
+      ],
+      "rows": [
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "1",
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "1",
+          "0",
+          "1",
+          "1"
+        ],
+        [
+          "1",
+          "1",
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "emptyAfter": "Learners design and simulate a functional sequential circuit",
+      "drop": true,
+      "_why": "the empty grid the conversion left of Exercise 5's truth table (put back above)",
+      "_restore": true
+    },
+    {
+      "emptyAfter": "The main problem is that buyers do not know",
+      "drop": true,
+      "_why": "empty grid (put back below with its text)",
+      "_restore": true
+    },
+    {
+      "match": "CustomerID",
+      "noHeader": true,
+      "all": true,
+      "_why": "Exercise 5 (source pp115-116): one-row field lists, plain boxes in the source"
+    },
+    {
+      "match": "BookID",
+      "noHeader": true,
+      "all": true,
+      "_why": "Exercise 5 (source pp115-116): one-row field lists, plain boxes in the source"
+    },
+    {
+      "match": "OrderID",
+      "noHeader": true,
+      "all": true,
+      "_why": "Exercise 5 (source pp115-116): one-row field lists, plain boxes in the source"
+    },
+    {
+      "match": "AuthorID",
+      "noHeader": true,
+      "all": true,
+      "_why": "Exercise 5 (source pp115-116): one-row field lists, plain boxes in the source"
+    }
+  ],
+  "tableToBox": [
+    {
+      "findTable": "Facilitate learners to work individually, in pairs or in groups.",
+      "title": "LEARNING ACTIVITY 5: Designing sequential circuits for time-dependent applications",
+      "_restore": true
+    },
+    {
+      "findTable": "present their databases and explain how tables, queries, and permissions",
+      "into": "prev",
+      "_why": "source p105: LA1's last lines and its alternative, drawn as a grey table",
+      "_restore": true
+    },
+    {
+      "findTable": "Ask learners to study the scenario provided in the Learner’s Book.",
+      "title": "LEARNING ACTIVITY 3: Upgrading and migrating a database to a newer version or platform",
+      "_why": "source p108 (title reads 'mitigating', a slip for 'migrating')",
+      "_restore": true
+    },
+    {
+      "findTable": "Learners work individually or in pairs or in small groups using DBMS",
+      "title": "LEARNING ACTIVITY 4: Identifying and resolving database querying issues",
+      "_why": "source p112",
+      "_restore": true
+    },
+    {
+      "findTable": "Facilitate learners to work individually, in pairs or in small groups and select",
+      "title": "LEARNING ACTIVITY 1: Exploring a mobile application and explaining its use in daily life",
+      "_why": "source p142",
+      "_restore": true
+    },
+    {
+      "findTable": "Divide learners into groups and instruct them to explore presentation",
+      "title": "LEARNING ACTIVITY 1: Exploring presentation software",
+      "_why": "source p14: the title bar was lost",
+      "_restore": true
+    }
+  ],
+  "insertText": [
+    {
+      "after": "Learners design and simulate a functional sequential circuit",
+      "outside": true,
+      "_why": "source p37: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Alternative Activity"
+        },
+        {
+          "para": "*Organise learners into groups and provide manila paper, markers, cardboard, and logic gate symbols. Give a real-life scenario such as a security light controlled by darkness and motion detection. Learners draw and label the inputs, logic gate, and output device, then explain how the system works and present it to the class.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners draw and label the system, explain how the logic gate controls the output, and describe how the system works.*"
+        },
+        {
+          "label": "EXERCISE 5"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*Flip-flops are needed because they act as memory elements in digital circuits. They store a binary value (0 or 1) and keep it until a new clock signal changes it. This allows the system to remember the previous state, such as whether watering is on or waiting.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*The system waters every 6 hours: 24 ÷ 6 = 4 cycles. Therefore, the counter needs 4 states to cover 24 hours. To represent 4 states, 2 flip-flops are required because 2² = 4 states.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*Truth table for the first two watering cycles*",
+          "marker": "(c)"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "State (Q1 Q0)",
+                  "imgs": []
+                },
+                {
+                  "text": "Time",
+                  "imgs": []
+                },
+                {
+                  "text": "Watering LED",
+                  "imgs": []
+                },
+                {
+                  "text": "Finished LED",
+                  "imgs": []
+                },
+                {
+                  "text": "Next State",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0 0",
+                  "imgs": []
+                },
+                {
+                  "text": "0 hrs",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0 1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0 1",
+                  "imgs": []
+                },
+                {
+                  "text": "6 hrs",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1 0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1 0",
+                  "imgs": []
+                },
+                {
+                  "text": "12 hrs",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1 1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1 1",
+                  "imgs": []
+                },
+                {
+                  "text": "18 hrs",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0 0",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "*Testing in software: The system can be tested using simulation software such as Logisim or Proteus Design Suite before building the real circuit. This is useful because it helps find errors early, saves cost, and improves the design before hardware implementation.*"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "Learners identify an automated system",
+      "items": [
+        {
+          "label": "EXERCISE 4"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*One-way logic gates help the microcontroller make the system work safely by allowing signals to flow in only one direction. This prevents unwanted feedback from output devices back into the microcontroller, reducing the risk of incorrect signals, short circuits, or damage to components.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*Using logic gates together with a microcontroller makes the automated system more reliable because logic gates handle simple decision-making quickly and accurately, while the microcontroller manages complex control tasks. This reduces errors, improves response time, and ensures the system continues working correctly even if one part handles heavy processing.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*The group should design an automatic school gate system. They should use the AND gates to ensure the gate opens only when a valid card is detected and the safety sensor confirms the area is clear, and NOT gates to stop the gate if an obstacle is detected. The microcontroller reads the sensor inputs, processes the conditions, and automatically controls the motor to open or close the gate without human intervention.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Designing Circuits"
+        },
+        {
+          "para": "Guide learners to apply knowledge of electronic components and logic gates by designing simple circuits for specific tasks. Introduce sequential circuits, explaining that their outputs depend on time or previous inputs, and relate them to systems such as traffic lights and digital clocks. Explain flip-flops as memory elements, timers as delay controls, and counters as event trackers. Encourage learners to use tools such as CircuitVerse and Digital Works to safely design and simulate automated systems using LEDs, buzzers, or motors."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "Test the circuit in a simulator like CircuitVerse",
+      "_why": "source p39: lost in the Word conversion",
+      "items": [
+        {
+          "image": "cs-f3-tg-figs/p039-logic-diagram.png",
+          "w": 420
+        },
+        {
+          "listitem": "*Assume the gate opens only when: Power (P) = 1; Emergency lock (E) = 0; and either the Button (B) or ID card (I) is active.*",
+          "marker": "6."
+        },
+        {
+          "para": "*Boolean expression:* G = P·(B + I)·E̅"
+        },
+        {
+          "para": "*This Boolean equation represents the logic circuit where G (output) is active only when Permission (P) is true, either Button (B) or Input (I) is active, and Enable (E) is not active (negated).*"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "P",
+                  "imgs": []
+                },
+                {
+                  "text": "B",
+                  "imgs": []
+                },
+                {
+                  "text": "I",
+                  "imgs": []
+                },
+                {
+                  "text": "E",
+                  "imgs": []
+                },
+                {
+                  "text": "Gate Open (G)",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                }
+              ],
+              [
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "1",
+                  "imgs": []
+                },
+                {
+                  "text": "0",
+                  "imgs": []
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "para": "*Truth table shows gate opens only when P = 1, E = 0, and B = 1 or I = 1; otherwise gate remains closed.*"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "Configuring user roles and permissions means deciding",
+      "_why": "source pp107-108: lost in the Word conversion",
+      "items": [
+        {
+          "head": "LEARNING ACTIVITY 2: Configure user roles and permissions to control access to database resources"
+        },
+        {
+          "para": "*Facilitate learners to work individually, in pairs or in manageable groups. Let learners create a small database system using MySQL, Microsoft Access or Oracle Database.*"
+        },
+        {
+          "para": "*Guide learners to create user accounts, assign roles and permissions, test access levels, and present their findings to the class.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners create a database, assign user roles and permissions, test access levels, and explain what each user can and cannot do.*"
+        },
+        {
+          "head": "Configuring User Roles and Permissions in MySQL (Structured Query Language)"
+        },
+        {
+          "para": "*Guide learners to create different users in the database using the CREATE USER command, as indicated in the Learner’s Book, steps 1 to 7. Help them create accounts such as teacher and learner, and explain the purpose of each user account. Next, guide learners to grant permissions and assign roles using SQL commands. Explain that the teacher account can view and edit data, while the learner account can only view data. Demonstrate how to apply changes using the FLUSH PRIVILEGES command.*"
+        },
+        {
+          "para": "*Support learners to test permissions by logging in as each user and checking what actions are allowed. Encourage them to observe that the teacher can add and update records, while the learner can only view data. Finally, discuss how permissions and roles help protect the database, prevent errors, and ensure only authorised users can make changes.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners create user accounts, assign roles and permissions, apply changes using FLUSH PRIVILEGES, and test access levels by logging in as different users. They should demonstrate that the teacher can add and update records, while the learner can only view data. Learners should also explain how permissions help protect the database and control access.*"
+        },
+        {
+          "head": "Configuring User Roles and Permissions in Oracle Database"
+        },
+        {
+          "para": "Guide learners to log in to Oracle Database using an administrator account, create users and roles, and assign permissions using SQL commands. Help learners test access levels to confirm that teachers can view and edit data while learners can only view data. Emphasise that roles and permissions improve database security, prevent unauthorised changes, and keep data organised and reliable."
+        },
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*The manager should have full access to the database, including viewing, adding, updating, and deleting records, because the manager is responsible for supervising business operations and maintaining records. The cashier should be allowed to view sales records and add sales transactions but should not delete important records. The store assistant should only be allowed to view stock or customer information needed for daily tasks.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*The cashier should be allowed to enter sales data, update transaction details, and view customer records because these tasks are part of handling sales. However, the cashier should not delete records or change system settings to avoid errors or fraud. The store assistant should only view stock and customer information and should not edit or delete records because their role does not require making changes to the database.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*The cashier’s role should be changed by removing the permission to delete records. This improves data security by preventing accidental loss of important sales information and ensures that only authorised users can make major changes to the database.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Upgrading and Migrating Database"
+        },
+        {
+          "para": "Upgrading a database means updating it to a newer version to improve speed, security, and features. For example, upgrading MySQL 5.6 to MySQL 8.0 makes the database faster and safer."
+        },
+        {
+          "para": "Migrating a database means moving it to a new system or location, such as from a laptop to a cloud server. This helps make data easier to access and manage. Both upgrading and migrating help keep data safe, organised, and efficient."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "queries work in practical situations",
+      "_why": "source p112: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Understanding SQL Queries"
+        },
+        {
+          "para": "Understanding SQL queries helps learners know how to retrieve data from a database. A basic query uses SELECT to choose data, FROM to choose the table, and WHERE to set conditions for filtering results."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "An ICT accessories shop",
+      "_why": "source pp112-113: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Alternative Activity"
+        },
+        {
+          "para": "*Learners work in groups to identify and correct faulty SQL queries from printed case studies. They discuss errors, rewrite the correct queries, and present their solutions and explanations to the class.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners should identify query errors, correct them accurately, and explain their reasoning during presentations.*"
+        },
+        {
+          "label": "EXERCISE 4"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*The report problem is that the query is retrieving incorrect data by showing students who scored below 80 or students from other subjects. This may be caused by using the wrong condition in the query. To check the query, review the WHERE condition, subject name, and comparison operator to ensure they are written correctly.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*The query should be changed so that it selects only learners who scored above 80 in Mathematics. The correct conditions should include subject = 'Math' and score > 80. For example:*",
+          "marker": "(b)"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "SELECT*FROMstudents\nWHEREsubject='Math'ANDscore>80;",
+                "b": false,
+                "it": false,
+                "c": null,
+                "mono": true
+              }
+            ]
+          }
+        },
+        {
+          "listitem": "*Resolving the issue helps the school get accurate and reliable information. This improves report preparation, supports better decision-making, and ensures correct student performance records are used.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Organising Data into Normal Forms"
+        },
+        {
+          "para": "**What is Normalisation?**"
+        },
+        {
+          "para": "Normalisation is the process of organising data in a database into well-structured tables to reduce duplication and improve efficiency. It helps store data in the correct place so that it is easy to manage, update, and retrieve."
+        },
+        {
+          "para": "Explain that unnormalised data causes repetition, confusion, and update problems, while normalisation separates data into related tables for better organisation. Guide learners to understand the three basic normal forms:"
+        },
+        {
+          "listitem": "**1NF:** Remove repeating groups and ensure each field contains one value.",
+          "marker": "•"
+        },
+        {
+          "listitem": "**2NF:** Ensure all fields depend on the whole primary key.",
+          "marker": "•"
+        },
+        {
+          "listitem": "**3NF:** Remove indirect dependencies so fields depend only on the primary key.",
+          "marker": "•"
+        },
+        {
+          "para": "Use simple examples to help learners identify repeated data and practise splitting large tables into smaller related tables."
+        },
+        {
+          "head": "LEARNING ACTIVITY 5: Applying the first, second, and third normal forms (1NF, 2NF, 3NF) to organise data"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "Split the table into separate related tables",
+      "items": [
+        {
+          "para": "***To fix 2NF:***"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "LEARNING ACTIVITY 1: Exploring a mobile application",
+      "_why": "source p142: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Mobile Applications and Their Use in Daily Life"
+        },
+        {
+          "para": "Mobile applications are software programs used on smartphones and tablets to perform everyday tasks more easily and quickly. They include apps for shopping (Amazon, Jumia), entertainment (YouTube, Netflix), food delivery (Uber Eats), education (Khan Academy), transport (Yango, Uber), banking (Airtel Money, ZANACO Mobile), communication (WhatsApp, Zoom), and social media (Facebook, TikTok)."
+        },
+        {
+          "para": "Facilitate discussion on how mobile apps improve daily life by saving time, improving communication, supporting learning, and enabling access to services anywhere. Also guide learners to identify challenges such as privacy risks, data usage, distraction, and overuse of devices. Conclude by helping learners understand that mobile applications are useful tools that should be used responsibly to improve productivity and learning."
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "after": "Learners identify a mobile application, state its purpose and category",
+      "_why": "source pp143-144: lost in the Word conversion; outside: the anchor sits in an Alternative Activity box",
+      "items": [
+        {
+          "label": "EXERCISE 1"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*The study planner or task management app includes features such as task creation, reminders, calendars, and progress tracking. Task creation helps learners list all assignments. Reminders alert learners before deadlines. The calendar shows due dates clearly, and progress tracking helps learners monitor completed and pending work, improving organisation and time management.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*Learners first download and open the app, then create an account. They add all assignments with due dates and set reminders for each task. They use the calendar view to plan study time and check daily tasks. The app sends alerts before deadlines, helping learners complete work on time and avoid forgetting assignments.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*The app is effective because it improves organisation, reduces missed deadlines, and supports better time management. However, learners may face challenges such as forgetting to update tasks, lack of internet access, or distraction from other phone apps. An improvement could be adding offline access and more visual alerts (such as colour coding or pop-up alarms) to make it easier for learners to use.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Native, Web and Hybrid Mobile Applications"
+        },
+        {
+          "para": "Mobile applications are grouped into three types based on how they are built and used: native, web, and hybrid apps. Each type differs in performance, access to device features, and how it is used."
+        },
+        {
+          "para": "**Native applications** are built for a specific operating system (Android or iOS), installed from app stores, and offer fast performance with full access to device features, but are costly and take longer to develop."
+        },
+        {
+          "para": "**Web applications** run in a browser without installation, work on any device, are cheaper to develop, but need internet and have limited access to device features."
+        },
+        {
+          "para": "**Hybrid applications** combine both native and web apps, use one codebase for multiple platforms, are cheaper and faster to build, but may have lower performance and limited device access."
+        },
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 2: Discussing native, web and hybrid mobile applications",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Guide learners to use digital devices to explore mobile applications used in daily life such as communication, learning, entertainment, and shopping apps.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Let learners list at least five apps and classify them as native, web, or hybrid, explaining how each is accessed and used.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Support learners to compare the three types using online resources, focusing on performance, cost, compatibility, internet use, and user experience.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Learners present findings using tables or slides and share their work with the class.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses: ",
+                    "b": true,
+                    "it": false,
+                    "c": null
+                  },
+                  {
+                    "t": "Learners should list examples of mobile apps, classify them as native, web, or hybrid, and state how they are accessed. They should also compare the three types using key differences and present their findings clearly.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "_restore": true,
+      "outside": true
+    },
+    {
+      "after": "The main problem is that buyers do not know",
+      "_why": "source p155: lost in the Word conversion",
+      "items": [
+        {
+          "listitem": "***Main features of the mobile app***",
+          "marker": "(b)"
+        },
+        {
+          "para": "*The app would include a login or simple registration for sellers, a feature to update daily location, and a product listing section where sellers can add items and prices. It would also have a map or location display for customers, a search feature to find nearby sellers, and notifications to alert customers when new products are posted.*"
+        },
+        {
+          "listitem": "***Steps to create the mobile app***",
+          "marker": "(c)"
+        },
+        {
+          "para": "*First, I would identify the problem and plan the app features. Next, I would design the user interface with screens for login, product updates, and customer viewing. Then I would choose a development tool such as MIT App Inventor or Android Studio and build the app by adding components and programming the functions. After that, I would test the app on a phone or emulator to check if it works correctly. Finally, I would fix errors and improve the app before releasing it for users.*"
+        }
+      ],
+      "_restore": true
+    },
+    {
+      "before": "(b)",
+      "near": "Main advantage: It allows users",
+      "_why": "source pp14-15: lost in the Word conversion",
+      "items": [
+        {
+          "head": "Alternative Activity"
+        },
+        {
+          "para": "*Organise learners into small groups and provide textbooks, printed screenshots of presentation software interfaces, manila paper, rulers, and markers. Guide learners to identify and label common features such as the title bar, toolbar, slide area, scroll bars, and zoom tools. Encourage learners to discuss the function of each feature and present their posters to the class.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners identify and label common presentation software features and explain how the features support the organisation and creation of presentations.*"
+        },
+        {
+          "label": "EXERCISE 1"
+        },
+        {
+          "para": "**Exploring Presentation Software**"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "listitem": "*Microsoft PowerPoint: used to create slideshows offline. Google Slides: online presentation tool for collaboration. LibreOffice Impress: free offline presentation software.*",
+          "marker": "(a)"
+        },
+        {
+          "listitem": "*Title bar, toolbar, status bar, ruler, scroll bar, zoom tools.*",
+          "marker": "(b)"
+        },
+        {
+          "listitem": "*It reduces mistakes. It saves time.*",
+          "marker": "(c)"
+        },
+        {
+          "head": "Types of Presentation Software"
+        },
+        {
+          "para": "Explain to learners that presentation software applications such as Microsoft PowerPoint, Google Slides, Canva, and LibreOffice Impress operate differently. Guide learners to understand that some applications work offline after installation, while others require internet access. Discuss how some applications are designed for computers and others for mobile devices. Ensure learners understand the meaning and uses of the internet and guide them to consider factors such as internet availability, type of device, and purpose of the presentation when selecting presentation software."
+        },
+        {
+          "head": "LEARNING ACTIVITY 2: Identifying different types of presentation software"
+        },
+        {
+          "para": "*Facilitate the formation of small groups and instruct learners to identify and explore different presentation software, such as Microsoft PowerPoint, Google Slides, Canva, and LibreOffice Impress. Ask learners to classify each application as offline, online, or mobile-based, based on how it is accessed and used. Instruct each group to prepare a simple comparison chart showing the key features, advantages, and limitations of the selected software. Ask groups to present their findings to the class and recommend the most suitable presentation software for a given school project, giving reasons for their choice.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners correctly identify and classify presentation software as offline, online, or mobile-based, complete a comparison chart, present their findings clearly, and recommend suitable software for the school project with appropriate justification.*"
+        },
+        {
+          "head": "Alternative Activity"
+        },
+        {
+          "para": "*Divide learners into groups and assign each group a presentation software. Guide them to demonstrate its functions using simple gestures or classroom objects while others guess the software. End with a short discussion on its features, uses, and type.*"
+        },
+        {
+          "para": "**Expected Responses:** *Learners identify the software, describe its features and uses, and classify it as offline, online, or mobile.*"
+        },
+        {
+          "label": "EXERCISE 2"
+        },
+        {
+          "para": "**Possible Answers**"
+        },
+        {
+          "para": "(a)"
+        },
+        {
+          "listitem": "*Microsoft PowerPoint*",
+          "marker": "•"
+        },
+        {
+          "listitem": "*LibreOffice Impress*",
+          "marker": "•"
+        },
+        {
+          "para": "**Explanation:** *These are useful when there is no internet connection because they are installed on a computer and can be used offline.*"
+        }
+      ],
+      "_restore": true
+    }
+  ],
+  "extendBox": [],
+  "setHeading": [
+    {
+      "find": "Sub-Topic 3.1.1: Presentation Software",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.1.2: Desktop Publishing Software",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.2.1: Application of Logic Gates",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.3.1: The Internet",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.4.1: Data Protection and Privacy",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.5.1: Python Programming",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.5.2: Coding in Python",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.6.1: Web Interactivity",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.7.1: Database Management",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.8.1: AI Models",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.9.1: Application of Internet of Things",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.10.1: Introduction to Mobile Applications",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.11.1: Fundamentals of Cloud Computing",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Sub-Topic 3.12.1: Mechanical and Electronic Systems",
+      "as": "h2",
+      "_restore": true
+    },
+    {
+      "find": "Possible Answers",
+      "as": "head",
+      "all": true,
+      "_why": "two came in as section headings",
+      "_restore": true
+    },
+    {
+      "find": "ACTIVITY 2: Exploring Python syntax and control structures",
+      "text": "LEARNING ACTIVITY 2: Exploring Python syntax and control structures",
+      "_why": "source p71: LEARNING lost in the conversion"
+    }
+  ],
+  "authors": [
+    "Collins Chinkalata",
+    "Ruth Gondwe",
+    "Shephat Phiri"
+  ],
+  "_authorsWhy": "as the TG manuscript lists them (CDC took Mutuzana off the LB only) - confirm with the user",
+  "replaceSection": [
+    {
+      "heading": "ACRONYMS",
+      "until": "TOPIC 3.1",
+      "items": [
+        "**1NF:** First Normal Form",
+        "**2FA:** Two-Factor Authentication",
+        "**2NF:** Second Normal Form",
+        "**3NF:** Third Normal Form",
+        "**AES:** Advanced Encryption Standard",
+        "**AI:** Artificial Intelligence",
+        "**AND:** Logical operation where all inputs must be true for the output to be true",
+        "**API:** Application Programming Interface",
+        "**AU:** African Union",
+        "**AWS:** Amazon Web Services",
+        "**AWS EC2:** Amazon Web Services Elastic Compute Cloud",
+        "**CAD:** Computer Aided Design",
+        "**CPU:** Central Processing Unit",
+        "**DBMS:** Database Management System",
+        "**DTP:** Desktop Publishing",
+        "**ECDL:** European Computer Driving Licence",
+        "**ECZ:** Examinations Council of Zambia",
+        "**GDPR:** General Data Protection Regulation",
+        "**GPS:** Global Positioning System",
+        "**GUI:** Graphical User Interface",
+        "**HTML:** Hypertext Markup Language",
+        "**IaaS:** Infrastructure as a Service",
+        "**ICT:** Information and Communication Technology",
+        "**IDE:** Integrated Development Environment",
+        "**IoT:** Internet of Things",
+        "**ISBN:** International Standard Book Number",
+        "**JETS:** Junior Engineers, Technicians and Scientists",
+        "**KCM:** Konkola Copper Mines",
+        "**LED:** Light Emitting Diode",
+        "**MCM:** Mopani Copper Mines",
+        "**MIEE:** Microsoft Innovative Educator Expert",
+        "**NOT:** Logical operation that reverses the input value",
+        "**OR:** Logical operation OR Gate",
+        "**PaaS:** Platform as a Service",
+        "**PDF:** Portable Document Format",
+        "**PTA:** Parent-Teacher Association",
+        "**SaaS:** Software as a Service",
+        "**SMS:** Short Message Service",
+        "**SQL:** Structured Query Language",
+        "**TEA:** Teaching Excellence and Achievement (Fulbright TEA Program)",
+        "**UI:** User Interface",
+        "**URL:** Uniform Resource Locator",
+        "**UX:** User Experience",
+        "**VPN:** Virtual Private Network",
+        "**ZEPH:** Zambia Educational Publishing House",
+        "**ZICTA:** Zambia Information and Communications Technology Authority"
+      ],
+      "_why": "the conversion ran two or three acronyms on to one line and set some as headings"
+    }
+  ],
+  "renameNear": [
+    {
+      "find": "LEARNING ACTIVITY 1: Discussing key components of database",
+      "near": "LEARNING ACTIVITY 1: Discussing key components of database",
+      "to": "LEARNING ACTIVITY 1: Discussing key components of database management",
+      "_why": "source p105: title ran over two lines"
+    }
+  ],
+  "moveBefore": [
+    {
+      "find": "Ruth Gondwe holds a MSc",
+      "before": "Shephat Phiri holds a BSc",
+      "_why": "proofreading round 1 (21 Nov): bios in the cover order"
+    }
+  ],
+  "boxRange": [
+    {
+      "from": "Game 3: Simple Quiz Game",
+      "to": "while demonstrating logical thinking",
+      "kind": "act",
+      "titleFromFirst": true,
+      "_why": "main engine (unwrapBoxTables, from the LB) opens the one-column table that held this activity into the box before it; boxed on its own again as in the round-1 proof"
+    },
+    {
+      "from": "Game 4: Dice Rolling Game",
+      "to": "explain how the program works",
+      "kind": "act",
+      "titleFromFirst": true,
+      "_why": "main engine (unwrapBoxTables, from the LB) opens the one-column table that held this activity into the box before it; boxed on its own again as in the round-1 proof"
+    },
+    {
+      "from": "Organise learners into two groups to debate",
+      "to": "referencing relevant laws and principles",
+      "kind": "alt",
+      "title": "Alternative Activity: Debate on Consent and Privacy",
+      "_why": "main engine (unwrapBoxTables, from the LB) opens the one-column table that held this activity into the box before it; boxed on its own again as in the round-1 proof"
+    }
+  ]
+}

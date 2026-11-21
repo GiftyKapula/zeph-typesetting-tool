@@ -2029,11 +2029,22 @@ async function importDocx(docxPath, opts = {}) {
   // opts.sourceFix: [["find", "with"], …] — correct the manuscript's text BEFORE anything is
   // recognised from it (a box title typed "ZHAKWALI 2:" instead of "ZHAKWILA 2:" is then
   // boxed like every other activity). Applied inside each Word text run.
-  for (const [find, repl] of opts.sourceFix || []) {
-    const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  // An entry may also be { re, with } — a regular expression (flags "g"), for a fix that must
+  // not touch the right spelling around it: a PDF-converted book's "ntrepreneurship" whose
+  // drop capital was lost, next to the many "Entrepreneurship"s ("\\bntrepreneurship").
+  const unesc = (s) => s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&apos;/g, "'").replace(/&amp;/g, "&");
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  for (const fix of opts.sourceFix || []) {
+    const [find, repl] = Array.isArray(fix) ? fix : [new RegExp(fix.re, "g"), fix.with];
     let n = 0;
-    rawDoc = rawDoc.replace(/(<w:t(?:\s[^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => t.includes(esc(find)) ? (n++, a + t.split(esc(find)).join(esc(repl)) + b) : m);
-    if (!n) console.warn("!  sourceFix not matched:", find);
+    rawDoc = rawDoc.replace(/(<w:t(?:\s[^>]*)?>)([^<]*)(<\/w:t>)/g, (m, a, t, b) => {
+      const s = unesc(t);
+      const hit = typeof find === "string" ? s.includes(find) : (find.lastIndex = 0, find.test(s));
+      if (!hit) return m;
+      n++;
+      return a + esc(typeof find === "string" ? s.split(find).join(repl) : s.replace(find, repl)) + b;
+    });
+    if (!n) console.warn("!  sourceFix not matched:", Array.isArray(fix) ? find : fix.re);
   }
   // opts.cdcNotes: a book that came back from CDC as a PDF and was converted to Word. Each note
   // the reviewer TYPED ONTO the page (a FreeText comment: "Remove: Specific competence", a red

@@ -7,7 +7,8 @@
 // (Computer Science Form 3 LB, 2026-11-16.)
 
 const ALT = /^Alternative[’'\s]*(Learning\s+)?Activit(?:y|ies)\b\s*(\d+)?\s*[:.\-–]?\s*(.*)$/i;
-const EXPECTED = /^(Expected\s+Competences?\s*:?)/i;
+// (a Teacher's Guide closes the same way with "Expected Responses:")
+const EXPECTED = /^(Expected\s+(?:Competences?|Responses?)\s*:?)/i;
 const BOXES = new Set(["activity", "framedsection", "exercise", "assessment", "box", "keypoints", "fact"]);
 
 const plain = (b) => (b && (b.segs ? b.segs.map((s) => s.t || "").join("") : (b.text || "")) || "").replace(/\s+/g, " ").trim();
@@ -259,7 +260,9 @@ function liftCrossCutting(blocks) {
     let rows = tb.rows.slice(Math.max(0, h)).filter((r) => !r.some((c) => CCI.test(cellText(c))) && r.some((c) => cellText(c)));
     const w = Math.max(0, ...rows.map((r) => r.length));
     const keep = [...Array(w).keys()].filter((k) => rows.some((r) => cellText(r[k])));
-    rows = rows.map((r) => keep.map((k) => cellText(r[k])));
+    // (an issue name typed as a two-line bulleted list — "• Entrepreneurship" / "• Education" —
+    // is one name: its bullets go when the cell is read as one line)
+    rows = rows.map((r) => keep.map((k, i) => i === 0 ? cellText(r[k]).replace(/(^|\s)[•▪◦●]\s*/g, "$1").trim() : cellText(r[k])));
     // a row whose description carries on in lower case is the second half of the one above
     const out = [];
     for (const r of rows) {

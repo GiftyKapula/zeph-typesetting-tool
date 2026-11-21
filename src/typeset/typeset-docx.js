@@ -110,7 +110,8 @@ async function typesetOne(docxPath, themeName) {
   importOpts.colonHeadings = !!ov.colonHeadings;   // "TOPIC: 1.5 …" headings (see import-docx.js)
   importOpts.sourceFix = ov.sourceFix || [];          // fix manuscript text before recognition
   importOpts.textboxHeadings = !!ov.textboxHeadings;
-  importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;   // a manuscript converted from a PDF: text boxes rejoin the text flow   // a short title line in a Word text box becomes a heading
+  // (dropImages: pictures are stripped after import — see below; the importer reads as usual)
+  importOpts.unwrapTextboxes = !!ov.unwrapTextboxes;  // a manuscript converted from a PDF: text boxes rejoin the text flow   // a short title line in a Word text box becomes a heading
   // the CDC copy's typed-on notes (FreeText comments, the list tools/cdc-comments.mjs writes):
   // the converter turns each into a text box, which unwrapTextboxes would print as book text
   if (ov.cdcComments) {
@@ -124,6 +125,21 @@ async function typesetOne(docxPath, themeName) {
   importOpts.answerListNumbered = ov.answerListNumbered || [];
   importOpts.styleLists = !!ov.styleLists;           // lists set by the paragraph style alone (Word List Bullet / List Number)
   let { blocks, media, tmp } = await importDocx(docxPath, importOpts);
+  // dropImages: the pictures a box group carried in with its text go too (import keeps the
+  // group whole so its text stays one activity box; only its pictures are the converter's)
+  if (ov.dropImages) {
+    const PIC = /^(image|imagerow|sidefig|img)$/;
+    const strip = (arr) => arr.filter((b) => !(b && PIC.test(b.t) && !(b.body && b.body.length))).map((b) => {
+      if (!b || typeof b !== "object") return b;
+      if (b.t === "sidefig" && Array.isArray(b.body)) return null;   // (handled below)
+      for (const k of Object.keys(b)) if (Array.isArray(b[k]) && b[k].some((x) => x && typeof x === "object" && x.t)) b[k] = strip(b[k]);
+      if (Array.isArray(b.rows)) for (const r of b.rows) for (const c of r || []) if (c && Array.isArray(c.imgs)) c.imgs = [];
+      return b;
+    });
+    // a side figure keeps its text: the picture beside it goes
+    const unside = (arr) => arr.flatMap((b) => b && b.t === "sidefig" && Array.isArray(b.body) ? unside(b.body) : [b]);
+    blocks = strip(unside(blocks)).filter(Boolean);
+  }
   if (!blocks.length) {
     console.warn("!  No content extracted from", docxPath);
     return;
@@ -684,7 +700,7 @@ async function typesetOne(docxPath, themeName) {
   boldAssessmentSections(blocks);
   boldSafetyAndSteps(blocks);
   // Teacher's Guide: peel each inline "Possible Answer:" off its question onto its own line.
-  splitAnswerLabels(blocks);
+  splitAnswerLabels(blocks, { keepLabel: !!ov.keepAnswerLabel });
   // House style: make every structural box label read in one case across the book.
   uniformBoxLabelCase(blocks);
   // converted books: box pages, competence lines and exercise bars the old PDF's layout broke
@@ -1140,12 +1156,13 @@ async function typesetOne(docxPath, themeName) {
   if (useBlackWhite) {
     const K = "000000", GREY = "595959", RULE = "808080", FILL = "f2f2f2", ZEB = "ededed";
     const monobox = { fill: FILL, border: GREY, title: K };
-    const orig = THEMES[theme] || {};
+    // (a book's own `palette` is its full-colour palette: the cover keeps it)
+    const orig = { ...(THEMES[theme] || {}), ...(ov.palette ? paletteColours(THEMES[theme] || {}, ov.palette) : {}) };
     Object.assign(themeOverrides, {
       mono: true,
       ink: K, primary: K, primary2: GREY, accent: K, cyan: K, signature: K,
       rulec: RULE, zebra: ZEB, yellow: "d9d9d9",
-      act: monobox, ex: monobox, kp: monobox, fact: monobox, asmt: monobox,
+      act: monobox, ex: monobox, kp: monobox, fact: monobox, asmt: monobox, alt: monobox,
       // The cover (front + back) stays in FULL COLOUR — only the interior is greyscale — so
       // preserve the original palette for the cover-only colour fields (cover() shadows T
       // with these, so every colour it draws comes from here, not the greyed body colours).
@@ -1163,7 +1180,7 @@ async function typesetOne(docxPath, themeName) {
   // signature — the cover is the one part of a TG that stays in colour, and this is
   // the colour it should stay in. A book can still pin its own with `coverColor`.
   if (isTeacherBook && !ov.coverColor) {
-    themeOverrides.covSignature = tgCoverSignature(theme);
+    themeOverrides.covSignature = tgCoverSignature(theme, ov.palette ? paletteColours(THEMES[theme] || {}, ov.palette).signature : undefined);
   }
   // Front-matter sections into the house order (Author … Acronyms); opt out per book.
   // Runs last, once the body-start marker and every heading are final.
