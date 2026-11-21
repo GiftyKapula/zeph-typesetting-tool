@@ -26,10 +26,11 @@
     "isbn": "…………………………",
     "groups": [
       {
-        "label": "Illustrated by:",
+        "label": "Editorial and Illustrations:",
         "lines": [
-          "Ruth Gondwe and Shephat Phiri"
-        ]
+          "Algorithm Thinkers"
+        ],
+        "_why": "TG proofreading round 1 (21 Nov): apply to the LB too, as marked"
       },
       {
         "label": "Cover and Book Layout:",
