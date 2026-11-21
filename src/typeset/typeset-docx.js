@@ -8024,6 +8024,21 @@ function normaliseQuestionMarkBold(blocks) {
   // book actually carries. Runs here, after reorderBackmatter has put the back matter into
   // its final order, so the entries are matched against the finished block list.
   reconcileCaptionLists(blocks);
+  // `moveSectionToEnd: ["LIST OF FIGURES"]`: lift a whole front/back-matter section (its
+  // heading through to the next heading of the same weight) and put it last in the book —
+  // a reviewer's "List of Figures to be moved to the end of the book, after References"
+  // (Geography Form 4 LB, round 1). Runs after reorderBackmatter, so "last" really is
+  // after the References, and after reconcileCaptionLists, which has already matched the
+  // list's entries against the captions wherever the list stood.
+  for (const name of ov.moveSectionToEnd || []) {
+    const isSec = (b) => b && (b.t === "h1" || b.t === "head");
+    const start = blocks.findIndex((b) => isSec(b) && blockPlain(b).trim().toUpperCase().startsWith(name.toUpperCase()));
+    if (start < 0) { console.warn("!  moveSectionToEnd not matched:", name); continue; }
+    let end = blocks.findIndex((b, i) => i > start && b.t === blocks[start].t);
+    if (end < 0) end = blocks.length;
+    blocks.push(...blocks.splice(start, end - start));
+    console.log(`   moveSectionToEnd: "${name}" (${end - start} blocks) now closes the book`);
+  }
 
   // Primary Learner's Books drop the teacher/curriculum scaffolding (Sub-Topics,
   // Specific Competences, Acronyms, Glossary, List of Figures, References). Gated on the
@@ -8591,6 +8606,9 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // tocTitle: the contents page's heading in the book's own words — a reviewer's
+  // "Contents", not the theme's "Table of Contents" (Geography Form 4 LB, round 1).
+  if (ov.tocTitle) themeOverrides.toctitle = ov.tocTitle;
   // A larger book-type line on the front cover ("LEARNER'S BOOK"), e.g. "24pt" — a
   // reviewer's "increase font size" there (Geography Form 1 LB, CDC 2026-11). Opt-in.
   if (ov.coverBooktypeSize) themeOverrides.covBooktypeSize = ov.coverBooktypeSize;

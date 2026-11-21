@@ -8,6 +8,11 @@
   ],
   "coverBooktypeSize": "24pt",
   "bylineRows": true,
+  "orIndividually": false,
+  "tocTitle": "Contents",
+  "moveSectionToEnd": [
+    "LIST OF FIGURES"
+  ],
   "setHeading": [
     {
       "find": "MINING",
@@ -292,6 +297,66 @@
       "find": "EXERCISES 18 – 21",
       "after": "Fish Processing Measures",
       "with": "EXERCISES 17 – 20"
+    },
+    {
+      "find": "List at least three human activities that are causing loss of",
+      "with": "Describe at least three human activities that are causing loss of"
+    },
+    {
+      "find": "List three activities that help sustain vegetation",
+      "with": "Identify three activities that help sustain vegetation"
+    },
+    {
+      "find": "State one benefit of this activity to the environment",
+      "with": "Propose one benefit of this activity to the environment"
+    },
+    {
+      "find": "List at least four effects of invasive plant species",
+      "with": "Describe at least four effects of invasive plant species"
+    },
+    {
+      "find": "List at least 2 invasive plant species",
+      "with": "Carry out research and identify at least 2 invasive plant species"
+    },
+    {
+      "find": "List at least 3 causes of deforestation",
+      "with": "Identify at least 3 causes of deforestation"
+    },
+    {
+      "find": "Define deforestation.",
+      "with": "From your own understanding of this topic, how can you describe deforestation?"
+    },
+    {
+      "find": "List common energy sources used in each area",
+      "with": "Identify common energy sources used in each area"
+    },
+    {
+      "find": "List common energy sources (e.g.",
+      "with": "Identify common energy sources (e.g."
+    },
+    {
+      "find": "List at least three types of fuel used in Zambia",
+      "with": "Describe at least three types of fuel used in Zambia"
+    },
+    {
+      "find": "State one advantage and one limitation of each energy source",
+      "with": "Identify one advantage and one limitation of each energy source"
+    },
+    {
+      "find": "Define sustainable energy in your own words.",
+      "with": "Based on what you have come across on this topic, what do you understand by the term sustainable energy?"
+    },
+    {
+      "find": "List three major problems linked to increasing power demand",
+      "with": "Identify three major problems linked to increasing power demand"
+    },
+    {
+      "find": "Define fuel and energy and give two examples",
+      "with": "Describe fuel and energy and give two examples"
+    },
+    {
+      "find": "list three reasons why Japan",
+      "with": "identify three reasons why Japan"
     }
   ],
   "images": {
@@ -390,6 +455,9 @@
     },
     "image24.jpeg": {
       "src": "Geography_ Form 4_ LB_sent for typesetting_3 August 2026-hires/image24.png"
+    },
+    "image33.jpeg": {
+      "src": "Geography_ Form 4_ LB_sent for typesetting_3 August 2026-hires/image33.png"
     }
   },
   "replaceBlocks": [
@@ -443,6 +511,10 @@
     {
       "find": "EXERCISES 5 - 8",
       "with": "EXERCISES 5 – 8"
+    },
+    {
+      "find": "KEY COMPETENCES TO BE DEVELOPED",
+      "with": "GENERAL COMPETENCES TO BE DEVELOPED"
     }
   ]
 }

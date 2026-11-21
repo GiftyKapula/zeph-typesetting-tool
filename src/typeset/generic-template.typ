@@ -2739,6 +2739,17 @@
 // More than that (a gallery): proportional widths that always fit the page.
 #let imagerow(imgs) = {
   v(3pt)
+  // A row's "Figure N: …" caption names the whole row, but it arrives attached to the
+  // first picture, so it used to print squeezed into that picture's column — hyphenated
+  // over two lines under the first of four photos (Geography Form 4 LB, Figure 17: "Do
+  // not cut this sentence"), or widening the first column so the pictures sat off-centre
+  // (Figure 18). When exactly one picture carries a numbered figure caption, it is set
+  // centred under the whole row like any other figure caption; plain per-picture labels
+  // ("Open forest") stay under their own picture.
+  let isfig(c) = c != none and c.match(regex("^(?i)(fig(ure)?|picture|plate|diagram|photo|map)\.?\s*\d")) != none
+  let figcaps = imgs.filter(im => isfig(im.at("cap")))
+  let rowcap = if imgs.len() > 1 and figcaps.len() == 1 { figcaps.first().at("cap") } else { none }
+  let imgs = if rowcap != none { imgs.map(im => if isfig(im.at("cap")) { im + (cap: none) } else { im }) } else { imgs }
   if imgs.len() <= 3 {
     // an author "enlarge to fit" request sets hmm on the row's images; the largest
     // wins as the uniform row height so the pictures still line up.
@@ -2763,13 +2774,24 @@
       }
     })
   } else {
-    let total = imgs.fold(0.0, (a, im) => a + im.at("w")); if total <= 0 { total = imgs.len() }
-    block(width: 100%, breakable: false)[
-      #grid(columns: imgs.map(im => (im.at("w") / total) * 1fr), column-gutter: 6pt, align: top + center,
-        ..imgs.map(im => [
-          #image(im.at("file"), width: 100%)
-          #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(7.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#im.at("cap")] ]
-        ]))]
+    // A gallery fills the measure at ONE height: each column's width follows its
+    // picture's own shape. Sharing the width out by the size Word displayed each picture
+    // at gave four photos four different heights (Geography Form 4 LB, Figure 17).
+    layout(size => {
+      let gut = 6pt
+      let ar = imgs.map(im => { let m = measure(image(im.at("file"))); if m.height > 0pt { m.width / m.height } else { 1.0 } })
+      let h = (size.width - gut * (imgs.len() - 1)) / ar.sum()
+      block(width: 100%, breakable: false)[
+        #grid(columns: ar.map(a => a * h), column-gutter: gut, align: top + center,
+          ..imgs.map(im => [
+            #image(im.at("file"), height: h)
+            #if im.at("cap") != none [ #v(2pt) #capmark(im.at("cap"))#text(size: fs(7.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#im.at("cap")] ]
+          ]))]
+    })
+  }
+  if rowcap != none {
+    v(2pt)
+    align(center)[#capmark(rowcap)#text(size: fs(8.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#rowcap]]
   }
   v(5pt)
 }

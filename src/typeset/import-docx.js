@@ -2849,8 +2849,12 @@ async function importDocx(docxPath, opts = {}) {
       }
     }
   }
+  // A stripped box leaves its words behind in an inert <zeph:tbx> marker (no <w:t>, so no
+  // text reader sees it) for the one place that wants them: a picture-row table, where a
+  // text box floated over a picture is that picture's label (see the table branch below).
   const docXml = rawDoc.replace(/<w:txbxContent>[\s\S]*?<\/w:txbxContent>/g,
-    (m) => (/<a:blip\b/.test(m) ? m : ""));
+    (m) => (/<a:blip\b/.test(m) ? m
+      : `<zeph:tbx>${[...m.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>/g)].map((t) => t[1]).join("").replace(/\s+/g, " ").trim()}</zeph:tbx>`));
   const hmap = headingMap(read("word/styles.xml"));
   const numMap = numMapEarly;
   // Compute a list paragraph's real marker ("a)", "1.", "i.", "•") from the
@@ -3764,6 +3768,21 @@ async function importDocx(docxPath, opts = {}) {
         const oneCell = single ? rows[0][0] : null;
         if (oneCell && !oneCell.text && oneCell.imgs && oneCell.imgs.length) {
           blocks.push(oneCell.imgs.length === 1 ? { t: "image", ...oneCell.imgs[0] } : { t: "imagerow", images: oneCell.imgs });
+        // The same thing one row wide: a single-row table with exactly one picture in each
+        // cell and no text is the author's way of standing pictures side by side in Word.
+        // Printed as a table it came out as small pictures in a tinted, bordered grid with
+        // white space around them (Geography Form 4 LB, Figure 3: "recast this picture
+        // properly, remove the blank white"). Emit a picture row instead. A label the author
+        // floated over a picture in a text box ("Open forest") is not cell text, so it was
+        // being lost; it becomes that picture's own caption under it, read from the
+        // <zeph:tbx> marker the text-box stripping leaves in the box's place.
+        } else if (rows.length === 1 && rows[0].length > 1
+            && rows[0].every((c) => !c.text && c.imgs && c.imgs.length === 1 && !(c.subs && c.subs.length))) {
+          blocks.push({ t: "imagerow", images: rows[0].map((c, k) => {
+            const boxes = [...cells[0][k].xml.matchAll(/<zeph:tbx>([^<]*)<\/zeph:tbx>/g)].map((m) => m[1]).filter(Boolean);
+            const label = [...new Set(boxes)].join(" ");
+            return label ? { ...c.imgs[0], caption: label } : { ...c.imgs[0] };
+          }) });
         // A cell whose only content is a NESTED table has no text of its own (`text`
         // leaves sub-tables out), so it counts by its `subs` too. Without that, a data
         // table the author set inside a 1x1 wrapper vanished from the book whole — the
@@ -4460,9 +4479,15 @@ function attachCaptions(blocks) {
         blocks[j].text.split(/(?=Fig(?:ure)?\.?\s*\d+\s*[:.])/i).forEach((s) => { s = s.trim(); if (s) caps.push(s); });
         j++;
       }
-      if (caps.length) {
+      // Pictures that already carry their own labels (a picture row's "Open forest" /
+      // "Plantation forest") take none of these, and then the caption paragraphs must stay
+      // where they are: consuming them anyway deleted "Figure 3: Forestry vegetation in
+      // Zambia" from the Geography Form 4 LB. Left standing, they print as an ordinary
+      // figure caption under the row.
+      const free = b.t === "imagerow" ? b.images.some((im) => !im.caption) : !b.caption;
+      if (caps.length && free) {
         if (b.t === "imagerow") b.images.forEach((im, k) => { if (!im.caption) im.caption = caps[k] || ""; });
-        else if (!b.caption) b.caption = caps[0];
+        else b.caption = caps[0];
         i = j - 1; // consume the caption paragraphs
       }
     }
