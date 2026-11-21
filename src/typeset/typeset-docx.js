@@ -36,6 +36,7 @@ const { applyMarkFlushRight } = require("./passes/marks.js");
 const { columnizeLists, normaliseSpacing, splitAnswerLabels, displayifyColumnMath, stripPrimaryScaffold, proofPolish, normaliseQuestionMarkBold, joinBrokenLines, boxLooseActivities } = require("./passes/polish.js");
 const { syllabusPostProcess } = require("./passes/syllabus.js");
 const { boxAlternatives, liftCrossCutting } = require("./passes/alternatives.js");
+const { reshapeBoxes, dumpTree, joinCompetenceTails, exerciseBarBack, unwrapBoxTables } = require("./passes/reshape.js");
 
 async function typesetOne(docxPath, themeName) {
   const base = path.basename(docxPath).replace(/\.docx$/i, "");
@@ -497,7 +498,7 @@ async function typesetOne(docxPath, themeName) {
     if (!media.some((m) => m.name === name)) media.push({ src, name });
     spec.raw = { t: "image", file: name, w: spec.w || 601, tall: false };
   }
-  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.uniformLabel || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing || ov.codeBlocks) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.editCell || ov.alignLeft || ov.subtopicsRunOn || ov.renumberFigures || ov.joinSplitTables || ov.deleteExact || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.uniformLabel || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.codeBlocks || ov.imageToText || ov.unbox || ov.italicSections || ov.unsideFigure || ov.imageLabelCaptions || ov.recolorCell || ov.replaceRange || ov.insertUnitTopics || ov.renumberExercises || ov.italicPara || ov.boxRange || ov.fontRange || ov.splitBox || ov.tidySpacing) { applyOverrides(blocks, ov); }
   // glossaryColon: true — in the glossary, a term is followed by a colon, not the hyphen
   // the author typed: "Bacikombo- Caamba bamukowa" -> "Bacikombo: Caamba bamukowa".
   if (ov.glossaryColon) {
@@ -702,6 +703,17 @@ async function typesetOne(docxPath, themeName) {
   splitAnswerLabels(blocks, { keepLabel: !!ov.keepAnswerLabel });
   // House style: make every structural box label read in one case across the book.
   uniformBoxLabelCase(blocks);
+  // converted books: box pages, competence lines and exercise bars the old PDF's layout broke
+  if (ov.joinBrokenLines) console.log(`   unwrapBoxTables: ${unwrapBoxTables(blocks)} box page(s) in a table opened back into the box`);
+  if (ov.joinBrokenLines) console.log(`   joinCompetenceTails: ${joinCompetenceTails(blocks)} broken competence line(s) joined`);
+  if (ov.reboxExercises) console.log(`   exerciseBarBack: ${exerciseBarBack(blocks)} exercise bar(s) put back over their questions`);
+  // a book's own box corrections, now the boxes exist (boxRange / unboxRange / splitTable)
+  if (ov.boxRange || ov.unboxRange || ov.unglueTail || ov.splitTable || ov.keepWhole || ov.newPage || ov.boldLead || ov.codeBlocks || ov.splitBefore || ov.codeConsole || ov.dropTable || ov.codeSql || ov.runOn || ov.mergeTables) {
+    blocks = reshapeBoxes(blocks, ov);
+    // (again: lines a split table gave back can be the rest of the paragraph before)
+    if (ov.joinBrokenLines) joinCompetenceTails(blocks);
+  }
+  if (process.env.ZEPH_TREE) fs.writeFileSync(process.env.ZEPH_TREE, dumpTree(blocks));
   // Group each lesson's header metadata into one distinct 14pt panel (Teacher's Guide).
   if (ov.polish) blocks = groupLessonMeta(blocks);
   reorderFrontmatter(blocks);   // house-style front-matter order (see the function)
@@ -1293,6 +1305,16 @@ async function typesetOne(docxPath, themeName) {
       }
       if (b.t === "listitem" && /^\d+[.)]$/.test(String(b.marker || "").trim())) b.marker = `${++k}.`;
       else if (/^(head|h1|h2|h3|label|termpage)$/.test(b.t)) k = 0;
+      // the numbered questions inside an activity box count 1..N too (a question the
+      // converted copy broke at a page end kept a Word number for each half); a bold
+      // sub-title line inside the box starts the count again
+      if (b.t === "activity" && Array.isArray(b.body)) {
+        let j = 0;
+        for (const x of b.body) {
+          if (x && x.t === "listitem" && /^\d+[.)]$/.test(String(x.marker || "").trim())) x.marker = `${++j}.`;
+          else if (x && (/^(head|label)$/.test(x.t) || (x.t === "para" && Array.isArray(x.segs) && x.segs.some((s) => (s.t || "").trim()) && x.segs.every((s) => !(s.t || "").trim() || s.b)))) j = 0;
+        }
+      }
     }
   }
   // listLabels: ["Mtundu wa otengamo mbali:"] — a line the author numbered as the FIRST item
@@ -1818,18 +1840,32 @@ async function typesetOne(docxPath, themeName) {
     } else if (fs.existsSync(spreadPath)) fs.rmSync(spreadPath);
   }
 
+  // `--epub`: also write a reflowable EPUB 3 from the SAME final blocks the PDF was just
+  // printed from, so the e-book carries every override and engine fix by construction.
+  // Opt-in; without the flag nothing here runs. Must come before the temp cleanup below,
+  // because the pictures are read from the workspace's staged (cropped/enhanced) copies.
+  if (WANT_EPUB) {
+    const epubPath = path.join(bookDir, `${base}.epub`);
+    await require("./emit-epub.js").writeEpub({ blocks, workspace: ws, outPath: epubPath, pdfPath: outPath });
+    console.log(`EPUB:    ${epubPath} [${fs.statSync(epubPath).size} bytes]`);
+  }
+
   // best-effort cleanup of temp extraction dirs
   try { fs.rmSync(ws, { recursive: true, force: true }); } catch (e) {}
   try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) {}
 }
 
+// Set by `--epub` on the command line (see the end of typesetOne).
+let WANT_EPUB = false;
+
 async function main() {
-  // Parse args: positional .docx paths + an optional `--theme NAME`.
+  // Parse args: positional .docx paths + an optional `--theme NAME` and `--epub`.
   const argv = process.argv.slice(2);
   let themeName = null;
   const paths = [];
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--theme") { themeName = argv[++i]; continue; }
+    if (argv[i] === "--epub") { WANT_EPUB = true; continue; }
     paths.push(argv[i]);
   }
   if (themeName && !THEMES[themeName]) {

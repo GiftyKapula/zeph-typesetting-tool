@@ -1211,6 +1211,55 @@
       "with": "(c) Mobile presentation apps are helpful",
       "_why": "source p16: (c) read as (^)",
       "_restore": true
+    },
+    {
+      "find": "Alternative ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "Activity: ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "Debate ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "on ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "Consent ",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": "and Privacy",
+      "with": "",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
+    },
+    {
+      "find": " Organise learners",
+      "with": "Organise learners",
+      "after": "Organise learners into two groups to debate",
+      "late": true,
+      "_why": "the Debate title words glued to its first line (now the box title)"
     }
   ],
   "codeBlocks": [
@@ -4572,6 +4621,29 @@
       "find": "Ruth Gondwe holds a MSc",
       "before": "Shephat Phiri holds a BSc",
       "_why": "proofreading round 1 (21 Nov): bios in the cover order"
+    }
+  ],
+  "boxRange": [
+    {
+      "from": "Game 3: Simple Quiz Game",
+      "to": "while demonstrating logical thinking",
+      "kind": "act",
+      "titleFromFirst": true,
+      "_why": "main engine (unwrapBoxTables, from the LB) opens the one-column table that held this activity into the box before it; boxed on its own again as in the round-1 proof"
+    },
+    {
+      "from": "Game 4: Dice Rolling Game",
+      "to": "explain how the program works",
+      "kind": "act",
+      "titleFromFirst": true,
+      "_why": "main engine (unwrapBoxTables, from the LB) opens the one-column table that held this activity into the box before it; boxed on its own again as in the round-1 proof"
+    },
+    {
+      "from": "Organise learners into two groups to debate",
+      "to": "referencing relevant laws and principles",
+      "kind": "alt",
+      "title": "Alternative Activity: Debate on Consent and Privacy",
+      "_why": "main engine (unwrapBoxTables, from the LB) opens the one-column table that held this activity into the box before it; boxed on its own again as in the round-1 proof"
     }
   ]
 }
