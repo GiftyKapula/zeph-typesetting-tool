@@ -293,7 +293,7 @@ off, so a change only touches the books that opt in. Keys:
 | `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off) |
 | `keepListNumbers` | `true`: in an exercise whose answers are numbered by Word, a list restarting at 1 under an answer (Word's or typed by hand) stays that answer's sub-list with its own numbers, instead of joining the answer count |
 | `listAnswers` | with `keepListNumbers`: `["start of item", …]` — items that open a new answer though Word keeps them in the same list as the steps above them |
-| `boldLabels` | `["Key lesson", …]`: a line opening with the label prints the label (and its colon) bold in the style of the text after it, and those words not bold; reaches exercise parts |
+| `boldLabels` | `["Key lesson", …]`: a line opening with the label prints the label (and its colon) bold in the style of the text after it, and those words not bold; reaches exercise parts. A label set off by a spaced dash ("Relief - Relief refers to…") counts too, the dash staying plain |
 | `plainParts` | `["text in the set"]`: an exercise or assessment set bold throughout loses the bold; table headers keep theirs, and `boldLabels` still apply |
 | `dropParts` | `["exact line"]`: remove a line of an exercise or assessment, which `remove` does not reach |
 | `italicAssessments` | `true`: assessments carrying answers only print italic, as every answer does |

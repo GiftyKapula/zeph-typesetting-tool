@@ -1819,7 +1819,9 @@ function standardiseRuns(blocks, ov) {
   const applyLabel = (runs) => {
     const text = runs.map((r) => r.t).join("");
     const lead = text.length - text.trimStart().length;
-    const label = labels.find((l) => text.startsWith(l, lead) && /^(:|\.|\s*$)/.test(text.slice(lead + l.length)));
+    // A label may also be set off by a spaced dash ("Relief - Relief refers to…", the
+    // Geography Form 4 LB's form); the dash stays in the plain text after the label.
+    const label = labels.find((l) => text.startsWith(l, lead) && /^(:|\.|\s+[-–—]\s|\s*$)/.test(text.slice(lead + l.length)));
     if (!label) return;
     let end = lead + label.length;
     if (text[end] === ":") end += 1;
@@ -2242,7 +2244,14 @@ function applyOverrides(blocks, ov) {
   // is water…"). Plain replaceExact flattens; this one does not.
   for (const r of ov.mdReplaceExact || []) {
     const matches = flat.filter((x) => blockPlain(x).trim() === r.find);
-    if (!matches.length) { console.warn("!  mdReplaceExact not matched:", r.find); continue; }
+    if (!matches.length) {
+      console.warn("!  mdReplaceExact not matched:", r.find);
+      // The usual cause is one character the eye cannot see (a non-breaking hyphen, a
+      // dash the import respaced): show the block that starts the same way, verbatim.
+      const near = flat.find((x) => blockPlain(x).includes(r.find.slice(0, 30)));
+      if (near) console.warn("   nearest block:", JSON.stringify(blockPlain(near).trim()));
+      continue;
+    }
     for (const b of (r.all ? matches : matches.slice(0, 1))) setBlockSegs(b, mkSegs(r.with));
   }
   // replaceBlocks: [{ find, with: [ blockspec, … ] }] — replace the FIRST block (at any
