@@ -2486,6 +2486,11 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   // box (a bold short line would otherwise be promoted to a heading below and end the box).
   const toks = plain.split(/[\s,]+/).filter(Boolean);
   if (toks.length >= 3 && toks.every((w) => w.replace(/[.\/]/g, "").length <= 1)) return { t: "para", segs };
+  // "ASSESSMENT/TEACHING STRATEGIES" heads a bullet list of methods (guided discovery,
+  // think-pair-share …), not questions: boxed as an assessment it printed a grey panel
+  // opening on an empty "1." with the methods numbered on beneath it, six times in the
+  // Literature in English Form 5 TG, where the same label elsewhere is an ordinary head.
+  if (allBold && /^(assessment\s*(\/|and)\s*teaching|teaching\s*(\/|and)\s*assessment)\s+strateg/i.test(plain)) return { t: "head", text: plain };
   if (allBold && /assessment/i.test(plain) && plain.length <= 80) return { t: "assessmentTitle", text: plain };
   if (allBold && colored) return { t: "head", text: plain };               // coloured heading (PE)
   // A writer may mark a sub-heading with COLOUR ALONE and never bold it. The RE Form 2
@@ -3584,6 +3589,13 @@ async function importDocx(docxPath, opts = {}) {
       // "Specific Competence"), which the same manuscript sets at body size.
       if (bodySize && !isTbl(y) && ty && boldFirstRun(y) && sizeOf(y) > bodySize && !boxKindFromTitle(ty)) break;
       if (SECTION_RE.test(ty)) break; // a numbered heading (no Word style)
+      // A lesson title or a PART heading typed as a bold body-size line ("Lesson 3:
+      // Bitterness", "PART IV: ANSWERS TO END-OF-TOPIC TESTS") is the next section, never
+      // an activity's content. Nothing above catches one at body size, so in the
+      // Literature in English Form 5 TG an activity box swallowed the next lesson's
+      // title, and the last activity of the book carried both end-of-topic answer keys
+      // inside its grey panel.
+      if (ty && boldFirstRun(y) && /^(LESSON\s+\d+\s*:|PART\s+[IVX]+\s*:)/i.test(ty.trim())) break;
       // A topic's own "Glossary of Terms" / "Suggested References", typed as a plain
       // body-size line straight after its End-of-Topic Assessment. Nothing above ends
       // the assessment there (it is not bold, styled or larger), so five of the six
