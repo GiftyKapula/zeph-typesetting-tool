@@ -979,6 +979,8 @@ async function typesetOne(docxPath, themeName) {
   if (gnum === "2" && eduLevel === "Primary Education Level") themeOverrides.coverStyle = "grade2";
   // a book may pin a specific cover style (e.g. to A/B-test a Grade 2 cover variant)
   if (ov.coverStyle) themeOverrides.coverStyle = ov.coverStyle;
+  // coverTech: true — extra computing texture on a circuit-motif cover (code lines, node network, globe)
+  if (ov.coverTech) themeOverrides.coverTech = true;
   // keepBoxMm: boxes shorter than this stay whole on one page (default 180 mm); a lower value lets
   // mid-size activity boxes split rather than leave half a page empty before them
   if (ov.keepBoxMm) themeOverrides.keepBoxMm = Number(ov.keepBoxMm);
