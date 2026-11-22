@@ -276,6 +276,7 @@ off, so a change only touches the books that opt in. Keys:
 | `monoLines` | render a block as monospace, preserving every literal space — for an ASCII-art diagram or aligned columns the author built with spaces in Word |
 | `fixExercise` | repair a mis-parsed exercise/assessment heading: `renumber: true` renumbers it in place, `heading: "EXERCISE 9"` overwrites a wrong/missing title (matched via `match` + `near`), `parentBefore` fixes a lettered sub-part that lost its parent number; `markers` sets markers by position (`"lead"` turns a scenario numbered as question 1 into the plain lead-in line; `italic: true|false` sets the whole box italic or roman; an END OF TOPIC ASSESSMENT is matched by its title too), `addParts: [{ text, marker?, depth?, at?, keep? }]` adds answer lines a reviewer wrote out (`keep: true` binds a line to the next) |
 | `tocDepth` | how many heading levels the table of contents lists (default 2: top-level + one sub-level) |
+| `tocTitle` | the contents page's own title, e.g. `"Table of Content"` when a reviewer dictates other wording (default "Table of Contents") |
 | `tidyPunctSpace` | `true`: no space before , . ; : ? ! anywhere, doubled spaces squeezed, and a book's runs tidied first (a one-space run folded into the run before it, neighbouring runs with the same formatting joined, a lone punctuation run taking the formatting of the word it closes), so a `subtext` can match wording that crossed a converted PDF's old line ends |
 | `endStop` | `["…end of a sentence", …]`: adds the missing full stop to every paragraph, list item or question that ENDS with that wording and has no closing punctuation; safe where `subtext` is not (a recurring "Present your work to the class" that is sometimes already closed) |
 | `splitSubParts` | `true`: a question carrying its own lettered sub-questions on one paragraph ("How would you…? b) Explain… c) Identify…", "…affect: a) the guest; and b) …") becomes one part per letter; only letters in order count |
@@ -295,6 +296,8 @@ off, so a change only touches the books that opt in. Keys:
 | `dropParts` | `["exact line"]`: remove a line of an exercise or assessment, which `remove` does not reach |
 | `italicAssessments` | `true`: assessments carrying answers only print italic, as every answer does |
 | `boxTitleNoStop` | `true`: activity titles lose a trailing full stop |
+| `activityTitleSize` | e.g. `"12pt"`: LEARNING ACTIVITY box titles at that size (default 13pt); other boxes keep theirs. CDC "reduce font size to 12", Geography Form 4 TG |
+| `competenceLeadIn` | the line under Specific Competence(s) in a Teacher's Guide, e.g. `"In this sub-topic, learners will:"` (default "In this section, learners will:") |
 | `fieldLabels` | `["Teacher Reflection", …]`: a label on its own line joins the paragraph under it, for a book that mostly runs it in |
 | `compactLen` | longest cell (default 10 letters) a table column may hold and still size to its words |
 | `boxTailOut` | `[{ find, with }]`: a closing line typed inside a box leaves it and prints under it as the plain paragraph `with` |
