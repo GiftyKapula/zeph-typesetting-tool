@@ -7376,6 +7376,9 @@ async function typesetOne(docxPath, themeName) {
     try { ov = JSON.parse(fs.readFileSync(ovPath, "utf8")); }
     catch (e) { console.warn("!  overrides skipped:", e.message); }
   }
+  // `--dummy`: the CDC/tender evaluation copy of the same book — `anonymous` on top of
+  // the book's own sidecar, written beside the named version as "<book> - Dummy …".
+  if (WANT_DUMMY) ov.anonymous = true;
   const theme = themeName || ov.theme || autoTheme(detectName);
   const variant = (THEMES[theme] || {}).variant;
   const eduLevel = eduLevelFor(detectName);
@@ -8034,7 +8037,7 @@ function normaliseQuestionMarkBold(blocks) {
   }
   {
     const zeph = path.join(ROOT, "zeph-logo", "image.png");
-    if (fs.existsSync(zeph)) {
+    if (fs.existsSync(zeph) && !ov.anonymous) {
       media.push({ src: zeph, name: "zeph_logo.png" });
       const cov = blocks.find((b) => b.t === "cover");
       if (cov) cov.logo = { file: "zeph_logo.png" };
@@ -8371,8 +8374,37 @@ function normaliseQuestionMarkBold(blocks) {
   if (ov.backmatterSpacing) for (const b of blocks)
     if (b.t === "h1" && /^(GLOSSARY|REFERENCES|BIBLIOGRAPHY)\b/i.test(b.text || "")) b.bmSpacing = ov.backmatterSpacing;
 
+  // `anonymous: true` — a tender copy, judged blind: nothing may identify the book as
+  // ZEPH's (books have been disqualified for it). Every preliminary page goes — title
+  // page, imprint, contents, author bios, foreword, preface, acknowledgements, intro —
+  // so the cover is followed straight by the first unit/topic, numbered from 1. The
+  // cover keeps its title but loses the logo and the author byline; the back cover is
+  // the bare colour field (the template's `anon` drops "Published by", the ISBN box
+  // and every printed publisher name); the spine loses its logo. Pictures the
+  // manuscript itself carries (a mock-up cover with a logo baked in) are not touched
+  // here — crop or replace those per book.
+  if (ov.anonymous) {
+    const covI = blocks.findIndex((b) => b.t === "cover");
+    const UNIT_START = /^(TOPIC|UNIT|CHAPTER|MODULE|THEME)\s*:?\s*[\dIVX]/i;
+    const firstI = blocks.findIndex((b, i) => i > covI && b.t === "h1" && UNIT_START.test(String(b.text || "").trim()));
+    if (firstI < 0) console.warn("!  anonymous: no first unit/topic heading found — preliminary pages left in");
+    else {
+      const KEEP = new Set(["cover", "bodystart"]);
+      const dropped = blocks.slice(covI + 1, firstI).filter((b) => !KEEP.has(b.t)).length;
+      const kept = blocks.slice(covI + 1, firstI).filter((b) => KEEP.has(b.t));
+      if (!kept.some((b) => b.t === "bodystart")) kept.push({ t: "bodystart" });
+      blocks.splice(covI + 1, firstI - covI - 1, ...kept);
+      console.log(`   anonymous: ${dropped} preliminary block(s) removed; the book opens on "${blocks[covI + 1 + kept.length].text}"`);
+    }
+    for (const b of blocks) {
+      if (b.t === "cover") { b.logo = null; b.byline = []; }
+      if (b.t === "backcover") b.logo = null;
+      if (b.t === "titlepage" || b.t === "imprint") { b.t = "vspace"; b.h = "0pt"; }
+    }
+  }
+
   // An ISBN supplied in the overrides is shown on the covers (no barcode).
-  if (ov.isbn) for (const b of blocks) if (b.t === "cover" || b.t === "backcover") b.isbn = ov.isbn;
+  if (ov.isbn && !ov.anonymous) for (const b of blocks) if (b.t === "cover" || b.t === "backcover") b.isbn = ov.isbn;
 
   // Workspace for the compiler: a temp dir holding a _media/ subfolder so the
   // imported images resolve. The template is inlined, so no other files needed.
@@ -8513,6 +8545,7 @@ function normaliseQuestionMarkBold(blocks) {
   // "maintain the same font" (Physics Form 2 TG). Opt-in: math-heavy books keep the
   // math face until someone has looked at them.
   if (ov.mathBodyFont) themeOverrides.mathBodyFont = true;
+  if (ov.anonymous) themeOverrides.anon = true;   // tender copy: no publisher name in the template
   const coverB = blocks.find((b) => b.t === "cover");
   if (coverB && coverB.lines && coverB.lines.length) {
     const gl = coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
@@ -8789,7 +8822,8 @@ function normaliseQuestionMarkBold(blocks) {
   const gradeFolder = gm ? titleCaseGrade(gm[0]) : "Other";
   const bookDir = path.join(OUTPUT_DIR, gradeFolder, base);
   fs.mkdirSync(bookDir, { recursive: true });
-  const outPath = path.join(bookDir, `${base} - typeset.pdf`);
+  const outBase = WANT_DUMMY ? `${base} - Dummy` : base;   // --dummy never overwrites the named version
+  const outPath = path.join(bookDir, `${outBase} - typeset.pdf`);
   fs.writeFileSync(outPath, Buffer.from(pdf));
   // keep the generated .typ alongside the PDF (and by the runner) for inspection
   fs.writeFileSync(path.join(bookDir, "_source.typ"), doc);
@@ -8805,9 +8839,9 @@ function normaliseQuestionMarkBold(blocks) {
   const coverBlk = blocks.find((b) => b.t === "cover");
   const backBlk = blocks.find((b) => b.t === "backcover");
   if (variant !== "syllabus" && coverBlk && backBlk) {
-    const spreadPath = path.join(bookDir, `${base} - cover spread.pdf`);
+    const spreadPath = path.join(bookDir, `${outBase} - cover spread.pdf`);
     // …and the book in ONE file with that spread as its first page — what is delivered.
-    const withCoverPath = path.join(bookDir, `${base} - with cover spread.pdf`);
+    const withCoverPath = path.join(bookDir, `${outBase} - with cover spread.pdf`);
     try {
       const r = await require("./cover-spread.js").writeCoverSpread({
         pdf: Buffer.from(pdf), compiler, prefix: `${themeTypst(theme, themeOverrides)}${tmpl}`,
@@ -8843,6 +8877,8 @@ function normaliseQuestionMarkBold(blocks) {
 
 // Set by `--epub` on the command line (see the end of typesetOne).
 let WANT_EPUB = false;
+// Set by `--dummy`: build the anonymous evaluation copy (see typesetOne).
+let WANT_DUMMY = false;
 // Set per book from the `headListSpacing` override (read by emit()).
 let HEAD_LIST_SPACING = false;
 
@@ -8854,6 +8890,7 @@ async function main() {
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--theme") { themeName = argv[++i]; continue; }
     if (argv[i] === "--epub") { WANT_EPUB = true; continue; }
+    if (argv[i] === "--dummy") { WANT_DUMMY = true; continue; }
     paths.push(argv[i]);
   }
   if (themeName && !THEMES[themeName]) {

@@ -30,6 +30,10 @@
 // "syllabus" = the CDC landscape curriculum-syllabus family (A4 landscape, a grey-
 // header 5-column matrix interior, a spread cover). Its own page furniture below.
 #let syllabus = T.variant == "syllabus"
+// `anonymous: true` (a tender copy, judged blind): the template prints no publisher
+// name anywhere -- cover, title page, back cover -- so nothing marks the book as ZEPH's.
+#let anon = T.at("anon", default: false)
+#let pubname = if anon { "" } else { "Zambia Educational Publishing House" }
 // "series" (English, flat) and "science" (Physics, boxed) share the ZEPH B5
 // house mechanics: page size/margins, running header, tilde footer, roman/arabic
 // numbering, designed cover + title page + back cover.
@@ -485,7 +489,7 @@
   align(center)[
     #box(fill: T.primary, width: 28mm, height: 2.5pt, radius: 1pt)
     #v(4mm)
-    #text(size: 12pt, weight: "bold", fill: T.ink)[Zambia Educational Publishing House]
+    #text(size: 12pt, weight: "bold", fill: T.ink)[#pubname]
     #v(1mm)
     #text(size: 11pt, fill: T.ink)[Lusaka]]
   v(6mm)
@@ -581,7 +585,7 @@
       #place(top + left, dx: 0mm, dy: 150mm, box(width: 297mm)[
         #set align(center)
         #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Printed by] #linebreak()
-        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Zambia Educational Publishing House]
+        #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[#pubname]
       ])
     ]
     pastcover.update(true)
@@ -854,7 +858,7 @@
           place(top + center, dy: cardTop + 4mm, bylineBlock)
           place(top + center, dy: cardTop + cardH + 5mm, align(center)[
             #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(2mm) ]
-            #text(size: 10.5pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
+            #text(size: 10.5pt, weight: "bold", fill: white)[#pubname]
           ])
         } else if byline.len() > 0 {
           let bylineDy = if hero != none { calc.max(196mm, heroDy + 78mm + 10mm) } else { 196mm }
@@ -864,7 +868,7 @@
       #if not earthCard [
         #place(bottom + center, dy: -12mm, align(center)[
           #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(2mm) ]
-          #text(size: 10.5pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
+          #text(size: 10.5pt, weight: "bold", fill: white)[#pubname]
         ])
       ]
     ]
@@ -920,7 +924,7 @@
       // publisher + logo
       #place(bottom + center, dy: -13mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
-        #text(size: 10.5pt, weight: "bold", fill: T.primary)[Zambia Educational Publishing House]
+        #text(size: 10.5pt, weight: "bold", fill: T.primary)[#pubname]
       ])
     ]
   } else if series and T.at("coverStyle", default: "") == "form2" {
@@ -978,7 +982,7 @@
       // publisher + logo
       #place(bottom + center, dy: -12mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
-        #text(size: 10.5pt, weight: "bold", fill: T.primary)[Zambia Educational Publishing House]
+        #text(size: 10.5pt, weight: "bold", fill: T.primary)[#pubname]
       ])
     ]
   } else if series and T.at("coverStyle", default: "") == "grade2" {
@@ -1042,7 +1046,7 @@
       ]
       #place(bottom + center, dy: -9mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 11mm) #v(1.5mm) ]
-        #text(size: 10pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
+        #text(size: 10pt, weight: "bold", fill: white)[#pubname]
       ])
     ]
   } else if series and T.at("coverStyle", default: "") == "grade2card" {
@@ -1087,7 +1091,7 @@
       ]
       #place(bottom + center, dy: -8mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 10mm) #v(1mm) ]
-        #text(size: 9.5pt, weight: "bold", fill: white)[Zambia Educational Publishing House]
+        #text(size: 9.5pt, weight: "bold", fill: white)[#pubname]
       ])
     ]
   } else if series and T.at("coverStyle", default: "") == "grade3" {
@@ -1146,7 +1150,7 @@
       // publisher + logo
       #place(bottom + center, dy: -12mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
-        #text(size: 10.5pt, weight: "bold", fill: T.primary)[Zambia Educational Publishing House]
+        #text(size: 10.5pt, weight: "bold", fill: T.primary)[#pubname]
       ])
     ]
   } else if series {
@@ -1201,7 +1205,7 @@
       // --- publisher + logo, bottom centre ---
       #place(bottom + center, dy: -13mm, align(center)[
         #if logo != none [ #image("_media/" + logo.file, height: 12mm) #v(2mm) ]
-        #text(size: 10.5pt, weight: "bold", fill: deepteal)[Zambia Educational Publishing House]
+        #text(size: 10.5pt, weight: "bold", fill: deepteal)[#pubname]
       ])
     ]
   } else if literary {
@@ -1235,7 +1239,7 @@
           ]
           #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
           #v(3mm)
-          #text(size: 9pt, fill: white.transparentize(15%))[Zambia Educational Publishing House]
+          #text(size: 9pt, fill: white.transparentize(15%))[#pubname]
         ]
       ])
     ]
@@ -1263,7 +1267,7 @@
         ]
         #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 11mm) ]
         #v(2mm)
-        #text(fill: T.primary2, size: 9pt)[Zambia Educational Publishing House]
+        #text(fill: T.primary2, size: 9pt)[#pubname]
       ])
     ]
   } else {
@@ -1434,7 +1438,7 @@
       ]
       #if logo != none [ #v(4mm) #image("_media/" + logo.file, height: 12mm) ]
       #v(3mm)
-      #text(size: 9pt, fill: white.transparentize(20%))[Zambia Educational Publishing House]
+      #text(size: 9pt, fill: white.transparentize(20%))[#pubname]
     ])
   ]
   }
@@ -1466,7 +1470,7 @@
         #place(bottom + center, dy: -30mm, box(width: 160mm)[
           #set align(center)
           #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Printed by] #linebreak()
-          #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[Zambia Educational Publishing House]
+          #text(font: T.bodyFont, size: 13pt, weight: "bold", fill: ftext)[#pubname]
         ])
       ]
     }
@@ -1484,11 +1488,13 @@
     #set text(font: T.displayFont)
     // Publisher block: the logo over "Published by / Zambia Educational Publishing
     // House", centred a little below the middle of the page, clear above the ISBN.
+    // A tender copy (`anon`) gets the bare colour field: no logo, publisher or ISBN box.
+    #if not anon [
     #place(horizon + center, dy: 18mm, box(width: 140mm)[
       #set align(center)
       #if logo != none [#image("_media/" + logo.file, height: 20mm) #v(4mm)]
       #text(size: 9.5pt, fill: onfield)[Published by] #linebreak()
-      #text(size: 12pt, weight: "bold", fill: onfield)[Zambia Educational Publishing House]
+      #text(size: 12pt, weight: "bold", fill: onfield)[#pubname]
     ])
     // ISBN: if known, print it (no barcode); otherwise reserve a clean box for the
     // press to add the ISBN + barcode at print time. Centred, low on the page.
@@ -1497,6 +1503,7 @@
     ] else [
       #place(bottom + center, dy: -45mm, box(width: 52mm, height: 26mm, fill: white, stroke: 0.7pt + luma(60%), radius: 1pt)[
         #align(center + horizon)[#text(size: 8pt, fill: luma(55%))[ISBN & barcode]]])
+    ]
     ]
   ]
 }

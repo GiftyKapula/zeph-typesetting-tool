@@ -1,0 +1,32 @@
+{
+  "//authors": "The manuscript has no cover byline; the AUTHOR page names Edward Kapili. Hidden automatically in the --dummy build (anonymous).",
+  "authors": [
+    "Edward Kapili"
+  ],
+  "//images": "image1 is the author's finished mock-up cover (title, author name, ZEPH logo and a copyright line baked in). Cover hero = the word-free band between LEARNER'S BOOK and the author's name, Real-ESRGAN x4, 1800 px.",
+  "images": {
+    "image1.png": {
+      "src": "Economics F5 LB-art/cover-hero.png"
+    }
+  },
+  "//edit": "The manuscript's own contents list says TOPIC 5.3; the heading itself was typed TOPIC 3. Sub-topic 5.2.3 runs Activity 1, 2, 15, 4, 5: the 15 is Activity 3.",
+  "edit": [
+    {
+      "find": "TOPIC 3: ELASTICITIES OF DEMAND AND SUPPLY",
+      "with": "TOPIC 5.3: ELASTICITIES OF DEMAND AND SUPPLY"
+    },
+    {
+      "find": "LEARNING ACTIVITY 15: Illustrating market equilibrium",
+      "with": "LEARNING ACTIVITY 3: Illustrating market equilibrium"
+    }
+  ],
+  "//asHead": "Run-in heads typed in Word Heading styles, so they showed as sub-topics/sections in the contents.",
+  "asHead": [
+    "Introduction",
+    "What equilibrium means",
+    "Solving the equations",
+    "Shifts and their effects",
+    "End of Topic Summary"
+  ],
+  "fmSpacing": "1.15em"
+}
