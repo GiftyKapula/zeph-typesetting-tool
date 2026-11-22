@@ -2617,7 +2617,10 @@
 // end-of-topic assessment, an exercise…) flows across a page boundary instead of
 // overflowing the bottom margin (which clips/jumbles the text). Pass
 // `breakable: false` only for a short box that must stay whole.
-#let titledbox(title, kind, content, breakable: true) = {
+// `tsize`: an explicit title size for this one box (activityTitleSize below); none keeps
+// each style's own size.
+#let titledbox(title, kind, content, breakable: true, tsize: none) = {
+  let ts(x) = if tsize != none { tsize } else { hs(x) }
   // Headings/box titles are conventionally never hyphenated in print — a long
   // word wrapping mid-title (e.g. "ACAP-PELLA") reads as broken even though the
   // break itself is a valid hyphenation point, since a reader expects a title's
@@ -2635,18 +2638,18 @@
     block(width: 100%, breakable: breakable, radius: 6pt, clip: true,
           stroke: 0.8pt + kind.border.transparentize(35%))[
       #block(width: 100%, sticky: true, fill: kind.border, inset: (x: 14pt, y: 8pt), below: 0pt)[
-        #text(fill: white, weight: "bold", size: hs(12.5pt), tracking: 0.3pt)[#title]]
+        #text(fill: white, weight: "bold", size: ts(12.5pt), tracking: 0.3pt)[#title]]
       #block(width: 100%, breakable: breakable, fill: kind.fill, inset: (x: 14pt, y: 12pt))[#content]]
   } else if serieslike {
     // a light tinted panel with a coloured left stripe (used for any residual
     // boxed content / key points / reference tables in the flowing series layout)
     block(width: 100%, breakable: breakable, radius: 4pt, fill: kind.fill, stroke: (left: 4pt + kind.border), inset: (x: 11pt, y: 9pt))[
-      #block(width: 100%, sticky: true, below: 7pt)[#text(fill: kind.title, weight: "bold", size: hs(14pt))[#title]]
+      #block(width: 100%, sticky: true, below: 7pt)[#text(fill: kind.title, weight: "bold", size: ts(14pt))[#title]]
       #content]
   } else if panel {
     // filled panel (no border) with a thick accent rule under the title
     block(width: 100%, breakable: breakable, radius: 4pt, fill: kind.fill, inset: (x: 11pt, y: 9pt))[
-      #text(fill: kind.title, weight: "bold", size: hs(13pt))[#title]
+      #text(fill: kind.title, weight: "bold", size: ts(13pt))[#title]
       #v(4pt)
       #line(length: 100%, stroke: 2pt + kind.border)
       #v(5pt)
@@ -2661,16 +2664,16 @@
       // serieslike variants above already mark their title band this way; the literary
       // variant was simply missing it.
       #block(width: 100%, sticky: true, fill: kind.border, inset: (x: 11pt, y: 5pt))[
-        #text(fill: white, weight: "bold", size: hs(13pt))[#title]]
+        #text(fill: white, weight: "bold", size: ts(13pt))[#title]]
       #block(width: 100%, breakable: breakable, fill: kind.fill, inset: (x: 11pt, y: 9pt))[#content]]
   } else if modern {
     block(width: 100%, breakable: breakable, radius: 4pt, fill: kind.fill, stroke: (left: 4pt + kind.border), inset: (x: 11pt, y: 9pt))[
-      #text(fill: kind.title, weight: "bold", size: hs(13pt))[#title]
+      #text(fill: kind.title, weight: "bold", size: ts(13pt))[#title]
       #v(3pt)
       #content]
   } else {
     block(width: 100%, breakable: breakable, radius: 3pt, stroke: 0.9pt + kind.border, fill: kind.fill, inset: (x: 10pt, y: 8pt))[
-      #text(fill: kind.title, weight: "bold", size: hs(13pt))[#title]
+      #text(fill: kind.title, weight: "bold", size: ts(13pt))[#title]
       #v(3pt)
       #content]
   }
@@ -3629,11 +3632,15 @@
 // measure into a scratch state, read it back at the TOP LEVEL to emit the weak
 // pagebreak, then render.
 #let boxfits = state("boxfits", true)
+// Activity box titles may take a book-set size (`activityTitleSize` override — CDC asked
+// "reduce font size to 12" on every LEARNING ACTIVITY title of the Geography Form 4 TG).
+#let actTitleSize = T.at("activityTitleSize", default: none)
 #let keepwhole(kind, title, content, force: false) = {
+  let tsize = if kind == "act" { actTitleSize } else { none }
   if force {
     layout(sz => boxfits.update(measure(box(width: sz.width, content)).height < 180mm))
     context (if not boxfits.get() { pagebreak(weak: true) })
-    context titledbox(title, T.at(kind), content, breakable: not boxfits.get())
+    context titledbox(title, T.at(kind), content, breakable: not boxfits.get(), tsize: tsize)
   } else {
     // Always breakable — see framedsection for why the old "atomic if short" rule was
     // dropped from the default (non-`force`) path: it could strand the whole box on a

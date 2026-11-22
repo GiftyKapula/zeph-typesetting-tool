@@ -2851,6 +2851,18 @@
     {
       "from": "focusses",
       "to": "focuses"
+    },
+    {
+      "from": "List at least 2 invasive plant species",
+      "to": "Identify at least 2 invasive plant species"
+    },
+    {
+      "from": "Define deforestation.",
+      "to": "In your own understanding of this topic, how can you describe deforestation?"
+    },
+    {
+      "from": "Define fuel and energy and give",
+      "to": "Identify fuel and energy and give"
     }
   ],
   "mdReplaceExact": [
@@ -2878,5 +2890,13 @@
       "find": "Finally, Transport and Communication show how roads, railways, air transport, and modern communication systems connect people and places, supporting trade and unity. Together, these topics help you see how Geography explains Zambia’s development and how every sector - from forests to factories - plays a role in shaping the nation’s future. Through this course, you will gain knowledge, skills, and awareness that prepare you to contribute positively to Zambia’s sustainable growth.",
       "with": "Finally, **Transport and Communication** shows how roads, railways, air transport and modern communication systems connect people and places, supporting trade and unity. Together, these topics help learners see how Geography explains Zambia’s development and how every sector - from forests to factories - plays a role in shaping the nation’s future. Through this course, learners will gain knowledge, skills and awareness that prepare them to contribute positively to Zambia’s sustainable growth."
     }
+  ],
+  "competenceLeadIn": "In this sub-topic, learners will:",
+  "activityTitleSize": "12pt",
+  "tocTitle": "Table of Content",
+  "orIndividuallyKeep": [
+    "let learners discuss the challenges affecting transport",
+    "let learners identify the common forms of transport",
+    "observe transport patterns in their area"
   ]
 }
