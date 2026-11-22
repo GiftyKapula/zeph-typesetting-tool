@@ -1997,6 +1997,53 @@
       "_why": "round 2 #5163: the exercise box colour (it was a table)"
     },
     {
+      "from": "Step 1: Set Up the Environment",
+      "to": "robot_movement.py",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 (robot movement) steps as the IoT steps (round 2 #5158-#5160), user 22 Nov"
+    },
+    {
+      "from": "Step 2: Create Movement Functions",
+      "near": "Step 1: Set Up the Environment",
+      "to": "turn_left; turn_right; stop",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
+      "from": "Step 3: Write the Movement Sequence",
+      "near": "Step 1: Set Up the Environment",
+      "to": "turn_left() move_forward() stop()",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
+      "from": "Step 4: Run the Program",
+      "near": "Step 1: Set Up the Environment",
+      "to": "follows the correct movement sequence",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
+      "from": "Step 5: Modify and Improve",
+      "near": "Step 1: Set Up the Environment",
+      "to": "Test different movement combinations",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
+      "from": "Step 6: Observe and Record",
+      "near": "Step 1: Set Up the Environment",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
       "from": "Syntax Error",
       "near": "Once you identify a querying issue",
       "to": "Expected Competences",
