@@ -361,6 +361,9 @@ const THEMES = {
   // the contents keeps the default depth 2 because the books carry only five topics
   // and the authors' own table of contents lists the sub-topics.
   accounting: zeph({ subject: "Accounting", variant: "science", signature: "372157", primary: "372157", primary2: "6a4a9c", accent: "c79a3b", cyan: "2f8f8a" }),
+  // Economics (A-Level Form 5-6): a deep teal house theme, boxed activities/exercises
+  // ("science" variant). Without it the books fell to `navy`, titled by their file name.
+  economics: zeph({ subject: "Economics", variant: "science", signature: "0f5c6b", primary: "0f5c6b", primary2: "2f8a96", accent: "e0a32e", cyan: "2f9e8c" }),
   // Hospitality Management (Form 1-4) — the palette of the books' own earlier layout:
   // a deep teal-navy for headings and exercise bars, a warm terracotta-orange for the
   // Learning Activity bars over a peach fill, and a muted blue-grey for exercises.
@@ -460,6 +463,8 @@ function autoTheme(name) {
   // filenames separate fields with underscores, which are word characters — the
   // same trap the maths and "Grade 6_LB" routes above document.
   if (/(?:^|[^a-z])account(?:ing|ancy|s)(?=\b|_)/i.test(name)) return "accounting";
+  // Economics, but never Home Economics (its own primary theme, routed above).
+  if (/(?<!home[\s_]*)economics/i.test(name)) return "economics";
   if (/hospitality/i.test(name)) return "hospitality";
   // Literature in English, however the filename writes it. Manuscripts arrive
   // abbreviated at least as often as spelled out ("LIT in ENG F1 LB"), and the
@@ -503,7 +508,7 @@ function themeTypst(theme, overrides = {}) {
   rulec: ${c(t.rulec)}, zebra: ${c(t.zebra)}, yellow: ${c(t.yellow)},
   tocUnitsOnly: ${t.tocUnitsOnly ? "true" : "false"}, coverStyle: ${q(t.coverStyle || "")}, boxStyle: ${q(t.boxStyle || "")}, tocDepth: ${t.tocDepth || 2}, mono: ${t.mono ? "true" : "false"},${t.capBold ? " capBold: true," : ""}
   ${t.tableSize ? `tableSize: ${t.tableSize},\n  ` : ""}
-  ${t.backInk ? `backInk: ${c(t.backInk)},\n  ` : ""}${t.bylineRows ? `bylineRows: true,\n  ` : ""}${t.subtopicRuleClear ? `subtopicRuleClear: true,\n  ` : ""}${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}${t.activityTitleSize ? `activityTitleSize: ${t.activityTitleSize},\n  ` : ""}${t.keepQuestionParts ? `keepQuestionParts: true,\n  ` : ""}${t.keepExercisesWhole ? `keepExercisesWhole: ${t.keepExercisesWhole},\n  ` : ""}${t.writingColumns ? `writingColumns: true,\n  ` : ""}${t.uniformRubrics ? `uniformRubrics: true,\n  ` : ""}${t.mathBodyFont ? `mathBodyFont: true,\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
+  ${t.backInk ? `backInk: ${c(t.backInk)},\n  ` : ""}${t.bylineRows ? `bylineRows: true,\n  ` : ""}${t.subtopicRuleClear ? `subtopicRuleClear: true,\n  ` : ""}${t.qgap ? `qgap: ${t.qgap},\n  ` : ""}${t.tocGap ? `tocGap: ${t.tocGap},\n  ` : ""}${t.activityTitleSize ? `activityTitleSize: ${t.activityTitleSize},\n  ` : ""}${t.keepQuestionParts ? `keepQuestionParts: true,\n  ` : ""}${t.keepExercisesWhole ? `keepExercisesWhole: ${t.keepExercisesWhole},\n  ` : ""}${t.writingColumns ? `writingColumns: true,\n  ` : ""}${t.uniformRubrics ? `uniformRubrics: true,\n  ` : ""}${t.mathBodyFont ? `mathBodyFont: true,\n  ` : ""}${t.anon ? `anon: true,\n  ` : ""}act: ${box(t.act)}, ex: ${box(t.ex)}, kp: ${box(t.kp)}, fact: ${box(t.fact)}, asmt: ${box(t.asmt)},
 )\n`;
 }
 
