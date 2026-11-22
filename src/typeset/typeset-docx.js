@@ -5468,6 +5468,9 @@ function splitActivityTables(blocks) {
 function convertTableActivities(blocks) {
   const getTableText = (tBlock) => {
     if (!tBlock || !Array.isArray(tBlock.rows)) return "";
+    // Rows end in a line break, not a space: the title is the first LINE, so a table
+    // with the title in row 1 and the activity in row 2 used to glue row 2's opening
+    // line ("Focus: …") onto the title (Economics Form 5 TG, Learning Activity 2 of 5.2.3).
     let txt = "";
     for (const row of tBlock.rows) {
       if (Array.isArray(row)) {
@@ -5479,6 +5482,7 @@ function convertTableActivities(blocks) {
             else if (Array.isArray(cell.segs)) txt += cell.segs.map((s) => s.t || "").join("") + " ";
           }
         }
+        txt = txt.replace(/ $/, "") + "\n";
       }
     }
     return txt.trim();
@@ -5502,17 +5506,16 @@ function convertTableActivities(blocks) {
             title = parts[0].trim().replace(/\bLEARNING\s+(MODELS?|ACTIVITIES)\b/i, "LEARNING ACTIVITY");
             bodyText = parts.slice(1).join("\n").trim() + " " + bodyText;
           }
+          // One paragraph per line of the cell. A single-paragraph body keeps the italic
+          // it always had; a multi-paragraph one (Focus / Method / Procedure / Model
+          // Answer …) is set upright like the book's other activities, one field per
+          // paragraph, instead of one italic wall of text.
+          const paras = bodyText.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+          const it = paras.length <= 1;
           arr[i] = {
             t: "activity",
             title: title,
-            body: [
-              {
-                t: "para",
-                segs: [
-                  { t: bodyText, b: false, it: true }
-                ]
-              }
-            ]
+            body: (paras.length ? paras : [""]).map((p) => ({ t: "para", segs: [{ t: p, b: false, it }] })),
           };
           console.log("Successfully converted 1-cell activity table:", title);
         }
@@ -5520,6 +5523,10 @@ function convertTableActivities(blocks) {
       for (const k of Object.keys(b)) {
         if (Array.isArray(b[k])) walk(b[k]);
       }
+      // A frame the manuscript drew round the activity table now holds nothing but the
+      // activity, and a box does not print an activity nested inside it — the whole of
+      // Learning Activity 2 (5.2.3) vanished from the Economics Form 5 TG. Lift it out.
+      if (b.t === "box" && Array.isArray(b.body) && b.body.length === 1 && b.body[0] && b.body[0].t === "activity") arr[i] = b.body[0];
     }
   };
   walk(blocks);
@@ -8375,9 +8382,14 @@ function normaliseQuestionMarkBold(blocks) {
     if (b.t === "h1" && /^(GLOSSARY|REFERENCES|BIBLIOGRAPHY)\b/i.test(b.text || "")) b.bmSpacing = ov.backmatterSpacing;
 
   // `anonymous: true` — a tender copy, judged blind: nothing may identify the book as
-  // ZEPH's (books have been disqualified for it). Every preliminary page goes — title
-  // page, imprint, contents, author bios, foreword, preface, acknowledgements, intro —
-  // so the cover is followed straight by the first unit/topic, numbered from 1. The
+  // ZEPH's (books have been disqualified for it). The preliminary pages that identify
+  // the book go: everything between the cover and the contents (title page, copyright /
+  // imprint with its ISBN, editors, layout credit, Published/Printed by) and, after the
+  // contents, the Author(s) bio, Editors, Foreword, Preface and Acknowledgement(s) —
+  // their signatories and thanks name the publisher, its staff and the reviewers. The
+  // contents page, Introduction, competences and the rest of the front matter STAY:
+  // they describe the book, not who made it (user, 2026-11-22: "Table of contents is
+  // missing and introduction page" on the first Economics Form 5 Dummy). The
   // cover keeps its title but loses the logo and the author byline; the back cover is
   // the bare colour field (the template's `anon` drops "Published by", the ISBN box
   // and every printed publisher name); the spine loses its logo. Pictures the
@@ -8389,12 +8401,25 @@ function normaliseQuestionMarkBold(blocks) {
     const firstI = blocks.findIndex((b, i) => i > covI && b.t === "h1" && UNIT_START.test(String(b.text || "").trim()));
     if (firstI < 0) console.warn("!  anonymous: no first unit/topic heading found — preliminary pages left in");
     else {
-      const KEEP = new Set(["cover", "bodystart"]);
-      const dropped = blocks.slice(covI + 1, firstI).filter((b) => !KEEP.has(b.t)).length;
-      const kept = blocks.slice(covI + 1, firstI).filter((b) => KEEP.has(b.t));
-      if (!kept.some((b) => b.t === "bodystart")) kept.push({ t: "bodystart" });
-      blocks.splice(covI + 1, firstI - covI - 1, ...kept);
-      console.log(`   anonymous: ${dropped} preliminary block(s) removed; the book opens on "${blocks[covI + 1 + kept.length].text}"`);
+      const MARKER = new Set(["titlestart", "showpage", "bodystart"]);
+      const PRELIM = /^(THE\s+)?AUTHOR(S|[’']S|S[’'])?(\s+BIOGRAPH(Y|IES))?$|^ABOUT\s+THE\s+AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG/i;
+      const tocI = blocks.findIndex((b, i) => i > covI && i < firstI && b.t === "toc");
+      if (tocI < 0) console.warn("!  anonymous: no contents page found — only the named prelim sections are removed");
+      const dropped = [];
+      let inPrelim = false;
+      const front = blocks.slice(covI + 1, firstI).filter((b, k) => {
+        const i = covI + 1 + k;
+        if (b.t === "titlepage" || b.t === "imprint") { dropped.push("title/imprint"); return false; }
+        if (MARKER.has(b.t) || b.t === "toc") return true;
+        if (tocI > covI && i < tocI) return false;            // copyright, ISBN, credits
+        if (b.t === "h1") {
+          inPrelim = PRELIM.test(String(b.text || "").trim());
+          if (inPrelim) dropped.push(String(b.text).trim());
+        }
+        return !inPrelim;
+      });
+      blocks.splice(covI + 1, firstI - covI - 1, ...front);
+      console.log(`   anonymous: removed the title page, imprint${dropped.length ? " and " + [...new Set(dropped.filter((d) => d !== "title/imprint"))].join(", ") : ""}; contents and the rest of the front matter kept`);
     }
     for (const b of blocks) {
       if (b.t === "cover") { b.logo = null; b.byline = []; }
