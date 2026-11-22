@@ -5468,6 +5468,9 @@ function splitActivityTables(blocks) {
 function convertTableActivities(blocks) {
   const getTableText = (tBlock) => {
     if (!tBlock || !Array.isArray(tBlock.rows)) return "";
+    // Rows end in a line break, not a space: the title is the first LINE, so a table
+    // with the title in row 1 and the activity in row 2 used to glue row 2's opening
+    // line ("Focus: …") onto the title (Economics Form 5 TG, Learning Activity 2 of 5.2.3).
     let txt = "";
     for (const row of tBlock.rows) {
       if (Array.isArray(row)) {
@@ -5479,6 +5482,7 @@ function convertTableActivities(blocks) {
             else if (Array.isArray(cell.segs)) txt += cell.segs.map((s) => s.t || "").join("") + " ";
           }
         }
+        txt = txt.replace(/ $/, "") + "\n";
       }
     }
     return txt.trim();
@@ -5502,17 +5506,16 @@ function convertTableActivities(blocks) {
             title = parts[0].trim().replace(/\bLEARNING\s+(MODELS?|ACTIVITIES)\b/i, "LEARNING ACTIVITY");
             bodyText = parts.slice(1).join("\n").trim() + " " + bodyText;
           }
+          // One paragraph per line of the cell. A single-paragraph body keeps the italic
+          // it always had; a multi-paragraph one (Focus / Method / Procedure / Model
+          // Answer …) is set upright like the book's other activities, one field per
+          // paragraph, instead of one italic wall of text.
+          const paras = bodyText.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+          const it = paras.length <= 1;
           arr[i] = {
             t: "activity",
             title: title,
-            body: [
-              {
-                t: "para",
-                segs: [
-                  { t: bodyText, b: false, it: true }
-                ]
-              }
-            ]
+            body: (paras.length ? paras : [""]).map((p) => ({ t: "para", segs: [{ t: p, b: false, it }] })),
           };
           console.log("Successfully converted 1-cell activity table:", title);
         }
@@ -5520,6 +5523,10 @@ function convertTableActivities(blocks) {
       for (const k of Object.keys(b)) {
         if (Array.isArray(b[k])) walk(b[k]);
       }
+      // A frame the manuscript drew round the activity table now holds nothing but the
+      // activity, and a box does not print an activity nested inside it — the whole of
+      // Learning Activity 2 (5.2.3) vanished from the Economics Form 5 TG. Lift it out.
+      if (b.t === "box" && Array.isArray(b.body) && b.body.length === 1 && b.body[0] && b.body[0].t === "activity") arr[i] = b.body[0];
     }
   };
   walk(blocks);

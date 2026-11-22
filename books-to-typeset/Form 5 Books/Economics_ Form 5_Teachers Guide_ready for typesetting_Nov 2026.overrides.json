@@ -1,0 +1,27 @@
+{
+  "//authors": "The manuscript's cover is a bare picture with no byline; the AUTHOR page names one author, Edward Kapili. The --dummy build drops the byline again.",
+  "authors": ["Edward Kapili"],
+  "//images": "image1 is the author's finished mock-up cover (title, TEACHER'S GUIDE, 'Edward Kapili', the ZEPH logo and '© Zambia Educational Publishing House, 2026' baked in), 1024x1536. Cover hero = the word-free classroom band 1024x555 at y=440 (the hero window's own 144:78, so the engine crops nothing; nothing of the lettering above or the name/logo below), Real-ESRGAN x4 (realesrgan-x4plus, -s 4, iGPU) and resampled to 2400x1300 = 423 DPI at 144 mm. Same art and treatment as the Learner's Book.",
+  "images": {
+    "image1.png": { "src": "Economics F5 TG-art/cover-hero.png" }
+  },
+  "//headingLevels": "From Topic 5.3 on, the manuscript styles its sub-topics and their inner sections as Heading 1 ('# Subtopic 5.3.1', '# Cross Elasticity of Demand', '# Introduction'), so the contents page listed every inner section as if it were a sub-topic. Topics, front-matter sections, GLOSSARY and REFERENCES stay h1; 'Subtopic/Sub-topic 5.x.y' lines are the sub-topics; every other Heading 1/2 drops to h3. The capitalised front-matter INTRODUCTION is h1; the lower-case 'Introduction' inside Topic 5.3 is a section of that topic.",
+  "headingLevels": {
+    "h1": "^(TOPIC\\b|AUTHOR|FOREWORD|PREFACE|ACKNOWLEDG|INTRODUCTION$|GENERAL COMPETENCES|GLOSSARY|REFERENCES)",
+    "h2": "^Sub-?\\s*[Tt]opic(?![a-z])"
+  },
+  "//unlist": "Sub-topic 5.3.1's one specific competence is typed as a bullet with no code; every other sub-topic writes it as a numbered line ('5.3.2.1 Interpret elasticity of supply.'). The code is supplied in subtext below and the bullet taken off here.",
+  "unlist": ["5.3.1.1 Interpret elasticity of demand."],
+  "//subtext": "(1) 'TOPIC 5.4 – CONSUMER CHOICE THEORY' is the only topic title typed with a dash; the other five use a colon. (2) The six end-of-topic assessments are headed 'END OF TOPIC 1 … 6 ASSESSMENT' in a book whose topics are numbered 5.1 to 5.6 everywhere else (titles, sub-topics, outcomes). (3) Sub-topic 5.3.2's activities run 1, 2, 9, 4, 5: the third is 3. (4) 5.3.1's specific competence lacks its code (see unlist).",
+  "subtext": [
+    { "from": "TOPIC 5.4 – CONSUMER CHOICE THEORY", "to": "TOPIC 5.4: CONSUMER CHOICE THEORY" },
+    { "from": "END OF TOPIC 1 ASSESSMENT", "to": "END OF TOPIC 5.1 ASSESSMENT" },
+    { "from": "END OF TOPIC 2 ASSESSMENT", "to": "END OF TOPIC 5.2 ASSESSMENT" },
+    { "from": "END OF TOPIC 3 ASSESSMENT", "to": "END OF TOPIC 5.3 ASSESSMENT" },
+    { "from": "END OF TOPIC 4 ASSESSMENT", "to": "END OF TOPIC 5.4 ASSESSMENT" },
+    { "from": "END OF TOPIC 6 ASSESSMENT", "to": "END OF TOPIC 5.6 ASSESSMENT" },
+    { "from": "after completing Topic 3 to evaluate", "to": "after completing Topic 5.3 to evaluate" },
+    { "from": "LEARNING ACTIVITY 9: Computing Price Elasticity of Supply", "to": "LEARNING ACTIVITY 3: Computing Price Elasticity of Supply" },
+    { "from": "Interpret elasticity of demand.", "to": "5.3.1.1 Interpret elasticity of demand." }
+  ]
+}
