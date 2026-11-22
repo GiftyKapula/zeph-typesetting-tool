@@ -1,15 +1,48 @@
 {
   "blackWhite": true,
-  "authors": ["Njira Mtonga", "Oliver Manongo", "Bishop Siabwanta", "Euster Muyuba", "Precious Sapanoi"],
+  "subtopicRuleClear": true,
+  "tocGap": "6pt",
+  "keepExercisesWhole": "185mm",
+  "authors": [
+    "Njira Mtonga",
+    "Oliver Manongo",
+    "Bishop Siabwanta",
+    "Euster Muyuba",
+    "Precious Sapanoi"
+  ],
   "retext": [
-    { "from": "4.6.1.2. Provide solutions to the challenges of transporting fuel and power.", "to": "Solutions to challenges in production of different types of energy provided accordingly." }
+    {
+      "from": "4.6.1.2. Provide solutions to the challenges of transporting fuel and power.",
+      "to": "Solutions to challenges in production of different types of energy provided accordingly."
+    }
   ],
   "removeRange": [
-    { "after": "FORESTRY IN ZAMBIA", "from": "General Competences:", "to": "Subtopic 4.2" }
+    {
+      "after": "FORESTRY IN ZAMBIA",
+      "from": "General Competences",
+      "to": "Subtopic 4.2"
+    }
   ],
   "setHeading": [
-    { "find": "MINING", "near": "Mining involves extracting", "text": "TOPIC 4.7: MINING", "as": "h1" },
-    { "find": "KEY COMPETENCES TO BE DEVELOPED", "text": "GENERAL COMPETENCES TO BE DEVELOPED" }
+    {
+      "find": "MINING",
+      "near": "Mining involves extracting",
+      "text": "TOPIC 4.7: MINING",
+      "as": "h1"
+    },
+    {
+      "find": "KEY COMPETENCES TO BE DEVELOPED",
+      "text": "GENERAL COMPETENCES TO BE DEVELOPED"
+    },
+    {
+      "find": "4.3.6 Sugarcane growing in the Sub-Region (South Africa)",
+      "text": "Subtopic 4.3.6: Sugarcane Growing in the Sub-Region (South Africa)",
+      "as": "h2"
+    },
+    {
+      "find": "Subtopic 4.8.3: Processing and manufacturing industries in the Sub-Region (Zimbabwe and South Africa)",
+      "as": "h2"
+    }
   ],
   "pageBreakBefore": [
     "GENERAL COMPETENCES TO BE DEVELOPED"
@@ -18,9 +51,2852 @@
     {
       "after": "Mining Areas on the Map of Angola and South Africa",
       "text": [
-        "In **Angola**, petroleum is mainly found along the Atlantic coast and offshore, particularly in Cabinda Province, the Lower Congo Basin, and the Kwanza Basin. Offshore drilling dominates because of the rich undersea oil reserves. Diamond mining is concentrated in Lunda Norte and Lunda Sul, with the Catoca Mine being one of Africa’s largest. Diamonds occur in river valleys and alluvial deposits, especially along the Cuango River. Gold mining takes place on a smaller scale in central and southern provinces such as Huambo, Bié, Huíla, and Cuando Cubango, often in riverbeds and ancient rocks.",
-        "In **South Africa**, diamonds are found around Kimberley, Limpopo, and the Northern Cape. Gold is concentrated in the Witwatersrand Basin, located in Gauteng and the Free State. Uranium occurs mainly in the Karoo Basin and the Northern Cape, where it is linked to sedimentary rocks."
+        "In **Angola**, petroleum is mainly found along the Atlantic coast and offshore, particularly in Cabinda Province, the Lower Congo Basin and the Kwanza Basin. Offshore drilling dominates because of the rich undersea oil reserves. Diamond mining is concentrated in Lunda Norte and Lunda Sul, with the Catoca Mine being one of Africa’s largest. Diamonds occur in river valleys and alluvial deposits, especially along the Cuango River. Gold mining takes place on a smaller scale in central and southern provinces such as Huambo, Bié, Huíla and Cuando Cubango, often in riverbeds and ancient rocks.",
+        "In **South Africa**, diamonds are found around Kimberley, Limpopo and the Northern Cape. Gold is concentrated in the Witwatersrand Basin, located in Gauteng and the Free State. Uranium occurs mainly in the Karoo Basin and the Northern Cape, where it is linked to sedimentary rocks."
       ]
     }
+  ],
+  "keepWithNext": [
+    "Zambia’s many ethnic groups contribute different languages",
+    "What role do music and dance play in promoting Zambia",
+    "How can regional cooperation in tourism benefit Zambia",
+    "Use of slow",
+    "Assess the environmental effects of mining and suggest"
+  ],
+  "edit": [
+    {
+      "find": "END OF TOPIC 7 ASSESSMENT",
+      "with": "END OF TOPIC 8 ASSESSMENT"
+    },
+    {
+      "find": "END-OF-TOPIC 3 ASSESSMENT",
+      "with": "END OF TOPIC 3 ASSESSMENT"
+    },
+    {
+      "find": "END-OF-TOPIC 4 ASSESSMENT",
+      "with": "END OF TOPIC 4 ASSESSMENT"
+    },
+    {
+      "find": "END-OF-TOPIC 7 ASSESSMENT",
+      "with": "END OF TOPIC 7 ASSESSMENT"
+    },
+    {
+      "find": "END-OF-TOPIC 9 ASSESSMENT",
+      "with": "END OF TOPIC 9 ASSESSMENT"
+    },
+    {
+      "find": "LEARNING ACTIVITY 5: Engaging in actions",
+      "with": "LEARNING ACTIVITY 4: Engaging in actions"
+    },
+    {
+      "find": "LEARNING ACTIVITY 8: Providing solutions to the effects of invasive",
+      "with": "LEARNING ACTIVITY 7: Providing solutions to the effects of invasive"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Discussing Deforestation",
+      "with": "LEARNING ACTIVITY 8: Discussing Deforestation"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Identifying the causes of deforestation",
+      "with": "LEARNING ACTIVITY 9: Identifying the causes of deforestation"
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Examining The Impact of Deforestation",
+      "with": "LEARNING ACTIVITY 10: Examining The Impact of Deforestation"
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Participating in activities that address deforestation",
+      "with": "LEARNING ACTIVITY 11: Participating in activities that address deforestation"
+    },
+    {
+      "find": "EXERCISES 1&2",
+      "with": "EXERCISES 8 & 9"
+    },
+    {
+      "find": "EXERCISES 3 & 4",
+      "with": "EXERCISES 10 & 11"
+    },
+    {
+      "find": "EXERCISES 10 - 12",
+      "with": "EXERCISES 11 & 12"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Evaluating solutions to the challenges of tourism",
+      "with": "LEARNING ACTIVITY 9: Evaluating solutions to the challenges of tourism"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Locating the major tourist attractions in Kenya",
+      "with": "LEARNING ACTIVITY 10: Locating the major tourist attractions in Kenya"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Analysing Tourism Development in Kenya",
+      "with": "LEARNING ACTIVITY 11: Analysing Tourism Development in Kenya"
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Analysing tourism development in South Africa",
+      "with": "LEARNING ACTIVITY 12: Analysing tourism development in South Africa"
+    },
+    {
+      "find": "EXERCISES 8 – 9",
+      "with": "EXERCISES 8 & 9"
+    },
+    {
+      "find": "LEARNING ACTIVITY 12: Discussing factors influencing location",
+      "with": "LEARNING ACTIVITY 11: Discussing factors influencing location"
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Evaluating Negative Impacts of HEP",
+      "with": "LEARNING ACTIVITY 12: Evaluating Negative Impacts of HEP"
+    },
+    {
+      "find": "LEARNING ACTIVITY 21: Analysing different non",
+      "with": "LEARNING ACTIVITY 20: Analysing different non"
+    },
+    {
+      "find": "LEARNING ACTIVITY 22: Promoting use of renewable",
+      "with": "LEARNING ACTIVITY 21: Promoting use of renewable"
+    },
+    {
+      "find": "LEARNING ACTIVITY 23: Locating Major HEP Stations",
+      "with": "LEARNING ACTIVITY 22: Locating Major HEP Stations"
+    },
+    {
+      "find": "LEARNING ACTIVITY 24: Assessing the power demand",
+      "with": "LEARNING ACTIVITY 23: Assessing the power demand"
+    },
+    {
+      "find": "LEARNING ACTIVITY 25: Examining measures to address power",
+      "with": "LEARNING ACTIVITY 24: Examining measures to address power"
+    },
+    {
+      "find": "EXERCISES 20 - 22",
+      "with": "EXERCISES 19 – 21"
+    },
+    {
+      "find": "EXERCISES 23 – 25",
+      "with": "EXERCISES 22 – 24"
+    },
+    {
+      "find": "LEARNING ACTIVITY 8: Tracing major export routes",
+      "with": "LEARNING ACTIVITY 9: Tracing major export routes"
+    },
+    {
+      "find": "4.8.2.1. Analyse manufacturing and processing industries in Zimbabwe",
+      "with": "4.8.3.1. Analyse manufacturing and processing industries in Zimbabwe"
+    },
+    {
+      "find": "4.6.5. 1. Examine",
+      "with": "4.6.5.1. Examine"
+    },
+    {
+      "find": "4.5.2.1. Practice",
+      "with": "4.5.2.1. Practise"
+    },
+    {
+      "find": "4.4.5.1. Practice Fish Farming",
+      "with": "4.4.5.1. Practise fish farming"
+    },
+    {
+      "find": "4.4.3.1. Practice",
+      "with": "4.4.3.1. Practise"
+    },
+    {
+      "find": "4.3.5.1. Practice",
+      "with": "4.3.5.1. Practise"
+    },
+    {
+      "find": "4.3.3.2. Practice",
+      "with": "4.3.3.2. Practise"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "EXERCISES 1 - 3",
+      "with": "EXERCISES 1 – 3"
+    },
+    {
+      "find": "EXERCISES 4 - 6",
+      "with": "EXERCISES 4 – 6"
+    },
+    {
+      "find": "EXERCISES 7 - 10",
+      "with": "EXERCISES 7 – 10"
+    },
+    {
+      "find": "EXERCISES 5 - 7",
+      "with": "EXERCISES 5 – 7"
+    },
+    {
+      "find": "EXERCISES 10 - 14",
+      "with": "EXERCISES 10 – 14"
+    },
+    {
+      "find": "EXERCISES 15 - 17",
+      "with": "EXERCISES 15 – 17"
+    },
+    {
+      "find": "EXERCISES 11 - 13",
+      "with": "EXERCISES 11 – 13"
+    },
+    {
+      "find": "EXERCISES 5 - 8",
+      "with": "EXERCISES 5 – 8"
+    },
+    {
+      "find": "spinach, and green",
+      "with": "spinach and green"
+    },
+    {
+      "find": "the Eastern Highlands, and Masvingo",
+      "with": "the Eastern Highlands and Masvingo"
+    },
+    {
+      "find": "travel, and water transport",
+      "with": "travel and water transport"
+    },
+    {
+      "find": "Specific Competence:",
+      "with": "Specific Competence"
+    },
+    {
+      "find": "Specific Competences",
+      "with": "Specific Competence"
+    },
+    {
+      "find": "General Competences:",
+      "with": "General Competences"
+    },
+    {
+      "find": "Expected standard:",
+      "with": "Expected Standard:"
+    },
+    {
+      "find": "Expected Standards:",
+      "with": "Expected Standard:"
+    }
+  ],
+  "subtext": [
+    {
+      "from": "Learners Book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "hydroelectric",
+      "to": "hydro-electric"
+    },
+    {
+      "from": "hydro electric",
+      "to": "hydro-electric"
+    },
+    {
+      "from": "large scale",
+      "to": "large-scale"
+    },
+    {
+      "from": "sugar cane",
+      "to": "sugarcane"
+    },
+    {
+      "from": "In this subtopic",
+      "to": "In this sub-topic"
+    },
+    {
+      "from": "the subtopic by",
+      "to": "the sub-topic by"
+    },
+    {
+      "from": "project. let them",
+      "to": "project. Let them"
+    },
+    {
+      "from": "their  local",
+      "to": "their local"
+    },
+    {
+      "from": "Eastern Province, and emeralds",
+      "to": "Eastern Province and emeralds"
+    },
+    {
+      "from": ", Ireland, and a",
+      "to": ", Ireland and a"
+    },
+    {
+      "from": ", rich wildlife, and diverse",
+      "to": ", rich wildlife and diverse"
+    },
+    {
+      "from": ", tourism, and agriculture",
+      "to": ", tourism and agriculture"
+    },
+    {
+      "from": ", Tanzania, and the",
+      "to": ", Tanzania and the"
+    },
+    {
+      "from": ", eastern, and central",
+      "to": ", eastern and central"
+    },
+    {
+      "from": ", Angola, and the",
+      "to": ", Angola and the"
+    },
+    {
+      "from": ", central, and southern",
+      "to": ", central and southern"
+    },
+    {
+      "from": ", the Tropic of Capricorn, and neighbouring",
+      "to": ", the Tropic of Capricorn and neighbouring"
+    },
+    {
+      "from": ", Kafue, and Luangwa",
+      "to": ", Kafue and Luangwa"
+    },
+    {
+      "from": ", hydropower, and ecosystems",
+      "to": ", hydropower and ecosystems"
+    },
+    {
+      "from": ", transport networks, and economic",
+      "to": ", transport networks and economic"
+    },
+    {
+      "from": ", cultural, and political",
+      "to": ", cultural and political"
+    },
+    {
+      "from": ", cultural connections, and regional",
+      "to": ", cultural connections and regional"
+    },
+    {
+      "from": ", tourism, and cultural",
+      "to": ", tourism and cultural"
+    },
+    {
+      "from": ", transport, and access",
+      "to": ", transport and access"
+    },
+    {
+      "from": ", improves transport routes, and provides",
+      "to": ", improves transport routes and provides"
+    },
+    {
+      "from": ", agriculture, and natural",
+      "to": ", agriculture and natural"
+    },
+    {
+      "from": ", Lake Kariba, and Victoria",
+      "to": ", Lake Kariba and Victoria"
+    },
+    {
+      "from": ", hydropower, and wildlife",
+      "to": ", hydropower and wildlife"
+    },
+    {
+      "from": ", security, and economic",
+      "to": ", security and economic"
+    },
+    {
+      "from": ", lowlands and valleys, and mountain",
+      "to": ", lowlands and valleys and mountain"
+    },
+    {
+      "from": ", tourism, and water",
+      "to": ", tourism and water"
+    },
+    {
+      "from": ", valleys, and escarpments",
+      "to": ", valleys and escarpments"
+    },
+    {
+      "from": ", support fertile soils, and create",
+      "to": ", support fertile soils and create"
+    },
+    {
+      "from": ", wildlife habitats, and settlement",
+      "to": ", wildlife habitats and settlement"
+    },
+    {
+      "from": ", poor waste management, and rapid",
+      "to": ", poor waste management and rapid"
+    },
+    {
+      "from": ", Farming Specialist, and Settlement",
+      "to": ", Farming Specialist and Settlement"
+    },
+    {
+      "from": ", farming, and settlement",
+      "to": ", farming and settlement"
+    },
+    {
+      "from": ", flat areas, and drainage",
+      "to": ", flat areas and drainage"
+    },
+    {
+      "from": ", crop suitability, and safe",
+      "to": ", crop suitability and safe"
+    },
+    {
+      "from": ", tourism sites, and water",
+      "to": ", tourism sites and water"
+    },
+    {
+      "from": ", safety, and economic",
+      "to": ", safety and economic"
+    },
+    {
+      "from": ", transport routes, and infrastructure",
+      "to": ", transport routes and infrastructure"
+    },
+    {
+      "from": ", flood control, and development",
+      "to": ", flood control and development"
+    },
+    {
+      "from": ", settlement patterns, and overall",
+      "to": ", settlement patterns and overall"
+    },
+    {
+      "from": ", villages, and cities",
+      "to": ", villages and cities"
+    },
+    {
+      "from": ", roads, and settlements",
+      "to": ", roads and settlements"
+    },
+    {
+      "from": ", transport networks, or settlement",
+      "to": ", transport networks or settlement"
+    },
+    {
+      "from": ", Nc’wala, or Umutomboko",
+      "to": ", Nc’wala or Umutomboko"
+    },
+    {
+      "from": ", preserve cultural practices, and attract",
+      "to": ", preserve cultural practices and attract"
+    },
+    {
+      "from": ", dance, and crafts",
+      "to": ", dance and crafts"
+    },
+    {
+      "from": ", traditions, and customs",
+      "to": ", traditions and customs"
+    },
+    {
+      "from": ", festivals, and national",
+      "to": ", festivals and national"
+    },
+    {
+      "from": ", cooperation, and pride",
+      "to": ", cooperation and pride"
+    },
+    {
+      "from": ", protecting farmland, or maintaining",
+      "to": ", protecting farmland or maintaining"
+    },
+    {
+      "from": ", proposes a practical solution, and explains",
+      "to": ", proposes a practical solution and explains"
+    },
+    {
+      "from": ", better transport networks, or improved",
+      "to": ", better transport networks or improved"
+    },
+    {
+      "from": ", crafts, and traditions",
+      "to": ", crafts and traditions"
+    },
+    {
+      "from": ", markets, and industries",
+      "to": ", markets and industries"
+    },
+    {
+      "from": ", farmland, and heritage",
+      "to": ", farmland and heritage"
+    },
+    {
+      "from": ", visitors enjoy a cleaner space, and the",
+      "to": ", visitors enjoy a cleaner space and the"
+    },
+    {
+      "from": ", migration, and cross‑border",
+      "to": ", migration and cross‑border"
+    },
+    {
+      "from": ", fertile soils, and gently",
+      "to": ", fertile soils and gently"
+    },
+    {
+      "from": ", irrigation, and transport",
+      "to": ", irrigation and transport"
+    },
+    {
+      "from": ", wildlife, and scenic",
+      "to": ", wildlife and scenic"
+    },
+    {
+      "from": ", honour ancestors, and celebrate",
+      "to": ", honour ancestors and celebrate"
+    },
+    {
+      "from": ", customs, and traditions",
+      "to": ", customs and traditions"
+    },
+    {
+      "from": ", history, and creativity",
+      "to": ", history and creativity"
+    },
+    {
+      "from": ", festivals, and media",
+      "to": ", festivals and media"
+    },
+    {
+      "from": ", economic, and social",
+      "to": ", economic and social"
+    },
+    {
+      "from": ", soils, and altitude",
+      "to": ", soils and altitude"
+    },
+    {
+      "from": ", grasslands, and wetlands",
+      "to": ", grasslands and wetlands"
+    },
+    {
+      "from": ", farming, and human",
+      "to": ", farming and human"
+    },
+    {
+      "from": ", Eastern, and Northern",
+      "to": ", Eastern and Northern"
+    },
+    {
+      "from": ", loss of wildlife habitats, and declining",
+      "to": ", loss of wildlife habitats and declining"
+    },
+    {
+      "from": ", controlled burning, and protecting",
+      "to": ", controlled burning and protecting"
+    },
+    {
+      "from": ", fuelwood, or decoration",
+      "to": ", fuelwood or decoration"
+    },
+    {
+      "from": ", Jacaranda, or Bougainvillea",
+      "to": ", Jacaranda or Bougainvillea"
+    },
+    {
+      "from": ", commercial plantations, and beautification",
+      "to": ", commercial plantations and beautification"
+    },
+    {
+      "from": ", soils, or human",
+      "to": ", soils or human"
+    },
+    {
+      "from": ", mixed‑species plantations, or regulated",
+      "to": ", mixed‑species plantations or regulated"
+    },
+    {
+      "from": ", mushrooms, or medicinal",
+      "to": ", mushrooms or medicinal"
+    },
+    {
+      "from": ", local industries, and the",
+      "to": ", local industries and the"
+    },
+    {
+      "from": ", food, and energy",
+      "to": ", food and energy"
+    },
+    {
+      "from": ", our environment, and our",
+      "to": ", our environment and our"
+    },
+    {
+      "from": ", at school, and in",
+      "to": ", at school and in"
+    },
+    {
+      "from": ", deforestation, or uncontrolled",
+      "to": ", deforestation or uncontrolled"
+    },
+    {
+      "from": ", controlled harvesting, or creating",
+      "to": ", controlled harvesting or creating"
+    },
+    {
+      "from": ", selecting sites, and monitoring",
+      "to": ", selecting sites and monitoring"
+    },
+    {
+      "from": ", diagram, or short",
+      "to": ", diagram or short"
+    },
+    {
+      "from": ", soil protection, and community",
+      "to": ", soil protection and community"
+    },
+    {
+      "from": ", School, and in",
+      "to": ", School and in"
+    },
+    {
+      "from": ", describe their effects, and suggest",
+      "to": ", describe their effects and suggest"
+    },
+    {
+      "from": ", charts, or pictures",
+      "to": ", charts or pictures"
+    },
+    {
+      "from": ", where it is found, and one",
+      "to": ", where it is found and one"
+    },
+    {
+      "from": ", wetlands, and grazing",
+      "to": ", wetlands and grazing"
+    },
+    {
+      "from": ", harming aquatic life, and displacing",
+      "to": ", harming aquatic life and displacing"
+    },
+    {
+      "from": ", water bodies, and human",
+      "to": ", water bodies and human"
+    },
+    {
+      "from": ", water shortages, or loss",
+      "to": ", water shortages or loss"
+    },
+    {
+      "from": ", reduce oxygen, and disrupt",
+      "to": ", reduce oxygen and disrupt"
+    },
+    {
+      "from": ", health risks, and livelihood",
+      "to": ", health risks and livelihood"
+    },
+    {
+      "from": ", field, or woodland",
+      "to": ", field or woodland"
+    },
+    {
+      "from": ", open fields, or woodland",
+      "to": ", open fields or woodland"
+    },
+    {
+      "from": ", biological control, and community",
+      "to": ", biological control and community"
+    },
+    {
+      "from": ", water, or native",
+      "to": ", water or native"
+    },
+    {
+      "from": ", protected soils, and supported",
+      "to": ", protected soils and supported"
+    },
+    {
+      "from": ", mining, and settlement",
+      "to": ", mining and settlement"
+    },
+    {
+      "from": ", harsher climates, and threatens",
+      "to": ", harsher climates and threatens"
+    },
+    {
+      "from": ", livelihoods, and the",
+      "to": ", livelihoods and the"
+    },
+    {
+      "from": ", water, and biodiversity",
+      "to": ", water and biodiversity"
+    },
+    {
+      "from": ", main speaker, and note",
+      "to": ", main speaker and note"
+    },
+    {
+      "from": ", firewood collection, and construction",
+      "to": ", firewood collection and construction"
+    },
+    {
+      "from": ", climate, and biodiversity",
+      "to": ", climate and biodiversity"
+    },
+    {
+      "from": ", climate change, and loss",
+      "to": ", climate change and loss"
+    },
+    {
+      "from": ", discuss the impact, and record",
+      "to": ", discuss the impact and record"
+    },
+    {
+      "from": ", reduces resources, and threatens",
+      "to": ", reduces resources and threatens"
+    },
+    {
+      "from": ", environmental awareness, and using",
+      "to": ", environmental awareness and using"
+    },
+    {
+      "from": ", environmental awareness, and sustainable",
+      "to": ", environmental awareness and sustainable"
+    },
+    {
+      "from": ", creating a slogan, or listing",
+      "to": ", creating a slogan or listing"
+    },
+    {
+      "from": ", schools, and communities",
+      "to": ", schools and communities"
+    },
+    {
+      "from": ", alternative energy use, or awareness",
+      "to": ", alternative energy use or awareness"
+    },
+    {
+      "from": ", improves soil and water systems, and supports",
+      "to": ", improves soil and water systems and supports"
+    },
+    {
+      "from": ", reduces oxygen, and harms",
+      "to": ", reduces oxygen and harms"
+    },
+    {
+      "from": ", reducing yields, and block",
+      "to": ", reducing yields and block"
+    },
+    {
+      "from": ", explaining one impact, and proposing",
+      "to": ", explaining one impact and proposing"
+    },
+    {
+      "from": ", diseases, and lack",
+      "to": ", diseases and lack"
+    },
+    {
+      "from": ", communities, and the",
+      "to": ", communities and the"
+    },
+    {
+      "from": ", Government Officials, and Investors",
+      "to": ", Government Officials and Investors"
+    },
+    {
+      "from": ", solve problems, and show",
+      "to": ", solve problems and show"
+    },
+    {
+      "from": ", controlled, and transferred",
+      "to": ", controlled and transferred"
+    },
+    {
+      "from": ", settlement, and resource",
+      "to": ", settlement and resource"
+    },
+    {
+      "from": ", overuse, or poor",
+      "to": ", overuse or poor"
+    },
+    {
+      "from": ", responsible use, and long‑term",
+      "to": ", responsible use and long‑term"
+    },
+    {
+      "from": ", investment, and resource",
+      "to": ", investment and resource"
+    },
+    {
+      "from": ", mixed farming, or pastoral",
+      "to": ", mixed farming or pastoral"
+    },
+    {
+      "from": ", tools, and purpose",
+      "to": ", tools and purpose"
+    },
+    {
+      "from": ", is easier to control, and reduces",
+      "to": ", is easier to control and reduces"
+    },
+    {
+      "from": ", soil salinisation, and damage",
+      "to": ", soil salinisation and damage"
+    },
+    {
+      "from": ", soil salinisation, and river",
+      "to": ", soil salinisation and river"
+    },
+    {
+      "from": ", pipe irrigation, and bucket",
+      "to": ", pipe irrigation and bucket"
+    },
+    {
+      "from": ", weeding, and harvesting",
+      "to": ", weeding and harvesting"
+    },
+    {
+      "from": ", spinach, and green",
+      "to": ", spinach and green"
+    },
+    {
+      "from": ", rainfall patterns, and extreme",
+      "to": ", rainfall patterns and extreme"
+    },
+    {
+      "from": ", shorter rainy seasons, and heat",
+      "to": ", shorter rainy seasons and heat"
+    },
+    {
+      "from": ", livestock, and farm",
+      "to": ", livestock and farm"
+    },
+    {
+      "from": ", water‑saving methods, and crop",
+      "to": ", water‑saving methods and crop"
+    },
+    {
+      "from": ", commercial livestock farming, or plantation",
+      "to": ", commercial livestock farming or plantation"
+    },
+    {
+      "from": ", species diversity, and climate‑related",
+      "to": ", species diversity and climate‑related"
+    },
+    {
+      "from": ", mulching, and water‑efficient",
+      "to": ", mulching and water‑efficient"
+    },
+    {
+      "from": ", conserve biodiversity, and lower",
+      "to": ", conserve biodiversity and lower"
+    },
+    {
+      "from": ", supports long‑term food security, and improves",
+      "to": ", supports long‑term food security and improves"
+    },
+    {
+      "from": ", strengthen climate resilience, and support",
+      "to": ", strengthen climate resilience and support"
+    },
+    {
+      "from": ", crop rotation, and water‑efficient",
+      "to": ", crop rotation and water‑efficient"
+    },
+    {
+      "from": ", plant health, and growth",
+      "to": ", plant health and growth"
+    },
+    {
+      "from": ", deforestation, and excessive",
+      "to": ", deforestation and excessive"
+    },
+    {
+      "from": ", excessive chemical use, or poor",
+      "to": ", excessive chemical use or poor"
+    },
+    {
+      "from": ", water resources, and future",
+      "to": ", water resources and future"
+    },
+    {
+      "from": ", impacts, and affected",
+      "to": ", impacts and affected"
+    },
+    {
+      "from": ", agroforestry, and efficient",
+      "to": ", agroforestry and efficient"
+    },
+    {
+      "from": ", fertile soils, and reliable",
+      "to": ", fertile soils and reliable"
+    },
+    {
+      "from": ", water availability, and market",
+      "to": ", water availability and market"
+    },
+    {
+      "from": ", good rainfall, and fertile",
+      "to": ", good rainfall and fertile"
+    },
+    {
+      "from": ", technology, and fertilisers",
+      "to": ", technology and fertilisers"
+    },
+    {
+      "from": ", high rainfall, and fertile",
+      "to": ", high rainfall and fertile"
+    },
+    {
+      "from": ", good soils, and reliable",
+      "to": ", good soils and reliable"
+    },
+    {
+      "from": ", good transport networks, and established",
+      "to": ", good transport networks and established"
+    },
+    {
+      "from": ", Kalahari region, and parts",
+      "to": ", Kalahari region and parts"
+    },
+    {
+      "from": ", goats, and sheep",
+      "to": ", goats and sheep"
+    },
+    {
+      "from": ", social, and economic",
+      "to": ", social and economic"
+    },
+    {
+      "from": ", wide grasslands, and open",
+      "to": ", wide grasslands and open"
+    },
+    {
+      "from": ", strong demand for livestock products, and government",
+      "to": ", strong demand for livestock products and government"
+    },
+    {
+      "from": ", poor soils, and extensive",
+      "to": ", poor soils and extensive"
+    },
+    {
+      "from": ", flat land, and low",
+      "to": ", flat land and low"
+    },
+    {
+      "from": ", water points, and veterinary",
+      "to": ", water points and veterinary"
+    },
+    {
+      "from": ", culture, and levels",
+      "to": ", culture and levels"
+    },
+    {
+      "from": ", technology, and culture",
+      "to": ", technology and culture"
+    },
+    {
+      "from": ", soils, and human",
+      "to": ", soils and human"
+    },
+    {
+      "from": ", bananas, and palm",
+      "to": ", bananas and palm"
+    },
+    {
+      "from": ", local trade, and cultural",
+      "to": ", local trade and cultural"
+    },
+    {
+      "from": ", machinery, and commercial",
+      "to": ", machinery and commercial"
+    },
+    {
+      "from": ", improves access to credit, and supports",
+      "to": ", improves access to credit and supports"
+    },
+    {
+      "from": ", infrastructure, or private",
+      "to": ", infrastructure or private"
+    },
+    {
+      "from": ", transport networks, and established",
+      "to": ", transport networks and established"
+    },
+    {
+      "from": ", market organisation, and research",
+      "to": ", market organisation and research"
+    },
+    {
+      "from": ", expand commercial estates, and strengthen",
+      "to": ", expand commercial estates and strengthen"
+    },
+    {
+      "from": ", dry climates, and large",
+      "to": ", dry climates and large"
+    },
+    {
+      "from": ", commercial grain farming, and subsistence",
+      "to": ", commercial grain farming and subsistence"
+    },
+    {
+      "from": ", technology, and economic",
+      "to": ", technology and economic"
+    },
+    {
+      "from": ", large farms, and commercial",
+      "to": ", large farms and commercial"
+    },
+    {
+      "from": ", soil, and technology",
+      "to": ", soil and technology"
+    },
+    {
+      "from": ", mechanisation, and commercial",
+      "to": ", mechanisation and commercial"
+    },
+    {
+      "from": ", lakes, and ponds",
+      "to": ", lakes and ponds"
+    },
+    {
+      "from": ", fishing methods, and processing",
+      "to": ", fishing methods and processing"
+    },
+    {
+      "from": ", industry challenges, and sustainable",
+      "to": ", industry challenges and sustainable"
+    },
+    {
+      "from": ", key areas, and factors",
+      "to": ", key areas and factors"
+    },
+    {
+      "from": ", challenges, and possible",
+      "to": ", challenges and possible"
+    },
+    {
+      "from": ", lakes, and swamps",
+      "to": ", lakes and swamps"
+    },
+    {
+      "from": ", Lake Tanganyika, and the",
+      "to": ", Lake Tanganyika and the"
+    },
+    {
+      "from": ", rivers, and wetland",
+      "to": ", rivers and wetland"
+    },
+    {
+      "from": ", transport, and settlement",
+      "to": ", transport and settlement"
+    },
+    {
+      "from": ", rivers, and floodplains",
+      "to": ", rivers and floodplains"
+    },
+    {
+      "from": ", Lake Kariba, and Mweru",
+      "to": ", Lake Kariba and Mweru"
+    },
+    {
+      "from": ", small harbours, and settlements",
+      "to": ", small harbours and settlements"
+    },
+    {
+      "from": ", movement of fish to markets, and growth",
+      "to": ", movement of fish to markets and growth"
+    },
+    {
+      "from": ", income generation, and local",
+      "to": ", income generation and local"
+    },
+    {
+      "from": ", processing, and trading",
+      "to": ", processing and trading"
+    },
+    {
+      "from": ", transport services, and small",
+      "to": ", transport services and small"
+    },
+    {
+      "from": ", weak monitoring, and inadequate",
+      "to": ", weak monitoring and inadequate"
+    },
+    {
+      "from": ", illegal fishing, and lack",
+      "to": ", illegal fishing and lack"
+    },
+    {
+      "from": ", lakes, and wetlands",
+      "to": ", lakes and wetlands"
+    },
+    {
+      "from": ", scales, and coloration",
+      "to": ", scales and coloration"
+    },
+    {
+      "from": ", commercial fishing, and recreation",
+      "to": ", commercial fishing and recreation"
+    },
+    {
+      "from": ", shape, and fins",
+      "to": ", shape and fins"
+    },
+    {
+      "from": ", scales, and feeding",
+      "to": ", scales and feeding"
+    },
+    {
+      "from": ", rounded fins, and silver‑grey",
+      "to": ", rounded fins and silver‑grey"
+    },
+    {
+      "from": ", whisker‑like barbels, and no",
+      "to": ", whisker‑like barbels and no"
+    },
+    {
+      "from": ", food availability, and breeding",
+      "to": ", food availability and breeding"
+    },
+    {
+      "from": ", floodplains, or wetlands",
+      "to": ", floodplains or wetlands"
+    },
+    {
+      "from": ", sustainability, and community",
+      "to": ", sustainability and community"
+    },
+    {
+      "from": ", traps, and spears",
+      "to": ", traps and spears"
+    },
+    {
+      "from": ", lowering it into the water, and pulling",
+      "to": ", lowering it into the water and pulling"
+    },
+    {
+      "from": ", selective, and widely",
+      "to": ", selective and widely"
+    },
+    {
+      "from": ", can cause overfishing, and require",
+      "to": ", can cause overfishing and require"
+    },
+    {
+      "from": ", are low‑cost, and often",
+      "to": ", are low‑cost and often"
+    },
+    {
+      "from": ", require capital, and depend",
+      "to": ", require capital and depend"
+    },
+    {
+      "from": ", limited market access, and declining",
+      "to": ", limited market access and declining"
+    },
+    {
+      "from": ", transport, and consumption",
+      "to": ", transport and consumption"
+    },
+    {
+      "from": ", improve quality, and add",
+      "to": ", improve quality and add"
+    },
+    {
+      "from": ", spears, and baskets",
+      "to": ", spears and baskets"
+    },
+    {
+      "from": ", work in different water depths, and support",
+      "to": ", work in different water depths and support"
+    },
+    {
+      "from": ", can lead to overfishing, and require",
+      "to": ", can lead to overfishing and require"
+    },
+    {
+      "from": ", low‑cost, and selective",
+      "to": ", low‑cost and selective"
+    },
+    {
+      "from": ", improve quality, and increase",
+      "to": ", improve quality and increase"
+    },
+    {
+      "from": ", smoking, or packaging",
+      "to": ", smoking or packaging"
+    },
+    {
+      "from": ", salting, and proper",
+      "to": ", salting and proper"
+    },
+    {
+      "from": ", protecting fish from pests, and keeping",
+      "to": ", protecting fish from pests and keeping"
+    },
+    {
+      "from": ", compare ideas, and highlight",
+      "to": ", compare ideas and highlight"
+    },
+    {
+      "from": ", lakes, and floodplains",
+      "to": ", lakes and floodplains"
+    },
+    {
+      "from": ", foreign exchange earnings, and tourism",
+      "to": ", foreign exchange earnings and tourism"
+    },
+    {
+      "from": ", trade, and tourism",
+      "to": ", trade and tourism"
+    },
+    {
+      "from": ", job creation, and market",
+      "to": ", job creation and market"
+    },
+    {
+      "from": ", Kariba, and Mweru",
+      "to": ", Kariba and Mweru"
+    },
+    {
+      "from": ", trade, and national",
+      "to": ", trade and national"
+    },
+    {
+      "from": ", creating employment, and generating",
+      "to": ", creating employment and generating"
+    },
+    {
+      "from": ", fish canning, and producing",
+      "to": ", fish canning and producing"
+    },
+    {
+      "from": ", the national economy, and the",
+      "to": ", the national economy and the"
+    },
+    {
+      "from": ", trade, and foreign",
+      "to": ", trade and foreign"
+    },
+    {
+      "from": ", fish processing, and producing",
+      "to": ", fish processing and producing"
+    },
+    {
+      "from": ", income, and community",
+      "to": ", income and community"
+    },
+    {
+      "from": ", processors, and traders",
+      "to": ", processors and traders"
+    },
+    {
+      "from": ", practising fish farming, and reducing",
+      "to": ", practising fish farming and reducing"
+    },
+    {
+      "from": ", drying, and making",
+      "to": ", drying and making"
+    },
+    {
+      "from": ", create jobs, and support",
+      "to": ", create jobs and support"
+    },
+    {
+      "from": ", smoked fish, or fish",
+      "to": ", smoked fish or fish"
+    },
+    {
+      "from": ", fish farming, and distribution",
+      "to": ", fish farming and distribution"
+    },
+    {
+      "from": ", drying, or making",
+      "to": ", drying or making"
+    },
+    {
+      "from": ", tilapia, and catfish",
+      "to": ", tilapia and catfish"
+    },
+    {
+      "from": ", smoked fish production, or small‑scale",
+      "to": ", smoked fish production or small‑scale"
+    },
+    {
+      "from": ", water availability, and access",
+      "to": ", water availability and access"
+    },
+    {
+      "from": ", available resources, and the",
+      "to": ", available resources and the"
+    },
+    {
+      "from": ", hygiene, and marketing",
+      "to": ", hygiene and marketing"
+    },
+    {
+      "from": ", clean, and fresh",
+      "to": ", clean and fresh"
+    },
+    {
+      "from": ", fair pricing, and reliable",
+      "to": ", fair pricing and reliable"
+    },
+    {
+      "from": ", filleting, or making",
+      "to": ", filleting or making"
+    },
+    {
+      "from": ", increases income, and opens",
+      "to": ", increases income and opens"
+    },
+    {
+      "from": ", poor storage, and weak",
+      "to": ", poor storage and weak"
+    },
+    {
+      "from": ", improving hygiene, and strengthening",
+      "to": ", improving hygiene and strengthening"
+    },
+    {
+      "from": ", increases poverty, and threatens",
+      "to": ", increases poverty and threatens"
+    },
+    {
+      "from": ", storage, and market",
+      "to": ", storage and market"
+    },
+    {
+      "from": ", competition among fishermen, and high",
+      "to": ", competition among fishermen and high"
+    },
+    {
+      "from": ", increase spoilage, and limit",
+      "to": ", increase spoilage and limit"
+    },
+    {
+      "from": ", overcrowding of fishing areas, and uncontrolled",
+      "to": ", overcrowding of fishing areas and uncontrolled"
+    },
+    {
+      "from": ", protecting breeding areas, and reducing",
+      "to": ", protecting breeding areas and reducing"
+    },
+    {
+      "from": ", safeguarding young fish, and maintaining",
+      "to": ", safeguarding young fish and maintaining"
+    },
+    {
+      "from": ", long‑term food security, and environmental",
+      "to": ", long‑term food security and environmental"
+    },
+    {
+      "from": ", fish traders, and community",
+      "to": ", fish traders and community"
+    },
+    {
+      "from": ", avoiding overfishing, and keeping",
+      "to": ", avoiding overfishing and keeping"
+    },
+    {
+      "from": ", monitoring illegal gear, and supporting",
+      "to": ", monitoring illegal gear and supporting"
+    },
+    {
+      "from": ", improving sanitation, and strengthening",
+      "to": ", improving sanitation and strengthening"
+    },
+    {
+      "from": ", improves income, and supports",
+      "to": ", improves income and supports"
+    },
+    {
+      "from": ", clean water, and disease",
+      "to": ", clean water and disease"
+    },
+    {
+      "from": ", disease control, and the",
+      "to": ", disease control and the"
+    },
+    {
+      "from": ", photo slides, or interviewing",
+      "to": ", photo slides or interviewing"
+    },
+    {
+      "from": ", space, and purpose",
+      "to": ", space and purpose"
+    },
+    {
+      "from": ", textbooks, and other",
+      "to": ", textbooks and other"
+    },
+    {
+      "from": ", harvesting, and basic",
+      "to": ", harvesting and basic"
+    },
+    {
+      "from": ", studying photo slides, or interviewing",
+      "to": ", studying photo slides or interviewing"
+    },
+    {
+      "from": ", harvesting, and keeping",
+      "to": ", harvesting and keeping"
+    },
+    {
+      "from": ", supports food security, and provides",
+      "to": ", supports food security and provides"
+    },
+    {
+      "from": ", cages, and tanks",
+      "to": ", cages and tanks"
+    },
+    {
+      "from": ", Kafue, and parts",
+      "to": ", Kafue and parts"
+    },
+    {
+      "from": ", favourable climate, and access",
+      "to": ", favourable climate and access"
+    },
+    {
+      "from": ", technical skills, and proper",
+      "to": ", technical skills and proper"
+    },
+    {
+      "from": ", recording growth, and practising",
+      "to": ", recording growth and practising"
+    },
+    {
+      "from": ", Lake Chilwa, and the",
+      "to": ", Lake Chilwa and the"
+    },
+    {
+      "from": ", employment, and income",
+      "to": ", employment and income"
+    },
+    {
+      "from": ", the Shire River, and other",
+      "to": ", the Shire River and other"
+    },
+    {
+      "from": ", Salima, and Mangochi",
+      "to": ", Salima and Mangochi"
+    },
+    {
+      "from": ", Lower Shire, and Elephant",
+      "to": ", Lower Shire and Elephant"
+    },
+    {
+      "from": ", income, and export",
+      "to": ", income and export"
+    },
+    {
+      "from": ", Mlamba, and Matemba",
+      "to": ", Mlamba and Matemba"
+    },
+    {
+      "from": ", charts, or real",
+      "to": ", charts or real"
+    },
+    {
+      "from": ", income, and local",
+      "to": ", income and local"
+    },
+    {
+      "from": ", Matemba, and catfish",
+      "to": ", Matemba and catfish"
+    },
+    {
+      "from": ", regulated gear, and community",
+      "to": ", regulated gear and community"
+    },
+    {
+      "from": ", use proper gear, and support",
+      "to": ", use proper gear and support"
+    },
+    {
+      "from": ", promoting aquaculture, and educating",
+      "to": ", promoting aquaculture and educating"
+    },
+    {
+      "from": ", private investment, and access",
+      "to": ", private investment and access"
+    },
+    {
+      "from": ", improve nutrition, and boost",
+      "to": ", improve nutrition and boost"
+    },
+    {
+      "from": ", reports, or online",
+      "to": ", reports or online"
+    },
+    {
+      "from": ", compile a short summary report, and present",
+      "to": ", compile a short summary report and present"
+    },
+    {
+      "from": ", low technical skills, and poor",
+      "to": ", low technical skills and poor"
+    },
+    {
+      "from": ", government officer, or extension",
+      "to": ", government officer or extension"
+    },
+    {
+      "from": ", the Eastern Highlands, and Masvingo",
+      "to": ", the Eastern Highlands and Masvingo"
+    },
+    {
+      "from": ", low skills, and poor",
+      "to": ", low skills and poor"
+    },
+    {
+      "from": ", farmer training, and better",
+      "to": ", farmer training and better"
+    },
+    {
+      "from": ", supporting conservation rules, and participating",
+      "to": ", supporting conservation rules and participating"
+    },
+    {
+      "from": ", Lake Bangweulu, and the",
+      "to": ", Lake Bangweulu and the"
+    },
+    {
+      "from": ", transport, and local",
+      "to": ", transport and local"
+    },
+    {
+      "from": ", salting, and freezing",
+      "to": ", salting and freezing"
+    },
+    {
+      "from": ", extend shelf life, and reduce",
+      "to": ", extend shelf life and reduce"
+    },
+    {
+      "from": ", weak regulation, and climate",
+      "to": ", weak regulation and climate"
+    },
+    {
+      "from": ", better gear, and conservation",
+      "to": ", better gear and conservation"
+    },
+    {
+      "from": ", restocking, and community",
+      "to": ", restocking and community"
+    },
+    {
+      "from": ", tanks, and integrated",
+      "to": ", tanks and integrated"
+    },
+    {
+      "from": ", government support, and access",
+      "to": ", government support and access"
+    },
+    {
+      "from": ", habitat loss, and weak",
+      "to": ", habitat loss and weak"
+    },
+    {
+      "from": ", closed seasons, and community",
+      "to": ", closed seasons and community"
+    },
+    {
+      "from": ", cages, and trout",
+      "to": ", cages and trout"
+    },
+    {
+      "from": ", training, and improved",
+      "to": ", training and improved"
+    },
+    {
+      "from": ", processing forms, and market",
+      "to": ", processing forms and market"
+    },
+    {
+      "from": ", stabilises markets, and improves",
+      "to": ", stabilises markets and improves"
+    },
+    {
+      "from": ", diverse national parks, and welcoming",
+      "to": ", diverse national parks and welcoming"
+    },
+    {
+      "from": ", hiking, and water",
+      "to": ", hiking and water"
+    },
+    {
+      "from": ", cultural festivals, and national",
+      "to": ", cultural festivals and national"
+    },
+    {
+      "from": ", safaris, and the",
+      "to": ", safaris and the"
+    },
+    {
+      "from": ", wildlife, and cultural",
+      "to": ", wildlife and cultural"
+    },
+    {
+      "from": ", economy, and society",
+      "to": ", economy and society"
+    },
+    {
+      "from": ", waterfalls, and cultural",
+      "to": ", waterfalls and cultural"
+    },
+    {
+      "from": ", supports cultural preservation, and promotes",
+      "to": ", supports cultural preservation and promotes"
+    },
+    {
+      "from": ", creates employment opportunities, and supports",
+      "to": ", creates employment opportunities and supports"
+    },
+    {
+      "from": ", South Luangwa, and the",
+      "to": ", South Luangwa and the"
+    },
+    {
+      "from": ", ceremonies, and lifestyles",
+      "to": ", ceremonies and lifestyles"
+    },
+    {
+      "from": ", income generation, and growth",
+      "to": ", income generation and growth"
+    },
+    {
+      "from": ", crafts, and hospitality",
+      "to": ", crafts and hospitality"
+    },
+    {
+      "from": ", waste generation, and pressure",
+      "to": ", waste generation and pressure"
+    },
+    {
+      "from": ", protecting sensitive areas, and involving",
+      "to": ", protecting sensitive areas and involving"
+    },
+    {
+      "from": ", improved infrastructure, and increased",
+      "to": ", improved infrastructure and increased"
+    },
+    {
+      "from": ", support local communities, and preserve",
+      "to": ", support local communities and preserve"
+    },
+    {
+      "from": ", respecting local traditions, and supporting",
+      "to": ", respecting local traditions and supporting"
+    },
+    {
+      "from": ", benefits, and challenges",
+      "to": ", benefits and challenges"
+    },
+    {
+      "from": ", walking, or cycling",
+      "to": ", walking or cycling"
+    },
+    {
+      "from": ", conserves resources, and supports",
+      "to": ", conserves resources and supports"
+    },
+    {
+      "from": ", socio‑cultural, or economic",
+      "to": ", socio‑cultural or economic"
+    },
+    {
+      "from": ", case studies, or online",
+      "to": ", case studies or online"
+    },
+    {
+      "from": ", protects cultural traditions, and encourages",
+      "to": ", protects cultural traditions and encourages"
+    },
+    {
+      "from": ", conserving water and energy, and minimising",
+      "to": ", conserving water and energy and minimising"
+    },
+    {
+      "from": ", a cultural heritage site, or a",
+      "to": ", a cultural heritage site or a"
+    },
+    {
+      "from": ", vibrant, and welcoming",
+      "to": ", vibrant and welcoming"
+    },
+    {
+      "from": ", environmental protection, and cultural",
+      "to": ", environmental protection and cultural"
+    },
+    {
+      "from": ", limits environmental damage, and ensures",
+      "to": ", limits environmental damage and ensures"
+    },
+    {
+      "from": ", tourism operators, and travellers",
+      "to": ", tourism operators and travellers"
+    },
+    {
+      "from": ", clear guidelines, and shared",
+      "to": ", clear guidelines and shared"
+    },
+    {
+      "from": ", adventure tourism, or community‑based",
+      "to": ", adventure tourism or community‑based"
+    },
+    {
+      "from": ", generate local income, and strengthen",
+      "to": ", generate local income and strengthen"
+    },
+    {
+      "from": ", respecting local cultures, and supporting",
+      "to": ", respecting local cultures and supporting"
+    },
+    {
+      "from": ", interviews, or documentaries",
+      "to": ", interviews or documentaries"
+    },
+    {
+      "from": ", the environment, and the",
+      "to": ", the environment and the"
+    },
+    {
+      "from": ", community involvement, or income",
+      "to": ", community involvement or income"
+    },
+    {
+      "from": ", cultural loss, and economic",
+      "to": ", cultural loss and economic"
+    },
+    {
+      "from": ", over‑tourism, or economic",
+      "to": ", over‑tourism or economic"
+    },
+    {
+      "from": ", cultural erosion, and poor",
+      "to": ", cultural erosion and poor"
+    },
+    {
+      "from": ", cultural preservation programmes, and improved",
+      "to": ", cultural preservation programmes and improved"
+    },
+    {
+      "from": ", conservation zones, and investment",
+      "to": ", conservation zones and investment"
+    },
+    {
+      "from": ", visitor satisfaction, and long‑term",
+      "to": ", visitor satisfaction and long‑term"
+    },
+    {
+      "from": ", increased local income, and stronger",
+      "to": ", increased local income and stronger"
+    },
+    {
+      "from": ", businesses, and travellers",
+      "to": ", businesses and travellers"
+    },
+    {
+      "from": ", responsible business practices, and traveller",
+      "to": ", responsible business practices and traveller"
+    },
+    {
+      "from": ", training, and transparent",
+      "to": ", training and transparent"
+    },
+    {
+      "from": ", Kruger National Park, and vibrant",
+      "to": ", Kruger National Park and vibrant"
+    },
+    {
+      "from": ", support regional development, and strengthen",
+      "to": ", support regional development and strengthen"
+    },
+    {
+      "from": ", Mount Kenya, and Indian",
+      "to": ", Mount Kenya and Indian"
+    },
+    {
+      "from": ", Table Mountain, and the",
+      "to": ", Table Mountain and the"
+    },
+    {
+      "from": ", cultural exchange, and sustainability",
+      "to": ", cultural exchange and sustainability"
+    },
+    {
+      "from": ", strengthens cultural identity, and promotes",
+      "to": ", strengthens cultural identity and promotes"
+    },
+    {
+      "from": ", economic impact, or sustainability",
+      "to": ", economic impact or sustainability"
+    },
+    {
+      "from": ", coastal attractions, and cultural",
+      "to": ", coastal attractions and cultural"
+    },
+    {
+      "from": ", jobs, and foreign",
+      "to": ", jobs and foreign"
+    },
+    {
+      "from": ", better infrastructure, and community",
+      "to": ", better infrastructure and community"
+    },
+    {
+      "from": ", urban, and eco‑tourism",
+      "to": ", urban and eco‑tourism"
+    },
+    {
+      "from": ", community programmes, or infrastructure",
+      "to": ", community programmes or infrastructure"
+    },
+    {
+      "from": ", strong economic contributions, and sustainability",
+      "to": ", strong economic contributions and sustainability"
+    },
+    {
+      "from": ", mountains, and coastal",
+      "to": ", mountains and coastal"
+    },
+    {
+      "from": ", GIS tools, and tourism",
+      "to": ", GIS tools and tourism"
+    },
+    {
+      "from": ", strengthen cultural identity, and stimulate",
+      "to": ", strengthen cultural identity and stimulate"
+    },
+    {
+      "from": ", infrastructure, and economic",
+      "to": ", infrastructure and economic"
+    },
+    {
+      "from": ", transport and accommodation infrastructure, and economic",
+      "to": ", transport and accommodation infrastructure and economic"
+    },
+    {
+      "from": ", supports communities, and grows",
+      "to": ", supports communities and grows"
+    },
+    {
+      "from": ", government policy, and the",
+      "to": ", government policy and the"
+    },
+    {
+      "from": ", enforcing effective government policies, and balancing",
+      "to": ", enforcing effective government policies and balancing"
+    },
+    {
+      "from": ", sustainability reduces environmental pressure, and balanced",
+      "to": ", sustainability reduces environmental pressure and balanced"
+    },
+    {
+      "from": ", cultural events, and affordable",
+      "to": ", cultural events and affordable"
+    },
+    {
+      "from": ", create jobs, and strengthen",
+      "to": ", create jobs and strengthen"
+    },
+    {
+      "from": ", adventure activities, and world‑class",
+      "to": ", adventure activities and world‑class"
+    },
+    {
+      "from": ", family‑friendly sites, and affordable",
+      "to": ", family‑friendly sites and affordable"
+    },
+    {
+      "from": ", community involvement, and responsible",
+      "to": ", community involvement and responsible"
+    },
+    {
+      "from": ", cultural erosion, and pressure",
+      "to": ", cultural erosion and pressure"
+    },
+    {
+      "from": ", cultural protection, and community‑led",
+      "to": ", cultural protection and community‑led"
+    },
+    {
+      "from": ", transport, and guiding",
+      "to": ", transport and guiding"
+    },
+    {
+      "from": ", culture, and local",
+      "to": ", culture and local"
+    },
+    {
+      "from": ", cultural preservation programmes, and community‑based",
+      "to": ", cultural preservation programmes and community‑based"
+    },
+    {
+      "from": ", strategies, and sustainability",
+      "to": ", strategies and sustainability"
+    },
+    {
+      "from": ", wildlife, and coastal",
+      "to": ", wildlife and coastal"
+    },
+    {
+      "from": ", Kenya, and South",
+      "to": ", Kenya and South"
+    },
+    {
+      "from": ", supports shared policies, and promotes",
+      "to": ", supports shared policies and promotes"
+    },
+    {
+      "from": ", supports communities, and ensures",
+      "to": ", supports communities and ensures"
+    },
+    {
+      "from": ", coal, and petroleum",
+      "to": ", coal and petroleum"
+    },
+    {
+      "from": ", difficulties in power generation, and heavy",
+      "to": ", difficulties in power generation and heavy"
+    },
+    {
+      "from": ", solar energy, and petroleum",
+      "to": ", solar energy and petroleum"
+    },
+    {
+      "from": ", availability of resources, and level",
+      "to": ", availability of resources and level"
+    },
+    {
+      "from": ", wind, and biogas",
+      "to": ", wind and biogas"
+    },
+    {
+      "from": ", petroleum, and charcoal",
+      "to": ", petroleum and charcoal"
+    },
+    {
+      "from": ", development, and economic",
+      "to": ", development and economic"
+    },
+    {
+      "from": ", reliability, and environmental",
+      "to": ", reliability and environmental"
+    },
+    {
+      "from": ", cost, and reliability",
+      "to": ", cost and reliability"
+    },
+    {
+      "from": ", pollution, and environmental",
+      "to": ", pollution and environmental"
+    },
+    {
+      "from": ", biogas, and improved",
+      "to": ", biogas and improved"
+    },
+    {
+      "from": ", more sustainable, and help",
+      "to": ", more sustainable and help"
+    },
+    {
+      "from": ", spoilage of goods, and financial",
+      "to": ", spoilage of goods and financial"
+    },
+    {
+      "from": ", hydro‑electric power, and biomass",
+      "to": ", hydro‑electric power and biomass"
+    },
+    {
+      "from": ", schools, and hospitals",
+      "to": ", schools and hospitals"
+    },
+    {
+      "from": ", phone charging, and small",
+      "to": ", phone charging and small"
+    },
+    {
+      "from": ", petrol, and coal",
+      "to": ", petrol and coal"
+    },
+    {
+      "from": ", mining, and manufacturing",
+      "to": ", mining and manufacturing"
+    },
+    {
+      "from": ", support business operations, and drive",
+      "to": ", support business operations and drive"
+    },
+    {
+      "from": ", polluting, and contribute",
+      "to": ", polluting and contribute"
+    },
+    {
+      "from": ", businesses, and industries",
+      "to": ", businesses and industries"
+    },
+    {
+      "from": ", factories, and transport",
+      "to": ", factories and transport"
+    },
+    {
+      "from": ", industries, and services",
+      "to": ", industries and services"
+    },
+    {
+      "from": ", reliability, and cost",
+      "to": ", reliability and cost"
+    },
+    {
+      "from": ", poster, or short",
+      "to": ", poster or short"
+    },
+    {
+      "from": ", storing, and using",
+      "to": ", storing and using"
+    },
+    {
+      "from": ", cut fuel costs, and protect",
+      "to": ", cut fuel costs and protect"
+    },
+    {
+      "from": ", wind power, or biogas",
+      "to": ", wind power or biogas"
+    },
+    {
+      "from": ", frequent power outages, and fuel",
+      "to": ", frequent power outages and fuel"
+    },
+    {
+      "from": ", outages, and leakages",
+      "to": ", outages and leakages"
+    },
+    {
+      "from": ", electricity transmission, and coal",
+      "to": ", electricity transmission and coal"
+    },
+    {
+      "from": ", electricity, and coal",
+      "to": ", electricity and coal"
+    },
+    {
+      "from": ", coal, and biomass",
+      "to": ", coal and biomass"
+    },
+    {
+      "from": ", coal production, and biomass",
+      "to": ", coal production and biomass"
+    },
+    {
+      "from": ", cost, and sustainability",
+      "to": ", cost and sustainability"
+    },
+    {
+      "from": ", sunlight, and available",
+      "to": ", sunlight and available"
+    },
+    {
+      "from": ", adopting modern technology, and promoting",
+      "to": ", adopting modern technology and promoting"
+    },
+    {
+      "from": ", industries, and communities",
+      "to": ", industries and communities"
+    },
+    {
+      "from": ", high costs, and environmental",
+      "to": ", high costs and environmental"
+    },
+    {
+      "from": ", biomass, or coal",
+      "to": ", biomass or coal"
+    },
+    {
+      "from": ", good environmental practices, and strong",
+      "to": ", good environmental practices and strong"
+    },
+    {
+      "from": ", reliable, and sustainable",
+      "to": ", reliable and sustainable"
+    },
+    {
+      "from": ", smoke pollution, and unsustainable",
+      "to": ", smoke pollution and unsustainable"
+    },
+    {
+      "from": ", regulated wood collection, and community",
+      "to": ", regulated wood collection and community"
+    },
+    {
+      "from": ", improve household health, and provide",
+      "to": ", improve household health and provide"
+    },
+    {
+      "from": ", air pollution, and environmental",
+      "to": ", air pollution and environmental"
+    },
+    {
+      "from": ", evaluate their environmental impacts, and explore",
+      "to": ", evaluate their environmental impacts and explore"
+    },
+    {
+      "from": ", textbook, or digital",
+      "to": ", textbook or digital"
+    },
+    {
+      "from": ", suitable landforms, and access",
+      "to": ", suitable landforms and access"
+    },
+    {
+      "from": ", maintenance, and power",
+      "to": ", maintenance and power"
+    },
+    {
+      "from": ", strong rock foundations, and existing",
+      "to": ", strong rock foundations and existing"
+    },
+    {
+      "from": ", destroy wildlife habitats, and change",
+      "to": ", destroy wildlife habitats and change"
+    },
+    {
+      "from": ", water quality, and downstream",
+      "to": ", water quality and downstream"
+    },
+    {
+      "from": ", schools, and industries",
+      "to": ", schools and industries"
+    },
+    {
+      "from": ", industries, or the",
+      "to": ", industries or the"
+    },
+    {
+      "from": ", communication, and food",
+      "to": ", communication and food"
+    },
+    {
+      "from": ", investment decreases, and national",
+      "to": ", investment decreases and national"
+    },
+    {
+      "from": ", promoting research, and creating",
+      "to": ", promoting research and creating"
+    },
+    {
+      "from": ", thermal, and biomass",
+      "to": ", thermal and biomass"
+    },
+    {
+      "from": ", businesses, and households",
+      "to": ", businesses and households"
+    },
+    {
+      "from": ", wind, and biomass",
+      "to": ", wind and biomass"
+    },
+    {
+      "from": ", clinics, and water",
+      "to": ", clinics and water"
+    },
+    {
+      "from": ", charging, and small",
+      "to": ", charging and small"
+    },
+    {
+      "from": ", biomass, and small‑scale",
+      "to": ", biomass and small‑scale"
+    },
+    {
+      "from": ", supports rural electrification, and strengthens",
+      "to": ", supports rural electrification and strengthens"
+    },
+    {
+      "from": ", reduce wastage, and manage",
+      "to": ", reduce wastage and manage"
+    },
+    {
+      "from": ", using solar alternatives, and supporting",
+      "to": ", using solar alternatives and supporting"
+    },
+    {
+      "from": ", improve reliability, and support",
+      "to": ", improve reliability and support"
+    },
+    {
+      "from": ", protects natural resources, and ensures",
+      "to": ", protects natural resources and ensures"
+    },
+    {
+      "from": ", chart, or short",
+      "to": ", chart or short"
+    },
+    {
+      "from": ", controlled harvesting, and efficient",
+      "to": ", controlled harvesting and efficient"
+    },
+    {
+      "from": ", crop waste, and animal",
+      "to": ", crop waste and animal"
+    },
+    {
+      "from": ", proper maintenance, and positive",
+      "to": ", proper maintenance and positive"
+    },
+    {
+      "from": ", reduce costs, and ensure",
+      "to": ", reduce costs and ensure"
+    },
+    {
+      "from": ", pollution, and land",
+      "to": ", pollution and land"
+    },
+    {
+      "from": ", oil, and natural",
+      "to": ", oil and natural"
+    },
+    {
+      "from": ", transport, or industry",
+      "to": ", transport or industry"
+    },
+    {
+      "from": ", transport, and industrial",
+      "to": ", transport and industrial"
+    },
+    {
+      "from": ", communities, and governments",
+      "to": ", communities and governments"
+    },
+    {
+      "from": ", explore barriers to their use, and create",
+      "to": ", explore barriers to their use and create"
+    },
+    {
+      "from": ", oil, and gas",
+      "to": ", oil and gas"
+    },
+    {
+      "from": ", industries, and national",
+      "to": ", industries and national"
+    },
+    {
+      "from": ", examine rising electricity demand, and explore",
+      "to": ", examine rising electricity demand and explore"
+    },
+    {
+      "from": ", Inga Dam, and Kafue",
+      "to": ", Inga Dam and Kafue"
+    },
+    {
+      "from": ", suitable relief, and reliable",
+      "to": ", suitable relief and reliable"
+    },
+    {
+      "from": ", urbanisation, and expanding",
+      "to": ", urbanisation and expanding"
+    },
+    {
+      "from": ", effects, and possible",
+      "to": ", effects and possible"
+    },
+    {
+      "from": ", expanding industries, and increased",
+      "to": ", expanding industries and increased"
+    },
+    {
+      "from": ", strengthening interconnectors, and promoting",
+      "to": ", strengthening interconnectors and promoting"
+    },
+    {
+      "from": ", table, or short",
+      "to": ", table or short"
+    },
+    {
+      "from": ", services, and infrastructure",
+      "to": ", services and infrastructure"
+    },
+    {
+      "from": ", schools, and workplaces",
+      "to": ", schools and workplaces"
+    },
+    {
+      "from": ", wind, and thermal",
+      "to": ", wind and thermal"
+    },
+    {
+      "from": ", industries, and institutions",
+      "to": ", industries and institutions"
+    },
+    {
+      "from": ", processing, and refining",
+      "to": ", processing and refining"
+    },
+    {
+      "from": ", simple data interpretation, and the",
+      "to": ", simple data interpretation and the"
+    },
+    {
+      "from": ", mineral markets, and export",
+      "to": ", mineral markets and export"
+    },
+    {
+      "from": ", environmental impacts, and lessons",
+      "to": ", environmental impacts and lessons"
+    },
+    {
+      "from": ", limestone, and manganese",
+      "to": ", limestone and manganese"
+    },
+    {
+      "from": ", employment, and exports",
+      "to": ", employment and exports"
+    },
+    {
+      "from": ", performance, and contributions",
+      "to": ", performance and contributions"
+    },
+    {
+      "from": ", how these minerals are sold, and the",
+      "to": ", how these minerals are sold and the"
+    },
+    {
+      "from": ", identify trends over time, and understand",
+      "to": ", identify trends over time and understand"
+    },
+    {
+      "from": ", roads, and power",
+      "to": ", roads and power"
+    },
+    {
+      "from": ", licences, and regulations",
+      "to": ", licences and regulations"
+    },
+    {
+      "from": ", power shortages, and outdated",
+      "to": ", power shortages and outdated"
+    },
+    {
+      "from": ", coal, and manganese",
+      "to": ", coal and manganese"
+    },
+    {
+      "from": ", importance, and value",
+      "to": ", importance and value"
+    },
+    {
+      "from": ", smelting, and refining",
+      "to": ", smelting and refining"
+    },
+    {
+      "from": ", smelting extracts the metal, and refining",
+      "to": ", smelting extracts the metal and refining"
+    },
+    {
+      "from": ", supports industries, and creates",
+      "to": ", supports industries and creates"
+    },
+    {
+      "from": ", energy, and technology",
+      "to": ", energy and technology"
+    },
+    {
+      "from": ", clinics, and schools",
+      "to": ", clinics and schools"
+    },
+    {
+      "from": ", creates more skilled jobs, and reduces",
+      "to": ", creates more skilled jobs and reduces"
+    },
+    {
+      "from": ", ensuring fair taxation, and encouraging",
+      "to": ", ensuring fair taxation and encouraging"
+    },
+    {
+      "from": ", improve infrastructure, and support",
+      "to": ", improve infrastructure and support"
+    },
+    {
+      "from": ", contribute to national revenue, and support",
+      "to": ", contribute to national revenue and support"
+    },
+    {
+      "from": ", processing, and manufacturing",
+      "to": ", processing and manufacturing"
+    },
+    {
+      "from": ", building skills, and reducing",
+      "to": ", building skills and reducing"
+    },
+    {
+      "from": ", agriculture, or manufacturing",
+      "to": ", agriculture or manufacturing"
+    },
+    {
+      "from": ", creates jobs, and boosts",
+      "to": ", creates jobs and boosts"
+    },
+    {
+      "from": ", limited skills, or lack",
+      "to": ", limited skills or lack"
+    },
+    {
+      "from": ", innovation, and local",
+      "to": ", innovation and local"
+    },
+    {
+      "from": ", opportunities, and lessons",
+      "to": ", opportunities and lessons"
+    },
+    {
+      "from": ", reduces wastage, and increases",
+      "to": ", reduces wastage and increases"
+    },
+    {
+      "from": ", manufacturing, or improving",
+      "to": ", manufacturing or improving"
+    },
+    {
+      "from": ", creates more skilled jobs, and supports",
+      "to": ", creates more skilled jobs and supports"
+    },
+    {
+      "from": ", generating foreign exchange through exports, and creating",
+      "to": ", generating foreign exchange through exports and creating"
+    },
+    {
+      "from": ", limestone supports construction, and coal",
+      "to": ", limestone supports construction and coal"
+    },
+    {
+      "from": ", improve infrastructure, and increase",
+      "to": ", improve infrastructure and increase"
+    },
+    {
+      "from": ", pipes, and electrical",
+      "to": ", pipes and electrical"
+    },
+    {
+      "from": ", enforcing fair taxation, and encouraging",
+      "to": ", enforcing fair taxation and encouraging"
+    },
+    {
+      "from": ", ensures environmental protection, and supports",
+      "to": ", ensures environmental protection and supports"
+    },
+    {
+      "from": ", electronics, and battery",
+      "to": ", electronics and battery"
+    },
+    {
+      "from": ", gemstones, or manganese",
+      "to": ", gemstones or manganese"
+    },
+    {
+      "from": ", industry needs, and price",
+      "to": ", industry needs and price"
+    },
+    {
+      "from": ", gemstones, and other",
+      "to": ", gemstones and other"
+    },
+    {
+      "from": ", rail, and sea",
+      "to": ", rail and sea"
+    },
+    {
+      "from": ", Mozambique, and Namibia",
+      "to": ", Mozambique and Namibia"
+    },
+    {
+      "from": ", rail, or a",
+      "to": ", rail or a"
+    },
+    {
+      "from": ", reliability, and access",
+      "to": ", reliability and access"
+    },
+    {
+      "from": ", route, and justification",
+      "to": ", route and justification"
+    },
+    {
+      "from": ", cobalt, and gemstones",
+      "to": ", cobalt and gemstones"
+    },
+    {
+      "from": ", employment, and government",
+      "to": ", employment and government"
+    },
+    {
+      "from": ", South Africa, and parts",
+      "to": ", South Africa and parts"
+    },
+    {
+      "from": ", strong industrial sectors, and offer",
+      "to": ", strong industrial sectors and offer"
+    },
+    {
+      "from": ", production levels, and investment",
+      "to": ", production levels and investment"
+    },
+    {
+      "from": ", companies reduce output, and the",
+      "to": ", companies reduce output and the"
+    },
+    {
+      "from": ", limited value addition, and fluctuating",
+      "to": ", limited value addition and fluctuating"
+    },
+    {
+      "from": ", reduced bargaining power, and economic",
+      "to": ", reduced bargaining power and economic"
+    },
+    {
+      "from": ", examples, and evidence",
+      "to": ", examples and evidence"
+    },
+    {
+      "from": ", exports, and infrastructure",
+      "to": ", exports and infrastructure"
+    },
+    {
+      "from": ", deforestation, and community",
+      "to": ", deforestation and community"
+    },
+    {
+      "from": ", respond to each other’s arguments, and give",
+      "to": ", respond to each other’s arguments and give"
+    },
+    {
+      "from": ", the Lunda provinces for diamonds, and Hu",
+      "to": ", the Lunda provinces for diamonds and Hu"
+    },
+    {
+      "from": ", Northern Cape for diamonds, and Karoo",
+      "to": ", Northern Cape for diamonds and Karoo"
+    },
+    {
+      "from": ", supports industrial growth, and generates",
+      "to": ", supports industrial growth and generates"
+    },
+    {
+      "from": ", using cleaner technologies, and improving",
+      "to": ", using cleaner technologies and improving"
+    },
+    {
+      "from": ", long‑term planning, and strict",
+      "to": ", long‑term planning and strict"
+    },
+    {
+      "from": ", improving environmental management, and supporting",
+      "to": ", improving environmental management and supporting"
+    },
+    {
+      "from": ", government policy, and global",
+      "to": ", government policy and global"
+    },
+    {
+      "from": ", better investment, and stronger",
+      "to": ", better investment and stronger"
+    },
+    {
+      "from": ", construction, and electronics",
+      "to": ", construction and electronics"
+    },
+    {
+      "from": ", creates jobs, and supports",
+      "to": ", creates jobs and supports"
+    },
+    {
+      "from": ", South Africa, and Europe",
+      "to": ", South Africa and Europe"
+    },
+    {
+      "from": ", deforestation, and habitat",
+      "to": ", deforestation and habitat"
+    },
+    {
+      "from": ", enforcing environmental laws, and using",
+      "to": ", enforcing environmental laws and using"
+    },
+    {
+      "from": ", Angola, and South",
+      "to": ", Angola and South"
+    },
+    {
+      "from": ", enhancing environmental protection, and supporting",
+      "to": ", enhancing environmental protection and supporting"
+    },
+    {
+      "from": ", jobs, and value",
+      "to": ", jobs and value"
+    },
+    {
+      "from": ", forestry, and minerals",
+      "to": ", forestry and minerals"
+    },
+    {
+      "from": ", textiles, and wood",
+      "to": ", textiles and wood"
+    },
+    {
+      "from": ", employment creation, and industrial",
+      "to": ", employment creation and industrial"
+    },
+    {
+      "from": ", expand industrial growth, and increase",
+      "to": ", expand industrial growth and increase"
+    },
+    {
+      "from": ", markets, and government",
+      "to": ", markets and government"
+    },
+    {
+      "from": ", noise, or land",
+      "to": ", noise or land"
+    },
+    {
+      "from": ", reduces safe water access, and damages",
+      "to": ", reduces safe water access and damages"
+    },
+    {
+      "from": ", long industrial history, and significant",
+      "to": ", long industrial history and significant"
+    },
+    {
+      "from": ", ports, or transport",
+      "to": ", ports or transport"
+    },
+    {
+      "from": ", cooking oil, or copper",
+      "to": ", cooking oil or copper"
+    },
+    {
+      "from": ", especially in manufacturing and processing, and their",
+      "to": ", especially in manufacturing and processing and their"
+    },
+    {
+      "from": ", Osaka–Kobe, and Hiroshima",
+      "to": ", Osaka–Kobe and Hiroshima"
+    },
+    {
+      "from": ", Guangzhou, and Shenzhen",
+      "to": ", Guangzhou and Shenzhen"
+    },
+    {
+      "from": ", physical, and government‑related",
+      "to": ", physical and government‑related"
+    },
+    {
+      "from": ", transport networks, and power",
+      "to": ", transport networks and power"
+    },
+    {
+      "from": ", unreliable power supply, and limited",
+      "to": ", unreliable power supply and limited"
+    },
+    {
+      "from": ", support value addition, and increase",
+      "to": ", support value addition and increase"
+    },
+    {
+      "from": ", transport, and raw",
+      "to": ", transport and raw"
+    },
+    {
+      "from": ", improve quality, and compete",
+      "to": ", improve quality and compete"
+    },
+    {
+      "from": ", the benefits of these efforts, and the",
+      "to": ", the benefits of these efforts and the"
+    },
+    {
+      "from": ", mass media like ZNBC, and rapidly",
+      "to": ", mass media like ZNBC and rapidly"
+    },
+    {
+      "from": ", reducing costs, and increasing",
+      "to": ", reducing costs and increasing"
+    },
+    {
+      "from": ", airports, and communication",
+      "to": ", airports and communication"
+    },
+    {
+      "from": ", fair policies, and affordable",
+      "to": ", fair policies and affordable"
+    },
+    {
+      "from": ", prepare clear points with evidence, and present",
+      "to": ", prepare clear points with evidence and present"
+    },
+    {
+      "from": ", modern technology, and efficient",
+      "to": ", modern technology and efficient"
+    },
+    {
+      "from": ", better information flow, and overall",
+      "to": ", better information flow and overall"
+    },
+    {
+      "from": ", expanding affordable internet access, and promoting",
+      "to": ", expanding affordable internet access and promoting"
+    },
+    {
+      "from": ", soil and water contamination, and long‑term",
+      "to": ", soil and water contamination and long‑term"
+    },
+    {
+      "from": ", improving access to services, and promoting",
+      "to": ", improving access to services and promoting"
+    },
+    {
+      "from": ", reduces traffic congestion, and saves",
+      "to": ", reduces traffic congestion and saves"
+    },
+    {
+      "from": ", public transport and electric vehicles, and understanding",
+      "to": ", public transport and electric vehicles and understanding"
+    },
+    {
+      "from": ", use strong evidence, and consider",
+      "to": ", use strong evidence and consider"
+    },
+    {
+      "from": ", using public transport, or choosing",
+      "to": ", using public transport or choosing"
+    },
+    {
+      "from": ", air pollution, and fuel",
+      "to": ", air pollution and fuel"
+    },
+    {
+      "from": ", education, and good",
+      "to": ", education and good"
+    },
+    {
+      "from": ", harsh weather, and a",
+      "to": ", harsh weather and a"
+    },
+    {
+      "from": ", raising awareness, and supporting",
+      "to": ", raising awareness and supporting"
+    },
+    {
+      "from": ", dry ports, and logistics",
+      "to": ", dry ports and logistics"
+    },
+    {
+      "from": ", rail networks, and digital",
+      "to": ", rail networks and digital"
+    },
+    {
+      "from": ", air links, and digital",
+      "to": ", air links and digital"
+    },
+    {
+      "from": ", goods, and information",
+      "to": ", goods and information"
+    },
+    {
+      "from": ", investing in digital communication systems, and strengthening",
+      "to": ", investing in digital communication systems and strengthening"
+    },
+    {
+      "from": ", smart technologies, and social",
+      "to": ", smart technologies and social"
+    },
+    {
+      "from": ", air transport for long‑distance travel, and water",
+      "to": ", air transport for long‑distance travel and water"
+    },
+    {
+      "from": ", wind, and hydro",
+      "to": ", wind and hydro"
+    },
+    {
+      "from": ", hydro-electric power, and transport",
+      "to": ", hydro-electric power and transport"
+    },
+    {
+      "from": ", hydro-electric power, and settlement",
+      "to": ", hydro-electric power and settlement"
+    },
+    {
+      "from": "district.  They",
+      "to": "district. They"
+    },
+    {
+      "from": "methods  - Suggest",
+      "to": "methods - Suggest"
+    },
+    {
+      "from": "assign  each",
+      "to": "assign each"
+    },
+    {
+      "from": "and  support a",
+      "to": "and support a"
+    },
+    {
+      "from": "1996.  He",
+      "to": "1996. He"
+    },
+    {
+      "from": "and  Entrepreneurship",
+      "to": "and Entrepreneurship"
+    },
+    {
+      "from": "quickly.  Help",
+      "to": "quickly. Help"
+    },
+    {
+      "from": "Leaners Book",
+      "to": "Learner’s Book"
+    },
+    {
+      "from": "leaners explore",
+      "to": "learners explore"
+    },
+    {
+      "from": "focusses",
+      "to": "focuses"
+    },
+    {
+      "from": "List at least 2 invasive plant species",
+      "to": "Identify at least 2 invasive plant species"
+    },
+    {
+      "from": "Define deforestation.",
+      "to": "In your own understanding of this topic, how can you describe deforestation?"
+    },
+    {
+      "from": "Define fuel and energy and give",
+      "to": "Identify fuel and energy and give"
+    }
+  ],
+  "mdReplaceExact": [
+    {
+      "find": "Geography helps learners understand how people interact with their environment and how natural and human resources influence development. This Form 4 Teacher’s Book builds on earlier studies by examining Zambia’s major economic and environmental sectors. The sequence of topics - beginning with Zambia, and continuing through Forestry, Agriculture, Fishing, Tourism, Mining, Fuel and Energy, Manufacturing and Processing Industries, and Transport and Communication - highlights how the country’s environment and economy are closely connected. This book encourages learners to explore how people use resources, how industries grow, and how development can be made sustainable. Through these topics, learners gain insight into how Geography explains everyday life - from farming and tourism to mining and transport - and how each sector contributes to national progress. Teachers are encouraged to use this book as a tool for discussion, research, and practical learning that links classroom knowledge to real‑world experiences. By engaging with these themes, learners will gain not only knowledge but also appreciation for Zambia’s rich environment and the important role they can play in its sustainable development.",
+      "with": "Geography helps learners understand how people interact with their environment and how natural and human resources influence development. This Form 4 Teacher’s Guide builds on earlier studies by examining Zambia’s major economic and environmental sectors. The sequence of topics - beginning with **Zambia**, and continuing through **Forestry**, **Agriculture**, **Fishing**, **Tourism**, **Fuel and Energy**, **Mining**, **Manufacturing and Processing Industries**, and **Transport and Communication** - highlights how the country’s environment and economy are closely connected. This book encourages learners to explore how people use resources, how industries grow and how development can be made sustainable. Through these topics, learners gain insight into how Geography explains everyday life - from farming and tourism to mining and transport - and how each sector contributes to national progress. Teachers are encouraged to use this book as a tool for discussion, research and practical learning that links classroom knowledge to real‑world experiences. By engaging with these themes, learners will gain not only knowledge but also appreciation for Zambia’s rich environment and the important role they can play in its sustainable development."
+    },
+    {
+      "find": "Geography Form 4 is designed to help learners understand Zambia’s development by examining the country’s major economic and environmental activities. The opening topic, Zambia, provides a foundation for understanding the nation’s physical features, population patterns, and resource distribution. Building on this base, learners explore how forests, farms, rivers, and industries contribute to national growth and environmental sustainability. Each chapter presents content in clear, accessible language supported by diagrams, maps, and photographs. Activities and exercises encourage learners to apply concepts to real situations within their communities. The book follows Zambia’s competence‑based curriculum, which emphasises active learning, problem solving, creativity, and practical engagement with real‑world issues. Learners discover how Forestry supports environmental balance, how Agriculture provides food and employment, and how Fishing sustains communities near lakes and rivers. The chapters on Tourism, Mining, and Fuel and Energy show how Zambia earns income and manages its natural wealth. Later chapters on Manufacturing and Processing Industries and Transport and Communication explain how goods and people move and how technology connects the country to the world. By the end of the course, learners will understand how Geography links people, places, and development - and how Zambia’s progress depends on careful, sustainable management of its resources.",
+      "with": "Geography Form 4 is designed to help learners understand Zambia’s development by examining the country’s major economic and environmental activities. The opening topic, **Zambia**, provides a foundation for understanding the nation’s physical features, population patterns and resource distribution. Each topic presents content in clear, accessible language supported by diagrams, maps and photographs. Activities and exercises encourage learners to apply concepts to real situations within their communities. The book follows Zambia’s **Competency‑Based Curriculum**, which emphasises active learning, problem solving, creativity and practical engagement with real‑world issues. Learners discover how **Forestry** supports environmental balance, how **Agriculture** provides food and employment, and how **Fishing** sustains communities near lakes and rivers. The topics on **Tourism**, **Fuel and Energy** and **Mining** show how Zambia earns income and manages its natural wealth. Later topics on **Manufacturing and Processing Industries** and **Transport and Communication** explain how goods and people move and how technology connects the country to the world. By the end of the course, learners will understand how Geography links people, places and development - and how Zambia’s progress depends on careful, sustainable management of its resources."
+    },
+    {
+      "find": "The Zambia Educational Publishing House (ZEPH) extends its sincere appreciation to all authors, contributors, and partner institutions whose efforts made the development of the Geography Form 4 Teacher’s Book possible. The valuable input of curriculum specialists, writers, editors, and reviewers ensured that the content aligns with national educational standards and reflects real‑life examples drawn from communities across Zambia. ZEPH acknowledges the continued support of its shareholders - the Ministry of Education and the Ministry of Finance and National Planning. Their commitment enables the institution to produce high‑quality learning materials that promote practical, inclusive, and learner‑centred education. Special recognition is given to Ms Njira Mtonga, independent reviewer, whose editorial guidance strengthened the clarity, accuracy, and overall quality of the final manuscript in line with the Competence‑Based Curriculum. ZEPH also appreciates the dedication of the editorial, design, production, and coordination teams. Their professionalism and teamwork were essential in bringing this publication to completion. Particular appreciation is extended to Mr James Chiwele, Publishing Manager at ZEPH, for his leadership and commitment throughout the project. To everyone who contributed in any capacity, ZEPH offers heartfelt thanks. Your collective efforts have produced a resource that will support learners in gaining meaningful understanding and practical application of Geography as they explore Zambia’s environment, resources, and development.",
+      "with": "The Zambia Educational Publishing House (ZEPH) extends its sincere appreciation to all authors, contributors and partner institutions whose efforts made the development of the **Geography Form 4 Teacher’s Guide** possible. The valuable input of curriculum specialists, writers, editors and reviewers ensured that the content aligns with national educational standards and reflects real‑life examples drawn from communities across Zambia. ZEPH acknowledges the continued support of its shareholders - **the Ministry of Education** and **the Ministry of Finance and National Planning**. Their commitment enables the institution to produce high‑quality learning materials that promote practical, inclusive and learner‑centred education. Special recognition is given to **Ms Njira Mtonga**, independent reviewer, whose editorial guidance strengthened the clarity, accuracy and overall quality of the final manuscript in line with the Competency‑Based Curriculum. ZEPH also appreciates the dedication of the editorial, design, production and coordination teams. Their professionalism and teamwork were essential in bringing this publication to completion. Particular appreciation is extended to **Mr James Chiwele**, Publishing Manager at ZEPH, for his leadership and commitment throughout the project. To everyone who contributed in any capacity, ZEPH offers heartfelt thanks. Your collective efforts have produced a resource that will support learners in gaining meaningful understanding and practical application of Geography as they explore Zambia’s environment, resources and development."
+    },
+    {
+      "find": "Geography is the study of people, places, and the relationships between them. In Form 4, you will focus on how Zambia’s natural and human resources support development. The first topic, Zambia, gives you an overview of the country’s physical features, population, and economic activities. It helps you understand how location and resources influence development patterns.",
+      "with": "Geography is the study of **people, places and the relationships** between them. In Form 4, learners focus on how Zambia’s natural and human resources support development. The first topic, **Zambia**, gives them an overview of the country’s physical features, population and economic activities. It helps them understand how location and resources influence development patterns."
+    },
+    {
+      "find": "You will then study Forestry, learning how forests provide timber, medicine, and environmental protection. Agriculture follows, showing how farming sustains rural communities and supports the economy. Fishing explores Zambia’s rivers and lakes, highlighting traditional and commercial methods that supply food and employment. The chapter on Tourism introduces Zambia’s natural attractions such as Victoria Falls and national parks, explaining how tourism promotes conservation and earns foreign exchange. Mining, Fuel and Energy, and Manufacturing and Processing Industries reveal how natural resources are extracted, transformed, and used to power industries and homes.",
+      "with": "Learners then study **Forestry**, learning how forests provide timber, medicine and environmental protection. **Agriculture** follows, showing how farming sustains rural communities and supports the economy. **Fishing** explores Zambia’s rivers and lakes, highlighting traditional and commercial methods that supply food and employment. The topic on **Tourism** introduces Zambia’s natural attractions such as Victoria Falls and national parks, explaining how tourism promotes conservation and earns foreign exchange. **Fuel and Energy**, **Mining** and **Manufacturing and Processing Industries** reveal how natural resources are extracted, transformed and used to power industries and homes."
+    },
+    {
+      "find": "Finally, Transport and Communication show how roads, railways, air transport, and modern communication systems connect people and places, supporting trade and unity. Together, these topics help you see how Geography explains Zambia’s development and how every sector - from forests to factories - plays a role in shaping the nation’s future. Through this course, you will gain knowledge, skills, and awareness that prepare you to contribute positively to Zambia’s sustainable growth.",
+      "with": "Finally, **Transport and Communication** shows how roads, railways, air transport and modern communication systems connect people and places, supporting trade and unity. Together, these topics help learners see how Geography explains Zambia’s development and how every sector - from forests to factories - plays a role in shaping the nation’s future. Through this course, learners will gain knowledge, skills and awareness that prepare them to contribute positively to Zambia’s sustainable growth."
+    }
+  ],
+  "competenceLeadIn": "In this sub-topic, learners will:",
+  "activityTitleSize": "12pt",
+  "tocTitle": "Table of Content",
+  "orIndividuallyKeep": [
+    "let learners discuss the challenges affecting transport",
+    "let learners identify the common forms of transport",
+    "observe transport patterns in their area"
   ]
 }

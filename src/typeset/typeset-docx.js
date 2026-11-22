@@ -431,8 +431,10 @@ function emit(blocks) {
       // "SUB-TOPIC 2.1.5 DRAINAGE FEATURES" and the rest). A colon there is the same
       // slip as a full stop, so both go — and so does the pair: Geography Form 1 TG
       // (Nov 2026) types "Subtopic 1.1.1.: Geography", which a one-character strip left
-      // as "SUB-TOPIC 1.1.1.:" in the heading and the contents.
-      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:]+(\s)/i, "$1$2"))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
+      // as "SUB-TOPIC 1.1.1.:" in the heading and the contents. The gap after the number
+      // is closed to one space as well: Geography Form 4 TG types two after "4.5.2:",
+      // which printed "SUB-TOPIC 4.5.2  SUSTAINABLE TOURISM" in the heading and contents.
+      case "h2": out += `#subhead(${S(b.text.replace(/^Sub[-\s‐-―]*Topic\s*:?\s*/i, "Sub-Topic ").replace(/^(Sub-?Topic\s+\d+(?:\.\d+)*)[.:]*\s+/i, "$1 "))}${b.nobreak ? ", nobrk: true" : ""})\n`; break;
       case "h3": case "head": {
         // A head marked as a styled (but page-break-free, un-outlined) section — e.g. a
         // front-matter ACRONYMS / COMPETENCES heading that must share the page below the
@@ -7597,7 +7599,7 @@ async function typesetOne(docxPath, themeName) {
   fixACappellaSpacing(blocks);
   if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
-  competenceLeadIn(blocks, isTeacherBookName(base));
+  competenceLeadIn(blocks, isTeacherBookName(base), ov.competenceLeadIn);
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
   markSpreadsheetTables(blocks);
   reformatAcronyms(blocks);
@@ -7622,14 +7624,17 @@ async function typesetOne(docxPath, themeName) {
 // section, learners will:" in a Teacher's Guide, "In this section, you will:" in a
 // Learner's Book, inserted when a section has no lead-in at all (one ICT section
 // didn't), and left alone where the manuscript put something that is not a lead-in.
-function competenceLeadIn(blocks, isTeacherGuide) {
+function competenceLeadIn(blocks, isTeacherGuide, leadText) {
   // Teacher's Guides only. A Learner's Book says "In this sub-topic, you will:" and
   // means it — the learner IS the reader, and the book's own unit of organisation is
   // the sub-topic, not the section — so rewriting those would be a downgrade, not a
   // normalisation. The fault being fixed is specific to a guide: it addresses "you",
   // the teacher, and then lists what the learners will be able to do.
   if (!isTeacherGuide) return;
-  const LEAD = "In this section, learners will:";
+  // A book may set its own wording (`competenceLeadIn` override): CDC marked every
+  // "In this section" of the Geography Form 4 Teacher's Guide "delete section and add
+  // sub-topic" — the TG's own unit is the sub-topic.
+  const LEAD = leadText || "In this section, learners will:";
   const LABEL = /^specific\s+competenc(e|es|ies)\s*:?\s*$/i;
   // what a lead-in looks like however the writer worded it — "In this section/sub-topic,
   // you will (learn to)?:", "learners will:", "you are expected to:" …
@@ -7640,7 +7645,10 @@ function competenceLeadIn(blocks, isTeacherGuide) {
   // lead-in was not recognised as one and this function spliced a second lead-in in
   // above it, printing both lines back to back under every Specific Competences
   // heading in the book.
-  const ISLEAD = /^in\s+this\s+(section|sub[-\s]?topic|topic|unit|lesson)\b[^.!?]*:\s*$/i;
+  // …and a lead-in may end in a COMMA rather than a colon ("In this sub-topic, learners
+  // will," — Geography Form 4 Teacher's Guide, 4.9.1). Unrecognised, it got a second
+  // lead-in spliced in above it and CDC marked the doubled line for deletion.
+  const ISLEAD = /^in\s+this\s+(section|sub[-\s]?topic|topic|unit|lesson)\b[^.!?]*[:,]\s*$/i;
   // Flatten runs locally: the `plainOf` this used to call is scoped inside
   // splitAnswerLabels(), so it is not visible here and every book reaching this line
   // died with "plainOf is not defined". It only bites once a manuscript actually has a
@@ -8563,9 +8571,15 @@ function normaliseQuestionMarkBold(blocks) {
   // …and the gap above each topic's contents entry (default 10pt), so a contents page
   // that runs a line or two onto a second page can be drawn back onto one.
   if (ov.tocGap) themeOverrides.tocGap = ov.tocGap;
+  // …and the contents page's own title, where a reviewer asks for other wording
+  // (CDC: "Table of Content", Geography Form 4 Teacher's Guide).
+  if (ov.tocTitle) themeOverrides.toctitle = ov.tocTitle;
   // A larger book-type line on the front cover ("LEARNER'S BOOK"), e.g. "24pt" — a
   // reviewer's "increase font size" there (Geography Form 1 LB, CDC 2026-11). Opt-in.
   if (ov.coverBooktypeSize) themeOverrides.covBooktypeSize = ov.coverBooktypeSize;
+  // Activity box titles at a set size, e.g. "12pt" (CDC "reduce font size to 12" on the
+  // Geography Form 4 TG's LEARNING ACTIVITY titles). Opt-in; other boxes keep theirs.
+  if (ov.activityTitleSize) themeOverrides.activityTitleSize = ov.activityTitleSize;
   // "hyphenate": false — no word broken across two lines (a reviewer marked every
   // "profes-sional" break); otherwise the theme's own setting
   if (ov.hyphenate !== undefined) themeOverrides.hyphenate = !!ov.hyphenate;
