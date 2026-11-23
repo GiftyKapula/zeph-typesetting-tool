@@ -934,5 +934,13 @@
     }
   ],
   "hyphenate": false,
-  "//compounds": "every hyphenated compound takes a word joiner after its hyphen, so no line ends in a hyphen (round 1, as the LB)"
+  "//compounds": "every hyphenated compound takes a word joiner after its hyphen, so no line ends in a hyphen (round 1, as the LB)",
+  "dummyOverrides": {
+    "subtext": [
+      {
+        "from": "A group of ZEPH book writers",
+        "to": "A group of book writers"
+      }
+    ]
+  }
 }

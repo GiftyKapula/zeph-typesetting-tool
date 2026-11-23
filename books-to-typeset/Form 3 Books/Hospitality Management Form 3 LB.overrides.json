@@ -2613,5 +2613,17 @@
         "**ZTA**: Zambia Tourism Agency"
       ]
     }
-  ]
+  ],
+  "dummyOverrides": {
+    "subtext": [
+      {
+        "from": "A Chief Executive Officer from Zambia Educational Publishing House",
+        "to": "A Chief Executive Officer from a publishing company"
+      },
+      {
+        "from": "A group of ZEPH book writers",
+        "to": "A group of book writers"
+      }
+    ]
+  }
 }

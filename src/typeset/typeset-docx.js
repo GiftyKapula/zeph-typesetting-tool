@@ -8429,12 +8429,49 @@ function normaliseQuestionMarkBold(blocks) {
       });
       blocks.splice(covI + 1, firstI - covI - 1, ...front);
       console.log(`   anonymous: removed the title page, imprint${dropped.length ? " and " + [...new Set(dropped.filter((d) => d !== "title/imprint"))].join(", ") : ""}; contents and the rest of the front matter kept`);
+      // Every Dummy opens contents -> Introduction (user, 2026-11-23: "all the dummies
+      // should look the same for table of contents and introduction in that order"). A
+      // book that puts Acronyms, competences or a List of Figures first gets its whole
+      // INTRODUCTION section (sub-headings included, up to the next h1) lifted to straight
+      // after the contents; the rest keeps its order. The named book is not touched.
+      const end = covI + 1 + front.length;
+      const tI = blocks.findIndex((b, i) => i > covI && i < end && b.t === "toc");
+      if (tI >= 0) {
+        const nextH1 = blocks.findIndex((b, i) => i > tI && i < end && b.t === "h1");
+        const inI = blocks.findIndex((b, i) => i > tI && i < end && b.t === "h1" && /^INTRODUCTION$/i.test(String(b.text || "").trim()));
+        if (inI > nextH1 && nextH1 >= 0) {
+          let stop = blocks.findIndex((b, i) => i > inI && (b.t === "h1" || MARKER.has(b.t)));
+          if (stop < 0 || stop > end) stop = end;
+          const span = blocks.splice(inI, stop - inI);
+          blocks.splice(nextH1, 0, ...span);
+          console.log(`   anonymous: INTRODUCTION moved up to follow the contents (was after ${String(blocks[nextH1 + span.length].text).trim()})`);
+        }
+      }
     }
     for (const b of blocks) {
       if (b.t === "cover") { b.logo = null; b.byline = []; }
       if (b.t === "backcover") b.logo = null;
       if (b.t === "titlepage" || b.t === "imprint") { b.t = "vspace"; b.h = "0pt"; }
     }
+    // A list of abbreviations often spells ZEPH out — a paragraph ("ZEPH: Zambia
+    // Educational Publishing House") or a two-column table row. In the Dummy that entry
+    // goes, wherever the sidecar or manuscript put it (CS, ICT, Hospitality Form 3).
+    const ZEPH_ABBR = /^\s*ZEPH\s*[:\-–—]?\s*Zambia Educational Publishing House\s*\.?\s*$/i;
+    const rowText = (r) => JSON.stringify(r).replace(/"[a-z]+":/gi, " ").replace(/[{}\[\]",]/g, " ");
+    let abbr = 0;
+    const scrubAbbr = (arr) => {
+      for (let i = arr.length - 1; i >= 0; i--) {
+        const b = arr[i]; if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows)) {
+          const n = b.rows.length;
+          b.rows = b.rows.filter((r) => !(Array.isArray(r) && r.length <= 3 && /\bZEPH\b/.test(rowText(r)) && /Zambia Educational Publishing House/.test(rowText(r))));
+          abbr += n - b.rows.length;
+        } else if (ZEPH_ABBR.test(blockPlain(b))) { arr.splice(i, 1); abbr++; continue; }
+        for (const k of ["body", "items", "parts", "children"]) if (Array.isArray(b[k])) scrubAbbr(b[k]);
+      }
+    };
+    scrubAbbr(blocks);
+    if (abbr) console.log(`   anonymous: removed ${abbr} "ZEPH" abbreviation entr${abbr === 1 ? "y" : "ies"}`);
   }
 
   // An ISBN supplied in the overrides is shown on the covers (no barcode).
