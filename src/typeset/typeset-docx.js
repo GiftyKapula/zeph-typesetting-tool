@@ -7386,6 +7386,15 @@ async function typesetOne(docxPath, themeName) {
   // `--dummy`: the CDC/tender evaluation copy of the same book — `anonymous` on top of
   // the book's own sidecar, written beside the named version as "<book> - Dummy …".
   if (WANT_DUMMY) ov.anonymous = true;
+  // dummyOverrides: { <any sidecar key>: … } — applied to the Dummy only, never to the
+  // named book: body text that names the publisher (a reference to one of its own
+  // titles) comes out of the evaluation copy but stays in the book sold. List keys are
+  // appended to the book's own; any other key replaces it (Integrated Science Grade 6 LB).
+  if (ov.anonymous && ov.dummyOverrides) {
+    for (const [k, v] of Object.entries(ov.dummyOverrides)) {
+      ov[k] = Array.isArray(v) && Array.isArray(ov[k]) ? [...ov[k], ...v] : v;
+    }
+  }
   const theme = themeName || ov.theme || autoTheme(detectName);
   const variant = (THEMES[theme] || {}).variant;
   const eduLevel = eduLevelFor(detectName);
