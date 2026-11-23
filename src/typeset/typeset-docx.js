@@ -8429,6 +8429,24 @@ function normaliseQuestionMarkBold(blocks) {
       });
       blocks.splice(covI + 1, firstI - covI - 1, ...front);
       console.log(`   anonymous: removed the title page, imprint${dropped.length ? " and " + [...new Set(dropped.filter((d) => d !== "title/imprint"))].join(", ") : ""}; contents and the rest of the front matter kept`);
+      // Every Dummy opens contents -> Introduction (user, 2026-11-23: "all the dummies
+      // should look the same for table of contents and introduction in that order"). A
+      // book that puts Acronyms, competences or a List of Figures first gets its whole
+      // INTRODUCTION section (sub-headings included, up to the next h1) lifted to straight
+      // after the contents; the rest keeps its order. The named book is not touched.
+      const end = covI + 1 + front.length;
+      const tI = blocks.findIndex((b, i) => i > covI && i < end && b.t === "toc");
+      if (tI >= 0) {
+        const nextH1 = blocks.findIndex((b, i) => i > tI && i < end && b.t === "h1");
+        const inI = blocks.findIndex((b, i) => i > tI && i < end && b.t === "h1" && /^INTRODUCTION$/i.test(String(b.text || "").trim()));
+        if (inI > nextH1 && nextH1 >= 0) {
+          let stop = blocks.findIndex((b, i) => i > inI && (b.t === "h1" || MARKER.has(b.t)));
+          if (stop < 0 || stop > end) stop = end;
+          const span = blocks.splice(inI, stop - inI);
+          blocks.splice(nextH1, 0, ...span);
+          console.log(`   anonymous: INTRODUCTION moved up to follow the contents (was after ${String(blocks[nextH1 + span.length].text).trim()})`);
+        }
+      }
     }
     for (const b of blocks) {
       if (b.t === "cover") { b.logo = null; b.byline = []; }
