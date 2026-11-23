@@ -550,7 +550,11 @@ function emit(blocks) {
         // heading it titles — is pinned.
         const nb = nextB;
         const big = (b.w || 0) >= 400 || b.tall;
-        const sticky = !big && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
+        // A CAPTIONED picture is titled by its own caption, so the heading after it is new
+        // material: pinned to it, the picture, the heading and an unbreakable table under
+        // that heading moved as one and left half a page empty (ICT Form 3 TG, the model
+        // answer above each "Marking guide: Section B").
+        const sticky = !big && !b.caption && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
         out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption.replace(/ {2,}/g, " ")) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;

@@ -713,9 +713,13 @@
         #pad(gx + gw / 2, gy + gh - 2.5mm, 1.1mm, white.transparentize(55%))
         // traces leaving the gadget toward the page edges
         #seg(gx, gy + 8mm, 0mm, gy + 8mm, faint)
-        #seg(gx + gw, gy + gh - 6mm, gx + gw + 12mm, gy + gh - 6mm, trace)
-        #pad(gx + gw + 12mm, gy + gh - 6mm, 1.5mm, T.accent.transparentize(45%))
-        #seg(gx + gw + 12mm, gy + gh - 6mm, gx + gw + 12mm, 250mm, trail)
+        // The trace turns down 6mm out from the gadget: at 12mm its node sat at ~54mm
+        // with the landscape gadget, touching the first letter of a centred author
+        // byline (ICT Form 3 TG, "Dr Clement Mulenga Sinyangwe (PhD)").
+        #let tx = gx + gw + 6mm
+        #seg(gx + gw, gy + gh - 6mm, tx, gy + gh - 6mm, trace)
+        #pad(tx, gy + gh - 6mm, 1.5mm, T.accent.transparentize(45%))
+        #seg(tx, gy + gh - 6mm, tx, 250mm, trail)
         // a couple of loose vias in the open field, so the two corners read as
         // parts of one board rather than two isolated drawings
         #pad(26mm, gy - 14mm, 1.3mm, white.transparentize(62%))
@@ -3060,7 +3064,12 @@
   // whose 4-letter words are one letter shorter than the neighbouring columns' — that
   // is not a serial column and must not collapse to `auto`).
   let isnum(s) = { let t = s.trim(); t != "" and t.matches(regex("^[0-9]+$")).len() > 0 }
-  let narrowNum(ci) = rows.len() >= 2 and not fillin and rows.at(0).at(ci).text.len() <= 5 and collen(ci) <= 4 and rows.slice(1).all(r => { let t = r.at(ci).text.trim(); t == "" or isnum(t) }) and rows.slice(1).any(r => isnum(r.at(ci).text))
+  // The ≤4 length test is on the BODY cells: counting the header too threw out a
+  // five-letter "Marks" over 1-2 digit marks, which then got a share of the width too
+  // thin for the bold word and printed over the next column's header (ICT Form 3 TG's
+  // marking guides). The header has its own ≤5 limit.
+  let bodylen(ci) = { let m = 0; for r in rows.slice(1) { let l = celllen(r.at(ci)); if l > m { m = l } }; m }
+  let narrowNum(ci) = rows.len() >= 2 and not fillin and rows.at(0).at(ci).text.len() <= 5 and bodylen(ci) <= 4 and rows.slice(1).all(r => { let t = r.at(ci).text.trim(); t == "" or isnum(t) }) and rows.slice(1).any(r => isnum(r.at(ci).text))
   // A "word grid" — every cell a single short token (phonics spelling-choice tables
   // like "ai | a | ay | a-e" with one word per cell) — reads as lopsided under content-
   // proportional widths when one column's longest word is a letter longer than another's.

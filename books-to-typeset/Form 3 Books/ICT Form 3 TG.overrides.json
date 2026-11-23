@@ -1,0 +1,93 @@
+{
+  "_comment": [
+    "ICT Form 3 Teacher’s Guide, first typeset 2026-11-23 from \"ICT Form 3 - Teachers Book - V9 - FINAL - Ready for Typesetting 23 Nov REVISED.docx\".",
+    "Subject spelled \"Information and Communications Technology\" as on the manuscript title and as the ICT Form 3 LB sets it (theme default reads Communication), so cover, title page and running header agree across the pair.",
+    "authors: the publisher line under the author on the manuscript title page was picked up as a second author; the guide has one author.",
+    "Topic 3.4 restarts Learning Activity / Exercise numbers at Specific Competence 3.4.1.2, as the LB does: left as written.",
+    "End of Topic answer guides: each sat in a one-column Word frame (now unwrapped by the engine). Their titles and the \"Marking guide: Section A/B\" lines are set as heads, so none is left at a page foot apart from its table.",
+    "image9 (Figure TG 3.1.6, site map): the white margin round the drawing trimmed (ICT Form 3 TG-art/site-map-trimmed.png) so the last lines of Topic 3.1 do not run onto a page of their own before Topic 3.2.",
+    "boxAllRows: the activity and exercise boxes are one-column Word tables whose later rows hold the model-answer tables and figures (Table TG 3.1.1 ... Figure TG 3.4.4); without it only each box’s first row printed and 25 of them were missing.",
+    "subtext: nine Expected responses items typed with no space after the number (\"2.The organisation’s name\"), unlike the rest of their lists.",
+    "image7 (Figure TG 3.1.4, page sketch) a little narrower so it stays in Learning Activity 4 under the line that introduces it instead of leaving half of page 17 empty."
+  ],
+  "subject": "Information and Communications Technology",
+  "authors": [
+    "Dr Clement Mulenga Sinyangwe (PhD)"
+  ],
+  "setHeading": [
+    {
+      "find": "END OF TOPIC 3.1 ASSESSMENT: Possible Answers and Marking Guide",
+      "as": "head"
+    },
+    {
+      "find": "END OF TOPIC 3.2 ASSESSMENT: Possible Answers and Marking Guide",
+      "as": "head"
+    },
+    {
+      "find": "END OF TOPIC 3.3 ASSESSMENT: Possible Answers and Marking Guide",
+      "as": "head"
+    },
+    {
+      "find": "END OF TOPIC 3.4 ASSESSMENT: Possible Answers and Marking Guide",
+      "as": "head"
+    },
+    {
+      "find": "Marking guide: Section A (35 marks)",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Marking guide: Section B (15 marks)",
+      "as": "head",
+      "all": true
+    }
+  ],
+  "images": {
+    "image9.png": {
+      "src": "ICT Form 3 TG-art/site-map-trimmed.png",
+      "w": 420
+    },
+    "image7.png": {
+      "w": 380
+    }
+  },
+  "boxAllRows": true,
+  "subtext": [
+    {
+      "from": "2.The organisation",
+      "to": "2. The organisation"
+    },
+    {
+      "from": "4.No more than",
+      "to": "4. No more than"
+    },
+    {
+      "from": "1.The page previewed",
+      "to": "1. The page previewed"
+    },
+    {
+      "from": "3.If her files",
+      "to": "3. If her files"
+    },
+    {
+      "from": "5.The partner, as",
+      "to": "5. The partner, as"
+    },
+    {
+      "from": "1.Resource Sheet 2 opened",
+      "to": "1. Resource Sheet 2 opened"
+    },
+    {
+      "from": "1.Resource Sheet 3 opened",
+      "to": "1. Resource Sheet 3 opened"
+    },
+    {
+      "from": "5.The repeated ID",
+      "to": "5. The repeated ID"
+    },
+    {
+      "from": "3.For example, calling",
+      "to": "3. For example, calling"
+    }
+  ]
+}

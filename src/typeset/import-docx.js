@@ -886,9 +886,13 @@ function paraSegs(pXml) {
     // word still can't wrap there, the way the author intended.
     let tm = "";
     for (const mm of run.matchAll(
-      /<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>|<w:noBreakHyphen\b[^>]*\/?>|<w:softHyphen\b[^>]*\/?>/g,
+      /<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>|<w:noBreakHyphen\b[^>]*\/?>|<w:softHyphen\b[^>]*\/?>|<w:tab\b[^>]*\/?>/g,
     )) {
       if (mm[1] !== undefined) tm += mm[1];
+      // A tab becomes a space WHERE IT SITS. Appended to the end of the run instead,
+      // "1." + <w:tab/>School… (a hand-typed number with a hanging indent) printed as
+      // "1.School… " (ICT Form 3 TG, every Expected responses list).
+      else if (/^<w:tab\b/.test(mm[0])) tm += " ";
       else if (/^<w:br\b/.test(mm[0])) tm += "\n";
       else if (/^<w:noBreakHyphen\b/.test(mm[0])) tm += "‑"; // U+2011 - keeps "Water-saving" from wrapping there
       // <w:softHyphen/> is an invisible optional hyphenation point (only shows if
@@ -907,7 +911,6 @@ function paraSegs(pXml) {
       // possessive; a quotation mark stands next to a space or punctuation instead and
       // is left for the quote handling to deal with.
       .replace(/([A-Za-z])'([A-Za-z])/g, "$1’$2");
-    if (tabs) t = t + " ".repeat(tabs);                // tabs -> spaces (no column artefacts)
     const rpr = (run.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     // A character typed in the Symbol font is stored at its private-use code point
     // (U+F0xx), which our fonts don't carry — Geography Form 1 TG (Nov 2026) typed its
@@ -1233,10 +1236,17 @@ function cellRich(tcXml) {
   // math case this used to be limited to, which silently flattened every other
   // formatted cell to plain text and lost the author's bold/italic emphasis.
   const segs = [];
+  // Where each nested table sat among the cell's paragraphs (paragraph count before
+  // it), so a one-column frame unwrapped by unwrapLayoutTables() can put a title
+  // typed above its inner table back above it, not after it.
+  const paras = [];
+  const subAt = [];
   bl.forEach((b) => {
     if (b.t === "img") imgs.push(...b.images);
-    else if (b.t === "table") subs.push(b.rows);
+    else if (b.t === "table") { subs.push(b.rows); subAt.push(paras.length); }
     else if (b.t === "para" && b.segs) {
+      const mk = bullet(b) || (b.marker ? b.marker + (b.segs.length ? " " : "") : "");
+      paras.push({ segs: mk ? [{ t: mk, b: false, it: false, c: null }, ...b.segs] : b.segs, plain: cellFlat(b) });
       if (segs.length) segs.push({ t: "\n", b: false, it: false, c: null });
       if (bullet(b)) segs.push({ t: bullet(b), b: false, it: false, c: null });
       // Carry a resolved auto-number marker (see cellBlocks/cellFlat) into the rich
@@ -1252,7 +1262,7 @@ function cellRich(tcXml) {
   // an all-plain cell renders identically via `text`, so skip the richer path there.
   const rich = segs.some((s) => s.m || s.b || s.it || s.c) ? segs : null;
   const out = { text, imgs, segs: rich };
-  if (subs.length) out.subs = subs;
+  if (subs.length) { out.subs = subs; out.paras = paras; out.subAt = subAt; }
   return out;
 }
 
@@ -1662,6 +1672,27 @@ function buildQAParts(blocks) {
     if (b.t === "table") { parts.push({ kind: "table", rows: b.rows }); continue; }
     if (b.t === "img") { parts.push({ kind: "image", images: b.images }); continue; }
     if (b.t !== "para") continue;
+    // A figure caption typed under a picture in the box is that picture's caption, not a
+    // question: read as one it took the next number ("1. Figure TG 3.1.3: Model answer…",
+    // ICT Form 3 TG).
+    {
+      const prev = parts[parts.length - 1];
+      const cap = (b.plain || "").trim();
+      if (prev && prev.kind === "image" && prev.images.length === 1 && !prev.images[0].caption
+          && (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(cap) || /^[Ff]ig(?:ure)?\.?\s*[A-Z]{1,3}\s+(?:\d+|[IVX]+)(?:\.\d+)*\s*:/.test(cap))) {
+        prev.images = [{ ...prev.images[0], caption: cap }];
+        continue;
+      }
+      // …and a table's caption, just above or below its table, is a plain line: as a
+      // question it took a number and pushed every later question one along ("3. Table
+      // TG I.2: Cognitive levels…" then "4." for what the author numbered 3).
+      const nxt = blocks[i + 1];
+      if (/^Table\s+(?:[A-Z]{1,3}\s+)?[A-Z0-9]+(?:\.\d+)*\s*:/.test(cap) && cap.length <= 160
+          && ((prev && prev.kind === "table") || (nxt && nxt.t === "table"))) {
+        parts.push({ kind: "lead", q: cap, qseg: b.segs || [] });
+        continue;
+      }
+    }
     const grabAnswer = () => {           // pull a trailing "Possible answer: …"
       const nxt = blocks[i + 1];
       // Require actual answer TEXT after the label in this SAME paragraph — a bare
@@ -2460,6 +2491,11 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   // a bold lead-in ("Teacher's Role: Provide each learner with…") well clear of this.
   if (!allBold && nonblank.length > 0 && nonblank[0].b && boxKindFromTitle(plain)) return { t: "head", text: plain };
   if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(plain)) return { t: "figcaption", text: plain };
+  // A caption numbered with the book's own prefix — "Figure TG 3.1.6: Model answer…",
+  // "Figure TG I.1: The lesson cycle" (ICT Form 3 TG). The digit-first test above never
+  // matched, so each printed as a body paragraph a line below its picture instead of the
+  // house caption. Prefix in capitals and a colon both required: no prose reads like that.
+  if (/^[Ff]ig(?:ure)?\.?\s*[A-Z]{1,3}\s+(?:\d+|[IVX]+)(?:\.\d+)*\s*:/.test(plain)) return { t: "figcaption", text: plain };
   // The same caption with NO separator after the number — "Figure 1 Major map Symbols"
   // sitting in the same book as "Figure 4: Six Figure Grid References". Without this it
   // is never recognised as a caption at all, and the two failures compound: it prints
@@ -4236,6 +4272,7 @@ async function importDocx(docxPath, opts = {}) {
   // (a no-op unless images carry a side, i.e. the manuscript floated them).
   out = groupSideFigures(out, textWidthPx);
   out = autoToc(out);
+  attachBoxCaptions(out);
   normaliseBoxTitles(out);
   return { blocks: out, media: mediaOut, tmp, proseFixes: proseFixes.slice(),
     droppedBoxes: droppedBoxes.slice() };
@@ -4259,6 +4296,26 @@ function bareAssessmentLabel(t) {
   const m = String(t || "").match(
     /^((?:END[\s-]*(?:OF[\s-]*)?)?(?:TOPIC|UNIT)[\s-]*(?:\d+\s*)?ASSESS?MENTS?(?:\s*\d+)?)\s*[-–—:]\s*[^.]{1,60}$/i);
   return m ? m[1].replace(/\s+/g, " ").trim() : t;
+}
+// A caption typed under a picture INSIDE a box is that picture's caption. attachCaptions()
+// only sees top-level blocks, so in a box it printed as a full-size body paragraph while
+// every caption outside a box took the small italic house caption (ICT Form 3 TG).
+const FIG_CAP_RE = /^fig(?:ure)?\.?\s*\d+\s*[:.]/i;
+const FIG_CAP_PREFIX_RE = /^[Ff]ig(?:ure)?\.?\s*[A-Z]{1,3}\s+(?:\d+|[IVX]+)(?:\.\d+)*\s*:/;
+function attachBoxCaptions(blocks) {
+  for (const b of blocks) {
+    if (!b || !Array.isArray(b.body)) continue;
+    const body = b.body;
+    for (let i = 1; i < body.length; i++) {
+      const p = body[i], im = body[i - 1];
+      if (!p || p.t !== "para" || p.isList || !im || im.t !== "img" || !im.images || im.images.length !== 1 || im.images[0].caption) continue;
+      const cap = (p.plain || "").trim();
+      if (!FIG_CAP_RE.test(cap) && !FIG_CAP_PREFIX_RE.test(cap)) continue;
+      im.images = [{ ...im.images[0], caption: cap }];
+      body.splice(i, 1);
+      i--;
+    }
+  }
 }
 function normaliseBoxTitles(blocks) {
   const fixSegs = (segs) => {
@@ -4403,6 +4460,39 @@ function unwrapLayoutTables(blocks) {
     for (const im of c.imgs || []) r.push({ t: "image", ...im });
     return r;
   };
+  // A frame cell, paragraph by paragraph, with its nested tables back where they sat.
+  const frameCell = (c) => {
+    if (!c) return [];
+    let paras = c.paras;
+    if (!paras) {
+      paras = [];
+      if (c.segs && c.segs.length) {
+        let cur = [];
+        for (const s of c.segs) {
+          if (s.t === "\n" && !s.m) { paras.push({ segs: cur }); cur = []; } else cur.push(s);
+        }
+        paras.push({ segs: cur });
+      } else for (const line of String(c.text || "").split("\n")) paras.push({ segs: [{ t: line, b: false, it: false, c: null }] });
+    }
+    const r = [];
+    const para = (p) => {
+      const plain = p.plain != null ? p.plain : p.segs.map((s) => s.t).join("");
+      const t = plain.trim();
+      if (!t) return;
+      // a figure's caption row stays its caption once the frame is gone
+      if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(t) || /^[Ff]ig(?:ure)?\.?\s*[A-Z]{1,3}\s+(?:\d+|[IVX]+)(?:\.\d+)*\s*:/.test(t)) r.push({ t: "figcaption", text: t });
+      else r.push({ t: "para", segs: p.segs, plain: t });
+    };
+    const subs = c.subs || [], at = c.subAt || subs.map(() => paras.length);
+    let k = 0;
+    paras.forEach((p, n) => {
+      for (; k < subs.length && at[k] <= n; k++) r.push({ t: "table", rows: subs[k] });
+      para(p);
+    });
+    for (; k < subs.length; k++) r.push({ t: "table", rows: subs[k] });
+    for (const im of c.imgs || []) r.push({ t: "image", ...im });
+    return r;
+  };
   const visit = (arr) => {
     for (let i = 0; i < arr.length; i++) {
       const b = arr[i];
@@ -4413,6 +4503,17 @@ function unwrapLayoutTables(blocks) {
       if (b.t === "table" && Array.isArray(b.rows) && b.rows.length === 1
           && b.rows[0].some((c) => c && c.subs && c.subs.length)) {
         const repl = b.rows[0].flatMap(cellToBlocks);
+        arr.splice(i, 1, ...repl);
+        i += repl.length - 1;
+      } else if (b.t === "table" && Array.isArray(b.rows) && b.rows.length > 1
+          && b.rows.every((r) => r.length === 1)
+          && b.rows.some((r) => r[0] && r[0].subs && r[0].subs.length)) {
+        // A ONE-COLUMN frame round tables: a title row, a table, a figure, its
+        // caption, a second table, each in a row of its own (ICT Form 3 TG's End of
+        // Topic answer guides). A table row never breaks across pages, so the row
+        // holding a page-long inner table ran off the bottom of the page and over the
+        // folio. Unwrapped, the rows read in order, each paragraph where it was typed.
+        const repl = b.rows.flatMap((r) => frameCell(r[0]));
         arr.splice(i, 1, ...repl);
         i += repl.length - 1;
       }
