@@ -717,6 +717,44 @@
         // parts of one board rather than two isolated drawings
         #pad(26mm, gy - 14mm, 1.3mm, white.transparentize(62%))
         #pad(if v == 1 { 40mm } else { 34mm }, gy - 26mm, 1mm, white.transparentize(70%))
+
+        // `coverTech: true` (opt-in per book): more computing texture in the open field —
+        // syntax-coloured "code lines" top-left and a wireframe globe with lit nodes
+        // bottom-right. All in the same faint white / accent family, clear of the text.
+        #if T.at("coverTech", default: false) {
+          let link = stroke(paint: white.transparentize(80%), thickness: 0.6pt, cap: "round")
+          let glow(x, y, c) = { pad(x, y, 2.8mm, c.transparentize(84%)); pad(x, y, 1.6mm, c.transparentize(70%)); pad(x, y, 0.9mm, c.transparentize(10%)) }
+          // code lines: (indent, ((length, colour), …)) — reads as highlighted source code
+          let cw = white.transparentize(76%)
+          let ca = amber.transparentize(45%)
+          let cc = T.cyan.transparentize(35%)
+          let rows = ((0mm, ((9mm, ca), (14mm, cw))), (5mm, ((6mm, cc), (18mm, cw), (5mm, ca))), (5mm, ((12mm, cw), (8mm, cc))), (10mm, ((7mm, ca), (16mm, cw))), (5mm, ((4mm, cc),)), (0mm, ((11mm, cw), (6mm, ca))))
+          for (i, r) in rows.enumerate() {
+            let x = 9mm + r.at(0)
+            for (len, col) in r.at(1) {
+              place(top + left, dx: x, dy: 3.5mm + i * 2.6mm, rect(width: len, height: 1.2mm, radius: 0.65mm, fill: col, stroke: none))
+              x += len + 1.6mm
+            }
+          }
+          // wireframe globe, clipped to the bottom-right corner of the page
+          place(top + left, dx: 128mm, dy: 206mm, box(width: 48mm, height: 44mm, clip: true, {
+            let gx0 = 34mm
+            let gy0 = 32mm
+            let rg = 24mm
+            let gs = stroke(paint: white.transparentize(78%), thickness: 0.8pt)
+            let gf = stroke(paint: white.transparentize(86%), thickness: 0.6pt)
+            place(top + left, dx: gx0 - rg, dy: gy0 - rg, circle(radius: rg, fill: white.transparentize(95%), stroke: gs))
+            for w in (0.38, 0.75) { place(top + left, dx: gx0 - rg * w, dy: gy0 - rg, ellipse(width: 2 * rg * w, height: 2 * rg, stroke: gf)) }
+            place(top + left, dx: gx0, dy: gy0 - rg, line(start: (0mm, 0mm), end: (0mm, 2 * rg), stroke: gf))
+            for f in (-0.5, 0, 0.5) {
+              let hw = rg * calc.sqrt(1 - f * f)
+              place(top + left, dx: gx0 - hw, dy: gy0 + f * rg, line(start: (0mm, 0mm), end: (2 * hw, 0mm), stroke: gf))
+            }
+            let lit = ((gx0 - 15mm, gy0 - 12mm), (gx0 - 4mm, gy0 - 19mm), (gx0 + 9mm, gy0 - 8mm), (gx0 - 10mm, gy0 + 2mm))
+            for k in range(0, lit.len() - 1) { seg(lit.at(k).at(0), lit.at(k).at(1), lit.at(k + 1).at(0), lit.at(k + 1).at(1), link) }
+            for p in lit { glow(p.at(0), p.at(1), amber) }
+          }))
+        }
       ]
       // MUSICAL ARTS (notes): a scatter of small colourful eighth/beamed notes in the
       // open blue field around the masthead and hero photo — echoes the manuscript's

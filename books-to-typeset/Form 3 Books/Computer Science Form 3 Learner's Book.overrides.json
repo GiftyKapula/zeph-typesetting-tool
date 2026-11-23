@@ -16,6 +16,7 @@
   ],
   "coverUntil": "SECONDARY EDUCATION COMPUTER SCIENCE FORM 3 ORDINARY LEVEL",
   "synthesiseCover": true,
+  "coverTech": true,
   "coverImage": "Computer Science Form 3 LB-art/cover-photo-300dpi.png",
   "coverWords": {
     "printedBy": "Published by"
@@ -26,10 +27,11 @@
     "isbn": "…………………………",
     "groups": [
       {
-        "label": "Illustrated by:",
+        "label": "Editorial and Illustrations:",
         "lines": [
-          "Ruth Gondwe and Shephat Phiri"
-        ]
+          "Algorithm Thinkers"
+        ],
+        "_why": "TG proofreading round 1 (21 Nov): apply to the LB too, as marked"
       },
       {
         "label": "Cover and Book Layout:",
@@ -1513,6 +1515,11 @@
       "find": "Table showing Various IDEs for Python",
       "with": "Table showing various IDEs for Python",
       "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "holds a MSc",
+      "with": "holds an MSc",
+      "_why": "23 Nov grammar (a -> an MSc)"
     }
   ],
   "removeRange": [
@@ -1994,6 +2001,53 @@
       "titleFromFirst": true,
       "kind": "ex",
       "_why": "round 2 #5163: the exercise box colour (it was a table)"
+    },
+    {
+      "from": "Step 1: Set Up the Environment",
+      "to": "robot_movement.py",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 (robot movement) steps as the IoT steps (round 2 #5158-#5160), user 22 Nov"
+    },
+    {
+      "from": "Step 2: Create Movement Functions",
+      "near": "Step 1: Set Up the Environment",
+      "to": "turn_left; turn_right; stop",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
+      "from": "Step 3: Write the Movement Sequence",
+      "near": "Step 1: Set Up the Environment",
+      "to": "turn_left() move_forward() stop()",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
+      "from": "Step 4: Run the Program",
+      "near": "Step 1: Set Up the Environment",
+      "to": "follows the correct movement sequence",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
+      "from": "Step 5: Modify and Improve",
+      "near": "Step 1: Set Up the Environment",
+      "to": "Test different movement combinations",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
+    },
+    {
+      "from": "Step 6: Observe and Record",
+      "near": "Step 1: Set Up the Environment",
+      "to": "Expected Competences",
+      "titleFromFirst": true,
+      "kind": "act",
+      "_why": "LA5 steps, user 22 Nov"
     },
     {
       "from": "Syntax Error",
