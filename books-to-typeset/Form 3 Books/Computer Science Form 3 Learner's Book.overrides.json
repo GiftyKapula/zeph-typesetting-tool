@@ -1515,6 +1515,11 @@
       "find": "Table showing Various IDEs for Python",
       "with": "Table showing various IDEs for Python",
       "_why": "tidy 20 Nov: wording"
+    },
+    {
+      "find": "holds a MSc",
+      "with": "holds an MSc",
+      "_why": "23 Nov grammar (a -> an MSc)"
     }
   ],
   "removeRange": [
