@@ -187,5 +187,10 @@
         }
       ]
     }
-  ]
+  ],
+  "dummyOverrides": {
+    "remove": [
+      "Mwila, J. (2025)"
+    ]
+  }
 }
