@@ -89,5 +89,15 @@
       "from": "3.For example, calling",
       "to": "3. For example, calling"
     }
-  ]
+  ],
+  "dummyOverrides": {
+    "//moveSectionBefore": "Dummy only (user, 23 Nov): Introduction straight after the contents, as in the other Dummies; the named book keeps its order",
+    "moveSectionBefore": [
+      {
+        "find": "INTRODUCTION",
+        "until": "TOPIC 3.1",
+        "before": "ACRONYMS AND ABBREVIATIONS"
+      }
+    ]
+  }
 }
