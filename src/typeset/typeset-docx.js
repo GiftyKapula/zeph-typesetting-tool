@@ -8435,6 +8435,25 @@ function normaliseQuestionMarkBold(blocks) {
       if (b.t === "backcover") b.logo = null;
       if (b.t === "titlepage" || b.t === "imprint") { b.t = "vspace"; b.h = "0pt"; }
     }
+    // A list of abbreviations often spells ZEPH out — a paragraph ("ZEPH: Zambia
+    // Educational Publishing House") or a two-column table row. In the Dummy that entry
+    // goes, wherever the sidecar or manuscript put it (CS, ICT, Hospitality Form 3).
+    const ZEPH_ABBR = /^\s*ZEPH\s*[:\-–—]?\s*Zambia Educational Publishing House\s*\.?\s*$/i;
+    const rowText = (r) => JSON.stringify(r).replace(/"[a-z]+":/gi, " ").replace(/[{}\[\]",]/g, " ");
+    let abbr = 0;
+    const scrubAbbr = (arr) => {
+      for (let i = arr.length - 1; i >= 0; i--) {
+        const b = arr[i]; if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows)) {
+          const n = b.rows.length;
+          b.rows = b.rows.filter((r) => !(Array.isArray(r) && r.length <= 3 && /\bZEPH\b/.test(rowText(r)) && /Zambia Educational Publishing House/.test(rowText(r))));
+          abbr += n - b.rows.length;
+        } else if (ZEPH_ABBR.test(blockPlain(b))) { arr.splice(i, 1); abbr++; continue; }
+        for (const k of ["body", "items", "parts", "children"]) if (Array.isArray(b[k])) scrubAbbr(b[k]);
+      }
+    };
+    scrubAbbr(blocks);
+    if (abbr) console.log(`   anonymous: removed ${abbr} "ZEPH" abbreviation entr${abbr === 1 ? "y" : "ies"}`);
   }
 
   // An ISBN supplied in the overrides is shown on the covers (no barcode).
