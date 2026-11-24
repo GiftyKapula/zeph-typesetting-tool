@@ -3518,6 +3518,17 @@
       gkind.at(i) = "qa"
       for x in range(i + 1, j) { mark.at(x) = -2 }
       i = j
+    } else if (body.at(i).k == "para" and i + 1 < n and body.at(i + 1).k == "table"
+        and txt(body.at(i)).trim().match(regex("^Table\\s+(?:[A-Z]{2,3}\\s+)?(?:[0-9]+(?:\\.[0-9]+)*|[A-Z]{1,4}(?:\\.[0-9]+)+)\\s*:")) != none) {
+      // ---- keep a TABLE CAPTION with its TABLE ----
+      // In the body a caption is sticky, but inside a box the two were separate items and
+      // the break fell between them: the ICT Form 3 Teacher's Guide ended a page on
+      // "Table TG 3.4.3: Model classification of made-up passwords…" with the table
+      // overleaf.
+      mark.at(i) = i + 2
+      gkind.at(i) = "captable"
+      mark.at(i + 1) = -2
+      i = i + 2
     } else { i = i + 1 }
   }
   let nbody = body.len()
@@ -3564,6 +3575,15 @@
         layout(size => {
           let h = measure(box(width: size.width)[#grp]).height
           if h < 460pt { block(breakable: false, width: 100%)[#grp] } else { grp }
+        })
+      } else if gkind.at(idx) == "captable" {
+        // Whole when it fits on a page (dtable's own short-table rule, here with its
+        // caption); a taller table must still break, so then the caption only holds on
+        // to the table's first rows.
+        layout(size => {
+          let h = measure(box(width: size.width)[#grp]).height
+          if h < 460pt { block(breakable: false, width: 100%)[#grp] }
+          else { block(sticky: true, breakable: false, width: 100%)[#one(items.at(0))]; one(items.at(1)) }
         })
       } else if gkind.at(idx) == "qa" {
         // Bounded exactly as qaparts() bounds its own pairs, and for the reason recorded

@@ -3582,6 +3582,12 @@ async function importDocx(docxPath, opts = {}) {
     // boxKindFromTitle() is anchored and narrow, so accepting a heading here only ever
     // captures a paragraph that really is a box label.
     if (!kind || !(boldLabel(x) || hmap[styleOf(x)])) continue;
+    // …except a Heading-styled "Assessment(s)" BEFORE the first topic. That is the
+    // Introduction's own section on how learners are assessed, not an end-of-topic
+    // assessment — no topic has ended yet. Boxed, the ICT Form 3 Teacher's Guide printed
+    // its Introduction section as an assessment box with its first paragraph numbered
+    // "1.", and the section was missing from the contents.
+    if (kind === "assessment" && i < firstTopicIdx && hmap[styleOf(x)]) continue;
     const bodyIdx = [];
     let lastContent = -1;
     // When the WRITER drew a real box around the label in Word (a four-sided paragraph
