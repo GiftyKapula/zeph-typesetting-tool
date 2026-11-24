@@ -236,6 +236,13 @@ function isSectionDivider(t) {
   return /^(SECTION|PART)\s+([A-Za-z]|\d{1,2})\s*[:.)–—-]/i.test(s)
     || /^(expected|possible|suggested|model)\s+answers?\s*:?$/i.test(s);
 }
+// The box a bare "ACTIVITY N" title builds. Normally the numbered exercise box (the
+// Literature in English Form 1 LB convention); a book that also heads activities
+// "LEARNER ACTIVITY N" sets `bareActivityBox: "activity"` so both read as one element
+// (Literature in English Form 5 LB: 59 "Activity N" and ~90 "Learner Activity N").
+let BARE_ACTIVITY_KIND = "exercise";
+let LEARNER_ACTIVITY = false;   // see boxKindFromTitle
+let ACTIVITY_LIST_MARKERS = false;   // see the paraBox branch of importDocx
 
 function boxKindFromTitle(t) {
   // A digit typed INSIDE the label word is a keystroke slip, not a different label:
@@ -259,7 +266,11 @@ function boxKindFromTitle(t) {
   // LEARN(IN)ING: the ICT Form 2 Teacher's Guide heads Activities 1-3 of Topic 2.4
   // "LEARNINING ACTIVITY"; unrecognised, all three fell to the plain generic box, unlike
   // every other activity in the book (the sidecar's `subtext` corrects the printed word).
-  if (/^LEARN(?:IN)?ING\s+ACT(?:IVIT|IVT|VIT)/i.test(s)) return "activity";   // ACTIVITY/ACTIVITIES + the ACTIVTY/ACTVITY misspellings
+  if (/^LEARN(?:IN)?ING\s+ACT(?:IVIT|IVT|VIT)/i.test(s)) return "activity";
+  // "LEARNER ACTIVITY" / "Learners' Activity" — opt-in (`learnerActivityBox`): the
+  // Literature in English Form 5 LB heads its activities so. Not by default, because the
+  // Form 5 TG uses the same words for its answer sections, which it sets unboxed.
+  if (LEARNER_ACTIVITY && /^LEARNERS?['’]?\s+ACT(?:IVIT|IVT|VIT)/i.test(s)) return "activity";   // ACTIVITY/ACTIVITIES + the ACTIVTY/ACTVITY misspellings
   if (/^(Ifyakucita|Mwingilo wakuuba|Nchito|Musebezi|Vyakulinga|Zhakwila(\s+atudizi)?|Cakucita)\b/i.test(s)) return "activity";
   // --- End-of-topic / unit Assessment ---
   if (/^(Ukweshiwa|Kupwa kwa mutwe|Mayeso|Tatubo|Mukanga|Esekelo|Kweseka|Musunko)\b/i.test(s)) return "assessment";
@@ -307,7 +318,8 @@ function boxKindFromTitle(t) {
   // number-dropped label: the Food and Nutrition Form 2 Teacher's Guide heads its gravy
   // Expected Answers that way, and the whole box (twenty paragraphs) never printed.
   // Only a lone stop qualifies, so "Exercise. Moving your body…" stays prose.
-  if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|\.\s*$|$)/i.test(s) || /^ACTIVITY\s*:?\s*\d/i.test(s)) return "exercise";
+  if (/^ACTIVITY\s*:?\s*\d/i.test(s)) return BARE_ACTIVITY_KIND;
+  if (/^(EXE?RCISES?|EXCERCISES?)\s*(\d|:|\n|\.\s*$|$)/i.test(s)) return "exercise";
   // A numbered answer key — "Expected Answers to Exercise 5" — is a box of its own, not
   // a sub-head of the activity above it. Unrecognised, every one of the seventeen in
   // the Literature in English Form 1 TG was swallowed by the box before it, its answers
@@ -2700,6 +2712,9 @@ function groupAssessments(blocks) {
 }
 
 async function importDocx(docxPath, opts = {}) {
+  BARE_ACTIVITY_KIND = opts.bareActivityBox === "activity" ? "activity" : "exercise";
+  LEARNER_ACTIVITY = !!opts.learnerActivityBox;
+  ACTIVITY_LIST_MARKERS = !!opts.activityListMarkers;
   proseFixes.length = 0;            // per-book tally (see the declaration at the top)
   droppedBoxes.length = 0;          // ditto
   ROMAN_SUB_PARTS = !!opts.romanSubParts;
@@ -3492,10 +3507,24 @@ async function importDocx(docxPath, opts = {}) {
       const big = parts.slice(0, copyrightIdx).filter((p) => !isTbl(p) && sizeOf(p) >= 36).length >= 2;
       const lines = [], byline = [];
       let logo = null;
+      // The cover runs to the copyright line, but a manuscript can put whole front-matter
+      // sections BEFORE its copyright page. The Literature in English Form 5 LB opens on
+      // its cover picture, a typed contents list, then AUTHORS, PREFACE, ACKNOWLEDGEMENTS,
+      // COMPETENCES and HOW TO USE THIS BOOK, with "Copyright ©" only after them: all six
+      // sections were taken as cover text and lost, their headings and the contents lines
+      // printed across the cover as its "authors". A front-matter section name that Word
+      // styles as a heading is never cover text, so the cover ends there and the walk
+      // resumes at it (`stopAt`). A typed contents list on the way is consumed with the
+      // cover but kept out of the byline. (A cover's plain "AUTHORS" byline label is not
+      // heading-styled, so ordinary covers are unchanged.)
+      let stopAt = -1, inToc = false;
       for (let i = 0; i < copyrightIdx; i++) {
         if (isTbl(parts[i])) continue;
         for (const im of imagesOf(parts[i])) if (im.w < 200 && !logo) logo = im; // small publisher logo
         const t = textOf(parts[i]); if (!t) continue;
+        if (i > heroIdx && hmap[styleOf(parts[i])] && FM_SECTION.test(t.trim())) { stopAt = i; break; }
+        if (TOC_HEAD_RE.test(t.trim())) inToc = true;
+        if (inToc) continue;
         const big1 = sizeOf(parts[i]) >= 36;
         if (big ? big1 : i <= heroIdx) lines.push(t);
         else if (boldFirstRun(parts[i]) && sizeOf(parts[i]) >= 27) break;        // heading ends cover
@@ -3522,7 +3551,7 @@ async function importDocx(docxPath, opts = {}) {
         return true;
       });
       cover.logo = logo;
-      coverEnd = copyrightIdx - 1;
+      coverEnd = (stopAt >= 0 ? stopAt : copyrightIdx) - 1;
     }
   }
 
@@ -3740,7 +3769,10 @@ async function importDocx(docxPath, opts = {}) {
       // numbering. An activity/keypoints/fact body is rendered as ordinary flowing
       // prose, and handing it markers makes previously-plain lines sprout bullets —
       // a change to every book with an activity box, which is not what is broken here.
-      const keepNums = b.kind === "exercise";
+      // `activityListMarkers` (per book) carries them into ACTIVITY boxes too: the Literature
+      // in English Form 5 LB types its activity questions and options as Word bullets and
+      // numbers, and flattened they printed as bare lines ("What is colonialism?" ...).
+      const keepNums = b.kind === "exercise" || (ACTIVITY_LIST_MARKERS && b.kind === "activity");
       const body = b.body.map((k) => {
         const y = parts[k];
         // A table or a picture the box opened with (see the collection loop above).

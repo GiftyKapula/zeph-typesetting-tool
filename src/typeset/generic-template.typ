@@ -285,9 +285,24 @@
           // on every page - the same ~8.5pt gap the front-matter titles and sub-topic heads
           // keep above their rules, so text-to-rule spacing is uniform throughout. The grid's
           // own depth used to vary (front-matter pages ~7pt above the rule, body ~3.5pt).
-          let hgrid = grid(columns: (1fr, auto),
-            align(left)[#smallcaps[#title]],
-            align(right)[#smallcaps[#topicnow()]])
+          // (auto, 1fr), not (1fr, auto): the book title keeps its one line and a long
+          // unit title wraps in the space left beside it. With the unit title `auto` it
+          // took the width first and squeezed "Literature in / English" onto two lines
+          // (Literature in English Form 5 LB, Unit 11). A header that fits is unchanged.
+          // A unit title too long for the line beside the book title drops its trailing
+          // bracketed period - "UNIT 7: AFRICAN LITERATURE OF THE COLONIAL PERIOD (19TH TO
+          // 20TH CENTURY)" printed as a two-line header on every page of the unit
+          // (Literature in English Form 5 LB). The page heading keeps the full title.
+          let hgrid = layout(sz => {
+            let tp = topicnow()
+            let room = sz.width - measure(smallcaps[#title]).width - 12pt
+            if type(tp) == str and measure(smallcaps[#tp]).width > room {
+              tp = tp.replace(regex("\s*\([^()]*\)\s*$"), "")
+            }
+            grid(columns: (auto, 1fr), column-gutter: 12pt,
+              align(left)[#smallcaps[#title]],
+              align(right)[#smallcaps[#tp]])
+          })
           let hline = line(length: 100%, stroke: 0.6pt + if modern { T.accent } else { T.primary })
           if literary {
             block(width: 100%, height: 14pt, {
@@ -2418,6 +2433,10 @@
       // One spacing for every heading rule in the book (user, 2026-10-29: "make the
       // spacing uniform everywhere"): the running header's text-to-rule gap above and
       // below the title, and the sub-topics' rule-to-text gap after it.
+      // Centred, not justified, when it wraps: "UNIT 6: AFRICAN PRE-COLONIAL LITERATURE
+      // (BEFORE THE 19TH CENTURY)" set its first line stretched edge to edge
+      // (Literature in English Form 5 LB). A one-line title is unchanged.
+      #set par(justify: false)
       #line(length: 22%, stroke: 0.6pt + T.accent)
       #v(-8.3pt)
       #text(fill: T.primary, size: hm(16pt), weight: "bold", tracking: 0.5pt)[#t]
@@ -2747,6 +2766,9 @@
 // caption — "Table N:" with its colon straight after the number — never prose that
 // merely mentions a table ("Table 3 shows…"), which would claim the label first.
 #let tblmark(t) = {
+  // An empty paragraph inside a box arrives as `none` (Typst's `().join("")`), and
+  // str(none) stopped the whole compile (Literature in English Form 5 LB).
+  if t == none { return }
   let s = str(t).trim()
   if s.match(regex("^Table\\s+(?:[A-Z]{2,3}\\s+)?(?:[0-9]+(?:\\.[0-9]+)*|[A-Z]{1,4}(?:\\.[0-9]+)+)\\s*:")) != none { capmark(s) }
 }

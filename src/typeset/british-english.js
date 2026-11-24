@@ -419,6 +419,14 @@ function fixQuestionMark(line) {
   const trimmed = t.trim();
   if (/[!:]$/.test(trimmed) || trimmed.includes("\n")) return null;
   if (trimmed === trimmed.toUpperCase() && trimmed !== trimmed.toLowerCase()) return null;
+  // A line that is only part of a sentence: one ending on a comma, semicolon or dash,
+  // one opening in lower case (it continues the line above), or one left unpunctuated
+  // on a word no sentence ends with. Lines of verse and of a play broken by line are
+  // exactly this, and the Literature in English Form 5 LB came out with "Oedipus. Did he
+  // go with a light or heavy escort,?", "...off the road-brute force-?", "was cut down
+  // at a place where three roads meet?" and "Is full of peppers and, with the last?".
+  if (/[,;\-–—]$/.test(trimmed) || /^[a-z]/.test(trimmed)) return null;
+  if (!/[.!?]$/.test(trimmed) && /\b(the|a|an|and|or|but|of|with|to|in|on|at|for|from|by|as|that|his|her|their|its|my|your|our)$/i.test(trimmed)) return null;
   const parts = sentencesOf(t);
   if (!parts.length) return null;
   const last = parts[parts.length - 1];
