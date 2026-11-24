@@ -892,6 +892,7 @@ function boxifyActivities(blocks, opts = {}) {
       const y = blocks[j];
       if (altActDone) break;
       if (BOXBLOCK.has(y.t)) break;                                  // a pre-built box (exercise/activity/…) always ends this one
+      if (y.t === "pagebreak") break;                                // a book's pageBreakBefore ends the box: swallowed into it, the break was dropped unseen
       if (isLessonBanner(y)) break;                                  // "<STRAND>: LESSON N" always starts a new lesson
       if (/^TERM\s+(ONE|TWO|THREE|[1-3])\s*$/i.test(blockPlain(y).trim())) break;   // a school-term divider opens the next unit
       if (isHeaderPara(y)) break;                                    // a bold inline section header

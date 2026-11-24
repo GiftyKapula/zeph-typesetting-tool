@@ -19,22 +19,93 @@
     }
   ],
   "boxInner": [
-    "GREETINGS AND RESPONSE"
+    "GREETINGS AND RESPONSE",
+    "CONVERSATION 1: Morning",
+    "CONVERSATION 2: Leaving"
   ],
   "authors": [
     "Yvonne Kasongo"
   ],
   "pageBreakBefore": [
     {
-      "find": "LESSON 4",
-      "near": "revision consonant blend"
+      "find": "LESSON 1",
+      "near": "apple, ant, axe, arm, air, ankle, animal, answer, ask, alarm, add"
     },
+    {
+      "find": "LESSON 3",
+      "near": "Sound out the vowel /eE/."
+    },
+    {
+      "find": "LESSON 4",
+      "near": "Revision of short vowel eE"
+    },
+    {
+      "find": "Conclusion",
+      "near": "Ask learners to say the lessons they have learnt from the songs"
+    },
+    {
+      "find": "LESSON 2",
+      "near": "Ask learners to mention simple commands they learnt in the previous lesson"
+    },
+    {
+      "find": "LEARNING ACTIVITIES",
+      "near": "Revision of the consonant sound /p/"
+    },
+    {
+      "find": "LESSON",
+      "near": "Vocabulary: cat, cup, cap, can, cake, kit, kid, key, kite, king, duck, truck"
+    },
+    {
+      "find": "LEARNING ACTIVITIES",
+      "near": "Revision of the consonant letter sound /g/"
+    },
+    {
+      "find": "Practice",
+      "near": "Lubuto: What do we use a pencil for?"
+    },
+    {
+      "find": "LESSON",
+      "near": "Sub-Topic: Consonant sound /xX/"
+    },
+    {
+      "find": "LEARNING ACTIVITIES",
+      "near": "Action and Talk"
+    },
+    {
+      "find": "Practice",
+      "near": "Dialogue – counting"
+    },
+    {
+      "find": "LESSON",
+      "near": "Vocabulary: look, life, live, leaf, lion, leg, lizard"
+    },
+    {
+      "find": "Present",
+      "near": "Ask learners to mention members of an extended family."
+    },
+    {
+      "find": "Writing",
+      "near": "Copy and complete the sentences with sh sound"
+    },
+    {
+      "find": "LESSON",
+      "near": "Vocabulary: beep, bee, sleep, sheep, meet, see"
+    },
+    {
+      "find": "LESSON",
+      "near": "Revision of the long vowel /ee/"
+    },
+    {
+      "find": "Dictation",
+      "near": "Dictate words with the sh sound"
+    },
+    "Identify the sounds in the words:",
     {
       "find": "LESSON 4",
       "near": "I like mangoes and banana"
     }
   ],
-  "//pageBreakBefore": "Units 22 and 23 end with a Lesson 4 that started low on a page and left 3-5 lines on the next; each starts a fresh page and prints whole.",
+  "//pageBreakBefore": "Lesson starts and the end of a few sections, set 2026-11-24 (fix everything) so no page opens on a 1-2 line carry-over and no heading ends a page; a heading word repeats book-wide, so each is pinned by `near` to a line only that lesson has. The old Unit 22 break was dropped (it left a page 17% full); Unit 23 Lesson 4 still starts a fresh page.",
   "coverColor": "ffd23d",
   "coverPrimary": "1f3a93",
   "//coverColor": "Cover (2026-11-03, the user's change.jpeg): the classroom's yellow wall for the field, the uniforms' navy for the lettering, badge and corners. The old navy field (from the finished cover's back) hid the template's title."
