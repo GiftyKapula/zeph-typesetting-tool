@@ -704,6 +704,17 @@
           "para": "(3 sets of 2 pictures for learners to circle: stop, stand, run, jump, walk, sit)"
         }
       ]
+    },
+    {
+      "find": "First published 2026 by",
+      "with": [
+        {
+          "vspace": "6mm"
+        },
+        {
+          "head": "First published 2026 by"
+        }
+      ]
     }
   ],
   "deleteRun": [],
@@ -1077,5 +1088,22 @@
   ],
   "_comment_pageBreakBefore": [
     "Round 1 layout: these End of Unit Assessments otherwise left one or two lines on the next page."
+  ],
+  "centre": [
+    "First published 2026 by"
+  ],
+  "centrePara": [
+    "ENGLISH",
+    "Grade 1",
+    "Zambia Educational Publishing House",
+    "Light Industrial Area",
+    "Chishango Road,",
+    "P.O Box 32708,",
+    "Lusaka, Zambia",
+    "Cover and Book Layout:",
+    "Teddy Ng`ambi"
+  ],
+  "_comment_centre": [
+    "User 24 Nov: the imprint page centred throughout, with a little space after the title and level."
   ]
 }
