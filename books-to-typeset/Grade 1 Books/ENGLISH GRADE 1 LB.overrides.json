@@ -210,14 +210,6 @@
       "art": "ENGLISH GRADE 1 LB-art/pic03-how-is-home.png"
     },
     {
-      "no": 4,
-      "find": "PAGE 4: PICTURES FOR LEFT TO WRITE EYE MOVEMENT",
-      "hmm": 48,
-      "note": "Three left-to-right pictures for eye movement: a boy moving from left to right; a bird flying to its nest from left to right; a duck moving from left to the pond",
-      "art": "ENGLISH GRADE 1 LB-art/pic04-left-to-right.png",
-      "artHmm": 100
-    },
-    {
       "no": 10,
       "find": "Picture of a snake",
       "hmm": 48,
@@ -357,7 +349,8 @@
     {
       "no": 36,
       "find": "Pictures of the following",
-      "hmm": 62
+      "hmm": 55,
+      "note": "Four numbered pictures: 1 thin, 2 tooth, 3 three, 4 thumb"
     },
     {
       "no": 37,
@@ -431,17 +424,6 @@
       "find": "Picture. Coin, oil, boiling, toilet",
       "hmm": 62,
       "art": "ENGLISH GRADE 1 LB-art/pic48-oi-words.png"
-    },
-    {
-      "no": 49,
-      "find": "Real objects or pictures",
-      "hmm": 48
-    },
-    {
-      "no": 50,
-      "find": "Picture of a cooker ladder and a dinner meal",
-      "hmm": 62,
-      "art": "ENGLISH GRADE 1 LB-art/pic50-ladder-cooker-dinner.png"
     },
     {
       "no": 51,
@@ -528,20 +510,6 @@
       "art": "ENGLISH GRADE 1 LB-art/pic67-big-pig-dig.png"
     },
     {
-      "no": 68,
-      "find": "Picture of an insect",
-      "hmm": 48,
-      "art": "ENGLISH GRADE 1 LB-art/pic68-insect.png",
-      "artHmm": 48
-    },
-    {
-      "no": 69,
-      "find": "Picture of a desk",
-      "hmm": 48,
-      "art": "ENGLISH GRADE 1 LB-art/pic69-desk.png",
-      "artHmm": 48
-    },
-    {
       "no": 70,
       "find": "Picture of poems 1on mutomboko ceremony with tongue twister 2 peter piper peppers, 3 she sells seashells red 4 lorry, yellow lorry",
       "hmm": 80,
@@ -564,7 +532,8 @@
     {
       "no": 75,
       "find": "Which game is it? Look at the picture and name it.",
-      "hmm": 62
+      "hmm": 80,
+      "note": "One picture, four scenes: two children with magnifying glasses saying “I spy green”; children touching their heads for Simon says; cat – hat – mat; cat – ant – tree"
     },
     {
       "no": 76,
@@ -576,7 +545,28 @@
       "no": 77,
       "find": "(3 sets of 2 pictures for learners to circle: stop, stand, run, jump, walk, sit)",
       "hmm": 62,
-      "note": "Three sets of two pictures for learners to circle the one that matches the command: stop / stand, run / jump, walk / sit"
+      "note": "Children doing these actions: sit, run, stop, jump, walk"
+    },
+    {
+      "no": 78,
+      "find": "Two pictures side by side: a child sitting like Leo and a child sitting like Jumbo, legs showing",
+      "hmm": 62
+    },
+    {
+      "no": 79,
+      "find": "A cup, a cat and a duck",
+      "note": "A cup, a cat and a duck",
+      "hmm": 48
+    },
+    {
+      "no": 80,
+      "find": "Pictures of these good manners, one panel each: saying polite words, greeting elders, queuing, sharing, listening to the teacher, keeping quiet and cleaning",
+      "hmm": 80
+    },
+    {
+      "no": 81,
+      "find": "A child who is sick and unhappy (or crying), answering: “I am not fine.”",
+      "hmm": 62
     }
   ],
   "_comment_editAll": [
@@ -667,24 +657,8 @@
       "with": "How are you?"
     },
     {
-      "find": "envelop",
-      "with": "envelope"
-    },
-    {
-      "find": "cI",
-      "with": "cl"
-    },
-    {
       "find": "managing glasses",
       "with": "magnifying glasses"
-    },
-    {
-      "find": "LESSSON",
-      "with": "LESSON"
-    },
-    {
-      "find": "Sheepshop",
-      "with": "Sheep shop"
     }
   ],
   "_comment_deleteExact": [
@@ -709,12 +683,6 @@
   "deleteExact": [
     "Author",
     "Yvonne Kasongo",
-    "learners around the table 3 or 4 on the table glue, paint, brush",
-    "sitting on the flour, an open door, a clothe hanging",
-    "A boy moving from left to right",
-    "A bird flying to the nest from left to right",
-    "A duck moving from left going to the pond",
-    "Village woman washing a short and shirt, a shop, sheep",
     "Create 6 panels. 1. cat on the table 2. Ball under the chair. 3. The book is in the bag. 4. The boy beside a girl. 5. The bird over the house. The apple inside the box.",
     "Left side show one object right side show many plural objects; arrow show change book------------- books",
     "Different people at the market, a fat mother selling bananas tall and short people, young and old, happy and sad people",
@@ -738,17 +706,376 @@
       ]
     }
   ],
-  "_comment_deleteRun": [
-    "The p.13 \"Letter / word / picture\" table (e egg, e elephant, e envelop) was typed with spaces,",
-    "not as a Word table, so it printed as loose text split over two pages with its picture",
-    "column empty. The egg / elephant / envelope / aeroplane picture just above it already",
-    "shows the words, so the table is deleted (decided 2026-10-07)."
+  "deleteRun": [],
+  "_comment_round1": [
+    "Reviewer round 1 (ENGLISH GRADE 1 LB - FINAL.pdf, 453 comments, 24 Nov 2026) re-sequenced",
+    "the Reading and Writing strand in the manuscript itself (four lessons per unit + an End",
+    "of Unit Assessment). Picture slots changed by that round: new PIC 81 under \"I am not fine\" (a sick, unhappy child, #3), PIC 36",
+    "(th pictures, #322), PIC 75 (games in one picture, #449), PIC 77 (commands, #25), new",
+    "PIC 78 (sit like Leo / Jumbo, #9), PIC 79 (cup, cat, duck, #102), PIC 80 (good manners",
+    "panels, #366). PIC 4 and PIC 49 went with the text they illustrated (#12, #357).",
+    "PIC 50, 68, 69 went with the /er/, /ct/ and /sk/ lessons the round removed."
   ],
-  "deleteRun": [
+  "tableNoHeader": [
+    "1. it",
+    "1. on",
+    "sun",
+    "1. up",
+    "cat",
+    "1. cat",
+    "pan",
+    "not",
+    "1. son",
+    "1. get",
+    "1. four",
+    "1. west",
+    "fox",
+    "at",
+    "mat",
+    "rain",
+    "pie",
+    "rain",
+    "1. king",
+    "chip"
+  ],
+  "_comment_tableNoHeader": [
+    "Word grids of more than one row are lists, not tables with a heading row (round 1)."
+  ],
+  "termWithUnit": true,
+  "_comment_termWithUnit": [
+    "#195 and #368: TERM 2 and TERM THREE open the page of the unit that starts the term."
+  ],
+  "tableWidths": [
     {
-      "from": "Letter word picture",
-      "to": "e envelop",
-      "maxSpan": 4
+      "match": "3. neck",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. sit",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "3. sit",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "3. octopus",
+      "widths": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "3. hot",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "umbrella",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "3. cup",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "act",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. cat",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "pop",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "not",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. son",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "kettle",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. man",
+      "widths": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. get",
+      "widths": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "6. fingers",
+      "widths": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. baby",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "5. unwell",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "text",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "can",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "strain",
+      "widths": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. main",
+      "widths": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "goat",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. sheet",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "tried",
+      "widths": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "value",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "cloud",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "2. spring",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "orchard",
+      "widths": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "2. avoid",
+      "widths": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "match": "1. stamp",
+      "widths": [
+        1,
+        1,
+        1,
+        1
+      ]
     }
+  ],
+  "_comment_tableWidths": [
+    "Round 1 word grids: equal columns (content widths squeezed short words and overlapped them)."
+  ],
+  "pageBreakBefore": [
+    {
+      "find": "End of unit assessment",
+      "near": "Orally mention the different times of the day."
+    },
+    {
+      "find": "End of Unit Assessment",
+      "near": "Mention members of your family."
+    },
+    {
+      "find": "END OF UNIT ASSESSMENT",
+      "near": "Make 3 classroom rules"
+    },
+    {
+      "find": "End of Unit Assessment",
+      "near": "Mention two items found at home."
+    },
+    {
+      "find": "End of Unit Assessment",
+      "near": "List good practices"
+    },
+    {
+      "find": "End of Unit Assessment",
+      "near": "Act out the drama below"
+    }
+  ],
+  "_comment_pageBreakBefore": [
+    "Round 1 layout: these End of Unit Assessments otherwise left one or two lines on the next page."
   ]
 }
