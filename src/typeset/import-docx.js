@@ -266,7 +266,7 @@ function boxKindFromTitle(t) {
   // LEARN(IN)ING: the ICT Form 2 Teacher's Guide heads Activities 1-3 of Topic 2.4
   // "LEARNINING ACTIVITY"; unrecognised, all three fell to the plain generic box, unlike
   // every other activity in the book (the sidecar's `subtext` corrects the printed word).
-  if (/^LEARN(?:IN)?ING\s+ACT(?:IVIT|IVT|VIT)/i.test(s)) return "activity";
+  if (/^LEARN(?:IN)?ING\s+ACT(?:IVIT|IVT|VIT|IVIY)/i.test(s)) return "activity";   // ACTIVITY/ACTIVITIES + the ACTIVTY/ACTVITY/ACTIVIY misspellings
   // "LEARNER ACTIVITY" / "Learners' Activity" — opt-in (`learnerActivityBox`): the
   // Literature in English Form 5 LB heads its activities so. Not by default, because the
   // Form 5 TG uses the same words for its answer sections, which it sets unboxed.
@@ -3093,7 +3093,12 @@ async function importDocx(docxPath, opts = {}) {
     // captured above) and the legacy <v:imagedata> fallback are the SAME image —
     // counting the fallback too would duplicate it. Standalone OLE/VML pictures
     // (the common case here) live outside AlternateContent and are unaffected.
-    const xv = x.replace(/<mc:Fallback>[\s\S]*?<\/mc:Fallback>/g, "");
+    // Also drop OLE objects shown as an ICON (DrawAspect="Icon"): an embedded file
+    // (a pasted .docx, say) appears in Word as a small file icon, which is an
+    // attachment link, not content. Its picture is usually vector EMF that can't be
+    // converted either, so keeping it broke the build.
+    const xv = x.replace(/<mc:Fallback>[\s\S]*?<\/mc:Fallback>/g, "")
+      .replace(/<w:object\b[\s\S]*?<\/w:object>/g, (o) => (/DrawAspect="Icon"/.test(o) ? "" : o));
     for (const vm of xv.matchAll(/<v:imagedata[^>]*r:id="([^"]+)"[^>]*>/g)) {
       const rid = vm[1];
       // the enclosing <v:shape …> carries the on-page size as CSS points (pt→px @96dpi)
@@ -3817,6 +3822,28 @@ async function importDocx(docxPath, opts = {}) {
       // ACTIVITY 2") still opens a box at any shape, because then the manuscript has said
       // so in words rather than in a cell colour.
       const kind = boxKindFromTitle(lead) || (single ? BOX_FILL[firstFill] : null);
+      // A one-column table whose LATER rows open with their own box title is several
+      // boxes stacked in one frame: the Agricultural Science Form 5 TG sets "LEARNING
+      // ACTIVITY 5" in row 1 and its "EXERCISE 5" answers in row 2. Only the first cell
+      // fed a box, so the exercise vanished from the book whole. Each titled row now opens
+      // its own box; an untitled row stays with the box above it, as before.
+      const rowLead = (r) => (cellBlocks(r[0].xml).find((b) => (b.plain || "").trim()) || {}).plain || "";
+      if (kind && cells.length > 1 && cells.every((r) => r.length === 1) && cells.slice(1).some((r) => boxKindFromTitle(rowLead(r)))) {
+        const groups = [];
+        for (const r of cells) {
+          const k = boxKindFromTitle(rowLead(r));
+          if (k || !groups.length) groups.push({ kind: k || kind, rows: [r] });
+          else groups[groups.length - 1].rows.push(r);
+        }
+        for (const g of groups) {
+          if (g.kind === "assessment") blocks.push(makeAssessmentTable(g.rows));
+          else {
+            const blks = cellBlocks(g.rows[0][0].xml);
+            blocks.push(makeBox(g.kind, BOX_ALL_ROWS ? [...blks, ...g.rows.slice(1).flatMap((r) => cellBlocks(r[0].xml))] : blks));
+          }
+        }
+        continue;
+      }
       if (kind === "assessment") blocks.push(makeAssessmentTable(cells));
       // Only the first cell feeds a box, so the rows after it never printed: the RE Form 3
       // TG lost about fifty paragraphs of answers this way. Opt-in, because other books
@@ -3891,6 +3918,15 @@ async function importDocx(docxPath, opts = {}) {
         // Word heading style as the signal this is the real section, not a contents-list
         // entry (which carries a TOC-styled paragraph or an unstyled short line instead).
         if (/^(LIST OF )?ACRONYMS$/i.test(t) && /^heading\s*\d/i.test(styleOf(parts[j]))) break;
+        // The same heading in plain bold with its list set as a TABLE straight after
+        // (Agricultural Science Form 5 LB): the scan stops at the table anyway, but it
+        // dropped the heading line first, so the acronym table printed with no title. A
+        // contents entry is never followed by a table, so the table settles it.
+        if (/^(LIST OF )?(ACRONYMS|ABBREVIATIONS)(\s+AND\s+(ACRONYMS|ABBREVIATIONS))?$/i.test(t)) {
+          let n = j + 1;
+          while (n < parts.length && !isTbl(parts[n]) && flat(textOf(parts[n])) === "") n++;
+          if (n < parts.length && isTbl(parts[n])) break;
+        }
         if (/^LIST OF (FIGURES|TABLES)$/i.test(t)) {
           let n = j + 1;
           while (n < parts.length && !isTbl(parts[n]) && textOf(parts[n]) === "") n++;

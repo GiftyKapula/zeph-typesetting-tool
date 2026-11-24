@@ -1,0 +1,135 @@
+{
+  "//authors": "The cover byline runs the two authors together on one line (\"Mutale Chibesa C Maambo G. Mudenda\"); the AUTHORS page names them separately, the first as \"Mutale Chibesa E\" (the Learner's Book's sidecar uses the same form).",
+  "authors": [
+    "Mutale Chibesa E",
+    "Maambo G. Mudenda"
+  ],
+  "//tableNoHeader": "The ACRONYMS table has no header row: CBC is its first entry.",
+  "tableNoHeader": [
+    "CBC"
+  ],
+  "//insertHead": "Topic 5.6 has no sub-topic line; the Learner's Book heads it \"Sub-Topic 5.6.1: Introduction to Agricultural Research\" and its competence is coded 5.6.1.1.",
+  "insertHead": [
+    {
+      "before": "Specific Competence 5.6.1.1",
+      "head": "Sub-Topic 5.6.1: Introduction to Agricultural Research",
+      "as": "h2"
+    }
+  ],
+  "//subtext": "(1) Topics 5.3-5.6 are typed \"TOPIC 5.3.0\" etc. (two without a colon, 5.6 in lower case); 5.1 and 5.2 read \"TOPIC 5.1: SOIL SCIENCE\". (2) \"Subtopic 5.3.3 Animal Breeding\" lacks the hyphen and colon of every other sub-topic. (3) Topics 5.3-5.5 close with \"End of Topic Exercise\"; 5.1, 5.2, 5.6 and all six in the Learner's Book read END OF TOPIC ASSESSMENT. (4) Learning activities restart at 1 in each sub-topic everywhere except: 5.3.2 restarts again at its second competence (1-4, then 1-3); 5.3.3 runs 1, 2, 3, 5, 6, 6, 7, 7. (6) Topic 5.6 heads its competence \"Specific Competence: 5.6.1.1\"; the others read \"Specific Competence 5.x.y.z\".",
+  "subtext": [
+    {
+      "from": "TOPIC 5.3.0 ANIMAL SCIENCE",
+      "to": "TOPIC 5.3: ANIMAL SCIENCE"
+    },
+    {
+      "from": "TOPIC 5.4.0: AGRICULTURAL ENGINEERING",
+      "to": "TOPIC 5.4: AGRICULTURAL ENGINEERING"
+    },
+    {
+      "from": "TOPIC 5.5.0 AGRICULTURAL ECONOMICS",
+      "to": "TOPIC 5.5: AGRICULTURAL ECONOMICS"
+    },
+    {
+      "from": "Topic 5.6.0: Introduction to Agricultural Research",
+      "to": "TOPIC 5.6: INTRODUCTION TO AGRICULTURAL RESEARCH"
+    },
+    {
+      "from": "Subtopic 5.3.3 Animal Breeding and Genetics",
+      "to": "Sub-Topic 5.3.3: Animal Breeding and Genetics"
+    },
+    {
+      "from": "End of Topic Exercise",
+      "to": "END OF TOPIC ASSESSMENT"
+    },
+    {
+      "from": "END OF TOPIC EXERCISE",
+      "to": "END OF TOPIC ASSESSMENT"
+    },
+    {
+      "from": "Specific Competence: 5.6.1.1",
+      "to": "Specific Competence 5.6.1.1"
+    }
+  ],
+  "//renameNear": "Activity renumbering (see //subtext (4)): one number per activity within each sub-topic. 5.3.2: the second run 1-3 becomes 5-7. 5.3.3: 5, 6, 6, 7, 7 become 4-8 (the two activities both titled \"Distinguishing between crossbreeding and inbreeding\" are different activities, one with materials, one a discussion with a comparison table). renameNear takes the FIRST box with that title, which is the materials one (Activity 5); the discussion one keeps 6.",
+  "renameNear": [
+    {
+      "find": "LEARNING ACTIVITY 1: Describing animal feed rations",
+      "near": "LEARNING ACTIVITY 1: Describing animal feed rations",
+      "to": "LEARNING ACTIVITY 5: Describing animal feed rations."
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Formulating feed rations",
+      "near": "LEARNING ACTIVITY 2: Formulating feed rations",
+      "to": "LEARNING ACTIVITY 6: Formulating feed rations."
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Exploring innovative ways of making animal rations",
+      "near": "LEARNING ACTIVITY 3: Exploring innovative ways of making animal rations",
+      "to": "LEARNING ACTIVITY 7: Exploring innovative ways of making animal rations."
+    },
+    {
+      "find": "LEARNING ACTIVITY 5: Relating the principles of genetics",
+      "near": "LEARNING ACTIVITY 5: Relating the principles of genetics",
+      "to": "LEARNING ACTIVITY 4: Relating the principles of genetics and reproduction in animal breeding."
+    },
+    {
+      "find": "LEARNING ACTIVITY 6: Distinguishing between crossbreeding",
+      "near": "LEARNING ACTIVITY 6: Distinguishing between crossbreeding",
+      "to": "LEARNING ACTIVITY 5: Distinguishing between crossbreeding and inbreeding."
+    },
+    {
+      "find": "LEARNING ACTIVITY 7: Exploring innovative ways of improving animals",
+      "near": "LEARNING ACTIVITY 7: Exploring innovative ways of improving animals",
+      "to": "LEARNING ACTIVITY 8: Exploring innovative ways of improving animals."
+    }
+  ],
+  "//fixExercise": "Exercises restart at 1 in each sub-topic everywhere except 5.2.2 (4, 5, 7), 5.3.2 (2, 3), 5.3.3 (4, 4, 5) and 5.3.4 (1, 6). Renumbered within each sub-topic.",
+  "fixExercise": [
+    {
+      "match": "EXERCISE 4",
+      "near": "Mendelian inheritance involves a single gene",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "Inbreeding",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 7",
+      "near": "Traits must be heritable",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "Ingredient",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "Different classes of livestock",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "The Process of Conception",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "Inherited traits",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "How Genetics and Reproduction Work Together",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 6",
+      "near": "Tick infestation",
+      "heading": "EXERCISE 2"
+    }
+  ]
+}

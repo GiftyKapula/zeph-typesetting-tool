@@ -364,6 +364,12 @@ const THEMES = {
   // Economics (A-Level Form 5-6): a deep teal house theme, boxed activities/exercises
   // ("science" variant). Without it the books fell to `navy`, titled by their file name.
   economics: zeph({ subject: "Economics", variant: "science", signature: "0f5c6b", primary: "0f5c6b", primary2: "2f8a96", accent: "e0a32e", cyan: "2f9e8c" }),
+  // Agricultural Science (Form 5-6): an olive field-green with a harvest-gold accent,
+  // boxed Learning Activities ("science" variant) and the plant-cell cover motif. The
+  // green family is crowded, so the olive leans yellow: 13.5 dE from its nearest
+  // neighbour (grade6sci 3f6b2e). Without it the books fell to `navy` and were titled by
+  // their file name.
+  agriculture: zeph({ subject: "Agricultural Science", variant: "science", motif: "cell", signature: "5a6e1f", primary: "5a6e1f", primary2: "7f9234", accent: "d9952b", cyan: "3f8f6a" }),
   // Hospitality Management (Form 1-4) — the palette of the books' own earlier layout:
   // a deep teal-navy for headings and exercise bars, a warm terracotta-orange for the
   // Learning Activity bars over a peach fill, and a muted blue-grey for exercises.
@@ -465,6 +471,8 @@ function autoTheme(name) {
   if (/(?:^|[^a-z])account(?:ing|ancy|s)(?=\b|_)/i.test(name)) return "accounting";
   // Economics, but never Home Economics (its own primary theme, routed above).
   if (/(?<!home[\s_]*)economics/i.test(name)) return "economics";
+  // Agricultural Science, spelled out or abbreviated ("Agric Science", "Agric").
+  if (/agricultur|\bagric(?=\b|_)/i.test(name)) return "agriculture";
   if (/hospitality/i.test(name)) return "hospitality";
   // Literature in English, however the filename writes it. Manuscripts arrive
   // abbreviated at least as often as spelled out ("LIT in ENG F1 LB"), and the
