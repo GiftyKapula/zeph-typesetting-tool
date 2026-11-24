@@ -12,6 +12,10 @@ const path = require("path");
 const os = require("os");
 const JSZip = require("jszip");
 const { ommlToTypst, convText } = require("./omml.js");
+// The number of a figure/table in a List of Figures / Tables: "3", "3.1.1", or a Teacher's
+// Guide's prefixed / lettered form, "TG 3.1.1", "TG I.1", "TG A.8" (ICT Form 3 TG, whose
+// lists were dropped as contents-list junk because "Figure TG" never matched).
+const LO_NUM = "(?:[A-Z]{2,3}\\s+)?(?:\\d+(?:\\.\\d+)*|[A-Z]{1,4}(?:\\.\\d+)+)";
 const { toBritish, fixProse } = require("./british-english.js");
 // What fixProse() corrected while reading this book's runs. paraSegs() is module-level
 // and runs far below importDocx, so the tally is collected here and drained by
@@ -3854,7 +3858,7 @@ async function importDocx(docxPath, opts = {}) {
           let n = j + 1;
           while (n < parts.length && !isTbl(parts[n]) && textOf(parts[n]) === "") n++;
           const nextT = n < parts.length && !isTbl(parts[n]) ? textOf(parts[n]) : "";
-          if (/^(figure|table)\s+\d+\b/i.test(nextT) || nextT.length >= 90) break;  // real section
+          if (new RegExp(`^(figure|table)\\s+${LO_NUM}\\b`, "i").test(nextT) || nextT.length >= 90) break;  // real section
           j++; continue;                                                            // contents entry — drop
         }
         if (t === "") { j++; continue; }                                   // blank padding
@@ -3915,14 +3919,15 @@ async function importDocx(docxPath, opts = {}) {
       // The figure/table number can be a bare "1" OR a dotted "topic.figure" code like
       // "1.3" / "5.2" (this manuscript numbers figures by topic) — capture the whole run
       // of digits/dots so the real number is kept together, not split at the first dot.
-      const entryRe = new RegExp(`^(${kind}\\s+\\d+(?:\\.\\d+)*)\\s*:?\\s*(.*)$`, "i");
+      const entryRe = new RegExp(`^(${kind}\\s+${LO_NUM})\\s*:?\\s*(.*)$`, "i");
       let j = i + 1, kept = 0;
       const pending = [];
       while (j < parts.length && !isTbl(parts[j])) {
         const raw = textOf(parts[j]).trim();
         if (raw === "") { j++; continue; }                         // blank padding
         // pull the trailing page number (if any), then strip the dot leaders
-        const pageM = raw.match(/(\d{1,3})\s*$/);
+        // — or a front-matter page in roman numerals ("…in every lesson xvii")
+        const pageM = raw.match(/(\d{1,3})\s*$/) || raw.match(/\s(x{0,3}(?:ix|iv|v?i{0,3}))\s*$/);
         const page = pageM ? pageM[1] : "";
         const bodyTxt = (page ? raw.slice(0, raw.length - pageM[0].length) : raw)
           .replace(/[.\s…]+$/, "").trim();
@@ -3944,7 +3949,7 @@ async function importDocx(docxPath, opts = {}) {
           const looksLikeHeading = bodyTxt === bodyTxt.toUpperCase() && /[A-Z]/.test(bodyTxt);
           // A line that opens "Figure N" / "Table N" is an ENTRY, never the tail of the
           // entry above — including one of the OTHER list, which is how this section ends.
-          const isEntryLine = /^(Figure|Table)\s+\d+(?:\.\d+)*\b/i.test(bodyTxt);
+          const isEntryLine = new RegExp(`^(Figure|Table)\\s+${LO_NUM}\\b`, "i").test(bodyTxt);
           if (kept && pending.length && bodyTxt.length > 0 && bodyTxt.length <= 60
               && !looksLikeHeading && !styleIsHeading && !isEntryLine) {
             pending[pending.length - 1].title = `${pending[pending.length - 1].title} ${bodyTxt}`.trim();
