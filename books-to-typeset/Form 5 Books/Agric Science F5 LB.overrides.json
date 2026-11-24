@@ -22,6 +22,18 @@
       "with": "Comparing the electrical systems"
     },
     {
+      "find": "LEARNING ACTIVITY 1: Describing animal feed rations",
+      "with": "LEARNING ACTIVITY 5: Describing animal feed rations"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Formulating feed rations",
+      "with": "LEARNING ACTIVITY 6: Formulating feed rations"
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Exploring innovative ways of making animal rations",
+      "with": "LEARNING ACTIVITY 7: Exploring innovative ways of making animal rations"
+    },
+    {
       "find": "LEARNING ACTIVITY 5: Relating the principles of genetics and reproduction in animal breeding",
       "with": "LEARNING ACTIVITY 4: Relating the principles of genetics and reproduction in animal breeding"
     },
@@ -49,7 +61,7 @@
   "asHead": [
     "Introduction"
   ],
-  "//edit": "Imprint/author slips; a stray full stop opening a paragraph in 5.4; Sub-topic 5.3.3 numbers its activities 1, 2, 3, 5, 6, 7, 7 (no 4, two 7s). Its first one is spelt ACTIVIY, which the engine now reads (and prints) as ACTIVITY.",
+  "//edit": "Imprint/author slips; a stray full stop opening a paragraph in 5.4. Activities numbered 1..n within each sub-topic (as the Teacher's Guide does): 5.3.2 restarts at 1 for feed rations (-> 5, 6, 7); 5.3.3 runs 1, 2, 3, 5, 6, 7, 7 (-> 1-7). Its first one is spelt ACTIVIY, which the engine reads and prints as ACTIVITY.",
   "//removeWhereNext": "Sub-topic 5.3.3 prints EXERCISE 4 twice, word for word (after Activity 3 and again after Activity 5): the second copy goes.",
   "removeWhereNext": [
     {
@@ -57,12 +69,42 @@
       "next": "Cross Breeding and Inbreeding"
     }
   ],
-  "//fixExercise": "Exercise numbers within a sub-topic: 5.2.2 runs 4, 5, 7 (the 7 is 6); 5.3.4 runs 1, 6 (the 6 is 2, as its activities restart at 1).",
+  "//fixExercise": "Exercises numbered 1..n within each sub-topic, as the Teacher's Guide does: 5.2.2 ran 4, 5, 7; 5.3.2 ran 2, 3; 5.3.3 ran 4, (4), 5; 5.3.4 ran 1, 6.",
   "fixExercise": [
+    {
+      "match": "EXERCISE 4",
+      "near": "Distinguish between Mendelian and non-Mendelian",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "Distinguish between inbreeding, crossbreeding and mutation",
+      "heading": "EXERCISE 2"
+    },
     {
       "match": "EXERCISE 7",
       "near": "Explain why plant breeders select parent plants",
-      "heading": "EXERCISE 6"
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "A livestock farmer has the following feed ingredients",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "A livestock farmer keeps dairy cattle",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "Explain the process of conception",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "Explain how genetics and reproduction work together",
+      "heading": "EXERCISE 2"
     },
     {
       "match": "EXERCISE 6",
@@ -75,6 +117,42 @@
     {
       "find": "8Step 8:",
       "with": "Step 8: Conclusion and Recommendations"
+    }
+  ],
+  "//subtext": "Topics typed TOPIC 5.1.0 ... 5.6.0 (5.3 and 5.5 without a colon): set as TOPIC 5.1 ... 5.6, the form the Teacher's Guide uses.",
+  "subtext": [
+    {
+      "from": "TOPIC 5.1.0:",
+      "to": "TOPIC 5.1:"
+    },
+    {
+      "from": "TOPIC 5.2.0:",
+      "to": "TOPIC 5.2:"
+    },
+    {
+      "from": "TOPIC 5.3.0 ",
+      "to": "TOPIC 5.3: "
+    },
+    {
+      "from": "TOPIC 5.4.0:",
+      "to": "TOPIC 5.4:"
+    },
+    {
+      "from": "TOPIC 5.5.0 ",
+      "to": "TOPIC 5.5: "
+    },
+    {
+      "from": "TOPIC 5.6.0:",
+      "to": "TOPIC 5.6:"
+    }
+  ],
+  "//insertHead": "Topic 5.4 has no sub-topic line in the body; the manuscript's own contents list names it Sub-Topic 5.4.1: Farm Mechanisation.",
+  "insertHead": [
+    {
+      "before": "Specific Competence",
+      "near": "5.4.1.1 Demonstrate understanding of farm mechani",
+      "head": "Sub-Topic 5.4.1: Farm Mechanisation",
+      "as": "h2"
     }
   ]
 }
