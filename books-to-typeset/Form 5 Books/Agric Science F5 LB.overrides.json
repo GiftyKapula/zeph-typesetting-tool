@@ -4,6 +4,8 @@
     "Mutale Chibesa E",
     "Maambo G. Mudenda"
   ],
+  "//coverImage": "The user supplied the cover picture (Downloads/lb.jpeg, 24 Nov, 764x1080, word-free): Real-ESRGAN x4, scaled to 1800 px (cover-hero.png); cover-hero-band.png is the band from the tractor to the vegetable basket, so the cover's landscape frame keeps the whole tractor.",
+  "coverImage": "Agric Science F5 LB-art/cover-hero-band.png",
   "//remove": "A drafting note left in the text after the Sub-topic 5.1.1 introduction.",
   "remove": [
     "Here is a more learner-centred introduction that follows the style and format of the attached article."
