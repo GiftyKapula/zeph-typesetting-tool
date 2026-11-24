@@ -425,7 +425,7 @@ function emit(blocks) {
         // already split out, so every topic in every book reads the same.
         const topicfull = m ? `TOPIC ${m[1].replace(/[.:]+$/, "")}: ${m[2].trim()}` : "";
         if (m) out += `#topicbanner(${S(m[1].replace(/\.+$/, ""))}, ${S(m[2].trim())}, ${S(topicfull)}${b.nobreak ? ", nobrk: true" : ""})\n`;
-        else out += `#sectionhead(${S(b.text)})\n`;
+        else out += `#sectionhead(${S(b.text)}${b.nobreak ? ", brk: false" : ""})\n`;
         // `backmatterSpacing` (set as bmSpacing by its override pass): the glossary and the
         // references take one tighter line/entry spacing, so a section running a line or two
         // past its page fits without either section looking different from the other.
@@ -569,6 +569,8 @@ function emit(blocks) {
         const sticky = !big && !b.caption && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
         out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption.replace(/ {2,}/g, " ")) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
+      // a picture the author asked for but nobody has drawn yet (see `artSlots`)
+      case "artslot": out += `#artslot(${S(b.no || "")}, ${S(b.note || "")}, ${b.hmm || 55})\n`; break;
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
       case "activity": out += `#activity(${titleContent(b.title, b.titleSegs)}, ${bodyArr(b.body)}, force: ${b.forceFreshPage ? "true" : "false"})\n`; break;
@@ -4194,6 +4196,55 @@ function applyOverrides(blocks, ov) {
     });
     blocks.splice(h + 1, e - (h + 1), ...nb);
   }
+
+  // artSlots: [{ find, no?, note?, hmm?, all?, art?, artHmm? }] — an author's note to the
+  // illustrator ("Picture of a snake", "We help the elderly (picture here)") is not
+  // learner text: it is a picture nobody has drawn yet. Each entry turns the matching
+  // paragraph into a PICTURE SLOT, a framed gap of the height the picture needs (`hmm`,
+  // mm, default 55) carrying the author's words (`note` overrides them), numbered `no` as
+  // in the book's picture brief. Give it `art` (a path resolved like `coverImage`) and
+  // the slot prints that picture instead, `artHmm` mm high (default: sized like any
+  // manuscript picture).
+  if (Array.isArray(ov.artSlots) && ov.artSlots.length) {
+    // Matched on the words, not the spacing: these notes are often typed across a line
+    // with runs of spaces holding columns apart ("Letter    word    picture").
+    const sq = (x) => String(x || "").replace(/\s+/g, " ").trim();
+    let n = 0, filled = 0;
+    for (const sl of ov.artSlots) {
+      const want = sq(sl.find);
+      if (!want) continue;
+      let hit = 0;
+      for (let i = 0; i < blocks.length; i++) {
+        const b = blocks[i];
+        if (!b || b.t === "artslot" || sq(blockPlain(b)) !== want) continue;
+        const slot = { t: "artslot", no: sl.no != null ? String(sl.no) : "", note: sl.note || want, hmm: sl.hmm || 55 };
+        if (sl.art) {
+          // staged by typesetOne, which knows the book's folder; `_slot` is the fallback
+          const ext = (String(sl.art).match(/\.[A-Za-z0-9]+$/) || [".png"])[0];
+          blocks[i] = { t: "image", file: `artslot_${slot.no || i}${ext}`, w: 0, tall: false, caption: "", hmm: sl.artHmm || 0, artSrc: String(sl.art), _slot: slot };
+          filled++;
+        } else blocks[i] = slot;
+        n++; hit++;
+        if (!sl.all) break;
+      }
+      if (!hit) console.warn("!  artSlots not matched:", want);
+    }
+    console.log(`   artSlots: ${n - filled} picture slot(s) left open for artwork, ${filled} filled with art`);
+  }
+
+  // termWithUnit: true — a "TERM 2" / "TERM THREE" line typed just before a unit heading
+  // opens that unit's term, so it belongs on the unit's first page. Left alone it is
+  // the last line of the previous unit's page, because the unit heading breaks the page
+  // AFTER it. The break moves in front of the term line and the heading keeps its place.
+  if (ov.termWithUnit) {
+    for (let i = blocks.length - 2; i >= 0; i--) {
+      const b = blocks[i], nx = blocks[i + 1];
+      if (b && b.t !== "h1" && typeof b.t === "string" && /^TERM\s+(\d+|ONE|TWO|THREE)\.?$/i.test(blockPlain(b).trim()) && nx && nx.t === "h1") {
+        nx.nobreak = true;
+        blocks.splice(i, 0, { t: "pagebreak" });
+      }
+    }
+  }
 }
 // Find a table (top-level, inside a box/activity body, or as an exercise/
 // assessment part) whose current content contains `match`, and replace its rows.
@@ -7723,8 +7774,18 @@ async function typesetOne(docxPath, themeName) {
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
   plainHeadingScripts(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableWidths || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels || ov.tocBefore) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableWidths || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels || ov.tocBefore || ov.artSlots || ov.termWithUnit) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
+  // artSlots filled with their artwork (see `artSlots` in applyOverrides): stage each
+  // picture, resolved relative to the .docx like `coverImage`. A missing file puts the
+  // open slot back rather than failing the whole compile.
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    if (!b || b.t !== "image" || !b.artSrc) continue;
+    const p = path.isAbsolute(b.artSrc) ? b.artSrc : path.resolve(path.dirname(docxPath), b.artSrc);
+    if (fs.existsSync(p)) { media.push({ src: p, name: b.file, orig: b.file, crop: null, rot: 0, emf: false }); delete b.artSrc; delete b._slot; }
+    else { console.warn("!  artSlots art not found:", p); blocks[i] = b._slot; }
+  }
   competenceLeadIn(blocks, isTeacherBookName(base), ov.competenceLeadIn);
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
   markSpreadsheetTables(blocks);
