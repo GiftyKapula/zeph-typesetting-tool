@@ -673,19 +673,23 @@
         // Sized/nudged per book; the pin ticks always run down its left edge and
         // along its bottom, which is what makes it read as a chip rather than a
         // plain rectangle.
+        // The masthead is placed at dy: 22mm, so the chip AND the pin ticks under it
+        // stop by ~19mm. A chip reaching 32mm sat across the eyebrow line and its
+        // outline ran through "LEVEL" of "SECONDARY EDUCATION ORDINARY LEVEL" on
+        // every computing cover (ICT Form 3, Computer Science Form 3).
         #let cx = if v == 1 { 128mm } else { 133mm }
-        #let cy = if v == 2 { 16mm } else { 11mm }
+        #let cy = if v == 2 { 4mm } else { 3mm }
         #let cw2 = if v == 1 { 32mm } else { 27mm }
-        #let chh = if v == 2 { 16mm } else { 21mm }
+        #let chh = if v == 2 { 11mm } else { 12mm }
         #place(top + left, dx: cx, dy: cy, rect(width: cw2, height: chh, radius: 1.5mm, fill: none, stroke: trace))
         #for i in range(0, 4) {
-          seg(cx - 5mm, cy + 4mm + i * 4.5mm, cx, cy + 4mm + i * 4.5mm, faint)
+          seg(cx - 5mm, cy + 2.5mm + i * (chh - 5mm) / 3, cx, cy + 2.5mm + i * (chh - 5mm) / 3, faint)
         }
         #for i in range(0, 3) {
           seg(cx + 6mm + i * 7mm, cy + chh, cx + 6mm + i * 7mm, cy + chh + 4mm, faint)
         }
         // traces off the chip to the page edges
-        #seg(cx + cw2, cy + 7mm, 176mm, cy + 7mm, trace)
+        #seg(cx + cw2, cy + 3mm, 176mm, cy + 3mm, trace)
         #seg(cx + 9mm, cy, cx + 9mm, 0mm, faint)
         // The elbow leaves the chip on its RIGHT side and drops down the right
         // MARGIN, not back across the page. Routed inward (an earlier version ran
@@ -694,11 +698,11 @@
         // masthead block is 158mm wide on a 176mm page, so only the outer ~9mm is
         // reliably clear of title glyphs -- hence x: 171mm, and a stop well above
         // the hero card.
-        #let ey = cy + chh - 4mm
+        #let ey = cy + chh - 2.5mm
         #seg(cx + cw2, ey, 171mm, ey, trace)
         #pad(171mm, ey, 1.5mm, T.accent.transparentize(35%))
         #seg(171mm, ey, 171mm, if v == 0 { 96mm } else { 84mm }, trail)
-        #ring(cx + cw2 - 4mm, cy + 4mm, 1.6mm, amber.transparentize(30%))
+        #ring(cx + cw2 - 4mm, cy + chh / 2, 1.6mm, amber.transparentize(30%))
 
         // ---- bottom-left: a smaller gadget (a screen/tablet outline) ----
         // Mirrors the corner the old lower ring sat in, so the cover keeps its
