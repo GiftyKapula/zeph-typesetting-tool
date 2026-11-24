@@ -156,5 +156,113 @@
       "head": "Sub-Topic 5.4.1: Farm Mechanisation",
       "as": "h2"
     }
-  ]
+  ],
+  "images": {
+    "image5.png": {
+      "src": "Agric Science F5 LB-hires/image5.png"
+    },
+    "image20.png": {
+      "src": "Agric Science F5 LB-hires/image20.png"
+    },
+    "image6.jpeg": {
+      "src": "Agric Science F5 LB-hires/image6.png"
+    },
+    "image3.jpeg": {
+      "src": "Agric Science F5 LB-hires/image3.png"
+    },
+    "image9.png": {
+      "src": "Agric Science F5 LB-hires/image9.png"
+    },
+    "image23.png": {
+      "src": "Agric Science F5 LB-hires/image23.png"
+    },
+    "image27.png": {
+      "src": "Agric Science F5 LB-hires/image27.png"
+    },
+    "image12.png": {
+      "src": "Agric Science F5 LB-hires/image12.png"
+    },
+    "image24.png": {
+      "src": "Agric Science F5 LB-hires/image24.png"
+    },
+    "image21.png": {
+      "src": "Agric Science F5 LB-hires/image21.png"
+    },
+    "image14.png": {
+      "src": "Agric Science F5 LB-hires/image14.png"
+    },
+    "image25.png": {
+      "src": "Agric Science F5 LB-hires/image25.png"
+    },
+    "image13.png": {
+      "src": "Agric Science F5 LB-hires/image13.png"
+    },
+    "image32.png": {
+      "src": "Agric Science F5 LB-hires/image32.png"
+    },
+    "image36.png": {
+      "src": "Agric Science F5 LB-hires/image36.png"
+    },
+    "image37.png": {
+      "src": "Agric Science F5 LB-hires/image37.png"
+    },
+    "image39.png": {
+      "src": "Agric Science F5 LB-hires/image39.png"
+    },
+    "image38.png": {
+      "src": "Agric Science F5 LB-hires/image38.png"
+    },
+    "image34.png": {
+      "src": "Agric Science F5 LB-hires/image34.png"
+    },
+    "image33.png": {
+      "src": "Agric Science F5 LB-hires/image33.png"
+    },
+    "image22.png": {
+      "src": "Agric Science F5 LB-hires/image22.png"
+    },
+    "image35.jpeg": {
+      "src": "Agric Science F5 LB-hires/image35.png"
+    },
+    "image40.png": {
+      "src": "Agric Science F5 LB-hires/image40.png"
+    },
+    "image15.png": {
+      "src": "Agric Science F5 LB-hires/image15.png"
+    },
+    "image17.png": {
+      "src": "Agric Science F5 LB-hires/image17.png"
+    },
+    "image7.jpeg": {
+      "src": "Agric Science F5 LB-hires/image7.png"
+    },
+    "image10.png": {
+      "src": "Agric Science F5 LB-hires/image10.png"
+    },
+    "image31.png": {
+      "src": "Agric Science F5 LB-hires/image31.png"
+    },
+    "image18.png": {
+      "src": "Agric Science F5 LB-hires/image18.png"
+    },
+    "image19.png": {
+      "src": "Agric Science F5 LB-hires/image19.png"
+    },
+    "image8.png": {
+      "src": "Agric Science F5 LB-hires/image8.png"
+    },
+    "image16.png": {
+      "src": "Agric Science F5 LB-hires/image16.png"
+    },
+    "image30.png": {
+      "src": "Agric Science F5 LB-hires/image30.png"
+    },
+    "image26.png": {
+      "src": "Agric Science F5 LB-hires/image26.png"
+    },
+    "image4.gif": {
+      "src": "Agric Science F5 LB-hires/image4.png"
+    }
+  },
+  "//images": "Pictures upscaled to >=300 ppi (tools/upscale-images.js, iGPU). The tool named the p11 soil-structure drawing image2.png; it is image4.gif. image9 and image15 came back with a see-through piece and were redone in one pass."
 }
