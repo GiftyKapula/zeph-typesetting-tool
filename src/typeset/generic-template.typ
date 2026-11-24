@@ -211,7 +211,9 @@
     header-ascent: if tallhdr { 8mm } else { 30% },
     footer-descent: if syllabus { 40% } else { 30% },
     header: context {
-      let visible = if serieslike { pastcover.get() } else { counter(page).get().first() > 1 }
+      // A Dummy (`anon`) has no title page to switch the header on, so it starts with the
+      // visible numbering (contents page) instead; otherwise the book printed bare pages.
+      let visible = if serieslike { pastcover.get() or (anon and pgvisible.get()) } else { counter(page).get().first() > 1 }
       if syllabus {
         // No running header on the matrix pages (the wide matrix uses the full width).
       } else if visible {

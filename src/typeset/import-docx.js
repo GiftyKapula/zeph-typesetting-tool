@@ -2494,7 +2494,12 @@ function classifyPara(pXml, segs, hmapLevel, colorHeads, flat) {
   // equivalents), so requiring the label to be the bold part keeps ordinary prose with
   // a bold lead-in ("Teacher's Role: Provide each learner with…") well clear of this.
   if (!allBold && nonblank.length > 0 && nonblank[0].b && boxKindFromTitle(plain)) return { t: "head", text: plain };
-  if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(plain)) return { t: "figcaption", text: plain };
+  // A multi-level number has a dot INSIDE it, which this test reads as the separator:
+  // "Figure 3.3.1.13 shows several of these charts made from one spreadsheet." matched as
+  // "Figure 3." + caption, was taken for a caption, and was then dropped as a duplicate of
+  // the real one under the picture (ICT Form 3 LB, round 1). The whole number followed by a
+  // lower-case word is prose about the figure, not its caption (no /i: the case IS the test).
+  if (/^fig(?:ure)?\.?\s*\d+\s*[:.]/i.test(plain) && !/^[Ff]ig(?:ure)?\.?\s*\d+(?:\.\d+)+\s+[a-z]/.test(plain)) return { t: "figcaption", text: plain };
   // A caption numbered with the book's own prefix — "Figure TG 3.1.6: Model answer…",
   // "Figure TG I.1: The lesson cycle" (ICT Form 3 TG). The digit-first test above never
   // matched, so each printed as a body paragraph a line below its picture instead of the

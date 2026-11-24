@@ -520,7 +520,10 @@ function emit(blocks) {
         // element set two ways, and half of it useless to a reader. The marker is metadata plus
         // a label, which occupies no space (measured: the caption and the table around it sit
         // at identical offsets with and without it), so this only ever adds the lookup.
-        const tblcap = capOfTable(plain);
+        // A table the author pasted as a PICTURE carries the same "Table N:" caption, and its
+        // List of Tables line needs the same marker (ICT Form 3 LB: Table 3.3.1.1 fell back to
+        // the manuscript's page 67 while it printed on 71).
+        const tblcap = capOfTable(plain) || (nextIsImg && /^table\s*\d+(?:\.\d+)*\s*:/i.test(plain) && plain.length <= 120);
         const pm0 = tblcap ? `#capmark(${S(plain)})` + p : p;
         // a short note that must not be split over a page turn (insertBlocks `keep`)
         const pm = b.keepWhole ? `#block(breakable: false)[${pm0.trim()}]\n` : pm0;
@@ -7415,6 +7418,15 @@ async function typesetOne(docxPath, themeName) {
   // `--dummy`: the CDC/tender evaluation copy of the same book — `anonymous` on top of
   // the book's own sidecar, written beside the named version as "<book> - Dummy …".
   if (WANT_DUMMY) ov.anonymous = true;
+  // dummyOverrides: { <any sidecar key>: … } — applied to the Dummy only, never to the
+  // named book: body text that names the publisher (a reference to one of its own
+  // titles) comes out of the evaluation copy but stays in the book sold. List keys are
+  // appended to the book's own; any other key replaces it (Integrated Science Grade 6 LB).
+  if (ov.anonymous && ov.dummyOverrides) {
+    for (const [k, v] of Object.entries(ov.dummyOverrides)) {
+      ov[k] = Array.isArray(v) && Array.isArray(ov[k]) ? [...ov[k], ...v] : v;
+    }
+  }
   const theme = themeName || ov.theme || autoTheme(detectName);
   const variant = (THEMES[theme] || {}).variant;
   const eduLevel = eduLevelFor(detectName);
@@ -7589,6 +7601,9 @@ async function typesetOne(docxPath, themeName) {
         if (sp.move != null) { if (moved.length) out.push(moved.shift()); }
         else if (sp.head != null) { headSeen = true; out.push({ t: "head", text: sp.head }); }
         else if (sp.para != null) out.push({ t: "para", segs: mkSegs(sp.para), ...(sp.keep ? { keepWhole: true } : {}) });
+        // { raw: {...} } — a block exactly as importDocx builds it (a box rebuilt with corrected
+        // list markers, a picture already in the book's own media), as replaceBlocks takes it
+        else if (sp.raw != null && typeof sp.raw === "object") out.push(sp.raw);
         else if (sp.listitem != null) {
           if (!inList) { list += 1; inList = true; }
           const numId = !headSeen && prevNum != null ? prevNum : `ins${nIns}_${list}`;
@@ -8449,12 +8464,49 @@ function normaliseQuestionMarkBold(blocks) {
       });
       blocks.splice(covI + 1, firstI - covI - 1, ...front);
       console.log(`   anonymous: removed the title page, imprint${dropped.length ? " and " + [...new Set(dropped.filter((d) => d !== "title/imprint"))].join(", ") : ""}; contents and the rest of the front matter kept`);
+      // Every Dummy opens contents -> Introduction (user, 2026-11-23: "all the dummies
+      // should look the same for table of contents and introduction in that order"). A
+      // book that puts Acronyms, competences or a List of Figures first gets its whole
+      // INTRODUCTION section (sub-headings included, up to the next h1) lifted to straight
+      // after the contents; the rest keeps its order. The named book is not touched.
+      const end = covI + 1 + front.length;
+      const tI = blocks.findIndex((b, i) => i > covI && i < end && b.t === "toc");
+      if (tI >= 0) {
+        const nextH1 = blocks.findIndex((b, i) => i > tI && i < end && b.t === "h1");
+        const inI = blocks.findIndex((b, i) => i > tI && i < end && b.t === "h1" && /^INTRODUCTION$/i.test(String(b.text || "").trim()));
+        if (inI > nextH1 && nextH1 >= 0) {
+          let stop = blocks.findIndex((b, i) => i > inI && (b.t === "h1" || MARKER.has(b.t)));
+          if (stop < 0 || stop > end) stop = end;
+          const span = blocks.splice(inI, stop - inI);
+          blocks.splice(nextH1, 0, ...span);
+          console.log(`   anonymous: INTRODUCTION moved up to follow the contents (was after ${String(blocks[nextH1 + span.length].text).trim()})`);
+        }
+      }
     }
     for (const b of blocks) {
       if (b.t === "cover") { b.logo = null; b.byline = []; }
       if (b.t === "backcover") b.logo = null;
       if (b.t === "titlepage" || b.t === "imprint") { b.t = "vspace"; b.h = "0pt"; }
     }
+    // A list of abbreviations often spells ZEPH out — a paragraph ("ZEPH: Zambia
+    // Educational Publishing House") or a two-column table row. In the Dummy that entry
+    // goes, wherever the sidecar or manuscript put it (CS, ICT, Hospitality Form 3).
+    const ZEPH_ABBR = /^\s*ZEPH\s*[:\-–—]?\s*Zambia Educational Publishing House\s*\.?\s*$/i;
+    const rowText = (r) => JSON.stringify(r).replace(/"[a-z]+":/gi, " ").replace(/[{}\[\]",]/g, " ");
+    let abbr = 0;
+    const scrubAbbr = (arr) => {
+      for (let i = arr.length - 1; i >= 0; i--) {
+        const b = arr[i]; if (!b || typeof b !== "object") continue;
+        if (Array.isArray(b.rows)) {
+          const n = b.rows.length;
+          b.rows = b.rows.filter((r) => !(Array.isArray(r) && r.length <= 3 && /\bZEPH\b/.test(rowText(r)) && /Zambia Educational Publishing House/.test(rowText(r))));
+          abbr += n - b.rows.length;
+        } else if (ZEPH_ABBR.test(blockPlain(b))) { arr.splice(i, 1); abbr++; continue; }
+        for (const k of ["body", "items", "parts", "children"]) if (Array.isArray(b[k])) scrubAbbr(b[k]);
+      }
+    };
+    scrubAbbr(blocks);
+    if (abbr) console.log(`   anonymous: removed ${abbr} "ZEPH" abbreviation entr${abbr === 1 ? "y" : "ies"}`);
   }
 
   // An ISBN supplied in the overrides is shown on the covers (no barcode).
