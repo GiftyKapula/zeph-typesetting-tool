@@ -719,9 +719,13 @@
         #pad(gx + gw / 2, gy + gh - 2.5mm, 1.1mm, white.transparentize(55%))
         // traces leaving the gadget toward the page edges
         #seg(gx, gy + 8mm, 0mm, gy + 8mm, faint)
-        #seg(gx + gw, gy + gh - 6mm, gx + gw + 12mm, gy + gh - 6mm, trace)
-        #pad(gx + gw + 12mm, gy + gh - 6mm, 1.5mm, T.accent.transparentize(45%))
-        #seg(gx + gw + 12mm, gy + gh - 6mm, gx + gw + 12mm, 250mm, trail)
+        // The trace turns down 6mm out from the gadget: at 12mm its node sat at ~54mm
+        // with the landscape gadget, touching the first letter of a centred author
+        // byline (ICT Form 3 TG, "Dr Clement Mulenga Sinyangwe (PhD)").
+        #let tx = gx + gw + 6mm
+        #seg(gx + gw, gy + gh - 6mm, tx, gy + gh - 6mm, trace)
+        #pad(tx, gy + gh - 6mm, 1.5mm, T.accent.transparentize(45%))
+        #seg(tx, gy + gh - 6mm, tx, 250mm, trail)
         // a couple of loose vias in the open field, so the two corners read as
         // parts of one board rather than two isolated drawings
         #pad(26mm, gy - 14mm, 1.3mm, white.transparentize(62%))
@@ -1780,7 +1784,13 @@
 // rather than to "Pow-" / "erISO" or to an overflow across the cell border.
 #let camelBreak(t) = t.replace(regex("([a-z])([A-Z])"), m => m.captures.at(0) + "\u{200B}" + m.captures.at(1))
 #let nohyphcell(p) = if p.find(camelRe) == none { [#p] } else {
-  p.split(" ").map(t => if t.find(camelRe) == none { [#t] } else {
+  // A short name (ten letters or fewer: WhatsApp, OneDrive, PowerPoint) fits any column the
+  // camel floor gives it, so it gets no break point at all. Given one, the line breaker
+  // used it even with room to carry the whole word down: "Whats" / "App" with no hyphen
+  // (ICT Form 3 TG, proofreading round 1).
+  p.split(" ").map(t => if t.find(camelRe) == none { [#t] } else if t.len() <= 10 {
+    text(hyphenate: false)[#t]
+  } else {
     text(hyphenate: false)[#camelBreak(t)]
   }).join(" ")
 }
@@ -2720,15 +2730,25 @@
 // number survives only as the fallback for a figure that has no caption to find.
 #let capnum(t) = {
   // "Fig 3" / "Fig. 3" is the same label as "Figure 3" (Geography Form 1 LB)
-  let m = str(t).matches(regex("^\\s*(Figure|Fig\\.?|Table)\\s+([0-9]+(?:\\.[0-9]+)*)"))
+  // A Teacher's Guide numbers its own figures with a prefix and may use a letter or roman
+  // part — "Figure TG 3.1.1", "Figure TG I.1", "Table TG A.8" (ICT Form 3 TG): without
+  // them no caption left a label and every List of Figures line printed the Word page.
+  let m = str(t).matches(regex("^\\s*(Figure|Fig\\.?|Table)\\s+((?:[A-Z]{2,3}\\s+)?(?:[0-9]+(?:\\.[0-9]+)*|[A-Z]{1,4}(?:\\.[0-9]+)+))"))
   if m.len() > 0 {
     let kind = if lower(m.first().captures.at(0)).starts-with("fig") { "figure" } else { "table" }
-    (kind, m.first().captures.at(1))
+    (kind, m.first().captures.at(1).replace(" ", "-"))
   } else { none }
 }
 #let capmark(t) = {
   let k = capnum(t)
   if k != none [#metadata(none)#label(k.at(0) + "-" + k.at(1))]
+}
+// capmark for a TABLE caption met as a box paragraph or an exercise lead-in: only a real
+// caption — "Table N:" with its colon straight after the number — never prose that
+// merely mentions a table ("Table 3 shows…"), which would claim the label first.
+#let tblmark(t) = {
+  let s = str(t).trim()
+  if s.match(regex("^Table\\s+(?:[A-Z]{2,3}\\s+)?(?:[0-9]+(?:\\.[0-9]+)*|[A-Z]{1,4}(?:\\.[0-9]+)+)\\s*:")) != none { capmark(s) }
 }
 #let figimg(pathstr, wpx, tall, cap, sticky: false, hmm: 0) = {
   v(2pt)
@@ -2805,7 +2825,13 @@
     [#context {
       let k = capnum(num)
       let hits = if k != none { query(label(k.at(0) + "-" + k.at(1))) } else { () }
-      if hits.len() > 0 [#counter(page).at(hits.first().location()).first()] else [#pgno]
+      // In the page's own numbering: a figure in the front matter is on page "xvii", and
+      // its bare counter value printed "19" (ICT Form 3 TG, Figure TG I.1).
+      if hits.len() > 0 {
+        let loc = hits.first().location()
+        let pat = loc.page-numbering()
+        if pat != none [#numbering(pat, ..counter(page).at(loc))] else [#counter(page).at(loc).first()]
+      } else [#pgno]
     }])
 ]
 
@@ -3066,7 +3092,12 @@
   // whose 4-letter words are one letter shorter than the neighbouring columns' — that
   // is not a serial column and must not collapse to `auto`).
   let isnum(s) = { let t = s.trim(); t != "" and t.matches(regex("^[0-9]+$")).len() > 0 }
-  let narrowNum(ci) = rows.len() >= 2 and not fillin and rows.at(0).at(ci).text.len() <= 5 and collen(ci) <= 4 and rows.slice(1).all(r => { let t = r.at(ci).text.trim(); t == "" or isnum(t) }) and rows.slice(1).any(r => isnum(r.at(ci).text))
+  // The ≤4 length test is on the BODY cells: counting the header too threw out a
+  // five-letter "Marks" over 1-2 digit marks, which then got a share of the width too
+  // thin for the bold word and printed over the next column's header (ICT Form 3 TG's
+  // marking guides). The header has its own ≤5 limit.
+  let bodylen(ci) = { let m = 0; for r in rows.slice(1) { let l = celllen(r.at(ci)); if l > m { m = l } }; m }
+  let narrowNum(ci) = rows.len() >= 2 and not fillin and rows.at(0).at(ci).text.len() <= 5 and bodylen(ci) <= 4 and rows.slice(1).all(r => { let t = r.at(ci).text.trim(); t == "" or isnum(t) }) and rows.slice(1).any(r => isnum(r.at(ci).text))
   // A "word grid" — every cell a single short token (phonics spelling-choice tables
   // like "ai | a | ay | a-e" with one word per cell) — reads as lopsided under content-
   // proportional widths when one column's longest word is a letter longer than another's.
@@ -3110,7 +3141,10 @@
   let isrubric = T.at("uniformRubrics", default: false) and ncols >= 4 and rows.len() >= 2 and (
     lower(rows.at(0).at(0).text.trim()).starts-with("criteri") and
     rows.at(0).slice(1).all(c => lower(c.text.trim()).find(regex("^(excellent|very good|good|fair|satisfactory|developing|beginning|emerging|not|poor|needs)")) != none))
-  let cols = if isrubric { (1.1fr, 1.2fr) + range(ncols - 2).map(_ => 1fr) } else if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
+  // Column weights a book's sidecar set for this one table (`tableWidths`), carried on
+  // its first cell so every route into dtable (body, box row, exercise part) has them.
+  let given = rows.at(0).at(0).at("colw", default: none)
+  let cols = if given != none and given.len() == ncols { given.map(w => w * 1fr) } else if isrubric { (1.1fr, 1.2fr) + range(ncols - 2).map(_ => 1fr) } else if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
   // ---- CDC SYLLABUS matrix look: a GREY header row that REPEATS on every page, a black
   // inner grid + thicker outer frame, no zebra, the TOPIC column bold, the activities
   // column bulleted, and the TOPIC/SUB-TOPIC row-span merge (empty left cells continue the
@@ -3264,6 +3298,9 @@
   // Render ONE body item. Factored out of the loop below so a run of items that must
   // stay together (see the checklist grouping) can be rendered inside a single block.
   let one(it) = {
+      // A "Table N: …" caption typed as a paragraph inside a box leaves the same page
+      // marker a top-level one does, or its List of Tables line prints the Word page.
+      if it.k == "para" and it.at("s", default: none) != none { tblmark(it.s.map(s => s.at("t", default: "")).join("")) }
       if it.k == "table" { dtable(it.r, noHeader: it.at("nohdr", default: false), sheet: it.at("sheet", default: false)) }
       else if it.k == "img" {
         if it.images.len() == 1 { figimg(it.images.at(0).file, it.images.at(0).w, it.images.at(0).tall, it.images.at(0).cap, hmm: it.images.at(0).at("hmm", default: 0)) }
@@ -3894,6 +3931,7 @@
       // as its own centred block so it doesn't vanish inside a paragraph. A lead that
       // CONTINUES a question (flagged `indent`) is padded to align under the question
       // text (the 22pt marker gutter) instead of hugging the box's left edge.
+      tblmark(it.q)
       let leadbody = richflow(it.at("qseg", default: ()), it.q)
       let al = it.at("align", default: none)
       let leadrow = if it.at("indent", default: false) {

@@ -66,7 +66,7 @@ const EMPTY_CELL = { text: "", imgs: [] };
 const cellImgs = (imgs) => arr(imgs || [], (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0})`);
 // Rich table cell: text plus any images it contains (and rich segments with
 // math when the cell holds an equation).
-const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""})`;
+const cellArr = (c) => `(text: ${S(c.text || "")}, imgs: ${cellImgs(c.imgs)}${c.segs ? `, seg: ${segArr(c.segs)}` : ""}${c.colsum ? `, colsum: (rows: ${strArr(c.colsum.rows)}, answer: ${strArr(c.colsum.answer)})` : ""}${c.subs && c.subs.length ? `, subs: (${c.subs.map(rowArr).join(", ")},)` : ""}${Array.isArray(c.colw) ? `, colw: (${c.colw.map(Number).join(", ")},)` : ""})`;
 const normRows = (rows) => { const n = Math.max(0, ...rows.map((r) => r.length)); return rows.map((r) => r.concat(Array(n - r.length).fill(EMPTY_CELL))); };
 const rowArr = (rows) => arr(normRows(rows), (r) => arr(r, cellArr));
 const imgArr = (imgs) => arr(imgs, (im) => `(file: ${S("_media/" + im.file)}, w: ${im.w || 0}, tall: ${im.tall ? "true" : "false"}, cap: ${im.caption ? S(im.caption) : "none"}, hmm: ${im.hmm || 0})`);
@@ -339,7 +339,8 @@ function emit(blocks) {
     // ("Table 17: Relationship between Agriculture and Agro-Ecological Regions in
     // Zambia") and would otherwise fall straight back through the 60-character gate.
     const nextIsTable = nextB && nextB.t === "table";
-    const TBLCAP = /^table\s*\d/i;
+    // also a prefixed / lettered number: "Table TG 3.1.1", "Table TG A.8" (ICT Form 3 TG)
+    const TBLCAP = /^(?:table|TABLE|Table)\s*(?:[A-Z]{2,3}\s+)?(?:\d|[A-Z]{1,4}\.\d)/;
     const capOfTable = (t) => nextIsTable && TBLCAP.test(t) && t.length > 0 && t.length <= 120;
     // A table caption is often written on TWO lines — the business that owns the
     // statement on the first, the statement and its date on the second:
@@ -553,7 +554,11 @@ function emit(blocks) {
         // heading it titles — is pinned.
         const nb = nextB;
         const big = (b.w || 0) >= 400 || b.tall;
-        const sticky = !big && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
+        // A CAPTIONED picture is titled by its own caption, so the heading after it is new
+        // material: pinned to it, the picture, the heading and an unbreakable table under
+        // that heading moved as one and left half a page empty (ICT Form 3 TG, the model
+        // answer above each "Marking guide: Section B").
+        const sticky = !big && !b.caption && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
         out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption.replace(/ {2,}/g, " ")) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
@@ -2381,6 +2386,30 @@ function applyOverrides(blocks, ov) {
   // styling in `cell.segs`, which rendering prefers over the plain `cell.text`; a `find`
   // that isn't the cell's WHOLE text also gets rewritten there, run-by-run, so the fix
   // actually shows up in the PDF instead of silently no-op'ing on the still-styled cell.
+  // tableWidths: [{ match, widths: [2, 5, 4] }] — set the relative column widths of the
+  // table holding a cell that contains `match`, where the content-proportional widths get
+  // one table wrong: a header word wider than its column ("ComprehensionExplains"), two
+  // headers run together ("Cod-ing needed?Tem-plates"), a phone number broken over two
+  // lines (ICT Form 3 TG, proofreading round 1). Reaches tables in boxes, box rows
+  // (`subs`) and exercise parts.
+  for (const tw of ov.tableWidths || []) {
+    let n = 0;
+    const seen = new Set();
+    const visit = (o) => {
+      if (!o || typeof o !== "object" || seen.has(o)) return;
+      seen.add(o);
+      if (Array.isArray(o)) { o.forEach(visit); return; }
+      const rows = o.rows || o.r;
+      if (Array.isArray(rows) && Array.isArray(rows[0]) && rows[0][0] && typeof rows[0][0] === "object"
+          && rows.some((r) => Array.isArray(r) && r.some((c) => c && typeof c.text === "string" && c.text.includes(tw.match)))) {
+        rows[0][0].colw = tw.widths;
+        n++;
+      }
+      for (const k of Object.keys(o)) if (o[k] && typeof o[k] === "object") visit(o[k]);
+    };
+    visit(blocks);
+    if (!n) console.warn("!  tableWidths not matched:", tw.match);
+  }
   for (const ec of ov.editCell || []) {
     let n = 0;
     const walkT = (arr) => {
@@ -7622,7 +7651,7 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableWidths || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base), ov.competenceLeadIn);
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
