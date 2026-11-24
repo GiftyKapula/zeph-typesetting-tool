@@ -273,7 +273,15 @@ function markSubLists(blks) {
   }
   return blks;
 }
-const bodyArr = (blks) => arr(markSubLists(blks), (b) =>
+// A picture set beside the text (`sidefig`) has no form inside a box, and fell through
+// to the empty-paragraph case below: the picture AND every line beside it vanished
+// (Literature in English Form 5 LB, Unit 8 "Learner Activity 12": the tree picture, the
+// saying, the instruction and three of its five questions). Inside a box it is set as
+// the picture, then its text.
+const unSidefig = (blks) => blks.flatMap((b) => (b && b.t === "sidefig")
+  ? [{ t: "img", images: (b.images || []).map((im) => ({ ...im, side: undefined })) }, ...unSidefig(b.body || [])]
+  : [b]);
+const bodyArr = (blks) => arr(markSubLists(unSidefig(blks)), (b) =>
   b.t === "table" ? `(k: "table", r: ${rowArr(b.rows)}${b.noHeader ? ", nohdr: true" : ""}${b.sheet ? ", sheet: true" : ""})`
   : (b.t === "img" || b.t === "imagerow") ? `(k: "img", images: ${imgArr(b.images)})`
   : b.t === "image" ? `(k: "img", images: ${imgArr([{ file: b.file, w: b.w, tall: b.tall, caption: b.caption, hmm: b.hmm }])})`
@@ -713,7 +721,11 @@ function boxifyActivities(blocks, opts = {}) {
   // never became a box: its title printed as an ordinary black heading with the picture
   // and questions loose beneath it, while the other fifty-eight sat in the teal box.
   // The two recognisers have to agree about what an activity heading looks like.
-  const ACT = /^(LEARNING\s+(ACT(?:IVIT|IVT|VIT)Y?|MODELS?)|LEARNING|ACT(?:IVIT|IVT|VIT)Y?|MODELS?|Zhakwila(\s+atudizi)?|Ifyakucita|Nchito|Musebezi|Vyakulinga|Cakucita|Mwingilo\s+wakuuba)\s*\d/i;
+  // "LEARNER ACTIVITY 3" is the same box under another name: the Literature in English
+  // Form 5 Learner's Book heads its sixty activities that way, and unrecognised they
+  // printed as ordinary headings, filling the contents with "LEARNER ACTIVITY 1",
+  // "LEARNER ACTIVITY 2" ... and leaving every question unboxed.
+  const ACT = /^((?:LEARNING|LEARNERS?['’]?)\s+(ACT(?:IVIT|IVT|VIT)Y?|MODELS?)|LEARNING|ACT(?:IVIT|IVT|VIT)Y?|MODELS?|Zhakwila(\s+atudizi)?|Ifyakucita|Nchito|Musebezi|Vyakulinga|Cakucita|Mwingilo\s+wakuuba)\s*\d/i;
   // "EXERCISE 1" or a bare "Exercise" (many Learner's Books number neither), or a
   // plural range heading ("EXERCISES 1 - 4") some books use instead — the isDefn
   // guard below still excludes a glossary line like "Exercise – Physical…". No \b
@@ -782,7 +794,9 @@ function boxifyActivities(blocks, opts = {}) {
   // ("ACTIVITY", an h2) is still recognised.
   const startText = (b) => {
     if (b.t === "head" || b.t === "label") return (b.text || "").trim();
-    if (looseStarts && (b.t === "h2" || b.t === "para" || b.t === "listitem")) return blockPlain(b).trim();
+    // h3 too: the Literature in English Form 5 LB sets about half its activity labels
+    // as Word Heading 3 ("Learner Activity 2"), the rest as Heading 2 or a plain line.
+    if (looseStarts && (b.t === "h2" || b.t === "h3" || b.t === "para" || b.t === "listitem")) return blockPlain(b).trim();
     return null;
   };
   // A bold "header" the manuscript styled INLINE (a bold paragraph, not a real
@@ -2597,18 +2611,23 @@ function applyOverrides(blocks, ov) {
     // digit. Absorbing it here both prevents the letter being mistaken for the title
     // (which produced the malformed "Activity 1: a: …") and drops it, so the heading
     // renumbers cleanly as a normal sequential activity.
-    const ACTNUM = /^(LEARNING\s+ACTIVITY|ACTIVITY|Activity)\s*(\d+)[a-z]?\s*:?\s*(.*)$/;
+    const ACTNUM = /^(LEARNING\s+ACTIVITY|LEARNER\s+ACTIVITY|Learner\s+Activity|ACTIVITY|Activity)\s*(\d+)[a-z]?\s*:?\s*(.*)$/;
     // A bare, unnumbered "ACTIVITY" (no digit) — the manuscript occasionally drops
     // the number entirely (e.g. Grade 2 p32). Treat the whole line being just the
     // word (plus an optional colon) as an activity heading and assign it the next n.
-    const ACTBARE = /^(LEARNING\s+ACTIVITY|ACTIVITY|Activity)\s*:?\s*$/;
+    // "LEARNER ACTIVITY" / "Learner Activity" too (Literature in English Form 5 LB).
+    const ACTBARE = /^(LEARNING\s+ACTIVITY|LEARNER\s+ACTIVITY|Learner\s+Activity|ACTIVITY|Activity)\s*:?\s*$/;
+    // `activityLabel` (per book): one label for every activity, whichever the manuscript
+    // typed — the Literature in English Form 5 LB heads them "Learner Activity",
+    // "LEARNER ACTIVITY" and plain "Activity" in different units.
+    const LABEL = typeof ov.activityLabel === "string" ? ov.activityLabel : null;
     let n = 0;
     for (const b of blocks) {
       const t = blockPlain(b).trim();
       if (/^UNIT\s+\d+\b/i.test(t)) { n = 0; continue; }
       if (/\bLESSON\s+\d+/i.test(t)) { n = 0; continue; }
       const bare = t.match(ACTBARE);
-      if (bare) { n += 1; editBlockText(b, t, `${bare[1]} ${n}`); continue; }
+      if (bare) { n += 1; editBlockText(b, t, `${LABEL || bare[1]} ${n}`); continue; }
       const m = t.match(ACTNUM);
       if (!m) continue;
       n += 1;
@@ -2616,7 +2635,7 @@ function applyOverrides(blocks, ov) {
       // everything from the start up to (not including) the title — i.e. the
       // "PREFIX <num>[letter] <sep>" run we will rewrite to the canonical form.
       const cur = title ? t.slice(0, t.length - title.length) : t;
-      const next = `${m[1]} ${n}${title ? ": " : ""}`;
+      const next = `${LABEL || m[1]} ${n}${title ? ": " : ""}`;
       if (cur !== next) editBlockText(b, cur, next);
     }
   }
@@ -2677,7 +2696,16 @@ function applyOverrides(blocks, ov) {
   // (`to: "title"`, default) or sentence case (`to: "sentence"`). For structural labels
   // the manuscript left inconsistently in ALL-CAPS (e.g. a Lunda "Specific Competences"
   // heading), matched by their fixed opening words so every trailing variant is caught.
-  const toTitle = (s) => s.toLowerCase().split(/(\s+)/).map((w) => w ? w.charAt(0).toUpperCase() + w.slice(1) : w).join("");
+  // Title case keeps the small words small unless they open the title or follow its
+  // colon: "Learner Activity 10: Hamartia or Hubris?", not "Hamartia Or Hubris?"
+  // (Literature in English Form 5 LB).
+  const TITLE_SMALL = /^(a|an|and|as|at|but|by|for|in|nor|of|on|or|the|to|with)$/;
+  const toTitle = (s) => s.toLowerCase().split(/(\s+)/).map((w, i, all) => {
+    if (!w || /^\s+$/.test(w)) return w;
+    const prev = all.slice(0, i).join("").trim();
+    if (i > 0 && TITLE_SMALL.test(w) && !/:$/.test(prev)) return w;
+    return w.charAt(0).toUpperCase() + w.slice(1);
+  }).join("");
   const toSentence = (s) => { const t = s.toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
   const recased = (s, to) => to === "sentence" ? toSentence(s) : to === "upper" ? s.toUpperCase() : toTitle(s);
   // House style capitalises the standing structural labels that open every sub-topic:
@@ -3205,7 +3233,12 @@ function applyOverrides(blocks, ov) {
     const inStr = (o, k) => {
       if (o && typeof o[k] === "string" && o[k].includes(st.from)) { o[k] = o[k].split(st.from).join(st.to); n++; }
     };
+    // `in`: only inside a block whose text contains it - for a run as short as a full
+    // stop and a soft line break (after an italic title, before a "(2 marks)" the
+    // Literature in English Form 5 LB set on a line of its own), which would otherwise
+    // hit every soft break after a full stop in the book.
     for (const b of flat) {
+      if (st.in && !blockPlain(b).includes(st.in)) continue;
       inSegs(b.segs); inSegs(b.qseg); inSegs(b.aseg);
       // the plain-text mirrors beside those runs, so later passes that match on them
       // (and the corrections log, which reads `.q`) see the corrected wording too
@@ -4102,6 +4135,18 @@ function applyOverrides(blocks, ov) {
     if (to < 0) { console.warn("!  moveSectionBefore target not matched:", mv.before); blocks.splice(start, 0, ...span); continue; }
     blocks.splice(to, 0, ...span);
   }
+  // tocBefore: "HEADING" — put the contents page directly before that heading. The
+  // generated contents goes where the manuscript had its own, or before the first
+  // Heading 1 the importer saw; a book whose Authors and Preface were Heading 2 got it
+  // after them, and moveSectionBefore cannot fix that, because the contents is not a
+  // heading and travels inside the section above it. House order is imprint -> contents
+  // -> Authors -> Foreword -> Preface (Literature in English Form 5 LB: "AUTHORS").
+  if (ov.tocBefore) {
+    const ti = blocks.findIndex((b) => b.t === "toc");
+    const hi = blocks.findIndex((b) => isHeadingLike(b) && blockPlain(b).trim() === ov.tocBefore);
+    if (ti < 0 || hi < 0) console.warn("!  tocBefore not matched:", ov.tocBefore);
+    else { const [toc] = blocks.splice(ti, 1); blocks.splice(hi > ti ? hi - 1 : hi, 0, toc); }
+  }
   // tables: [{ match, columns?, rows: [[c, c], …] }] — replace a table the writer
   // built badly (e.g. a matching table with every term lumped in one cell) with a
   // clean grid. Searches top-level blocks AND box/activity bodies and exercise/
@@ -4173,6 +4218,29 @@ function fixPhdCapitalisation(blocks) {
     const k = segKey(b);
     if (k) { for (const s of b[k]) if (typeof s.t === "string" && /\bPhd\b/.test(s.t)) s.t = s.t.replace(/\bPhd\b/g, "PhD"); }
     else if (typeof b.text === "string" && /\bPhd\b/.test(b.text)) b.text = b.text.replace(/\bPhd\b/g, "PhD");
+  }
+}
+// A superscript run inside a HEADING ("mid-20th Century" with a raised "th") is
+// imported, like any super/subscript, as an inline math script `""^("th")`. Headings
+// are set from their plain text, so that markup printed literally — the Literature in
+// English Form 5 LB titled Unit 9 'AFRICAN LITERATURE ... (mid to 20""^("th") Century)'
+// on the page, in the contents and in every running header. A heading cannot carry a
+// raised mark anyway, so the script goes back to its own letters ("20th"). Body text
+// keeps its true super/subscripts (exponents, chemical formulas).
+const SCRIPT_MARKUP = /""[\^_]\("((?:[^"\\]|\\.)*)"\)/g;
+function plainHeadingScripts(blocks) {
+  const unq = (s) => s.replace(SCRIPT_MARKUP, (_, x) => x.replace(/\\(.)/g, "$1"));
+  for (const b of blocks) {
+    if (!b || !/^(h[123]|head|label)$/.test(b.t)) continue;
+    if (typeof b.text === "string" && b.text.includes('""')) b.text = unq(b.text);
+    for (const k of ["segs", "s"]) {
+      if (!Array.isArray(b[k])) continue;
+      for (const s of b[k]) if (s && s.m && typeof s.t === "string" && SCRIPT_MARKUP.test(s.t)) {
+        SCRIPT_MARKUP.lastIndex = 0;
+        s.t = unq(s.t); delete s.m; delete s.display;
+      }
+      SCRIPT_MARKUP.lastIndex = 0;
+    }
   }
 }
 // "Acappella"/"acappella" (run together as one word) is a recurring spelling slip for
@@ -7466,6 +7534,9 @@ async function typesetOne(docxPath, themeName) {
   importOpts.keepListNumbers = !!ov.keepListNumbers;
   importOpts.listAnswers = ov.listAnswers || [];
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
+  importOpts.bareActivityBox = ov.bareActivityBox;
+  importOpts.learnerActivityBox = !!ov.learnerActivityBox;
+  importOpts.activityListMarkers = !!ov.activityListMarkers;
   importOpts.textboxCaptions = ov.textboxCaptions;
   let { blocks, media, tmp, proseFixes, droppedBoxes } = await importDocx(docxPath, importOpts);
   if (!blocks.length) {
@@ -7651,7 +7722,8 @@ async function typesetOne(docxPath, themeName) {
   // clobbered by the very next pipeline step.
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableWidths || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels) { applyOverrides(blocks, ov); }
+  plainHeadingScripts(blocks);
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableWidths || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels || ov.tocBefore) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base), ov.competenceLeadIn);
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again
@@ -8851,6 +8923,9 @@ function normaliseQuestionMarkBold(blocks) {
     const qFixed = [];
     for (const b of allTextBlocks(blocks)) {
       const line = blockPlain(b).trim();
+      // `keepUnmarked`: lines that only look like questions (a line of verse opening
+      // "Is full of peppers and, with the last") are left as the author typed them.
+      if ((ov.keepUnmarked || []).includes(line)) continue;
       if (!fixQuestionMark(line)) continue;
       // Only a full stop gives way to the question mark — never an exclamation. An
       // author who typed "!" chose it, and overwriting that changes what the sentence
