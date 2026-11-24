@@ -2034,7 +2034,22 @@
     } else { flowsegs(ss) }
   }
 }
+// A writing line the manuscript typed as a long run of dots or "…" characters. The run
+// has no break opportunity, so once it is longer than the measure it ran straight
+// through the right margin to the page edge (a lesson plan's "Lesson evaluation" lines).
+// Where it would overflow, draw it as a dotted line exactly the text width, in the same
+// glyph; a shorter run keeps its typed length.
+#let DOTS_ONLY = regex("^[.…]{10,}$")
 #let para(ss, ..args) = {
+  let plain = ss.map(s => if s.at("m", default: false) { "\u{1}" } else { s.at("t", default: "") }).join("")
+  let plain = if plain == none { "" } else { plain.trim() }
+  if plain.match(DOTS_ONLY) != none {
+    return layout(size => {
+      if measure(segs(ss)).width > size.width {
+        block(width: 100%, box(width: 100%, repeat(plain.clusters().at(0))))
+      } else { para0(ss, ..args) }
+    })
+  }
   let out = para0(ss, ..args)
   if endsColon(ss) { block(sticky: true, breakable: false, width: 100%)[#out] } else { out }
 }
