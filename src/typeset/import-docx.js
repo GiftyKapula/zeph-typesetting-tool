@@ -2416,9 +2416,18 @@ function makeAssessmentTable(cells) {
   const title = titlePara ? titlePara.plain : "Assessment";
   const titleSegs = titlePara && Array.isArray(titlePara.segs) ? titlePara.segs : null;
   const after = titlePara ? blocks.slice(blocks.indexOf(titlePara) + 1) : blocks;
+  let parts = buildQAParts(after);
   const extra = [];
+  // The title alone in the top row, the questions in the row below (Agricultural
+  // Science Form 5 LB, Topic 5.6): read that row as the questions. Flattened into
+  // `extra`, its eight numbered paragraphs printed as one run-on paragraph.
+  if (!parts.length && cells.length > 1) {
+    const below = cells.slice(1).flatMap((row) => row.flatMap((c) => cellBlocks(c.xml)));
+    const rowParts = buildQAParts(below);
+    if (rowParts.length) return { t: "assessment", title, ...(hasMathSeg(titleSegs) ? { titleSegs } : {}), intro: [], parts: rowParts, extra };
+  }
   for (let r = 1; r < cells.length; r++) for (const c of cells[r]) { const t = cellText(c.xml); if (t) extra.push(t); }
-  return { t: "assessment", title, ...(hasMathSeg(titleSegs) ? { titleSegs } : {}), intro: [], parts: buildQAParts(after), extra };
+  return { t: "assessment", title, ...(hasMathSeg(titleSegs) ? { titleSegs } : {}), intro: [], parts, extra };
 }
 
 // Classify a paragraph that is NOT a Word heading: section heading, label,

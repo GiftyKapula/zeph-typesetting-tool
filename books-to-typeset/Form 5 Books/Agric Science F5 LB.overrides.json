@@ -1,0 +1,80 @@
+{
+  "//authors": "The cover byline runs the two authors together on one line (\"Mutale Chibesa E Maambo G. Mudenda\"); the AUTHORS page names them separately.",
+  "authors": [
+    "Mutale Chibesa E",
+    "Maambo G. Mudenda"
+  ],
+  "//remove": "A drafting note left in the text after the Sub-topic 5.1.1 introduction.",
+  "remove": [
+    "Here is a more learner-centred introduction that follows the style and format of the attached article."
+  ],
+  "edit": [
+    {
+      "find": "Mutale Chibesa E holds Master of Science",
+      "with": "Mutale Chibesa E holds a Master of Science"
+    },
+    {
+      "find": "(DALICE) He also holds",
+      "with": "(DALICE). He also holds"
+    },
+    {
+      "find": ". Comparing the electrical systems",
+      "with": "Comparing the electrical systems"
+    },
+    {
+      "find": "LEARNING ACTIVITY 5: Relating the principles of genetics and reproduction in animal breeding",
+      "with": "LEARNING ACTIVITY 4: Relating the principles of genetics and reproduction in animal breeding"
+    },
+    {
+      "find": "LEARNING ACTIVITY 6: Distinguishing between crossbreeding and inbreeding",
+      "with": "LEARNING ACTIVITY 5: Distinguishing between crossbreeding and inbreeding"
+    },
+    {
+      "find": "LEARNING ACTIVITY 7: Selecting animals for breeding",
+      "with": "LEARNING ACTIVITY 6: Selecting animals for breeding"
+    }
+  ],
+  "//editCell": "Key Competences table: row 2 was numbered \"+2\".",
+  "editCell": [
+    {
+      "find": "+2",
+      "with": "2"
+    }
+  ],
+  "//tableNoHeader": "The ACRONYMS table has no header row: AMR is its first entry.",
+  "tableNoHeader": [
+    "AMR"
+  ],
+  "//asHead": "Topic 5.2 alone styles its Introduction as a Word heading, so it showed as a sub-topic in the contents; the other topics have it as a plain sub-head.",
+  "asHead": [
+    "Introduction"
+  ],
+  "//edit": "Imprint/author slips; a stray full stop opening a paragraph in 5.4; Sub-topic 5.3.3 numbers its activities 1, 2, 3, 5, 6, 7, 7 (no 4, two 7s). Its first one is spelt ACTIVIY, which the engine now reads (and prints) as ACTIVITY.",
+  "//removeWhereNext": "Sub-topic 5.3.3 prints EXERCISE 4 twice, word for word (after Activity 3 and again after Activity 5): the second copy goes.",
+  "removeWhereNext": [
+    {
+      "find": "EXERCISE 4",
+      "next": "Cross Breeding and Inbreeding"
+    }
+  ],
+  "//fixExercise": "Exercise numbers within a sub-topic: 5.2.2 runs 4, 5, 7 (the 7 is 6); 5.3.4 runs 1, 6 (the 6 is 2, as its activities restart at 1).",
+  "fixExercise": [
+    {
+      "match": "EXERCISE 7",
+      "near": "Explain why plant breeders select parent plants",
+      "heading": "EXERCISE 6"
+    },
+    {
+      "match": "EXERCISE 6",
+      "near": "A dairy farmer with 50 cows",
+      "heading": "EXERCISE 2"
+    }
+  ],
+  "//replace": "Topic 5.6 sub-head typed \"8Step 8\".",
+  "replace": [
+    {
+      "find": "8Step 8:",
+      "with": "Step 8: Conclusion and Recommendations"
+    }
+  ]
+}
