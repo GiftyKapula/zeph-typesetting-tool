@@ -671,19 +671,23 @@
         // Sized/nudged per book; the pin ticks always run down its left edge and
         // along its bottom, which is what makes it read as a chip rather than a
         // plain rectangle.
+        // The masthead is placed at dy: 22mm, so the chip AND the pin ticks under it
+        // stop by ~19mm. A chip reaching 32mm sat across the eyebrow line and its
+        // outline ran through "LEVEL" of "SECONDARY EDUCATION ORDINARY LEVEL" on
+        // every computing cover (ICT Form 3, Computer Science Form 3).
         #let cx = if v == 1 { 128mm } else { 133mm }
-        #let cy = if v == 2 { 16mm } else { 11mm }
+        #let cy = if v == 2 { 4mm } else { 3mm }
         #let cw2 = if v == 1 { 32mm } else { 27mm }
-        #let chh = if v == 2 { 16mm } else { 21mm }
+        #let chh = if v == 2 { 11mm } else { 12mm }
         #place(top + left, dx: cx, dy: cy, rect(width: cw2, height: chh, radius: 1.5mm, fill: none, stroke: trace))
         #for i in range(0, 4) {
-          seg(cx - 5mm, cy + 4mm + i * 4.5mm, cx, cy + 4mm + i * 4.5mm, faint)
+          seg(cx - 5mm, cy + 2.5mm + i * (chh - 5mm) / 3, cx, cy + 2.5mm + i * (chh - 5mm) / 3, faint)
         }
         #for i in range(0, 3) {
           seg(cx + 6mm + i * 7mm, cy + chh, cx + 6mm + i * 7mm, cy + chh + 4mm, faint)
         }
         // traces off the chip to the page edges
-        #seg(cx + cw2, cy + 7mm, 176mm, cy + 7mm, trace)
+        #seg(cx + cw2, cy + 3mm, 176mm, cy + 3mm, trace)
         #seg(cx + 9mm, cy, cx + 9mm, 0mm, faint)
         // The elbow leaves the chip on its RIGHT side and drops down the right
         // MARGIN, not back across the page. Routed inward (an earlier version ran
@@ -692,11 +696,11 @@
         // masthead block is 158mm wide on a 176mm page, so only the outer ~9mm is
         // reliably clear of title glyphs -- hence x: 171mm, and a stop well above
         // the hero card.
-        #let ey = cy + chh - 4mm
+        #let ey = cy + chh - 2.5mm
         #seg(cx + cw2, ey, 171mm, ey, trace)
         #pad(171mm, ey, 1.5mm, T.accent.transparentize(35%))
         #seg(171mm, ey, 171mm, if v == 0 { 96mm } else { 84mm }, trail)
-        #ring(cx + cw2 - 4mm, cy + 4mm, 1.6mm, amber.transparentize(30%))
+        #ring(cx + cw2 - 4mm, cy + chh / 2, 1.6mm, amber.transparentize(30%))
 
         // ---- bottom-left: a smaller gadget (a screen/tablet outline) ----
         // Mirrors the corner the old lower ring sat in, so the cover keeps its
@@ -1778,7 +1782,13 @@
 // rather than to "Pow-" / "erISO" or to an overflow across the cell border.
 #let camelBreak(t) = t.replace(regex("([a-z])([A-Z])"), m => m.captures.at(0) + "\u{200B}" + m.captures.at(1))
 #let nohyphcell(p) = if p.find(camelRe) == none { [#p] } else {
-  p.split(" ").map(t => if t.find(camelRe) == none { [#t] } else {
+  // A short name (ten letters or fewer: WhatsApp, OneDrive, PowerPoint) fits any column the
+  // camel floor gives it, so it gets no break point at all. Given one, the line breaker
+  // used it even with room to carry the whole word down: "Whats" / "App" with no hyphen
+  // (ICT Form 3 TG, proofreading round 1).
+  p.split(" ").map(t => if t.find(camelRe) == none { [#t] } else if t.len() <= 10 {
+    text(hyphenate: false)[#t]
+  } else {
     text(hyphenate: false)[#camelBreak(t)]
   }).join(" ")
 }
@@ -2718,15 +2728,25 @@
 // number survives only as the fallback for a figure that has no caption to find.
 #let capnum(t) = {
   // "Fig 3" / "Fig. 3" is the same label as "Figure 3" (Geography Form 1 LB)
-  let m = str(t).matches(regex("^\\s*(Figure|Fig\\.?|Table)\\s+([0-9]+(?:\\.[0-9]+)*)"))
+  // A Teacher's Guide numbers its own figures with a prefix and may use a letter or roman
+  // part — "Figure TG 3.1.1", "Figure TG I.1", "Table TG A.8" (ICT Form 3 TG): without
+  // them no caption left a label and every List of Figures line printed the Word page.
+  let m = str(t).matches(regex("^\\s*(Figure|Fig\\.?|Table)\\s+((?:[A-Z]{2,3}\\s+)?(?:[0-9]+(?:\\.[0-9]+)*|[A-Z]{1,4}(?:\\.[0-9]+)+))"))
   if m.len() > 0 {
     let kind = if lower(m.first().captures.at(0)).starts-with("fig") { "figure" } else { "table" }
-    (kind, m.first().captures.at(1))
+    (kind, m.first().captures.at(1).replace(" ", "-"))
   } else { none }
 }
 #let capmark(t) = {
   let k = capnum(t)
   if k != none [#metadata(none)#label(k.at(0) + "-" + k.at(1))]
+}
+// capmark for a TABLE caption met as a box paragraph or an exercise lead-in: only a real
+// caption — "Table N:" with its colon straight after the number — never prose that
+// merely mentions a table ("Table 3 shows…"), which would claim the label first.
+#let tblmark(t) = {
+  let s = str(t).trim()
+  if s.match(regex("^Table\\s+(?:[A-Z]{2,3}\\s+)?(?:[0-9]+(?:\\.[0-9]+)*|[A-Z]{1,4}(?:\\.[0-9]+)+)\\s*:")) != none { capmark(s) }
 }
 #let figimg(pathstr, wpx, tall, cap, sticky: false, hmm: 0) = {
   v(2pt)
@@ -2803,7 +2823,13 @@
     [#context {
       let k = capnum(num)
       let hits = if k != none { query(label(k.at(0) + "-" + k.at(1))) } else { () }
-      if hits.len() > 0 [#counter(page).at(hits.first().location()).first()] else [#pgno]
+      // In the page's own numbering: a figure in the front matter is on page "xvii", and
+      // its bare counter value printed "19" (ICT Form 3 TG, Figure TG I.1).
+      if hits.len() > 0 {
+        let loc = hits.first().location()
+        let pat = loc.page-numbering()
+        if pat != none [#numbering(pat, ..counter(page).at(loc))] else [#counter(page).at(loc).first()]
+      } else [#pgno]
     }])
 ]
 
@@ -3113,7 +3139,10 @@
   let isrubric = T.at("uniformRubrics", default: false) and ncols >= 4 and rows.len() >= 2 and (
     lower(rows.at(0).at(0).text.trim()).starts-with("criteri") and
     rows.at(0).slice(1).all(c => lower(c.text.trim()).find(regex("^(excellent|very good|good|fair|satisfactory|developing|beginning|emerging|not|poor|needs)")) != none))
-  let cols = if isrubric { (1.1fr, 1.2fr) + range(ncols - 2).map(_ => 1fr) } else if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
+  // Column weights a book's sidecar set for this one table (`tableWidths`), carried on
+  // its first cell so every route into dtable (body, box row, exercise part) has them.
+  let given = rows.at(0).at(0).at("colw", default: none)
+  let cols = if given != none and given.len() == ncols { given.map(w => w * 1fr) } else if isrubric { (1.1fr, 1.2fr) + range(ncols - 2).map(_ => 1fr) } else if uniformgrid { range(ncols).map(_ => 1fr) } else { range(ncols).map(ci => if narrowNum(ci) or (anyWide and compactCol(ci)) { auto } else { colweight(ci) * 1fr }) }
   // ---- CDC SYLLABUS matrix look: a GREY header row that REPEATS on every page, a black
   // inner grid + thicker outer frame, no zebra, the TOPIC column bold, the activities
   // column bulleted, and the TOPIC/SUB-TOPIC row-span merge (empty left cells continue the
@@ -3267,6 +3296,9 @@
   // Render ONE body item. Factored out of the loop below so a run of items that must
   // stay together (see the checklist grouping) can be rendered inside a single block.
   let one(it) = {
+      // A "Table N: …" caption typed as a paragraph inside a box leaves the same page
+      // marker a top-level one does, or its List of Tables line prints the Word page.
+      if it.k == "para" and it.at("s", default: none) != none { tblmark(it.s.map(s => s.at("t", default: "")).join("")) }
       if it.k == "table" { dtable(it.r, noHeader: it.at("nohdr", default: false), sheet: it.at("sheet", default: false)) }
       else if it.k == "img" {
         if it.images.len() == 1 { figimg(it.images.at(0).file, it.images.at(0).w, it.images.at(0).tall, it.images.at(0).cap, hmm: it.images.at(0).at("hmm", default: 0)) }
@@ -3897,6 +3929,7 @@
       // as its own centred block so it doesn't vanish inside a paragraph. A lead that
       // CONTINUES a question (flagged `indent`) is padded to align under the question
       // text (the 22pt marker gutter) instead of hugging the box's left edge.
+      tblmark(it.q)
       let leadbody = richflow(it.at("qseg", default: ()), it.q)
       let al = it.at("align", default: none)
       let leadrow = if it.at("indent", default: false) {
