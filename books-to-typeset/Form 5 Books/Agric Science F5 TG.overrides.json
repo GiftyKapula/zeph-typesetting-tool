@@ -1,4 +1,6 @@
 {
+  "//coverImage": "Cover picture supplied by the user for the TG (Downloads\tg.jpeg, 2026-11-24; the LB has its own, lb.jpeg): a portrait farm scene, no lettering. 764x1080 is ~110 DPI at cover size, so Real-ESRGAN x4 (realesrgan-x4plus, -s 4) to 3056x4320, checked for alpha holes, resampled to 2400 wide, then cropped to the hero window's own 144:78 (2400x1300 = 423 DPI at 144 mm) at y=675 of 3393. That band is greenhouse, tractor, maize, tomatoes and the seedling circle; the engine's centre crop had cut the sack and the inset circles in half. cover-src.jpeg is the original.",
+  "coverImage": "Agric Science F5 TG-art/cover-hero.png",
   "//authors": "The cover byline runs the two authors together on one line (\"Mutale Chibesa C Maambo G. Mudenda\"); the AUTHORS page names them separately, the first as \"Mutale Chibesa E\" (the Learner's Book's sidecar uses the same form).",
   "authors": [
     "Mutale Chibesa E",
