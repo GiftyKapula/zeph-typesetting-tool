@@ -2792,6 +2792,24 @@
   ]]
   v(3pt)
 }
+// A picture the manuscript ASKS for but nobody has drawn yet (`artSlots`): a framed gap
+// of the right height carrying the author's own instruction, so a proof shows every
+// missing picture, where it falls and how much space it has.
+#let artslot(no, note, hmm) = {
+  let box-h = if hmm > 0 { hmm * 1mm } else { 55mm }
+  v(4pt)
+  block(breakable: false, width: 100%, height: box-h, radius: 2pt,
+        fill: rgb("#fcfbf7"), inset: 7pt,
+        stroke: (paint: T.primary2, thickness: 0.9pt, dash: "dashed"))[
+    #place(top + left, text(font: T.bodyFont, size: fs(7.5pt), weight: "bold",
+      fill: T.primary2, tracking: 0.4pt)[PICTURE NEEDED#if no != "" [ #h(5pt) · #h(5pt) PIC #no ]])
+    // unjustified, or a note just long enough to fill a line comes out word-spaced
+    #place(center + horizon, block(width: 84%)[
+      #set par(justify: false)
+      #align(center)[#text(font: T.bodyFont, size: fs(10.5pt), weight: "bold", fill: T.primary)[#note]]])
+  ]
+  v(4pt)
+}
 // Side-by-side images, aspect preserved (no stretching), one caption each.
 // 2-3 images: a UNIFORM height so they line up and their labels align.
 // More than that (a gallery): proportional widths that always fit the page.
