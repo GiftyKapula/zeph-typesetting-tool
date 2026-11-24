@@ -519,7 +519,10 @@ function emit(blocks) {
         // element set two ways, and half of it useless to a reader. The marker is metadata plus
         // a label, which occupies no space (measured: the caption and the table around it sit
         // at identical offsets with and without it), so this only ever adds the lookup.
-        const tblcap = capOfTable(plain);
+        // A table the author pasted as a PICTURE carries the same "Table N:" caption, and its
+        // List of Tables line needs the same marker (ICT Form 3 LB: Table 3.3.1.1 fell back to
+        // the manuscript's page 67 while it printed on 71).
+        const tblcap = capOfTable(plain) || (nextIsImg && /^table\s*\d+(?:\.\d+)*\s*:/i.test(plain) && plain.length <= 120);
         const pm0 = tblcap ? `#capmark(${S(plain)})` + p : p;
         // a short note that must not be split over a page turn (insertBlocks `keep`)
         const pm = b.keepWhole ? `#block(breakable: false)[${pm0.trim()}]\n` : pm0;
@@ -7569,6 +7572,9 @@ async function typesetOne(docxPath, themeName) {
         if (sp.move != null) { if (moved.length) out.push(moved.shift()); }
         else if (sp.head != null) { headSeen = true; out.push({ t: "head", text: sp.head }); }
         else if (sp.para != null) out.push({ t: "para", segs: mkSegs(sp.para), ...(sp.keep ? { keepWhole: true } : {}) });
+        // { raw: {...} } — a block exactly as importDocx builds it (a box rebuilt with corrected
+        // list markers, a picture already in the book's own media), as replaceBlocks takes it
+        else if (sp.raw != null && typeof sp.raw === "object") out.push(sp.raw);
         else if (sp.listitem != null) {
           if (!inList) { list += 1; inList = true; }
           const numId = !headSeen && prevNum != null ? prevNum : `ins${nIns}_${list}`;
