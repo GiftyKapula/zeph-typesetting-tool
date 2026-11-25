@@ -2495,6 +2495,44 @@ function applyOverrides(blocks, ov) {
     })(blocks);
     if (!n) console.warn("!  tableNoHeader not matched:", needle);
   }
+  // tableTitles: [{ cell, title }] — give the table holding a cell that contains `cell`
+  // the caption `title` ("Table 5: …"), set ABOVE it, and drop the caption the author
+  // typed under it, if any. A reviewer's "number every table and put its title above
+  // it" (Agricultural Science Form 5 LB, round 1: 34 untitled tables, 9 captions below)
+  // is one entry per table, applied in document order. At the top level the caption is
+  // the book's usual sticky `head`; in an activity box a bold paragraph; in an exercise
+  // a bold lead-in line bound to the table (so it is also picked up by tblmark()).
+  // `exact: true` matches a cell's whole text, for a short cell ("YY", "180") that
+  // other tables also contain as part of a longer one.
+  if (ov.tableTitles) {
+    const capRe = /^\s*Table\s+\d+\s*:/i;
+    const isTbl = (b) => b && Array.isArray(b.rows) && (b.t === "table" || b.kind === "table");
+    const holds = (b, tt) => b.rows.some((r) => Array.isArray(r) && r.some((c) => c && typeof c.text === "string" && (tt.exact ? c.text.trim() === tt.cell : c.text.includes(tt.cell))));
+    for (const tt of ov.tableTitles) {
+      let done = false;
+      (function walkTT(arr, where) {
+        for (let i = 0; i < arr.length && !done; i++) {
+          const b = arr[i];
+          if (!b || typeof b !== "object") continue;
+          if (isTbl(b) && holds(b, tt)) {
+            const nx = arr[i + 1];
+            const nxText = nx ? (nx.kind ? (nx.q || "") : blockPlain(nx)) : "";
+            if (nx && capRe.test(nxText) && nxText.length <= 160) arr.splice(i + 1, 1);
+            const cap = where === "parts"
+              ? { kind: "lead", q: tt.title, qseg: [{ t: tt.title, b: true, it: false, c: null }], a: "", aseg: [], keep: true, depth: 0 }
+              : where === "body"
+              ? { t: "para", segs: [{ t: tt.title, b: true, it: false, c: null }] }
+              : { t: "head", text: tt.title, noPromote: true };
+            arr.splice(i, 0, cap);
+            done = true;
+            return;
+          }
+          for (const k of Object.keys(b)) if (Array.isArray(b[k]) && k !== "rows") walkTT(b[k], k);
+        }
+      })(blocks, "top");
+      if (!done) console.warn("!  tableTitles not matched:", tt.cell);
+    }
+  }
   // deleteExact: ["exact trimmed text", …] — remove EVERY block (at any depth) whose
   // whole trimmed plain text equals the string, splicing it out of the tree entirely
   // (no empty paragraph left behind). Use for a redundant line the manuscript repeated
@@ -7759,7 +7797,7 @@ async function typesetOne(docxPath, themeName) {
   fixPhdCapitalisation(blocks);
   fixACappellaSpacing(blocks);
   plainHeadingScripts(blocks);
-  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableWidths || ov.tableNoHeader || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels || ov.tocBefore) { applyOverrides(blocks, ov); }
+  if (ov.fill || ov.textFix || ov.replace || ov.replaceExact || ov.editCell || ov.tableWidths || ov.tableNoHeader || ov.tableTitles || ov.remove || ov.removeRange || ov.tables || ov.edit || ov.editAnswer || ov.setMarker || ov.keepWithNext || ov.moveBefore || ov.moveSectionBefore || ov.unitalic || ov.dropMath || ov.setCaption || ov.asHead || ov.pageBreakBefore || ov.forceFreshPage || ov.centre || ov.editAll || ov.unbold || ov.boldToItalic || ov.activityHeadsBlack || ov.insertHead || ov.recolor || ov.recolorHead || ov.italiciseFrom || ov.retext || ov.subtext || ov.replaceSection || ov.unlist || ov.asSection || ov.styleSection || ov.setHeading || ov.recase || ov.asPara || ov.mergePara || ov.renumberLessons || ov.renumberActivities || ov.renumberTopics || ov.renameNear || ov.centrePara || ov.boldFind || ov.underline || ov.splitBefore || ov.removeWhereNext || ov.fixExercise || ov.numberedTopics || ov.topicNumFirst || ov.stripCaptionLabels || ov.learnStatement || ov.recolorLabel || ov.insertText || ov.toTable || ov.stripUnderline || ov.replaceBlocks || ov.deleteRun || ov.monoLines || ov.imageToText || ov.imageToTable || ov.unboldBlock || ov.unitalicBlock || ov.splitBoxTitle || ov.tidyPunctSpace || ov.endStop || ov.splitSubParts || ov.headingLevels || ov.tocBefore) { applyOverrides(blocks, ov); }
   if (fs.existsSync(ovPath)) console.log("   applied overrides:", path.basename(ovPath));
   competenceLeadIn(blocks, isTeacherBookName(base), ov.competenceLeadIn);
   mergeSplitTables(blocks);  // a grid the author split in Word is one table again

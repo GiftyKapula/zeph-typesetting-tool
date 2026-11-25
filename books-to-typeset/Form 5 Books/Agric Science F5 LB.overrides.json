@@ -8,7 +8,9 @@
   "coverImage": "Agric Science F5 LB-art/cover-hero-band.png",
   "//remove": "A drafting note left in the text after the Sub-topic 5.1.1 introduction.",
   "remove": [
-    "Here is a more learner-centred introduction that follows the style and format of the attached article."
+    "Here is a more learner-centred introduction that follows the style and format of the attached article.",
+    "Key examples of differentiated cells in crop plants:",
+    "The simple tests above only show whether a nutrient is present."
   ],
   "edit": [
     {
@@ -46,6 +48,722 @@
     {
       "find": "LEARNING ACTIVITY 7: Selecting animals for breeding",
       "with": "LEARNING ACTIVITY 6: Selecting animals for breeding"
+    },
+    {
+      "find": "Peoples’ Republic",
+      "with": "People’s Republic"
+    },
+    {
+      "find": "Agricultural Sciences; School",
+      "with": "Agricultural Sciences, School"
+    },
+    {
+      "find": "Edgar Lungu National STEM School",
+      "with": "Edgar Lungu National STEM Secondary School"
+    },
+    {
+      "find": "Mr. James Chiwele, and",
+      "with": "Mr. James Chiwele and"
+    },
+    {
+      "find": "environmental purposes Understanding",
+      "with": "environmental purposes. Understanding"
+    },
+    {
+      "find": "cotton wool, a stopwatch",
+      "with": "filter paper, a stopwatch"
+    },
+    {
+      "find": "Soil separates govern several",
+      "with": "Soil texture governs several"
+    },
+    {
+      "find": "such as The English system",
+      "with": "such as the English system"
+    },
+    {
+      "find": "The table below shows separates",
+      "with": "Table 1 shows separates"
+    },
+    {
+      "find": "(Ca²⁺, Mg²⁺, K⁺) the basis",
+      "with": "(Ca²⁺, Mg²⁺, K⁺) – the basis"
+    },
+    {
+      "find": "Sands: at least 80% sand",
+      "with": "Sands: at least 85% sand"
+    },
+    {
+      "find": "granular, blocky, platy, and crumb structures",
+      "with": "granular, blocky, prismatic, columnar and platy structures"
+    },
+    {
+      "find": "partially or complete anaerobic condition i.e.",
+      "with": "partially or completely anaerobic conditions i.e."
+    },
+    {
+      "find": "Dark brown black soils:",
+      "with": "Dark brown to black soils:"
+    },
+    {
+      "find": "Quartz minerals dominants such types of soils.",
+      "with": "Quartz minerals dominate such soils."
+    },
+    {
+      "find": "e.g.  Sandy soils.",
+      "with": "e.g. sandy soils."
+    },
+    {
+      "find": "The addition of farm manure tends to lower the bilk density",
+      "with": "The addition of farm manure tends to lower the bulk density"
+    },
+    {
+      "find": "tractors increases the bulk.",
+      "with": "tractors increases the bulk density."
+    },
+    {
+      "find": "If the soil particles lay close together",
+      "with": "If the soil particles lie close together"
+    },
+    {
+      "find": "while compacted or have low permeability",
+      "with": "while compacted or clayey soils with small pores have low permeability"
+    },
+    {
+      "find": "moisture contents as evidence by",
+      "with": "moisture contents as evidenced by"
+    },
+    {
+      "find": "Table 5 below gives the expected consistence",
+      "with": "Table 6 below gives the expected consistence"
+    },
+    {
+      "find": "Knowing Soil Consistence is important",
+      "with": "Knowing soil consistence is important"
+    },
+    {
+      "find": " The advantages of the feel method are that it is quick and inexpensive, requires no laboratory equipment and it is useful for field assessments and preliminary soil classification. Its limitation is that results are subjective and depend on the experience of the person performing the test.",
+      "with": ""
+    },
+    {
+      "find": "soil compaction, helps assess root penetration",
+      "with": "soil compaction and helps to assess root penetration"
+    },
+    {
+      "find": "allowing water, oxygen, and glucose to pass freely",
+      "with": "allowing water, oxygen and carbon dioxide to pass freely"
+    },
+    {
+      "find": "Nucleolus:produces",
+      "with": "Nucleolus: produces"
+    },
+    {
+      "find": "Nucleoplasm:fluid",
+      "with": "Nucleoplasm: fluid"
+    },
+    {
+      "find": "Smooth ER which has no ribosomes,",
+      "with": "Smooth ER, which has no ribosomes,"
+    },
+    {
+      "find": "(ATP) () which",
+      "with": "(ATP) which"
+    },
+    {
+      "find": "some of the roles mitosis play in plants",
+      "with": "some of the roles mitosis plays in plants"
+    },
+    {
+      "find": "Plants can’t run from injury, so repairing damage matters a lot.",
+      "with": "Because plants cannot move away from injury, repair is important."
+    },
+    {
+      "find": "In plants, growth is concentrated in meristems",
+      "with": "Because growth is concentrated in meristems"
+    },
+    {
+      "find": "Here’s why it matters:",
+      "with": "Its importance is outlined below."
+    },
+    {
+      "find": "meiosis makes it possible for pollen (male gamete) and ovule (female gamete) to fuse",
+      "with": "meiosis makes it possible for the male gamete (sperm cell) and the female gamete (egg cell) to fuse"
+    },
+    {
+      "find": " Explain the significance of meiosis in plant breeding programmes.",
+      "with": ""
+    },
+    {
+      "find": "each lobe usually contain two pollen sacs",
+      "with": "each lobe usually contains two pollen sacs"
+    },
+    {
+      "find": "diffuses through, this layer. Thus, tapetum makes a nutritive layer",
+      "with": "diffuses through this layer. Thus, the tapetum forms a nutritive layer"
+    },
+    {
+      "find": "protective layer the, exine,",
+      "with": "protective layer, the exine,"
+    },
+    {
+      "find": "Figure 11: Post Fertilisation events",
+      "with": "Figure 11: Post-fertilisation Events"
+    },
+    {
+      "find": "Germination and Viability tests",
+      "with": "Germination and Viability Tests"
+    },
+    {
+      "find": "Through activity 1, you will investigate",
+      "with": "Through Learning Activity 1, you will investigate"
+    },
+    {
+      "find": "genes, which exist in pairs, alleles on chromosomes",
+      "with": "genes, which exist in pairs of alleles on homologous chromosomes"
+    },
+    {
+      "find": "Mendels laws of inheritance",
+      "with": "Mendel’s laws of inheritance"
+    },
+    {
+      "find": "The coefficient of relationship (R) between a parent plant and its offspring is 0.50 (50%).",
+      "with": "The coefficient of relationship between full siblings is 0.50 (50%)."
+    },
+    {
+      "find": "This means that the parent plant and its offspring share 50% of their genes by descent.",
+      "with": "This means that full siblings share 50% of their genes by descent."
+    },
+    {
+      "find": "between relations in plants depend on",
+      "with": "between relatives in plants depends on"
+    },
+    {
+      "find": "Knowledge of genetic principals",
+      "with": "Knowledge of genetic principles"
+    },
+    {
+      "find": "Figure 12: Controlled pollination",
+      "with": "Figure 14: Controlled pollination"
+    },
+    {
+      "find": "Planting Breeding Methods",
+      "with": "Plant Breeding Methods"
+    },
+    {
+      "find": "During the activity of this topic, you will",
+      "with": "In this activity, you will"
+    },
+    {
+      "find": "Figure 13: Sequence of step in plant breeding",
+      "with": "Figure 15: Sequence of steps in plant breeding"
+    },
+    {
+      "find": "Figure 14: The Step-by-Step Procedure",
+      "with": "Figure 16: The Step-by-Step Procedure"
+    },
+    {
+      "find": "The importance of classifying crop pests and diseases is essential for",
+      "with": "Classifying crop pests and diseases is essential for"
+    },
+    {
+      "find": "whiteflies and aphids.the diagram below",
+      "with": "whiteflies and aphids. The diagram below"
+    },
+    {
+      "find": "Figure 15: Classification Chart of Crop Pests",
+      "with": "Figure 17: Classification Chart of Crop Pests"
+    },
+    {
+      "find": "Figure 16: The IPM pyramid",
+      "with": "Figure 18: The IPM Pyramid"
+    },
+    {
+      "find": "In groups of five, put on gloves",
+      "with": "In groups of five or individually, put on gloves"
+    },
+    {
+      "find": "Examples digestive system and reproductive system.",
+      "with": "Examples are the digestive system and the reproductive system."
+    },
+    {
+      "find": "axial skeleton comprising of skull, vertebral column, ribs and sternum. The appendicular skeleton which is comprised of",
+      "with": "axial skeleton comprising the skull, vertebral column, ribs and sternum, and the appendicular skeleton, which consists of"
+    },
+    {
+      "find": "The digestives system is for",
+      "with": "The digestive system is for"
+    },
+    {
+      "find": "The respiratory system is for intake of oxygen, breaking down of absorbed glucose and remove of carbon dioxide. It is the source of energy for all metabolic reactions in the body of an animal.",
+      "with": "The respiratory system takes in oxygen and removes carbon dioxide. The oxygen it supplies is used in cellular respiration, in which glucose is broken down in the cells to release energy for all metabolic reactions in the body of an animal."
+    },
+    {
+      "find": "In this subtopic you will analyse",
+      "with": "In this sub-topic you will analyse"
+    },
+    {
+      "find": "prevent digestion disorder,",
+      "with": "prevent digestive disorders,"
+    },
+    {
+      "find": "Modern feed analysis: Proximate (Weende) analysis and the Van Soest method",
+      "with": "Modern feed analysis: the Van Soest method"
+    },
+    {
+      "find": "Dietary requirements refers to",
+      "with": "Dietary requirements refer to"
+    },
+    {
+      "find": "require different amount of nutrients",
+      "with": "require different amounts of nutrients"
+    },
+    {
+      "find": "use digestive system of a cattle, goat or sheep",
+      "with": "use the digestive system of a cow, goat or sheep"
+    },
+    {
+      "find": "shewing of cud",
+      "with": "chewing of the cud"
+    },
+    {
+      "find": "Examples of ruminant animals includes cattle, sheep and goats while non-ruminants pigs",
+      "with": "Examples of ruminant animals include cattle, sheep and goats, while non-ruminants include pigs"
+    },
+    {
+      "find": "describe the following animal feed ration:",
+      "with": "describe the following animal feed rations:"
+    },
+    {
+      "find": "steps in feed formulating:",
+      "with": "steps in feed formulation:"
+    },
+    {
+      "find": "that can be use in innovative",
+      "with": "that can be used in innovative"
+    },
+    {
+      "find": "Share you findings with the class.",
+      "with": "Share your findings with the class."
+    },
+    {
+      "find": "such as maize brain,",
+      "with": "such as maize bran,"
+    },
+    {
+      "find": "to formulate animal ration. The materials are cheap, easily available and reduces waste.",
+      "with": "to formulate animal rations. The materials are cheap, easily available and reduce waste."
+    },
+    {
+      "find": "uses less water and produces fodder",
+      "with": "use less water and produce fodder"
+    },
+    {
+      "find": "It marks the begging of a new life.",
+      "with": "It marks the beginning of a new life."
+    },
+    {
+      "find": "Infertility in females is caused by failure",
+      "with": "Signs of infertility in females include failure"
+    },
+    {
+      "find": "Infertility reduce livestock production, increase cost of breeding leading to lower profits.",
+      "with": "Infertility reduces livestock production and increases the cost of breeding, leading to lower profits."
+    },
+    {
+      "find": "prevented by proving good nutrition",
+      "with": "prevented by providing good nutrition"
+    },
+    {
+      "find": "selection of health breeding stock",
+      "with": "selection of healthy breeding stock"
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: calculating conception",
+      "with": "LEARNING ACTIVITY 3: Calculating conception"
+    },
+    {
+      "find": "relative to the number of bred.",
+      "with": "relative to the number of cows mated (bred)."
+    },
+    {
+      "find": "Principle of Genetics and Reproduction in Animal Breeding",
+      "with": "Principles of Genetics and Reproduction in Animal Breeding"
+    },
+    {
+      "find": "to develop genetic diagram from",
+      "with": "to develop a genetic diagram from"
+    },
+    {
+      "find": "The formation of sperm and egg cells occur meiosis.",
+      "with": "The formation of sperm and egg cells occurs through meiosis."
+    },
+    {
+      "find": "provides different combination of traits",
+      "with": "provides different combinations of traits"
+    },
+    {
+      "find": "mating a Friesian with a jersey.",
+      "with": "mating a Friesian with a Jersey."
+    },
+    {
+      "find": "An offspring from two breeds with a third breed.",
+      "with": "A crossbred animal from two breeds is mated with a third breed."
+    },
+    {
+      "find": "Half-brother × half sister",
+      "with": "Half-brother × half-sister"
+    },
+    {
+      "find": "the advantages if inbreeding",
+      "with": "the advantages of inbreeding"
+    },
+    {
+      "find": "The following is the criteria for selecting",
+      "with": "The following are the criteria for selecting"
+    },
+    {
+      "find": "have a health appearance,",
+      "with": "have a healthy appearance,"
+    },
+    {
+      "find": "Health animals are more productive",
+      "with": "Healthy animals are more productive"
+    },
+    {
+      "find": "Embryo transfer (ETT): Embryo transfer refers involves",
+      "with": "Embryo transfer (ET): Embryo transfer involves"
+    },
+    {
+      "find": "It is faster in genetic improvement, better disease resistance, and increased productivity.",
+      "with": "It speeds up genetic improvement and improves disease resistance and productivity."
+    },
+    {
+      "find": "detecting heat (oestrogen)",
+      "with": "detecting heat (oestrus)"
+    },
+    {
+      "find": "before sharing your findings with the class. Share your findings with the class.",
+      "with": "before sharing your findings with the class."
+    },
+    {
+      "find": "smooth and shin coat",
+      "with": "smooth and shiny coat"
+    },
+    {
+      "find": "Parasites and diseases affects livestock by reducing the growth rate, lower milk, meat, and egg production. They can cause poor fertility and reproduction, increase treatment costs.",
+      "with": "Parasites and diseases affect livestock by reducing growth rate and lowering milk, meat and egg production. They can cause poor fertility and increase treatment costs."
+    },
+    {
+      "find": "Shares your findings with the class:",
+      "with": "Share your findings with the class."
+    },
+    {
+      "find": "Tick damage lower leather quality.",
+      "with": "Tick damage lowers leather quality."
+    },
+    {
+      "find": "Share your findings with class.",
+      "with": "Share your findings with the class."
+    },
+    {
+      "find": "this improves animal health, increase milk,",
+      "with": "this improves animal health, increases milk,"
+    },
+    {
+      "find": "hence increases farmer’s profits.",
+      "with": "hence increases farmers’ profits."
+    },
+    {
+      "find": "regular monitoring, and maintain hygiene.",
+      "with": "regular monitoring, and maintaining hygiene."
+    },
+    {
+      "find": "In this activity you learn about",
+      "with": "In this activity you will learn about"
+    },
+    {
+      "find": "Present of findings to the class",
+      "with": "Present your findings to the class"
+    },
+    {
+      "find": "Anti-microbial are substances",
+      "with": "Antimicrobials are substances"
+    },
+    {
+      "find": "Anti-microbial resistance (AMR) occur when",
+      "with": "Antimicrobial resistance (AMR) occurs when"
+    },
+    {
+      "find": "AMR have effects on animals",
+      "with": "AMR has effects on animals"
+    },
+    {
+      "find": "AMR increase treatment costs, lower profits, and leads to",
+      "with": "AMR increases treatment costs, lowers profits and leads to"
+    },
+    {
+      "find": "AMR can also be prevented by avoiding",
+      "with": "AMR can also be prevented by avoiding routine use of antibiotics as growth promoters."
+    },
+    {
+      "find": "A farmer’s breeding records are provided. Calculate conception, calving, farrowing (or kidding), weaning and mortality rates.",
+      "with": "Use the breeding records in Learning Activity 3 (75 cows mated, 60 cows conceived, 57 cows calved, 55 calves born alive and 50 calves weaned) to calculate the conception, calving and weaning rates."
+    },
+    {
+      "find": "suitable for small scale farmers",
+      "with": "suitable for small-scale farmers"
+    },
+    {
+      "find": "seed drills, bloom sprayers,",
+      "with": "seed drills, boom sprayers,"
+    },
+    {
+      "find": "they have high initial cost, requires skilled operators",
+      "with": "they have high initial cost, require skilled operators"
+    },
+    {
+      "find": "Force is measured in Newton (N)",
+      "with": "Force is measured in newtons (N)"
+    },
+    {
+      "find": "One Newton is the force",
+      "with": "One newton is the force"
+    },
+    {
+      "find": "Work is measured in Joules",
+      "with": "Work is measured in joules"
+    },
+    {
+      "find": "Application of force in agriculture include",
+      "with": "Applications of force in agriculture include"
+    },
+    {
+      "find": "with a force of 3000 n over 250 m. calculate the work done.",
+      "with": "with a force of 3 000 N over 250 m. Calculate the work done."
+    },
+    {
+      "find": "W = 3000 × 250 = 750,000J (750KJ)",
+      "with": "W = 3 000 × 250 = 750 000 J (750 kJ)"
+    },
+    {
+      "find": "Since cos 20o = 0.94",
+      "with": "Since cos 20° = 0.94"
+    },
+    {
+      "find": "= 235,000J (235 KJ)",
+      "with": "= 235 000 J (235 kJ)"
+    },
+    {
+      "find": "P = Power (w)",
+      "with": "P = Power (W)"
+    },
+    {
+      "find": "1 kilowatt = 1000 w",
+      "with": "1 kilowatt = 1 000 W"
+    },
+    {
+      "find": "= 746 w (approximately)",
+      "with": "= 746 W (approximately)"
+    },
+    {
+      "find": "= 2,000w = 2Kw",
+      "with": "= 2 000 W = 2 kW"
+    },
+    {
+      "find": "Potential energy = mass × acceleration × height",
+      "with": "Potential energy = mass × acceleration due to gravity × height"
+    },
+    {
+      "find": "g = pull of gravity (9.81)",
+      "with": "g = acceleration due to gravity (9.81 m/s²)"
+    },
+    {
+      "find": "travels at 4 m/s. calculate kinetic energy.",
+      "with": "travels at 4 m/s. Calculate kinetic energy."
+    },
+    {
+      "find": "= 12,000 j",
+      "with": "= 12 000 J"
+    },
+    {
+      "find": "measured in Newton-meter (Nm)",
+      "with": "measured in newton-metres (N m)"
+    },
+    {
+      "find": "Step 2: Calculate",
+      "with": "Step 4: Calculate"
+    },
+    {
+      "find": "Safety precaution during refueling",
+      "with": "Safety precautions during refuelling."
+    },
+    {
+      "find": "mainly in form of heat",
+      "with": "mainly in the form of heat"
+    },
+    {
+      "find": "improve engine efficiency, and reduces fuel consumption.",
+      "with": "improves engine efficiency and reduces fuel consumption."
+    },
+    {
+      "find": "It is important as it makes it easier engine starting, better air-fuel mixing, and improved combustion.",
+      "with": "It is important because it makes engine starting easier and improves air–fuel mixing and combustion."
+    },
+    {
+      "find": "smoke emission, corrosions,",
+      "with": "smoke emission, corrosion,"
+    },
+    {
+      "find": "A high fire point indicate better",
+      "with": "A high fire point indicates better"
+    },
+    {
+      "find": "and prevents tyre wear during cornering",
+      "with": "and reduces tyre wear during cornering"
+    },
+    {
+      "find": "It carry the tractor load, transfer power",
+      "with": "They carry the tractor load, transfer power"
+    },
+    {
+      "find": "It converts rotational motion into forward movement, and provide traction",
+      "with": "They convert rotational motion into forward movement and provide traction"
+    },
+    {
+      "find": "Proper maintenance include:",
+      "with": "Proper maintenance includes:"
+    },
+    {
+      "find": "while a diesel engine use compression ignition instead of spark plug.",
+      "with": "while a diesel engine uses compression ignition instead of spark plugs."
+    },
+    {
+      "find": "Carrying out routine maintenance of tractor.",
+      "with": "Carrying out routine maintenance of a tractor."
+    },
+    {
+      "find": "Inspect PTO on shaft and guards.",
+      "with": "Inspect PTO shaft and guards."
+    },
+    {
+      "find": "(250, 500, or 1000 hours). This include the following:",
+      "with": "(250, 500, or 1000 hours). This includes the following:"
+    },
+    {
+      "find": "lubricants used ae engine oil",
+      "with": "lubricants used are engine oil"
+    },
+    {
+      "find": "and radiator fins for dirty.",
+      "with": "and radiator fins for dirt."
+    },
+    {
+      "find": "Tractor maintenance record should include:",
+      "with": "A tractor maintenance record should include:"
+    },
+    {
+      "find": "you will start and drive tractor.",
+      "with": "you will start and drive a tractor."
+    },
+    {
+      "find": "a nearby farm that have a combine harvester and a maize Sheller.",
+      "with": "a nearby farm that has a combine harvester and a maize sheller."
+    },
+    {
+      "find": "efficiently and reduces labour requirements. A Combine harvester performs",
+      "with": "efficiently and reduce labour requirements. A combine harvester performs"
+    },
+    {
+      "find": "Therefore, a Combine harvester is a machine",
+      "with": "A combine harvester is a machine"
+    },
+    {
+      "find": "A plough with and angle of attack",
+      "with": "A plough with an angle of attack"
+    },
+    {
+      "find": "different angles of attach.",
+      "with": "different angles of attack."
+    },
+    {
+      "find": "Easy of penetration.",
+      "with": "Ease of penetration."
+    },
+    {
+      "find": "depends largely on it geometry.",
+      "with": "depends largely on its geometry."
+    },
+    {
+      "find": "reduces draught, and minimise fuel consumption.",
+      "with": "reduces draught, and minimises fuel consumption."
+    },
+    {
+      "find": "The scope of agricultural economic include but not limited to",
+      "with": "The scope of agricultural economics includes, but is not limited to,"
+    },
+    {
+      "find": "discuss the main principles of agricultural economic.",
+      "with": "discuss the main principles of agricultural economics."
+    },
+    {
+      "find": "By how may heads?",
+      "with": "By how many heads?"
+    },
+    {
+      "find": "Demand is the quantity of good and service consumers",
+      "with": "Demand is the quantity of a good or service consumers"
+    },
+    {
+      "find": "Prices of related good",
+      "with": "Prices of related goods"
+    },
+    {
+      "find": "when people’s income increase,",
+      "with": "when people’s incomes increase,"
+    },
+    {
+      "find": "At equilibrium: There is No shortage, No surplus,",
+      "with": "At equilibrium: there is no shortage, no surplus,"
+    },
+    {
+      "find": "price of 25Kg maize meal",
+      "with": "price of 25 kg maize meal"
+    },
+    {
+      "find": "Elasticity measures how responsive quantity demanded/supplied to a change",
+      "with": "Elasticity measures how responsive quantity demanded/supplied is to a change"
+    },
+    {
+      "find": "measures responsiveness of quantity demanded to change in price, income, or price of related goods.",
+      "with": "measures the responsiveness of quantity demanded to a change in price only. The response to a change in income is measured by income elasticity of demand, and the response to a change in the price of related goods by cross elasticity of demand."
+    },
+    {
+      "find": "“output (kg or tonnes) / scale of production",
+      "with": "“output (kg or tonnes) / scale of production”"
+    },
+    {
+      "find": "The three principles of economies of scale are:",
+      "with": "The three principles of scale are:"
+    },
+    {
+      "find": "management becomes complex, communication falls,",
+      "with": "management becomes complex, communication breaks down,"
+    },
+    {
+      "find": "outcompeted by medium sized farms",
+      "with": "outcompeted by medium-sized farms"
+    },
+    {
+      "find": "This section will introduce you to on how to conduct scientific research.  The activity, will enable",
+      "with": "This section will introduce you to how to conduct scientific research. The activity will enable"
+    },
+    {
+      "find": "Brady, N. C. & Weil",
+      "with": "Brady, N. C., & Weil"
+    },
+    {
+      "find": "Leedy, P. D. & Ormrod",
+      "with": "Leedy, P. D., & Ormrod"
     }
   ],
   "//editCell": "Key Competences table: row 2 was numbered \"+2\".",
@@ -53,6 +771,54 @@
     {
       "find": "+2",
       "with": "2"
+    },
+    {
+      "find": "Electrical control unit",
+      "with": "Electronic control unit"
+    },
+    {
+      "find": "RRYY, RRYy, RrYY, RrYy,",
+      "with": "RRYY, RRYy, RrYY, RrYy"
+    },
+    {
+      "find": "Filter blood by removing",
+      "with": "Filters blood by removing"
+    },
+    {
+      "find": "Carry urine to the bladder.",
+      "with": "Carries urine to the bladder."
+    },
+    {
+      "find": "East coast fever",
+      "with": "East Coast fever"
+    },
+    {
+      "find": "Rift valley fever",
+      "with": "Rift Valley fever"
+    },
+    {
+      "find": "Newcastle",
+      "with": "Newcastle disease"
+    },
+    {
+      "find": "Test breaks",
+      "with": "Test brakes"
+    },
+    {
+      "find": "Ensure safety stopping",
+      "with": "Ensure safe stopping"
+    },
+    {
+      "find": "Operate braking system",
+      "with": "Operates braking system"
+    },
+    {
+      "find": "Stationery and portable",
+      "with": "Stationary and portable"
+    },
+    {
+      "find": "which one pollen nucleus fertilises the egg cell",
+      "with": "which one male gamete (sperm nucleus) fertilises the egg cell"
     }
   ],
   "//tableNoHeader": "The ACRONYMS table has no header row: AMR is its first entry.",
@@ -68,7 +834,7 @@
   "removeWhereNext": [
     {
       "find": "EXERCISE 4",
-      "next": "Cross Breeding and Inbreeding"
+      "next": "Crossbreeding and Inbreeding"
     }
   ],
   "//fixExercise": "Exercises numbered 1..n within each sub-topic, as the Teacher's Guide does: 5.2.2 ran 4, 5, 7; 5.3.2 ran 2, 3; 5.3.3 ran 4, (4), 5; 5.3.4 ran 1, 6.",
@@ -112,6 +878,16 @@
       "match": "EXERCISE 6",
       "near": "A dairy farmer with 50 cows",
       "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "crossing over during meiosis I",
+      "addParts": [
+        {
+          "text": "Explain the significance of meiosis in plant breeding programmes.",
+          "marker": "4."
+        }
+      ]
     }
   ],
   "//replace": "Topic 5.6 sub-head typed \"8Step 8\".",
@@ -119,6 +895,34 @@
     {
       "find": "8Step 8:",
       "with": "Step 8: Conclusion and Recommendations"
+    },
+    {
+      "find": "Red Soils: This colour is due to the presence of iron oxides",
+      "with": "Red Soils: This colour is due to the presence of iron oxides known as haematite (Fe₂O₃). These colours are developed under strongly aerobic conditions in tropical areas."
+    },
+    {
+      "find": "Fine textured surface soils such as silt loams, clay loams and clays",
+      "with": "Soil texture: Fine textured surface soils such as silt loams, clay loams and clays have low bulk densities ranging from 1.0–1.6 g/cm³."
+    },
+    {
+      "find": "Sandy soils i.e. sand, sandy loam generally have high bulk densities",
+      "with": "Sandy soils i.e. sand, sandy loam generally have high bulk densities ranging from 1.2 to 1.8 g/cm³."
+    },
+    {
+      "find": "Very compact soils have a higher bulk density compaction forces.",
+      "with": "Soil Compaction: Very compact soils have a higher bulk density: compaction forces solid material into pore spaces, which reduces the total pore space and increases bulk density."
+    },
+    {
+      "find": "Dense sub soils may have bulk densities as high as 2g/cm",
+      "with": "Depth of Soil: Bulk densities usually increase with increasing depth in soil profile.  This is due to lower levels of organic matter and more compaction.  Dense sub soils may have bulk densities as high as 2 g/cm³ or even greater."
+    },
+    {
+      "find": "the teacher will provide with the following:",
+      "with": "*Work in groups or individually. Your teacher will provide the following:*"
+    },
+    {
+      "find": "Formula: Mean (x̄) = Sum of all values",
+      "with": "*Formula:* *Mean ($overline(x)$) = Sum of all values ($Sigma x$) ÷ Number of values ($n$)*"
     }
   ],
   "//subtext": "Topics typed TOPIC 5.1.0 ... 5.6.0 (5.3 and 5.5 without a colon): set as TOPIC 5.1 ... 5.6, the form the Teacher's Guide uses.",
@@ -146,6 +950,94 @@
     {
       "from": "TOPIC 5.6.0:",
       "to": "TOPIC 5.6:"
+    },
+    {
+      "from": "consistency",
+      "to": "consistence"
+    },
+    {
+      "from": "bulky densit",
+      "to": "bulk densit"
+    },
+    {
+      "from": "2.65 g/cm³ Calculate",
+      "to": "2.65 g/cm³, calculate"
+    },
+    {
+      "from": "Punnet ",
+      "to": "Punnett "
+    },
+    {
+      "from": " - 2 marks",
+      "to": ""
+    },
+    {
+      "from": " - 8 marks",
+      "to": ""
+    },
+    {
+      "from": "sub topic",
+      "to": "sub-topic"
+    },
+    {
+      "from": "subtopic",
+      "to": "sub-topic"
+    },
+    {
+      "from": "Kg",
+      "to": "kg"
+    },
+    {
+      "from": "Large white",
+      "to": "Large White"
+    },
+    {
+      "from": "Cross Breeding",
+      "to": "Crossbreeding"
+    },
+    {
+      "from": "Anti-microbial",
+      "to": "Antimicrobial"
+    },
+    {
+      "from": "anti-microbial",
+      "to": "antimicrobial"
+    },
+    {
+      "from": "Kidding rat (%)",
+      "to": "Kidding rate (%)"
+    },
+    {
+      "from": "fly wheel",
+      "to": "flywheel"
+    },
+    {
+      "from": "gear box",
+      "to": "gearbox"
+    },
+    {
+      "from": "rought force",
+      "to": "raught force"
+    },
+    {
+      "from": "Specific drought",
+      "to": "Specific draught"
+    },
+    {
+      "from": "KN",
+      "to": "kN"
+    },
+    {
+      "from": "24 Kw",
+      "to": "24 kW"
+    },
+    {
+      "from": "Calculate the angle of attack of the plough.",
+      "to": "Calculate the angle of inclination of the plough."
+    },
+    {
+      "from": "The following data shows",
+      "to": "The following data show"
     }
   ],
   "//insertHead": "Topic 5.4 has no sub-topic line in the body; the manuscript's own contents list names it Sub-Topic 5.4.1: Farm Mechanisation.",
@@ -180,10 +1072,10 @@
       "src": "Agric Science F5 LB-hires/image27.png"
     },
     "image12.png": {
-      "src": "Agric Science F5 LB-hires/image12.png"
+      "src": "Agric Science F5 LB-hires/image13.png"
     },
     "image24.png": {
-      "src": "Agric Science F5 LB-hires/image24.png"
+      "src": "Agric Science F5 LB-hires/image25.png"
     },
     "image21.png": {
       "src": "Agric Science F5 LB-hires/image21.png"
@@ -192,10 +1084,10 @@
       "src": "Agric Science F5 LB-hires/image14.png"
     },
     "image25.png": {
-      "src": "Agric Science F5 LB-hires/image25.png"
+      "src": "Agric Science F5 LB-hires/image12.png"
     },
     "image13.png": {
-      "src": "Agric Science F5 LB-hires/image13.png"
+      "src": "Agric Science F5 LB-hires/image26.png"
     },
     "image32.png": {
       "src": "Agric Science F5 LB-hires/image32.png"
@@ -207,19 +1099,19 @@
       "src": "Agric Science F5 LB-hires/image37.png"
     },
     "image39.png": {
-      "src": "Agric Science F5 LB-hires/image39.png"
-    },
-    "image38.png": {
       "src": "Agric Science F5 LB-hires/image38.png"
     },
+    "image38.png": {
+      "src": "Agric Science F5 LB-hires/image39.png"
+    },
     "image34.png": {
-      "src": "Agric Science F5 LB-hires/image34.png"
+      "src": "Agric Science F5 LB-hires/image22.png"
     },
     "image33.png": {
       "src": "Agric Science F5 LB-hires/image33.png"
     },
     "image22.png": {
-      "src": "Agric Science F5 LB-hires/image22.png"
+      "src": "Agric Science F5 LB-hires/image34.png"
     },
     "image35.jpeg": {
       "src": "Agric Science F5 LB-hires/image35.png"
@@ -258,11 +1150,1328 @@
       "src": "Agric Science F5 LB-hires/image30.png"
     },
     "image26.png": {
-      "src": "Agric Science F5 LB-hires/image26.png"
+      "src": "Agric Science F5 LB-hires/image24.png"
     },
     "image4.gif": {
       "src": "Agric Science F5 LB-hires/image4.png"
+    },
+    "image29.png": {
+      "src": "Agric Science F5 LB-art/pearson-square-16cp.png"
     }
   },
-  "//images": "Pictures upscaled to >=300 ppi (tools/upscale-images.js, iGPU). The tool named the p11 soil-structure drawing image2.png; it is image4.gif. image9 and image15 came back with a see-through piece and were redone in one pass."
+  "//images": "Pictures upscaled to >=300 ppi (tools/upscale-images.js, iGPU). The tool named the p11 soil-structure drawing image2.png; it is image4.gif. image9 and image15 came back with a see-through piece and were redone in one pass.",
+  "//round1": "Proofreading round 1 (25 Nov 2026, 339 comments; recipe C:/z/agric-f5-lb-r1). Every table is numbered with its title above it (tableTitles); pictures re-mapped to the right upscaled files; text corrections as marked.",
+  "endStop": [
+    "Record your findings and report to the class",
+    "grey hydromorphic soils",
+    "Interpret your answer in terms of aeration and infiltration. Present your findings to the class",
+    "Mendelian inheritance, giving one example of each",
+    "effectiveness of the genetically modified organism",
+    "sustainable crop protection practices",
+    "Male animals",
+    "Examples include salt, sugar, and fertiliser"
+  ],
+  "replaceBlocks": [
+    {
+      "find": "Calculate bulk density:",
+      "with": [
+        {
+          "listitem": "*Calculate bulk density: Bulk density = Mass of dry soil ÷ Volume of soil sample.*",
+          "marker": "d)"
+        }
+      ]
+    },
+    {
+      "find": "B u l k D e n s i t y = frac(M a s s o f d r y s o i l, V o l u m e o f s o i l s a m p l e)",
+      "with": []
+    },
+    {
+      "find": "Calculate porosity (%) = [1 − (Bulk density ÷ Particle density)] × 100. Note: pouring water into dry soil in a cylinder is only a rough demonstration, because trapped air, wetting effects and packing make the measured pore volume inaccurate.",
+      "with": [
+        {
+          "listitem": "*Calculate porosity (%) = [1 − (Bulk density ÷ Particle density)] × 100.*",
+          "marker": "c)"
+        }
+      ]
+    },
+    {
+      "find": "Calculate porosity:",
+      "with": []
+    },
+    {
+      "find": "P o r o s i t y paren.l percent paren.r = frac(V o l u m e o f p o r e s p a c e s, T o t a l s o i l v o l u m e) times 100",
+      "with": [
+        {
+          "para": "**Note:** *pouring water into dry soil in a cylinder is only a rough demonstration, because trapped air, wetting effects and packing make the measured pore volume inaccurate.*"
+        }
+      ]
+    },
+    {
+      "find": "Soil Structure:",
+      "with": [
+        {
+          "head": "Soil Structure"
+        }
+      ]
+    },
+    {
+      "find": "The coefficient of relationship: R=(1/2)\"\"^(\"(n1+n2)\")",
+      "with": [
+        {
+          "para": "The coefficient of relationship: $R = (1/2)^(n_1 + n_2)$"
+        }
+      ]
+    },
+    {
+      "find": "The coefficient of relationship: R=(1/2)\"\"^(\"(n1+n2)\")",
+      "with": [
+        {
+          "para": "The coefficient of relationship: $R = (1/2)^(n_1 + n_2)$"
+        }
+      ]
+    },
+    {
+      "find": "R= (1/2)\"\"^(\"0+1\")",
+      "with": [
+        {
+          "para": "$R = (1/2)^(0+1)$"
+        }
+      ]
+    },
+    {
+      "find": "R = lr(( frac(1, 2) )) 1+1",
+      "with": [
+        {
+          "para": "$R = (1/2)^(1+1)$"
+        }
+      ]
+    },
+    {
+      "find": "R = lr(( frac(1, 2) )) 2",
+      "with": [
+        {
+          "para": "$R = (1/2)^2$"
+        }
+      ]
+    },
+    {
+      "find": "Discuss the principles of Integrated Pest Management (IPM) and how it combines different control methods. Present your findings to the class.",
+      "with": [
+        {
+          "listitem": "Discuss the principles of Integrated Pest Management (IPM) and how it combines different control methods.",
+          "marker": "b)"
+        },
+        {
+          "para": "Present your findings to the class."
+        }
+      ]
+    },
+    {
+      "find": "Digestion in ruminants",
+      "with": [
+        {
+          "head": "B. Digestion in ruminants"
+        }
+      ]
+    },
+    {
+      "find": "5.3.2.2. Formulate animal feeds",
+      "with": [
+        {
+          "listitem": "5.3.2.2 Formulate animal feeds"
+        }
+      ]
+    },
+    {
+      "find": "Specific competence 5.3.2.2",
+      "with": []
+    },
+    {
+      "find": "In this subtopic, you will:",
+      "with": []
+    },
+    {
+      "find": "5.3.2.2 Formulate animal feeds.",
+      "with": []
+    },
+    {
+      "find": "Conception Rate (%) = frac(\"Number of females that conceived\", \"number of females mated\" / i n s e m i n a t e d) times 100",
+      "with": [
+        {
+          "para": "Conception rate (%) = $frac(\"Number of females that conceived\", \"Number of females mated (inseminated)\") times 100$"
+        }
+      ]
+    },
+    {
+      "find": "Kidding rate (%) = frac(\"Number of does that kidded\", \"Number of does that mated\") times 100",
+      "with": [
+        {
+          "para": "Kidding rate (%) = $frac(\"Number of does that kidded\", \"Number of does mated\") times 100$"
+        }
+      ]
+    },
+    {
+      "find": "Lower gear, Heavy draft work such as ploughing.",
+      "with": [
+        {
+          "listitem": "Low gear: heavy draught work such as ploughing."
+        }
+      ]
+    },
+    {
+      "find": "Medium gear:,Cultivation.",
+      "with": [
+        {
+          "listitem": "Medium gear: cultivation."
+        }
+      ]
+    },
+    {
+      "find": "High gear, Road transport.",
+      "with": [
+        {
+          "listitem": "High gear: road transport."
+        }
+      ]
+    },
+    {
+      "find": "Comparison between petrol and diesel electrical systems",
+      "with": [
+        {
+          "head": "Table 34: Comparison of Petrol and Diesel Engine Electrical Systems"
+        }
+      ]
+    },
+    {
+      "find": "Comparison between a combine harvester and a maize sheller",
+      "with": [
+        {
+          "head": "Table 38: Comparison of a Combine Harvester and a Maize Sheller"
+        }
+      ]
+    },
+    {
+      "find": "Procedure:",
+      "next": "Battery maintenance:",
+      "with": []
+    },
+    {
+      "find": "A plough has a forward length of 0.60 m and a sideways offset of 0.24 m. calculate the angle of attack. theta = tan\"\"^(\"-1\")(frac(o .24, 0.60))",
+      "with": [
+        {
+          "para": "A plough has a forward length of 0.60 m and a sideways offset of 0.24 m. Calculate the angle of attack. $theta = tan^(-1)(0.24 / 0.60)$"
+        }
+      ]
+    },
+    {
+      "find": "Tan theta = frac(\"Vertical rise\", \"Horizontal rise\")",
+      "with": [
+        {
+          "para": "$tan theta = frac(\"Vertical rise\", \"Horizontal distance\")$"
+        }
+      ]
+    },
+    {
+      "find": "PED = frac(percent \"Change in quantiy demanded\", percent \"Change in price\")",
+      "with": [
+        {
+          "para": "PED = $frac(% \"Change in quantity demanded\", % \"Change in price\")$"
+        }
+      ]
+    },
+    {
+      "find": "Calculate PED using formula. Formula: PED = frac(percent \"Change in quantiy demanded\", percent \"Change in price\")",
+      "with": [
+        {
+          "listitem": "*Calculate PED using formula.* Formula: PED = $frac(% \"Change in quantity demanded\", % \"Change in price\")$",
+          "marker": "c)"
+        }
+      ]
+    },
+    {
+      "find": "Step 4: Research Design:",
+      "with": [
+        {
+          "head": "Step 4: Research Design"
+        }
+      ]
+    },
+    {
+      "find": "LEARNING ACTIVITY 4: Designing a Simple Agricultural Research Study",
+      "with": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 4: Designing a Simple Agricultural Research Study",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Work in groups or individually and design a simple agricultural research study:",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "a)",
+                "segs": [
+                  {
+                    "t": "Choose an agricultural problem in your school or community that can be investigated.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "b)",
+                "segs": [
+                  {
+                    "t": "Write the aim and objectives of the study.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "c)",
+                "segs": [
+                  {
+                    "t": "Choose a suitable sample and sampling method.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "d)",
+                "segs": [
+                  {
+                    "t": "Plan the treatments and how they will be replicated.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "marker": "e)",
+                "segs": [
+                  {
+                    "t": "Plan how data will be collected and recorded.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Present your research design to the class.",
+                    "b": false,
+                    "it": true,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "find": "Specific Competence:",
+      "with": [
+        {
+          "para": "**Specific Competence:** 5.2.2.1"
+        }
+      ]
+    },
+    {
+      "find": "5.2.2.1Demonstrate understanding of plant breeding and genetics",
+      "with": [
+        {
+          "listitem": "5.2.2.1 Demonstrate understanding of plant breeding and genetics"
+        }
+      ]
+    },
+    {
+      "find": "Specific Competence:",
+      "with": [
+        {
+          "para": "**Specific Competence:** 5.2.3.1"
+        }
+      ]
+    },
+    {
+      "find": "5.2.3.1 Classify plant pests and diseases",
+      "with": [
+        {
+          "listitem": "5.2.3.1 Classify plant pests and diseases"
+        }
+      ]
+    },
+    {
+      "find": "Specific Competence:",
+      "with": [
+        {
+          "para": "**Specific Competence:** 5.6.1.1"
+        }
+      ]
+    },
+    {
+      "find": "5.2.1.1 Investigate the anatomy and physiology of plants",
+      "with": [
+        {
+          "listitem": "5.2.1.1 Investigate the anatomy and physiology of plants"
+        }
+      ]
+    },
+    {
+      "find": "Specific Competence",
+      "with": [
+        {
+          "para": "**Specific Competence:** 5.3.1.1"
+        }
+      ]
+    },
+    {
+      "find": "5.3.1.1 Demonstrate understanding of the anatomy and physiology of farm animals.",
+      "with": [
+        {
+          "listitem": "5.3.1.1 Demonstrate understanding of the anatomy and physiology of farm animals"
+        }
+      ]
+    },
+    {
+      "find": "Specific Competence",
+      "with": [
+        {
+          "para": "**Specific Competences:** 5.3.2.1, 5.3.2.2"
+        }
+      ]
+    },
+    {
+      "find": "5.3.2.1 Analyse animal feeds",
+      "with": [
+        {
+          "listitem": "5.3.2.1 Analyse animal feeds"
+        }
+      ]
+    },
+    {
+      "find": "Specific competence",
+      "with": [
+        {
+          "para": "**Specific Competence:** 5.3.3.1"
+        }
+      ]
+    },
+    {
+      "find": "5.3.3.1. Demonstrate understanding of animal breeding and genetics",
+      "with": [
+        {
+          "listitem": "5.3.3.1 Demonstrate understanding of animal breeding and genetics"
+        }
+      ]
+    },
+    {
+      "find": "Specific Competence",
+      "with": [
+        {
+          "para": "**Specific Competence:** 5.3.4.1"
+        }
+      ]
+    },
+    {
+      "find": "5.3.4.1 Classify animal parasites and diseases.",
+      "with": [
+        {
+          "listitem": "5.3.4.1 Classify animal parasites and diseases"
+        }
+      ]
+    },
+    {
+      "find": "Specific Competence",
+      "with": [
+        {
+          "para": "**Specific Competence:** 5.4.1.1"
+        }
+      ]
+    },
+    {
+      "find": "5.4.1.1 Demonstrate understanding of farm mechanisation.",
+      "with": [
+        {
+          "listitem": "5.4.1.1 Demonstrate understanding of farm mechanisation"
+        }
+      ]
+    },
+    {
+      "find": "Specific Competence",
+      "with": [
+        {
+          "para": "**Specific Competence:** 5.5.1.1"
+        }
+      ]
+    },
+    {
+      "find": "5.5.1.1 Demonstrate understanding of the principles of agricultural economics.",
+      "with": [
+        {
+          "listitem": "5.5.1.1 Demonstrate understanding of the principles of agricultural economics"
+        }
+      ]
+    }
+  ],
+  "insertText": [
+    {
+      "after": "Clay: very sticky; long, smooth ribbon forms",
+      "text": "The advantages of the feel method are that it is quick and inexpensive, requires no laboratory equipment and it is useful for field assessments and preliminary soil classification. Its limitation is that results are subjective and depend on the experience of the person performing the test."
+    }
+  ],
+  "moveBefore": [
+    {
+      "find": "Bulk density measurements help determine the degree of compaction",
+      "before": "Calculating Bulk Density and Porosity"
+    },
+    {
+      "find": "image15.",
+      "before": "Worked Example 1: Parent and Offspring"
+    },
+    {
+      "find": "image27.",
+      "before": "Fattening ration:"
+    },
+    {
+      "find": "image28.",
+      "before": "Example:"
+    },
+    {
+      "find": "Result",
+      "before": "Answer: To make a 16% protein ration"
+    },
+    {
+      "find": "Maize meal = 24 parts",
+      "before": "Answer: To make a 16% protein ration"
+    },
+    {
+      "find": "image32.",
+      "before": "Engine: The engine is the source of mechanical power"
+    },
+    {
+      "find": "image33.",
+      "before": "While operating the tractor, maintain a safe speed"
+    },
+    {
+      "find": "image34.",
+      "before": "Table 38: Comparison of a Combine Harvester"
+    },
+    {
+      "find": "image35.",
+      "before": "Correct adjustment improves soil inversion"
+    },
+    {
+      "find": "image36.",
+      "before": "A shift in demand"
+    },
+    {
+      "find": "Zambia Agriculture Research Institute (ZARI). (2020)",
+      "before": "Brady, N. C."
+    },
+    {
+      "find": "Taiz, L., Zeiger",
+      "before": "Zambia Agriculture Research Institute (ZARI). (2020)"
+    },
+    {
+      "find": "Radostits, O. M.",
+      "before": "Taiz, L., Zeiger"
+    },
+    {
+      "find": "Olson, K. D.",
+      "before": "Radostits, O. M."
+    },
+    {
+      "find": "Oerke, E. C.",
+      "before": "Olson, K. D."
+    },
+    {
+      "find": "Ministry of Education, Zambia. (2013)",
+      "before": "Oerke, E. C."
+    },
+    {
+      "find": "McDonald, P., Edwards",
+      "before": "Ministry of Education, Zambia. (2013)"
+    },
+    {
+      "find": "Leedy, P. D.",
+      "before": "McDonald, P., Edwards"
+    },
+    {
+      "find": "Kepner, R. A.",
+      "before": "Leedy, P. D."
+    },
+    {
+      "find": "Frandson, R. D.",
+      "before": "Kepner, R. A."
+    },
+    {
+      "find": "Food and Agriculture Organization of the United Nations. (2006)",
+      "before": "Frandson, R. D."
+    },
+    {
+      "find": "Debertin, D. L.",
+      "before": "Food and Agriculture Organization of the United Nations. (2006)"
+    },
+    {
+      "find": "Culpin, C. (1992)",
+      "before": "Debertin, D. L."
+    },
+    {
+      "find": "Brady, N. C.",
+      "before": "Culpin, C. (1992)"
+    },
+    {
+      "find": "Acquaah, G. (2012)",
+      "before": "Brady, N. C."
+    }
+  ],
+  "tables": [
+    {
+      "match": "Typical nutrient retention",
+      "rows": [
+        [
+          "Property",
+          "Sandy soil",
+          "Silt soil",
+          "Clay soil"
+        ],
+        [
+          "Texture",
+          "Coarse",
+          "Medium",
+          "Fine"
+        ],
+        [
+          "Particle size",
+          "0.05–2.00 mm",
+          "0.002–0.05 mm",
+          "< 0.002 mm"
+        ],
+        [
+          "Water retention",
+          "Low",
+          "High",
+          "Very high"
+        ],
+        [
+          "Drainage",
+          "Rapid (excessive)",
+          "Moderate",
+          "Slow (poor)"
+        ],
+        [
+          "Aeration",
+          "Excellent",
+          "Moderate",
+          "Poor"
+        ],
+        [
+          "Plasticity",
+          "None",
+          "Moderate",
+          "High"
+        ],
+        [
+          "Workability",
+          "Easy (light soil)",
+          "Moderate",
+          "Difficult (heavy soil)"
+        ],
+        [
+          "Nutrient retention",
+          "Low",
+          "High",
+          "Very high"
+        ],
+        [
+          "Chemical activity",
+          "Low",
+          "Moderate",
+          "Very high"
+        ]
+      ]
+    },
+    {
+      "match": "Loamy sand",
+      "rows": [
+        [
+          "Textural class",
+          "Sand %",
+          "Silt %",
+          "Clay %",
+          "Notes"
+        ],
+        [
+          "Sand",
+          "85–100",
+          "0–15",
+          "0–10",
+          "Coarse textured; rapid drainage; low fertility"
+        ],
+        [
+          "Loamy sand",
+          "70–90",
+          "0–30",
+          "0–15",
+          "Mostly sand with slight loam character"
+        ],
+        [
+          "Sandy loam",
+          "43–80",
+          "0–50",
+          "0–20",
+          "Good drainage; workable; moderate fertility"
+        ],
+        [
+          "Loam",
+          "23–52",
+          "28–50",
+          "7–27",
+          "Medium textured; balanced properties; most productive"
+        ],
+        [
+          "Silt loam",
+          "0–50",
+          "50–88",
+          "0–27",
+          "High water retention; moderately fertile"
+        ],
+        [
+          "Silt",
+          "0–20",
+          "80–100",
+          "0–12",
+          "Fine textured; very high water retention; naturally fertile"
+        ],
+        [
+          "Sandy clay loam",
+          "45–80",
+          "0–28",
+          "20–35",
+          "High clay content limits aeration; moderate workability"
+        ],
+        [
+          "Clay loam",
+          "20–45",
+          "15–53",
+          "27–40",
+          "Heavy; high water retention; slow drainage"
+        ],
+        [
+          "Silty clay loam",
+          "0–20",
+          "40–73",
+          "27–40",
+          "Very fine; sticky when wet; poor aeration"
+        ],
+        [
+          "Sandy clay",
+          "45–65",
+          "0–20",
+          "35–55",
+          "Contains more sand than silt; still classified as clay"
+        ],
+        [
+          "Silty clay",
+          "0–20",
+          "40–60",
+          "40–60",
+          "Fine textured; very sticky; high plasticity"
+        ],
+        [
+          "Clay",
+          "0–45",
+          "0–45",
+          "40–100",
+          "Fine textured; very sticky; poor drainage; difficult to work"
+        ]
+      ]
+    },
+    {
+      "match": "Gravelly sand",
+      "rows": [
+        [
+          "Soil Texture",
+          "Bulk density (kg/m³)",
+          "Pore space %"
+        ],
+        [
+          "Gravelly sand",
+          "1870",
+          "29.4"
+        ],
+        [
+          "Coarse Loamy Sand",
+          "1680",
+          "36.6"
+        ],
+        [
+          "Sandy Loam",
+          "1510",
+          "43.0"
+        ],
+        [
+          "Loam",
+          "1340",
+          "49.4"
+        ],
+        [
+          "Clay Loam",
+          "1260",
+          "52.5"
+        ],
+        [
+          "Clay",
+          "1180",
+          "55.5"
+        ]
+      ]
+    },
+    {
+      "match": "Deoxyribonucleic Acid",
+      "rows": [
+        [
+          "ADF",
+          "Acid Detergent Fibre"
+        ],
+        [
+          "AI",
+          "Artificial Insemination"
+        ],
+        [
+          "AMR",
+          "Antimicrobial Resistance"
+        ],
+        [
+          "ATP",
+          "Adenosine Triphosphate"
+        ],
+        [
+          "CBC",
+          "Competency-Based Curriculum"
+        ],
+        [
+          "CEC",
+          "Cation Exchange Capacity"
+        ],
+        [
+          "CF",
+          "Crude Fibre"
+        ],
+        [
+          "CIMMYT",
+          "International Maize and Wheat Improvement Centre"
+        ],
+        [
+          "CP",
+          "Crude Protein"
+        ],
+        [
+          "DM",
+          "Dry Matter"
+        ],
+        [
+          "DNA",
+          "Deoxyribonucleic Acid"
+        ],
+        [
+          "ECU",
+          "Electronic Control Unit"
+        ],
+        [
+          "EE",
+          "Ether Extract"
+        ],
+        [
+          "ER",
+          "Endoplasmic Reticulum"
+        ],
+        [
+          "ET",
+          "Embryo Transfer"
+        ],
+        [
+          "FAO",
+          "Food and Agriculture Organization"
+        ],
+        [
+          "FSH",
+          "Follicle-Stimulating Hormone"
+        ],
+        [
+          "GMO",
+          "Genetically Modified Organism"
+        ],
+        [
+          "GPS",
+          "Global Positioning System"
+        ],
+        [
+          "IPM",
+          "Integrated Pest Management"
+        ],
+        [
+          "ISSS",
+          "International Society of Soil Science"
+        ],
+        [
+          "LH",
+          "Luteinising Hormone"
+        ],
+        [
+          "LPG",
+          "Liquefied Petroleum Gas"
+        ],
+        [
+          "MES",
+          "Minimum Efficient Scale"
+        ],
+        [
+          "mRNA",
+          "Messenger Ribonucleic Acid"
+        ],
+        [
+          "NADPH",
+          "Nicotinamide Adenine Dinucleotide Phosphate (reduced)"
+        ],
+        [
+          "NBA",
+          "National Biosafety Authority"
+        ],
+        [
+          "NDF",
+          "Neutral Detergent Fibre"
+        ],
+        [
+          "NFE",
+          "Nitrogen-Free Extract"
+        ],
+        [
+          "NPN",
+          "Non-Protein Nitrogen"
+        ],
+        [
+          "NRDC",
+          "Natural Resources Development College"
+        ],
+        [
+          "PED",
+          "Price Elasticity of Demand"
+        ],
+        [
+          "PES",
+          "Price Elasticity of Supply"
+        ],
+        [
+          "PTO",
+          "Power Take-off"
+        ],
+        [
+          "RDP",
+          "Rumen-Degradable Protein"
+        ],
+        [
+          "rRNA",
+          "Ribosomal Ribonucleic Acid"
+        ],
+        [
+          "SCCI",
+          "Seed Control and Certification Institute"
+        ],
+        [
+          "SSD",
+          "Single Seed Descent"
+        ],
+        [
+          "UDP",
+          "Undegradable (Bypass) Protein"
+        ],
+        [
+          "UNZA",
+          "University of Zambia"
+        ],
+        [
+          "USDA",
+          "United States Department of Agriculture"
+        ],
+        [
+          "UV",
+          "Ultraviolet"
+        ],
+        [
+          "VCU",
+          "Value for Cultivation and Use"
+        ],
+        [
+          "VFA",
+          "Volatile Fatty Acids"
+        ],
+        [
+          "ZARI",
+          "Zambia Agriculture Research Institute"
+        ],
+        [
+          "ZEMA",
+          "Zambia Environmental Management Agency"
+        ],
+        [
+          "ZEPH",
+          "Zambia Educational Publishing House"
+        ],
+        [
+          "ZMW",
+          "Zambian Kwacha"
+        ]
+      ]
+    }
+  ],
+  "setCaption": [
+    {
+      "file": "image15.",
+      "text": "Figure 12: Pedigree Diagram and Calculation of the Degree of Genetic Sharing Between Relatives"
+    },
+    {
+      "file": "image16.",
+      "text": "Figure 13: Steps in Producing a Genetically Modified Organism (GMO)"
+    },
+    {
+      "file": "image22.",
+      "text": "Figure 19: External and Internal Anatomy of a Cow"
+    },
+    {
+      "file": "image23.",
+      "text": "Figure 20: Double Circulation in a Mammal"
+    },
+    {
+      "file": "image24.",
+      "text": "Figure 21: Classification of Animal Feeds"
+    },
+    {
+      "file": "image25.",
+      "text": "Figure 22: Flow Chart of Proximate (Weende) Analysis"
+    },
+    {
+      "file": "image26.",
+      "text": "Figure 23: Protein and Nitrogen Use in the Ruminant"
+    },
+    {
+      "file": "image27.",
+      "text": "Figure 24: Typical Composition of a Balanced Livestock Ration"
+    },
+    {
+      "file": "image28.",
+      "text": "Figure 25: Flow Chart of the Ration Formulation Process"
+    },
+    {
+      "file": "image29.",
+      "text": "Figure 26: Pearson Square for a 16% CP Pig Grower Ration"
+    },
+    {
+      "file": "image30.",
+      "text": "Figure 27: Common External and Internal Parasites of Farm Animals"
+    },
+    {
+      "file": "image31.",
+      "text": "Figure 28: Common Parasites of Farm Animals"
+    },
+    {
+      "file": "image32.",
+      "text": "Figure 29: Transmission System of a Tractor"
+    },
+    {
+      "file": "image33.",
+      "text": "Figure 30: Main Parts of a Tractor"
+    },
+    {
+      "file": "image34.",
+      "text": "Figure 31: Main Parts of a Combine Harvester and a Maize Sheller"
+    },
+    {
+      "file": "image35.",
+      "text": "Figure 32: Tractor-mounted Mouldboard Plough Showing the Angle of Attack and Angle of Inclination"
+    },
+    {
+      "file": "image36.",
+      "text": "Figure 33: The Demand Curve"
+    },
+    {
+      "file": "image37.",
+      "text": "Figure 34: The Supply Curve"
+    },
+    {
+      "file": "image38.",
+      "text": "Figure 35: Elastic and Inelastic Demand"
+    },
+    {
+      "file": "image39.",
+      "text": "Figure 36: Elastic and Inelastic Supply"
+    },
+    {
+      "file": "image40.",
+      "text": "Figure 37: Common Types of Graphs Used to Present Agricultural Data"
+    }
+  ],
+  "editAll": [
+    {
+      "find": "Example, ",
+      "with": "For example, "
+    }
+  ],
+  "orIndividuallyKeep": [
+    "In groups of five or individually",
+    "Your teacher will provide the following"
+  ],
+  "setMarker": [
+    {
+      "find": "Grind each sample and shake about 2 g",
+      "marker": "1."
+    },
+    {
+      "find": "Starch: add 2 drops",
+      "marker": "2."
+    },
+    {
+      "find": "Reducing sugars: add 2 cm³ of Benedict",
+      "marker": "3."
+    },
+    {
+      "find": "Protein: add 2 cm³ of sodium hydroxide",
+      "marker": "4."
+    },
+    {
+      "find": "Fats and oils: rub a crushed",
+      "marker": "5."
+    },
+    {
+      "find": "Record your results in a table and rank",
+      "marker": "6."
+    },
+    {
+      "find": "Which livestock disease causes the greatest economic loss",
+      "marker": "a)"
+    },
+    {
+      "find": "Which parasite is most common during the rainy season",
+      "marker": "b)"
+    },
+    {
+      "find": "What challenges do farmers face?",
+      "marker": "c)"
+    },
+    {
+      "find": "How can veterinary extension services help?",
+      "marker": "d)"
+    },
+    {
+      "find": "How does climate change influence diseases and parasites?",
+      "marker": "e)"
+    }
+  ],
+  "unlist": [
+    "Sound reproductive organs:",
+    "Good pedigree:"
+  ],
+  "splitBefore": [
+    {
+      "find": "A shift in demand occurs",
+      "in": "The demand curve slopes downward"
+    }
+  ],
+  "dropParts": [
+    "Section C: Values, Innovation and Decision Making"
+  ],
+  "tableTitles": [
+    {
+      "cell": "Diameter (mm)",
+      "title": "Table 1: Soil Separates – USDA Classification System"
+    },
+    {
+      "cell": "Silt soil",
+      "title": "Table 2: Comparison of the Three Soil Separates"
+    },
+    {
+      "cell": "Loamy sand",
+      "title": "Table 3: Soil Textural Classes – USDA System"
+    },
+    {
+      "cell": "Shape of Aggregates",
+      "title": "Table 4: Five Structural Classes of Soil and Their Properties"
+    },
+    {
+      "cell": "Gravelly sand",
+      "title": "Table 5: Bulk Density and Pore Space of Selected Soil Textures"
+    },
+    {
+      "cell": "Wet consistence",
+      "title": "Table 6: Consistence of Common Soil Types at Three Moisture States"
+    },
+    {
+      "cell": "Surface sample",
+      "title": "Table 7: Bulk Density and Porosity of Surface and Subsoil Samples"
+    },
+    {
+      "cell": "How it is differentiat",
+      "title": "Table 8: Key Examples of Differentiated Cells in Crop Plants"
+    },
+    {
+      "cell": "Crossing over",
+      "title": "Table 9: Sources of Genetic Variation in Sexual Reproduction"
+    },
+    {
+      "cell": "♂/♀",
+      "title": "Table 10: F₁ Punnett Square – Pure-breeding Yellow (YY) × White (yy) Maize"
+    },
+    {
+      "cell": "YY",
+      "title": "Table 11: F₂ Punnett Square – Yy × Yy",
+      "exact": true
+    },
+    {
+      "cell": "Yellow (homozygous dominant)",
+      "title": "Table 12: F₂ Genotypes, Phenotypes and Frequencies for Maize Seed Colour"
+    },
+    {
+      "cell": "Tt",
+      "title": "Table 13: Punnett Square for the Test Cross Tt × tt",
+      "exact": true
+    },
+    {
+      "cell": "Tall (heterozygous)",
+      "title": "Table 14: Offspring of the Test Cross Tt × tt"
+    },
+    {
+      "cell": "RRYY",
+      "title": "Table 15: F₂ Punnett Square – RrYy × RrYy (Pea)",
+      "exact": true
+    },
+    {
+      "cell": "Round Yellow (R_Y_)",
+      "title": "Table 16: F₂ Phenotype Classes – Seed Shape and Colour in Pea"
+    },
+    {
+      "cell": "PPSS",
+      "title": "Table 17: F₂ Punnett Square – PpSs × PpSs (Maize)",
+      "exact": true
+    },
+    {
+      "cell": "Purple Smooth (P_S_)",
+      "title": "Table 18: F₂ Phenotype Classes – Cob Colour and Kernel Texture in Maize"
+    },
+    {
+      "cell": "Chemical level",
+      "title": "Table 19: Levels of Organisation in the Animal Body"
+    },
+    {
+      "cell": "Spinal cord",
+      "title": "Table 20: Parts of the Nervous System and Their Functions"
+    },
+    {
+      "cell": "Hypothalamus",
+      "title": "Table 21: Major Endocrine Glands, Their Hormones and Functions"
+    },
+    {
+      "cell": "Urinary bladder",
+      "title": "Table 22: Organs of the Urinary System and Their Functions"
+    },
+    {
+      "cell": "Testes (in the scrotum",
+      "title": "Table 23: Male Reproductive Organs and Their Functions"
+    },
+    {
+      "cell": "Ovaries",
+      "title": "Table 24: Female Reproductive Organs and Their Functions"
+    },
+    {
+      "cell": "How it is determined",
+      "title": "Table 25: Fractions of Proximate (Weende) Analysis"
+    },
+    {
+      "cell": "Salivary amylase",
+      "title": "Table 26: Digestion in Non-ruminants (Pig and Poultry)"
+    },
+    {
+      "cell": "Main agent of digestion",
+      "title": "Table 27: Comparison of Digestion in Ruminants and Non-ruminants"
+    },
+    {
+      "cell": "Vitamin-mineral premix",
+      "title": "Table 28: Example Ration for Growing Pigs (100 kg)"
+    },
+    {
+      "cell": "Polled (hornless)",
+      "title": "Table 29: Inheritance of the Polled and Horned Condition in Cattle"
+    },
+    {
+      "cell": "Determines inherited traits",
+      "title": "Table 30: Relationship Between Genetics and Reproduction"
+    },
+    {
+      "cell": "Endoparasites",
+      "title": "Table 31: Common Ectoparasites and Endoparasites of Farm Animals"
+    },
+    {
+      "cell": "Bacterial diseases",
+      "title": "Table 32: Classification of Important Livestock Diseases by Cause"
+    },
+    {
+      "cell": "Starter solenoid",
+      "title": "Table 33: Electrical Components Common to Petrol and Diesel Engines"
+    },
+    {
+      "cell": "Check engine oil level",
+      "title": "Table 35: Daily Tractor Maintenance Checks"
+    },
+    {
+      "cell": "Brake fluid (if fitted)",
+      "title": "Table 36: Tractor Fluids and Their Functions"
+    },
+    {
+      "cell": "Engine overheating",
+      "title": "Table 37: Common Tractor Problems, Causes and Remedies"
+    },
+    {
+      "cell": "Price/head",
+      "title": "Table 39: Demand and Supply Schedule for Cabbages, Chipata Market"
+    },
+    {
+      "cell": "Quantity Supplied (kg)",
+      "title": "Table 40: Market Demand and Supply Schedule for Tomatoes"
+    },
+    {
+      "cell": "180",
+      "title": "Table 41: Market Demand for Cabbages",
+      "exact": true
+    },
+    {
+      "cell": "Yield Range (kg/plot)",
+      "title": "Table 42: Maize Yield per Plot – Frequency Distribution"
+    },
+    {
+      "cell": "Graph Type",
+      "title": "Table 43: Summary of Graph Types and Their Applications in Agricultural Research"
+    }
+  ]
 }
