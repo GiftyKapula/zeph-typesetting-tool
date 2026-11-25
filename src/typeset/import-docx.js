@@ -43,6 +43,19 @@ let KEEP_LIST_NUMBERS = false;
 // Set from the `listAnswers` override: items that open an answer though Word keeps them
 // in the same list as the steps before them.
 let LIST_ANSWERS = [];
+// With keepListNumbers: how a kept sub-list prints. null keeps its own numbers ("1."),
+// "bullet" draws "•", "roman" draws "i)". SUB_LIST_ROMAN names runs (by the start of their
+// first item) that print roman whatever SUB_LIST_MARKER says. Agricultural Science Form 5 TG
+// reviewer: the points under an answer were "numbered 3.–7.; use bullets or i)–v)".
+let SUB_LIST_MARKER = null;
+let SUB_LIST_ROMAN = [];
+let subRunStyle = null;
+function keptMarker(n, first, own) {
+  if (n === 1) subRunStyle = SUB_LIST_ROMAN.some((r) => first.trim().startsWith(r)) ? "roman" : SUB_LIST_MARKER;
+  if (subRunStyle === "roman") return `${toRoman(n)})`;
+  if (subRunStyle === "bullet") return "•";
+  return own;
+}
 
 // "SUB-TOPIC N.N.N" (a hand-typed sub-topic heading) written with any separator the
 // author might reach for between SUB and TOPIC — hyphen, en dash, em dash, plain space,
@@ -1622,6 +1635,7 @@ function buildQAParts(blocks) {
   // template captured from a lone "i." would misread as the letter "i" (see markerFor).
   let primaryNum = null, topTpl = hasRomanTop ? "ii." : "1.", subTpl = "a)", topN = 0, subN = 0, auto = 0;
   let typedSubN = 0, keptSubId = null, keptSubLvl = null;   // the open sub-list under a numbered answer (keepListNumbers)
+  let topTyped = false;   // the current answer's number was typed by hand, not Word's
   // The sub-run that was open when a lead-in last closed it, kept so a sub-part the
   // manuscript itself numbers as the CONTINUATION of that run can resume it instead
   // of restarting at "a)". See resumesSubRun() below for why this is needed.
@@ -1929,10 +1943,14 @@ function buildQAParts(blocks) {
       if (KEEP_LIST_NUMBERS && wordN != null && topN > 0) {
         const inSub = keptSubId != null && b.numId === keptSubId && b.lvl === keptSubLvl;
         const isAnswer = LIST_ANSWERS.some((a) => b.plain.trim().startsWith(a));
-        if (!isAnswer && (inSub || (wordN === 1 && wordN !== topN + 1))) {
+        // Under an answer typed by hand ("7. [Total: 8 marks]") a Word list that does not
+        // carry on the answer count is its points, even when Word's count does not restart at
+        // 1: lists built from one Word template share a counter, so the Agricultural Science
+        // Form 5 TG's "Title, Abstract …" points under answer 7 came in as 11., 12. …
+        if (!isAnswer && (inSub || (wordN !== topN + 1 && (wordN === 1 || topTyped)))) {
           keptSubId = b.numId; keptSubLvl = b.lvl; typedSubN = wordN;
           const an = grabAnswer();
-          parts.push({ kind: "q", q: b.plain, qseg: b.segs, a: an.a, aseg: an.aseg, marker: b.marker.trim(), depth: 1 });
+          parts.push({ kind: "q", q: b.plain, qseg: b.segs, a: an.a, aseg: an.aseg, marker: keptMarker(wordN, b.plain, b.marker.trim()), depth: 1 });
           continue;
         }
         keptSubId = null;
@@ -2008,7 +2026,7 @@ function buildQAParts(blocks) {
         // itself (a different numId, e.g. "1. Key Factors" under an answer) still
         // starts fresh, since it fails this numId check.
         if (topN === 0 && questionNumId != null && b.numId === questionNumId) topN = topNBeforeDivider;
-        topN += 1; subN = 0; lastSubN = 0;
+        topN += 1; subN = 0; lastSubN = 0; topTyped = false;
         if (topN === 1) { topTpl = b.marker; questionNumId = b.numId; }
         marker = markerFor(topN, topTpl);
       }
@@ -2038,11 +2056,11 @@ function buildQAParts(blocks) {
       if (KEEP_LIST_NUMBERS && primaryNum != null && topN > 0 && tm[2].trim() && (typedN === 1 || typedN === typedSubN + 1)) {
         typedSubN = typedN;
         const an = grabAnswer();
-        parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: `${typedN}.`, depth: 1 });
+        parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: keptMarker(typedN, tm[2], `${typedN}.`), depth: 1 });
         continue;
       }
       typedSubN = 0;
-      topN += 1; subN = 0; lastSubN = 0;
+      topN += 1; subN = 0; lastSubN = 0; topTyped = true;
       const an = grabAnswer();
       parts.push({ kind: "q", q: tm[2].trim(), qseg: qsegOf(tm[2]), a: an.a, aseg: an.aseg, marker: markerFor(topN, topTpl), depth: 0 });
     } else {                             // a lead-in / heading line ("Expected Answers", "Calculate:")
@@ -2721,6 +2739,8 @@ async function importDocx(docxPath, opts = {}) {
   BOX_ALL_ROWS = !!opts.boxAllRows;
   KEEP_LIST_NUMBERS = !!opts.keepListNumbers;
   LIST_ANSWERS = opts.listAnswers || [];
+  SUB_LIST_MARKER = ["bullet", "roman"].includes(opts.subListMarker) ? opts.subListMarker : null;
+  SUB_LIST_ROMAN = opts.subListRoman || [];
   // ZEPH house-style options (decoupled so different layouts can mix them):
   //   styled    – trust Word heading styles (don't infer headings from colour/size)
   //   flat      – no callout boxes; activities/exercises become headings (English)
