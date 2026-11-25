@@ -234,7 +234,7 @@
     },
     {
       "find": "Mr.s. Kayamba: An Advocate for Learners’ Mental Health",
-      "text": "Mrs Kayamba: An Advocate for Learners’ Mental Health",
+      "text": "Mrs. Kayamba: An Advocate for Learners’ Mental Health",
       "as": "head",
       "all": true
     },
@@ -605,6 +605,18 @@
     {
       "from": "A LITERARY ANALYSED POEM ON THE",
       "to": "LITERARY ANALYSIS OF A POEM ON THE"
+    },
+    {
+      "from": "CoMr.ade",
+      "to": "Comrade"
+    },
+    {
+      "from": "coMr.ade",
+      "to": "comrade"
+    },
+    {
+      "from": "Mr.s.",
+      "to": "Mrs."
     }
   ],
   "//frontMatter": "House front matter, the same model as the Form 5 TG: imprint, contents, Authors, Foreword (the Ministry text signed by the Permanent Secretary, adapted to this book's units), the authors' Preface signed by the ZEPH Board Chairperson, the house ZEPH Acknowledgement (the manuscript's is a placeholder: 'should be acknowledged in the final manuscript'), then an INTRODUCTION section over Competences, How to Use this Book, Introduction to Literature in English and A Note to Learners. Removed: the manuscript's own typed contents list (page numbers of the Word file, printed as text on the title page), its 'Copyright and Publication Information' page (replaced by the house imprint), its own Foreword (author-voiced, replaced as above) and 'About the Authors', which repeats the Authors page in prose.",
@@ -781,6 +793,14 @@
     {
       "find": ". Zambian writers also contribute",
       "with": "Zambian writers also contribute"
+    },
+    {
+      "find": " and answer the questions that follow",
+      "with": ", answer the questions that follow"
+    },
+    {
+      "find": "had some limited writings Orature",
+      "with": "had some limited writings. Orature"
     }
   ],
   "images": {
@@ -1079,5 +1099,16 @@
         }
       ]
     }
+  ],
+  "//round1": "Round 1 (Dr Kapau, edited in place in the reviewed PDF, 25 Nov 2026): Comrade(s) and Mrs. spelt book-wide (manuscript Mr -> Mr. replace slip: CoMr.ade, Mr.s.); p66 comma; p211 topic full stops; p225 full stop. p5 RETURNEE and p21 sentence move not applied (flagged).",
+  "endStop": [
+    "The School at Dawn",
+    "The Last Bus Home",
+    "Rain on the Roof",
+    "Voices in the Market",
+    "My Father’s Hands",
+    "The Empty Classroom",
+    "A Letter I Never Sent",
+    "The River at Night"
   ]
 }
