@@ -1562,5 +1562,14 @@
         "Zambia Agriculture Research Institute (ZARI). (2022b). Guidelines for Agricultural Research in Zambia. ZARI."
       ]
     }
-  ]
+  ],
+  "//images": "Reviewer round 1, artwork corrected with the user's go-ahead (25 Nov 2026), in the artist's own lettering: Figure 12 \"Fertilization\" -> \"Fertilisation\" (the s is the one from \"Meiosis\"); Figure 15 y-axis \"(ZMW/Kg)\" -> \"(ZMW/kg)\" (k built from the K: its upright, the arms scaled to x-height), x-axis \"farm size (acres)\" -> \"output (kg or tonnes)\" to match the activity's instructions, and the MES note \"the smallest farm size\" -> \"the smallest output\" to match the axis and the TG's own definition. Letters reused from the picture; erased areas patched from the same columns a whole number of grid squares away. Originals: word/media/image4.png, image7.png.",
+  "images": {
+    "image4.png": {
+      "src": "Agric Science F5 TG-art/fig12-genetic-diagram.png"
+    },
+    "image7.png": {
+      "src": "Agric Science F5 TG-art/fig15-lrac-curve.png"
+    }
+  }
 }
