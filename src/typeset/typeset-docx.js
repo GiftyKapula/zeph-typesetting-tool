@@ -1872,11 +1872,15 @@ function standardiseRuns(blocks, ov) {
     if (Array.isArray(v.rows)) { v.rows.slice(1).forEach(unbold); return; }
     Object.values(v).forEach(unbold);
   };
-  // dropParts: a line of an exercise or assessment that repeats its heading, by exact text
+  // dropParts: a line of an exercise or assessment that repeats its heading, by exact text.
+  // Compared with zero-width characters removed and spaces collapsed: a line typed as
+  // "kidded​ ×100" or "died                x 100%" (Agricultural Science Form 5 TG) looks
+  // like the text the override names but never equalled it.
+  const partKey = (s) => String(s || "").replace(/[​-‍﻿]/g, "").replace(/\s+/g, " ").trim();
   for (const find of ov.dropParts || []) {
     let n = 0;
     for (const b of blocks) if (Array.isArray(b.parts)) {
-      const kept = b.parts.filter((p) => (p.q || "").trim() !== find);
+      const kept = b.parts.filter((p) => partKey(p.q) !== partKey(find));
       n += b.parts.length - kept.length;
       b.parts = kept;
     }
@@ -5997,6 +6001,12 @@ function normaliseSpacing(blocks) {
 const MARK_BRACKET_G = /[ \t]?\[\s*\d+(?:\s*marks?)?\s*\]/gi;
 function splitMarksToFr(segs) {
   if (!Array.isArray(segs)) return segs;
+  // A mark-scheme summary line ("Suggested marks: a) [3 marks], b) [3 marks]") lists the
+  // allocation for each part in one sentence. Its brackets are not the line's own mark, so
+  // they stay inline: flushing each one right broke the line after every bracket and left
+  // "a), [3 marks]" with the comma moved in front (Agricultural Science Form 5 TG, round 2).
+  const plain = segs.map((s) => (s && typeof s.t === "string" && !s.m ? s.t : "")).join("");
+  if (/^\s*(?:suggested\s+)?marks?\s*:/i.test(plain)) return segs;
   // First pass: flatten into a linear stream of {mark:false, seg} text pieces and
   // {mark:true, seg} bracket pieces, in order, across every original segment —
   // needed so the second pass can tell whether a bracket has any REAL text still

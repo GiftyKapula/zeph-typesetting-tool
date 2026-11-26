@@ -355,6 +355,70 @@
     {
       "from": "[Total 10 marks]",
       "to": "[Total: 10 marks]"
+    },
+    {
+      "from": "Figure 15 in the",
+      "to": "Figure 17 in the"
+    },
+    {
+      "from": "Figure 16 in the",
+      "to": "Figure 18 in the"
+    },
+    {
+      "from": "cotton wool, equal volumes of sandy soil",
+      "to": "filter paper, equal volumes of sandy soil"
+    },
+    {
+      "from": "Place a plug of cotton wool in the neck of each funnel.",
+      "to": "Line each funnel with filter paper."
+    },
+    {
+      "from": "g/cm",
+      "to": "g/⁠cm"
+    },
+    {
+      "from": "x 100%",
+      "to": "× 100"
+    },
+    {
+      "from": "x 100%",
+      "to": "× 100"
+    },
+    {
+      "from": "differences between inbreeding and crossbreeding",
+      "to": "Table TG 1: Differences between Inbreeding and Crossbreeding"
+    },
+    {
+      "from": "discusses the Table TG 1: Differences between Inbreeding and Crossbreeding",
+      "to": "discusses the differences between inbreeding and crossbreeding"
+    },
+    {
+      "from": "Let learners present their discussions with the class.",
+      "to": "Let all groups take the rectal temperature, pulse rate (at the tail or femoral artery) and respiration rate (by counting flank movements) of a calm, restrained goat or cow for one minute, and compare their readings with the normal values given below. Let learners present their discussions with the class."
+    },
+    {
+      "from": "Provide learners with a scale, fresh grass or forage, heat source and water bath accessory.",
+      "to": "Provide each group with an electronic balance, about 50 g of chopped fresh grass, an evaporating dish or crucible, a heat source (a water bath, or a hot plate set low) and tongs."
+    },
+    {
+      "from": "about 10 g of the feed sample",
+      "to": "about 50 g of chopped fresh grass"
+    },
+    {
+      "from": "Prepare a field trip to the nearest farm/village",
+      "to": "Organise a field trip to the nearest farm or village"
+    },
+    {
+      "from": "Let learners be in groups",
+      "to": "Let learners work in groups"
+    },
+    {
+      "from": "Total revenue increases (all else equal).",
+      "to": "Yes, because total revenue increases (all else equal)."
+    },
+    {
+      "from": "Let them present to the class.",
+      "to": "3. A tractor develops a drawbar power of 30 kW while ploughing at 2.5 m/s. Calculate the draught force. Let them present to the class."
     }
   ],
   "//renameNear": "Activity renumbering (see //subtext (4)): one number per activity within each sub-topic. 5.3.2: the second run 1-3 becomes 5-7. 5.3.3: 5, 6, 6, 7, 7 become 4-8 (the two activities both titled \"Distinguishing between crossbreeding and inbreeding\" are different activities, one with materials, one a discussion with a comparison table). renameNear takes the FIRST box with that title, which is the materials one (Activity 5); the discussion one keeps 6.",
@@ -395,14 +459,34 @@
       "to": "LEARNING ACTIVITY 6: Selecting animals for breeding."
     },
     {
-      "find": "LEARNING ACTIVITY 5: Relating genetics and reproduction to plant breeding",
-      "near": "LEARNING ACTIVITY 5: Relating genetics and reproduction to plant breeding",
-      "to": "LEARNING ACTIVITIES 5 AND 6: Relating genetics and reproduction to plant breeding, and distinguishing inbreeding, crossbreeding and mutation breeding"
+      "find": "LEARNING ACTIVITY 3: Determining particle size distribution by the sieve method",
+      "near": "LEARNING ACTIVITY 3: Determining particle size distribution by the sieve method",
+      "to": "LEARNING ACTIVITY 3: Determining particle size distribution, bulk density and soil moisture content"
     },
     {
-      "find": "LEARNING ACTIVITY 6: Selecting plants for breeding",
-      "near": "LEARNING ACTIVITY 6: Selecting plants for breeding",
-      "to": "LEARNING ACTIVITIES 7 AND 8: Selecting plants for breeding and demonstrating the process of plant breeding"
+      "find": "LEARNING ACTIVITY 2: Examining and drawing the structure of the plant cell",
+      "near": "LEARNING ACTIVITY 2: Examining and drawing the structure of the plant cell",
+      "to": "LEARNING ACTIVITY 2: Examining the plant cell using an electron microscope"
+    },
+    {
+      "find": "LEARNING ACTIVITY 7: Conducting germination and viability tests",
+      "near": "LEARNING ACTIVITY 7: Conducting germination and viability tests",
+      "to": "LEARNING ACTIVITY 7: Conducting germination and viability tests"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Describing genetics (Mendelian",
+      "near": "LEARNING ACTIVITY 1: Describing genetics (Mendelian",
+      "to": "LEARNING ACTIVITY 1: Describing Mendelian and non-Mendelian genetics"
+    },
+    {
+      "find": "LEARNING ACTIVITY 8: Illustrating the operational principles of a Combine",
+      "near": "LEARNING ACTIVITY 8: Illustrating the operational principles of a Combine",
+      "to": "LEARNING ACTIVITY 8: Illustrating the operational principles of a combine harvester and maize sheller."
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Describing briefly the structures",
+      "near": "LEARNING ACTIVITY 2: Describing briefly the structures",
+      "to": "LEARNING ACTIVITY 2: Describing briefly the farm animal structures and their functions."
     }
   ],
   "//fixExercise": "Exercises restart at 1 in each sub-topic everywhere except 5.2.2 (4, 5, 7), 5.3.2 (2, 3), 5.3.3 (4, 4, 5) and 5.3.4 (1, 6). Renumbered within each sub-topic.",
@@ -438,14 +522,9 @@
       "heading": "EXERCISE 1"
     },
     {
-      "match": "EXERCISE 4",
-      "near": "Inherited traits",
-      "heading": "EXERCISE 2"
-    },
-    {
       "match": "EXERCISE 5",
       "near": "How Genetics and Reproduction Work Together",
-      "heading": "EXERCISE 3"
+      "heading": "EXERCISE 2"
     },
     {
       "match": "EXERCISE 6",
@@ -767,7 +846,8 @@
     },
     {
       "find": "Equilibrium Price = K10/kg Equilibrium Quantity = 500 kg",
-      "with": "Equilibrium Price = K6.00 per head Equilibrium Quantity = 80 heads per day"
+      "with": "Equilibrium Price = K6.00 per head Equilibrium Quantity = 80 heads per day",
+      "after": "Equilibrium and excess demand/supply for cabbages"
     },
     {
       "find": "At Price = K10: Qd = 500 kg, Qs = 500 kg",
@@ -819,6 +899,184 @@
       "find": "Procedure:",
       "after": "Record your results and make conclusions",
       "with": "Procedure (oven method):"
+    },
+    {
+      "find": "teachers should deliberately develop, and record evidence of, the following national competences:",
+      "with": "teachers should deliberately develop, and record evidence of, the following national competences, noting for each activity in the scheme of work where each competence is taught, practised and assessed:"
+    },
+    {
+      "find": "plastic funnels or cut bottles, cotton wool,",
+      "with": "plastic funnels or cut bottles, filter paper,"
+    },
+    {
+      "find": "place a plug of cotton wool in the neck of a funnel",
+      "with": "line a funnel with filter paper"
+    },
+    {
+      "find": "Understanding structure, consistency and bulk density",
+      "with": "Understanding structure, consistence and bulk density"
+    },
+    {
+      "find": "For ruminants, use digestive system",
+      "with": "For ruminants, use the digestive system"
+    },
+    {
+      "find": "use digestive system of a pig",
+      "with": "use the digestive system of a pig"
+    },
+    {
+      "find": "urea-containing block can only be fed to ruminants and used carefully",
+      "with": "urea-containing blocks can only be fed to ruminants and must be used carefully"
+    },
+    {
+      "find": "Note: As specific breeding record figures were not included in the question, the formulas and a worked example (using illustrative sample data) are provided below.",
+      "with": "Using the breeding records in Learning Activity 3 (75 cows mated, 60 conceived, 57 calved, 55 calves born alive and 50 weaned):"
+    },
+    {
+      "find": " Substitute the farmer’s actual figures into these formulas to obtain exact rates.",
+      "with": ""
+    },
+    {
+      "find": " Substitute the farmer's actual figures into these formulas to obtain exact rates.",
+      "with": ""
+    },
+    {
+      "find": "Formulas and Worked Example [4 marks each = 20 marks]",
+      "with": "Formulas and answers [4 marks each = 12 marks]"
+    },
+    {
+      "find": "Example: 80 pregnant ÷ 100 served × 100 = 80%",
+      "with": "Conception rate = 60 ÷ 75 × 100 = 80%"
+    },
+    {
+      "find": "Example: 75 calves ÷ 100 served × 100 = 75%",
+      "with": "Calving rate = 57 ÷ 75 × 100 = 76%"
+    },
+    {
+      "find": "Number of offspring weaned",
+      "with": "Number of calves weaned"
+    },
+    {
+      "find": "Number of offspring born",
+      "with": "Number of cows mated (or calves born alive)"
+    },
+    {
+      "find": "Example: (68 weaned ÷ 75 born) × 100 = 90.7%",
+      "with": "Weaning rate = 50 ÷ 75 × 100 = 66.7% (or 50 ÷ 55 × 100 = 90.9% on calves born alive)"
+    },
+    {
+      "find": "If actual data is supplied to candidates, award",
+      "with": "Award"
+    },
+    {
+      "find": "substitution/final answer per rate.",
+      "with": "substitution and final answer per rate. Accept a weaning rate based on calves born alive when the base is stated."
+    },
+    {
+      "after": "Maintain accurate breeding records to monitor",
+      "find": "[Total: 20 marks]",
+      "with": "[Total: 12 marks]"
+    },
+    {
+      "find": "Genomic selection (DNA Testing)",
+      "with": "Genomic selection (DNA testing)"
+    },
+    {
+      "find": "a farmer should adopt the following innovative methods:",
+      "with": "a farmer could adopt any three of the following innovative methods:"
+    },
+    {
+      "find": "Visit a farm with livestock. The farm manager should show you different animals",
+      "with": "Organise a visit to a farm with livestock. Arrange for the farm manager to show learners different animals"
+    },
+    {
+      "find": "observe their behaviour, ask questions and record your findings.",
+      "with": "and let learners observe their behaviour, ask questions and record their findings."
+    },
+    {
+      "after": "Arrange for the farm manager to show learners",
+      "find": "Share your findings with the class.",
+      "with": "Let learners share their findings with the class."
+    },
+    {
+      "find": "choosing the correct treatment, assist in disease",
+      "with": "choosing the correct treatment, assists in disease"
+    },
+    {
+      "find": "improves livestock productivity and livestock losses.",
+      "with": "improves livestock productivity and reduces livestock losses."
+    },
+    {
+      "find": "Infectious/Bacterial diseases",
+      "with": "Bacterial diseases"
+    },
+    {
+      "find": "Common parasites control practices include:",
+      "with": "Common parasite-control practices include:"
+    },
+    {
+      "find": "One year parasite control calendar:",
+      "with": "One-year parasite-control calendar:"
+    },
+    {
+      "find": "stated on the product label, and observe withdrawal periods.",
+      "with": "stated on the product label."
+    },
+    {
+      "find": "dependency on labour",
+      "with": "dependency on labour "
+    },
+    {
+      "find": "2: Diagnosing a tractor",
+      "with": "2. Diagnosing a tractor"
+    },
+    {
+      "find": "3: Petrol vs diesel",
+      "with": "3. Petrol vs diesel"
+    },
+    {
+      "find": "4: Fault diagnosis",
+      "with": "4. Fault diagnosis"
+    },
+    {
+      "find": "2: Diagnosing engine problems",
+      "with": "2. Diagnosing engine problems"
+    },
+    {
+      "find": "3: Tractor operating procedure",
+      "with": "3. Tractor operating procedure"
+    },
+    {
+      "find": "4: Combine harvester vs maize sheller",
+      "with": "4. Combine harvester vs maize sheller"
+    },
+    {
+      "find": "rises 25cm over a horizontal distance of 40cm",
+      "with": "rises 25 cm over a horizontal distance of 40 cm"
+    },
+    {
+      "find": "Principle of diminishing Marginal returns",
+      "with": "Principle of diminishing marginal returns"
+    },
+    {
+      "find": "practice plotting",
+      "with": "practise plotting"
+    },
+    {
+      "find": "or other factors. Therefore, price elasticity",
+      "with": "or other factors. Price elasticity"
+    },
+    {
+      "find": "K100 000",
+      "with": "K100,000"
+    },
+    {
+      "find": "K112 500",
+      "with": "K112,500"
+    },
+    {
+      "find": "Students may be guided",
+      "with": "Learners may be guided"
     }
   ],
   "editAll": [
@@ -833,6 +1091,34 @@
     {
       "find": "angle of inclination = 32",
       "with": "angle of inclination = 32°"
+    },
+    {
+      "find": "East Coast Fever",
+      "with": "East Coast fever"
+    },
+    {
+      "find": "1cm",
+      "with": "1 cm"
+    },
+    {
+      "find": "On a graph paper",
+      "with": "On graph paper"
+    },
+    {
+      "find": "on a graph paper",
+      "with": "on graph paper"
+    },
+    {
+      "find": "(\"-1\")",
+      "with": "(-1)"
+    },
+    {
+      "find": "power Take-off",
+      "with": "power take-off"
+    },
+    {
+      "find": "the Power take-off",
+      "with": "the power take-off"
     }
   ],
   "editCell": [
@@ -863,6 +1149,18 @@
     {
       "find": "Inspect animals, clean housing, remove bushes that harbour ticks,",
       "with": "Inspect animals, clean housing, remove bushes that harbour ticks."
+    },
+    {
+      "find": "Power-Take Off (PTO)",
+      "with": "Power take-off (PTO)"
+    },
+    {
+      "find": "Not used",
+      "with": "Absent"
+    },
+    {
+      "find": "Not required",
+      "with": "Absent"
     }
   ],
   "endStop": [
@@ -875,7 +1173,9 @@
     "or poor breeding management",
     "promotion of good husbandry",
     "reduce overall operating efficiency",
-    "reduces costs, maximises profit"
+    "reduces costs, maximises profit",
+    "Figure 3 in the Learners’ Book",
+    "by type of causal organism"
   ],
   "setMarker": [
     {
@@ -899,6 +1199,10 @@
       "after": "needed for normal growth and functioning",
       "marker": "4.",
       "depth": 0
+    },
+    {
+      "find": "Weaning Rate:",
+      "marker": "c)"
     }
   ],
   "removeWhereNext": [
@@ -924,6 +1228,11 @@
       "after": "show normal behaviour",
       "from": "Specific Competence",
       "to": "LEARNING ACTIVITY 1: Describing a healthy animal"
+    },
+    {
+      "after": "Distinguishing between crossbreeding and inbreeding",
+      "from": "EXERCISE",
+      "to": "Selecting Animals for Breeding"
     }
   ],
   "remove": [
@@ -936,27 +1245,27 @@
   "setCaption": [
     {
       "file": "imp_image2.",
-      "text": "Figure 4: Plant Cell as Seen Under an Electron Microscope"
+      "text": "Figure TG 1: Plant Cell as Seen Under an Electron Microscope"
     },
     {
       "file": "imp_image3.",
-      "text": "Figure 8: Cumulative Germination Percentage of Two Seed Lots"
+      "text": "Figure TG 2: Cumulative Germination Percentage of Two Seed Lots"
     },
     {
       "file": "imp_image4.",
-      "text": "Figure 12: Genetic Diagram – Pp × Pp Cross for the Polled Condition in Cattle"
+      "text": "Figure TG 3: Genetic Diagram – Pp × Pp Cross for the Polled Condition in Cattle"
     },
     {
       "file": "imp_image5.",
-      "text": "Figure 13: Calculating Work Done Using a Wheelbarrow"
+      "text": "Figure TG 4: Calculating Work Done Using a Wheelbarrow"
     },
     {
       "file": "imp_image6.",
-      "text": "Figure 14: Demand and Supply Curves for Cabbages, Chipata Market"
+      "text": "Figure TG 5: Demand and Supply Curves for Cabbages, Chipata Market"
     },
     {
       "file": "imp_image7.",
-      "text": "Figure 15: Long-run Average Cost Curve"
+      "text": "Figure TG 6: Long-run Average Cost Curve"
     }
   ],
   "replace": [
@@ -996,7 +1305,7 @@
       "find": "Prepare a short summary of qualitative versus quantitative data",
       "with": [
         "Prepare a short summary of qualitative versus quantitative data with two agricultural examples of each, for teacher reference.",
-        "**Procedure**",
+        "Suggested Procedure",
         "1. Give each group a scenario card and the recording table.",
         "2. Learners read each scenario, decide the type of research and give a reason.",
         "3. For Scenario A, learners name the independent, dependent and controlled variables and justify each.",
@@ -1006,6 +1315,215 @@
         "- Scenario B: observational research – the researcher records what happens on the farms without changing anything.",
         "- Scenario C: survey research – information is collected from farmers with a questionnaire."
       ]
+    },
+    {
+      "find": "Consistence: assess the soil at three moisture states",
+      "with": [
+        "Consistence: assess the soil at three moisture states – dry (loose, soft, slightly hard, hard), moist (loose, very friable, friable, firm) and wet (stickiness: non-sticky to very sticky; plasticity: non-plastic to very plastic).",
+        "- Bulk density and porosity: at this stage learners only compare how loose or compact each sample feels and how much pore space they can see with a hand lens; both properties are measured and calculated in Learning Activities 3 and 4."
+      ]
+    },
+    {
+      "find": "diagram showing the process of meiosis",
+      "with": "For a diagram of the stages of meiosis, refer to Figure 6 in the Learner’s Book."
+    },
+    {
+      "find": "Provide germination trays or shallow dishes",
+      "with": [
+        "Provide germination trays or shallow dishes, paper towels or cotton wool, water, labels and a recording sheet for each group.",
+        "- For the viability test, provide 1% tetrazolium chloride solution (or another seed stain), a razor blade or scalpel, petri dishes and a hand lens. Keep the tetrazolium solution in a dark bottle, because light breaks it down."
+      ]
+    },
+    {
+      "find": "Guide learners to plot a graph of cumulative germination",
+      "with": [
+        "Guide learners to plot a graph of cumulative germination percentage against the number of days for each seed lot (refer to Figure TG 2) and to compare the two lots.",
+        "- Viability (tetrazolium) test: guide learners to soak 50 seeds in water overnight, cut each seed lengthwise through the embryo, place the halves in 1% tetrazolium chloride solution in the dark for 2 to 4 hours, then count the seeds whose embryos stain red or pink and calculate: Viability (%) = (Number of seeds with stained embryos ÷ Total number of seeds tested) × 100.",
+        "- Where tetrazolium is not available, use the cutting test: cut the soaked seeds open and count those with a firm, white or cream embryo as viable; shrivelled, soft, mouldy or discoloured embryos are dead."
+      ]
+    },
+    {
+      "find": "as shown in Figure 8",
+      "with": [
+        "A fresh, high-quality seed lot typically shows rapid, high germination (for example reaching about 90% by day 8–10), while an older or poorer-quality seed lot germinates more slowly and reaches a lower final percentage (for example around 60%), as shown in Figure TG 2.",
+        "- In the tetrazolium test, living embryos stain red or pink because their respiring cells change the colourless tetrazolium salt into a red dye; dead tissue stays white. An embryo with an unstained radicle tip will not produce a normal seedling.",
+        "- The viability percentage is usually equal to or slightly higher than the germination percentage, because the stain also counts seeds that are alive but dormant. A large gap between the two results points to dormancy (for example in freshly harvested seed); low results in both tests show that the seed lot has lost its vigour, often through poor storage."
+      ]
+    },
+    {
+      "find": "Guide learners to determine the genotypic ratio and the phenotypic ratio",
+      "with": [
+        "Guide learners to determine the genotypic ratio and the phenotypic ratio of the offspring from the completed square.",
+        "- Guide learners to complete the dihybrid cross in the Learner’s Book: in peas, tall (T) is dominant over short (t) and smooth pod (S) over constricted pod (s). For TtSs × TtSs, each parent forms four kinds of gamete (TS, Ts, tS, ts), which go along the top and side of a 4 × 4 Punnett square.",
+        "- Relate the dihybrid result to Mendel’s law of independent assortment."
+      ]
+    },
+    {
+      "find": "This result illustrates the law of segregation",
+      "with": [
+        "This result illustrates the law of segregation, since each parent contributes only one allele (T or t) to each offspring, and the law of dominance, since the dominant allele T masks the recessive allele t in heterozygous (Tt) offspring.",
+        "- The dihybrid cross TtSs × TtSs gives 16 combinations and four F2 phenotype classes in the ratio 9 tall, smooth pod : 3 tall, constricted pod : 3 short, smooth pod : 1 short, constricted pod (9:3:3:1).",
+        "- The 9:3:3:1 ratio illustrates the law of independent assortment: the alleles for stem height and for pod shape pass into the gametes independently of each other, so every combination of the two traits appears. Each trait on its own still gives 3:1 (12 tall : 4 short; 12 smooth : 4 constricted)."
+      ]
+    },
+    {
+      "find": "Provide simple worksheets illustrating different plant relationships",
+      "with": "Provide simple worksheets illustrating different plant relationships: a parent and its offspring, two offspring from the same cross (full sibs), two offspring that share only one parent (half sibs), and offspring produced by self-pollination of a single plant."
+    },
+    {
+      "find": "Guide learners through simple calculations of the expected proportion of shared genes for",
+      "with": [
+        "Guide learners through simple calculations of the expected proportion of shared genes for: a parent and its offspring; full siblings produced from a cross between the same two parents; half-siblings that share only one parent; and offspring produced by self-pollination of a single plant.",
+        "- Introduce the formula used in the Learner’s Book, $R = (1/2)^(n_1 + n_2)$, where R is the coefficient of relationship and $n_1$ and $n_2$ are the numbers of generations from each individual to the common ancestor. Where two individuals share two common ancestors, as full siblings do, the values for each ancestor are added."
+      ]
+    },
+    {
+      "find": "A parent and its offspring share, on average, 50%",
+      "with": [
+        "A parent and its offspring share, on average, 50% of their genes ($R = (1/2)^1 = 0.5$); full siblings produced from a cross between the same two parents also share, on average, 50% (one path through each parent: $(1/2)^2 + (1/2)^2 = 0.25 + 0.25 = 0.5$).",
+        "- Half-siblings share only one parent, so they share, on average, 25% of their genes ($R = (1/2)^(1 + 1) = 0.25$)."
+      ]
+    },
+    {
+      "find": "Circulatory system for conducting",
+      "with": [
+        "Circulatory system for transporting oxygen, nutrients and waste products.",
+        "Normal values for healthy adult animals at rest (approximate ranges):",
+        "- Cattle: temperature 38.0–39.5 °C; pulse 40–80 beats per minute; respiration 10–30 breaths per minute.",
+        "- Goats: temperature 38.5–40.0 °C; pulse 70–90 beats per minute; respiration 12–20 breaths per minute.",
+        "- Pigs: temperature 38.0–39.5 °C; pulse 60–80 beats per minute; respiration 10–20 breaths per minute.",
+        "- Chickens: temperature 40.5–42.0 °C; pulse 250–300 beats per minute; respiration 15–30 breaths per minute.",
+        "Readings are higher in young animals, after exercise, in hot weather and in excited animals, so take them calmly, in the shade, before the animal has been handled much."
+      ]
+    },
+    {
+      "find": "Organise a visit to a farm or use case studies of different animals.",
+      "with": [
+        "Provide the labels of at least five commercial feeds for different classes of livestock (broiler starter and finisher, layers mash, pig grower, dairy meal, calf starter), feeding standard tables, a weighing scale or weigh band, and calculators.",
+        "1. Let learners record the crude protein, energy, calcium and phosphorus values on each label and the class of animal each feed is meant for.",
+        "2. Let learners explain why the values differ, for example between broiler starter and finisher, and between layers mash and broiler mash.",
+        "3. Let learners estimate the live weight of three animals at the school farm (by weighing or with a weigh band) and calculate their daily dry matter intake.",
+        "4. On a farm visit, let learners look for signs of nutrient deficiency in the animals and record them.",
+        "5. Let learners prepare a summary chart of nutrient functions and deficiency signs.",
+        "Expected responses:",
+        "- Starter feeds carry more protein than finisher feeds (for example broiler starter about 22–23% crude protein against about 19–20% in broiler finisher), because young, fast-growing animals lay down more muscle per kilogram of feed.",
+        "- Layers mash is much higher in calcium (about 3.5–4%) than broiler mash (about 1%), because each eggshell is mainly calcium carbonate; broiler mash is higher in energy and protein for rapid growth.",
+        "- Daily dry matter intake (guide values): cattle about 2.5–3% of live weight (high-yielding dairy cows up to 3.5–4%), sheep and goats about 3–4%, growing pigs about 4–5%. Example: a 400 kg cow eating 2.5% of its live weight needs 400 × 0.025 = 10 kg of dry matter a day; if the feed is fresh grass with 25% dry matter, that is 10 ÷ 0.25 = 40 kg of fresh grass.",
+        "- Deficiency signs: a rough, dull coat and poor growth (shortage of protein or energy); pale membranes (shortage of iron or copper, or heavy worm burdens); pica, such as eating soil or chewing bones (shortage of phosphorus or salt); thin or soft eggshells (shortage of calcium); stiff joints and bowed legs in young animals (shortage of calcium, phosphorus or vitamin D).",
+        "Extension: organise a visit to a farm, or use case studies of different animals, and let learners:"
+      ]
+    },
+    {
+      "find": "Materials: the breeding records on the chalkboard",
+      "with": [
+        "Materials: the breeding records on the chalkboard or a chart, calculators, flip chart paper and markers, exercise books, a covered chart of the formulas, and school farm breeding records if you have them.",
+        "Breeding records (as in the Learner’s Book): 75 cows mated, 60 cows conceived, 57 cows calved, 55 calves born alive and 50 calves weaned."
+      ]
+    },
+    {
+      "find": "In cattle, polled (P) is dominant over horned (p)",
+      "with": [
+        "In cattle, polled (P) is dominant over horned (p). A heterozygous polled bull (Pp) is mated with a heterozygous polled cow (Pp). They should draw a genetic diagram to show the cross.",
+        "Expected response (see Figure TG 3):",
+        "- Parents: Pp × Pp; gametes: P and p from each parent.",
+        "- Offspring genotypes: 1 PP : 2 Pp : 1 pp.",
+        "- Offspring phenotypes: 3 polled : 1 horned (75% polled, 25% horned).",
+        "Further learning points:",
+        "- Inherited traits are characteristics passed from parents to offspring through genes, for example coat colour, body size and growth rate, milk yield, carcass quality, fertility, egg production, wool quality, the horned or polled condition, disease and parasite resistance, feed conversion efficiency and temperament.",
+        "- Genetics determines the traits an animal inherits; reproduction is the process by which these genes pass from one generation to the next. Together they allow a farmer to improve livestock by choosing which animals breed.",
+        "- A dominant gene is expressed even when only one copy is present and masks the recessive gene; it is written with a capital letter (P). A recessive gene is expressed only when two copies are present; it is written with a small letter (p). So PP and Pp cattle are polled, and only pp cattle are horned."
+      ]
+    },
+    {
+      "after": "Calculating work, force, energy",
+      "find": "Present findings.",
+      "with": [
+        "(d) Identify the forms of energy involved during the activity.",
+        "(e) Explain how the wheel and axle of the wheelbarrow act as a lever to reduce the effort required (moment).",
+        "(f) Observe factors that increase or reduce friction between the wheel and the ground.",
+        "Present findings."
+      ]
+    },
+    {
+      "after": "Calculating work, force, energy",
+      "find": "Expected on charts:",
+      "with": [
+        "Expected on charts:",
+        "- Work done: see the worked example in Figure TG 4 below (Work done = Force × distance in the direction of the force).",
+        "- Force: measure the push with a spring balance or estimate it; F = ma. Example: accelerating a loaded wheelbarrow of 80 kg at 0.5 m/s² needs F = 80 × 0.5 = 40 N (ignoring friction).",
+        "- Energy: chemical energy from the learner’s food becomes kinetic energy of the moving wheelbarrow, and heat through friction. A moving wheelbarrow of 80 kg at 1.5 m/s has KE = ½ × 80 × 1.5² = 90 J; a 50 kg bag lifted 3 m onto a trailer gains PE = mgh = 50 × 9.81 × 3 = 1 471.5 J.",
+        "- Moments: the wheelbarrow is a lever with the wheel axle as the pivot, the load between the pivot and the handles, and the effort at the handles. Because the effort is further from the pivot than the load, a small effort lifts a large load: effort × effort distance = load × load distance. Example: a 600 N load 0.4 m from the axle, with the handles 1.2 m from the axle, needs an effort of (600 × 0.4) ÷ 1.2 = 200 N.",
+        "- Friction: rolling friction at the wheel is much smaller than the sliding friction of dragging the load. Friction increases on soft, sandy or muddy ground, with a flat tyre and with a rusty, dry axle; a well-inflated tyre, a greased bearing and a firm path reduce it. Frictional force F = μN; for example, with μ = 0.40 and N = 600 N, F = 0.40 × 600 = 240 N."
+      ]
+    },
+    {
+      "find": "For detailed operational principles of combine harvester and maize",
+      "with": [
+        "Expected responses (see Figure 31 in the Learner’s Book):",
+        "Combine harvester – main parts and their functions:",
+        "- Reel: guides the standing crop towards the cutter bar.",
+        "- Cutter bar: cuts the crop near ground level.",
+        "- Feeder house: conveys the cut crop to the threshing unit.",
+        "- Threshing drum and concave: the drum rotates against the concave and separates the grain from the heads, cobs or pods.",
+        "- Straw walkers: shake out the remaining grain and carry the straw to the rear of the machine.",
+        "- Cleaning fan and sieves: the fan blows away chaff and light material; the sieves separate clean grain from impurities.",
+        "- Grain tank: stores the clean grain.",
+        "- Unloading auger: empties the grain tank into trailers or storage.",
+        "Maize sheller – main parts and their functions:",
+        "- Hopper: receives the dried maize cobs.",
+        "- Shelling drum with pegs: rotates and rubs against the cobs, stripping off the grain.",
+        "- Concave or screen: lets the shelled grain fall through while the cobs move on.",
+        "- Cob outlet: discharges the empty cobs.",
+        "- Blower (fan): removes husks, dust and chaff.",
+        "- Grain outlet: delivers clean grain into bags or containers.",
+        "In both machines a rotating drum working against a concave separates the grain and a stream of air cleans it. The combine also cuts the crop and works in the field; the sheller is stationary and works on harvested, dried cobs."
+      ]
+    },
+    {
+      "find": "Drawbar power = 16 × 2 = 32 kW",
+      "with": [
+        "Drawbar power = 16 × 2 = 32 kW",
+        "3. Drawbar power = 30 kW, speed = 2.5 m/s",
+        "Draught force = Drawbar power ÷ Speed = 30 ÷ 2.5 = 12 kN"
+      ]
+    },
+    {
+      "after": "Calculating angles of attack",
+      "find": "Ease of penetration.",
+      "with": "Compare the effect of the two angles of attack on: a) ease of penetration; b) soil inversion; c) draught force."
+    },
+    {
+      "find": "Where possible, display completed group reports",
+      "with": [
+        "Where possible, display completed group reports on the classroom wall after presentations so that all learners can read each other’s work.",
+        "Suggested Procedure",
+        "- Let each group write a short research report under the headings on the template: Title, Introduction (problem statement and hypothesis), Materials and Methods, Results (with a frequency table and a graph), Discussion and Conclusion.",
+        "- Check that every graph has a title, labelled axes and units.",
+        "- Let each group present its findings to the class in 5 to 10 minutes, using its graph as a visual aid.",
+        "- Let groups exchange reports and peer-evaluate them with the checklist.",
+        "Expected Responses",
+        "- The title names the crop or animal, the treatment or variable and the place, for example ‘Effect of Goat Manure on the Yield of Rape at a School Garden in Chipata’.",
+        "- The introduction states the problem and a testable hypothesis; the methods are detailed enough for another group to repeat the study (treatments, number of replicates, what was measured and how).",
+        "- The results are presented in a correctly labelled table and graph, without explanation; the discussion compares the results with the hypothesis and suggests reasons for any unexpected results.",
+        "- The conclusion states clearly whether the hypothesis was supported and gives one or two practical recommendations for farmers."
+      ]
+    },
+    {
+      "find": "Each group presents their research design to the class for peer review",
+      "with": [
+        "Each group presents its research design to the class for peer review using the checklist provided.",
+        "Expected Responses",
+        "- A sample design. Problem: maize yields at the school farm are low. Research question: does goat manure increase the grain yield of maize? Hypothesis: maize plots treated with goat manure give a higher grain yield than untreated plots.",
+        "- Aim: to determine the effect of goat manure on maize yield. Objectives: to compare the grain yield of manured and unmanured plots; to compare plant height at eight weeks.",
+        "- Variables: independent – goat manure (applied or not, or different rates); dependent – grain yield per plot and plant height; controlled – maize variety, plot size, planting date, spacing, weeding and watering.",
+        "- Sampling and replication: four replicate plots of each treatment, allocated at random; ten plants sampled at random from the middle rows of each plot.",
+        "- Data collection: plant height measured every two weeks and grain weighed at harvest, recorded on a data sheet with the date, plot and treatment.",
+        "- Statistical tools: the mean and range of yield for each treatment, a frequency table of plant heights, and a bar graph comparing the treatment means."
+      ]
+    },
+    {
+      "find": "Variable (Independent, Dependent, Controlled)",
+      "with": "**Variable (Independent, Dependent, Controlled)**: In an experiment, the independent variable is manipulated by the researcher, the dependent variable is measured, and controlled variables are kept constant to ensure a fair test."
     }
   ],
   "tables": [
@@ -1122,7 +1640,7 @@
               }
             ]
           },
-          "East Coast Fever"
+          "East Coast fever"
         ],
         [
           {
@@ -1388,7 +1906,7 @@
               }
             ]
           },
-          "Power Take-Off"
+          "Power take-off"
         ],
         [
           {
@@ -1542,18 +2060,25 @@
         "Best, J. W., & Kahn, J. V. (2014). Research in Education (10th ed.). Pearson Education.",
         "Brady, N. C., & Weil, R. R. (2016). The Nature and Properties of Soils (15th ed.). Pearson Education.",
         "Creswell, J. W. (2018). Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (5th ed.). SAGE Publications.",
+        "Culpin, C. (1992). Farm Machinery (12th ed.). Blackwell Science.",
+        "Debertin, D. L. (2012). Agricultural Production Economics (2nd ed.). Macmillan.",
         "Food and Agriculture Organization (FAO). (2013). Climate-Smart Agriculture Sourcebook. FAO.",
         "Food and Agriculture Organization (FAO). (2017). Soil Management and Sustainable Agriculture. FAO.",
+        "Frandson, R. D., Wilke, W. L., & Fails, A. D. (2009). Anatomy and Physiology of Farm Animals (7th ed.). Wiley-Blackwell.",
         "Griffiths, A. J. F., Wessler, S. R., Carroll, S. B., & Doebley, J. (2015). Introduction to Genetic Analysis (11th ed.). W. H. Freeman and Company.",
         "Hillel, D. (2004). Introduction to Environmental Soil Physics. Elsevier Academic Press.",
         "International Livestock Research Institute (ILRI). (2020). Agricultural Research for Development in Sub-Saharan Africa. ILRI.",
         "International Maize and Wheat Improvement Centre (CIMMYT). (2004). Maize Diseases: A Guide for Field Identification (4th ed.). CIMMYT.",
+        "Kepner, R. A., Bainer, R., & Barger, E. L. (1978). Principles of Farm Machinery (3rd ed.). AVI Publishing.",
         "Kothari, C. R. (2019). Research Methodology: Methods and Techniques (4th ed.). New Age International Publishers.",
         "Lal, R., & Shukla, M. K. (2004). Principles of Soil Physics. Marcel Dekker.",
+        "McDonald, P., Edwards, R. A., Greenhalgh, J. F. D., Morgan, C. A., Sinclair, L. A., & Wilkinson, R. G. (2010). Animal Nutrition (7th ed.). Prentice Hall.",
         "Ministry of Education (Curriculum Development Centre). (2023). Zambia Education Curriculum Framework. CDC.",
         "Ministry of Education (Curriculum Development Centre). (2024). Agricultural Science Syllabus for Secondary School Education (Advanced Level, Form 5–6). CDC.",
         "Montgomery, D. C. (2017). Design and Analysis of Experiments (9th ed.). John Wiley & Sons.",
+        "Olson, K. D. (2010). Economics of Farm Management in a Global Setting. Wiley.",
         "Punch, K. F. (2014). Introduction to Social Research: Quantitative and Qualitative Approaches (3rd ed.). SAGE Publications.",
+        "Radostits, O. M., Gay, C. C., Hinchcliff, K. W., & Constable, P. D. (2007). Veterinary Medicine: A Textbook of the Diseases of Cattle, Horses, Sheep, Pigs and Goats (10th ed.). Saunders Elsevier.",
         "Raven, P. H., Evert, R. F., & Eichhorn, S. E. (2013). Biology of Plants (8th ed.). W. H. Freeman and Company.",
         "Soil Survey Staff. (1999). Soil Taxonomy: A Basic System of Soil Classification for Making and Interpreting Soil Surveys (2nd ed., Agriculture Handbook No. 436). USDA Natural Resources Conservation Service.",
         "Troeh, F. R., & Thompson, L. M. (2005). Soils and Soil Fertility (6th ed.). Blackwell Publishing.",
@@ -1571,5 +2096,1559 @@
     "image7.png": {
       "src": "Agric Science F5 TG-art/fig15-lrac-curve.png"
     }
-  }
+  },
+  "//round2": "Round 2 (26 Nov 2026, 75 comments): see C:/z/agric-f5-tg-r2/recipe.js.",
+  "retext": [
+    {
+      "from": "Task Instructions",
+      "to": "Suggested Procedure"
+    },
+    {
+      "from": "Procedure / Task Instructions",
+      "to": "Suggested Procedure"
+    },
+    {
+      "from": "Procedure",
+      "to": "Suggested Procedure"
+    },
+    {
+      "from": "x 100%",
+      "to": "× 100"
+    },
+    {
+      "from": "x 100%",
+      "to": "× 100"
+    }
+  ],
+  "deleteExact": [
+    "For each activity, note in the scheme of work where each competence is taught, practised and assessed.",
+    "Soil inversion.",
+    "Draught force."
+  ],
+  "insertBlocks": [
+    {
+      "before": "LEARNING ACTIVITY 5: Relating genetics and reproduction to plant breeding",
+      "drop": 1,
+      "blocks": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 5: Relating the principles of genetics and reproduction to plant breeding",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Preparation",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Provide a chart of a monohybrid cross, pictures of maize tassels and ears covered with pollination bags (Figure 14 in the Learner’s Book), and short notes on how a breeder plans a cross.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Suggested Procedure",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Guide learners to relate the genetic principles of segregation, independent assortment and dominance, and the reproductive processes of mitosis, meiosis and fertilisation, to how breeders develop new, improved varieties.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to discuss the role of controlled (hand) pollination in a breeding programme: why the female flower is protected before and after pollination, and how this gives the breeder offspring of known parentage.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list1",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to relate genetic variation, which arises from meiosis (crossing over and independent assortment) and from fertilisation, to the breeder’s ability to find and select plants with desirable traits.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list1",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Presentation and Discussion",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Facilitate group presentations and consolidate the link between the genetics learnt in the earlier activities and the work of a plant breeder.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Possible Responses/Learning Points",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Knowledge of dominance and segregation lets the breeder predict the proportion of offspring that will show a trait. A recessive trait, such as a recessive disease-resistance allele, appears in about one in four F2 plants from a cross between two heterozygous parents, so the breeder grows enough F2 plants to find them.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "a)",
+                "numId": "r2list2",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Meiosis and fertilisation reshuffle the parents’ alleles, so the offspring of a cross differ from one another. This variation is the raw material of selection: without it there would be nothing to choose between.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "b)",
+                "numId": "r2list2",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Controlled pollination ensures that the breeder knows both parents of every seed. Bagging the tassels and ears, transferring pollen by hand and labelling the cross keep out stray pollen that would spoil the cross.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "c)",
+                "numId": "r2list2",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Points of Emphasis",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Emphasise that plant breeding is applied genetics: every step of a breeding programme rests on the principles learnt in Learning Activities 1 to 3.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 6: Distinguishing different types of plant breeding",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Preparation",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Provide short case study notes or examples of crops developed through inbreeding (for example pure-line varieties), crossbreeding (for example hybrid maize), and induced mutation (for example varieties developed using radiation or chemical mutagens).",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Suggested Procedure",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to distinguish inbreeding (the mating or self-pollination of closely related individuals to produce uniform, true-to-type lines, but which risks reduced vigour if carried too far) from crossbreeding or hybridisation (crossing genetically different parents to combine desirable traits and exploit hybrid vigour, or heterosis).",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list3",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to describe induced mutation breeding, in which physical agents such as radiation or chemical mutagens are used to create new genetic variation that may not exist naturally in the available breeding material, which is then screened for useful, desirable changes.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list3",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "For each method, let learners identify the procedure involved, an example of its use in crop improvement, and its advantages and disadvantages, and present a comparative table to the class.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list3",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Presentation and Discussion",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Facilitate group presentations comparing inbreeding, crossbreeding and mutation breeding, including their typical uses, advantages and limitations.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Possible Responses/Learning Points",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Inbreeding is used to develop pure, uniform breeding lines, for example the parent lines used to produce hybrid maize seed.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "a)",
+                "numId": "r2list4",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Crossbreeding combines the traits of two genetically different parents and can produce vigorous, high-yielding hybrid offspring through heterosis, widely exploited in hybrid maize and many vegetable crops.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "b)",
+                "numId": "r2list4",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Mutation breeding is used where the existing genetic variation in a crop is limited; it can introduce entirely new traits, but requires extensive screening of many mutated plants to identify the rare useful changes among mostly neutral or harmful ones.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "c)",
+                "numId": "r2list4",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "In the comparative table: inbreeding (self-pollination over several generations) gives uniform pure lines but risks inbreeding depression; crossbreeding (hand pollination between two chosen parents) gives hybrid vigour, but hybrid seed must be bought each season because the F2 generation is not uniform; mutation breeding (treatment with radiation or chemicals) creates new variation quickly, but most mutations are harmful and many plants must be screened.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "d)",
+                "numId": "r2list4",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Points of Emphasis",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Emphasise that each method has both advantages and limitations, and that breeders often combine more than one method (for example inducing mutations, then using crossbreeding and selection) within a single breeding programme.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "before": "LEARNING ACTIVITY 6: Selecting plants for breeding",
+      "drop": 1,
+      "blocks": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 7: Selecting plants for breeding based on desired characteristics",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Preparation",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Provide a set of sample plants, or cards/pictures describing plants or varieties with varying characteristics (yield potential, disease resistance, maturity period, drought tolerance), together with simple score sheets.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Where possible, arrange a visit to the school garden or a field of maize or beans so that learners can observe and score real plants, as in the Learner’s Book.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Suggested Procedure",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to list desirable characteristics that a breeder would select for in a target crop, such as high and stable yield, resistance to locally important pests and diseases, suitable maturity period for the local growing season, tolerance to drought or other stresses, and acceptable grain or fruit quality.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list5",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Working in groups or individually, guide learners to observe individual plants in the field (or the sample plants or variety cards), record characteristics such as plant height, number of pods or cobs, disease symptoms and general vigour, and select the best individuals against a stated breeding objective.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list5",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Let learners justify their selections, explaining the criteria they used.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list5",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Presentation and Discussion",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Facilitate group presentations of the selected plants and discuss the criteria each group used.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Possible Responses/Learning Points",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Desirable characteristics depend on the specific breeding objective, but commonly include high and stable yield, resistance to locally important pests and diseases, a suitable maturity period for the local growing season, tolerance to drought or other relevant stresses, and acceptable grain or fruit quality for both consumers and the market.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list6",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Plants chosen as parents should express the desired characteristics consistently and be free from visible disease, pests and defects. A plant that does well only because it grew in a better spot (more manure or water) is a poor choice, because that advantage is not inherited.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list6",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Points of Emphasis",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Stress that selection must always be guided by clear, locally relevant objectives, since a trait that is desirable in one area or market may be less important in another.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list7",
+                "lvl": 0
+              }
+            ]
+          }
+        },
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 8: Demonstrating the process of plant breeding",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Preparation",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Provide a plot of maize about to tassel (or a bean crop at flowering), paper pollination bags for tassels and ears, paper clips or staples, scissors, labels, a permanent marker, a field notebook and a chart of the steps of a breeding programme (Learner’s Book, Figure 15).",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list8",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Plant the maize so that it reaches the right stage when the activity is taught: the ear shoots should be visible but the silks not yet out.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list8",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Suggested Procedure",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to identify the male flower (tassel) and female flower (ear with silks) of maize, or the stamens and stigma inside a bean flower.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list9",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Demonstrate detasselling: remove the tassels of the plants chosen as the female parent before they shed pollen, so that they cannot pollinate themselves.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list9",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Before the silks emerge, cover the ear shoots of the female parent with small bags. When the male parent starts to shed pollen, cover its tassel with a large bag for a day to collect pollen.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list9",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Carry out the hand pollination: remove the ear bag, shake the collected pollen onto the silks and immediately cover the ear again with the tassel bag, fastening it around the stalk.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list9",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Let learners label each pollinated ear with the parents (female × male), the date and the group’s name, and record the same details in the field notebook.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list9",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to monitor the ears until harvest and record seed set, and discuss why accurate records are kept at every stage of a breeding programme.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list9",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to outline the basic steps of a plant breeding programme: setting clear objectives, selecting suitable parents, making controlled crosses, evaluating and selecting among the offspring over several seasons, multiplying seed of the best-performing lines, and releasing the new variety to farmers after adequate testing.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list9",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Presentation and Discussion",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Facilitate group presentations of the hand pollination and the breeding programme steps, and discuss why each step is necessary.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Possible Responses/Learning Points",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Detasselling and bagging prevent self-pollination and contamination by stray pollen, so the seed formed comes only from the chosen cross and its parentage is known.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list10",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "A well-pollinated ear has full rows of grain; gaps or a poorly filled tip show that the silks received too little pollen or were pollinated too late.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list10",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Records (parents, date of pollination, number of ears pollinated, seed set and the later performance of the offspring) let the breeder trace every new line back to its parents, repeat a successful cross and avoid mixing up seed lots.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list10",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "The basic steps of a breeding programme are: (1) set clear breeding objectives, (2) select suitable parents with the desired traits, (3) make controlled crosses, (4) evaluate and select among the offspring over several seasons, (5) multiply seed of the best-performing lines, and (6) release and promote the new variety to farmers.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list10",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Points of Emphasis",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Bags must go on before the silks emerge and before the tassels shed pollen; a bag put on late gives a contaminated cross.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list11",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Emphasise that developing and releasing a new variety takes many seasons of careful, repeated evaluation, and is not a quick process.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list11",
+                "lvl": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "before": "LEARNING ACTIVITY 1: Describing the anatomy and physiology of farm animals",
+      "drop": 1,
+      "blocks": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 1: Describing the anatomy and physiology of farm animals.",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Preparation",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "On the day of the lesson, obtain the digestive tract of a goat or sheep and of a chicken from a local abattoir or market.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list12",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Provide dissecting trays, scalpels, scissors, gloves, aprons, measuring tapes, and charts or models of the digestive systems of a cow, a pig and a chicken.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list12",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Arrange for safe disposal of the tissues (burying or burning), and provide disinfectant, soap and water.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list12",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Suggested Procedure",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "In groups of five, or individually, let learners put on gloves and aprons and lay out the goat or sheep tract on a tray.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list13",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Guide learners to identify the mouth parts (dental pad, molars), oesophagus, rumen, reticulum, omasum, abomasum, small intestine, caecum and colon.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list13",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Let learners open each stomach compartment carefully, describe its lining and contents, then measure and record the lengths of the small and large intestines.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list13",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Repeat with the chicken tract: crop, proventriculus, gizzard, small intestine, caeca and cloaca. Let learners open the gizzard and note the grit and the thick muscular wall.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list13",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Let learners draw and label each tract and complete a comparison table of the two animals.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list13",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Supervise the disposal of all tissues, the disinfection of equipment and handwashing with soap.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list13",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Presentation and Discussion",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Let groups present their drawings and comparison tables and explain how each structure suits the feed the animal eats.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected Responses",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Rumen: the largest compartment, lined with rough, finger-like papillae and full of coarse, fermenting plant material and fluid; microbes here ferment fibre.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list14",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Reticulum: honeycomb lining; traps heavy objects such as stones and wire, and returns feed to the mouth for rumination.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list14",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Omasum: many leaf-like folds; absorbs water and squeezes the digesta.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list14",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Abomasum: smooth, glandular lining (the true stomach); secretes acid and enzymes, like the stomach of a non-ruminant.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list14",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Lengths: the small intestine of an adult goat or sheep is about 20–25 m long and the large intestine about 5–8 m, many times the body length, which gives time to digest fibrous feed. The whole chicken intestine is only about 1.5–2 m, because poultry eat concentrated feed that is digested quickly. (Lengths vary with age and breed; accept learners’ own measurements.)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list14",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Chicken: the crop stores and softens feed; the proventriculus secretes acid and enzymes; the gizzard, with its thick muscle and grit, grinds the feed because birds have no teeth; the caeca ferment some fibre; the cloaca is the common opening for faeces, urine and eggs.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list14",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "External parts learners may also name: mouth (takes in feed and water), nostrils (breathing and smelling), eyes (vision), horns (defence), tail (swats away flies and insects) and teats (release milk to the young or during milking).",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list14",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Points of Emphasis",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Tissues from an abattoir may carry diseases that pass to people, so gloves are worn throughout and hands are washed with soap afterwards.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list15",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Learners who prefer not to handle tissue can take the measurements, record them and draw the tracts.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list15",
+                "lvl": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "before": "LEARNING ACTIVITY 7: Operating farm machines",
+      "drop": 1,
+      "blocks": [
+        {
+          "raw": {
+            "t": "activity",
+            "title": "LEARNING ACTIVITY 7: Operating farm machines.",
+            "body": [
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Practical: Starting and driving a tractor.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Aim: To enable learners to safely start, operate and park a tractor while following correct operating procedures and safety rules.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Organise a field trip to a nearby farm that owns a tractor. Under the direct supervision of a qualified tractor operator, and only where school policy permits, let learners start and drive a tractor. Learners who are not permitted to drive, or who have mobility limitations, carry out and record the pre-operation checks.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Materials Required",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Tractor in good working condition",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list16",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Fuel",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list16",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Operator’s manual",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list16",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "PPE (overalls, safety boots, gloves, goggles)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list16",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Open field for practice",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list16",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Instructor (a qualified tractor operator)",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "•",
+                "numId": "r2list16",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Procedure and Expected Learner Responses",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Perform pre-operation checks: check the engine oil, coolant, fuel and hydraulic oil; inspect the tyres; check the battery, brakes and steering; inspect for leaks; and make sure all guards are fitted.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "1.",
+                "numId": "r2list17",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Start the tractor correctly: sit properly and fasten the seat belt if fitted; engage the parking brake; put the gear lever in neutral; depress the clutch; start the engine and allow it to warm up.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "2.",
+                "numId": "r2list17",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Drive in a straight line: select first gear; release the clutch slowly; keep both hands on the steering wheel; drive at a safe speed and keep a straight path.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "3.",
+                "numId": "r2list17",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Reverse safely: look behind; sound the horn if necessary; reverse slowly and avoid sudden steering.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "4.",
+                "numId": "r2list17",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Turn at headlands: slow down; check the surroundings; turn smoothly and keep control.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "5.",
+                "numId": "r2list17",
+                "lvl": 0
+              },
+              {
+                "t": "listitem",
+                "segs": [
+                  {
+                    "t": "Park and shut down the tractor: park on level ground; reduce the engine speed; put the gear lever in neutral; apply the parking brake; lower the implements; switch off the engine and remove the key.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ],
+                "marker": "6.",
+                "numId": "r2list17",
+                "lvl": 0
+              },
+              {
+                "t": "para",
+                "segs": [
+                  {
+                    "t": "Expected: learners should demonstrate correct tractor operation while observing safety rules.",
+                    "b": false,
+                    "it": false,
+                    "c": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "unitalic": [
+    "Table TG 1: Differences between Inbreeding and Crossbreeding"
+  ],
+  "unlist": [
+    "A balanced diet is important because"
+  ],
+  "dropParts": [
+    "Farrowing/Kidding Rate",
+    "Farrowing (Kidding) Rate (%) =Number of sows/does that farrowed/kidded ×100",
+    "Number of sows/does served",
+    "Example: (45 farrowed ÷ 50 served) × 100 = 90%",
+    "Mortality Rate:",
+    "Mortality Rate (%) = Number of animals that died × 100",
+    "Total number of animals at risk (born/present)",
+    "Example: (7 deaths ÷ 75 born) × 100 = 9.3%"
+  ],
+  "replaceExact": [
+    {
+      "find": "OPERATING FARM MACHINERY",
+      "with": "Operating Farm Machinery"
+    }
+  ],
+  "insertText": [
+    {
+      "before": "The mass of dry soil per unit volume, including pore spaces; used to assess soil compaction and porosity",
+      "text": [
+        "**Anatomy**: The study of the structure of an organism and the relationships between its parts.",
+        "**Antimicrobial Resistance (AMR)**: The ability of micro-organisms to survive exposure to drugs that would normally kill them or stop their growth."
+      ]
+    },
+    {
+      "after": "The mass of dry soil per unit volume, including pore spaces; used to assess soil compaction and porosity",
+      "text": [
+        "**Combine Harvester**: A machine that combines reaping, threshing and cleaning of grain crops in a single operation."
+      ]
+    },
+    {
+      "after": "The practices and measures used to prevent, reduce or control losses caused by pests",
+      "text": [
+        "**Crossbreeding**: The mating of animals from different breeds to combine desirable traits and exploit hybrid vigour.",
+        "**Demand**: The quantity of a good or service that consumers are willing and able to buy at a given price over a given period."
+      ]
+    },
+    {
+      "after": "A process unique to flowering plants in which the pollen tube delivers two male gametes",
+      "text": [
+        "**Draught Force**: The pulling force required to move an implement, such as a plough, through the soil.",
+        "**Economies of Scale**: The cost advantages a business obtains from an increase in the scale of production.",
+        "**Farm Mechanisation**: The use of machines and equipment to carry out agricultural operations, reducing reliance on manual and animal labour.",
+        "**Feed Ration**: The total amount of feed given to an animal over a 24-hour period, formulated to meet its nutritional requirements."
+      ]
+    },
+    {
+      "after": "A specific, measurable and testable prediction about the expected outcome of a scientific study",
+      "text": [
+        "**Inbreeding**: The mating of closely related animals or plants, which increases uniformity but also the chance that harmful recessive traits are expressed."
+      ]
+    },
+    {
+      "after": "A type of cell division that produces four genetically distinct daughter cells",
+      "text": [
+        "**Minimum Efficient Scale (MES)**: The smallest level of output at which a firm can minimise its long-run average costs."
+      ]
+    },
+    {
+      "after": "A type of cell division that produces two genetically identical daughter cells from a single parent cell",
+      "text": [
+        "**Monogastric Animal**: An animal, such as a pig or chicken, with a simple, single-chambered stomach."
+      ]
+    },
+    {
+      "after": "The ease with which water and air can move through soil pores",
+      "text": [
+        "**Physiology**: The study of how living organisms and their parts function."
+      ]
+    },
+    {
+      "after": "The proportion of soil volume that is occupied by pore spaces, which influences water retention",
+      "text": [
+        "**Power Take-off (PTO)**: A shaft on a tractor that transmits engine power to drive an attached implement or machine.",
+        "**Price Elasticity of Demand (PED)**: A measure of the responsiveness of quantity demanded to a change in price.",
+        "**Price Elasticity of Supply (PES)**: A measure of the responsiveness of quantity supplied to a change in price."
+      ]
+    },
+    {
+      "after": "The overall plan and methodology for conducting a study, including the research method",
+      "text": [
+        "**Ruminant**: An animal, such as cattle, sheep or goats, with a four-chambered stomach adapted for digesting fibrous plant material."
+      ]
+    },
+    {
+      "after": "The relative proportions of sand, silt and clay particles that make up a soil",
+      "text": [
+        "**Supply**: The quantity of a good or service that producers are willing and able to sell at a given price over a given period."
+      ]
+    }
+  ]
 }
