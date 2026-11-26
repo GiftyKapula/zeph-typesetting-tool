@@ -1,0 +1,268 @@
+{
+  "//authors": "The cover byline runs the two authors together on one line (\"Mutale Chibesa E Maambo G. Mudenda\"); the AUTHORS page names them separately.",
+  "authors": [
+    "Mutale Chibesa E",
+    "Maambo G. Mudenda"
+  ],
+  "//coverImage": "The user supplied the cover picture (Downloads/lb.jpeg, 24 Nov, 764x1080, word-free): Real-ESRGAN x4, scaled to 1800 px (cover-hero.png); cover-hero-band.png is the band from the tractor to the vegetable basket, so the cover's landscape frame keeps the whole tractor.",
+  "coverImage": "Agric Science F5 LB-art/cover-hero-band.png",
+  "//remove": "A drafting note left in the text after the Sub-topic 5.1.1 introduction.",
+  "remove": [
+    "Here is a more learner-centred introduction that follows the style and format of the attached article."
+  ],
+  "edit": [
+    {
+      "find": "Mutale Chibesa E holds Master of Science",
+      "with": "Mutale Chibesa E holds a Master of Science"
+    },
+    {
+      "find": "(DALICE) He also holds",
+      "with": "(DALICE). He also holds"
+    },
+    {
+      "find": ". Comparing the electrical systems",
+      "with": "Comparing the electrical systems"
+    },
+    {
+      "find": "LEARNING ACTIVITY 1: Describing animal feed rations",
+      "with": "LEARNING ACTIVITY 5: Describing animal feed rations"
+    },
+    {
+      "find": "LEARNING ACTIVITY 2: Formulating feed rations",
+      "with": "LEARNING ACTIVITY 6: Formulating feed rations"
+    },
+    {
+      "find": "LEARNING ACTIVITY 3: Exploring innovative ways of making animal rations",
+      "with": "LEARNING ACTIVITY 7: Exploring innovative ways of making animal rations"
+    },
+    {
+      "find": "LEARNING ACTIVITY 5: Relating the principles of genetics and reproduction in animal breeding",
+      "with": "LEARNING ACTIVITY 4: Relating the principles of genetics and reproduction in animal breeding"
+    },
+    {
+      "find": "LEARNING ACTIVITY 6: Distinguishing between crossbreeding and inbreeding",
+      "with": "LEARNING ACTIVITY 5: Distinguishing between crossbreeding and inbreeding"
+    },
+    {
+      "find": "LEARNING ACTIVITY 7: Selecting animals for breeding",
+      "with": "LEARNING ACTIVITY 6: Selecting animals for breeding"
+    }
+  ],
+  "//editCell": "Key Competences table: row 2 was numbered \"+2\".",
+  "editCell": [
+    {
+      "find": "+2",
+      "with": "2"
+    }
+  ],
+  "//tableNoHeader": "The ACRONYMS table has no header row: AMR is its first entry.",
+  "tableNoHeader": [
+    "AMR"
+  ],
+  "//asHead": "Topic 5.2 alone styles its Introduction as a Word heading, so it showed as a sub-topic in the contents; the other topics have it as a plain sub-head.",
+  "asHead": [
+    "Introduction"
+  ],
+  "//edit": "Imprint/author slips; a stray full stop opening a paragraph in 5.4. Activities numbered 1..n within each sub-topic (as the Teacher's Guide does): 5.3.2 restarts at 1 for feed rations (-> 5, 6, 7); 5.3.3 runs 1, 2, 3, 5, 6, 7, 7 (-> 1-7). Its first one is spelt ACTIVIY, which the engine reads and prints as ACTIVITY.",
+  "//removeWhereNext": "Sub-topic 5.3.3 prints EXERCISE 4 twice, word for word (after Activity 3 and again after Activity 5): the second copy goes.",
+  "removeWhereNext": [
+    {
+      "find": "EXERCISE 4",
+      "next": "Cross Breeding and Inbreeding"
+    }
+  ],
+  "//fixExercise": "Exercises numbered 1..n within each sub-topic, as the Teacher's Guide does: 5.2.2 ran 4, 5, 7; 5.3.2 ran 2, 3; 5.3.3 ran 4, (4), 5; 5.3.4 ran 1, 6.",
+  "fixExercise": [
+    {
+      "match": "EXERCISE 4",
+      "near": "Distinguish between Mendelian and non-Mendelian",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "Distinguish between inbreeding, crossbreeding and mutation",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 7",
+      "near": "Explain why plant breeders select parent plants",
+      "heading": "EXERCISE 3"
+    },
+    {
+      "match": "EXERCISE 2",
+      "near": "A livestock farmer has the following feed ingredients",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 3",
+      "near": "A livestock farmer keeps dairy cattle",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 4",
+      "near": "Explain the process of conception",
+      "heading": "EXERCISE 1"
+    },
+    {
+      "match": "EXERCISE 5",
+      "near": "Explain how genetics and reproduction work together",
+      "heading": "EXERCISE 2"
+    },
+    {
+      "match": "EXERCISE 6",
+      "near": "A dairy farmer with 50 cows",
+      "heading": "EXERCISE 2"
+    }
+  ],
+  "//replace": "Topic 5.6 sub-head typed \"8Step 8\".",
+  "replace": [
+    {
+      "find": "8Step 8:",
+      "with": "Step 8: Conclusion and Recommendations"
+    }
+  ],
+  "//subtext": "Topics typed TOPIC 5.1.0 ... 5.6.0 (5.3 and 5.5 without a colon): set as TOPIC 5.1 ... 5.6, the form the Teacher's Guide uses.",
+  "subtext": [
+    {
+      "from": "TOPIC 5.1.0:",
+      "to": "TOPIC 5.1:"
+    },
+    {
+      "from": "TOPIC 5.2.0:",
+      "to": "TOPIC 5.2:"
+    },
+    {
+      "from": "TOPIC 5.3.0 ",
+      "to": "TOPIC 5.3: "
+    },
+    {
+      "from": "TOPIC 5.4.0:",
+      "to": "TOPIC 5.4:"
+    },
+    {
+      "from": "TOPIC 5.5.0 ",
+      "to": "TOPIC 5.5: "
+    },
+    {
+      "from": "TOPIC 5.6.0:",
+      "to": "TOPIC 5.6:"
+    }
+  ],
+  "//insertHead": "Topic 5.4 has no sub-topic line in the body; the manuscript's own contents list names it Sub-Topic 5.4.1: Farm Mechanisation.",
+  "insertHead": [
+    {
+      "before": "Specific Competence",
+      "near": "5.4.1.1 Demonstrate understanding of farm mechani",
+      "head": "Sub-Topic 5.4.1: Farm Mechanisation",
+      "as": "h2"
+    }
+  ],
+  "images": {
+    "image5.png": {
+      "src": "Agric Science F5 LB-hires/image5.png"
+    },
+    "image20.png": {
+      "src": "Agric Science F5 LB-hires/image20.png"
+    },
+    "image6.jpeg": {
+      "src": "Agric Science F5 LB-hires/image6.png"
+    },
+    "image3.jpeg": {
+      "src": "Agric Science F5 LB-hires/image3.png"
+    },
+    "image9.png": {
+      "src": "Agric Science F5 LB-hires/image9.png"
+    },
+    "image23.png": {
+      "src": "Agric Science F5 LB-hires/image23.png"
+    },
+    "image27.png": {
+      "src": "Agric Science F5 LB-hires/image27.png"
+    },
+    "image12.png": {
+      "src": "Agric Science F5 LB-hires/image12.png"
+    },
+    "image24.png": {
+      "src": "Agric Science F5 LB-hires/image24.png"
+    },
+    "image21.png": {
+      "src": "Agric Science F5 LB-hires/image21.png"
+    },
+    "image14.png": {
+      "src": "Agric Science F5 LB-hires/image14.png"
+    },
+    "image25.png": {
+      "src": "Agric Science F5 LB-hires/image25.png"
+    },
+    "image13.png": {
+      "src": "Agric Science F5 LB-hires/image13.png"
+    },
+    "image32.png": {
+      "src": "Agric Science F5 LB-hires/image32.png"
+    },
+    "image36.png": {
+      "src": "Agric Science F5 LB-hires/image36.png"
+    },
+    "image37.png": {
+      "src": "Agric Science F5 LB-hires/image37.png"
+    },
+    "image39.png": {
+      "src": "Agric Science F5 LB-hires/image39.png"
+    },
+    "image38.png": {
+      "src": "Agric Science F5 LB-hires/image38.png"
+    },
+    "image34.png": {
+      "src": "Agric Science F5 LB-hires/image34.png"
+    },
+    "image33.png": {
+      "src": "Agric Science F5 LB-hires/image33.png"
+    },
+    "image22.png": {
+      "src": "Agric Science F5 LB-hires/image22.png"
+    },
+    "image35.jpeg": {
+      "src": "Agric Science F5 LB-hires/image35.png"
+    },
+    "image40.png": {
+      "src": "Agric Science F5 LB-hires/image40.png"
+    },
+    "image15.png": {
+      "src": "Agric Science F5 LB-hires/image15.png"
+    },
+    "image17.png": {
+      "src": "Agric Science F5 LB-hires/image17.png"
+    },
+    "image7.jpeg": {
+      "src": "Agric Science F5 LB-hires/image7.png"
+    },
+    "image10.png": {
+      "src": "Agric Science F5 LB-hires/image10.png"
+    },
+    "image31.png": {
+      "src": "Agric Science F5 LB-hires/image31.png"
+    },
+    "image18.png": {
+      "src": "Agric Science F5 LB-hires/image18.png"
+    },
+    "image19.png": {
+      "src": "Agric Science F5 LB-hires/image19.png"
+    },
+    "image8.png": {
+      "src": "Agric Science F5 LB-hires/image8.png"
+    },
+    "image16.png": {
+      "src": "Agric Science F5 LB-hires/image16.png"
+    },
+    "image30.png": {
+      "src": "Agric Science F5 LB-hires/image30.png"
+    },
+    "image26.png": {
+      "src": "Agric Science F5 LB-hires/image26.png"
+    },
+    "image4.gif": {
+      "src": "Agric Science F5 LB-hires/image4.png"
+    }
+  },
+  "//images": "Pictures upscaled to >=300 ppi (tools/upscale-images.js, iGPU). The tool named the p11 soil-structure drawing image2.png; it is image4.gif. image9 and image15 came back with a see-through piece and were redone in one pass."
+}
