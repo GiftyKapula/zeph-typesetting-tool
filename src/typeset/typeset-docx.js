@@ -1771,6 +1771,19 @@ function replaceSegSpan(segs, find, repl, from) {
   const start = full.indexOf(find, from || 0);
   if (start < 0) return null;
   const end = start + find.length;
+  // A span wholly inside one run is rewritten in that run. Split into pieces, an equation
+  // run broke its own Typst source ("unclosed string"): the Agricultural Science Form 5 TG's
+  // "quantiy" typo sits inside a PED formula's fraction.
+  let at = 0;
+  for (let i = 0; i < segs.length; i++) {
+    const s = segs[i], segEnd = at + s.t.length;
+    if (start >= at && end <= segEnd) {
+      const t = s.t.slice(0, start - at) + repl + s.t.slice(end - at);
+      const out = segs.slice(); out[i] = { ...s, t };
+      return { segs: out.filter((x) => x.t !== ""), next: start + repl.length };
+    }
+    at = segEnd;
+  }
   const out = [];
   let pos = 0, inserted = false;
   for (const s of segs) {
@@ -1859,11 +1872,15 @@ function standardiseRuns(blocks, ov) {
     if (Array.isArray(v.rows)) { v.rows.slice(1).forEach(unbold); return; }
     Object.values(v).forEach(unbold);
   };
-  // dropParts: a line of an exercise or assessment that repeats its heading, by exact text
+  // dropParts: a line of an exercise or assessment that repeats its heading, by exact text.
+  // Compared with zero-width characters removed and spaces collapsed: a line typed as
+  // "kidded​ ×100" or "died                x 100%" (Agricultural Science Form 5 TG) looks
+  // like the text the override names but never equalled it.
+  const partKey = (s) => String(s || "").replace(/[​-‍﻿]/g, "").replace(/\s+/g, " ").trim();
   for (const find of ov.dropParts || []) {
     let n = 0;
     for (const b of blocks) if (Array.isArray(b.parts)) {
-      const kept = b.parts.filter((p) => (p.q || "").trim() !== find);
+      const kept = b.parts.filter((p) => partKey(p.q) !== partKey(find));
       n += b.parts.length - kept.length;
       b.parts = kept;
     }
@@ -2152,15 +2169,17 @@ function applyOverrides(blocks, ov) {
   for (const sc of ov.setCaption || []) {
     // A picture set beside the text sits inside a `sidefig`, whose `images` the flat
     // block list does not reach — so neither `file` nor `near` could find it, and a
-    // side picture's caption could not be corrected at all.
+    // side picture's caption could not be corrected at all. The same holds for a picture
+    // inside an activity box (`img`) or an exercise answer (an `image` part): the
+    // Agricultural Science Form 5 TG's six answer diagrams could not be captioned.
     const sideIm = (function find(arr) {
       for (const x of arr || []) {
         if (!x || typeof x !== "object") continue;
-        if (x.t === "sidefig") {
+        if (x.t === "sidefig" || x.t === "img" || x.kind === "image") {
           const im = (x.images || []).find((m) => sc.file ? (m.file || "").includes(sc.file) : (m.caption || "").includes(sc.near));
           if (im) return im;
         }
-        for (const k of ["body", "parts"]) if (Array.isArray(x[k])) { const r = find(x[k]); if (r) return r; }
+        for (const k of Object.keys(x)) if (k !== "images" && Array.isArray(x[k])) { const r = find(x[k]); if (r) return r; }
       }
       return null;
     })(blocks);
@@ -3491,7 +3510,10 @@ function applyOverrides(blocks, ov) {
     if (b) b.keepNext = true; else console.warn("!  keepWithNext not matched:", find);
   }
   for (const sm of ov.setMarker || []) {
-    const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
+    // `after` as in `edit`: the first match after the block containing it, for a line the
+    // book repeats ("[Total: 6 marks]" opens most answers of the Agricultural Science Form 5 TG)
+    const from = sm.after ? flat.findIndex((x) => blockPlain(x).includes(sm.after)) : -1;
+    const b = sm.after && from < 0 ? null : flat.find((x, i) => i > from && blockPlain(x).includes(sm.find)) || (sm.after ? null : allTables.find((t) => tableText(t).includes(sm.find)));
     if (!b) { console.warn("!  setMarker not matched:", sm.find); continue; }
     b.marker = sm.marker;
     // Promote an unlabelled lead line to a real answer so the marker renders, and
@@ -5979,6 +6001,12 @@ function normaliseSpacing(blocks) {
 const MARK_BRACKET_G = /[ \t]?\[\s*\d+(?:\s*marks?)?\s*\]/gi;
 function splitMarksToFr(segs) {
   if (!Array.isArray(segs)) return segs;
+  // A mark-scheme summary line ("Suggested marks: a) [3 marks], b) [3 marks]") lists the
+  // allocation for each part in one sentence. Its brackets are not the line's own mark, so
+  // they stay inline: flushing each one right broke the line after every bracket and left
+  // "a), [3 marks]" with the comma moved in front (Agricultural Science Form 5 TG, round 2).
+  const plain = segs.map((s) => (s && typeof s.t === "string" && !s.m ? s.t : "")).join("");
+  if (/^\s*(?:suggested\s+)?marks?\s*:/i.test(plain)) return segs;
   // First pass: flatten into a linear stream of {mark:false, seg} text pieces and
   // {mark:true, seg} bracket pieces, in order, across every original segment —
   // needed so the second pass can tell whether a bracket has any REAL text still
@@ -7569,6 +7597,8 @@ async function typesetOne(docxPath, themeName) {
   importOpts.boxAllRows = !!ov.boxAllRows;
   importOpts.keepListNumbers = !!ov.keepListNumbers;
   importOpts.listAnswers = ov.listAnswers || [];
+  importOpts.subListMarker = ov.subListMarker;
+  importOpts.subListRoman = ov.subListRoman || [];
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.bareActivityBox = ov.bareActivityBox;
   importOpts.learnerActivityBox = !!ov.learnerActivityBox;

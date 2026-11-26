@@ -3575,7 +3575,21 @@
         // (heading plus four items or more); a shorter run is a few lines deep, so it
         // is kept whole outright and costs almost nothing when it moves.
         let nb = items.len()
-        if nb < 5 { block(breakable: false, width: 100%)[#grp] }
+        // "A few lines deep" is measured, not assumed: three long answers under an
+        // "Expected response:" lead-in run to twenty lines, and kept whole they left more
+        // than half of a page blank (Agricultural Science Form 5 TG, Activity 6 on AMR).
+        // Past the same 240pt cap the other groups use, only the lead-in and its first
+        // item are held together.
+        if nb < 5 {
+          layout(size => {
+            let h = measure(box(width: size.width)[#grp]).height
+            if h < 240pt { block(breakable: false, width: 100%)[#grp] }
+            else {
+              block(breakable: false, width: 100%)[#items.slice(0, 2).map(g => one(g)).join()]
+              items.slice(2).map(g => one(g)).join()
+            }
+          })
+        }
         else {
           block(breakable: false, width: 100%)[#items.slice(0, 3).map(g => one(g)).join()]
           items.slice(3, nb - 2).map(g => one(g)).join()

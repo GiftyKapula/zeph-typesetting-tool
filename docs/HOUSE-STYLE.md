@@ -296,9 +296,11 @@ off, so a change only touches the books that opt in. Keys:
 
 | Key | What it does |
 |---|---|
-| `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off) |
+| `setMarker` | force the list marker of a question/answer part (when a diagram throws numbering off); `after` takes the first match after the block containing it, for a line the book repeats |
 | `keepListNumbers` | `true`: in an exercise whose answers are numbered by Word, a list restarting at 1 under an answer (Word's or typed by hand) stays that answer's sub-list with its own numbers, instead of joining the answer count |
 | `listAnswers` | with `keepListNumbers`: `["start of item", …]` — items that open a new answer though Word keeps them in the same list as the steps above them |
+| `subListMarker` | with `keepListNumbers`: `"bullet"` or `"roman"` — a kept sub-list prints "•" or "i)" instead of its own "1." (a reviewer's "points numbered 3.–7.; use bullets", Agricultural Science Form 5 TG) |
+| `subListRoman` | with `subListMarker`: `["start of first item", …]` — those runs print i), ii)… (ordered stages) while the rest follow `subListMarker` |
 | `boldLabels` | `["Key lesson", …]`: a line opening with the label prints the label (and its colon) bold in the style of the text after it, and those words not bold; reaches exercise parts |
 | `plainParts` | `["text in the set"]`: an exercise or assessment set bold throughout loses the bold; table headers keep theirs, and `boldLabels` still apply |
 | `dropParts` | `["exact line"]`: remove a line of an exercise or assessment, which `remove` does not reach |
