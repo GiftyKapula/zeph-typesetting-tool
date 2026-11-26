@@ -986,6 +986,14 @@ function paraSegs(pXml) {
     // character. The scripted content is upright (quoted) — digits, +/- and letters
     // read as chemistry, not italic algebra.
     const va = (rpr.match(/<w:vertAlign\s+w:val="(superscript|subscript)"/) || [])[1];
+    // A superscript "o" straight after a number is a typed degree sign
+    // ("20" + superscript o for 20°): print the real sign, not a raised letter
+    // (Agricultural Science Form 5 LB, round 2: "20o", "21.8o").
+    const prevT = segs.length ? segs[segs.length - 1] : null;
+    if (va === "superscript" && /^[oO]\s*$/.test(t) && prevT && !prevT.m && /\d\s?$/.test(prevT.t)) {
+      prevT.t = prevT.t.replace(/\s$/, "") + "°" + (/\s$/.test(t) ? " " : "");
+      continue;
+    }
     if (va && t.replace(/\s/g, "")) {
       const trail = /\s$/.test(t) ? " " : "";
       const lead = /^\s/.test(t) ? " " : "";
@@ -3203,7 +3211,11 @@ async function importDocx(docxPath, opts = {}) {
       // two-column layout, so it prints as an ordinary full-width figure — for a reviewer's
       // "enlarge this diagram" on a side picture, which the side column caps at half width.
       const side = ovrEntry && ovrEntry.side === false ? null : (rec.side || null);
-      out.push({ file: name, w: dispW, h: dispH, tall: aspect > 1.05, caption: rawFigCaptions[base] || "", hmm: forceH, floatingBelowText: !!rec.floatingBelowText, side, voff: rec.voff || 0 });
+      // `landscape: true` turns a wide picture (and its caption) onto its own page, rotated
+      // a quarter turn, so it prints about half as large again — a reviewer's "text too small,
+      // put it on a landscape page" (Agricultural Science Form 5 LB, round 2).
+      const land = !!(ovrEntry && ovrEntry.landscape);
+      out.push({ file: name, w: dispW, h: dispH, tall: aspect > 1.05, caption: rawFigCaptions[base] || "", hmm: forceH, ...(land ? { land } : {}), floatingBelowText: !!rec.floatingBelowText, side, voff: rec.voff || 0 });
     }
     return out;
   };
@@ -4623,7 +4635,7 @@ function mergeImageRows(blocks) {
   }
   return out;
 }
-const imgOf = (b) => ({ file: b.file, w: b.w, h: b.h, caption: b.caption, tall: b.tall, hmm: b.hmm, side: b.side || null, voff: b.voff || 0 });
+const imgOf = (b) => ({ file: b.file, w: b.w, h: b.h, caption: b.caption, tall: b.tall, hmm: b.hmm, ...(b.land ? { land: true } : {}), side: b.side || null, voff: b.voff || 0 });
 
 // Attach figure captions to the image(s) they describe. A caption may hold
 // several "Figure N: …" labels (side-by-side images share one), and there may

@@ -567,7 +567,7 @@ function emit(blocks) {
         // that heading moved as one and left half a page empty (ICT Form 3 TG, the model
         // answer above each "Marking guide: Section B").
         const sticky = !big && !b.caption && nb && (nb.t === "head" || nb.t === "h3" || nb.t === "para");
-        out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption.replace(/ {2,}/g, " ")) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0})\n`; break;
+        out += `#figimg(${S("_media/" + b.file)}, ${b.w || 0}, ${b.tall ? "true" : "false"}, ${b.caption ? S(b.caption.replace(/ {2,}/g, " ")) : "none"}, sticky: ${sticky ? "true" : "false"}, hmm: ${b.hmm || 0}${b.land ? ", land: true" : ""})\n`; break;
       }
       case "imagerow": out += `#imagerow(${imgArr(b.images)})\n`; break;
       case "sidefig": out += `#sidefig(${S(b.side)}, ${b.frac || 0.4}, ${imgArr(b.images)}, ${bodyArr(b.body)})\n`; break;
