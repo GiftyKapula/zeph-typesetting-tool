@@ -1771,6 +1771,19 @@ function replaceSegSpan(segs, find, repl, from) {
   const start = full.indexOf(find, from || 0);
   if (start < 0) return null;
   const end = start + find.length;
+  // A span wholly inside one run is rewritten in that run. Split into pieces, an equation
+  // run broke its own Typst source ("unclosed string"): the Agricultural Science Form 5 TG's
+  // "quantiy" typo sits inside a PED formula's fraction.
+  let at = 0;
+  for (let i = 0; i < segs.length; i++) {
+    const s = segs[i], segEnd = at + s.t.length;
+    if (start >= at && end <= segEnd) {
+      const t = s.t.slice(0, start - at) + repl + s.t.slice(end - at);
+      const out = segs.slice(); out[i] = { ...s, t };
+      return { segs: out.filter((x) => x.t !== ""), next: start + repl.length };
+    }
+    at = segEnd;
+  }
   const out = [];
   let pos = 0, inserted = false;
   for (const s of segs) {
@@ -1859,11 +1872,15 @@ function standardiseRuns(blocks, ov) {
     if (Array.isArray(v.rows)) { v.rows.slice(1).forEach(unbold); return; }
     Object.values(v).forEach(unbold);
   };
-  // dropParts: a line of an exercise or assessment that repeats its heading, by exact text
+  // dropParts: a line of an exercise or assessment that repeats its heading, by exact text.
+  // Compared with zero-width characters removed and spaces collapsed: a line typed as
+  // "kidded​ ×100" or "died                x 100%" (Agricultural Science Form 5 TG) looks
+  // like the text the override names but never equalled it.
+  const partKey = (s) => String(s || "").replace(/[​-‍﻿]/g, "").replace(/\s+/g, " ").trim();
   for (const find of ov.dropParts || []) {
     let n = 0;
     for (const b of blocks) if (Array.isArray(b.parts)) {
-      const kept = b.parts.filter((p) => (p.q || "").trim() !== find);
+      const kept = b.parts.filter((p) => partKey(p.q) !== partKey(find));
       n += b.parts.length - kept.length;
       b.parts = kept;
     }
@@ -2152,15 +2169,17 @@ function applyOverrides(blocks, ov) {
   for (const sc of ov.setCaption || []) {
     // A picture set beside the text sits inside a `sidefig`, whose `images` the flat
     // block list does not reach — so neither `file` nor `near` could find it, and a
-    // side picture's caption could not be corrected at all.
+    // side picture's caption could not be corrected at all. The same holds for a picture
+    // inside an activity box (`img`) or an exercise answer (an `image` part): the
+    // Agricultural Science Form 5 TG's six answer diagrams could not be captioned.
     const sideIm = (function find(arr) {
       for (const x of arr || []) {
         if (!x || typeof x !== "object") continue;
-        if (x.t === "sidefig") {
+        if (x.t === "sidefig" || x.t === "img" || x.kind === "image") {
           const im = (x.images || []).find((m) => sc.file ? (m.file || "").includes(sc.file) : (m.caption || "").includes(sc.near));
           if (im) return im;
         }
-        for (const k of ["body", "parts"]) if (Array.isArray(x[k])) { const r = find(x[k]); if (r) return r; }
+        for (const k of Object.keys(x)) if (k !== "images" && Array.isArray(x[k])) { const r = find(x[k]); if (r) return r; }
       }
       return null;
     })(blocks);
@@ -3491,7 +3510,10 @@ function applyOverrides(blocks, ov) {
     if (b) b.keepNext = true; else console.warn("!  keepWithNext not matched:", find);
   }
   for (const sm of ov.setMarker || []) {
-    const b = flat.find((x) => blockPlain(x).includes(sm.find)) || allTables.find((t) => tableText(t).includes(sm.find));
+    // `after` as in `edit`: the first match after the block containing it, for a line the
+    // book repeats ("[Total: 6 marks]" opens most answers of the Agricultural Science Form 5 TG)
+    const from = sm.after ? flat.findIndex((x) => blockPlain(x).includes(sm.after)) : -1;
+    const b = sm.after && from < 0 ? null : flat.find((x, i) => i > from && blockPlain(x).includes(sm.find)) || (sm.after ? null : allTables.find((t) => tableText(t).includes(sm.find)));
     if (!b) { console.warn("!  setMarker not matched:", sm.find); continue; }
     b.marker = sm.marker;
     // Promote an unlabelled lead line to a real answer so the marker renders, and
@@ -4775,7 +4797,26 @@ function reorderBackmatter(blocks, glossTitle = "GLOSSARY OF TERMS") {
     if (n) console.log(`reorderBackmatter: ${n} per-topic reference lists kept with their topics (${joined} broken lines rejoined)`);
     return;
   }
-  let refIdx = blocks.findIndex((b) => b && isRefOpener(b));
+  // A run that holds a learning activity, exercise or assessment is topic content, not a
+  // reference list. Agricultural Science Form 5 teaches the parts of a research report
+  // under bold sub-heads ("Results", "Discussion", "Conclusion", "References"), and that
+  // last sub-head was taken for the book's list: its paragraph, Exercise 2 and the End
+  // of Topic Assessment were moved behind the glossary, ahead of the real REFERENCES.
+  // So skip such an opener and take the next one.
+  const runEnd = (i) => {
+    let j = i + 1;
+    while (j < blocks.length && blocks[j].t !== "h1" && !/^GLOSSARY\b/i.test(getText(blocks[j]).trim())) j++;
+    return j;
+  };
+  const holdsTopicContent = (i) => blocks.slice(i + 1, runEnd(i)).some((b) => b && /^(activity|exercise|assessment)$/.test(b.t));
+  // The importer makes any bare "References" line a section heading (h1), so the skipped
+  // sub-head is put back to the bold sub-head it was in the manuscript.
+  blocks.forEach((b, i) => {
+    if (b && isRefOpener(b) && holdsTopicContent(i) && (b.t === "h1" || b.t === "h2")) {
+      b.t = "head"; b.noPromote = true;
+    }
+  });
+  let refIdx = blocks.findIndex((b, i) => b && isRefOpener(b) && !holdsTopicContent(i));
   if (refIdx >= 0) {
     refHeader = { t: "h1", text: "REFERENCES" };
     let j = refIdx + 1;
@@ -5675,8 +5716,13 @@ function ensureOrIndividually(blocks, keep = []) {
                 if (!/\bindividually\b/i.test(s.t) && !keep.some((k) => s.t.includes(k))) {
                   s.t = s.t.replace(/\b(in\s+(?:small\s+)?groups|in\s+pairs|working\s+in\s+groups|work\s+in\s+groups|in\s+group)\b(?!\s*,?\s*or\s+individually)/gi, "$1 or individually");
                 }
+                // A word in the next run needs the space; punctuation does not. The
+                // Agricultural Science Form 5 TG types "Pupils will work in groups" with
+                // its full stop as a run of its own, and the space printed as
+                // "individually ." (the prose check flagged it).
+                const nextT = (sub.segs[i + 1] && typeof sub.segs[i + 1].t === "string") ? sub.segs[i + 1].t : "";
                 if (s.t.trimEnd().endsWith("individually")) {
-                  s.t = s.t.trimEnd() + " ";
+                  s.t = s.t.trimEnd() + (/^[.,;:!?)]/.test(nextT) ? "" : " ");
                 }
               }
             }
@@ -5955,6 +6001,12 @@ function normaliseSpacing(blocks) {
 const MARK_BRACKET_G = /[ \t]?\[\s*\d+(?:\s*marks?)?\s*\]/gi;
 function splitMarksToFr(segs) {
   if (!Array.isArray(segs)) return segs;
+  // A mark-scheme summary line ("Suggested marks: a) [3 marks], b) [3 marks]") lists the
+  // allocation for each part in one sentence. Its brackets are not the line's own mark, so
+  // they stay inline: flushing each one right broke the line after every bracket and left
+  // "a), [3 marks]" with the comma moved in front (Agricultural Science Form 5 TG, round 2).
+  const plain = segs.map((s) => (s && typeof s.t === "string" && !s.m ? s.t : "")).join("");
+  if (/^\s*(?:suggested\s+)?marks?\s*:/i.test(plain)) return segs;
   // First pass: flatten into a linear stream of {mark:false, seg} text pieces and
   // {mark:true, seg} bracket pieces, in order, across every original segment —
   // needed so the second pass can tell whether a bracket has any REAL text still
@@ -5982,6 +6034,18 @@ function splitMarksToFr(segs) {
   for (let i = 0; i < pieces.length; i++) {
     const p = pieces[i];
     if (!p.mark) { out.push(p.seg); continue; }
+    // Punctuation the manuscript typed straight after the bracket ("Explanation [4 marks]:
+    // Traits must…", "…over generations [2 marks].") belongs to the words before it. Left
+    // where it was, it counted as text still to come, so the forced break stranded a lone
+    // ":" or "." on a line of its own (Agricultural Science Form 5 TG, Topics 5.2-5.3).
+    // Move it in front of the bracket, onto the last text seg already emitted.
+    const nx = pieces[i + 1];
+    const punct = nx && !nx.mark && typeof nx.seg.t === "string" ? /^[ \t]*([:;,.]+)(?!\.)/.exec(nx.seg.t) : null;
+    const prevIdx = out.length - 1;
+    if (punct && prevIdx >= 0 && out[prevIdx] && typeof out[prevIdx].t === "string") {
+      out[prevIdx] = { ...out[prevIdx], t: out[prevIdx].t.replace(/[ \t ]+$/, "") + punct[1] };
+      nx.seg = { ...nx.seg, t: nx.seg.t.slice(punct[0].length) };
+    }
     out.push({ fr: true });
     out.push(p.seg);
     const hasMoreText = pieces.slice(i + 1).some((q) => !q.mark && (q.seg.t || "").trim());
@@ -7533,6 +7597,8 @@ async function typesetOne(docxPath, themeName) {
   importOpts.boxAllRows = !!ov.boxAllRows;
   importOpts.keepListNumbers = !!ov.keepListNumbers;
   importOpts.listAnswers = ov.listAnswers || [];
+  importOpts.subListMarker = ov.subListMarker;
+  importOpts.subListRoman = ov.subListRoman || [];
   importOpts.boxLabelBlankRuns = !!ov.boxLabelBlankRuns;
   importOpts.bareActivityBox = ov.bareActivityBox;
   importOpts.learnerActivityBox = !!ov.learnerActivityBox;
@@ -8726,7 +8792,12 @@ function normaliseQuestionMarkBold(blocks) {
   if (ov.anonymous) themeOverrides.anon = true;   // tender copy: no publisher name in the template
   const coverB = blocks.find((b) => b.t === "cover");
   if (coverB && coverB.lines && coverB.lines.length) {
-    const gl = coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
+    // The book type reads LEARNER'S BOOK in the house style; manuscripts type it
+    // "LEARNERS' BOOK" or "LEARNERS BOOK" on their cover page (Agricultural Science
+    // Form 5 LB), which went onto the cover, title page and every running head.
+    const houseKind = (l) => (/^LEARNERS[’']?\s+BOOK$/i.test(String(l).trim()) ? "LEARNER’S BOOK" : l);
+    for (const b of blocks) if (/^(cover|titlepage|backcover)$/.test(b.t) && Array.isArray(b.lines)) b.lines = b.lines.map(houseKind);
+    const gl =coverB.lines.find((l) => /\b(form|grade)\s+\d/i.test(l));
     const grade = gl ? (gl.match(/(?:form|grade)\s+\d+/i) || [""])[0] : "";
     const booktype = coverB.lines[coverB.lines.length - 1] || "";
     if (grade && booktype) themeOverrides.hdrtab = titleCase(`${grade} ${booktype}`);
