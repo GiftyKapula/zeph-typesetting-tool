@@ -2934,6 +2934,11 @@
     {
       "find": "Note: pouring water into dry soil in a cylinder is only a rough demonstration, because trapped air, wetting effects and packing make the measured pore volume inaccurate.",
       "with": []
+    },
+    {
+      "find": "",
+      "next": "First Published by:",
+      "with": []
     }
   ],
   "insertText": [
@@ -2984,6 +2989,29 @@
     {
       "after": "Feed block technology. Feed blocks",
       "text": "**Use of insect-based protein.** Insects such as black soldier fly larvae and termites are rich in protein and fat. The larvae can be reared cheaply on farm and kitchen waste, dried and ground into a meal that replaces part of the fishmeal or soya cake in poultry, pig and fish rations."
+    },
+    {
+      "before": "First Published by:",
+      "blocks": [
+        {
+          "para": "**Edited by:**\nPhyllis Simasiku\nMirriam Mumba Nyimbili",
+          "align": "center"
+        },
+        {
+          "vspace": "4mm"
+        },
+        {
+          "para": "**Illustrated by:**\n……………………………………………",
+          "align": "center"
+        },
+        {
+          "vspace": "4mm"
+        },
+        {
+          "para": "**Cover and Book Layout:**",
+          "align": "center"
+        }
+      ]
     }
   ],
   "moveBefore": [
@@ -3935,5 +3963,12 @@
   ],
   "keepWithNext": [
     "Agricultural machinery should be accessible to all farmers"
+  ],
+  "deleteRun": [
+    {
+      "from": "Edited by:",
+      "to": "……………………………………..",
+      "maxSpan": 14
+    }
   ]
 }
