@@ -1159,6 +1159,74 @@
     {
       "find": "in the correct proportions. The following are examples of animal feed rations:",
       "with": "in the correct proportions. The typical make-up of a balanced ration is shown in Figure 24, and the main types of ration are described below."
+    },
+    {
+      "find": " Note: pouring water into dry soil in a cylinder is only a rough demonstration, because trapped air, wetting effects and packing make the measured pore volume inaccurate.",
+      "with": ""
+    },
+    {
+      "find": "The soils are common in the upper layer soils.",
+      "with": "These soils are common in the upper soil layers."
+    },
+    {
+      "find": "These colours are usually as a result of",
+      "with": "These colours usually result from"
+    },
+    {
+      "find": "named after their prominent colours such as black soil, grey hydromorphic soils.",
+      "with": "named after their prominent colours, such as black soils and grey hydromorphic soils."
+    },
+    {
+      "find": "will have lower bulk density for example, clay soils.",
+      "with": "will have lower bulk densities, for example clay soils."
+    },
+    {
+      "find": "compact with less pore spaces",
+      "with": "compact with fewer pore spaces"
+    },
+    {
+      "find": "Sandy soils i.e. sand, sandy loam generally have",
+      "with": "Sandy soils (sand and sandy loam) generally have"
+    },
+    {
+      "find": "Bulk Density is important because",
+      "with": "Bulk density is important because"
+    },
+    {
+      "find": "and root nutrient uptake are proteins",
+      "with": "and root nutrient uptake, are proteins"
+    },
+    {
+      "find": "(ATP) which is the energy currency",
+      "with": "(ATP), the energy currency"
+    },
+    {
+      "find": "a chart or diagram or video showing the stages of mitosis and where available,",
+      "with": "a chart, diagram or video showing the stages of mitosis and, where available,"
+    },
+    {
+      "find": "two successive divisions namely: Meiosis I and Meiosis II.",
+      "with": "two successive divisions: meiosis I and meiosis II."
+    },
+    {
+      "find": "seed and fruit production which are critical not just for plant reproduction, but for",
+      "with": "seed and fruit production, which is critical not only for plant reproduction but also for"
+    },
+    {
+      "find": "Principle of diminishing Marginal returns/law of diminishing returns.",
+      "with": "Principle of diminishing marginal returns (law of diminishing returns)."
+    },
+    {
+      "find": "Principle of Equi-Marginal Returns",
+      "with": "Principle of equi-marginal returns."
+    },
+    {
+      "find": "Principle of comparative advantage",
+      "with": "Principle of comparative advantage."
+    },
+    {
+      "find": "Principle of time value of money",
+      "with": "Principle of time value of money."
     }
   ],
   "//editCell": "Key Competences table: row 2 was numbered \"+2\".",
@@ -1731,6 +1799,102 @@
     {
       "from": "draft force",
       "to": "draught force"
+    },
+    {
+      "from": "sub soils",
+      "to": "subsoils"
+    },
+    {
+      "from": "soya bean",
+      "to": "soybean"
+    },
+    {
+      "from": "e.g.,",
+      "to": "e.g."
+    },
+    {
+      "from": "In this subtopic",
+      "to": "In this sub-topic"
+    },
+    {
+      "from": "Work done = Fdcos",
+      "to": "Work done = F × d × cos "
+    },
+    {
+      "from": "d Cos(",
+      "to": "d × cos("
+    },
+    {
+      "from": "single layered tapetum",
+      "to": "single-layered tapetum"
+    },
+    {
+      "from": "Gametes: Y x y",
+      "to": "Gametes: Y × y"
+    },
+    {
+      "from": "RY x ry",
+      "to": "RY × ry"
+    },
+    {
+      "from": "(Round Yellow) x (Wrinkled Green)",
+      "to": "(Round Yellow) × (Wrinkled Green)"
+    },
+    {
+      "from": "toward mechanical",
+      "to": "towards mechanical"
+    },
+    {
+      "from": "Table 6 below gives",
+      "to": "Table 6 gives"
+    },
+    {
+      "from": "N.B Particle density",
+      "to": "Note: Particle density"
+    },
+    {
+      "from": "10kN",
+      "to": "10 kN"
+    },
+    {
+      "from": "25cm",
+      "to": "25 cm"
+    },
+    {
+      "from": "40cm",
+      "to": "40 cm"
+    },
+    {
+      "from": "20cm",
+      "to": "20 cm"
+    },
+    {
+      "from": "50cm",
+      "to": "50 cm"
+    },
+    {
+      "from": "30cm",
+      "to": "30 cm"
+    },
+    {
+      "from": "60cm",
+      "to": "60 cm"
+    },
+    {
+      "from": "1cm =",
+      "to": "1 cm ="
+    },
+    {
+      "from": "55 000N/m",
+      "to": "55 000 N/m"
+    },
+    {
+      "from": "K14,000",
+      "to": "K14 000"
+    },
+    {
+      "from": "1,200 hectares",
+      "to": "1 200 hectares"
     }
   ],
   "//insertHead": "Topic 5.4 has no sub-topic line in the body; the manuscript's own contents list names it Sub-Topic 5.4.1: Farm Mechanisation.",
