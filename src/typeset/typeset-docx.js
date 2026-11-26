@@ -3626,8 +3626,9 @@ function foldActivityRows(blocks) {
       const sep = runOn && /[A-Za-z,]$/.test(ut.trimEnd()) && /^[a-z]/.test(String(c.text || "").trimStart()) ? " " : "\n";
       u.text = !ut ? c.text : sep === " " ? ut.trimEnd() + " " + String(c.text).trimStart() : ut + "\n" + c.text;
       if (Array.isArray(u.segs) || Array.isArray(c.segs)) {
-        const segs = (x) => Array.isArray(x.segs) && x.segs.length ? x.segs : [{ t: String(x.text || ""), b: false, it: false, c: null }];
-        u.segs = ut ? [...segs(u), { t: sep, b: false, it: false, c: null }, ...segs(c)] : segs(c);
+        // the upper cell's own text, not u.text (already the joined whole by now)
+        const segs = (x, t) => Array.isArray(x.segs) && x.segs.length ? x.segs : [{ t: String(t || ""), b: false, it: false, c: null }];
+        u.segs = ut ? [...segs(u, ut), { t: sep, b: false, it: false, c: null }, ...segs(c, c.text)] : segs(c, c.text);
       }
     };
     for (let ri = b.rows.length - 1; ri >= 2; ri--) {

@@ -1,0 +1,531 @@
+{
+  "_comment": [
+    "Mathematics Teaching Methods -- Secondary Teachers' Diploma syllabus. First typeset 2026-11-26.",
+    "SOURCE: 'MATHEMATICS TEACHING METHODS SYLLABUS VALIDATED 1.doc' (Downloads, 26 Nov 2026), saved as .docx.",
+    "TITLE / LEVEL / YEAR: the manuscript says 'FOR TEACHER EDUCATION', 2025; set as the other Methods syllabuses are -- Secondary Teachers' Diploma (as its own Acknowledgement says), 2026.",
+    "NUMBERING (typed by the author, so mended one by one, not renumberMatrix): bare '1.1', '1.5', '1.6' repeated in continuation rows emptied; Constructivism 1.3.1 -> 1.3.2; ICT Packages 1.5.1 -> 1.5.2 and Production of TLMs 1.5.2 -> 1.5.3; '1.7.1 .Learner' stray dot; Teacher-Centred 1.7.1 -> 1.7.2. Each competence number follows its sub-topic.",
+    "FRONT MATTER (as the Content syllabus): the manuscript's own 'Contents' heading after the Acknowledgement dropped; heading levels as Content (RATIONALE under INTRODUCTION; AIM, STRUCTURE OF THE SYLLABUS own pages); copyright year 2025 -> 2026; Preface signed 'Kelvin Mambwe (PhD)' as in Content (typed 'Mambwe Kelvin, (Phd)').",
+    "WEIGHTINGS: typed as tab-aligned lines per year (Year 1: Peer Teaching, Promotion Examination; Year 2: Project, Final Diploma Examination); set as one table like Content's, figures and wording as written ('Test (3)' in Year 2 shares the Tests (3) row).",
+    "MATRICES: the 1.8-1.9 table's header 'LEARNING ACTIVITIES' set as the other two ('SUGGESTED ACTIVITIES'); all three pinned to one set of column widths.",
+    ""
+  ],
+  "subject": "Mathematics Teaching Methods",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2026,
+  "editCell": [
+    {
+      "_why": "bare topic number repeated in a continuation row",
+      "find": "1.1",
+      "with": ""
+    },
+    {
+      "_why": "bare topic number repeated in a continuation row",
+      "find": "1.5",
+      "with": ""
+    },
+    {
+      "_why": "bare topic number repeated in a continuation row",
+      "find": "1.6",
+      "with": ""
+    },
+    {
+      "_why": "second sub-topic of 1.3 typed 1.3.1",
+      "pattern": "^1\\.3\\.1(?=\\.?\\s+Constructivism)",
+      "with": "1.3.2"
+    },
+    {
+      "_why": "its competence",
+      "pattern": "^1\\.3\\.1\\.1(?=\\.?\\s+Apply Constructivist)",
+      "with": "1.3.2.1"
+    },
+    {
+      "_why": "third sub-topic of 1.5 typed 1.5.2",
+      "pattern": "^1\\.5\\.2(?=\\.?\\s+Production)",
+      "with": "1.5.3"
+    },
+    {
+      "_why": "its competence",
+      "pattern": "^1\\.5\\.2\\.1(?=\\.?\\s+Create TLMs)",
+      "with": "1.5.3.1"
+    },
+    {
+      "_why": "second sub-topic of 1.5 typed 1.5.1",
+      "pattern": "^1\\.5\\.1(?=\\.?\\s+ICT Packages)",
+      "with": "1.5.2"
+    },
+    {
+      "_why": "its competence",
+      "pattern": "^1\\.5\\.1\\.1(?=\\.?\\s+Integrate Technology)",
+      "with": "1.5.2.1"
+    },
+    {
+      "_why": "stray dot typed before the text",
+      "pattern": "^1\\.7\\.1\\s*\\.\\s*(?=Learner)",
+      "with": "1.7.1 "
+    },
+    {
+      "_why": "second sub-topic of 1.7 typed 1.7.1",
+      "pattern": "^1\\.7\\.1(?=\\.?\\s+Teacher-Centred)",
+      "with": "1.7.2"
+    },
+    {
+      "_why": "its competence",
+      "pattern": "^1\\.7\\.1\\.1(?=\\.?\\s+Use teacher centred)",
+      "with": "1.7.2.1"
+    },
+    {
+      "_why": "header as the other two matrices (the book's majority form)",
+      "find": "LEARNING ACTIVITIES",
+      "with": "SUGGESTED ACTIVITIES"
+    }
+  ],
+  "retext": [
+    {
+      "_why": "copyright year (see _comment)",
+      "from": "© Curriculum Development Centre, 2025.",
+      "to": "© Curriculum Development Centre, 2026."
+    },
+    {
+      "_why": "PS name as the Content syllabus prints it (manuscript: 'Mambwe Kelvin, (Phd)')",
+      "from": "Mambwe Kelvin, (Phd)",
+      "to": "Kelvin Mambwe (PhD)"
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "RATIONALE",
+      "as": "h1"
+    },
+    {
+      "find": "AIM",
+      "as": "head"
+    },
+    {
+      "find": "Structure of the Syllabus",
+      "text": "STRUCTURE OF THE SYLLABUS",
+      "as": "head"
+    },
+    {
+      "find": "Teaching Methodology",
+      "as": "head"
+    }
+  ],
+  "removeRange": [
+    {
+      "_why": "the manuscript's own Contents heading",
+      "after": "Finally, I would like to recognise",
+      "from": "Contents",
+      "to": "Introduction"
+    },
+    {
+      "_why": "the weightings as typed (blocks with no text, hence the empty from), rebuilt by replaceBlocks",
+      "after": "Assessment for this course will employ",
+      "from": "",
+      "to": "Assessment Methods and Weightings"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "weightings set as one table (see _comment), placed after the Assessment text",
+      "find": "Key Competences",
+      "with": [
+        {
+          "head": "Assessment Methods and Weightings"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "ASSESSMENT",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "ASSESSMENT",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "YEAR 1",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "YEAR 1",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "YEAR 2",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "YEAR 2",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Continuous Assessment",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Continuous Assessment",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "40%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "40%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "40%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "40%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Quizzes (3)",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Quizzes (3)",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "10%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "10%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "10%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "10%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Peer Teaching",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Peer Teaching",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "10%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "10%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "–",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "–",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Project",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Project",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "–",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "–",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "10%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "10%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Tests (3)",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Tests (3)",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "20%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "20%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "20%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "20%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Promotion Examination",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Promotion Examination",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "60%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "60%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "–",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "–",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Final Diploma Examination",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Final Diploma Examination",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "–",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "–",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "60%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "60%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Total",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Total",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "100%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "100%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "100%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "100%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "h1": "Key Competences"
+        }
+      ]
+    }
+  ],
+  "tableWidths": [
+    {
+      "_why": "the three matrices alike",
+      "startsWith": "1.1 NATURE",
+      "widths": [
+        40,
+        40,
+        45,
+        60,
+        50
+      ]
+    },
+    {
+      "_why": "the three matrices alike",
+      "startsWith": "1.8 PLANNING",
+      "widths": [
+        40,
+        40,
+        45,
+        60,
+        50
+      ]
+    },
+    {
+      "_why": "the three matrices alike",
+      "startsWith": "2.1 MOTIVATION",
+      "widths": [
+        40,
+        40,
+        45,
+        60,
+        50
+      ]
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "the row broke after two lines at the foot of the page",
+      "startsWith": "1.5.2 ICT"
+    }
+  ]
+}
