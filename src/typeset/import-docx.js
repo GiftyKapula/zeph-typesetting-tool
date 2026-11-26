@@ -420,16 +420,17 @@ function paraSegs(pXml) {
     // for <w:t>/<w:br>, so the hyphen silently vanished ("competence-based" ->
     // "competencebased"). Render it as a non-breaking hyphen character so the
     // word still can't wrap there, the way the author intended.
+    // A tab (<w:tab/>) becomes a space IN PLACE, too (no column artefacts). It used to
+    // be appended at the END of the run, so "•<tab>Applying laws of a" + "lgebra"
+    // came out "•Applying laws of a lgebra" (Mathematics syllabus, 2026-11-26).
     let tm = "";
-    for (const mm of run.matchAll(/<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>|<w:noBreakHyphen\b[^>]*\/?>/g)) {
-      tm += mm[1] !== undefined ? mm[1] : mm[0].startsWith("<w:noBreakHyphen") ? "‑" : "\n";
+    for (const mm of run.matchAll(/<w:t\b[^>]*>([\s\S]*?)<\/w:t>|<w:br\b(?![^>]*w:type)[^>]*\/?>|<w:noBreakHyphen\b[^>]*\/?>|<w:tab\b(?!s)[^>]*\/?>/g)) {
+      tm += mm[1] !== undefined ? mm[1] : mm[0].startsWith("<w:noBreakHyphen") ? "‑" : mm[0].startsWith("<w:tab") ? " " : "\n";
     }
-    const tabs = (run.match(/<w:tab\b/g) || []).length;
-    if (!tm && !tabs) continue;
+    if (!tm) continue;
     let t = decode(tm)
       .replace(/[​-‍﻿]/g, "")   // drop zero-width junk (breaks ^label matching)
       .replace(/ *— */g, " - ");     // em dash -> spaced hyphen (house style)
-    if (tabs) t = t + " ".repeat(tabs);                // tabs -> spaces (no column artefacts)
     const rpr = (run.match(/<w:rPr>([\s\S]*?)<\/w:rPr>/) || [])[1] || "";
     // Hidden text (<w:vanish/>) — Word itself never displays or prints this run.
     // The recurring case in these manuscripts is "Top of Form"/"Bottom of Form",

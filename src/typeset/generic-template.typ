@@ -1414,6 +1414,10 @@
   if s.at("m", default: false) {
     if s.at("display", default: false) {
       block(width: 100%, above: 9pt, below: 9pt, breakable: false)[#dispmath(s.t)]
+    } else if s.t.contains("frac(") {
+      // a fraction in a line of text: room above and below, or two on facing lines
+      // ("such as (ax+b)³/… and (ex+f)⁴/…") ran into each other
+      box(inset: (y: 3pt), eval(s.t, mode: "math"))
     } else {
       eval(s.t, mode: "math")
     }

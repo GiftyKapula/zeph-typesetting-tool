@@ -1,0 +1,332 @@
+{
+  "_comment": [
+    "Mathematics -- Secondary Teachers' Diploma syllabus (content). First typeset 2026-11-26.",
+    "SOURCE: 'Mathematics Syllabus Secondary Teachers Diploma_REVISED Final.docx' (Downloads, 26 Nov 2026).",
+    "TITLE / LEVEL / YEAR: as the manuscript's own title page -- MATHEMATICS SYLLABUS, SECONDARY TEACHERS' DIPLOMA, 2026.",
+    "IMPRINT: the manuscript's own ISBN / First Published / Printed by lines are dropped; the engine's imprint page carries them.",
+    "LEVEL PAGE: the manuscript's own 'SECONDARY / TEACHERS' DIPLOMA' divider page is dropped; the engine sets the level page.",
+    "WEIGHTINGS: typed as tab-aligned lines (Quizzes (3)<tab>10%); set as one small table per year, wording as written.",
+    "SIGNATORY: the Acknowledgement is signed 'Charles Ndakala, (Dr.)' in the manuscript; the engine sets the house Director (Petronella M. Samutete (Ms)).",
+    "TEACHING METHODOLOGY: 'Project-based learning' is typed twice (identical, but for one capital M); the second is removed.",
+    "PERMUTATIONS 2.3.2.1: a LaTeX leftover (backslash-comma) typed after two formulas is removed. The i./ii./iii. items keep their typed bullets: without them they run on into the line above.",
+    ""
+  ],
+  "subject": "Mathematics",
+  "level": "Secondary Teachers' Diploma",
+  "year": 2026,
+  "deleteRun": [
+    {
+      "_why": "the manuscript's own imprint lines (see _comment)",
+      "from": "ISBN: ....................",
+      "to": "Zambia Educational Publishing House (ZEPH)"
+    }
+  ],
+  "removeRange": [
+    {
+      "_why": "weightings, rebuilt as tables by replaceBlocks; and the manuscript's own level divider page",
+      "after": "Assessment Methods and Weightings",
+      "from": "Year 1",
+      "to": "Key Competences"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "the weightings, typed as tab-aligned lines per year (Year 1: Promotion Examination; Year 2: Diploma Examination), set as one table; figures as written",
+      "find": "Assessment Methods and Weightings",
+      "with": [
+        {
+          "head": "Assessment Methods and Weightings"
+        },
+        {
+          "raw": {
+            "t": "table",
+            "rows": [
+              [
+                {
+                  "text": "ASSESSMENT",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "ASSESSMENT",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "YEAR 1",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "YEAR 1",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "YEAR 2",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "YEAR 2",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Continuous Assessment",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Continuous Assessment",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "40%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "40%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "40%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "40%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Quizzes (3)",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Quizzes (3)",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "10%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "10%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "10%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "10%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Tests (3)",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Tests (3)",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "30%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "30%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "30%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "30%",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Promotion Examination",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Promotion Examination",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "60%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "60%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "–",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "–",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Diploma Examination",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Diploma Examination",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "–",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "–",
+                      "b": false,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "60%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "60%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": "Total",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "Total",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "100%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "100%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                },
+                {
+                  "text": "100%",
+                  "imgs": [],
+                  "segs": [
+                    {
+                      "t": "100%",
+                      "b": true,
+                      "it": false,
+                      "c": null
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "removeWhereNext": [
+    {
+      "_why": "Project-based learning typed twice (second copy differs only in a small m); the second goes",
+      "find": "applications of mathematical concepts",
+      "next": "By implementing these methodologies"
+    }
+  ],
+  "cellSubtext": [
+    {
+      "_why": "LaTeX leftover typed after two formulas (see _comment)",
+      "from": "\\,",
+      "to": "",
+      "all": true,
+      "every": true
+    }
+  ]
+}
