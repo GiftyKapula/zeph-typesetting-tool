@@ -10,7 +10,13 @@
   "remove": [
     "Here is a more learner-centred introduction that follows the style and format of the attached article.",
     "Key examples of differentiated cells in crop plants:",
-    "The simple tests above only show whether a nutrient is present."
+    "The simple tests above only show whether a nutrient is present.",
+    "Note: pouring water into dry soil in a cylinder",
+    "Modern feed analysis: the Van Soest method",
+    "The coefficient of relationship:",
+    "Where: R = coefficient of relationship",
+    "number of generations from the first individual to the common ancestor",
+    "number of generations from the second individual to the common ancestor"
   ],
   "edit": [
     {
@@ -764,6 +770,395 @@
     {
       "find": "Leedy, P. D. & Ormrod",
       "with": "Leedy, P. D., & Ormrod"
+    },
+    {
+      "find": "The three main soil separates have different properties:",
+      "with": "The three main soil separates have different properties, which are compared in Table 2:"
+    },
+    {
+      "find": "Twelve standard classes are recognised under the USDA system,",
+      "with": "Twelve standard classes are recognised under the USDA system (Table 3),"
+    },
+    {
+      "find": "Common structural types include granular, blocky, prismatic, columnar and platy structures. There are five principal forms of soil structure.",
+      "with": "There are five principal forms of soil structure: granular, blocky, prismatic, columnar and platy (Table 4 and Figure 1)."
+    },
+    {
+      "find": " Lime and silica will lead to grey soils.",
+      "with": ""
+    },
+    {
+      "find": "The colour will continue becoming dark as decomposition increases.",
+      "with": "The colour darkens as more organic matter accumulates and decomposes into humus."
+    },
+    {
+      "find": "pore space percentages are shown below.",
+      "with": "pore space percentages are shown in Table 5."
+    },
+    {
+      "find": "The sieve method allows learners",
+      "with": "The sieve method (Figure 2) allows learners"
+    },
+    {
+      "find": "USDA textural triangle (also known as the soil texture triangle or equilateral triangle).",
+      "with": "USDA textural triangle (Figure 3), also known as the soil texture triangle or equilateral triangle."
+    },
+    {
+      "find": "Their data are shown in the table below.",
+      "with": "Their data are shown in Table 7."
+    },
+    {
+      "find": " When a soil core is collected, you can calculate these important physical properties.",
+      "with": ""
+    },
+    {
+      "find": "which regulates the movement of substances into and out of the cell.",
+      "with": "which regulates the movement of substances into and out of the cell. The organelles of a generalised plant cell are shown in Figure 4."
+    },
+    {
+      "find": "A plant cell is the basic structural and functional unit of plants. An electron",
+      "with": "An electron"
+    },
+    {
+      "find": "Identify the main stages of each process:",
+      "with": "Identify the main stages of mitosis:"
+    },
+    {
+      "find": "Mitosis has four stages: Prophase, Metaphase, Anaphase and Telophase.",
+      "with": "Mitosis has four stages: Prophase, Metaphase, Anaphase and Telophase (Figure 5)."
+    },
+    {
+      "find": "each adapted to perform specific functions essential for growth and survival.",
+      "with": "each adapted to perform specific functions essential for growth and survival. Examples of differentiated cells in crop plants are given in Table 8."
+    },
+    {
+      "find": "formation of gametes (pollen and ovules)",
+      "with": "formation of spores and gametes (sperm cells and egg cells)"
+    },
+    {
+      "find": "(female gametophytes) and is responsible for introducing genetic variation",
+      "with": "(female gametophytes). Meiosis is also responsible for introducing genetic variation"
+    },
+    {
+      "find": "correct chromosome number in a species from generation to generation.",
+      "with": "correct chromosome number in a species from generation to generation. The stages are shown in Figure 6."
+    },
+    {
+      "find": "forming a zygote that develops into a seed.",
+      "with": "forming a zygote that develops into the embryo of the seed."
+    },
+    {
+      "find": "microsporangium).",
+      "with": "microsporangium; Figure 8)."
+    },
+    {
+      "find": "to form the embryo sac as follows:",
+      "with": "to form the embryo sac as follows (Figure 9):"
+    },
+    {
+      "find": "Double fertilisation is a unique feature of flowering plants (angiosperms) in which two male gametes",
+      "with": "In double fertilisation (Figure 10), two male gametes"
+    },
+    {
+      "find": "several parts of the flower undergo transformation.",
+      "with": "several parts of the flower undergo transformation (Figure 11)."
+    },
+    {
+      "find": "the expected F2 phenotypic ratio",
+      "with": "the expected F₂ phenotypic ratio"
+    },
+    {
+      "find": "The following diagrams illustrate the steps taken when creating",
+      "with": "Figure 13 illustrates the steps taken when creating"
+    },
+    {
+      "find": "Controlled pollination, such as hand pollination, allows",
+      "with": "Controlled pollination (Figure 14), such as hand pollination, allows"
+    },
+    {
+      "find": "The process of plant breeding generally involves a number of steps. ",
+      "with": ""
+    },
+    {
+      "find": "Hand pollination plays a vital role in plant breeding activities.",
+      "with": "Hand pollination (Figure 16) plays a vital role in plant breeding activities."
+    },
+    {
+      "find": "The diagram below illustrates the classification of pests and diseases:",
+      "with": "Figure 17 illustrates the classification of pests and diseases."
+    },
+    {
+      "find": "Activity 3 explores how economic principles",
+      "with": "Learning Activity 3 explores how economic principles"
+    },
+    {
+      "find": "combines multiple control methods in a coordinated approach",
+      "with": "combines multiple control methods (Figure 18) in a coordinated approach"
+    },
+    {
+      "find": "(the pest density at which the cost of control is less than the expected loss)",
+      "with": "(the pest density at which control should start, so that the loss prevented is greater than the cost of control)"
+    },
+    {
+      "find": "explains why heat detection matters in breeding.",
+      "with": "explains why heat detection matters in breeding. The main external and internal parts of a cow are shown in Figure 19."
+    },
+    {
+      "find": "Mammals and birds have a double circulation:",
+      "with": "Mammals and birds have a double circulation (Figure 20):"
+    },
+    {
+      "find": "It is a system of coordination comprised of the brain, spinal cord and the nerves.",
+      "with": "It is a system of coordination that consists of the brain, spinal cord and nerves (Table 20)."
+    },
+    {
+      "find": "reduces further release of that hormone.",
+      "with": "reduces further release of that hormone (Table 21)."
+    },
+    {
+      "find": " Formulate a pig grower ration containing 16% CP from maize grain (10% CP) and soya bean cake (40% CP).",
+      "with": " Formulate a pig grower ration containing 16% CP from maize grain (10% CP) and soya bean cake (40% CP). The working is shown in Figure 26."
+    },
+    {
+      "find": "It is comprised of the kidney, ureter, urinary bladder and urethra.",
+      "with": "It consists of the kidneys, ureters, urinary bladder and urethra (Table 22)."
+    },
+    {
+      "find": "The Reproductive system",
+      "with": "The Reproductive System"
+    },
+    {
+      "find": "Use the reference table in the notes to find the approximate CP and CF",
+      "with": "Use a feed composition table provided by your teacher to find the approximate CP and CF"
+    },
+    {
+      "find": "according to the nutrient they supply in the greatest quantity.",
+      "with": "according to the nutrient they supply in the greatest quantity (Figure 21)."
+    },
+    {
+      "find": "handle hot crucibles with tongs and do not heat ether or other flammable solvents near a flame.",
+      "with": "and handle hot crucibles with tongs."
+    },
+    {
+      "find": "wear goggles when heating, and handle",
+      "with": "wear goggles when heating and handle"
+    },
+    {
+      "find": "are analysed by the proximate (Weende) analysis,",
+      "with": "are analysed by the proximate (Weende) analysis (Figure 22 and Table 25),"
+    },
+    {
+      "find": " The detergent (Van Soest) system is now used to measure fibre more accurately as neutral detergent fibre (NDF, total cell wall) and acid detergent fibre (ADF, cellulose and lignin).",
+      "with": ""
+    },
+    {
+      "find": "Activity: A maize bran sample contains",
+      "with": "Practice question: A maize bran sample contains"
+    },
+    {
+      "find": "calculate their daily dry matter intake using the guide values in the notes.",
+      "with": "calculate their daily dry matter intake, taking it as about 2.5–3% of live weight per day for cattle (use a feeding standard from your teacher for other animals)."
+    },
+    {
+      "find": " Feed formulation aims to provide balanced nutrition, improve animal growth and productivity, reduce feeding costs, prevent nutritional deficiencies, utilise locally available feed resources efficiently and improve animal health and performance.",
+      "after": "Feed formulation is the process of combining",
+      "with": ""
+    },
+    {
+      "find": "For non-ruminants, use digestive system of a pig, poultry or rabbit.",
+      "with": "For non-ruminants, use the digestive system of a pig, chicken or rabbit."
+    },
+    {
+      "find": "Activity: set up the equations above",
+      "with": "Practice question: Set up the equations above"
+    },
+    {
+      "find": "steps in feed formulation:",
+      "with": "steps in feed formulation (Figure 25):"
+    },
+    {
+      "find": "find its crude protein requirement from the notes or from a feeding standard.",
+      "with": "find its crude protein requirement from a feeding standard provided by your teacher."
+    },
+    {
+      "find": "However: crossbreeding leads",
+      "with": "However, crossbreeding leads"
+    },
+    {
+      "find": "The signs of inbreeding are",
+      "with": "The signs of inbreeding depression are"
+    },
+    {
+      "find": "Breeding animals should be calm and easy to handle, they should not be aggressive",
+      "with": "Breeding animals should be calm and easy to handle and should not be aggressive"
+    },
+    {
+      "find": "Disease resistant animals",
+      "with": "Disease-resistant animals"
+    },
+    {
+      "find": "However, it faces ethical challenges, it has a high cost, and strict regulations.",
+      "with": "However, it faces ethical challenges, high costs and strict regulations."
+    },
+    {
+      "find": "Parasites and diseases affect livestock by reducing growth rate and lowering milk, meat and egg production.",
+      "with": "Common parasites are shown in Figure 27 and Table 31, and diseases are classified in Table 32. Parasites and diseases affect livestock by reducing growth rate and lowering milk, meat and egg production."
+    },
+    {
+      "find": "disease information cards (one disease per card),",
+      "with": "disease information cards (one disease per card), pictures of common parasites,"
+    },
+    {
+      "find": "Reduced production: They lower the production of milk yield, meat production, and cause poor egg production.",
+      "with": "Reduced production: They lower milk, meat and egg production."
+    },
+    {
+      "find": "In activity 1 you are going to describe farm mechanisation.",
+      "with": "In Learning Activity 1 you will describe farm mechanisation."
+    },
+    {
+      "find": "These create greater power than manual labour, they are affordable for many smallholder farmers, and suitable where tractors are unavailable.",
+      "with": "These provide more power than manual labour, are affordable for many smallholders and suit areas where tractors are unavailable."
+    },
+    {
+      "find": "These are highly productive, timely operations, reduce labour requirements, and increase efficiency.",
+      "with": "These are highly productive, allow timely operations, reduce labour requirements and increase efficiency."
+    },
+    {
+      "find": "In this activity you will explore the principles of farm mechanisation and related technologies used in agriculture, enabling you to demonstrate an understanding of farm mechanisation and its contribution to efficient and sustainable agricultural production.",
+      "with": "In this activity you will calculate work, force, energy and power, the quantities used to measure what farm machines do."
+    },
+    {
+      "find": "Chemical energy: Stored energy such as diesel, petrol, food, and batteries.",
+      "with": "Chemical energy: Energy stored in fuels such as diesel and petrol, in food and in batteries."
+    },
+    {
+      "find": "High Octane reduces knocking.",
+      "with": "A high octane number reduces knocking."
+    },
+    {
+      "find": "Corrosion resistance: lubricants should",
+      "with": "Corrosion resistance: Lubricants should"
+    },
+    {
+      "find": "Learn from the tractor operator on the power transmission.",
+      "with": "Ask the tractor operator to explain how power is transmitted."
+    },
+    {
+      "find": "The sequence of power transmission is as follows:",
+      "with": "The sequence of power transmission is as follows (Figure 28):"
+    },
+    {
+      "find": "Axles support the tractor’s weight and transmit power from the differential to the wheels. They carry the tractor load, transfer power from the differential to the wheels,",
+      "with": "Axles support the tractor’s weight and transmit power from the final drive to the wheels. They carry the tractor load, transfer power from the final drive to the wheels,"
+    },
+    {
+      "find": "while a diesel engine uses compression ignition instead of spark plugs.",
+      "with": "while a diesel engine uses compression ignition instead of spark plugs. The differences are summarised in Table 34."
+    },
+    {
+      "find": "Daily maintenance checks are indicated in the table below:",
+      "with": "Daily maintenance checks are listed in Table 35."
+    },
+    {
+      "find": "Seasonal or scheduled maintenance; usually performed",
+      "with": "Seasonal or scheduled maintenance: usually performed"
+    },
+    {
+      "find": "Under instructions, you will start and drive a tractor.",
+      "with": "Under the direct supervision of a qualified operator, and where school policy permits, you will start and drive a tractor."
+    },
+    {
+      "find": "Operating a Tractor: Before starting a tractor,",
+      "with": "Operating a Tractor: The main parts of a tractor are shown in Figure 29. Before starting a tractor,"
+    },
+    {
+      "find": "while a Maize Sheller removes",
+      "with": "while a maize sheller removes"
+    },
+    {
+      "find": "combines reaping, (cutting),",
+      "with": "combines reaping (cutting),"
+    },
+    {
+      "find": "– determine how the share enters",
+      "with": "– determines how the share enters"
+    },
+    {
+      "find": "– determines how the mouldboard lifts and turns the soil slice.",
+      "with": "– determines how the mouldboard lifts and turns the soil slice (Figure 31)."
+    },
+    {
+      "find": "to produce crops/livestock to satisfy human needs.",
+      "with": "to produce crops and livestock to satisfy human needs."
+    },
+    {
+      "find": "The demand curve slopes downward from left to right because price and quantity demanded have an inverse relationship.",
+      "with": "The demand curve slopes downward from left to right because price and quantity demanded have an inverse relationship (Figure 32)."
+    },
+    {
+      "find": "Example is when people’s incomes increase, demand for beef increases.",
+      "with": "For example, when people’s incomes increase, demand for beef increases."
+    },
+    {
+      "find": "The supply curve slopes upwards from left to right.",
+      "with": "The supply curve slopes upwards from left to right (Figure 33)."
+    },
+    {
+      "find": "Types of price elasticity of demand include the following:",
+      "with": "Types of price elasticity of demand include the following (Figure 34):"
+    },
+    {
+      "find": "The following are the types of elasticity of supply:",
+      "with": "The following are the types of elasticity of supply (Figure 35):"
+    },
+    {
+      "find": "regardless of price. Example land.",
+      "with": "regardless of price. Example: land."
+    },
+    {
+      "find": "Principles of economies of scale (increasing returns):",
+      "with": "Principle of economies of scale (increasing returns):"
+    },
+    {
+      "find": "This means the farm has reached an optimal balance where all resources are used efficiently without waste or excess. This means doubling inputs doubles the output, no cost advantage or disadvantage from changing size.",
+      "with": "The farm has reached an optimal balance where all resources are used efficiently without waste or excess: doubling inputs doubles the output, with no cost advantage or disadvantage from changing size."
+    },
+    {
+      "find": "The scientific research process follows a systematic, step-by-step process known as the scientific research process (or scientific method).",
+      "with": "Scientific research follows a systematic, step-by-step procedure known as the scientific method."
+    },
+    {
+      "find": "the different types of research, such as qualitative and quantitative research, and understand how they differ.",
+      "with": "the different types of research (experimental, observational and survey research) and understand how they differ."
+    },
+    {
+      "find": "Formula: Mean ($overline(x)$) = Sum of all values ($Sigma x$) ÷ Number of values ($n$)",
+      "with": "Formula: Mean (x̄) = Sum of all values (Σx) ÷ Number of values (n)"
+    },
+    {
+      "find": "before calculating other statistics or drawing graphs.",
+      "with": "before calculating other statistics or drawing graphs. Table 42 is an example."
+    },
+    {
+      "find": "Commonly used graphs in agricultural research include:",
+      "with": "Commonly used graphs in agricultural research include the following (Figure 36 and Table 43):"
+    },
+    {
+      "find": "given without enough energy, causes ammonia (urea) poisoning.",
+      "with": "given without enough energy, causes ammonia (urea) poisoning (Figure 23)."
+    },
+    {
+      "find": "It is important to farmers because it helps choose enterprises",
+      "with": "It is important to farmers because it helps them choose enterprises"
+    },
+    {
+      "find": "weak offspring, high mortality rate or poor immune system.",
+      "with": "weak offspring, high mortality rate or a weak immune system."
+    },
+    {
+      "find": "in the correct proportions. The following are examples of animal feed rations:",
+      "with": "in the correct proportions. The typical make-up of a balanced ration is shown in Figure 24, and the main types of ration are described below."
     }
   ],
   "//editCell": "Key Competences table: row 2 was numbered \"+2\".",
@@ -819,6 +1214,70 @@
     {
       "find": "which one pollen nucleus fertilises the egg cell",
       "with": "which one male gamete (sperm nucleus) fertilises the egg cell"
+    },
+    {
+      "find": "Control ignition and fuel",
+      "with": "Controls ignition and fuel"
+    },
+    {
+      "find": "absent",
+      "with": "Absent"
+    },
+    {
+      "find": "distributor",
+      "with": "Distributor"
+    },
+    {
+      "find": "Prevent engine damage",
+      "with": "Prevents engine damage"
+    },
+    {
+      "find": "Prevent overheating",
+      "with": "Prevents overheating"
+    },
+    {
+      "find": "Ensure uninterrupted work",
+      "with": "Ensures uninterrupted work"
+    },
+    {
+      "find": "Improve traction and safety",
+      "with": "Improves traction and safety"
+    },
+    {
+      "find": "Anti-Microbial Resistance",
+      "with": "Antimicrobial Resistance"
+    },
+    {
+      "find": "Mono-gastric",
+      "with": "Monogastric"
+    },
+    {
+      "find": "Muscles cells, nerve cells and blood cells.",
+      "with": "Muscle cells, nerve cells and blood cells."
+    },
+    {
+      "find": "Organ level, an organ is a group of different tissues performing different functions.",
+      "with": "Organ level, an organ is a group of tissues working together to perform a function."
+    },
+    {
+      "find": "liver which controls sugar levels in blood and involved in",
+      "with": "liver, which controls blood sugar and is involved in"
+    },
+    {
+      "find": "Transfer traits to offspring",
+      "with": "Transfers traits to offspring"
+    },
+    {
+      "find": "Involve genes and chromosomes",
+      "with": "Involves genes and chromosomes"
+    },
+    {
+      "find": "Provide variation",
+      "with": "Provides variation"
+    },
+    {
+      "find": "Viral disease",
+      "with": "Viral diseases"
     }
   ],
   "//tableNoHeader": "The ACRONYMS table has no header row: AMR is its first entry.",
@@ -835,6 +1294,10 @@
     {
       "find": "EXERCISE 4",
       "next": "Crossbreeding and Inbreeding"
+    },
+    {
+      "find": "Formula",
+      "next": "Worked Example 1: Parent and Offspring"
     }
   ],
   "//fixExercise": "Exercises numbered 1..n within each sub-topic, as the Teacher's Guide does: 5.2.2 ran 4, 5, 7; 5.3.2 ran 2, 3; 5.3.3 ran 4, (4), 5; 5.3.4 ran 1, 6.",
@@ -923,6 +1386,124 @@
     {
       "find": "Formula: Mean (x̄) = Sum of all values",
       "with": "*Formula:* *Mean ($overline(x)$) = Sum of all values ($Sigma x$) ÷ Number of values ($n$)*"
+    },
+    {
+      "find": "Class presentations on the identified parts of the detailed structure",
+      "with": "Present the parts you identified to the class and explain why the electron microscope shows more detail."
+    },
+    {
+      "find": "Meiosis produces genetically varied cells through two mechanisms:",
+      "with": "Genetic variation in sexual reproduction arises from the three sources shown in Table 9."
+    },
+    {
+      "find": "Punnett square (P cross):",
+      "with": "The F₁ cross is shown in Table 10."
+    },
+    {
+      "find": "Punnett square:",
+      "after": "result: All offspring are Yy",
+      "with": "The F₂ cross is shown in Table 11 and the results in Table 12."
+    },
+    {
+      "find": "Punnett square:",
+      "after": "Cross type: Test cross",
+      "with": "The test cross is shown in Table 13 and its offspring in Table 14."
+    },
+    {
+      "find": "Punnett square (4 × 4):",
+      "with": "The F₂ cross is shown in Table 15."
+    },
+    {
+      "find": "phenotype count:",
+      "with": "The F₂ phenotype classes are summarised in Table 16."
+    },
+    {
+      "find": "Punnett square (4 × 4):",
+      "after": "Gametes of PpSs",
+      "with": "The F₂ cross is shown in Table 17."
+    },
+    {
+      "find": "phenotype count:",
+      "after": "Gametes of PpSs",
+      "with": "The results are summarised in Table 18."
+    },
+    {
+      "find": "Below are worked examples to calculate the coefficient of relationship",
+      "with": "Below are worked examples to calculate the coefficient of relationship (R) between relatives in plant breeding, using the formula given in Learning Activity 3. Figure 12 shows how R is calculated from a pedigree."
+    },
+    {
+      "find": "B and C are full siblings.",
+      "with": "Pedigree: A (parent) → B and A → C. B and C are full siblings."
+    },
+    {
+      "find": "The process of plant breeding generally involves the following steps:",
+      "with": "These steps are summarised in Figure 15."
+    },
+    {
+      "find": "A. Digestion in non",
+      "with": "Digestion in non-ruminants (pig and poultry) is summarised in Table 26."
+    },
+    {
+      "find": "Comparison of digestion in ruminants and non",
+      "with": "The two digestive systems are compared in Table 27."
+    },
+    {
+      "find": "Work in groups or individually. Your teacher will provide the following:",
+      "with": "*Work in groups or individually. Your teacher will provide the following: calculators, feed composition tables or a feeding standard, the feed ingredients, a weighing scale, a shovel, sacks and labels.*"
+    },
+    {
+      "find": "The animal body is organised into different levels as shown in the following",
+      "with": "The animal body is organised into different levels, as shown in Table 19."
+    },
+    {
+      "find": "Male reproductive system (bull, ram, boar):",
+      "with": "Male reproductive system (bull, ram, boar): the organs and their functions are given in Table 23."
+    },
+    {
+      "find": "Female reproductive system (cow, ewe, sow, doe):",
+      "with": "Female reproductive system (cow, ewe, sow, doe): the organs and their functions are given in Table 24."
+    },
+    {
+      "find": "Relationship between genetics and reproduction",
+      "with": "Genetics and reproduction are related as shown in Table 30."
+    },
+    {
+      "find": "The following illustration shows common livestock parasites.",
+      "with": "Figure 27 shows common livestock parasites."
+    },
+    {
+      "find": "Sort the cards according to where the parasite is found",
+      "with": "Using the pictures of parasites, sort the parasites according to where they are found on the animal's body."
+    },
+    {
+      "find": "of penetration.",
+      "after": "different angles of",
+      "with": "Investigate the effect on: a) ease of penetration, b) soil inversion, c) draught force."
+    },
+    {
+      "find": "Main components common to both engines:",
+      "with": "The main components common to both engines are given in Table 33."
+    },
+    {
+      "find": "Tractor fluids and their functions:",
+      "with": "The main tractor fluids are listed in Table 36."
+    },
+    {
+      "find": "Common maintenance problems:",
+      "with": "Common problems, causes and remedies are given in Table 37."
+    },
+    {
+      "find": "Operational principle of a combine harvester:",
+      "with": "The main parts of both machines are shown in Figure 30 and the two are compared in Table 38. Operational principle of a combine harvester:"
+    },
+    {
+      "find": "Scenario: market survey for cabbage in Chipata. Data collected:",
+      "with": "*Scenario: market survey for cabbage in Chipata. The data are given in Table 39.*"
+    },
+    {
+      "find": "Example:",
+      "after": "of a recessive gene.",
+      "with": "Table 29 shows an example."
     }
   ],
   "//subtext": "Topics typed TOPIC 5.1.0 ... 5.6.0 (5.3 and 5.5 without a colon): set as TOPIC 5.1 ... 5.6, the form the Teacher's Guide uses.",
@@ -1038,6 +1619,118 @@
     {
       "from": "The following data shows",
       "to": "The following data show"
+    },
+    {
+      "from": "will facilitate the following materials",
+      "to": "will provide the following materials"
+    },
+    {
+      "from": "will facilitate flowers",
+      "to": "will provide flowers"
+    },
+    {
+      "from": "g/cm³",
+      "to": "g/⁠cm³"
+    },
+    {
+      "from": "draft power",
+      "to": "draught power"
+    },
+    {
+      "from": "power Take-off (PTO)",
+      "to": "power take-off (PTO)"
+    },
+    {
+      "from": "60,000",
+      "to": "60 000"
+    },
+    {
+      "from": "2,500",
+      "to": "2 500"
+    },
+    {
+      "from": "1,471.5",
+      "to": "1 471.5"
+    },
+    {
+      "from": "1,500 kg",
+      "to": "1 500 kg"
+    },
+    {
+      "from": "55,000",
+      "to": "55 000"
+    },
+    {
+      "from": "12,375N",
+      "to": "12 375 N"
+    },
+    {
+      "from": "24, 000 watts",
+      "to": "24 000 W"
+    },
+    {
+      "from": "12, 000N (12kN)",
+      "to": "12 000 N (12 kN)"
+    },
+    {
+      "from": "moves 100m,",
+      "to": "moves 100 m,"
+    },
+    {
+      "from": "travels at 1.8m/s. calculate",
+      "to": "travels at 1.8 m/s. Calculate"
+    },
+    {
+      "from": "16kN and operates at 2m/s. calculate",
+      "to": "16 kN and operates at 2 m/s. Calculate"
+    },
+    {
+      "from": "speed of 2m/s.",
+      "to": "speed of 2 m/s."
+    },
+    {
+      "from": "Speed = 2m/s",
+      "to": "Speed = 2 m/s"
+    },
+    {
+      "from": "M = 100 Nm",
+      "to": "M = 100 N m"
+    },
+    {
+      "from": "the Newton (N) or kilo-newton (kN)",
+      "to": "the newton (N) or kilonewton (kN)"
+    },
+    {
+      "from": "1,500",
+      "to": "1 500"
+    },
+    {
+      "from": "10, 000",
+      "to": "10 000"
+    },
+    {
+      "from": "11, 500 N = 11.5kN",
+      "to": "11 500 N = 11.5 kN"
+    },
+    {
+      "from": "= 1500N",
+      "to": "= 1 500 N"
+    },
+    {
+      "from": "Low Sulphur content",
+      "to": "Low sulphur content"
+    },
+    {
+      "from": "less harmful to user and",
+      "to": "less harmful to users and"
+    },
+    {
+      "from": "well developed",
+      "to": "well-developed"
+    },
+    {
+      "from": "draft force",
+      "to": "draught force"
     }
   ],
   "//insertHead": "Topic 5.4 has no sub-topic line in the body; the manuscript's own contents list names it Sub-Topic 5.4.1: Farm Mechanisation.",
@@ -1051,79 +1744,95 @@
   ],
   "images": {
     "image5.png": {
-      "src": "Agric Science F5 LB-hires/image5.png"
+      "src": "Agric Science F5 LB-art/r2-fig02-sieve.png",
+      "w": 640
     },
     "image20.png": {
-      "src": "Agric Science F5 LB-hires/image20.png"
+      "src": "Agric Science F5 LB-art/r2-fig17-pests.png",
+      "w": 640
     },
     "image6.jpeg": {
       "src": "Agric Science F5 LB-hires/image6.png"
     },
     "image3.jpeg": {
-      "src": "Agric Science F5 LB-hires/image3.png"
+      "src": "Agric Science F5 LB-hires/image3.png",
+      "w": 640
     },
     "image9.png": {
-      "src": "Agric Science F5 LB-hires/image9.png"
+      "src": "Agric Science F5 LB-art/r2-fig06-meiosis.png",
+      "landscape": true
     },
     "image23.png": {
-      "src": "Agric Science F5 LB-hires/image23.png"
+      "src": "Agric Science F5 LB-art/r2-fig20-circulation.png",
+      "w": 640
     },
     "image27.png": {
-      "src": "Agric Science F5 LB-hires/image27.png"
+      "src": "Agric Science F5 LB-art/r2-fig24-ration-wide.png",
+      "w": 640
     },
     "image12.png": {
       "src": "Agric Science F5 LB-hires/image13.png"
     },
     "image24.png": {
-      "src": "Agric Science F5 LB-hires/image25.png"
+      "src": "Agric Science F5 LB-art/r2-fig21-feeds.png",
+      "w": 640
     },
     "image21.png": {
-      "src": "Agric Science F5 LB-hires/image21.png"
+      "src": "Agric Science F5 LB-art/r2-fig18-ipm.png",
+      "w": 640
     },
     "image14.png": {
       "src": "Agric Science F5 LB-hires/image14.png"
     },
     "image25.png": {
-      "src": "Agric Science F5 LB-hires/image12.png"
+      "src": "Agric Science F5 LB-art/r2-fig22-proximate.png",
+      "w": 640
     },
     "image13.png": {
       "src": "Agric Science F5 LB-hires/image26.png"
     },
     "image32.png": {
-      "src": "Agric Science F5 LB-hires/image32.png"
+      "src": "Agric Science F5 LB-art/r2-fig29-transmission.png",
+      "w": 640
     },
     "image36.png": {
-      "src": "Agric Science F5 LB-hires/image36.png"
+      "src": "Agric Science F5 LB-art/r2-fig33-demand.png"
     },
     "image37.png": {
-      "src": "Agric Science F5 LB-hires/image37.png"
+      "src": "Agric Science F5 LB-art/r2-fig34-supply.png"
     },
     "image39.png": {
-      "src": "Agric Science F5 LB-hires/image38.png"
+      "src": "Agric Science F5 LB-art/r2-fig36-elastic-supply.png"
     },
     "image38.png": {
-      "src": "Agric Science F5 LB-hires/image39.png"
+      "src": "Agric Science F5 LB-art/r2-fig35-elastic-demand.png"
     },
     "image34.png": {
       "src": "Agric Science F5 LB-hires/image22.png"
     },
     "image33.png": {
-      "src": "Agric Science F5 LB-hires/image33.png"
+      "src": "Agric Science F5 LB-art/r2-fig30-tractor.png",
+      "w": 640
     },
     "image22.png": {
-      "src": "Agric Science F5 LB-hires/image34.png"
+      "src": "Agric Science F5 LB-hires/image34.png",
+      "landscape": true
     },
     "image35.jpeg": {
-      "src": "Agric Science F5 LB-hires/image35.png"
+      "src": "Agric Science F5 LB-art/r2-fig32-plough.png",
+      "w": 640
     },
     "image40.png": {
-      "src": "Agric Science F5 LB-hires/image40.png"
+      "src": "Agric Science F5 LB-hires/image40.png",
+      "w": 640
     },
     "image15.png": {
-      "src": "Agric Science F5 LB-hires/image15.png"
+      "src": "Agric Science F5 LB-art/r2-fig12-pedigree.png",
+      "landscape": true
     },
     "image17.png": {
-      "src": "Agric Science F5 LB-hires/image17.png"
+      "src": "Agric Science F5 LB-hires/image17.png",
+      "landscape": true
     },
     "image7.jpeg": {
       "src": "Agric Science F5 LB-hires/image7.png"
@@ -1135,28 +1844,39 @@
       "src": "Agric Science F5 LB-hires/image31.png"
     },
     "image18.png": {
-      "src": "Agric Science F5 LB-hires/image18.png"
+      "src": "Agric Science F5 LB-hires/image18.png",
+      "landscape": true
     },
     "image19.png": {
-      "src": "Agric Science F5 LB-hires/image19.png"
+      "src": "Agric Science F5 LB-hires/image19.png",
+      "landscape": true
     },
     "image8.png": {
-      "src": "Agric Science F5 LB-hires/image8.png"
+      "src": "Agric Science F5 LB-hires/image8.png",
+      "landscape": true
     },
     "image16.png": {
-      "src": "Agric Science F5 LB-hires/image16.png"
+      "src": "Agric Science F5 LB-hires/image16.png",
+      "landscape": true
     },
     "image30.png": {
-      "src": "Agric Science F5 LB-hires/image30.png"
+      "src": "Agric Science F5 LB-art/r2-fig27-parasites.png",
+      "landscape": true
     },
     "image26.png": {
-      "src": "Agric Science F5 LB-hires/image24.png"
+      "src": "Agric Science F5 LB-art/r2-fig23-rumen.png",
+      "w": 640
     },
     "image4.gif": {
       "src": "Agric Science F5 LB-hires/image4.png"
     },
     "image29.png": {
-      "src": "Agric Science F5 LB-art/pearson-square-16cp.png"
+      "src": "Agric Science F5 LB-art/r2-fig26-pearson.png",
+      "w": 640
+    },
+    "image28.png": {
+      "src": "Agric Science F5 LB-art/r2-fig25-ration-flow.png",
+      "hmm": 112
     }
   },
   "//images": "Pictures upscaled to >=300 ppi (tools/upscale-images.js, iGPU). The tool named the p11 soil-structure drawing image2.png; it is image4.gif. image9 and image15 came back with a see-through piece and were redone in one pass.",
@@ -1169,7 +1889,10 @@
     "effectiveness of the genetically modified organism",
     "sustainable crop protection practices",
     "Male animals",
-    "Examples include salt, sugar, and fertiliser"
+    "Examples include salt, sugar, and fertiliser",
+    "Feel the soil and observe its behaviour",
+    "Compare an electron micrograph of a plant cell with a light-microscope image or diagram",
+    "suitability for improving crops under different agricultural conditions"
   ],
   "replaceBlocks": [
     {
@@ -1634,12 +2357,124 @@
           "listitem": "5.5.1.1 Demonstrate understanding of the principles of agricultural economics"
         }
       ]
+    },
+    {
+      "find": "Meiosis and Mitosis compared",
+      "with": [
+        {
+          "para": "The two divisions are compared in Figure 7."
+        }
+      ]
+    },
+    {
+      "find": "Pedigree",
+      "next": "│",
+      "with": [
+        {
+          "para": "Pedigree: P (parent) → O (offspring), one generation apart."
+        }
+      ]
+    },
+    {
+      "find": "│",
+      "with": []
+    },
+    {
+      "find": "│",
+      "with": []
+    },
+    {
+      "find": "/ \\",
+      "with": []
+    },
+    {
+      "find": "B C",
+      "with": []
+    },
+    {
+      "find": "Example:",
+      "next": "Feed for growing pigs",
+      "with": []
+    },
+    {
+      "find": "Feed for growing pigs (100 Kg)",
+      "with": [
+        {
+          "para": "Table 28 shows a typical grower ration for pigs."
+        }
+      ]
+    },
+    {
+      "find": "Example 2",
+      "next": "A mouldboard has a vertical rise of 30cm",
+      "with": [
+        {
+          "para": "Example 3"
+        }
+      ]
+    },
+    {
+      "find": "Investigate:",
+      "next": "of penetration",
+      "with": []
+    },
+    {
+      "find": "Soil inversion.",
+      "with": []
+    },
+    {
+      "find": "Draught force.",
+      "with": []
     }
   ],
   "insertText": [
     {
       "after": "Clay: very sticky; long, smooth ribbon forms",
       "text": "The advantages of the feel method are that it is quick and inexpensive, requires no laboratory equipment and it is useful for field assessments and preliminary soil classification. Its limitation is that results are subjective and depend on the experience of the person performing the test."
+    },
+    {
+      "after": "Understanding these principles enables farmers",
+      "text": "**Principle of diminishing returns:** When more and more units of a variable input (such as fertiliser or labour) are added to a fixed input (such as land), each extra unit eventually adds less to total output than the one before."
+    },
+    {
+      "after": "Principle of diminishing returns: When more",
+      "text": "**Principle of substitution:** A farmer replaces one input or enterprise with another when it produces the same output at a lower cost (for example, machinery in place of hired labour)."
+    },
+    {
+      "after": "Principle of substitution: A farmer",
+      "text": "**Principle of equi-marginal returns:** A limited resource earns the most when it is shared among enterprises so that the last unit used in each gives the same extra return."
+    },
+    {
+      "after": "Principle of equi-marginal returns:",
+      "text": "**Principle of comparative advantage:** A farm or region gains by producing what it can produce at a lower opportunity cost than others, and trading for the rest."
+    },
+    {
+      "after": "Principle of comparative advantage:",
+      "text": "**Principle of time value of money:** Money received today is worth more than the same amount received in the future, because it can be invested to earn interest; long-term investments are compared after discounting future returns."
+    },
+    {
+      "after": "The typical make-up of a balanced ration is shown in Figure 24",
+      "text": "**Maintenance ration:** The amount of feed an animal needs to keep its body weight and health constant without producing anything, covering basic body functions such as breathing, digestion and keeping warm."
+    },
+    {
+      "after": "Maintenance ration: The amount of feed",
+      "text": "**Production ration:** The feed given in addition to the maintenance ration so that the animal can produce milk, eggs, meat, wool or work. It is rich in energy and protein."
+    },
+    {
+      "after": "Production ration: The feed given",
+      "text": "**Growth ration:** The feed given to young animals for the growth of bones, muscles and organs. It is high in protein, minerals (calcium and phosphorus) and vitamins."
+    },
+    {
+      "after": "Growth ration: The feed given",
+      "text": "**Pregnancy (steaming-up) ration:** Extra feed given in the last two to three months of pregnancy for the growth of the foetus and to prepare the dam for giving birth and producing milk."
+    },
+    {
+      "after": "Hydroponic fodder production.",
+      "text": "**Feed block technology.** Feed blocks (urea-molasses multinutrient blocks) are made by mixing molasses, urea, bran, minerals and a binder such as cement or lime, then pressing the mixture into solid blocks. Ruminants lick them slowly, so they supply nitrogen, energy and minerals that improve the digestion of poor-quality roughage during the dry season."
+    },
+    {
+      "after": "Feed block technology. Feed blocks",
+      "text": "**Use of insect-based protein.** Insects such as black soldier fly larvae and termites are rich in protein and fat. The larvae can be reared cheaply on farm and kitchen waste, dried and ground into a meal that replaces part of the fishmeal or soya cake in poultry, pig and fish rations."
     }
   ],
   "moveBefore": [
@@ -1746,6 +2581,18 @@
     {
       "find": "Acquaah, G. (2012)",
       "before": "Brady, N. C."
+    },
+    {
+      "find": "Bulk density measurements help determine the degree of compaction",
+      "before": "proportion of different particle sizes present in a soil sample"
+    },
+    {
+      "find": "image28.",
+      "before": "Method 1: The Pearson square"
+    },
+    {
+      "find": "image25.",
+      "before": "Importance of feed analysis"
     }
   ],
   "tables": [
@@ -2232,12 +3079,84 @@
     {
       "file": "image40.",
       "text": "Figure 37: Common Types of Graphs Used to Present Agricultural Data"
+    },
+    {
+      "near": "Figure 3: the USDA textural triangle",
+      "text": "Figure 3: The USDA Textural Triangle"
+    },
+    {
+      "near": "Figure 8: Structure of the Anthers",
+      "text": "Figure 8: Structure of the Anther Showing the Pollen Grains"
+    },
+    {
+      "file": "image17.",
+      "text": "Figure 14: Controlled Pollination in Maize Using Pollination Bags on Tassels and Plastic Bags on Ears"
+    },
+    {
+      "file": "image18.",
+      "text": "Figure 15: Sequence of Steps in Plant Breeding to Develop a New Variety"
+    },
+    {
+      "file": "image32.",
+      "text": "Figure 28: Transmission System of a Tractor"
+    },
+    {
+      "file": "image33.",
+      "text": "Figure 29: Main Parts of a Tractor"
+    },
+    {
+      "file": "image34.",
+      "text": "Figure 30: Main Parts of a Combine Harvester and a Maize Sheller"
+    },
+    {
+      "file": "image35.",
+      "text": "Figure 31: Tractor-mounted Mouldboard Plough Showing the Angle of Attack and Angle of Inclination"
+    },
+    {
+      "file": "image36.",
+      "text": "Figure 32: The Demand Curve"
+    },
+    {
+      "file": "image37.",
+      "text": "Figure 33: The Supply Curve"
+    },
+    {
+      "file": "image38.",
+      "text": "Figure 34: Elastic and Inelastic Demand"
+    },
+    {
+      "file": "image39.",
+      "text": "Figure 35: Elastic and Inelastic Supply"
+    },
+    {
+      "file": "image40.",
+      "text": "Figure 36: Common Types of Graphs Used to Present Agricultural Data"
     }
   ],
   "editAll": [
     {
       "find": "Example, ",
       "with": "For example, "
+    },
+    {
+      "find": "(approximately)",
+      "with": ""
+    },
+    {
+      "find": "V = Velocity",
+      "with": "v = velocity"
+    },
+    {
+      "find": "Tan ",
+      "with": "tan "
+    },
+    {
+      "find": "The table below shows the market demand and supply for tomatoes.",
+      "with": "Table 40 shows the market demand and supply for tomatoes."
+    },
+    {
+      "find": "The table below shows the market demand for cabbages.",
+      "with": "Table 41 shows the market demand for cabbages."
     }
   ],
   "orIndividuallyKeep": [
@@ -2288,6 +3207,22 @@
     {
       "find": "How does climate change influence diseases and parasites?",
       "marker": "e)"
+    },
+    {
+      "find": "sort the parasites according to where they are found",
+      "marker": "1."
+    },
+    {
+      "find": "Downward slope (economies of scale)",
+      "marker": "a)"
+    },
+    {
+      "find": "Flat bottom (constant returns)",
+      "marker": "b)"
+    },
+    {
+      "find": "Upward slope (diseconomies of scale)",
+      "marker": "c)"
     }
   ],
   "unlist": [
@@ -2433,10 +3368,6 @@
       "title": "Table 31: Common Ectoparasites and Endoparasites of Farm Animals"
     },
     {
-      "cell": "Bacterial diseases",
-      "title": "Table 32: Classification of Important Livestock Diseases by Cause"
-    },
-    {
       "cell": "Starter solenoid",
       "title": "Table 33: Electrical Components Common to Petrol and Diesel Engines"
     },
@@ -2472,6 +3403,24 @@
     {
       "cell": "Graph Type",
       "title": "Table 43: Summary of Graph Types and Their Applications in Agricultural Research"
+    },
+    {
+      "cell": "Nutritional (metabolic) diseases",
+      "title": "Table 32: Classification of Important Livestock Diseases by Cause, with Zoonotic Examples"
     }
+  ],
+  "//round2": "Proofreading round 2 (26 Nov 2026, 191 comments; recipe C:/z/agric-f5-lb-r2). Every table and figure referred to in the text; titles printed inside pictures cropped off; small-print figures enlarged, set on landscape pages (images.landscape) or redrawn; text corrections as marked.",
+  "removeImages": [
+    "image4.gif",
+    "image31.png"
+  ],
+  "recase": [
+    {
+      "startsWith": "OPERATING FARM MACHINERY",
+      "to": "title"
+    }
+  ],
+  "keepWithNext": [
+    "Agricultural machinery should be accessible to all farmers"
   ]
 }

@@ -2772,7 +2772,29 @@
   let s = str(t).trim()
   if s.match(regex("^Table\\s+(?:[A-Z]{2,3}\\s+)?(?:[0-9]+(?:\\.[0-9]+)*|[A-Z]{1,4}(?:\\.[0-9]+)+)\\s*:")) != none { capmark(s) }
 }
-#let figimg(pathstr, wpx, tall, cap, sticky: false, hmm: 0) = {
+#let figimg(pathstr, wpx, tall, cap, sticky: false, hmm: 0, land: false) = {
+  // A landscape figure: its own page, picture and caption turned a quarter turn
+  // anticlockwise (the reader turns the book clockwise to read it), sized to the
+  // whole text area. The `images` override's `landscape: true` sets it.
+  // It is a full-height float, so it waits for the next page while the text that
+  // follows it fills the rest of the current one (a hard page break left the page
+  // before it two or three lines long).
+  if land {
+    // (the float must sit at the top level of the flow: inside `layout` it could not
+    // leave its own box, and the whole box jumped to the next page)
+    place(top + center, float: true, clearance: 0pt, layout(size => {
+      let W = size.height - 14pt
+      let H = size.width
+      block(width: H, height: size.height, breakable: false,
+        align(center + horizon, rotate(-90deg, reflow: true, block(width: W, breakable: false)[
+          #align(center)[
+            #image(pathstr, width: W, height: H - 24pt, fit: "contain")
+            #if cap != none [ #v(2pt) #capmark(cap)#text(size: fs(8.5pt), style: "italic", weight: capw, fill: rgb("#444"))[#cap] ]
+          ]
+        ])))
+    }))
+    return
+  }
   v(2pt)
   let img = if hmm > 0 {
     // author asked to enlarge/fit: force an explicit on-page height (mm)
