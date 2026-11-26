@@ -2440,7 +2440,9 @@ function applyOverrides(blocks, ov) {
               if (Array.isArray(cell.segs) && cell.segs.length) cell.segs = [{ ...cell.segs.find((s) => !s.m) || cell.segs[0], t: ec.with, m: false }];
               n++; continue;
             }
-            if (cell.text.includes(ec.find)) {
+            // `exact: true`: whole cells only — for a short word ("low", "output") whose
+            // substring fallback would also rewrite "Yellow" or "low-current" elsewhere.
+            if (!ec.exact && cell.text.includes(ec.find)) {
               cell.text = cell.text.split(ec.find).join(ec.with);
               // The cell's RUNS are what gets drawn, and an edit rarely sits inside one
               // of them: a cell holds a run per styling change and another per line
