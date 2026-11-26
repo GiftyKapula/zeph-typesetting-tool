@@ -377,14 +377,6 @@
       "to": "g/⁠cm"
     },
     {
-      "from": "x 100%",
-      "to": "× 100"
-    },
-    {
-      "from": "x 100%",
-      "to": "× 100"
-    },
-    {
       "from": "differences between inbreeding and crossbreeding",
       "to": "Table TG 1: Differences between Inbreeding and Crossbreeding"
     },
@@ -439,8 +431,8 @@
       "to": "LEARNING ACTIVITY 7: Exploring innovative ways of making animal rations."
     },
     {
-      "find": "LEARNING ACTIVITY 5: Relating the principles of genetics",
-      "near": "LEARNING ACTIVITY 5: Relating the principles of genetics",
+      "find": "LEARNING ACTIVITY 5: Relating the principles of genetics and reproduction in animal",
+      "near": "LEARNING ACTIVITY 5: Relating the principles of genetics and reproduction in animal",
       "to": "LEARNING ACTIVITY 4: Relating the principles of genetics and reproduction in animal breeding."
     },
     {
@@ -637,10 +629,6 @@
       "with": "prophase II, metaphase II"
     },
     {
-      "find": "reaching about 90% or more within five to six days",
-      "with": "reaching about 90% by day 8–10"
-    },
-    {
       "find": "Refer to Learners’ Book for diagram on classification",
       "with": "Refer to Figure 15 in the Learner’s Book for the classification"
     },
@@ -723,10 +711,6 @@
     {
       "find": "Pupils to work in groups and develop genetic diagram",
       "with": "Learners to work in groups or individually and develop a genetic diagram"
-    },
-    {
-      "find": "they should draw",
-      "with": "They should draw"
     },
     {
       "find": "body conformation. [",
@@ -937,10 +921,6 @@
       "with": ""
     },
     {
-      "find": " Substitute the farmer's actual figures into these formulas to obtain exact rates.",
-      "with": ""
-    },
-    {
       "find": "Formulas and Worked Example [4 marks each = 20 marks]",
       "with": "Formulas and answers [4 marks each = 12 marks]"
     },
@@ -953,16 +933,8 @@
       "with": "Calving rate = 57 ÷ 75 × 100 = 76%"
     },
     {
-      "find": "Number of offspring weaned",
-      "with": "Number of calves weaned"
-    },
-    {
-      "find": "Number of offspring born",
-      "with": "Number of cows mated (or calves born alive)"
-    },
-    {
       "find": "Example: (68 weaned ÷ 75 born) × 100 = 90.7%",
-      "with": "Weaning rate = 50 ÷ 75 × 100 = 66.7% (or 50 ÷ 55 × 100 = 90.9% on calves born alive)"
+      "with": "Weaning rate (%) = Number of calves weaned ÷ Number of cows mated × 100 = 50 ÷ 75 × 100 = 66.7% (or 50 ÷ 55 × 100 = 90.9% on calves born alive)"
     },
     {
       "find": "If actual data is supplied to candidates, award",
@@ -2061,7 +2033,7 @@
         "Brady, N. C., & Weil, R. R. (2016). The Nature and Properties of Soils (15th ed.). Pearson Education.",
         "Creswell, J. W. (2018). Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (5th ed.). SAGE Publications.",
         "Culpin, C. (1992). Farm Machinery (12th ed.). Blackwell Science.",
-        "Debertin, D. L. (2012). Agricultural Production Economics (2nd ed.). Macmillan.",
+        "Debertin, D. L. (1986). Agricultural Production Economics. Macmillan.",
         "Food and Agriculture Organization (FAO). (2013). Climate-Smart Agriculture Sourcebook. FAO.",
         "Food and Agriculture Organization (FAO). (2017). Soil Management and Sustainable Agriculture. FAO.",
         "Frandson, R. D., Wilke, W. L., & Fails, A. D. (2009). Anatomy and Physiology of Farm Animals (7th ed.). Wiley-Blackwell.",
@@ -2110,14 +2082,6 @@
     {
       "from": "Procedure",
       "to": "Suggested Procedure"
-    },
-    {
-      "from": "x 100%",
-      "to": "× 100"
-    },
-    {
-      "from": "x 100%",
-      "to": "× 100"
     }
   ],
   "deleteExact": [
@@ -3566,8 +3530,10 @@
     "Number of sows/does served",
     "Example: (45 farrowed ÷ 50 served) × 100 = 90%",
     "Mortality Rate:",
-    "Mortality Rate (%) = Number of animals that died × 100",
+    "Mortality Rate (%) = Number of animals that died x 100%",
     "Total number of animals at risk (born/present)",
+    "Weaning Rate (%) = Number of offspring weaned x 100%",
+    "Number of offspring born",
     "Example: (7 deaths ÷ 75 born) × 100 = 9.3%"
   ],
   "replaceExact": [
