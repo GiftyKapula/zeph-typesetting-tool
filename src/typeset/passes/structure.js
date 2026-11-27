@@ -294,7 +294,7 @@ function dedupeAdjacentHeadings(blocks) {
 // its text is kept but it stops polluting the TOC / forcing a page break.
 function fixStrayBodyH1s(blocks) {
   const UNIT = /^(TOPIC|UNIT|CHAPTER|CHIBALU|CIPATI)\b/i;
-  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|(KEY\s+|SUMMARY\s+OF\s+(GENERAL\s+)?)COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
+  const FRONTBACK = /^((THE\s+)?AUTHORS?|EDITORS?|FOREW(O|A)RD|PREFACE|ACKNOWLEDGEMENTS?|INTRODUCTION|HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?|(LIST\s+OF\s+)?ABBREVIATIONS?|SUGGES+TED\s+TEACHING\s+METHODOLOGY|(KEY\s+|SUMMARY\s+OF\s+(GENERAL\s+)?)COMPETEN\w*(\s+TO\s+BE\s+DEVELOPED)?|ACRONYMS|LIST\s+OF\s+(TABLES|FIGURES)|GLOSSARY(\s+OF\s+TERMS)?|REFERENCES?|BIBLIOGRAPHY|APPENDI(X|CES)|INDEX|TABLE\s+OF\s+CONTENTS)$/i;
   // FRONTBACK requires an EXACT match end-to-end, which is right for most of its
   // entries (a stray body h1 could otherwise dodge demotion by coincidentally
   // starting with "Introduction" or "Preface"). But ACRONYMS and (KEY/GENERAL)

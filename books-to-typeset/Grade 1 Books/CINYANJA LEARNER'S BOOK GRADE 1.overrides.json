@@ -153,6 +153,84 @@
       "text": "Mutu: Kuwelenga Mwaluso",
       "as": "h2",
       "all": true
+    },
+    {
+      "find": "Zocita",
+      "text": "Citsanzo",
+      "near": "Nchito 3: Kusankha zithunzi",
+      "closest": true
+    },
+    {
+      "find": "Zocita",
+      "text": "Citsanzo",
+      "near": "Nchito 4: Kulongosola makhadi a nkhani",
+      "closest": true
+    },
+    {
+      "find": "Mafunso:",
+      "text": "Zocita",
+      "as": "head",
+      "near": "Nkhani: Kalole anali mwana wothandiza",
+      "closest": true
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO A GAWO",
+      "text": "MAYESO APAMAPETO AGAWO"
+    },
+    {
+      "find": "Nchito 1: Kujambula zocitika Kuti Apange Nkhani",
+      "text": "Nchito 1: Kujambula zocitika kuti apange nkhani"
+    },
+    {
+      "find": "Mafunso:",
+      "text": "Zocita",
+      "as": "head",
+      "near": "Chisomo anafotokoza za mnzake",
+      "closest": true
+    },
+    {
+      "find": "Mafunso:",
+      "text": "Zocita",
+      "as": "head",
+      "near": "Amai ake atacila, anaona kuti Chimwemwe",
+      "closest": true
+    },
+    {
+      "find": "Mafunso:",
+      "text": "Zocita",
+      "as": "head",
+      "near": "Selemani anafotokoza. Iye anati",
+      "closest": true
+    },
+    {
+      "find": "Zocita:",
+      "text": "Zocita",
+      "near": "Yang'anani zithunzi zimene zili m'munsimu",
+      "closest": true
+    },
+    {
+      "find": "Zocita",
+      "text": "Citsanzo",
+      "near": "Nchito loonjezela 1: Kucita sewelo la Mau ovuta kutamika",
+      "closest": true
+    },
+    {
+      "find": "Zocita",
+      "text": "Citsanzo",
+      "near": "Kakulu ka kachembele",
+      "closest": true
+    },
+    {
+      "find": "Zocita",
+      "text": "Citsanzo",
+      "near": "Chulani mvekelo la malembo awa: nkh, nth",
+      "closest": true
+    },
+    {
+      "find": "Zocita",
+      "text": "Citsanzo",
+      "near": "Jambulani cithunzi ca nkhuku",
+      "closest": true
     }
   ],
   "_note_authors": "The six names listed under ALEMBI on the imprint page; the manuscript cover itself carries no byline.",
@@ -789,6 +867,18 @@
           "center": true
         }
       ]
+    },
+    {
+      "find": "Zocita: M'magulu anu, citani sewelo la zocitika za kunyumba kapena kusukulu.",
+      "with": [
+        {
+          "head": "Citsanzo"
+        },
+        {
+          "listitem": "M'magulu anu, citani sewelo la zocitika za kunyumba kapena kusukulu.",
+          "marker": "1."
+        }
+      ]
     }
   ],
   "coverWords": {
@@ -873,6 +963,22 @@
     {
       "find": "powelenga. . Kodi ndine ciani?",
       "with": "Yankhani funso la nzelu ili: Ndili ndi masamba ambili koma sindine mtengo. Ana amandigwilitsa nchito powelenga. Kodi ndine ciani?"
+    },
+    {
+      "find": "Kopani mau awa mu buku lanu:",
+      "with": "Kopani mau awa mu mabuku anu:"
+    },
+    {
+      "find": "Nenani maganizo ako pa cinthuco.",
+      "with": "Onetsani cinthu cimene mwasankha. Nenani maganizo anu pa cinthuco."
+    },
+    {
+      "find": "\"PHUNZILO ndi ofunika.\"",
+      "with": "M'magulu anu, citani sewelo la zokambilana pa mutu uyu: \"Phunzilo ndi ofunika.\" Pelekani maganizo anu."
+    },
+    {
+      "find": "kwa Maliya pa nkhani",
+      "with": "Kodi mwaphunzila ciani kwa Gezani pa nkhani ya \"Mwana Woganiza\"?"
     }
   ],
   "_note_replace": "p124: a dropped word, \"Bwelezani m mobweleza-bweleza\" -> \"Bwelezani Mvekelo mobweleza-bweleza\", as its nine other copies read. Punctuation: a space before a full stop or question mark removed, and a writing line typed as commas made dots like its neighbours.",
@@ -914,5 +1020,6 @@
       "renumber": true
     }
   ],
-  "_note_unlist": "Nchito 4: Kulemba malembo (p77): the manuscript numbers the instruction with the letters under it (1. Lembani malembo… 2. t … 7. c); the instruction is a plain line and the six letters count 1-6, as in the j z y l and a e i o u lists."
+  "_note_unlist": "Nchito 4: Kulemba malembo (p77): the manuscript numbers the instruction with the letters under it (1. Lembani malembo… 2. t … 7. c); the instruction is a plain line and the six letters count 1-6, as in the j z y l and a e i o u lists.",
+  "_note_round1": "Proofreading round 1 (27 Nov 2026, \"Cinyanja Grade 1 Learner's Book - Proofread.pdf\", zeph grade-1-cinyanja-lb, 18 comments), applied only where marked: activity labels Zocita -> Citsanzo (PDF p43, p44, p211, p212 x2, p214; p188 also splits the run-in \"Zocita: M'magulu anu...\" into a Citsanzo label and item 1); the story questions label Mafunso -> Zocita (p112, p146, p147, p171); \"Zocita:\" -> \"Zocita\" (p194); \"mu buku lanu\" -> \"mu mabuku anu\" (p107); \"maganizo ako\" -> \"anu\" (p116); \"PHUNZILO\" -> \"Phunzilo\" (p128, capital kept at the start of the quoted sentence, as its copy in the unit test); unit-test title \"AGAWO A GAWO\" -> \"AGAWO\" (p130); \"kwa Maliya\" -> \"kwa Gezani\" (p130, as marked); Nchito 1 heading in sentence case (p141). setHeading `closest` picks the marked copy of a label that repeats every few blocks."
 }
