@@ -334,5 +334,25 @@
       "_why": "Split at the page foot, row 2.2.5 (Disability, Education and Climate Change Awareness) carried its last bullet ('Discussing prevention strategies when faced with climatic disaster') onto a page of its own. Kept whole, the row opens the next page.",
       "startsWith": "2.2.5.1"
     }
+  ],
+  "insertText": [
+    {
+      "_why": "User, 27 Nov 2026: the Preface had no signatory. The Permanent Secretary signs the Preface in every syllabus of the family (name as most syllabuses type it).",
+      "after": "inclusive, equitable, and sustainable education in Zambia",
+      "text": [
+        "Kelvin Mambwe (PhD)",
+        "Permanent Secretary – Educational Services",
+        "MINISTRY OF EDUCATION"
+      ]
+    },
+    {
+      "_why": "User, 27 Nov 2026: the Acknowledgement had no signatory. The Director – Curriculum Development signs it in every syllabus of the family.",
+      "after": "promote the right to education for all",
+      "text": [
+        "Petronella M. Samutete (Ms)",
+        "Director – Curriculum Development",
+        "MINISTRY OF EDUCATION"
+      ]
+    }
   ]
 }
