@@ -229,5 +229,45 @@
       "_why": "The weightings grid split across a page, its last row (6.2 Final examination) alone overleaf with Time Allocation. The section now opens the page and stays whole.",
       "find": "ASSESSMENT METHODS AND WEIGHTING"
     }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Split at the page foot, row 3.4.2 (Phase 2 Placement and integration) carried its last two bullets onto a page of their own above END OF YEAR 1 FINAL EXAMINATIONS. Kept whole, the row opens the next page.",
+      "startsWith": "3.4.2.1"
+    }
+  ],
+  "insertText": [
+    {
+      "_why": "User, 27 Nov 2026: the manuscript has no Preface or Acknowledgement; user chose to add both, adapted from the sister Inclusive Education ECE syllabus and signed as the rest of the family. NOT the author's own wording -- replace if CDC supplies it.",
+      "before": "VISION",
+      "text": [
+        "The Competence-Based Guidance and Counselling Syllabus for the Early Childhood, Primary and Secondary Teachers' Diploma marks a major milestone in Zambia's teacher education reform, aligning professional preparation with the principles of equity, inclusion and quality learning for all learners. Developed through a collaborative process involving the Directorate of Teacher Education and Specialised Services (TESS), the Examinations Council of Zambia (ECZ), the Curriculum Development Centre (CDC), Standards and Assessment, as well as public and private universities and colleges, the syllabus reflects a unified national vision for teacher education.",
+        "Grounded in the understanding that every learner deserves support in their academic, personal, social and career development, the syllabus equips teachers with the knowledge, skills and values to provide guidance and counselling services ethically and effectively. Its competence-based approach emphasises practical counselling skills, critical thinking, collaboration, creativity, digital literacy and reflective practice, ensuring that teachers can respond to the diverse needs of learners, including those with special educational needs.",
+        "Anchored in Zambia's commitment to Sustainable Development Goal number four (4) and the 2025 National Education Policy, the syllabus serves as a guiding framework for teacher education institutions. Ultimately, it seeks to produce reflective, competent and caring teachers capable of nurturing resilient, responsible and productive citizens.",
+        "Kelvin Mambwe (PhD)",
+        "Permanent Secretary – Educational Services",
+        "MINISTRY OF EDUCATION",
+        "The development of the Competence-Based Guidance and Counselling Syllabus for the Early Childhood, Primary and Secondary Teachers' Diploma is a significant achievement in strengthening the support that teachers in Zambia give to their learners. This milestone has been realised through a highly collaborative process that brought together diverse stakeholders whose dedication and expertise made this syllabus both robust and responsive to the needs of learners and teachers.",
+        "We wish to extend profound appreciation to the Directorate of Teacher Education and Specialised Services (TESS) for providing overall leadership and coordination in guiding this process. The Directorate of Curriculum Development contributed invaluable expertise in shaping the structure, content and pedagogical framework to ensure alignment with Zambia's Competence-Based Curriculum. The Directorate of Standards, Evaluation and Assessment further enriched the syllabus by ensuring coherence, quality assurance and appropriate assessment strategies.",
+        "Equally, we acknowledge the important scholarly and professional contributions from public and private universities and colleges, whose diverse perspectives, research insights and field experiences helped ensure that the syllabus is both academically rigorous and practically grounded. We remain deeply grateful to all who contributed to the development of this syllabus.",
+        "Petronella M. Samutete (Ms)",
+        "Director – Curriculum Development",
+        "MINISTRY OF EDUCATION"
+      ]
+    }
+  ],
+  "insertHead": [
+    {
+      "_why": "Heading for the added Preface (see insertText).",
+      "before": "The Competence-Based Guidance and Counselling Syllabus for the Early Childhood",
+      "as": "h1",
+      "head": "PREFACE"
+    },
+    {
+      "_why": "Heading for the added Acknowledgement (see insertText).",
+      "before": "The development of the Competence-Based Guidance and Counselling Syllabus",
+      "as": "h1",
+      "head": "ACKNOWLEDGEMENT"
+    }
   ]
 }
