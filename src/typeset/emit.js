@@ -279,7 +279,10 @@ function emit(blocks) {
         const plain = (b.segs || []).map((s) => s.t || "").join("").trim();
         // (`sticky`: a pass asked for this line to stay with the next, e.g. a label over its lines)
         // (a short lead-in ending in a colon — "Litaelo:", "Instructions:" — stays with what follows)
-        const leadIn = plain.length > 0 && plain.length <= 40 && /:\s*$/.test(plain) && blocks[bi + 1] && /^(para|listitem|table)$/.test(blocks[bi + 1].t);
+        // (so does a Teacher's Guide role line with no colon — "(i) Mphunzitsi", "(ii) Aphunzi" —
+        // over the bullets it introduces)
+        const leadIn = plain.length > 0 && plain.length <= 40 && blocks[bi + 1] && /^(para|listitem|table)$/.test(blocks[bi + 1].t)
+          && (/:\s*$/.test(plain) || (/^\([ivx]+\)\s+\S+$/i.test(plain) && blocks[bi + 1].t === "listitem"));
         out += (b.sticky || leadIn || (nextIsImg && FIGLABEL.test(plain) && plain.length > 0 && plain.length <= 60)) ? stickyWrap(p) : p;
         break;
       }

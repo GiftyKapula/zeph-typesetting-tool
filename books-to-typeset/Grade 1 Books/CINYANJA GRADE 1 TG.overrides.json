@@ -1,26 +1,2633 @@
 {
-  "_note": "Cinyanja Grade 1 Teacher's Guide — first typeset. The manuscript is body-only: it ships no cover block, no imprint/ISBN page, no author (MLEMBI) page, foreword, preface or contents list, so the engine has nothing to build front matter from. That is an author/publisher gap, not something to invent here — see the handover notes.",
-  "_note_termPages": "'TEMU 1' = TERM 1 (the school-term banner), not a unit heading — the engine's own termPages/termpage handling documents the same reading. Left as a bare paragraph it printed as three stray bold lines at the top of page 1; as a term page it opens the body properly.",
-  "termPages": "^TEMU +[0-9]",
-  "_note_insertHead": "The author's Unit 9 banner is simply missing. Every other unit reads 'UNIT n' immediately above 'GAWO LOYAMBA: KUMVETSELA NDI KULANKHULA'; at Unit 9 that line is absent, so Unit 9's content was being absorbed into Unit 8 and the book showed 11 banners for 12 units. Anchored on the sub-topic that opens Unit 9 ('1.4.1 KUCITA SEWELO'), which occurs exactly once. Kept in the author's own 'UNIT n' wording, and inserted as an h1 (the unit-banner block type) because the banner promotion runs BEFORE overrides are applied — a default bold head came out as a plain line mid-page instead of the banner its eleven siblings get.",
+  "_note": "Cinyanja Grade 1 Teacher's Guide. Re-typeset 2026-11-17 from the authors' corrected manuscript (CINYANJA GRADE 1 TG CORRECTED.docx, saved 16 Nov), which now carries its own imprint, authors, foreword, Board and MD messages and preface. Ten units GAWO LOYAMBA … GAWO LA KHUMI over three terms (Temu 1-3); inside each unit the reading, word, comprehension and writing strands (GAWO LA KUWELENGA / MAU / MVETSO / KULEMBA) and the MUTU: n.n topics.",
+  "localLabels": true,
+  "_note_localLabels": "Cover, title page and running header in Cinyanja, the same words as the sibling LB (Maphunzilo a Pulayimale / Giredi 1); book type from the nyanja word list.",
+  "subject": "CINYANJA",
+  "keepFrontOrder": true,
+  "tocUnitsOnly": false,
+  "tocTitle": "ZAM'KATI",
+  "_note_insertHead": "The four front-matter titles are typed in floating text boxes the importer drops (same as the LB), so the sections ran together untitled.",
   "insertHead": [
     {
-      "before": "GAWO LOYAMBA: KUMVETSELA NDI KULANKHULA",
-      "near": "MUTU WAUNG'ONO: 1.4.1 KUCITA SEWELO",
-      "head": "UNIT 9",
+      "before": "TAKULANDILANI KU CINYANJA GIREDI 1!",
+      "head": "MAU OYAMBA",
+      "as": "h1"
+    },
+    {
+      "before": "Buku la Cinyanja Giredi 1 lapangidwa kuti lithandize aphunzitsi",
+      "head": "MAU OTSOGOLELA",
+      "as": "h1"
+    },
+    {
+      "before": "Kupangidwa kwa Buku la Mphunzitsi la Cinyanja Giredi 1",
+      "head": "ZOTHOKOZA",
+      "as": "h1"
+    },
+    {
+      "before": "pakukulitsa ndi kulimbitsa maluso a kumvetsela, kulankhula, kuwelenga ndi kulemba kudzela",
+      "head": "MAU OYAMBA A BUKU",
       "as": "h1"
     }
   ],
+  "termPages": "^TEMU +[0-9]$",
+  "_note_setHeading": "GAWO is in the nyanja Unit word list, so every skill strand (GAWO LA KUWELENGA, LA MAU, LA MVETSO, LA KULEMBA) opened a fresh unit page and the contents listed 50 'units'; the strands become plain headings and only the ten numbered GAWO lines stay units. The MUTU: n.n topic lines become sub-topics so the contents lists them, as in the LB.",
+  "setHeading": [
+    {
+      "find": "GAWO LA KUWELENGA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "GAWO LA MAU",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "GAWO LA MVETSO",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "GAWO LA KULEMBA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.1 NKHANI",
+      "text": "MUTU: 1.1 NKHANI",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.6 KUZINDIKILA ZOLEMBEDWA",
+      "text": "MUTU: 1.6 KUZINDIKILA ZOLEMBEDWA",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.8 MVEKELO",
+      "text": "MUTU: 1.8 MVEKELO",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.10 MAU",
+      "text": "MUTU: 1.10 MAU",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.12  MVETSELO",
+      "text": "MUTU: 1.12 MVETSELO",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.14 ASANAYAMBE KULEMBA",
+      "text": "MUTU: 1.14 ASANAYAMBE KULEMBA",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.2 ZOKAMBILANA",
+      "text": "MUTU: 1.2 ZOKAMBILANA",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.12 KUMVETSA ZOMWE MWAMVA",
+      "text": "MUTU: 1.12 KUMVETSA ZOMWE MWAMVA",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.7 KUMVETSA MAU",
+      "text": "MUTU: 1.7 KUMVETSA MAU",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.12 MVETSELO",
+      "text": "MUTU: 1.12 MVETSELO",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.15 KULEMBA",
+      "text": "MUTU: 1.15 KULEMBA",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.11 MAINA",
+      "text": "MUTU: 1.11 MAINA",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.12   MVETSELO",
+      "text": "MUTU: 1.12 MVETSELO",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.13 MVETSELO",
+      "text": "MUTU: 1.13 MVETSELO",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.3 MAFOTOKOZEDWE",
+      "text": "MUTU: 1.3 MAFOTOKOZEDWE",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.16 KULEMBA",
+      "text": "MUTU: 1.16 KULEMBA",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.4 SEWELO",
+      "text": "MUTU: 1.4 SEWELO",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.5 ZILAPI NDI MAU OTEMBENUZA LILIME",
+      "text": "MUTU: 1.5 ZILAPI NDI MAU OTEMBENUZA LILIME",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "MUTU: 1.9 KUWELENGA MWALUSO",
+      "text": "MUTU: 1.9 KUWELENGA MWALUSO",
+      "as": "h2",
+      "all": true
+    },
+    {
+      "find": "Nchito 2: Kuzindikila Mau ndi Ziganizo Zogwilitsidwa Nchito Polankhula ndi Anzanu",
+      "text": "Nchito 2: Kuzindikila Mau ndi Ziganizo Zogwilitsidwa Nchito Polankhula ndi Anzanu",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 1: Kuchula Mvekelo la malembo /ts TS/, /mt MT/, /kw KW/, /dw DW/, /mp MP/, /ny NY/",
+      "text": "Nchito 1: Kuchula Mvekelo la malembo /ts TS/, /mt MT/, /kw KW/, /dw DW/, /mp MP/, /ny NY/",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 1: Kuchula Mvekelo la malembo /mv MV/, /mk MK/, /nj NJ/, /ch CH/, /th TH/, /ng NG/",
+      "text": "Nchito 1: Kuchula Mvekelo la malembo /mv MV/, /mk MK/, /nj NJ/, /ch CH/, /th TH/, /ng NG/",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 2: Kugwilitsa Nchito Mau Omasulidwa Pofotokoza Malo (Kunyumba ndi Kusukulu)",
+      "text": "Nchito 2: Kugwilitsa Nchito Mau Omasulidwa Pofotokoza Malo (Kunyumba ndi Kusukulu)",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 2: Kugwilitsa Nchito Mau Omasulidwa Pofotokoza Zinthu (Zinthu za Kusukulu ndi Kunyumba)",
+      "text": "Nchito 2: Kugwilitsa Nchito Mau Omasulidwa Pofotokoza Zinthu (Zinthu za Kusukulu ndi Kunyumba)",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 1: Kuchula Mvekelo la malembo /gw GW/, /mf MF/, /ms MS/, /oo OO/, /ii II/, /uu UU/",
+      "text": "Nchito 1: Kuchula Mvekelo la malembo /gw GW/, /mf MF/, /ms MS/, /oo OO/, /ii II/, /uu UU/",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 2: Kugwilitsa nchito zilembo zikulu koyambila kwa ziganizo ndi coimila mwa thunthu kumapeto kwa ziganizo.",
+      "text": "Nchito 2: Kugwilitsa nchito zilembo zikulu koyambila kwa ziganizo ndi coimila mwa thunthu kumapeto kwa ziganizo",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 1: Kuchula Mvekelo la malembo /ng NG/, /bv BV/, /nz NZ/, /sh SH/, /zy ZY/, /nkh NKH/, /nth NTH/, /mph MPH/, /nch NCH/, /ngw NGW/, /mny MNY/, /mts MTS/, /mdz MDZ/",
+      "text": "Nchito 1: Kuchula Mvekelo la malembo /ng NG/, /bv BV/, /nz NZ/, /sh SH/, /zy ZY/, /nkh NKH/, /nth NTH/, /mph MPH/, /nch NCH/, /ngw NGW/, /mny MNY/, /mts MTS/, /mdz MDZ/",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 4: Kuwelenga malemba ozindikila maphatikizidwe a mau ndi zomveka zosiyana-siyana",
+      "text": "Nchito 4: Kuwelenga malemba ozindikila maphatikizidwe a mau ndi zomveka zosiyana-siyana",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 1: Kuchula Mvekelo la malembo /mkw MKW/, /thy THY/, /phw PHW/, /mtsw MTSW/, /mphw MPHW/, /nkhw NKHW/, /mnkhw MNKHW/",
+      "text": "Nchito 1: Kuchula Mvekelo la malembo /mkw MKW/, /thy THY/, /phw PHW/, /mtsw MTSW/, /mphw MPHW/, /nkhw NKHW/, /mnkhw MNKHW/",
+      "as": "head"
+    },
+    {
+      "find": "Zocita (Buku la Mphunzi tsamba 88):",
+      "as": "head"
+    },
+    {
+      "find": "Mutu Waung'ono: 1.1.2 Kufotokoza Nkhani",
+      "text": "MUTU WAUNG'ONO: 1.1.2 KUFOTOKOZA NKHANI",
+      "as": "head"
+    },
+    {
+      "find": "Mutu Waung'ono: 1.2.2 Zokambilana",
+      "text": "MUTU WAUNG'ONO: 1.2.2 ZOKAMBILANA",
+      "as": "head"
+    },
+    {
+      "find": "MUTU WAUNG'ONO: 1.8.2 MVEKELO LA MALEMBO",
+      "text": "MUTU WAUNG'ONO: 1.8.1 MVEKELO LA MALEMBO",
+      "as": "head"
+    },
+    {
+      "find": "MUTU WAUNG'ONO: 1.8.1 MVEKELO IA MALEMBO",
+      "text": "MUTU WAUNG'ONO: 1.8.1 MVEKELO LA MALEMBO",
+      "as": "head"
+    },
+    {
+      "find": "MUTU WAUNG'ONO: 1.11.2 Dzina ndi Maina",
+      "text": "MUTU WAUNG'ONO: 1.11.2 DZINA NDI MAINA",
+      "as": "head"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO A GAWO",
+      "text": "MAYESO APAMAPETO AGAWO",
+      "as": "head"
+    },
+    {
+      "find": "MUTU WAUNG'ONO: MAU OZUNGUZA LILIME",
+      "text": "MUTU WAUNG'ONO: 1.5.2 MAU OZUNGUZA LILIME",
+      "as": "head"
+    },
+    {
+      "find": "MUTU WAUNG'ONO: KUWELENGA MOKWEZA",
+      "text": "MUTU WAUNG'ONO: 1.9.1 KUWELENGA MOKWEZA",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 1: Kumvetsela nkhani zofotokozedwa kapena zowelengedwa",
+      "text": "Nchito 1: Kumvetsela nkhani zofotokozedwa kapena zowelengedwa",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 1: Kulumikiza zocitika za moyo ndi zomwe mwamva",
+      "text": "Nchito 1: Kulumikiza zocitika za moyo ndi zomwe mwamva",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 1: Kusimbila zocitika mu nkhani",
+      "text": "Nchito 1: Kusimbila zocitika mu nkhani",
+      "as": "head"
+    },
+    {
+      "find": "Nchito 1: Kuchula Mvekelo la malembo /aA/, /eE/, /iI/, /oO/, /uU/, /kK/, /mM/.",
+      "text": "Nchito 1: Kuchula Mvekelo la malembo /aA/, /eE/, /iI/, /oO/, /uU/, /kK/, /mM/",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 2: Kucita mau omasulidwa.",
+      "text": "Nchito 2: Kucita mau omasulidwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 2: Kuyankha mafunso a maganizo osavuta.",
+      "text": "Nchito 2: Kuyankha mafunso a maganizo osavuta",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 1: Kulimbikitsa masilabe kupanga mau.",
+      "text": "Nchito 1: Kulimbikitsa masilabe kupanga mau",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 2: Kusintha masilabe moyenela.",
+      "text": "Nchito 2: Kusintha masilabe moyenela",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 3: Kuzindikila masilabe mu mau.",
+      "text": "Nchito 3: Kuzindikila masilabe mu mau",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 4: Kuwelenga masilabe.",
+      "text": "Nchito 4: Kuwelenga masilabe",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 3: Kusewela masewela dzina ndi maina.",
+      "text": "Nchito 3: Kusewela masewela dzina ndi maina",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 3: Kumaliza nkhani.",
+      "text": "Nchito 3: Kumaliza nkhani",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Nchito 2: Kupanga nkhani yosavuta.",
+      "text": "Nchito 2: Kupanga nkhani yosavuta",
+      "as": "head",
+      "all": true
+    }
+  ],
+  "authors": [
+    "Kamai Tionge Lusungu",
+    "Nirro Mbewe",
+    "Esther Mwale",
+    "Precious Phiri",
+    "Christopher Phiri",
+    "Kezias Kanyama"
+  ],
+  "_note_authors": "The six names under ALEMBI on the manuscript imprint.",
+  "asPara": [
+    {
+      "find": "Dr Beatrice Chirwa",
+      "bold": true
+    },
+    {
+      "find": "Agness Mumba Wilkins (PhD)",
+      "bold": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, kumvetsela, mafunso, kuyankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, mbali, nkhani, kucita.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kubweleza, nkhani, ku fotokoza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kufotokoza, nkhani, zanu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, nkhani, maudindo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Buku, kutsegula, kutseka, civundikilo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masamba, kutembenuza, buku.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Msana, buku, kugwila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Buku, kutsogolo, civundikilo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mbali, buku, civundikilo, masamba, msana.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kumanzele, kumanja, maso, kuyendetsa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mvekelo, malembo, kuchula.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mau, malile, kuzindikila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zosavuta, kumva, kupeza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mfundo, zomaliza, kupeza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kakhalidwe, koyenela, polemba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mau ofanana, kuzindikila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, kulemba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kubweleza, nkhani.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mvekelo, malembo, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, kumvetsela, kuyankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, zolankhulidwa, kumaliza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, zithunzi, kupanga.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, mau ofotokoza, kupanga.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kufunsa, kuyankha, mafunso.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zolembedwa, zithunzi, mashepu, malembo, manambala.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mashepu, kufanizitsa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zithunzi, kusankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Makhadi, nkhani, kulongosola.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Malembo, manambala, kusankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zithunzi, kufotokoza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zithunzi, kulongosola.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mfundo yaikulu, kuzindikila, kufotokoza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Pensulo, khola, kugwila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, kufunsa, kuyankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, malembo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zolembedwa, kuzindikila, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zida zolembela, kugwila, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mau, ziganizo, akulu, ulemu, moni, zikomo, conde, pepani.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mau, ziganizo, anzanu, moni, muli bwanji.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, kulankhula, akulu, anzanu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kukambilana, mutu, ziganizo zonse.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mvekelo, oyambila, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mvekelo, lomaliza, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, mvekelo, mau, kusintha, kucotsa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mau ofanana kumapeto, mvekelo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zoona, maganizo, nkhani.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zoona, nkhani, kuzindikila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kujambula, zinthu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, kulankhula, akulu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kujambula, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Moni, nyimbo, kuyimba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Moni, m'mawa, masana, madzulo, usiku.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Moni, mibado, akulu, anzanu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, moni, akulu, anzanu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Silabe, masilabe, mau, kuomba m'manja.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, masilabe, kuwelenga, kuomba m'manja.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masilabe, kupanga mau, kulankhula.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, masilabe, kusintha, kucotsa, kupanga mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mvetselo, zocitika, moyo, kuthandiza, kuthokoza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mashepu, kukopa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mapatani, kulemba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Malembo, kukopa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Malembo, kulemba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, moni.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Moni, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Malembo, kulemba, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kukambilana, mutu, maganizo, mfundo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kukambilana, kusankha, atsogoleli.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kukambilana, cilango, ana osamvela.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ciganizo, mau, kulankhula, kugawa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina oyenela, anthu, malo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Tanthauzo, mau osadziwika, zizindikilo, ciganizo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, kuthamanga, kugona, kudya, kuseka, kulila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Buku lolembedwa, kukopa, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Buku lolembedwai, kulemba, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, kukambilana.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, maina.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kukambilana, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maganizo, mutu, mfundo, kulemba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina, maina wamba, maina oyenela, kujambula.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kukambilana, maganizo, atsogoleli, gulu, kusankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maganizo, kuvomeleza, kukana, masewela.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Onetsa, nena, maganizo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zokambilana, mutu, ana, makolo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mvekelo, liu, malembo, kuyamba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Malembo, mvekelo, kusankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina wamba, zinthu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, zocitika, uthenga, coyamba, caciwili, cacitatu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kupatula, mau, kukopa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, maganizo, cakudya, thanzi, kukambilana.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, mau, kulemba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Silabe, kuomba m'manja, kuwelenga.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kubweleza, maganizo, kukambilana.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina, maina eni-eni, maina wamba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, cakudya, thanzi, kumvetsela, kuyankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina, anthu, zinthu, malo, kujambula.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, zokambilana, maganizo, phunzilo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, mwana, kuthandiza, kumvetsela, kuyankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Wamtali, wamfupi, wakuda, woyela, wokongola.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kufotokoza, anthu, mau omasulidwa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, kufotokoza, anthu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mvekelo, malembo, kusankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, zolankhulidwa, mau, kugawa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, mvetselo, mafunso, mayankho, uthenga.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Cithunzi, kufotokoza, mwana, zocitika, maganizo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kujambula, zocitika, nkhani.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, kufotokoza, anthu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, kulemba, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, malembo, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kufotokoza, anthu, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina, maina eni-eni, maina wamba, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, kumvetsela, kufotokoza, kuyankha.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kulemba, mafotokozedwe, anthu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kujambula, cithunzi, mwana, wamtali, wamfupi.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, kumvetsela, kuthandiza, kusamala.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Yaikulu, yaing'ono, yautali, yaufupi, yotalika.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kufotokoza, malo, kunyumba, kusukulu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, kufotokoza, malo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Lalikulu, laing'ono, laitali, lafupi, lozungulila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kufotokoza, zinthu, kusukulu, kunyumba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masewela, kufotokoza, zinthu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Makonsonanti, mavawelo, masilabe.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kuŵelenga, masilabe, makonsonanti, mavawelo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kusankha, masilabe, mvekelo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kusintha, malembo, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Dzina, maina, dzina limodzi, maina ambili.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Cithunzi, maganizo, kufotokoza, kuona.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, kuwelenga, maganizo, kumvetsa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Lembo lalikulu, ciganizo, coimila mwa thunthu, zopumila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Lembo lalikulu, ciganizo, coimila mwa thunthu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, kufotokoza, malo.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kufotokoza, malo, zinthu, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, zocitika, kunyumba, kusukulu.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masilabe, mau, kulumikiza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masilabe, kusintha, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mau, masilabe, kugawa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kuwelenga, masilabe, mau.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina amodzi, maina ambili, kufanizitsa.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zonenedwelatu, cithunzi, uthenga, zocitika, kulosela.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, kulemba, zokwanila.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, zocitika.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina amodzi, maina ambili, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zilapi. Yankho, Ganizilani, Mvetselani, Funso, Nzelu",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Masilabe, Kuwelenga, Mokweza, Molondolana, Kuchula",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mau, Kachulidwe, Kuwelenga, Mokweza, Momveka bwino",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Ziganizo, Malemba, Kachulidwe, Mokweza, Momveka bwino",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Kuwelenga, Kumvetsa, Ziganizo, Mafunso, Mayankho",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Malemba, Ziganizo, Kuwelenga, Mokweza, Molondolana",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maphatikizidwe a zilembo, Zomveka, Kachulidwe, Mau, Malemba",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Maina amodzi, maina ambili, kupanga.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Zonenedwelatu, nkhani, zocitika, kulosela.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Nkhani, ziganizo, kumaliza, kulemba.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Sewelo, mau ovuta kutamika.",
+      "boldLead": true
+    },
+    {
+      "find": "Mau Ofunika Kudziwa: Mau ovuta kutamika, kubweleza.",
+      "boldLead": true
+    },
+    {
+      "find": "(i) Mphunzitsi"
+    },
+    {
+      "find": "(ii) Aphunzi"
+    }
+  ],
+  "justifySection": [
+    "MAU OYAMBA"
+  ],
   "_note_cover": "House-style cover (HOUSE-STYLE.md 3): centred masthead - eyebrow / big subject / accent rule / grade tag / book type / hero photo / authors / ZEPH logo, in the nyanja theme colour. The manuscript ships no cover page, so the hero photo is supplied here. Source art was 1066x1280 (154 DPI at B5 width, under the 300 DPI print floor); upscaled 4x with Real-ESRGAN (realesrgan-x4plus, -t 128) to 4264x5120 = 615 DPI at full B5 width, and stored as PNG rather than JPEG so the print master carries no compression artefacts.",
   "coverImage": "cinyanja-g1-tg-cover.png",
-  "_note_booktype": "The cover book-type line is synthesised in English (\"Teacher's Guide\"); this is the Cinyanja form from the engine's own nyanja word list (terms.teachers_guide), matching how the Kikaonde sibling reads BUUKU WA MUFUNJISHI rather than English.",
-  "booktype": "BUKU LA M'PHUNZITSI",
-  "_note_covertext": "Cover masthead in the book's own spelling: the theme subject is spelt \"Chinyanja\", but this manuscript titles itself CINYANJA on its very first line, so the cover follows the book. The grade word is NOT overridden here — `grade` is book metadata, not a cover label: setting it to the Cinyanja \"GIREDI 1\" also re-files the build under output/Giredi 1/. Localising the grade word on local-language covers (the Kikaonde sibling reads GILEDI 1) is an engine job, not a per-book hack.",
-  "subject": "CINYANJA",
   "coverColor": "b5dd93",
-  "_note_remove": "The manuscript opens with its own informal two-line title block. With a real cover and title page now built (house-style front-matter order: cover then repeated title page), those two lines were left stranded on a page of their own between the title page and the TEMU 1 term page, saying a third time what the two pages before them already say. Both strings occur exactly once in the manuscript.",
+  "_note_imprint": "Copyright page laid out on the house model (Silozi G4 LB): the manuscript's own credits in its own Cinyanja labels, bold label over plain name, then publisher and address, ISBN with a dotted line, printer. The manuscript's ALEMBI: heading had made the engine end the imprint after the ISBN and set the contents page in the middle of it. Chishango 'Load' is the address typo for Chishango Road (as in every other ZEPH imprint). The cover-and-layout credit is the engine's house credit. ALEMBI: / Alembi are credit lines here, not the Authors section title, so they carry noPromote.",
+  "replaceBlocks": [
+    {
+      "find": "Permanent Secretary – Administration",
+      "with": []
+    },
+    {
+      "find": "MINISTRY OF EDUCATION",
+      "with": []
+    },
+    {
+      "find": "Noriana Muneka (Ms.)",
+      "with": [
+        {
+          "para": "Noriana Muneka (Ms.)",
+          "center": true
+        },
+        {
+          "para": "Permanent Secretary – Administration",
+          "center": true
+        },
+        {
+          "para": "MINISTRY OF EDUCATION",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "Managing Director/Chief Executive Officel",
+      "with": [
+        {
+          "para": "Managing Director/Chief Executive Officer",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "ISBN:",
+      "with": []
+    },
+    {
+      "find": "Ufulu wonse ndi wotetezedwa:",
+      "with": [
+        {
+          "para": "© Zambia Educational Publishing House, 2026",
+          "center": true
+        },
+        {
+          "para": "Ufulu wonse ndi wotetezedwa.",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "ALEMBI:",
+                "b": true
+              }
+            ],
+            "align": "center",
+            "noPromote": true
+          }
+        },
+        {
+          "para": "Kamai Tionge Lusungu",
+          "center": true
+        },
+        {
+          "para": "Nirro Mbewe",
+          "center": true
+        },
+        {
+          "para": "Esther Mwale",
+          "center": true
+        },
+        {
+          "para": "Precious Phiri",
+          "center": true
+        },
+        {
+          "para": "Christopher Phiri",
+          "center": true
+        },
+        {
+          "para": "Kezias Kanyama",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**WOKONZA BUKU:**",
+          "center": true
+        },
+        {
+          "para": "Kamai Tionge Lusungu",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**ZITHUNZI:**",
+          "center": true
+        },
+        {
+          "raw": {
+            "t": "para",
+            "segs": [
+              {
+                "t": "Alembi"
+              }
+            ],
+            "align": "center",
+            "noPromote": true
+          }
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**KAPANGIDWE KA CIVUNDIKILO NDI BUKU:**",
+          "center": true
+        },
+        {
+          "para": "Teddy Ng`ambi",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**LOZISINDIKIZIDWA KOYAMBA NDI:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        },
+        {
+          "para": "Light Industrial Area",
+          "center": true
+        },
+        {
+          "para": "Chishango Road",
+          "center": true
+        },
+        {
+          "para": "P.O. Box 32708",
+          "center": true
+        },
+        {
+          "para": "Lusaka, Zambia",
+          "center": true
+        },
+        {
+          "vspace": "8mm"
+        },
+        {
+          "para": "**ISBN:**",
+          "center": true
+        },
+        {
+          "para": "……………………………",
+          "center": true
+        },
+        {
+          "vspace": "5mm"
+        },
+        {
+          "para": "**LOSINDIKIZIDWA NDI:**",
+          "center": true
+        },
+        {
+          "para": "Zambia Educational Publishing House",
+          "center": true
+        }
+      ]
+    },
+    {
+      "find": "• Acite izi mmodzi-mmodzi.",
+      "with": [
+        {
+          "listitem": "Acite izi mmodzi-mmodzi.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "find": "• Mvetselani nkhani imene mphunzitsi akuwelenga.",
+      "with": [
+        {
+          "listitem": "Mvetselani nkhani imene mphunzitsi akuwelenga.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "find": "• Welengani kapena mvetselani nkhaniyi.",
+      "with": [
+        {
+          "listitem": "Welengani kapena mvetselani nkhaniyi.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "find": "• Acite izi mmodzi-mmodzi.",
+      "with": [
+        {
+          "listitem": "Acite izi mmodzi-mmodzi.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "find": "• Acite izi mmodzi-mmodzi.",
+      "with": [
+        {
+          "listitem": "Acite izi mmodzi-mmodzi.",
+          "marker": "•"
+        }
+      ]
+    },
+    {
+      "find": "Longosolani makhadi awa kuti apange nkhani:",
+      "with": [
+        {
+          "listitem": "Longosolani makhadi awa kuti apange nkhani:",
+          "marker": "•"
+        },
+        {
+          "image": "cinyanja-g1-tg-art/lb-story-cards.png",
+          "w": 430
+        }
+      ]
+    },
+    {
+      "find": "Longosolani zithunzi izi kuti zipange nkhani:",
+      "with": [
+        {
+          "listitem": "Longosolani zithunzi izi kuti zipange nkhani:",
+          "marker": "•"
+        },
+        {
+          "image": "cinyanja-g1-tg-art/lb-picture-cards.png",
+          "w": 430
+        }
+      ]
+    },
+    {
+      "find": "(Ikani cithunzi kapena makadi a masilabe pano.)",
+      "with": [
+        {
+          "image": "cinyanja-g1-tg-art/lb-masilabe-chart.png",
+          "w": 250
+        }
+      ]
+    },
+    {
+      "find": "LUSO LAPADELA: 1.8.1.1 Chula mvekelo la malembo",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.8.1.1** Chula mvekelo la malembo"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.10.1.1 Zindikila mau osavuta",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.10.1.1** Zindikila mau osavuta"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.1.2.2 Funsani mafunso oyenela kuti mumvetse bwino ndi kudziwa zambili",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.2.1.2** Funsani mafunso oyenela kuti mumvetse bwino ndi kudziwa zambili"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.6.2.2 Fotokozani zithunzi",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.6.2.2** Fotokozani zithunzi"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.14.2.1 Gwila zida zolembela",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.14.2.1** Gwila zida zolembela"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.2.2.2 Tengani nao mbali pa zokambilana pogwilitsa nchito ziganizo zonse",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.2.2.2** Tengani nao mbali pa zokambilana pogwilitsa nchito ziganizo zonse"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.12.3.1 Siyanitsani zoona ndi maganizo.",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.12.3.1** Siyanitsani zoona ndi maganizo."
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.11.1.1 Zindikilani maina eni-eni ndi maina wamba",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.11.1.1** Zindikilani maina eni-eni ndi maina wamba"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: 1.15.3.1 Patulani mau",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.15.3.1** Patulani mau"
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: Nena mau ozunguza lilime.",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.5.2.1** Nena mau ozunguza lilime."
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: Welengani mau mokweza ndi kachulidwe moyenela..",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.9.1.2** Welengani mau mokweza ndi kachulidwe moyenela."
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Luso Lapadela: Welengani malemba mokweza ndi kachulidwe moyenela. komanso momveka bwino.",
+      "with": [
+        {
+          "para": "**Luso Lapadela: 1.9.1.3** Welengani malemba mokweza ndi kachulidwe moyenela komanso momveka bwino."
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "Mwansa anali mwana ________.",
+      "with": [
+        {
+          "listitem": "Selita anali mwana ________.",
+          "marker": "1."
+        },
+        {
+          "para": "**Yankho:** Selita anali mwana wanzelu."
+        }
+      ]
+    },
+    {
+      "find": "Amapita ku sukulu ________.",
+      "with": [
+        {
+          "listitem": "Amapita ku sukulu ________.",
+          "marker": "2."
+        },
+        {
+          "para": "**Yankho:** Amapita ku sukulu tsiku lililonse."
+        }
+      ]
+    },
+    {
+      "find": "Amakonda kuwelenga ________.",
+      "with": [
+        {
+          "listitem": "Amakonda kuwelenga ________.",
+          "marker": "3."
+        },
+        {
+          "para": "**Yankho:** Amakonda kuwelenga mabuku."
+        }
+      ]
+    },
+    {
+      "find": "Tsiku lina anawelenga buku la ________.",
+      "with": [
+        {
+          "listitem": "Tsiku lina anawelenga buku la ________.",
+          "marker": "4."
+        },
+        {
+          "para": "**Yankho:** Tsiku lina anawelenga buku la nkhani."
+        }
+      ]
+    },
+    {
+      "find": "Anasangalala ________.",
+      "with": [
+        {
+          "listitem": "Anasangalala ________.",
+          "marker": "5."
+        },
+        {
+          "para": "**Yankho:** Anasangalala kwambili."
+        }
+      ]
+    }
+  ],
+  "deleteRun": [
+    {
+      "from": "ALEMBI:",
+      "to": "Zambia Educational Publishing House, 2026",
+      "maxSpan": 40
+    }
+  ],
+  "_note_asPara": "Signatory names: bold paragraphs, not headings. 'Mau Ofunika Kudziwa:' (key words) was typed all-bold, so 208 of the 209 lines printed as large headings while their siblings (Mfundo Yophunzitsa:, Zida …:) are a bold label + plain text: one look for all, label bold only.",
+  "_note_setHeading2": "Ten activity titles (Nchito n: …) and one Zocita line were typed as a plain/bulleted paragraph where 167 others are headings; two sub-topic lines were typed 'Mutu Waung'ono:' in lower case where 68 others are MUTU WAUNG'ONO: headings.",
+  "coverWords": {
+    "printedBy": "Losindikizidwa ndi"
+  },
+  "_note_coverWords": "Back-cover publisher label in Cinyanja, the manuscript's own imprint wording (LOSINDIKIZIDWA NDI).",
+  "_note_fixes": "Manuscript slips mended (numbering audit + read-through 2026-11-17): sub-topic 1.8.2 MVEKELO LA MALEMBO under Luso Lapadela 1.8.1.1 is 1.8.1 like its nine siblings; Luso 1.1.2.2 under sub-topic 1.2.1 is 1.2.1.2; 'MVEKELO IA' -> LA; a lower-case 'Dzina ndi Maina' sub-topic; 'MAYESO APAMAPETO AGAWO A GAWO' -> AGAWO as in the other nine units. Unit 10 carries three un-numbered lines: MAU OZUNGUZA LILIME (the second half of topic 1.5 ZILAPI NDI MAU OTEMBENUZA LILIME, so 1.5.2 / 1.5.2.1) and two repeats of MUTU: KUWELENGA MWALUSO / KUWELENGA MOKWEZA (topic 1.9.1 again, specific competences 2 and 3, so 1.9.1.2 and 1.9.1.3); the repeated topic line is dropped so the contents lists 1.9 once. Spacing and stray punctuation (zocitika , / moyenela.. / bweleza .) tidied; one spelling per word by the book's majority (c- forms: civundikilo 14, ici 20, kucokela 53 …).",
   "remove": [
-    "CINYANJA GIREDI 1",
-    "BUKU LOTHANDIZILA MPHUNZITSI"
-  ]
+    "MUTU: KUWELENGA MWALUSO",
+    {
+      "find": "Mwansa anali mwana wanzelu.",
+      "after": [
+        "Selita anali mwana ________.",
+        "Yankho (Zitsanzo za mayankho oyembekezeka)"
+      ]
+    },
+    {
+      "find": "Amapita ku sukulu tsiku lililonse.",
+      "after": [
+        "Selita anali mwana ________.",
+        "Yankho (Zitsanzo za mayankho oyembekezeka)"
+      ]
+    },
+    {
+      "find": "Amakonda kuwelenga mabuku.",
+      "after": [
+        "Selita anali mwana ________.",
+        "Yankho (Zitsanzo za mayankho oyembekezeka)"
+      ]
+    },
+    {
+      "find": "Tsiku lina anawelenga buku la nkhani.",
+      "after": [
+        "Selita anali mwana ________.",
+        "Yankho (Zitsanzo za mayankho oyembekezeka)"
+      ]
+    },
+    {
+      "find": "Anasangalala kwambili.",
+      "after": [
+        "Selita anali mwana ________.",
+        "Yankho (Zitsanzo za mayankho oyembekezeka)"
+      ]
+    },
+    {
+      "find": "Yankho (Zitsanzo za mayankho oyembekezeka)",
+      "after": "Selita anali mwana ________."
+    }
+  ],
+  "subtext": [
+    {
+      "from": "moyenela..",
+      "to": "moyenela."
+    },
+    {
+      "from": "moyenela.:",
+      "to": "moyenela."
+    },
+    {
+      "from": "zocitika ,",
+      "to": "zocitika,"
+    },
+    {
+      "from": "mobweleza-bweleza .",
+      "to": "mobweleza-bweleza."
+    },
+    {
+      "from": "/k/ ,",
+      "to": "/k/,"
+    },
+    {
+      "from": " ,/kK/",
+      "to": ", /kK/"
+    },
+    {
+      "from": "lolembedwai",
+      "to": "lolembedwa"
+    },
+    {
+      "from": "kchulidwe",
+      "to": "kachulidwe"
+    },
+    {
+      "from": "  ",
+      "to": " "
+    },
+    {
+      "from": "  ",
+      "to": " "
+    },
+    {
+      "from": "---",
+      "to": "………………………………………………………………………………"
+    },
+    {
+      "from": " Thilayangolo.",
+      "to": " moyenela."
+    },
+    {
+      "from": "kukatenga madzi",
+      "to": "kukatunga madzi"
+    },
+    {
+      "from": "Kodi tinaphunzila ciani",
+      "to": "Kodi tiphunzila ciani"
+    },
+    {
+      "from": "nchito Mau otani",
+      "to": "nchito mau otani"
+    },
+    {
+      "from": "anapsya pansi",
+      "to": "anapsyela pansi"
+    }
+  ],
+  "wordFix": {
+    "chivundikilo": "civundikilo",
+    "Chivundikilo": "Civundikilo",
+    "wochenjela": "wocenjela",
+    "ichi": "ici",
+    "Ichi": "Ici",
+    "kuchokela": "kucokela",
+    "Kuchokela": "Kucokela",
+    "chisa": "cisa",
+    "atachila": "atacila",
+    "chikondi": "cikondi",
+    "chisangalalo": "cisangalalo",
+    "Woyembekezeka": "Woyembekezeleka",
+    "oyembekezелеka": "oyembekezeleka",
+    "amvetsеле": "amvetsele",
+    "Woyembekezелеka": "Woyembekezeleka",
+    "zamene": "zimene",
+    "Zamene": "Zimene"
+  },
+  "_note_pageBreak": "Unit 9 test: its last question's answer ran two lines onto a page of its own before the Unit 10 page; the question moves over with it. Unit 10, KUWELENGA MOKWEZA 1.9.1.3: the Zocita block moves over with its Muyeso line, which had run onto a page by itself.",
+  "pageBreakBefore": [
+    "Tikukhulupilila kuti Buku la Mphunzitsi la Cinyanja Giredi 1 lithandiza aphunzitsi kukonza ndi kutsogolela",
+    {
+      "find": "Zocita (Buku la Mphunzi tsamba 191)",
+      "near": "Mwana akutseka citseko ca khola"
+    }
+  ],
+  "_note_lists": "Unit 10: sixteen (i) Mphunzitsi / (ii) Aphunzi role lines and five bullets were typed bold, so they printed as headings; set like the other ~400.",
+  "unbold": [
+    "(i",
+    "...................................................................................."
+  ],
+  "_note_tidy2": "Eleven activity titles ended in a full stop where 166 do not; Muyeso Woyembekezeka (12) -> Woyembekezeleka (206); a half-bold \"(i\".",
+  "_note_pictures": "Three pictures the TG pointed to but did not carry, taken from the sibling LB (corrected LB docx of 16 Nov, the same activities): the story cards (LB image27) for Longosolani makhadi awa, the four picture cards (LB image29) for Longosolani zithunzi izi, and the Masilabe chart (LB image119) in place of the note (Ikani cithunzi kapena makadi a masilabe pano.). Each upscaled 4x with Real-ESRGAN (realesrgan-x4plus) to well over 300 DPI. The authors' --- placeholders are the learners' writing lines (dotted lines in the LB): set as dotted lines like the book's other ones.",
+  "_note_luso": "Luso Lapadela lines in one look, the majority's (44): label and code bold, the competence plain. Fourteen had the code plain and seven were typed as capitalised headings (LUSO LAPADELA: 1.8.1.1 …).",
+  "_note_wordFix": " 18 Nov: three words typed with Cyrillic е/л for e/l (oyembekezeleka, amvetsele, Woyembekezeleka) set in Latin letters.",
+  "boxStripe": false,
+  "_note_boxStripe": "House rule for every book (QA gate).",
+  "jpegQuality": 90,
+  "_note_jpegQuality": "Pictures stored as JPEG (quality 90, same pixels) instead of lossless, as the sibling LB.",
+  "dropBreaks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    18,
+    23,
+    24,
+    27,
+    28,
+    29,
+    32,
+    33,
+    34,
+    35,
+    36,
+    40,
+    43,
+    44,
+    45,
+    46,
+    47,
+    49,
+    50,
+    51
+  ],
+  "_note_dropBreaks": "Each strand (GAWO LA …) and some lessons open a fresh page; where the page before was under half full (30 of 53 breaks, some only 7-20% used), the break is dropped so the next strand follows on the same page (as the sibling LB). 18 Nov, user: do the same checks on the TG.",
+  "_note_pageBreakBefore": "ZOTHOKOZA: its closing paragraph goes over with the signature, so the signatory is not alone at the top of a page (18 Nov). The Katalina break was removed: it was set for the earlier layout and now stranded Funso 6 alone on a page.",
+  "edit": [
+    {
+      "find": "Buku la Mphunzi tsamba 9)",
+      "with": "Buku la Mphunzi tsamba 3)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 10)",
+      "with": "Buku la Mphunzi tsamba 4)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 11)",
+      "with": "Buku la Mphunzi tsamba 5)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 12)",
+      "with": "Buku la Mphunzi tsamba 6)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 13)",
+      "with": "Buku la Mphunzi tsamba 7)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 13)",
+      "with": "Buku la Mphunzi tsamba 8)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 14)",
+      "with": "Buku la Mphunzi tsamba 9)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 14)",
+      "with": "Buku la Mphunzi tsamba 10)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 15)",
+      "with": "Buku la Mphunzi tsamba 11)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 15)",
+      "with": "Buku la Mphunzi tsamba 12)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 16)",
+      "with": "Buku la Mphunzi tsamba 13)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 16)",
+      "with": "Buku la Mphunzi tsamba 15)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 17)",
+      "with": "Buku la Mphunzi tsamba 16)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 18)",
+      "with": "Buku la Mphunzi tsamba 18)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 18)",
+      "with": "Buku la Mphunzi tsamba 18)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 19)",
+      "with": "Buku la Mphunzi tsamba 19)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 22)",
+      "with": "Buku la Mphunzi tsamba 25)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 21)",
+      "with": "Buku la Mphunzi tsamba 26)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 25)",
+      "with": "Buku la Mphunzi tsamba 27)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 25)",
+      "with": "Buku la Mphunzi tsamba 28)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 26)",
+      "with": "Buku la Mphunzi tsamba 28)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 27)",
+      "with": "Buku la Mphunzi tsamba 29)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 27)",
+      "with": "Buku la Mphunzi tsamba 30)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 28)",
+      "with": "Buku la Mphunzi tsamba 32)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 30)",
+      "with": "Buku la Mphunzi tsamba 34)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 30)",
+      "with": "Buku la Mphunzi tsamba 35)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 31)",
+      "with": "Buku la Mphunzi tsamba 37)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 32)",
+      "with": "Buku la Mphunzi tsamba 38)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 34)",
+      "with": "Buku la Mphunzi tsamba 39)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 33)",
+      "with": "Buku la Mphunzi tsamba 39)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 33)",
+      "with": "Buku la Mphunzi tsamba 39)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 34)",
+      "with": "Buku la Mphunzi tsamba 40)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 35)",
+      "with": "Buku la Mphunzi tsamba 41)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 38)",
+      "with": "Buku la Mphunzi tsamba 45)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 38)",
+      "with": "Buku la Mphunzi tsamba 46)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 39)",
+      "with": "Buku la Mphunzi tsamba 47)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 40)",
+      "with": "Buku la Mphunzi tsamba 48)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 40)",
+      "with": "Buku la Mphunzi tsamba 49)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 42)",
+      "with": "Buku la Mphunzi tsamba 50)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 42)",
+      "with": "Buku la Mphunzi tsamba 51)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 43)",
+      "with": "Buku la Mphunzi tsamba 52)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 44)",
+      "with": "Buku la Mphunzi tsamba 53)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 45)",
+      "with": "Buku la Mphunzi tsamba 56)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 46)",
+      "with": "Buku la Mphunzi tsamba 57)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 46)",
+      "with": "Buku la Mphunzi tsamba 57)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 46)",
+      "with": "Buku la Mphunzi tsamba 58)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 47)",
+      "with": "Buku la Mphunzi tsamba 59)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 47)",
+      "with": "Buku la Mphunzi tsamba 59)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 47)",
+      "with": "Buku la Mphunzi tsamba 59)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 48)",
+      "with": "Buku la Mphunzi tsamba 60)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 48)",
+      "with": "Buku la Mphunzi tsamba 60)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 49)",
+      "with": "Buku la Mphunzi tsamba 61)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 49)",
+      "with": "Buku la Mphunzi tsamba 61)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 51)",
+      "with": "Buku la Mphunzi tsamba 64)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 52)",
+      "with": "Buku la Mphunzi tsamba 64)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 54)",
+      "with": "Buku la Mphunzi tsamba 66)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 55)",
+      "with": "Buku la Mphunzi tsamba 67)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 55)",
+      "with": "Buku la Mphunzi tsamba 68)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 56)",
+      "with": "Buku la Mphunzi tsamba 68)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 56)",
+      "with": "Buku la Mphunzi tsamba 69)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 57)",
+      "with": "Buku la Mphunzi tsamba 70)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 58)",
+      "with": "Buku la Mphunzi tsamba 71)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 59)",
+      "with": "Buku la Mphunzi tsamba 73)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 60)",
+      "with": "Buku la Mphunzi tsamba 74)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 61)",
+      "with": "Buku la Mphunzi tsamba 75)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 62)",
+      "with": "Buku la Mphunzi tsamba 76)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 62)",
+      "with": "Buku la Mphunzi tsamba 77)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 63)",
+      "with": "Buku la Mphunzi tsamba 78)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 63)",
+      "with": "Buku la Mphunzi tsamba 79)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 64)",
+      "with": "Buku la Mphunzi tsamba 79)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 64)",
+      "with": "Buku la Mphunzi tsamba 80)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 64)",
+      "with": "Buku la Mphunzi tsamba 80)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 65)",
+      "with": "Buku la Mphunzi tsamba 80)"
+    },
+    {
+      "find": "Zocita (Buku la Mphunzi tsamba 65):",
+      "with": "Citsanzo (Buku la Mphunzi tsamba 82):"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 66)",
+      "with": "Buku la Mphunzi tsamba 83)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 66)",
+      "with": "Buku la Mphunzi tsamba 83)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 66)",
+      "with": "Buku la Mphunzi tsamba 82)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 69)",
+      "with": "Buku la Mphunzi tsamba 86)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 71)",
+      "with": "Buku la Mphunzi tsamba 88)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 72)",
+      "with": "Buku la Mphunzi tsamba 90)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 73)",
+      "with": "Buku la Mphunzi tsamba 91)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 73)",
+      "with": "Buku la Mphunzi tsamba 92)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 74)",
+      "with": "Buku la Mphunzi tsamba 93)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 75)",
+      "with": "Buku la Mphunzi tsamba 94)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 75)",
+      "with": "Buku la Mphunzi tsamba 96)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 76)",
+      "with": "Buku la Mphunzi tsamba 96)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 76)",
+      "with": "Buku la Mphunzi tsamba 96)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 76)",
+      "with": "Buku la Mphunzi tsamba 97)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 76)",
+      "with": "Buku la Mphunzi tsamba 97)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 77)",
+      "with": "Buku la Mphunzi tsamba 98)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 78)",
+      "with": "Buku la Mphunzi tsamba 99)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 78)",
+      "with": "Buku la Mphunzi tsamba 100)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 78)",
+      "with": "Buku la Mphunzi tsamba 100)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 78)",
+      "with": "Buku la Mphunzi tsamba 100)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 78)",
+      "with": "Buku la Mphunzi tsamba 103)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 81)",
+      "with": "Buku la Mphunzi tsamba 103)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 78)",
+      "with": "Buku la Mphunzi tsamba 104)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 83)",
+      "with": "Buku la Mphunzi tsamba 105)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 83)",
+      "with": "Buku la Mphunzi tsamba 106)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 83)",
+      "with": "Buku la Mphunzi tsamba 106)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 84)",
+      "with": "Buku la Mphunzi tsamba 108)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 85)",
+      "with": "Buku la Mphunzi tsamba 109)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 86)",
+      "with": "Buku la Mphunzi tsamba 110)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 87)",
+      "with": "Buku la Mphunzi tsamba 111)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 87)",
+      "with": "Buku la Mphunzi tsamba 111)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 87)",
+      "with": "Buku la Mphunzi tsamba 112)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 88)",
+      "with": "Buku la Mphunzi tsamba 112)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 88)",
+      "with": "Buku la Mphunzi tsamba 113)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 88)",
+      "with": "Buku la Mphunzi tsamba 113)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 88)",
+      "with": "Buku la Mphunzi tsamba 113)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 89)",
+      "with": "Buku la Mphunzi tsamba 115)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 89)",
+      "with": "Buku la Mphunzi tsamba 115)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 90)",
+      "with": "Buku la Mphunzi tsamba 115)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 92)",
+      "with": "Buku la Mphunzi tsamba 119)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 91)",
+      "with": "Buku la Mphunzi tsamba 120)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 91)",
+      "with": "Buku la Mphunzi tsamba 120)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 93)",
+      "with": "Buku la Mphunzi tsamba 120)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 96)",
+      "with": "Buku la Mphunzi tsamba 124)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 97)",
+      "with": "Buku la Mphunzi tsamba 125)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 97)",
+      "with": "Buku la Mphunzi tsamba 126)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 97)",
+      "with": "Buku la Mphunzi tsamba 127)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 99)",
+      "with": "Buku la Mphunzi tsamba 128)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 101)",
+      "with": "Buku la Mphunzi tsamba 129)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 101)",
+      "with": "Buku la Mphunzi tsamba 129)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 101)",
+      "with": "Buku la Mphunzi tsamba 130)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 102)",
+      "with": "Buku la Mphunzi tsamba 130)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 102)",
+      "with": "Buku la Mphunzi tsamba 131)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 102)",
+      "with": "Buku la Mphunzi tsamba 131)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 102)",
+      "with": "Buku la Mphunzi tsamba 131)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 103)",
+      "with": "Buku la Mphunzi tsamba 133)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 103)",
+      "with": "Buku la Mphunzi tsamba 133)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 104)",
+      "with": "Buku la Mphunzi tsamba 134)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 104)",
+      "with": "Buku la Mphunzi tsamba 134)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 107)",
+      "with": "Buku la Mphunzi tsamba 137)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 108)",
+      "with": "Buku la Mphunzi tsamba 138)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 108)",
+      "with": "Buku la Mphunzi tsamba 139)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 109)",
+      "with": "Buku la Mphunzi tsamba 140)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 110)",
+      "with": "Buku la Mphunzi tsamba 141)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 110)",
+      "with": "Buku la Mphunzi tsamba 142)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 111)",
+      "with": "Buku la Mphunzi tsamba 143)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 112)",
+      "with": "Buku la Mphunzi tsamba 145)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 112)",
+      "with": "Buku la Mphunzi tsamba 145)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 113)",
+      "with": "Buku la Mphunzi tsamba 146)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 114)",
+      "with": "Buku la Mphunzi tsamba 147)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 115)",
+      "with": "Buku la Mphunzi tsamba 148)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 116)",
+      "with": "Buku la Mphunzi tsamba 149)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 116)",
+      "with": "Buku la Mphunzi tsamba 150)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 117)",
+      "with": "Buku la Mphunzi tsamba 151)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 118)",
+      "with": "Buku la Mphunzi tsamba 152)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 119)",
+      "with": "Buku la Mphunzi tsamba 154)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 120)",
+      "with": "Buku la Mphunzi tsamba 155)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 120)",
+      "with": "Buku la Mphunzi tsamba 155)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 121)",
+      "with": "Buku la Mphunzi tsamba 156)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 121)",
+      "with": "Buku la Mphunzi tsamba 157)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 121)",
+      "with": "Buku la Mphunzi tsamba 157)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 121)",
+      "with": "Buku la Mphunzi tsamba 157)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 122)",
+      "with": "Buku la Mphunzi tsamba 158)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 122)",
+      "with": "Buku la Mphunzi tsamba 159)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 122)",
+      "with": "Buku la Mphunzi tsamba 159)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 123)",
+      "with": "Buku la Mphunzi tsamba 159)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 123)",
+      "with": "Buku la Mphunzi tsamba 160)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 125)",
+      "with": "Buku la Mphunzi tsamba 162)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 126)",
+      "with": "Buku la Mphunzi tsamba 165)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 127)",
+      "with": "Buku la Mphunzi tsamba 166)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 128)",
+      "with": "Buku la Mphunzi tsamba 167)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 129)",
+      "with": "Buku la Mphunzi tsamba 168)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 130)",
+      "with": "Buku la Mphunzi tsamba 169)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 131)",
+      "with": "Buku la Mphunzi tsamba 170)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 132)",
+      "with": "Buku la Mphunzi tsamba 172)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 132)",
+      "with": "Buku la Mphunzi tsamba 173)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 137)",
+      "with": "Buku la Mphunzi tsamba 177)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 137)",
+      "with": "Buku la Mphunzi tsamba 177)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 138)",
+      "with": "Buku la Mphunzi tsamba 179)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 141)",
+      "with": "Buku la Mphunzi tsamba 181)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 142)",
+      "with": "Buku la Mphunzi tsamba 183)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 143)",
+      "with": "Buku la Mphunzi tsamba 185)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 144)",
+      "with": "Buku la Mphunzi tsamba 186)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 145)",
+      "with": "Buku la Mphunzi tsamba 188)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 146)",
+      "with": "Buku la Mphunzi tsamba 189)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 147)",
+      "with": "Buku la Mphunzi tsamba 189)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 147)",
+      "with": "Buku la Mphunzi tsamba 190)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 142)",
+      "with": "Buku la Mphunzi tsamba 191)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 149)",
+      "with": "Buku la Mphunzi tsamba 192)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 150)",
+      "with": "Buku la Mphunzi tsamba 193)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 151)",
+      "with": "Buku la Mphunzi tsamba 194)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 151)",
+      "with": "Buku la Mphunzi tsamba 195)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 152)",
+      "with": "Buku la Mphunzi tsamba 196)"
+    },
+    {
+      "find": "Buku la Mphunzi tsamba 152)",
+      "with": "Buku la Mphunzi tsamba 197)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 23)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 43)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 23)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 62)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 43)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 83)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 62)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 100)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 83)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 117)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 100)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 135)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 117)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 161)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 135)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 179)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 161)"
+    },
+    {
+      "find": "MAYESO APAMAPETO AGAWO",
+      "with": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 203)",
+      "after": "MAYESO APAMAPETO AGAWO (Buku la Mphunzi tsamba 179)"
+    },
+    {
+      "find": "Zocita",
+      "with": "Zocita (Buku la Mphunzi tsamba 177):",
+      "after": [
+        "Cithunzi ca sewelo la kusamba cajambulidwa",
+        "Nchito 3: Kucita sewelo la zilapi"
+      ]
+    },
+    {
+      "find": "amatembenuza masamba a buku",
+      "with": "amatembenuzila masamba a buku"
+    },
+    {
+      "find": "amayendetsa maso kucokela",
+      "with": "amayendetsela maso kucokela"
+    },
+    {
+      "find": "Mwansa anali mwana wolemekezeka",
+      "with": "Chikumba anali mwana wolemekezeka"
+    },
+    {
+      "find": "Mwansa anapita ku msika",
+      "with": "Chikumba anapita ku msika"
+    },
+    {
+      "find": "Mwansa anapatsa agogo",
+      "with": "Chikumba anapatsa agogo"
+    },
+    {
+      "find": "Mwansa anathandiza agogo",
+      "with": "Chikumba anathandiza agogo"
+    },
+    {
+      "find": "Kodi Mwansa anali mwana wotani?",
+      "with": "Kodi Chikumba anali mwana wotani?",
+      "after": "Chikumba anali mwana wolemekezeka"
+    },
+    {
+      "find": "Kodi Mwansa anali mwana wotani?",
+      "with": "Kodi Chikumba anali mwana wotani?",
+      "after": "Chikumba anali mwana wolemekezeka"
+    },
+    {
+      "find": "Mwansa anali mwana wolemekezeka",
+      "with": "Chikumba anali mwana wolemekezeka",
+      "after": "Chikumba anali mwana wolemekezeka"
+    },
+    {
+      "find": "Mwansa anali mwana wothandiza",
+      "with": "Kalole anali mwana wothandiza"
+    },
+    {
+      "find": "Mwansa anadziwa kuti amai ake sanali",
+      "with": "Kalole anadziwa kuti amai ake sanali",
+      "after": "Kalole anali mwana wothandiza"
+    },
+    {
+      "find": "Mwansa anapita ku munda",
+      "with": "Kalole anapita ku munda",
+      "after": "Kalole anali mwana wothandiza"
+    },
+    {
+      "find": "kuti Mwansa anagwila",
+      "with": "kuti Kalole anagwila",
+      "after": "Kalole anali mwana wothandiza"
+    },
+    {
+      "find": "Mwansa anali wokondwa",
+      "with": "Kalole anali wokondwa",
+      "after": "Kalole anali mwana wothandiza"
+    },
+    {
+      "find": "Kodi Mwansa anali mwana wotani?",
+      "with": "Kodi Kalole anali mwana wotani?",
+      "after": "Kalole anali mwana wothandiza"
+    },
+    {
+      "find": "Kodi Mwansa anacita ciani pamene amai ake anadwala?",
+      "with": "Kodi Kalole anacita ciani pamene amai ake anadwala?",
+      "after": "Kalole anali mwana wothandiza"
+    },
+    {
+      "find": "Mwansa - ________",
+      "with": "Sankhani - ________"
+    },
+    {
+      "find": "Mwansa - ________",
+      "with": "Sankhani - ________"
+    },
+    {
+      "find": "Mwansa - Maina eni-eni; nyumba",
+      "with": "Sankhani - Maina eni-eni; nyumba"
+    },
+    {
+      "find": "Mwansa - ________",
+      "with": "Linda - ________"
+    },
+    {
+      "find": "Mwansa - ________",
+      "with": "Linda - ________"
+    },
+    {
+      "find": "Mwansa - Maina eni-eni; nyumba",
+      "with": "Linda - Maina eni-eni; nyumba"
+    },
+    {
+      "find": "Nchito 1: Kusankha Malembo",
+      "with": "Nchito 3: Kusankha Malembo",
+      "after": "Nchito 3: Kusankha Malembo"
+    },
+    {
+      "find": "· Lembani mau awa mu buku lanu:",
+      "with": "Lembani mau awa mu mabuku anu:"
+    },
+    {
+      "find": "Mwansa anali mwana wanzelu. Ankakonda",
+      "with": "Selita anali mwana wanzelu. Ankakonda"
+    },
+    {
+      "find": "amene tinaphunzila kwa Mwansa?",
+      "with": "amene tinaphunzila kwa Chikumba?"
+    }
+  ],
+  "insertText": [
+    {
+      "before": "Nkhani yabwelezedwa moyenela",
+      "items": [
+        {
+          "head": "Zocita (Buku la Mphunzi tsamba 19):"
+        },
+        {
+          "para": "Fotokozani nkhani ya Kalulu ndi Nkhanu. Yankhani mafunso awa:"
+        },
+        {
+          "para": "1. Kodi nkhani iyi ikamba za ciani?"
+        },
+        {
+          "para": "**Yankho:** Nkhani iyi ikamba za Kalulu ndi Nkhanu."
+        },
+        {
+          "para": "2. Kodi ndani anapambana?"
+        },
+        {
+          "para": "**Yankho:** Nkhanu ndi imene inapambana."
+        },
+        {
+          "para": "3. Kodi tiphunzila ciani?"
+        },
+        {
+          "para": "**Yankho:** Tiphunzila kuti tisamanyoze anzathu cifukwa aliyense ali ndi luso lake."
+        }
+      ]
+    },
+    {
+      "before": "Ziganizo zolankhulidwa zapangidwa moyenela pogwilitsa",
+      "items": [
+        {
+          "head": "Zocita (Buku la Mphunzi tsamba 26):"
+        },
+        {
+          "para": "Pangani ziganizo zokwanila pogwilitsa nchito mau awa:"
+        },
+        {
+          "para": "1. mwana"
+        },
+        {
+          "para": "**Yankho:** Mwana akusewela pabwalo."
+        },
+        {
+          "para": "2. sukulu"
+        },
+        {
+          "para": "**Yankho:** Ine nimapita ku sukulu tsiku lililonse."
+        },
+        {
+          "para": "3. buku"
+        },
+        {
+          "para": "**Yankho:** Ndikuŵelenga buku langa."
+        },
+        {
+          "para": "4. kusewela"
+        },
+        {
+          "para": "**Yankho:** Ana amakonda kusewela pamodzi."
+        },
+        {
+          "para": "5. cakudya"
+        },
+        {
+          "para": "**Yankho:** Amai aphika cakudya cabwino."
+        }
+      ]
+    }
+  ],
+  "_note_round1": "Proofreading round 1 (return of 27 Nov 2026, 222 comments; zeph grade-1-cinyanja-tg round 1). Every 'Buku la Mphunzi tsamba N' now gives the page in the typeset LB as the proofreader marked it (edit, in page order; the new number is joined to 'tsamba' by a no-break space, so a reference already changed is never matched again); three notes cut short (p77, p103, p209 of the proof) and two refs the proofreader skipped (p136 -> 106, p243 -> 191) were read off the LB proof. Each MAYESO APAMAPETO AGAWO gives its LB page. Two activities without a Zocita get the one the proofreader wrote (Kalulu ndi Nkhanu questions, LB p19; sentences, LB p26). Names as marked: Chikumba (Mwana Wolemekezeka), Kalole (Mwana Wothandiza), Sankhani and Linda (name lists), Selita (LB p196, answers set under their questions); the rest of each lesson follows (and the Unit 3 test question on Mwana Wolemekezeka, as the LB test). Words: anapsya pansi -> anapsyela (swept, as marked; both stories), Thilayangolo -> moyenela where it means 'properly', amatembenuzila, amayendetsela, zimene, kukatunga madzi, Kodi tiphunzila ciani, Mau -> mau, LEMBANI MAU AWA MU MABUKU ANU, Nchito 3: Kusankha Malembo (as the LB), Zocita -> Citsanzo on p103. Not applied: Maliya -> Gezani in the Unit 6 test (the Mwana Woganiza story is Maliya's, in the TG and the LB, whose own test asks about Maliya); 'atachila' in the retyped Kalole story (the book spells it atacila)."
 }
