@@ -483,13 +483,19 @@ function applyOverrides(blocks, ov) {
     // `near` disambiguates a common short heading (e.g. "Health") that also occurs
     // as ordinary body/list text elsewhere in the book — only match within a small
     // window around the block containing `near` (mirrors renameNear's scoping).
-    let lo = 0, hi = blocks.length;
+    let lo = 0, hi = blocks.length, na = -1;
     if (sh.near) {
-      const na = blocks.findIndex((b) => blockPlain(b).includes(sh.near));
+      na = blocks.findIndex((b) => blockPlain(b).includes(sh.near));
       if (na < 0) { console.warn("!  setHeading `near` not matched:", sh.near); continue; }
       lo = Math.max(0, na - 15); hi = Math.min(blocks.length, na + 15);
     }
-    for (let i = lo; i < hi; i++) {
+    // `closest: true` (with `near`) — take the match nearest the `near` block, not the
+    // first in the window: a label repeated every few blocks ("Zocita" under each Nchito)
+    // otherwise resolves to an earlier copy up to 15 blocks back.
+    const order = [];
+    for (let i = lo; i < hi; i++) order.push(i);
+    if (sh.closest && na >= 0) order.sort((a, b) => Math.abs(a - na) - Math.abs(b - na) || a - b);
+    for (const i of order) {
       // spaces collapsed on both sides: a `find` copied from the ZEPH_BLOCKS dump (which
       // collapses runs of spaces) must still match a heading typed "CAKUCITA 1:  Tubunga"
       if (blockPlain(blocks[i]).replace(/\s+/g, " ").trim() !== sh.find.replace(/\s+/g, " ").trim()) continue;
