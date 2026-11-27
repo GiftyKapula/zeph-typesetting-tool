@@ -1,0 +1,225 @@
+{
+  "_comment": [
+    "Mathematics and Science -- Early Childhood Teacher Education Diploma syllabus, Years 1-2. First typeset 2026-11-27.",
+    "SOURCE: 'ECE MATHS AND SCIENCE TEACHER EDUCATION VALIDATED COPY-SYLLABUS 5.docx' (Downloads, 27 Nov 2026).",
+    "TITLE / LEVEL as the manuscript's own title page ('MATHEMATICS AND SCIENCE SYLLABUS', 'EARLY CHILDHOOD TEACHER EDUCATION DIPLOMA'); the file name is not the title.",
+    "YEAR 2026 like every other syllabus (the manuscript's copyright line says 2025)."
+  ],
+  "subject": "Mathematics and Science",
+  "level": "Early Childhood Education Teachers' Diploma",
+  "year": 2026,
+  "coverColour": "d35400",
+  "_coverColourWhy": "User, 27 Nov 2026: 'cover page should be orange'. The same orange as the two Mathematics syllabuses (d35400) so the maths family reads as one.",
+  "renumberMatrix": true,
+  "editCell": [
+    {
+      "_why": "Competence typed \"1.8.2 1\" (a space for the last dot).",
+      "pattern": "1.8.2 1 Classify",
+      "with": "1.8.2.1 Classify"
+    },
+    {
+      "_why": "Typo in sub-topic 2.1.1: \"T8eaching\".",
+      "pattern": "T8eaching",
+      "with": "Teaching"
+    }
+  ],
+  "_tocGapWhy": "The contents ran three lines (2.4, 2.5, References) onto a page of its own; closed up.",
+  "tocGap": "3pt",
+  "replaceBlocks": [
+    {
+      "_why": "The weightings are dot-leader lines in the manuscript, half of them Word list items, so they set as a run of loose lines with a. and b. markers and the percentages in different places. Rebuilt as three two-column grids (overall, Year 1, Year 2) with the manuscript own wording, order and figures; only the first letters capitalised alike (2 tests -> 2 Tests, Final examination -> Final Examination). The last line is a marker for removeRange, which takes out the manuscript own copy. Year labels carry a colon: a bare \"Year 1\" line is taken for a level heading and dropped.",
+      "find": "ASSESSMENT CRITERIA AND WEIGHTINGS",
+      "with": [
+        {
+          "h1": "ASSESSMENT CRITERIA AND WEIGHTINGS"
+        },
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "Continuous Assessment",
+                  "40%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Assignment",
+                  "5%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Presentation (Practical, Peer Teaching, Projects)",
+                  "15%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Tests",
+                  "20%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Promotion Examination",
+                  "60%"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "However, the weightings for continuous assessment will be done each year as follows:"
+        },
+        {
+          "para": "**Year 1:**"
+        },
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "1 Assignment",
+                  "5%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "2 Tests",
+                  "20%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Presentations: Practical (7.5%) and Projects (7.5%)",
+                  "15%"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "vspace": "3mm"
+        },
+        {
+          "para": "**Year 2:**"
+        },
+        {
+          "raw": {
+            "t": "colgrid",
+            "ncol": 2,
+            "hasMarker": false,
+            "rows": [
+              {
+                "marker": "",
+                "cells": [
+                  "Continuous Assessment",
+                  "40%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "1 Assignment",
+                  "5%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "1 Test",
+                  "20%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Presentations: Peer Teaching (7.5%) and Practical or Project (7.5%)",
+                  "15%"
+                ]
+              },
+              {
+                "marker": "",
+                "cells": [
+                  "Final Examination",
+                  "60%"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "para": "[[manuscript weightings follow]]"
+        }
+      ]
+    }
+  ],
+  "removeRange": [
+    {
+      "_why": "The manuscript own weighting lines, rebuilt above.",
+      "from": "[[manuscript weightings follow]]",
+      "to": "TIME ALLOCATION"
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Split at the page foot, row 1.2.2 (Number Concept Development) left one line behind and carried the rest overleaf. Kept whole.",
+      "startsWith": "1.2.2 Number"
+    },
+    {
+      "_why": "Split at the page foot, row 1.4.2 (Water) left one line of each cell behind. Kept whole.",
+      "startsWith": "1.4.2.1"
+    },
+    {
+      "_why": "Split at the page foot, row 1.5.2 (Subtraction) carried its last bullets overleaf. Kept whole.",
+      "startsWith": "1.5.2.1"
+    },
+    {
+      "_why": "Split at the page foot, row 1.5.4 (Division) carried its last bullets overleaf. Kept whole.",
+      "startsWith": "1.5.4.1"
+    },
+    {
+      "_why": "Split at the page foot, row 1.6.2 (Separating Mixtures) carried its last bullets overleaf. Kept whole.",
+      "startsWith": "1.6.2.1"
+    },
+    {
+      "_why": "Split at the page foot, row 1.7.3 (Discount) carried two lines overleaf. Kept whole.",
+      "startsWith": "1.7.3.1"
+    },
+    {
+      "_why": "Split at the page foot, row 1.11.4 (Area and Volume) carried the end of its activities overleaf. Kept whole.",
+      "startsWith": "1.11.4.1"
+    }
+  ],
+  "tableWidths": [
+    {
+      "_why": "Row 2.1.1 (Pedagogical Content Knowledge) is nearly a page tall: split, it carried two lines overleaf; kept whole, it left an empty page after YEAR TWO. The Year 2 matrix gives its activities column more room so the row fits on one page.",
+      "startsWith": "2.1.1.1",
+      "widths": [
+        40,
+        40,
+        40,
+        62,
+        45
+      ]
+    }
+  ]
+}

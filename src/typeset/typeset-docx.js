@@ -7104,7 +7104,7 @@ function normaliseQuestionMarkBold(blocks) {
         const b = arr[i];
         if (b && b.t === "image" && lost(b.file)) { arr.splice(i, 1); continue; }
         if (b && Array.isArray(b.imgs)) b.imgs = b.imgs.filter((x) => !lost(x));
-        if (b && Array.isArray(b.rows)) for (const r of b.rows) for (const c of r || []) if (c && Array.isArray(c.imgs)) c.imgs = c.imgs.filter((x) => !lost(x));
+        if (b && Array.isArray(b.rows)) for (const r of b.rows) for (const c of (Array.isArray(r) ? r : (r && r.cells) || [])) if (c && Array.isArray(c.imgs)) c.imgs = c.imgs.filter((x) => !lost(x));
         for (const k of ["body", "parts", "items"]) if (b && Array.isArray(b[k])) prune(b[k]);
       }
     };
