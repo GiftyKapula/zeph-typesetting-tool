@@ -11,6 +11,8 @@
     "PERMUTATIONS 2.3.2.1: a LaTeX leftover (backslash-comma) typed after two formulas is removed. The i./ii./iii. items keep their typed bullets: without them they run on into the line above.",
     ""
   ],
+  "coverColour": "d35400",
+  "_coverColourWhy": "User, 27 Nov 2026: the two Mathematics syllabus covers orange. A brighter pumpkin than Travel and Tourism (c45911) so the shelves still tell them apart; deep enough for the white cover text.",
   "subject": "Mathematics",
   "level": "Secondary Teachers' Diploma",
   "year": 2026,
