@@ -229,5 +229,11 @@
       "_why": "The weightings grid split across a page, its last row (6.2 Final examination) alone overleaf with Time Allocation. The section now opens the page and stays whole.",
       "find": "ASSESSMENT METHODS AND WEIGHTING"
     }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "Split at the page foot, row 3.4.2 (Phase 2 Placement and integration) carried its last two bullets onto a page of their own above END OF YEAR 1 FINAL EXAMINATIONS. Kept whole, the row opens the next page.",
+      "startsWith": "3.4.2.1"
+    }
   ]
 }
