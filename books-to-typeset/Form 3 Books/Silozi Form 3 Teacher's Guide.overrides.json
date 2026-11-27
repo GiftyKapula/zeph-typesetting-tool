@@ -1,0 +1,1530 @@
+{
+  "_comment": [
+    "Silozi Form 3 Teacher's Guide (Buka ya Muluti, Foomu 3). Client file: 'Silozi_Foomu_3_Teachers_Guide_corrected.docx' (27 Nov 2026);",
+    "first typeset 2026-11-27. Renamed so the engine reads 'Form 3' and 'Teacher's Guide' from the name. Companion of the Silozi Form 3 LB - same authors, imprint model and cover words."
+  ],
+  "_comment_cover": "Cover/title words from the lexicon (Buka ya Muluti, FOOMU 3, Sitopa sa Bulalu) as on the LB. Cover photo = the left part of the manuscript's own cover picture (image1.jpeg: x 0-690, y 392-833 of 999x1209), the only part with no lettering (the blackboard words and the SILOZI book are left out), upscaled 4x with Real-ESRGAN.",
+  "localLabels": true,
+  "coversInBook": true,
+  "boxStripe": false,
+  "coverImage": "Silozi Form 3 TG-art/cover-photo-hires.png",
+  "coverWords": {
+    "printedBy": "Ihatisizwe ki ba"
+  },
+  "authors": [
+    "Kabanda Chingumbe",
+    "Edwin Matakala Kandala",
+    "John Muyunda Lisimba",
+    "Mufwinda Mutuñu"
+  ],
+  "tocTitle": "Mukoloko wa Lituto",
+  "_comment_order": "The manuscript's front matter is already in house order (Linzwi la Makalelo = foreword, Makalelo = preface, Buitumelo, Tahiso = introduction); the word list files Tahiso as preface and would move it up - kept as typed.",
+  "keepFrontOrder": true,
+  "_comment_imprint": "Copyright page as the Silozi Form 3 LB (Silozi G4 LB house model); editor, illustrator and ISBN left as dots (not in the manuscript).",
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House, 2026",
+    "rights": "Liswanelo kaufela libukelelizwe. Hakuna kalulo ya buka ye yelukela kuñolululwa kapa kuhasanywa ka mukwa ufi kapa ufi kusina kulumelezwa ki Zambia Educational Publishing House.",
+    "groups": [
+      {
+        "label": "Ibaakanyizwe ni kulukiswa ki:",
+        "lines": [
+          "……………"
+        ]
+      },
+      {
+        "label": "Iswanisizwe ki:",
+        "lines": [
+          "………………"
+        ]
+      },
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Teddy Ng`ambi"
+        ]
+      },
+      {
+        "label": "Ihatisizwe mwa silimo sa 2026 ki ba:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road",
+          "P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "ISBN:",
+        "lines": [
+          "……………………………"
+        ]
+      },
+      {
+        "label": "Ihatisizwe ki ba:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "_comment_front": "The manuscript opens with its own finished cover picture, the four names and a colour stripe (image2) under a 'Bañoli' heading - dropped, the engine builds the cover. 'KABELO YA bana ba sikolo KAUFELA' (a find-and-replace slip) set in capitals like the other front-matter heads.",
+  "removeRange": [
+    {
+      "from": "Bañoli",
+      "to": "BAÑOLI"
+    }
+  ],
+  "_comment_signatures": "MAKALELO and BUITUMELO end with the signatory run into the last paragraph - set on lines of their own (name, title, ORGANISATION) like LINZWI LA MAKALELO's, as on the LB.",
+  "edit": [
+    {
+      "find": " Mufumahali Beatrice Chirwa (Dr) Muinasitulo wa Katengo ZAMBIA EDUCATIONAL PUBLISHING HOUSE",
+      "with": ""
+    },
+    {
+      "find": " Mufumahali Agness Mumba Wilkins (PhD) Muzamaisi yo Mutuna ZAMBIA EDUCATIONAL PUBLISHING HOUSE",
+      "with": ""
+    }
+  ],
+  "fmSpacing": "1.3em",
+  "replaceBlocks": [
+    {
+      "find": "Mufumahali Noriana Muneku Muñoli yo Mutuna (Kamaiso) LILUKO LA TUTO",
+      "with": [
+        {
+          "para": "Mufumahali Noriana Muneku"
+        },
+        {
+          "para": "Muñoli yo Mutuna (Kamaiso)"
+        },
+        {
+          "para": "LILUKO LA TUTO"
+        }
+      ]
+    },
+    {
+      "find": "Tuto ni tuto mwa Buka mo ikatoloka: • Buikoneli Bobutuna • Buikoneli Kakutala • Buikoneli Bobulibelelwa • Liitusiso za Muluti ni bana ba sikolo • Likakanyezo ku Muluti • Mikwa ni mihato ya kuluta • Likalabo ze libelelwa za zakueza ni misebezi • Mwa kutatubela • Kusufazo ya tuto ni tuto Mususuezwa kuitusisa misebezi ye zaMashitangutila ni sibaka komuina, liitusiso zeliteñi ni zebatokwa bana ba sikolo bamina. Muswanela kuisezapilu kwa silelezo ya banana kwa likozi nako kaufela hakueziwa misebezi ya kuikezeza.",
+      "with": [
+        {
+          "para": "Tuto ni tuto mwa Buka mo ikatoloka:"
+        },
+        {
+          "listitem": "Buikoneli Bobutuna"
+        },
+        {
+          "listitem": "Buikoneli Kakutala"
+        },
+        {
+          "listitem": "Buikoneli Bobulibelelwa"
+        },
+        {
+          "listitem": "Liitusiso za Muluti ni bana ba sikolo"
+        },
+        {
+          "listitem": "Likakanyezo ku Muluti"
+        },
+        {
+          "listitem": "Mikwa ni mihato ya kuluta"
+        },
+        {
+          "listitem": "Likalabo ze libelelwa za zakueza ni misebezi"
+        },
+        {
+          "listitem": "Mwa kutatubela"
+        },
+        {
+          "listitem": "Kusufazo ya tuto ni tuto"
+        },
+        {
+          "para": "Mususuezwa kuitusisa misebezi ye zaMashitangutila ni sibaka komuina, liitusiso zeliteñi ni zebatokwa bana ba sikolo bamina. Muswanela kuisezapilu kwa silelezo ya banana kwa likozi nako kaufela hakueziwa misebezi ya kuikezeza."
+        }
+      ]
+    },
+    {
+      "find": "Buka ya Muluti ye, ilukiselizwe kuitusiswa hamoho ni Buka ya Mwanaasikolo ya Silozi ya Fomu 3. Mwa mukanga ni mukanga, mane ni tuto ni tuto, mulatelele mihato yetatama: a) Nyakisisa tuto: Bala kalulo mwa Buka ya Mwanaasikolo kuli uutwisise zeli mwateñi ni milelo ya zeswanela kuitutiwa. b) Lukisa lisebeliso: onga-onga liitusiso kaufela za muluti ni bana ba sikolo ze kolohanyizwe fa halimwaa tuto. c) Latelela mukoloko wa mulutelo: Itusise ketelelo, muhato ka muhato, ya mwa kulutela. d) Baakanya misebezi ni Zakueza: Etelela bana ba sikolo ha baeza Zakueza ni Misebezi, inge usweli kufa tuso ni susuezo. e) Itusise likalabo ze konahala: Utalime kwa likalabo ze filwe ili kuetelela lingambolo, imi u nyakisise likalabo za bana ba sikolo. f) Tatuba buituti: Itusise milutelo ni mikwa ya kuluta ku tatuba zwelopili ya kuituta. g) Kusufaza tuto: Ungula ka Kusufazo ya makutela-kaufi kuanyiseza litaba za butokwa.",
+      "with": [
+        {
+          "para": "Buka ya Muluti ye, ilukiselizwe kuitusiswa hamoho ni Buka ya Mwanaasikolo ya Silozi ya Fomu 3. Mwa mukanga ni mukanga, mane ni tuto ni tuto, mulatelele mihato yetatama:"
+        },
+        {
+          "listitem": "**Nyakisisa tuto:** Bala kalulo mwa Buka ya Mwanaasikolo kuli uutwisise zeli mwateñi ni milelo ya zeswanela kuitutiwa.",
+          "marker": "a)"
+        },
+        {
+          "listitem": "**Lukisa lisebeliso:** onga-onga liitusiso kaufela za muluti ni bana ba sikolo ze kolohanyizwe fa halimwaa tuto.",
+          "marker": "b)"
+        },
+        {
+          "listitem": "**Latelela mukoloko wa mulutelo:** Itusise ketelelo, muhato ka muhato, ya mwa kulutela.",
+          "marker": "c)"
+        },
+        {
+          "listitem": "**Baakanya misebezi ni Zakueza:** Etelela bana ba sikolo ha baeza Zakueza ni Misebezi, inge usweli kufa tuso ni susuezo.",
+          "marker": "d)"
+        },
+        {
+          "listitem": "**Itusise likalabo ze konahala:** Utalime kwa likalabo ze filwe ili kuetelela lingambolo, imi u nyakisise likalabo za bana ba sikolo.",
+          "marker": "e)"
+        },
+        {
+          "listitem": "**Tatuba buituti:** Itusise milutelo ni mikwa ya kuluta ku tatuba zwelopili ya kuituta.",
+          "marker": "f)"
+        },
+        {
+          "listitem": "**Kusufaza tuto:** Ungula ka Kusufazo ya makutela-kaufi kuanyiseza litaba za butokwa.",
+          "marker": "g)"
+        }
+      ]
+    },
+    {
+      "find": "Zebabulela ni zebañola libelekisane nizebautwa nizebabala kuli hamoho lituse kulwanisa bumaswe bobukona kuhohobela zwelopili yetokwahala mwa sicaba. Kuli bakone kuamuhela hande zibo ya likauhanyo zebakaituta mwa sitopa sa Fomu 3 nikukona kuitusisa yona hande mwa bupilo, muluti aetelele bana ba sikolo mwa buikonelo bobupahami bobutatama. Kibona buikonelo bobulibelelwa kuli babubonise habanze bazwelapili kuituta Puwo ya Silozi. Palo ZELUKELA KUKONA KUPETIWA 1. Kunahana, kualunguta ni kutomahanya litaba 2. Kuba bana ba zwezwi, ili bana ba naha babatezi, bao naha",
+      "with": [
+        {
+          "para": "Zebabulela ni zebañola libelekisane nizebautwa nizebabala kuli hamoho lituse kulwanisa bumaswe bobukona kuhohobela zwelopili yetokwahala mwa sicaba. Kuli bakone kuamuhela hande zibo ya likauhanyo zebakaituta mwa sitopa sa Fomu 3 nikukona kuitusisa yona hande mwa bupilo, muluti aetelele bana ba sikolo mwa buikonelo bobupahami bobutatama. Kibona buikonelo bobulibelelwa kuli babubonise habanze bazwelapili kuituta Puwo ya Silozi."
+        },
+        {
+          "listitem": "Kunahana, kualunguta ni kutomahanya litaba",
+          "marker": "1."
+        },
+        {
+          "listitem": "Kuba bana ba zwezwi, ili bana ba naha babatezi, bao naha ikaikuhumusa kabona",
+          "marker": "2."
+        },
+        {
+          "listitem": "Kuswalisana ni babañwi babakaituta nikupila nibona",
+          "marker": "3."
+        },
+        {
+          "listitem": "Kufitisa mañusa, milelo, minahano, maikuto ni kuikambota ni babañwi",
+          "marker": "4."
+        },
+        {
+          "listitem": "Kueza lika kabuikupuleli",
+          "marker": "5."
+        },
+        {
+          "listitem": "Kutibisa munahano",
+          "marker": "6."
+        },
+        {
+          "listitem": "Kuomeka nyakalalo",
+          "marker": "7."
+        },
+        {
+          "listitem": "Kusayundisa libupiwa ni limela zeli mwa libaka zebapila kuzona nikuba ni pabalelo kwa lifa la naha",
+          "marker": "8."
+        },
+        {
+          "listitem": "Kutungunyuna ni kufumana likalabo za mapalelwi mwa bupilo",
+          "marker": "9."
+        }
+      ]
+    },
+    {
+      "find": "ikaikuhumusa kabona 3. Kuswalisana ni babañwi babakaituta nikupila nibona 4. Kufitisa mañusa, milelo, minahano, maikuto ni kuikambota ni babañwi 5.",
+      "with": []
+    },
+    {
+      "find": "Kueza lika kabuikupuleli 6. Kutibisa munahano 7. Kuomeka nyakalalo 8. Kusayundisa libupiwa ni limela zeli mwa libaka zebapila kuzona nikuba ni pabalelo kwa lifa la naha 9. Kutungunyuna ni kufumana likalabo za mapalelwi mwa bupilo",
+      "with": []
+    },
+    {
+      "find": "KUAMA LIKALULO ZA PUWO ZEKETALIZOHO Kuteeleza ni Kubulela Kuteeleza ni kubulela ki likalulo zetuna zakuluta puwo. Mulelo wazona ki kuzwisezapili maata a mwanaasikolo kuutwisisa puwo kalipulelo nikufitisa maikuto ahae kakuutwahala, asina fakakatela, ni kaswanehelo mwa miinelo yeshutana-shutana. Ka likezo zecwale kakuikambota, kubuisana, kufa makande, kuituta kupeta misebezi nimwa lipiho ka mulomo, muluti uka zwisezapili bana ba sikolo kubulela manzwi kaswanehelo, kukona kubulela inge balukuluhile, kuziba taluso ya manzwi ni kukona kuteeleza hande. Pilu iswanela kuiswa kwa kuikambota kwa mbuwa, kuitusisa Pupo ya Puwo kusina kufosa, nikufa likute kwakuikabela nako yakubulela ni milao yasizo.",
+      "with": [
+        {
+          "head": "KUAMA LIKALULO ZA PUWO ZEKETALIZOHO"
+        },
+        {
+          "label": "KUTEELEZA NI KUBULELA"
+        },
+        {
+          "para": "Kuteeleza ni kubulela ki likalulo zetuna zakuluta puwo. Mulelo wazona ki kuzwisezapili maata a mwanaasikolo kuutwisisa puwo kalipulelo nikufitisa maikuto ahae kakuutwahala, asina fakakatela, ni kaswanehelo mwa miinelo yeshutana-shutana. Ka likezo zecwale kakuikambota, kubuisana, kufa makande, kuituta kupeta misebezi nimwa lipiho ka mulomo, muluti uka zwisezapili bana ba sikolo kubulela manzwi kaswanehelo, kukona kubulela inge balukuluhile, kuziba taluso ya manzwi ni kukona kuteeleza hande. Pilu iswanela kuiswa kwa kuikambota kwa mbuwa, kuitusisa Pupo ya Puwo kusina kufosa, nikufa likute kwakuikabela nako yakubulela ni milao yasizo."
+        }
+      ]
+    },
+    {
+      "find": "Kalulo ye ilukiseza muluti kutusa bana ba sikolo kuba ni lingambolo za luli za mwa bupilo bwakamuso habali mwa sicaba, mwa sikolo mane ni habasebeleza naha. Kubala kakutwisiso ni kakuipalela. Muluti ukaetelela bana ba sikolo kwaa zwelapili kuhulisa bucaziba bwabona mwakubala kakutwisiso ni mwakuipalela. Kubala kakutwisiso kutokwa kunyakisisa hande makande kuli mutu afumane taluso ya manzwi, ni Pupo ya Puwo. Kuipalela kususueza mutu kubala makande amatetelele kakubata tabo, zibo, ni kutwisiso. Kuzwelela mwa makande ashutana-shutana, acwale ka makande, litoko, litaba za niti ni zefa zibahazo ni mañusa, muluti ukazwisezapili bana ba sikolo kualunguta, kunyakisisa, kutoloka, kueza lika kabuikupuleli, kuswalisana ni babañwi, kutibisa minahano, kuomeka lika ni kutungunyuna.",
+      "with": [
+        {
+          "para": "Kalulo ye ilukiseza muluti kutusa bana ba sikolo kuba ni lingambolo za luli za mwa bupilo bwakamuso habali mwa sicaba, mwa sikolo mane ni habasebeleza naha."
+        },
+        {
+          "label": "KUBALA KAKUTWISISO NI KAKUIPALELA"
+        },
+        {
+          "para": "Muluti ukaetelela bana ba sikolo kwaa zwelapili kuhulisa bucaziba bwabona mwakubala kakutwisiso ni mwakuipalela. Kubala kakutwisiso kutokwa kunyakisisa hande makande kuli mutu afumane taluso ya manzwi, ni Pupo ya Puwo. Kuipalela kususueza mutu kubala makande amatetelele kakubata tabo, zibo, ni kutwisiso. Kuzwelela mwa makande ashutana-shutana, acwale ka makande, litoko, litaba za niti ni zefa zibahazo ni mañusa, muluti ukazwisezapili bana ba sikolo kualunguta, kunyakisisa, kutoloka, kueza lika kabuikupuleli, kuswalisana ni babañwi, kutibisa minahano, kuomeka lika ni kutungunyuna."
+        }
+      ]
+    },
+    {
+      "find": "Hape bakatwaela kuba batu babana ni sizo sa kubala. Kalulo ye itiisa zibo ya puwo mi itusa mane ni kuituta lituto zeñwi. Kuñola: Kuñola ni Kukusufaza taba. Kalulo yakuñola ikalibisa bana ba sikolo kwakutiiseza bucaziba bwabona bwa kufitisa mihupulo ni maikuto hande, kamwainezi nikaku tomahanya likalulo za ngambolo kakuliñola. Kuñola taba kutokwa kuba nikueza lika kabuikupuleli, kutomahanya hande likande, kutalusa, kuzibahaza, kapa kukanana. Haili kukusufaza taba kutokwa kulemuha ni kutungunyuna mihupulo yebutokwa nikuifitisa kaswanehelo. Muluti ukaetelela bana ba sikolo mwa milelo, ni buitukiso bwabona, habakalisa kuñola, nikukutela kutatuba sebañozi mwa misebezi yabona.",
+      "with": [
+        {
+          "para": "Hape bakatwaela kuba batu babana ni sizo sa kubala. Kalulo ye itiisa zibo ya puwo mi itusa mane ni kuituta lituto zeñwi."
+        },
+        {
+          "label": "KUÑOLA NI KUKUSUFAZA TABA"
+        },
+        {
+          "para": "Kalulo yakuñola ikalibisa bana ba sikolo kwakutiiseza bucaziba bwabona bwa kufitisa mihupulo ni maikuto hande, kamwainezi nikaku tomahanya likalulo za ngambolo kakuliñola. Kuñola taba kutokwa kuba nikueza lika kabuikupuleli, kutomahanya hande likande, kutalusa, kuzibahaza, kapa kukanana. Haili kukusufaza taba kutokwa kulemuha ni kutungunyuna mihupulo yebutokwa nikuifitisa kaswanehelo. Muluti ukaetelela bana ba sikolo mwa milelo, ni buitukiso bwabona, habakalisa kuñola, nikukutela kutatuba sebañozi mwa misebezi yabona."
+        }
+      ]
+    },
+    {
+      "find": "Muhupulo uisiwa kwa Pupo ya Puwo, manzwi, lisupo, litaku zepanga manzwi, ni kuyandululwa kwa mibamba mwa kalulo ni kalulo ya likande. Kalulo ye ikafa muluti kuetelela bana ba sikolo kuba bocaziba bakuñola mwanako ye bali kwa sikolo mane ni mwa nako yabupilo bwabona kasamulaho wa sikolo. Pupo ya Puwo Muluti ukaetelela bana ba sikolo mwa kuituta Pupo ya Puwo, ili kubalibisa fakuutwisisa nikukona kuitusisa mikwa yakubeya hande manzwi mwa mibamba mwa Silozi. Yaama likalulo zecwale ka lingambolo, miinelo ya mibamba, manzwi atoloka likezo, tumelelano ya manzwi ni mwa kupangela manzwi.",
+      "with": [
+        {
+          "para": "Muhupulo uisiwa kwa Pupo ya Puwo, manzwi, lisupo, litaku zepanga manzwi, ni kuyandululwa kwa mibamba mwa kalulo ni kalulo ya likande. Kalulo ye ikafa muluti kuetelela bana ba sikolo kuba bocaziba bakuñola mwanako ye bali kwa sikolo mane ni mwa nako yabupilo bwabona kasamulaho wa sikolo."
+        },
+        {
+          "label": "PUPO YA PUWO"
+        },
+        {
+          "para": "Muluti ukaetelela bana ba sikolo mwa kuituta Pupo ya Puwo, ili kubalibisa fakuutwisisa nikukona kuitusisa mikwa yakubeya hande manzwi mwa mibamba mwa Silozi. Yaama likalulo zecwale ka lingambolo, miinelo ya mibamba, manzwi atoloka likezo, tumelelano ya manzwi ni mwa kupangela manzwi."
+        }
+      ]
+    },
+    {
+      "find": "Ka kuetelela bana ba sikolo mwa musebezi wabona, mane nimwa kuikonela kwabona mwa lingambolo ni mwakuñola, bana ba sikolo bakakona kuzwisezapili buikoneli ni kulukuluha habaitusisa puwo. Bakatokomela",
+      "with": [
+        {
+          "para": "Ka kuetelela bana ba sikolo mwa musebezi wabona, mane nimwa kuikonela kwabona mwa lingambolo ni mwakuñola, bana ba sikolo bakakona kuzwisezapili buikoneli ni kulukuluha habaitusisa puwo. Bakatokomela kubaakanya manzwi mwa mibamba kamwa itusisezwa mwa bupilo bwaluli, ili kutahisa taluso kufita kupanga-panga feela ona cwalo mibamba. Kalulo ye itusa kuli kube ni kutwano mwa lingambolo nikutiiseza kuikonela mwa kuteeleza, kubulela, kubala ni kuñola."
+        },
+        {
+          "label": "KUTOLOKA"
+        },
+        {
+          "para": "Mulelo wa kutoloka ki wa kuzwisezapili kuikonela kwa bana ba sikolo kwakufitisa taluso kuzwisa mwa mushobo ulimuñwi kuisa kuulimuñwi. Muluti ukaetelela bana ba sikolo kuituta kutoloka mañusa amakuswani ni abunolo, mibamba mane ni maikuto inge basacinci kapa kufetula taluso ye lukile, muinelo mane ni manzwi aswanehela."
+        }
+      ]
+    },
+    {
+      "find": "kubaakanya manzwi mwa mibamba kamwa itusisezwa mwa bupilo bwaluli, ili kutahisa taluso kufita kupanga-panga feela ona cwalo mibamba. Kalulo ye itusa kuli kube ni kutwano mwa lingambolo nikutiiseza kuikonela mwa kuteeleza, kubulela, kubala ni kuñola. Kutoloka Mulelo wa kutoloka ki wa kuzwisezapili kuikonela kwa bana ba sikolo kwakufitisa taluso kuzwisa mwa mushobo ulimuñwi kuisa kuulimuñwi. Muluti ukaetelela bana ba sikolo kuituta kutoloka mañusa amakuswani ni abunolo, mibamba mane ni maikuto inge basacinci kapa kufetula taluso ye lukile, muinelo mane ni manzwi aswanehela.",
+      "with": []
+    },
+    {
+      "find": "Z3 Talusa “kunutu” ni “tumelo” mwa taba ya kubala mwa Kauhanyo",
+      "with": [
+        {
+          "para": "Z3 Talusa “kunutu” ni “tumelo” mwa taba ya kubala mwa Kauhanyo 3.11 mwa Buka ya Mwanaa Sikolo (makepe 214; 214–228). Uñole pulelo ka linzwi ni linzwi."
+        }
+      ]
+    },
+    {
+      "find": "3.11 mwa Buka ya Mwanaa Sikolo (makepe 214; 214–228). Uñole pulelo ka linzwi ni linzwi.",
+      "with": []
+    },
+    {
+      "find": "Mukoloko wa CBC: Kukalisa kwa zibo ya kale → Kueza musebezi wa kwa bupilo",
+      "with": [
+        {
+          "para": "Mukoloko wa CBC: Kukalisa kwa zibo ya kale → Kueza musebezi wa kwa bupilo → Kuikambota ni babañwi → Kubonisa ze petilwe → Kutatuba ka bupaki → Kulukisa musebezi."
+        }
+      ],
+      "all": true
+    },
+    {
+      "find": "→ Kuikambota ni babañwi → Kubonisa ze petilwe → Kutatuba ka bupaki →",
+      "with": [],
+      "all": true
+    },
+    {
+      "find": "Kulukisa musebezi.",
+      "with": [],
+      "all": true
+    },
+    {
+      "find": "Mifuta ya buikoneli: Kuutwisisa/kulemuha; kuba ni likute ni buikalabelo; kupanga, kuñola, kubonisa kapa kusebeza. Mukoloko wa CBC: Kukalisa kwa zibo ya kale → Kueza musebezi wa kwa bupilo → Kuikambota ni babañwi → Kubonisa ze petilwe → Kutatuba ka bupaki → Kulukisa musebezi.",
+      "with": [
+        {
+          "para": "Mifuta ya buikoneli: Kuutwisisa/kulemuha; kuba ni likute ni buikalabelo; kupanga, kuñola, kubonisa kapa kusebeza."
+        },
+        {
+          "para": "Mukoloko wa CBC: Kukalisa kwa zibo ya kale → Kueza musebezi wa kwa bupilo → Kuikambota ni babañwi → Kubonisa ze petilwe → Kutatuba ka bupaki → Kulukisa musebezi."
+        }
+      ],
+      "all": true
+    }
+  ],
+  "_comment_headings": [
+    "Units: 'KAUHANYO N' + the unit title, which Word numbers 3.N itself; sub-topics 3.N.k and their sub-heads 3.N.k.j are Word list numbers too, lost on import.",
+    "The heading styles are not consistent (unit 2 swaps Heading 3 and Heading 5), but Word's list level is - so level and number come from the list level, the way the client's PDF prints them.",
+    "setHeading is generated by C:/z/lozi-f3-tg-recipe/gen.js from the .docx and checked against the numbers in the client's PDF; setHeadingLabels are added after it.",
+    "Unnumbered sub-heads (Buikoneli bobubatilwe, Mutala, Mihato ...) set as labels so they read below the numbered heads. 'kusufazo i taba' (x2) made 'Kusufazo ya taba' like the other nine."
+  ],
+  "setHeadingLabels": [
+    {
+      "find": "KABELO YA bana ba sikolo KAUFELA",
+      "text": "KABELO YA BANA BA SIKOLO KAUFELA",
+      "as": "head"
+    },
+    {
+      "find": "kusufazo i taba",
+      "text": "Kusufazo ya taba",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Buikoneli bobubatilwe",
+      "text": "Buikoneli bobubatilwe",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutala",
+      "text": "Mutala",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutala wa kuketa muhupulo",
+      "text": "Mutala wa kuketa muhupulo",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mitala ya kuitutela",
+      "text": "Mitala ya kuitutela",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mihato",
+      "text": "Mihato",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Kusufazo ya taba",
+      "text": "Kusufazo ya taba",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutala wa puwo ya likute",
+      "text": "Mutala wa puwo ya likute",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Taba ya lipalo ya kuitutela",
+      "text": "Taba ya lipalo ya kuitutela",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Tahiso",
+      "text": "Tahiso",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Litaluso za manzwi",
+      "text": "LITALUSO ZA MANZWI"
+    }
+  ],
+  "_comment_back": "Word list (Litaluso za manzwi): came across as loose lines, some terms read as headings (Mukanga as a unit) and one term glued to its definition - rebuilt as term: definition in alphabetical order, set as a back-matter section.",
+  "deleteRun": [
+    {
+      "from": "Buikalabelo",
+      "to": "Kuhula ni kuisa bupilo kapa musebezi kwapili.",
+      "maxSpan": 40
+    }
+  ],
+  "asSection": [
+    "LITALUSO ZA MANZWI"
+  ],
+  "insertText": [
+    {
+      "after": "masupanzila mwa lituto zabona.",
+      "text": [
+        "Mufumahali Beatrice Chirwa (Dr)",
+        "Muinasitulo wa Katengo",
+        "ZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+      ]
+    },
+    {
+      "after": "sikolo mwa lituto za bona.",
+      "text": [
+        "Mufumahali Agness Mumba Wilkins (PhD)",
+        "Muzamaisi yo Mutuna",
+        "ZAMBIA EDUCATIONAL PUBLISHING HOUSE"
+      ]
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": [
+        "**Buikalabelo:** Kuunga musebezi kapa mulatu wa likezo zahao.",
+        "**Buka ya mukoloko wa manzwi ni litaluso za wona:** Buka kapa siitusiso sesitalusa manzwi.",
+        "**Bupaki:** Litaba kapa mitala yetusa kutatuba muhupulo.",
+        "**Busepahali:** Kusebeleza niti ni kutokwa bupumi.",
+        "**Kanganisano:** Kuambolisana ka mihupulo yeyemela ni yehanyeza taba, ka mabaka ni bupaki.",
+        "**Kauhanyo:** Kalulo yetuna ya buka yenani mukanga ni lituto.",
+        "**Kusufazo:** Musebezi womukuswani wobulukile mihupulo yebutokwa ya taba.",
+        "**Lipulelo zefa sikuka:** Lipulelo zeo taluso yazona isafumanehi ka linzwi ni linzwi feela.",
+        "**Mashitanguti:** Lipulelo za sicaba zefitisa tuto kapa kelezo.",
+        "**Muinelo:** Litaba ni mayemo moo linzwi kapa kezo liitusiswa.",
+        "**Mukanga:** Taba yetuna yeo lituto lipotolohile kuyona.",
+        "**Mutomo:** Kalulo ya linzwi yebulukile taluso; kapa sibaka sa makalelo a musebezi, kuya ka muinelo.",
+        "**Pupo:** Mukwa wo likalulo ze kopana kuli libupe linzwi, pulelo kapa taba.",
+        "**Tamahano:** Kukopana ni kusebeza hamoho.",
+        "**Tatubo:** Musebezi wa kulemuha zibo, buikoneli ni miinelo, ka bupaki.",
+        "**Tumelelano:** Kuzamaelela kwa likalulo za pulelo kuya ka libizo ni pupo ya puwo.",
+        "**Zwelopili:** Kuhula ni kuisa bupilo kapa musebezi kwapili."
+      ]
+    }
+  ],
+  "setHeading": [
+    {
+      "find": "KAUHANYO 1",
+      "text": "KAUHANYO 1",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "NJIMO",
+      "text": "3.1 NJIMO",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.1.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.1.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.1.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.1.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.1.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.1.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.1.4 Kutoloka",
+      "as": "h3",
+      "near": "Kuitusisa mikwa yeshutana ya kutoloka kuzwa mwa Sikuwa",
+      "closest": true
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.1.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.1.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.1.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.1.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Litopa za mabizo",
+      "text": "3.1.7.1 Litopa za mabizo",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.1.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.1.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 2",
+      "text": "KAUHANYO 2",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "BUIKETO NI LICO ZESWANELA MUBILI",
+      "text": "3.2 BUIKETO NI LICO ZESWANELA MUBILI",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.2.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.2.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.2.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.2.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.2.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.2.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.2.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.2.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.2.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.2.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.2.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Pupo ya likezo",
+      "text": "3.2.7.1 Pupo ya likezo",
+      "as": "head"
+    },
+    {
+      "find": "Kutamahanya likezo",
+      "text": "3.2.7.2 Kutamahanya likezo",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.2.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.2.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 3",
+      "text": "KAUHANYO 3",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "LIPAPALI",
+      "text": "3.3 LIPAPALI",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.3.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.3.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.3.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.3.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.3.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.3.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.3.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.3.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.3.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.3.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.3.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Lisupo mwa likalulo za taba",
+      "text": "3.3.7.1 Lisupo mwa likalulo za taba",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.3.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.3.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 4",
+      "text": "KAUHANYO 4",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "KAMAISO NI PUSO YENDE",
+      "text": "3.4 KAMAISO NI PUSO YENDE",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.4.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.4.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.4.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.4.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.4.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.4.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.4.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.4.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.4.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.4.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.4.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Kubupa manzwi ka likalulo zeekeziwa",
+      "text": "3.4.7.1 Kubupa manzwi ka likalulo zeekeziwa",
+      "as": "head"
+    },
+    {
+      "find": "Mabizo aazwa kwa likezo",
+      "text": "3.4.7.2 Mabizo aazwa kwa likezo",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.4.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.4.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 5",
+      "text": "KAUHANYO 5",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "BUPOTI",
+      "text": "3.5 BUPOTI",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.5.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.5.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.5.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.5.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.5.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.5.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.5.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.5.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.5.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.5.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.5.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Manzwi a kopanyizwe",
+      "text": "3.5.7.1 Manzwi a kopanyizwe",
+      "as": "head"
+    },
+    {
+      "find": "Manzwi apetiwa",
+      "text": "3.5.7.2 Manzwi apetiwa",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.5.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.5.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 6",
+      "text": "KAUHANYO 6",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "MIKITI YA SIZO",
+      "text": "3.6 MIKITI YA SIZO",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.6.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.6.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.6.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.6.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.6.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.6.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.6.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.6.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.6.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.6.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.6.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Nako yekataha",
+      "text": "3.6.7.1 Nako yekataha",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.6.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.6.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 7",
+      "text": "KAUHANYO 7",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "LIPISINISI NI BUINO BWA KUIPONELA",
+      "text": "3.7 LIPISINISI NI BUINO BWA KUIPONELA",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.7.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.7.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.7.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.7.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.7.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.7.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.7.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.7.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.7.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.7.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.7.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Kubapanya",
+      "text": "3.7.7.1 Kubapanya",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.7.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.7.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 8",
+      "text": "KAUHANYO 8",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "LINZILA NI KUBUHISANA",
+      "text": "3.8 LINZILA NI KUBUHISANA",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.8.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.8.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.8.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.8.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.8.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.8.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.8.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.8.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.8.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.8.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.8.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "puwo ya manzwi a mutu ni puwo ye biha manzwi a mutu",
+      "text": "3.8.7.1 Puwo ya manzwi a mutu ni puwo ye biha manzwi a mutu",
+      "as": "head"
+    },
+    {
+      "find": "Likalulo za pulelo",
+      "text": "3.8.7.2 Likalulo za pulelo",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.8.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.8.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 9",
+      "text": "KAUHANYO 9",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "KUITUSISA MILYANI NI LIKA ZEKOLA KANZILA YEMASWE",
+      "text": "3.9 KUITUSISA MILYANI NI LIKA ZEKOLA KANZILA YEMASWE",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.9.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.9.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.9.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.9.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.9.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.9.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.9.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.9.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.9.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.9.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.9.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Manzwi autwahala ka kuswana",
+      "text": "3.9.7.1 Manzwi autwahala ka kuswana",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.9.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.9.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 10",
+      "text": "KAUHANYO 10",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "KUITUTA ZA KUBABALELA MALI (ZIBO YA MALI)",
+      "text": "3.10 KUITUTA ZA KUBABALELA MALI (ZIBO YA MALI)",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.10.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.10.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.10.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.10.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.10.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.10.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.10.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.10.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.10.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.10.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.10.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Mashitanguti",
+      "text": "3.10.7.1 Mashitanguti",
+      "as": "head"
+    },
+    {
+      "find": "Lipulelo za sizo",
+      "text": "3.10.7.2 Lipulelo za sizo",
+      "as": "head"
+    },
+    {
+      "find": "Lipulelo zefa sikuka",
+      "text": "3.10.7.3 Lipulelo zefa sikuka",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.10.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.10.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KAUHANYO 11",
+      "text": "KAUHANYO 11",
+      "as": "h1",
+      "unit": true
+    },
+    {
+      "find": "LIKEZO ZA SICABA NI MIINELO YEMINDE MWA NAHA",
+      "text": "3.11 LIKEZO ZA SICABA NI MIINELO YEMINDE MWA NAHA",
+      "as": "h2"
+    },
+    {
+      "find": "Kuteeleza ni kubulela",
+      "text": "3.11.1 Kuteeleza ni kubulela",
+      "as": "h3"
+    },
+    {
+      "find": "Kubala kakutwisiso",
+      "text": "3.11.2 Kubala kakutwisiso",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala",
+      "text": "3.11.2.1 Ketelelo ya taba ya kubala",
+      "as": "head"
+    },
+    {
+      "find": "Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "text": "3.11.2.2 Ketelelo ya taba ya kubala mwa Buka ya Mwanaa Sikolo",
+      "as": "head"
+    },
+    {
+      "find": "Kuipalela ni buikoneli bwa kubala",
+      "text": "3.11.3 Kuipalela ni buikoneli bwa kubala",
+      "as": "h3"
+    },
+    {
+      "find": "Ketelelo ya kuipalela",
+      "text": "3.11.3.1 Ketelelo ya kuipalela",
+      "as": "head"
+    },
+    {
+      "find": "Kutoloka",
+      "text": "3.11.4 Kutoloka",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola",
+      "text": "3.11.5 Kuñola",
+      "as": "h3"
+    },
+    {
+      "find": "Kukusufaza ni kuñola ka kuteeleza",
+      "text": "3.11.6 Kukusufaza ni kuñola ka kuteeleza",
+      "as": "h3"
+    },
+    {
+      "find": "Kuñola ka kuteeleza",
+      "text": "3.11.6.1 Kuñola ka kuteeleza",
+      "as": "head"
+    },
+    {
+      "find": "Pupo ya puwo",
+      "text": "3.11.7 Pupo ya puwo",
+      "as": "h3"
+    },
+    {
+      "find": "Taluso ya manzwi",
+      "text": "3.11.7.1 Taluso ya manzwi",
+      "as": "head"
+    },
+    {
+      "find": "Tatubo ya kauhanyo",
+      "text": "3.11.8 Tatubo ya kauhanyo",
+      "as": "h3"
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo",
+      "text": "3.11.8.1 Kuitusisa tuto mwa bupilo",
+      "as": "head"
+    },
+    {
+      "find": "KABELO YA bana ba sikolo KAUFELA",
+      "text": "KABELO YA BANA BA SIKOLO KAUFELA",
+      "as": "head"
+    },
+    {
+      "find": "kusufazo i taba",
+      "text": "Kusufazo ya taba",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Buikoneli bobubatilwe",
+      "text": "Buikoneli bobubatilwe",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutala",
+      "text": "Mutala",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutala wa kuketa muhupulo",
+      "text": "Mutala wa kuketa muhupulo",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mitala ya kuitutela",
+      "text": "Mitala ya kuitutela",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mihato",
+      "text": "Mihato",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Kusufazo ya taba",
+      "text": "Kusufazo ya taba",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Mutala wa puwo ya likute",
+      "text": "Mutala wa puwo ya likute",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Taba ya lipalo ya kuitutela",
+      "text": "Taba ya lipalo ya kuitutela",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Tahiso",
+      "text": "Tahiso",
+      "as": "label",
+      "all": true
+    },
+    {
+      "find": "Litaluso za manzwi",
+      "text": "LITALUSO ZA MANZWI"
+    }
+  ],
+  "mergePara": [
+    {
+      "find": ". Mulimi ukona kukatala "
+    },
+    {
+      "find": " simu. Fa muhupulo ni mu"
+    },
+    {
+      "find": "3). Likota zetuna liwile"
+    },
+    {
+      "find": "a mubili kutiiseza kutee"
+    },
+    {
+      "find": "ipalo. Fa muhupulo ni mu"
+    },
+    {
+      "find": "a zepeli. Fa muhupulo wo"
+    },
+    {
+      "find": "i mafelelezo (2). Muñoli"
+    },
+    {
+      "find": "luho: muinelo wa kuba ni"
+    },
+    {
+      "find": "anana. Kuomboka ki mukit"
+    },
+    {
+      "find": "(3). Nikabala buka yenca"
+    },
+    {
+      "find": "usebezi, kubuluka lipalo"
+    },
+    {
+      "find": "zo/tikanyo 2, ze petilwe"
+    },
+    {
+      "find": "mutu kuba puwo ye biha m"
+    },
+    {
+      "find": "peli wa kukanana kupateh"
+    },
+    {
+      "find": "kanyoya 5 likwaniswe. Su"
+    },
+    {
+      "find": "musebezi (3). Kutokomela"
+    },
+    {
+      "find": "waniso. Kubala mañolo; k"
+    },
+    {
+      "find": "Mubita ali, “Nibata mezi.”"
+    },
+    {
+      "find": "ki ye fa manzwi a mutu; yekamulaho a"
+    }
+  ],
+  "_comment_cbc": "Unit intros: the CBC sequence came broken over three paragraphs (8 units) or run onto Mifuta ya buikoneli (3 units) - every unit now has the two as paragraphs of their own."
+}
