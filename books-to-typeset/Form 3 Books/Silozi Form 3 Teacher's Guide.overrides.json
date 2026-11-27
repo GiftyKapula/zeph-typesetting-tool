@@ -3,7 +3,7 @@
     "Silozi Form 3 Teacher's Guide (Buka ya Muluti, Foomu 3). Client file: 'Silozi_Foomu_3_Teachers_Guide_corrected.docx' (27 Nov 2026);",
     "first typeset 2026-11-27. Renamed so the engine reads 'Form 3' and 'Teacher's Guide' from the name. Companion of the Silozi Form 3 LB - same authors, imprint model and cover words."
   ],
-  "_comment_cover": "Cover/title words from the lexicon (Buka ya Muluti, FOOMU 3, Sitopa sa Bulalu) as on the LB. Cover photo = the left part of the manuscript's own cover picture (image1.jpeg: x 0-690, y 392-833 of 999x1209), the only part with no lettering (the blackboard words and the SILOZI book are left out), upscaled 4x with Real-ESRGAN.",
+  "_comment_cover": "Cover/title words from the lexicon (Buka ya Muluti, FOOMU 3, Sitopa sa Bulalu) as on the LB. Cover photo = silo.jpeg supplied by the user 27 Nov (1080x607), Real-ESRGAN x4plus 4x then down to 2880 px wide: 519 ppi on the cover.",
   "localLabels": true,
   "coversInBook": true,
   "boxStripe": false,
