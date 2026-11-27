@@ -37,7 +37,16 @@
     "    Inclusive Education' under climate change (2.2.5).",
     "  * Assessment: TOTAL 100% and PASS MARK 40% are typed once, after Year Two.",
     "  * Time Allocation reads '2 hours per week / Year 1: - (36 weeks) / Year 2: - (12 weeks)'.",
-    "  * No ISBN yet."
+    "  * No ISBN yet.",
+    "",
+    "ROUND 1 (2026-11-27): editorial review by Mooka Godfrey Mukelabai, 114 comments numbered 001-114 on the",
+    "returned PDF. Every '_why' below starts 'R1 nnn'. Checked against published sources: the National Education",
+    "Policy is the 2025 one (launched by the Minister of Education; replaces Educating Our Future, 1996), and the",
+    "2025 disability policy is the National Policy on Persons with Disabilities (Ministry of Community Development",
+    "and Social Services, launched 29 May 2025). Left for the author/CDC: 035 (how to present 'Handicap'), 021",
+    "second half (proficiency levels for Braille and Sign Language), 056 (Braille grade notation), 060 (the '13",
+    "categories' citation), 105 (theory/practical split of the 60%) and 106 (contact hours in Year Two).",
+    "003 ('Lusaka, Zambia' on the imprint) is an engine fix in generic-template.typ."
   ],
   "textFix": [
     {
@@ -58,6 +67,38 @@
       "find": "1.7.2.1. Examine strategies that assist in managing different behaviours\n.\n1.8.1.2 Evaluate existing assigned inclusive schools",
       "with": "1.8.1.1 Examine strategies that assist in managing different behaviours\n1.8.2.1 Evaluate existing assigned inclusive schools",
       "bold": false
+    },
+    {
+      "_why": "R1 051: the competence on disability implications is 1.4.2.1 (under 1.4.2 Emerging disability groups); the two screening competences stay with developmental domains as 1.4.1.2-1.4.1.3. Standards re-ordered to match. 052: \"Developmental delays identified accurately\".",
+      "find": "1.4.1.1. Classify developmental domains in childhood\n1.4.1.2 Appreciate diversity and education implications of cited disabilities in inclusive classroom\n1.4.1.3. Identify developmental delays\n1.4.1.4 Use screening tools for Early Identification of developmental delays\n1.4.3.1 Identify indicators, learning implications and apply inclusive strategies in teaching of cited disability groups\n1.4.4.1. Analyse types, causes, indicators and inclusive classroom learning implications",
+      "with": "1.4.1.1 Classify developmental domains in childhood\n1.4.1.2 Identify developmental delays\n1.4.1.3 Use screening tools for Early Identification of developmental delays\n1.4.2.1 Appreciate diversity and education implications of cited disabilities in inclusive classroom\n1.4.3.1 Identify indicators, learning implications and apply inclusive strategies in teaching of cited disability groups\n1.4.4.1 Analyse types, causes, indicators and inclusive classroom learning implications",
+      "bold": false
+    },
+    {
+      "_why": "R1 051/052",
+      "find": "• developmental domains in childhood classified\n• Diversity in the ECE classroom Appreciated\n• Identification of developmental delays identified\n• Use of Screening tools for Early Identification of developmental delays effectively used\n• Indicators identified and interpreted correctly\n• Strategies for teaching learners with disabilities in inclusive classroom practiced\n• Types, causes, indicators and inclusive classroom learning implications analysed",
+      "with": "• developmental domains in childhood classified\n• Developmental delays identified accurately\n• Use of Screening tools for Early Identification of developmental delays effectively used\n• Diversity in the ECE classroom Appreciated\n• Indicators identified and interpreted correctly\n• Strategies for teaching learners with disabilities in inclusive classroom practised\n• Types, causes, indicators and inclusive classroom learning implications analysed",
+      "bold": false
+    },
+    {
+      "_why": "R1 098: Scope and Sequence Chart gets 1.1.4 from the matrix",
+      "find": "1.1.1. Concepts and Terminologies in Special and Inclusive Education\n1.1.2. Background of Development of Special Education and Inclusive Education (Global and Local Perspectives)\n1.1.3. Modes of Educating Learners with LSEND in Zambia",
+      "with": "1.1.1. Concepts and Terminologies in Special and Inclusive Education\n1.1.2. Background of Development of Special Education and Inclusive Education (Global and Local Perspectives)\n1.1.3. Modes of Educating Learners with LSEND in Zambia\n1.1.4. Inclusive Education Models"
+    },
+    {
+      "_why": "R1 099: chart 1.2 as the matrix numbers it",
+      "find": "1.2.1. Inclusive Education as a Philosophy and Principles of Inclusive Education\n1.2.2. Benefits and Challenges of Inclusive Education Practices\n1.2.3. Dimensions of Inclusion",
+      "with": "1.2.1. Inclusive Education as a Philosophy\n1.2.2. Principles of Inclusive Education\n1.2.3. Benefits and Challenges of Inclusive Education Practices\n1.2.4. Dimensions of Inclusion"
+    },
+    {
+      "_why": "R1 100: chart 1.4 as the matrix numbers it (1.4.4 renamed by 054)",
+      "find": "1.4.1. Emerging Disability Groups in Inclusive Classroom Practices\n1.4.2. Specific Learning Disabilities and Inclusive Classroom Practices\n1.4.3. Traditional Disabilities and Inclusion",
+      "with": "1.4.1. Developmental Domains\n1.4.2. Emerging Disability Groups in Inclusive Classroom Practices\n1.4.3. Specific Learning Disabilities and Inclusive Classroom Practices\n1.4.4. Sensory, Physical and Intellectual Disabilities and Inclusion"
+    },
+    {
+      "_why": "R1 101: Action Research leaves Assistive Technology for a topic of its own (row inserted below)",
+      "find": "1.10.1. Education Technology for Inclusion\n1.10.2. Assistive Devices (Low, Medium, and High Tech)\n1.10.3. Action Research in Inclusive Education",
+      "with": "1.10.1. Education Technology for Inclusion\n1.10.2. Assistive Devices (Low, Medium, and High Tech)"
     }
   ],
   "cellSubtext": [
@@ -192,6 +233,320 @@
       "_why": "Year 2: third competence under sub-topic 2.1.2, after 2.1.2.1 and 2.1.2.2.",
       "from": "2.1.1.3. Design and implement",
       "to": "2.1.2.3 Design and implement"
+    },
+    {
+      "_why": "R1 032",
+      "from": "by sharing ideas, valuing diverse perspectives",
+      "to": "by sharing ideas and valuing diverse perspectives"
+    },
+    {
+      "_why": "R1 033",
+      "from": "ensuring accessibility, promoting engagement",
+      "to": "ensuring accessibility and promoting engagement"
+    },
+    {
+      "_why": "R1 034",
+      "from": "Concepts and Terminologies in Early",
+      "to": "Concepts and Terminology in Early"
+    },
+    {
+      "_why": "R1 036",
+      "from": "Review the provisions international frameworks on special and inclusive",
+      "to": "Reviewing the provisions of international frameworks on special and inclusive education"
+    },
+    {
+      "_why": "R1 037",
+      "from": "Assess contribution of National",
+      "to": "Assess the contributions of National"
+    },
+    {
+      "_why": "R1 038",
+      "from": "Models of Inclusion Education analysed",
+      "to": "Models of inclusive education analysed"
+    },
+    {
+      "_why": "R1 039/040",
+      "from": "Human Rights Mode of Disability Universal Design for Learning (UDL)",
+      "to": "Human Rights Model of Disability; Universal Design for Learning (UDL) as an instructional framework)"
+    },
+    {
+      "_why": "R1 041",
+      "from": "1.2.1.1 Explain the principles of Inclusive Education",
+      "to": "1.2.1.1 Explain the principles of Inclusive Education\n1.2.2.1 Apply the principles of inclusive education in ECE settings"
+    },
+    {
+      "_why": "R1 041",
+      "from": "Principles of Inclusive Education well explained",
+      "to": "Principles of Inclusive Education well explained\n• Principles of inclusive education applied in ECE settings"
+    },
+    {
+      "_why": "R1 042",
+      "from": "Analyse the merits and demerits of Inclusive Education",
+      "to": "Analyse the benefits and implementation challenges of Inclusive Education"
+    },
+    {
+      "_why": "R1 042",
+      "from": "Merits and demerits of Inclusive Education analysed",
+      "to": "Benefits and implementation challenges of Inclusive Education analysed"
+    },
+    {
+      "_why": "R1 043",
+      "from": "classroom observations and prepare a report",
+      "to": "classroom observations and preparing a report"
+    },
+    {
+      "_why": "R1 044",
+      "from": "Document teachers",
+      "to": "Documenting teachers"
+    },
+    {
+      "_why": "R1 045",
+      "from": "Researching on how",
+      "to": "Investigating how"
+    },
+    {
+      "_why": "R1 046",
+      "from": "commitment to International Frame works- Right to Education",
+      "to": "commitment to international frameworks on the right to education"
+    },
+    {
+      "_why": "R1 047",
+      "from": "Disability Act 2012",
+      "to": "Persons with Disabilities Act, No. 6 of 2012",
+      "all": true
+    },
+    {
+      "_why": "R1 048",
+      "from": "2026 Education Policy",
+      "to": "2025 National Education Policy",
+      "all": true
+    },
+    {
+      "_why": "R1 049",
+      "from": "Presenting on local",
+      "to": "Presenting findings on local"
+    },
+    {
+      "_why": "R1 050",
+      "from": "Develop an institutional",
+      "to": "Developing an institutional"
+    },
+    {
+      "_why": "R1 053/066/083",
+      "from": "Practicing",
+      "to": "Practising",
+      "all": true,
+      "every": true
+    },
+    {
+      "_why": "R1 054",
+      "from": "1.4.4. Traditional Disabilities & inclusion",
+      "to": "1.4.4. Sensory, physical and intellectual disabilities & inclusion"
+    },
+    {
+      "_why": "R1 055",
+      "from": "approval gestures, Use of pictures etc).",
+      "to": "approval gestures, use of pictures, etc.))"
+    },
+    {
+      "_why": "R1 057",
+      "from": "using finger tips",
+      "to": "using fingertips"
+    },
+    {
+      "_why": "R1 058/059",
+      "from": "Apply specify strategies to teaching",
+      "to": "Apply specific strategies for teaching"
+    },
+    {
+      "_why": "R1 061",
+      "from": "budding system",
+      "to": "buddy system",
+      "all": true,
+      "every": true
+    },
+    {
+      "_why": "R1 062",
+      "from": "(Inter and intrapersonal qualities",
+      "to": "(Interpersonal and intrapersonal qualities"
+    },
+    {
+      "_why": "R1 063",
+      "from": "learning progress inclusive classrooms",
+      "to": "learning progress in inclusive classrooms"
+    },
+    {
+      "_why": "R1 064",
+      "from": "games e.t.c)",
+      "to": "games, etc.)"
+    },
+    {
+      "_why": "R1 065",
+      "from": "Developing child friendly",
+      "to": "Developing child-friendly"
+    },
+    {
+      "_why": "R1 067",
+      "from": "class set up",
+      "to": "classroom set-up"
+    },
+    {
+      "_why": "R1 068",
+      "from": "1.8.2.1 Evaluate existing assigned inclusive schools",
+      "to": "1.8.2.1 Evaluate inclusive school and classroom administrative practices in assigned schools"
+    },
+    {
+      "_why": "R1 068",
+      "from": "managing different behaviours examined",
+      "to": "managing different behaviours examined\n• Inclusive school administrative practices evaluated against agreed criteria"
+    },
+    {
+      "_why": "R1 069",
+      "from": "(Barrier free",
+      "to": "(Barrier-free"
+    },
+    {
+      "_why": "R1 070",
+      "from": "Demonstrating ethos that promote",
+      "to": "Demonstrating an ethos that promotes"
+    },
+    {
+      "_why": "R1 071",
+      "from": "• Discussing in groups to Identify barriers to Inclusive Education\n• Discussing in groups",
+      "to": "• Identifying facilitators of inclusive education through group discussion\n• Discussing in groups"
+    },
+    {
+      "_why": "R1 072",
+      "from": "Using local material for",
+      "to": "Using local materials for"
+    },
+    {
+      "_why": "R1 073",
+      "from": "audio books",
+      "to": "audiobooks",
+      "all": true
+    },
+    {
+      "_why": "R1 074",
+      "from": "text to speech",
+      "to": "text-to-speech",
+      "all": true
+    },
+    {
+      "_why": "R1 075",
+      "from": "Microsoft immersive reader",
+      "to": "Microsoft Immersive Reader",
+      "all": true
+    },
+    {
+      "_why": "R1 076",
+      "from": "Exhibiting care of Assistive Technology",
+      "to": "Exhibiting care of Assistive Technology\n• Discussing the safe, accessible and privacy-conscious use of generative AI in inclusive teaching and learning"
+    },
+    {
+      "_why": "R1 077",
+      "from": "Assistive Devices EduTech",
+      "to": "Assistive devices and educational technology"
+    },
+    {
+      "_why": "R1 078/079",
+      "from": "at a Demo school and develop research",
+      "to": "at a demonstration school and developing research"
+    },
+    {
+      "_why": "R1 080",
+      "from": "1.11.1.1. Conduct Action Research in Inclusive Education (During School Experience)",
+      "to": "1.11.1.1. Conduct Action Research in Inclusive Education (During School Experience)\n1.11.2.1 Prepare and present an action research report"
+    },
+    {
+      "_why": "R1 080",
+      "from": "report submitted for assessment",
+      "to": "report submitted for assessment\n• Action research report prepared and presented clearly"
+    },
+    {
+      "_why": "R1 081",
+      "from": "existing Action researches on",
+      "to": "existing action research studies on"
+    },
+    {
+      "_why": "R1 082",
+      "from": "Write an action report and present.",
+      "to": "Writing and presenting an action research report"
+    },
+    {
+      "_why": "R1 083",
+      "from": "Practising the roles of the school inclusion",
+      "to": "Practising the roles of the school inclusion team"
+    },
+    {
+      "_why": "R1 084",
+      "from": "for a learner with a specified learning disability",
+      "to": "for a learner with an identified learning support need"
+    },
+    {
+      "_why": "R1 085",
+      "from": "Conduct assessment and classroom-based curriculum needs",
+      "to": "Conduct classroom-based assessments to identify curriculum support needs"
+    },
+    {
+      "_why": "R1 086",
+      "from": "assessment if need be",
+      "to": "assessment where necessary"
+    },
+    {
+      "_why": "R1 087/088",
+      "from": "daily and health living (Independent living skills, Maintaining Relationships, Positive Values. attitudes",
+      "to": "daily and healthy living (Independent living skills, Maintaining Relationships, positive values, attitudes"
+    },
+    {
+      "_why": "R1 089",
+      "from": "children in the UN Charter",
+      "to": "children in the United Nations Convention on the Rights of the Child (CRC)"
+    },
+    {
+      "_why": "R1 090",
+      "from": "Demonstrating bad habits of disciplining children as an infringement on their rights",
+      "to": "Identifying harmful disciplinary practices and demonstrating positive, non-violent alternatives"
+    },
+    {
+      "_why": "R1 091",
+      "from": "Child Protection Safety and",
+      "to": "Child Protection, Safety and"
+    },
+    {
+      "_why": "R1 092",
+      "from": "Explaining what is risk and what is not risk behaviour",
+      "to": "Explaining the difference between risky and safe behaviour"
+    },
+    {
+      "_why": "R1 093",
+      "from": "Naming the types of climate change",
+      "to": "Naming climate-related hazards"
+    },
+    {
+      "_why": "R1 093",
+      "from": "Explaining the types of climate change.",
+      "to": "Explaining climate-related hazards"
+    },
+    {
+      "_why": "R1 094",
+      "from": "Describing the effects of Inclusive Education",
+      "to": "Describing the effects of climate change on inclusive education"
+    },
+    {
+      "_why": "R1 095",
+      "from": "Explaining the mitigation measures to climate change",
+      "to": "Explaining measures to mitigate and adapt to climate change"
+    },
+    {
+      "_why": "R1 096",
+      "from": "faced with climatic disaster",
+      "to": "faced with climate-related disaster"
+    },
+    {
+      "_why": "R1 102",
+      "from": "Skills for Daily and Health Living",
+      "to": "Skills for Daily and Healthy Living"
     }
   ],
   "replaceBlocks": [
@@ -288,7 +643,7 @@
               {
                 "marker": "",
                 "cells": [
-                  "1 test",
+                  "1 Test",
                   "10%"
                 ]
               },
@@ -333,6 +688,10 @@
     {
       "_why": "Split at the page foot, row 2.2.5 (Disability, Education and Climate Change Awareness) carried its last bullet ('Discussing prevention strategies when faced with climatic disaster') onto a page of its own. Kept whole, the row opens the next page.",
       "startsWith": "2.2.5.1"
+    },
+    {
+      "_why": "R1: 089/090 lengthened row 2.2.2 (Disability Rights); it split at the foot of the page mid-sentence (\"the United / Nations Convention\"). Kept whole it opens the next page, as before the round.",
+      "startsWith": "2.2.2.1"
     }
   ],
   "insertText": [
@@ -353,6 +712,235 @@
         "Director – Curriculum Development",
         "MINISTRY OF EDUCATION"
       ]
+    }
+  ],
+  "year": "2026",
+  "edit": [
+    {
+      "_why": "R1 004",
+      "find": "The Competence-Based Curriculum for Inclusive Education for Early Childhood Education (ECE) Teachers",
+      "with": "The Inclusive Education Syllabus for the Early Childhood Education (ECE) Teachers"
+    },
+    {
+      "_why": "R1 004",
+      "find": "Diploma Syllabus marks",
+      "with": "Diploma marks"
+    },
+    {
+      "_why": "R1 005",
+      "find": "involving the Directorates of Teacher Education and Specialised Services (TESS), Examinations Council of Zambia (ECZ), Curriculum Development Centre (CDC), Standards and Assessment,",
+      "with": "involving the Directorate of Teacher Education and Specialised Services (TESS), the Curriculum Development Centre (CDC), the Directorate of Standards and Assessment, the Examinations Council of Zambia (ECZ),"
+    },
+    {
+      "_why": "R1 006",
+      "find": "philosophy that Inclusive Education is a right and a practice",
+      "with": "philosophy that inclusive education is both a right and a practice"
+    },
+    {
+      "_why": "R1 007",
+      "find": "Sustainable Development Goal number four (4)",
+      "with": "Sustainable Development Goal 4 (SDG 4)"
+    },
+    {
+      "_why": "R1 008",
+      "find": "commitment to equity, inclusivity, and excellence",
+      "with": "commitment to equity, inclusion, and excellence"
+    },
+    {
+      "_why": "R1 009",
+      "find": "experiences helped, ensure",
+      "with": "experiences helped ensure"
+    },
+    {
+      "_why": "R1 010",
+      "find": "academically rigourous",
+      "with": "academically rigorous"
+    },
+    {
+      "_why": "R1 011",
+      "find": "development of competences, child-centred, inclusive",
+      "with": "development of competences and the creation of child-centred, inclusive"
+    },
+    {
+      "_why": "R1 012",
+      "find": "Inclusive Education at the Early Childhood Education School Level forms",
+      "with": "Inclusive Education at the early childhood education level forms"
+    },
+    {
+      "_why": "R1 013",
+      "find": "teacher education programs prepare",
+      "with": "teacher education programmes prepare"
+    },
+    {
+      "_why": "R1 014",
+      "find": "Sustainable Development Goals (SDG 4)",
+      "with": "Sustainable Development Goal 4 (SDG 4)"
+    },
+    {
+      "_why": "R1 015",
+      "find": "many children particularly those with disabilities or from marginalised backgrounds continue",
+      "with": "many children, particularly those with disabilities or from marginalised backgrounds, continue"
+    },
+    {
+      "_why": "R1 017",
+      "find": "equip ECE Student Teachers",
+      "with": "equip ECE student teachers"
+    },
+    {
+      "_why": "R1 018",
+      "find": "Equip learners with the ability to interpret and apply",
+      "with": "Interpret and apply"
+    },
+    {
+      "_why": "R1 019",
+      "find": "Equip learners with skills in using various",
+      "with": "Use various"
+    },
+    {
+      "_why": "R1 020",
+      "find": "Equip learners with skills in designing curriculum",
+      "with": "Design curriculum"
+    },
+    {
+      "_why": "R1 021",
+      "find": "Master and apply differentiated",
+      "with": "Apply appropriate differentiated"
+    },
+    {
+      "_why": "R1 022",
+      "find": "programme should be two (2) years",
+      "with": "programme is two (2) years."
+    },
+    {
+      "_why": "R1 023",
+      "find": "Achieve required Grade Point Average",
+      "with": "Achieve the required grade point average"
+    },
+    {
+      "_why": "R1 024",
+      "find": "practices of Inclusive Education; equipping",
+      "with": "practices of inclusive education, equipping"
+    },
+    {
+      "_why": "R1 025",
+      "find": "knowledge, competence-development, values",
+      "with": "knowledge, the development of competences, values"
+    },
+    {
+      "_why": "R1 026",
+      "find": "or learning style in the teaching",
+      "with": "or learning style, in the teaching"
+    },
+    {
+      "_why": "R1 027",
+      "find": "achieve their education needs",
+      "with": "achieve their learning goals"
+    },
+    {
+      "_why": "R1 028",
+      "find": "anchored on competency-based and learner-centred approach",
+      "with": "anchored in a competence-based, learner-centred approach"
+    },
+    {
+      "_why": "R1 029",
+      "find": "methods, conducting screening and assessments for",
+      "with": "methods, conduct screening and assessment for"
+    },
+    {
+      "_why": "R1 030",
+      "find": "Individualised Educational Programmes (IEPs)",
+      "with": "Individualised Education Plans (IEPs)"
+    },
+    {
+      "_why": "R1 031",
+      "find": "interventions of addressing",
+      "with": "interventions to address"
+    },
+    {
+      "_why": "R1 097",
+      "find": "Early Childhood Education Teachers Diploma",
+      "with": "Early Childhood Education Teachers’ Diploma"
+    },
+    {
+      "_why": "R1 103",
+      "find": "presentation, CPDs",
+      "with": "presentation, continuing professional development (CPD) activities"
+    },
+    {
+      "_why": "R1 107",
+      "find": "Ministry of Education, (2023). Zambia",
+      "with": "Ministry of Education. (2023). Zambia"
+    },
+    {
+      "_why": "R1 107",
+      "find": "Curriculum Development Centre, 2023.",
+      "with": "Curriculum Development Centre."
+    },
+    {
+      "_why": "R1 108",
+      "find": "Vol 10. (1) 1-20.",
+      "with": "10(1), 1-20."
+    },
+    {
+      "_why": "R1 109",
+      "find": "Disability Policy. (2025). Lusaka, Government Printers.",
+      "with": "Ministry of Community Development and Social Services. (2025). National Policy on Persons with Disabilities. Government of the Republic of Zambia."
+    },
+    {
+      "_why": "R1 110",
+      "find": "Ministry of Education (2013), Zambia",
+      "with": "Ministry of Education. (2013). Zambia"
+    },
+    {
+      "_why": "R1 111",
+      "find": "Ministry of Education. (2026). Educational Policy. Lusaka, MoE.",
+      "with": "Ministry of Education. (2025). National Education Policy. Lusaka: MoE."
+    },
+    {
+      "_why": "R1 112",
+      "find": "Munsaka, E & Matafwali",
+      "with": "Munsaka, E., & Matafwali"
+    },
+    {
+      "_why": "R1 113",
+      "find": "(PP 13 -27)",
+      "with": "(pp. 13-27)"
+    },
+    {
+      "_why": "R1 114",
+      "find": "Muzata, KK (2023).",
+      "with": "Muzata, K. K. (2023)."
+    }
+  ],
+  "editAll": [
+    {
+      "_why": "R1 016: practical competencies -> competences; the book's other \"competencies\" (aims 4, 8, 10, course description) follow: one spelling per word",
+      "find": "competencies",
+      "with": "competences"
+    }
+  ],
+  "moveBefore": [
+    {
+      "_why": "R1 109: the re-authored entry takes its alphabetical place, after the same ministry's 2016 policy",
+      "find": "National Policy on Persons with Disabilities. Government",
+      "before": "Ministry of Education. (2013). Zambia"
+    }
+  ],
+  "insertRow": [
+    {
+      "_why": "R1 101",
+      "find": "2.1. Curriculum Differentiation",
+      "cells": [
+        "1.11. Action Research",
+        "1.11.1. Action Research in Inclusive Education\n1.11.2. Report Writing and Presentation"
+      ]
+    }
+  ],
+  "moveRow": [
+    {
+      "_why": "R1 101: the new topic goes at the end of Year 1, above the YEAR 2 banner",
+      "startsWith": "1.11. Action Research",
+      "before": "YEAR 2"
     }
   ]
 }

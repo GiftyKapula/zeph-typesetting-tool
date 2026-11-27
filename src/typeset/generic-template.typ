@@ -1706,7 +1706,7 @@
      Light Industrial Area \
      Chishango Road \
      P.O. Box 32708 \
-     Lusaka Zambia]
+     Lusaka, Zambia]
     v(20pt)
     [Printed by: \
      *Zambia Educational Publishing House (ZEPH)*]
@@ -2394,7 +2394,12 @@
   }
   // (a sidecar `splitRow` continuation row joins the row above in every column: no rule)
   let isCont(y) = y >= 1 and y < rows.len() and rows.at(y).len() > 0 and rows.at(y).at(0).at("cont", default: false)
-  let mergeTop(x, y) = (x <= tc + 1 and y >= 1 and isEmptyCell(x, y)) or isCont(y)
+  // A YEAR / FORM / GRADE banner row inside a chart (scope and sequence: "YEAR 2" in the
+  // first cell, the rest blank) opens a new block: its blank cells are not a continuation
+  // of the row above (Inclusive Education ECE: the SUB-TOPIC cell of "1.10 Assistive
+  // Technology" ran on down through the YEAR 2 row)
+  let isBanner(y) = y >= 1 and y < rows.len() and rows.at(y).len() > 0 and rows.at(y).at(0).text.trim().match(regex("^(YEAR|FORM|GRADE)\b")) != none and range(1, rows.at(y).len()).all(x => isEmptyCell(x, y))
+  let mergeTop(x, y) = (x <= tc + 1 and y >= 1 and isEmptyCell(x, y) and not isBanner(y)) or isCont(y)
   let sylStroke = (x, y) => {
     let lastr = rows.len() - 1
     let lastc = rows.at(0).len() - 1
