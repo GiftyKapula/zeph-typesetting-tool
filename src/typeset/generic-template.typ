@@ -717,6 +717,44 @@
         // parts of one board rather than two isolated drawings
         #pad(26mm, gy - 14mm, 1.3mm, white.transparentize(62%))
         #pad(if v == 1 { 40mm } else { 34mm }, gy - 26mm, 1mm, white.transparentize(70%))
+
+        // `coverTech: true` (opt-in per book): more computing texture in the open field —
+        // syntax-coloured "code lines" top-left and a wireframe globe with lit nodes
+        // bottom-right. All in the same faint white / accent family, clear of the text.
+        #if T.at("coverTech", default: false) {
+          let link = stroke(paint: white.transparentize(80%), thickness: 0.6pt, cap: "round")
+          let glow(x, y, c) = { pad(x, y, 2.8mm, c.transparentize(84%)); pad(x, y, 1.6mm, c.transparentize(70%)); pad(x, y, 0.9mm, c.transparentize(10%)) }
+          // code lines: (indent, ((length, colour), …)) — reads as highlighted source code
+          let cw = white.transparentize(76%)
+          let ca = amber.transparentize(45%)
+          let cc = T.cyan.transparentize(35%)
+          let rows = ((0mm, ((9mm, ca), (14mm, cw))), (5mm, ((6mm, cc), (18mm, cw), (5mm, ca))), (5mm, ((12mm, cw), (8mm, cc))), (10mm, ((7mm, ca), (16mm, cw))), (5mm, ((4mm, cc),)), (0mm, ((11mm, cw), (6mm, ca))))
+          for (i, r) in rows.enumerate() {
+            let x = 9mm + r.at(0)
+            for (len, col) in r.at(1) {
+              place(top + left, dx: x, dy: 3.5mm + i * 2.6mm, rect(width: len, height: 1.2mm, radius: 0.65mm, fill: col, stroke: none))
+              x += len + 1.6mm
+            }
+          }
+          // wireframe globe, clipped to the bottom-right corner of the page
+          place(top + left, dx: 128mm, dy: 206mm, box(width: 48mm, height: 44mm, clip: true, {
+            let gx0 = 34mm
+            let gy0 = 32mm
+            let rg = 24mm
+            let gs = stroke(paint: white.transparentize(78%), thickness: 0.8pt)
+            let gf = stroke(paint: white.transparentize(86%), thickness: 0.6pt)
+            place(top + left, dx: gx0 - rg, dy: gy0 - rg, circle(radius: rg, fill: white.transparentize(95%), stroke: gs))
+            for w in (0.38, 0.75) { place(top + left, dx: gx0 - rg * w, dy: gy0 - rg, ellipse(width: 2 * rg * w, height: 2 * rg, stroke: gf)) }
+            place(top + left, dx: gx0, dy: gy0 - rg, line(start: (0mm, 0mm), end: (0mm, 2 * rg), stroke: gf))
+            for f in (-0.5, 0, 0.5) {
+              let hw = rg * calc.sqrt(1 - f * f)
+              place(top + left, dx: gx0 - hw, dy: gy0 + f * rg, line(start: (0mm, 0mm), end: (2 * hw, 0mm), stroke: gf))
+            }
+            let lit = ((gx0 - 15mm, gy0 - 12mm), (gx0 - 4mm, gy0 - 19mm), (gx0 + 9mm, gy0 - 8mm), (gx0 - 10mm, gy0 + 2mm))
+            for k in range(0, lit.len() - 1) { seg(lit.at(k).at(0), lit.at(k).at(1), lit.at(k + 1).at(0), lit.at(k + 1).at(1), link) }
+            for p in lit { glow(p.at(0), p.at(1), amber) }
+          }))
+        }
       ]
       // MUSICAL ARTS (notes): a scatter of small colourful eighth/beamed notes in the
       // open blue field around the masthead and hero photo — echoes the manuscript's
@@ -1802,6 +1840,11 @@
       let sz = fs(20pt)
       if s.c == none { text(weight: w, style: st, font: T.handFont, size: sz)[#body] }
       else { text(weight: w, style: st, fill: rgb("#" + s.c), font: T.handFont, size: sz)[#body] }
+    } else if s.at("code", default: false) {
+      // program code (codeBlocks override): upright in a coding font, never hyphenated
+      // (Computer Science Form 3 LB, CDC: "use the Cascadia Code font"). No ligatures: a
+      // learner copies the code, and Cascadia would draw ">=" as one "≥" sign
+      text(weight: w, style: "normal", font: (T.at("codeFont", default: "Cascadia Code"), "Consolas", "Courier New", "DejaVu Sans Mono"), size: 0.9em, hyphenate: false, ligatures: false, discretionary-ligatures: false, features: (calt: 0), fill: if s.c == none { black } else { rgb("#" + s.c) })[#body]
     } else {
       if s.c == none { text(weight: w, style: st)[#body] }
       else { text(weight: w, style: st, fill: rgb("#" + s.c))[#body] }
@@ -1841,7 +1884,17 @@
 // par[...] renders empty, which is why equations sitting on their own line came out
 // blank. Contiguous inline segments stay in a paragraph. Shared by every text path
 // (body paragraphs, box bodies, exercise/assessment questions).
+// A code line too long for the measure wraps under its own indent plus two characters, so the
+// wrapped part reads as the same statement instead of a new line at the margin (CS Form 3 LB)
+#let codehang(ss) = {
+  let t = ss.at(0).at("t", default: "")
+  let n = 0
+  for c in t.clusters() { if c == " " or c == " " { n += 1 } else { break } }
+  (n + 4) * 0.54em
+}
+#let allcode(ss) = ss.len() > 0 and ss.any(s => s.at("code", default: false)) and ss.all(s => s.at("code", default: false) or s.at("t", default: "x").trim() == "")
 #let flowsegs(ss) = {
+  if allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false, hanging-indent: codehang(ss))[#segs(ss)]] }
   // (a multi-line monospace drawing is a block too: a block inside par[] is dropped)
   let isdisp(s) = (s.at("m", default: false) and s.at("display", default: false)) or (s.at("mono", default: false) and s.t.contains("\n"))
   if ss.any(isdisp) {
@@ -1868,6 +1921,8 @@
 #let para(ss, align: none, drop: false, hyphenate: auto, indent: false) = {
   let hyphenate = if hyphenate == auto { T.at("hyphenate", default: true) } else { hyphenate }
   set text(hyphenate: hyphenate)
+  // a line of program code is set flush left, never justified
+  if align == none and allcode(ss) { return block(width: 100%, above: 0.45em, below: 0.45em)[#par(justify: false, hanging-indent: codehang(ss))[#segs(ss)]] }
   // A syllabus body paragraph that sits UNDER a numbered item is indented to align with
   // the heading text (past the number), for a clean outline look.
   if indent { return pad(left: 7mm, para(ss, align: align, drop: drop, hyphenate: hyphenate)) }
@@ -2871,7 +2926,9 @@
       }
       else if it.k == "head" {
         v(3pt)
-        let hd = text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t]
+        // (big: a boxHead line — the box-title size and colour, like a sibling box's title)
+        let big = it.at("big", default: false)
+        let hd = if big { text(weight: "bold", fill: T.at("act").at("title", default: T.primary), size: hs(14pt), hyphenate: false)[#it.t] } else { text(weight: "bold", fill: T.primary, size: if hsize != none { hsize } else { hs(12pt) })[#it.t] }
         block(breakable: false, sticky: true, width: 100%)[#if it.at("center", default: false) { align(center)[#hd] } else { hd }]
         v(2pt)
       }
@@ -2956,6 +3013,20 @@
       k = k + 2
     } else { k = k + 1 }
   }
+  // ---- keepNext: an item a book asked to keep with the one after it ----
+  let q = 0
+  while q + 1 < n {
+    if mark.at(q + 1) == -1 and body.at(q).at("keepnext", default: false) {
+      if mark.at(q) == -1 { mark.at(q) = q + 2; mark.at(q + 1) = -2 }
+      else if mark.at(q) == -2 {
+        // (an item already closing a group — a lead-in label kept with it — extends that group)
+        let s = q - 1
+        while s >= 0 and mark.at(s) == -2 { s = s - 1 }
+        if s >= 0 and mark.at(s) == q + 1 { mark.at(s) = q + 2; mark.at(q + 1) = -2 }
+      }
+      q = q + 2
+    } else { q = q + 1 }
+  }
   for (idx, it) in body.enumerate() {
     let m = mark.at(idx)
     if m >= 0 {
@@ -3009,8 +3080,18 @@
   ]
   v(4pt)
 }
-#let framedsection(kind, title, body) = {
+#let framedsection(kind, title, body, force: false) = {
   let content = renderbody(body)
+  // (a box a book asked to keep whole — keepWhole override: onto the next page when it
+  // does not fit what is left of this one, the way keepwhole() treats an activity)
+  if force {
+    let fits = state("fsfits", true)
+    return {
+      layout(sz => fits.update(measure(box(width: sz.width, content)).height < T.at("keepBoxMm", default: 180) * 1mm))
+      context (if not fits.get() { pagebreak(weak: true) })
+      context titledbox(text(size: hs(14pt))[#title], T.at(kind), content, breakable: not fits.get())
+    }
+  }
   // Always breakable (mirrors titledbox's own default). A prior version kept any box
   // under 180mm tall fully atomic so it could never split and orphan a stray last item
   // — but Typst then moves the WHOLE box to the next page whenever it doesn't fit
@@ -3184,11 +3265,15 @@
       // overflowing, so "1." and "a)" landed on two separate lines with nothing in
       // the body column beside the second one. Widen the gutter for just this row
       // when the marker is longer than a plain single marker ever is.
-      let mkw = if it.marker.len() > 3 { 36pt } else { 22pt }
+      // A roman sub-item (i. ii. iii. iv.) is one list whatever its length: one gutter and
+      // left-aligned, so "i."/"v." (read as letters) and "iii." (wider than 3 characters)
+      // no longer sit at three different indents in the same list.
+      let roman = it.marker.trim().match(regex("^\\(?(i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)[.)]$")) != none
+      let mkw = if roman { 28pt } else if it.marker.len() > 3 { 36pt } else { 22pt }
       // Numbers right-align so "9." and "10." line up; a single LETTER marker (A. B. C. D.,
       // a) b)) left-aligns — right-aligned, a narrow "B" (Century Gothic) sat visibly
       // indented and "smaller" than A/C/D (Grade 2 CTS reviewers flagged every one).
-      let letter = it.marker.trim().match(regex("^\\(?[A-Za-z][.)]$")) != none
+      let letter = roman or it.marker.trim().match(regex("^\\(?[A-Za-z][.)]$")) != none
       grid(columns: (pad, mkw, 1fr), column-gutter: (0pt, 6pt), align: (left + top, if letter { left + top } else { right + top }, left + top),
         [], [#it.marker], body)
       // a fraction/matrix answer part needs extra room so its stacked numerator/denominator

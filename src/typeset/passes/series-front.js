@@ -95,7 +95,7 @@ function applySeriesFront(blocks, { numberLessons = true, fmSpacing = "1.9em" } 
   // here they fall through as a plain bold `head` block that looks like a
   // heading but never gets its own page or a Table of Contents entry.
   // "SUGGES+TED" tolerates the manuscript typo "SUGGESSTED" (a doubled S).
-  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
+  const FM = /^(THE\s+)?AUTHORS?$|^EDITORS?$|^FOREW(O|A)RD$|^PREFACE$|^ACKNOWLEDG|^INTRODUCTION$|^(GENERAL|KEY)\s+COMPETEN\w*|^(LIST OF )?ACRONYMS\b|^HOW\s+TO\s+USE(\s+THIS\s+(BOOK|GUIDE))?$|^(LIST OF )?ABBREVIATIONS?$|^SUGGES+TED\s+TEACHING\s+METHODOLOGY$|^ANSONEKI$|^MAZU ATACHI$|^KULEMA\b.*\bWUNU$|^KUSAKILILA$|^KULUMBULULA$/i;
   // promote a stray front-matter section name (e.g. an un-styled "INTRODUCTION",
   // or one the source put in a bulleted list) to a real heading so it gets its
   // own page. Accept label/head AND listitem/para blocks, AND h2/h3 — a manuscript

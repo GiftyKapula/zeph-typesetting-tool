@@ -1,0 +1,1178 @@
+{
+  "_comment": [
+    "Silozi Form 3 Learner's Book (Buka ya Mwanaa Sikolo, Foomu 3). Client file: 'Silozi_FOOMU_3_Buka ya Mwanaa Sikolo_Edited.docx',",
+    "the manuscript corrected after the CDC evaluation; first typeset 2026-11-20. Renamed so the engine reads 'Form 3' and 'Learner's Book' from the name."
+  ],
+  "_comment_cover": [
+    "Cover/title words are the manuscript's own: 'Buka ya Mwanaa Sikolo', 'FOOMU 3', and its title page's level line 'Sitopa sa Bulalu' (added to lexicon/silozi.json with KAUHANYO = unit).",
+    "Cover photo = the picture band of the manuscript's own cover (image1.jpeg), cropped with no lettering, upscaled with Real-ESRGAN."
+  ],
+  "localLabels": true,
+  "coversInBook": true,
+  "boxStripe": false,
+  "coverImage": "Silozi Form 3 LB-art/cover-photo-hires.png",
+  "coverWords": {
+    "printedBy": "Ihatisizwe ki ba"
+  },
+  "authors": [
+    "Kabanda Chingumbe",
+    "Edwin Matakala Kandala",
+    "John Muyunda Lisimba",
+    "Mufwinda Mutuñu"
+  ],
+  "tocTitle": "Mukoloko wa Lituto",
+  "_comment_imprint": "Copyright page laid out like the Silozi Grade 4 LB (house model): its Silozi labels; editor, illustrator and ISBN left as dots (not in the manuscript).",
+  "imprint": {
+    "copyright": "© Zambia Educational Publishing House, 2026",
+    "rights": "Liswanelo kaufela libukelelizwe. Hakuna kalulo ya buka ye yelukela kuñolululwa kapa kuhasanywa ka mukwa ufi kapa ufi kusina kulumelezwa ki Zambia Educational Publishing House.",
+    "groups": [
+      {
+        "label": "Ibaakanyizwe ni kulukiswa ki:",
+        "lines": [
+          "……………"
+        ]
+      },
+      {
+        "label": "Iswanisizwe ki:",
+        "lines": [
+          "………………"
+        ]
+      },
+      {
+        "label": "Cover and Book Layout:",
+        "lines": [
+          "Teddy Ng`ambi"
+        ]
+      },
+      {
+        "label": "Ihatisizwe mwa silimo sa 2026 ki ba:",
+        "lines": [
+          "Zambia Educational Publishing House",
+          "Light Industrial Area",
+          "Chishango Road",
+          "P.O. Box 32708",
+          "Lusaka, Zambia"
+        ]
+      },
+      {
+        "label": "ISBN:",
+        "lines": [
+          "……………………………"
+        ]
+      },
+      {
+        "label": "Ihatisizwe ki ba:",
+        "lines": [
+          "Zambia Educational Publishing House"
+        ]
+      }
+    ]
+  },
+  "_comment_units": [
+    "11 units, each 'KAUHANYO YA N' + its title (Word numbers some titles 3.N automatically, others carry it typed) + a picture + a one-line sub-topic.",
+    "Unit banner KAUHANYO YA N (h1), then the unit title 3.N TITLE (h2, in the contents); Word numbers some titles 3.N itself, so the number is typed for all.",
+    "Each unit picture carries a caption line (3.N …, small italic under the photo in the manuscript; Word list numbering) - set as the picture caption.",
+    "Unit 10 is typed 'KAUHANYO 10' (no 'YA') - made like the rest. 'KAUHANYO YA 1' is lost on import (read as the end of the contents list) - put back with insertHead."
+  ],
+  "setHeading": [
+    {
+      "find": "KAUHANYO YA 2",
+      "text": "KAUHANYO YA 2",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO YA 3",
+      "text": "KAUHANYO YA 3",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO YA 4",
+      "text": "KAUHANYO YA 4",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO YA 5",
+      "text": "KAUHANYO YA 5",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO YA 6",
+      "text": "KAUHANYO YA 6",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO YA 7",
+      "text": "KAUHANYO YA 7",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO YA 8",
+      "text": "KAUHANYO YA 8",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO YA 9",
+      "text": "KAUHANYO YA 9",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO 10",
+      "text": "KAUHANYO YA 10",
+      "as": "h1"
+    },
+    {
+      "find": "KAUHANYO YA 11",
+      "text": "KAUHANYO YA 11",
+      "as": "h1"
+    },
+    {
+      "find": "NJIMO",
+      "text": "3.1 NJIMO",
+      "as": "h2"
+    },
+    {
+      "find": "BUIKETO NI LICO ZESWANELA MUBILI",
+      "text": "3.2 BUIKETO NI LICO ZESWANELA MUBILI",
+      "as": "h2"
+    },
+    {
+      "find": "LIPAPALI",
+      "text": "3.3 LIPAPALI",
+      "as": "h2"
+    },
+    {
+      "find": "KAMAISO NI PUSO YENDE",
+      "text": "3.4 KAMAISO NI PUSO YENDE",
+      "as": "h2"
+    },
+    {
+      "find": "BUPOTI",
+      "text": "3.5 BUPOTI",
+      "as": "h2"
+    },
+    {
+      "find": "LINZILA NI KUBUHISANA",
+      "text": "3.8 LINZILA NI KUBUHISANA",
+      "as": "h2"
+    },
+    {
+      "find": "3.9 KUITUSISA MILYANI NI LIKA ZEKOLA KANZILA YEMASWE",
+      "as": "h2"
+    },
+    {
+      "find": "3.11 LIKEZO ZA SICABA NI MIINELO YEMINDE MWA NAHA",
+      "as": "h2"
+    },
+    {
+      "find": "KUTOLOKA",
+      "as": "h3",
+      "near": "MANZWI A KUTOLOKA:"
+    },
+    {
+      "find": "Kukusufaza taba",
+      "text": "KUKUSUFAZA TABA",
+      "as": "h3"
+    },
+    {
+      "find": "Kuteeleza ni Kubulela",
+      "text": "KUTEELEZA NI KUBULELA",
+      "as": "h3",
+      "near": "sicaba sa Zambia, sihulu babanca. Mwa kalulo mo"
+    },
+    {
+      "find": "KUBALA",
+      "as": "h3",
+      "near": "Kuna ni mifuta yemibeli yakubala. Wa pili kikubala kakutwisiso"
+    },
+    {
+      "find": "Sika Luli Sesilukela Kukoniwa",
+      "as": "head",
+      "all": true
+    },
+    {
+      "find": "Kuikambota ka Mukwa wa Mwandu ya Milao",
+      "as": "head"
+    },
+    {
+      "find": "Beya mibamba yetatama mwa likalulo kulikana kamouiutezi kwa halimu:",
+      "as": "head"
+    },
+    {
+      "find": "Buikoneli bobubatilwe",
+      "as": "head",
+      "near": "Ñola piho ya patululo ya simu ya sikolo, ubonise mabaka"
+    },
+    {
+      "find": "Litaluso za manzwi",
+      "text": "LITALUSO ZA MANZWI"
+    },
+    {
+      "find": "KULUKISA PAPALI YEFA BANA KAUFELA KABELO",
+      "as": "head"
+    }
+  ],
+  "insertHead": [
+    {
+      "before": "3.1 NJIMO",
+      "head": "KAUHANYO YA 1",
+      "as": "h1"
+    }
+  ],
+  "_comment_headings": "Unit 1 has KUTOLOKA and Kukusufaza taba as Word Heading 1, unit 9 its skill heads as Heading 1/2 - put level with the other units' skill heads.",
+  "_comment_activities": "About 200 activities are loose Word headings (MUSEBEZI / ZAKUEZA MWA SITOPA); the rest sit in one-cell tables. House rule: every LB activity boxed - oneActivityPerBox, one title spelling.",
+  "activityTitles": [
+    "MUSEBEZI WA KWA NDU: \"LIÑOLO KU MUETELELI\"",
+    "MUSEBEZI WA MWA SITOPA",
+    "MUSEBEZI WA HAO MWA BUPILO",
+    "ZAKUEZA ZENGEZIZWE FA TABA YA BUBELI",
+    "ZAKUEZA MWA SITOPA",
+    "MUSEBEZI WAHAO",
+    "MUSEBEZI"
+  ],
+  "oneActivityPerBox": true,
+  "wordFix": {
+    "MWWA SITOPA": "MWA SITOPA",
+    "SITOPAA": "SITOPA",
+    "Zakueza za mwa sitopa": "Zakueza mwa Sitopa",
+    "Musebezi wamwa Sitopa": "Musebezi wa mwa Sitopa",
+    "ZAKUEZA MW SITOPA": "ZAKUEZA MWA SITOPA",
+    "Zakeeza mwa Sitopa": "Zakueza mwa Sitopa"
+  },
+  "_comment_merge": "The manuscript (a converted copy) breaks ~55 paragraphs and question items at its old page ends, mid-sentence - joined back. A stray \"Ka\" line is the first word of the next paragraph.",
+  "mergePara": [
+    {
+      "find": " yona nzila ye tuna ya ku"
+    },
+    {
+      "find": "u yaha naha yende. Kakuba"
+    },
+    {
+      "find": ", yo hape neli wa matwela"
+    },
+    {
+      "find": "ñolelo wofumani ni wa mutomo: usike"
+    },
+    {
+      "find": "a tabo kwa sicaba, kakuli"
+    },
+    {
+      "find": "i ina ni batu babazwa mwa"
+    },
+    {
+      "find": "ena kamundengule sikwala-",
+      "glue": true
+    },
+    {
+      "find": "shungumana kwa tukwaa munyako wandu"
+    },
+    {
+      "find": " bababeli kapa mwa likwata. Mufumane taba ya butokwa, mufe bupaki bwayona ni muhupulo wa mina, mi mubupe sikuka sa musebezi. Mu fetule litaba mwa"
+    },
+    {
+      "find": "ezi kapa yoo kezo yeeziwa"
+    },
+    {
+      "find": "u kakuli lipapali zeswana"
+    },
+    {
+      "find": "li siwinile, haili muñoli"
+    },
+    {
+      "find": "utana ni wa babañwi, kono"
+    },
+    {
+      "find": "i nebatokwa nako yetelele"
+    },
+    {
+      "find": " linako zenenilata hahulu"
+    },
+    {
+      "find": " ya simbwewewe. Bo muluti"
+    },
+    {
+      "find": "ambia. Kana lwaziba kuli,"
+    },
+    {
+      "find": "aiswa. Mueteleli alimuñwi"
+    },
+    {
+      "find": "o a hae ka likute, mi afe"
+    },
+    {
+      "find": "woo neubonisize kuli zibo"
+    },
+    {
+      "find": "banebato  tuma  hasamulaho  ka"
+    },
+    {
+      "find": "o mafubelu” zenetumile ka"
+    },
+    {
+      "find": " kabakala kuli lipalo zesautwahali ni kutokwa"
+    },
+    {
+      "find": "butokwa bwa Malena Mikwae"
+    },
+    {
+      "find": "za Braille kapa za muñolo"
+    },
+    {
+      "find": "abalela libaka, mi bahana"
+    },
+    {
+      "find": "añi zetokwahala? Ukaeziwa"
+    },
+    {
+      "find": " wa kubabalela mishitu ni"
+    },
+    {
+      "find": "apoti babazwa mwa naha ni"
+    },
+    {
+      "find": "upotela mwa sibaka sesili"
+    },
+    {
+      "find": "aya-zamaya fela mutu inge"
+    },
+    {
+      "find": "aka sesiipitezi kuli mane"
+    },
+    {
+      "find": ", upaka kwazwa.” Esi batu"
+    },
+    {
+      "find": "fitelela mashumi a supile"
+    },
+    {
+      "find": "abona Litunga. Halukuteni"
+    },
+    {
+      "find": "mueteleli  wa  naha.  Banabahaboluna"
+    },
+    {
+      "find": " zenyinyani nizetuna kiza"
+    },
+    {
+      "find": "isiso za musika wangana -",
+      "glue": true
+    },
+    {
+      "find": "a sikolo nakona nina kuba"
+    },
+    {
+      "find": "wa ki pilaelo kuli mwendi"
+    },
+    {
+      "find": "kile mwa bupangipangi bwa"
+    },
+    {
+      "find": "ikwata, amuhupule mayumbo"
+    },
+    {
+      "find": " ki taba yeambolwanga kwa"
+    },
+    {
+      "find": " bucwala bobutula hahulu,"
+    },
+    {
+      "find": "na sesinde sebutisa, kono"
+    },
+    {
+      "find": " bobutuna, mi haluswaneli"
+    },
+    {
+      "find": "zwi kaufela. Haiba manzwi"
+    },
+    {
+      "find": "mi kuli akupe kwa bashemi"
+    },
+    {
+      "find": "i, “ki Puso ya sicaba, ka"
+    },
+    {
+      "find": "ulu, afiwe kolo yakuituta"
+    },
+    {
+      "find": "hahulu mubonelo wahae, mi"
+    },
+    {
+      "find": "eelezanga nikubafa likute"
+    },
+    {
+      "find": "li luli. Yaitutile zahae,"
+    },
+    {
+      "find": "i kapa ya mali. Ba talusa"
+    },
+    {
+      "find": "babalobala mwa mikwakwa kapa mwa mifolo ya kwa"
+    },
+    {
+      "find": "Bakeñisa kuli kuzwelela mwa lilimo"
+    },
+    {
+      "find": "ku mueteleli wa mwa silalanda"
+    }
+  ],
+  "deleteExact": [
+    "Ka"
+  ],
+  "edit": [
+    {
+      "find": "ku fetuha kwa linako lipula hali sataha",
+      "with": "Ka ku fetuha kwa linako lipula hali sataha"
+    },
+    {
+      "find": "iii. Museto.",
+      "with": "Museto."
+    },
+    {
+      "find": "iii. Mululwani.",
+      "with": "Mululwani."
+    },
+    {
+      "find": "(e) Sisali",
+      "with": "Sisali"
+    }
+  ],
+  "_comment_split": "About 20 headings are two headings in one paragraph (Word wraps them at a wide right indent, so they look like two lines there) - split. A stray \"1.1.1.\" dropped; \"Kakutwisisiso\" typo fixed.",
+  "replaceBlocks": [
+    {
+      "find": "Njimo",
+      "with": []
+    },
+    {
+      "find": "Buiketo ni lico zeswanela mubili",
+      "with": []
+    },
+    {
+      "find": "Lipapali",
+      "with": []
+    },
+    {
+      "find": "Kamaiso",
+      "with": []
+    },
+    {
+      "find": "Bupoti",
+      "with": []
+    },
+    {
+      "find": "Mifuta ya mikiti ya sizo ye fumaneha mwa Zambia",
+      "with": []
+    },
+    {
+      "find": "Kuituta za kuhulisa sifumu sa Zambia ni buino bwa kuiponela",
+      "with": []
+    },
+    {
+      "find": "3.8 Linzila ni kubuhisana",
+      "with": []
+    },
+    {
+      "find": "Tuto ya kutibela kuitusisa maswe milyani ni lika zekola",
+      "with": []
+    },
+    {
+      "find": "Kuituta za kubabalela mali",
+      "with": []
+    },
+    {
+      "find": "Likezo za sicaba ni miinelo yeminde mwa naha",
+      "with": []
+    },
+    {
+      "find": "Kubala Kakutwisiso Buikoneli kakutala:",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kubala Kakutwisiso"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli kakutala"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Kuipalela Buikoneli Kakutala",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kuipalela"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli kakutala"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Kubala ka kutwisiso Buikoneli kakutala",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kubala ka kutwisiso"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli kakutala"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Kuipalela Buikoneli kakutala",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kuipalela"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli kakutala"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Kuitusisa tuto mwa bupilo MUSEBEZI WA MWA SITOPA",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kuitusisa tuto mwa bupilo"
+          }
+        },
+        {
+          "head": "MUSEBEZI WA MWA SITOPA"
+        }
+      ]
+    },
+    {
+      "find": "Kubala Kakutwisiso Buikoneli kakutala",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kubala Kakutwisiso"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli kakutala"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Kubupa manzwi ka likalulo zeekeziwa Buikoneli bobubatilwe",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kubupa manzwi ka likalulo zeekeziwa"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli bobubatilwe"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Mabizo azwa kwa likezo Buikoneli bobubatilwe",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Mabizo azwa kwa likezo"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli bobubatilwe"
+          }
+        }
+      ]
+    },
+    {
+      "find": "1.1.1. Kuipalela Buikoneli kakutala",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kuipalela"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli kakutala"
+          }
+        }
+      ]
+    },
+    {
+      "find": "KUTOLOKA | Buikoneli bwa sikuka MUSEBEZI WA MWA SITOPA",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "KUTOLOKA"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli bwa sikuka"
+          }
+        },
+        {
+          "head": "MUSEBEZI WA MWA SITOPA"
+        }
+      ]
+    },
+    {
+      "find": "Kubala Kakutwisisiso Buikoneli kakutala",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kubala Kakutwisiso"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli kakutala"
+          }
+        }
+      ]
+    },
+    {
+      "find": "KUTEELEZA NI KUBULELA MUSEBEZI WA MWA SITOPA",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "KUTEELEZA NI KUBULELA"
+          }
+        },
+        {
+          "head": "MUSEBEZI WA MWA SITOPA"
+        }
+      ]
+    },
+    {
+      "find": "KUÑOLA KA KUTEELEZA ZAKUEZA MWA SITOPA",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "KUÑOLA KA KUTEELEZA"
+          }
+        },
+        {
+          "head": "ZAKUEZA MWA SITOPA"
+        }
+      ]
+    },
+    {
+      "find": "Kubala kakutwisiso Buikoneli Kakutala",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Kubala kakutwisiso"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli kakutala"
+          }
+        }
+      ]
+    },
+    {
+      "find": "KUTOLOKA MUSEBEZI",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "KUTOLOKA"
+          }
+        },
+        {
+          "head": "MUSEBEZI"
+        }
+      ]
+    },
+    {
+      "find": "Mashitanguti Buikoneli bobubatilwe",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Mashitanguti"
+          }
+        },
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli bobubatilwe"
+          }
+        }
+      ]
+    },
+    {
+      "find": "Buikoneli bwa sikuka MUSEBEZI",
+      "with": [
+        {
+          "raw": {
+            "t": "h3",
+            "text": "Buikoneli bwa sikuka"
+          }
+        },
+        {
+          "head": "MUSEBEZI"
+        }
+      ]
+    },
+    {
+      "find": "Kuunga musebezi kapa mulatu wa likezo zahao. Bupaki",
+      "with": []
+    },
+    {
+      "find": "Litaba kapa mitala yetusa kutatuba muhupulo. Busepahali",
+      "with": []
+    },
+    {
+      "find": "Kusabalaza niti ni kutokwa bupumi. Kanganisano",
+      "with": []
+    },
+    {
+      "find": "Kuambolisana ka mihupulo yeleemela ni yehanyeza taba, ka mabaka ni bupaki. Mashitanguti",
+      "with": []
+    },
+    {
+      "find": "Lipulelo zetaluso yazona isafumanehi ka linzwi ni linzwi feela. Linguli",
+      "with": []
+    },
+    {
+      "find": "Lipulelo za sicaba zefitisa tuto kapa kelezo. Muinelo",
+      "with": []
+    },
+    {
+      "find": "Litaba ni mayemo moo linzwi kapa kezo liitusiswa. Pupo/Sibupeho",
+      "with": []
+    },
+    {
+      "find": "Mukwa wo likalulo likopana kuli libupe linzwi, pulelo kapa taba. Tamahano",
+      "with": []
+    },
+    {
+      "find": "Kuikopanya ni kusebeza hamoho. Tatubo",
+      "with": []
+    },
+    {
+      "find": "Musebezi wa kulemuha zibo, buikoneli ni miinelo, ka bupaki. Tumelelano",
+      "with": []
+    },
+    {
+      "find": "Kuzamaelela kwa likalulo za pulelo kuya ka libizo ni pupo ya puo. Zwelopili",
+      "with": []
+    },
+    {
+      "find": "Kuhula ni kuisa bupilo kapa musebezi kwapili.",
+      "with": []
+    },
+    {
+      "find": "Musebezi wa Liluko la Tuto mwa kuzwisezapili likezo zende kiufi?",
+      "with": [
+        {
+          "listitem": "Musebezi wa Liluko la Tuto mwa kuzwisezapili likezo zende kiufi?",
+          "marker": "3."
+        }
+      ]
+    },
+    {
+      "find": "Mwana – libizo ubala – kezo buka – libizo",
+      "with": [
+        {
+          "para": "Mwana – libizo"
+        },
+        {
+          "para": "ubala – kezo"
+        },
+        {
+          "para": "buka – libizo"
+        }
+      ]
+    },
+    {
+      "find": "3. Bana babatuna ba bapala kwa sibaka sa lipapali.",
+      "with": [
+        {
+          "para": "2. Bana babatuna ba bapala kwa sibaka sa lipapali."
+        }
+      ]
+    },
+    {
+      "find": "babatuna – taluso ya libizo ba bapala – kezo",
+      "with": [
+        {
+          "para": "babatuna – taluso ya libizo"
+        },
+        {
+          "para": "ba bapala – kezo"
+        }
+      ]
+    },
+    {
+      "find": "kwa – liitusiso za sibaka lipapali – libizo",
+      "with": [
+        {
+          "para": "kwa – liitusiso za sibaka"
+        },
+        {
+          "para": "lipapali – libizo"
+        }
+      ]
+    },
+    {
+      "find": "ni – siitusiso sa kukopanya mabizo ba kena – kezo",
+      "with": [
+        {
+          "para": "ni – siitusiso sa kukopanya mabizo"
+        },
+        {
+          "para": "ba kena – kezo"
+        }
+      ]
+    }
+  ],
+  "boldLead": [
+    "KUÑOLA LIÑOLO LA KAZAZI",
+    "KUÑOLA PIHO YA SENESIEZAHALILE",
+    "KUIKAMBOTA NI KUFA MABAKA",
+    "TABA YA KANGANISANO:",
+    "KUBAPALA PAPALI YA LIKANDE",
+    "KUNAHANA KA TABA",
+    "MANZWI A BUTOKWA",
+    "KUBALA KA MULOMO",
+    "KULUKISA LIPULELO",
+    "KUBEYA LISUPO ZA KUÑOLA"
+  ],
+  "_comment_titles": "Box titles typed several ways (Zakueza mwa Sitopa / mwa sitopa / za mwa sitopa / ZAKUEZA MWA SITOPA) - one form, in capitals like the majority.",
+  "recase": [
+    {
+      "startsWith": "Zakueza",
+      "to": "upper"
+    },
+    {
+      "startsWith": "Musebezi wa kwa ndu",
+      "to": "upper"
+    }
+  ],
+  "unwrapTextboxes": true,
+  "_comment_textboxes": "The manuscript is a PDF converted to Word: boxes are text boxes. Titled ones import as boxes; ~20 untitled ones (a box continued over a page, an exercise box under an outside heading, an English passage) were dropped - unwrapTextboxes gives them back.",
+  "setCaption": [
+    {
+      "file": "image4.png",
+      "text": "3.1 Njimo"
+    },
+    {
+      "file": "image5.png",
+      "text": "3.2 Buiketo ni lico zeswanela mubili"
+    },
+    {
+      "file": "image7.png",
+      "text": "3.3 Lipapali"
+    },
+    {
+      "file": "image8.png",
+      "text": "3.4 Kamaiso"
+    },
+    {
+      "file": "image9.png",
+      "text": "3.5 Bupoti"
+    },
+    {
+      "file": "image10.png",
+      "text": "3.6 Mifuta ya mikiti ya sizo ye fumaneha mwa Zambia"
+    },
+    {
+      "file": "image11.png",
+      "text": "3.7 Kuituta za kuhulisa sifumu sa Zambia ni buino bwa kuiponela"
+    },
+    {
+      "file": "_image12.jpeg",
+      "text": "3.8 Linzila ni kubuhisana"
+    },
+    {
+      "file": "image13.png",
+      "text": "3.9 Tuto ya kutibela kuitusisa maswe milyani ni lika zekola"
+    },
+    {
+      "file": "image15.png",
+      "text": "3.10 Kuituta za kubabalela mali"
+    },
+    {
+      "file": "image16.png",
+      "text": "3.11 Likezo za sicaba ni miinelo yeminde mwa naha"
+    }
+  ],
+  "_comment_empty": "An activity title straight before its own name line now opens its box with that name (engine). Four name lines typed as Word headings made plain heads so they join their box. Unit 10 has a stray MUSEBEZI WA MWA SITOPA heading with no activity before its Tahiso - dropped (reported).",
+  "removeWhereNext": [
+    {
+      "find": "MUSEBEZI WA MWA SITOPA",
+      "next": "Tahiso"
+    },
+    {
+      "find": "Buikalabelo",
+      "next": "MANZWI AMANCA"
+    }
+  ],
+  "_comment_back": "Back matter: the word list (Litaluso za manzwi) came across with each term glued to the end of the definition before it - rebuilt as term: definition. Litaluso za manzwi, MANZWI AMANCA and LIBUKA ZEITUSISIZWE set as back-matter sections.",
+  "asSection": [
+    "LITALUSO ZA MANZWI",
+    "MANZWI AMANCA",
+    "LIBUKA ZEITUSISIZWE"
+  ],
+  "insertText": [
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Zwelopili:** Kuhula ni kuisa bupilo kapa musebezi kwapili."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Tumelelano:** Kuzamaelela kwa likalulo za pulelo kuya ka libizo ni pupo ya puo."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Tatubo:** Musebezi wa kulemuha zibo, buikoneli ni miinelo, ka bupaki."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Tamahano:** Kuikopanya ni kusebeza hamoho."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Pupo/Sibupeho:** Mukwa wo likalulo likopana kuli libupe linzwi, pulelo kapa taba."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Muinelo:** Litaba ni mayemo moo linzwi kapa kezo liitusiswa."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Linguli:** Lipulelo za sicaba zefitisa tuto kapa kelezo."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Mashitanguti:** Lipulelo zetaluso yazona isafumanehi ka linzwi ni linzwi feela."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Kanganisano:** Kuambolisana ka mihupulo yeleemela ni yehanyeza taba, ka mabaka ni bupaki."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Busepahali:** Kusabalaza niti ni kutokwa bupumi."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Bupaki:** Litaba kapa mitala yetusa kutatuba muhupulo."
+    },
+    {
+      "after": "LITALUSO ZA MANZWI",
+      "text": "**Buikalabelo:** Kuunga musebezi kapa mulatu wa likezo zahao."
+    }
+  ],
+  "restartNumbering": true,
+  "_comment_numbering": "Word numbered the second half of each question the converted copy broke at a page end, so the joined questions skip numbers (3, 5, 6, 8 ...): every numbered run counts 1..N again under its heading. Unit 11 test question 3 is typed as a bold heading - made item 3 of its list.",
+  "_comment_boxrange": "The last questions/items of six exercises sat in a second text box and landed after the box - put back in.",
+  "boxRange": [
+    {
+      "from": "2. a. Unge kuli u mulimi",
+      "to": "Nako: Mizuzu ye 45",
+      "into": "prev"
+    },
+    {
+      "from": "Ñoma:",
+      "to": "Butongwe",
+      "into": "prev"
+    },
+    {
+      "from": "d) kutalusa kukutisa kezo",
+      "into": "prev"
+    },
+    {
+      "from": "Ki lika mañi ze neetisize mulilo",
+      "to": "Kiufi mulelo kapa mukanga wo mutuna",
+      "into": "prev"
+    },
+    {
+      "from": "Malunda ba Zambezi",
+      "to": "Uñole butokwa bobubeli bwa mikiti ya sizo",
+      "into": "prev"
+    },
+    {
+      "from": "Sisali",
+      "into": "prev"
+    },
+    {
+      "from": "Ka mibonelo wa hao, kiufi musebelezo",
+      "to": "Ki ufi musebezi wa Libala la Fulai",
+      "into": "prev"
+    }
+  ],
+  "setMarker": [
+    {
+      "find": "Tukongote wa mwana nongolo.",
+      "marker": "i.",
+      "near": "Manzwi kapa Lipulelo zetatama, litalusa",
+      "depth": 1
+    },
+    {
+      "find": "Kunyatela.",
+      "marker": "ii.",
+      "near": "Manzwi kapa Lipulelo zetatama, litalusa",
+      "depth": 1
+    },
+    {
+      "find": "Kubabalela lifa.",
+      "marker": "iii.",
+      "near": "Manzwi kapa Lipulelo zetatama, litalusa",
+      "depth": 1
+    },
+    {
+      "find": "Museto.",
+      "marker": "iv.",
+      "near": "Manzwi kapa Lipulelo zetatama, litalusa",
+      "depth": 1
+    },
+    {
+      "find": "Mululwani.",
+      "marker": "v.",
+      "near": "Manzwi kapa Lipulelo zetatama, litalusa",
+      "depth": 1
+    },
+    {
+      "find": "Uñole toho ya taba ya likande le?",
+      "marker": "4.",
+      "near": "Manzwi kapa Lipulelo zetatama, litalusa",
+      "depth": 0
+    },
+    {
+      "find": "Uñole manzwi alwanisana ni atatama.",
+      "marker": "5.",
+      "near": "Manzwi kapa Lipulelo zetatama, litalusa",
+      "depth": 0
+    },
+    {
+      "find": "Sisali",
+      "marker": "(e)",
+      "near": "Uñole manzwi alwanisana ni atatama",
+      "depth": 1
+    }
+  ],
+  "_comment_markers": "Unit 11 exercise: the manuscript numbers its sub-items i, ii, iii, iii, iii and then 5, 6 - made i to v and 4, 5.",
+  "images": {
+    "image9.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image9.png"
+    },
+    "image10.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image10.png"
+    },
+    "image4.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image4.png"
+    },
+    "image7.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image7.png"
+    },
+    "image8.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image8.png"
+    },
+    "image16.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image16.png"
+    },
+    "image5.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image5.png"
+    },
+    "image13.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image13.png"
+    },
+    "image15.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image15.png"
+    },
+    "image11.jpeg": {
+      "src": "Silozi Form 3 Learner's Book-hires/image11.png"
+    }
+  },
+  "_comment_split2": "Activity titles the converted copy ran on at the end of the paragraph before - split off so they open their own box.",
+  "splitBefore": [
+    {
+      "find": "MUSEBEZI WA MWA SITOPA"
+    },
+    {
+      "find": "MUSEBEZI WA MWA SITOPA"
+    },
+    {
+      "find": "MUSEBEZI WA MWA SITOPA"
+    },
+    {
+      "find": "MUSEBEZI WA MWA SITOPA"
+    },
+    {
+      "find": "MUSEBEZI WA MWA SITOPA"
+    },
+    {
+      "find": "MUSEBEZI WA MWA SITOPA"
+    },
+    {
+      "find": "ZAKUEZA MWA SITOPA"
+    },
+    {
+      "find": "ZAKUEZA MWA SITOPA"
+    }
+  ],
+  "unglueTail": [
+    "Buikoneli bobubatilwe",
+    "Buikoneli kakutala",
+    "KUKUSUFAZA NI KUÑOLA KA KUTEELEZA"
+  ],
+  "keepWhole": [
+    {
+      "find": "KUITUSISA PUWO YELUKILE MWA KUFAPANYA LITABA ZA NITI NI MIHUPULO"
+    }
+  ],
+  "newPage": [
+    {
+      "find": "Mutala",
+      "near": "taluso ni muñolelo lilukela kutalimwa hamoho"
+    }
+  ],
+  "_comment_pages": "Page feet: a box whose title + name line sat alone at a page foot kept whole; a Mutala label stranded at a foot starts the next page. Section labels run on at the end of a box (unglueTail) stand after it.",
+  "_comment_example": "Unit 2 worked example (Kufumana likalulo za mubamba): numbered 1, 3, 3 in the manuscript and each word analysis run onto one line (two columns in the original) - 1, 2, 3, one word per line."
+}
