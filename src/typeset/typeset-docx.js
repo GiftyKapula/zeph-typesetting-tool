@@ -5651,6 +5651,17 @@ function applySyllabusFront(blocks, { year = "", level = "", isbn = null, levelA
       && hdrHas(b, /^competen/i) && hdrHas(b, /descriptor/i));
     for (let k = ct - 1; k > crIdx && k >= ct - 4; k--) if (isHead(blocks[k])) { compIdx = k; break; }
   }
+  // …and a manuscript that is the matrix alone, no competences section at all (the
+  // Mathematics Primary Diploma Year 2 extract: "YEAR 2 TERM 1" and its matrix): the body
+  // opens on its first level heading (YEAR / FORM / GRADE), else on its first matrix, so
+  // it still gets its level divider and arabic folios instead of roman to the last page.
+  if (compIdx < 0) {
+    const LEVEL_H = /^(?:year|form|grade)\s+\S+$/i;
+    const isMx = (b) => Array.isArray(b.rows) && b.rows.length && (b.rows[0] || []).length >= 5;
+    let at = blocks.findIndex((b, i) => i > crIdx && /^h[12]$/.test(b.t) && LEVEL_H.test(String(b.text || "").trim()));
+    if (at < 0) at = blocks.findIndex((b, i) => i > crIdx && isMx(b));
+    if (at >= 0) compIdx = at;
+  }
   // Where a late level page goes: in front of the first YEAR heading, or the first
   // matrix, past the competences section. -1 = the usual place, ahead of that section.
   const lateAt = (levelAfterCompetences && compIdx >= 0) ? blocks.findIndex((b, i) => i > compIdx

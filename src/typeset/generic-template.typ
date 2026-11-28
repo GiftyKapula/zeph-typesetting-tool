@@ -2335,13 +2335,20 @@
     // ("     Research") are dropped; otherwise it stood indented against its siblings.
     let trimL(l) = if type(l) == array { let m = l; if m.len() > 0 { m.at(0) = (..m.at(0), t: m.at(0).t.trim(at: start)) }; m } else { l.trim(at: start) }
     let lineOut(x) = if type(x) == array { segs(x) } else { x }
+    // A lettered or Roman sub-item under an activity ("Solving … simultaneously using:" /
+    // "i. Graphical Method" / "ii. Elimination Method."): its own line in the activity's
+    // text column, wrapped lines hanging behind its marker. It opens with a small letter,
+    // so runsOn() alone would have run it into the activity above (Mathematics Primary
+    // Diploma: "using: i. Graphical Method ii. Elimination Method. iii. …" as one line).
+    let isSub(l) = ltext(l).trim(at: start).match(regex("^\\(?(?:[ivx]+|[a-h])[.)]\\s")) != none
+    let subOut(x) = { set par(hanging-indent: 14pt); lineOut(trimL(x)) }
     // Lay out ("h", method) / ("b", activity) items: a method flush left across both
     // columns, an activity behind its bullet.
     // A method never stands alone at the foot of a page: it and its first activity are one
     // unbreakable block (Social Studies: "Mock trial or mock parliament:" closed page 10,
     // its activity opened page 11). A cell with no methods is one grid, as it always was.
     let actRows(items) = grid(columns: (8pt, 1fr), column-gutter: 2pt, row-gutter: 4pt, align: (left + top, left + top),
-      ..items.map(it => if it.at(0) == "h" { (grid.cell(colspan: 2, lineOut(it.at(1))),) } else { (text[•], lineOut(it.at(1))) }).flatten())
+      ..items.map(it => if it.at(0) == "h" { (grid.cell(colspan: 2, lineOut(it.at(1))),) } else if it.at(0) == "s" { ([], subOut(it.at(1))) } else { (text[•], lineOut(it.at(1))) }).flatten())
     let actGrid(items) = if not items.any(it => it.at(0) == "h") { actRows(items) } else {
       let groups = ()
       let i = 0
@@ -2365,6 +2372,7 @@
       for l in lines {
         if isBul(l) { items.push(("b", clean(l))) }
         else if allBold(l) { items.push(("h", trimL(l))) }
+        else if isSub(l) and items.len() > 0 { items.push(("s", l)) }
         else if items.len() == 0 or items.last().at(0) == "h" or not runsOn(l) { items.push(("b", l)) }
         else {
           let prev = items.pop()
@@ -2386,7 +2394,7 @@
       let methods = (lines.len() >= 2 and allBold(lines.first()) and noBold(lines.last())
         and lines.all(l => allBold(l) or noBold(l))
         and range(1, lines.len()).all(i => not (allBold(lines.at(i)) and allBold(lines.at(i - 1)))))
-      actGrid(lines.map(l => { let cl = clean(l); if methods and allBold(l) { ("h", trimL(cl)) } else { ("b", cl) } }))
+      actGrid(lines.enumerate().map(((i, l)) => { let cl = clean(l); if methods and allBold(l) { ("h", trimL(cl)) } else if i > 0 and isSub(l) { ("s", l) } else { ("b", cl) } }))
     }
   }
   let isEmptyCell(x, y) = {
