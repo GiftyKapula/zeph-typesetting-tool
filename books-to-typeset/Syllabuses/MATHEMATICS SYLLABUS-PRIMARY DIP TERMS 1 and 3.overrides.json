@@ -1,0 +1,103 @@
+{
+  "_comment": [
+    "Mathematics -- Primary Teacher's Diploma syllabus, Year 2 (Terms 1 and 3; Term 2 is School Experience). First typeset 2026-11-28.",
+    "SOURCE: 'MATHEMATICS SYLLABUS-PRIMARY DIP TERMS 1 and 3.docx' (Downloads, 28 Nov 2026). The manuscript is the Year 2 matrix only: no front matter."
+  ],
+  "subject": "Mathematics",
+  "level": "Primary Teachers' Diploma",
+  "year": 2026,
+  "coverColour": "d35400",
+  "_coverColourWhy": "The same orange as the other Mathematics syllabuses (d35400) so the maths family reads as one.",
+  "_renumberWhy": "Not renumbered: the manuscript is Year 2 and its own 2.x numbers are right (renumberMatrix would restart them at 1.x).",
+  "editCell": [
+    {
+      "_why": "Competence typed \".5.1.1\" (the leading 2 dropped).",
+      "pattern": "^\\.5\\.1\\.1 Use plane",
+      "with": "2.5.1.1 Use plane"
+    },
+    {
+      "_why": "\"non -standard\" / \"non- standard\": a stray space at the hyphen.",
+      "pattern": "non\\s*-\\s*standard",
+      "flags": "g",
+      "with": "non-standard"
+    },
+    {
+      "_why": "A word dropped: \"Measuring different lengths objects\".",
+      "pattern": "lengths objects",
+      "with": "lengths of objects"
+    },
+    {
+      "_why": "Square and cubic units typed as plain 2 and 3.",
+      "pattern": "\\(mm2, cm2, m2\\)",
+      "with": "(mm², cm², m²)"
+    },
+    {
+      "_why": "Square and cubic units typed as plain 2 and 3.",
+      "pattern": "\\(mm3, cm3, m3\\)",
+      "with": "(mm³, cm³, m³)"
+    },
+    {
+      "_why": "One spelling: \"real-life\" (5 times) over \"real life\" (3), hyphenated as an adjective.",
+      "pattern": "\\breal life\\b",
+      "flags": "g",
+      "with": "real-life"
+    },
+    {
+      "_why": "\"in real-life situation\": plural like every other standard.",
+      "pattern": "real-life situation$",
+      "with": "real-life situations"
+    }
+  ],
+  "replaceBlocks": [
+    {
+      "_why": "The manuscript names the year only inside its term lines. YEAR 2 gets its level page (house rule: one divider page per YEAR/FORM/GRADE) and each term a plain head under it.",
+      "find": "YEAR 2 TERM 1",
+      "with": [
+        {
+          "raw": {
+            "t": "h2",
+            "text": "YEAR 2"
+          }
+        },
+        {
+          "head": "TERM 1"
+        }
+      ]
+    },
+    {
+      "find": "YEAR 2 TERM 2: SCHOOL EXPERIENCE",
+      "with": [
+        {
+          "head": "TERM 2: SCHOOL EXPERIENCE"
+        }
+      ],
+      "_why": "Term heads as plain bold heads. As sub-headings TERM 2 and TERM 3 stood alone on a page, the Term 3 matrix overleaf."
+    },
+    {
+      "find": "YEAR 2 TERM 3",
+      "with": [
+        {
+          "head": "TERM 3"
+        }
+      ]
+    }
+  ],
+  "_removeWhy": "The manuscript title line over the matrix: the cover and title page carry it.",
+  "remove": [
+    "MATHEMATICS SYLLABUS-PRIMARY TEACHER"
+  ],
+  "setHeading": [
+    {
+      "_why": "TERM 1 set like TERM 2 and TERM 3 (the engine made it a sub-heading under YEAR 2).",
+      "find": "TERM 1",
+      "as": "head",
+      "keep": true
+    }
+  ],
+  "keepRowWhole": [
+    {
+      "_why": "2.1.3 Area split across pages 3-4, two bullets alone in an empty row overleaf; page 4 has the room.",
+      "startsWith": "2.1.3 Area"
+    }
+  ]
+}
